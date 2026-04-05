@@ -3,9 +3,9 @@ version: 0
 
 animals:
   - ['Coyote', 'Rhinoceros beetle', 'Wolverine', 'Saiga antelope', 'Yak', 'Kiwi', 'Zebra', 'Golden jackal', 'Horseshoe crab', 'Sand cat']
-  - ['European badger', 'Blue dragon sea slug', 'Cassowary', 'Electric eel', 'Flying fox', 'Giraffe', 'Hammerhead shark', 'Vicuña', 'Ibex', 'Aye-aye']
-  - ['Scarlet macaw', 'Peregrine falcon', 'Wildebeest', 'Capybara', 'Sea otter', 'Leafcutter ant', 'African elephant', 'Rosy boa', 'Quetzal', 'Snowy owl']
-  - ['Jerboa', 'Gharial', 'Albatross', 'Dhole', 'Kookaburra', 'Monarch butterfly', 'Uakari', 'Bottlenose dolphin', 'Platypus', 'Brown bear']
+#  - ['European badger', 'Blue dragon sea slug', 'Cassowary', 'Electric eel', 'Flying fox', 'Giraffe', 'Hammerhead shark', 'Vicuña', 'Ibex', 'Aye-aye']
+#  - ['Scarlet macaw', 'Peregrine falcon', 'Wildebeest', 'Capybara', 'Sea otter', 'Leafcutter ant', 'African elephant', 'Rosy boa', 'Quetzal', 'Snowy owl']
+#  - ['Jerboa', 'Gharial', 'Albatross', 'Dhole', 'Kookaburra', 'Monarch butterfly', 'Uakari', 'Bottlenose dolphin', 'Platypus', 'Brown bear']
 
 # model combinations (Q, A) on which to run games
 model_names:

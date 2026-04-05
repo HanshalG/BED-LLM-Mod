@@ -54,6 +54,7 @@ pip install accelerate
 pip install flash-attn --no-build-isolation
 
 huggingface-cli login --token $HUGGINGFACE_TOKEN
+wandb login --relogin $WANDB_API_KEY
 
 echo "START TIME: $(date)"
 

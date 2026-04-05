@@ -14,4 +14,4 @@ dependencies:
   - transformers=4.57.5
   - pip:
       - vllm==0.7.2
-      - wandb==0.19.8
+      - wandb>=0.22.3
