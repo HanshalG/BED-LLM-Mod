@@ -49,6 +49,7 @@ export VLLM_WORKER_MULTIPROC_METHOD=spawn
 # Activate the environment
 source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env
 
+source .env
 
 pip install accelerate
 

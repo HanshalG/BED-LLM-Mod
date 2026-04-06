@@ -5,7 +5,7 @@ import wandb
 
 from helpers import get_question_answered, generate_original_beliefs, write_to_log, Config
 from generate_candidate_questions import generate_candidate_questions, generate_candidate_question_naive, \
-    evaluate_questions_batched
+    evaluate_questions_forward_search
 from model import Model
 from sample_beliefs import sample_beliefs, sample_beliefs_naive
 from update_beliefs import update_beliefs_batched
@@ -33,15 +33,26 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
     correct_guess = [0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
         start_time = time.perf_counter()
+        best_question_score = None
 
         write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config.version)
         # Generate candidate questions, select the question with best EIG
         cand_questions = generate_candidate_questions(beliefs, history_questioner, questioner,
                                                       config.generation_temperature_diverse, config.target_num_questions)
         if len(cand_questions) > 1:
-            question_EIGs = evaluate_questions_batched(beliefs, cand_questions, eig, deterministic, questioner,
-                                                       config.answer_temperature, config.num_mc_samples, config.batched_block_size)
-            best_question = cand_questions[np.argmax(question_EIGs)]
+            question_EIGs = evaluate_questions_forward_search(
+                beliefs,
+                history_questioner,
+                cand_questions,
+                eig,
+                deterministic,
+                questioner,
+                config,
+                depth=2,
+            )
+            best_idx = int(np.argmax(question_EIGs))
+            best_question = cand_questions[best_idx]
+            best_question_score = float(question_EIGs[best_idx])
         else:
             best_question = cand_questions[0]
 
@@ -64,10 +75,6 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         write_to_log(f"Current best guess: {guess}\n", config.version)
 
         elapsed_time = time.perf_counter() - start_time
-        wandb.log({
-            "event": "one round of 20q",
-            "one_QA_time": elapsed_time,
-        })
 
     return correct_guess
 
@@ -77,6 +84,7 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
     # correct_guess[i] = 1 <--> questioner had it right after i-th question
     correct_guess = [0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
+        start_time = time.perf_counter()
         write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config.version)
         # prompt to ask a good question
         best_question = generate_candidate_question_naive(history_questioner, questioner, config.generation_temperature_simple)
@@ -111,6 +119,11 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
     accuracies = [0.0]*NUM_ROUNDS
     for goal_animal in target_animals:
         write_to_log(f"\n\nStarting on animal {goal_animal}\n", config.version)
+        wandb.log({
+            "event": "start animal",
+            "goal_animal": goal_animal,
+            "method": extraction_method_name,
+        })
         correct_guess = extraction_method(goal_animal, questioner, answerer, config)
         accuracies = [a + c for a, c in zip(accuracies, correct_guess)]
     return [a / len(target_animals) for a in accuracies]
