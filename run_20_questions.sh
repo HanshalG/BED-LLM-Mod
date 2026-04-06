@@ -51,10 +51,17 @@ source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env
 
 
 pip install accelerate
-pip install flash-attn --no-build-isolation
 
-huggingface-cli login --token $HUGGINGFACE_TOKEN
-wandb login --relogin $WANDB_API_KEY
+if [ -n "$HUGGINGFACE_TOKEN" ]; then
+    huggingface-cli login --token "$HUGGINGFACE_TOKEN"
+else
+    echo "Warning: HUGGINGFACE_TOKEN is not set. Skipping Hugging Face login."
+fi
+if [ -n "$WANDB_API_KEY" ]; then
+    wandb login --relogin "$WANDB_API_KEY"
+else
+    echo "Warning: WANDB_API_KEY is not set. Skipping wandb login."
+fi
 
 echo "START TIME: $(date)"
 

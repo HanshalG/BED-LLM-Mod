@@ -64,7 +64,8 @@ class HuggingFaceAdapter(Model):
         return self.tokenizer.apply_chat_template(
             messages,
             tokenize=False,
-            add_generation_prompt=True
+            add_generation_prompt=True,
+            enable_thinking=False
         )
 
 
@@ -210,6 +211,8 @@ class VLLMAdapter(Model):
             gpu_memory_utilization=0.85,
             tensor_parallel_size=tensor_parallel_size,
             dtype=dtype,
+            language_model_only=True,
+            
         )
 
 
@@ -218,6 +221,7 @@ class VLLMAdapter(Model):
             messages,
             tokenize=False,
             add_generation_prompt=True,
+            enable_thinking=False
         )
 
 

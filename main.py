@@ -27,7 +27,7 @@ def main():
         if (questioner == "Llama" or answerer == "Llama") and "Llama" not in models.keys():
             models["Llama"] = VLLMAdapter(model_name="meta-llama/Llama-3.3-70B-Instruct")
         if (questioner == "Qwen" or answerer == "Qwen") and "Qwen" not in models.keys():
-            models["Qwen"] = VLLMAdapter(model_name="Qwen/Qwen2.5-72B-Instruct")
+            models["Qwen"] = VLLMAdapter(model_name="Qwen/Qwen3.5-4B")
 
     for questioner, answerer in config.model_names:
         questioner_model = models[questioner]

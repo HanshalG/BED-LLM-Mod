@@ -1,17 +1,12 @@
 name: 20_questions_env
 channels:
   - conda-forge
-  - nvidia
-  - pytorch
   - defaults
 dependencies:
   - python=3.11
   - pip
-  - pytorch=2.5.1
-  - pytorch-cuda=12.4
-  - cuda-toolkit=12.4
   - numpy
-  - transformers=4.57.5
+  - transformers
   - pip:
-      - vllm==0.7.2
+      - vllm
       - wandb>=0.22.3
