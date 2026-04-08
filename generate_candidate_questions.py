@@ -15,18 +15,23 @@ def generate_candidate_questions(beliefs: list[str], history_questioner: list[di
                                  questioner: Model, generation_temperature: float, num_questions: int) -> list[str]:
     # if there are less than 3 beliefs left, best question is always to check one of them
     if len(beliefs) in [1, 2]:
+        print(f"[candidate-gen] Only {len(beliefs)} belief(s) left, switching to direct guess")
         return [f"Is it {beliefs[0]}?"]
 
+    print(f"[candidate-gen] Building candidates from {len(beliefs)} belief(s) and {len(history_questioner) // 2} prior round(s)")
     messages = ([candidate_generation_system_message()] + reverse_history(history_questioner) +
                 [conditional_question_generation_prompt(beliefs, num_questions)])
     candidate_questions = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
     candidate_questions = convert_string_to_array(candidate_questions)
+    print(f"[candidate-gen] Received {len(candidate_questions)} candidate(s) from conditional generation")
 
     if len(candidate_questions) < num_questions:
+        print(f"[candidate-gen] Backfilling {num_questions - len(candidate_questions)} more candidate(s)")
         messages = ([candidate_generation_system_message()] + reverse_history(history_questioner) +
                     [unconditional_question_generation_prompt(candidate_questions, num_questions - len(candidate_questions))])
         new_candidate_questions = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
         candidate_questions = candidate_questions + convert_string_to_array(new_candidate_questions)
+        print(f"[candidate-gen] Candidate pool now has {len(candidate_questions)} question(s)")
 
     return candidate_questions
 
@@ -117,6 +122,7 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
                                       eig: bool, deterministic: bool, questioner: Model, config: Config,
                                       depth: int = 2) -> list[float]:
     if depth == 1:
+        print(f"[question-score] Depth-1 evaluation for {len(cand_questions)} question(s)")
         return evaluate_questions_batched(
             beliefs,
             cand_questions,
@@ -132,6 +138,7 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
 
     #samples number of beliefs to sample from the current beliefs
     _num_samples, samples = _draw_belief_samples(beliefs, deterministic, config.num_mc_samples)
+    print(f"[question-score] Depth-2 evaluation for {len(cand_questions)} question(s) using {len(samples)} sample(s)")
 
     #immediate values is the expected 1 step info gain of asking the candidate questions
     immediate_values, p_yes_values, p_no_values = _score_questions_from_samples(
@@ -145,6 +152,7 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
 
     total_values = immediate_values.copy()
     for i, question in enumerate(cand_questions):
+        print(f"[question-score] Exploring future branches for question {i + 1}/{len(cand_questions)}: {question}")
         expected_future_value = 0.0
         future_value_yes = 0.0
         future_value_no = 0.0
@@ -198,6 +206,10 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
                 future_value_no = branch_future_value
 
         total_values[i] += expected_future_value
+        print(
+            f"[question-score] Question summary: immediate={immediate_values[i]:.4f}, "
+            f"future_yes={future_value_yes:.4f}, future_no={future_value_no:.4f}, total={total_values[i]:.4f}"
+        )
 
     optimal_immediate_question = cand_questions[np.argmax(immediate_values)]
     write_to_log(f"Optimal immediate question: {optimal_immediate_question}\n", 1)
@@ -223,6 +235,7 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
 def evaluate_questions_batched(beliefs: list[str], cand_questions: list[str], eig: bool, deterministic: bool,
                                    questioner: Model, answer_temperature: float, num_mc_samples: int, block_size: int) -> list[float]:
     _num_samples, samples = _draw_belief_samples(beliefs, deterministic, num_mc_samples)
+    print(f"[question-score] Batched scoring for {len(cand_questions)} question(s) using {len(samples)} sample(s)")
     question_values, _p_yes_values, _p_no_values = _score_questions_from_samples(
         samples,
         cand_questions,

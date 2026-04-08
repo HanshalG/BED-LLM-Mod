@@ -6,17 +6,22 @@ from prompts import generate_animals_system_prompt, generate_more_animals_system
 
 def generate_new_beliefs(system_prompt: dict[str, str], history_questioner: list[dict[str, str]],
                          questioner: Model, generation_temperature: float) -> list[str]:
+    print(f"[beliefs] Generating beliefs from {len(history_questioner) // 2} answered round(s)")
     messages = ([system_prompt] + reverse_history(history_questioner) + [generate_animals_user_prompt()])
     new_beliefs = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
-    return convert_string_to_array(new_beliefs)
+    beliefs_array = convert_string_to_array(new_beliefs)
+    print(f"[beliefs] Generated {len(beliefs_array)} raw belief(s)")
+    return beliefs_array
 
 
 def check_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str, str]], checker: Model,
                           answer_temperature: float, block_size: int, threshold_rejection_probability: float) -> list[str]:
     if len(beliefs) == 0 or len(history_questioner) == 0:
+        print(f"[beliefs] Skipping belief filtering: beliefs={len(beliefs)}, history_pairs={len(history_questioner) // 2}")
         return beliefs
 
     filtered_beliefs = []
+    print(f"[beliefs] Filtering {len(beliefs)} belief(s) against {len(history_questioner) // 2} answered round(s)")
 
     conversations = []
     answers = []
@@ -46,6 +51,7 @@ def check_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
         if valid_belief:
             filtered_beliefs.append(new_belief)
 
+    print(f"[beliefs] {len(filtered_beliefs)} belief(s) remain after filtering")
     return filtered_beliefs
 
 
@@ -55,11 +61,13 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: list[str], questi
     answer_temperature, block_size, threshold_rejection_probability = config.answer_temperature, config.batched_block_size, config.threshold_rejection_probability
 
     # generate new beliefs
+    print(f"[beliefs] Updating beliefs with {len(beliefs)} prior belief(s); deterministic={deterministic}")
     system_prompt = generate_animals_system_prompt(max_num_samples, min_num_samples)
     beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
 
     # in split baseline, return the beliefs sampled using the current history
     if deterministic:
+        print(f"[beliefs] Deterministic mode returning {len(beliefs_new)} new belief(s) without filtering")
         return beliefs_new
 
     # filter new beliefs according to previous questions+answers
@@ -69,18 +77,23 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: list[str], questi
     filtered_beliefs_old = check_beliefs_batched(beliefs, history[-2:], questioner, answer_temperature, block_size, threshold_rejection_probability)
     # throw out duplicates
     beliefs_updated = list({s.lower(): s for s in beliefs_new + filtered_beliefs_old}.values())
+    print(f"[beliefs] {len(beliefs_updated)} unique belief(s) remain after merge")
 
     # try to generate new beliefs twice more if no sufficient number could be generated
-    for _ in range(2):
+    for retry_idx in range(2):
         if len(beliefs_updated) >= min_num_samples:
             break
+        print(f"[beliefs] Retry {retry_idx + 1}/2 to reach minimum of {min_num_samples} belief(s)")
         system_prompt = generate_more_animals_system_prompt(beliefs_updated, min_num_samples - len(beliefs_updated))
         beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
         beliefs_new = check_beliefs_batched(beliefs_new, history[:-2], questioner, answer_temperature, block_size, threshold_rejection_probability)
         beliefs_updated = list({s.lower(): s for s in beliefs_new + beliefs_updated}.values())
+        print(f"[beliefs] After retry {retry_idx + 1}, belief pool has {len(beliefs_updated)} candidate(s)")
 
     # If no valid beliefs at all can be generated, generate unfiltered to continue the game
     if len(beliefs_updated) == 0:
+        print("[beliefs] No valid beliefs survived filtering, falling back to unfiltered generation")
         beliefs_updated = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
 
+    print(f"[beliefs] Belief update complete with {len(beliefs_updated)} candidate(s)")
     return beliefs_updated
