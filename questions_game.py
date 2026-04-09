@@ -54,7 +54,7 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
                 deterministic,
                 questioner,
                 config,
-                depth=2,
+                depth=1,
             )
             best_idx = int(np.argmax(question_EIGs))
             best_question = cand_questions[best_idx]
@@ -70,7 +70,15 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         print(f"[game] Asking answerer: {best_question}")
         answer = get_question_answered(best_question, goal_animal, answerer, config.answer_temperature)
         print(f"[game] Answer received: {answer}")
-        write_to_log(f"Best question: {best_question}, Answer: {answer}\n", config.version)
+        write_to_log(f"Best question: {best_question} (score={best_question_score:.4f}), Answer: {answer}\n", config.version)
+
+        #next 3 best questions and score
+        if len(cand_questions) >= 4:
+            cand_questions_scores = sorted(zip(cand_questions, question_EIGs), key=lambda x: x[1], reverse=True)
+            for j in range(1, 4):
+                print(f"[game] Next best question {j}: {cand_questions_scores[j][0]} (score={cand_questions_scores[j][1]:.4f})")
+                write_to_log(f"Next best question {j}: {cand_questions_scores[j][0]} (score={cand_questions_scores[j][1]:.4f})\n", config.version)
+
         if answer == "Correct!":
             print(f"[game] Goal animal {goal_animal} identified in round {i+1}")
             correct_guess[i:NUM_ROUNDS] = [1] * (len(correct_guess) - i)
