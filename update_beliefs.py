@@ -71,7 +71,14 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: list[str], questi
         return beliefs_new
 
     # filter new beliefs according to previous questions+answers
-    beliefs_new = check_beliefs_batched(beliefs_new, history[:-2], questioner, answer_temperature, block_size, threshold_rejection_probability)
+    beliefs_new = check_beliefs_batched(
+        beliefs_new,
+        history,
+        questioner,
+        answer_temperature,
+        block_size,
+        threshold_rejection_probability,
+    )
 
     # filter previous beliefs with new question+answer
     filtered_beliefs_old = check_beliefs_batched(beliefs, history[-2:], questioner, answer_temperature, block_size, threshold_rejection_probability)
@@ -86,7 +93,14 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: list[str], questi
         print(f"[beliefs] Retry {retry_idx + 1}/2 to reach minimum of {min_num_samples} belief(s)")
         system_prompt = generate_more_animals_system_prompt(beliefs_updated, min_num_samples - len(beliefs_updated))
         beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
-        beliefs_new = check_beliefs_batched(beliefs_new, history[:-2], questioner, answer_temperature, block_size, threshold_rejection_probability)
+        beliefs_new = check_beliefs_batched(
+            beliefs_new,
+            history,
+            questioner,
+            answer_temperature,
+            block_size,
+            threshold_rejection_probability,
+        )
         beliefs_updated = list({s.lower(): s for s in beliefs_new + beliefs_updated}.values())
         print(f"[beliefs] After retry {retry_idx + 1}, belief pool has {len(beliefs_updated)} candidate(s)")
 

@@ -105,7 +105,17 @@ def _future_beliefs_for_answer(beliefs: list[str], history_questioner: list[dict
         {"role": "user", "content": answer},
     ]
 
-    return update_beliefs_batched(hypothetical_history, beliefs, questioner, deterministic, config)
+    if deterministic:
+        return update_beliefs_batched(hypothetical_history, beliefs, questioner, deterministic, config)
+
+    return check_beliefs_batched(
+        beliefs,
+        hypothetical_history[-2:],
+        questioner,
+        config.answer_temperature,
+        config.batched_block_size,
+        config.threshold_rejection_probability,
+    )
 
 
 def evaluate_questions_forward_search(beliefs: list[str], history_questioner: list[dict[str, str]], cand_questions: list[str],
