@@ -28,9 +28,22 @@ class VLLMAdapter(Model):
                  dtype: str = "float16"):
         self.model_name = model_name
 
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name,
-            use_fast=True,
+        if "Qwen" in model_name:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name,
+                trust_remote_code=True,
+                limit_mm_per_prompt={"image": 0, "audio": 0}
+            )
+        elif "google" in model_name:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name,
+                trust_remote_code=True,
+                limit_mm_per_prompt={"image": 0, "audio": 0}
+        )
+        elif "openai" in model_name:
+            dtype="bfloat16"
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name
         )
 
         if tensor_parallel_size is None:
@@ -38,12 +51,10 @@ class VLLMAdapter(Model):
 
         self.llm = LLM(
             model=model_name,
-            max_model_len=1024,
+            max_model_len=4096,
             gpu_memory_utilization=0.85,
             tensor_parallel_size=tensor_parallel_size,
             dtype=dtype,
-            language_model_only=True,
-            
         )
 
 
@@ -52,7 +63,6 @@ class VLLMAdapter(Model):
             messages,
             tokenize=False,
             add_generation_prompt=True,
-            enable_thinking=False
         )
 
 

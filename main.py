@@ -57,6 +57,7 @@ def main():
             write_to_log(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)
             print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
             accuracy = twenty_questions_animals(questioner_model, answerer_model, config.animals[config.version], method_name, config)
+            write_to_log(f"Accuracy trace: {accuracy}\n", config)
             print(f"[main] Saving accuracy trace for method {method_name} to {results_path}")
             np.save(
                 results_path,

@@ -6,7 +6,6 @@ dependencies:
   - python=3.11
   - pip
   - numpy
-  - transformers
   - pip:
-      - vllm
+      - accelerate
       - wandb>=0.22.3

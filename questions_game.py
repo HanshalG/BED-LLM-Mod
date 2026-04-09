@@ -173,5 +173,6 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
         correct_guess = extraction_method(goal_animal, questioner, answerer, config)
         accuracies = [a + c for a, c in zip(accuracies, correct_guess)]
         running_accuracy = [a / animal_idx for a in accuracies]
+        write_to_log(f"Running accuracy trace: {running_accuracy}\n", config)
         print(f"[game] Finished {goal_animal}. Running accuracy trace: {running_accuracy}")
     return [a / len(target_animals) for a in accuracies]

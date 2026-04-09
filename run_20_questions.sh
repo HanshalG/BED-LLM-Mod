@@ -34,13 +34,12 @@ export NCCL_DEBUG=WARN
 export NCCL_ASYNC_ERROR_HANDLING=1
 export NCCL_BLOCKING_WAIT=1
 export NCCL_P2P_DISABLE=1
-export CUDA_LAUNCH_BLOCKING=1
+#export CUDA_LAUNCH_BLOCKING=1
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
 # Nuke the existing environment
-# /scratch-ssd/oatml/run_locked.sh \
-#   /scratch-ssd/oatml/miniconda3/bin/conda env remove -n 20_questions_env -y
-# rm -rf "$CONDA_ENVS_PATH/20_questions_env"
+#/scratch-ssd/oatml/run_locked.sh \
+#  /scratch-ssd/oatml/miniconda3/bin/conda env remove -n 20_questions_env -y
 
 # Create or update the environment from environment.yml
 /scratch-ssd/oatml/run_locked.sh \
@@ -48,6 +47,9 @@ export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
 # Activate the environment
 source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env
+
+pip install --pre vllm --upgrade
+pip install transformers==5.5.0 --upgrade
 
 source .env
 
