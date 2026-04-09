@@ -1,3 +1,6 @@
+import json
+
+
 def convert_to_prompt_message(role: str, content: str) -> dict[str, str]:
     return {"role": role, "content": content}
 
@@ -79,6 +82,20 @@ def answer_question_yesno_system_prompt(entity: str) -> dict[str, str]:
         f"fulfills the question. You must not add any explanation, extra text or anything else."
     )
     return convert_to_prompt_message(role="system", content=content)
+
+
+def probability_answer_scores_prompt(responses: list[str]) -> dict[str, str]:
+    example_value = round(1.0 / len(responses), 3) if responses else 0.0
+    example_payload = json.dumps({response: example_value for response in responses})
+    response_keys = ", ".join(json.dumps(response) for response in responses)
+    content = (
+        "Estimate the relative probability of each possible answer to the question above.\n"
+        f"Return only a JSON object using exactly these keys: {response_keys}.\n"
+        "Each value must be numeric and non-negative.\n"
+        "Do not include any explanation, markdown, or code fences.\n"
+        f"Example format: {example_payload}"
+    )
+    return convert_to_prompt_message(role="user", content=content)
 
 
 def generate_animals_system_prompt(max_num_samples: int, goal_num_samples: int) -> dict[str, str]:

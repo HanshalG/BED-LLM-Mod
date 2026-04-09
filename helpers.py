@@ -1,11 +1,20 @@
+from __future__ import annotations
+
+import json
+import math
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
 import yaml
 
-from model import Model
-from prompts import answer_question_yesnocorrect_system_prompt, generate_original_animals_system_prompt
+from prompts import answer_question_yesnocorrect_system_prompt, generate_original_animals_system_prompt, \
+    probability_answer_scores_prompt
+
+if TYPE_CHECKING:
+    from model import Model
 
 
 @dataclass
@@ -60,6 +69,86 @@ def write_to_log(message: str, config: Config) -> None:
     config.log_path.parent.mkdir(parents=True, exist_ok=True)
     with config.log_path.open("a", encoding="utf-8") as file:
         file.write(message)
+
+
+def _build_probability_messages(messages: list[dict[str, str]], responses: list[str]) -> list[dict[str, str]]:
+    probability_messages = [dict(message) for message in messages]
+    instruction = probability_answer_scores_prompt(responses)["content"]
+
+    if probability_messages and probability_messages[-1]["role"] == "user":
+        original_content = probability_messages[-1]["content"].rstrip()
+        if original_content:
+            probability_messages[-1]["content"] = f"{original_content}\n\n{instruction}"
+        else:
+            probability_messages[-1]["content"] = instruction
+        return probability_messages
+
+    probability_messages.append({"role": "user", "content": instruction})
+    return probability_messages
+
+
+def _strip_code_fences(text: str) -> str:
+    stripped = text.strip()
+    if not stripped.startswith("```"):
+        return stripped
+
+    lines = stripped.splitlines()
+    if lines and lines[0].startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].startswith("```"):
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
+
+
+def _normalize_probability_response(response_text: str, responses: list[str]) -> dict[str, float]:
+    if not responses:
+        return {}
+
+    try:
+        payload = json.loads(_strip_code_fences(response_text))
+    except (json.JSONDecodeError, TypeError) as exc:
+        raise ValueError(f"Invalid probability JSON: {response_text!r}") from exc
+
+    if not isinstance(payload, dict):
+        raise ValueError(f"Probability response must be a JSON object: {response_text!r}")
+
+    scores: list[float] = []
+    for response in responses:
+        raw_value = payload.get(response, 0.0)
+        try:
+            score = float(raw_value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"Probability for {response!r} must be numeric: {raw_value!r}") from exc
+        if not math.isfinite(score) or score < 0.0:
+            raise ValueError(f"Probability for {response!r} must be finite and non-negative: {raw_value!r}")
+        scores.append(score)
+
+    total = sum(scores)
+    if total <= 0.0:
+        raise ValueError(f"Probability response must contain a positive total weight: {response_text!r}")
+
+    return {
+        response: score / total
+        for response, score in zip(responses, scores)
+    }
+
+
+def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]], responses: list[str], block_size: int,
+                                       complete_messages_batched: Callable[..., list[str]]) -> list[dict[str, float]]:
+    probability_messages = [
+        _build_probability_messages(messages, responses)
+        for messages in batch_messages
+    ]
+    completions = complete_messages_batched(
+        probability_messages,
+        temperature=0.0,
+        block_size=block_size,
+        max_new_tokens=64,
+    )
+    return [
+        _normalize_probability_response(completion, responses)
+        for completion in completions
+    ]
 
 
 # prompts ask to generate collection of entities, one on each line --> convert the returned string to an array
