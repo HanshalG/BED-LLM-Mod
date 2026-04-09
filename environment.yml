@@ -8,4 +8,5 @@ dependencies:
   - numpy
   - pip:
       - accelerate
+      - openai-harmony
       - wandb>=0.22.3

@@ -143,7 +143,7 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
         probability_messages,
         temperature=0.0,
         block_size=block_size,
-        max_new_tokens=64,
+        max_new_tokens=4096,
     )
     return [
         _normalize_probability_response(completion, responses)
