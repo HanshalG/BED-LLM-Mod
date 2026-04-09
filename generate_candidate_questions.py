@@ -106,17 +106,7 @@ def _future_beliefs_for_answer(beliefs: list[str], history_questioner: list[dict
     ]
 
     return update_beliefs_batched(hypothetical_history, beliefs, questioner, deterministic, config)
-    #if deterministic:
-    #    return update_beliefs_batched(hypothetical_history, beliefs, questioner, deterministic, config)
 
-    #return check_beliefs_batched(
-    #     beliefs,
-    #     hypothetical_history[-2:],
-    #     questioner,
-    #     config.answer_temperature,
-    #     config.batched_block_size,
-    #     config.threshold_rejection_probability,
-    # )
 
 def evaluate_questions_forward_search(beliefs: list[str], history_questioner: list[dict[str, str]], cand_questions: list[str],
                                       eig: bool, deterministic: bool, questioner: Model, config: Config,
@@ -212,16 +202,22 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
         )
 
     optimal_immediate_question = cand_questions[np.argmax(immediate_values)]
-    write_to_log(f"Optimal immediate question: {optimal_immediate_question}\n", 1)
-    write_to_log(f"Immediate EIG: {immediate_values[np.argmax(immediate_values)]}\n", 1)
-    write_to_log(f"Future value: {total_values[np.argmax(immediate_values)] - immediate_values[np.argmax(immediate_values)]}\n", 1)
-    write_to_log(f"Total value: {total_values[np.argmax(immediate_values)]}\n", 1)
+    write_to_log(f"Optimal immediate question: {optimal_immediate_question}\n", config)
+    write_to_log(f"Immediate EIG: {immediate_values[np.argmax(immediate_values)]}\n", config)
+    write_to_log(
+        f"Future value: {total_values[np.argmax(immediate_values)] - immediate_values[np.argmax(immediate_values)]}\n",
+        config,
+    )
+    write_to_log(f"Total value: {total_values[np.argmax(immediate_values)]}\n", config)
 
     optimal_total_question = cand_questions[np.argmax(total_values)]
-    write_to_log(f"Optimal total question: {optimal_total_question}\n", 1)
-    write_to_log(f"Immediate EIG: {immediate_values[np.argmax(total_values)]}\n", 1)
-    write_to_log(f"Future value: {total_values[np.argmax(total_values)] - immediate_values[np.argmax(total_values)]}\n", 1)
-    write_to_log(f"Total value: {total_values[np.argmax(total_values)]}\n", 1)
+    write_to_log(f"Optimal total question: {optimal_total_question}\n", config)
+    write_to_log(f"Immediate EIG: {immediate_values[np.argmax(total_values)]}\n", config)
+    write_to_log(
+        f"Future value: {total_values[np.argmax(total_values)] - immediate_values[np.argmax(total_values)]}\n",
+        config,
+    )
+    write_to_log(f"Total value: {total_values[np.argmax(total_values)]}\n", config)
 
     #goes to wandb logger
     for i, question in enumerate(cand_questions):

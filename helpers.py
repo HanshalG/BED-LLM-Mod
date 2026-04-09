@@ -1,4 +1,3 @@
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -24,6 +23,8 @@ class Config:
     max_num_samples: int = 50
     min_num_samples: int = 15
     threshold_rejection_probability: float = 0.2
+    run_id: str = ""
+    log_path: Path | None = None
 
 
 def load_config(path: str) -> Config:
@@ -45,9 +46,19 @@ def load_config(path: str) -> Config:
     )
 
 
-def write_to_log(message: str, version: int) -> None:
-    os.makedirs("logs", exist_ok=True)
-    with open(f"logs/log{str(version)}.txt", "a", encoding="utf-8") as file:
+def build_output_stem(run_id: str, method_name: str, questioner: str, answerer: str, version: int) -> str:
+    return (
+        f"{run_id}_{method_name}_Q:{questioner.replace('/', '_')},"
+        f"A:{answerer.replace('/', '_')}_{version}_animals"
+    )
+
+
+def write_to_log(message: str, config: Config) -> None:
+    if config.log_path is None:
+        raise ValueError("config.log_path must be set before logging")
+
+    config.log_path.parent.mkdir(parents=True, exist_ok=True)
+    with config.log_path.open("a", encoding="utf-8") as file:
         file.write(message)
 
 

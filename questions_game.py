@@ -30,14 +30,14 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
     print(f"[game] Generating initial beliefs for {goal_animal}")
     beliefs = generate_original_beliefs(questioner, config)
     print(f"[game] Starting belief set has {len(beliefs)} candidate(s)")
-    write_to_log(f"Original beliefs: {beliefs}\n", config.version)
+    write_to_log(f"Original beliefs: {beliefs}\n", config)
     # correct_guess[i] = 1 <--> questioner had it right after i-th question
     correct_guess = [0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
         start_time = time.perf_counter()
         best_question_score = None
 
-        write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config.version)
+        write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config)
         print(f"[game] {goal_animal}: round {i+1}/{NUM_ROUNDS} with {len(beliefs)} belief(s)")
         # Generate candidate questions, select the question with best EIG
         print(f"[game] Generating up to {config.target_num_questions} candidate question(s)")
@@ -70,14 +70,23 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         print(f"[game] Asking answerer: {best_question}")
         answer = get_question_answered(best_question, goal_animal, answerer, config.answer_temperature)
         print(f"[game] Answer received: {answer}")
-        write_to_log(f"Best question: {best_question} (score={best_question_score:.4f}), Answer: {answer}\n", config.version)
+        if best_question_score is None:
+            write_to_log(f"Best question: {best_question}, Answer: {answer}\n", config)
+        else:
+            write_to_log(
+                f"Best question: {best_question} (score={best_question_score:.4f}), Answer: {answer}\n",
+                config,
+            )
 
         #next 3 best questions and score
         if len(cand_questions) >= 4:
             cand_questions_scores = sorted(zip(cand_questions, question_EIGs), key=lambda x: x[1], reverse=True)
             for j in range(1, 4):
                 print(f"[game] Next best question {j}: {cand_questions_scores[j][0]} (score={cand_questions_scores[j][1]:.4f})")
-                write_to_log(f"Next best question {j}: {cand_questions_scores[j][0]} (score={cand_questions_scores[j][1]:.4f})\n", config.version)
+                write_to_log(
+                    f"Next best question {j}: {cand_questions_scores[j][0]} (score={cand_questions_scores[j][1]:.4f})\n",
+                    config,
+                )
 
         if answer == "Correct!":
             print(f"[game] Goal animal {goal_animal} identified in round {i+1}")
@@ -89,15 +98,15 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         print("[game] Updating beliefs with the latest question-answer pair")
         beliefs = update_beliefs_batched(history_questioner, beliefs, questioner, deterministic, config)
         print(f"[game] Belief set now has {len(beliefs)} candidate(s)")
-        write_to_log(f"Current beliefs: {beliefs}\n", config.version)
+        write_to_log(f"Current beliefs: {beliefs}\n", config)
 
         # greedy decoding of current most likely belief
         print("[game] Sampling current best guess")
         guess = sample_beliefs(beliefs, history_questioner, questioner, config.generation_temperature_simple)
         if guess.lower() == goal_animal.lower():
-          correct_guess[i] = 1
+            correct_guess[i] = 1
         print(f"[game] Current best guess after round {i+1}: {guess}")
-        write_to_log(f"Current best guess: {guess}\n", config.version)
+        write_to_log(f"Current best guess: {guess}\n", config)
 
         elapsed_time = time.perf_counter() - start_time
         print(f"[game] Round {i+1} finished in {elapsed_time:.2f}s")
@@ -111,7 +120,7 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
     correct_guess = [0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
         start_time = time.perf_counter()
-        write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config.version)
+        write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config)
         print(f"[game-naive] {goal_animal}: round {i+1}/{NUM_ROUNDS}")
         # prompt to ask a good question
         print("[game-naive] Generating next question")
@@ -121,7 +130,7 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
         # Ask question, end game if correct animal was guessed
         answer = get_question_answered(best_question, goal_animal, answerer, config.answer_temperature)
         print(f"[game-naive] Answer received: {answer}")
-        write_to_log(f"Best question: {best_question}, Answer: {answer}\n", config.version)
+        write_to_log(f"Best question: {best_question}, Answer: {answer}\n", config)
         if answer == "Correct!":
             print(f"[game-naive] Goal animal {goal_animal} identified in round {i+1}")
             correct_guess[i:NUM_ROUNDS] = [1] * (len(correct_guess) - i)
@@ -135,7 +144,7 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
         if guess.lower() == goal_animal.lower():
             correct_guess[i] = 1
         print(f"[game-naive] Current best guess after round {i+1}: {guess}")
-        write_to_log(f"Current best guess: {guess}\n", config.version)
+        write_to_log(f"Current best guess: {guess}\n", config)
         elapsed_time = time.perf_counter() - start_time
         print(f"[game-naive] Round {i+1} finished in {elapsed_time:.2f}s")
     return correct_guess
@@ -154,7 +163,7 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
     accuracies = [0.0]*NUM_ROUNDS
     print(f"[game] Running method {extraction_method_name} across {len(target_animals)} animal(s)")
     for animal_idx, goal_animal in enumerate(target_animals, start=1):
-        write_to_log(f"\n\nStarting on animal {goal_animal}\n", config.version)
+        write_to_log(f"\n\nStarting on animal {goal_animal}\n", config)
         print(f"Starting on animal {goal_animal}")
         wandb.log({
             "event": "start animal",
