@@ -90,9 +90,10 @@ def probability_answer_scores_prompt(responses: list[str]) -> dict[str, str]:
     response_keys = ", ".join(json.dumps(response) for response in responses)
     content = (
         "Estimate the relative probability of each possible answer to the question above.\n"
-        f"Return only a JSON object using exactly these keys: {response_keys}.\n"
+        f"Return exactly one JSON object using exactly these keys: {response_keys}.\n"
         "Each value must be numeric and non-negative.\n"
-        "Do not include any explanation, markdown, or code fences.\n"
+        "Do not include any explanation, reasoning, markdown, or code fences.\n"
+        "Do not write any text before or after the JSON object.\n"
         f"Example format: {example_payload}"
     )
     return convert_to_prompt_message(role="user", content=content)

@@ -209,14 +209,56 @@ def _strip_code_fences(text: str) -> str:
     return "\n".join(lines).strip()
 
 
+def _extract_first_balanced_json_object(text: str) -> str | None:
+    stripped = _strip_code_fences(text)
+    start_idx: int | None = None
+    depth = 0
+    in_string = False
+    escaped = False
+
+    for idx, char in enumerate(stripped):
+        if start_idx is None:
+            if char == "{":
+                start_idx = idx
+                depth = 1
+            continue
+
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == "\"":
+                in_string = False
+            continue
+
+        if char == "\"":
+            in_string = True
+        elif char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return stripped[start_idx:idx + 1]
+
+    return None
+
+
 def _normalize_probability_response(response_text: str, responses: list[str]) -> dict[str, float]:
     if not responses:
         return {}
 
+    normalized_text = _strip_code_fences(response_text)
     try:
-        payload = json.loads(_strip_code_fences(response_text))
+        payload = json.loads(normalized_text)
     except (json.JSONDecodeError, TypeError) as exc:
-        raise ValueError(f"Invalid probability JSON: {response_text!r}") from exc
+        balanced_payload = _extract_first_balanced_json_object(response_text)
+        if balanced_payload is None:
+            raise ValueError(f"Invalid probability JSON: {response_text!r}") from exc
+        try:
+            payload = json.loads(balanced_payload)
+        except (json.JSONDecodeError, TypeError) as balanced_exc:
+            raise ValueError(f"Invalid probability JSON: {response_text!r}") from balanced_exc
 
     if not isinstance(payload, dict):
         raise ValueError(f"Probability response must be a JSON object: {response_text!r}")
@@ -243,21 +285,51 @@ def _normalize_probability_response(response_text: str, responses: list[str]) ->
 
 
 def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]], responses: list[str], block_size: int,
+                                       temperature: float,
                                        complete_messages_batched: Callable[..., list[str]]) -> list[dict[str, float]]:
     probability_messages = [
         _build_probability_messages(messages, responses)
         for messages in batch_messages
     ]
-    completions = complete_messages_batched(
-        probability_messages,
-        temperature=0.0,
-        block_size=block_size,
-        max_new_tokens=4096,
-    )
-    return [
-        _normalize_probability_response(completion, responses)
-        for completion in completions
-    ]
+    results: list[dict[str, float] | None] = [None] * len(probability_messages)
+    pending_indices = list(range(len(probability_messages)))
+    last_errors: dict[int, ValueError] = {}
+    raw_completions: dict[int, str] = {}
+
+    for _attempt in range(3):
+        if not pending_indices:
+            break
+
+        completions = complete_messages_batched(
+            [probability_messages[index] for index in pending_indices],
+            temperature=temperature,
+            block_size=block_size,
+            max_new_tokens=64,
+        )
+
+        if len(completions) != len(pending_indices):
+            raise ValueError(
+                f"Expected {len(pending_indices)} probability completions, received {len(completions)}"
+            )
+
+        failed_indices: list[int] = []
+        for index, completion in zip(pending_indices, completions):
+            raw_completions[index] = completion
+            try:
+                results[index] = _normalize_probability_response(completion, responses)
+            except ValueError as exc:
+                last_errors[index] = exc
+                failed_indices.append(index)
+
+        pending_indices = failed_indices
+
+    if pending_indices:
+        failed_index = pending_indices[0]
+        raise ValueError(
+            f"Invalid probability JSON after 3 attempts: {raw_completions.get(failed_index, '')!r}"
+        ) from last_errors.get(failed_index)
+
+    return [result for result in results if result is not None]
 
 
 # prompts ask to generate collection of entities, one on each line --> convert the returned string to an array

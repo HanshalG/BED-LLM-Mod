@@ -126,6 +126,7 @@ class BaseVLLMAdapter(Model):
             messages,
             responses,
             block_size,
+            temperature,
             self._chat_complete_messages_batched,
         )
 
