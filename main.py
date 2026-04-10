@@ -1,14 +1,13 @@
 def main():
     import argparse
-    from datetime import datetime
     from pathlib import Path
 
     import wandb
 
     import numpy as np
 
-    from helpers import build_output_stem, load_config, write_to_log
-    from model import VLLMAdapter
+    from helpers import build_models, build_output_stem, load_config, resolve_run_id, write_to_log
+    from model import build_model_adapter
     from questions_game import twenty_questions_animals
 
     parser = argparse.ArgumentParser()
@@ -16,26 +15,28 @@ def main():
     args = parser.parse_args()
     print(f"[main] Loading config from {args.config}")
     config = load_config(args.config)
-    config.run_id = datetime.now().strftime("%Y%m%dT%H%M%S")
-    print(f"[main] Loaded config with {len(config.model_names)} model pair(s), {len(config.method_names)} method(s), and {len(config.animals[config.version])} target animal(s)")
+    config.run_id = resolve_run_id()
+    print(f"[main] Loaded config with {len(config.model_pairs)} model pair(s), {len(config.method_names)} method(s), and {len(config.animals[config.version])} target animal(s)")
     print(f"[main] Using run ID {config.run_id}")
 
     print("[main] Initializing Weights & Biases run")
     wandb.init(
         project="BED-LLM-reproduction",
         config={
-            "models": config.model_names,
+            "model_pairs": [
+                {
+                    "questioner": pair.questioner,
+                    "answerer": pair.answerer,
+                }
+                for pair in config.model_pairs
+            ],
             "methods": config.method_names,
             "guessing": config.animals[config.version],
         }
     )
 
-    model_names = sorted({model_name for pair in config.model_names for model_name in pair})
-    print(f"[main] Preparing {len(model_names)} unique model adapter(s)")
-    models = {
-        model_name: VLLMAdapter(model_name=model_name)
-        for model_name in model_names
-    }
+    models = build_models(config.model_pairs, build_model_adapter)
+    print(f"[main] Preparing {len(models)} unique model adapter(s)")
     print("[main] Model adapters ready")
 
     logs_dir = Path("logs")
@@ -46,12 +47,14 @@ def main():
     results_dir.mkdir(exist_ok=True)
     print(f"[main] Results directory ready at {results_dir.resolve()}")
 
-    for questioner, answerer in config.model_names:
-        questioner_model = models[questioner]
-        answerer_model = models[answerer]
+    for pair in config.model_pairs:
+        questioner = pair.questioner.model
+        answerer = pair.answerer.model
+        questioner_model = models[pair.questioner]
+        answerer_model = models[pair.answerer]
 
         for method_name in config.method_names:
-            output_stem = build_output_stem(config.run_id, method_name, questioner, answerer, config.version)
+            output_stem = build_output_stem(config.run_id, method_name, pair.questioner, pair.answerer, config.version)
             config.log_path = logs_dir / f"{output_stem}.log"
             results_path = results_dir / f"{output_stem}.npy"
             write_to_log(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)

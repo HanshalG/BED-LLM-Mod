@@ -8,11 +8,19 @@ animals:
 #  - ['Jerboa', 'Gharial', 'Albatross', 'Dhole', 'Kookaburra', 'Monarch butterfly', 'Uakari', 'Bottlenose dolphin', 'Platypus', 'Brown bear']
 
 # model combinations (Q, A) on which to run games
-model_names:
-  - ["Qwen", "Qwen"]
-#  - ["Qwen", "Llama"]
-#  - ["Llama", "Qwen"]
-#  - ["Llama", "Llama"]
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: false
+    answerer:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: false
+#  - questioner:
+#      model: "google/gemma-4-E4B-it"
+#      thinking: true
+#    answerer:
+#      model: "openai/gpt-oss-20b"
+#      reasoning_effort: low
 
 # methods on which to run games
 method_names:
@@ -22,7 +30,7 @@ method_names:
   - "EIG"
 
 # hyperparameters for LLM calls, optimal question & belief generation, and answer filtering
-batched_block_size: 50
+batched_block_size: 225
 generation_temperature_diverse: 1.3
 generation_temperature_simple: 1.0
 answer_temperature: 0.7

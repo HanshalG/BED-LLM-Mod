@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import json
 import math
+import os
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import numpy as np
 import yaml
@@ -17,10 +19,26 @@ if TYPE_CHECKING:
     from model import Model
 
 
+ReasoningEffort = Literal["low", "medium", "high"]
+
+
+@dataclass(frozen=True)
+class ModelSpec:
+    model: str
+    thinking: bool | None = None
+    reasoning_effort: ReasoningEffort | None = None
+
+
+@dataclass(frozen=True)
+class ModelPair:
+    questioner: ModelSpec
+    answerer: ModelSpec
+
+
 @dataclass
 class Config:
     version: int = 0
-    model_names: list[tuple[str, str]] = field(default_factory=list)
+    model_pairs: list[ModelPair] = field(default_factory=list)
     method_names: list[str] = field(default_factory=list)
     animals: list[list[str]] = field(default_factory=list)
     batched_block_size: int = 50
@@ -36,11 +54,71 @@ class Config:
     log_path: Path | None = None
 
 
+def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
+    if not isinstance(raw_spec, dict):
+        raise ValueError(f"{side_name} must be a mapping with at least a 'model' field")
+
+    model_name = raw_spec.get("model")
+    if not isinstance(model_name, str) or not model_name:
+        raise ValueError(f"{side_name}.model must be a non-empty string")
+
+    thinking = raw_spec.get("thinking")
+    if thinking is not None and not isinstance(thinking, bool):
+        raise ValueError(f"{side_name}.thinking must be a boolean when provided")
+
+    reasoning_effort = raw_spec.get("reasoning_effort")
+    if reasoning_effort is not None and reasoning_effort not in {"low", "medium", "high"}:
+        raise ValueError(f"{side_name}.reasoning_effort must be one of: low, medium, high")
+
+    is_qwen = model_name.startswith("Qwen/")
+    is_gemma = model_name.startswith("google/gemma-4")
+    is_harmony = model_name.startswith("openai/gpt-oss")
+    if is_harmony:
+        if thinking is not None:
+            raise ValueError(f"{side_name}.thinking is not supported for {model_name}")
+        return ModelSpec(
+            model=model_name,
+            reasoning_effort=reasoning_effort or "low",
+        )
+
+    if is_qwen or is_gemma:
+        if reasoning_effort is not None:
+            raise ValueError(f"{side_name}.reasoning_effort is not supported for {model_name}")
+        return ModelSpec(
+            model=model_name,
+            thinking=False if thinking is None else thinking,
+        )
+
+    if thinking is not None:
+        raise ValueError(f"{side_name}.thinking is only supported for Qwen and Gemma 4 models")
+    if reasoning_effort is not None:
+        raise ValueError(f"{side_name}.reasoning_effort is only supported for gpt-oss models")
+
+    return ModelSpec(model=model_name)
+
+
+def _normalize_model_pair(raw_pair: object, index: int) -> ModelPair:
+    if not isinstance(raw_pair, dict):
+        raise ValueError(f"Each model_pairs entry must be a mapping, got {type(raw_pair).__name__}")
+
+    if "questioner" not in raw_pair or "answerer" not in raw_pair:
+        raise ValueError(f"model_pairs[{index}] must contain both 'questioner' and 'answerer'")
+
+    return ModelPair(
+        questioner=_normalize_model_spec(raw_pair["questioner"], f"model_pairs[{index}].questioner"),
+        answerer=_normalize_model_spec(raw_pair["answerer"], f"model_pairs[{index}].answerer"),
+    )
+
+
 def load_config(path: str) -> Config:
     raw = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
+    model_pairs = [
+        _normalize_model_pair(pair, index)
+        for index, pair in enumerate(raw.get("model_pairs", []))
+    ]
     return Config(
         version = raw.get("version", 0),
-        model_names = [(p[0], p[1]) for p in raw.get("model_names", [])],
+        model_pairs = model_pairs,
         method_names = raw.get("method_names", raw.get("extraction_methods", [])),
         animals = raw.get("animals", []),
         batched_block_size = raw.get("batched_block_size", 50),
@@ -55,11 +133,42 @@ def load_config(path: str) -> Config:
     )
 
 
-def build_output_stem(run_id: str, method_name: str, questioner: str, answerer: str, version: int) -> str:
+def build_models(model_pairs: list[ModelPair], build_model_adapter: Callable[[ModelSpec], "Model"]) -> dict[ModelSpec, "Model"]:
+    model_specs = {
+        pair.questioner
+        for pair in model_pairs
+    } | {
+        pair.answerer
+        for pair in model_pairs
+    }
+    return {
+        spec: build_model_adapter(spec)
+        for spec in model_specs
+    }
+
+
+def _model_spec_stem(spec: ModelSpec) -> str:
+    base = spec.model.replace("/", "_")
+    if spec.reasoning_effort is not None:
+        return f"{base}__reasoning-{spec.reasoning_effort}"
+    if spec.thinking is not None:
+        return f"{base}__thinking-{'on' if spec.thinking else 'off'}"
+    return base
+
+
+def build_output_stem(run_id: str, method_name: str, questioner: ModelSpec, answerer: ModelSpec, version: int) -> str:
     return (
-        f"{run_id}_{method_name}_Q:{questioner.replace('/', '_')},"
-        f"A:{answerer.replace('/', '_')}_{version}_animals"
+        f"{run_id}_{method_name}_Q:{_model_spec_stem(questioner)},"
+        f"A:{_model_spec_stem(answerer)}_{version}_animals"
     )
+
+
+def resolve_run_id() -> str:
+    slurm_job_id = os.environ.get("SLURM_JOB_ID")
+    if slurm_job_id:
+        return slurm_job_id
+
+    return datetime.now().strftime("%Y%m%dT%H%M%S")
 
 
 def write_to_log(message: str, config: Config) -> None:
