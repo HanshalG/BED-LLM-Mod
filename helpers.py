@@ -27,6 +27,7 @@ class ModelSpec:
     model: str
     thinking: bool | None = None
     reasoning_effort: ReasoningEffort | None = None
+    use_logprobs: bool = False
 
 
 @dataclass(frozen=True)
@@ -70,12 +71,19 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if reasoning_effort is not None and reasoning_effort not in {"low", "medium", "high"}:
         raise ValueError(f"{side_name}.reasoning_effort must be one of: low, medium, high")
 
+    use_logprobs = raw_spec.get("use_logprobs", False)
+    if not isinstance(use_logprobs, bool):
+        raise ValueError(f"{side_name}.use_logprobs must be a boolean when provided")
+
     is_qwen = model_name.startswith("Qwen/")
+    is_qwen25 = model_name.startswith("Qwen/Qwen2.5")
     is_gemma = model_name.startswith("google/gemma-4")
     is_harmony = model_name.startswith("openai/gpt-oss")
     if is_harmony:
         if thinking is not None:
             raise ValueError(f"{side_name}.thinking is not supported for {model_name}")
+        if use_logprobs:
+            raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
         return ModelSpec(
             model=model_name,
             reasoning_effort=reasoning_effort or "low",
@@ -84,15 +92,20 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if is_qwen or is_gemma:
         if reasoning_effort is not None:
             raise ValueError(f"{side_name}.reasoning_effort is not supported for {model_name}")
+        if use_logprobs and not is_qwen25:
+            raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
         return ModelSpec(
             model=model_name,
             thinking=False if thinking is None else thinking,
+            use_logprobs=use_logprobs,
         )
 
     if thinking is not None:
         raise ValueError(f"{side_name}.thinking is only supported for Qwen and Gemma 4 models")
     if reasoning_effort is not None:
         raise ValueError(f"{side_name}.reasoning_effort is only supported for gpt-oss models")
+    if use_logprobs:
+        raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
 
     return ModelSpec(model=model_name)
 
@@ -148,12 +161,14 @@ def build_models(model_pairs: list[ModelPair], build_model_adapter: Callable[[Mo
 
 
 def _model_spec_stem(spec: ModelSpec) -> str:
-    base = spec.model.replace("/", "_")
+    parts = [spec.model.replace("/", "_")]
     if spec.reasoning_effort is not None:
-        return f"{base}__reasoning-{spec.reasoning_effort}"
+        parts.append(f"reasoning-{spec.reasoning_effort}")
     if spec.thinking is not None:
-        return f"{base}__thinking-{'on' if spec.thinking else 'off'}"
-    return base
+        parts.append(f"thinking-{'on' if spec.thinking else 'off'}")
+    if spec.use_logprobs:
+        parts.append("logprobs-on")
+    return "__".join(parts)
 
 
 def build_output_stem(run_id: str, method_name: str, questioner: ModelSpec, answerer: ModelSpec, version: int) -> str:
