@@ -1,34 +1,62 @@
 import numpy as np
-import wandb
 
-from helpers import Config, reverse_history, _binary_entropy, convert_string_to_array
+from helpers import BeliefState, Config, coerce_belief_state, is_uniform_belief_state, reverse_history, \
+    _binary_entropy, convert_string_to_array
 from model import Model
 from prompts import candidate_generation_system_message, conditional_question_generation_prompt, \
-    unconditional_question_generation_prompt, candidate_generation_system_message_naive, \
+    unconditional_question_generation_prompt, weighted_conditional_question_generation_prompt, \
+    weighted_unconditional_question_generation_prompt, \
+    candidate_generation_system_message_naive, \
     question_generation_prompt_naive, answer_question_yesno_system_prompt
-from update_beliefs import check_beliefs_batched, update_beliefs_batched
+from update_beliefs import build_belief_state, check_beliefs_batched, update_beliefs_batched
 
 from helpers import write_to_log
 
 
-def generate_candidate_questions(beliefs: list[str], history_questioner: list[dict[str, str]],
+def generate_candidate_questions(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]],
                                  questioner: Model, generation_temperature: float, num_questions: int) -> list[str]:
+    belief_state = coerce_belief_state(beliefs)
     # if there are less than 3 beliefs left, best question is always to check one of them
-    if len(beliefs) in [1, 2]:
-        print(f"[candidate-gen] Only {len(beliefs)} belief(s) left, switching to direct guess")
-        return [f"Is it {beliefs[0]}?"]
+    if len(belief_state.beliefs) in [1, 2]:
+        top_belief = belief_state.beliefs[int(np.argmax(belief_state.probabilities))]
+        print(f"[candidate-gen] Only {len(belief_state.beliefs)} belief(s) left, switching to direct guess")
+        return [f"Is it {top_belief}?"]
 
-    print(f"[candidate-gen] Building candidates from {len(beliefs)} belief(s) and {len(history_questioner) // 2} prior round(s)")
-    messages = ([candidate_generation_system_message()] + reverse_history(history_questioner) +
-                [conditional_question_generation_prompt(beliefs, num_questions)])
+    print(f"[candidate-gen] Building candidates from {len(belief_state.beliefs)} belief(s) and {len(history_questioner) // 2} prior round(s)")
+    if is_uniform_belief_state(belief_state):
+        question_prompt = conditional_question_generation_prompt(belief_state.beliefs, num_questions)
+    else:
+        weighted_beliefs = sorted(
+            zip(belief_state.beliefs, belief_state.probabilities),
+            key=lambda entry: entry[1],
+            reverse=True,
+        )
+        question_prompt = weighted_conditional_question_generation_prompt(weighted_beliefs, num_questions)
+
+    messages = ([candidate_generation_system_message()] + reverse_history(history_questioner) + [question_prompt])
     candidate_questions = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
     candidate_questions = convert_string_to_array(candidate_questions)
     print(f"[candidate-gen] Received {len(candidate_questions)} candidate(s) from conditional generation")
 
     if len(candidate_questions) < num_questions:
         print(f"[candidate-gen] Backfilling {num_questions - len(candidate_questions)} more candidate(s)")
-        messages = ([candidate_generation_system_message()] + reverse_history(history_questioner) +
-                    [unconditional_question_generation_prompt(candidate_questions, num_questions - len(candidate_questions))])
+        if is_uniform_belief_state(belief_state):
+            backfill_prompt = unconditional_question_generation_prompt(
+                candidate_questions,
+                num_questions - len(candidate_questions),
+            )
+        else:
+            weighted_beliefs = sorted(
+                zip(belief_state.beliefs, belief_state.probabilities),
+                key=lambda entry: entry[1],
+                reverse=True,
+            )
+            backfill_prompt = weighted_unconditional_question_generation_prompt(
+                weighted_beliefs,
+                candidate_questions,
+                num_questions - len(candidate_questions),
+            )
+        messages = ([candidate_generation_system_message()] + reverse_history(history_questioner) + [backfill_prompt])
         new_candidate_questions = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
         candidate_questions = candidate_questions + convert_string_to_array(new_candidate_questions)
         print(f"[candidate-gen] Candidate pool now has {len(candidate_questions)} question(s)")
@@ -36,20 +64,30 @@ def generate_candidate_questions(beliefs: list[str], history_questioner: list[di
     return candidate_questions
 
 
-def _draw_belief_samples(beliefs: list[str], deterministic: bool, num_mc_samples: int) -> tuple[int, list[str] | np.ndarray]:
-    if len(beliefs) == 0:
-        return 0, []
+def _draw_belief_samples(beliefs: BeliefState | list[str], deterministic: bool,
+                         num_mc_samples: int) -> tuple[list[str] | np.ndarray, list[float] | None]:
+    belief_state = coerce_belief_state(beliefs)
+    if len(belief_state.beliefs) == 0:
+        return [], None
 
     if deterministic:
-        return len(beliefs), beliefs
+        return belief_state.beliefs, belief_state.probabilities
 
-    if len(beliefs) < num_mc_samples:
-        return len(beliefs), beliefs
+    if len(belief_state.beliefs) <= num_mc_samples:
+        return belief_state.beliefs, belief_state.probabilities
 
-    return num_mc_samples, np.random.choice(beliefs, size=num_mc_samples, replace=True)
+    sampled_indices = np.random.choice(
+        len(belief_state.beliefs),
+        size=num_mc_samples,
+        replace=True,
+        p=belief_state.probabilities,
+    )
+    samples = np.array([belief_state.beliefs[index] for index in sampled_indices])
+    return samples, None
 
 
-def _score_questions_from_samples(samples: list[str] | np.ndarray, cand_questions: list[str], eig: bool, questioner: Model,
+def _score_questions_from_samples(samples: list[str] | np.ndarray, sample_probabilities: list[float] | None,
+                                  cand_questions: list[str], eig: bool, questioner: Model,
                                   answer_temperature: float, block_size: int) -> tuple[list[float], list[float], list[float]]:
     if len(cand_questions) == 0 or len(samples) == 0:
         return [0.0] * len(cand_questions), [0.0] * len(cand_questions), [0.0] * len(cand_questions)
@@ -84,47 +122,57 @@ def _score_questions_from_samples(samples: list[str] | np.ndarray, cand_question
             p_no.append(answer["No"])
             entropy_sum.append(_binary_entropy(answer["Yes"], answer["No"]))
 
-        p_hat_yes = float(np.mean(p_yes))
-        p_hat_no = float(np.mean(p_no))
+        if sample_probabilities is None:
+            p_hat_yes = float(np.mean(p_yes))
+            p_hat_no = float(np.mean(p_no))
+            expected_entropy = float(np.mean(entropy_sum))
+        else:
+            p_hat_yes = float(np.dot(sample_probabilities, p_yes))
+            p_hat_no = float(np.dot(sample_probabilities, p_no))
+            expected_entropy = float(np.dot(sample_probabilities, entropy_sum))
         entropy = _binary_entropy(p_hat_yes, p_hat_no)
 
         p_yes_values[i] = p_hat_yes
         p_no_values[i] = p_hat_no
         if eig:
-            question_values[i] = entropy - float(np.mean(entropy_sum))
+            question_values[i] = entropy - expected_entropy
         else:
             question_values[i] = entropy
 
     return question_values, p_yes_values, p_no_values
 
 
-def _future_beliefs_for_answer(beliefs: list[str], history_questioner: list[dict[str, str]], question: str, answer: str,
-                               questioner: Model, deterministic: bool, config: Config) -> list[str]:
+def _future_beliefs_for_answer(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]], question: str,
+                               answer: str, questioner: Model, deterministic: bool, config: Config) -> BeliefState:
+    belief_state = coerce_belief_state(beliefs)
     hypothetical_history = history_questioner + [
         {"role": "assistant", "content": question},
         {"role": "user", "content": answer},
     ]
 
     if deterministic:
-        return update_beliefs_batched(hypothetical_history, beliefs, questioner, deterministic, config)
+        return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, config)
 
-    return check_beliefs_batched(
-        beliefs,
+    filtered_beliefs = check_beliefs_batched(
+        belief_state.beliefs,
         hypothetical_history[-2:],
         questioner,
         config.answer_temperature,
         config.batched_block_size,
         config.threshold_rejection_probability,
     )
+    return build_belief_state(filtered_beliefs, hypothetical_history, questioner, config)
 
 
-def evaluate_questions_forward_search(beliefs: list[str], history_questioner: list[dict[str, str]], cand_questions: list[str],
+def evaluate_questions_forward_search(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]],
+                                      cand_questions: list[str],
                                       eig: bool, deterministic: bool, questioner: Model, config: Config,
                                       depth: int = 2) -> list[float]:
+    belief_state = coerce_belief_state(beliefs)
     if depth == 1:
         print(f"[question-score] Depth-1 evaluation for {len(cand_questions)} question(s)")
         return evaluate_questions_batched(
-            beliefs,
+            belief_state,
             cand_questions,
             eig,
             deterministic,
@@ -137,12 +185,13 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
         raise ValueError("evaluate_questions_forward_search only supports depth=1 or depth=2")
 
     #samples number of beliefs to sample from the current beliefs
-    _num_samples, samples = _draw_belief_samples(beliefs, deterministic, config.num_mc_samples)
+    samples, sample_probabilities = _draw_belief_samples(belief_state, deterministic, config.num_mc_samples)
     print(f"[question-score] Depth-2 evaluation for {len(cand_questions)} question(s) using {len(samples)} sample(s)")
 
     #immediate values is the expected 1 step info gain of asking the candidate questions
     immediate_values, p_yes_values, p_no_values = _score_questions_from_samples(
         samples,
+        sample_probabilities,
         cand_questions,
         eig,
         questioner,
@@ -160,7 +209,7 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
         for answer, branch_probability in (("Yes", p_yes_values[i]), ("No", p_no_values[i])):
             #future beliefs can either use full update or just filtered beliefs
             future_beliefs = _future_beliefs_for_answer(
-                beliefs,
+                belief_state,
                 history_questioner,
                 question,
                 answer,
@@ -168,7 +217,8 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
                 deterministic,
                 config,
             )
-            if len(future_beliefs) == 0:
+            future_beliefs = coerce_belief_state(future_beliefs)
+            if len(future_beliefs.beliefs) == 0:
                 continue
 
             hypothetical_history = history_questioner + [
@@ -238,12 +288,14 @@ def evaluate_questions_forward_search(beliefs: list[str], history_questioner: li
 
     return total_values
 
-def evaluate_questions_batched(beliefs: list[str], cand_questions: list[str], eig: bool, deterministic: bool,
-                                   questioner: Model, answer_temperature: float, num_mc_samples: int, block_size: int) -> list[float]:
-    _num_samples, samples = _draw_belief_samples(beliefs, deterministic, num_mc_samples)
+def evaluate_questions_batched(beliefs: BeliefState | list[str], cand_questions: list[str], eig: bool,
+                               deterministic: bool, questioner: Model, answer_temperature: float,
+                               num_mc_samples: int, block_size: int) -> list[float]:
+    samples, sample_probabilities = _draw_belief_samples(beliefs, deterministic, num_mc_samples)
     print(f"[question-score] Batched scoring for {len(cand_questions)} question(s) using {len(samples)} sample(s)")
     question_values, _p_yes_values, _p_no_values = _score_questions_from_samples(
         samples,
+        sample_probabilities,
         cand_questions,
         eig,
         questioner,

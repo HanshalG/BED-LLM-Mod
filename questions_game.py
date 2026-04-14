@@ -1,14 +1,14 @@
 import time
 
-import numpy as np
 import wandb
+import numpy as np
 
-from helpers import get_question_answered, generate_original_beliefs, write_to_log, Config
+from helpers import Config, format_belief_state, generate_original_beliefs, get_question_answered, write_to_log
 from generate_candidate_questions import generate_candidate_questions, generate_candidate_question_naive, \
     evaluate_questions_forward_search
 from model import Model
 from sample_beliefs import sample_beliefs, sample_beliefs_naive
-from update_beliefs import update_beliefs_batched
+from update_beliefs import initialize_belief_state, update_beliefs_batched
 
 NUM_ROUNDS = 20
 
@@ -28,9 +28,10 @@ def twenty_questions_animals_single_split(goal_animal: str, questioner: Model, a
 def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, deterministic: bool, questioner: Model, answerer: Model, config: Config) -> list[int]:
     history_questioner = []
     print(f"[game] Generating initial beliefs for {goal_animal}")
-    beliefs = generate_original_beliefs(questioner, config)
-    print(f"[game] Starting belief set has {len(beliefs)} candidate(s)")
-    write_to_log(f"Original beliefs: {beliefs}\n", config)
+    initial_beliefs = generate_original_beliefs(questioner, config)
+    beliefs = initialize_belief_state(initial_beliefs, history_questioner, questioner, config)
+    print(f"[game] Starting belief set has {len(beliefs.beliefs)} candidate(s)")
+    write_to_log(f"Original beliefs: {format_belief_state(beliefs)}\n", config)
     # correct_guess[i] = 1 <--> questioner had it right after i-th question
     correct_guess = [0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
@@ -38,7 +39,7 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         best_question_score = None
 
         write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config)
-        print(f"[game] {goal_animal}: round {i+1}/{NUM_ROUNDS} with {len(beliefs)} belief(s)")
+        print(f"[game] {goal_animal}: round {i+1}/{NUM_ROUNDS} with {len(beliefs.beliefs)} belief(s)")
         # Generate candidate questions, select the question with best EIG
         print(f"[game] Generating up to {config.target_num_questions} candidate question(s)")
         cand_questions = generate_candidate_questions(beliefs, history_questioner, questioner,
@@ -97,12 +98,15 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         history_questioner = history_questioner +  [{"role": "assistant", "content": best_question}, {"role": "user", "content": answer}]
         print("[game] Updating beliefs with the latest question-answer pair")
         beliefs = update_beliefs_batched(history_questioner, beliefs, questioner, deterministic, config)
-        print(f"[game] Belief set now has {len(beliefs)} candidate(s)")
-        write_to_log(f"Current beliefs: {beliefs}\n", config)
+        print(f"[game] Belief set now has {len(beliefs.beliefs)} candidate(s)")
+        write_to_log(f"Current beliefs: {format_belief_state(beliefs)}\n", config)
 
         # greedy decoding of current most likely belief
         print("[game] Sampling current best guess")
-        guess = sample_beliefs(beliefs, history_questioner, questioner, config.generation_temperature_simple)
+        if config.belief_state_mode == "categorical" and len(beliefs.beliefs) > 0:
+            guess = beliefs.beliefs[int(np.argmax(beliefs.probabilities))]
+        else:
+            guess = sample_beliefs(beliefs.beliefs, history_questioner, questioner, config.generation_temperature_simple)
         if guess.lower() == goal_animal.lower():
             correct_guess[i] = 1
         print(f"[game] Current best guess after round {i+1}: {guess}")

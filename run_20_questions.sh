@@ -50,6 +50,7 @@ source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env
 
 pip install --pre vllm --upgrade
 pip install transformers==5.5.0 --upgrade
+pip install openai-harmony --upgrade
 
 source .env
 

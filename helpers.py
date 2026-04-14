@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 
 
 ReasoningEffort = Literal["low", "medium", "high"]
+BeliefStateMode = Literal["uniform", "categorical"]
 
 
 @dataclass(frozen=True)
@@ -33,6 +34,16 @@ class ModelSpec:
 class ModelPair:
     questioner: ModelSpec
     answerer: ModelSpec
+
+
+@dataclass(frozen=True)
+class BeliefState:
+    beliefs: list[str] = field(default_factory=list)
+    probabilities: list[float] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        if len(self.beliefs) != len(self.probabilities):
+            raise ValueError("BeliefState beliefs and probabilities must have the same length")
 
 
 @dataclass
@@ -50,6 +61,8 @@ class Config:
     max_num_samples: int = 50
     min_num_samples: int = 15
     threshold_rejection_probability: float = 0.2
+    belief_state_mode: BeliefStateMode = "uniform"
+    belief_probability_temperature: float = 0.0
     run_id: str = ""
     log_path: Path | None = None
 
@@ -116,6 +129,9 @@ def load_config(path: str) -> Config:
         _normalize_model_pair(pair, index)
         for index, pair in enumerate(raw.get("model_pairs", []))
     ]
+    belief_state_mode = raw.get("belief_state_mode", "uniform")
+    if belief_state_mode not in {"uniform", "categorical"}:
+        raise ValueError("belief_state_mode must be one of: uniform, categorical")
     return Config(
         version = raw.get("version", 0),
         model_pairs = model_pairs,
@@ -130,6 +146,8 @@ def load_config(path: str) -> Config:
         max_num_samples = raw.get("max_num_samples", 50),
         min_num_samples = raw.get("min_num_samples", 15),
         threshold_rejection_probability = raw.get("threshold_rejection_probability", 0.2),
+        belief_state_mode = belief_state_mode,
+        belief_probability_temperature = raw.get("belief_probability_temperature", 0.0),
     )
 
 
@@ -345,6 +363,96 @@ def _binary_entropy(p_yes: float, p_no: float) -> float:
     p_yes_clipped = max(p_yes, 1e-12)
     p_no_clipped = max(p_no, 1e-12)
     return - (p_yes_clipped * np.log(p_yes_clipped) + p_no_clipped * np.log(p_no_clipped))
+
+
+def make_belief_state(beliefs: list[str], probabilities: list[float] | None = None,
+                      fallback_to_uniform: bool = False) -> BeliefState:
+    if probabilities is None:
+        probabilities = [1.0] * len(beliefs)
+
+    if len(beliefs) != len(probabilities):
+        raise ValueError("beliefs and probabilities must have the same length")
+
+    merged_beliefs: list[str] = []
+    merged_probabilities: list[float] = []
+    belief_indices: dict[str, int] = {}
+
+    for belief, probability in zip(beliefs, probabilities):
+        cleaned_belief = belief.strip()
+        if not cleaned_belief:
+            continue
+
+        try:
+            numeric_probability = float(probability)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"Invalid belief probability: {probability!r}") from exc
+        if not math.isfinite(numeric_probability) or numeric_probability < 0.0:
+            raise ValueError(f"Belief probabilities must be finite and non-negative: {probability!r}")
+
+        belief_key = cleaned_belief.lower()
+        existing_index = belief_indices.get(belief_key)
+        if existing_index is None:
+            belief_indices[belief_key] = len(merged_beliefs)
+            merged_beliefs.append(cleaned_belief)
+            merged_probabilities.append(numeric_probability)
+        else:
+            merged_probabilities[existing_index] += numeric_probability
+
+    if not merged_beliefs:
+        return BeliefState([], [])
+
+    total_probability = sum(merged_probabilities)
+    if total_probability <= 0.0:
+        if not fallback_to_uniform:
+            raise ValueError("Belief probabilities must sum to a positive value")
+        uniform_probability = 1.0 / len(merged_beliefs)
+        return BeliefState(merged_beliefs, [uniform_probability] * len(merged_beliefs))
+
+    return BeliefState(
+        merged_beliefs,
+        [probability / total_probability for probability in merged_probabilities],
+    )
+
+
+def coerce_belief_state(beliefs: BeliefState | list[str]) -> BeliefState:
+    if isinstance(beliefs, BeliefState):
+        return beliefs
+    return make_uniform_belief_state(beliefs)
+
+
+def make_uniform_belief_state(beliefs: list[str]) -> BeliefState:
+    deduped_beliefs = make_belief_state(beliefs, fallback_to_uniform=True).beliefs
+    if not deduped_beliefs:
+        return BeliefState([], [])
+
+    uniform_probability = 1.0 / len(deduped_beliefs)
+    return BeliefState(deduped_beliefs, [uniform_probability] * len(deduped_beliefs))
+
+
+def format_belief_state(belief_state: BeliefState, top_n: int | None = None) -> str:
+    if len(belief_state.beliefs) == 0:
+        return "[]"
+
+    entries = list(zip(belief_state.beliefs, belief_state.probabilities))
+    if top_n is not None:
+        entries = sorted(entries, key=lambda entry: entry[1], reverse=True)[:top_n]
+
+    formatted_entries = [
+        f"{belief} ({probability:.3f})"
+        for belief, probability in entries
+    ]
+    return "[" + ", ".join(formatted_entries) + "]"
+
+
+def is_uniform_belief_state(belief_state: BeliefState, tolerance: float = 1e-9) -> bool:
+    if len(belief_state.beliefs) <= 1:
+        return True
+
+    uniform_probability = 1.0 / len(belief_state.beliefs)
+    return all(
+        math.isclose(probability, uniform_probability, rel_tol=tolerance, abs_tol=tolerance)
+        for probability in belief_state.probabilities
+    )
 
 
 # reverses a messages array so that the final question comes first

@@ -43,6 +43,21 @@ def conditional_question_generation_prompt(beliefs: list[str], num_questions: in
     return convert_to_prompt_message(role="user", content=content)
 
 
+def weighted_conditional_question_generation_prompt(weighted_beliefs: list[tuple[str, float]],
+                                                    num_questions: int) -> dict[str, str]:
+    formatted_beliefs = ", ".join(
+        f"{belief}: {probability:.3f}"
+        for belief, probability in weighted_beliefs
+    )
+    content = (
+            f"Using the beliefs list with probabilities: {formatted_beliefs} and all previous questions and answers:\n\n"
+            f"Generate up to {num_questions} candidate Yes/No questions that split the remaining probability mass into "
+            "two roughly equal parts. Each question should be phrased so the answer is Yes or No. Do not repeat "
+            "questions. List each question on its own line - no numbering, punctuation, or extra text."
+        )
+    return convert_to_prompt_message(role="user", content=content)
+
+
 def question_generation_prompt_naive() -> dict[str, str]:
     content = (
         f"Using all previous questions and answers:\n\n"
@@ -55,10 +70,27 @@ def question_generation_prompt_naive() -> dict[str, str]:
 
 def unconditional_question_generation_prompt(candidate_questions: list[str], num_questions_left: int) -> dict[str, str]:
     content = (
-            f"Using the the current candidate questions: {candidate_questions} and all previous questions and answers:\n\n"
+            f"Using the current candidate questions: {candidate_questions} and all previous questions and answers:\n\n"
             f"Generate exactly {num_questions_left} candidate Yes/No questions to identify the target animal. "
             "Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on "
             "its own line - no numbering, punctuation, or extra text."
+        )
+    return convert_to_prompt_message(role="user", content=content)
+
+
+def weighted_unconditional_question_generation_prompt(weighted_beliefs: list[tuple[str, float]],
+                                                      candidate_questions: list[str],
+                                                      num_questions_left: int) -> dict[str, str]:
+    formatted_beliefs = ", ".join(
+        f"{belief}: {probability:.3f}"
+        for belief, probability in weighted_beliefs
+    )
+    content = (
+            f"Using the beliefs list with probabilities: {formatted_beliefs}, the current candidate questions: "
+            f"{candidate_questions}, and all previous questions and answers:\n\n"
+            f"Generate exactly {num_questions_left} candidate Yes/No questions to identify the target animal while "
+            "respecting the remaining probability mass. Each question should be phrased so the answer is Yes or No. "
+            "Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text."
         )
     return convert_to_prompt_message(role="user", content=content)
 
@@ -95,6 +127,23 @@ def probability_answer_scores_prompt(responses: list[str]) -> dict[str, str]:
         "Do not include any explanation, reasoning, markdown, or code fences.\n"
         "Do not write any text before or after the JSON object.\n"
         f"Example format: {example_payload}"
+    )
+    return convert_to_prompt_message(role="user", content=content)
+
+
+def belief_probability_system_prompt() -> dict[str, str]:
+    content = (
+        "You are playing a game of 20 Questions to guess an animal. "
+        "You will see the previous questions and answers, then be asked whether a specific candidate animal is the "
+        "hidden animal. Use the full conversation history to judge how plausible that candidate is."
+    )
+    return convert_to_prompt_message(role="system", content=content)
+
+
+def belief_probability_user_prompt(candidate_belief: str) -> dict[str, str]:
+    content = (
+        f"Given all of the questions and answers so far, is the hidden animal \"{candidate_belief}\"? "
+        "Answer Yes if that candidate is plausible as the hidden animal, otherwise answer No."
     )
     return convert_to_prompt_message(role="user", content=content)
 

@@ -39,3 +39,5 @@ num_mc_samples: 15
 max_num_samples: 50
 min_num_samples: 15
 threshold_rejection_probability: 0.2
+belief_state_mode: "uniform"
+belief_probability_temperature: 0.0
