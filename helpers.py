@@ -4,7 +4,7 @@ import json
 import math
 import os
 from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
@@ -64,6 +64,7 @@ class Config:
     threshold_rejection_probability: float = 0.2
     belief_state_mode: BeliefStateMode = "uniform"
     belief_probability_temperature: float = 0.0
+    probability_parse_fallback_to_uniform: bool = False
     run_id: str = ""
     log_path: Path | None = None
 
@@ -145,6 +146,9 @@ def load_config(path: str) -> Config:
     belief_state_mode = raw.get("belief_state_mode", "uniform")
     if belief_state_mode not in {"uniform", "categorical"}:
         raise ValueError("belief_state_mode must be one of: uniform, categorical")
+    probability_parse_fallback_to_uniform = raw.get("probability_parse_fallback_to_uniform", False)
+    if not isinstance(probability_parse_fallback_to_uniform, bool):
+        raise ValueError("probability_parse_fallback_to_uniform must be a boolean")
     return Config(
         version = raw.get("version", 0),
         model_pairs = model_pairs,
@@ -161,6 +165,7 @@ def load_config(path: str) -> Config:
         threshold_rejection_probability = raw.get("threshold_rejection_probability", 0.2),
         belief_state_mode = belief_state_mode,
         belief_probability_temperature = raw.get("belief_probability_temperature", 0.0),
+        probability_parse_fallback_to_uniform = probability_parse_fallback_to_uniform,
     )
 
 
@@ -189,10 +194,17 @@ def _model_spec_stem(spec: ModelSpec) -> str:
     return "__".join(parts)
 
 
-def build_output_stem(run_id: str, method_name: str, questioner: ModelSpec, answerer: ModelSpec, version: int) -> str:
+def build_output_stem(
+    run_id: str,
+    method_name: str,
+    questioner: ModelSpec,
+    answerer: ModelSpec,
+    version: int,
+    belief_state_mode: BeliefStateMode = "uniform",
+) -> str:
     return (
         f"{run_id}_{method_name}_Q:{_model_spec_stem(questioner)},"
-        f"A:{_model_spec_stem(answerer)}_{version}_animals"
+        f"A:{_model_spec_stem(answerer)}_{belief_state_mode}_{version}_animals"
     )
 
 
@@ -211,6 +223,29 @@ def write_to_log(message: str, config: Config) -> None:
     config.log_path.parent.mkdir(parents=True, exist_ok=True)
     with config.log_path.open("a", encoding="utf-8") as file:
         file.write(message)
+
+
+def print_and_log(message: str, config: Config) -> None:
+    print(message)
+    if config.log_path is not None:
+        write_to_log(f"{message}\n", config)
+
+
+def _json_ready(value: object) -> object:
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, dict):
+        return {
+            str(key): _json_ready(nested_value)
+            for key, nested_value in value.items()
+        }
+    if isinstance(value, list):
+        return [_json_ready(item) for item in value]
+    return value
+
+
+def format_config_for_log(config: Config) -> str:
+    return json.dumps(_json_ready(asdict(config)), indent=2, sort_keys=True)
 
 
 def _build_probability_messages(messages: list[dict[str, str]], responses: list[str]) -> list[dict[str, str]]:
@@ -334,7 +369,8 @@ def _uniform_probability_response(responses: list[str]) -> dict[str, float]:
 
 def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]], responses: list[str], block_size: int,
                                        temperature: float,
-                                       complete_messages_batched: Callable[..., list[str]]) -> list[dict[str, float]]:
+                                       complete_messages_batched: Callable[..., list[str]],
+                                       fallback_to_uniform: bool = False) -> list[dict[str, float]]:
     probability_messages = [
         _build_probability_messages(messages, responses)
         for messages in batch_messages
@@ -370,10 +406,23 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
         pending_indices = failed_indices
 
     if pending_indices:
-        failed_index = pending_indices[0]
-        for index in pending_indices:
-            print(f"Failed to parse probability JSON for index {index}, assigning uniform probabilities {raw_completions.get(failed_index, '')!r}")
-            results[index] = _uniform_probability_response(responses)
+        if fallback_to_uniform:
+            for index in pending_indices:
+                failed_completion = raw_completions.get(index, "")
+                print(
+                    f"Failed to parse probability JSON for index {index}, "
+                    f"assigning uniform probabilities {failed_completion!r}"
+                )
+                results[index] = _uniform_probability_response(responses)
+        else:
+            failure_details = ", ".join(
+                f"{index}: {raw_completions.get(index, '')!r}"
+                for index in pending_indices
+            )
+            raise ValueError(
+                "Failed to parse probability JSON after 3 attempts for "
+                f"{len(pending_indices)} item(s): {failure_details}"
+            )
 
     return [result for result in results if result is not None]
 
@@ -505,6 +554,14 @@ def format_belief_state(belief_state: BeliefState, top_n: int | None = None) -> 
         for belief, probability in entries
     ]
     return "[" + ", ".join(formatted_entries) + "]"
+
+
+def format_categorical_belief_summary(belief_state: BeliefState, top_n: int | None = None) -> str:
+    if top_n is None:
+        return f"{len(belief_state.beliefs)} belief(s): {format_belief_state(belief_state)}"
+
+    top_count = min(top_n, len(belief_state.beliefs))
+    return f"{len(belief_state.beliefs)} belief(s): {format_belief_state(belief_state, top_n=top_count)}"
 
 
 def is_uniform_belief_state(belief_state: BeliefState, tolerance: float = 1e-9) -> bool:

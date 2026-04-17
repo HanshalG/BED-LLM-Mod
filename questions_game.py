@@ -3,7 +3,8 @@ import time
 import wandb
 import numpy as np
 
-from helpers import Config, format_belief_state, generate_original_beliefs, get_question_answered, write_to_log
+from helpers import Config, format_belief_state, format_categorical_belief_summary, generate_original_beliefs, \
+    get_question_answered, print_and_log, write_to_log
 from generate_candidate_questions import generate_candidate_questions, generate_candidate_question_naive, \
     evaluate_questions_forward_search
 from model import Model
@@ -32,6 +33,12 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
     beliefs = initialize_belief_state(initial_beliefs, history_questioner, questioner, config)
     print(f"[game] Starting belief set has {len(beliefs.beliefs)} candidate(s)")
     write_to_log(f"Original beliefs: {format_belief_state(beliefs)}\n", config)
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Running in weighted belief mode with opening beliefs: "
+            f"{format_categorical_belief_summary(beliefs)}",
+            config,
+        )
     # correct_guess[i] = 1 <--> questioner had it right after i-th question
     correct_guess = [0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
@@ -45,6 +52,12 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         cand_questions = generate_candidate_questions(beliefs, history_questioner, questioner,
                                                       config.generation_temperature_diverse, config.target_num_questions)
         print(f"[game] Generated {len(cand_questions)} candidate question(s)")
+        if config.belief_state_mode == "categorical":
+            print_and_log(
+                f"[categorical] Candidate questions selected for scoring ({len(cand_questions)}): "
+                f"{cand_questions}",
+                config,
+            )
         if len(cand_questions) > 1:
             print(f"[game] Scoring candidate questions using {'EIG' if eig else 'entropy'} search")
             question_EIGs = evaluate_questions_forward_search(
@@ -97,14 +110,36 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         # update the current beliefs to incorporate new questions
         history_questioner = history_questioner +  [{"role": "assistant", "content": best_question}, {"role": "user", "content": answer}]
         print("[game] Updating beliefs with the latest question-answer pair")
+        prior_top_belief = beliefs.beliefs[0] if len(beliefs.beliefs) > 0 else None
         beliefs = update_beliefs_batched(history_questioner, beliefs, questioner, deterministic, config)
         print(f"[game] Belief set now has {len(beliefs.beliefs)} candidate(s)")
         write_to_log(f"Current beliefs: {format_belief_state(beliefs)}\n", config)
+        if config.belief_state_mode == "categorical":
+            new_top_belief = beliefs.beliefs[0] if len(beliefs.beliefs) > 0 else None
+            print_and_log(
+                f"[categorical] Post-update weighted beliefs: {format_categorical_belief_summary(beliefs)}",
+                config,
+            )
+            if prior_top_belief == new_top_belief:
+                print_and_log(
+                    f"[categorical] Top belief unchanged after round {i+1}: {new_top_belief}",
+                    config,
+                )
+            else:
+                print_and_log(
+                    f"[categorical] Top belief changed after round {i+1}: {prior_top_belief} -> {new_top_belief}",
+                    config,
+                )
 
         # greedy decoding of current most likely belief
         print("[game] Sampling current best guess")
         if config.belief_state_mode == "categorical" and len(beliefs.beliefs) > 0:
-            guess = beliefs.beliefs[int(np.argmax(beliefs.probabilities))]
+            guess_idx = int(np.argmax(beliefs.probabilities))
+            guess = beliefs.beliefs[guess_idx]
+            print_and_log(
+                f"[categorical] Greedy weighted guess: {guess} ({beliefs.probabilities[guess_idx]:.3f})",
+                config,
+            )
         else:
             guess = sample_beliefs(beliefs.beliefs, history_questioner, questioner, config.generation_temperature_simple)
         if guess.lower() == goal_animal.lower():

@@ -7,7 +7,7 @@ def main():
 
     import numpy as np
 
-    from helpers import build_models, build_output_stem, load_config, resolve_run_id, write_to_log
+    from helpers import build_models, build_output_stem, format_config_for_log, load_config, resolve_run_id, write_to_log
     from model import build_model_adapter
     from questions_game import twenty_questions_animals
 
@@ -58,9 +58,18 @@ def main():
         answerer_model = models[pair.answerer]
 
         for method_name in config.method_names:
-            output_stem = build_output_stem(config.run_id, method_name, pair.questioner, pair.answerer, config.version)
+            output_stem = build_output_stem(
+                config.run_id,
+                method_name,
+                pair.questioner,
+                pair.answerer,
+                config.version,
+                belief_state_mode=config.belief_state_mode,
+            )
             config.log_path = logs_dir / f"{output_stem}.log"
             results_path = results_dir / f"{output_stem}.npy"
+            write_to_log(f"Config file: {Path(args.config).resolve()}\n", config)
+            write_to_log(f"Config parameters:\n{format_config_for_log(config)}\n\n", config)
             write_to_log(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)
             print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
             accuracy = twenty_questions_animals(questioner_model, answerer_model, config.animals[config.version], method_name, config)
@@ -76,9 +85,8 @@ def main():
             })
     end_time = time.perf_counter()
     print(f"[main] Total time: {end_time - start_time:.2f} seconds")
-    write_to_log(f"Total time: {end_time - start_time:.2f} seconds\n", confi)
+    write_to_log(f"Total time: {end_time - start_time:.2f} seconds\n", config)
 
 
 if __name__ == "__main__":
     main()
-

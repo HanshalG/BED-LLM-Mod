@@ -1,7 +1,7 @@
 import numpy as np
 
-from helpers import BeliefState, Config, ensure_belief_state, is_uniform_belief_state, reverse_history, \
-    _binary_entropy, convert_string_to_array
+from helpers import BeliefState, Config, ensure_belief_state, format_categorical_belief_summary, \
+    is_uniform_belief_state, print_and_log, reverse_history, _binary_entropy, convert_string_to_array
 from model import Model
 from prompts import candidate_generation_system_message, conditional_question_generation_prompt, \
     unconditional_question_generation_prompt, weighted_conditional_question_generation_prompt, \
@@ -11,6 +11,12 @@ from prompts import candidate_generation_system_message, conditional_question_ge
 from update_beliefs import build_belief_state, check_beliefs_batched, update_beliefs_batched
 
 from helpers import write_to_log
+
+
+def _format_question_preview(questions: list[str]) -> str:
+    if len(questions) == 0:
+        return "[]"
+    return repr(questions)
 
 
 def generate_candidate_questions(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]],
@@ -26,6 +32,7 @@ def generate_candidate_questions(beliefs: BeliefState | list[str], history_quest
     if is_uniform_belief_state(belief_state):
         question_prompt = conditional_question_generation_prompt(belief_state.beliefs, num_questions)
     else:
+        print(f"[categorical] Candidate generation weights: {format_categorical_belief_summary(belief_state)}")
         weighted_beliefs = sorted(
             zip(belief_state.beliefs, belief_state.probabilities),
             key=lambda entry: entry[1],
@@ -37,6 +44,11 @@ def generate_candidate_questions(beliefs: BeliefState | list[str], history_quest
     candidate_questions = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
     candidate_questions = convert_string_to_array(candidate_questions)
     print(f"[candidate-gen] Received {len(candidate_questions)} candidate(s) from conditional generation")
+    if not is_uniform_belief_state(belief_state):
+        print(
+            f"[categorical] Candidate questions after conditional pass ({len(candidate_questions)}): "
+            f"{_format_question_preview(candidate_questions)}"
+        )
 
     if len(candidate_questions) < num_questions:
         print(f"[candidate-gen] Backfilling {num_questions - len(candidate_questions)} more candidate(s)")
@@ -60,6 +72,11 @@ def generate_candidate_questions(beliefs: BeliefState | list[str], history_quest
         new_candidate_questions = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
         candidate_questions = candidate_questions + convert_string_to_array(new_candidate_questions)
         print(f"[candidate-gen] Candidate pool now has {len(candidate_questions)} question(s)")
+        if not is_uniform_belief_state(belief_state):
+            print(
+                f"[categorical] Candidate questions after backfill ({len(candidate_questions)}): "
+                f"{_format_question_preview(candidate_questions)}"
+            )
 
     return candidate_questions
 
@@ -218,6 +235,12 @@ def evaluate_questions_forward_search(beliefs: BeliefState | list[str], history_
                 config,
             )
             future_beliefs = ensure_belief_state(future_beliefs)
+            if config.belief_state_mode == "categorical":
+                print_and_log(
+                    f"[categorical] Branch '{question}' -> {answer} (p={branch_probability:.3f}): "
+                    f"{format_categorical_belief_summary(future_beliefs)}",
+                    config,
+                )
             if len(future_beliefs.beliefs) == 0:
                 continue
 

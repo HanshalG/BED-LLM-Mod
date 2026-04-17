@@ -51,9 +51,9 @@ def weighted_conditional_question_generation_prompt(weighted_beliefs: list[tuple
     )
     content = (
             f"Using the beliefs list with probabilities: {formatted_beliefs} and all previous questions and answers:\n\n"
-            f"Generate up to {num_questions} candidate Yes/No questions that split the remaining probability mass into "
-            "two roughly equal parts. Each question should be phrased so the answer is Yes or No. Do not repeat "
-            "questions. List each question on its own line - no numbering, punctuation, or extra text."
+            f"Generate up to {num_questions} strong candidate Yes/No questions that help identify the target animal. "
+            "Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. "
+            "Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text."
         )
     return convert_to_prompt_message(role="user", content=content)
 

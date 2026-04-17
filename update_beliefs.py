@@ -4,9 +4,11 @@ from helpers import (
     ensure_belief_state,
     convert_string_to_array,
     _distribution_from_messages,
+    format_categorical_belief_summary,
     format_belief_state,
     make_belief_state,
     make_uniform_belief_state,
+    print_and_log,
     reverse_history,
     sort_belief_state_descending,
 )
@@ -50,7 +52,12 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
     )
     scored_state = sort_belief_state_descending(scored_state)
 
-    print(f"[beliefs] Scored belief state: {format_belief_state(scored_state, top_n=5)}")
+    print(f"[beliefs] Scored belief state: {format_belief_state(scored_state)}")
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Scored belief distribution: {format_categorical_belief_summary(scored_state)}",
+            config,
+        )
     return scored_state
 
 
@@ -65,7 +72,13 @@ def build_belief_state(beliefs: list[str], history_questioner: list[dict[str, st
 def initialize_belief_state(beliefs: list[str], history_questioner: list[dict[str, str]], questioner: Model,
                             config: Config) -> BeliefState:
     print(f"[beliefs] Initializing {config.belief_state_mode} belief state")
-    return build_belief_state(beliefs, history_questioner, questioner, config)
+    belief_state = build_belief_state(beliefs, history_questioner, questioner, config)
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Initial weighted beliefs: {format_categorical_belief_summary(belief_state)}",
+            config,
+        )
+    return belief_state
 
 
 def check_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str, str]], checker: Model,
@@ -113,13 +126,28 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
                            deterministic: bool, config: Config) -> BeliefState:
     belief_state = ensure_belief_state(beliefs)
     prior_beliefs = belief_state.beliefs
+    prior_summary = format_categorical_belief_summary(belief_state)
     generation_temperature, max_num_samples, min_num_samples = config.generation_temperature_diverse, config.max_num_samples, config.min_num_samples
     answer_temperature, block_size, threshold_rejection_probability = config.answer_temperature, config.batched_block_size, config.threshold_rejection_probability
 
     # generate new beliefs
     print(f"[beliefs] Updating beliefs with {len(prior_beliefs)} prior belief(s); deterministic={deterministic}")
+    if config.belief_state_mode == "categorical":
+        if len(history) >= 2:
+            latest_question = history[-2]["content"]
+            latest_answer = history[-1]["content"]
+            print_and_log(
+                f"[categorical] Updating weighted beliefs after answer '{latest_answer}' to question: {latest_question}",
+                config,
+            )
+        print_and_log(f"[categorical] Prior weighted beliefs: {prior_summary}", config)
     system_prompt = generate_animals_system_prompt(max_num_samples, min_num_samples)
     beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Generated {len(beliefs_new)} new categorical candidate(s)",
+            config,
+        )
 
     # in split baseline, return the beliefs sampled using the current history
     if deterministic:
@@ -146,9 +174,19 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
         block_size,
         threshold_rejection_probability,
     )
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Retained {len(filtered_beliefs_old)} prior categorical belief(s) after the latest answer",
+            config,
+        )
     # throw out duplicates
     beliefs_updated = make_belief_state(beliefs_new + filtered_beliefs_old, fallback_to_uniform=True).beliefs
     print(f"[beliefs] {len(beliefs_updated)} unique belief(s) remain after merge")
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Merged categorical pool now has {len(beliefs_updated)} candidate(s)",
+            config,
+        )
 
     # try to generate new beliefs twice more if no sufficient number could be generated
     for retry_idx in range(2):
@@ -167,12 +205,27 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
         )
         beliefs_updated = make_belief_state(beliefs_new + beliefs_updated, fallback_to_uniform=True).beliefs
         print(f"[beliefs] After retry {retry_idx + 1}, belief pool has {len(beliefs_updated)} candidate(s)")
+        if config.belief_state_mode == "categorical":
+            print_and_log(
+                f"[categorical] Retry {retry_idx + 1} produced a categorical pool of {len(beliefs_updated)} candidate(s)",
+                config,
+            )
 
     # If no valid beliefs at all can be generated, generate unfiltered to continue the game
     if len(beliefs_updated) == 0:
         print("[beliefs] No valid beliefs survived filtering, falling back to unfiltered generation")
+        if config.belief_state_mode == "categorical":
+            print_and_log(
+                "[categorical] No valid weighted beliefs survived filtering; falling back to unfiltered generation",
+                config,
+            )
         beliefs_updated = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
 
     updated_state = build_belief_state(beliefs_updated, history, questioner, config)
     print(f"[beliefs] Belief update complete with {len(updated_state.beliefs)} candidate(s)")
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Weighted belief transition: before={prior_summary} -> after={format_categorical_belief_summary(updated_state)}",
+            config,
+        )
     return updated_state

@@ -196,6 +196,7 @@ class BaseVLLMAdapter(Model):
                 block_size,
                 temperature,
                 self._chat_complete_messages_batched,
+                fallback_to_uniform=self.config.probability_parse_fallback_to_uniform,
             )
 
         elapsed_time = time.perf_counter() - start_time
