@@ -1,10 +1,14 @@
 #!/bin/bash
-#SBATCH --partition=msc
-#SBATCH --gres=gpu:a100:1
-#SBATCH --cpus-per-task=10
+#SBATCH --partition=gb10
+#SBATCH --gres=gpu:gb10:1
 #SBATCH --job-name=20_questions_EIG_animals
-#SBATCH --output=slurm-%j.out
-#SBATCH --error=slurm-%j.err
+#SBATCH --output=slurm_logs/slurm-%j.out
+#SBATCH --error=slurm_logs/slurm-%j.err
+
+/scratch-ssd/oatml/run_locked.sh \
+  /scratch-ssd/oatml/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+/scratch-ssd/oatml/run_locked.sh \
+  /scratch-ssd/oatml/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 # Tell conda to use fast local storage
 export CONDA_ENVS_PATH=/scratch-ssd/$USER/conda_envs
@@ -38,22 +42,31 @@ export NCCL_P2P_DISABLE=1
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 
 # Nuke the existing environment
-#/scratch-ssd/oatml/run_locked.sh \
-#  /scratch-ssd/oatml/miniconda3/bin/conda env remove -n 20_questions_env -y
+/scratch-ssd/oatml/run_locked.sh \
+  /scratch-ssd/oatml/miniconda3/bin/conda env remove -n 20_questions_env_gb10 -y
 
 # Create or update the environment from environment.yml
 /scratch-ssd/oatml/run_locked.sh \
-  /scratch-ssd/oatml/miniconda3/bin/conda env update -f environment.yml
+  /scratch-ssd/oatml/miniconda3/bin/conda env update -f environment_gb10.yml
 
 # Activate the environment
-source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env
+source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env_gb10
 
-pip install --pre vllm --upgrade
-pip install transformers==5.5.0 --upgrade
+# 2. Set the Blackwell architecture (SM 121)
+export TORCH_CUDA_ARCH_LIST="12.1"
+
+# 3. Limit parallel jobs to avoid OOM during compilation (Blackwell nodes have lots of cores but RAM can be a bottleneck during build)
+export MAX_JOBS=8 
+
+# 4. Clone and install
+VLLM_DIR="/scratch-ssd/$USER/vllm_clone"
+rm -rf "$VLLM_DIR"
+git clone https://github.com/vllm-project/vllm.git "$VLLM_DIR"
+pushd "$VLLM_DIR"
+pip install -e .
+popd
 
 source .env
-
-pip install accelerate
 
 if [ -n "$HUGGINGFACE_TOKEN" ]; then
     huggingface-cli login --token "$HUGGINGFACE_TOKEN"
@@ -69,6 +82,6 @@ fi
 echo "START TIME: $(date)"
 
 # Run the script
-srun python main.py -c config.yaml
+srun python main.py -c configs/config$1.yaml
 
 echo "END TIME: $(date)"

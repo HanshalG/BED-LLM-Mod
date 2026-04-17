@@ -2,3 +2,5 @@ results/
 logs/
 __pycache__/
 wandb/
+slurm_logs/
+

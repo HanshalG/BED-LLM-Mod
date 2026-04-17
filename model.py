@@ -7,7 +7,7 @@ import time
 
 import torch
 import wandb
-from helpers import ModelSpec, _probability_results_from_messages
+from helpers import ModelSpec, _probability_results_from_messages, write_to_log, Config
 from openai_harmony import (
     Conversation as HarmonyConversation,
     HarmonyEncodingName,
@@ -31,8 +31,9 @@ class Model(ABC):
 
 
 class BaseVLLMAdapter(Model):
-    def __init__(self, spec: ModelSpec, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
+    def __init__(self, spec: ModelSpec, config: Config, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
         self.spec = spec
+        self.config = config
         self.model_name = spec.model
         self.use_logprobs = spec.use_logprobs
         self.tokenizer = self._build_tokenizer()
@@ -43,7 +44,7 @@ class BaseVLLMAdapter(Model):
         self.llm = LLM(
             model=self.model_name,
             max_model_len=4096,
-            gpu_memory_utilization=0.85,
+            gpu_memory_utilization=0.80,
             tensor_parallel_size=tensor_parallel_size,
             dtype=dtype,
         )
@@ -159,7 +160,7 @@ class BaseVLLMAdapter(Model):
         prompt = self._messages_to_prompt(messages)
         sampling_params = self._build_sampling_params(
             temperature=temperature,
-            max_tokens=256,
+            max_tokens=8192,
             n=num_responses,
         )
         outputs = self.llm.generate([prompt], sampling_params)
@@ -208,8 +209,8 @@ class BaseVLLMAdapter(Model):
 
 
 class QwenVLLMAdapter(BaseVLLMAdapter):
-    def __init__(self, spec: ModelSpec, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
-        super().__init__(spec=spec, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
+    def __init__(self, spec: ModelSpec, config: Config, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
+        super().__init__(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
         self.thinking = bool(spec.thinking)
 
     def _chat_template_kwargs(self) -> dict[str, object]:
@@ -219,16 +220,16 @@ class QwenVLLMAdapter(BaseVLLMAdapter):
         text = output.text.lstrip()
         if not self.thinking:
             return text
-
         thought, separator, final_text = text.rpartition("</think>")
         if not separator or not final_text.strip():
             raise ValueError(f"{self.model_name} returned reasoning output without a final answer")
+        #write_to_log(f"Reasoning trace: {thought}\n", self.config)
         return final_text.strip()
 
 
 class GemmaVLLMAdapter(BaseVLLMAdapter):
-    def __init__(self, spec: ModelSpec, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
-        super().__init__(spec=spec, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
+    def __init__(self, spec: ModelSpec, config: Config, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
+        super().__init__(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
         self.thinking = bool(spec.thinking)
 
     def _tokenizer_kwargs(self) -> dict[str, object]:
@@ -249,6 +250,9 @@ class GemmaVLLMAdapter(BaseVLLMAdapter):
         if not token_ids:
             raise ValueError(f"{self.model_name} completion is missing token_ids required for parse_response()")
 
+        #write reasoning trace to log
+        #write_to_log(f"Reasoning trace: {self.tokenizer.decode(token_ids)}\n", self.config)
+        
         parsed = parse_response(token_ids)
         if isinstance(parsed, dict):
             content = parsed.get("content")
@@ -261,10 +265,10 @@ class GemmaVLLMAdapter(BaseVLLMAdapter):
 class HarmonyVLLMAdapter(BaseVLLMAdapter):
     _HARMONY_KNOWLEDGE_CUTOFF = "2024-06"
 
-    def __init__(self, spec: ModelSpec, tensor_parallel_size: int | None = None):
+    def __init__(self, spec: ModelSpec, config: Config, tensor_parallel_size: int | None = None):
         self._harmony_encoding = load_harmony_encoding(HarmonyEncodingName.HARMONY_GPT_OSS)
         self.reasoning_effort = spec.reasoning_effort or "low"
-        super().__init__(spec=spec, tensor_parallel_size=tensor_parallel_size, dtype="bfloat16")
+        super().__init__(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype="bfloat16")
         self.tokenizer = None
 
     def _build_tokenizer(self):
@@ -352,14 +356,14 @@ class HarmonyVLLMAdapter(BaseVLLMAdapter):
         return final_messages[-1]
 
 
-def build_model_adapter(spec: ModelSpec, tensor_parallel_size: int | None = None, dtype: str = "bfloat16") -> Model:
+def build_model_adapter(spec: ModelSpec, config: Config, tensor_parallel_size: int | None = None, dtype: str = "bfloat16") -> Model:
     if spec.model.startswith("openai/gpt-oss"):
-        return HarmonyVLLMAdapter(spec=spec, tensor_parallel_size=tensor_parallel_size)
+        return HarmonyVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size)
     if spec.model.startswith("google/gemma-4"):
-        return GemmaVLLMAdapter(spec=spec, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
+        return GemmaVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
     if spec.model.startswith("Qwen/Qwen3.5"):
-        return QwenVLLMAdapter(spec=spec, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
-    return BaseVLLMAdapter(spec=spec, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
+        return QwenVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
+    return BaseVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
 
 
 VLLMAdapter = BaseVLLMAdapter

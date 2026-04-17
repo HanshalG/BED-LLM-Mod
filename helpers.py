@@ -298,6 +298,16 @@ def _normalize_probability_response(response_text: str, responses: list[str]) ->
         for response, score in zip(responses, scores)
     }
 
+def _uniform_probability_response(responses: list[str]) -> dict[str, float]:
+    if not responses:
+        return {}
+
+    probability = 1.0 / len(responses)
+    return {
+        response: probability
+        for response in responses
+    }
+
 
 def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]], responses: list[str], block_size: int,
                                        temperature: float,
@@ -308,8 +318,6 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
     ]
     results: list[dict[str, float] | None] = [None] * len(probability_messages)
     pending_indices = list(range(len(probability_messages)))
-    last_errors: dict[int, ValueError] = {}
-    raw_completions: dict[int, str] = {}
 
     for _attempt in range(3):
         if not pending_indices:
@@ -329,23 +337,20 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
 
         failed_indices: list[int] = []
         for index, completion in zip(pending_indices, completions):
-            raw_completions[index] = completion
             try:
                 results[index] = _normalize_probability_response(completion, responses)
-            except ValueError as exc:
-                last_errors[index] = exc
+            except ValueError:
                 failed_indices.append(index)
 
         pending_indices = failed_indices
 
     if pending_indices:
         failed_index = pending_indices[0]
-        raise ValueError(
-            f"Invalid probability JSON after 3 attempts: {raw_completions.get(failed_index, '')!r}"
-        ) from last_errors.get(failed_index)
+        for index in pending_indices:
+            print(f"Failed to parse probability JSON for index {index}, assigning uniform probabilities {raw_completions.get(failed_index, '')!r}")
+            results[index] = _uniform_probability_response(responses)
 
     return [result for result in results if result is not None]
-
 
 # prompts ask to generate collection of entities, one on each line --> convert the returned string to an array
 def convert_string_to_array(response):
