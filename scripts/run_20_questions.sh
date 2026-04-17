@@ -3,8 +3,8 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --cpus-per-task=10
 #SBATCH --job-name=20_questions_EIG_animals
-#SBATCH --output=slurm-%j.out
-#SBATCH --error=slurm-%j.err
+#SBATCH --output=slurm_logs/slurm-%j.out
+#SBATCH --error=slurm_logs/slurm-%j.err
 
 # Tell conda to use fast local storage
 export CONDA_ENVS_PATH=/scratch-ssd/$USER/conda_envs
@@ -48,13 +48,25 @@ export VLLM_WORKER_MULTIPROC_METHOD=spawn
 # Activate the environment
 source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env
 
-pip install --pre vllm --upgrade
-pip install transformers==5.5.0 --upgrade
-pip install openai-harmony --upgrade
+pip install --upgrade \
+  torch \
+  torchvision \
+  torchaudio \
+  --index-url https://download.pytorch.org/whl/cu129
+pip install --upgrade \
+  "https://wheels.vllm.ai/c0c98b8b9a392c7e8b36b68cf477e245dda48d80/vllm-0.19.1rc1.dev367%2Bgc0c98b8b9-cp38-abi3-manylinux_2_31_x86_64.whl" \
+  --extra-index-url https://download.pytorch.org/whl/cu129
+pip install --no-deps transformers==5.5.0
 
 source .env
 
-pip install accelerate
+CONFIG_PATH="config.yaml"
+if [ -n "${1:-}" ] && [ -f "configs/config$1.yaml" ]; then
+    CONFIG_PATH="configs/config$1.yaml"
+elif [ -n "${1:-}" ] && [ -f "$1" ]; then
+    CONFIG_PATH="$1"
+fi
+
 
 if [ -n "$HUGGINGFACE_TOKEN" ]; then
     huggingface-cli login --token "$HUGGINGFACE_TOKEN"
@@ -70,6 +82,6 @@ fi
 echo "START TIME: $(date)"
 
 # Run the script
-srun python main.py -c config.yaml
+srun python main.py -c "$CONFIG_PATH"
 
 echo "END TIME: $(date)"

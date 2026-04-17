@@ -35,7 +35,7 @@ def main():
         }
     )
 
-    models = build_models(config.model_pairs, build_model_adapter)
+    models = build_models(config.model_pairs, lambda spec: build_model_adapter(spec, config=config))
     print(f"[main] Preparing {len(models)} unique model adapter(s)")
     print("[main] Model adapters ready")
 
