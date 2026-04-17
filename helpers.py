@@ -277,8 +277,8 @@ def _extract_first_balanced_json_object(text: str) -> str | None:
     return None
 
 
-def _normalize_probability_response(response_text: str, responses: list[str]) -> dict[str, float]:
-    if not responses:
+def _normalize_labeled_distribution_response(response_text: str, labels: list[str]) -> dict[str, float]:
+    if not labels:
         return {}
 
     normalized_text = _strip_code_fences(response_text)
@@ -297,14 +297,14 @@ def _normalize_probability_response(response_text: str, responses: list[str]) ->
         raise ValueError(f"Probability response must be a JSON object: {response_text!r}")
 
     scores: list[float] = []
-    for response in responses:
-        raw_value = payload.get(response, 0.0)
+    for label in labels:
+        raw_value = payload.get(label, 0.0)
         try:
             score = float(raw_value)
         except (TypeError, ValueError) as exc:
-            raise ValueError(f"Probability for {response!r} must be numeric: {raw_value!r}") from exc
+            raise ValueError(f"Probability for {label!r} must be numeric: {raw_value!r}") from exc
         if not math.isfinite(score) or score < 0.0:
-            raise ValueError(f"Probability for {response!r} must be finite and non-negative: {raw_value!r}")
+            raise ValueError(f"Probability for {label!r} must be finite and non-negative: {raw_value!r}")
         scores.append(score)
 
     total = sum(scores)
@@ -312,9 +312,14 @@ def _normalize_probability_response(response_text: str, responses: list[str]) ->
         raise ValueError(f"Probability response must contain a positive total weight: {response_text!r}")
 
     return {
-        response: score / total
-        for response, score in zip(responses, scores)
+        label: score / total
+        for label, score in zip(labels, scores)
     }
+
+
+def _normalize_probability_response(response_text: str, responses: list[str]) -> dict[str, float]:
+    return _normalize_labeled_distribution_response(response_text, responses)
+
 
 def _uniform_probability_response(responses: list[str]) -> dict[str, float]:
     if not responses:
@@ -336,6 +341,7 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
     ]
     results: list[dict[str, float] | None] = [None] * len(probability_messages)
     pending_indices = list(range(len(probability_messages)))
+    raw_completions: dict[int, str] = {}
 
     for _attempt in range(3):
         if not pending_indices:
@@ -355,6 +361,7 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
 
         failed_indices: list[int] = []
         for index, completion in zip(pending_indices, completions):
+            raw_completions[index] = completion
             try:
                 results[index] = _normalize_probability_response(completion, responses)
             except ValueError:
@@ -369,6 +376,30 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
             results[index] = _uniform_probability_response(responses)
 
     return [result for result in results if result is not None]
+
+
+def _distribution_from_messages(messages: list[dict[str, str]], labels: list[str], temperature: float,
+                                complete_message: Callable[..., list[str]]) -> dict[str, float]:
+    if not labels:
+        return {}
+
+    last_completion: str | None = None
+    last_error: ValueError | None = None
+
+    for _attempt in range(3):
+        completions = complete_message(messages=messages, temperature=temperature, num_responses=1)
+        if len(completions) != 1:
+            raise ValueError(f"Expected 1 distribution completion, received {len(completions)}")
+
+        last_completion = completions[0]
+        try:
+            return _normalize_labeled_distribution_response(last_completion, labels)
+        except ValueError as exc:
+            last_error = exc
+
+    raise ValueError(
+        f"Failed to parse belief distribution JSON after 3 attempts: {last_completion!r}"
+    ) from last_error
 
 # prompts ask to generate collection of entities, one on each line --> convert the returned string to an array
 def convert_string_to_array(response):
@@ -434,7 +465,7 @@ def make_belief_state(beliefs: list[str], probabilities: list[float] | None = No
     )
 
 
-def coerce_belief_state(beliefs: BeliefState | list[str]) -> BeliefState:
+def ensure_belief_state(beliefs: BeliefState | list[str]) -> BeliefState:
     if isinstance(beliefs, BeliefState):
         return beliefs
     return make_uniform_belief_state(beliefs)
@@ -447,6 +478,18 @@ def make_uniform_belief_state(beliefs: list[str]) -> BeliefState:
 
     uniform_probability = 1.0 / len(deduped_beliefs)
     return BeliefState(deduped_beliefs, [uniform_probability] * len(deduped_beliefs))
+
+
+def sort_belief_state_descending(belief_state: BeliefState) -> BeliefState:
+    ordered_entries = sorted(
+        zip(belief_state.beliefs, belief_state.probabilities),
+        key=lambda entry: entry[1],
+        reverse=True,
+    )
+    return BeliefState(
+        [belief for belief, _probability in ordered_entries],
+        [probability for _belief, probability in ordered_entries],
+    )
 
 
 def format_belief_state(belief_state: BeliefState, top_n: int | None = None) -> str:

@@ -1,16 +1,18 @@
 from helpers import (
     BeliefState,
     Config,
-    coerce_belief_state,
+    ensure_belief_state,
     convert_string_to_array,
+    _distribution_from_messages,
     format_belief_state,
     make_belief_state,
     make_uniform_belief_state,
     reverse_history,
+    sort_belief_state_descending,
 )
 from model import Model
 from prompts import generate_animals_system_prompt, generate_more_animals_system_prompt, \
-    answer_question_yesno_system_prompt, belief_probability_system_prompt, belief_probability_user_prompt, \
+    answer_question_yesno_system_prompt, belief_distribution_system_prompt, belief_distribution_user_prompt, \
     generate_animals_user_prompt
 
 
@@ -30,23 +32,23 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
     if len(belief_state.beliefs) == 0:
         return belief_state
 
-    conversations = [
-        [belief_probability_system_prompt()] + reverse_history(history_questioner) + [belief_probability_user_prompt(belief)]
-        for belief in belief_state.beliefs
-    ]
-    probabilities = questioner.chat_probabilities_messages_batched(
-        conversations,
-        ["Yes", "No"],
-        temperature=config.belief_probability_temperature,
-        block_size=config.batched_block_size,
+    messages = (
+        [belief_distribution_system_prompt()]
+        + reverse_history(history_questioner)
+        + [belief_distribution_user_prompt(belief_state.beliefs)]
     )
-    raw_scores = [probability["Yes"] for probability in probabilities]
-
-    try:
-        scored_state = make_belief_state(belief_state.beliefs, raw_scores, fallback_to_uniform=False)
-    except ValueError:
-        print("[beliefs] Belief scoring returned degenerate weights, falling back to uniform")
-        scored_state = make_belief_state(belief_state.beliefs, fallback_to_uniform=True)
+    distribution = _distribution_from_messages(
+        messages,
+        belief_state.beliefs,
+        temperature=config.belief_probability_temperature,
+        complete_message=questioner.chat_complete,
+    )
+    scored_state = make_belief_state(
+        belief_state.beliefs,
+        [distribution[belief] for belief in belief_state.beliefs],
+        fallback_to_uniform=False,
+    )
+    scored_state = sort_belief_state_descending(scored_state)
 
     print(f"[beliefs] Scored belief state: {format_belief_state(scored_state, top_n=5)}")
     return scored_state
@@ -109,7 +111,7 @@ def check_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
 
 def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | list[str], questioner: Model,
                            deterministic: bool, config: Config) -> BeliefState:
-    belief_state = coerce_belief_state(beliefs)
+    belief_state = ensure_belief_state(beliefs)
     prior_beliefs = belief_state.beliefs
     generation_temperature, max_num_samples, min_num_samples = config.generation_temperature_diverse, config.max_num_samples, config.min_num_samples
     answer_temperature, block_size, threshold_rejection_probability = config.answer_temperature, config.batched_block_size, config.threshold_rejection_probability

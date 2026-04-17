@@ -131,19 +131,26 @@ def probability_answer_scores_prompt(responses: list[str]) -> dict[str, str]:
     return convert_to_prompt_message(role="user", content=content)
 
 
-def belief_probability_system_prompt() -> dict[str, str]:
+def belief_distribution_system_prompt() -> dict[str, str]:
     content = (
         "You are playing a game of 20 Questions to guess an animal. "
-        "You will see the previous questions and answers, then be asked whether a specific candidate animal is the "
-        "hidden animal. Use the full conversation history to judge how plausible that candidate is."
+        "You will see the previous questions and answers, then be asked to infer a probability distribution over the "
+        "remaining candidate animals. Use the full conversation history to judge how plausible each candidate is."
     )
     return convert_to_prompt_message(role="system", content=content)
 
 
-def belief_probability_user_prompt(candidate_belief: str) -> dict[str, str]:
+def belief_distribution_user_prompt(candidate_beliefs: list[str]) -> dict[str, str]:
+    response_keys = ", ".join(json.dumps(belief) for belief in candidate_beliefs)
+    example_payload = json.dumps({belief: 1 for belief in candidate_beliefs})
     content = (
-        f"Given all of the questions and answers so far, is the hidden animal \"{candidate_belief}\"? "
-        "Answer Yes if that candidate is plausible as the hidden animal, otherwise answer No."
+        "Given all of the questions and answers so far, estimate a probability distribution over these candidate "
+        f"animals: {candidate_beliefs}.\n"
+        f"Return exactly one JSON object using exactly these keys: {response_keys}.\n"
+        "Each value must be numeric and non-negative.\n"
+        "Do not include any explanation, reasoning, markdown, or code fences.\n"
+        "Do not write any text before or after the JSON object.\n"
+        f"Example format: {example_payload}"
     )
     return convert_to_prompt_message(role="user", content=content)
 

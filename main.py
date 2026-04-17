@@ -1,3 +1,4 @@
+from helpers import write_to_log
 def main():
     import argparse
     from pathlib import Path
@@ -10,6 +11,9 @@ def main():
     from model import build_model_adapter
     from questions_game import twenty_questions_animals
 
+    import time
+
+    start_time = time.perf_counter()
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", "-c", required=True, help="Path to YAML config file")
     args = parser.parse_args()
@@ -70,7 +74,11 @@ def main():
             wandb.log({
                 "accuracy": accuracy,
             })
+    end_time = time.perf_counter()
+    print(f"[main] Total time: {end_time - start_time:.2f} seconds")
+    write_to_log(f"Total time: {end_time - start_time:.2f} seconds\n", confi)
 
 
 if __name__ == "__main__":
     main()
+

@@ -1,6 +1,6 @@
 import numpy as np
 
-from helpers import BeliefState, Config, coerce_belief_state, is_uniform_belief_state, reverse_history, \
+from helpers import BeliefState, Config, ensure_belief_state, is_uniform_belief_state, reverse_history, \
     _binary_entropy, convert_string_to_array
 from model import Model
 from prompts import candidate_generation_system_message, conditional_question_generation_prompt, \
@@ -15,7 +15,7 @@ from helpers import write_to_log
 
 def generate_candidate_questions(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]],
                                  questioner: Model, generation_temperature: float, num_questions: int) -> list[str]:
-    belief_state = coerce_belief_state(beliefs)
+    belief_state = ensure_belief_state(beliefs)
     # if there are less than 3 beliefs left, best question is always to check one of them
     if len(belief_state.beliefs) in [1, 2]:
         top_belief = belief_state.beliefs[int(np.argmax(belief_state.probabilities))]
@@ -66,7 +66,7 @@ def generate_candidate_questions(beliefs: BeliefState | list[str], history_quest
 
 def _draw_belief_samples(beliefs: BeliefState | list[str], deterministic: bool,
                          num_mc_samples: int) -> tuple[list[str] | np.ndarray, list[float] | None]:
-    belief_state = coerce_belief_state(beliefs)
+    belief_state = ensure_belief_state(beliefs)
     if len(belief_state.beliefs) == 0:
         return [], None
 
@@ -144,7 +144,7 @@ def _score_questions_from_samples(samples: list[str] | np.ndarray, sample_probab
 
 def _future_beliefs_for_answer(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]], question: str,
                                answer: str, questioner: Model, deterministic: bool, config: Config) -> BeliefState:
-    belief_state = coerce_belief_state(beliefs)
+    belief_state = ensure_belief_state(beliefs)
     hypothetical_history = history_questioner + [
         {"role": "assistant", "content": question},
         {"role": "user", "content": answer},
@@ -168,7 +168,7 @@ def evaluate_questions_forward_search(beliefs: BeliefState | list[str], history_
                                       cand_questions: list[str],
                                       eig: bool, deterministic: bool, questioner: Model, config: Config,
                                       depth: int = 2) -> list[float]:
-    belief_state = coerce_belief_state(beliefs)
+    belief_state = ensure_belief_state(beliefs)
     if depth == 1:
         print(f"[question-score] Depth-1 evaluation for {len(cand_questions)} question(s)")
         return evaluate_questions_batched(
@@ -217,7 +217,7 @@ def evaluate_questions_forward_search(beliefs: BeliefState | list[str], history_
                 deterministic,
                 config,
             )
-            future_beliefs = coerce_belief_state(future_beliefs)
+            future_beliefs = ensure_belief_state(future_beliefs)
             if len(future_beliefs.beliefs) == 0:
                 continue
 
