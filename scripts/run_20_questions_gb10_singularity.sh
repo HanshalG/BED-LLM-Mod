@@ -60,14 +60,7 @@ fi
 
 python3 -m pip install --target "$BED_LLM_PYDEPS" --upgrade pyyaml wandb openai-harmony
 
-CONFIG_PATH="config.yaml"
-if [ -n "${1:-}" ] && [ -f "configs/config$1.yaml" ]; then
-    CONFIG_PATH="configs/config$1.yaml"
-elif [ -n "${1:-}" ] && [ -f "$1" ]; then
-    CONFIG_PATH="$1"
-fi
-
-python3 main.py -c "$CONFIG_PATH"
+python3 main.py -c configs/config$1.yaml
 
 EOF
 

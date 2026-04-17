@@ -60,13 +60,6 @@ pip install --no-deps transformers==5.5.0
 
 source .env
 
-CONFIG_PATH="config.yaml"
-if [ -n "${1:-}" ] && [ -f "configs/config$1.yaml" ]; then
-    CONFIG_PATH="configs/config$1.yaml"
-elif [ -n "${1:-}" ] && [ -f "$1" ]; then
-    CONFIG_PATH="$1"
-fi
-
 
 if [ -n "$HUGGINGFACE_TOKEN" ]; then
     huggingface-cli login --token "$HUGGINGFACE_TOKEN"
@@ -82,6 +75,6 @@ fi
 echo "START TIME: $(date)"
 
 # Run the script
-srun python main.py -c "$CONFIG_PATH"
+srun python main.py -c configs/config$1.yaml
 
 echo "END TIME: $(date)"
