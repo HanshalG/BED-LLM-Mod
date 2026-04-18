@@ -428,7 +428,8 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
 
 
 def _distribution_from_messages(messages: list[dict[str, str]], labels: list[str], temperature: float,
-                                complete_message: Callable[..., list[str]]) -> dict[str, float]:
+                                complete_message: Callable[..., list[str]],
+                                fallback_to_uniform: bool = False) -> dict[str, float]:
     if not labels:
         return {}
 
@@ -445,6 +446,13 @@ def _distribution_from_messages(messages: list[dict[str, str]], labels: list[str
             return _normalize_labeled_distribution_response(last_completion, labels)
         except ValueError as exc:
             last_error = exc
+
+    if fallback_to_uniform:
+        print(
+            "Failed to parse belief distribution JSON after 3 attempts, "
+            f"assigning uniform distribution {last_completion!r}"
+        )
+        return _uniform_probability_response(labels)
 
     raise ValueError(
         f"Failed to parse belief distribution JSON after 3 attempts: {last_completion!r}"
