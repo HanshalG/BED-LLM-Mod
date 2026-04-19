@@ -64,7 +64,8 @@ class Config:
     threshold_rejection_probability: float = 0.2
     belief_state_mode: BeliefStateMode = "uniform"
     belief_probability_temperature: float = 0.0
-    probability_parse_fallback_to_uniform: bool = False
+    belief_distribution_num_calls: int = 1
+    probability_parse_fallback_to_uniform: bool = True
     run_id: str = ""
     log_path: Path | None = None
 
@@ -146,7 +147,12 @@ def load_config(path: str) -> Config:
     belief_state_mode = raw.get("belief_state_mode", "uniform")
     if belief_state_mode not in {"uniform", "categorical"}:
         raise ValueError("belief_state_mode must be one of: uniform, categorical")
-    probability_parse_fallback_to_uniform = raw.get("probability_parse_fallback_to_uniform", False)
+    belief_distribution_num_calls = raw.get("belief_distribution_num_calls", 1)
+    if not isinstance(belief_distribution_num_calls, int) or isinstance(belief_distribution_num_calls, bool):
+        raise ValueError("belief_distribution_num_calls must be an integer")
+    if belief_distribution_num_calls < 1:
+        raise ValueError("belief_distribution_num_calls must be at least 1")
+    probability_parse_fallback_to_uniform = raw.get("probability_parse_fallback_to_uniform", True)
     if not isinstance(probability_parse_fallback_to_uniform, bool):
         raise ValueError("probability_parse_fallback_to_uniform must be a boolean")
     return Config(
@@ -165,6 +171,7 @@ def load_config(path: str) -> Config:
         threshold_rejection_probability = raw.get("threshold_rejection_probability", 0.2),
         belief_state_mode = belief_state_mode,
         belief_probability_temperature = raw.get("belief_probability_temperature", 0.0),
+        belief_distribution_num_calls = belief_distribution_num_calls,
         probability_parse_fallback_to_uniform = probability_parse_fallback_to_uniform,
     )
 
@@ -429,34 +436,58 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
 
 def _distribution_from_messages(messages: list[dict[str, str]], labels: list[str], temperature: float,
                                 complete_message: Callable[..., list[str]],
+                                num_calls: int = 1,
                                 fallback_to_uniform: bool = False) -> dict[str, float]:
+    distribution, _valid_count = _distribution_with_valid_count_from_messages(
+        messages,
+        labels,
+        temperature,
+        complete_message,
+        num_calls=num_calls,
+        fallback_to_uniform=fallback_to_uniform,
+    )
+    return distribution
+
+
+def _distribution_with_valid_count_from_messages(messages: list[dict[str, str]], labels: list[str], temperature: float,
+                                                 complete_message: Callable[..., list[str]],
+                                                 num_calls: int = 1,
+                                                 fallback_to_uniform: bool = False) -> tuple[dict[str, float], int]:
     if not labels:
-        return {}
+        return {}, 0
+    if num_calls < 1:
+        raise ValueError("num_calls must be at least 1")
 
-    last_completion: str | None = None
-    last_error: ValueError | None = None
+    completions = complete_message(messages=messages, temperature=temperature, num_responses=num_calls)
+    if len(completions) != num_calls:
+        raise ValueError(f"Expected {num_calls} distribution completions, received {len(completions)}")
 
-    for _attempt in range(3):
-        completions = complete_message(messages=messages, temperature=temperature, num_responses=1)
-        if len(completions) != 1:
-            raise ValueError(f"Expected 1 distribution completion, received {len(completions)}")
+    valid_distributions: list[dict[str, float]] = []
+    failed_completions: list[str] = []
 
-        last_completion = completions[0]
+    for completion in completions:
         try:
-            return _normalize_labeled_distribution_response(last_completion, labels)
-        except ValueError as exc:
-            last_error = exc
+            valid_distributions.append(_normalize_labeled_distribution_response(completion, labels))
+        except ValueError:
+            failed_completions.append(completion)
+
+    if valid_distributions:
+        averaged_distribution = {
+            label: sum(distribution[label] for distribution in valid_distributions) / len(valid_distributions)
+            for label in labels
+        }
+        return averaged_distribution, len(valid_distributions)
 
     if fallback_to_uniform:
         print(
-            "Failed to parse belief distribution JSON after 3 attempts, "
-            f"assigning uniform distribution {last_completion!r}"
+            f"Failed to parse belief distribution JSON for all {num_calls} completion(s), "
+            f"assigning uniform distribution from completions {failed_completions!r}"
         )
-        return _uniform_probability_response(labels)
+        return _uniform_probability_response(labels), 0
 
     raise ValueError(
-        f"Failed to parse belief distribution JSON after 3 attempts: {last_completion!r}"
-    ) from last_error
+        f"Failed to parse belief distribution JSON for all {num_calls} completion(s): {failed_completions!r}"
+    )
 
 # prompts ask to generate collection of entities, one on each line --> convert the returned string to an array
 def convert_string_to_array(response):

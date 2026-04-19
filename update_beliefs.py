@@ -3,7 +3,7 @@ from helpers import (
     Config,
     ensure_belief_state,
     convert_string_to_array,
-    _distribution_from_messages,
+    _distribution_with_valid_count_from_messages,
     format_categorical_belief_summary,
     format_belief_state,
     make_belief_state,
@@ -39,11 +39,13 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
         + reverse_history(history_questioner)
         + [belief_distribution_user_prompt(belief_state.beliefs)]
     )
-    distribution = _distribution_from_messages(
+    distribution, valid_distribution_count = _distribution_with_valid_count_from_messages(
         messages,
         belief_state.beliefs,
         temperature=config.belief_probability_temperature,
         complete_message=questioner.chat_complete,
+        num_calls=config.belief_distribution_num_calls,
+        fallback_to_uniform=True,
     )
     scored_state = make_belief_state(
         belief_state.beliefs,
@@ -55,7 +57,9 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
     print(f"[beliefs] Scored belief state: {format_belief_state(scored_state)}")
     if config.belief_state_mode == "categorical":
         print_and_log(
-            f"[categorical] Scored belief distribution: {format_categorical_belief_summary(scored_state)}",
+            "[categorical] Scored belief distribution "
+            f"({valid_distribution_count}/{config.belief_distribution_num_calls} valid): "
+            f"{format_categorical_belief_summary(scored_state)}",
             config,
         )
     return scored_state

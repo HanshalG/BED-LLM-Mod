@@ -41,3 +41,5 @@ min_num_samples: 15
 threshold_rejection_probability: 0.2
 belief_state_mode: "uniform"
 belief_probability_temperature: 0.0
+belief_distribution_num_calls: 1
+probability_parse_fallback_to_uniform: true
