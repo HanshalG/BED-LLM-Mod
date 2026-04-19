@@ -25,6 +25,11 @@ class Model(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def chat_complete_messages_batched(self, batch_messages: list[list[dict[str, str]]], temperature: float,
+                                       block_size: int, max_new_tokens: int = 8192) -> list[str]:
+        raise NotImplementedError
+
+    @abstractmethod
     def chat_probabilities_messages_batched(self, messages: list[list[dict[str, str]]], responses: list[str],
                                             temperature: float, block_size: int) -> list[dict[str, float]]:
         raise NotImplementedError
@@ -174,6 +179,25 @@ class BaseVLLMAdapter(Model):
             "event": "Chat completion",
             "number_input_tokens": len(outputs[0].prompt_token_ids),
             "elapsed_time": elapsed_time,
+        })
+
+        return completions
+
+    def chat_complete_messages_batched(self, batch_messages: list[list[dict[str, str]]], temperature: float,
+                                       block_size: int, max_new_tokens: int = 8192) -> list[str]:
+        start_time = time.perf_counter()
+        completions = self._chat_complete_messages_batched(
+            batch_messages=batch_messages,
+            temperature=temperature,
+            block_size=block_size,
+            max_new_tokens=max_new_tokens,
+        )
+
+        elapsed_time = time.perf_counter() - start_time
+        wandb.log({
+            "event": "Batched chat completion",
+            "number_conversations": len(batch_messages),
+            "elapsed_time_batched": elapsed_time,
         })
 
         return completions

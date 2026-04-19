@@ -65,6 +65,7 @@ class Config:
     belief_state_mode: BeliefStateMode = "uniform"
     belief_probability_temperature: float = 0.0
     belief_distribution_num_calls: int = 1
+    belief_distribution_permute_history: bool = False
     probability_parse_fallback_to_uniform: bool = True
     run_id: str = ""
     log_path: Path | None = None
@@ -152,6 +153,9 @@ def load_config(path: str) -> Config:
         raise ValueError("belief_distribution_num_calls must be an integer")
     if belief_distribution_num_calls < 1:
         raise ValueError("belief_distribution_num_calls must be at least 1")
+    belief_distribution_permute_history = raw.get("belief_distribution_permute_history", False)
+    if not isinstance(belief_distribution_permute_history, bool):
+        raise ValueError("belief_distribution_permute_history must be a boolean")
     probability_parse_fallback_to_uniform = raw.get("probability_parse_fallback_to_uniform", True)
     if not isinstance(probability_parse_fallback_to_uniform, bool):
         raise ValueError("probability_parse_fallback_to_uniform must be a boolean")
@@ -172,6 +176,7 @@ def load_config(path: str) -> Config:
         belief_state_mode = belief_state_mode,
         belief_probability_temperature = raw.get("belief_probability_temperature", 0.0),
         belief_distribution_num_calls = belief_distribution_num_calls,
+        belief_distribution_permute_history = belief_distribution_permute_history,
         probability_parse_fallback_to_uniform = probability_parse_fallback_to_uniform,
     )
 
@@ -462,6 +467,44 @@ def _distribution_with_valid_count_from_messages(messages: list[dict[str, str]],
     if len(completions) != num_calls:
         raise ValueError(f"Expected {num_calls} distribution completions, received {len(completions)}")
 
+    return _average_labeled_distributions_from_completions(
+        completions,
+        labels,
+        fallback_to_uniform=fallback_to_uniform,
+    )
+
+
+def _distribution_with_valid_count_from_batched_messages(batch_messages: list[list[dict[str, str]]], labels: list[str],
+                                                         temperature: float,
+                                                         complete_messages_batched: Callable[..., list[str]],
+                                                         block_size: int,
+                                                         fallback_to_uniform: bool = False) -> tuple[dict[str, float], int]:
+    if not labels:
+        return {}, 0
+    if not batch_messages:
+        raise ValueError("batch_messages must contain at least one prompt")
+
+    completions = complete_messages_batched(
+        batch_messages=batch_messages,
+        temperature=temperature,
+        block_size=block_size,
+        max_new_tokens=64,
+    )
+    if len(completions) != len(batch_messages):
+        raise ValueError(
+            f"Expected {len(batch_messages)} batched distribution completions, received {len(completions)}"
+        )
+
+    return _average_labeled_distributions_from_completions(
+        completions,
+        labels,
+        fallback_to_uniform=fallback_to_uniform,
+    )
+
+
+def _average_labeled_distributions_from_completions(completions: list[str], labels: list[str],
+                                                    fallback_to_uniform: bool = False) -> tuple[dict[str, float], int]:
+    completion_count = len(completions)
     valid_distributions: list[dict[str, float]] = []
     failed_completions: list[str] = []
 
@@ -480,13 +523,13 @@ def _distribution_with_valid_count_from_messages(messages: list[dict[str, str]],
 
     if fallback_to_uniform:
         print(
-            f"Failed to parse belief distribution JSON for all {num_calls} completion(s), "
+            f"Failed to parse belief distribution JSON for all {completion_count} completion(s), "
             f"assigning uniform distribution from completions {failed_completions!r}"
         )
         return _uniform_probability_response(labels), 0
 
     raise ValueError(
-        f"Failed to parse belief distribution JSON for all {num_calls} completion(s): {failed_completions!r}"
+        f"Failed to parse belief distribution JSON for all {completion_count} completion(s): {failed_completions!r}"
     )
 
 # prompts ask to generate collection of entities, one on each line --> convert the returned string to an array
@@ -616,8 +659,32 @@ def is_uniform_belief_state(belief_state: BeliefState, tolerance: float = 1e-9) 
 
 # reverses a messages array so that the final question comes first
 def reverse_history(history_questioner: list[dict[str,str]]) -> list[dict[str,str]]:
-    blocks = [history_questioner[i:i+2] for i in range(0, len(history_questioner), 2)]
+    blocks = split_history_into_qa_blocks(history_questioner)
     return [x for b in blocks[::-1] for x in b]
+
+
+def split_history_into_qa_blocks(history_questioner: list[dict[str, str]]) -> list[list[dict[str, str]]]:
+    return [history_questioner[i:i + 2] for i in range(0, len(history_questioner), 2)]
+
+
+def sample_permuted_history_messages(history_questioner: list[dict[str, str]], num_samples: int) -> list[list[dict[str, str]]]:
+    if num_samples < 1:
+        raise ValueError("num_samples must be at least 1")
+
+    blocks = split_history_into_qa_blocks(history_questioner)
+    if len(blocks) <= 1:
+        return [[dict(message) for message in history_questioner] for _ in range(num_samples)]
+
+    permuted_histories: list[list[dict[str, str]]] = []
+    for _ in range(num_samples):
+        permutation = np.random.permutation(len(blocks))
+        permuted_histories.append([
+            dict(message)
+            for block_index in permutation
+            for message in blocks[block_index]
+        ])
+
+    return permuted_histories
 
 
 def get_question_answered(question: str, goal_object: str, answerer: Model, answer_temperature: float) -> str:

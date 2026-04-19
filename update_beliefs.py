@@ -3,6 +3,7 @@ from helpers import (
     Config,
     ensure_belief_state,
     convert_string_to_array,
+    _distribution_with_valid_count_from_batched_messages,
     _distribution_with_valid_count_from_messages,
     format_categorical_belief_summary,
     format_belief_state,
@@ -10,6 +11,7 @@ from helpers import (
     make_uniform_belief_state,
     print_and_log,
     reverse_history,
+    sample_permuted_history_messages,
     sort_belief_state_descending,
 )
 from model import Model
@@ -39,14 +41,31 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
         + reverse_history(history_questioner)
         + [belief_distribution_user_prompt(belief_state.beliefs)]
     )
-    distribution, valid_distribution_count = _distribution_with_valid_count_from_messages(
-        messages,
-        belief_state.beliefs,
-        temperature=config.belief_probability_temperature,
-        complete_message=questioner.chat_complete,
-        num_calls=config.belief_distribution_num_calls,
-        fallback_to_uniform=True,
-    )
+    if config.belief_distribution_permute_history:
+        batch_messages = [
+            [belief_distribution_system_prompt()] + permuted_history + [belief_distribution_user_prompt(belief_state.beliefs)]
+            for permuted_history in sample_permuted_history_messages(
+                history_questioner,
+                config.belief_distribution_num_calls,
+            )
+        ]
+        distribution, valid_distribution_count = _distribution_with_valid_count_from_batched_messages(
+            batch_messages,
+            belief_state.beliefs,
+            temperature=config.belief_probability_temperature,
+            complete_messages_batched=questioner.chat_complete_messages_batched,
+            block_size=config.batched_block_size,
+            fallback_to_uniform=True,
+        )
+    else:
+        distribution, valid_distribution_count = _distribution_with_valid_count_from_messages(
+            messages,
+            belief_state.beliefs,
+            temperature=config.belief_probability_temperature,
+            complete_message=questioner.chat_complete,
+            num_calls=config.belief_distribution_num_calls,
+            fallback_to_uniform=True,
+        )
     scored_state = make_belief_state(
         belief_state.beliefs,
         [distribution[belief] for belief in belief_state.beliefs],
@@ -56,9 +75,15 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
 
     print(f"[beliefs] Scored belief state: {format_belief_state(scored_state)}")
     if config.belief_state_mode == "categorical":
+        if config.belief_distribution_permute_history:
+            detail = (
+                f"(permuted-history, {valid_distribution_count}/{config.belief_distribution_num_calls} valid)"
+            )
+        else:
+            detail = f"({valid_distribution_count}/{config.belief_distribution_num_calls} valid)"
         print_and_log(
             "[categorical] Scored belief distribution "
-            f"({valid_distribution_count}/{config.belief_distribution_num_calls} valid): "
+            f"{detail}: "
             f"{format_categorical_belief_summary(scored_state)}",
             config,
         )
