@@ -58,6 +58,7 @@ class Config:
     generation_temperature_diverse: float = 1.3
     generation_temperature_simple: float = 1.0
     answer_temperature: float = 0.7
+    search_depth: int = 1
     target_num_questions: int = 15
     num_mc_samples: int = 15
     max_num_samples: int = 50
@@ -160,6 +161,11 @@ def load_config(path: str) -> Config:
     probability_parse_fallback_to_uniform = raw.get("probability_parse_fallback_to_uniform", True)
     if not isinstance(probability_parse_fallback_to_uniform, bool):
         raise ValueError("probability_parse_fallback_to_uniform must be a boolean")
+    search_depth = raw.get("search_depth", 1)
+    if not isinstance(search_depth, int) or isinstance(search_depth, bool):
+        raise ValueError("search_depth must be an integer")
+    if search_depth not in {1, 2}:
+        raise ValueError("search_depth must be one of: 1, 2")
     return Config(
         version = raw.get("version", 0),
         model_pairs = model_pairs,
@@ -169,6 +175,7 @@ def load_config(path: str) -> Config:
         generation_temperature_diverse = raw.get("generation_temperature_diverse", 1.3),
         generation_temperature_simple = raw.get("generation_temperature_simple", 1.0),
         answer_temperature = raw.get("answer_temperature", 0.7),
+        search_depth = search_depth,
         target_num_questions = raw.get("target_num_questions", 15),
         num_mc_samples = raw.get("num_mc_samples", 15),
         max_num_samples = raw.get("max_num_samples", 50),
@@ -214,10 +221,11 @@ def build_output_stem(
     answerer: ModelSpec,
     version: int,
     belief_state_mode: BeliefStateMode = "uniform",
+    search_depth: int = 1,
 ) -> str:
     return (
         f"{run_id}_{method_name}_Q:{_model_spec_stem(questioner)},"
-        f"A:{_model_spec_stem(answerer)}_{belief_state_mode}_{version}_animals"
+        f"A:{_model_spec_stem(answerer)}_{belief_state_mode}_depth-{search_depth}_{version}_animals"
     )
 
 

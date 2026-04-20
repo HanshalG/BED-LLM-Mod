@@ -8,7 +8,7 @@ from prompts import candidate_generation_system_message, conditional_question_ge
     weighted_unconditional_question_generation_prompt, \
     candidate_generation_system_message_naive, \
     question_generation_prompt_naive, answer_question_yesno_system_prompt
-from update_beliefs import build_belief_state, check_beliefs_batched, update_beliefs_batched
+from update_beliefs import update_beliefs_batched
 
 from helpers import write_to_log
 
@@ -166,19 +166,9 @@ def _future_beliefs_for_answer(beliefs: BeliefState | list[str], history_questio
         {"role": "assistant", "content": question},
         {"role": "user", "content": answer},
     ]
-
-    if deterministic:
-        return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, config)
-
-    filtered_beliefs = check_beliefs_batched(
-        belief_state.beliefs,
-        hypothetical_history[-2:],
-        questioner,
-        config.answer_temperature,
-        config.batched_block_size,
-        config.threshold_rejection_probability,
-    )
-    return build_belief_state(filtered_beliefs, hypothetical_history, questioner, config)
+    # Depth-2 search must mirror the live belief-update pipeline so hypothetical
+    # branch scoring matches the beliefs we would actually carry into the next turn.
+    return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, config)
 
 
 def evaluate_questions_forward_search(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]],

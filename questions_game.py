@@ -68,7 +68,7 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
                 deterministic,
                 questioner,
                 config,
-                depth=1,
+                depth=config.search_depth,
             )
             best_idx = int(np.argmax(question_EIGs))
             best_question = cand_questions[best_idx]

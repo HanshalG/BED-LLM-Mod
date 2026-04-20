@@ -36,6 +36,7 @@ def main():
             ],
             "methods": config.method_names,
             "guessing": config.animals[config.version],
+            "search_depth": config.search_depth,
         }
     )
 
@@ -65,6 +66,7 @@ def main():
                 pair.answerer,
                 config.version,
                 belief_state_mode=config.belief_state_mode,
+                search_depth=config.search_depth,
             )
             config.log_path = logs_dir / f"{output_stem}.log"
             results_path = results_dir / f"{output_stem}.npy"
