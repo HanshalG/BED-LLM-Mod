@@ -5,3 +5,6 @@ wandb/
 slurm_logs/
 configs/
 .DS_Store
+.env
+tea_debug.log
+condaenv.ph6m_vev.requirements.txt

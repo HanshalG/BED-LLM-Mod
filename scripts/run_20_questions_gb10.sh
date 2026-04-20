@@ -5,83 +5,64 @@
 #SBATCH --output=slurm_logs/slurm-%j.out
 #SBATCH --error=slurm_logs/slurm-%j.err
 
-/scratch-ssd/oatml/run_locked.sh \
-  /scratch-ssd/oatml/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
-/scratch-ssd/oatml/run_locked.sh \
-  /scratch-ssd/oatml/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+set -euo pipefail
 
-# Tell conda to use fast local storage
-export CONDA_ENVS_PATH=/scratch-ssd/$USER/conda_envs
-export CONDA_PKGS_DIRS=/scratch-ssd/$USER/conda_pkgs
-export TRANSFORMERS_CACHE=/scratch-ssd/oatml/huggingface/transformers
-export HF_HUB_CACHE=/scratch-ssd/oatml/huggingface/hub
-export HF_DATASETS_CACHE=/scratch-ssd/oatml/huggingface/datasets
-export HF_HOME=$HOME/.cache/huggingface
+CONTAINER="docker://ghcr.io/spark-arena/dgx-vllm-eugr-nightly-tf5:20260418"
 
-# Redirect all user caches away from ~/.cache - I get en error otherwise
+export SINGULARITY_CACHEDIR=/scratch-ssd/$USER/cache
+export SINGULARITY_TMPDIR=/scratch-ssd/$USER/tmp
+export APPTAINER_TMPDIR=/scratch-ssd/$USER/tmp
+export TMPDIR=/scratch-ssd/$USER/tmp
+export VLLM_ENABLE_CUDA_COMPATIBILITY=1
+
+export HF_HOME=/scratch-ssd/$USER/huggingface
+export TRANSFORMERS_CACHE=/scratch-ssd/$USER/huggingface/transformers
+export HF_HUB_CACHE=/scratch-ssd/$USER/huggingface/hub
+export HF_DATASETS_CACHE=/scratch-ssd/$USER/huggingface/datasets
 export XDG_CACHE_HOME=/scratch-ssd/$USER/.cache
-mkdir -p "$XDG_CACHE_HOME"
+export BED_LLM_PYDEPS=/scratch-ssd/$USER/bed-llm-pydeps
+export PYTHONNOUSERSITE=1
+export PYTHONPATH="$BED_LLM_PYDEPS"
 
-# Ensure TMPDIR is writable on compute node
-export TMPDIR=/scratch/$USER/tmp
-mkdir -p "$TMPDIR"
-
-# Ensure conda directories exist
-mkdir -p "$CONDA_ENVS_PATH" "$CONDA_PKGS_DIRS"
-
-rm -rf ~/.cache/pip
-export PIP_NO_CACHE_DIR=1
-
-# exports to make vLLM work
 export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
 export NCCL_DEBUG=WARN
 export NCCL_ASYNC_ERROR_HANDLING=1
 export NCCL_BLOCKING_WAIT=1
 export NCCL_P2P_DISABLE=1
-#export CUDA_LAUNCH_BLOCKING=1
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
+export VLLM_USE_V2_MODEL_RUNNER=1
 
-# Nuke the existing environment
-/scratch-ssd/oatml/run_locked.sh \
-  /scratch-ssd/oatml/miniconda3/bin/conda env remove -n 20_questions_env_gb10 -y
-
-# Create or update the environment from environment.yml
-/scratch-ssd/oatml/run_locked.sh \
-  /scratch-ssd/oatml/miniconda3/bin/conda env update -f environment_gb10.yml
-
-# Activate the environment
-source /scratch-ssd/oatml/miniconda3/bin/activate 20_questions_env_gb10
-
-# 2. Set the Blackwell architecture (SM 121)
-export TORCH_CUDA_ARCH_LIST="12.1"
-
-# 3. Limit parallel jobs to avoid OOM during compilation (Blackwell nodes have lots of cores but RAM can be a bottleneck during build)
-export MAX_JOBS=8 
-
-# 4. Clone and install
-VLLM_DIR="/scratch-ssd/$USER/vllm_clone"
-rm -rf "$VLLM_DIR"
-git clone https://github.com/vllm-project/vllm.git "$VLLM_DIR"
-pushd "$VLLM_DIR"
-pip install -e .
-popd
-
-source .env
-
-if [ -n "$HUGGINGFACE_TOKEN" ]; then
-    huggingface-cli login --token "$HUGGINGFACE_TOKEN"
-else
-    echo "Warning: HUGGINGFACE_TOKEN is not set. Skipping Hugging Face login."
-fi
-if [ -n "$WANDB_API_KEY" ]; then
-    wandb login --relogin "$WANDB_API_KEY"
-else
-    echo "Warning: WANDB_API_KEY is not set. Skipping wandb login."
-fi
+mkdir -p \
+    "$SINGULARITY_CACHEDIR" \
+    "$SINGULARITY_TMPDIR" \
+    "$HF_HOME" \
+    "$TRANSFORMERS_CACHE" \
+    "$HF_HUB_CACHE" \
+    "$HF_DATASETS_CACHE" \
+    "$XDG_CACHE_HOME" \
+    "$BED_LLM_PYDEPS"
 
 echo "START TIME: $(date)"
 
-# Run the script
-srun python main.py -c configs/config$1.yaml
+singularity exec --nv \
+    --bind "$PWD:$PWD,/scratch-ssd/$USER:/scratch-ssd/$USER" \
+    --pwd "$PWD" \
+    "$CONTAINER" bash -s "$1" << 'EOF'
+
+set -euo pipefail
+
+if [ -f .env ]; then
+    source .env
+fi
+
+if [ -n "${HUGGINGFACE_TOKEN:-}" ]; then
+    export HF_TOKEN="$HUGGINGFACE_TOKEN"
+fi
+
+python3 -m pip install --target "$BED_LLM_PYDEPS" --upgrade pyyaml wandb openai-harmony
+
+python3 main.py -c configs/config$1.yaml
+
+EOF
 
 echo "END TIME: $(date)"
