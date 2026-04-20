@@ -1,6 +1,7 @@
 from helpers import (
     BeliefState,
     Config,
+    clean_generated_belief_labels,
     ensure_belief_state,
     convert_string_to_array,
     _distribution_with_valid_count_from_batched_messages,
@@ -17,17 +18,53 @@ from helpers import (
 from model import Model
 from prompts import generate_animals_system_prompt, generate_more_animals_system_prompt, \
     answer_question_yesno_system_prompt, belief_distribution_system_prompt, belief_distribution_user_prompt, \
-    generate_animals_user_prompt
+    generate_animals_user_prompt, validate_animal_name_system_prompt, validate_animal_name_user_prompt
 
 
 def generate_new_beliefs(system_prompt: dict[str, str], history_questioner: list[dict[str, str]],
-                         questioner: Model, generation_temperature: float) -> list[str]:
+                         questioner: Model, generation_temperature: float, config: Config) -> list[str]:
     print(f"[beliefs] Generating beliefs from {len(history_questioner) // 2} answered round(s)")
     messages = ([system_prompt] + reverse_history(history_questioner) + [generate_animals_user_prompt()])
     new_beliefs = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
-    beliefs_array = convert_string_to_array(new_beliefs)
-    print(f"[beliefs] Generated {len(beliefs_array)} raw belief(s)")
-    return beliefs_array
+    raw_beliefs = convert_string_to_array(new_beliefs)
+    cleaned_beliefs = clean_generated_belief_labels(raw_beliefs)
+    print(f"[beliefs] Generated {len(raw_beliefs)} raw belief(s)")
+    print(f"[beliefs] {len(cleaned_beliefs)} belief(s) remain after structural cleanup")
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Structural cleanup retained {len(cleaned_beliefs)}/{len(raw_beliefs)} generated belief(s)",
+            config,
+        )
+    return cleaned_beliefs
+
+
+def filter_valid_animal_names_batched(beliefs: list[str], checker: Model, block_size: int) -> list[str]:
+    if len(beliefs) == 0:
+        return beliefs
+
+    print(f"[beliefs] Validating {len(beliefs)} cleaned belief name(s)")
+    conversations = [
+        [validate_animal_name_system_prompt(), validate_animal_name_user_prompt(belief)]
+        for belief in beliefs
+    ]
+    completions = checker.chat_complete_messages_batched(
+        conversations,
+        temperature=0.0,
+        block_size=block_size,
+        max_new_tokens=8,
+    )
+    if len(completions) != len(beliefs):
+        raise ValueError(
+            f"Expected {len(beliefs)} validity completions, received {len(completions)}"
+        )
+
+    filtered_beliefs = [
+        belief
+        for belief, completion in zip(beliefs, completions)
+        if completion.strip() == "Yes"
+    ]
+    print(f"[beliefs] {len(filtered_beliefs)} belief(s) remain after animal-name validation")
+    return filtered_beliefs
 
 
 def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str, str]], questioner: Model,
@@ -171,7 +208,7 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
             )
         print_and_log(f"[categorical] Prior weighted beliefs: {prior_summary}", config)
     system_prompt = generate_animals_system_prompt(max_num_samples, min_num_samples)
-    beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
+    beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature, config)
     if config.belief_state_mode == "categorical":
         print_and_log(
             f"[categorical] Generated {len(beliefs_new)} new categorical candidate(s)",
@@ -185,6 +222,16 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
         return deterministic_state
 
     # filter new beliefs according to previous questions+answers
+    beliefs_new = filter_valid_animal_names_batched(
+        beliefs_new,
+        questioner,
+        block_size,
+    )
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Retained {len(beliefs_new)} generated belief(s) after animal-name validation",
+            config,
+        )
     beliefs_new = check_beliefs_batched(
         beliefs_new,
         history,
@@ -223,7 +270,17 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
             break
         print(f"[beliefs] Retry {retry_idx + 1}/2 to reach minimum of {min_num_samples} belief(s)")
         system_prompt = generate_more_animals_system_prompt(beliefs_updated, min_num_samples - len(beliefs_updated))
-        beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
+        beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature, config)
+        beliefs_new = filter_valid_animal_names_batched(
+            beliefs_new,
+            questioner,
+            block_size,
+        )
+        if config.belief_state_mode == "categorical":
+            print_and_log(
+                f"[categorical] Retained {len(beliefs_new)} retry-generated belief(s) after animal-name validation",
+                config,
+            )
         beliefs_new = check_beliefs_batched(
             beliefs_new,
             history,
@@ -248,7 +305,17 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
                 "[categorical] No valid weighted beliefs survived filtering; falling back to unfiltered generation",
                 config,
             )
-        beliefs_updated = generate_new_beliefs(system_prompt, history, questioner, generation_temperature)
+        beliefs_updated = generate_new_beliefs(system_prompt, history, questioner, generation_temperature, config)
+        beliefs_updated = filter_valid_animal_names_batched(
+            beliefs_updated,
+            questioner,
+            block_size,
+        )
+        if config.belief_state_mode == "categorical":
+            print_and_log(
+                f"[categorical] Retained {len(beliefs_updated)} fallback-generated belief(s) after animal-name validation",
+                config,
+            )
 
     updated_state = build_belief_state(beliefs_updated, history, questioner, config)
     print(f"[beliefs] Belief update complete with {len(updated_state.beliefs)} candidate(s)")

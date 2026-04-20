@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import re
 from collections.abc import Callable
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
@@ -478,6 +479,7 @@ def _distribution_with_valid_count_from_batched_messages(batch_messages: list[li
                                                          temperature: float,
                                                          complete_messages_batched: Callable[..., list[str]],
                                                          block_size: int,
+                                                         max_new_tokens: int = 8192,
                                                          fallback_to_uniform: bool = False) -> tuple[dict[str, float], int]:
     if not labels:
         return {}, 0
@@ -488,7 +490,7 @@ def _distribution_with_valid_count_from_batched_messages(batch_messages: list[li
         batch_messages=batch_messages,
         temperature=temperature,
         block_size=block_size,
-        max_new_tokens=64,
+        max_new_tokens=max_new_tokens,
     )
     if len(completions) != len(batch_messages):
         raise ValueError(
@@ -539,6 +541,61 @@ def convert_string_to_array(response):
         for line in response.splitlines()
         if line.strip()
     ]
+
+
+_BELIEF_MAX_LENGTH = 80
+_BELIEF_EXPLANATION_PATTERN = re.compile(
+    r"\b("
+    r"because|however|therefore|based on|provided clues|previous answers|"
+    r"contradiction|fit these geographic exclusions|logic of the previous answers|"
+    r"there are no naturally occurring"
+    r")\b",
+    flags=re.IGNORECASE,
+)
+_BELIEF_REASONING_PAREN_PATTERN = re.compile(
+    r"\((?:yes|no|incorrect|has|because|but|not)\b",
+    flags=re.IGNORECASE,
+)
+_BELIEF_QUESTION_LIKE_PATTERN = re.compile(
+    r"^(?:is|are|was|were|does|do|did|can|could|should|would|will)\b",
+    flags=re.IGNORECASE,
+)
+
+
+def normalize_belief_label(raw_belief: str) -> str | None:
+    cleaned_belief = re.sub(r"\s+", " ", raw_belief.strip())
+    if not cleaned_belief:
+        return None
+
+    cleaned_belief = re.sub(r"\s*\([^)]*\)", "", cleaned_belief)
+    cleaned_belief = re.sub(r"\s+", " ", cleaned_belief).strip()
+    cleaned_belief = cleaned_belief.strip(" -:;,.")
+    if not cleaned_belief:
+        return None
+
+    if len(cleaned_belief) > _BELIEF_MAX_LENGTH:
+        return None
+    if "->" in cleaned_belief or "?" in cleaned_belief:
+        return None
+    if _BELIEF_QUESTION_LIKE_PATTERN.match(cleaned_belief):
+        return None
+    if _BELIEF_EXPLANATION_PATTERN.search(cleaned_belief):
+        return None
+    if _BELIEF_REASONING_PAREN_PATTERN.search(cleaned_belief):
+        return None
+    if cleaned_belief.count(",") >= 3:
+        return None
+
+    return cleaned_belief
+
+
+def clean_generated_belief_labels(raw_beliefs: list[str]) -> list[str]:
+    cleaned_beliefs: list[str] = []
+    for raw_belief in raw_beliefs:
+        cleaned_belief = normalize_belief_label(raw_belief)
+        if cleaned_belief is not None:
+            cleaned_beliefs.append(cleaned_belief)
+    return cleaned_beliefs
 
 
 def _binary_entropy(p_yes: float, p_no: float) -> float:

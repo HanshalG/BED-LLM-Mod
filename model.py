@@ -49,7 +49,7 @@ class BaseVLLMAdapter(Model):
         self.llm = LLM(
             model=self.model_name,
             max_model_len=4096,
-            gpu_memory_utilization=0.80,
+            gpu_memory_utilization=0.88,
             tensor_parallel_size=tensor_parallel_size,
             dtype=dtype,
         )

@@ -116,6 +116,18 @@ def answer_question_yesno_system_prompt(entity: str) -> dict[str, str]:
     return convert_to_prompt_message(role="system", content=content)
 
 
+def validate_animal_name_system_prompt() -> dict[str, str]:
+    content = (
+        "You judge whether a text string is the name of one existing animal or a commonly used animal label. "
+        "Reply exactly \"Yes\" or \"No\". Do not add any explanation or extra text."
+    )
+    return convert_to_prompt_message(role="system", content=content)
+
+
+def validate_animal_name_user_prompt(candidate_belief: str) -> dict[str, str]:
+    return convert_to_prompt_message(role="user", content=f"Text: {candidate_belief}")
+
+
 def probability_answer_scores_prompt(responses: list[str]) -> dict[str, str]:
     example_value = round(1.0 / len(responses), 3) if responses else 0.0
     example_payload = json.dumps({response: example_value for response in responses})
