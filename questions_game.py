@@ -4,7 +4,7 @@ import wandb
 import numpy as np
 
 from helpers import Config, format_belief_state, format_categorical_belief_summary, generate_original_beliefs, \
-    get_question_answered, print_and_log, write_to_log
+    get_question_answered, is_guess_correct_via_answerer, print_and_log, write_to_log
 from generate_candidate_questions import generate_candidate_questions, generate_candidate_question_naive, \
     evaluate_questions_forward_search
 from model import Model
@@ -142,7 +142,12 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
             )
         else:
             guess = sample_beliefs(beliefs.beliefs, history_questioner, questioner, config.generation_temperature_simple)
-        if guess.lower() == goal_animal.lower():
+        if guess.lower() == goal_animal.lower() or is_guess_correct_via_answerer(
+            guess,
+            goal_animal,
+            answerer,
+            config.answer_temperature,
+        ):
             correct_guess[i] = 1
         print(f"[game] Current best guess after round {i+1}: {guess}")
         write_to_log(f"Current best guess: {guess}\n", config)
@@ -180,7 +185,12 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
         # greedy decoding of current most likely belief
         print("[game-naive] Sampling current best guess")
         guess = sample_beliefs_naive(history_questioner, questioner, config.generation_temperature_simple)
-        if guess.lower() == goal_animal.lower():
+        if guess.lower() == goal_animal.lower() or is_guess_correct_via_answerer(
+            guess,
+            goal_animal,
+            answerer,
+            config.answer_temperature,
+        ):
             correct_guess[i] = 1
         print(f"[game-naive] Current best guess after round {i+1}: {guess}")
         write_to_log(f"Current best guess: {guess}\n", config)

@@ -750,6 +750,15 @@ def get_question_answered(question: str, goal_object: str, answerer: Model, answ
     return answerer.chat_complete(messages=messages, temperature=answer_temperature)[0]
 
 
+def is_guess_correct_via_answerer(guess: str, goal_object: str, answerer: Model, answer_temperature: float) -> bool:
+    return get_question_answered(
+        f"Is it {guess}?",
+        goal_object,
+        answerer,
+        answer_temperature,
+    ) == "Correct!"
+
+
 def generate_original_beliefs(questioner: Model, config: Config) -> list[str]:
     generation_temperature, max_num_samples, min_num_samples = config.generation_temperature_diverse, config.max_num_samples, config.min_num_samples
     user_question = {"role": "user", "content": f"Let\'s start the game of 20 questions. Generate a diverse "
