@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 
 ReasoningEffort = Literal["low", "medium", "high"]
 BeliefStateMode = Literal["uniform", "categorical"]
+GameMode = Literal["animals", "wordle"]
 
 
 @dataclass(frozen=True)
@@ -54,6 +55,15 @@ class Config:
     model_pairs: list[ModelPair] = field(default_factory=list)
     method_names: list[str] = field(default_factory=list)
     animals: list[list[str]] = field(default_factory=list)
+    game: GameMode = "animals"
+    wordle_solution_words_path: str | None = None
+    wordle_allowed_guesses_path: str | None = None
+    max_wordle_guesses: int = 6
+    wordle_candidate_pool_size: int = 200
+    wordle_allowed_candidate_pool_size: int = 50
+    tensor_parallel_size: int | None = None
+    gpu_memory_utilization: float = 0.88
+    max_model_len: int = 4096
     batched_block_size: int = 50
     generation_temperature_diverse: float = 1.3
     generation_temperature_simple: float = 1.0
@@ -142,11 +152,70 @@ def _normalize_model_pair(raw_pair: object, index: int) -> ModelPair:
 
 
 def load_config(path: str) -> Config:
-    raw = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
+    config_path = Path(path)
+    raw = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
+    game = raw.get("game", "animals")
+    if game not in {"animals", "wordle"}:
+        raise ValueError("game must be one of: animals, wordle")
     model_pairs = [
         _normalize_model_pair(pair, index)
         for index, pair in enumerate(raw.get("model_pairs", []))
     ]
+    wordle_solution_words_path = raw.get("wordle_solution_words_path")
+    wordle_allowed_guesses_path = raw.get("wordle_allowed_guesses_path")
+    if isinstance(wordle_solution_words_path, str):
+        solution_path = Path(wordle_solution_words_path)
+        if not solution_path.is_absolute():
+            solution_path = config_path.parent / solution_path
+        wordle_solution_words_path = str(solution_path)
+    if isinstance(wordle_allowed_guesses_path, str):
+        allowed_path = Path(wordle_allowed_guesses_path)
+        if not allowed_path.is_absolute():
+            allowed_path = config_path.parent / allowed_path
+        wordle_allowed_guesses_path = str(allowed_path)
+    if game == "wordle":
+        if not isinstance(wordle_solution_words_path, str) or not wordle_solution_words_path:
+            raise ValueError("wordle_solution_words_path is required when game is wordle")
+        if not Path(wordle_solution_words_path).is_file():
+            raise ValueError(f"wordle_solution_words_path does not exist: {wordle_solution_words_path}")
+        if not isinstance(wordle_allowed_guesses_path, str) or not wordle_allowed_guesses_path:
+            raise ValueError("wordle_allowed_guesses_path is required when game is wordle")
+        if not Path(wordle_allowed_guesses_path).is_file():
+            raise ValueError(f"wordle_allowed_guesses_path does not exist: {wordle_allowed_guesses_path}")
+
+    max_wordle_guesses = raw.get("max_wordle_guesses", 6)
+    if not isinstance(max_wordle_guesses, int) or isinstance(max_wordle_guesses, bool):
+        raise ValueError("max_wordle_guesses must be an integer")
+    if max_wordle_guesses < 1:
+        raise ValueError("max_wordle_guesses must be at least 1")
+    wordle_candidate_pool_size = raw.get("wordle_candidate_pool_size", 200)
+    if not isinstance(wordle_candidate_pool_size, int) or isinstance(wordle_candidate_pool_size, bool):
+        raise ValueError("wordle_candidate_pool_size must be an integer")
+    if wordle_candidate_pool_size < 1:
+        raise ValueError("wordle_candidate_pool_size must be at least 1")
+    wordle_allowed_candidate_pool_size = raw.get("wordle_allowed_candidate_pool_size", 50)
+    if not isinstance(wordle_allowed_candidate_pool_size, int) or isinstance(wordle_allowed_candidate_pool_size, bool):
+        raise ValueError("wordle_allowed_candidate_pool_size must be an integer")
+    if wordle_allowed_candidate_pool_size < 0:
+        raise ValueError("wordle_allowed_candidate_pool_size must be non-negative")
+    tensor_parallel_size = raw.get("tensor_parallel_size")
+    if tensor_parallel_size is not None:
+        if not isinstance(tensor_parallel_size, int) or isinstance(tensor_parallel_size, bool):
+            raise ValueError("tensor_parallel_size must be an integer when provided")
+        if tensor_parallel_size < 1:
+            raise ValueError("tensor_parallel_size must be at least 1")
+    gpu_memory_utilization = raw.get("gpu_memory_utilization", 0.88)
+    if not isinstance(gpu_memory_utilization, (int, float)) or isinstance(gpu_memory_utilization, bool):
+        raise ValueError("gpu_memory_utilization must be numeric")
+    gpu_memory_utilization = float(gpu_memory_utilization)
+    if gpu_memory_utilization <= 0.0 or gpu_memory_utilization > 1.0:
+        raise ValueError("gpu_memory_utilization must be in the interval (0, 1]")
+    max_model_len = raw.get("max_model_len", 4096)
+    if not isinstance(max_model_len, int) or isinstance(max_model_len, bool):
+        raise ValueError("max_model_len must be an integer")
+    if max_model_len < 1:
+        raise ValueError("max_model_len must be at least 1")
+
     belief_state_mode = raw.get("belief_state_mode", "uniform")
     if belief_state_mode not in {"uniform", "categorical"}:
         raise ValueError("belief_state_mode must be one of: uniform, categorical")
@@ -167,10 +236,19 @@ def load_config(path: str) -> Config:
     if search_depth not in {1, 2}:
         raise ValueError("search_depth must be one of: 1, 2")
     return Config(
+        game = game,
         version = raw.get("version", 0),
         model_pairs = model_pairs,
         method_names = raw.get("method_names", raw.get("extraction_methods", [])),
         animals = raw.get("animals", []),
+        wordle_solution_words_path = wordle_solution_words_path,
+        wordle_allowed_guesses_path = wordle_allowed_guesses_path,
+        max_wordle_guesses = max_wordle_guesses,
+        wordle_candidate_pool_size = wordle_candidate_pool_size,
+        wordle_allowed_candidate_pool_size = wordle_allowed_candidate_pool_size,
+        tensor_parallel_size = tensor_parallel_size,
+        gpu_memory_utilization = gpu_memory_utilization,
+        max_model_len = max_model_len,
         batched_block_size = raw.get("batched_block_size", 50),
         generation_temperature_diverse = raw.get("generation_temperature_diverse", 1.3),
         generation_temperature_simple = raw.get("generation_temperature_simple", 1.0),
@@ -222,10 +300,11 @@ def build_output_stem(
     version: int,
     belief_state_mode: BeliefStateMode = "uniform",
     search_depth: int = 1,
+    game: GameMode = "animals",
 ) -> str:
     return (
         f"{run_id}_{method_name}_Q:{_model_spec_stem(questioner)},"
-        f"A:{_model_spec_stem(answerer)}_{belief_state_mode}_depth-{search_depth}_{version}_animals"
+        f"A:{_model_spec_stem(answerer)}_{belief_state_mode}_depth-{search_depth}_{version}_{game}"
     )
 
 
@@ -570,6 +649,18 @@ _BELIEF_QUESTION_LIKE_PATTERN = re.compile(
 )
 
 
+def _is_plausible_animal_label(text: str) -> bool:
+    has_alpha = False
+    for char in text:
+        if char.isalpha():
+            has_alpha = True
+            continue
+        if char in {" ", "-", "'"}:
+            continue
+        return False
+    return has_alpha
+
+
 def normalize_belief_label(raw_belief: str) -> str | None:
     cleaned_belief = re.sub(r"\s+", " ", raw_belief.strip())
     if not cleaned_belief:
@@ -592,6 +683,8 @@ def normalize_belief_label(raw_belief: str) -> str | None:
     if _BELIEF_REASONING_PAREN_PATTERN.search(cleaned_belief):
         return None
     if cleaned_belief.count(",") >= 3:
+        return None
+    if not _is_plausible_animal_label(cleaned_belief):
         return None
 
     return cleaned_belief
@@ -773,4 +866,8 @@ def generate_original_beliefs(questioner: Model, config: Config) -> list[str]:
                                                 f"set of animals, at least {min_num_samples}."}
     messages = [generate_original_animals_system_prompt(max_num_samples), user_question]
     new_beliefs = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
-    return convert_string_to_array(new_beliefs)
+    raw_beliefs = convert_string_to_array(new_beliefs)
+    cleaned_beliefs = clean_generated_belief_labels(raw_beliefs)
+    print(f"[beliefs] Generated {len(raw_beliefs)} raw opening belief(s)")
+    print(f"[beliefs] {len(cleaned_beliefs)} opening belief(s) remain after structural cleanup")
+    return cleaned_beliefs

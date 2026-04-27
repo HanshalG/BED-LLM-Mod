@@ -1,0 +1,10 @@
+game: "wordle"
+version: 0
+wordle_solution_words_path: "wordle_solutions.txt"
+wordle_allowed_guesses_path: "wordle_allowed.txt"
+method_names:
+  - "EIG"
+search_depth: 1
+max_wordle_guesses: 6
+wordle_candidate_pool_size: 20
+wordle_allowed_candidate_pool_size: 2

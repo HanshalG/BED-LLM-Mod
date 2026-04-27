@@ -321,7 +321,22 @@ def _build_belief_states_many(branch_beliefs: list[list[str]], histories_questio
 def initialize_belief_state(beliefs: list[str], history_questioner: list[dict[str, str]], questioner: Model,
                             config: Config) -> BeliefState:
     print(f"[beliefs] Initializing {config.belief_state_mode} belief state")
-    belief_state = build_belief_state(beliefs, history_questioner, questioner, config)
+    cleaned_beliefs = clean_generated_belief_labels(beliefs)
+    if len(cleaned_beliefs) != len(beliefs):
+        print(
+            f"[beliefs] Structural cleanup retained {len(cleaned_beliefs)}/{len(beliefs)} opening belief(s)"
+        )
+
+    validated_beliefs = filter_valid_animal_names_batched(
+        cleaned_beliefs,
+        questioner,
+        config.batched_block_size,
+    )
+    if len(validated_beliefs) == 0 and len(cleaned_beliefs) > 0:
+        print("[beliefs] Opening animal-name validation rejected every candidate, falling back to cleaned beliefs")
+        validated_beliefs = cleaned_beliefs
+
+    belief_state = build_belief_state(validated_beliefs, history_questioner, questioner, config)
     if config.belief_state_mode == "categorical":
         print_and_log(
             f"[categorical] Initial weighted beliefs: {format_categorical_belief_summary(belief_state)}",
