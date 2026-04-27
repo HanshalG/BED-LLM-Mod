@@ -485,10 +485,17 @@ def evaluate_wordle_guesses_forward_search(
             branch_probability = sum(probability for _solution, probability in bucket)
             if branch_probability <= 0.0:
                 continue
-            future_beliefs = _posterior_for_feedback(beliefs, guess, feedback)
+            future_history = history + [WordleTurn(guess, feedback)]
+            if feedback == WORDLE_GREEN * 5:
+                continue
+            future_beliefs = update_wordle_beliefs(
+                beliefs,
+                future_history,
+                questioner,
+                config,
+            )
             if len(future_beliefs.beliefs) <= 1:
                 continue
-            future_history = history + [WordleTurn(guess, feedback)]
             future_candidates = generate_wordle_candidate_guesses_from_llm(
                 future_beliefs,
                 future_history,

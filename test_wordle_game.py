@@ -52,9 +52,7 @@ class WordleUtilityTests(unittest.TestCase):
 
     def test_depth_three_wordle_search_recurses_over_future_branches(self) -> None:
         beliefs = BeliefState(["rebut", "civet", "event", "tenet", "deter"], [0.2] * 5)
-        questioner = DummyQuestioner([
-            "cigar\nrebut\n",
-        ])
+        questioner = DummyQuestioner(["cigar\nrebut\n"] * 100)
 
         values = evaluate_wordle_guesses_forward_search(
             beliefs,
@@ -62,13 +60,38 @@ class WordleUtilityTests(unittest.TestCase):
             [],
             questioner,
             eig=True,
-            config=Config(target_num_questions=2),
+            config=Config(target_num_questions=2, min_num_samples=1),
             depth=3,
         )
 
         self.assertEqual(len(values), 1)
         self.assertTrue(all(value >= 0 for value in values))
         self.assertGreater(len(questioner.calls), 0)
+
+    def test_depth_search_regenerates_beliefs_for_hypothetical_feedback(self) -> None:
+        beliefs = BeliefState(["cigar", "rebut"], [0.5, 0.5])
+        questioner = DummyQuestioner([
+            "proud\nworld\n",
+            "rebut\nproud\n",
+        ])
+
+        values = evaluate_wordle_guesses_forward_search(
+            beliefs,
+            ["cigar"],
+            [],
+            questioner,
+            eig=True,
+            config=Config(target_num_questions=2, min_num_samples=2),
+            depth=2,
+        )
+
+        self.assertEqual(len(values), 1)
+        self.assertGreater(values[0], math.log(2))
+        self.assertEqual(len(questioner.calls), 2)
+        candidate_prompt = questioner.calls[1]["messages"][-1]["content"]
+        self.assertIn("rebut: 0.333", candidate_prompt)
+        self.assertIn("proud: 0.333", candidate_prompt)
+        self.assertIn("world: 0.333", candidate_prompt)
 
     def test_generate_and_score_selects_best_guess_from_tiny_lexicon(self) -> None:
         beliefs = BeliefState(["cigar", "rebut", "humph"], [1 / 3, 1 / 3, 1 / 3])
