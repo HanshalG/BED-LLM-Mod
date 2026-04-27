@@ -8,6 +8,7 @@ from helpers import BeliefState, Config, ModelSpec, build_output_stem, load_conf
 from wordle_game import (
     evaluate_wordle_guesses,
     filter_wordle_solutions,
+    format_wordle_constraint_summary,
     generate_wordle_candidate_guesses_from_llm,
     run_wordle_single,
     score_wordle_guess,
@@ -133,6 +134,35 @@ class WordleUtilityTests(unittest.TestCase):
 
         self.assertEqual(updated.beliefs, ["cigar"])
         self.assertEqual(len(questioner.calls), 2)
+
+    def test_update_wordle_beliefs_accumulates_compatible_words_across_retries(self) -> None:
+        beliefs = BeliefState([], [])
+        history = [type("Turn", (), {"guess": "fuzzy", "feedback": "BBBBB"})()]
+        questioner = DummyQuestioner([
+            "cigar\n",
+            "slate\ncrane\n",
+        ])
+
+        updated = update_wordle_beliefs(beliefs, history, questioner, Config(min_num_samples=3, max_num_samples=10))
+
+        self.assertEqual(updated.beliefs, ["cigar", "slate", "crane"])
+        self.assertEqual(len(questioner.calls), 2)
+
+    def test_wordle_constraint_summary_includes_pattern_required_and_absent_letters(self) -> None:
+        history = [
+            type("Turn", (), {"guess": "stare", "feedback": "BYBBB"})(),
+            type("Turn", (), {"guess": "night", "feedback": "YBBYY"})(),
+        ]
+
+        summary = format_wordle_constraint_summary(history)
+
+        self.assertIn("Pattern: _ _ _ _ _", summary)
+        self.assertIn("Required letters:", summary)
+        self.assertIn("t at least 1", summary)
+        self.assertIn("h at least 1", summary)
+        self.assertIn("Absent letters:", summary)
+        self.assertIn("s", summary)
+        self.assertIn("Forbidden positions:", summary)
 
     def test_update_wordle_beliefs_truncates_after_filtering(self) -> None:
         beliefs = BeliefState([], [])

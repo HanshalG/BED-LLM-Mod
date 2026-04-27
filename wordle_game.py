@@ -35,6 +35,15 @@ class WordleTurn:
     feedback: str
 
 
+@dataclass(frozen=True)
+class WordleConstraintSummary:
+    pattern: str
+    required_counts: dict[str, int]
+    exact_counts: dict[str, int]
+    absent_letters: set[str]
+    forbidden_positions: dict[str, set[int]]
+
+
 def validate_wordle_word(word: str) -> str:
     normalized = word.strip().lower()
     if len(normalized) != 5 or not normalized.isalpha():
@@ -100,6 +109,92 @@ def _format_turns_for_prompt(history: list[WordleTurn]) -> str:
     )
 
 
+def summarize_wordle_constraints(history: list[WordleTurn]) -> WordleConstraintSummary:
+    pattern = ["_"] * 5
+    required_counts: dict[str, int] = {}
+    exact_counts: dict[str, int] = {}
+    absent_letters: set[str] = set()
+    forbidden_positions: dict[str, set[int]] = defaultdict(set)
+
+    for turn in history:
+        guess = validate_wordle_word(turn.guess)
+        feedback = validate_wordle_feedback(turn.feedback)
+        positive_counts: Counter[str] = Counter()
+        guessed_counts: Counter[str] = Counter(guess)
+        black_counts: Counter[str] = Counter()
+
+        for index, (letter, symbol) in enumerate(zip(guess, feedback)):
+            position = index + 1
+            if symbol == WORDLE_GREEN:
+                pattern[index] = letter
+                positive_counts[letter] += 1
+            elif symbol == WORDLE_YELLOW:
+                positive_counts[letter] += 1
+                forbidden_positions[letter].add(position)
+            else:
+                black_counts[letter] += 1
+                forbidden_positions[letter].add(position)
+
+        for letter, count in positive_counts.items():
+            required_counts[letter] = max(required_counts.get(letter, 0), count)
+
+        for letter, guessed_count in guessed_counts.items():
+            positive_count = positive_counts.get(letter, 0)
+            if positive_count == 0 and black_counts.get(letter, 0) > 0:
+                absent_letters.add(letter)
+                exact_counts[letter] = 0
+            elif black_counts.get(letter, 0) > 0:
+                exact_counts[letter] = min(exact_counts.get(letter, positive_count), positive_count)
+
+    for letter in list(absent_letters):
+        required_counts.pop(letter, None)
+        forbidden_positions.pop(letter, None)
+
+    return WordleConstraintSummary(
+        pattern="".join(pattern),
+        required_counts=dict(sorted(required_counts.items())),
+        exact_counts=dict(sorted(exact_counts.items())),
+        absent_letters=set(sorted(absent_letters)),
+        forbidden_positions={
+            letter: set(sorted(positions))
+            for letter, positions in sorted(forbidden_positions.items())
+            if letter not in absent_letters
+        },
+    )
+
+
+def format_wordle_constraint_summary(history: list[WordleTurn]) -> str:
+    if not history:
+        return (
+            "Derived constraints:\n"
+            "- Pattern: _ _ _ _ _\n"
+            "- Required letters: none yet\n"
+            "- Absent letters: none yet\n"
+            "- Forbidden positions: none yet"
+        )
+
+    summary = summarize_wordle_constraints(history)
+    pattern = " ".join(summary.pattern)
+    required_parts = []
+    for letter, count in summary.required_counts.items():
+        exact_count = summary.exact_counts.get(letter)
+        if exact_count is not None and exact_count == count:
+            required_parts.append(f"{letter} exactly {count}")
+        else:
+            required_parts.append(f"{letter} at least {count}")
+    forbidden_parts = [
+        f"{letter} not in position(s) {', '.join(str(position) for position in sorted(positions))}"
+        for letter, positions in summary.forbidden_positions.items()
+    ]
+    return (
+        "Derived constraints:\n"
+        f"- Pattern: {pattern}\n"
+        f"- Required letters: {', '.join(required_parts) if required_parts else 'none'}\n"
+        f"- Absent letters: {', '.join(sorted(summary.absent_letters)) if summary.absent_letters else 'none'}\n"
+        f"- Forbidden positions: {'; '.join(forbidden_parts) if forbidden_parts else 'none'}"
+    )
+
+
 def _generate_wordle_words_from_llm(
     prompt: str,
     questioner: "Model",
@@ -132,7 +227,7 @@ def generate_wordle_opening_beliefs(questioner: "Model", config: Config) -> list
         if beliefs:
             avoid_text = f"\nAlready generated words to avoid repeating: {beliefs}"
         prompt = (
-            "Generate plausible hidden answer candidates for a new Wordle game with no guesses yet.\n\n"
+            "Generate plausible hidden answer candidate answers for a new Wordle game with no guesses yet.\n\n"
             "Use common Wordle-style answer words, not obscure abbreviations, proper nouns, plurals ending in s, "
             "or random letter strings.\n"
             "Generate as many distinct useful candidates as possible in this single response. "
@@ -169,13 +264,14 @@ def generate_wordle_beliefs(
     if current_beliefs:
         current_context = f"\nCurrent candidate words to consider or improve on: {current_beliefs[:50]}"
     prompt = (
-        "Using the Wordle feedback history below, generate possible hidden answer words.\n\n"
+        "Using the Wordle feedback history and derived constraints below, generate possible hidden answer candidates.\n\n"
         f"{_wordle_feedback_rules_text()}\n\n"
-        f"{_format_turns_for_prompt(history)}"
+        f"Feedback history:\n{_format_turns_for_prompt(history)}\n\n"
+        f"{format_wordle_constraint_summary(history)}"
         f"{current_context}\n\n"
-        "Only include words that would produce exactly the shown feedback for every prior guess. "
+        "Only include common Wordle-style candidate answers that would produce exactly the shown feedback for every prior guess. "
         "Do not include a previously guessed word unless it is still logically possible. "
-        "Avoid obscure words, proper nouns, non-words, and random strings.\n"
+        "Avoid obscure words, proper nouns, plurals ending in s, non-words, and random strings.\n"
         "Generate as many distinct compatible candidates as possible in this single response. "
         f"Aim for at least {config.min_num_samples} valid candidates across attempts. "
         "Return only one lowercase five-letter word per line."
@@ -202,6 +298,7 @@ def generate_wordle_candidate_guesses_from_llm(
         "beliefs into informative feedback groups.\n\n"
         f"{_wordle_feedback_rules_text()}\n\n"
         f"History:\n{_format_turns_for_prompt(history)}\n\n"
+        f"{format_wordle_constraint_summary(history)}\n\n"
         f"Beliefs with probabilities: {weighted_beliefs}\n\n"
         "Prefer common valid five-letter English words. Do not output impossible candidate answers unless the word "
         "is intentionally useful as an exploratory guess. Avoid repeats from the guess history.\n"
@@ -218,7 +315,8 @@ def generate_wordle_naive_guess(history: list[WordleTurn], questioner: "Model", 
     prompt = (
         "Using the Wordle feedback history below, generate your single best next Wordle guess.\n\n"
         f"{_wordle_feedback_rules_text()}\n\n"
-        f"{_format_turns_for_prompt(history)}\n\n"
+        f"History:\n{_format_turns_for_prompt(history)}\n\n"
+        f"{format_wordle_constraint_summary(history)}\n\n"
         "Choose a common valid five-letter English word. Prefer a word that could be the answer when possible; "
         "otherwise choose an exploratory word that tests useful remaining letters. Avoid repeating previous guesses. "
         "Return exactly one lowercase five-letter word and nothing else."
