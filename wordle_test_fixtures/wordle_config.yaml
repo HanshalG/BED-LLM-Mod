@@ -1,6 +1,7 @@
 game: "wordle"
 version: 0
 wordle_solution_words_path: "wordle_solutions.txt"
+wordle_valid_words_path: "valid-wordle-words.txt"
 model_pairs:
   - questioner:
       model: "google/gemma-4-E4B-it"

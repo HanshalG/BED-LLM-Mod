@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -69,6 +70,24 @@ def load_wordle_words(path: str | Path) -> list[str]:
     if not words:
         raise ValueError(f"Wordle word list is empty: {word_path}")
     return words
+
+
+@lru_cache(maxsize=8)
+def _load_wordle_word_set(path: str) -> frozenset[str]:
+    return frozenset(load_wordle_words(path))
+
+
+def _valid_wordle_word_set(config: Config) -> frozenset[str] | None:
+    if config.wordle_valid_words_path is None:
+        return None
+    return _load_wordle_word_set(config.wordle_valid_words_path)
+
+
+def filter_valid_wordle_words(words: list[str], config: Config) -> list[str]:
+    valid_words = _valid_wordle_word_set(config)
+    if valid_words is None:
+        return words
+    return [word for word in words if word in valid_words]
 
 
 def clean_wordle_words(raw_words: list[str]) -> list[str]:
@@ -199,12 +218,13 @@ def _generate_wordle_words_from_llm(
     prompt: str,
     questioner: "Model",
     generation_temperature: float,
+    config: Config,
 ) -> list[str]:
     completion = questioner.chat_complete(
         messages=[_wordle_system_prompt(), {"role": "user", "content": prompt}],
         temperature=generation_temperature,
     )[0]
-    return clean_wordle_words(convert_string_to_array(completion))
+    return filter_valid_wordle_words(clean_wordle_words(convert_string_to_array(completion)), config)
 
 
 def _wordle_feedback_rules_text() -> str:
@@ -240,6 +260,7 @@ def generate_wordle_opening_beliefs(questioner: "Model", config: Config) -> list
             prompt,
             questioner,
             config.generation_temperature_diverse,
+            config,
         )
         for word in generated_beliefs:
             if word not in seen:
@@ -276,7 +297,7 @@ def generate_wordle_beliefs(
         f"Aim for at least {config.min_num_samples} valid candidates across attempts. "
         "Return only one lowercase five-letter word per line."
     )
-    return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
+    return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse, config)
 
 
 def generate_wordle_candidate_guesses_from_llm(
@@ -305,7 +326,7 @@ def generate_wordle_candidate_guesses_from_llm(
         f"Generate up to {config.target_num_questions} distinct candidate guesses. "
         "Return only one lowercase five-letter word per line."
     )
-    guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
+    guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse, config)
     if len(guesses) == 0 and len(beliefs.beliefs) > 0:
         return [beliefs.beliefs[int(np.argmax(beliefs.probabilities))]]
     return guesses[:config.target_num_questions]
@@ -321,7 +342,7 @@ def generate_wordle_naive_guess(history: list[WordleTurn], questioner: "Model", 
         "otherwise choose an exploratory word that tests useful remaining letters. Avoid repeating previous guesses. "
         "Return exactly one lowercase five-letter word and nothing else."
     )
-    guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_simple)
+    guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_simple, config)
     if not guesses:
         raise ValueError("Wordle naive guess generation produced no valid five-letter word")
     return guesses[0]
@@ -496,10 +517,13 @@ def update_wordle_beliefs(
     config: Config,
 ) -> BeliefState:
     latest_turn = history[-1]
-    filtered_prior_beliefs = filter_wordle_solutions(
-        beliefs.beliefs,
-        latest_turn.guess,
-        latest_turn.feedback,
+    filtered_prior_beliefs = filter_valid_wordle_words(
+        filter_wordle_solutions(
+            beliefs.beliefs,
+            latest_turn.guess,
+            latest_turn.feedback,
+        ),
+        config,
     )
     filtered_generated_beliefs: list[str] = []
     seen_generated_beliefs: set[str] = set()

@@ -57,6 +57,7 @@ class Config:
     animals: list[list[str]] = field(default_factory=list)
     game: GameMode = "animals"
     wordle_solution_words_path: str | None = None
+    wordle_valid_words_path: str | None = None
     max_wordle_guesses: int = 6
     tensor_parallel_size: int | None = None
     gpu_memory_utilization: float = 0.88
@@ -169,6 +170,21 @@ def load_config(path: str) -> Config:
             raise ValueError("wordle_solution_words_path is required when game is wordle")
         if not Path(wordle_solution_words_path).is_file():
             raise ValueError(f"wordle_solution_words_path does not exist: {wordle_solution_words_path}")
+    wordle_valid_words_path = raw.get("wordle_valid_words_path")
+    if isinstance(wordle_valid_words_path, str):
+        valid_words_path = Path(wordle_valid_words_path)
+        if not valid_words_path.is_absolute():
+            valid_words_path = config_path.parent / valid_words_path
+        wordle_valid_words_path = str(valid_words_path)
+    elif game == "wordle":
+        default_valid_words_path = config_path.parent / "valid-wordle-words.txt"
+        if default_valid_words_path.is_file():
+            wordle_valid_words_path = str(default_valid_words_path)
+    if wordle_valid_words_path is not None:
+        if not isinstance(wordle_valid_words_path, str) or not wordle_valid_words_path:
+            raise ValueError("wordle_valid_words_path must be a non-empty string when provided")
+        if not Path(wordle_valid_words_path).is_file():
+            raise ValueError(f"wordle_valid_words_path does not exist: {wordle_valid_words_path}")
 
     max_wordle_guesses = raw.get("max_wordle_guesses", 6)
     if not isinstance(max_wordle_guesses, int) or isinstance(max_wordle_guesses, bool):
@@ -221,6 +237,7 @@ def load_config(path: str) -> Config:
         method_names = raw.get("method_names", raw.get("extraction_methods", [])),
         animals = raw.get("animals", []),
         wordle_solution_words_path = wordle_solution_words_path,
+        wordle_valid_words_path = wordle_valid_words_path,
         max_wordle_guesses = max_wordle_guesses,
         tensor_parallel_size = tensor_parallel_size,
         gpu_memory_utilization = gpu_memory_utilization,

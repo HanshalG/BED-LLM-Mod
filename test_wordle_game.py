@@ -10,6 +10,8 @@ from wordle_game import (
     evaluate_wordle_guesses_forward_search,
     filter_wordle_solutions,
     format_wordle_constraint_summary,
+    generate_wordle_naive_guess,
+    generate_wordle_opening_beliefs,
     generate_wordle_candidate_guesses_from_llm,
     run_wordle_single,
     score_wordle_guess,
@@ -194,6 +196,47 @@ class WordleUtilityTests(unittest.TestCase):
 
         self.assertEqual(updated.beliefs, ["cigar", "slate"])
 
+    def test_wordle_valid_words_filter_applies_to_opening_beliefs(self) -> None:
+        valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
+        questioner = DummyQuestioner(["abcde\ncigar\ncrowr\nrebut\n"])
+
+        beliefs = generate_wordle_opening_beliefs(
+            questioner,
+            Config(min_num_samples=1, max_num_samples=10, wordle_valid_words_path=valid_words_path),
+        )
+
+        self.assertEqual(beliefs, ["cigar", "rebut"])
+
+    def test_wordle_valid_words_filter_applies_to_updated_beliefs(self) -> None:
+        valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
+        beliefs = BeliefState([], [])
+        history = [type("Turn", (), {"guess": "fuzzy", "feedback": "BBBBB"})()]
+        questioner = DummyQuestioner(["abcde\ncigar\n"])
+
+        updated = update_wordle_beliefs(
+            beliefs,
+            history,
+            questioner,
+            Config(min_num_samples=1, max_num_samples=10, wordle_valid_words_path=valid_words_path),
+        )
+
+        self.assertEqual(updated.beliefs, ["cigar"])
+
+    def test_wordle_valid_words_filter_applies_to_candidate_and_naive_guesses(self) -> None:
+        valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
+        config = Config(target_num_questions=5, wordle_valid_words_path=valid_words_path)
+        beliefs = BeliefState(["cigar", "rebut", "humph"], [1 / 3, 1 / 3, 1 / 3])
+        questioner = DummyQuestioner([
+            "abcde\ncigar\ncrowr\nrebut\n",
+            "mkept\nslate\n",
+        ])
+
+        candidates = generate_wordle_candidate_guesses_from_llm(beliefs, [], questioner, config)
+        naive_guess = generate_wordle_naive_guess([], questioner, config)
+
+        self.assertEqual(candidates, ["cigar", "rebut"])
+        self.assertEqual(naive_guess, "slate")
+
     def test_validate_wordle_word_rejects_invalid_words(self) -> None:
         with self.assertRaisesRegex(ValueError, "five alphabetic letters"):
             validate_wordle_word("toolong")
@@ -207,6 +250,7 @@ class WordleConfigTests(unittest.TestCase):
 
         self.assertEqual(config.game, "wordle")
         self.assertTrue(Path(config.wordle_solution_words_path or "").is_file())
+        self.assertTrue(Path(config.wordle_valid_words_path or "").is_file())
 
     def test_wordle_output_stem_uses_wordle_suffix(self) -> None:
         spec = ModelSpec(model="google/gemma-4-E4B-it", thinking=False)
@@ -249,6 +293,27 @@ class WordleConfigTests(unittest.TestCase):
             )
 
             with self.assertRaisesRegex(ValueError, "max_wordle_guesses must be at least 1"):
+                load_config(str(config_path))
+
+    def test_load_config_rejects_missing_wordle_valid_words_path(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            word_list = tmp_path / "words.txt"
+            word_list.write_text("cigar\n", encoding="utf-8")
+            config_path = tmp_path / "config.yaml"
+            config_path.write_text(
+                textwrap.dedent(
+                    f"""
+                    game: "wordle"
+                    wordle_solution_words_path: "{word_list}"
+                    wordle_valid_words_path: "missing-valid-words.txt"
+                    method_names: ["EIG"]
+                    """
+                ),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(ValueError, "wordle_valid_words_path does not exist"):
                 load_config(str(config_path))
 
     def test_load_config_accepts_wordle_search_depth_above_two(self) -> None:
