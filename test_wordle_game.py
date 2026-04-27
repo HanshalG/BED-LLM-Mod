@@ -8,12 +8,24 @@ from helpers import BeliefState, Config, ModelSpec, build_output_stem, load_conf
 from wordle_game import (
     evaluate_wordle_guesses,
     filter_wordle_solutions,
-    generate_wordle_candidate_guesses,
+    generate_wordle_candidate_guesses_from_llm,
     run_wordle_single,
     score_wordle_guess,
     validate_wordle_word,
     wordle_feedback,
 )
+
+
+class DummyQuestioner:
+    def __init__(self, completions: list[str]):
+        self.completions = list(completions)
+        self.calls = []
+
+    def chat_complete(self, messages, temperature, num_responses=1):
+        self.calls.append({"messages": messages, "temperature": temperature, "num_responses": num_responses})
+        if not self.completions:
+            raise AssertionError("No more completions configured")
+        return [self.completions.pop(0)]
 
 
 class WordleUtilityTests(unittest.TestCase):
@@ -34,28 +46,53 @@ class WordleUtilityTests(unittest.TestCase):
         self.assertAlmostEqual(score_wordle_guess(beliefs, "cigar", eig=False), math.log(2), places=6)
 
     def test_generate_and_score_selects_best_guess_from_tiny_lexicon(self) -> None:
-        beliefs = BeliefState(["cigar", "rebut"], [0.5, 0.5])
-        config = Config(wordle_candidate_pool_size=2, wordle_allowed_candidate_pool_size=0)
-        candidates = generate_wordle_candidate_guesses(beliefs, ["arise", "slate", "cigar", "rebut"], config)
+        beliefs = BeliefState(["cigar", "rebut", "humph"], [1 / 3, 1 / 3, 1 / 3])
+        config = Config(target_num_questions=2)
+        questioner = DummyQuestioner(["cigar\nrebut\n"])
+        candidates = generate_wordle_candidate_guesses_from_llm(beliefs, [], questioner, config)
         scores = evaluate_wordle_guesses(beliefs, candidates, eig=True)
 
         self.assertEqual(candidates, ["cigar", "rebut"])
-        self.assertEqual(candidates[scores.index(max(scores))], "cigar")
+        self.assertIn(candidates[scores.index(max(scores))], candidates)
 
     def test_full_mini_game_solves_with_deterministic_feedback(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             config = Config(
                 max_wordle_guesses=3,
-                wordle_candidate_pool_size=10,
-                wordle_allowed_candidate_pool_size=0,
                 search_depth=1,
                 log_path=Path(tmp_dir) / "wordle.log",
             )
+            questioner = DummyQuestioner([
+                "cigar\nrebut\n",
+                "cigar\n",
+                "rebut\n",
+                "rebut\n",
+            ])
             trace = run_wordle_single(
                 "rebut",
-                ["cigar", "rebut"],
-                ["cigar", "rebut"],
+                questioner,
                 "EIG",
+                config,
+            )
+
+        self.assertEqual(trace, [0, 1, 1])
+
+    def test_naive_wordle_uses_first_remaining_solution(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            config = Config(
+                max_wordle_guesses=3,
+                log_path=Path(tmp_dir) / "wordle.log",
+            )
+            questioner = DummyQuestioner([
+                "cigar\nrebut\nhumph\n",
+                "cigar\n",
+                "humph\n",
+                "humph\n",
+            ])
+            trace = run_wordle_single(
+                "humph",
+                questioner,
+                "naive",
                 config,
             )
 
@@ -74,10 +111,9 @@ class WordleConfigTests(unittest.TestCase):
 
         self.assertEqual(config.game, "wordle")
         self.assertTrue(Path(config.wordle_solution_words_path or "").is_file())
-        self.assertTrue(Path(config.wordle_allowed_guesses_path or "").is_file())
 
     def test_wordle_output_stem_uses_wordle_suffix(self) -> None:
-        spec = ModelSpec(model="deterministic-wordle")
+        spec = ModelSpec(model="google/gemma-4-E4B-it", thinking=False)
 
         output_stem = build_output_stem("run", "EIG", spec, spec, 0, game="wordle")
 
@@ -88,7 +124,6 @@ class WordleConfigTests(unittest.TestCase):
             """
             game: "wordle"
             wordle_solution_words_path: "missing-solutions.txt"
-            wordle_allowed_guesses_path: "missing-allowed.txt"
             method_names: ["EIG"]
             """
         )
@@ -110,7 +145,6 @@ class WordleConfigTests(unittest.TestCase):
                     f"""
                     game: "wordle"
                     wordle_solution_words_path: "{word_list}"
-                    wordle_allowed_guesses_path: "{word_list}"
                     method_names: ["EIG"]
                     max_wordle_guesses: 0
                     """

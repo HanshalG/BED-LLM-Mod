@@ -57,10 +57,7 @@ class Config:
     animals: list[list[str]] = field(default_factory=list)
     game: GameMode = "animals"
     wordle_solution_words_path: str | None = None
-    wordle_allowed_guesses_path: str | None = None
     max_wordle_guesses: int = 6
-    wordle_candidate_pool_size: int = 200
-    wordle_allowed_candidate_pool_size: int = 50
     tensor_parallel_size: int | None = None
     gpu_memory_utilization: float = 0.88
     max_model_len: int = 4096
@@ -162,42 +159,22 @@ def load_config(path: str) -> Config:
         for index, pair in enumerate(raw.get("model_pairs", []))
     ]
     wordle_solution_words_path = raw.get("wordle_solution_words_path")
-    wordle_allowed_guesses_path = raw.get("wordle_allowed_guesses_path")
     if isinstance(wordle_solution_words_path, str):
         solution_path = Path(wordle_solution_words_path)
         if not solution_path.is_absolute():
             solution_path = config_path.parent / solution_path
         wordle_solution_words_path = str(solution_path)
-    if isinstance(wordle_allowed_guesses_path, str):
-        allowed_path = Path(wordle_allowed_guesses_path)
-        if not allowed_path.is_absolute():
-            allowed_path = config_path.parent / allowed_path
-        wordle_allowed_guesses_path = str(allowed_path)
     if game == "wordle":
         if not isinstance(wordle_solution_words_path, str) or not wordle_solution_words_path:
             raise ValueError("wordle_solution_words_path is required when game is wordle")
         if not Path(wordle_solution_words_path).is_file():
             raise ValueError(f"wordle_solution_words_path does not exist: {wordle_solution_words_path}")
-        if not isinstance(wordle_allowed_guesses_path, str) or not wordle_allowed_guesses_path:
-            raise ValueError("wordle_allowed_guesses_path is required when game is wordle")
-        if not Path(wordle_allowed_guesses_path).is_file():
-            raise ValueError(f"wordle_allowed_guesses_path does not exist: {wordle_allowed_guesses_path}")
 
     max_wordle_guesses = raw.get("max_wordle_guesses", 6)
     if not isinstance(max_wordle_guesses, int) or isinstance(max_wordle_guesses, bool):
         raise ValueError("max_wordle_guesses must be an integer")
     if max_wordle_guesses < 1:
         raise ValueError("max_wordle_guesses must be at least 1")
-    wordle_candidate_pool_size = raw.get("wordle_candidate_pool_size", 200)
-    if not isinstance(wordle_candidate_pool_size, int) or isinstance(wordle_candidate_pool_size, bool):
-        raise ValueError("wordle_candidate_pool_size must be an integer")
-    if wordle_candidate_pool_size < 1:
-        raise ValueError("wordle_candidate_pool_size must be at least 1")
-    wordle_allowed_candidate_pool_size = raw.get("wordle_allowed_candidate_pool_size", 50)
-    if not isinstance(wordle_allowed_candidate_pool_size, int) or isinstance(wordle_allowed_candidate_pool_size, bool):
-        raise ValueError("wordle_allowed_candidate_pool_size must be an integer")
-    if wordle_allowed_candidate_pool_size < 0:
-        raise ValueError("wordle_allowed_candidate_pool_size must be non-negative")
     tensor_parallel_size = raw.get("tensor_parallel_size")
     if tensor_parallel_size is not None:
         if not isinstance(tensor_parallel_size, int) or isinstance(tensor_parallel_size, bool):
@@ -242,10 +219,7 @@ def load_config(path: str) -> Config:
         method_names = raw.get("method_names", raw.get("extraction_methods", [])),
         animals = raw.get("animals", []),
         wordle_solution_words_path = wordle_solution_words_path,
-        wordle_allowed_guesses_path = wordle_allowed_guesses_path,
         max_wordle_guesses = max_wordle_guesses,
-        wordle_candidate_pool_size = wordle_candidate_pool_size,
-        wordle_allowed_candidate_pool_size = wordle_allowed_candidate_pool_size,
         tensor_parallel_size = tensor_parallel_size,
         gpu_memory_utilization = gpu_memory_utilization,
         max_model_len = max_model_len,

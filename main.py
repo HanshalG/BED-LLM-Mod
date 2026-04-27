@@ -19,7 +19,7 @@ def main():
 
     import numpy as np
 
-    from helpers import ModelSpec, build_models, build_output_stem, format_config_for_log, load_config, resolve_run_id, write_to_log
+    from helpers import build_models, build_output_stem, format_config_for_log, load_config, resolve_run_id, write_to_log
     from wordle_game import load_wordle_words, run_wordle
 
     import time
@@ -57,8 +57,11 @@ def main():
         }
     )
 
+    if config.game == "wordle" and len(config.model_pairs) == 0:
+        raise ValueError("Wordle LLM mode requires at least one model_pairs entry")
+
     models = {}
-    if config.game == "animals":
+    if config.game in {"animals", "wordle"}:
         from model import build_model_adapter
 
         models = build_models(config.model_pairs, lambda spec: build_model_adapter(spec, config=config))
@@ -74,35 +77,39 @@ def main():
     print(f"[main] Results directory ready at {results_dir.resolve()}")
 
     if config.game == "wordle":
-        wordle_spec = ModelSpec(model="deterministic-wordle")
-        for method_name in config.method_names:
-            output_stem = build_output_stem(
-                config.run_id,
-                method_name,
-                wordle_spec,
-                wordle_spec,
-                config.version,
-                belief_state_mode=config.belief_state_mode,
-                search_depth=config.search_depth,
-                game=config.game,
-            )
-            config.log_path = logs_dir / f"{output_stem}.log"
-            results_path = results_dir / f"{output_stem}.npy"
-            write_to_log(f"Config file: {Path(args.config).resolve()}\n", config)
-            write_to_log(f"Config parameters:\n{format_config_for_log(config)}\n\n", config)
-            write_to_log(f"Starting Wordle method {method_name}\n\n", config)
-            print(f"Starting Wordle method {method_name}\n\n")
-            accuracy = run_wordle(method_name, config)
-            write_to_log(f"Accuracy trace: {accuracy}\n", config)
-            print(f"[main] Saving Wordle accuracy trace for method {method_name} to {results_path}")
-            np.save(
-                results_path,
-                np.array(accuracy),
-            )
-            print(f"Accuracy: {accuracy}\n\n")
-            wandb.log({
-                "accuracy": accuracy,
-            })
+        for pair in config.model_pairs:
+            questioner = pair.questioner.model
+            answerer = pair.answerer.model
+            questioner_model = models[pair.questioner]
+
+            for method_name in config.method_names:
+                output_stem = build_output_stem(
+                    config.run_id,
+                    method_name,
+                    pair.questioner,
+                    pair.answerer,
+                    config.version,
+                    belief_state_mode=config.belief_state_mode,
+                    search_depth=config.search_depth,
+                    game=config.game,
+                )
+                config.log_path = logs_dir / f"{output_stem}.log"
+                results_path = results_dir / f"{output_stem}.npy"
+                write_to_log(f"Config file: {Path(args.config).resolve()}\n", config)
+                write_to_log(f"Config parameters:\n{format_config_for_log(config)}\n\n", config)
+                write_to_log(f"Starting Wordle with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)
+                print(f"Starting Wordle with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
+                accuracy = run_wordle(method_name, questioner_model, config)
+                write_to_log(f"Accuracy trace: {accuracy}\n", config)
+                print(f"[main] Saving Wordle accuracy trace for method {method_name} to {results_path}")
+                np.save(
+                    results_path,
+                    np.array(accuracy),
+                )
+                print(f"Accuracy: {accuracy}\n\n")
+                wandb.log({
+                    "accuracy": accuracy,
+                })
     for pair in (config.model_pairs if config.game == "animals" else []):
         from questions_game import twenty_questions_animals
 

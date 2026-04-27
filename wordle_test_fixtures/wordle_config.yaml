@@ -1,10 +1,22 @@
 game: "wordle"
 version: 0
 wordle_solution_words_path: "wordle_solutions.txt"
-wordle_allowed_guesses_path: "wordle_allowed.txt"
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
+    answerer:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
 method_names:
+  - "naive"
+  - "Entropy"
   - "EIG"
 search_depth: 1
 max_wordle_guesses: 6
-wordle_candidate_pool_size: 20
-wordle_allowed_candidate_pool_size: 2
+target_num_questions: 15
+max_num_samples: 50
+min_num_samples: 15
+tensor_parallel_size: 1
+gpu_memory_utilization: 0.88
+max_model_len: 4096

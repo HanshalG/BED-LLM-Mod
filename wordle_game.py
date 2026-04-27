@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import numpy as np
 
@@ -16,7 +17,10 @@ except ModuleNotFoundError:
 
     wandb = _NoOpWandb()
 
-from helpers import BeliefState, Config, format_belief_state, make_belief_state, write_to_log
+from helpers import BeliefState, Config, convert_string_to_array, format_belief_state, make_belief_state, write_to_log
+
+if TYPE_CHECKING:
+    from model import Model
 
 WORDLE_GREEN = "G"
 WORDLE_YELLOW = "Y"
@@ -55,6 +59,119 @@ def load_wordle_words(path: str | Path) -> list[str]:
     if not words:
         raise ValueError(f"Wordle word list is empty: {word_path}")
     return words
+
+
+def clean_wordle_words(raw_words: list[str]) -> list[str]:
+    cleaned_words: list[str] = []
+    seen: set[str] = set()
+    for raw_word in raw_words:
+        try:
+            word = validate_wordle_word(raw_word)
+        except ValueError:
+            continue
+        if word not in seen:
+            seen.add(word)
+            cleaned_words.append(word)
+    return cleaned_words
+
+
+def _wordle_system_prompt() -> dict[str, str]:
+    return {
+        "role": "system",
+        "content": (
+            "You are playing Wordle. The hidden answer is a lowercase five-letter English word. "
+            "Feedback uses G for green, Y for yellow, and B for gray/black. "
+            "When asked for words, return only lowercase five-letter words, one per line, with no numbering or extra text."
+        ),
+    }
+
+
+def _format_turns_for_prompt(history: list[WordleTurn]) -> str:
+    if not history:
+        return "No guesses yet."
+    return "\n".join(
+        f"Guess: {turn.guess} Feedback: {turn.feedback}"
+        for turn in history
+    )
+
+
+def _generate_wordle_words_from_llm(
+    prompt: str,
+    questioner: "Model",
+    generation_temperature: float,
+) -> list[str]:
+    completion = questioner.chat_complete(
+        messages=[_wordle_system_prompt(), {"role": "user", "content": prompt}],
+        temperature=generation_temperature,
+    )[0]
+    return clean_wordle_words(convert_string_to_array(completion))
+
+
+def generate_wordle_opening_beliefs(questioner: "Model", config: Config) -> list[str]:
+    prompt = (
+        f"Generate up to {config.max_num_samples} plausible Wordle answer words. "
+        f"Aim for at least {config.min_num_samples} varied candidates. "
+        "Return only one lowercase five-letter word per line."
+    )
+    return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
+
+
+def generate_wordle_beliefs(
+    history: list[WordleTurn],
+    questioner: "Model",
+    config: Config,
+    current_beliefs: list[str] | None = None,
+) -> list[str]:
+    current_context = ""
+    if current_beliefs:
+        current_context = f"\nCurrent candidate words to consider or improve on: {current_beliefs[:50]}"
+    prompt = (
+        "Using the Wordle feedback history below, generate candidate hidden answer words that satisfy every clue.\n\n"
+        f"{_format_turns_for_prompt(history)}"
+        f"{current_context}\n\n"
+        f"Generate up to {config.max_num_samples} candidates, aiming for at least {config.min_num_samples}. "
+        "Return only one lowercase five-letter word per line."
+    )
+    return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
+
+
+def generate_wordle_candidate_guesses_from_llm(
+    beliefs: BeliefState,
+    history: list[WordleTurn],
+    questioner: "Model",
+    config: Config,
+) -> list[str]:
+    if len(beliefs.beliefs) <= 2 and len(beliefs.beliefs) > 0:
+        return [beliefs.beliefs[int(np.argmax(beliefs.probabilities))]]
+
+    weighted_beliefs = ", ".join(
+        f"{word}: {probability:.3f}"
+        for word, probability in zip(beliefs.beliefs, beliefs.probabilities)
+    )
+    prompt = (
+        "Using this Wordle feedback history and current belief state, propose strong next guess words. "
+        "Guesses may be candidate answers or exploratory five-letter words that split the belief state well.\n\n"
+        f"History:\n{_format_turns_for_prompt(history)}\n\n"
+        f"Beliefs with probabilities: {weighted_beliefs}\n\n"
+        f"Generate up to {config.target_num_questions} candidate guesses. "
+        "Return only one lowercase five-letter word per line."
+    )
+    guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
+    if len(guesses) == 0 and len(beliefs.beliefs) > 0:
+        return [beliefs.beliefs[int(np.argmax(beliefs.probabilities))]]
+    return guesses[:config.target_num_questions]
+
+
+def generate_wordle_naive_guess(history: list[WordleTurn], questioner: "Model", config: Config) -> str:
+    prompt = (
+        "Using the Wordle feedback history below, generate your single best next Wordle guess.\n\n"
+        f"{_format_turns_for_prompt(history)}\n\n"
+        "Return exactly one lowercase five-letter word and nothing else."
+    )
+    guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_simple)
+    if not guesses:
+        raise ValueError("Wordle naive guess generation produced no valid five-letter word")
+    return guesses[0]
 
 
 def validate_wordle_feedback(feedback: str) -> str:
@@ -160,41 +277,6 @@ def _posterior_for_feedback(beliefs: BeliefState, guess: str, feedback: str) -> 
     return make_belief_state(filtered_words, filtered_probabilities, fallback_to_uniform=True)
 
 
-def generate_wordle_candidate_guesses(beliefs: BeliefState, allowed_guesses: list[str], config: Config) -> list[str]:
-    if len(beliefs.beliefs) == 0:
-        return []
-
-    ordered_solutions = [
-        word
-        for word, _probability in sorted(
-            zip(beliefs.beliefs, beliefs.probabilities),
-            key=lambda entry: entry[1],
-            reverse=True,
-        )
-    ]
-    if len(ordered_solutions) > config.wordle_candidate_pool_size:
-        ordered_solutions = ordered_solutions[:config.wordle_candidate_pool_size]
-
-    candidate_words: list[str] = []
-    seen: set[str] = set()
-    for word in ordered_solutions:
-        if word not in seen:
-            seen.add(word)
-            candidate_words.append(word)
-
-    allowed_remaining = config.wordle_allowed_candidate_pool_size
-    for word in allowed_guesses:
-        if allowed_remaining <= 0:
-            break
-        if word in seen:
-            continue
-        seen.add(word)
-        candidate_words.append(word)
-        allowed_remaining -= 1
-
-    return candidate_words
-
-
 def evaluate_wordle_guesses(
     beliefs: BeliefState,
     candidate_guesses: list[str],
@@ -209,7 +291,8 @@ def evaluate_wordle_guesses(
 def evaluate_wordle_guesses_forward_search(
     beliefs: BeliefState,
     candidate_guesses: list[str],
-    allowed_guesses: list[str],
+    history: list[WordleTurn],
+    questioner: "Model",
     eig: bool,
     config: Config,
     depth: int = 1,
@@ -231,7 +314,13 @@ def evaluate_wordle_guesses_forward_search(
             future_beliefs = _posterior_for_feedback(beliefs, guess, feedback)
             if len(future_beliefs.beliefs) <= 1:
                 continue
-            future_candidates = generate_wordle_candidate_guesses(future_beliefs, allowed_guesses, config)
+            future_history = history + [WordleTurn(guess, feedback)]
+            future_candidates = generate_wordle_candidate_guesses_from_llm(
+                future_beliefs,
+                future_history,
+                questioner,
+                config,
+            )
             future_values = evaluate_wordle_guesses(future_beliefs, future_candidates, eig)
             if future_values:
                 expected_future_value += branch_probability * max(future_values)
@@ -239,18 +328,48 @@ def evaluate_wordle_guesses_forward_search(
     return total_values
 
 
+def update_wordle_beliefs(
+    beliefs: BeliefState,
+    history: list[WordleTurn],
+    questioner: "Model",
+    config: Config,
+) -> BeliefState:
+    latest_turn = history[-1]
+    filtered_prior_beliefs = filter_wordle_solutions(
+        beliefs.beliefs,
+        latest_turn.guess,
+        latest_turn.feedback,
+    )
+    generated_beliefs = generate_wordle_beliefs(
+        history,
+        questioner,
+        config,
+        current_beliefs=filtered_prior_beliefs,
+    )
+    filtered_generated_beliefs = [
+        word
+        for word in generated_beliefs
+        if all(wordle_feedback(turn.guess, word) == turn.feedback for turn in history)
+    ]
+    merged_beliefs = filtered_prior_beliefs + filtered_generated_beliefs
+    if len(merged_beliefs) == 0:
+        merged_beliefs = filtered_prior_beliefs or generated_beliefs
+    return make_belief_state(merged_beliefs, fallback_to_uniform=True)
+
+
 def run_wordle_single(
     target_word: str,
-    solution_words: list[str],
-    allowed_guesses: list[str],
+    questioner: "Model",
     method_name: str,
     config: Config,
 ) -> list[int]:
     target_word = validate_wordle_word(target_word)
-    beliefs = initialize_wordle_beliefs(solution_words)
+    opening_beliefs = generate_wordle_opening_beliefs(questioner, config)
+    beliefs = initialize_wordle_beliefs(opening_beliefs)
     history: list[WordleTurn] = []
     correct_guess = [0] * config.max_wordle_guesses
     eig = method_name == "EIG"
+    naive = method_name == "naive"
 
     print(f"[wordle] Starting target {target_word} with {len(beliefs.beliefs)} possible solution(s)")
     write_to_log(f"\n\nStarting on Wordle target {target_word}\n", config)
@@ -262,18 +381,30 @@ def run_wordle_single(
             f"[wordle] {target_word}: round {round_index + 1}/{config.max_wordle_guesses} "
             f"with {len(beliefs.beliefs)} possible solution(s)"
         )
-        candidate_guesses = generate_wordle_candidate_guesses(beliefs, allowed_guesses, config)
-        scores = evaluate_wordle_guesses_forward_search(
-            beliefs,
-            candidate_guesses,
-            allowed_guesses,
-            eig=eig,
-            config=config,
-            depth=config.search_depth,
-        )
-        best_index = int(np.argmax(scores))
-        best_guess = candidate_guesses[best_index]
-        best_score = scores[best_index]
+        if naive:
+            best_guess = generate_wordle_naive_guess(history, questioner, config)
+            best_score = 0.0
+        else:
+            candidate_guesses = generate_wordle_candidate_guesses_from_llm(
+                beliefs,
+                history,
+                questioner,
+                config,
+            )
+            if len(candidate_guesses) == 0:
+                candidate_guesses = [generate_wordle_naive_guess(history, questioner, config)]
+            scores = evaluate_wordle_guesses_forward_search(
+                beliefs,
+                candidate_guesses,
+                history,
+                questioner,
+                eig=eig,
+                config=config,
+                depth=config.search_depth,
+            )
+            best_index = int(np.argmax(scores))
+            best_guess = candidate_guesses[best_index]
+            best_score = scores[best_index]
         feedback = wordle_feedback(best_guess, target_word)
         history.append(WordleTurn(best_guess, feedback))
 
@@ -287,7 +418,7 @@ def run_wordle_single(
             write_to_log(f"Solved Wordle target {target_word} in round {round_index + 1}\n", config)
             return correct_guess
 
-        beliefs = _posterior_for_feedback(beliefs, best_guess, feedback)
+        beliefs = update_wordle_beliefs(beliefs, history, questioner, config)
         write_to_log(f"Wordle history: {format_wordle_history(history)}\n", config)
         write_to_log(f"Current Wordle beliefs: {format_belief_state(beliefs, top_n=20)}\n", config)
         if len(beliefs.beliefs) == 0:
@@ -297,15 +428,13 @@ def run_wordle_single(
     return correct_guess
 
 
-def run_wordle(method_name: str, config: Config) -> list[float]:
-    if method_name not in {"Entropy", "EIG"}:
-        raise ValueError("Wordle deterministic mode supports method_names: Entropy, EIG")
-    if config.wordle_solution_words_path is None or config.wordle_allowed_guesses_path is None:
-        raise ValueError("Wordle config requires solution and allowed guess word-list paths")
+def run_wordle(method_name: str, questioner: "Model", config: Config) -> list[float]:
+    if method_name not in {"naive", "Entropy", "EIG"}:
+        raise ValueError("Wordle deterministic mode supports method_names: naive, Entropy, EIG")
+    if config.wordle_solution_words_path is None:
+        raise ValueError("Wordle config requires a target word-list path")
 
     solution_words = load_wordle_words(config.wordle_solution_words_path)
-    allowed_guesses = load_wordle_words(config.wordle_allowed_guesses_path)
-    allowed_guesses = list(dict.fromkeys(allowed_guesses + solution_words))
     target_words = solution_words
     accuracies = [0.0] * config.max_wordle_guesses
     print(f"[wordle] Running method {method_name} across {len(target_words)} target word(s)")
@@ -316,7 +445,7 @@ def run_wordle(method_name: str, config: Config) -> list[float]:
             "target_word": target_word,
             "method": method_name,
         })
-        correct_guess = run_wordle_single(target_word, solution_words, allowed_guesses, method_name, config)
+        correct_guess = run_wordle_single(target_word, questioner, method_name, config)
         accuracies = [accuracy + correct for accuracy, correct in zip(accuracies, correct_guess)]
         running_accuracy = [accuracy / target_index for accuracy in accuracies]
         write_to_log(f"Running Wordle accuracy trace: {running_accuracy}\n", config)
