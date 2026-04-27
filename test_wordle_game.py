@@ -7,6 +7,7 @@ from pathlib import Path
 from helpers import BeliefState, Config, ModelSpec, build_output_stem, load_config
 from wordle_game import (
     evaluate_wordle_guesses,
+    evaluate_wordle_guesses_forward_search,
     filter_wordle_solutions,
     format_wordle_constraint_summary,
     generate_wordle_candidate_guesses_from_llm,
@@ -46,6 +47,26 @@ class WordleUtilityTests(unittest.TestCase):
 
         self.assertAlmostEqual(score_wordle_guess(beliefs, "cigar", eig=True), math.log(2), places=6)
         self.assertAlmostEqual(score_wordle_guess(beliefs, "cigar", eig=False), math.log(2), places=6)
+
+    def test_depth_three_wordle_search_recurses_over_future_branches(self) -> None:
+        beliefs = BeliefState(["rebut", "civet", "event", "tenet", "deter"], [0.2] * 5)
+        questioner = DummyQuestioner([
+            "cigar\nrebut\n",
+        ])
+
+        values = evaluate_wordle_guesses_forward_search(
+            beliefs,
+            ["slate"],
+            [],
+            questioner,
+            eig=True,
+            config=Config(target_num_questions=2),
+            depth=3,
+        )
+
+        self.assertEqual(len(values), 1)
+        self.assertTrue(all(value >= 0 for value in values))
+        self.assertGreater(len(questioner.calls), 0)
 
     def test_generate_and_score_selects_best_guess_from_tiny_lexicon(self) -> None:
         beliefs = BeliefState(["cigar", "rebut", "humph"], [1 / 3, 1 / 3, 1 / 3])
@@ -229,6 +250,29 @@ class WordleConfigTests(unittest.TestCase):
 
             with self.assertRaisesRegex(ValueError, "max_wordle_guesses must be at least 1"):
                 load_config(str(config_path))
+
+    def test_load_config_accepts_wordle_search_depth_above_two(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            word_list = tmp_path / "words.txt"
+            word_list.write_text("cigar\n", encoding="utf-8")
+            config_path = tmp_path / "config.yaml"
+            config_path.write_text(
+                textwrap.dedent(
+                    f"""
+                    game: "wordle"
+                    wordle_solution_words_path: "{word_list}"
+                    model_pairs: []
+                    method_names: ["EIG"]
+                    search_depth: 3
+                    """
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_config(str(config_path))
+
+        self.assertEqual(config.search_depth, 3)
 
 
 if __name__ == "__main__":

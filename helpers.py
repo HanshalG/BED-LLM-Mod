@@ -210,7 +210,9 @@ def load_config(path: str) -> Config:
     search_depth = raw.get("search_depth", 1)
     if not isinstance(search_depth, int) or isinstance(search_depth, bool):
         raise ValueError("search_depth must be an integer")
-    if search_depth not in {1, 2}:
+    if search_depth < 1:
+        raise ValueError("search_depth must be at least 1")
+    if game != "wordle" and search_depth not in {1, 2}:
         raise ValueError("search_depth must be one of: 1, 2")
     return Config(
         game = game,

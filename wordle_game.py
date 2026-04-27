@@ -450,10 +450,10 @@ def evaluate_wordle_guesses_forward_search(
     config: Config,
     depth: int = 1,
 ) -> list[float]:
+    if depth < 1:
+        raise ValueError("evaluate_wordle_guesses_forward_search requires depth >= 1")
     if depth == 1:
         return evaluate_wordle_guesses(beliefs, candidate_guesses, eig)
-    if depth != 2:
-        raise ValueError("evaluate_wordle_guesses_forward_search only supports depth=1 or depth=2")
 
     immediate_values = evaluate_wordle_guesses(beliefs, candidate_guesses, eig)
     total_values = immediate_values.copy()
@@ -474,7 +474,15 @@ def evaluate_wordle_guesses_forward_search(
                 questioner,
                 config,
             )
-            future_values = evaluate_wordle_guesses(future_beliefs, future_candidates, eig)
+            future_values = evaluate_wordle_guesses_forward_search(
+                future_beliefs,
+                future_candidates,
+                future_history,
+                questioner,
+                eig,
+                config,
+                depth=depth - 1,
+            )
             if future_values:
                 expected_future_value += branch_probability * max(future_values)
         total_values[guess_index] += expected_future_value
