@@ -11,6 +11,7 @@ from wordle_game import (
     generate_wordle_candidate_guesses_from_llm,
     run_wordle_single,
     score_wordle_guess,
+    update_wordle_beliefs,
     validate_wordle_word,
     wordle_feedback,
 )
@@ -97,6 +98,23 @@ class WordleUtilityTests(unittest.TestCase):
             )
 
         self.assertEqual(trace, [0, 1, 1])
+
+    def test_update_wordle_beliefs_never_falls_back_to_incompatible_words(self) -> None:
+        beliefs = BeliefState(["urban"], [1.0])
+        history = [
+            type("Turn", (), {"guess": "stare", "feedback": "BBYYB"})(),
+            type("Turn", (), {"guess": "urban", "feedback": "BYBGB"})(),
+        ]
+        questioner = DummyQuestioner([
+            "board\nbravo\nbrush\n",
+            "dream\nlaser\nlayer\n",
+            "curly\nscour\ncoder\n",
+        ])
+
+        updated = update_wordle_beliefs(beliefs, history, questioner, Config())
+
+        self.assertEqual(updated.beliefs, [])
+        self.assertEqual(updated.probabilities, [])
 
     def test_validate_wordle_word_rejects_invalid_words(self) -> None:
         with self.assertRaisesRegex(ValueError, "five alphabetic letters"):

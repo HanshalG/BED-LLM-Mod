@@ -79,9 +79,13 @@ def _wordle_system_prompt() -> dict[str, str]:
     return {
         "role": "system",
         "content": (
-            "You are playing Wordle. The hidden answer is a lowercase five-letter English word. "
-            "Feedback uses G for green, Y for yellow, and B for gray/black. "
-            "When asked for words, return only lowercase five-letter words, one per line, with no numbering or extra text."
+            "You are an expert Wordle solver. The hidden answer is a common lowercase five-letter English word. "
+            "Feedback uses exactly five symbols: G means the letter is correct in that position, "
+            "Y means the letter is in the answer but in a different position, and B means gray/black. "
+            "Apply normal Wordle duplicate-letter rules: green letters are assigned first, then yellows only for "
+            "remaining unmatched copies of that letter. Every candidate answer you output must be consistent with "
+            "every prior guess and feedback pattern. Return only lowercase five-letter alphabetic words, one per "
+            "line, with no numbering, punctuation, explanation, markdown, or extra text."
         ),
     }
 
@@ -107,10 +111,25 @@ def _generate_wordle_words_from_llm(
     return clean_wordle_words(convert_string_to_array(completion))
 
 
+def _wordle_feedback_rules_text() -> str:
+    return (
+        "Interpret feedback strictly:\n"
+        "- G: this exact position is fixed to that letter.\n"
+        "- Y: this letter appears in the answer, but not in that guessed position.\n"
+        "- B: this guessed letter has no remaining unmatched copy in the answer after greens/yellows are assigned.\n"
+        "- Re-check duplicate letters carefully before returning any word.\n"
+        "Before finalizing each output word, mentally compare it against every guess and ensure it would produce "
+        "exactly the listed feedback."
+    )
+
+
 def generate_wordle_opening_beliefs(questioner: "Model", config: Config) -> list[str]:
     prompt = (
-        f"Generate up to {config.max_num_samples} plausible Wordle answer words. "
-        f"Aim for at least {config.min_num_samples} varied candidates. "
+        "Generate plausible hidden answer candidates for a new Wordle game with no guesses yet.\n\n"
+        "Use common Wordle-style answer words, not obscure abbreviations, proper nouns, plurals ending in s, "
+        "or random letter strings.\n"
+        f"Generate up to {config.max_num_samples} distinct words, aiming for at least {config.min_num_samples}. "
+        "Vary the letters and word shapes so the belief set is useful for search.\n"
         "Return only one lowercase five-letter word per line."
     )
     return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
@@ -126,10 +145,14 @@ def generate_wordle_beliefs(
     if current_beliefs:
         current_context = f"\nCurrent candidate words to consider or improve on: {current_beliefs[:50]}"
     prompt = (
-        "Using the Wordle feedback history below, generate candidate hidden answer words that satisfy every clue.\n\n"
+        "Using the Wordle feedback history below, generate possible hidden answer words.\n\n"
+        f"{_wordle_feedback_rules_text()}\n\n"
         f"{_format_turns_for_prompt(history)}"
         f"{current_context}\n\n"
-        f"Generate up to {config.max_num_samples} candidates, aiming for at least {config.min_num_samples}. "
+        "Only include words that would produce exactly the shown feedback for every prior guess. "
+        "Do not include a previously guessed word unless it is still logically possible. "
+        "Avoid obscure words, proper nouns, non-words, and random strings.\n"
+        f"Generate up to {config.max_num_samples} distinct candidates, aiming for at least {config.min_num_samples}. "
         "Return only one lowercase five-letter word per line."
     )
     return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
@@ -149,11 +172,15 @@ def generate_wordle_candidate_guesses_from_llm(
         for word, probability in zip(beliefs.beliefs, beliefs.probabilities)
     )
     prompt = (
-        "Using this Wordle feedback history and current belief state, propose strong next guess words. "
-        "Guesses may be candidate answers or exploratory five-letter words that split the belief state well.\n\n"
+        "Using this Wordle feedback history and current belief state, propose strong next Wordle guesses. "
+        "A strong guess should either be a likely answer or an exploratory word that separates the remaining "
+        "beliefs into informative feedback groups.\n\n"
+        f"{_wordle_feedback_rules_text()}\n\n"
         f"History:\n{_format_turns_for_prompt(history)}\n\n"
         f"Beliefs with probabilities: {weighted_beliefs}\n\n"
-        f"Generate up to {config.target_num_questions} candidate guesses. "
+        "Prefer common valid five-letter English words. Do not output impossible candidate answers unless the word "
+        "is intentionally useful as an exploratory guess. Avoid repeats from the guess history.\n"
+        f"Generate up to {config.target_num_questions} distinct candidate guesses. "
         "Return only one lowercase five-letter word per line."
     )
     guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
@@ -165,7 +192,10 @@ def generate_wordle_candidate_guesses_from_llm(
 def generate_wordle_naive_guess(history: list[WordleTurn], questioner: "Model", config: Config) -> str:
     prompt = (
         "Using the Wordle feedback history below, generate your single best next Wordle guess.\n\n"
+        f"{_wordle_feedback_rules_text()}\n\n"
         f"{_format_turns_for_prompt(history)}\n\n"
+        "Choose a common valid five-letter English word. Prefer a word that could be the answer when possible; "
+        "otherwise choose an exploratory word that tests useful remaining letters. Avoid repeating previous guesses. "
         "Return exactly one lowercase five-letter word and nothing else."
     )
     guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_simple)
@@ -340,20 +370,26 @@ def update_wordle_beliefs(
         latest_turn.guess,
         latest_turn.feedback,
     )
-    generated_beliefs = generate_wordle_beliefs(
-        history,
-        questioner,
-        config,
-        current_beliefs=filtered_prior_beliefs,
-    )
-    filtered_generated_beliefs = [
-        word
-        for word in generated_beliefs
-        if all(wordle_feedback(turn.guess, word) == turn.feedback for turn in history)
-    ]
+    filtered_generated_beliefs: list[str] = []
+    for attempt_idx in range(3):
+        generated_beliefs = generate_wordle_beliefs(
+            history,
+            questioner,
+            config,
+            current_beliefs=filtered_prior_beliefs + filtered_generated_beliefs,
+        )
+        filtered_generated_beliefs = [
+            word
+            for word in generated_beliefs
+            if all(wordle_feedback(turn.guess, word) == turn.feedback for turn in history)
+        ]
+        if filtered_generated_beliefs or attempt_idx == 2:
+            break
+        print(
+            "[wordle] LLM generated no feedback-compatible beliefs; retrying with exact history constraints"
+        )
+
     merged_beliefs = filtered_prior_beliefs + filtered_generated_beliefs
-    if len(merged_beliefs) == 0:
-        merged_beliefs = filtered_prior_beliefs or generated_beliefs
     return make_belief_state(merged_beliefs, fallback_to_uniform=True)
 
 
