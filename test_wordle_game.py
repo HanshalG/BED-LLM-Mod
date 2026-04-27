@@ -3,6 +3,7 @@ import tempfile
 import textwrap
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from helpers import BeliefState, Config, ModelSpec, build_output_stem, load_config
 from wordle_game import (
@@ -93,6 +94,31 @@ class WordleUtilityTests(unittest.TestCase):
         self.assertIn("proud: 0.333", candidate_prompt)
         self.assertIn("world: 0.333", candidate_prompt)
 
+    def test_depth_search_logs_wordle_scoring_summary(self) -> None:
+        beliefs = BeliefState(["cigar", "rebut"], [0.5, 0.5])
+        questioner = DummyQuestioner([
+            "proud\nworld\n",
+            "rebut\nproud\n",
+        ])
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            log_path = Path(tmp_dir) / "wordle.log"
+            evaluate_wordle_guesses_forward_search(
+                beliefs,
+                ["cigar"],
+                [],
+                questioner,
+                eig=True,
+                config=Config(target_num_questions=2, min_num_samples=2, log_path=log_path),
+                depth=2,
+            )
+            log_text = log_path.read_text(encoding="utf-8")
+
+        self.assertIn("Optimal immediate guess: cigar", log_text)
+        self.assertIn("Optimal total guess: cigar", log_text)
+        self.assertIn("Immediate EIG:", log_text)
+        self.assertIn("Future value:", log_text)
+        self.assertIn("Branches:", log_text)
+
     def test_generate_and_score_selects_best_guess_from_tiny_lexicon(self) -> None:
         beliefs = BeliefState(["cigar", "rebut", "humph"], [1 / 3, 1 / 3, 1 / 3])
         config = Config(target_num_questions=2)
@@ -100,7 +126,7 @@ class WordleUtilityTests(unittest.TestCase):
         candidates = generate_wordle_candidate_guesses_from_llm(beliefs, [], questioner, config)
         scores = evaluate_wordle_guesses(beliefs, candidates, eig=True)
 
-        self.assertEqual(candidates, ["cigar", "rebut"])
+        self.assertCountEqual(candidates, ["cigar", "rebut"])
         self.assertIn(candidates[scores.index(max(scores))], candidates)
 
     def test_full_mini_game_solves_with_deterministic_feedback(self) -> None:
@@ -124,7 +150,7 @@ class WordleUtilityTests(unittest.TestCase):
                 config,
             )
 
-        self.assertEqual(trace, [0, 1, 1])
+        self.assertIn(trace, ([0, 1, 1], [1, 1, 1]))
 
     def test_naive_wordle_uses_first_remaining_solution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -191,7 +217,7 @@ class WordleUtilityTests(unittest.TestCase):
 
         updated = update_wordle_beliefs(beliefs, history, questioner, Config(min_num_samples=3, max_num_samples=10))
 
-        self.assertEqual(updated.beliefs, ["cigar", "slate", "crane"])
+        self.assertCountEqual(updated.beliefs, ["cigar", "slate", "crane"])
         self.assertEqual(len(questioner.calls), 2)
 
     def test_wordle_constraint_summary_includes_pattern_required_and_absent_letters(self) -> None:
@@ -217,7 +243,8 @@ class WordleUtilityTests(unittest.TestCase):
 
         updated = update_wordle_beliefs(beliefs, history, questioner, Config(min_num_samples=1, max_num_samples=2))
 
-        self.assertEqual(updated.beliefs, ["cigar", "slate"])
+        self.assertEqual(len(updated.beliefs), 2)
+        self.assertTrue(set(updated.beliefs).issubset({"cigar", "slate", "crane"}))
 
     def test_wordle_valid_words_filter_applies_to_opening_beliefs(self) -> None:
         valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
@@ -228,7 +255,7 @@ class WordleUtilityTests(unittest.TestCase):
             Config(min_num_samples=1, max_num_samples=10, wordle_valid_words_path=valid_words_path),
         )
 
-        self.assertEqual(beliefs, ["cigar", "rebut"])
+        self.assertCountEqual(beliefs, ["cigar", "rebut"])
 
     def test_wordle_valid_words_filter_applies_to_updated_beliefs(self) -> None:
         valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
@@ -257,8 +284,22 @@ class WordleUtilityTests(unittest.TestCase):
         candidates = generate_wordle_candidate_guesses_from_llm(beliefs, [], questioner, config)
         naive_guess = generate_wordle_naive_guess([], questioner, config)
 
-        self.assertEqual(candidates, ["cigar", "rebut"])
+        self.assertCountEqual(candidates, ["cigar", "rebut"])
         self.assertEqual(naive_guess, "slate")
+
+    def test_wordle_generation_shuffles_before_valid_word_filtering(self) -> None:
+        valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
+        config = Config(target_num_questions=3, wordle_valid_words_path=valid_words_path)
+        beliefs = BeliefState(["cigar", "rebut", "humph"], [1 / 3, 1 / 3, 1 / 3])
+        questioner = DummyQuestioner(["abcde\ncigar\nrebut\n"])
+
+        def reverse_words(words):
+            words.reverse()
+
+        with patch("wordle_game.np.random.shuffle", side_effect=reverse_words):
+            candidates = generate_wordle_candidate_guesses_from_llm(beliefs, [], questioner, config)
+
+        self.assertEqual(candidates, ["rebut", "cigar"])
 
     def test_validate_wordle_word_rejects_invalid_words(self) -> None:
         with self.assertRaisesRegex(ValueError, "five alphabetic letters"):

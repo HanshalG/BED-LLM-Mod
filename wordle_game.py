@@ -224,7 +224,9 @@ def _generate_wordle_words_from_llm(
         messages=[_wordle_system_prompt(), {"role": "user", "content": prompt}],
         temperature=generation_temperature,
     )[0]
-    return filter_valid_wordle_words(clean_wordle_words(convert_string_to_array(completion)), config)
+    generated_words = convert_string_to_array(completion)
+    np.random.shuffle(generated_words)
+    return filter_valid_wordle_words(clean_wordle_words(generated_words), config)
 
 
 def _wordle_feedback_rules_text() -> str:
@@ -470,6 +472,7 @@ def evaluate_wordle_guesses_forward_search(
     eig: bool,
     config: Config,
     depth: int = 1,
+    log_search: bool = True,
 ) -> list[float]:
     if depth < 1:
         raise ValueError("evaluate_wordle_guesses_forward_search requires depth >= 1")
@@ -481,12 +484,17 @@ def evaluate_wordle_guesses_forward_search(
     for guess_index, guess in enumerate(candidate_guesses):
         expected_future_value = 0.0
         buckets = _feedback_buckets(beliefs, guess)
+        expanded_branches = 0
+        terminal_branches = 0
+        singleton_branches = 0
+        empty_branches = 0
         for feedback, bucket in buckets.items():
             branch_probability = sum(probability for _solution, probability in bucket)
             if branch_probability <= 0.0:
                 continue
             future_history = history + [WordleTurn(guess, feedback)]
             if feedback == WORDLE_GREEN * 5:
+                terminal_branches += 1
                 continue
             future_beliefs = update_wordle_beliefs(
                 beliefs,
@@ -494,7 +502,11 @@ def evaluate_wordle_guesses_forward_search(
                 questioner,
                 config,
             )
+            if len(future_beliefs.beliefs) == 0:
+                empty_branches += 1
+                continue
             if len(future_beliefs.beliefs) <= 1:
+                singleton_branches += 1
                 continue
             future_candidates = generate_wordle_candidate_guesses_from_llm(
                 future_beliefs,
@@ -502,6 +514,7 @@ def evaluate_wordle_guesses_forward_search(
                 questioner,
                 config,
             )
+            expanded_branches += 1
             future_values = evaluate_wordle_guesses_forward_search(
                 future_beliefs,
                 future_candidates,
@@ -510,10 +523,60 @@ def evaluate_wordle_guesses_forward_search(
                 eig,
                 config,
                 depth=depth - 1,
+                log_search=False,
             )
             if future_values:
                 expected_future_value += branch_probability * max(future_values)
         total_values[guess_index] += expected_future_value
+        if log_search:
+            print(
+                f"[wordle-score] Guess summary: guess={guess}, immediate={immediate_values[guess_index]:.4f}, "
+                f"future={expected_future_value:.4f}, total={total_values[guess_index]:.4f}, "
+                f"branches={len(buckets)}, expanded={expanded_branches}, terminal={terminal_branches}, "
+                f"singleton={singleton_branches}, empty={empty_branches}"
+            )
+            if config.log_path is not None:
+                write_to_log(
+                    f"Guess: {guess}\n"
+                    f"Immediate {'EIG' if eig else 'Entropy'}: {immediate_values[guess_index]}\n"
+                    f"Future value: {expected_future_value}\n"
+                    f"Total value: {total_values[guess_index]}\n"
+                    f"Branches: {len(buckets)}, expanded={expanded_branches}, terminal={terminal_branches}, "
+                    f"singleton={singleton_branches}, empty={empty_branches}\n",
+                    config,
+                )
+    if log_search and len(candidate_guesses) > 0:
+        scoring_label = "EIG" if eig else "Entropy"
+        optimal_immediate_index = int(np.argmax(immediate_values))
+        optimal_total_index = int(np.argmax(total_values))
+        optimal_immediate_guess = candidate_guesses[optimal_immediate_index]
+        optimal_total_guess = candidate_guesses[optimal_total_index]
+        print(
+            f"[wordle-score] Optimal immediate guess: {optimal_immediate_guess} "
+            f"({scoring_label}={immediate_values[optimal_immediate_index]:.4f}, "
+            f"total={total_values[optimal_immediate_index]:.4f})"
+        )
+        print(
+            f"[wordle-score] Optimal total guess: {optimal_total_guess} "
+            f"({scoring_label}={immediate_values[optimal_total_index]:.4f}, "
+            f"future={total_values[optimal_total_index] - immediate_values[optimal_total_index]:.4f}, "
+            f"total={total_values[optimal_total_index]:.4f})"
+        )
+        if config.log_path is not None:
+            write_to_log(f"Optimal immediate guess: {optimal_immediate_guess}\n", config)
+            write_to_log(f"Immediate {scoring_label}: {immediate_values[optimal_immediate_index]}\n", config)
+            write_to_log(
+                f"Future value: {total_values[optimal_immediate_index] - immediate_values[optimal_immediate_index]}\n",
+                config,
+            )
+            write_to_log(f"Total value: {total_values[optimal_immediate_index]}\n", config)
+            write_to_log(f"Optimal total guess: {optimal_total_guess}\n", config)
+            write_to_log(f"Immediate {scoring_label}: {immediate_values[optimal_total_index]}\n", config)
+            write_to_log(
+                f"Future value: {total_values[optimal_total_index] - immediate_values[optimal_total_index]}\n",
+                config,
+            )
+            write_to_log(f"Total value: {total_values[optimal_total_index]}\n", config)
     return total_values
 
 
