@@ -61,6 +61,7 @@ class WordleUtilityTests(unittest.TestCase):
             config = Config(
                 max_wordle_guesses=3,
                 search_depth=1,
+                min_num_samples=2,
                 log_path=Path(tmp_dir) / "wordle.log",
             )
             questioner = DummyQuestioner([
@@ -82,6 +83,7 @@ class WordleUtilityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             config = Config(
                 max_wordle_guesses=3,
+                min_num_samples=1,
                 log_path=Path(tmp_dir) / "wordle.log",
             )
             questioner = DummyQuestioner([
@@ -109,12 +111,37 @@ class WordleUtilityTests(unittest.TestCase):
             "board\nbravo\nbrush\n",
             "dream\nlaser\nlayer\n",
             "curly\nscour\ncoder\n",
+            "board\nbravo\nbrush\n",
+            "dream\nlaser\nlayer\n",
+            "curly\nscour\ncoder\n",
         ])
 
         updated = update_wordle_beliefs(beliefs, history, questioner, Config())
 
         self.assertEqual(updated.beliefs, [])
         self.assertEqual(updated.probabilities, [])
+
+    def test_update_wordle_beliefs_retries_until_minimum_compatible_words(self) -> None:
+        beliefs = BeliefState(["cigar"], [1.0])
+        history = [type("Turn", (), {"guess": "cigar", "feedback": "GGGGG"})()]
+        questioner = DummyQuestioner([
+            "rebut\n",
+            "cigar\n",
+        ])
+
+        updated = update_wordle_beliefs(beliefs, history, questioner, Config(min_num_samples=2))
+
+        self.assertEqual(updated.beliefs, ["cigar"])
+        self.assertEqual(len(questioner.calls), 2)
+
+    def test_update_wordle_beliefs_truncates_after_filtering(self) -> None:
+        beliefs = BeliefState([], [])
+        history = [type("Turn", (), {"guess": "fuzzy", "feedback": "BBBBB"})()]
+        questioner = DummyQuestioner(["cigar\nslate\ncrane\n"])
+
+        updated = update_wordle_beliefs(beliefs, history, questioner, Config(min_num_samples=1, max_num_samples=2))
+
+        self.assertEqual(updated.beliefs, ["cigar", "slate"])
 
     def test_validate_wordle_word_rejects_invalid_words(self) -> None:
         with self.assertRaisesRegex(ValueError, "five alphabetic letters"):

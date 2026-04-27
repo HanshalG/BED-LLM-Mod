@@ -26,6 +26,7 @@ WORDLE_GREEN = "G"
 WORDLE_YELLOW = "Y"
 WORDLE_GRAY = "B"
 WORDLE_FEEDBACK_SYMBOLS = {WORDLE_GREEN, WORDLE_YELLOW, WORDLE_GRAY}
+WORDLE_BELIEF_GENERATION_RETRIES = 6
 
 
 @dataclass(frozen=True)
@@ -124,15 +125,38 @@ def _wordle_feedback_rules_text() -> str:
 
 
 def generate_wordle_opening_beliefs(questioner: "Model", config: Config) -> list[str]:
-    prompt = (
-        "Generate plausible hidden answer candidates for a new Wordle game with no guesses yet.\n\n"
-        "Use common Wordle-style answer words, not obscure abbreviations, proper nouns, plurals ending in s, "
-        "or random letter strings.\n"
-        f"Generate up to {config.max_num_samples} distinct words, aiming for at least {config.min_num_samples}. "
-        "Vary the letters and word shapes so the belief set is useful for search.\n"
-        "Return only one lowercase five-letter word per line."
-    )
-    return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
+    beliefs: list[str] = []
+    seen: set[str] = set()
+    for attempt_idx in range(WORDLE_BELIEF_GENERATION_RETRIES):
+        avoid_text = ""
+        if beliefs:
+            avoid_text = f"\nAlready generated words to avoid repeating: {beliefs}"
+        prompt = (
+            "Generate plausible hidden answer candidates for a new Wordle game with no guesses yet.\n\n"
+            "Use common Wordle-style answer words, not obscure abbreviations, proper nouns, plurals ending in s, "
+            "or random letter strings.\n"
+            "Generate as many distinct useful candidates as possible in this single response. "
+            f"Aim for at least {config.min_num_samples} total valid candidates across attempts. "
+            "Vary the letters and word shapes so the belief set is useful for search."
+            f"{avoid_text}\n"
+            "Return only one lowercase five-letter word per line."
+        )
+        generated_beliefs = _generate_wordle_words_from_llm(
+            prompt,
+            questioner,
+            config.generation_temperature_diverse,
+        )
+        for word in generated_beliefs:
+            if word not in seen:
+                seen.add(word)
+                beliefs.append(word)
+        if len(beliefs) >= config.min_num_samples:
+            break
+        if attempt_idx < WORDLE_BELIEF_GENERATION_RETRIES - 1:
+            print(
+                f"[wordle] Opening belief generation produced {len(beliefs)} valid word(s); retrying"
+            )
+    return beliefs[:config.max_num_samples]
 
 
 def generate_wordle_beliefs(
@@ -152,7 +176,8 @@ def generate_wordle_beliefs(
         "Only include words that would produce exactly the shown feedback for every prior guess. "
         "Do not include a previously guessed word unless it is still logically possible. "
         "Avoid obscure words, proper nouns, non-words, and random strings.\n"
-        f"Generate up to {config.max_num_samples} distinct candidates, aiming for at least {config.min_num_samples}. "
+        "Generate as many distinct compatible candidates as possible in this single response. "
+        f"Aim for at least {config.min_num_samples} valid candidates across attempts. "
         "Return only one lowercase five-letter word per line."
     )
     return _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_diverse)
@@ -371,26 +396,33 @@ def update_wordle_beliefs(
         latest_turn.feedback,
     )
     filtered_generated_beliefs: list[str] = []
-    for attempt_idx in range(3):
+    seen_generated_beliefs: set[str] = set()
+    merged_beliefs = list(filtered_prior_beliefs)
+    for attempt_idx in range(WORDLE_BELIEF_GENERATION_RETRIES):
         generated_beliefs = generate_wordle_beliefs(
             history,
             questioner,
             config,
-            current_beliefs=filtered_prior_beliefs + filtered_generated_beliefs,
+            current_beliefs=merged_beliefs,
         )
-        filtered_generated_beliefs = [
-            word
-            for word in generated_beliefs
-            if all(wordle_feedback(turn.guess, word) == turn.feedback for turn in history)
-        ]
-        if filtered_generated_beliefs or attempt_idx == 2:
+        for word in generated_beliefs:
+            if word in seen_generated_beliefs:
+                continue
+            if all(wordle_feedback(turn.guess, word) == turn.feedback for turn in history):
+                seen_generated_beliefs.add(word)
+                filtered_generated_beliefs.append(word)
+        merged_beliefs = filtered_prior_beliefs + filtered_generated_beliefs
+        if len(merged_beliefs) > config.max_num_samples:
+            merged_beliefs = merged_beliefs[:config.max_num_samples]
+            filtered_generated_beliefs = merged_beliefs[len(filtered_prior_beliefs):]
+        if len(merged_beliefs) >= config.min_num_samples:
             break
-        print(
-            "[wordle] LLM generated no feedback-compatible beliefs; retrying with exact history constraints"
-        )
-
-    merged_beliefs = filtered_prior_beliefs + filtered_generated_beliefs
-    return make_belief_state(merged_beliefs, fallback_to_uniform=True)
+        if attempt_idx < WORDLE_BELIEF_GENERATION_RETRIES - 1:
+            print(
+                f"[wordle] Belief generation has {len(merged_beliefs)} compatible word(s); "
+                "retrying with exact history constraints"
+            )
+    return make_belief_state(merged_beliefs[:config.max_num_samples], fallback_to_uniform=True)
 
 
 def run_wordle_single(
