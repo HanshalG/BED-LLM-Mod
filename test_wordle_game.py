@@ -287,6 +287,17 @@ class WordleUtilityTests(unittest.TestCase):
         self.assertCountEqual(candidates, ["cigar", "rebut"])
         self.assertEqual(naive_guess, "slate")
 
+    def test_wordle_naive_guess_falls_back_to_current_beliefs_after_invalid_retries(self) -> None:
+        valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
+        config = Config(wordle_valid_words_path=valid_words_path)
+        beliefs = BeliefState(["cigar", "rebut"], [0.5, 0.5])
+        questioner = DummyQuestioner(["qqqqq\n"] * 6)
+
+        guess = generate_wordle_naive_guess([], questioner, config, beliefs)
+
+        self.assertEqual(guess, "cigar")
+        self.assertEqual(len(questioner.calls), 6)
+
     def test_wordle_generation_shuffles_before_valid_word_filtering(self) -> None:
         valid_words_path = str(Path("wordle_test_fixtures/valid-wordle-words.txt").resolve())
         config = Config(target_num_questions=3, wordle_valid_words_path=valid_words_path)

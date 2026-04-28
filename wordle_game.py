@@ -334,20 +334,39 @@ def generate_wordle_candidate_guesses_from_llm(
     return guesses[:config.target_num_questions]
 
 
-def generate_wordle_naive_guess(history: list[WordleTurn], questioner: "Model", config: Config) -> str:
-    prompt = (
-        "Using the Wordle feedback history below, generate your single best next Wordle guess.\n\n"
-        f"{_wordle_feedback_rules_text()}\n\n"
-        f"History:\n{_format_turns_for_prompt(history)}\n\n"
-        f"{format_wordle_constraint_summary(history)}\n\n"
-        "Choose a common valid five-letter English word. Prefer a word that could be the answer when possible; "
-        "otherwise choose an exploratory word that tests useful remaining letters. Avoid repeating previous guesses. "
-        "Return exactly one lowercase five-letter word and nothing else."
-    )
-    guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_simple, config)
-    if not guesses:
-        raise ValueError("Wordle naive guess generation produced no valid five-letter word")
-    return guesses[0]
+def generate_wordle_naive_guess(
+    history: list[WordleTurn],
+    questioner: "Model",
+    config: Config,
+    beliefs: BeliefState | None = None,
+) -> str:
+    for attempt_idx in range(WORDLE_BELIEF_GENERATION_RETRIES):
+        avoid_text = ""
+        if attempt_idx > 0:
+            avoid_text = (
+                f"\nThe previous {attempt_idx} attempt(s) produced no valid word after validation. "
+                "Try a different common Wordle answer."
+            )
+        prompt = (
+            "Using the Wordle feedback history below, generate your single best next Wordle guess.\n\n"
+            f"{_wordle_feedback_rules_text()}\n\n"
+            f"History:\n{_format_turns_for_prompt(history)}\n\n"
+            f"{format_wordle_constraint_summary(history)}\n\n"
+            "Choose a common valid five-letter English word. Prefer a word that could be the answer when possible; "
+            "otherwise choose an exploratory word that tests useful remaining letters. Avoid repeating previous guesses. "
+            f"{avoid_text}\n"
+            "Return exactly one lowercase five-letter word and nothing else."
+        )
+        guesses = _generate_wordle_words_from_llm(prompt, questioner, config.generation_temperature_simple, config)
+        if guesses:
+            return guesses[0]
+        if attempt_idx < WORDLE_BELIEF_GENERATION_RETRIES - 1:
+            print("[wordle] Naive guess generation produced no valid word; retrying")
+    if beliefs is not None and len(beliefs.beliefs) > 0:
+        for word in beliefs.beliefs:
+            if all(wordle_feedback(turn.guess, word) == turn.feedback for turn in history):
+                return word
+    raise ValueError("Wordle naive guess generation produced no valid five-letter word")
 
 
 def validate_wordle_feedback(feedback: str) -> str:
@@ -650,7 +669,7 @@ def run_wordle_single(
             f"with {len(beliefs.beliefs)} possible solution(s)"
         )
         if naive:
-            best_guess = generate_wordle_naive_guess(history, questioner, config)
+            best_guess = generate_wordle_naive_guess(history, questioner, config, beliefs)
             best_score = 0.0
         else:
             candidate_guesses = generate_wordle_candidate_guesses_from_llm(
@@ -660,7 +679,7 @@ def run_wordle_single(
                 config,
             )
             if len(candidate_guesses) == 0:
-                candidate_guesses = [generate_wordle_naive_guess(history, questioner, config)]
+                candidate_guesses = [generate_wordle_naive_guess(history, questioner, config, beliefs)]
             scores = evaluate_wordle_guesses_forward_search(
                 beliefs,
                 candidate_guesses,
