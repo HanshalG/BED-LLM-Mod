@@ -30,6 +30,7 @@ belief_state_mode: "categorical"
 belief_prior_mode: "exponential_rank"
 belief_prior_exponential_rate: 0.35
 belief_generation_enabled: false
+belief_filtering_enabled: false
 
 belief_probability_temperature: 0.0
 belief_distribution_num_calls: 3

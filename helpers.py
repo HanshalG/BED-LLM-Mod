@@ -77,6 +77,7 @@ class Config:
     belief_prior_mode: BeliefPriorMode = "none"
     belief_prior_exponential_rate: float = 0.0
     belief_generation_enabled: bool = True
+    belief_filtering_enabled: bool = True
     answerer_sample_from_prior: bool = False
     answerer_randomize_prior_order_per_trial: bool = False
     answerer_num_prior_trials: int | None = None
@@ -236,6 +237,9 @@ def load_config(path: str) -> Config:
     belief_generation_enabled = raw.get("belief_generation_enabled", True)
     if not isinstance(belief_generation_enabled, bool):
         raise ValueError("belief_generation_enabled must be a boolean")
+    belief_filtering_enabled = raw.get("belief_filtering_enabled", True)
+    if not isinstance(belief_filtering_enabled, bool):
+        raise ValueError("belief_filtering_enabled must be a boolean")
     answerer_sample_from_prior = raw.get("answerer_sample_from_prior", False)
     if not isinstance(answerer_sample_from_prior, bool):
         raise ValueError("answerer_sample_from_prior must be a boolean")
@@ -298,6 +302,7 @@ def load_config(path: str) -> Config:
         belief_prior_mode = belief_prior_mode,
         belief_prior_exponential_rate = belief_prior_exponential_rate,
         belief_generation_enabled = belief_generation_enabled,
+        belief_filtering_enabled = belief_filtering_enabled,
         answerer_sample_from_prior = answerer_sample_from_prior,
         answerer_randomize_prior_order_per_trial = answerer_randomize_prior_order_per_trial,
         answerer_num_prior_trials = answerer_num_prior_trials,

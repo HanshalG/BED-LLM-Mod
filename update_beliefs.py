@@ -440,11 +440,12 @@ def initialize_belief_state(beliefs: list[str], history_questioner: list[dict[st
     print(f"[beliefs] Initializing {config.belief_state_mode} belief state")
     if config.belief_generation_enabled:
         beliefs = clean_generated_belief_labels(beliefs)
-        beliefs = filter_valid_animal_names_batched(
-            beliefs,
-            questioner,
-            config.batched_block_size,
-        )
+        if config.belief_filtering_enabled:
+            beliefs = filter_valid_animal_names_batched(
+                beliefs,
+                questioner,
+                config.batched_block_size,
+            )
     belief_state = build_belief_state(beliefs, history_questioner, questioner, config)
     if config.belief_state_mode == "categorical":
         print_and_log(
@@ -586,14 +587,17 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
     if not config.belief_generation_enabled:
         configured_prior = get_configured_prior(config)
         support_beliefs = configured_prior.beliefs if configured_prior is not None else prior_beliefs
-        filtered_beliefs_many = _check_beliefs_many(
-            [list(support_beliefs) for _ in histories_questioner],
-            histories_questioner,
-            questioner,
-            answer_temperature,
-            block_size,
-            threshold_rejection_probability,
-        )
+        if config.belief_filtering_enabled:
+            filtered_beliefs_many = _check_beliefs_many(
+                [list(support_beliefs) for _ in histories_questioner],
+                histories_questioner,
+                questioner,
+                answer_temperature,
+                block_size,
+                threshold_rejection_probability,
+            )
+        else:
+            filtered_beliefs_many = [list(support_beliefs) for _ in histories_questioner]
         return _build_belief_states_many(filtered_beliefs_many, histories_questioner, questioner, config)
 
     current_system_prompts = [
@@ -611,28 +615,31 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
     if deterministic:
         return _build_belief_states_many(beliefs_new_many, histories_questioner, questioner, config)
 
-    beliefs_new_many = _filter_valid_animal_names_many(
-        beliefs_new_many,
-        questioner,
-        block_size,
-    )
-    beliefs_new_many = _check_beliefs_many(
-        beliefs_new_many,
-        histories_questioner,
-        questioner,
-        answer_temperature,
-        block_size,
-        threshold_rejection_probability,
-    )
+    if config.belief_filtering_enabled:
+        beliefs_new_many = _filter_valid_animal_names_many(
+            beliefs_new_many,
+            questioner,
+            block_size,
+        )
+        beliefs_new_many = _check_beliefs_many(
+            beliefs_new_many,
+            histories_questioner,
+            questioner,
+            answer_temperature,
+            block_size,
+            threshold_rejection_probability,
+        )
 
-    filtered_beliefs_old_many = _check_beliefs_many(
-        [list(prior_beliefs) for _ in histories_questioner],
-        [history_questioner[-2:] for history_questioner in histories_questioner],
-        questioner,
-        answer_temperature,
-        block_size,
-        threshold_rejection_probability,
-    )
+        filtered_beliefs_old_many = _check_beliefs_many(
+            [list(prior_beliefs) for _ in histories_questioner],
+            [history_questioner[-2:] for history_questioner in histories_questioner],
+            questioner,
+            answer_temperature,
+            block_size,
+            threshold_rejection_probability,
+        )
+    else:
+        filtered_beliefs_old_many = [list(prior_beliefs) for _ in histories_questioner]
 
     beliefs_updated_many = [
         make_belief_state(beliefs_new + filtered_beliefs_old, fallback_to_uniform=True).beliefs
@@ -666,19 +673,20 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
             generation_temperature,
             config,
         )
-        beliefs_retry_many = _filter_valid_animal_names_many(
-            beliefs_retry_many,
-            questioner,
-            block_size,
-        )
-        beliefs_retry_many = _check_beliefs_many(
-            beliefs_retry_many,
-            retry_histories,
-            questioner,
-            answer_temperature,
-            block_size,
-            threshold_rejection_probability,
-        )
+        if config.belief_filtering_enabled:
+            beliefs_retry_many = _filter_valid_animal_names_many(
+                beliefs_retry_many,
+                questioner,
+                block_size,
+            )
+            beliefs_retry_many = _check_beliefs_many(
+                beliefs_retry_many,
+                retry_histories,
+                questioner,
+                answer_temperature,
+                block_size,
+                threshold_rejection_probability,
+            )
 
         for idx, beliefs_retry in zip(retry_indices, beliefs_retry_many):
             beliefs_updated_many[idx] = make_belief_state(
@@ -703,11 +711,12 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
             generation_temperature,
             config,
         )
-        fallback_beliefs_many = _filter_valid_animal_names_many(
-            fallback_beliefs_many,
-            questioner,
-            block_size,
-        )
+        if config.belief_filtering_enabled:
+            fallback_beliefs_many = _filter_valid_animal_names_many(
+                fallback_beliefs_many,
+                questioner,
+                block_size,
+            )
         for idx, fallback_beliefs in zip(fallback_indices, fallback_beliefs_many):
             beliefs_updated_many[idx] = fallback_beliefs
 
@@ -737,14 +746,17 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
     if not config.belief_generation_enabled:
         configured_prior = get_configured_prior(config)
         support_beliefs = configured_prior.beliefs if configured_prior is not None else prior_beliefs
-        filtered_beliefs = check_beliefs_batched(
-            support_beliefs,
-            history,
-            questioner,
-            answer_temperature,
-            block_size,
-            threshold_rejection_probability,
-        )
+        if config.belief_filtering_enabled:
+            filtered_beliefs = check_beliefs_batched(
+                support_beliefs,
+                history,
+                questioner,
+                answer_temperature,
+                block_size,
+                threshold_rejection_probability,
+            )
+        else:
+            filtered_beliefs = list(support_beliefs)
         updated_state = build_belief_state(filtered_beliefs, history, questioner, config)
         print(f"[beliefs] Belief update complete with {len(updated_state.beliefs)} candidate(s)")
         if config.belief_state_mode == "categorical":
@@ -770,34 +782,37 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
         return deterministic_state
 
     # filter new beliefs according to previous questions+answers
-    beliefs_new = filter_valid_animal_names_batched(
-        beliefs_new,
-        questioner,
-        block_size,
-    )
-    if config.belief_state_mode == "categorical":
-        print_and_log(
-            f"[categorical] Retained {len(beliefs_new)} generated belief(s) after animal-name validation",
-            config,
+    if config.belief_filtering_enabled:
+        beliefs_new = filter_valid_animal_names_batched(
+            beliefs_new,
+            questioner,
+            block_size,
         )
-    beliefs_new = check_beliefs_batched(
-        beliefs_new,
-        history,
-        questioner,
-        answer_temperature,
-        block_size,
-        threshold_rejection_probability,
-    )
+        if config.belief_state_mode == "categorical":
+            print_and_log(
+                f"[categorical] Retained {len(beliefs_new)} generated belief(s) after animal-name validation",
+                config,
+            )
+        beliefs_new = check_beliefs_batched(
+            beliefs_new,
+            history,
+            questioner,
+            answer_temperature,
+            block_size,
+            threshold_rejection_probability,
+        )
 
-    # filter previous beliefs with new question+answer
-    filtered_beliefs_old = check_beliefs_batched(
-        prior_beliefs,
-        history[-2:],
-        questioner,
-        answer_temperature,
-        block_size,
-        threshold_rejection_probability,
-    )
+        # filter previous beliefs with new question+answer
+        filtered_beliefs_old = check_beliefs_batched(
+            prior_beliefs,
+            history[-2:],
+            questioner,
+            answer_temperature,
+            block_size,
+            threshold_rejection_probability,
+        )
+    else:
+        filtered_beliefs_old = list(prior_beliefs)
     if config.belief_state_mode == "categorical":
         print_and_log(
             f"[categorical] Retained {len(filtered_beliefs_old)} prior categorical belief(s) after the latest answer",
@@ -819,24 +834,25 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
         print(f"[beliefs] Retry {retry_idx + 1}/2 to reach minimum of {min_num_samples} belief(s)")
         system_prompt = generate_more_animals_system_prompt(beliefs_updated, min_num_samples - len(beliefs_updated))
         beliefs_new = generate_new_beliefs(system_prompt, history, questioner, generation_temperature, config)
-        beliefs_new = filter_valid_animal_names_batched(
-            beliefs_new,
-            questioner,
-            block_size,
-        )
-        if config.belief_state_mode == "categorical":
-            print_and_log(
-                f"[categorical] Retained {len(beliefs_new)} retry-generated belief(s) after animal-name validation",
-                config,
+        if config.belief_filtering_enabled:
+            beliefs_new = filter_valid_animal_names_batched(
+                beliefs_new,
+                questioner,
+                block_size,
             )
-        beliefs_new = check_beliefs_batched(
-            beliefs_new,
-            history,
-            questioner,
-            answer_temperature,
-            block_size,
-            threshold_rejection_probability,
-        )
+            if config.belief_state_mode == "categorical":
+                print_and_log(
+                    f"[categorical] Retained {len(beliefs_new)} retry-generated belief(s) after animal-name validation",
+                    config,
+                )
+            beliefs_new = check_beliefs_batched(
+                beliefs_new,
+                history,
+                questioner,
+                answer_temperature,
+                block_size,
+                threshold_rejection_probability,
+            )
         beliefs_updated = make_belief_state(beliefs_new + beliefs_updated, fallback_to_uniform=True).beliefs
         print(f"[beliefs] After retry {retry_idx + 1}, belief pool has {len(beliefs_updated)} candidate(s)")
         if config.belief_state_mode == "categorical":
@@ -852,18 +868,19 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
             print_and_log(
                 "[categorical] No valid weighted beliefs survived filtering; falling back to unfiltered generation",
                 config,
-            )
-        beliefs_updated = generate_new_beliefs(system_prompt, history, questioner, generation_temperature, config)
-        beliefs_updated = filter_valid_animal_names_batched(
-            beliefs_updated,
-            questioner,
-            block_size,
         )
-        if config.belief_state_mode == "categorical":
-            print_and_log(
-                f"[categorical] Retained {len(beliefs_updated)} fallback-generated belief(s) after animal-name validation",
-                config,
+        beliefs_updated = generate_new_beliefs(system_prompt, history, questioner, generation_temperature, config)
+        if config.belief_filtering_enabled:
+            beliefs_updated = filter_valid_animal_names_batched(
+                beliefs_updated,
+                questioner,
+                block_size,
             )
+            if config.belief_state_mode == "categorical":
+                print_and_log(
+                    f"[categorical] Retained {len(beliefs_updated)} fallback-generated belief(s) after animal-name validation",
+                    config,
+                )
 
     updated_state = build_belief_state(beliefs_updated, history, questioner, config)
     print(f"[beliefs] Belief update complete with {len(updated_state.beliefs)} candidate(s)")

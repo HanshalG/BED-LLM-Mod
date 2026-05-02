@@ -48,6 +48,7 @@ probability_parse_fallback_to_uniform: true
 belief_prior_mode: "none"
 belief_prior_exponential_rate: 0.0
 belief_generation_enabled: true
+belief_filtering_enabled: true
 answerer_sample_from_prior: false
 answerer_randomize_prior_order_per_trial: false
 answerer_num_prior_trials:
