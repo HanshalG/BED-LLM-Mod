@@ -92,13 +92,9 @@ class BaseVLLMAdapter(Model):
                 gpu_memory_utilization=gpu_memory_utilization,
                 tensor_parallel_size=tensor_parallel_size,
                 dtype=dtype,
-                **self._llm_kwargs(),
             )
 
     def _tokenizer_kwargs(self) -> dict[str, object]:
-        return {}
-
-    def _llm_kwargs(self) -> dict[str, object]:
         return {}
 
     def _build_tokenizer(self):
@@ -304,11 +300,6 @@ class GemmaVLLMAdapter(BaseVLLMAdapter):
     def _tokenizer_kwargs(self) -> dict[str, object]:
         return {
             "trust_remote_code": True,
-        }
-
-    def _llm_kwargs(self) -> dict[str, object]:
-        return {
-            "limit_mm_per_prompt": {"image": 0, "audio": 0, "video": 0},
         }
 
     def _chat_template_kwargs(self) -> dict[str, object]:

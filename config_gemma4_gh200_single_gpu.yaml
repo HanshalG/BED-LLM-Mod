@@ -3,7 +3,8 @@
 # The 31B model uses about 59 GiB for weights in the observed log. Keeping its
 # gpu_memory_utilization below the default leaves room for the 4B engine.
 # If startup still fails, lower the answerer value first, then the questioner
-# value, and consider max_model_len: 2048.
+# value. The 31B model needed more KV cache than 0.70 could provide at 4096
+# tokens in one observed GH200 run, so this example uses a shorter context.
 version: 0
 
 animals:
@@ -16,14 +17,14 @@ model_pairs:
       cuda_visible_devices: "0"
       tensor_parallel_size: 1
       gpu_memory_utilization: 0.20
-      max_model_len: 4096
+      max_model_len: 3584
     answerer:
       model: "google/gemma-4-31B-it"
       thinking: true
       cuda_visible_devices: "0"
       tensor_parallel_size: 1
       gpu_memory_utilization: 0.72
-      max_model_len: 4096
+      max_model_len: 3584
 
 method_names:
   - "EIG"
