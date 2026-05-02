@@ -70,20 +70,44 @@ def main():
             )
             config.log_path = logs_dir / f"{output_stem}.log"
             results_path = results_dir / f"{output_stem}.npy"
+            correct_belief_mass_path = results_dir / f"{output_stem}_correct_belief_mass.npy"
             write_to_log(f"Config file: {Path(args.config).resolve()}\n", config)
             write_to_log(f"Config parameters:\n{format_config_for_log(config)}\n\n", config)
             write_to_log(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)
             print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
-            accuracy = twenty_questions_animals(questioner_model, answerer_model, config.animals[config.version], method_name, config)
+            game_metrics = twenty_questions_animals(
+                questioner_model,
+                answerer_model,
+                config.animals[config.version],
+                method_name,
+                config,
+            )
+            if hasattr(game_metrics, "correct_guess") and hasattr(game_metrics, "correct_belief_mass"):
+                accuracy = game_metrics.correct_guess
+                correct_belief_mass = game_metrics.correct_belief_mass
+            else:
+                accuracy = list(game_metrics)
+                correct_belief_mass = [0.0] * len(accuracy)
             write_to_log(f"Accuracy trace: {accuracy}\n", config)
+            write_to_log(f"Correct belief mass trace: {correct_belief_mass}\n", config)
             print(f"[main] Saving accuracy trace for method {method_name} to {results_path}")
             np.save(
                 results_path,
                 np.array(accuracy),
             )
+            print(
+                f"[main] Saving correct belief mass trace for method {method_name} "
+                f"to {correct_belief_mass_path}"
+            )
+            np.save(
+                correct_belief_mass_path,
+                np.array(correct_belief_mass),
+            )
             print(f"Accuracy: {accuracy}\n\n")
+            print(f"Correct belief mass: {correct_belief_mass}\n\n")
             wandb.log({
                 "accuracy": accuracy,
+                "correct_belief_mass_trace": correct_belief_mass,
             })
     end_time = time.perf_counter()
     print(f"[main] Total time: {end_time - start_time:.2f} seconds")

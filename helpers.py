@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 
 ReasoningEffort = Literal["low", "medium", "high"]
 BeliefStateMode = Literal["uniform", "categorical"]
+BeliefPriorMode = Literal["none", "exponential_rank"]
 
 
 @dataclass(frozen=True)
@@ -69,6 +70,15 @@ class Config:
     belief_distribution_num_calls: int = 1
     belief_distribution_permute_history: bool = False
     probability_parse_fallback_to_uniform: bool = True
+    belief_prior_mode: BeliefPriorMode = "none"
+    belief_prior_exponential_rate: float = 0.0
+    belief_generation_enabled: bool = True
+    answerer_sample_from_prior: bool = False
+    answerer_num_prior_trials: int | None = None
+    answerer_prior_seed: int | None = None
+    tensor_parallel_size: int | None = None
+    gpu_memory_utilization: float = 0.88
+    max_model_len: int = 4096
     run_id: str = ""
     log_path: Path | None = None
 
@@ -161,6 +171,52 @@ def load_config(path: str) -> Config:
     probability_parse_fallback_to_uniform = raw.get("probability_parse_fallback_to_uniform", True)
     if not isinstance(probability_parse_fallback_to_uniform, bool):
         raise ValueError("probability_parse_fallback_to_uniform must be a boolean")
+    belief_prior_mode = raw.get("belief_prior_mode", "none")
+    if belief_prior_mode not in {"none", "exponential_rank"}:
+        raise ValueError("belief_prior_mode must be one of: none, exponential_rank")
+    belief_prior_exponential_rate = raw.get("belief_prior_exponential_rate", 0.0)
+    if isinstance(belief_prior_exponential_rate, bool):
+        raise ValueError("belief_prior_exponential_rate must be a non-negative number")
+    try:
+        belief_prior_exponential_rate = float(belief_prior_exponential_rate)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("belief_prior_exponential_rate must be a non-negative number") from exc
+    if not math.isfinite(belief_prior_exponential_rate) or belief_prior_exponential_rate < 0.0:
+        raise ValueError("belief_prior_exponential_rate must be a non-negative number")
+    belief_generation_enabled = raw.get("belief_generation_enabled", True)
+    if not isinstance(belief_generation_enabled, bool):
+        raise ValueError("belief_generation_enabled must be a boolean")
+    answerer_sample_from_prior = raw.get("answerer_sample_from_prior", False)
+    if not isinstance(answerer_sample_from_prior, bool):
+        raise ValueError("answerer_sample_from_prior must be a boolean")
+    answerer_num_prior_trials = raw.get("answerer_num_prior_trials")
+    if answerer_num_prior_trials is not None:
+        if not isinstance(answerer_num_prior_trials, int) or isinstance(answerer_num_prior_trials, bool):
+            raise ValueError("answerer_num_prior_trials must be a positive integer")
+        if answerer_num_prior_trials < 1:
+            raise ValueError("answerer_num_prior_trials must be a positive integer")
+    answerer_prior_seed = raw.get("answerer_prior_seed")
+    if answerer_prior_seed is not None and (
+        not isinstance(answerer_prior_seed, int) or isinstance(answerer_prior_seed, bool)
+    ):
+        raise ValueError("answerer_prior_seed must be an integer or null")
+    tensor_parallel_size = raw.get("tensor_parallel_size")
+    if tensor_parallel_size is not None and (
+        not isinstance(tensor_parallel_size, int) or isinstance(tensor_parallel_size, bool) or tensor_parallel_size < 1
+    ):
+        raise ValueError("tensor_parallel_size must be a positive integer or null")
+    gpu_memory_utilization = raw.get("gpu_memory_utilization", 0.88)
+    if isinstance(gpu_memory_utilization, bool):
+        raise ValueError("gpu_memory_utilization must be a positive number")
+    try:
+        gpu_memory_utilization = float(gpu_memory_utilization)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("gpu_memory_utilization must be a positive number") from exc
+    if not math.isfinite(gpu_memory_utilization) or gpu_memory_utilization <= 0.0:
+        raise ValueError("gpu_memory_utilization must be a positive number")
+    max_model_len = raw.get("max_model_len", 4096)
+    if not isinstance(max_model_len, int) or isinstance(max_model_len, bool) or max_model_len < 1:
+        raise ValueError("max_model_len must be a positive integer")
     search_depth = raw.get("search_depth", 1)
     if not isinstance(search_depth, int) or isinstance(search_depth, bool):
         raise ValueError("search_depth must be an integer")
@@ -186,6 +242,15 @@ def load_config(path: str) -> Config:
         belief_distribution_num_calls = belief_distribution_num_calls,
         belief_distribution_permute_history = belief_distribution_permute_history,
         probability_parse_fallback_to_uniform = probability_parse_fallback_to_uniform,
+        belief_prior_mode = belief_prior_mode,
+        belief_prior_exponential_rate = belief_prior_exponential_rate,
+        belief_generation_enabled = belief_generation_enabled,
+        answerer_sample_from_prior = answerer_sample_from_prior,
+        answerer_num_prior_trials = answerer_num_prior_trials,
+        answerer_prior_seed = answerer_prior_seed,
+        tensor_parallel_size = tensor_parallel_size,
+        gpu_memory_utilization = gpu_memory_utilization,
+        max_model_len = max_model_len,
     )
 
 
@@ -574,6 +639,10 @@ def normalize_belief_label(raw_belief: str) -> str | None:
     cleaned_belief = re.sub(r"\s+", " ", raw_belief.strip())
     if not cleaned_belief:
         return None
+    if any(char in cleaned_belief for char in "{}[];=&/\\"):
+        return None
+    if re.search(r"\bnew\s+\w+", cleaned_belief, flags=re.IGNORECASE):
+        return None
 
     cleaned_belief = re.sub(r"\s*\([^)]*\)", "", cleaned_belief)
     cleaned_belief = re.sub(r"\s+", " ", cleaned_belief).strip()
@@ -582,6 +651,8 @@ def normalize_belief_label(raw_belief: str) -> str | None:
         return None
 
     if len(cleaned_belief) > _BELIEF_MAX_LENGTH:
+        return None
+    if any(char in cleaned_belief for char in "{}[];=&/\\"):
         return None
     if "->" in cleaned_belief or "?" in cleaned_belief:
         return None
@@ -674,6 +745,40 @@ def make_uniform_belief_state(beliefs: list[str]) -> BeliefState:
 
     uniform_probability = 1.0 / len(deduped_beliefs)
     return BeliefState(deduped_beliefs, [uniform_probability] * len(deduped_beliefs))
+
+
+def build_exponential_rank_prior(animals: list[str], rate: float) -> BeliefState:
+    if isinstance(rate, bool):
+        raise ValueError("rate must be a non-negative finite number")
+    try:
+        numeric_rate = float(rate)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("rate must be a non-negative finite number") from exc
+    if not math.isfinite(numeric_rate) or numeric_rate < 0.0:
+        raise ValueError("rate must be a non-negative finite number")
+
+    deduped_animals = make_belief_state(animals, fallback_to_uniform=True).beliefs
+    if not deduped_animals:
+        return BeliefState([], [])
+
+    weights = [
+        math.exp(-numeric_rate * index)
+        for index in range(len(deduped_animals))
+    ]
+    return make_belief_state(deduped_animals, weights, fallback_to_uniform=False)
+
+
+def get_configured_prior(config: Config) -> BeliefState | None:
+    if config.belief_prior_mode == "none":
+        return None
+    if config.belief_prior_mode != "exponential_rank":
+        raise ValueError("belief_prior_mode must be one of: none, exponential_rank")
+    if config.version < 0 or config.version >= len(config.animals):
+        raise ValueError("config.version must select an animals entry before building a prior")
+    return build_exponential_rank_prior(
+        config.animals[config.version],
+        config.belief_prior_exponential_rate,
+    )
 
 
 def sort_belief_state_descending(belief_state: BeliefState) -> BeliefState:

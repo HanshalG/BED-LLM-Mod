@@ -1,10 +1,11 @@
 import time
+from dataclasses import dataclass
 
 import wandb
 import numpy as np
 
 from helpers import Config, format_belief_state, format_categorical_belief_summary, generate_original_beliefs, \
-    get_question_answered, is_guess_correct_via_answerer, print_and_log, write_to_log
+    get_configured_prior, get_question_answered, is_guess_correct_via_answerer, print_and_log, write_to_log
 from generate_candidate_questions import generate_candidate_questions, generate_candidate_question_naive, \
     evaluate_questions_forward_search
 from model import Model
@@ -14,22 +15,61 @@ from update_beliefs import initialize_belief_state, update_beliefs_batched
 NUM_ROUNDS = 20
 
 
-def twenty_questions_animals_single_EIG(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> list[int]:
+@dataclass(frozen=True)
+class GameMetrics:
+    correct_guess: list[float]
+    correct_belief_mass: list[float]
+
+    def __getitem__(self, index):
+        return self.correct_guess[index]
+
+    def __eq__(self, other):
+        if isinstance(other, list):
+            return self.correct_guess == other
+        return super().__eq__(other)
+
+
+def _coerce_game_metrics(metrics: GameMetrics | list[int]) -> GameMetrics:
+    if isinstance(metrics, GameMetrics):
+        return metrics
+    return GameMetrics(
+        correct_guess=list(metrics),
+        correct_belief_mass=[0.0] * len(metrics),
+    )
+
+
+def probability_mass_on_belief(beliefs, goal_animal: str) -> float:
+    goal_key = goal_animal.strip().lower()
+    return sum(
+        probability
+        for belief, probability in zip(beliefs.beliefs, beliefs.probabilities)
+        if belief.strip().lower() == goal_key
+    )
+
+
+def twenty_questions_animals_single_EIG(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> GameMetrics:
     return twenty_questions_animals_single_complex(goal_animal=goal_animal, eig=True, deterministic=False, questioner=questioner, answerer=answerer, config=config)
 
 
-def twenty_questions_animals_single_entropy(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> list[int]:
+def twenty_questions_animals_single_entropy(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> GameMetrics:
     return twenty_questions_animals_single_complex(goal_animal=goal_animal, eig=False, deterministic=False, questioner=questioner, answerer=answerer, config=config)
 
 
-def twenty_questions_animals_single_split(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> list[int]:
+def twenty_questions_animals_single_split(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> GameMetrics:
     return twenty_questions_animals_single_complex(goal_animal=goal_animal, eig=False, deterministic=True, questioner=questioner, answerer=answerer, config=config)
 
 
-def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, deterministic: bool, questioner: Model, answerer: Model, config: Config) -> list[int]:
+def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, deterministic: bool, questioner: Model, answerer: Model, config: Config) -> GameMetrics:
     history_questioner = []
-    print(f"[game] Generating initial beliefs for {goal_animal}")
-    initial_beliefs = generate_original_beliefs(questioner, config)
+    if config.belief_generation_enabled:
+        print(f"[game] Generating initial beliefs for {goal_animal}")
+        initial_beliefs = generate_original_beliefs(questioner, config)
+    else:
+        configured_prior = get_configured_prior(config)
+        if configured_prior is None:
+            raise ValueError("belief_generation_enabled=false requires a configured prior")
+        print(f"[game] Using configured prior support for initial beliefs for {goal_animal}")
+        initial_beliefs = configured_prior.beliefs
     beliefs = initialize_belief_state(initial_beliefs, history_questioner, questioner, config)
     print(f"[game] Starting belief set has {len(beliefs.beliefs)} candidate(s)")
     write_to_log(f"Original beliefs: {format_belief_state(beliefs)}\n", config)
@@ -41,6 +81,7 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         )
     # correct_guess[i] = 1 <--> questioner had it right after i-th question
     correct_guess = [0]*NUM_ROUNDS
+    correct_belief_mass = [0.0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
         start_time = time.perf_counter()
         best_question_score = None
@@ -105,7 +146,8 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         if answer == "Correct!":
             print(f"[game] Goal animal {goal_animal} identified in round {i+1}")
             correct_guess[i:NUM_ROUNDS] = [1] * (len(correct_guess) - i)
-            return correct_guess
+            correct_belief_mass[i:NUM_ROUNDS] = [1.0] * (len(correct_belief_mass) - i)
+            return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
 
         # update the current beliefs to incorporate new questions
         history_questioner = history_questioner +  [{"role": "assistant", "content": best_question}, {"role": "user", "content": answer}]
@@ -114,6 +156,17 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         beliefs = update_beliefs_batched(history_questioner, beliefs, questioner, deterministic, config)
         print(f"[game] Belief set now has {len(beliefs.beliefs)} candidate(s)")
         write_to_log(f"Current beliefs: {format_belief_state(beliefs)}\n", config)
+        correct_mass = probability_mass_on_belief(beliefs, goal_animal)
+        correct_belief_mass[i] = correct_mass
+        print_and_log(
+            f"[belief-mass] Probability mass assigned to correct belief after round {i+1}: {correct_mass:.6f}",
+            config,
+        )
+        wandb.log({
+            "correct_belief_mass": correct_mass,
+            "round": i + 1,
+            "goal_animal": goal_animal,
+        })
         if config.belief_state_mode == "categorical":
             new_top_belief = beliefs.beliefs[0] if len(beliefs.beliefs) > 0 else None
             print_and_log(
@@ -155,13 +208,14 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
         elapsed_time = time.perf_counter() - start_time
         print(f"[game] Round {i+1} finished in {elapsed_time:.2f}s")
 
-    return correct_guess
+    return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
 
 
-def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> list[int]:
+def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> GameMetrics:
     history_questioner = []
     # correct_guess[i] = 1 <--> questioner had it right after i-th question
     correct_guess = [0]*NUM_ROUNDS
+    correct_belief_mass = [0.0]*NUM_ROUNDS
     for i in range(NUM_ROUNDS):
         start_time = time.perf_counter()
         write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config)
@@ -178,7 +232,8 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
         if answer == "Correct!":
             print(f"[game-naive] Goal animal {goal_animal} identified in round {i+1}")
             correct_guess[i:NUM_ROUNDS] = [1] * (len(correct_guess) - i)
-            return correct_guess
+            correct_belief_mass[i:NUM_ROUNDS] = [1.0] * (len(correct_belief_mass) - i)
+            return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
 
         history_questioner = history_questioner +  [{"role": "assistant", "content": best_question}, {"role": "user", "content": answer}]
 
@@ -196,7 +251,7 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
         write_to_log(f"Current best guess: {guess}\n", config)
         elapsed_time = time.perf_counter() - start_time
         print(f"[game-naive] Round {i+1} finished in {elapsed_time:.2f}s")
-    return correct_guess
+    return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
 
 
 extraction_methods = {
@@ -207,9 +262,33 @@ extraction_methods = {
 }
 
 
-def twenty_questions_animals(questioner: Model, answerer: Model, target_animals: list[str], extraction_method_name: str, config: Config) -> list[float]:
+def twenty_questions_animals(questioner: Model, answerer: Model, target_animals: list[str], extraction_method_name: str, config: Config) -> GameMetrics:
     extraction_method = extraction_methods[extraction_method_name]
     accuracies = [0.0]*NUM_ROUNDS
+    correct_belief_masses = [0.0]*NUM_ROUNDS
+    if config.answerer_sample_from_prior:
+        configured_prior = get_configured_prior(config)
+        if configured_prior is None or len(configured_prior.beliefs) == 0:
+            raise ValueError("answerer_sample_from_prior=true requires a non-empty configured prior")
+        num_trials = config.answerer_num_prior_trials
+        if num_trials is None:
+            num_trials = len(configured_prior.beliefs)
+        rng = np.random.default_rng(config.answerer_prior_seed)
+        sampled_indices = rng.choice(
+            len(configured_prior.beliefs),
+            size=num_trials,
+            replace=True,
+            p=configured_prior.probabilities,
+        )
+        target_animals = [configured_prior.beliefs[int(index)] for index in sampled_indices]
+        print_and_log(
+            f"[categorical] Sampled answerer target sequence from prior: {target_animals}",
+            config,
+        )
+        print_and_log(
+            f"[categorical] Answerer sampling prior: {format_categorical_belief_summary(configured_prior)}",
+            config,
+        )
     print(f"[game] Running method {extraction_method_name} across {len(target_animals)} animal(s)")
     for animal_idx, goal_animal in enumerate(target_animals, start=1):
         write_to_log(f"\n\nStarting on animal {goal_animal}\n", config)
@@ -219,9 +298,18 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
             "goal_animal": goal_animal,
             "method": extraction_method_name,
         })
-        correct_guess = extraction_method(goal_animal, questioner, answerer, config)
-        accuracies = [a + c for a, c in zip(accuracies, correct_guess)]
+        game_metrics = _coerce_game_metrics(extraction_method(goal_animal, questioner, answerer, config))
+        accuracies = [a + c for a, c in zip(accuracies, game_metrics.correct_guess)]
+        correct_belief_masses = [
+            total_mass + round_mass
+            for total_mass, round_mass in zip(correct_belief_masses, game_metrics.correct_belief_mass)
+        ]
         running_accuracy = [a / animal_idx for a in accuracies]
+        running_correct_belief_mass = [mass / animal_idx for mass in correct_belief_masses]
         write_to_log(f"Running accuracy trace: {running_accuracy}\n", config)
+        write_to_log(f"Running correct belief mass trace: {running_correct_belief_mass}\n", config)
         print(f"[game] Finished {goal_animal}. Running accuracy trace: {running_accuracy}")
-    return [a / len(target_animals) for a in accuracies]
+    return GameMetrics(
+        correct_guess=[a / len(target_animals) for a in accuracies],
+        correct_belief_mass=[mass / len(target_animals) for mass in correct_belief_masses],
+    )

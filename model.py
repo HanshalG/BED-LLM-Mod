@@ -44,12 +44,14 @@ class BaseVLLMAdapter(Model):
         self.tokenizer = self._build_tokenizer()
 
         if tensor_parallel_size is None:
+            tensor_parallel_size = config.tensor_parallel_size
+        if tensor_parallel_size is None:
             tensor_parallel_size = torch.cuda.device_count()
 
         self.llm = LLM(
             model=self.model_name,
-            max_model_len=4096,
-            gpu_memory_utilization=0.88,
+            max_model_len=config.max_model_len,
+            gpu_memory_utilization=config.gpu_memory_utilization,
             tensor_parallel_size=tensor_parallel_size,
             dtype=dtype,
         )
