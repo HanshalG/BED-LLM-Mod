@@ -54,6 +54,31 @@ while achieving a solid accuracy of ~70% with the EIG method.
 Parameters like `batched_block_size` for parallel computation in the LLM or `gpu_memory_utilization` and `max_model_len` for vLLM are 
 specific to my hardware setup.
 
+vLLM settings can also be overridden per model under each `questioner` or `answerer` entry. This is useful when running two different
+models in the same experiment, because the code keeps both vLLM engines loaded at the same time. For example, to keep a small questioner
+on GPU 0 and a larger answerer on GPU 1:
+
+```yaml
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-E4B-it"
+      thinking: true
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.80
+      max_model_len: 4096
+    answerer:
+      model: "google/gemma-4-31B-it"
+      thinking: true
+      cuda_visible_devices: "1"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 4096
+```
+
+If the larger model needs multiple GPUs, give it a comma-separated device list and match `tensor_parallel_size`, for example
+`cuda_visible_devices: "1,2"` with `tensor_parallel_size: 2`.
+
 
 ## Results
 My results for the two big open source models used in the paper (in both plots, the questioner and answerer model are the same):

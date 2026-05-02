@@ -31,6 +31,10 @@ class ModelSpec:
     thinking: bool | None = None
     reasoning_effort: ReasoningEffort | None = None
     use_logprobs: bool = False
+    tensor_parallel_size: int | None = None
+    gpu_memory_utilization: float | None = None
+    max_model_len: int | None = None
+    cuda_visible_devices: str | None = None
 
 
 @dataclass(frozen=True)
@@ -103,6 +107,48 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if not isinstance(use_logprobs, bool):
         raise ValueError(f"{side_name}.use_logprobs must be a boolean when provided")
 
+    tensor_parallel_size = raw_spec.get("tensor_parallel_size")
+    if tensor_parallel_size is not None and (
+        not isinstance(tensor_parallel_size, int)
+        or isinstance(tensor_parallel_size, bool)
+        or tensor_parallel_size < 1
+    ):
+        raise ValueError(f"{side_name}.tensor_parallel_size must be a positive integer or null")
+
+    gpu_memory_utilization = raw_spec.get("gpu_memory_utilization")
+    if gpu_memory_utilization is not None:
+        if isinstance(gpu_memory_utilization, bool):
+            raise ValueError(f"{side_name}.gpu_memory_utilization must be a positive number")
+        try:
+            gpu_memory_utilization = float(gpu_memory_utilization)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{side_name}.gpu_memory_utilization must be a positive number") from exc
+        if not math.isfinite(gpu_memory_utilization) or gpu_memory_utilization <= 0.0:
+            raise ValueError(f"{side_name}.gpu_memory_utilization must be a positive number")
+
+    max_model_len = raw_spec.get("max_model_len")
+    if max_model_len is not None and (
+        not isinstance(max_model_len, int) or isinstance(max_model_len, bool) or max_model_len < 1
+    ):
+        raise ValueError(f"{side_name}.max_model_len must be a positive integer or null")
+
+    cuda_visible_devices = raw_spec.get("cuda_visible_devices")
+    if cuda_visible_devices is not None and not isinstance(cuda_visible_devices, str):
+        raise ValueError(f"{side_name}.cuda_visible_devices must be a string or null")
+    if isinstance(cuda_visible_devices, str) and not [
+        device.strip()
+        for device in cuda_visible_devices.split(",")
+        if device.strip()
+    ]:
+        raise ValueError(f"{side_name}.cuda_visible_devices must list at least one device")
+
+    vllm_kwargs = {
+        "tensor_parallel_size": tensor_parallel_size,
+        "gpu_memory_utilization": gpu_memory_utilization,
+        "max_model_len": max_model_len,
+        "cuda_visible_devices": cuda_visible_devices,
+    }
+
     is_qwen = model_name.startswith("Qwen/")
     is_qwen25 = model_name.startswith("Qwen/Qwen2.5")
     is_gemma = model_name.startswith("google/gemma-4")
@@ -115,6 +161,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
         return ModelSpec(
             model=model_name,
             reasoning_effort=reasoning_effort or "low",
+            **vllm_kwargs,
         )
 
     if is_qwen or is_gemma:
@@ -126,6 +173,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
             model=model_name,
             thinking=False if thinking is None else thinking,
             use_logprobs=use_logprobs,
+            **vllm_kwargs,
         )
 
     if thinking is not None:
@@ -135,7 +183,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if use_logprobs:
         raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
 
-    return ModelSpec(model=model_name)
+    return ModelSpec(model=model_name, **vllm_kwargs)
 
 
 def _normalize_model_pair(raw_pair: object, index: int) -> ModelPair:

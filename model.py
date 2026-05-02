@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from contextlib import contextmanager
 from datetime import date
 import math
+import os
 import time
 
 import torch
@@ -17,6 +19,34 @@ from openai_harmony import (
 )
 from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
+
+
+@contextmanager
+def _temporary_cuda_visible_devices(cuda_visible_devices: str | None):
+    if cuda_visible_devices is None:
+        yield
+        return
+
+    previous_value = os.environ.get("CUDA_VISIBLE_DEVICES")
+    os.environ["CUDA_VISIBLE_DEVICES"] = cuda_visible_devices
+    try:
+        yield
+    finally:
+        if previous_value is None:
+            os.environ.pop("CUDA_VISIBLE_DEVICES", None)
+        else:
+            os.environ["CUDA_VISIBLE_DEVICES"] = previous_value
+
+
+def _count_cuda_visible_devices(cuda_visible_devices: str) -> int:
+    devices = [
+        device.strip()
+        for device in cuda_visible_devices.split(",")
+        if device.strip()
+    ]
+    if not devices:
+        raise ValueError("cuda_visible_devices must list at least one device")
+    return len(devices)
 
 
 class Model(ABC):
@@ -44,17 +74,25 @@ class BaseVLLMAdapter(Model):
         self.tokenizer = self._build_tokenizer()
 
         if tensor_parallel_size is None:
+            tensor_parallel_size = spec.tensor_parallel_size
+        if tensor_parallel_size is None:
             tensor_parallel_size = config.tensor_parallel_size
+        if tensor_parallel_size is None and spec.cuda_visible_devices is not None:
+            tensor_parallel_size = _count_cuda_visible_devices(spec.cuda_visible_devices)
         if tensor_parallel_size is None:
             tensor_parallel_size = torch.cuda.device_count()
 
-        self.llm = LLM(
-            model=self.model_name,
-            max_model_len=config.max_model_len,
-            gpu_memory_utilization=config.gpu_memory_utilization,
-            tensor_parallel_size=tensor_parallel_size,
-            dtype=dtype,
-        )
+        max_model_len = spec.max_model_len or config.max_model_len
+        gpu_memory_utilization = spec.gpu_memory_utilization or config.gpu_memory_utilization
+
+        with _temporary_cuda_visible_devices(spec.cuda_visible_devices):
+            self.llm = LLM(
+                model=self.model_name,
+                max_model_len=max_model_len,
+                gpu_memory_utilization=gpu_memory_utilization,
+                tensor_parallel_size=tensor_parallel_size,
+                dtype=dtype,
+            )
 
     def _tokenizer_kwargs(self) -> dict[str, object]:
         return {}
