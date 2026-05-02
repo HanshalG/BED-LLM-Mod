@@ -266,49 +266,77 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
     extraction_method = extraction_methods[extraction_method_name]
     accuracies = [0.0]*NUM_ROUNDS
     correct_belief_masses = [0.0]*NUM_ROUNDS
+    prior_orders_by_trial: list[list[str] | None] = [None] * len(target_animals)
     if config.answerer_sample_from_prior:
-        configured_prior = get_configured_prior(config)
-        if configured_prior is None or len(configured_prior.beliefs) == 0:
+        base_prior = get_configured_prior(config)
+        if base_prior is None or len(base_prior.beliefs) == 0:
             raise ValueError("answerer_sample_from_prior=true requires a non-empty configured prior")
         num_trials = config.answerer_num_prior_trials
         if num_trials is None:
-            num_trials = len(configured_prior.beliefs)
+            num_trials = len(base_prior.beliefs)
         rng = np.random.default_rng(config.answerer_prior_seed)
-        sampled_indices = rng.choice(
-            len(configured_prior.beliefs),
-            size=num_trials,
-            replace=True,
-            p=configured_prior.probabilities,
-        )
-        target_animals = [configured_prior.beliefs[int(index)] for index in sampled_indices]
+        target_animals = []
+        prior_orders_by_trial = []
+        prior_summaries = []
+        for _trial_idx in range(num_trials):
+            if config.answerer_randomize_prior_order_per_trial:
+                prior_order = [
+                    base_prior.beliefs[int(index)]
+                    for index in rng.permutation(len(base_prior.beliefs))
+                ]
+            else:
+                prior_order = list(base_prior.beliefs)
+            config.active_prior_animals = prior_order
+            trial_prior = get_configured_prior(config)
+            if trial_prior is None or len(trial_prior.beliefs) == 0:
+                raise ValueError("answerer_sample_from_prior=true requires a non-empty configured prior")
+            sampled_index = int(rng.choice(
+                len(trial_prior.beliefs),
+                p=trial_prior.probabilities,
+            ))
+            target_animals.append(trial_prior.beliefs[sampled_index])
+            prior_orders_by_trial.append(prior_order)
+            prior_summaries.append(format_categorical_belief_summary(trial_prior, top_n=5))
+        config.active_prior_animals = None
         print_and_log(
             f"[categorical] Sampled answerer target sequence from prior: {target_animals}",
             config,
         )
-        print_and_log(
-            f"[categorical] Answerer sampling prior: {format_categorical_belief_summary(configured_prior)}",
-            config,
-        )
+        if config.answerer_randomize_prior_order_per_trial:
+            print_and_log(
+                f"[categorical] Randomized answerer prior summaries by trial: {prior_summaries}",
+                config,
+            )
+        else:
+            print_and_log(
+                f"[categorical] Answerer sampling prior: {prior_summaries[0]}",
+                config,
+            )
     print(f"[game] Running method {extraction_method_name} across {len(target_animals)} animal(s)")
     for animal_idx, goal_animal in enumerate(target_animals, start=1):
-        write_to_log(f"\n\nStarting on animal {goal_animal}\n", config)
-        print(f"Starting on animal {goal_animal}")
-        wandb.log({
-            "event": "start animal",
-            "goal_animal": goal_animal,
-            "method": extraction_method_name,
-        })
-        game_metrics = _coerce_game_metrics(extraction_method(goal_animal, questioner, answerer, config))
-        accuracies = [a + c for a, c in zip(accuracies, game_metrics.correct_guess)]
-        correct_belief_masses = [
-            total_mass + round_mass
-            for total_mass, round_mass in zip(correct_belief_masses, game_metrics.correct_belief_mass)
-        ]
-        running_accuracy = [a / animal_idx for a in accuracies]
-        running_correct_belief_mass = [mass / animal_idx for mass in correct_belief_masses]
-        write_to_log(f"Running accuracy trace: {running_accuracy}\n", config)
-        write_to_log(f"Running correct belief mass trace: {running_correct_belief_mass}\n", config)
-        print(f"[game] Finished {goal_animal}. Running accuracy trace: {running_accuracy}")
+        config.active_prior_animals = prior_orders_by_trial[animal_idx - 1]
+        try:
+            write_to_log(f"\n\nStarting on animal {goal_animal}\n", config)
+            print(f"Starting on animal {goal_animal}")
+            wandb.log({
+                "event": "start animal",
+                "goal_animal": goal_animal,
+                "method": extraction_method_name,
+            })
+            game_metrics = _coerce_game_metrics(extraction_method(goal_animal, questioner, answerer, config))
+            accuracies = [a + c for a, c in zip(accuracies, game_metrics.correct_guess)]
+            correct_belief_masses = [
+                total_mass + round_mass
+                for total_mass, round_mass in zip(correct_belief_masses, game_metrics.correct_belief_mass)
+            ]
+            running_accuracy = [a / animal_idx for a in accuracies]
+            running_correct_belief_mass = [mass / animal_idx for mass in correct_belief_masses]
+            write_to_log(f"Running accuracy trace: {running_accuracy}\n", config)
+            write_to_log(f"Running correct belief mass trace: {running_correct_belief_mass}\n", config)
+            print(f"[game] Finished {goal_animal}. Running accuracy trace: {running_accuracy}")
+        finally:
+            config.active_prior_animals = None
+    config.active_prior_animals = None
     return GameMetrics(
         correct_guess=[a / len(target_animals) for a in accuracies],
         correct_belief_mass=[mass / len(target_animals) for mass in correct_belief_masses],

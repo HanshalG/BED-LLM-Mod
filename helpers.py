@@ -78,6 +78,7 @@ class Config:
     belief_prior_exponential_rate: float = 0.0
     belief_generation_enabled: bool = True
     answerer_sample_from_prior: bool = False
+    answerer_randomize_prior_order_per_trial: bool = False
     answerer_num_prior_trials: int | None = None
     answerer_prior_seed: int | None = None
     tensor_parallel_size: int | None = None
@@ -85,6 +86,7 @@ class Config:
     max_model_len: int = 4096
     run_id: str = ""
     log_path: Path | None = None
+    active_prior_animals: list[str] | None = None
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -237,6 +239,9 @@ def load_config(path: str) -> Config:
     answerer_sample_from_prior = raw.get("answerer_sample_from_prior", False)
     if not isinstance(answerer_sample_from_prior, bool):
         raise ValueError("answerer_sample_from_prior must be a boolean")
+    answerer_randomize_prior_order_per_trial = raw.get("answerer_randomize_prior_order_per_trial", False)
+    if not isinstance(answerer_randomize_prior_order_per_trial, bool):
+        raise ValueError("answerer_randomize_prior_order_per_trial must be a boolean")
     answerer_num_prior_trials = raw.get("answerer_num_prior_trials")
     if answerer_num_prior_trials is not None:
         if not isinstance(answerer_num_prior_trials, int) or isinstance(answerer_num_prior_trials, bool):
@@ -294,6 +299,7 @@ def load_config(path: str) -> Config:
         belief_prior_exponential_rate = belief_prior_exponential_rate,
         belief_generation_enabled = belief_generation_enabled,
         answerer_sample_from_prior = answerer_sample_from_prior,
+        answerer_randomize_prior_order_per_trial = answerer_randomize_prior_order_per_trial,
         answerer_num_prior_trials = answerer_num_prior_trials,
         answerer_prior_seed = answerer_prior_seed,
         tensor_parallel_size = tensor_parallel_size,
@@ -303,13 +309,14 @@ def load_config(path: str) -> Config:
 
 
 def build_models(model_pairs: list[ModelPair], build_model_adapter: Callable[[ModelSpec], "Model"]) -> dict[ModelSpec, "Model"]:
-    model_specs = {
-        pair.questioner
-        for pair in model_pairs
-    } | {
-        pair.answerer
-        for pair in model_pairs
-    }
+    model_specs: list[ModelSpec] = []
+    seen_specs: set[ModelSpec] = set()
+    for pair in model_pairs:
+        for spec in (pair.answerer, pair.questioner):
+            if spec not in seen_specs:
+                model_specs.append(spec)
+                seen_specs.add(spec)
+
     return {
         spec: build_model_adapter(spec)
         for spec in model_specs
@@ -821,6 +828,12 @@ def get_configured_prior(config: Config) -> BeliefState | None:
         return None
     if config.belief_prior_mode != "exponential_rank":
         raise ValueError("belief_prior_mode must be one of: none, exponential_rank")
+    prior_animals = config.active_prior_animals
+    if prior_animals is not None:
+        return build_exponential_rank_prior(
+            prior_animals,
+            config.belief_prior_exponential_rate,
+        )
     if config.version < 0 or config.version >= len(config.animals):
         raise ValueError("config.version must select an animals entry before building a prior")
     return build_exponential_rank_prior(

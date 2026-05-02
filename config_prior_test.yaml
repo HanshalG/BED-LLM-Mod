@@ -37,5 +37,6 @@ belief_distribution_permute_history: false
 probability_parse_fallback_to_uniform: true
 
 answerer_sample_from_prior: true
+answerer_randomize_prior_order_per_trial: true
 answerer_num_prior_trials: 10
 answerer_prior_seed: 12345

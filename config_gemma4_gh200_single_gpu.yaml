@@ -1,9 +1,9 @@
-# Example config for keeping two Gemma 4 vLLM engines off each other's GPUs.
+# Example config for trying Gemma 4 31B + 4B on one 95 GB GH200 GPU.
 #
-# With two 80 GB GPUs, this tries to place the 4B model on physical GPU 0 and
-# the 31B model on physical GPU 1. If the 31B model does not fit on one GPU,
-# allocate more GPUs and set answerer.cuda_visible_devices plus
-# answerer.tensor_parallel_size accordingly, for example "1,2" and 2.
+# The 31B model uses about 59 GiB for weights in the observed log. Keeping its
+# gpu_memory_utilization below the default leaves room for the 4B engine.
+# If startup still fails, lower the answerer value first, then the questioner
+# value, and consider max_model_len: 2048.
 version: 0
 
 animals:
@@ -15,20 +15,20 @@ model_pairs:
       thinking: true
       cuda_visible_devices: "0"
       tensor_parallel_size: 1
-      gpu_memory_utilization: 0.80
+      gpu_memory_utilization: 0.18
       max_model_len: 4096
     answerer:
       model: "google/gemma-4-31B-it"
       thinking: true
-      cuda_visible_devices: "1"
+      cuda_visible_devices: "0"
       tensor_parallel_size: 1
-      gpu_memory_utilization: 0.88
+      gpu_memory_utilization: 0.72
       max_model_len: 4096
 
 method_names:
   - "EIG"
 
-batched_block_size: 50
+batched_block_size: 25
 generation_temperature_diverse: 1.3
 generation_temperature_simple: 1.0
 answer_temperature: 0.7
