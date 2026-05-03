@@ -68,6 +68,21 @@ def question_generation_prompt_naive() -> dict[str, str]:
     return convert_to_prompt_message(role="user", content=content)
 
 
+def weighted_question_generation_prompt_naive(weighted_beliefs: list[tuple[str, float]]) -> dict[str, str]:
+    formatted_beliefs = ", ".join(
+        f"{belief}: {probability:.3f}"
+        for belief, probability in weighted_beliefs
+    )
+    content = (
+        f"Using this prior distribution over possible target animals: {formatted_beliefs}, "
+        "and using all previous questions and answers:\n\n"
+        f"Generate the best question to help identify the target animal. "
+        "Use the prior probabilities as context. The question should be phrased so the answer is Yes or No. "
+        "Print only the question - no numbering, punctuation, or extra text."
+    )
+    return convert_to_prompt_message(role="user", content=content)
+
+
 def unconditional_question_generation_prompt(candidate_questions: list[str], num_questions_left: int) -> dict[str, str]:
     content = (
             f"Using the current candidate questions: {candidate_questions} and all previous questions and answers:\n\n"
@@ -227,5 +242,19 @@ def greedy_sample_animal_user_prompt_naive() -> dict[str, str]:
     content = (
         f"Using all of the questions and answers so far: What do you think is the correct animal? "
         f"Write exactly one animal. Write nothing else: no numbering, punctuation, or extra text."
+    )
+    return convert_to_prompt_message(role="user", content=content)
+
+
+def weighted_greedy_sample_animal_user_prompt_naive(weighted_beliefs: list[tuple[str, float]]) -> dict[str, str]:
+    formatted_beliefs = ", ".join(
+        f"{belief}: {probability:.3f}"
+        for belief, probability in weighted_beliefs
+    )
+    content = (
+        f"Using this prior distribution over possible target animals: {formatted_beliefs}, "
+        "and using all of the questions and answers so far: What do you think is the correct animal? "
+        "Use the prior probabilities as context. Write exactly one animal. "
+        "Write nothing else: no numbering, punctuation, or extra text."
     )
     return convert_to_prompt_message(role="user", content=content)

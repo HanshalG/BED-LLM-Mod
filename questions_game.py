@@ -213,6 +213,7 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
 
 def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> GameMetrics:
     history_questioner = []
+    prior_beliefs = get_configured_prior(config)
     # correct_guess[i] = 1 <--> questioner had it right after i-th question
     correct_guess = [0]*NUM_ROUNDS
     correct_belief_mass = [0.0]*NUM_ROUNDS
@@ -222,7 +223,12 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
         print(f"[game-naive] {goal_animal}: round {i+1}/{NUM_ROUNDS}")
         # prompt to ask a good question
         print("[game-naive] Generating next question")
-        best_question = generate_candidate_question_naive(history_questioner, questioner, config.generation_temperature_simple)
+        best_question = generate_candidate_question_naive(
+            history_questioner,
+            questioner,
+            config.generation_temperature_simple,
+            prior_beliefs=prior_beliefs,
+        )
         print(f"[game-naive] Asking answerer: {best_question}")
 
         # Ask question, end game if correct animal was guessed
@@ -239,7 +245,12 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
 
         # greedy decoding of current most likely belief
         print("[game-naive] Sampling current best guess")
-        guess = sample_beliefs_naive(history_questioner, questioner, config.generation_temperature_simple)
+        guess = sample_beliefs_naive(
+            history_questioner,
+            questioner,
+            config.generation_temperature_simple,
+            prior_beliefs=prior_beliefs,
+        )
         if guess.lower() == goal_animal.lower() or is_guess_correct_via_answerer(
             guess,
             goal_animal,

@@ -9,7 +9,7 @@ from prompts import candidate_generation_system_message, conditional_question_ge
     unconditional_question_generation_prompt, weighted_conditional_question_generation_prompt, \
     weighted_unconditional_question_generation_prompt, \
     candidate_generation_system_message_naive, \
-    question_generation_prompt_naive, answer_question_yesno_system_prompt
+    question_generation_prompt_naive, weighted_question_generation_prompt_naive, answer_question_yesno_system_prompt
 from update_beliefs import _update_beliefs_many, update_beliefs_batched
 
 from helpers import write_to_log
@@ -653,7 +653,17 @@ def evaluate_questions_batched(beliefs: BeliefState | list[str], cand_questions:
 
 
 def generate_candidate_question_naive(history_questioner: list[dict[str, str]], questioner: Model,
-                                      generation_temperature: float) -> str:
+                                      generation_temperature: float,
+                                      prior_beliefs: BeliefState | None = None) -> str:
+    if prior_beliefs is None or len(prior_beliefs.beliefs) == 0:
+        question_prompt = question_generation_prompt_naive()
+    else:
+        weighted_beliefs = sorted(
+            zip(prior_beliefs.beliefs, prior_beliefs.probabilities),
+            key=lambda entry: entry[1],
+            reverse=True,
+        )
+        question_prompt = weighted_question_generation_prompt_naive(weighted_beliefs)
     messages = ([candidate_generation_system_message_naive()] + reverse_history(history_questioner) +
-                [question_generation_prompt_naive()])
+                [question_prompt])
     return questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
