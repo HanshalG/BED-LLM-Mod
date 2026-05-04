@@ -85,37 +85,58 @@ def twenty_questions_animals_single_complex(goal_animal: str, eig: bool, determi
     for i in range(NUM_ROUNDS):
         start_time = time.perf_counter()
         best_question_score = None
+        best_question = None
 
         write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config)
         print(f"[game] {goal_animal}: round {i+1}/{NUM_ROUNDS} with {len(beliefs.beliefs)} belief(s)")
-        # Generate candidate questions, select the question with best EIG
-        print(f"[game] Generating up to {config.target_num_questions} candidate question(s)")
-        cand_questions = generate_candidate_questions(beliefs, history_questioner, questioner,
-                                                      config.generation_temperature_diverse, config.target_num_questions)
-        print(f"[game] Generated {len(cand_questions)} candidate question(s)")
-        if config.belief_state_mode == "categorical":
+        cand_questions = []
+        question_EIGs = []
+        if (
+            config.belief_state_mode == "categorical"
+            and config.belief_guess_threshold is not None
+            and len(beliefs.beliefs) > 0
+        ):
+            guess_idx = int(np.argmax(beliefs.probabilities))
+            top_belief = beliefs.beliefs[guess_idx]
+            top_probability = float(beliefs.probabilities[guess_idx])
+            if top_probability >= config.belief_guess_threshold:
+                best_question = f"Is it {top_belief}?"
+                print_and_log(
+                    f"[categorical] Guess threshold reached: {top_belief} ({top_probability:.3f}) >= "
+                    f"{config.belief_guess_threshold:.3f}; asking identity question",
+                    config,
+                )
+
+        if best_question is None:
+            # Generate candidate questions, select the question with best EIG
+            print(f"[game] Generating up to {config.target_num_questions} candidate question(s)")
+            cand_questions = generate_candidate_questions(beliefs, history_questioner, questioner,
+                                                          config.generation_temperature_diverse, config.target_num_questions)
+            print(f"[game] Generated {len(cand_questions)} candidate question(s)")
+        if config.belief_state_mode == "categorical" and cand_questions:
             print_and_log(
                 f"[categorical] Candidate questions selected for scoring ({len(cand_questions)}): "
                 f"{cand_questions}",
                 config,
             )
-        if len(cand_questions) > 1:
-            print(f"[game] Scoring candidate questions using {'EIG' if eig else 'entropy'} search")
-            question_EIGs = evaluate_questions_forward_search(
-                beliefs,
-                history_questioner,
-                cand_questions,
-                eig,
-                deterministic,
-                questioner,
-                config,
-                depth=config.search_depth,
-            )
-            best_idx = int(np.argmax(question_EIGs))
-            best_question = cand_questions[best_idx]
-            best_question_score = float(question_EIGs[best_idx])
-        else:
-            best_question = cand_questions[0]
+        if best_question is None:
+            if len(cand_questions) > 1:
+                print(f"[game] Scoring candidate questions using {'EIG' if eig else 'entropy'} search")
+                question_EIGs = evaluate_questions_forward_search(
+                    beliefs,
+                    history_questioner,
+                    cand_questions,
+                    eig,
+                    deterministic,
+                    questioner,
+                    config,
+                    depth=config.search_depth,
+                )
+                best_idx = int(np.argmax(question_EIGs))
+                best_question = cand_questions[best_idx]
+                best_question_score = float(question_EIGs[best_idx])
+            else:
+                best_question = cand_questions[0]
 
         if best_question_score is None:
             print(f"[game] Selected question: {best_question}")
@@ -238,7 +259,6 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
         if answer == "Correct!":
             print(f"[game-naive] Goal animal {goal_animal} identified in round {i+1}")
             correct_guess[i:NUM_ROUNDS] = [1] * (len(correct_guess) - i)
-            correct_belief_mass[i:NUM_ROUNDS] = [1.0] * (len(correct_belief_mass) - i)
             return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
 
         history_questioner = history_questioner +  [{"role": "assistant", "content": best_question}, {"role": "user", "content": answer}]
