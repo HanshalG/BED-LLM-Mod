@@ -14,7 +14,7 @@ import numpy as np
 import yaml
 
 from prompts import answer_question_yesnocorrect_system_prompt, generate_original_animals_system_prompt, \
-    probability_answer_scores_prompt
+    is_answer_likelihood_messages
 
 if TYPE_CHECKING:
     from model import Model
@@ -405,18 +405,13 @@ def format_config_for_log(config: Config) -> str:
 
 def _build_probability_messages(messages: list[dict[str, str]], responses: list[str]) -> list[dict[str, str]]:
     probability_messages = [dict(message) for message in messages]
-    instruction = probability_answer_scores_prompt(responses)["content"]
-
-    if probability_messages and probability_messages[-1]["role"] == "user":
-        original_content = probability_messages[-1]["content"].rstrip()
-        if original_content:
-            probability_messages[-1]["content"] = f"{original_content}\n\n{instruction}"
-        else:
-            probability_messages[-1]["content"] = instruction
+    if is_answer_likelihood_messages(probability_messages):
         return probability_messages
 
-    probability_messages.append({"role": "user", "content": instruction})
-    return probability_messages
+    raise ValueError(
+        "chat_probabilities_messages_batched requires dedicated answer likelihood messages. "
+        "Build conversations with answer_likelihood_messages(...)."
+    )
 
 
 def _strip_code_fences(text: str) -> str:

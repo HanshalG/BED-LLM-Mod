@@ -21,7 +21,7 @@ from helpers import (
 )
 from model import Model
 from prompts import generate_animals_system_prompt, generate_more_animals_system_prompt, \
-    answer_question_yesno_system_prompt, belief_distribution_system_prompt, belief_distribution_user_prompt, \
+    answer_likelihood_messages, belief_distribution_system_prompt, belief_distribution_user_prompt, \
     generate_animals_user_prompt, validate_animal_name_system_prompt, validate_animal_name_user_prompt
 
 
@@ -276,10 +276,7 @@ def score_beliefs_from_prior_batched(beliefs: list[str], history_questioner: lis
     for _call_idx in range(config.belief_distribution_num_calls):
         for label in labels:
             for question, _answer in pairs:
-                conversations.append([
-                    answer_question_yesno_system_prompt(entity=label),
-                    {"role": "user", "content": question},
-                ])
+                conversations.append(answer_likelihood_messages(label, question, ["Yes", "No"]))
 
     probabilities = questioner.chat_probabilities_messages_batched(
         conversations,
@@ -472,8 +469,7 @@ def check_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
             if history_message["role"] != "assistant":
                 continue
             question = history_message["content"]
-            user_question = {"role": "user", "content": question}
-            conversations.append([answer_question_yesno_system_prompt(entity=new_belief), user_question])
+            conversations.append(answer_likelihood_messages(new_belief, question, ["Yes", "No"]))
             answers.append(history_questioner[i+1]["content"].lower())
 
     # get answers for all conversations in parallel
@@ -531,8 +527,7 @@ def _check_beliefs_many(branch_beliefs: list[list[str]], histories_questioner: l
             for history_message in history_questioner:
                 if history_message["role"] != "assistant":
                     continue
-                user_question = {"role": "user", "content": history_message["content"]}
-                conversations.append([answer_question_yesno_system_prompt(entity=new_belief), user_question])
+                conversations.append(answer_likelihood_messages(new_belief, history_message["content"], ["Yes", "No"]))
 
     if not conversations:
         return filtered_branch_beliefs

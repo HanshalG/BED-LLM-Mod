@@ -131,6 +131,45 @@ def answer_question_yesno_system_prompt(entity: str) -> dict[str, str]:
     return convert_to_prompt_message(role="system", content=content)
 
 
+def answer_likelihood_system_prompt() -> dict[str, str]:
+    content = (
+        "You estimate answer likelihoods for a game of 20 Questions. "
+        "Given a hypothesized target animal and one Yes/No question, estimate how likely each allowed "
+        "answer would be if that animal were the true target. Return only the requested JSON object. "
+        "Do not answer the question directly and do not explain your reasoning."
+    )
+    return convert_to_prompt_message(role="system", content=content)
+
+
+def answer_likelihood_user_prompt(entity: str, question: str, responses: list[str]) -> dict[str, str]:
+    response_keys = ", ".join(json.dumps(response) for response in responses)
+    content = (
+        f"Hypothesized target animal:\n{entity}\n\n"
+        f"Question:\n{question}\n\n"
+        f"Allowed answer labels:\n{json.dumps(responses)}\n\n"
+        f"Return exactly one JSON object using exactly these keys: {response_keys}.\n"
+        "Each value must be a numeric probability and the values must sum to 1.\n"
+        "Do not include any explanation, reasoning, markdown, or code fences.\n"
+        "Do not write any text before or after the JSON object."
+    )
+    return convert_to_prompt_message(role="user", content=content)
+
+
+def answer_likelihood_messages(entity: str, question: str, responses: list[str]) -> list[dict[str, str]]:
+    return [
+        answer_likelihood_system_prompt(),
+        answer_likelihood_user_prompt(entity, question, responses),
+    ]
+
+
+def is_answer_likelihood_messages(messages: list[dict[str, str]]) -> bool:
+    return (
+        len(messages) >= 2
+        and messages[0].get("role") == "system"
+        and messages[0].get("content") == answer_likelihood_system_prompt()["content"]
+    )
+
+
 def validate_animal_name_system_prompt() -> dict[str, str]:
     content = (
         "You judge whether a text string is the name of one existing animal or a commonly used animal label. "

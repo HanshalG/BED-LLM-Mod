@@ -9,7 +9,7 @@ from prompts import candidate_generation_system_message, conditional_question_ge
     unconditional_question_generation_prompt, weighted_conditional_question_generation_prompt, \
     weighted_unconditional_question_generation_prompt, \
     candidate_generation_system_message_naive, \
-    question_generation_prompt_naive, weighted_question_generation_prompt_naive, answer_question_yesno_system_prompt
+    question_generation_prompt_naive, weighted_question_generation_prompt_naive, answer_likelihood_messages
 from update_beliefs import _update_beliefs_many, update_beliefs_batched
 
 from helpers import write_to_log
@@ -251,9 +251,7 @@ def _score_questions_from_samples(samples: list[str] | np.ndarray, sample_probab
     conversations = []
     for question in cand_questions:
         for sample in samples:
-            user_question = {"role": "user", "content": f"{question}"}
-            messages = [answer_question_yesno_system_prompt(entity=sample), user_question]
-            conversations.append(messages)
+            conversations.append(answer_likelihood_messages(sample, question, ["Yes", "No"]))
 
     probabilities = questioner.chat_probabilities_messages_batched(
         conversations,
@@ -333,8 +331,7 @@ def _score_future_questions_batched(branch_beliefs: list[BeliefState], branch_fu
         active_branch_indices.append(branch_idx)
         for question in future_questions:
             for sample in samples:
-                user_question = {"role": "user", "content": f"{question}"}
-                conversations.append([answer_question_yesno_system_prompt(entity=sample), user_question])
+                conversations.append(answer_likelihood_messages(sample, question, ["Yes", "No"]))
 
     probabilities = []
     if conversations:
