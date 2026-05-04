@@ -651,7 +651,8 @@ def evaluate_questions_batched(beliefs: BeliefState | list[str], cand_questions:
 
 def generate_candidate_question_naive(history_questioner: list[dict[str, str]], questioner: Model,
                                       generation_temperature: float,
-                                      prior_beliefs: BeliefState | None = None) -> str:
+                                      prior_beliefs: BeliefState | None = None,
+                                      belief_context_label: str = "prior distribution") -> str:
     if prior_beliefs is None or len(prior_beliefs.beliefs) == 0:
         question_prompt = question_generation_prompt_naive()
     else:
@@ -660,7 +661,7 @@ def generate_candidate_question_naive(history_questioner: list[dict[str, str]], 
             key=lambda entry: entry[1],
             reverse=True,
         )
-        question_prompt = weighted_question_generation_prompt_naive(weighted_beliefs)
+        question_prompt = weighted_question_generation_prompt_naive(weighted_beliefs, belief_context_label)
     messages = ([candidate_generation_system_message_naive()] + reverse_history(history_questioner) +
                 [question_prompt])
     return questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]

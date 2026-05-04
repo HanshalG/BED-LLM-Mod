@@ -285,8 +285,115 @@ def twenty_questions_animals_single_naive(goal_animal: str, questioner: Model, a
     return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
 
 
+def twenty_questions_animals_single_naive_belief(goal_animal: str, questioner: Model, answerer: Model, config: Config) -> GameMetrics:
+    history_questioner = []
+    if config.belief_generation_enabled:
+        print(f"[game-naive+belief] Generating initial beliefs for {goal_animal}")
+        initial_beliefs = generate_original_beliefs(questioner, config)
+    else:
+        configured_prior = get_configured_prior(config)
+        if configured_prior is None:
+            raise ValueError("belief_generation_enabled=false requires a configured prior")
+        print(f"[game-naive+belief] Using configured prior support for initial beliefs for {goal_animal}")
+        initial_beliefs = configured_prior.beliefs
+    beliefs = initialize_belief_state(initial_beliefs, history_questioner, questioner, config)
+    print(f"[game-naive+belief] Starting belief set has {len(beliefs.beliefs)} candidate(s)")
+    write_to_log(f"Original beliefs: {format_belief_state(beliefs)}\n", config)
+    if config.belief_state_mode == "categorical":
+        print_and_log(
+            f"[categorical] Running naive+belief with opening beliefs: "
+            f"{format_categorical_belief_summary(beliefs)}",
+            config,
+        )
+
+    correct_guess = [0]*NUM_ROUNDS
+    correct_belief_mass = [0.0]*NUM_ROUNDS
+    for i in range(NUM_ROUNDS):
+        start_time = time.perf_counter()
+        write_to_log(f"\nGoal animal {goal_animal}: Round {i+1}\n", config)
+        print(f"[game-naive+belief] {goal_animal}: round {i+1}/{NUM_ROUNDS} with {len(beliefs.beliefs)} belief(s)")
+
+        print("[game-naive+belief] Generating one belief-conditioned naive question")
+        best_question = generate_candidate_question_naive(
+            history_questioner,
+            questioner,
+            config.generation_temperature_simple,
+            prior_beliefs=beliefs,
+            belief_context_label="current posterior belief state",
+        )
+        print(f"[game-naive+belief] Asking answerer: {best_question}")
+
+        answer = get_question_answered(best_question, goal_animal, answerer, config.answer_temperature)
+        print(f"[game-naive+belief] Answer received: {answer}")
+        write_to_log(f"Best question: {best_question}, Answer: {answer}\n", config)
+        if answer == "Correct!":
+            print(f"[game-naive+belief] Goal animal {goal_animal} identified in round {i+1}")
+            correct_guess[i:NUM_ROUNDS] = [1] * (len(correct_guess) - i)
+            correct_belief_mass[i:NUM_ROUNDS] = [1.0] * (len(correct_belief_mass) - i)
+            return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
+
+        history_questioner = history_questioner +  [{"role": "assistant", "content": best_question}, {"role": "user", "content": answer}]
+
+        print("[game-naive+belief] Updating beliefs with the latest question-answer pair")
+        prior_top_belief = beliefs.beliefs[0] if len(beliefs.beliefs) > 0 else None
+        beliefs = update_beliefs_batched(history_questioner, beliefs, questioner, False, config)
+        print(f"[game-naive+belief] Belief set now has {len(beliefs.beliefs)} candidate(s)")
+        write_to_log(f"Current beliefs: {format_belief_state(beliefs)}\n", config)
+        correct_mass = probability_mass_on_belief(beliefs, goal_animal)
+        correct_belief_mass[i] = correct_mass
+        print_and_log(
+            f"[belief-mass] Probability mass assigned to correct belief after round {i+1}: {correct_mass:.6f}",
+            config,
+        )
+        wandb.log({
+            "correct_belief_mass": correct_mass,
+            "round": i + 1,
+            "goal_animal": goal_animal,
+        })
+        if config.belief_state_mode == "categorical":
+            new_top_belief = beliefs.beliefs[0] if len(beliefs.beliefs) > 0 else None
+            print_and_log(
+                f"[categorical] Post-update weighted beliefs: {format_categorical_belief_summary(beliefs)}",
+                config,
+            )
+            if prior_top_belief == new_top_belief:
+                print_and_log(
+                    f"[categorical] Top belief unchanged after round {i+1}: {new_top_belief}",
+                    config,
+                )
+            else:
+                print_and_log(
+                    f"[categorical] Top belief changed after round {i+1}: {prior_top_belief} -> {new_top_belief}",
+                    config,
+                )
+
+        print("[game-naive+belief] Sampling current best guess")
+        if config.belief_state_mode == "categorical" and len(beliefs.beliefs) > 0:
+            guess_idx = int(np.argmax(beliefs.probabilities))
+            guess = beliefs.beliefs[guess_idx]
+            print_and_log(
+                f"[categorical] Greedy weighted guess: {guess} ({beliefs.probabilities[guess_idx]:.3f})",
+                config,
+            )
+        else:
+            guess = sample_beliefs(beliefs.beliefs, history_questioner, questioner, config.generation_temperature_simple)
+        if guess.lower() == goal_animal.lower() or is_guess_correct_via_answerer(
+            guess,
+            goal_animal,
+            answerer,
+            config.answer_temperature,
+        ):
+            correct_guess[i] = 1
+        print(f"[game-naive+belief] Current best guess after round {i+1}: {guess}")
+        write_to_log(f"Current best guess: {guess}\n", config)
+        elapsed_time = time.perf_counter() - start_time
+        print(f"[game-naive+belief] Round {i+1} finished in {elapsed_time:.2f}s")
+    return GameMetrics(correct_guess=correct_guess, correct_belief_mass=correct_belief_mass)
+
+
 extraction_methods = {
     "naive": twenty_questions_animals_single_naive,
+    "naive+belief": twenty_questions_animals_single_naive_belief,
     "split": twenty_questions_animals_single_split,
     "Entropy": twenty_questions_animals_single_entropy,
     "EIG": twenty_questions_animals_single_EIG,

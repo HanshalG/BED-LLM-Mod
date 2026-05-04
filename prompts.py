@@ -68,16 +68,19 @@ def question_generation_prompt_naive() -> dict[str, str]:
     return convert_to_prompt_message(role="user", content=content)
 
 
-def weighted_question_generation_prompt_naive(weighted_beliefs: list[tuple[str, float]]) -> dict[str, str]:
+def weighted_question_generation_prompt_naive(
+    weighted_beliefs: list[tuple[str, float]],
+    belief_context_label: str = "prior distribution",
+) -> dict[str, str]:
     formatted_beliefs = ", ".join(
         f"{belief}: {probability:.3f}"
         for belief, probability in weighted_beliefs
     )
     content = (
-        f"Using this prior distribution over possible target animals: {formatted_beliefs}, "
+        f"Using this {belief_context_label} over possible target animals: {formatted_beliefs}, "
         "and using all previous questions and answers:\n\n"
         f"Generate the best question to help identify the target animal. "
-        "Use the prior probabilities as context. The question should be phrased so the answer is Yes or No. "
+        "Use these probabilities as context. The question should be phrased so the answer is Yes or No. "
         "Print only the question - no numbering, punctuation, or extra text."
     )
     return convert_to_prompt_message(role="user", content=content)
