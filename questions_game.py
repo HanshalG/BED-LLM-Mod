@@ -5,7 +5,8 @@ import wandb
 import numpy as np
 
 from helpers import Config, format_belief_state, format_categorical_belief_summary, generate_original_beliefs, \
-    get_configured_prior, get_question_answered, is_guess_correct_via_answerer, print_and_log, write_to_log
+    get_answerer_prior, get_configured_prior, get_question_answered, is_guess_correct_via_answerer, print_and_log, \
+    write_to_log
 from generate_candidate_questions import generate_candidate_questions, generate_candidate_question_naive, \
     evaluate_questions_forward_search
 from model import Model
@@ -404,9 +405,9 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
     extraction_method = extraction_methods[extraction_method_name]
     accuracies = [0.0]*NUM_ROUNDS
     correct_belief_masses = [0.0]*NUM_ROUNDS
-    prior_orders_by_trial: list[list[str] | None] = [None] * len(target_animals)
     if config.answerer_sample_from_prior:
-        base_prior = get_configured_prior(config)
+        questioner_prior = get_configured_prior(config)
+        base_prior = get_answerer_prior(config)
         if base_prior is None or len(base_prior.beliefs) == 0:
             raise ValueError("answerer_sample_from_prior=true requires a non-empty configured prior")
         num_trials = config.answerer_num_prior_trials
@@ -414,7 +415,6 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
             num_trials = len(base_prior.beliefs)
         rng = np.random.default_rng(config.answerer_prior_seed)
         target_animals = []
-        prior_orders_by_trial = []
         prior_summaries = []
         for _trial_idx in range(num_trials):
             if config.answerer_randomize_prior_order_per_trial:
@@ -424,8 +424,11 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
                 ]
             else:
                 prior_order = list(base_prior.beliefs)
-            config.active_prior_animals = prior_order
-            trial_prior = get_configured_prior(config)
+            config.active_answerer_prior_animals = prior_order
+            try:
+                trial_prior = get_answerer_prior(config)
+            finally:
+                config.active_answerer_prior_animals = None
             if trial_prior is None or len(trial_prior.beliefs) == 0:
                 raise ValueError("answerer_sample_from_prior=true requires a non-empty configured prior")
             sampled_index = int(rng.choice(
@@ -433,9 +436,14 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
                 p=trial_prior.probabilities,
             ))
             target_animals.append(trial_prior.beliefs[sampled_index])
-            prior_orders_by_trial.append(prior_order)
             prior_summaries.append(format_categorical_belief_summary(trial_prior, top_n=5))
-        config.active_prior_animals = None
+        if questioner_prior is None:
+            print_and_log("[categorical] Questioner prior: none", config)
+        else:
+            print_and_log(
+                f"[categorical] Questioner prior: {format_categorical_belief_summary(questioner_prior, top_n=5)}",
+                config,
+            )
         print_and_log(
             f"[categorical] Sampled answerer target sequence from prior: {target_animals}",
             config,
@@ -452,7 +460,6 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
             )
     print(f"[game] Running method {extraction_method_name} across {len(target_animals)} animal(s)")
     for animal_idx, goal_animal in enumerate(target_animals, start=1):
-        config.active_prior_animals = prior_orders_by_trial[animal_idx - 1]
         try:
             write_to_log(f"\n\nStarting on animal {goal_animal}\n", config)
             print(f"Starting on animal {goal_animal}")
@@ -474,7 +481,9 @@ def twenty_questions_animals(questioner: Model, answerer: Model, target_animals:
             print(f"[game] Finished {goal_animal}. Running accuracy trace: {running_accuracy}")
         finally:
             config.active_prior_animals = None
+            config.active_answerer_prior_animals = None
     config.active_prior_animals = None
+    config.active_answerer_prior_animals = None
     return GameMetrics(
         correct_guess=[a / len(target_animals) for a in accuracies],
         correct_belief_mass=[mass / len(target_animals) for mass in correct_belief_masses],

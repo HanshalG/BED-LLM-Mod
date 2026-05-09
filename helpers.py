@@ -22,7 +22,8 @@ if TYPE_CHECKING:
 
 ReasoningEffort = Literal["low", "medium", "high"]
 BeliefStateMode = Literal["uniform", "categorical"]
-BeliefPriorMode = Literal["none", "exponential_rank"]
+BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
+AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
 
 
 @dataclass(frozen=True)
@@ -80,6 +81,8 @@ class Config:
     belief_filtering_enabled: bool = True
     belief_guess_threshold: float | None = 0.99
     answerer_sample_from_prior: bool = False
+    answerer_prior_mode: AnswererPriorMode = "inherit"
+    answerer_prior_exponential_rate: float | None = None
     answerer_randomize_prior_order_per_trial: bool = False
     answerer_num_prior_trials: int | None = None
     answerer_prior_seed: int | None = None
@@ -89,6 +92,7 @@ class Config:
     run_id: str = ""
     log_path: Path | None = None
     active_prior_animals: list[str] | None = None
+    active_answerer_prior_animals: list[str] | None = None
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -224,8 +228,8 @@ def load_config(path: str) -> Config:
     if not isinstance(probability_parse_fallback_to_uniform, bool):
         raise ValueError("probability_parse_fallback_to_uniform must be a boolean")
     belief_prior_mode = raw.get("belief_prior_mode", "none")
-    if belief_prior_mode not in {"none", "exponential_rank"}:
-        raise ValueError("belief_prior_mode must be one of: none, exponential_rank")
+    if belief_prior_mode not in {"none", "uniform", "exponential_rank"}:
+        raise ValueError("belief_prior_mode must be one of: none, uniform, exponential_rank")
     belief_prior_exponential_rate = raw.get("belief_prior_exponential_rate", 0.0)
     if isinstance(belief_prior_exponential_rate, bool):
         raise ValueError("belief_prior_exponential_rate must be a non-negative number")
@@ -251,6 +255,19 @@ def load_config(path: str) -> Config:
     answerer_sample_from_prior = raw.get("answerer_sample_from_prior", False)
     if not isinstance(answerer_sample_from_prior, bool):
         raise ValueError("answerer_sample_from_prior must be a boolean")
+    answerer_prior_mode = raw.get("answerer_prior_mode", "inherit")
+    if answerer_prior_mode not in {"inherit", "none", "uniform", "exponential_rank"}:
+        raise ValueError("answerer_prior_mode must be one of: inherit, none, uniform, exponential_rank")
+    answerer_prior_exponential_rate = raw.get("answerer_prior_exponential_rate")
+    if answerer_prior_exponential_rate is not None:
+        if isinstance(answerer_prior_exponential_rate, bool):
+            raise ValueError("answerer_prior_exponential_rate must be a non-negative number or null")
+        try:
+            answerer_prior_exponential_rate = float(answerer_prior_exponential_rate)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("answerer_prior_exponential_rate must be a non-negative number or null") from exc
+        if not math.isfinite(answerer_prior_exponential_rate) or answerer_prior_exponential_rate < 0.0:
+            raise ValueError("answerer_prior_exponential_rate must be a non-negative number or null")
     answerer_randomize_prior_order_per_trial = raw.get("answerer_randomize_prior_order_per_trial", False)
     if not isinstance(answerer_randomize_prior_order_per_trial, bool):
         raise ValueError("answerer_randomize_prior_order_per_trial must be a boolean")
@@ -313,6 +330,8 @@ def load_config(path: str) -> Config:
         belief_filtering_enabled = belief_filtering_enabled,
         belief_guess_threshold = belief_guess_threshold,
         answerer_sample_from_prior = answerer_sample_from_prior,
+        answerer_prior_mode = answerer_prior_mode,
+        answerer_prior_exponential_rate = answerer_prior_exponential_rate,
         answerer_randomize_prior_order_per_trial = answerer_randomize_prior_order_per_trial,
         answerer_num_prior_trials = answerer_num_prior_trials,
         answerer_prior_seed = answerer_prior_seed,
@@ -811,6 +830,10 @@ def make_uniform_belief_state(beliefs: list[str]) -> BeliefState:
     return BeliefState(deduped_beliefs, [uniform_probability] * len(deduped_beliefs))
 
 
+def build_uniform_prior(animals: list[str]) -> BeliefState:
+    return make_uniform_belief_state(animals)
+
+
 def build_exponential_rank_prior(animals: list[str], rate: float) -> BeliefState:
     if isinstance(rate, bool):
         raise ValueError("rate must be a non-negative finite number")
@@ -832,23 +855,60 @@ def build_exponential_rank_prior(animals: list[str], rate: float) -> BeliefState
     return make_belief_state(deduped_animals, weights, fallback_to_uniform=False)
 
 
-def get_configured_prior(config: Config) -> BeliefState | None:
-    if config.belief_prior_mode == "none":
-        return None
-    if config.belief_prior_mode != "exponential_rank":
-        raise ValueError("belief_prior_mode must be one of: none, exponential_rank")
-    prior_animals = config.active_prior_animals
-    if prior_animals is not None:
-        return build_exponential_rank_prior(
-            prior_animals,
-            config.belief_prior_exponential_rate,
-        )
+def _prior_animals_for_config(config: Config, active_animals: list[str] | None) -> list[str]:
+    if active_animals is not None:
+        return active_animals
     if config.version < 0 or config.version >= len(config.animals):
         raise ValueError("config.version must select an animals entry before building a prior")
-    return build_exponential_rank_prior(
-        config.animals[config.version],
+    return config.animals[config.version]
+
+
+def _build_prior_from_mode(animals: list[str], mode: str, rate: float | None, field_name: str) -> BeliefState | None:
+    if mode == "none":
+        return None
+    if mode == "uniform":
+        return build_uniform_prior(animals)
+    if mode == "exponential_rank":
+        return build_exponential_rank_prior(animals, 0.0 if rate is None else rate)
+    raise ValueError(f"{field_name} must be one of: none, uniform, exponential_rank")
+
+
+def get_questioner_prior(config: Config) -> BeliefState | None:
+    if config.belief_prior_mode == "none":
+        return None
+    prior_animals = _prior_animals_for_config(config, config.active_prior_animals)
+    return _build_prior_from_mode(
+        prior_animals,
+        config.belief_prior_mode,
         config.belief_prior_exponential_rate,
+        "belief_prior_mode",
     )
+
+
+def get_answerer_prior(config: Config) -> BeliefState | None:
+    if config.answerer_prior_mode == "inherit":
+        if config.belief_prior_mode == "none":
+            return None
+        prior_animals = _prior_animals_for_config(config, config.active_answerer_prior_animals)
+        return _build_prior_from_mode(
+            prior_animals,
+            config.belief_prior_mode,
+            config.belief_prior_exponential_rate,
+            "belief_prior_mode",
+        )
+    if config.answerer_prior_mode == "none":
+        return None
+    prior_animals = _prior_animals_for_config(config, config.active_answerer_prior_animals)
+    return _build_prior_from_mode(
+        prior_animals,
+        config.answerer_prior_mode,
+        config.answerer_prior_exponential_rate,
+        "answerer_prior_mode",
+    )
+
+
+def get_configured_prior(config: Config) -> BeliefState | None:
+    return get_questioner_prior(config)
 
 
 def sort_belief_state_descending(belief_state: BeliefState) -> BeliefState:
