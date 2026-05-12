@@ -1,0 +1,31 @@
+# Local BoxingGym-faithful Location Finding run.
+version: 0
+task: "location_finding"
+
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: false
+    answerer:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: false
+
+method_names:
+  - "EIG"
+
+batched_block_size: 225
+generation_temperature_diverse: 1.3
+generation_temperature_simple: 1.0
+answer_temperature: 0.7
+
+location_num_rounds: 20
+location_num_trials: 1
+location_num_sources: 3
+location_dim: 2
+location_noise_sd: 0.5
+location_query_bounds: [-2.0, 2.0]
+location_max_beliefs: 40
+location_min_probability_mass: 0.01
+location_target_num_candidates: 15
+location_search_depth: 2
+location_eig_quadrature_order: 15

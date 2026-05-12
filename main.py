@@ -20,7 +20,14 @@ def main():
     print(f"[main] Loading config from {args.config}")
     config = load_config(args.config)
     config.run_id = resolve_run_id()
-    print(f"[main] Loaded config with {len(config.model_pairs)} model pair(s), {len(config.method_names)} method(s), and {len(config.animals[config.version])} target animal(s)")
+    if config.task == "location_finding":
+        target_description = f"{config.location_num_trials} Location Finding trial(s)"
+    else:
+        target_description = f"{len(config.animals[config.version])} target animal(s)"
+    print(
+        f"[main] Loaded config with {len(config.model_pairs)} model pair(s), "
+        f"{len(config.method_names)} method(s), and {target_description}"
+    )
     print(f"[main] Using run ID {config.run_id}")
 
     print("[main] Initializing Weights & Biases run")
@@ -35,8 +42,10 @@ def main():
                 for pair in config.model_pairs
             ],
             "methods": config.method_names,
-            "guessing": config.animals[config.version],
+            "guessing": config.animals[config.version] if config.task == "animals" else "location_finding",
+            "task": config.task,
             "search_depth": config.search_depth,
+            "location_search_depth": config.location_search_depth,
         }
     )
 
@@ -59,6 +68,9 @@ def main():
         answerer_model = models[pair.answerer]
 
         for method_name in config.method_names:
+            stem_search_depth = config.search_depth
+            if config.task == "location_finding":
+                stem_search_depth = config.location_search_depth
             output_stem = build_output_stem(
                 config.run_id,
                 method_name,
@@ -66,8 +78,10 @@ def main():
                 pair.answerer,
                 config.version,
                 belief_state_mode=config.belief_state_mode,
-                search_depth=config.search_depth,
+                search_depth=stem_search_depth,
             )
+            if config.task == "location_finding":
+                output_stem = output_stem.removesuffix("_animals") + "_location_finding"
             config.log_path = logs_dir / f"{output_stem}.log"
             results_path = results_dir / f"{output_stem}.npy"
             correct_belief_mass_path = results_dir / f"{output_stem}_correct_belief_mass.npy"
@@ -75,6 +89,32 @@ def main():
             write_to_log(f"Config parameters:\n{format_config_for_log(config)}\n\n", config)
             write_to_log(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)
             print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
+
+            if config.task == "location_finding":
+                if method_name != "EIG":
+                    raise ValueError("Location Finding currently supports only method_name='EIG'")
+                from location_finding import run_location_finding
+
+                metrics = run_location_finding(questioner_model, config)
+                top_probability_path = results_dir / f"{output_stem}_top_probability.npy"
+                selected_eig_path = results_dir / f"{output_stem}_selected_eig.npy"
+                write_to_log(f"Source RMSE trace: {metrics.source_rmse}\n", config)
+                write_to_log(f"Top probability trace: {metrics.top_probability}\n", config)
+                write_to_log(f"Selected EIG trace: {metrics.selected_eig}\n", config)
+                print(f"[main] Saving Location Finding source RMSE trace to {results_path}")
+                np.save(results_path, np.array(metrics.source_rmse))
+                print(f"[main] Saving Location Finding top probability trace to {top_probability_path}")
+                np.save(top_probability_path, np.array(metrics.top_probability))
+                print(f"[main] Saving Location Finding selected EIG trace to {selected_eig_path}")
+                np.save(selected_eig_path, np.array(metrics.selected_eig))
+                print(f"Source RMSE: {metrics.source_rmse}\n\n")
+                wandb.log({
+                    "source_rmse": metrics.source_rmse,
+                    "top_probability": metrics.top_probability,
+                    "selected_eig": metrics.selected_eig,
+                })
+                continue
+
             game_metrics = twenty_questions_animals(
                 questioner_model,
                 answerer_model,

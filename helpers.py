@@ -21,6 +21,7 @@ if TYPE_CHECKING:
 
 
 ReasoningEffort = Literal["low", "medium", "high"]
+TaskMode = Literal["animals", "location_finding"]
 BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
@@ -57,6 +58,7 @@ class BeliefState:
 @dataclass
 class Config:
     version: int = 0
+    task: TaskMode = "animals"
     model_pairs: list[ModelPair] = field(default_factory=list)
     method_names: list[str] = field(default_factory=list)
     animals: list[list[str]] = field(default_factory=list)
@@ -93,6 +95,17 @@ class Config:
     log_path: Path | None = None
     active_prior_animals: list[str] | None = None
     active_answerer_prior_animals: list[str] | None = None
+    location_num_rounds: int = 20
+    location_num_trials: int = 1
+    location_num_sources: int = 3
+    location_dim: int = 2
+    location_noise_sd: float = 0.5
+    location_query_bounds: list[float] = field(default_factory=lambda: [-2.0, 2.0])
+    location_max_beliefs: int = 40
+    location_min_probability_mass: float = 0.01
+    location_target_num_candidates: int = 15
+    location_search_depth: int = 2
+    location_eig_quadrature_order: int = 15
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -207,8 +220,57 @@ def _normalize_model_pair(raw_pair: object, index: int) -> ModelPair:
     )
 
 
+def _read_positive_int(raw: dict, key: str, default: int) -> int:
+    value = raw.get(key, default)
+    if not isinstance(value, int) or isinstance(value, bool) or value < 1:
+        raise ValueError(f"{key} must be a positive integer")
+    return value
+
+
+def _read_positive_float(raw: dict, key: str, default: float) -> float:
+    value = raw.get(key, default)
+    if isinstance(value, bool):
+        raise ValueError(f"{key} must be a positive number")
+    try:
+        coerced = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{key} must be a positive number") from exc
+    if not math.isfinite(coerced) or coerced <= 0.0:
+        raise ValueError(f"{key} must be a positive number")
+    return coerced
+
+
+def _read_probability(raw: dict, key: str, default: float) -> float:
+    value = raw.get(key, default)
+    if isinstance(value, bool):
+        raise ValueError(f"{key} must be a number in [0.0, 1.0]")
+    try:
+        coerced = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{key} must be a number in [0.0, 1.0]") from exc
+    if not math.isfinite(coerced) or not 0.0 <= coerced <= 1.0:
+        raise ValueError(f"{key} must be a number in [0.0, 1.0]")
+    return coerced
+
+
+def _read_bounds(raw: dict, key: str, default: list[float]) -> list[float]:
+    value = raw.get(key, default)
+    if not isinstance(value, (list, tuple)) or len(value) != 2:
+        raise ValueError(f"{key} must be a two-item list [low, high]")
+    try:
+        low, high = (float(value[0]), float(value[1]))
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{key} must contain numeric low/high values") from exc
+    if not math.isfinite(low) or not math.isfinite(high) or low >= high:
+        raise ValueError(f"{key} must contain finite values with low < high")
+    return [low, high]
+
+
 def load_config(path: str) -> Config:
     raw = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
+    task = raw.get("task", "animals")
+    if task not in {"animals", "location_finding"}:
+        raise ValueError("task must be one of: animals, location_finding")
     model_pairs = [
         _normalize_model_pair(pair, index)
         for index, pair in enumerate(raw.get("model_pairs", []))
@@ -304,10 +366,30 @@ def load_config(path: str) -> Config:
         raise ValueError("search_depth must be an integer")
     if search_depth not in {1, 2}:
         raise ValueError("search_depth must be one of: 1, 2")
+
+    location_num_rounds = _read_positive_int(raw, "location_num_rounds", 20)
+    location_num_trials = _read_positive_int(raw, "location_num_trials", 1)
+    location_num_sources = _read_positive_int(raw, "location_num_sources", 3)
+    location_dim = _read_positive_int(raw, "location_dim", 2)
+    location_noise_sd = _read_positive_float(raw, "location_noise_sd", 0.5)
+    location_query_bounds = _read_bounds(raw, "location_query_bounds", [-2.0, 2.0])
+    location_max_beliefs = _read_positive_int(raw, "location_max_beliefs", 40)
+    location_min_probability_mass = _read_probability(raw, "location_min_probability_mass", 0.01)
+    location_target_num_candidates = _read_positive_int(raw, "location_target_num_candidates", 15)
+    location_search_depth = raw.get("location_search_depth", 2)
+    if not isinstance(location_search_depth, int) or isinstance(location_search_depth, bool):
+        raise ValueError("location_search_depth must be an integer")
+    if location_search_depth not in {1, 2}:
+        raise ValueError("location_search_depth must be one of: 1, 2")
+    location_eig_quadrature_order = _read_positive_int(raw, "location_eig_quadrature_order", 15)
+    method_names = raw.get("method_names", raw.get("extraction_methods", []))
+    if task == "location_finding" and not method_names:
+        method_names = ["EIG"]
     return Config(
         version = raw.get("version", 0),
+        task = task,
         model_pairs = model_pairs,
-        method_names = raw.get("method_names", raw.get("extraction_methods", [])),
+        method_names = method_names,
         animals = raw.get("animals", []),
         batched_block_size = raw.get("batched_block_size", 50),
         generation_temperature_diverse = raw.get("generation_temperature_diverse", 1.3),
@@ -338,6 +420,17 @@ def load_config(path: str) -> Config:
         tensor_parallel_size = tensor_parallel_size,
         gpu_memory_utilization = gpu_memory_utilization,
         max_model_len = max_model_len,
+        location_num_rounds = location_num_rounds,
+        location_num_trials = location_num_trials,
+        location_num_sources = location_num_sources,
+        location_dim = location_dim,
+        location_noise_sd = location_noise_sd,
+        location_query_bounds = location_query_bounds,
+        location_max_beliefs = location_max_beliefs,
+        location_min_probability_mass = location_min_probability_mass,
+        location_target_num_candidates = location_target_num_candidates,
+        location_search_depth = location_search_depth,
+        location_eig_quadrature_order = location_eig_quadrature_order,
     )
 
 
