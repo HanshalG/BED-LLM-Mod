@@ -278,6 +278,42 @@ def _format_weighted_hypotheses(belief_state: LocationBeliefState, top_n: int = 
     return json.dumps(rows)
 
 
+def _format_location(location: Location) -> str:
+    return "[" + ", ".join(f"{value:.3g}" for value in location) + "]"
+
+
+def _format_probability(probability: float) -> str:
+    if probability >= 0.001:
+        return f"{probability:.4f}"
+    return f"{probability:.2e}"
+
+
+def _summarize_belief_state(belief_state: LocationBeliefState, top_n: int = 3) -> str:
+    if not belief_state.hypotheses:
+        return "0 belief(s)"
+    top_entries = list(zip(belief_state.hypotheses, belief_state.probabilities))[:top_n]
+    summaries = []
+    for hypothesis, probability in top_entries:
+        source_text = "[" + ", ".join(_format_location(source) for source in hypothesis) + "]"
+        summaries.append(f"p={_format_probability(probability)} sources={source_text}")
+    suffix = "" if len(belief_state.hypotheses) <= top_n else f"; +{len(belief_state.hypotheses) - top_n} more"
+    return f"{len(belief_state.hypotheses)} belief(s): " + "; ".join(summaries) + suffix
+
+
+def _summarize_candidates(candidates: list[Location]) -> str:
+    if not candidates:
+        return "[]"
+    return "[" + ", ".join(_format_location(candidate) for candidate in candidates) + "]"
+
+
+def _format_source_array(sources: np.ndarray) -> str:
+    return "[" + ", ".join(_format_location(tuple(float(value) for value in source)) for source in sources) + "]"
+
+
+def _log_location(message: str, config: Config) -> None:
+    print_and_log(f"[location] {message}", config)
+
+
 def _belief_generation_messages(
     observations: list[LocationObservation],
     belief_state: LocationBeliefState | None,
@@ -342,12 +378,27 @@ def generate_location_hypotheses(
     observations: list[LocationObservation],
     belief_state: LocationBeliefState | None,
     config: Config,
+    *,
+    label: str = "belief generation",
 ) -> list[SourceConfig]:
+    previous_count = 0 if belief_state is None else len(belief_state.hypotheses)
+    _log_location(
+        f"{label}: requesting source hypotheses "
+        f"(observations={len(observations)}, previous_beliefs={previous_count}, "
+        f"max_return={config.location_max_beliefs})",
+        config,
+    )
     completion = questioner.chat_complete(
         _belief_generation_messages(observations, belief_state, config),
         temperature=config.generation_temperature_diverse,
     )[0]
-    return parse_source_hypotheses(completion, config.location_num_sources, config.location_dim)
+    try:
+        hypotheses = parse_source_hypotheses(completion, config.location_num_sources, config.location_dim)
+    except ValueError as exc:
+        _log_location(f"{label}: could not parse source hypotheses ({exc}); using empty generated support", config)
+        return []
+    _log_location(f"{label}: parsed {len(hypotheses)} valid unique source configuration(s)", config)
+    return hypotheses
 
 
 def _generate_location_hypotheses_many(
@@ -355,12 +406,19 @@ def _generate_location_hypotheses_many(
     observations_many: list[list[LocationObservation]],
     belief_states: list[LocationBeliefState | None],
     config: Config,
+    *,
+    label: str = "batched belief generation",
 ) -> list[list[SourceConfig]]:
     if len(observations_many) != len(belief_states):
         raise ValueError("observations_many and belief_states must have the same length")
     if not observations_many:
         return []
 
+    _log_location(
+        f"{label}: requesting {len(observations_many)} hypothetical source-support refresh(es) "
+        f"(block_size={config.batched_block_size})",
+        config,
+    )
     batch_messages = [
         _belief_generation_messages(observations, belief_state, config)
         for observations, belief_state in zip(observations_many, belief_states)
@@ -380,13 +438,24 @@ def _generate_location_hypotheses_many(
         raise ValueError(f"Expected {len(batch_messages)} hypothesis completions, received {len(completions)}")
 
     hypotheses_many: list[list[SourceConfig]] = []
+    parse_failures = 0
     for completion in completions:
         try:
             hypotheses_many.append(
                 parse_source_hypotheses(completion, config.location_num_sources, config.location_dim)
             )
         except ValueError:
+            parse_failures += 1
             hypotheses_many.append([])
+    counts = [len(hypotheses) for hypotheses in hypotheses_many]
+    nonempty_count = sum(1 for count in counts if count > 0)
+    total_count = sum(counts)
+    _log_location(
+        f"{label}: parsed {total_count} generated hypothesis/hypotheses across "
+        f"{nonempty_count}/{len(hypotheses_many)} nonempty refresh(es)"
+        + (f"; parse_failures={parse_failures}" if parse_failures else ""),
+        config,
+    )
     return hypotheses_many
 
 
@@ -410,6 +479,12 @@ def generate_location_candidates(
     config: Config,
 ) -> list[Location]:
     bounds = tuple(config.location_query_bounds)
+    _log_location(
+        f"candidate generation: requesting {config.location_target_num_candidates} location(s) "
+        f"(observations={len(observations)}, beliefs={len(belief_state.hypotheses)}, "
+        f"bounds=[{bounds[0]}, {bounds[1]}])",
+        config,
+    )
     completion = questioner.chat_complete(
         _candidate_generation_messages(belief_state, observations, config),
         temperature=config.generation_temperature_diverse,
@@ -417,14 +492,23 @@ def generate_location_candidates(
     try:
         candidates = parse_candidate_locations(completion, config.location_dim, bounds)
     except ValueError:
+        _log_location("candidate generation: could not parse JSON candidates; using deterministic fallbacks", config)
         candidates = []
+    parsed_count = len(candidates)
     if len(candidates) < config.location_target_num_candidates:
-        candidates.extend(
+        fallback_locations = [
             location
             for location in default_candidate_locations(config.location_dim, bounds)
             if location not in candidates
-        )
-    return candidates[:config.location_target_num_candidates]
+        ]
+        candidates.extend(fallback_locations)
+    selected = candidates[:config.location_target_num_candidates]
+    _log_location(
+        f"candidate generation: parsed={parsed_count}, returned={len(selected)}, "
+        f"locations={_summarize_candidates(selected)}",
+        config,
+    )
+    return selected
 
 
 def default_candidate_locations(dim: int, bounds: tuple[float, float]) -> list[Location]:
@@ -671,8 +755,15 @@ def score_candidate_locations(
     observations: list[LocationObservation] | None = None,
 ) -> list[float]:
     if not candidates:
+        _log_location("EIG scoring: no candidate locations to score", config)
         return []
 
+    _log_location(
+        f"EIG scoring: scoring {len(candidates)} candidate(s) with "
+        f"{len(belief_state.hypotheses)} belief(s), depth={config.location_search_depth}, "
+        f"quadrature_order={config.location_eig_quadrature_order}",
+        config,
+    )
     probabilities = np.asarray(belief_state.probabilities, dtype=float)
     candidate_means = np.asarray(
         [
@@ -692,9 +783,21 @@ def score_candidate_locations(
         )
         for means in candidate_means
     ]
+    immediate_summary = sorted(
+        zip(candidates, immediate),
+        key=lambda entry: entry[1],
+        reverse=True,
+    )[: min(5, len(candidates))]
+    _log_location(
+        "EIG scoring: immediate top candidates: "
+        + "; ".join(f"{_format_location(candidate)}={score:.6f}" for candidate, score in immediate_summary),
+        config,
+    )
     if len(belief_state.hypotheses) <= 1:
+        _log_location("EIG scoring: only one belief remains; future value is zero", config)
         return immediate
     if config.location_search_depth == 1 or len(candidates) == 0:
+        _log_location("EIG scoring: depth=1, using immediate EIG only", config)
         return immediate
     if config.location_search_depth != 2:
         raise ValueError("location_search_depth must be 1 or 2")
@@ -702,6 +805,7 @@ def score_candidate_locations(
         raise ValueError("location_search_depth=2 requires questioner and observations for full branch updates")
 
     totals = list(immediate)
+    future_contributions = [0.0 for _candidate in candidates]
     branch_candidate_indices: list[int] = []
     branch_weights: list[float] = []
     branch_observations: list[list[LocationObservation]] = []
@@ -719,12 +823,20 @@ def score_candidate_locations(
                     list(observations) + [LocationObservation(query=candidate, value=branch_value)]
                 )
 
+    _log_location(
+        f"EIG scoring: depth=2 expanding {len(branch_observations)} hypothetical observation branch(es) "
+        f"({len(candidates)} candidates x {len(belief_state.hypotheses)} beliefs x "
+        f"{len(nodes)} quadrature nodes, excluding zero-probability beliefs)",
+        config,
+    )
     generated_hypotheses_many = _generate_location_hypotheses_many(
         questioner,
         branch_observations,
         [belief_state for _ in branch_observations],
         config,
+        label="EIG scoring future beliefs",
     )
+    branch_future_maxima: list[float] = []
     for candidate_idx, branch_weight, branch_history, generated_hypotheses in zip(
         branch_candidate_indices,
         branch_weights,
@@ -743,7 +855,31 @@ def score_candidate_locations(
             for future_candidate in candidates
         ]
         if future_values:
-            totals[candidate_idx] += branch_weight * max(future_values)
+            branch_best = max(future_values)
+            branch_future_maxima.append(branch_best)
+            contribution = branch_weight * branch_best
+            future_contributions[candidate_idx] += contribution
+            totals[candidate_idx] += contribution
+    if branch_future_maxima:
+        _log_location(
+            f"EIG scoring: depth=2 future best EIG range="
+            f"[{min(branch_future_maxima):.6f}, {max(branch_future_maxima):.6f}]",
+            config,
+        )
+    final_summary = sorted(
+        zip(candidates, immediate, future_contributions, totals),
+        key=lambda entry: entry[3],
+        reverse=True,
+    )[: min(5, len(candidates))]
+    _log_location(
+        "EIG scoring: final top candidates: "
+        + "; ".join(
+            f"{_format_location(candidate)} total={total:.6f} "
+            f"(immediate={immediate_score:.6f}, future={future_score:.6f})"
+            for candidate, immediate_score, future_score, total in final_summary
+        ),
+        config,
+    )
     return totals
 
 
@@ -799,7 +935,14 @@ def run_location_finding(questioner: "Model", config: Config, rng: np.random.Gen
     top_probability_totals = np.zeros(config.location_num_rounds, dtype=float)
     selected_eig_totals = np.zeros(config.location_num_rounds, dtype=float)
 
-    print(f"[location] Running {config.location_num_trials} Location Finding trial(s)")
+    _log_location(
+        f"Running {config.location_num_trials} Location Finding trial(s): "
+        f"rounds={config.location_num_rounds}, sources={config.location_num_sources}, "
+        f"dim={config.location_dim}, noise_sd={config.location_noise_sd}, "
+        f"candidates={config.location_target_num_candidates}, depth={config.location_search_depth}, "
+        f"quadrature_order={config.location_eig_quadrature_order}",
+        config,
+    )
     for trial_idx in range(config.location_num_trials):
         env = LocationFindingEnv(
             num_sources=config.location_num_sources,
@@ -808,18 +951,34 @@ def run_location_finding(questioner: "Model", config: Config, rng: np.random.Gen
             rng=rng,
         )
         observations: list[LocationObservation] = []
-        initial_hypotheses = generate_location_hypotheses(questioner, observations, None, config)
+        _log_location(
+            f"trial {trial_idx + 1}/{config.location_num_trials}: sampled hidden environment "
+            f"with true_sources={_format_source_array(env.true_theta)}",
+            config,
+        )
+        initial_hypotheses = generate_location_hypotheses(
+            questioner,
+            observations,
+            None,
+            config,
+            label=f"trial {trial_idx + 1} initial belief generation",
+        )
         if not initial_hypotheses:
-            print_and_log("[location] No valid initial LLM hypotheses; using deterministic fallback support", config)
+            _log_location("No valid initial LLM hypotheses; using deterministic fallback support", config)
             initial_hypotheses = _default_source_hypotheses(config)
         belief_state = build_location_belief_state(initial_hypotheses, observations, config)
+        _log_location(
+            f"trial {trial_idx + 1}: initial posterior {_summarize_belief_state(belief_state)}",
+            config,
+        )
 
         for round_idx in range(config.location_num_rounds):
             _write_to_log_if_configured(f"\nLocation Finding trial {trial_idx + 1}: Round {round_idx + 1}\n", config)
-            print(
-                f"[location] trial {trial_idx + 1}/{config.location_num_trials}, "
+            _log_location(
+                f"trial {trial_idx + 1}/{config.location_num_trials}, "
                 f"round {round_idx + 1}/{config.location_num_rounds}, "
-                f"{len(belief_state.hypotheses)} belief(s)"
+                f"posterior {_summarize_belief_state(belief_state)}",
+                config,
             )
             candidates = generate_location_candidates(questioner, belief_state, observations, config)
             scores = score_candidate_locations(
@@ -840,9 +999,24 @@ def run_location_finding(questioner: "Model", config: Config, rng: np.random.Gen
                 config,
             )
 
-            generated_hypotheses = generate_location_hypotheses(questioner, observations, belief_state, config)
+            generated_hypotheses = generate_location_hypotheses(
+                questioner,
+                observations,
+                belief_state,
+                config,
+                label=f"trial {trial_idx + 1} round {round_idx + 1} belief update",
+            )
             merged_hypotheses = _merge_hypotheses(belief_state, generated_hypotheses)
+            _log_location(
+                f"round {round_idx + 1}: belief update merging previous={len(belief_state.hypotheses)} "
+                f"with generated={len(generated_hypotheses)} -> unique={len(merged_hypotheses)}",
+                config,
+            )
             belief_state = build_location_belief_state(merged_hypotheses, observations, config)
+            _log_location(
+                f"round {round_idx + 1}: posterior after observation {_summarize_belief_state(belief_state)}",
+                config,
+            )
             current_rmse = _top_source_rmse(belief_state, env.true_theta)
             top_probability = belief_state.probabilities[0] if belief_state.probabilities else 0.0
             rmse_totals[round_idx] += current_rmse

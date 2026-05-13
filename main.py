@@ -49,7 +49,19 @@ def main():
         }
     )
 
-    models = build_models(config.model_pairs, lambda spec: build_model_adapter(spec, config=config))
+    if config.task == "location_finding":
+        questioner_specs = []
+        seen_questioner_specs = set()
+        for pair in config.model_pairs:
+            if pair.questioner not in seen_questioner_specs:
+                questioner_specs.append(pair.questioner)
+                seen_questioner_specs.add(pair.questioner)
+        models = {
+            spec: build_model_adapter(spec, config=config)
+            for spec in questioner_specs
+        }
+    else:
+        models = build_models(config.model_pairs, lambda spec: build_model_adapter(spec, config=config))
     print(f"[main] Preparing {len(models)} unique model adapter(s)")
     print("[main] Model adapters ready")
 
@@ -65,7 +77,7 @@ def main():
         questioner = pair.questioner.model
         answerer = pair.answerer.model
         questioner_model = models[pair.questioner]
-        answerer_model = models[pair.answerer]
+        answerer_model = None if config.task == "location_finding" else models[pair.answerer]
 
         for method_name in config.method_names:
             stem_search_depth = config.search_depth
