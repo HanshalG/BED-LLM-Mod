@@ -101,11 +101,12 @@ class Config:
     location_dim: int = 2
     location_noise_sd: float = 0.5
     location_query_bounds: list[float] = field(default_factory=lambda: [-2.0, 2.0])
-    location_max_beliefs: int = 40
-    location_min_probability_mass: float = 0.01
+    location_max_total_beliefs: int = 1000
+    location_max_llm_prompt_beliefs: int = 40
     location_target_num_candidates: int = 15
     location_search_depth: int = 2
     location_eig_quadrature_order: int = 15
+    location_plot_trials: bool = False
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -373,8 +374,12 @@ def load_config(path: str) -> Config:
     location_dim = _read_positive_int(raw, "location_dim", 2)
     location_noise_sd = _read_positive_float(raw, "location_noise_sd", 0.5)
     location_query_bounds = _read_bounds(raw, "location_query_bounds", [-2.0, 2.0])
-    location_max_beliefs = _read_positive_int(raw, "location_max_beliefs", 40)
-    location_min_probability_mass = _read_probability(raw, "location_min_probability_mass", 0.01)
+    location_max_total_beliefs = _read_positive_int(raw, "location_max_total_beliefs", 1000)
+    location_max_llm_prompt_beliefs = _read_positive_int(
+        raw,
+        "location_max_llm_prompt_beliefs",
+        raw.get("location_max_beliefs", 40),
+    )
     location_target_num_candidates = _read_positive_int(raw, "location_target_num_candidates", 15)
     location_search_depth = raw.get("location_search_depth", 2)
     if not isinstance(location_search_depth, int) or isinstance(location_search_depth, bool):
@@ -382,6 +387,9 @@ def load_config(path: str) -> Config:
     if location_search_depth not in {1, 2}:
         raise ValueError("location_search_depth must be one of: 1, 2")
     location_eig_quadrature_order = _read_positive_int(raw, "location_eig_quadrature_order", 15)
+    location_plot_trials = raw.get("location_plot_trials", False)
+    if not isinstance(location_plot_trials, bool):
+        raise ValueError("location_plot_trials must be a boolean")
     method_names = raw.get("method_names", raw.get("extraction_methods", []))
     if task == "location_finding" and not method_names:
         method_names = ["EIG"]
@@ -397,7 +405,7 @@ def load_config(path: str) -> Config:
         answer_temperature = raw.get("answer_temperature", 0.7),
         search_depth = search_depth,
         target_num_questions = raw.get("target_num_questions", 15),
-        num_mc_samples = raw.get("num_mc_samples", 15),
+        num_mc_samples = _read_positive_int(raw, "num_mc_samples", 15),
         max_num_samples = raw.get("max_num_samples", 50),
         min_num_samples = raw.get("min_num_samples", 15),
         threshold_rejection_probability = raw.get("threshold_rejection_probability", 0.2),
@@ -426,11 +434,12 @@ def load_config(path: str) -> Config:
         location_dim = location_dim,
         location_noise_sd = location_noise_sd,
         location_query_bounds = location_query_bounds,
-        location_max_beliefs = location_max_beliefs,
-        location_min_probability_mass = location_min_probability_mass,
+        location_max_total_beliefs = location_max_total_beliefs,
+        location_max_llm_prompt_beliefs = location_max_llm_prompt_beliefs,
         location_target_num_candidates = location_target_num_candidates,
         location_search_depth = location_search_depth,
         location_eig_quadrature_order = location_eig_quadrature_order,
+        location_plot_trials = location_plot_trials,
     )
 
 

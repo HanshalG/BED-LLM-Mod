@@ -43,6 +43,9 @@ To then run the 20 questions game with hyperparameters as specified in the confi
 ```bash
 python main.py -c config.yaml
 ```
+Each invocation writes one self-contained run directory under `runs/`, for example
+`runs/20260513T091522_config/`. Use `--run-name` to choose the suffix and
+`--output-root` to place run directories somewhere else.
 
 
 ## Hardware

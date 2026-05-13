@@ -1,8 +1,10 @@
 results/
 logs/
+runs/
 __pycache__/
 wandb/
 slurm_logs/
+runs/
 configs/
 .DS_Store
 .env
