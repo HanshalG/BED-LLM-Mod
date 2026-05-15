@@ -362,11 +362,7 @@ def load_config(path: str) -> Config:
     max_model_len = raw.get("max_model_len", 4096)
     if not isinstance(max_model_len, int) or isinstance(max_model_len, bool) or max_model_len < 1:
         raise ValueError("max_model_len must be a positive integer")
-    search_depth = raw.get("search_depth", 1)
-    if not isinstance(search_depth, int) or isinstance(search_depth, bool):
-        raise ValueError("search_depth must be an integer")
-    if search_depth not in {1, 2}:
-        raise ValueError("search_depth must be one of: 1, 2")
+    search_depth = _read_positive_int(raw, "search_depth", 1)
 
     location_num_rounds = _read_positive_int(raw, "location_num_rounds", 20)
     location_num_trials = _read_positive_int(raw, "location_num_trials", 1)
