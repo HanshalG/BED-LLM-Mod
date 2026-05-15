@@ -67,6 +67,7 @@ class Config:
     generation_temperature_simple: float = 1.0
     answer_temperature: float = 0.7
     search_depth: int = 1
+    forward_search_verbose: bool = True
     target_num_questions: int = 15
     num_mc_samples: int = 15
     max_num_samples: int = 50
@@ -363,6 +364,9 @@ def load_config(path: str) -> Config:
     if not isinstance(max_model_len, int) or isinstance(max_model_len, bool) or max_model_len < 1:
         raise ValueError("max_model_len must be a positive integer")
     search_depth = _read_positive_int(raw, "search_depth", 1)
+    forward_search_verbose = raw.get("forward_search_verbose", True)
+    if not isinstance(forward_search_verbose, bool):
+        raise ValueError("forward_search_verbose must be a boolean")
 
     location_num_rounds = _read_positive_int(raw, "location_num_rounds", 20)
     location_num_trials = _read_positive_int(raw, "location_num_trials", 1)
@@ -400,6 +404,7 @@ def load_config(path: str) -> Config:
         generation_temperature_simple = raw.get("generation_temperature_simple", 1.0),
         answer_temperature = raw.get("answer_temperature", 0.7),
         search_depth = search_depth,
+        forward_search_verbose = forward_search_verbose,
         target_num_questions = raw.get("target_num_questions", 15),
         num_mc_samples = _read_positive_int(raw, "num_mc_samples", 15),
         max_num_samples = raw.get("max_num_samples", 50),
