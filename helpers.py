@@ -108,6 +108,11 @@ class Config:
     location_search_depth: int = 2
     location_eig_quadrature_order: int = 15
     location_plot_trials: bool = False
+    location_strategy_num_candidates: int = 5
+    location_strategy_num_retrieved: int = 2
+    location_strategy_num_rollouts: int = 8
+    location_strategy_planning_depth: int = 8
+    location_strategy_belief_summary_top_k: int = 5
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -390,6 +395,13 @@ def load_config(path: str) -> Config:
     location_plot_trials = raw.get("location_plot_trials", False)
     if not isinstance(location_plot_trials, bool):
         raise ValueError("location_plot_trials must be a boolean")
+    location_strategy_num_candidates = _read_positive_int(raw, "location_strategy_num_candidates", 5)
+    location_strategy_num_retrieved = _read_positive_int(raw, "location_strategy_num_retrieved", 2)
+    if location_strategy_num_retrieved > location_strategy_num_candidates:
+        raise ValueError("location_strategy_num_retrieved must be less than or equal to location_strategy_num_candidates")
+    location_strategy_num_rollouts = _read_positive_int(raw, "location_strategy_num_rollouts", 8)
+    location_strategy_planning_depth = _read_positive_int(raw, "location_strategy_planning_depth", 8)
+    location_strategy_belief_summary_top_k = _read_positive_int(raw, "location_strategy_belief_summary_top_k", 5)
     method_names = raw.get("method_names", raw.get("extraction_methods", []))
     if task == "location_finding" and not method_names:
         method_names = ["EIG"]
@@ -441,6 +453,11 @@ def load_config(path: str) -> Config:
         location_search_depth = location_search_depth,
         location_eig_quadrature_order = location_eig_quadrature_order,
         location_plot_trials = location_plot_trials,
+        location_strategy_num_candidates = location_strategy_num_candidates,
+        location_strategy_num_retrieved = location_strategy_num_retrieved,
+        location_strategy_num_rollouts = location_strategy_num_rollouts,
+        location_strategy_planning_depth = location_strategy_planning_depth,
+        location_strategy_belief_summary_top_k = location_strategy_belief_summary_top_k,
     )
 
 

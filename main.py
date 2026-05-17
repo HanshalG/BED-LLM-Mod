@@ -117,11 +117,16 @@ def main():
                 print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
 
                 if config.task == "location_finding":
-                    if method_name != "EIG":
-                        raise ValueError("Location Finding currently supports only method_name='EIG'")
+                    if method_name not in {"EIG", "StrategyEIG"}:
+                        raise ValueError("Location Finding currently supports method_name='EIG' or 'StrategyEIG'")
                     from location_finding import run_location_finding
 
-                    metrics = run_location_finding(questioner_model, config, output_dir=item.item_dir)
+                    metrics = run_location_finding(
+                        questioner_model,
+                        config,
+                        output_dir=item.item_dir,
+                        method_name=method_name,
+                    )
                     source_rmse_path = item.item_dir / "source_rmse.npy"
                     top_probability_path = item.item_dir / "top_probability.npy"
                     selected_eig_path = item.item_dir / "selected_eig.npy"
