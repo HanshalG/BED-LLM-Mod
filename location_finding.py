@@ -395,6 +395,22 @@ def _format_source_array(sources: np.ndarray) -> str:
     return "[" + ", ".join(_format_location(tuple(float(value) for value in source)) for source in sources) + "]"
 
 
+def _source_count_text(count: int) -> str:
+    return "1 hidden signal source" if count == 1 else f"{count} hidden signal sources"
+
+
+def _source_config_schema_example(num_sources: int, dim: int) -> str:
+    source_examples: list[str] = []
+    for source_idx in range(1, num_sources + 1):
+        if dim == 2:
+            source_examples.append(f"[x{source_idx},y{source_idx}]")
+        else:
+            source_examples.append(
+                "[" + ",".join(f"x{source_idx}_{coord_idx}" for coord_idx in range(1, dim + 1)) + "]"
+            )
+    return "[" + ",".join(source_examples) + "]"
+
+
 def _log_location(message: str, config: Config) -> None:
     print_and_log(f"[location] {message}", config)
 
@@ -407,8 +423,9 @@ def _belief_system_prompt(config: Config, *, update: bool) -> str:
     )
     return (
         f"{role}\n\n"
-        "There are exactly 3 hidden signal sources. A source configuration is a set of 3 distinct 2D coordinates:\n"
-        "[[x1,y1],[x2,y2],[x3,y3]]\n\n"
+        f"There are exactly {_source_count_text(config.location_num_sources)}. A source configuration is a set of "
+        f"{config.location_num_sources} distinct {config.location_dim}D coordinates:\n"
+        f"{_source_config_schema_example(config.location_num_sources, config.location_dim)}\n\n"
         "The source order is irrelevant. Two configurations that differ only by source order are the same hypothesis.\n\n"
         "Prior:\n"
         "Each source coordinate is independently drawn from Normal(0,1). Prior-plausible coordinates are usually "
@@ -431,7 +448,7 @@ def _belief_system_prompt(config: Config, *, update: bool) -> str:
 def _belief_output_contract(config: Config) -> str:
     return (
         "Return only this exact compact JSON shape:\n"
-        "{\"hypotheses\":[[[x1,y1],[x2,y2],[x3,y3]],...]}\n\n"
+        f"{{\"hypotheses\":[{_source_config_schema_example(config.location_num_sources, config.location_dim)},...]}}\n\n"
         "Rules:\n"
         "- The final character must be }.\n"
         "- Do not include <eos>, markdown, comments, explanations, or trailing text.\n"
@@ -491,7 +508,8 @@ def _candidate_generation_messages(
     bounds = tuple(config.location_query_bounds)
     system = (
         "You propose candidate measurement locations for an adaptive 2D source-localization experiment.\n\n"
-        "There are exactly 3 hidden signal sources. The goal is to choose the next query coordinate x = [x1,x2] "
+        f"There are exactly {_source_count_text(config.location_num_sources)}. "
+        "The goal is to choose the next query coordinate x = [x1,x2] "
         "to learn the source locations as efficiently as possible.\n\n"
         "Measurement model:\n"
         "The noiseless signal at query x is:\n"
@@ -689,7 +707,8 @@ def _strategy_location_messages(
     system = (
         "You choose the next measurement location for a 2D source-localization experiment by following a supplied "
         "natural-language strategy.\n\n"
-        "There are exactly 3 hidden signal sources. A query is a 2D coordinate x = [x1,x2]. The noiseless signal is "
+        f"There are exactly {_source_count_text(config.location_num_sources)}. "
+        "A query is a 2D coordinate x = [x1,x2]. The noiseless signal is "
         "b + sum_k alpha / (m + ||theta_k - x||^2), with b=0.1, alpha=1.0, m=0.0001. The observed scalar signal is "
         f"Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
         f"Allowed query coordinates: each coordinate must be in [{bounds[0]}, {bounds[1]}].\n\n"
@@ -1175,12 +1194,31 @@ def _generate_location_hypotheses_many(
 
 
 def _default_source_hypotheses(config: Config) -> list[SourceConfig]:
-    anchors = [
-        [(-1.0, -1.0), (0.0, 0.0), (1.0, 1.0)],
-        [(-1.0, 1.0), (0.0, 0.0), (1.0, -1.0)],
-        [(-1.5, 0.0), (0.0, 1.5), (1.5, 0.0)],
-        [(0.0, -1.5), (-1.5, 0.0), (1.5, 0.0)],
+    if config.location_dim != 2:
+        raise ValueError("Default source hypotheses currently support 2D source locations")
+
+    num_sources = config.location_num_sources
+
+    def circular_layout(radius: float, phase: float) -> list[tuple[float, float]]:
+        return [
+            (
+                round(radius * math.cos(phase + 2.0 * math.pi * idx / num_sources), 6),
+                round(radius * math.sin(phase + 2.0 * math.pi * idx / num_sources), 6),
+            )
+            for idx in range(num_sources)
+        ]
+
+    compact = circular_layout(radius=0.5, phase=0.0)
+    unit = circular_layout(radius=1.0, phase=math.pi / num_sources)
+    wide = circular_layout(radius=1.5, phase=0.0)
+    asymmetric = [
+        (
+            round((0.4 + 0.25 * idx) * math.cos(0.3 + 2.0 * math.pi * idx / num_sources), 6),
+            round((0.4 + 0.25 * idx) * math.sin(0.3 + 2.0 * math.pi * idx / num_sources), 6),
+        )
+        for idx in range(num_sources)
     ]
+    anchors = [compact, unit, wide, asymmetric]
     return [
         normalize_source_config(anchor, config.location_num_sources, config.location_dim)
         for anchor in anchors
@@ -1930,8 +1968,8 @@ def run_location_finding(
     output_dir: Path | None = None,
     method_name: str = "EIG",
 ) -> LocationFindingMetrics:
-    if config.location_num_sources != 3 or config.location_dim != 2:
-        raise ValueError("The initial Location Finding implementation supports exactly 3 sources in 2D")
+    if config.location_dim != 2:
+        raise ValueError("Location Finding currently supports 2D source locations")
     if config.location_noise_sd != 0.5:
         raise ValueError("The initial Location Finding implementation requires known noise_sd=0.5")
     if method_name not in {"EIG", "StrategyEIG"}:
