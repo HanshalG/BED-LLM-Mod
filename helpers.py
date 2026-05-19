@@ -25,6 +25,7 @@ TaskMode = Literal["animals", "location_finding"]
 BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
+LocationPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
 
 
 @dataclass(frozen=True)
@@ -113,6 +114,7 @@ class Config:
     location_strategy_num_rollouts: int = 8
     location_strategy_planning_depth: int = 8
     location_strategy_belief_summary_top_k: int = 5
+    location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -402,6 +404,9 @@ def load_config(path: str) -> Config:
     location_strategy_num_rollouts = _read_positive_int(raw, "location_strategy_num_rollouts", 8)
     location_strategy_planning_depth = _read_positive_int(raw, "location_strategy_planning_depth", 8)
     location_strategy_belief_summary_top_k = _read_positive_int(raw, "location_strategy_belief_summary_top_k", 5)
+    location_posterior_mode = raw.get("location_posterior_mode", "analytical_likelihood")
+    if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
+        raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
     method_names = raw.get("method_names", raw.get("extraction_methods", []))
     if task == "location_finding" and not method_names:
         method_names = ["EIG"]
@@ -458,6 +463,7 @@ def load_config(path: str) -> Config:
         location_strategy_num_rollouts = location_strategy_num_rollouts,
         location_strategy_planning_depth = location_strategy_planning_depth,
         location_strategy_belief_summary_top_k = location_strategy_belief_summary_top_k,
+        location_posterior_mode = location_posterior_mode,
     )
 
 

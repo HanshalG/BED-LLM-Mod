@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-from helpers import Config, print_and_log, write_to_log
+from helpers import Config, _average_labeled_distributions_from_completions, print_and_log, write_to_log
 
 if TYPE_CHECKING:
     from model import Model
@@ -395,6 +395,10 @@ def _format_source_array(sources: np.ndarray) -> str:
     return "[" + ", ".join(_format_location(tuple(float(value) for value in source)) for source in sources) + "]"
 
 
+def _location_posterior_labels(count: int) -> list[str]:
+    return [f"h{idx}" for idx in range(count)]
+
+
 def _source_count_text(count: int) -> str:
     return "1 hidden signal source" if count == 1 else f"{count} hidden signal sources"
 
@@ -500,6 +504,94 @@ def _belief_generation_messages(
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
+def _location_posterior_context_probabilities(
+    hypotheses: list[SourceConfig],
+    context_state: LocationBeliefState | None,
+) -> list[float]:
+    if not hypotheses:
+        return []
+
+    context_lookup: dict[SourceConfig, float] = {}
+    if context_state is not None:
+        context_lookup = {
+            hypothesis: float(probability)
+            for hypothesis, probability in zip(context_state.hypotheses, context_state.probabilities)
+        }
+
+    prior_log_scores = [_hypothesis_log_prior(hypothesis) for hypothesis in hypotheses]
+    prior_normalizer = _logsumexp(prior_log_scores)
+    prior_probabilities = [
+        math.exp(log_score - prior_normalizer)
+        for log_score in prior_log_scores
+    ]
+    weights = [
+        max(context_lookup.get(hypothesis, prior_probability), 0.0)
+        for hypothesis, prior_probability in zip(hypotheses, prior_probabilities)
+    ]
+    total = sum(weights)
+    if total <= 0.0:
+        return [1.0 / len(hypotheses)] * len(hypotheses)
+    return [float(weight / total) for weight in weights]
+
+
+def _location_posterior_distribution_messages(
+    observations: list[LocationObservation],
+    hypotheses: list[SourceConfig],
+    context_probabilities: list[float],
+    config: Config,
+) -> list[dict[str, str]]:
+    labels = _location_posterior_labels(len(hypotheses))
+    hypothesis_rows = [
+        {
+            "id": label,
+            "sources": [list(source) for source in hypothesis],
+            "context_probability": probability,
+        }
+        for label, hypothesis, probability in zip(labels, hypotheses, context_probabilities)
+    ]
+    label_contract = "{" + ",".join(f"\"{label}\":p{idx}" for idx, label in enumerate(labels)) + "}"
+    system = (
+        "You estimate a posterior probability distribution over a finite support for a 2D "
+        "source-localization problem.\n\n"
+        f"There are exactly {_source_count_text(config.location_num_sources)}. Each candidate hypothesis is a "
+        f"set of {config.location_num_sources} distinct {config.location_dim}D source coordinates. "
+        "The source order is irrelevant.\n\n"
+        "Measurement model:\n"
+        "A query is a 2D coordinate x = [x1,x2]. The noiseless signal is "
+        "b + sum_k alpha / (m + ||theta_k - x||^2), with b=0.1, alpha=1.0, m=0.0001. "
+        f"The observed scalar signal is y ~ Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
+        "Use the observations and the context probabilities to assign posterior mass across only the listed "
+        "candidate hypothesis ids. Do not invent new ids or source configurations."
+    )
+    user = (
+        f"Observation history: {_format_observations(observations)}\n\n"
+        f"Candidate source hypotheses: {json.dumps(hypothesis_rows)}\n\n"
+        "Return only this exact compact JSON shape with one non-negative numeric weight for every candidate id:\n"
+        f"{label_contract}\n\n"
+        "Rules:\n"
+        "- The final character must be }.\n"
+        "- Do not include <eos>, markdown, comments, explanations, or trailing text.\n"
+        "- The probabilities do not need to sum to 1; deterministic code will normalize them.\n"
+        "- Assign zero only to hypotheses that are essentially impossible under the observations."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _permuted_location_observation_histories(
+    observations: list[LocationObservation],
+    num_samples: int,
+) -> list[list[LocationObservation]]:
+    if num_samples < 1:
+        raise ValueError("num_samples must be at least 1")
+    if len(observations) <= 1:
+        return [list(observations) for _ in range(num_samples)]
+    histories: list[list[LocationObservation]] = []
+    for _sample_idx in range(num_samples):
+        permutation = np.random.permutation(len(observations))
+        histories.append([observations[int(index)] for index in permutation])
+    return histories
+
+
 def _candidate_generation_messages(
     belief_state: LocationBeliefState,
     observations: list[LocationObservation],
@@ -571,7 +663,11 @@ class _StrategyRollout:
     strategy: str
     truth: SourceConfig
     start_probability: float
+    start_belief_state: LocationBeliefState
     belief_state: LocationBeliefState
+    particle_support: list[SourceConfig] = field(default_factory=list)
+    final_generated_hypotheses: list[SourceConfig] = field(default_factory=list)
+    final_scoring_belief_state: LocationBeliefState | None = None
     simulated_observations: list[LocationObservation] = field(default_factory=list)
     root_query: Location | None = None
 
@@ -938,6 +1034,52 @@ def _root_query_fingerprint(root_queries: list[Location | None]) -> str:
     return Counter(formatted_queries).most_common(1)[0][0]
 
 
+def _location_entropy(probabilities: list[float]) -> float:
+    if not probabilities:
+        return 0.0
+    values = np.asarray(probabilities, dtype=float)
+    values = values[values > 0.0]
+    if len(values) == 0:
+        return 0.0
+    return float(-np.sum(values * np.log(values)))
+
+
+def _align_belief_state_to_support(
+    belief_state: LocationBeliefState,
+    support: list[SourceConfig],
+) -> LocationBeliefState:
+    probability_lookup = {
+        hypothesis: float(probability)
+        for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities)
+    }
+    probabilities = [max(probability_lookup.get(hypothesis, 0.0), 0.0) for hypothesis in support]
+    total = sum(probabilities)
+    if total <= 0.0 and support:
+        probabilities = [1.0 / len(support)] * len(support)
+    elif total > 0.0:
+        probabilities = [float(probability / total) for probability in probabilities]
+    return LocationBeliefState(list(support), probabilities)
+
+
+def _rollout_entropy_reduction_score(
+    rollout: _StrategyRollout,
+    real_observations: list[LocationObservation],
+    config: Config,
+) -> float:
+    support = _dedupe_source_configs(
+        list(rollout.particle_support)
+        + list(rollout.final_generated_hypotheses)
+        + list(rollout.belief_state.hypotheses)
+        + ([] if rollout.final_scoring_belief_state is None else list(rollout.final_scoring_belief_state.hypotheses))
+        + [rollout.truth]
+    )
+    if len(support) <= 1:
+        return 0.0
+    start_state = _align_belief_state_to_support(rollout.start_belief_state, support)
+    final_state = _align_belief_state_to_support(rollout.final_scoring_belief_state or rollout.belief_state, support)
+    return _location_entropy(start_state.probabilities) - _location_entropy(final_state.probabilities)
+
+
 def evaluate_location_strategies_by_rollout(
     questioner: "Model",
     strategies: list[str],
@@ -964,7 +1106,9 @@ def evaluate_location_strategies_by_rollout(
                     strategy=strategy,
                     truth=truth,
                     start_probability=start_probability,
+                    start_belief_state=belief_state,
                     belief_state=belief_state,
+                    particle_support=list(belief_state.hypotheses),
                 )
             )
 
@@ -987,7 +1131,6 @@ def evaluate_location_strategies_by_rollout(
         ]
         locations = generate_strategy_locations_many(questioner, location_requests, config)
 
-        pre_update_states = [rollouts[rollout_idx].belief_state for rollout_idx in active_indices]
         for rollout_idx, location in zip(active_indices, locations):
             rollout = rollouts[rollout_idx]
             if depth_idx == 0:
@@ -997,37 +1140,66 @@ def evaluate_location_strategies_by_rollout(
             rollout.simulated_observations.append(
                 LocationObservation(query=location, value=observed_value)
             )
-
-        branch_observations = [
-            _full_rollout_observations(observations, rollouts[rollout_idx])
-            for rollout_idx in active_indices
-        ]
-        generated_hypotheses_many = _generate_location_hypotheses_many(
-            questioner,
-            branch_observations,
-            [prompt_location_belief_state(state, config) for state in pre_update_states],
-            config,
-            label=f"strategy rollout depth {depth_idx + 1} belief refresh",
-        )
-        for rollout_idx, pre_state, branch_history, generated_hypotheses in zip(
-            active_indices,
-            pre_update_states,
-            branch_observations,
-            generated_hypotheses_many,
-        ):
-            merged_hypotheses = _merge_hypotheses(pre_state, generated_hypotheses)
             rollouts[rollout_idx].belief_state = build_location_belief_state(
-                merged_hypotheses,
-                branch_history,
+                rollout.particle_support,
+                _full_rollout_observations(observations, rollout),
                 config,
+            )
+
+    final_refresh_indices = [
+        rollout_idx
+        for rollout_idx, rollout in enumerate(rollouts)
+        if rollout.belief_state.hypotheses
+    ]
+    if final_refresh_indices:
+        final_histories = [
+            _full_rollout_observations(observations, rollouts[rollout_idx])
+            for rollout_idx in final_refresh_indices
+        ]
+        final_generated_many = _generate_location_hypotheses_many(
+            questioner,
+            final_histories,
+            [
+                prompt_location_belief_state(rollouts[rollout_idx].belief_state, config)
+                for rollout_idx in final_refresh_indices
+            ],
+            config,
+            label="strategy rollout final belief refresh",
+        )
+        for rollout_idx, branch_history, generated_hypotheses in zip(
+            final_refresh_indices,
+            final_histories,
+            final_generated_many,
+        ):
+            rollout = rollouts[rollout_idx]
+            rollout.final_generated_hypotheses = generated_hypotheses
+        final_supports = [
+            _dedupe_source_configs(
+                list(rollouts[rollout_idx].particle_support)
+                + list(rollouts[rollout_idx].final_generated_hypotheses)
+            )
+            for rollout_idx in final_refresh_indices
+        ]
+        final_scoring_states = build_location_posteriors_many(
+            questioner,
+            final_supports,
+            final_histories,
+            config,
+            context_states=[rollouts[rollout_idx].belief_state for rollout_idx in final_refresh_indices],
+            label="strategy rollout final posterior scoring",
+            prune=False,
+        )
+        for rollout_idx, final_scoring_state in zip(final_refresh_indices, final_scoring_states):
+            rollouts[rollout_idx].final_scoring_belief_state = final_scoring_state
+            rollouts[rollout_idx].belief_state = prune_location_beliefs(
+                final_scoring_state,
+                max_beliefs=config.location_max_total_beliefs,
             )
 
     scores_by_strategy: list[list[float]] = [[] for _strategy in strategies]
     root_queries_by_strategy: list[list[Location | None]] = [[] for _strategy in strategies]
     for rollout in rollouts:
-        final_probability = _hypothesis_probability(rollout.belief_state, rollout.truth)
-        start_probability = max(rollout.start_probability, 1e-300)
-        score = math.log(final_probability / start_probability)
+        score = _rollout_entropy_reduction_score(rollout, observations, config)
         scores_by_strategy[rollout.strategy_index].append(float(score))
         root_queries_by_strategy[rollout.strategy_index].append(rollout.root_query)
 
@@ -1333,6 +1505,15 @@ def build_location_belief_state(
     observations: list[LocationObservation],
     config: Config,
 ) -> LocationBeliefState:
+    state = build_location_belief_state_unpruned(hypotheses, observations, config)
+    return prune_location_beliefs(state, max_beliefs=config.location_max_total_beliefs)
+
+
+def build_location_belief_state_unpruned(
+    hypotheses: list[SourceConfig],
+    observations: list[LocationObservation],
+    config: Config,
+) -> LocationBeliefState:
     hypotheses = _dedupe_source_configs(hypotheses)
     if not hypotheses:
         return LocationBeliefState([], [])
@@ -1348,8 +1529,7 @@ def build_location_belief_state(
     normalizer = _logsumexp(log_scores)
     probabilities = [math.exp(log_score - normalizer) for log_score in log_scores]
     state = LocationBeliefState(hypotheses, probabilities)
-    state = sort_location_belief_state(state)
-    return prune_location_beliefs(state, max_beliefs=config.location_max_total_beliefs)
+    return sort_location_belief_state(state)
 
 
 def sort_location_belief_state(belief_state: LocationBeliefState) -> LocationBeliefState:
@@ -1384,6 +1564,150 @@ def prune_location_beliefs(
         [hypothesis for hypothesis, _probability in ordered],
         [float(probability / total) for _hypothesis, probability in ordered],
     )
+
+
+def build_location_posteriors_many(
+    questioner: "Model" | None,
+    hypotheses_many: list[list[SourceConfig]],
+    observations_many: list[list[LocationObservation]],
+    config: Config,
+    *,
+    context_states: list[LocationBeliefState | None] | None = None,
+    label: str = "location posterior scoring",
+    prune: bool = True,
+) -> list[LocationBeliefState]:
+    if len(hypotheses_many) != len(observations_many):
+        raise ValueError("hypotheses_many and observations_many must have the same length")
+    if context_states is None:
+        context_states = [None] * len(hypotheses_many)
+    if len(context_states) != len(hypotheses_many):
+        raise ValueError("context_states and hypotheses_many must have the same length")
+
+    if config.location_posterior_mode == "analytical_likelihood":
+        states = [
+            build_location_belief_state_unpruned(hypotheses, observations, config)
+            for hypotheses, observations in zip(hypotheses_many, observations_many)
+        ]
+        return [
+            prune_location_beliefs(state, max_beliefs=config.location_max_total_beliefs)
+            if prune
+            else state
+            for state in states
+        ]
+    if config.location_posterior_mode != "llm_distribution":
+        raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
+    if questioner is None:
+        raise ValueError("location_posterior_mode='llm_distribution' requires a questioner model")
+
+    deduped_hypotheses_many = [_dedupe_source_configs(list(hypotheses)) for hypotheses in hypotheses_many]
+    batch_messages: list[list[dict[str, str]]] = []
+    branch_prompt_counts: list[int] = []
+    branch_labels: list[list[str]] = []
+    active_branch_indices: list[int] = []
+    for branch_idx, (hypotheses, observations, context_state) in enumerate(
+        zip(deduped_hypotheses_many, observations_many, context_states)
+    ):
+        labels = _location_posterior_labels(len(hypotheses))
+        branch_labels.append(labels)
+        if not hypotheses:
+            branch_prompt_counts.append(0)
+            continue
+        active_branch_indices.append(branch_idx)
+        context_probabilities = _location_posterior_context_probabilities(hypotheses, context_state)
+        if config.belief_distribution_permute_history:
+            histories = _permuted_location_observation_histories(
+                observations,
+                config.belief_distribution_num_calls,
+            )
+        else:
+            histories = [list(observations) for _call_idx in range(config.belief_distribution_num_calls)]
+        prompts = [
+            _location_posterior_distribution_messages(history, hypotheses, context_probabilities, config)
+            for history in histories
+        ]
+        branch_prompt_counts.append(len(prompts))
+        batch_messages.extend(prompts)
+
+    completions: list[str] = []
+    if batch_messages:
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=batch_messages,
+                temperature=config.belief_probability_temperature,
+                block_size=config.batched_block_size,
+                max_new_tokens=512,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(messages, temperature=config.belief_probability_temperature)[0]
+                for messages in batch_messages
+            ]
+        if len(completions) != len(batch_messages):
+            raise ValueError(
+                f"Expected {len(batch_messages)} location posterior completions, received {len(completions)}"
+            )
+
+    scored_states: list[LocationBeliefState] = []
+    completion_offset = 0
+    valid_total = 0
+    prompt_total = 0
+    for branch_idx, hypotheses in enumerate(deduped_hypotheses_many):
+        labels = branch_labels[branch_idx]
+        prompt_count = branch_prompt_counts[branch_idx]
+        branch_completions = completions[completion_offset:completion_offset + prompt_count]
+        completion_offset += prompt_count
+        prompt_total += prompt_count
+        if not hypotheses:
+            scored_states.append(LocationBeliefState([], []))
+            continue
+        distribution, valid_count = _average_labeled_distributions_from_completions(
+            branch_completions,
+            labels,
+            fallback_to_uniform=config.probability_parse_fallback_to_uniform,
+        )
+        valid_total += valid_count
+        scored_state = sort_location_belief_state(
+            LocationBeliefState(
+                hypotheses,
+                [distribution[label] for label in labels],
+            )
+        )
+        scored_states.append(
+            prune_location_beliefs(scored_state, max_beliefs=config.location_max_total_beliefs)
+            if prune
+            else scored_state
+        )
+
+    detail = f"{valid_total}/{prompt_total} valid"
+    if config.belief_distribution_permute_history:
+        detail = f"permuted-history, {detail}"
+    _log_location(
+        f"{label}: scored LLM posterior distribution ({detail}) across "
+        f"{len(active_branch_indices)}/{len(hypotheses_many)} nonempty support(s)",
+        config,
+    )
+    return scored_states
+
+
+def build_location_posterior(
+    questioner: "Model" | None,
+    hypotheses: list[SourceConfig],
+    observations: list[LocationObservation],
+    config: Config,
+    *,
+    context_state: LocationBeliefState | None = None,
+    label: str = "location posterior scoring",
+    prune: bool = True,
+) -> LocationBeliefState:
+    return build_location_posteriors_many(
+        questioner,
+        [hypotheses],
+        [observations],
+        config,
+        context_states=[context_state],
+        label=label,
+        prune=prune,
+    )[0]
 
 
 def prompt_location_belief_state(
@@ -1991,7 +2315,8 @@ def run_location_finding(
         f"quadrature_order={config.location_eig_quadrature_order}, "
         f"max_total_beliefs={config.location_max_total_beliefs}, "
         f"max_llm_prompt_beliefs={config.location_max_llm_prompt_beliefs}, "
-        f"num_mc_samples={config.num_mc_samples}",
+        f"num_mc_samples={config.num_mc_samples}, "
+        f"posterior_mode={config.location_posterior_mode}",
         config,
     )
     for trial_idx in range(config.location_num_trials):
@@ -2018,7 +2343,13 @@ def run_location_finding(
         if not initial_hypotheses:
             _log_location("No valid initial LLM hypotheses; using deterministic fallback support", config)
             initial_hypotheses = _default_source_hypotheses(config)
-        belief_state = build_location_belief_state(initial_hypotheses, observations, config)
+        belief_state = build_location_posterior(
+            questioner,
+            initial_hypotheses,
+            observations,
+            config,
+            label=f"trial {trial_idx + 1} initial posterior scoring",
+        )
         prompt_belief_state = prompt_location_belief_state(belief_state, config)
         _log_location(
             f"trial {trial_idx + 1}: initial posterior {_summarize_belief_state(belief_state)}; "
@@ -2096,7 +2427,15 @@ def run_location_finding(
                 f"with generated={len(generated_hypotheses)} -> unique={len(merged_hypotheses)}",
                 config,
             )
-            belief_state = build_location_belief_state(merged_hypotheses, observations, config)
+            previous_belief_state = belief_state
+            belief_state = build_location_posterior(
+                questioner,
+                merged_hypotheses,
+                observations,
+                config,
+                context_state=previous_belief_state,
+                label=f"trial {trial_idx + 1} round {round_idx + 1} posterior scoring",
+            )
             if reservoir_before_trim > len(belief_state.hypotheses):
                 _log_location(
                     f"round {round_idx + 1}: reservoir trimmed {reservoir_before_trim} -> "

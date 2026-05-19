@@ -15,9 +15,11 @@ from location_finding import (
     _candidate_generation_messages,
     _default_source_hypotheses,
     _location_effective_sample_size,
+    _location_posterior_distribution_messages,
     _strategy_location_messages,
     _strategy_proposal_messages,
     build_location_belief_state,
+    build_location_posterior,
     evaluate_location_strategies_by_rollout,
     expected_information_gain,
     generate_location_strategies,
@@ -388,6 +390,97 @@ def test_posterior_reweighting_and_rmse_support_configured_source_count(num_sour
     assert source_rmse(good, np.asarray(good, dtype=float)) == pytest.approx(0.0)
 
 
+def test_location_posterior_distribution_prompt_includes_support_and_contract():
+    config = _location_config()
+    hypotheses = [
+        normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2),
+        normalize_source_config([[0, 1], [1, 0], [-1, -1]], 3, 2),
+    ]
+    messages = _location_posterior_distribution_messages(
+        [LocationObservation((0.5, 0.5), 3.2)],
+        hypotheses,
+        [0.7, 0.3],
+        config,
+    )
+
+    prompt_text = "\n".join(message["content"] for message in messages)
+
+    assert "Observation history" in prompt_text
+    assert "signal_strength" in prompt_text
+    assert "Candidate source hypotheses" in prompt_text
+    assert "\"id\": \"h0\"" in prompt_text
+    assert "\"id\": \"h1\"" in prompt_text
+    assert "context_probability" in prompt_text
+    assert "{\"h0\":p0,\"h1\":p1}" in prompt_text
+
+
+def test_build_location_posterior_llm_distribution_scores_current_support():
+    config = _location_config(location_posterior_mode="llm_distribution")
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 1], [1, 0], [-1, -1]], 3, 2)
+    model = FakeLocationModel(['{"h0": 0.25, "h1": 0.75}'])
+
+    state = build_location_posterior(
+        model,
+        [hypothesis_a, hypothesis_b],
+        [LocationObservation((0.5, 0.5), 3.2)],
+        config,
+    )
+
+    assert state.hypotheses == [hypothesis_b, hypothesis_a]
+    assert state.probabilities == pytest.approx([0.75, 0.25])
+    assert len(model.batched_calls) == 1
+    assert len(model.batched_calls[0]) == 1
+
+
+def test_build_location_posterior_llm_distribution_averages_permuted_history_samples():
+    config = _location_config(
+        location_posterior_mode="llm_distribution",
+        belief_distribution_num_calls=3,
+        belief_distribution_permute_history=True,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 1], [1, 0], [-1, -1]], 3, 2)
+    model = FakeLocationModel(
+        [
+            '{"h0": 1.0, "h1": 0.0}',
+            'not json',
+            '{"h0": 0.0, "h1": 1.0}',
+        ]
+    )
+
+    state = build_location_posterior(
+        model,
+        [hypothesis_a, hypothesis_b],
+        [LocationObservation((0.5, 0.5), 3.2), LocationObservation((-0.5, 0.5), 1.7)],
+        config,
+    )
+
+    assert state.hypotheses == [hypothesis_a, hypothesis_b]
+    assert state.probabilities == pytest.approx([0.5, 0.5])
+    assert len(model.batched_calls) == 1
+    assert len(model.batched_calls[0]) == 3
+    assert all("\"h0\"" in messages[-1]["content"] for messages in model.batched_calls[0])
+    assert all("\"h1\"" in messages[-1]["content"] for messages in model.batched_calls[0])
+    assert all(messages[-1]["content"].count("signal_strength") == 2 for messages in model.batched_calls[0])
+
+
+def test_build_location_posterior_llm_distribution_dedupes_and_falls_back_to_uniform():
+    config = _location_config(
+        location_posterior_mode="llm_distribution",
+        belief_distribution_num_calls=2,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 1], [1, 0], [-1, -1]], 3, 2)
+    model = FakeLocationModel(["not json", "still not json"])
+
+    state = build_location_posterior(model, [hypothesis_a, hypothesis_a, hypothesis_b], [], config)
+
+    assert state.hypotheses == [hypothesis_a, hypothesis_b]
+    assert state.probabilities == pytest.approx([0.5, 0.5])
+    assert len(model.batched_calls[0]) == 2
+
+
 def test_generated_refresh_hypotheses_compete_with_existing_support():
     config = _location_config()
     old = normalize_source_config([[0, 1], [1, 0], [-1, -1]], 3, 2)
@@ -597,6 +690,101 @@ def test_strategy_rollout_samples_gaussian_observations_refreshes_beliefs_and_re
     assert "signal_strength" in model.batched_calls[1][0][-1]["content"]
 
 
+def _weighted_hypotheses_from_strategy_prompt(prompt: str) -> list[dict]:
+    marker = "Current weighted source hypotheses:\n"
+    start_idx = prompt.index(marker) + len(marker)
+    end_idx = prompt.index("\n\nFollowing the strategy", start_idx)
+    return json.loads(prompt[start_idx:end_idx])
+
+
+def test_strategy_rollout_uses_closed_form_steps_then_one_final_refresh():
+    config = _location_config(
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=3,
+        location_strategy_belief_summary_top_k=2,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
+    hypothesis_c = normalize_source_config([[0.5, 0.5], [1.5, -0.5], [-1.5, 0.25]], 3, 2)
+    belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
+    model = FakeLocationModel(
+        [
+            '{"location": [1, 1]}',
+            '{"location": [0, 0]}',
+            '{"location": [-1, -1]}',
+            json.dumps({"hypotheses": [[list(source) for source in hypothesis_c]]}),
+        ]
+    )
+
+    evaluations = evaluate_location_strategies_by_rollout(
+        model,
+        ["Probe a discriminative suspected peak, then refine with offsets."],
+        belief_state,
+        [],
+        config,
+        np.random.default_rng(4),
+    )
+
+    assert len(evaluations) == 1
+    assert math.isfinite(evaluations[0].mean_score)
+    assert evaluations[0].mean_score > 0.0
+    assert len(model.batched_calls) == 4
+    assert all(len(batch) == 1 for batch in model.batched_calls)
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[1][0][0]["content"]
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[2][0][0]["content"]
+    assert "{\"hypotheses\"" in model.batched_calls[3][0][-1]["content"]
+
+    second_location_prompt = model.batched_calls[1][0][-1]["content"]
+    third_location_prompt = model.batched_calls[2][0][-1]["content"]
+    final_refresh_prompt = model.batched_calls[3][0][-1]["content"]
+    assert second_location_prompt.count("signal_strength") == 1
+    assert third_location_prompt.count("signal_strength") == 2
+    assert final_refresh_prompt.count("signal_strength") == 3
+
+    second_prompt_hypotheses = _weighted_hypotheses_from_strategy_prompt(second_location_prompt)
+    second_prompt_probabilities = [row["probability"] for row in second_prompt_hypotheses]
+    assert any(abs(probability - 0.5) > 1e-3 for probability in second_prompt_probabilities)
+
+
+def test_strategy_rollout_final_refresh_uses_llm_posterior_mode():
+    config = _location_config(
+        location_posterior_mode="llm_distribution",
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=2,
+        location_strategy_belief_summary_top_k=2,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
+    belief_state = LocationBeliefState([hypothesis_a, hypothesis_b], [0.5, 0.5])
+    model = FakeLocationModel(
+        [
+            '{"location": [1, 1]}',
+            '{"location": [0, 0]}',
+            '{"hypotheses": []}',
+            '{"h0": 0.8, "h1": 0.2}',
+        ]
+    )
+
+    evaluations = evaluate_location_strategies_by_rollout(
+        model,
+        ["Probe one suspected peak, then refine using the new signal."],
+        belief_state,
+        [],
+        config,
+        np.random.default_rng(5),
+    )
+
+    assert len(evaluations) == 1
+    assert math.isfinite(evaluations[0].mean_score)
+    assert len(model.batched_calls) == 4
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[1][0][0]["content"]
+    assert "{\"hypotheses\"" in model.batched_calls[2][0][-1]["content"]
+    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[3][0][-1]["content"]
+    assert model.batched_calls[3][0][-1]["content"].count("signal_strength") == 2
+
+
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
 def test_run_location_finding_one_round_with_fake_llm_smoke(tmp_path, num_sources):
     initial_hypotheses = _source_hypotheses_json(num_sources)
@@ -625,6 +813,37 @@ def test_run_location_finding_one_round_with_fake_llm_smoke(tmp_path, num_source
     plot_path = tmp_path / "location_trial_001.png"
     assert plot_path.exists()
     assert plot_path.stat().st_size > 0
+
+
+def test_run_location_finding_eig_llm_posterior_smoke(tmp_path):
+    initial_hypotheses = _source_hypotheses_json(3)
+    candidate_locations = '{"locations": [[0, 0], [1, 1]]}'
+    update_hypotheses = _source_hypotheses_json(3, shifts=(0.0, 0.1))
+    model = FakeLocationModel(
+        [
+            initial_hypotheses,
+            '{"h0": 0.6, "h1": 0.4}',
+            candidate_locations,
+            update_hypotheses,
+            '{"h0": 0.7, "h1": 0.2, "h2": 0.1}',
+        ]
+    )
+    config = _location_config(
+        location_posterior_mode="llm_distribution",
+        location_target_num_candidates=2,
+        location_search_depth=1,
+        location_plot_trials=False,
+    )
+
+    metrics = run_location_finding(model, config, rng=np.random.default_rng(1), output_dir=tmp_path)
+
+    assert len(metrics.source_rmse) == 1
+    assert len(metrics.top_probability) == 1
+    assert metrics.top_probability[0] == pytest.approx(0.7)
+    assert len(model.calls) == 3
+    assert len(model.batched_calls) == 2
+    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[0][0][-1]["content"]
+    assert "{\"h0\":p0,\"h1\":p1,\"h2\":p2}" in model.batched_calls[1][0][-1]["content"]
 
 
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
@@ -672,3 +891,54 @@ def test_run_location_finding_strategy_eig_one_round_with_fake_llm_smoke(tmp_pat
     assert "Retrieved elite strategies" in model.calls[1][-1]["content"]
     assert f"exactly {num_sources} hidden signal sources" in model.batched_calls[0][0][0]["content"]
     assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
+
+
+def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
+    initial_hypotheses = _source_hypotheses_json(3)
+    strategy_completion = """
+    {"strategies": [
+      "Start at the center to test whether any source is near the origin, then refine around high-signal offsets."
+    ]}
+    """
+    update_hypotheses = _source_hypotheses_json(3, shifts=(0.0, 0.1))
+    model = FakeLocationModel(
+        [
+            initial_hypotheses,
+            '{"h0": 0.6, "h1": 0.4}',
+            strategy_completion,
+            '{"location": [0, 0]}',
+            '{"hypotheses": []}',
+            '{"h0": 0.8, "h1": 0.2}',
+            '{"location": [1, 1]}',
+            update_hypotheses,
+            '{"h0": 0.7, "h1": 0.2, "h2": 0.1}',
+        ]
+    )
+    config = _location_config(
+        location_posterior_mode="llm_distribution",
+        location_strategy_num_candidates=1,
+        location_strategy_num_retrieved=1,
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=1,
+        location_plot_trials=False,
+    )
+
+    metrics = run_location_finding(
+        model,
+        config,
+        rng=np.random.default_rng(1),
+        output_dir=tmp_path,
+        method_name="StrategyEIG",
+    )
+
+    assert len(metrics.source_rmse) == 1
+    assert metrics.top_probability[0] == pytest.approx(0.7)
+    assert math.isfinite(metrics.selected_eig[0])
+    assert len(model.calls) == 3
+    assert len(model.batched_calls) == 6
+    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[0][0][-1]["content"]
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[1][0][0]["content"]
+    assert "{\"hypotheses\"" in model.batched_calls[2][0][-1]["content"]
+    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[3][0][-1]["content"]
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[4][0][0]["content"]
+    assert "{\"h0\":p0,\"h1\":p1,\"h2\":p2}" in model.batched_calls[5][0][-1]["content"]
