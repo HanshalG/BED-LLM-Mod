@@ -470,7 +470,7 @@ def test_location_posterior_distribution_prompt_includes_support_and_contract():
     assert "\"id\": \"h0\"" in prompt_text
     assert "\"id\": \"h1\"" in prompt_text
     assert "context_probability" in prompt_text
-    assert "{\"h0\":p0,\"h1\":p1}" in prompt_text
+    assert "\"weights\"" in prompt_text
 
 
 def test_build_location_posterior_llm_distribution_scores_current_support():
@@ -658,18 +658,33 @@ def test_eig_is_zero_for_identical_predictions_and_positive_for_separated_predic
     assert expected_information_gain(separated_state, (0.0, 0.0), 0.5, 7) > 0.01
 
 
-def test_depth_two_future_eig_matches_explicit_noisy_quadrature():
+def test_depth_two_eig_generates_fresh_candidates_per_hypothesis_branch():
     config = _location_config(location_search_depth=2, location_eig_quadrature_order=5)
     hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
     hypothesis_b = normalize_source_config([[2, 2], [1, 2], [2, 1]], 3, 2)
     belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
     candidates = [(0.0, 0.0), (1.0, 1.0)]
-    model = FakeLocationModel(['{"hypotheses": []}' for _ in range(20)])
+    # 4 hypothesis-generation completions (2 candidates × 2 hypotheses), then 4 candidate completions
+    fresh_candidate_completion = '{"locations": [[-1, -1], [1, 1]]}'
+    model = FakeLocationModel(
+        ['{"hypotheses": []}' for _ in range(4)] +
+        [fresh_candidate_completion for _ in range(4)]
+    )
 
     scores = score_candidate_locations(belief_state, candidates, config, questioner=model, observations=[])
 
-    nodes, weights = np.polynomial.hermite.hermgauss(config.location_eig_quadrature_order)
-    weights = weights / math.sqrt(math.pi)
+    # Two batched-call groups: hypothesis generation then candidate generation
+    assert len(model.batched_calls) == 2
+    assert len(model.batched_calls[0]) == 4  # 2 candidates × 2 hypotheses
+    assert len(model.batched_calls[1]) == 4
+    first_hyp_prompt = model.batched_calls[0][0][-1]["content"]
+    assert "Observation history:" in first_hyp_prompt
+    first_cand_prompt = model.batched_calls[1][0][-1]["content"]
+    assert "candidate measurement locations" in first_cand_prompt
+
+    # Manual scores: per-hypothesis branch uses mean signal as representative observation,
+    # builds future belief state analytically, scores fresh candidates at depth-1.
+    fresh_candidates = [(-1.0, -1.0), (1.0, 1.0)]
     manual_scores = []
     for candidate in candidates:
         immediate = expected_information_gain(
@@ -678,37 +693,27 @@ def test_depth_two_future_eig_matches_explicit_noisy_quadrature():
             config.location_noise_sd,
             config.location_eig_quadrature_order,
         )
-        means = [
-            signal_intensity_for_hypothesis(hypothesis, candidate)
-            for hypothesis in belief_state.hypotheses
-        ]
         expected_future = 0.0
-        for hypothesis_idx, mean in enumerate(means):
-            for node, weight in zip(nodes, weights):
-                y_value = mean + math.sqrt(2.0) * config.location_noise_sd * node
-                future_state = build_location_belief_state(
-                    list(belief_state.hypotheses),
-                    [LocationObservation(candidate, y_value)],
-                    config,
+        for hypothesis, prob in zip(belief_state.hypotheses, belief_state.probabilities):
+            mean = signal_intensity_for_hypothesis(hypothesis, candidate)
+            future_state = build_location_belief_state(
+                list(belief_state.hypotheses),
+                [LocationObservation(candidate, float(mean))],
+                config,
+            )
+            best_future = max(
+                expected_information_gain(
+                    future_state,
+                    fc,
+                    config.location_noise_sd,
+                    config.location_eig_quadrature_order,
                 )
-                best_future = max(
-                    expected_information_gain(
-                        future_state,
-                        future_candidate,
-                        config.location_noise_sd,
-                        config.location_eig_quadrature_order,
-                    )
-                    for future_candidate in candidates
-                )
-                expected_future += belief_state.probabilities[hypothesis_idx] * weight * best_future
+                for fc in fresh_candidates
+            )
+            expected_future += prob * best_future
         manual_scores.append(immediate + expected_future)
 
     assert scores == pytest.approx(manual_scores)
-    assert len(model.batched_calls[0]) == 20
-    first_branch_prompt = model.batched_calls[0][0][-1]["content"]
-    assert "Observation history:" in first_branch_prompt
-    assert "signal_strength" in first_branch_prompt
-    assert "Current weighted hypotheses" in first_branch_prompt
 
 
 def test_strategy_rollout_samples_gaussian_observations_refreshes_beliefs_and_records_fingerprint():
@@ -818,10 +823,12 @@ def test_strategy_rollout_final_refresh_uses_llm_posterior_mode():
     belief_state = LocationBeliefState([hypothesis_a, hypothesis_b], [0.5, 0.5])
     model = FakeLocationModel(
         [
-            '{"location": [1, 1]}',
-            '{"location": [0, 0]}',
-            '{"hypotheses": []}',
-            '{"h0": 0.8, "h1": 0.2}',
+            '{"location": [1, 1]}',    # depth-0 location
+            '{"h0": 0.6, "h1": 0.4}', # depth-0 belief update (llm_distribution)
+            '{"location": [0, 0]}',    # depth-1 location
+            '{"h0": 0.5, "h1": 0.5}', # depth-1 belief update (llm_distribution)
+            '{"hypotheses": []}',      # final hypothesis refresh
+            '{"h0": 0.8, "h1": 0.2}', # final posterior scoring
         ]
     )
 
@@ -836,12 +843,15 @@ def test_strategy_rollout_final_refresh_uses_llm_posterior_mode():
 
     assert len(evaluations) == 1
     assert math.isfinite(evaluations[0].mean_score)
-    assert len(model.batched_calls) == 4
-    assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
-    assert "{\"location\":[x1,y1]}" in model.batched_calls[1][0][0]["content"]
-    assert "{\"hypotheses\"" in model.batched_calls[2][0][-1]["content"]
-    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[3][0][-1]["content"]
-    assert model.batched_calls[3][0][-1]["content"].count("signal_strength") == 2
+    # 2 depths × (location + belief update) + hypothesis refresh + final scoring = 6 batched calls
+    assert len(model.batched_calls) == 6
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]  # depth-0 location
+    assert "\"weights\"" in model.batched_calls[1][0][-1]["content"]             # depth-0 belief update
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[2][0][0]["content"]  # depth-1 location
+    assert "\"weights\"" in model.batched_calls[3][0][-1]["content"]             # depth-1 belief update
+    assert "{\"hypotheses\"" in model.batched_calls[4][0][-1]["content"]         # hypothesis refresh
+    assert "\"weights\"" in model.batched_calls[5][0][-1]["content"]             # final posterior scoring
+    assert model.batched_calls[5][0][-1]["content"].count("signal_strength") == 2
 
 
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
@@ -901,8 +911,8 @@ def test_run_location_finding_eig_llm_posterior_smoke(tmp_path):
     assert metrics.top_probability[0] == pytest.approx(0.7)
     assert len(model.calls) == 3
     assert len(model.batched_calls) == 2
-    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[0][0][-1]["content"]
-    assert "{\"h0\":p0,\"h1\":p1,\"h2\":p2}" in model.batched_calls[1][0][-1]["content"]
+    assert "\"weights\"" in model.batched_calls[0][0][-1]["content"]
+    assert "\"weights\"" in model.batched_calls[1][0][-1]["content"]
 
 
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
@@ -962,15 +972,16 @@ def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
     update_hypotheses = _source_hypotheses_json(3, shifts=(0.0, 0.1))
     model = FakeLocationModel(
         [
-            initial_hypotheses,
-            '{"h0": 0.6, "h1": 0.4}',
-            strategy_completion,
-            '{"location": [0, 0]}',
-            '{"hypotheses": []}',
-            '{"h0": 0.8, "h1": 0.2}',
-            '{"location": [1, 1]}',
-            update_hypotheses,
-            '{"h0": 0.7, "h1": 0.2, "h2": 0.1}',
+            initial_hypotheses,              # calls[0]: initial hypothesis gen
+            '{"h0": 0.6, "h1": 0.4}',       # batched_calls[0]: initial posterior
+            strategy_completion,             # calls[1]: strategy proposal
+            '{"location": [0, 0]}',          # batched_calls[1]: rollout depth-0 location
+            '{"h0": 0.7, "h1": 0.3}',       # batched_calls[2]: rollout depth-0 belief update
+            '{"hypotheses": []}',            # batched_calls[3]: final hypothesis refresh
+            '{"h0": 0.8, "h1": 0.2}',       # batched_calls[4]: rollout final posterior
+            '{"location": [1, 1]}',          # batched_calls[5]: final location selection
+            update_hypotheses,               # calls[2]: update hypothesis gen
+            '{"h0": 0.7, "h1": 0.2, "h2": 0.1}',  # batched_calls[6]: update posterior
         ]
     )
     config = _location_config(
@@ -994,13 +1005,16 @@ def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
     assert metrics.top_probability[0] == pytest.approx(0.7)
     assert math.isfinite(metrics.selected_eig[0])
     assert len(model.calls) == 3
-    assert len(model.batched_calls) == 6
-    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[0][0][-1]["content"]
-    assert "{\"location\":[x1,y1]}" in model.batched_calls[1][0][0]["content"]
-    assert "{\"hypotheses\"" in model.batched_calls[2][0][-1]["content"]
-    assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[3][0][-1]["content"]
-    assert "{\"location\":[x1,y1]}" in model.batched_calls[4][0][0]["content"]
-    assert "{\"h0\":p0,\"h1\":p1,\"h2\":p2}" in model.batched_calls[5][0][-1]["content"]
+    # initial posterior + (rollout: location + belief update + hypothesis refresh + final posterior) +
+    # final location selection + update posterior = 7 batched calls
+    assert len(model.batched_calls) == 7
+    assert "\"weights\"" in model.batched_calls[0][0][-1]["content"]             # initial posterior
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[1][0][0]["content"]  # rollout depth-0 location
+    assert "\"weights\"" in model.batched_calls[2][0][-1]["content"]             # rollout depth-0 belief update
+    assert "{\"hypotheses\"" in model.batched_calls[3][0][-1]["content"]         # hypothesis refresh
+    assert "\"weights\"" in model.batched_calls[4][0][-1]["content"]             # rollout final posterior
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[5][0][0]["content"]  # final location selection
+    assert "\"weights\"" in model.batched_calls[6][0][-1]["content"]             # update posterior
 
 
 def test_run_location_finding_naive_batches_across_trials(tmp_path):
