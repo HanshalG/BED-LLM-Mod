@@ -1670,9 +1670,17 @@ def evaluate_location_strategies_by_rollout(
             locations = generate_strategy_locations_many(questioner, location_requests, config)
             locations_by_index.update(zip(generated_indices, locations))
 
+        # Phase 1: add simulated observations for all rollouts that got a valid location
+        stepped_indices: list[int] = []
         for rollout_idx in active_indices:
             location = locations_by_index[rollout_idx]
             rollout = rollouts[rollout_idx]
+            if location is None:
+                _log_location(
+                    f"strategy rollout: depth {depth_idx + 1} location unavailable after retries; skipping rollout step",
+                    config,
+                )
+                continue
             if depth_idx == 0 and rollout.root_query is None:
                 rollout.root_query = location
             mean = signal_intensity_for_hypothesis(rollout.truth, location)
@@ -1680,12 +1688,22 @@ def evaluate_location_strategies_by_rollout(
             rollout.simulated_observations.append(
                 LocationObservation(query=location, value=observed_value)
             )
-            rollouts[rollout_idx].belief_state = build_location_belief_state(
-                rollout.particle_support,
-                _full_rollout_observations(observations, rollout),
+            stepped_indices.append(rollout_idx)
+
+        # Phase 2: batch-update belief states (respects location_posterior_mode)
+        if stepped_indices:
+            updated_states = build_location_posteriors_many(
+                questioner,
+                [rollouts[i].particle_support for i in stepped_indices],
+                [_full_rollout_observations(observations, rollouts[i]) for i in stepped_indices],
                 config,
+                context_states=[rollouts[i].belief_state for i in stepped_indices],
+                label=f"strategy rollout depth {depth_idx + 1} belief update",
+                prune=False,
             )
-            rollouts[rollout_idx].simulated_belief_states.append(rollouts[rollout_idx].belief_state)
+            for rollout_idx, updated_state in zip(stepped_indices, updated_states):
+                rollouts[rollout_idx].belief_state = updated_state
+                rollouts[rollout_idx].simulated_belief_states.append(updated_state)
 
     final_refresh_indices = [
         rollout_idx
@@ -1862,10 +1880,18 @@ def evaluate_location_strategies_by_rollout_many(
             locations = generate_strategy_locations_many(questioner, location_requests, config)
             locations_by_index.update(zip(generated_indices, locations))
 
+        # Phase 1: add simulated observations for all rollouts that got a valid location
+        stepped_indices_many: list[int] = []
         for rollout_idx in active_indices:
             location = locations_by_index[rollout_idx]
             rollout = rollouts[rollout_idx]
             request = requests[rollout.request_index]
+            if location is None:
+                _log_location(
+                    f"strategy rollout: depth {depth_idx + 1} location unavailable after retries; skipping rollout step",
+                    config,
+                )
+                continue
             if depth_idx == 0 and rollout.root_query is None:
                 rollout.root_query = location
             mean = signal_intensity_for_hypothesis(rollout.truth, location)
@@ -1873,12 +1899,25 @@ def evaluate_location_strategies_by_rollout_many(
             rollout.simulated_observations.append(
                 LocationObservation(query=location, value=observed_value)
             )
-            rollout.belief_state = build_location_belief_state(
-                rollout.particle_support,
-                _full_rollout_observations(request.observations, rollout),
+            stepped_indices_many.append(rollout_idx)
+
+        # Phase 2: batch-update belief states (respects location_posterior_mode)
+        if stepped_indices_many:
+            updated_states_many = build_location_posteriors_many(
+                questioner,
+                [rollouts[i].particle_support for i in stepped_indices_many],
+                [
+                    _full_rollout_observations(requests[rollouts[i].request_index].observations, rollouts[i])
+                    for i in stepped_indices_many
+                ],
                 config,
+                context_states=[rollouts[i].belief_state for i in stepped_indices_many],
+                label=f"strategy rollout depth {depth_idx + 1} belief update",
+                prune=False,
             )
-            rollout.simulated_belief_states.append(rollout.belief_state)
+            for rollout_idx, updated_state in zip(stepped_indices_many, updated_states_many):
+                rollouts[rollout_idx].belief_state = updated_state
+                rollouts[rollout_idx].simulated_belief_states.append(updated_state)
 
     final_refresh_indices = [
         rollout_idx
@@ -3010,68 +3049,88 @@ def score_candidate_locations(
     if questioner is None or observations is None:
         raise ValueError("location_search_depth=2 requires questioner and observations for full branch updates")
 
-    totals = list(immediate)
-    future_contributions = [0.0 for _candidate in candidates]
+    # Depth-2: branch per (candidate, hypothesis) using hypothesis mean as representative observation.
+    # This mirrors the 20Q forward-search pattern: for each branch, update beliefs, generate fresh
+    # candidates, score them at depth-1, and weight-accumulate into the total.
     branch_candidate_indices: list[int] = []
     branch_weights: list[float] = []
     branch_observations: list[list[LocationObservation]] = []
 
     for candidate_idx, (candidate, means) in enumerate(zip(candidates, candidate_means)):
-        for hypothesis_idx, mean in enumerate(means):
-            hypothesis_probability = probabilities[hypothesis_idx]
+        for hypothesis_idx, (mean, hypothesis_probability) in enumerate(zip(means, probabilities)):
             if hypothesis_probability == 0.0:
                 continue
-            for node, node_weight in zip(nodes, weights):
-                branch_value = float(mean + math.sqrt(2.0) * config.location_noise_sd * node)
-                branch_candidate_indices.append(candidate_idx)
-                branch_weights.append(float(hypothesis_probability * node_weight))
-                branch_observations.append(
-                    list(observations) + [LocationObservation(query=candidate, value=branch_value)]
-                )
+            # Use the hypothesis mean signal as representative branch observation value.
+            branch_candidate_indices.append(candidate_idx)
+            branch_weights.append(float(hypothesis_probability))
+            branch_observations.append(
+                list(observations) + [LocationObservation(query=candidate, value=float(mean))]
+            )
 
     _log_location(
-        f"EIG scoring: depth=2 expanding {len(branch_observations)} hypothetical observation branch(es) "
-        f"({len(candidates)} candidates x {len(belief_state.hypotheses)} beliefs x "
-        f"{len(nodes)} quadrature nodes, excluding zero-probability beliefs)",
+        f"EIG scoring: depth-2 expanding {len(branch_observations)} branch(es) "
+        f"({len(candidates)} candidates × {len(belief_state.hypotheses)} hypotheses, "
+        f"excluding zero-probability beliefs)",
         config,
     )
-    generated_hypotheses_many = _generate_location_hypotheses_many(
-        questioner,
-        branch_observations,
-        [belief_state for _ in branch_observations],
-        config,
-        label="EIG scoring future beliefs",
-    )
-    branch_future_maxima: list[float] = []
-    for candidate_idx, branch_weight, branch_history, generated_hypotheses in zip(
-        branch_candidate_indices,
-        branch_weights,
-        branch_observations,
-        generated_hypotheses_many,
-    ):
-        future_hypotheses = _merge_hypotheses(belief_state, generated_hypotheses)
-        future_state = build_location_belief_state(future_hypotheses, branch_history, config)
-        future_values = [
-            expected_information_gain(
-                future_state,
-                future_candidate,
-                noise_sd=config.location_noise_sd,
-                quadrature_order=config.location_eig_quadrature_order,
-            )
-            for future_candidate in candidates
+
+    totals = list(immediate)
+    future_contributions = [0.0] * len(candidates)
+
+    if branch_observations:
+        # Step 1: generate fresh hypotheses for each branch (batched)
+        generated_hypotheses_many = _generate_location_hypotheses_many(
+            questioner,
+            branch_observations,
+            [belief_state for _ in branch_observations],
+            config,
+            label="EIG depth-2 future belief generation",
+        )
+
+        # Step 2: build future belief states respecting location_posterior_mode (batched)
+        future_hypotheses_many = [
+            _merge_hypotheses(belief_state, gen_hyps)
+            for gen_hyps in generated_hypotheses_many
         ]
-        if future_values:
-            branch_best = max(future_values)
-            branch_future_maxima.append(branch_best)
-            contribution = branch_weight * branch_best
-            future_contributions[candidate_idx] += contribution
-            totals[candidate_idx] += contribution
-    if branch_future_maxima:
-        _log_location(
-            f"EIG scoring: depth=2 future best EIG range="
-            f"[{min(branch_future_maxima):.6f}, {max(branch_future_maxima):.6f}]",
+        future_states = build_location_posteriors_many(
+            questioner,
+            future_hypotheses_many,
+            branch_observations,
+            config,
+            context_states=[belief_state for _ in branch_observations],
+            label="EIG depth-2 future posterior scoring",
+            prune=True,
+        )
+
+        # Step 3: generate fresh candidates conditioned on each future state (batched)
+        prompt_future_states = [prompt_location_belief_state(s, config) for s in future_states]
+        future_candidates_many = generate_location_candidates_many(
+            questioner,
+            prompt_future_states,
+            branch_observations,
             config,
         )
+
+        # Step 4: score fresh candidates at depth-1 and accumulate weighted best
+        for branch_candidate_idx, branch_weight, future_state, future_candidates in zip(
+            branch_candidate_indices, branch_weights, future_states, future_candidates_many
+        ):
+            if not future_candidates or not future_state.hypotheses:
+                continue
+            future_eig_values = [
+                expected_information_gain(
+                    future_state,
+                    future_candidate,
+                    noise_sd=config.location_noise_sd,
+                    quadrature_order=config.location_eig_quadrature_order,
+                )
+                for future_candidate in future_candidates
+            ]
+            if future_eig_values:
+                best_future = max(future_eig_values)
+                future_contributions[branch_candidate_idx] += branch_weight * best_future
+                totals[branch_candidate_idx] += branch_weight * best_future
+
     final_summary = sorted(
         zip(candidates, immediate, future_contributions, totals),
         key=lambda entry: entry[3],
@@ -3668,13 +3727,17 @@ def _run_location_finding_batched(
                 best_locations = [location for location, _score, _evaluation in strategy_results]
                 best_scores = [score for _location, score, _evaluation in strategy_results]
 
-            for state, best_location, best_score in zip(states, best_locations, best_scores):
+            skipped: set[int] = set()
+            for state_idx, (state, best_location, best_score) in enumerate(
+                zip(states, best_locations, best_scores)
+            ):
                 if best_location is None:
                     _log_location(
                         f"trial {state.trial_idx + 1}: no valid location after retries; "
                         f"skipping round {round_idx + 1}",
                         config,
                     )
+                    skipped.add(state_idx)
                     continue
                 observation = state.env.run_experiment(best_location)
                 state.observations.append(observation)
@@ -3684,58 +3747,69 @@ def _run_location_finding_batched(
                     config,
                 )
 
-            generated_hypotheses_many = _generate_location_hypotheses_many(
-                questioner,
-                [state.observations for state in states],
-                prompt_belief_states,
-                config,
-                label=f"batched round {round_idx + 1} belief update",
-            )
-            merged_hypotheses_many: list[list[SourceConfig]] = []
-            reservoir_before_trim: list[int] = []
-            previous_belief_states: list[LocationBeliefState] = []
-            for state, generated_hypotheses in zip(states, generated_hypotheses_many):
-                previous_belief_state = state.belief_state  # type: ignore[assignment]
-                merged_hypotheses = _merge_hypotheses(previous_belief_state, generated_hypotheses)
-                merged_hypotheses_many.append(merged_hypotheses)
-                reservoir_before_trim.append(len(merged_hypotheses))
-                previous_belief_states.append(previous_belief_state)
-                _log_location(
-                    f"round {round_idx + 1}: reservoir update merging previous={len(previous_belief_state.hypotheses)} "
-                    f"with generated={len(generated_hypotheses)} -> unique={len(merged_hypotheses)}",
+            # Only update belief states for trials that received a new observation.
+            # Skipped trials keep their current belief state (consistent with single-trial path).
+            active_state_indices = [i for i in range(len(states)) if i not in skipped]
+            if active_state_indices:
+                active_states = [states[i] for i in active_state_indices]
+                active_prompt_belief_states = [prompt_belief_states[i] for i in active_state_indices]
+                generated_hypotheses_many = _generate_location_hypotheses_many(
+                    questioner,
+                    [state.observations for state in active_states],
+                    active_prompt_belief_states,
                     config,
+                    label=f"batched round {round_idx + 1} belief update",
                 )
-            updated_belief_states = build_location_posteriors_many(
-                questioner,
-                merged_hypotheses_many,
-                [state.observations for state in states],
-                config,
-                context_states=previous_belief_states,
-                label=f"batched round {round_idx + 1} posterior scoring",
-            )
-            for state, belief_state, before_trim, best_score in zip(
-                states,
-                updated_belief_states,
-                reservoir_before_trim,
-                best_scores,
-            ):
-                state.belief_state = belief_state
-                if before_trim > len(belief_state.hypotheses):
+                active_previous_belief_states: list[LocationBeliefState] = []
+                active_merged: list[list[SourceConfig]] = []
+                active_before_trim: list[int] = []
+                for state, generated_hypotheses in zip(active_states, generated_hypotheses_many):
+                    previous_belief_state = state.belief_state  # type: ignore[assignment]
+                    merged_hypotheses = _merge_hypotheses(previous_belief_state, generated_hypotheses)
+                    active_merged.append(merged_hypotheses)
+                    active_before_trim.append(len(merged_hypotheses))
+                    active_previous_belief_states.append(previous_belief_state)
                     _log_location(
-                        f"round {round_idx + 1}: reservoir trimmed {before_trim} -> "
-                        f"{len(belief_state.hypotheses)} by top posterior",
+                        f"round {round_idx + 1}: reservoir update merging "
+                        f"previous={len(previous_belief_state.hypotheses)} "
+                        f"with generated={len(generated_hypotheses)} -> unique={len(merged_hypotheses)}",
                         config,
                     )
-                prompt_belief_state = prompt_location_belief_state(belief_state, config)
-                _log_location(
-                    f"round {round_idx + 1}: posterior after observation {_summarize_belief_state(belief_state)}; "
-                    f"reservoir={len(belief_state.hypotheses)}, "
-                    f"prompt={len(prompt_belief_state.hypotheses)}, "
-                    f"ESS={_location_effective_sample_size(belief_state):.2f}",
+                updated_active_belief_states = build_location_posteriors_many(
+                    questioner,
+                    active_merged,
+                    [state.observations for state in active_states],
                     config,
+                    context_states=active_previous_belief_states,
+                    label=f"batched round {round_idx + 1} posterior scoring",
                 )
-                current_rmse = _top_source_rmse(belief_state, state.env.true_theta)
-                top_probability = belief_state.probabilities[0] if belief_state.probabilities else 0.0
+                for state, belief_state, before_trim in zip(
+                    active_states, updated_active_belief_states, active_before_trim
+                ):
+                    state.belief_state = belief_state
+                    if before_trim > len(belief_state.hypotheses):
+                        _log_location(
+                            f"round {round_idx + 1}: reservoir trimmed {before_trim} -> "
+                            f"{len(belief_state.hypotheses)} by top posterior",
+                            config,
+                        )
+                    prompt_belief_state = prompt_location_belief_state(belief_state, config)
+                    _log_location(
+                        f"round {round_idx + 1}: posterior after observation "
+                        f"{_summarize_belief_state(belief_state)}; "
+                        f"reservoir={len(belief_state.hypotheses)}, "
+                        f"prompt={len(prompt_belief_state.hypotheses)}, "
+                        f"ESS={_location_effective_sample_size(belief_state):.2f}",
+                        config,
+                    )
+
+            for state_idx, (state, best_score) in enumerate(zip(states, best_scores)):
+                current_rmse = _top_source_rmse(state.belief_state, state.env.true_theta)  # type: ignore[arg-type]
+                top_probability = (
+                    state.belief_state.probabilities[0]  # type: ignore[index]
+                    if state.belief_state and state.belief_state.probabilities
+                    else 0.0
+                )
                 rmse_totals[round_idx] += current_rmse
                 top_probability_totals[round_idx] += top_probability
                 selected_eig_totals[round_idx] += best_score
