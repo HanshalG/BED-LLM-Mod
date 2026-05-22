@@ -13,7 +13,6 @@ from location_finding import (
     LocationStrategyLibrary,
     _belief_generation_messages,
     _candidate_generation_messages,
-    _default_source_hypotheses,
     _location_effective_sample_size,
     _location_posterior_distribution_messages,
     _strategy_location_messages,
@@ -69,6 +68,7 @@ class RoutingLocationModel:
         self.num_sources = num_sources
         self.calls: list[list[dict[str, str]]] = []
         self.batched_calls: list[list[list[dict[str, str]]]] = []
+        self._query_counter = 0
 
     def _completion_for_messages(self, messages) -> str:
         prompt = "\n".join(message["content"] for message in messages)
@@ -93,8 +93,10 @@ class RoutingLocationModel:
             )
         if "candidate measurement locations" in prompt:
             return '{"locations": [[0, 0], [1, 1], [-1, -1]]}'
-        if "measurement/query location" in prompt or "requesting one location" in prompt or "{\"location\":[x1,y1]}" in prompt:
-            return '{"location": [0, 0]}'
+        if "{\"location\":[x1,y1]}" in prompt:
+            x = 0.5 * (self._query_counter % 5 - 2)
+            self._query_counter += 1
+            return f'{{"location": [{x}, {x}]}}'
         if "best estimate of the hidden source locations" in prompt:
             return _source_hypotheses_json(self.num_sources, shifts=(0.0,))
         if "finite Bayesian belief support" in prompt:
@@ -406,7 +408,7 @@ def test_generate_location_strategies_retrieves_proposes_and_fills_defaults():
 
     assert strategies[0] == "Use the previous elite plan."
     assert strategies[1] == "Fresh posterior-disagreement plan."
-    assert len(strategies) == 3
+    assert len(strategies) == 2
     assert "Retrieved elite strategies" in model.calls[0][-1]["content"]
 
 
@@ -417,19 +419,6 @@ def test_parse_candidate_locations_filters_bounds_duplicates_and_invalid_entries
 
     assert locations == [(0.0, 0.0), (1.5, -2.0)]
 
-
-@pytest.mark.parametrize("num_sources", [2, 3, 4])
-def test_default_source_hypotheses_are_valid_for_configured_source_count(num_sources):
-    config = _location_config(location_num_sources=num_sources)
-
-    hypotheses = _default_source_hypotheses(config)
-
-    assert len(hypotheses) == 4
-    for hypothesis in hypotheses:
-        assert len(hypothesis) == num_sources
-        assert len(set(hypothesis)) == num_sources
-        for source in hypothesis:
-            assert len(source) == 2
 
 
 def test_posterior_reweighting_prefers_hypothesis_matching_observation():

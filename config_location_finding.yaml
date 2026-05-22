@@ -21,6 +21,7 @@ num_mc_samples: 15
 
 location_num_rounds: 20
 location_num_trials: 1
+location_seed: 12345
 location_num_sources: 3
 location_dim: 2
 location_noise_sd: 0.5

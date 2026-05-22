@@ -47,6 +47,10 @@ Each invocation writes one self-contained run directory under `runs/`, for examp
 `runs/20260513T091522_config/`. Use `--run-name` to choose the suffix and
 `--output-root` to place run directories somewhere else.
 
+`search_depth` controls exact recursive lookahead for the animal 20 Questions
+game and accepts any positive integer. Values above 2 expand many hypothetical
+branches, so runtime and LLM calls grow very quickly.
+
 
 ## Hardware
 I ran the reproduction for Llama-3.3-70B-Instruct and Qwen-2.5-72B-Instruct on 2 A100 GPUs.

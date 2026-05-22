@@ -1,3 +1,7 @@
+import contextlib
+import io
+from dataclasses import replace
+
 import numpy as np
 
 from helpers import BeliefState, Config, ensure_belief_state, format_categorical_belief_summary, \
@@ -187,6 +191,10 @@ def _future_beliefs_for_answer(beliefs: BeliefState | list[str], history_questio
     ]
     # Forward search must mirror the live belief-update pipeline so hypothetical
     # branch scoring matches the beliefs we would actually carry into the next turn.
+    if not config.forward_search_verbose:
+        quiet_config = replace(config, log_path=None)
+        with contextlib.redirect_stdout(io.StringIO()):
+            return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, quiet_config)
     return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, config)
 
 

@@ -795,19 +795,6 @@ def _naive_source_estimate_repair_messages(
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
-_DEFAULT_LOCATION_STRATEGIES = (
-    "Begin with broad spatial coverage: query the center and then separated quadrants to detect which regions "
-    "contain unusually strong signal before refining any one source.",
-    "Focus on posterior disagreement: choose measurements where the top source configurations predict very "
-    "different signal strengths, then follow up near the regions whose likelihood improves most.",
-    "Refine high-signal areas: when an observation is large, ask nearby offset measurements to triangulate the "
-    "closest source while still checking whether other plausible sources explain the peak.",
-    "Eliminate empty space first: probe representative low-coverage regions to rule out sources there, then "
-    "concentrate later measurements around the remaining high-probability clusters.",
-    "Balance source discovery and localization: alternate between measurements near suspected source positions "
-    "and measurements that separate competing multi-source arrangements.",
-)
-
 
 @dataclass(frozen=True)
 class _StrategyLocationRequest:
@@ -1138,33 +1125,6 @@ def _extend_unique_strategy_candidates(
             return
 
 
-def _default_location_strategies(limit: int, seen: set[str]) -> list[str]:
-    defaults: list[str] = []
-    temp_seen = set(seen)
-    _extend_unique_strategies(defaults, list(_DEFAULT_LOCATION_STRATEGIES), temp_seen, limit)
-    return defaults[:limit]
-
-
-def _default_location_strategy_candidates(
-    limit: int,
-    seen: set[str],
-    observations: list[LocationObservation],
-    config: Config,
-) -> list[LocationStrategyCandidate]:
-    strategies = _default_location_strategies(limit, seen)
-    roots = [
-        location
-        for location in default_candidate_locations(config.location_dim, tuple(config.location_query_bounds))
-        if not _is_repeated_location(location, observations)
-    ]
-    if not roots:
-        bounds = tuple(config.location_query_bounds)
-        roots = [tuple((bounds[0] + bounds[1]) / 2.0 for _ in range(config.location_dim))]
-    return [
-        LocationStrategyCandidate(strategy=strategy, root_query=roots[idx % len(roots)])
-        for idx, strategy in enumerate(strategies)
-    ]
-
 
 def generate_location_strategies(
     questioner: "Model",
@@ -1186,22 +1146,21 @@ def generate_location_strategies(
             f"library_size={len(library)}",
             config,
         )
-        try:
+        messages = _strategy_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
+        for attempt in range(3):
             completion = questioner.chat_complete(
-                _strategy_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed),
+                messages,
                 temperature=config.generation_temperature_diverse,
             )[0]
-            _extend_unique_strategies(strategies, parse_location_strategies(completion), seen, target_count)
-        except ValueError as exc:
-            _log_location(f"strategy proposal: could not parse strategies ({exc}); using defaults", config)
-
-    if len(strategies) < target_count:
-        _extend_unique_strategies(
-            strategies,
-            _default_location_strategies(target_count - len(strategies), seen),
-            seen,
-            target_count,
-        )
+            try:
+                _extend_unique_strategies(strategies, parse_location_strategies(completion), seen, target_count)
+                break
+            except ValueError as exc:
+                _log_location(
+                    f"strategy proposal: attempt {attempt + 1}/3 could not parse strategies ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
 
     selected = strategies[:target_count]
     _log_location(f"strategy proposal: using {len(selected)} strategy/strategies", config)
@@ -1217,8 +1176,7 @@ def generate_location_strategies_many(
         return []
     target_count = config.location_strategy_num_candidates
     prepared: list[dict[str, object]] = []
-    batch_messages: list[list[dict[str, str]]] = []
-    batch_indices: list[int] = []
+    pending_request_indices: list[int] = []
     for request_idx, (belief_state, observations, library) in enumerate(requests):
         retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
         strategies: list[str] = []
@@ -1231,6 +1189,8 @@ def generate_location_strategies_many(
                 "seen": seen,
                 "retrieved_entries": retrieved_entries,
                 "observations": observations,
+                "belief_state": belief_state,
+                "fresh_needed": fresh_needed,
             }
         )
         if fresh_needed > 0:
@@ -1239,12 +1199,21 @@ def generate_location_strategies_many(
                 f"library_size={len(library)}",
                 config,
             )
-            batch_messages.append(
-                _strategy_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
-            )
-            batch_indices.append(request_idx)
+            pending_request_indices.append(request_idx)
 
-    if batch_messages:
+    for attempt in range(3):
+        if not pending_request_indices:
+            break
+        batch_messages = [
+            _strategy_proposal_messages(
+                prepared[i]["belief_state"],  # type: ignore[arg-type]
+                prepared[i]["observations"],  # type: ignore[arg-type]
+                prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
+                config,
+                prepared[i]["fresh_needed"],  # type: ignore[arg-type]
+            )
+            for i in pending_request_indices
+        ]
         if callable(getattr(questioner, "chat_complete_messages_batched", None)):
             completions = questioner.chat_complete_messages_batched(
                 batch_messages=batch_messages,
@@ -1259,7 +1228,8 @@ def generate_location_strategies_many(
             ]
         if len(completions) != len(batch_messages):
             raise ValueError(f"Expected {len(batch_messages)} strategy completions, received {len(completions)}")
-        for request_idx, completion in zip(batch_indices, completions):
+        still_pending: list[int] = []
+        for request_idx, completion in zip(pending_request_indices, completions):
             item = prepared[request_idx]
             try:
                 _extend_unique_strategies(
@@ -1269,20 +1239,17 @@ def generate_location_strategies_many(
                     target_count,
                 )
             except ValueError as exc:
-                _log_location(f"strategy proposal: could not parse strategies ({exc}); using defaults", config)
+                _log_location(
+                    f"strategy proposal: attempt {attempt + 1}/3 could not parse strategies ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(request_idx)
+        pending_request_indices = still_pending
 
     results: list[list[str]] = []
     for item in prepared:
-        strategies = item["strategies"]  # type: ignore[assignment]
-        seen = item["seen"]  # type: ignore[assignment]
-        if len(strategies) < target_count:
-            _extend_unique_strategies(
-                strategies,
-                _default_location_strategies(target_count - len(strategies), seen),
-                seen,
-                target_count,
-            )
-        selected = strategies[:target_count]
+        selected = (item["strategies"])[:target_count]  # type: ignore[index]
         _log_location(f"strategy proposal: using {len(selected)} strategy/strategies", config)
         results.append(selected)
     return results
@@ -1313,24 +1280,24 @@ def generate_location_strategy_roots(
             f"library_size={len(library)}",
             config,
         )
-        try:
+        messages = _strategy_root_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
+        for attempt in range(3):
             completion = questioner.chat_complete(
-                _strategy_root_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed),
+                messages,
                 temperature=config.generation_temperature_diverse,
             )[0]
-            parsed = parse_location_strategy_roots(completion, config.location_dim, tuple(config.location_query_bounds))
-            _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations)
-        except ValueError as exc:
-            _log_location(f"strategy+root proposal: could not parse strategy/root pairs ({exc}); using defaults", config)
-
-    if len(candidates) < target_count:
-        _extend_unique_strategy_candidates(
-            candidates,
-            _default_location_strategy_candidates(target_count - len(candidates), seen, observations, config),
-            seen,
-            target_count,
-            observations,
-        )
+            try:
+                parsed = parse_location_strategy_roots(
+                    completion, config.location_dim, tuple(config.location_query_bounds)
+                )
+                _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations)
+                break
+            except ValueError as exc:
+                _log_location(
+                    f"strategy+root proposal: attempt {attempt + 1}/3 could not parse strategy/root pairs ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
 
     selected = candidates[:target_count]
     _log_location(
@@ -1350,8 +1317,7 @@ def generate_location_strategy_roots_many(
         return []
     target_count = config.location_strategy_num_candidates
     prepared: list[dict[str, object]] = []
-    batch_messages: list[list[dict[str, str]]] = []
-    batch_indices: list[int] = []
+    pending_request_indices: list[int] = []
     for request_idx, (belief_state, observations, library) in enumerate(requests):
         retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
         candidates: list[LocationStrategyCandidate] = []
@@ -1369,6 +1335,8 @@ def generate_location_strategy_roots_many(
                 "seen": seen,
                 "retrieved_entries": retrieved_entries,
                 "observations": observations,
+                "belief_state": belief_state,
+                "fresh_needed": fresh_needed,
             }
         )
         if fresh_needed > 0:
@@ -1377,12 +1345,21 @@ def generate_location_strategy_roots_many(
                 f"library_size={len(library)}",
                 config,
             )
-            batch_messages.append(
-                _strategy_root_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
-            )
-            batch_indices.append(request_idx)
+            pending_request_indices.append(request_idx)
 
-    if batch_messages:
+    for attempt in range(3):
+        if not pending_request_indices:
+            break
+        batch_messages = [
+            _strategy_root_proposal_messages(
+                prepared[i]["belief_state"],  # type: ignore[arg-type]
+                prepared[i]["observations"],  # type: ignore[arg-type]
+                prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
+                config,
+                prepared[i]["fresh_needed"],  # type: ignore[arg-type]
+            )
+            for i in pending_request_indices
+        ]
         if callable(getattr(questioner, "chat_complete_messages_batched", None)):
             completions = questioner.chat_complete_messages_batched(
                 batch_messages=batch_messages,
@@ -1397,35 +1374,33 @@ def generate_location_strategy_roots_many(
             ]
         if len(completions) != len(batch_messages):
             raise ValueError(f"Expected {len(batch_messages)} strategy/root completions, received {len(completions)}")
-        for request_idx, completion in zip(batch_indices, completions):
+        still_pending: list[int] = []
+        for request_idx, completion in zip(pending_request_indices, completions):
             item = prepared[request_idx]
-            observations = item["observations"]  # type: ignore[assignment]
+            item_observations: list[LocationObservation] = item["observations"]  # type: ignore[assignment]
             try:
-                parsed = parse_location_strategy_roots(completion, config.location_dim, tuple(config.location_query_bounds))
+                parsed = parse_location_strategy_roots(
+                    completion, config.location_dim, tuple(config.location_query_bounds)
+                )
                 _extend_unique_strategy_candidates(
                     item["candidates"],  # type: ignore[arg-type]
                     parsed,
                     item["seen"],  # type: ignore[arg-type]
                     target_count,
-                    observations,
+                    item_observations,
                 )
             except ValueError as exc:
-                _log_location(f"strategy+root proposal: could not parse strategy/root pairs ({exc}); using defaults", config)
+                _log_location(
+                    f"strategy+root proposal: attempt {attempt + 1}/3 could not parse strategy/root pairs ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(request_idx)
+        pending_request_indices = still_pending
 
     results: list[list[LocationStrategyCandidate]] = []
     for item in prepared:
-        candidates = item["candidates"]  # type: ignore[assignment]
-        seen = item["seen"]  # type: ignore[assignment]
-        observations = item["observations"]  # type: ignore[assignment]
-        if len(candidates) < target_count:
-            _extend_unique_strategy_candidates(
-                candidates,
-                _default_location_strategy_candidates(target_count - len(candidates), seen, observations, config),
-                seen,
-                target_count,
-                observations,
-            )
-        selected = candidates[:target_count]
+        selected = (item["candidates"])[:target_count]  # type: ignore[index]
         _log_location(
             "strategy+root proposal: using "
             + "; ".join(f"{_format_location(candidate.root_query)} :: {candidate.strategy[:80]}" for candidate in selected if candidate.root_query is not None),
@@ -1444,82 +1419,58 @@ def _is_repeated_location(location: Location, observations: list[LocationObserva
     return any(_location_key(observation.query) == key for observation in observations)
 
 
-def _fallback_strategy_location(
-    belief_state: LocationBeliefState,
-    observations: list[LocationObservation],
-    config: Config,
-) -> Location:
-    bounds = tuple(config.location_query_bounds)
-    candidates = [
-        candidate
-        for candidate in default_candidate_locations(config.location_dim, bounds)
-        if not _is_repeated_location(candidate, observations)
-    ]
-    if not candidates:
-        candidates = default_candidate_locations(config.location_dim, bounds)
-    if not candidates:
-        midpoint = (bounds[0] + bounds[1]) / 2.0
-        return tuple(float(midpoint) for _ in range(config.location_dim))
-    if len(belief_state.hypotheses) <= 1:
-        return candidates[0]
-    scores = [
-        expected_information_gain(
-            belief_state,
-            candidate,
-            noise_sd=config.location_noise_sd,
-            quadrature_order=config.location_eig_quadrature_order,
-        )
-        for candidate in candidates
-    ]
-    return candidates[int(np.argmax(scores))]
-
-
-def _location_from_strategy_completion(
-    completion: str,
-    belief_state: LocationBeliefState,
-    observations: list[LocationObservation],
-    config: Config,
-) -> Location:
-    try:
-        location = parse_strategy_location(completion, config.location_dim, tuple(config.location_query_bounds))
-    except ValueError:
-        return _fallback_strategy_location(belief_state, observations, config)
-    if _is_repeated_location(location, observations):
-        return _fallback_strategy_location(belief_state, observations, config)
-    return location
-
-
 def generate_strategy_locations_many(
     questioner: "Model",
     requests: list[_StrategyLocationRequest],
     config: Config,
-) -> list[Location]:
+) -> list[Location | None]:
     if not requests:
         return []
 
+    bounds = tuple(config.location_query_bounds)
     batch_messages = [
         _strategy_location_messages(request.strategy, request.belief_state, request.observations, config)
         for request in requests
     ]
-    if callable(getattr(questioner, "chat_complete_messages_batched", None)):
-        completions = questioner.chat_complete_messages_batched(
-            batch_messages=batch_messages,
-            temperature=config.generation_temperature_simple,
-            block_size=config.batched_block_size,
-            max_new_tokens=8192,
-        )
-    else:
-        completions = [
-            questioner.chat_complete(messages, temperature=config.generation_temperature_simple)[0]
-            for messages in batch_messages
-        ]
-    if len(completions) != len(requests):
-        raise ValueError(f"Expected {len(requests)} strategy-location completions, received {len(completions)}")
+    results: list[Location | None] = [None] * len(requests)
+    pending = list(range(len(requests)))
 
-    return [
-        _location_from_strategy_completion(completion, request.belief_state, request.observations, config)
-        for completion, request in zip(completions, requests)
-    ]
+    for attempt in range(3):
+        if not pending:
+            break
+        pending_messages = [batch_messages[i] for i in pending]
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=pending_messages,
+                temperature=config.generation_temperature_simple,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(messages, temperature=config.generation_temperature_simple)[0]
+                for messages in pending_messages
+            ]
+        if len(completions) != len(pending):
+            raise ValueError(f"Expected {len(pending)} strategy-location completions, received {len(completions)}")
+        still_pending: list[int] = []
+        for request_idx, completion in zip(pending, completions):
+            request = requests[request_idx]
+            try:
+                location = parse_strategy_location(completion, config.location_dim, bounds)
+                if _is_repeated_location(location, request.observations):
+                    raise ValueError("Location repeats a previous query")
+                results[request_idx] = location
+            except ValueError as exc:
+                _log_location(
+                    f"strategy location: attempt {attempt + 1}/3 failed ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(request_idx)
+        pending = still_pending
+
+    return results
 
 
 def generate_strategy_location(
@@ -1528,7 +1479,7 @@ def generate_strategy_location(
     belief_state: LocationBeliefState,
     observations: list[LocationObservation],
     config: Config,
-) -> Location:
+) -> Location | None:
     return generate_strategy_locations_many(
         questioner,
         [_StrategyLocationRequest(strategy, belief_state, list(observations))],
@@ -2056,7 +2007,7 @@ def choose_location_with_strategy_rollouts(
     round_index: int,
     *,
     fixed_root: bool = False,
-) -> tuple[Location, float, LocationStrategyEvaluation | None]:
+) -> tuple[Location | None, float, LocationStrategyEvaluation | None]:
     if fixed_root:
         strategy_candidates = generate_location_strategy_roots(questioner, belief_state, observations, library, config)
         strategies = [candidate.strategy for candidate in strategy_candidates]
@@ -2075,8 +2026,7 @@ def choose_location_with_strategy_rollouts(
     )
     library.add_entries(_strategy_entries_from_evaluations(evaluations, round_index))
     if not evaluations:
-        fallback_location = _fallback_strategy_location(belief_state, observations, config)
-        return fallback_location, 0.0, None
+        return None, 0.0, None
 
     best_evaluation = max(evaluations, key=lambda evaluation: evaluation.mean_score)
     _log_location(
@@ -2086,12 +2036,8 @@ def choose_location_with_strategy_rollouts(
         config,
     )
     if fixed_root and best_evaluation.root_query is not None:
-        location = best_evaluation.root_query
-        if _is_repeated_location(location, observations):
-            _log_location("strategy+root selected a repeated root query; using fallback location", config)
-            location = _fallback_strategy_location(belief_state, observations, config)
-        else:
-            _log_location(f"strategy+root: asking fixed root query {_format_location(location)}", config)
+        _log_location(f"strategy+root: asking fixed root query {_format_location(best_evaluation.root_query)}", config)
+        location: Location | None = best_evaluation.root_query
     else:
         location = generate_strategy_location(
             questioner,
@@ -2110,7 +2056,7 @@ def choose_locations_with_strategy_rollouts_many(
     round_index: int,
     *,
     fixed_root: bool = False,
-) -> list[tuple[Location, float, LocationStrategyEvaluation | None]]:
+) -> list[tuple[Location | None, float, LocationStrategyEvaluation | None]]:
     if not states:
         return []
     for state in states:
@@ -2150,8 +2096,7 @@ def choose_locations_with_strategy_rollouts_many(
     selected_location_indices: list[int] = []
     for idx, (state, evaluations) in enumerate(zip(states, evaluations_many)):
         if not evaluations:
-            fallback_location = _fallback_strategy_location(state.belief_state, state.observations, config)  # type: ignore[arg-type]
-            results.append((fallback_location, 0.0, None))
+            results.append((None, 0.0, None))
             continue
 
         best_evaluation = max(evaluations, key=lambda evaluation: evaluation.mean_score)
@@ -2162,13 +2107,8 @@ def choose_locations_with_strategy_rollouts_many(
             config,
         )
         if fixed_root and best_evaluation.root_query is not None:
-            location = best_evaluation.root_query
-            if _is_repeated_location(location, state.observations):
-                _log_location("strategy+root selected a repeated root query; using fallback location", config)
-                location = _fallback_strategy_location(state.belief_state, state.observations, config)  # type: ignore[arg-type]
-            else:
-                _log_location(f"strategy+root: asking fixed root query {_format_location(location)}", config)
-            results.append((location, best_evaluation.mean_score, best_evaluation))
+            _log_location(f"strategy+root: asking fixed root query {_format_location(best_evaluation.root_query)}", config)
+            results.append((best_evaluation.root_query, best_evaluation.mean_score, best_evaluation))
         else:
             results.append((None, best_evaluation.mean_score, best_evaluation))
             selected_location_indices.append(idx)
@@ -2186,11 +2126,7 @@ def choose_locations_with_strategy_rollouts_many(
             _old_location, score, evaluation = results[result_idx]
             results[result_idx] = (location, score, evaluation)
 
-    return [
-        (location, score, evaluation)
-        for location, score, evaluation in results
-        if location is not None
-    ]
+    return results
 
 
 def generate_location_hypotheses(
@@ -2208,17 +2144,20 @@ def generate_location_hypotheses(
         f"max_return={config.location_max_llm_prompt_beliefs})",
         config,
     )
-    completion = questioner.chat_complete(
-        _belief_generation_messages(observations, belief_state, config),
-        temperature=config.generation_temperature_diverse,
-    )[0]
-    try:
-        hypotheses = parse_source_hypotheses(completion, config.location_num_sources, config.location_dim)
-    except ValueError as exc:
-        _log_location(f"{label}: could not parse source hypotheses ({exc}); using empty generated support", config)
-        return []
-    _log_location(f"{label}: parsed {len(hypotheses)} valid unique source configuration(s)", config)
-    return hypotheses
+    messages = _belief_generation_messages(observations, belief_state, config)
+    for attempt in range(3):
+        completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+        try:
+            hypotheses = parse_source_hypotheses(completion, config.location_num_sources, config.location_dim)
+            _log_location(f"{label}: parsed {len(hypotheses)} valid unique source configuration(s)", config)
+            return hypotheses
+        except ValueError as exc:
+            _log_location(
+                f"{label}: attempt {attempt + 1}/3 could not parse source hypotheses ({exc})"
+                + ("; retrying" if attempt < 2 else "; giving up"),
+                config,
+            )
+    return []
 
 
 def _generate_location_hypotheses_many(
@@ -2243,72 +2182,50 @@ def _generate_location_hypotheses_many(
         _belief_generation_messages(observations, belief_state, config)
         for observations, belief_state in zip(observations_many, belief_states)
     ]
-    if callable(getattr(questioner, "chat_complete_messages_batched", None)):
-        completions = questioner.chat_complete_messages_batched(
-            batch_messages=batch_messages,
-            temperature=config.generation_temperature_diverse,
-            block_size=config.batched_block_size,
-        )
-    else:
-        completions = [
-            questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
-            for messages in batch_messages
-        ]
-    if len(completions) != len(batch_messages):
-        raise ValueError(f"Expected {len(batch_messages)} hypothesis completions, received {len(completions)}")
+    results: list[list[SourceConfig] | None] = [None] * len(observations_many)
+    pending = list(range(len(observations_many)))
 
-    hypotheses_many: list[list[SourceConfig]] = []
-    parse_failures = 0
-    for completion in completions:
-        try:
-            hypotheses_many.append(
-                parse_source_hypotheses(completion, config.location_num_sources, config.location_dim)
+    for attempt in range(3):
+        if not pending:
+            break
+        pending_messages = [batch_messages[i] for i in pending]
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=pending_messages,
+                temperature=config.generation_temperature_diverse,
+                block_size=config.batched_block_size,
             )
-        except ValueError:
-            parse_failures += 1
-            hypotheses_many.append([])
+        else:
+            completions = [
+                questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+                for messages in pending_messages
+            ]
+        if len(completions) != len(pending):
+            raise ValueError(f"Expected {len(pending)} hypothesis completions, received {len(completions)}")
+        still_pending: list[int] = []
+        for idx, completion in zip(pending, completions):
+            try:
+                results[idx] = parse_source_hypotheses(completion, config.location_num_sources, config.location_dim)
+            except ValueError as exc:
+                _log_location(
+                    f"{label}: attempt {attempt + 1}/3 item {idx} could not parse hypotheses ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(idx)
+        pending = still_pending
+
+    hypotheses_many = [result if result is not None else [] for result in results]
     counts = [len(hypotheses) for hypotheses in hypotheses_many]
     nonempty_count = sum(1 for count in counts if count > 0)
     total_count = sum(counts)
     _log_location(
         f"{label}: parsed {total_count} generated hypothesis/hypotheses across "
-        f"{nonempty_count}/{len(hypotheses_many)} nonempty refresh(es)"
-        + (f"; parse_failures={parse_failures}" if parse_failures else ""),
+        f"{nonempty_count}/{len(hypotheses_many)} nonempty refresh(es)",
         config,
     )
     return hypotheses_many
 
-
-def _default_source_hypotheses(config: Config) -> list[SourceConfig]:
-    if config.location_dim != 2:
-        raise ValueError("Default source hypotheses currently support 2D source locations")
-
-    num_sources = config.location_num_sources
-
-    def circular_layout(radius: float, phase: float) -> list[tuple[float, float]]:
-        return [
-            (
-                round(radius * math.cos(phase + 2.0 * math.pi * idx / num_sources), 6),
-                round(radius * math.sin(phase + 2.0 * math.pi * idx / num_sources), 6),
-            )
-            for idx in range(num_sources)
-        ]
-
-    compact = circular_layout(radius=0.5, phase=0.0)
-    unit = circular_layout(radius=1.0, phase=math.pi / num_sources)
-    wide = circular_layout(radius=1.5, phase=0.0)
-    asymmetric = [
-        (
-            round((0.4 + 0.25 * idx) * math.cos(0.3 + 2.0 * math.pi * idx / num_sources), 6),
-            round((0.4 + 0.25 * idx) * math.sin(0.3 + 2.0 * math.pi * idx / num_sources), 6),
-        )
-        for idx in range(num_sources)
-    ]
-    anchors = [compact, unit, wide, asymmetric]
-    return [
-        normalize_source_config(anchor, config.location_num_sources, config.location_dim)
-        for anchor in anchors
-    ]
 
 
 def generate_location_candidates(
@@ -2324,26 +2241,22 @@ def generate_location_candidates(
         f"bounds=[{bounds[0]}, {bounds[1]}])",
         config,
     )
-    completion = questioner.chat_complete(
-        _candidate_generation_messages(belief_state, observations, config),
-        temperature=config.generation_temperature_diverse,
-    )[0]
-    try:
-        candidates = parse_candidate_locations(completion, config.location_dim, bounds)
-    except ValueError:
-        _log_location("candidate generation: could not parse JSON candidates; using deterministic fallbacks", config)
-        candidates = []
-    parsed_count = len(candidates)
-    if len(candidates) < config.location_target_num_candidates:
-        fallback_locations = [
-            location
-            for location in default_candidate_locations(config.location_dim, bounds)
-            if location not in candidates
-        ]
-        candidates.extend(fallback_locations)
+    messages = _candidate_generation_messages(belief_state, observations, config)
+    candidates: list[Location] = []
+    for attempt in range(3):
+        completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+        try:
+            candidates = parse_candidate_locations(completion, config.location_dim, bounds)
+            break
+        except ValueError as exc:
+            _log_location(
+                f"candidate generation: attempt {attempt + 1}/3 could not parse candidates ({exc})"
+                + ("; retrying" if attempt < 2 else "; giving up"),
+                config,
+            )
     selected = candidates[:config.location_target_num_candidates]
     _log_location(
-        f"candidate generation: parsed={parsed_count}, returned={len(selected)}, "
+        f"candidate generation: parsed={len(candidates)}, returned={len(selected)}, "
         f"locations={_summarize_candidates(selected)}",
         config,
     )
@@ -2370,39 +2283,46 @@ def generate_location_candidates_many(
         _candidate_generation_messages(belief_state, observations, config)
         for belief_state, observations in zip(belief_states, observations_many)
     ]
-    if callable(getattr(questioner, "chat_complete_messages_batched", None)):
-        completions = questioner.chat_complete_messages_batched(
-            batch_messages=batch_messages,
-            temperature=config.generation_temperature_diverse,
-            block_size=config.batched_block_size,
-            max_new_tokens=8192,
-        )
-    else:
-        completions = [
-            questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
-            for messages in batch_messages
-        ]
-    if len(completions) != len(batch_messages):
-        raise ValueError(f"Expected {len(batch_messages)} candidate completions, received {len(completions)}")
+    results: list[list[Location] | None] = [None] * len(belief_states)
+    pending = list(range(len(belief_states)))
+
+    for attempt in range(3):
+        if not pending:
+            break
+        pending_messages = [batch_messages[i] for i in pending]
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=pending_messages,
+                temperature=config.generation_temperature_diverse,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+                for messages in pending_messages
+            ]
+        if len(completions) != len(pending):
+            raise ValueError(f"Expected {len(pending)} candidate completions, received {len(completions)}")
+        still_pending: list[int] = []
+        for idx, completion in zip(pending, completions):
+            try:
+                results[idx] = parse_candidate_locations(completion, config.location_dim, bounds)
+            except ValueError as exc:
+                _log_location(
+                    f"candidate generation: attempt {attempt + 1}/3 item {idx} could not parse candidates ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(idx)
+        pending = still_pending
 
     candidates_many: list[list[Location]] = []
-    for completion in completions:
-        try:
-            candidates = parse_candidate_locations(completion, config.location_dim, bounds)
-        except ValueError:
-            _log_location("candidate generation: could not parse JSON candidates; using deterministic fallbacks", config)
-            candidates = []
-        parsed_count = len(candidates)
-        if len(candidates) < config.location_target_num_candidates:
-            fallback_locations = [
-                location
-                for location in default_candidate_locations(config.location_dim, bounds)
-                if location not in candidates
-            ]
-            candidates.extend(fallback_locations)
+    for idx, raw in enumerate(results):
+        candidates = raw if raw is not None else []
         selected = candidates[:config.location_target_num_candidates]
         _log_location(
-            f"candidate generation: parsed={parsed_count}, returned={len(selected)}, "
+            f"candidate generation: item {idx} parsed={len(candidates)}, returned={len(selected)}, "
             f"locations={_summarize_candidates(selected)}",
             config,
         )
@@ -2414,31 +2334,29 @@ def choose_location_naive(
     questioner: "Model",
     observations: list[LocationObservation],
     config: Config,
-) -> Location:
+) -> Location | None:
     bounds = tuple(config.location_query_bounds)
     _log_location(
         f"naive query generation: requesting one location "
         f"(observations={len(observations)}, bounds=[{bounds[0]}, {bounds[1]}])",
         config,
     )
-    completion = questioner.chat_complete(
-        _naive_location_messages(observations, config),
-        temperature=config.generation_temperature_diverse,
-    )[0]
-    try:
-        location = parse_single_location_from_completion(completion, config.location_dim, bounds)
-        if _is_repeated_location(location, observations):
-            raise ValueError("Location repeats a previous query")
-    except ValueError as exc:
-        _log_location(f"naive query generation: could not parse/use location ({exc}); using deterministic fallback", config)
-        candidates = [
-            candidate
-            for candidate in default_candidate_locations(config.location_dim, bounds)
-            if not _is_repeated_location(candidate, observations)
-        ]
-        location = candidates[0] if candidates else tuple((bounds[0] + bounds[1]) / 2.0 for _ in range(config.location_dim))
-    _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
-    return location
+    messages = _naive_location_messages(observations, config)
+    for attempt in range(3):
+        completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+        try:
+            location = parse_single_location_from_completion(completion, config.location_dim, bounds)
+            if _is_repeated_location(location, observations):
+                raise ValueError("Location repeats a previous query")
+            _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
+            return location
+        except ValueError as exc:
+            _log_location(
+                f"naive query generation: attempt {attempt + 1}/3 failed ({exc})"
+                + ("; retrying" if attempt < 2 else "; giving up"),
+                config,
+            )
+    return None
 
 
 def estimate_sources_naive(
@@ -2490,7 +2408,7 @@ def choose_locations_naive_many(
     questioner: "Model",
     observations_many: list[list[LocationObservation]],
     config: Config,
-) -> list[Location]:
+) -> list[Location | None]:
     if not observations_many:
         return []
     bounds = tuple(config.location_query_bounds)
@@ -2500,38 +2418,46 @@ def choose_locations_naive_many(
         config,
     )
     batch_messages = [_naive_location_messages(observations, config) for observations in observations_many]
-    if callable(getattr(questioner, "chat_complete_messages_batched", None)):
-        completions = questioner.chat_complete_messages_batched(
-            batch_messages=batch_messages,
-            temperature=config.generation_temperature_diverse,
-            block_size=config.batched_block_size,
-            max_new_tokens=8192,
-        )
-    else:
-        completions = [
-            questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
-            for messages in batch_messages
-        ]
-    if len(completions) != len(batch_messages):
-        raise ValueError(f"Expected {len(batch_messages)} naive query completions, received {len(completions)}")
+    results: list[Location | None] = [None] * len(observations_many)
+    pending = list(range(len(observations_many)))
 
-    locations: list[Location] = []
-    for completion, observations in zip(completions, observations_many):
-        try:
-            location = parse_single_location_from_completion(completion, config.location_dim, bounds)
-            if _is_repeated_location(location, observations):
-                raise ValueError("Location repeats a previous query")
-        except ValueError as exc:
-            _log_location(f"naive query generation: could not parse/use location ({exc}); using deterministic fallback", config)
-            candidates = [
-                candidate
-                for candidate in default_candidate_locations(config.location_dim, bounds)
-                if not _is_repeated_location(candidate, observations)
+    for attempt in range(3):
+        if not pending:
+            break
+        pending_messages = [batch_messages[i] for i in pending]
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=pending_messages,
+                temperature=config.generation_temperature_diverse,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+                for messages in pending_messages
             ]
-            location = candidates[0] if candidates else tuple((bounds[0] + bounds[1]) / 2.0 for _ in range(config.location_dim))
-        _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
-        locations.append(location)
-    return locations
+        if len(completions) != len(pending):
+            raise ValueError(f"Expected {len(pending)} naive query completions, received {len(completions)}")
+        still_pending: list[int] = []
+        for idx, completion in zip(pending, completions):
+            item_observations = observations_many[idx]
+            try:
+                location = parse_single_location_from_completion(completion, config.location_dim, bounds)
+                if _is_repeated_location(location, item_observations):
+                    raise ValueError("Location repeats a previous query")
+                _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
+                results[idx] = location
+            except ValueError as exc:
+                _log_location(
+                    f"naive query generation: attempt {attempt + 1}/3 item {idx} failed ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(idx)
+        pending = still_pending
+
+    return results
 
 
 def estimate_sources_naive_many(
@@ -2628,39 +2554,6 @@ def estimate_sources_naive_many(
         final_estimates.append(estimate)
     return final_estimates
 
-
-def default_candidate_locations(dim: int, bounds: tuple[float, float]) -> list[Location]:
-    low, high = bounds
-    if dim != 2:
-        center = tuple(0.0 for _ in range(dim))
-        corners = [tuple(value for _ in range(dim)) for value in (low, high)]
-        return [center] + corners
-
-    midpoint = (low + high) / 2.0
-    quarter_low = low + (high - low) * 0.25
-    quarter_high = low + (high - low) * 0.75
-    values = [low, quarter_low, midpoint, quarter_high, high]
-    ordered = [
-        (midpoint, midpoint),
-        (quarter_low, quarter_low),
-        (quarter_low, quarter_high),
-        (quarter_high, quarter_low),
-        (quarter_high, quarter_high),
-        (low, midpoint),
-        (high, midpoint),
-        (midpoint, low),
-        (midpoint, high),
-    ]
-    ordered.extend((x, y) for x in values for y in values)
-    deduped: list[Location] = []
-    seen: set[Location] = set()
-    for location in ordered:
-        normalized = tuple(float(value) for value in location)
-        if normalized in seen:
-            continue
-        seen.add(normalized)
-        deduped.append(normalized)
-    return deduped
 
 
 def signal_intensity_for_hypothesis(
@@ -3620,6 +3513,13 @@ def _run_location_finding_batched(
                     config,
                 )
                 for state, best_location in zip(states, best_locations):
+                    if best_location is None:
+                        _log_location(
+                            f"trial {state.trial_idx + 1}: no valid naive location after retries; "
+                            f"skipping round {round_idx + 1}",
+                            config,
+                        )
+                        continue
                     observation = state.env.run_experiment(best_location)
                     state.observations.append(observation)
                     print_and_log(
@@ -3665,13 +3565,6 @@ def _run_location_finding_batched(
             config,
             label="batched initial belief generation",
         )
-        for state, initial_hypotheses in zip(states, initial_hypotheses_many):
-            if not initial_hypotheses:
-                _log_location("No valid initial LLM hypotheses; using deterministic fallback support", config)
-        initial_hypotheses_many = [
-            initial_hypotheses if initial_hypotheses else _default_source_hypotheses(config)
-            for initial_hypotheses in initial_hypotheses_many
-        ]
         initial_belief_states = build_location_posteriors_many(
             questioner,
             initial_hypotheses_many,
@@ -3747,9 +3640,13 @@ def _run_location_finding_batched(
                     [state.observations for state in states],
                     config,
                 )
-                best_locations: list[Location] = []
+                best_locations: list[Location | None] = []
                 best_scores: list[float] = []
                 for state, eig_belief_state, candidates in zip(states, eig_belief_states, candidates_many):
+                    if not candidates:
+                        best_locations.append(None)
+                        best_scores.append(0.0)
+                        continue
                     scores = score_candidate_locations(
                         eig_belief_state,
                         candidates,
@@ -3772,6 +3669,13 @@ def _run_location_finding_batched(
                 best_scores = [score for _location, score, _evaluation in strategy_results]
 
             for state, best_location, best_score in zip(states, best_locations, best_scores):
+                if best_location is None:
+                    _log_location(
+                        f"trial {state.trial_idx + 1}: no valid location after retries; "
+                        f"skipping round {round_idx + 1}",
+                        config,
+                    )
+                    continue
                 observation = state.env.run_experiment(best_location)
                 state.observations.append(observation)
                 print_and_log(
@@ -3933,13 +3837,20 @@ def run_location_finding(
                     config,
                 )
                 best_location = choose_location_naive(questioner, observations, config)
-                observation = env.run_experiment(best_location)
-                observations.append(observation)
-                print_and_log(
-                    f"[location] Selected query {list(best_location)} with score 0.000000; "
-                    f"observed {observation.value:.2f}",
-                    config,
-                )
+                if best_location is None:
+                    _log_location(
+                        f"trial {trial_idx + 1}: no valid naive location after retries; "
+                        f"skipping round {round_idx + 1}",
+                        config,
+                    )
+                else:
+                    observation = env.run_experiment(best_location)
+                    observations.append(observation)
+                    print_and_log(
+                        f"[location] Selected query {list(best_location)} with score 0.000000; "
+                        f"observed {observation.value:.2f}",
+                        config,
+                    )
 
                 final_estimate = estimate_sources_naive(questioner, observations, config)
                 final_rmse = source_rmse(final_estimate, env.true_theta)
@@ -3978,9 +3889,6 @@ def run_location_finding(
             config,
             label=f"trial {trial_idx + 1} initial belief generation",
         )
-        if not initial_hypotheses:
-            _log_location("No valid initial LLM hypotheses; using deterministic fallback support", config)
-            initial_hypotheses = _default_source_hypotheses(config)
         belief_state = build_location_posterior(
             questioner,
             initial_hypotheses,
@@ -4025,16 +3933,20 @@ def run_location_finding(
                 _log_location("EIG posterior sampling produced one unique hypothesis; EIG support is collapsed", config)
             if method_name == "EIG":
                 candidates = generate_location_candidates(questioner, prompt_belief_state, observations, config)
-                scores = score_candidate_locations(
-                    eig_belief_state,
-                    candidates,
-                    config,
-                    questioner=questioner,
-                    observations=observations,
-                )
-                best_idx = int(np.argmax(scores)) if scores else 0
-                best_location = candidates[best_idx]
-                best_score = float(scores[best_idx]) if scores else 0.0
+                if not candidates:
+                    best_location: Location | None = None
+                    best_score = 0.0
+                else:
+                    scores = score_candidate_locations(
+                        eig_belief_state,
+                        candidates,
+                        config,
+                        questioner=questioner,
+                        observations=observations,
+                    )
+                    best_idx = int(np.argmax(scores)) if scores else 0
+                    best_location = candidates[best_idx]
+                    best_score = float(scores[best_idx]) if scores else 0.0
             elif method_name == "Naive":
                 best_location = choose_location_naive(questioner, observations, config)
                 best_score = 0.0
@@ -4051,6 +3963,17 @@ def run_location_finding(
                     round_idx,
                     fixed_root=method_name == "StrategyEIG+root",
                 )
+            if best_location is None:
+                _log_location(
+                    f"trial {trial_idx + 1}: no valid location after retries; skipping round {round_idx + 1}",
+                    config,
+                )
+                current_rmse = _top_source_rmse(belief_state, env.true_theta)
+                top_probability = belief_state.probabilities[0] if belief_state.probabilities else 0.0
+                rmse_totals[round_idx] += current_rmse
+                top_probability_totals[round_idx] += top_probability
+                selected_eig_totals[round_idx] += best_score
+                continue
             observation = env.run_experiment(best_location)
             observations.append(observation)
             print_and_log(
