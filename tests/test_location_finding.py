@@ -354,7 +354,7 @@ def test_strategy_library_retrieves_best_entries_and_new_library_is_empty():
     library = LocationStrategyLibrary()
     assert len(library) == 0
 
-    library.add_entries(
+    library.replace_entries(
         [
             LocationStrategyEntry("weak", 0.1, 0.0, "[0, 0]", 0),
             LocationStrategyEntry("strong", 0.5, 0.2, "[1, 1]", 1),
@@ -366,6 +366,20 @@ def test_strategy_library_retrieves_best_entries_and_new_library_is_empty():
 
     assert [entry.strategy for entry in retrieved] == ["steady", "strong"]
     assert len(LocationStrategyLibrary()) == 0
+
+
+def test_strategy_library_replace_entries_overwrites_previous_round():
+    library = LocationStrategyLibrary()
+    library.replace_entries([LocationStrategyEntry("round-1 strategy", 0.9, 0.0, "", 0)])
+    assert len(library) == 1
+
+    library.replace_entries([
+        LocationStrategyEntry("round-2a", 0.3, 0.0, "", 1),
+        LocationStrategyEntry("round-2b", 0.7, 0.0, "", 1),
+    ])
+
+    assert len(library) == 2
+    assert [e.strategy for e in library.retrieve_top_m(2)] == ["round-2b", "round-2a"]
 
 
 def test_strategy_prompts_include_history_beliefs_retrieved_examples_and_diversity_instructions():
@@ -393,23 +407,62 @@ def test_strategy_prompts_include_history_beliefs_retrieved_examples_and_diversi
     assert "signal_strength" in location_user
 
 
-def test_generate_location_strategies_retrieves_proposes_and_fills_defaults():
+def test_generate_location_strategies_four_phases():
+    # num_candidates = retrieved(1) + mutation(1) + crossover(1) + diverse(1) = 4
     config = _location_config(
-        location_strategy_num_candidates=3,
         location_strategy_num_retrieved=1,
+        location_strategy_num_mutation=1,
+        location_strategy_num_crossover=1,
+        location_strategy_num_diverse=1,
     )
     hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
     belief_state = LocationBeliefState([hypothesis], [1.0])
     library = LocationStrategyLibrary()
-    library.add_entries([LocationStrategyEntry("Use the previous elite plan.", 0.9, 0.1, "[0, 0]", 0)])
-    model = FakeLocationModel(['{"strategies": ["Fresh posterior-disagreement plan."]}'])
+    library.replace_entries([LocationStrategyEntry("Elite plan.", 0.9, 0.1, "[0, 0]", 0)])
+    model = FakeLocationModel([
+        '{"strategies": ["Mutated plan."]}',
+        '{"strategies": ["Crossover plan."]}',
+        '{"strategies": ["Diverse plan."]}',
+    ])
 
     strategies = generate_location_strategies(model, belief_state, [], library, config)
 
-    assert strategies[0] == "Use the previous elite plan."
-    assert strategies[1] == "Fresh posterior-disagreement plan."
-    assert len(strategies) == 2
-    assert "Retrieved elite strategies" in model.calls[0][-1]["content"]
+    assert strategies[0] == "Elite plan."       # Phase R: retrieved
+    assert strategies[1] == "Mutated plan."     # Phase M: mutation
+    assert strategies[2] == "Crossover plan."   # Phase C: crossover
+    assert strategies[3] == "Diverse plan."     # Phase D: diverse
+    assert len(strategies) == 4
+    # Mutation prompt shows retrieved entries as parents
+    assert "perturb" in model.calls[0][-1]["content"].lower()
+    assert "Elite plan." in model.calls[0][-1]["content"]
+    # Crossover prompt shows retrieved entries
+    assert "crossover" in model.calls[1][-1]["content"].lower()
+    # Diverse prompt has no retrieved section
+    assert "Retrieved elite strategies" not in model.calls[2][-1]["content"]
+
+
+def test_generate_location_strategies_empty_library_falls_back_to_diverse():
+    # Round 1: library empty — mutation and crossover phases fall back to diverse prompts
+    config = _location_config(
+        location_strategy_num_retrieved=1,
+        location_strategy_num_mutation=1,
+        location_strategy_num_crossover=1,
+        location_strategy_num_diverse=1,
+    )
+    hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    belief_state = LocationBeliefState([hypothesis], [1.0])
+    library = LocationStrategyLibrary()  # empty
+    model = FakeLocationModel([
+        '{"strategies": ["Plan A."]}',
+        '{"strategies": ["Plan B."]}',
+        '{"strategies": ["Plan C."]}',
+    ])
+
+    strategies = generate_location_strategies(model, belief_state, [], library, config)
+
+    # All 3 LLM calls used diverse prompts (no retrieved context)
+    assert len(strategies) == 3
+    assert all("Retrieved elite strategies" not in call[-1]["content"] for call in model.calls)
 
 
 def test_parse_candidate_locations_filters_bounds_duplicates_and_invalid_entries():
@@ -936,7 +989,7 @@ def test_run_location_finding_strategy_eig_one_round_with_fake_llm_smoke(tmp_pat
     )
     config = _location_config(
         location_num_sources=num_sources,
-        location_strategy_num_candidates=1,
+        location_strategy_num_mutation=0, location_strategy_num_crossover=0, location_strategy_num_diverse=0,
         location_strategy_num_retrieved=1,
         location_strategy_num_rollouts=1,
         location_strategy_planning_depth=1,
@@ -957,7 +1010,7 @@ def test_run_location_finding_strategy_eig_one_round_with_fake_llm_smoke(tmp_pat
     assert math.isfinite(metrics.selected_eig[0])
     assert len(model.calls) == 3
     assert len(model.batched_calls) == 3
-    assert "Retrieved elite strategies" in model.calls[1][-1]["content"]
+    assert "Generate diverse strategies" in model.calls[1][-1]["content"]  # round 1: library empty, diverse prompt
     assert f"exactly {num_sources} hidden signal sources" in model.batched_calls[0][0][0]["content"]
     assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
 
@@ -986,7 +1039,7 @@ def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
     )
     config = _location_config(
         location_posterior_mode="llm_distribution",
-        location_strategy_num_candidates=1,
+        location_strategy_num_mutation=0, location_strategy_num_crossover=0, location_strategy_num_diverse=0,
         location_strategy_num_retrieved=1,
         location_strategy_num_rollouts=1,
         location_strategy_planning_depth=1,
@@ -1063,7 +1116,7 @@ def test_run_location_finding_strategy_root_batches_trials_and_rollouts(tmp_path
         location_num_trials=2,
         location_num_rounds=1,
         location_trial_batch_size=2,
-        location_strategy_num_candidates=1,
+        location_strategy_num_mutation=0, location_strategy_num_crossover=0, location_strategy_num_diverse=0,
         location_strategy_num_retrieved=1,
         location_strategy_num_rollouts=1,
         location_strategy_planning_depth=1,

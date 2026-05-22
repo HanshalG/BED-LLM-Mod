@@ -111,13 +111,20 @@ class Config:
     location_search_depth: int = 2
     location_eig_quadrature_order: int = 15
     location_plot_trials: bool = False
-    location_strategy_num_candidates: int = 5
     location_strategy_num_retrieved: int = 2
+    location_strategy_num_mutation: int = 1
+    location_strategy_num_crossover: int = 1
+    location_strategy_num_diverse: int = 2
     location_strategy_num_rollouts: int = 8
     location_strategy_planning_depth: int = 8
     location_strategy_discount_factor: float = 1.0
     location_strategy_belief_summary_top_k: int = 5
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
+
+    @property
+    def location_strategy_num_candidates(self) -> int:
+        return (self.location_strategy_num_retrieved + self.location_strategy_num_mutation
+                + self.location_strategy_num_crossover + self.location_strategy_num_diverse)
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -236,6 +243,13 @@ def _read_positive_int(raw: dict, key: str, default: int) -> int:
     value = raw.get(key, default)
     if not isinstance(value, int) or isinstance(value, bool) or value < 1:
         raise ValueError(f"{key} must be a positive integer")
+    return value
+
+
+def _read_nonneg_int(raw: dict, key: str, default: int) -> int:
+    value = raw.get(key, default)
+    if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+        raise ValueError(f"{key} must be a non-negative integer")
     return value
 
 
@@ -406,10 +420,10 @@ def load_config(path: str) -> Config:
     location_plot_trials = raw.get("location_plot_trials", False)
     if not isinstance(location_plot_trials, bool):
         raise ValueError("location_plot_trials must be a boolean")
-    location_strategy_num_candidates = _read_positive_int(raw, "location_strategy_num_candidates", 5)
     location_strategy_num_retrieved = _read_positive_int(raw, "location_strategy_num_retrieved", 2)
-    if location_strategy_num_retrieved > location_strategy_num_candidates:
-        raise ValueError("location_strategy_num_retrieved must be less than or equal to location_strategy_num_candidates")
+    location_strategy_num_mutation = _read_nonneg_int(raw, "location_strategy_num_mutation", 1)
+    location_strategy_num_crossover = _read_nonneg_int(raw, "location_strategy_num_crossover", 1)
+    location_strategy_num_diverse = _read_positive_int(raw, "location_strategy_num_diverse", 2)
     location_strategy_num_rollouts = _read_positive_int(raw, "location_strategy_num_rollouts", 8)
     location_strategy_planning_depth = _read_positive_int(raw, "location_strategy_planning_depth", 8)
     location_strategy_discount_factor = _read_probability(raw, "location_strategy_discount_factor", 1.0)
@@ -470,8 +484,10 @@ def load_config(path: str) -> Config:
         location_search_depth = location_search_depth,
         location_eig_quadrature_order = location_eig_quadrature_order,
         location_plot_trials = location_plot_trials,
-        location_strategy_num_candidates = location_strategy_num_candidates,
         location_strategy_num_retrieved = location_strategy_num_retrieved,
+        location_strategy_num_mutation = location_strategy_num_mutation,
+        location_strategy_num_crossover = location_strategy_num_crossover,
+        location_strategy_num_diverse = location_strategy_num_diverse,
         location_strategy_num_rollouts = location_strategy_num_rollouts,
         location_strategy_planning_depth = location_strategy_planning_depth,
         location_strategy_discount_factor = location_strategy_discount_factor,

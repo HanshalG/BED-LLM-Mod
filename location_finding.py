@@ -83,8 +83,9 @@ class LocationStrategyLibrary:
         )
         return ranked[:count]
 
-    def add_entries(self, entries: list[LocationStrategyEntry]) -> None:
-        self.entries.extend(entries)
+    def replace_entries(self, entries: list[LocationStrategyEntry]) -> None:
+        """Replace all entries with the given list (keeps only the latest round)."""
+        self.entries = list(entries)
 
 
 class LocationFindingEnv:
@@ -987,6 +988,22 @@ def _format_strategy_entries(entries: list[LocationStrategyEntry]) -> str:
     return json.dumps(rows)
 
 
+def _strategy_system_preamble(bounds: tuple[float, ...], num_strategies: int, task_instruction: str) -> str:
+    return (
+        "You propose natural-language adaptive strategies for a 2D source-localization experiment.\n\n"
+        "A strategy is a few-sentence high-level plan for choosing future measurement locations. It should describe "
+        "how to adapt after high, low, or ambiguous signal observations, not just name one coordinate.\n\n"
+        "Return only this exact compact JSON shape:\n"
+        "{\"strategies\":[\"strategy text\",...]}\n\n"
+        "Rules:\n"
+        "- Do not include markdown, comments, explanations, or trailing text.\n"
+        f"- Generate exactly {num_strategies} strategies.\n"
+        f"- {task_instruction}\n"
+        "- The strategies must differ substantively from one another.\n"
+        f"- Every strategy must respect query bounds [{bounds[0]}, {bounds[1]}] for each coordinate."
+    )
+
+
 def _strategy_proposal_messages(
     belief_state: LocationBeliefState,
     observations: list[LocationObservation],
@@ -995,19 +1012,10 @@ def _strategy_proposal_messages(
     num_fresh: int,
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
-    system = (
-        "You propose natural-language adaptive strategies for a 2D source-localization experiment.\n\n"
-        "A strategy is a few-sentence high-level plan for choosing future measurement locations. It should describe "
-        "how to adapt after high, low, or ambiguous signal observations, not just name one coordinate.\n\n"
-        "Return only this exact compact JSON shape:\n"
-        "{\"strategies\":[\"strategy text\",...]}\n\n"
-        "Rules:\n"
-        "- Do not include markdown, comments, explanations, or trailing text.\n"
-        f"- Generate exactly {num_fresh} fresh strategies.\n"
-        "- The strategies must differ substantively from one another.\n"
-        "- Make their likely first measurement locations or first decision criteria different, so the options do "
-        "not collapse to the same first move.\n"
-        f"- Every strategy must respect query bounds [{bounds[0]}, {bounds[1]}] for each coordinate."
+    system = _strategy_system_preamble(
+        bounds, num_fresh,
+        "Make their likely first measurement locations or first decision criteria different, "
+        "so the options do not collapse to the same first move.",
     )
     user = (
         f"Observation history so far:\n{_format_observations(observations)}\n\n"
@@ -1019,15 +1027,74 @@ def _strategy_proposal_messages(
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
-def _strategy_root_proposal_messages(
+def _strategy_mutation_messages(
+    retrieved_entries: list[LocationStrategyEntry],
     belief_state: LocationBeliefState,
     observations: list[LocationObservation],
-    retrieved_entries: list[LocationStrategyEntry],
     config: Config,
-    num_fresh: int,
+    num_mutation: int,
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
-    system = (
+    system = _strategy_system_preamble(
+        bounds, num_mutation,
+        "Generate good perturbations of the retrieved strategies. Do not copy any retrieved strategy verbatim.",
+    )
+    user = (
+        f"Observation history so far:\n{_format_observations(observations)}\n\n"
+        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
+        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
+        f"Retrieved elite strategies to perturb:\n{_format_strategy_entries(retrieved_entries)}\n\n"
+        f"Generate {num_mutation} good perturbation(s) of the above strategies."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _strategy_crossover_messages(
+    retrieved_entries: list[LocationStrategyEntry],
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+    num_crossover: int,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = _strategy_system_preamble(
+        bounds, num_crossover,
+        "Generate good crossovers of the retrieved strategies. "
+        "Each result must be meaningfully different from any individual retrieved strategy.",
+    )
+    user = (
+        f"Observation history so far:\n{_format_observations(observations)}\n\n"
+        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
+        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
+        f"Retrieved elite strategies to combine:\n{_format_strategy_entries(retrieved_entries)}\n\n"
+        f"Generate {num_crossover} good crossover(s) of the above strategies."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _strategy_diverse_messages(
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+    num_diverse: int,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = _strategy_system_preamble(
+        bounds, num_diverse,
+        "Make their likely first measurement locations or first decision criteria different, "
+        "so the options do not collapse to the same first move.",
+    )
+    user = (
+        f"Observation history so far:\n{_format_observations(observations)}\n\n"
+        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
+        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
+        "Generate diverse strategies useful for the current posterior."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _strategy_root_system_preamble(bounds: tuple[float, ...], num_strategies: int, task_instruction: str) -> str:
+    return (
         "You propose adaptive strategies for a 2D source-localization experiment. Each strategy must include a fixed "
         "root measurement location that will be asked first whenever that strategy is evaluated or selected.\n\n"
         "A strategy is a few-sentence high-level plan for choosing future measurement locations after the fixed root "
@@ -1037,10 +1104,24 @@ def _strategy_root_proposal_messages(
         "{\"strategies\":[{\"strategy\":\"strategy text\",\"root_query\":[x1,y1]},...]}\n\n"
         "Rules:\n"
         "- Do not include markdown, comments, explanations, or trailing text.\n"
-        f"- Generate exactly {num_fresh} fresh strategy/root_query pairs.\n"
-        "- The strategies and root_query locations must differ substantively from one another.\n"
+        f"- Generate exactly {num_strategies} strategy/root_query pairs.\n"
+        f"- {task_instruction}\n"
         f"- Every root_query coordinate must be in [{bounds[0]}, {bounds[1]}].\n"
         "- Do not repeat a previous query location."
+    )
+
+
+def _strategy_root_proposal_messages(
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    retrieved_entries: list[LocationStrategyEntry],
+    config: Config,
+    num_fresh: int,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = _strategy_root_system_preamble(
+        bounds, num_fresh,
+        "The strategies and root_query locations must differ substantively from one another.",
     )
     user = (
         f"Observation history so far:\n{_format_observations(observations)}\n\n"
@@ -1049,6 +1130,71 @@ def _strategy_root_proposal_messages(
         f"Retrieved elite strategies from this trial:\n{_format_strategy_entries(retrieved_entries)}\n\n"
         "Generate new strategy/root_query pairs that complement the retrieved examples and are useful for the current "
         "posterior."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _strategy_root_mutation_messages(
+    retrieved_entries: list[LocationStrategyEntry],
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+    num_mutation: int,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = _strategy_root_system_preamble(
+        bounds, num_mutation,
+        "Generate good perturbations of the retrieved strategies. Do not copy any retrieved strategy/root_query verbatim.",
+    )
+    user = (
+        f"Observation history so far:\n{_format_observations(observations)}\n\n"
+        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
+        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
+        f"Retrieved elite strategies to perturb:\n{_format_strategy_entries(retrieved_entries)}\n\n"
+        f"Generate {num_mutation} good perturbation(s) of the above strategy/root_query pairs."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _strategy_root_crossover_messages(
+    retrieved_entries: list[LocationStrategyEntry],
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+    num_crossover: int,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = _strategy_root_system_preamble(
+        bounds, num_crossover,
+        "Generate good crossovers of the retrieved strategies. "
+        "Each result must be meaningfully different from any individual retrieved strategy.",
+    )
+    user = (
+        f"Observation history so far:\n{_format_observations(observations)}\n\n"
+        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
+        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
+        f"Retrieved elite strategies to combine:\n{_format_strategy_entries(retrieved_entries)}\n\n"
+        f"Generate {num_crossover} good crossover(s) of the above strategy/root_query pairs."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _strategy_root_diverse_messages(
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+    num_diverse: int,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = _strategy_root_system_preamble(
+        bounds, num_diverse,
+        "The strategies and root_query locations must differ substantively from one another.",
+    )
+    user = (
+        f"Observation history so far:\n{_format_observations(observations)}\n\n"
+        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
+        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
+        "Generate diverse strategy/root_query pairs useful for the current posterior."
     )
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
@@ -1126,6 +1272,75 @@ def _extend_unique_strategy_candidates(
 
 
 
+def _strategy_phase_single(
+    questioner: "Model",
+    messages: list[dict[str, str]],
+    strategies: list[str],
+    seen: set[str],
+    target_count: int,
+    config: Config,
+    phase_name: str,
+) -> None:
+    """Run one strategy-generation phase with up to 3 attempts, extending strategies in place."""
+    for attempt in range(3):
+        completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+        try:
+            _extend_unique_strategies(strategies, parse_location_strategies(completion), seen, target_count)
+            return
+        except ValueError as exc:
+            _log_location(
+                f"strategy proposal [{phase_name}]: attempt {attempt + 1}/3 could not parse ({exc})"
+                + ("; retrying" if attempt < 2 else "; giving up"),
+                config,
+            )
+
+
+def _strategy_phase_batched(
+    questioner: "Model",
+    batch_messages: list[list[dict[str, str]]],
+    pending_indices: list[int],
+    prepared: list[dict[str, object]],
+    target_count: int,
+    config: Config,
+    phase_name: str,
+) -> None:
+    """Run one batched strategy-generation phase (3 attempts, pending-indices retry)."""
+    for attempt in range(3):
+        if not pending_indices:
+            break
+        msgs = [batch_messages[i] for i in pending_indices]
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=msgs,
+                temperature=config.generation_temperature_diverse,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(m, temperature=config.generation_temperature_diverse)[0]
+                for m in msgs
+            ]
+        still_pending: list[int] = []
+        for request_idx, completion in zip(pending_indices, completions):
+            item = prepared[request_idx]
+            try:
+                _extend_unique_strategies(
+                    item["strategies"],  # type: ignore[arg-type]
+                    parse_location_strategies(completion),
+                    item["seen"],  # type: ignore[arg-type]
+                    target_count,
+                )
+            except ValueError as exc:
+                _log_location(
+                    f"strategy proposal [{phase_name}]: attempt {attempt + 1}/3 could not parse ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(request_idx)
+        pending_indices[:] = still_pending
+
+
 def generate_location_strategies(
     questioner: "Model",
     belief_state: LocationBeliefState,
@@ -1137,30 +1352,43 @@ def generate_location_strategies(
     retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
     strategies: list[str] = []
     seen: set[str] = set()
-    _extend_unique_strategies(strategies, [entry.strategy for entry in retrieved_entries], seen, target_count)
+    _log_location(
+        f"strategy proposal: retrieved={len(retrieved_entries)}, mutation={config.location_strategy_num_mutation}, "
+        f"crossover={config.location_strategy_num_crossover}, diverse={config.location_strategy_num_diverse}, "
+        f"library_size={len(library)}",
+        config,
+    )
 
-    fresh_needed = max(0, target_count - len(strategies))
-    if fresh_needed > 0:
-        _log_location(
-            f"strategy proposal: retrieved={len(retrieved_entries)}, requesting_fresh={fresh_needed}, "
-            f"library_size={len(library)}",
-            config,
+    # Phase R: retrieved (no LLM call)
+    _extend_unique_strategies(strategies, [e.strategy for e in retrieved_entries], seen, target_count)
+
+    # Phase M: mutation (falls back to diverse if library empty)
+    if config.location_strategy_num_mutation > 0:
+        msgs = (
+            _strategy_mutation_messages(retrieved_entries, belief_state, observations, config,
+                                        config.location_strategy_num_mutation)
+            if retrieved_entries
+            else _strategy_diverse_messages(belief_state, observations, config,
+                                            config.location_strategy_num_mutation)
         )
-        messages = _strategy_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
-        for attempt in range(3):
-            completion = questioner.chat_complete(
-                messages,
-                temperature=config.generation_temperature_diverse,
-            )[0]
-            try:
-                _extend_unique_strategies(strategies, parse_location_strategies(completion), seen, target_count)
-                break
-            except ValueError as exc:
-                _log_location(
-                    f"strategy proposal: attempt {attempt + 1}/3 could not parse strategies ({exc})"
-                    + ("; retrying" if attempt < 2 else "; giving up"),
-                    config,
-                )
+        _strategy_phase_single(questioner, msgs, strategies, seen, target_count, config, "mutation")
+
+    # Phase C: crossover (falls back to diverse if library empty)
+    if config.location_strategy_num_crossover > 0:
+        msgs = (
+            _strategy_crossover_messages(retrieved_entries, belief_state, observations, config,
+                                         config.location_strategy_num_crossover)
+            if retrieved_entries
+            else _strategy_diverse_messages(belief_state, observations, config,
+                                            config.location_strategy_num_crossover)
+        )
+        _strategy_phase_single(questioner, msgs, strategies, seen, target_count, config, "crossover")
+
+    # Phase D: diverse — fills any remaining slots (including unfilled M/C)
+    diverse_needed = target_count - len(strategies)
+    if diverse_needed > 0:
+        msgs = _strategy_diverse_messages(belief_state, observations, config, diverse_needed)
+        _strategy_phase_single(questioner, msgs, strategies, seen, target_count, config, "diverse")
 
     selected = strategies[:target_count]
     _log_location(f"strategy proposal: using {len(selected)} strategy/strategies", config)
@@ -1176,76 +1404,82 @@ def generate_location_strategies_many(
         return []
     target_count = config.location_strategy_num_candidates
     prepared: list[dict[str, object]] = []
-    pending_request_indices: list[int] = []
     for request_idx, (belief_state, observations, library) in enumerate(requests):
         retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
         strategies: list[str] = []
         seen: set[str] = set()
-        _extend_unique_strategies(strategies, [entry.strategy for entry in retrieved_entries], seen, target_count)
-        fresh_needed = max(0, target_count - len(strategies))
-        prepared.append(
-            {
-                "strategies": strategies,
-                "seen": seen,
-                "retrieved_entries": retrieved_entries,
-                "observations": observations,
-                "belief_state": belief_state,
-                "fresh_needed": fresh_needed,
-            }
+        _log_location(
+            f"strategy proposal: retrieved={len(retrieved_entries)}, mutation={config.location_strategy_num_mutation}, "
+            f"crossover={config.location_strategy_num_crossover}, diverse={config.location_strategy_num_diverse}, "
+            f"library_size={len(library)}",
+            config,
         )
-        if fresh_needed > 0:
-            _log_location(
-                f"strategy proposal: retrieved={len(retrieved_entries)}, requesting_fresh={fresh_needed}, "
-                f"library_size={len(library)}",
-                config,
-            )
-            pending_request_indices.append(request_idx)
+        _extend_unique_strategies(strategies, [e.strategy for e in retrieved_entries], seen, target_count)
+        prepared.append({
+            "strategies": strategies,
+            "seen": seen,
+            "retrieved_entries": retrieved_entries,
+            "observations": observations,
+            "belief_state": belief_state,
+        })
 
-    for attempt in range(3):
-        if not pending_request_indices:
-            break
-        batch_messages = [
-            _strategy_proposal_messages(
-                prepared[i]["belief_state"],  # type: ignore[arg-type]
-                prepared[i]["observations"],  # type: ignore[arg-type]
-                prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
-                config,
-                prepared[i]["fresh_needed"],  # type: ignore[arg-type]
+    # Phase M: mutation
+    if config.location_strategy_num_mutation > 0:
+        mutation_messages = [
+            (
+                _strategy_mutation_messages(
+                    prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_mutation,
+                )
+                if prepared[i]["retrieved_entries"]
+                else _strategy_diverse_messages(
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_mutation,
+                )
             )
-            for i in pending_request_indices
+            for i in range(len(prepared))
         ]
-        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
-            completions = questioner.chat_complete_messages_batched(
-                batch_messages=batch_messages,
-                temperature=config.generation_temperature_diverse,
-                block_size=config.batched_block_size,
-                max_new_tokens=8192,
+        pending = list(range(len(prepared)))
+        _strategy_phase_batched(questioner, mutation_messages, pending, prepared, target_count, config, "mutation")
+
+    # Phase C: crossover
+    if config.location_strategy_num_crossover > 0:
+        crossover_messages = [
+            (
+                _strategy_crossover_messages(
+                    prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_crossover,
+                )
+                if prepared[i]["retrieved_entries"]
+                else _strategy_diverse_messages(
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_crossover,
+                )
             )
-        else:
-            completions = [
-                questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
-                for messages in batch_messages
-            ]
-        if len(completions) != len(batch_messages):
-            raise ValueError(f"Expected {len(batch_messages)} strategy completions, received {len(completions)}")
-        still_pending: list[int] = []
-        for request_idx, completion in zip(pending_request_indices, completions):
-            item = prepared[request_idx]
-            try:
-                _extend_unique_strategies(
-                    item["strategies"],  # type: ignore[arg-type]
-                    parse_location_strategies(completion),
-                    item["seen"],  # type: ignore[arg-type]
-                    target_count,
-                )
-            except ValueError as exc:
-                _log_location(
-                    f"strategy proposal: attempt {attempt + 1}/3 could not parse strategies ({exc})"
-                    + ("; retrying" if attempt < 2 else "; giving up"),
-                    config,
-                )
-                still_pending.append(request_idx)
-        pending_request_indices = still_pending
+            for i in range(len(prepared))
+        ]
+        pending = list(range(len(prepared)))
+        _strategy_phase_batched(questioner, crossover_messages, pending, prepared, target_count, config, "crossover")
+
+    # Phase D: diverse — fills any remaining slots
+    diverse_messages = [
+        _strategy_diverse_messages(
+            prepared[i]["belief_state"],  # type: ignore[arg-type]
+            prepared[i]["observations"],  # type: ignore[arg-type]
+            config,
+            target_count - len(prepared[i]["strategies"]),  # type: ignore[arg-type]
+        )
+        for i in range(len(prepared))
+    ]
+    pending = [i for i in range(len(prepared)) if len(prepared[i]["strategies"]) < target_count]  # type: ignore[arg-type]
+    if pending:
+        _strategy_phase_batched(questioner, diverse_messages, pending, prepared, target_count, config, "diverse")
 
     results: list[list[str]] = []
     for item in prepared:
@@ -1253,6 +1487,82 @@ def generate_location_strategies_many(
         _log_location(f"strategy proposal: using {len(selected)} strategy/strategies", config)
         results.append(selected)
     return results
+
+
+def _strategy_root_phase_single(
+    questioner: "Model",
+    messages: list[dict[str, str]],
+    candidates: list[LocationStrategyCandidate],
+    seen: set[str],
+    target_count: int,
+    observations: list[LocationObservation],
+    config: Config,
+    phase_name: str,
+) -> None:
+    for attempt in range(3):
+        completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+        try:
+            parsed = parse_location_strategy_roots(
+                completion, config.location_dim, tuple(config.location_query_bounds)
+            )
+            _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations)
+            return
+        except ValueError as exc:
+            _log_location(
+                f"strategy+root proposal [{phase_name}]: attempt {attempt + 1}/3 could not parse ({exc})"
+                + ("; retrying" if attempt < 2 else "; giving up"),
+                config,
+            )
+
+
+def _strategy_root_phase_batched(
+    questioner: "Model",
+    batch_messages: list[list[dict[str, str]]],
+    pending_indices: list[int],
+    prepared: list[dict[str, object]],
+    target_count: int,
+    config: Config,
+    phase_name: str,
+) -> None:
+    for attempt in range(3):
+        if not pending_indices:
+            break
+        msgs = [batch_messages[i] for i in pending_indices]
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=msgs,
+                temperature=config.generation_temperature_diverse,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(m, temperature=config.generation_temperature_diverse)[0]
+                for m in msgs
+            ]
+        still_pending: list[int] = []
+        for request_idx, completion in zip(pending_indices, completions):
+            item = prepared[request_idx]
+            item_observations: list[LocationObservation] = item["observations"]  # type: ignore[assignment]
+            try:
+                parsed = parse_location_strategy_roots(
+                    completion, config.location_dim, tuple(config.location_query_bounds)
+                )
+                _extend_unique_strategy_candidates(
+                    item["candidates"],  # type: ignore[arg-type]
+                    parsed,
+                    item["seen"],  # type: ignore[arg-type]
+                    target_count,
+                    item_observations,
+                )
+            except ValueError as exc:
+                _log_location(
+                    f"strategy+root proposal [{phase_name}]: attempt {attempt + 1}/3 could not parse ({exc})"
+                    + ("; retrying" if attempt < 2 else "; giving up"),
+                    config,
+                )
+                still_pending.append(request_idx)
+        pending_indices[:] = still_pending
 
 
 def generate_location_strategy_roots(
@@ -1271,38 +1581,49 @@ def generate_location_strategy_roots(
         for entry in retrieved_entries
         if entry.root_query is not None
     ]
+    _log_location(
+        f"strategy+root proposal: retrieved={len(retrieved_candidates)}, "
+        f"mutation={config.location_strategy_num_mutation}, crossover={config.location_strategy_num_crossover}, "
+        f"diverse={config.location_strategy_num_diverse}, library_size={len(library)}",
+        config,
+    )
+
+    # Phase R: retrieved (no LLM call)
     _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations)
 
-    fresh_needed = max(0, target_count - len(candidates))
-    if fresh_needed > 0:
-        _log_location(
-            f"strategy+root proposal: retrieved={len(retrieved_candidates)}, requesting_fresh={fresh_needed}, "
-            f"library_size={len(library)}",
-            config,
+    # Phase M: mutation (falls back to diverse if library empty)
+    if config.location_strategy_num_mutation > 0:
+        msgs = (
+            _strategy_root_mutation_messages(retrieved_entries, belief_state, observations, config,
+                                             config.location_strategy_num_mutation)
+            if retrieved_entries
+            else _strategy_root_diverse_messages(belief_state, observations, config,
+                                                 config.location_strategy_num_mutation)
         )
-        messages = _strategy_root_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
-        for attempt in range(3):
-            completion = questioner.chat_complete(
-                messages,
-                temperature=config.generation_temperature_diverse,
-            )[0]
-            try:
-                parsed = parse_location_strategy_roots(
-                    completion, config.location_dim, tuple(config.location_query_bounds)
-                )
-                _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations)
-                break
-            except ValueError as exc:
-                _log_location(
-                    f"strategy+root proposal: attempt {attempt + 1}/3 could not parse strategy/root pairs ({exc})"
-                    + ("; retrying" if attempt < 2 else "; giving up"),
-                    config,
-                )
+        _strategy_root_phase_single(questioner, msgs, candidates, seen, target_count, observations, config, "mutation")
+
+    # Phase C: crossover (falls back to diverse if library empty)
+    if config.location_strategy_num_crossover > 0:
+        msgs = (
+            _strategy_root_crossover_messages(retrieved_entries, belief_state, observations, config,
+                                              config.location_strategy_num_crossover)
+            if retrieved_entries
+            else _strategy_root_diverse_messages(belief_state, observations, config,
+                                                 config.location_strategy_num_crossover)
+        )
+        _strategy_root_phase_single(questioner, msgs, candidates, seen, target_count, observations, config, "crossover")
+
+    # Phase D: diverse — fills remaining slots
+    diverse_needed = target_count - len(candidates)
+    if diverse_needed > 0:
+        msgs = _strategy_root_diverse_messages(belief_state, observations, config, diverse_needed)
+        _strategy_root_phase_single(questioner, msgs, candidates, seen, target_count, observations, config, "diverse")
 
     selected = candidates[:target_count]
     _log_location(
         "strategy+root proposal: using "
-        + "; ".join(f"{_format_location(candidate.root_query)} :: {candidate.strategy[:80]}" for candidate in selected if candidate.root_query is not None),
+        + "; ".join(f"{_format_location(candidate.root_query)} :: {candidate.strategy[:80]}"
+                    for candidate in selected if candidate.root_query is not None),
         config,
     )
     return selected
@@ -1317,7 +1638,6 @@ def generate_location_strategy_roots_many(
         return []
     target_count = config.location_strategy_num_candidates
     prepared: list[dict[str, object]] = []
-    pending_request_indices: list[int] = []
     for request_idx, (belief_state, observations, library) in enumerate(requests):
         retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
         candidates: list[LocationStrategyCandidate] = []
@@ -1327,83 +1647,86 @@ def generate_location_strategy_roots_many(
             for entry in retrieved_entries
             if entry.root_query is not None
         ]
-        _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations)
-        fresh_needed = max(0, target_count - len(candidates))
-        prepared.append(
-            {
-                "candidates": candidates,
-                "seen": seen,
-                "retrieved_entries": retrieved_entries,
-                "observations": observations,
-                "belief_state": belief_state,
-                "fresh_needed": fresh_needed,
-            }
+        _log_location(
+            f"strategy+root proposal: retrieved={len(retrieved_candidates)}, "
+            f"mutation={config.location_strategy_num_mutation}, crossover={config.location_strategy_num_crossover}, "
+            f"diverse={config.location_strategy_num_diverse}, library_size={len(library)}",
+            config,
         )
-        if fresh_needed > 0:
-            _log_location(
-                f"strategy+root proposal: retrieved={len(retrieved_candidates)}, requesting_fresh={fresh_needed}, "
-                f"library_size={len(library)}",
-                config,
-            )
-            pending_request_indices.append(request_idx)
+        _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations)
+        prepared.append({
+            "candidates": candidates,
+            "seen": seen,
+            "retrieved_entries": retrieved_entries,
+            "observations": observations,
+            "belief_state": belief_state,
+        })
 
-    for attempt in range(3):
-        if not pending_request_indices:
-            break
-        batch_messages = [
-            _strategy_root_proposal_messages(
-                prepared[i]["belief_state"],  # type: ignore[arg-type]
-                prepared[i]["observations"],  # type: ignore[arg-type]
-                prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
-                config,
-                prepared[i]["fresh_needed"],  # type: ignore[arg-type]
+    # Phase M: mutation
+    if config.location_strategy_num_mutation > 0:
+        mutation_messages = [
+            (
+                _strategy_root_mutation_messages(
+                    prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_mutation,
+                )
+                if prepared[i]["retrieved_entries"]
+                else _strategy_root_diverse_messages(
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_mutation,
+                )
             )
-            for i in pending_request_indices
+            for i in range(len(prepared))
         ]
-        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
-            completions = questioner.chat_complete_messages_batched(
-                batch_messages=batch_messages,
-                temperature=config.generation_temperature_diverse,
-                block_size=config.batched_block_size,
-                max_new_tokens=8192,
+        pending = list(range(len(prepared)))
+        _strategy_root_phase_batched(questioner, mutation_messages, pending, prepared, target_count, config, "mutation")
+
+    # Phase C: crossover
+    if config.location_strategy_num_crossover > 0:
+        crossover_messages = [
+            (
+                _strategy_root_crossover_messages(
+                    prepared[i]["retrieved_entries"],  # type: ignore[arg-type]
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_crossover,
+                )
+                if prepared[i]["retrieved_entries"]
+                else _strategy_root_diverse_messages(
+                    prepared[i]["belief_state"],  # type: ignore[arg-type]
+                    prepared[i]["observations"],  # type: ignore[arg-type]
+                    config, config.location_strategy_num_crossover,
+                )
             )
-        else:
-            completions = [
-                questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
-                for messages in batch_messages
-            ]
-        if len(completions) != len(batch_messages):
-            raise ValueError(f"Expected {len(batch_messages)} strategy/root completions, received {len(completions)}")
-        still_pending: list[int] = []
-        for request_idx, completion in zip(pending_request_indices, completions):
-            item = prepared[request_idx]
-            item_observations: list[LocationObservation] = item["observations"]  # type: ignore[assignment]
-            try:
-                parsed = parse_location_strategy_roots(
-                    completion, config.location_dim, tuple(config.location_query_bounds)
-                )
-                _extend_unique_strategy_candidates(
-                    item["candidates"],  # type: ignore[arg-type]
-                    parsed,
-                    item["seen"],  # type: ignore[arg-type]
-                    target_count,
-                    item_observations,
-                )
-            except ValueError as exc:
-                _log_location(
-                    f"strategy+root proposal: attempt {attempt + 1}/3 could not parse strategy/root pairs ({exc})"
-                    + ("; retrying" if attempt < 2 else "; giving up"),
-                    config,
-                )
-                still_pending.append(request_idx)
-        pending_request_indices = still_pending
+            for i in range(len(prepared))
+        ]
+        pending = list(range(len(prepared)))
+        _strategy_root_phase_batched(questioner, crossover_messages, pending, prepared, target_count, config, "crossover")
+
+    # Phase D: diverse — fills remaining slots
+    diverse_messages = [
+        _strategy_root_diverse_messages(
+            prepared[i]["belief_state"],  # type: ignore[arg-type]
+            prepared[i]["observations"],  # type: ignore[arg-type]
+            config,
+            target_count - len(prepared[i]["candidates"]),  # type: ignore[arg-type]
+        )
+        for i in range(len(prepared))
+    ]
+    pending = [i for i in range(len(prepared)) if len(prepared[i]["candidates"]) < target_count]  # type: ignore[arg-type]
+    if pending:
+        _strategy_root_phase_batched(questioner, diverse_messages, pending, prepared, target_count, config, "diverse")
 
     results: list[list[LocationStrategyCandidate]] = []
     for item in prepared:
         selected = (item["candidates"])[:target_count]  # type: ignore[index]
         _log_location(
             "strategy+root proposal: using "
-            + "; ".join(f"{_format_location(candidate.root_query)} :: {candidate.strategy[:80]}" for candidate in selected if candidate.root_query is not None),
+            + "; ".join(f"{_format_location(candidate.root_query)} :: {candidate.strategy[:80]}"
+                        for candidate in selected if candidate.root_query is not None),
             config,
         )
         results.append(selected)
@@ -2063,7 +2386,7 @@ def choose_location_with_strategy_rollouts(
         rng,
         root_queries=root_queries,
     )
-    library.add_entries(_strategy_entries_from_evaluations(evaluations, round_index))
+    library.replace_entries(_strategy_entries_from_evaluations(evaluations, round_index))
     if not evaluations:
         return None, 0.0, None
 
@@ -2128,7 +2451,7 @@ def choose_locations_with_strategy_rollouts_many(
     ]
     evaluations_many = evaluate_location_strategies_by_rollout_many(questioner, evaluation_requests, config)
     for state, evaluations in zip(states, evaluations_many):
-        state.strategy_library.add_entries(_strategy_entries_from_evaluations(evaluations, round_index))  # type: ignore[union-attr]
+        state.strategy_library.replace_entries(_strategy_entries_from_evaluations(evaluations, round_index))  # type: ignore[union-attr]
 
     results: list[tuple[Location | None, float, LocationStrategyEvaluation | None]] = []
     selected_location_requests: list[_StrategyLocationRequest] = []
