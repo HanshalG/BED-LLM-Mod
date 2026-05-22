@@ -15,8 +15,9 @@ from location_finding import (
     _candidate_generation_messages,
     _location_effective_sample_size,
     _location_posterior_distribution_messages,
+    _strategy_diverse_messages,
     _strategy_location_messages,
-    _strategy_proposal_messages,
+    _strategy_mutation_messages,
     build_location_belief_state,
     build_location_posterior,
     evaluate_location_strategies_by_rollout,
@@ -389,19 +390,28 @@ def test_strategy_prompts_include_history_beliefs_retrieved_examples_and_diversi
     observations = [LocationObservation((0.5, 0.5), 3.2)]
     retrieved = [LocationStrategyEntry("Start near the strongest current peak.", 1.2, 0.3, "[0, 0]", 0)]
 
-    proposal_messages = _strategy_proposal_messages(belief_state, observations, retrieved, config, num_fresh=2)
+    mutation_messages = _strategy_mutation_messages(retrieved, belief_state, observations, config, num_mutation=2)
+    diverse_messages = _strategy_diverse_messages(belief_state, observations, config, num_diverse=2)
     location_messages = _strategy_location_messages(retrieved[0].strategy, belief_state, observations, config)
 
-    proposal_system = proposal_messages[0]["content"]
-    proposal_user = proposal_messages[-1]["content"]
+    mutation_system = mutation_messages[0]["content"]
+    mutation_user = mutation_messages[-1]["content"]
+    diverse_system = diverse_messages[0]["content"]
     location_system = location_messages[0]["content"]
     location_user = location_messages[-1]["content"]
-    assert "substantively" in proposal_system
-    assert "same first move" in proposal_system
-    assert "Observation history so far" in proposal_user
-    assert "Current belief summary (top 1 hypotheses" in proposal_user
-    assert "Retrieved elite strategies" in proposal_user
-    assert "Start near the strongest current peak." in proposal_user
+
+    # Mutation prompt: shared preamble has "substantively"; user has retrieved entries
+    assert "substantively" in mutation_system
+    assert "Observation history so far" in mutation_user
+    assert "Current belief summary (top 1 hypotheses" in mutation_user
+    assert "Retrieved elite strategies" in mutation_user
+    assert "Start near the strongest current peak." in mutation_user
+
+    # Diverse prompt: preamble has "same first move" diversity instruction; user has NO retrieved context
+    assert "same first move" in diverse_system
+    assert "Retrieved elite strategies" not in diverse_messages[-1]["content"]
+
+    # Strategy location execution prompt
     assert "{\"location\":[x1,y1]}" in location_system
     assert "Strategy to follow" in location_user
     assert "signal_strength" in location_user
@@ -435,8 +445,8 @@ def test_generate_location_strategies_four_phases():
     # Mutation prompt shows retrieved entries as parents
     assert "perturb" in model.calls[0][-1]["content"].lower()
     assert "Elite plan." in model.calls[0][-1]["content"]
-    # Crossover prompt shows retrieved entries
-    assert "crossover" in model.calls[1][-1]["content"].lower()
+    # Crossover prompt shows retrieved entries (now says "hybrid strategies that combine")
+    assert "hybrid" in model.calls[1][-1]["content"].lower()
     # Diverse prompt has no retrieved section
     assert "Retrieved elite strategies" not in model.calls[2][-1]["content"]
 

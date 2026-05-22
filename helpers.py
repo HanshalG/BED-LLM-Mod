@@ -64,8 +64,8 @@ class Config:
     method_names: list[str] = field(default_factory=list)
     animals: list[list[str]] = field(default_factory=list)
     batched_block_size: int = 50
-    generation_temperature_diverse: float = 1.3
-    generation_temperature_simple: float = 1.0
+    generation_temperature_diverse: float = 1.0
+    generation_temperature_simple: float = 0.7
     answer_temperature: float = 0.7
     search_depth: int = 1
     forward_search_verbose: bool = True
@@ -120,6 +120,7 @@ class Config:
     location_strategy_discount_factor: float = 1.0
     location_strategy_belief_summary_top_k: int = 5
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
+    location_max_new_tokens: int = 8192
 
     @property
     def location_strategy_num_candidates(self) -> int:
@@ -431,6 +432,7 @@ def load_config(path: str) -> Config:
     location_posterior_mode = raw.get("location_posterior_mode", "analytical_likelihood")
     if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
         raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
+    location_max_new_tokens = _read_positive_int(raw, "location_max_new_tokens", 8192)
     method_names = raw.get("method_names", raw.get("extraction_methods", []))
     if task == "location_finding" and not method_names:
         method_names = ["EIG"]
@@ -441,8 +443,8 @@ def load_config(path: str) -> Config:
         method_names = method_names,
         animals = raw.get("animals", []),
         batched_block_size = raw.get("batched_block_size", 50),
-        generation_temperature_diverse = raw.get("generation_temperature_diverse", 1.3),
-        generation_temperature_simple = raw.get("generation_temperature_simple", 1.0),
+        generation_temperature_diverse = raw.get("generation_temperature_diverse", 1.0),
+        generation_temperature_simple = raw.get("generation_temperature_simple", 0.7),
         answer_temperature = raw.get("answer_temperature", 0.7),
         search_depth = search_depth,
         forward_search_verbose = forward_search_verbose,
@@ -493,6 +495,7 @@ def load_config(path: str) -> Config:
         location_strategy_discount_factor = location_strategy_discount_factor,
         location_strategy_belief_summary_top_k = location_strategy_belief_summary_top_k,
         location_posterior_mode = location_posterior_mode,
+        location_max_new_tokens = location_max_new_tokens,
     )
 
 
@@ -601,6 +604,57 @@ def _strip_code_fences(text: str) -> str:
     return "\n".join(lines).strip()
 
 
+def _extract_last_balanced_json_object(text: str) -> str | None:
+    """Return the last top-level balanced JSON object in text (ignoring code fences)."""
+    stripped = _strip_code_fences(text)
+    # Collect start indices of all top-level '{' characters
+    candidates: list[int] = []
+    depth = 0
+    in_string = False
+    escaped = False
+    for idx, char in enumerate(stripped):
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == "\"":
+                in_string = False
+            continue
+        if char == "\"":
+            in_string = True
+        elif char == "{":
+            if depth == 0:
+                candidates.append(idx)
+            depth += 1
+        elif char == "}":
+            depth -= 1
+    # Try to parse from the last top-level '{' backwards
+    for start_idx in reversed(candidates):
+        depth = 0
+        in_string = False
+        escaped = False
+        for idx in range(start_idx, len(stripped)):
+            char = stripped[idx]
+            if in_string:
+                if escaped:
+                    escaped = False
+                elif char == "\\":
+                    escaped = True
+                elif char == "\"":
+                    in_string = False
+                continue
+            if char == "\"":
+                in_string = True
+            elif char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth == 0:
+                    return stripped[start_idx:idx + 1]
+    return None
+
+
 def _extract_first_balanced_json_object(text: str) -> str | None:
     stripped = _strip_code_fences(text)
     start_idx: int | None = None
@@ -661,7 +715,7 @@ def _normalize_labeled_distribution_response(response_text: str, labels: list[st
     try:
         payload = json.loads(normalized_text)
     except (json.JSONDecodeError, TypeError) as exc:
-        balanced_payload = _extract_first_balanced_json_object(response_text)
+        balanced_payload = _extract_last_balanced_json_object(response_text)
         candidate_payloads = [
             candidate
             for candidate in (balanced_payload, _repair_labeled_distribution_json_text(normalized_text))

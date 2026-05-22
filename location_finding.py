@@ -342,7 +342,7 @@ def parse_source_hypotheses(completion: str, num_sources: int, dim: int) -> list
 def parse_candidate_locations(completion: str, dim: int, bounds: tuple[float, float]) -> list[Location]:
     payload = _loads_json_value(completion)
     if isinstance(payload, dict):
-        for key in ("locations", "candidates", "queries", "points"):
+        for key in ("locations", "candidates", "queries", "points", "location"):
             if key in payload:
                 payload = payload[key]
                 break
@@ -582,7 +582,7 @@ def _belief_generation_messages(
             "- Include refinements of high-probability current hypotheses.\n"
             "- Include alternatives that fix large mismatches implied by the observations.\n"
             "- Include alternatives near high-signal query locations.\n"
-            "- Include alternatives that avoid low-signal query locations.\n"
+            "- Include alternatives consistent with low-signal observations (no source extremely close to those queries).\n"
             "- Keep diverse alternatives so the belief support does not collapse."
         )
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
@@ -642,10 +642,14 @@ def _location_posterior_distribution_messages(
         "Measurement model:\n"
         "A query is a 2D coordinate x = [x1,x2]. The noiseless signal is "
         "b + sum_k alpha / (m + ||theta_k - x||^2), with b=0.1, alpha=1.0, m=0.0001. "
-        f"The observed scalar signal is y ~ Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
-        "Use the observations and the context probabilities to assign posterior mass across only the listed "
-        "candidate hypothesis ids. Do not invent new ids or source configurations. Prefer a sparse posterior: "
-        "include only ids with meaningful positive mass and omit impossible ids."
+        f"The observed scalar signal is y ~ Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n"
+        "Interpretation: a very high observation near a coordinate means at least one source is probably very close "
+        "to that coordinate; a low observation rules out any source being very close to that query location.\n\n"
+        "context_probability is each hypothesis's prior weight from before the current observations; treat it as "
+        "your starting point and update it based on how well each hypothesis explains the observation history. "
+        "Assign posterior mass across only the listed candidate hypothesis ids. "
+        "Do not invent new ids or source configurations. Prefer a sparse posterior: "
+        "include only ids with meaningful positive mass and omit ids that are inconsistent with the observations."
     )
     user = (
         f"Observation history: {_format_observations(observations)}\n\n"
@@ -709,7 +713,8 @@ def _candidate_generation_messages(
         f"- Generate exactly {config.location_target_num_candidates} candidate measurement locations.\n"
         "- Every coordinate must be within the allowed query bounds.\n"
         "- Do not repeat previous query locations.\n"
-        "- Include diverse candidates, not tiny variations of the same point."
+        "- Spread candidates across different regions and hypotheses — include locations that discriminate between "
+        "competing hypotheses, not just refinements of the single most likely one."
     )
     user = (
         f"Observation history:\n{_format_observations(observations)}\n\n"
@@ -736,13 +741,12 @@ def _naive_location_messages(
         "with b=0.1, alpha=1.0, m=0.0001. The observed scalar signal is "
         f"Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
         f"Allowed query coordinates: each coordinate must be in [{bounds[0]}, {bounds[1]}].\n\n"
-        "Use only the task description and the previous query/observation history. "
-        "Do not use or output posterior source hypotheses.\n\n"
+        "Use only the task description and the previous query/observation history.\n\n"
         "Return only this exact compact JSON shape as the final answer:\n"
         "{\"location\":[x1,y1]}\n\n"
         "Rules:\n"
         "- Do not include markdown, comments, explanations, or trailing text.\n"
-        "- Output a measurement/query location, not a source configuration.\n"
+        "- Output a measurement/query location only — do not output source hypotheses or source coordinates.\n"
         "- Do not repeat a previous query location.\n"
         "- If you reason internally, still end with exactly one JSON object in the required shape."
     )
@@ -759,8 +763,8 @@ def _naive_source_estimate_messages(
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = (
-        "You output only a JSON source-location estimate for a 2D source-localization game.\n"
-        "Do not explain, derive, or write hidden reasoning. Start your response with { and stop after }.\n\n"
+        "You output a JSON source-location estimate for a 2D source-localization game.\n"
+        "Return only compact JSON in the required format. Do not include markdown or explanations outside the JSON.\n\n"
         f"There are exactly {_source_count_text(config.location_num_sources)}. "
         "The hidden sources are fixed but unknown. A query is a 2D coordinate x = [x1,x2]. "
         "Use only the observation history below.\n\n"
@@ -768,11 +772,14 @@ def _naive_source_estimate_messages(
         "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
         f"with b=0.1, alpha=1.0, m=0.0001, noise_sd={config.location_noise_sd}.\n\n"
         f"Source coordinates are expected to lie in approximately [{bounds[0]}, {bounds[1]}] per coordinate.\n\n"
-        "Output exactly this compact JSON shape and nothing else:\n"
+        "Output exactly this compact JSON shape as the final answer:\n"
         f"{{\"sources\":{_source_config_schema_example(config.location_num_sources, config.location_dim)}}}\n"
     )
     user = (
-        f"Observation history: {_format_observations(observations)}\n"
+        f"Observation history: {_format_observations(observations)}\n\n"
+        "Reasoning guidance: for each high-signal observation, at least one source is likely near that query "
+        "location; for low-signal observations, no source is very close to that query. Signals from multiple "
+        "sources add, so a moderate signal may reflect contributions from several sources at moderate distances.\n\n"
         "Return the single best estimate now as JSON only."
     )
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
@@ -846,12 +853,15 @@ class LocationStrategyEvaluation:
     root_query: Location | None = None
 
 
+_STRATEGY_MIN_LENGTH = 5
+
+
 def _clean_strategy_text(raw_strategy: object) -> str | None:
     if not isinstance(raw_strategy, str):
         return None
     cleaned = re.sub(r"\s+", " ", raw_strategy.strip())
     cleaned = re.sub(r"^(?:[-*]|\d+[.)])\s*", "", cleaned).strip()
-    if not cleaned:
+    if len(cleaned) < _STRATEGY_MIN_LENGTH:
         return None
     return cleaned
 
@@ -993,6 +1003,11 @@ def _strategy_system_preamble(bounds: tuple[float, ...], num_strategies: int, ta
         "You propose natural-language adaptive strategies for a 2D source-localization experiment.\n\n"
         "A strategy is a few-sentence high-level plan for choosing future measurement locations. It should describe "
         "how to adapt after high, low, or ambiguous signal observations, not just name one coordinate.\n\n"
+        "Measurement model:\n"
+        "The noiseless signal at query x is: signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2), "
+        "with b=0.1, alpha=1.0, m=0.0001. Noise is Gaussian.\n"
+        "Interpretation: a very high observation means at least one source is probably very close to that query; "
+        "a low observation rules out any source being very close to that query; signals from multiple sources add.\n\n"
         "Return only this exact compact JSON shape:\n"
         "{\"strategies\":[\"strategy text\",...]}\n\n"
         "Rules:\n"
@@ -1002,29 +1017,6 @@ def _strategy_system_preamble(bounds: tuple[float, ...], num_strategies: int, ta
         "- The strategies must differ substantively from one another.\n"
         f"- Every strategy must respect query bounds [{bounds[0]}, {bounds[1]}] for each coordinate."
     )
-
-
-def _strategy_proposal_messages(
-    belief_state: LocationBeliefState,
-    observations: list[LocationObservation],
-    retrieved_entries: list[LocationStrategyEntry],
-    config: Config,
-    num_fresh: int,
-) -> list[dict[str, str]]:
-    bounds = tuple(config.location_query_bounds)
-    system = _strategy_system_preamble(
-        bounds, num_fresh,
-        "Make their likely first measurement locations or first decision criteria different, "
-        "so the options do not collapse to the same first move.",
-    )
-    user = (
-        f"Observation history so far:\n{_format_observations(observations)}\n\n"
-        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
-        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
-        f"Retrieved elite strategies from this trial:\n{_format_strategy_entries(retrieved_entries)}\n\n"
-        "Generate new strategies that complement the retrieved examples and are useful for the current posterior."
-    )
-    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
 def _strategy_mutation_messages(
@@ -1067,7 +1059,7 @@ def _strategy_crossover_messages(
         f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
         f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
         f"Retrieved elite strategies to combine:\n{_format_strategy_entries(retrieved_entries)}\n\n"
-        f"Generate {num_crossover} good crossover(s) of the above strategies."
+        f"Generate {num_crossover} hybrid strategies that combine the best elements of the retrieved strategies."
     )
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
@@ -1100,6 +1092,11 @@ def _strategy_root_system_preamble(bounds: tuple[float, ...], num_strategies: in
         "A strategy is a few-sentence high-level plan for choosing future measurement locations after the fixed root "
         "measurement. The root_query is the first concrete query that commits the strategy to a distinctive opening "
         "measurement.\n\n"
+        "Measurement model:\n"
+        "The noiseless signal at query x is: signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2), "
+        "with b=0.1, alpha=1.0, m=0.0001. Noise is Gaussian.\n"
+        "Interpretation: a very high observation means at least one source is probably very close to that query; "
+        "a low observation rules out any source being very close to that query; signals from multiple sources add.\n\n"
         "Return only this exact compact JSON shape:\n"
         "{\"strategies\":[{\"strategy\":\"strategy text\",\"root_query\":[x1,y1]},...]}\n\n"
         "Rules:\n"
@@ -1109,29 +1106,6 @@ def _strategy_root_system_preamble(bounds: tuple[float, ...], num_strategies: in
         f"- Every root_query coordinate must be in [{bounds[0]}, {bounds[1]}].\n"
         "- Do not repeat a previous query location."
     )
-
-
-def _strategy_root_proposal_messages(
-    belief_state: LocationBeliefState,
-    observations: list[LocationObservation],
-    retrieved_entries: list[LocationStrategyEntry],
-    config: Config,
-    num_fresh: int,
-) -> list[dict[str, str]]:
-    bounds = tuple(config.location_query_bounds)
-    system = _strategy_root_system_preamble(
-        bounds, num_fresh,
-        "The strategies and root_query locations must differ substantively from one another.",
-    )
-    user = (
-        f"Observation history so far:\n{_format_observations(observations)}\n\n"
-        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
-        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
-        f"Retrieved elite strategies from this trial:\n{_format_strategy_entries(retrieved_entries)}\n\n"
-        "Generate new strategy/root_query pairs that complement the retrieved examples and are useful for the current "
-        "posterior."
-    )
-    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
 def _strategy_root_mutation_messages(
@@ -1174,7 +1148,7 @@ def _strategy_root_crossover_messages(
         f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
         f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
         f"Retrieved elite strategies to combine:\n{_format_strategy_entries(retrieved_entries)}\n\n"
-        f"Generate {num_crossover} good crossover(s) of the above strategy/root_query pairs."
+        f"Generate {num_crossover} hybrid strategy/root_query pairs that combine the best elements of the retrieved strategies."
     )
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
@@ -1219,7 +1193,8 @@ def _strategy_location_messages(
         "Rules:\n"
         "- Do not include markdown, comments, explanations, or trailing text.\n"
         "- Output a measurement/query location, not a source configuration.\n"
-        "- Do not repeat a previous query location."
+        "- Do not repeat a previous query location.\n"
+        "- If you reason internally, still end with exactly one JSON object in the required shape."
     )
     user = (
         f"Strategy to follow:\n{strategy}\n\n"
@@ -1314,7 +1289,7 @@ def _strategy_phase_batched(
                 batch_messages=msgs,
                 temperature=config.generation_temperature_diverse,
                 block_size=config.batched_block_size,
-                max_new_tokens=8192,
+                max_new_tokens=config.location_max_new_tokens,
             )
         else:
             completions = [
@@ -1533,7 +1508,7 @@ def _strategy_root_phase_batched(
                 batch_messages=msgs,
                 temperature=config.generation_temperature_diverse,
                 block_size=config.batched_block_size,
-                max_new_tokens=8192,
+                max_new_tokens=config.location_max_new_tokens,
             )
         else:
             completions = [
@@ -1767,7 +1742,7 @@ def generate_strategy_locations_many(
                 batch_messages=pending_messages,
                 temperature=config.generation_temperature_simple,
                 block_size=config.batched_block_size,
-                max_new_tokens=8192,
+                max_new_tokens=config.location_max_new_tokens,
             )
         else:
             completions = [
@@ -2657,7 +2632,7 @@ def generate_location_candidates_many(
                 batch_messages=pending_messages,
                 temperature=config.generation_temperature_diverse,
                 block_size=config.batched_block_size,
-                max_new_tokens=8192,
+                max_new_tokens=config.location_max_new_tokens,
             )
         else:
             completions = [
@@ -2792,7 +2767,7 @@ def choose_locations_naive_many(
                 batch_messages=pending_messages,
                 temperature=config.generation_temperature_diverse,
                 block_size=config.batched_block_size,
-                max_new_tokens=8192,
+                max_new_tokens=config.location_max_new_tokens,
             )
         else:
             completions = [
@@ -2840,7 +2815,7 @@ def estimate_sources_naive_many(
             batch_messages=batch_messages,
             temperature=config.generation_temperature_simple,
             block_size=config.batched_block_size,
-            max_new_tokens=8192,
+            max_new_tokens=config.location_max_new_tokens,
         )
     else:
         completions = [
@@ -2879,7 +2854,7 @@ def estimate_sources_naive_many(
                 batch_messages=repair_messages,
                 temperature=0.0,
                 block_size=config.batched_block_size,
-                max_new_tokens=8192,
+                max_new_tokens=config.location_max_new_tokens,
             )
         else:
             repair_completions = [

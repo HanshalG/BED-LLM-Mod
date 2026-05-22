@@ -212,7 +212,7 @@ class BaseVLLMAdapter(Model):
         prompt = self._messages_to_prompt(messages)
         sampling_params = self._build_sampling_params(
             temperature=temperature,
-            max_tokens=8192,
+            max_tokens=self.config.location_max_new_tokens,
             n=num_responses,
         )
         outputs = self.llm.generate([prompt], sampling_params)
