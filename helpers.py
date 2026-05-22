@@ -99,6 +99,8 @@ class Config:
     active_answerer_prior_animals: list[str] | None = None
     location_num_rounds: int = 20
     location_num_trials: int = 1
+    location_trial_batch_size: int = 1
+    location_seed: int | None = None
     location_num_sources: int = 3
     location_dim: int = 2
     location_noise_sd: float = 0.5
@@ -113,6 +115,7 @@ class Config:
     location_strategy_num_retrieved: int = 2
     location_strategy_num_rollouts: int = 8
     location_strategy_planning_depth: int = 8
+    location_strategy_discount_factor: float = 1.0
     location_strategy_belief_summary_top_k: int = 5
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
 
@@ -377,6 +380,12 @@ def load_config(path: str) -> Config:
 
     location_num_rounds = _read_positive_int(raw, "location_num_rounds", 20)
     location_num_trials = _read_positive_int(raw, "location_num_trials", 1)
+    location_trial_batch_size = _read_positive_int(raw, "location_trial_batch_size", 1)
+    location_seed = raw.get("location_seed")
+    if location_seed is not None and (
+        not isinstance(location_seed, int) or isinstance(location_seed, bool)
+    ):
+        raise ValueError("location_seed must be an integer or null")
     location_num_sources = _read_positive_int(raw, "location_num_sources", 3)
     location_dim = _read_positive_int(raw, "location_dim", 2)
     location_noise_sd = _read_positive_float(raw, "location_noise_sd", 0.5)
@@ -403,6 +412,7 @@ def load_config(path: str) -> Config:
         raise ValueError("location_strategy_num_retrieved must be less than or equal to location_strategy_num_candidates")
     location_strategy_num_rollouts = _read_positive_int(raw, "location_strategy_num_rollouts", 8)
     location_strategy_planning_depth = _read_positive_int(raw, "location_strategy_planning_depth", 8)
+    location_strategy_discount_factor = _read_probability(raw, "location_strategy_discount_factor", 1.0)
     location_strategy_belief_summary_top_k = _read_positive_int(raw, "location_strategy_belief_summary_top_k", 5)
     location_posterior_mode = raw.get("location_posterior_mode", "analytical_likelihood")
     if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
@@ -448,6 +458,8 @@ def load_config(path: str) -> Config:
         max_model_len = max_model_len,
         location_num_rounds = location_num_rounds,
         location_num_trials = location_num_trials,
+        location_trial_batch_size = location_trial_batch_size,
+        location_seed = location_seed,
         location_num_sources = location_num_sources,
         location_dim = location_dim,
         location_noise_sd = location_noise_sd,
@@ -462,6 +474,7 @@ def load_config(path: str) -> Config:
         location_strategy_num_retrieved = location_strategy_num_retrieved,
         location_strategy_num_rollouts = location_strategy_num_rollouts,
         location_strategy_planning_depth = location_strategy_planning_depth,
+        location_strategy_discount_factor = location_strategy_discount_factor,
         location_strategy_belief_summary_top_k = location_strategy_belief_summary_top_k,
         location_posterior_mode = location_posterior_mode,
     )
@@ -607,6 +620,23 @@ def _extract_first_balanced_json_object(text: str) -> str | None:
     return None
 
 
+def _repair_labeled_distribution_json_text(text: str) -> str:
+    # Gemma sometimes emits doubled quotes before object keys, e.g. `"h2":0,""h3":1`.
+    repaired = re.sub(r'(?<=[{,])\s*""([^"]+)":', r'"\1":', text)
+    repaired = re.sub(r',\s*"+\s*([}\]])', r"\1", repaired)
+    return re.sub(r",\s*([}\]])", r"\1", repaired)
+
+
+def _distribution_payload_from_json(payload: object) -> object:
+    if not isinstance(payload, dict):
+        return payload
+    for key in ("weights", "probabilities", "posterior", "distribution"):
+        nested_payload = payload.get(key)
+        if nested_payload is not None:
+            return nested_payload
+    return payload
+
+
 def _normalize_labeled_distribution_response(response_text: str, labels: list[str]) -> dict[str, float]:
     if not labels:
         return {}
@@ -616,26 +646,49 @@ def _normalize_labeled_distribution_response(response_text: str, labels: list[st
         payload = json.loads(normalized_text)
     except (json.JSONDecodeError, TypeError) as exc:
         balanced_payload = _extract_first_balanced_json_object(response_text)
-        if balanced_payload is None:
+        candidate_payloads = [
+            candidate
+            for candidate in (balanced_payload, _repair_labeled_distribution_json_text(normalized_text))
+            if candidate is not None
+        ]
+        for candidate_payload in candidate_payloads:
+            try:
+                payload = json.loads(candidate_payload)
+                break
+            except (json.JSONDecodeError, TypeError):
+                repaired_payload = _repair_labeled_distribution_json_text(candidate_payload)
+                try:
+                    payload = json.loads(repaired_payload)
+                    break
+                except (json.JSONDecodeError, TypeError):
+                    continue
+        else:
             raise ValueError(f"Invalid probability JSON: {response_text!r}") from exc
-        try:
-            payload = json.loads(balanced_payload)
-        except (json.JSONDecodeError, TypeError) as balanced_exc:
-            raise ValueError(f"Invalid probability JSON: {response_text!r}") from balanced_exc
 
-    if not isinstance(payload, dict):
-        raise ValueError(f"Probability response must be a JSON object: {response_text!r}")
+    payload = _distribution_payload_from_json(payload)
 
     scores: list[float] = []
-    for label in labels:
-        raw_value = payload.get(label, 0.0)
-        try:
-            score = float(raw_value)
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"Probability for {label!r} must be numeric: {raw_value!r}") from exc
-        if not math.isfinite(score) or score < 0.0:
-            raise ValueError(f"Probability for {label!r} must be finite and non-negative: {raw_value!r}")
-        scores.append(score)
+    if isinstance(payload, dict):
+        for label in labels:
+            raw_value = payload.get(label, 0.0)
+            try:
+                score = float(raw_value)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"Probability for {label!r} must be numeric: {raw_value!r}") from exc
+            if not math.isfinite(score) or score < 0.0:
+                raise ValueError(f"Probability for {label!r} must be finite and non-negative: {raw_value!r}")
+            scores.append(score)
+    elif isinstance(payload, list) and len(payload) == len(labels):
+        for index, raw_value in enumerate(payload):
+            try:
+                score = float(raw_value)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"Probability at index {index} must be numeric: {raw_value!r}") from exc
+            if not math.isfinite(score) or score < 0.0:
+                raise ValueError(f"Probability at index {index} must be finite and non-negative: {raw_value!r}")
+            scores.append(score)
+    else:
+        raise ValueError(f"Probability response must be a JSON object or {len(labels)}-element list: {response_text!r}")
 
     total = sum(scores)
     if total <= 0.0:
@@ -787,7 +840,9 @@ def _distribution_with_valid_count_from_batched_messages(batch_messages: list[li
 
 
 def _average_labeled_distributions_from_completions(completions: list[str], labels: list[str],
-                                                    fallback_to_uniform: bool = False) -> tuple[dict[str, float], int]:
+                                                    fallback_to_uniform: bool = False,
+                                                    fallback_distribution: dict[str, float] | None = None
+                                                    ) -> tuple[dict[str, float], int]:
     completion_count = len(completions)
     valid_distributions: list[dict[str, float]] = []
     failed_completions: list[str] = []
@@ -804,6 +859,13 @@ def _average_labeled_distributions_from_completions(completions: list[str], labe
             for label in labels
         }
         return averaged_distribution, len(valid_distributions)
+
+    if fallback_distribution is not None:
+        print(
+            f"Failed to parse belief distribution JSON for all {completion_count} completion(s), "
+            f"assigning fallback distribution from completions {failed_completions!r}"
+        )
+        return fallback_distribution, 0
 
     if fallback_to_uniform:
         print(

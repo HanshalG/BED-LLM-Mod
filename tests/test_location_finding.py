@@ -26,6 +26,8 @@ from location_finding import (
     normalize_source_config,
     parse_candidate_locations,
     parse_location_strategies,
+    parse_best_source_estimate_from_completion,
+    parse_single_location_from_completion,
     parse_strategy_location,
     parse_source_hypotheses,
     prompt_location_belief_state,
@@ -60,6 +62,55 @@ class FakeLocationModel:
 
     def chat_probabilities_messages_batched(self, messages, responses, temperature, block_size):
         raise AssertionError("chat_probabilities_messages_batched should not be used in Location Finding smoke test")
+
+
+class RoutingLocationModel:
+    def __init__(self, num_sources: int):
+        self.num_sources = num_sources
+        self.calls: list[list[dict[str, str]]] = []
+        self.batched_calls: list[list[list[dict[str, str]]]] = []
+
+    def _completion_for_messages(self, messages) -> str:
+        prompt = "\n".join(message["content"] for message in messages)
+        if "root_query" in prompt and "strategy/root_query" in prompt:
+            return json.dumps(
+                {
+                    "strategies": [
+                        {
+                            "strategy": "Ask the attached root query, then refine around whichever region remains plausible.",
+                            "root_query": [0, 0],
+                        }
+                    ]
+                }
+            )
+        if "adaptive strategies" in prompt and "{\"strategies\"" in prompt:
+            return json.dumps(
+                {
+                    "strategies": [
+                        "Start at the center, then refine around the strongest plausible source region."
+                    ]
+                }
+            )
+        if "candidate measurement locations" in prompt:
+            return '{"locations": [[0, 0], [1, 1], [-1, -1]]}'
+        if "measurement/query location" in prompt or "requesting one location" in prompt or "{\"location\":[x1,y1]}" in prompt:
+            return '{"location": [0, 0]}'
+        if "best estimate of the hidden source locations" in prompt:
+            return _source_hypotheses_json(self.num_sources, shifts=(0.0,))
+        if "finite Bayesian belief support" in prompt:
+            return _source_hypotheses_json(self.num_sources, shifts=(0.0, 0.2))
+        return _source_hypotheses_json(self.num_sources, shifts=(0.0, 0.2))
+
+    def chat_complete(self, messages, temperature, num_responses=1):
+        self.calls.append(messages)
+        return [self._completion_for_messages(messages)]
+
+    def chat_complete_messages_batched(self, batch_messages, temperature, block_size, max_new_tokens=8192):
+        self.batched_calls.append(batch_messages)
+        return [self._completion_for_messages(messages) for messages in batch_messages]
+
+    def chat_probabilities_messages_batched(self, messages, responses, temperature, block_size):
+        raise AssertionError("chat_probabilities_messages_batched should not be used with analytical likelihood")
 
 
 def _location_config(**overrides) -> Config:
@@ -174,6 +225,25 @@ def test_parse_source_hypotheses_strips_eos_and_recovers_partial_complete_config
         ((-1.0, -1.0), (0.0, 0.0), (1.0, 1.0)),
         ((-0.5, 0.0), (0.0, 0.5), (0.5, 0.0)),
     ]
+
+
+def test_naive_parsers_prefer_final_json_after_reasoning_history_fragments():
+    location_completion = """
+    I considered previous query [0.0, 0.0] and signal 5.0.
+    Final answer:
+    {"location":[0.75,-0.25]}
+    """
+    source_completion = """
+    The observations include [0.0, 0.0] and [1.0, 0.0].
+    My current best source estimate is:
+    {"sources":[[0.9,-0.2],[0.75,0.55]]}
+    """
+
+    assert parse_single_location_from_completion(location_completion, 2, (-2.0, 2.0)) == (0.75, -0.25)
+    assert parse_best_source_estimate_from_completion(source_completion, 2, 2) == (
+        (0.75, 0.55),
+        (0.9, -0.2),
+    )
 
 
 def test_belief_generation_prompts_split_initial_and_update_modes():
@@ -942,3 +1012,72 @@ def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
     assert "{\"h0\":p0,\"h1\":p1}" in model.batched_calls[3][0][-1]["content"]
     assert "{\"location\":[x1,y1]}" in model.batched_calls[4][0][0]["content"]
     assert "{\"h0\":p0,\"h1\":p1,\"h2\":p2}" in model.batched_calls[5][0][-1]["content"]
+
+
+def test_run_location_finding_naive_batches_across_trials(tmp_path):
+    model = RoutingLocationModel(num_sources=2)
+    config = _location_config(
+        location_num_sources=2,
+        location_num_trials=3,
+        location_num_rounds=2,
+        location_trial_batch_size=3,
+        location_plot_trials=True,
+    )
+
+    metrics = run_location_finding(model, config, rng=np.random.default_rng(1), output_dir=tmp_path, method_name="Naive")
+
+    assert len(metrics.source_rmse) == 2
+    assert len(model.calls) == 0
+    assert [len(batch) for batch in model.batched_calls] == [3, 3, 3, 3]
+    assert len(list(tmp_path.glob("location_trial_*.png"))) == 3
+
+
+def test_run_location_finding_eig_batches_initial_candidates_and_updates_across_trials(tmp_path):
+    model = RoutingLocationModel(num_sources=2)
+    config = _location_config(
+        location_num_sources=2,
+        location_num_trials=3,
+        location_num_rounds=1,
+        location_trial_batch_size=3,
+        location_target_num_candidates=2,
+        location_search_depth=1,
+    )
+
+    metrics = run_location_finding(model, config, rng=np.random.default_rng(1), output_dir=tmp_path, method_name="EIG")
+
+    assert len(metrics.source_rmse) == 1
+    assert len(model.calls) == 0
+    assert [len(batch) for batch in model.batched_calls] == [3, 3, 3]
+    assert "finite Bayesian belief support" in model.batched_calls[0][0][0]["content"]
+    assert "candidate measurement locations" in model.batched_calls[1][0][0]["content"]
+    assert "finite Bayesian belief support" in model.batched_calls[2][0][0]["content"]
+
+
+def test_run_location_finding_strategy_root_batches_trials_and_rollouts(tmp_path):
+    model = RoutingLocationModel(num_sources=2)
+    config = _location_config(
+        location_num_sources=2,
+        location_num_trials=2,
+        location_num_rounds=1,
+        location_trial_batch_size=2,
+        location_strategy_num_candidates=1,
+        location_strategy_num_retrieved=1,
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=1,
+    )
+
+    metrics = run_location_finding(
+        model,
+        config,
+        rng=np.random.default_rng(1),
+        output_dir=tmp_path,
+        method_name="StrategyEIG+root",
+    )
+
+    assert len(metrics.source_rmse) == 1
+    assert len(model.calls) == 0
+    assert [len(batch) for batch in model.batched_calls] == [2, 2, 2, 2]
+    assert "finite Bayesian belief support" in model.batched_calls[0][0][0]["content"]
+    assert "strategy/root_query" in model.batched_calls[1][0][0]["content"]
+    assert "finite Bayesian belief support" in model.batched_calls[2][0][0]["content"]
+    assert "finite Bayesian belief support" in model.batched_calls[3][0][0]["content"]

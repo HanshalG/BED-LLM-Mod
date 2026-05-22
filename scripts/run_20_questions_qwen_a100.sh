@@ -36,6 +36,7 @@ export NCCL_BLOCKING_WAIT=1
 export NCCL_P2P_DISABLE=1
 #export CUDA_LAUNCH_BLOCKING=1
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
+export BED_LLM_VLLM_KWARGS='{"max_num_seqs":64,"enforce_eager":true}'
 
 # Nuke the existing environment
 #/scratch-ssd/oatml/run_locked.sh \

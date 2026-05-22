@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from contextlib import contextmanager
 from datetime import date
+import json
 import math
 import os
 import time
@@ -85,6 +86,11 @@ class BaseVLLMAdapter(Model):
         max_model_len = spec.max_model_len or config.max_model_len
         gpu_memory_utilization = spec.gpu_memory_utilization or config.gpu_memory_utilization
 
+        extra_kwargs_raw = os.environ.get("BED_LLM_VLLM_KWARGS")
+        extra_kwargs = json.loads(extra_kwargs_raw) if extra_kwargs_raw else {}
+        if not isinstance(extra_kwargs, dict):
+            raise ValueError("BED_LLM_VLLM_KWARGS must decode to a JSON object")
+
         with _temporary_cuda_visible_devices(spec.cuda_visible_devices):
             self.llm = LLM(
                 model=self.model_name,
@@ -92,6 +98,7 @@ class BaseVLLMAdapter(Model):
                 gpu_memory_utilization=gpu_memory_utilization,
                 tensor_parallel_size=tensor_parallel_size,
                 dtype=dtype,
+                **extra_kwargs,
             )
 
     def _tokenizer_kwargs(self) -> dict[str, object]:
@@ -287,7 +294,7 @@ class QwenVLLMAdapter(BaseVLLMAdapter):
             return text
         thought, separator, final_text = text.rpartition("</think>")
         if not separator or not final_text.strip():
-            raise ValueError(f"{self.model_name} returned reasoning output without a final answer")
+            return text.strip()
         #write_to_log(f"Reasoning trace: {thought}\n", self.config)
         return final_text.strip()
 
@@ -323,7 +330,10 @@ class GemmaVLLMAdapter(BaseVLLMAdapter):
             if isinstance(content, str) and content.strip():
                 return content.strip()
 
-        raise ValueError(f"{self.model_name} returned reasoning output without a final answer")
+        # Gemma occasionally emits only a reasoning channel for structured JSON prompts.
+        # Keep the run alive and let downstream JSON parsers/fallbacks handle the text.
+        fallback_text = getattr(output, "text", "") or self.tokenizer.decode(token_ids)
+        return fallback_text.strip()
 
 
 class HarmonyVLLMAdapter(BaseVLLMAdapter):
@@ -425,7 +435,7 @@ def build_model_adapter(spec: ModelSpec, config: Config, tensor_parallel_size: i
         return HarmonyVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size)
     if spec.model.startswith("google/gemma-4"):
         return GemmaVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
-    if spec.model.startswith("Qwen/Qwen3.5"):
+    if spec.model.startswith("Qwen/Qwen3."):
         return QwenVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
     return BaseVLLMAdapter(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
 

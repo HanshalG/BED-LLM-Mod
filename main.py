@@ -117,8 +117,11 @@ def main():
                 print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
 
                 if config.task == "location_finding":
-                    if method_name not in {"EIG", "StrategyEIG"}:
-                        raise ValueError("Location Finding currently supports method_name='EIG' or 'StrategyEIG'")
+                    if method_name not in {"EIG", "StrategyEIG", "StrategyEIG+root", "Naive"}:
+                        raise ValueError(
+                            "Location Finding currently supports method_name='EIG', 'StrategyEIG', "
+                            "'StrategyEIG+root', or 'Naive'"
+                        )
                     from location_finding import run_location_finding
 
                     metrics = run_location_finding(

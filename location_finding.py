@@ -44,6 +44,18 @@ class LocationFindingMetrics:
     selected_eig: list[float]
 
 
+@dataclass
+class _LocationTrialState:
+    trial_idx: int
+    env: "LocationFindingEnv"
+    observations: list[LocationObservation]
+    rng: np.random.Generator
+    belief_state: LocationBeliefState | None = None
+    strategy_library: "LocationStrategyLibrary | None" = None
+    final_estimate: SourceConfig | None = None
+    final_rmse: float = float("inf")
+
+
 @dataclass(frozen=True)
 class LocationStrategyEntry:
     strategy: str
@@ -51,6 +63,7 @@ class LocationStrategyEntry:
     score_variance: float
     root_query_fingerprint: str
     round_index: int
+    root_query: Location | None = None
 
 
 class LocationStrategyLibrary:
@@ -229,6 +242,21 @@ def _extract_first_json_value(text: str) -> str | None:
     return None
 
 
+def _extract_json_values(text: str) -> list[object]:
+    cleaned = _clean_json_completion(text)
+    decoder = json.JSONDecoder()
+    values: list[object] = []
+    for idx, char in enumerate(cleaned):
+        if char not in "[{":
+            continue
+        try:
+            payload, _end_idx = decoder.raw_decode(cleaned[idx:])
+        except json.JSONDecodeError:
+            continue
+        values.append(payload)
+    return values
+
+
 def _loads_json_value(text: str) -> object:
     stripped = _clean_json_completion(text)
     try:
@@ -338,6 +366,61 @@ def parse_candidate_locations(completion: str, dim: int, bounds: tuple[float, fl
         seen.add(key)
         locations.append(location)
     return locations
+
+
+def parse_single_location(completion: str, dim: int, bounds: tuple[float, float]) -> Location:
+    payload = _loads_json_value(completion)
+    if isinstance(payload, dict):
+        for key in ("location", "query", "point"):
+            if key in payload:
+                payload = payload[key]
+                break
+    location = normalize_location(payload, dim)
+    low, high = bounds
+    if any(value < low or value > high for value in location):
+        raise ValueError("Location is outside query bounds")
+    return location
+
+
+def parse_single_location_from_completion(completion: str, dim: int, bounds: tuple[float, float]) -> Location:
+    low, high = bounds
+    for payload in reversed(_extract_json_values(completion)):
+        raw_location: object = payload
+        if isinstance(payload, dict):
+            matched = False
+            for key in ("location", "query", "point"):
+                if key in payload:
+                    raw_location = payload[key]
+                    matched = True
+                    break
+            if not matched:
+                continue
+        try:
+            location = normalize_location(raw_location, dim)
+        except ValueError:
+            continue
+        if any(value < low or value > high for value in location):
+            continue
+        return location
+    try:
+        return parse_single_location(completion, dim, bounds)
+    except ValueError:
+        pass
+    raise ValueError("No valid location JSON found in completion")
+
+
+def parse_best_source_estimate_from_completion(completion: str, num_sources: int, dim: int) -> SourceConfig:
+    for payload in reversed(_extract_json_values(completion)):
+        configs = _collect_source_configs_from_payload(payload, num_sources, dim)
+        if configs:
+            return configs[-1]
+    try:
+        estimates = parse_source_hypotheses(completion, num_sources, dim)
+    except ValueError:
+        estimates = []
+    if estimates:
+        return estimates[-1]
+    raise ValueError("No valid source estimate JSON found in completion")
 
 
 def _format_observations(observations: list[LocationObservation]) -> str:
@@ -549,7 +632,6 @@ def _location_posterior_distribution_messages(
         }
         for label, hypothesis, probability in zip(labels, hypotheses, context_probabilities)
     ]
-    label_contract = "{" + ",".join(f"\"{label}\":p{idx}" for idx, label in enumerate(labels)) + "}"
     system = (
         "You estimate a posterior probability distribution over a finite support for a 2D "
         "source-localization problem.\n\n"
@@ -561,18 +643,20 @@ def _location_posterior_distribution_messages(
         "b + sum_k alpha / (m + ||theta_k - x||^2), with b=0.1, alpha=1.0, m=0.0001. "
         f"The observed scalar signal is y ~ Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
         "Use the observations and the context probabilities to assign posterior mass across only the listed "
-        "candidate hypothesis ids. Do not invent new ids or source configurations."
+        "candidate hypothesis ids. Do not invent new ids or source configurations. Prefer a sparse posterior: "
+        "include only ids with meaningful positive mass and omit impossible ids."
     )
     user = (
         f"Observation history: {_format_observations(observations)}\n\n"
         f"Candidate source hypotheses: {json.dumps(hypothesis_rows)}\n\n"
-        "Return only this exact compact JSON shape with one non-negative numeric weight for every candidate id:\n"
-        f"{label_contract}\n\n"
+        "Return only this exact compact JSON shape:\n"
+        "{\"weights\":{\"h0\":w0,\"h7\":w7}}\n\n"
         "Rules:\n"
         "- The final character must be }.\n"
         "- Do not include <eos>, markdown, comments, explanations, or trailing text.\n"
-        "- The probabilities do not need to sum to 1; deterministic code will normalize them.\n"
-        "- Assign zero only to hypotheses that are essentially impossible under the observations."
+        "- Weights do not need to sum to 1; deterministic code will normalize them.\n"
+        "- Omit ids with zero or negligible weight instead of writing many zero entries.\n"
+        "- Use only ids from the candidate list."
     )
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
@@ -636,6 +720,81 @@ def _candidate_generation_messages(
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
+def _naive_location_messages(
+    observations: list[LocationObservation],
+    config: Config,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = (
+        "You choose the next measurement location for a 2D source-localization experiment.\n\n"
+        f"There are exactly {_source_count_text(config.location_num_sources)}. "
+        "The hidden sources are fixed but unknown. A query is a 2D coordinate x = [x1,x2].\n\n"
+        "Measurement model:\n"
+        "The noiseless signal at query x is:\n"
+        "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
+        "with b=0.1, alpha=1.0, m=0.0001. The observed scalar signal is "
+        f"Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
+        f"Allowed query coordinates: each coordinate must be in [{bounds[0]}, {bounds[1]}].\n\n"
+        "Use only the task description and the previous query/observation history. "
+        "Do not use or output posterior source hypotheses.\n\n"
+        "Return only this exact compact JSON shape as the final answer:\n"
+        "{\"location\":[x1,y1]}\n\n"
+        "Rules:\n"
+        "- Do not include markdown, comments, explanations, or trailing text.\n"
+        "- Output a measurement/query location, not a source configuration.\n"
+        "- Do not repeat a previous query location.\n"
+        "- If you reason internally, still end with exactly one JSON object in the required shape."
+    )
+    user = (
+        f"Observation history:\n{_format_observations(observations)}\n\n"
+        "Generate the single best next measurement location to help localize the hidden sources."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _naive_source_estimate_messages(
+    observations: list[LocationObservation],
+    config: Config,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = (
+        "You output only a JSON source-location estimate for a 2D source-localization game.\n"
+        "Do not explain, derive, or write hidden reasoning. Start your response with { and stop after }.\n\n"
+        f"There are exactly {_source_count_text(config.location_num_sources)}. "
+        "The hidden sources are fixed but unknown. A query is a 2D coordinate x = [x1,x2]. "
+        "Use only the observation history below.\n\n"
+        "Measurement model:\n"
+        "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
+        f"with b=0.1, alpha=1.0, m=0.0001, noise_sd={config.location_noise_sd}.\n\n"
+        f"Source coordinates are expected to lie in approximately [{bounds[0]}, {bounds[1]}] per coordinate.\n\n"
+        "Output exactly this compact JSON shape and nothing else:\n"
+        f"{{\"sources\":{_source_config_schema_example(config.location_num_sources, config.location_dim)}}}\n"
+    )
+    user = (
+        f"Observation history: {_format_observations(observations)}\n"
+        "Return the single best estimate now as JSON only."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def _naive_source_estimate_repair_messages(
+    completion: str,
+    observations: list[LocationObservation],
+    config: Config,
+) -> list[dict[str, str]]:
+    system = (
+        "Convert the previous answer into valid compact JSON only. "
+        "Do not explain, do not use markdown, and do not include any text outside the JSON object."
+    )
+    user = (
+        f"Observation history: {_format_observations(observations)}\n\n"
+        f"Previous answer:\n{completion[-4000:]}\n\n"
+        "Return exactly this shape with your best current source-location estimate:\n"
+        f"{{\"sources\":{_source_config_schema_example(config.location_num_sources, config.location_dim)}}}"
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
 _DEFAULT_LOCATION_STRATEGIES = (
     "Begin with broad spatial coverage: query the center and then separated quadrants to detect which regions "
     "contain unusually strong signal before refining any one source.",
@@ -657,8 +816,15 @@ class _StrategyLocationRequest:
     observations: list[LocationObservation]
 
 
+@dataclass(frozen=True)
+class LocationStrategyCandidate:
+    strategy: str
+    root_query: Location | None = None
+
+
 @dataclass
 class _StrategyRollout:
+    request_index: int
     strategy_index: int
     strategy: str
     truth: SourceConfig
@@ -669,7 +835,17 @@ class _StrategyRollout:
     final_generated_hypotheses: list[SourceConfig] = field(default_factory=list)
     final_scoring_belief_state: LocationBeliefState | None = None
     simulated_observations: list[LocationObservation] = field(default_factory=list)
+    simulated_belief_states: list[LocationBeliefState] = field(default_factory=list)
     root_query: Location | None = None
+
+
+@dataclass(frozen=True)
+class _StrategyEvaluationRequest:
+    strategies: list[str]
+    belief_state: LocationBeliefState
+    observations: list[LocationObservation]
+    rng: np.random.Generator
+    root_queries: list[Location | None] | None = None
 
 
 @dataclass(frozen=True)
@@ -679,6 +855,7 @@ class LocationStrategyEvaluation:
     score_variance: float
     root_query_fingerprint: str
     rollout_scores: list[float]
+    root_query: Location | None = None
 
 
 def _clean_strategy_text(raw_strategy: object) -> str | None:
@@ -713,6 +890,49 @@ def _collect_strategy_texts(payload: object) -> list[str]:
     return []
 
 
+def _collect_strategy_root_candidates(
+    payload: object,
+    dim: int,
+    bounds: tuple[float, float],
+) -> list[LocationStrategyCandidate]:
+    candidates: list[LocationStrategyCandidate] = []
+    if isinstance(payload, list):
+        for item in payload:
+            candidates.extend(_collect_strategy_root_candidates(item, dim, bounds))
+        return candidates
+    if not isinstance(payload, dict):
+        return candidates
+
+    for key in ("strategies", "plans", "candidates"):
+        if key in payload:
+            return _collect_strategy_root_candidates(payload[key], dim, bounds)
+
+    raw_strategy = payload.get("strategy")
+    strategy = _clean_strategy_text(raw_strategy)
+    if strategy is None:
+        for value in payload.values():
+            candidates.extend(_collect_strategy_root_candidates(value, dim, bounds))
+        return candidates
+
+    raw_root = None
+    for key in ("root_query", "root_location", "first_query", "first_location", "query", "location"):
+        if key in payload:
+            raw_root = payload[key]
+            break
+    if raw_root is None:
+        return candidates
+
+    try:
+        root_query = normalize_location(raw_root, dim)
+    except ValueError:
+        return candidates
+    low, high = bounds
+    if any(value < low or value > high for value in root_query):
+        return candidates
+    candidates.append(LocationStrategyCandidate(strategy=strategy, root_query=root_query))
+    return candidates
+
+
 def parse_location_strategies(completion: str) -> list[str]:
     payload = _loads_json_value(completion)
     strategies: list[str] = []
@@ -724,6 +944,25 @@ def parse_location_strategies(completion: str) -> list[str]:
         seen.add(key)
         strategies.append(strategy)
     return strategies
+
+
+def parse_location_strategy_roots(
+    completion: str,
+    dim: int,
+    bounds: tuple[float, float],
+) -> list[LocationStrategyCandidate]:
+    payload = _loads_json_value(completion)
+    candidates: list[LocationStrategyCandidate] = []
+    seen: set[str] = set()
+    for candidate in _collect_strategy_root_candidates(payload, dim, bounds):
+        if candidate.root_query is None:
+            continue
+        key = _strategy_key(candidate.strategy)
+        if key in seen:
+            continue
+        seen.add(key)
+        candidates.append(candidate)
+    return candidates
 
 
 def parse_strategy_location(completion: str, dim: int, bounds: tuple[float, float]) -> Location:
@@ -793,6 +1032,40 @@ def _strategy_proposal_messages(
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
+def _strategy_root_proposal_messages(
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    retrieved_entries: list[LocationStrategyEntry],
+    config: Config,
+    num_fresh: int,
+) -> list[dict[str, str]]:
+    bounds = tuple(config.location_query_bounds)
+    system = (
+        "You propose adaptive strategies for a 2D source-localization experiment. Each strategy must include a fixed "
+        "root measurement location that will be asked first whenever that strategy is evaluated or selected.\n\n"
+        "A strategy is a few-sentence high-level plan for choosing future measurement locations after the fixed root "
+        "measurement. The root_query is the first concrete query that commits the strategy to a distinctive opening "
+        "measurement.\n\n"
+        "Return only this exact compact JSON shape:\n"
+        "{\"strategies\":[{\"strategy\":\"strategy text\",\"root_query\":[x1,y1]},...]}\n\n"
+        "Rules:\n"
+        "- Do not include markdown, comments, explanations, or trailing text.\n"
+        f"- Generate exactly {num_fresh} fresh strategy/root_query pairs.\n"
+        "- The strategies and root_query locations must differ substantively from one another.\n"
+        f"- Every root_query coordinate must be in [{bounds[0]}, {bounds[1]}].\n"
+        "- Do not repeat a previous query location."
+    )
+    user = (
+        f"Observation history so far:\n{_format_observations(observations)}\n\n"
+        f"Current belief summary (top {config.location_strategy_belief_summary_top_k} hypotheses with probabilities):\n"
+        f"{_format_weighted_hypotheses(belief_state, top_n=config.location_strategy_belief_summary_top_k)}\n\n"
+        f"Retrieved elite strategies from this trial:\n{_format_strategy_entries(retrieved_entries)}\n\n"
+        "Generate new strategy/root_query pairs that complement the retrieved examples and are useful for the current "
+        "posterior."
+    )
+    return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
 def _strategy_location_messages(
     strategy: str,
     belief_state: LocationBeliefState,
@@ -843,11 +1116,54 @@ def _extend_unique_strategies(target: list[str], candidates: list[str], seen: se
             return
 
 
+def _extend_unique_strategy_candidates(
+    target: list[LocationStrategyCandidate],
+    candidates: list[LocationStrategyCandidate],
+    seen: set[str],
+    limit: int,
+    observations: list[LocationObservation],
+) -> None:
+    for candidate in candidates:
+        cleaned = _clean_strategy_text(candidate.strategy)
+        if cleaned is None or candidate.root_query is None:
+            continue
+        if _is_repeated_location(candidate.root_query, observations):
+            continue
+        key = _strategy_key(cleaned)
+        if key in seen:
+            continue
+        seen.add(key)
+        target.append(LocationStrategyCandidate(strategy=cleaned, root_query=candidate.root_query))
+        if len(target) >= limit:
+            return
+
+
 def _default_location_strategies(limit: int, seen: set[str]) -> list[str]:
     defaults: list[str] = []
     temp_seen = set(seen)
     _extend_unique_strategies(defaults, list(_DEFAULT_LOCATION_STRATEGIES), temp_seen, limit)
     return defaults[:limit]
+
+
+def _default_location_strategy_candidates(
+    limit: int,
+    seen: set[str],
+    observations: list[LocationObservation],
+    config: Config,
+) -> list[LocationStrategyCandidate]:
+    strategies = _default_location_strategies(limit, seen)
+    roots = [
+        location
+        for location in default_candidate_locations(config.location_dim, tuple(config.location_query_bounds))
+        if not _is_repeated_location(location, observations)
+    ]
+    if not roots:
+        bounds = tuple(config.location_query_bounds)
+        roots = [tuple((bounds[0] + bounds[1]) / 2.0 for _ in range(config.location_dim))]
+    return [
+        LocationStrategyCandidate(strategy=strategy, root_query=roots[idx % len(roots)])
+        for idx, strategy in enumerate(strategies)
+    ]
 
 
 def generate_location_strategies(
@@ -890,6 +1206,233 @@ def generate_location_strategies(
     selected = strategies[:target_count]
     _log_location(f"strategy proposal: using {len(selected)} strategy/strategies", config)
     return selected
+
+
+def generate_location_strategies_many(
+    questioner: "Model",
+    requests: list[tuple[LocationBeliefState, list[LocationObservation], LocationStrategyLibrary]],
+    config: Config,
+) -> list[list[str]]:
+    if not requests:
+        return []
+    target_count = config.location_strategy_num_candidates
+    prepared: list[dict[str, object]] = []
+    batch_messages: list[list[dict[str, str]]] = []
+    batch_indices: list[int] = []
+    for request_idx, (belief_state, observations, library) in enumerate(requests):
+        retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
+        strategies: list[str] = []
+        seen: set[str] = set()
+        _extend_unique_strategies(strategies, [entry.strategy for entry in retrieved_entries], seen, target_count)
+        fresh_needed = max(0, target_count - len(strategies))
+        prepared.append(
+            {
+                "strategies": strategies,
+                "seen": seen,
+                "retrieved_entries": retrieved_entries,
+                "observations": observations,
+            }
+        )
+        if fresh_needed > 0:
+            _log_location(
+                f"strategy proposal: retrieved={len(retrieved_entries)}, requesting_fresh={fresh_needed}, "
+                f"library_size={len(library)}",
+                config,
+            )
+            batch_messages.append(
+                _strategy_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
+            )
+            batch_indices.append(request_idx)
+
+    if batch_messages:
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=batch_messages,
+                temperature=config.generation_temperature_diverse,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+                for messages in batch_messages
+            ]
+        if len(completions) != len(batch_messages):
+            raise ValueError(f"Expected {len(batch_messages)} strategy completions, received {len(completions)}")
+        for request_idx, completion in zip(batch_indices, completions):
+            item = prepared[request_idx]
+            try:
+                _extend_unique_strategies(
+                    item["strategies"],  # type: ignore[arg-type]
+                    parse_location_strategies(completion),
+                    item["seen"],  # type: ignore[arg-type]
+                    target_count,
+                )
+            except ValueError as exc:
+                _log_location(f"strategy proposal: could not parse strategies ({exc}); using defaults", config)
+
+    results: list[list[str]] = []
+    for item in prepared:
+        strategies = item["strategies"]  # type: ignore[assignment]
+        seen = item["seen"]  # type: ignore[assignment]
+        if len(strategies) < target_count:
+            _extend_unique_strategies(
+                strategies,
+                _default_location_strategies(target_count - len(strategies), seen),
+                seen,
+                target_count,
+            )
+        selected = strategies[:target_count]
+        _log_location(f"strategy proposal: using {len(selected)} strategy/strategies", config)
+        results.append(selected)
+    return results
+
+
+def generate_location_strategy_roots(
+    questioner: "Model",
+    belief_state: LocationBeliefState,
+    observations: list[LocationObservation],
+    library: LocationStrategyLibrary,
+    config: Config,
+) -> list[LocationStrategyCandidate]:
+    target_count = config.location_strategy_num_candidates
+    retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
+    candidates: list[LocationStrategyCandidate] = []
+    seen: set[str] = set()
+    retrieved_candidates = [
+        LocationStrategyCandidate(entry.strategy, entry.root_query)
+        for entry in retrieved_entries
+        if entry.root_query is not None
+    ]
+    _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations)
+
+    fresh_needed = max(0, target_count - len(candidates))
+    if fresh_needed > 0:
+        _log_location(
+            f"strategy+root proposal: retrieved={len(retrieved_candidates)}, requesting_fresh={fresh_needed}, "
+            f"library_size={len(library)}",
+            config,
+        )
+        try:
+            completion = questioner.chat_complete(
+                _strategy_root_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed),
+                temperature=config.generation_temperature_diverse,
+            )[0]
+            parsed = parse_location_strategy_roots(completion, config.location_dim, tuple(config.location_query_bounds))
+            _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations)
+        except ValueError as exc:
+            _log_location(f"strategy+root proposal: could not parse strategy/root pairs ({exc}); using defaults", config)
+
+    if len(candidates) < target_count:
+        _extend_unique_strategy_candidates(
+            candidates,
+            _default_location_strategy_candidates(target_count - len(candidates), seen, observations, config),
+            seen,
+            target_count,
+            observations,
+        )
+
+    selected = candidates[:target_count]
+    _log_location(
+        "strategy+root proposal: using "
+        + "; ".join(f"{_format_location(candidate.root_query)} :: {candidate.strategy[:80]}" for candidate in selected if candidate.root_query is not None),
+        config,
+    )
+    return selected
+
+
+def generate_location_strategy_roots_many(
+    questioner: "Model",
+    requests: list[tuple[LocationBeliefState, list[LocationObservation], LocationStrategyLibrary]],
+    config: Config,
+) -> list[list[LocationStrategyCandidate]]:
+    if not requests:
+        return []
+    target_count = config.location_strategy_num_candidates
+    prepared: list[dict[str, object]] = []
+    batch_messages: list[list[dict[str, str]]] = []
+    batch_indices: list[int] = []
+    for request_idx, (belief_state, observations, library) in enumerate(requests):
+        retrieved_entries = library.retrieve_top_m(config.location_strategy_num_retrieved)
+        candidates: list[LocationStrategyCandidate] = []
+        seen: set[str] = set()
+        retrieved_candidates = [
+            LocationStrategyCandidate(entry.strategy, entry.root_query)
+            for entry in retrieved_entries
+            if entry.root_query is not None
+        ]
+        _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations)
+        fresh_needed = max(0, target_count - len(candidates))
+        prepared.append(
+            {
+                "candidates": candidates,
+                "seen": seen,
+                "retrieved_entries": retrieved_entries,
+                "observations": observations,
+            }
+        )
+        if fresh_needed > 0:
+            _log_location(
+                f"strategy+root proposal: retrieved={len(retrieved_candidates)}, requesting_fresh={fresh_needed}, "
+                f"library_size={len(library)}",
+                config,
+            )
+            batch_messages.append(
+                _strategy_root_proposal_messages(belief_state, observations, retrieved_entries, config, fresh_needed)
+            )
+            batch_indices.append(request_idx)
+
+    if batch_messages:
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            completions = questioner.chat_complete_messages_batched(
+                batch_messages=batch_messages,
+                temperature=config.generation_temperature_diverse,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            completions = [
+                questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+                for messages in batch_messages
+            ]
+        if len(completions) != len(batch_messages):
+            raise ValueError(f"Expected {len(batch_messages)} strategy/root completions, received {len(completions)}")
+        for request_idx, completion in zip(batch_indices, completions):
+            item = prepared[request_idx]
+            observations = item["observations"]  # type: ignore[assignment]
+            try:
+                parsed = parse_location_strategy_roots(completion, config.location_dim, tuple(config.location_query_bounds))
+                _extend_unique_strategy_candidates(
+                    item["candidates"],  # type: ignore[arg-type]
+                    parsed,
+                    item["seen"],  # type: ignore[arg-type]
+                    target_count,
+                    observations,
+                )
+            except ValueError as exc:
+                _log_location(f"strategy+root proposal: could not parse strategy/root pairs ({exc}); using defaults", config)
+
+    results: list[list[LocationStrategyCandidate]] = []
+    for item in prepared:
+        candidates = item["candidates"]  # type: ignore[assignment]
+        seen = item["seen"]  # type: ignore[assignment]
+        observations = item["observations"]  # type: ignore[assignment]
+        if len(candidates) < target_count:
+            _extend_unique_strategy_candidates(
+                candidates,
+                _default_location_strategy_candidates(target_count - len(candidates), seen, observations, config),
+                seen,
+                target_count,
+                observations,
+            )
+        selected = candidates[:target_count]
+        _log_location(
+            "strategy+root proposal: using "
+            + "; ".join(f"{_format_location(candidate.root_query)} :: {candidate.strategy[:80]}" for candidate in selected if candidate.root_query is not None),
+            config,
+        )
+        results.append(selected)
+    return results
 
 
 def _location_key(location: Location) -> tuple[float, ...]:
@@ -963,7 +1506,7 @@ def generate_strategy_locations_many(
             batch_messages=batch_messages,
             temperature=config.generation_temperature_simple,
             block_size=config.batched_block_size,
-            max_new_tokens=256,
+            max_new_tokens=8192,
         )
     else:
         completions = [
@@ -1077,7 +1620,26 @@ def _rollout_entropy_reduction_score(
         return 0.0
     start_state = _align_belief_state_to_support(rollout.start_belief_state, support)
     final_state = _align_belief_state_to_support(rollout.final_scoring_belief_state or rollout.belief_state, support)
-    return _location_entropy(start_state.probabilities) - _location_entropy(final_state.probabilities)
+    if config.location_strategy_discount_factor >= 1.0:
+        return _location_entropy(start_state.probabilities) - _location_entropy(final_state.probabilities)
+    if not rollout.simulated_observations:
+        return _location_entropy(start_state.probabilities) - _location_entropy(final_state.probabilities)
+
+    gamma = config.location_strategy_discount_factor
+    score = 0.0
+    previous_state = start_state
+    full_history = list(real_observations)
+    for step_idx, simulated_observation in enumerate(rollout.simulated_observations):
+        full_history.append(simulated_observation)
+        if step_idx == len(rollout.simulated_observations) - 1:
+            next_state = final_state
+        else:
+            next_state = build_location_belief_state_unpruned(support, full_history, config)
+        score += (gamma ** step_idx) * (
+            _location_entropy(previous_state.probabilities) - _location_entropy(next_state.probabilities)
+        )
+        previous_state = next_state
+    return score
 
 
 def evaluate_location_strategies_by_rollout(
@@ -1087,13 +1649,25 @@ def evaluate_location_strategies_by_rollout(
     observations: list[LocationObservation],
     config: Config,
     rng: np.random.Generator,
+    root_queries: list[Location | None] | None = None,
 ) -> list[LocationStrategyEvaluation]:
     if not strategies:
         return []
+    if root_queries is None:
+        root_queries = [None] * len(strategies)
+    if len(root_queries) != len(strategies):
+        raise ValueError("root_queries must have the same length as strategies")
     if not belief_state.hypotheses:
         return [
-            LocationStrategyEvaluation(strategy, 0.0, 0.0, "", [0.0] * config.location_strategy_num_rollouts)
-            for strategy in strategies
+            LocationStrategyEvaluation(
+                strategy,
+                0.0,
+                0.0,
+                "" if root_query is None else _format_location(root_query),
+                [0.0] * config.location_strategy_num_rollouts,
+                root_query=root_query,
+            )
+            for strategy, root_query in zip(strategies, root_queries)
         ]
 
     rollouts: list[_StrategyRollout] = []
@@ -1102,6 +1676,7 @@ def evaluate_location_strategies_by_rollout(
             truth, start_probability = _sample_source_hypothesis(belief_state, rng)
             rollouts.append(
                 _StrategyRollout(
+                    request_index=0,
                     strategy_index=strategy_index,
                     strategy=strategy,
                     truth=truth,
@@ -1109,6 +1684,7 @@ def evaluate_location_strategies_by_rollout(
                     start_belief_state=belief_state,
                     belief_state=belief_state,
                     particle_support=list(belief_state.hypotheses),
+                    root_query=root_queries[strategy_index],
                 )
             )
 
@@ -1121,19 +1697,32 @@ def evaluate_location_strategies_by_rollout(
         if not active_indices:
             break
 
-        location_requests = [
-            _StrategyLocationRequest(
-                strategy=rollouts[rollout_idx].strategy,
-                belief_state=rollouts[rollout_idx].belief_state,
-                observations=_full_rollout_observations(observations, rollouts[rollout_idx]),
-            )
+        fixed_root_indices = [
+            rollout_idx
             for rollout_idx in active_indices
+            if depth_idx == 0 and rollouts[rollout_idx].root_query is not None
         ]
-        locations = generate_strategy_locations_many(questioner, location_requests, config)
+        generated_indices = [rollout_idx for rollout_idx in active_indices if rollout_idx not in fixed_root_indices]
+        locations_by_index: dict[int, Location] = {
+            rollout_idx: rollouts[rollout_idx].root_query  # type: ignore[dict-item]
+            for rollout_idx in fixed_root_indices
+        }
+        if generated_indices:
+            location_requests = [
+                _StrategyLocationRequest(
+                    strategy=rollouts[rollout_idx].strategy,
+                    belief_state=rollouts[rollout_idx].belief_state,
+                    observations=_full_rollout_observations(observations, rollouts[rollout_idx]),
+                )
+                for rollout_idx in generated_indices
+            ]
+            locations = generate_strategy_locations_many(questioner, location_requests, config)
+            locations_by_index.update(zip(generated_indices, locations))
 
-        for rollout_idx, location in zip(active_indices, locations):
+        for rollout_idx in active_indices:
+            location = locations_by_index[rollout_idx]
             rollout = rollouts[rollout_idx]
-            if depth_idx == 0:
+            if depth_idx == 0 and rollout.root_query is None:
                 rollout.root_query = location
             mean = signal_intensity_for_hypothesis(rollout.truth, location)
             observed_value = float(round(rng.normal(mean, config.location_noise_sd), 2))
@@ -1145,6 +1734,7 @@ def evaluate_location_strategies_by_rollout(
                 _full_rollout_observations(observations, rollout),
                 config,
             )
+            rollouts[rollout_idx].simulated_belief_states.append(rollouts[rollout_idx].belief_state)
 
     final_refresh_indices = [
         rollout_idx
@@ -1204,7 +1794,12 @@ def evaluate_location_strategies_by_rollout(
         root_queries_by_strategy[rollout.strategy_index].append(rollout.root_query)
 
     evaluations: list[LocationStrategyEvaluation] = []
-    for strategy, scores, root_queries in zip(strategies, scores_by_strategy, root_queries_by_strategy):
+    for strategy, scores, strategy_root_queries, fixed_root_query in zip(
+        strategies,
+        scores_by_strategy,
+        root_queries_by_strategy,
+        root_queries,
+    ):
         if scores:
             mean_score = float(np.mean(scores))
             score_variance = float(np.var(scores))
@@ -1216,11 +1811,222 @@ def evaluate_location_strategies_by_rollout(
                 strategy=strategy,
                 mean_score=mean_score,
                 score_variance=score_variance,
-                root_query_fingerprint=_root_query_fingerprint(root_queries),
+                root_query_fingerprint=(
+                    _format_location(fixed_root_query)
+                    if fixed_root_query is not None
+                    else _root_query_fingerprint(strategy_root_queries)
+                ),
                 rollout_scores=scores,
+                root_query=fixed_root_query,
             )
         )
     return evaluations
+
+
+def evaluate_location_strategies_by_rollout_many(
+    questioner: "Model",
+    requests: list[_StrategyEvaluationRequest],
+    config: Config,
+) -> list[list[LocationStrategyEvaluation]]:
+    if not requests:
+        return []
+
+    evaluations_by_request: list[list[LocationStrategyEvaluation] | None] = [None] * len(requests)
+    rollouts: list[_StrategyRollout] = []
+    root_queries_by_request: list[list[Location | None]] = []
+    for request_idx, request in enumerate(requests):
+        root_queries = (
+            [None] * len(request.strategies)
+            if request.root_queries is None
+            else list(request.root_queries)
+        )
+        if len(root_queries) != len(request.strategies):
+            raise ValueError("root_queries must have the same length as strategies")
+        root_queries_by_request.append(root_queries)
+        if not request.strategies:
+            evaluations_by_request[request_idx] = []
+            continue
+        if not request.belief_state.hypotheses:
+            evaluations_by_request[request_idx] = [
+                LocationStrategyEvaluation(
+                    strategy,
+                    0.0,
+                    0.0,
+                    "" if root_query is None else _format_location(root_query),
+                    [0.0] * config.location_strategy_num_rollouts,
+                    root_query=root_query,
+                )
+                for strategy, root_query in zip(request.strategies, root_queries)
+            ]
+            continue
+
+        for strategy_index, strategy in enumerate(request.strategies):
+            for _rollout_idx in range(config.location_strategy_num_rollouts):
+                truth, start_probability = _sample_source_hypothesis(request.belief_state, request.rng)
+                rollouts.append(
+                    _StrategyRollout(
+                        request_index=request_idx,
+                        strategy_index=strategy_index,
+                        strategy=strategy,
+                        truth=truth,
+                        start_probability=start_probability,
+                        start_belief_state=request.belief_state,
+                        belief_state=request.belief_state,
+                        particle_support=list(request.belief_state.hypotheses),
+                        root_query=root_queries[strategy_index],
+                    )
+                )
+
+    for depth_idx in range(config.location_strategy_planning_depth):
+        active_indices = [
+            rollout_idx
+            for rollout_idx, rollout in enumerate(rollouts)
+            if rollout.belief_state.hypotheses
+        ]
+        if not active_indices:
+            break
+
+        fixed_root_indices = [
+            rollout_idx
+            for rollout_idx in active_indices
+            if depth_idx == 0 and rollouts[rollout_idx].root_query is not None
+        ]
+        generated_indices = [rollout_idx for rollout_idx in active_indices if rollout_idx not in fixed_root_indices]
+        locations_by_index: dict[int, Location] = {
+            rollout_idx: rollouts[rollout_idx].root_query  # type: ignore[dict-item]
+            for rollout_idx in fixed_root_indices
+        }
+        if generated_indices:
+            location_requests = [
+                _StrategyLocationRequest(
+                    strategy=rollouts[rollout_idx].strategy,
+                    belief_state=rollouts[rollout_idx].belief_state,
+                    observations=_full_rollout_observations(
+                        requests[rollouts[rollout_idx].request_index].observations,
+                        rollouts[rollout_idx],
+                    ),
+                )
+                for rollout_idx in generated_indices
+            ]
+            locations = generate_strategy_locations_many(questioner, location_requests, config)
+            locations_by_index.update(zip(generated_indices, locations))
+
+        for rollout_idx in active_indices:
+            location = locations_by_index[rollout_idx]
+            rollout = rollouts[rollout_idx]
+            request = requests[rollout.request_index]
+            if depth_idx == 0 and rollout.root_query is None:
+                rollout.root_query = location
+            mean = signal_intensity_for_hypothesis(rollout.truth, location)
+            observed_value = float(round(request.rng.normal(mean, config.location_noise_sd), 2))
+            rollout.simulated_observations.append(
+                LocationObservation(query=location, value=observed_value)
+            )
+            rollout.belief_state = build_location_belief_state(
+                rollout.particle_support,
+                _full_rollout_observations(request.observations, rollout),
+                config,
+            )
+            rollout.simulated_belief_states.append(rollout.belief_state)
+
+    final_refresh_indices = [
+        rollout_idx
+        for rollout_idx, rollout in enumerate(rollouts)
+        if rollout.belief_state.hypotheses
+    ]
+    if final_refresh_indices:
+        final_histories = [
+            _full_rollout_observations(
+                requests[rollouts[rollout_idx].request_index].observations,
+                rollouts[rollout_idx],
+            )
+            for rollout_idx in final_refresh_indices
+        ]
+        final_generated_many = _generate_location_hypotheses_many(
+            questioner,
+            final_histories,
+            [
+                prompt_location_belief_state(rollouts[rollout_idx].belief_state, config)
+                for rollout_idx in final_refresh_indices
+            ],
+            config,
+            label="strategy rollout final belief refresh",
+        )
+        for rollout_idx, generated_hypotheses in zip(final_refresh_indices, final_generated_many):
+            rollouts[rollout_idx].final_generated_hypotheses = generated_hypotheses
+        final_supports = [
+            _dedupe_source_configs(
+                list(rollouts[rollout_idx].particle_support)
+                + list(rollouts[rollout_idx].final_generated_hypotheses)
+            )
+            for rollout_idx in final_refresh_indices
+        ]
+        final_scoring_states = build_location_posteriors_many(
+            questioner,
+            final_supports,
+            final_histories,
+            config,
+            context_states=[rollouts[rollout_idx].belief_state for rollout_idx in final_refresh_indices],
+            label="strategy rollout final posterior scoring",
+            prune=False,
+        )
+        for rollout_idx, final_scoring_state in zip(final_refresh_indices, final_scoring_states):
+            rollouts[rollout_idx].final_scoring_belief_state = final_scoring_state
+            rollouts[rollout_idx].belief_state = prune_location_beliefs(
+                final_scoring_state,
+                max_beliefs=config.location_max_total_beliefs,
+            )
+
+    scores_by_request: list[list[list[float]]] = [
+        [[] for _strategy in request.strategies]
+        for request in requests
+    ]
+    roots_by_request: list[list[list[Location | None]]] = [
+        [[] for _strategy in request.strategies]
+        for request in requests
+    ]
+    for rollout in rollouts:
+        score = _rollout_entropy_reduction_score(
+            rollout,
+            requests[rollout.request_index].observations,
+            config,
+        )
+        scores_by_request[rollout.request_index][rollout.strategy_index].append(float(score))
+        roots_by_request[rollout.request_index][rollout.strategy_index].append(rollout.root_query)
+
+    for request_idx, request in enumerate(requests):
+        if evaluations_by_request[request_idx] is not None:
+            continue
+        evaluations: list[LocationStrategyEvaluation] = []
+        root_queries = root_queries_by_request[request_idx]
+        for strategy, scores, strategy_root_queries, fixed_root_query in zip(
+            request.strategies,
+            scores_by_request[request_idx],
+            roots_by_request[request_idx],
+            root_queries,
+        ):
+            if scores:
+                mean_score = float(np.mean(scores))
+                score_variance = float(np.var(scores))
+            else:
+                mean_score = 0.0
+                score_variance = 0.0
+            evaluations.append(
+                LocationStrategyEvaluation(
+                    strategy=strategy,
+                    mean_score=mean_score,
+                    score_variance=score_variance,
+                    root_query_fingerprint=(
+                        _format_location(fixed_root_query)
+                        if fixed_root_query is not None
+                        else _root_query_fingerprint(strategy_root_queries)
+                    ),
+                    rollout_scores=scores,
+                    root_query=fixed_root_query,
+                )
+            )
+        evaluations_by_request[request_idx] = evaluations
+    return [evaluations or [] for evaluations in evaluations_by_request]
 
 
 def _strategy_entries_from_evaluations(
@@ -1234,6 +2040,7 @@ def _strategy_entries_from_evaluations(
             score_variance=evaluation.score_variance,
             root_query_fingerprint=evaluation.root_query_fingerprint,
             round_index=round_index,
+            root_query=evaluation.root_query,
         )
         for evaluation in evaluations
     ]
@@ -1247,8 +2054,16 @@ def choose_location_with_strategy_rollouts(
     config: Config,
     rng: np.random.Generator,
     round_index: int,
+    *,
+    fixed_root: bool = False,
 ) -> tuple[Location, float, LocationStrategyEvaluation | None]:
-    strategies = generate_location_strategies(questioner, belief_state, observations, library, config)
+    if fixed_root:
+        strategy_candidates = generate_location_strategy_roots(questioner, belief_state, observations, library, config)
+        strategies = [candidate.strategy for candidate in strategy_candidates]
+        root_queries = [candidate.root_query for candidate in strategy_candidates]
+    else:
+        strategies = generate_location_strategies(questioner, belief_state, observations, library, config)
+        root_queries = None
     evaluations = evaluate_location_strategies_by_rollout(
         questioner,
         strategies,
@@ -1256,6 +2071,7 @@ def choose_location_with_strategy_rollouts(
         observations,
         config,
         rng,
+        root_queries=root_queries,
     )
     library.add_entries(_strategy_entries_from_evaluations(evaluations, round_index))
     if not evaluations:
@@ -1269,14 +2085,112 @@ def choose_location_with_strategy_rollouts(
         f"root={best_evaluation.root_query_fingerprint!r}",
         config,
     )
-    location = generate_strategy_location(
-        questioner,
-        best_evaluation.strategy,
-        belief_state,
-        observations,
-        config,
-    )
+    if fixed_root and best_evaluation.root_query is not None:
+        location = best_evaluation.root_query
+        if _is_repeated_location(location, observations):
+            _log_location("strategy+root selected a repeated root query; using fallback location", config)
+            location = _fallback_strategy_location(belief_state, observations, config)
+        else:
+            _log_location(f"strategy+root: asking fixed root query {_format_location(location)}", config)
+    else:
+        location = generate_strategy_location(
+            questioner,
+            best_evaluation.strategy,
+            belief_state,
+            observations,
+            config,
+        )
     return location, best_evaluation.mean_score, best_evaluation
+
+
+def choose_locations_with_strategy_rollouts_many(
+    questioner: "Model",
+    states: list[_LocationTrialState],
+    config: Config,
+    round_index: int,
+    *,
+    fixed_root: bool = False,
+) -> list[tuple[Location, float, LocationStrategyEvaluation | None]]:
+    if not states:
+        return []
+    for state in states:
+        if state.belief_state is None:
+            raise ValueError("Strategy trial state is missing a belief state")
+        if state.strategy_library is None:
+            raise ValueError("Strategy trial state is missing a strategy library")
+
+    strategy_requests = [
+        (state.belief_state, state.observations, state.strategy_library)  # type: ignore[arg-type]
+        for state in states
+    ]
+    if fixed_root:
+        strategy_candidates_many = generate_location_strategy_roots_many(questioner, strategy_requests, config)
+        strategies_many = [[candidate.strategy for candidate in candidates] for candidates in strategy_candidates_many]
+        root_queries_many = [[candidate.root_query for candidate in candidates] for candidates in strategy_candidates_many]
+    else:
+        strategies_many = generate_location_strategies_many(questioner, strategy_requests, config)
+        root_queries_many = [None for _state in states]
+
+    evaluation_requests = [
+        _StrategyEvaluationRequest(
+            strategies=strategies,
+            belief_state=state.belief_state,  # type: ignore[arg-type]
+            observations=list(state.observations),
+            rng=state.rng,
+            root_queries=root_queries,
+        )
+        for state, strategies, root_queries in zip(states, strategies_many, root_queries_many)
+    ]
+    evaluations_many = evaluate_location_strategies_by_rollout_many(questioner, evaluation_requests, config)
+    for state, evaluations in zip(states, evaluations_many):
+        state.strategy_library.add_entries(_strategy_entries_from_evaluations(evaluations, round_index))  # type: ignore[union-attr]
+
+    results: list[tuple[Location | None, float, LocationStrategyEvaluation | None]] = []
+    selected_location_requests: list[_StrategyLocationRequest] = []
+    selected_location_indices: list[int] = []
+    for idx, (state, evaluations) in enumerate(zip(states, evaluations_many)):
+        if not evaluations:
+            fallback_location = _fallback_strategy_location(state.belief_state, state.observations, config)  # type: ignore[arg-type]
+            results.append((fallback_location, 0.0, None))
+            continue
+
+        best_evaluation = max(evaluations, key=lambda evaluation: evaluation.mean_score)
+        _log_location(
+            "strategy rollout: best strategy "
+            f"score={best_evaluation.mean_score:.6f}, variance={best_evaluation.score_variance:.6f}, "
+            f"root={best_evaluation.root_query_fingerprint!r}",
+            config,
+        )
+        if fixed_root and best_evaluation.root_query is not None:
+            location = best_evaluation.root_query
+            if _is_repeated_location(location, state.observations):
+                _log_location("strategy+root selected a repeated root query; using fallback location", config)
+                location = _fallback_strategy_location(state.belief_state, state.observations, config)  # type: ignore[arg-type]
+            else:
+                _log_location(f"strategy+root: asking fixed root query {_format_location(location)}", config)
+            results.append((location, best_evaluation.mean_score, best_evaluation))
+        else:
+            results.append((None, best_evaluation.mean_score, best_evaluation))
+            selected_location_indices.append(idx)
+            selected_location_requests.append(
+                _StrategyLocationRequest(
+                    best_evaluation.strategy,
+                    state.belief_state,  # type: ignore[arg-type]
+                    list(state.observations),
+                )
+            )
+
+    if selected_location_requests:
+        selected_locations = generate_strategy_locations_many(questioner, selected_location_requests, config)
+        for result_idx, location in zip(selected_location_indices, selected_locations):
+            _old_location, score, evaluation = results[result_idx]
+            results[result_idx] = (location, score, evaluation)
+
+    return [
+        (location, score, evaluation)
+        for location, score, evaluation in results
+        if location is not None
+    ]
 
 
 def generate_location_hypotheses(
@@ -1434,6 +2348,285 @@ def generate_location_candidates(
         config,
     )
     return selected
+
+
+def generate_location_candidates_many(
+    questioner: "Model",
+    belief_states: list[LocationBeliefState],
+    observations_many: list[list[LocationObservation]],
+    config: Config,
+) -> list[list[Location]]:
+    if len(belief_states) != len(observations_many):
+        raise ValueError("belief_states and observations_many must have the same length")
+    if not belief_states:
+        return []
+    bounds = tuple(config.location_query_bounds)
+    _log_location(
+        f"candidate generation: requesting candidates for {len(belief_states)} trial(s) "
+        f"as a cross-trial batch (block_size={config.batched_block_size})",
+        config,
+    )
+    batch_messages = [
+        _candidate_generation_messages(belief_state, observations, config)
+        for belief_state, observations in zip(belief_states, observations_many)
+    ]
+    if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+        completions = questioner.chat_complete_messages_batched(
+            batch_messages=batch_messages,
+            temperature=config.generation_temperature_diverse,
+            block_size=config.batched_block_size,
+            max_new_tokens=8192,
+        )
+    else:
+        completions = [
+            questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+            for messages in batch_messages
+        ]
+    if len(completions) != len(batch_messages):
+        raise ValueError(f"Expected {len(batch_messages)} candidate completions, received {len(completions)}")
+
+    candidates_many: list[list[Location]] = []
+    for completion in completions:
+        try:
+            candidates = parse_candidate_locations(completion, config.location_dim, bounds)
+        except ValueError:
+            _log_location("candidate generation: could not parse JSON candidates; using deterministic fallbacks", config)
+            candidates = []
+        parsed_count = len(candidates)
+        if len(candidates) < config.location_target_num_candidates:
+            fallback_locations = [
+                location
+                for location in default_candidate_locations(config.location_dim, bounds)
+                if location not in candidates
+            ]
+            candidates.extend(fallback_locations)
+        selected = candidates[:config.location_target_num_candidates]
+        _log_location(
+            f"candidate generation: parsed={parsed_count}, returned={len(selected)}, "
+            f"locations={_summarize_candidates(selected)}",
+            config,
+        )
+        candidates_many.append(selected)
+    return candidates_many
+
+
+def choose_location_naive(
+    questioner: "Model",
+    observations: list[LocationObservation],
+    config: Config,
+) -> Location:
+    bounds = tuple(config.location_query_bounds)
+    _log_location(
+        f"naive query generation: requesting one location "
+        f"(observations={len(observations)}, bounds=[{bounds[0]}, {bounds[1]}])",
+        config,
+    )
+    completion = questioner.chat_complete(
+        _naive_location_messages(observations, config),
+        temperature=config.generation_temperature_diverse,
+    )[0]
+    try:
+        location = parse_single_location_from_completion(completion, config.location_dim, bounds)
+        if _is_repeated_location(location, observations):
+            raise ValueError("Location repeats a previous query")
+    except ValueError as exc:
+        _log_location(f"naive query generation: could not parse/use location ({exc}); using deterministic fallback", config)
+        candidates = [
+            candidate
+            for candidate in default_candidate_locations(config.location_dim, bounds)
+            if not _is_repeated_location(candidate, observations)
+        ]
+        location = candidates[0] if candidates else tuple((bounds[0] + bounds[1]) / 2.0 for _ in range(config.location_dim))
+    _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
+    return location
+
+
+def estimate_sources_naive(
+    questioner: "Model",
+    observations: list[LocationObservation],
+    config: Config,
+) -> SourceConfig:
+    _log_location(
+        f"naive source estimate: requesting one final source configuration "
+        f"(observations={len(observations)})",
+        config,
+    )
+    completion = questioner.chat_complete(
+        _naive_source_estimate_messages(observations, config),
+        temperature=config.generation_temperature_simple,
+    )[0]
+    try:
+        estimate = parse_best_source_estimate_from_completion(
+            completion,
+            config.location_num_sources,
+            config.location_dim,
+        )
+    except ValueError as exc:
+        _log_location(f"naive source estimate: could not parse estimate ({exc}); retrying JSON repair", config)
+        repair_completion = questioner.chat_complete(
+            _naive_source_estimate_repair_messages(completion, observations, config),
+            temperature=0.0,
+        )[0]
+        try:
+            estimate = parse_best_source_estimate_from_completion(
+                repair_completion,
+                config.location_num_sources,
+                config.location_dim,
+            )
+        except ValueError as repair_exc:
+            _log_location(
+                f"naive source estimate: repair failed ({repair_exc}); using center fallback",
+                config,
+            )
+            estimate = tuple(
+                tuple(0.0 for _coord_idx in range(config.location_dim))
+                for _source_idx in range(config.location_num_sources)
+            )
+    _log_location(f"Naive estimate: chose sources {_format_source_array(np.asarray(estimate, dtype=float))}", config)
+    return estimate
+
+
+def choose_locations_naive_many(
+    questioner: "Model",
+    observations_many: list[list[LocationObservation]],
+    config: Config,
+) -> list[Location]:
+    if not observations_many:
+        return []
+    bounds = tuple(config.location_query_bounds)
+    _log_location(
+        f"naive query generation: requesting {len(observations_many)} location(s) "
+        f"as a cross-trial batch (block_size={config.batched_block_size})",
+        config,
+    )
+    batch_messages = [_naive_location_messages(observations, config) for observations in observations_many]
+    if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+        completions = questioner.chat_complete_messages_batched(
+            batch_messages=batch_messages,
+            temperature=config.generation_temperature_diverse,
+            block_size=config.batched_block_size,
+            max_new_tokens=8192,
+        )
+    else:
+        completions = [
+            questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
+            for messages in batch_messages
+        ]
+    if len(completions) != len(batch_messages):
+        raise ValueError(f"Expected {len(batch_messages)} naive query completions, received {len(completions)}")
+
+    locations: list[Location] = []
+    for completion, observations in zip(completions, observations_many):
+        try:
+            location = parse_single_location_from_completion(completion, config.location_dim, bounds)
+            if _is_repeated_location(location, observations):
+                raise ValueError("Location repeats a previous query")
+        except ValueError as exc:
+            _log_location(f"naive query generation: could not parse/use location ({exc}); using deterministic fallback", config)
+            candidates = [
+                candidate
+                for candidate in default_candidate_locations(config.location_dim, bounds)
+                if not _is_repeated_location(candidate, observations)
+            ]
+            location = candidates[0] if candidates else tuple((bounds[0] + bounds[1]) / 2.0 for _ in range(config.location_dim))
+        _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
+        locations.append(location)
+    return locations
+
+
+def estimate_sources_naive_many(
+    questioner: "Model",
+    observations_many: list[list[LocationObservation]],
+    config: Config,
+) -> list[SourceConfig]:
+    if not observations_many:
+        return []
+    _log_location(
+        f"naive source estimate: requesting {len(observations_many)} source configuration(s) "
+        f"as a cross-trial batch (block_size={config.batched_block_size})",
+        config,
+    )
+    batch_messages = [_naive_source_estimate_messages(observations, config) for observations in observations_many]
+    if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+        completions = questioner.chat_complete_messages_batched(
+            batch_messages=batch_messages,
+            temperature=config.generation_temperature_simple,
+            block_size=config.batched_block_size,
+            max_new_tokens=8192,
+        )
+    else:
+        completions = [
+            questioner.chat_complete(messages, temperature=config.generation_temperature_simple)[0]
+            for messages in batch_messages
+        ]
+    if len(completions) != len(batch_messages):
+        raise ValueError(f"Expected {len(batch_messages)} naive estimate completions, received {len(completions)}")
+
+    estimates: list[SourceConfig | None] = []
+    failed_indices: list[int] = []
+    for completion in completions:
+        try:
+            estimate = parse_best_source_estimate_from_completion(
+                completion,
+                config.location_num_sources,
+                config.location_dim,
+            )
+        except ValueError as exc:
+            _log_location(f"naive source estimate: could not parse estimate ({exc}); will retry JSON repair", config)
+            estimate = None
+            failed_indices.append(len(estimates))
+        estimates.append(estimate)
+
+    if failed_indices:
+        repair_messages = [
+            _naive_source_estimate_repair_messages(
+                completions[idx],
+                observations_many[idx],
+                config,
+            )
+            for idx in failed_indices
+        ]
+        if callable(getattr(questioner, "chat_complete_messages_batched", None)):
+            repair_completions = questioner.chat_complete_messages_batched(
+                batch_messages=repair_messages,
+                temperature=0.0,
+                block_size=config.batched_block_size,
+                max_new_tokens=8192,
+            )
+        else:
+            repair_completions = [
+                questioner.chat_complete(messages, temperature=0.0)[0]
+                for messages in repair_messages
+            ]
+        if len(repair_completions) != len(repair_messages):
+            raise ValueError(f"Expected {len(repair_messages)} naive repair completions, received {len(repair_completions)}")
+        for idx, repair_completion in zip(failed_indices, repair_completions):
+            try:
+                estimates[idx] = parse_best_source_estimate_from_completion(
+                    repair_completion,
+                    config.location_num_sources,
+                    config.location_dim,
+                )
+            except ValueError as repair_exc:
+                _log_location(
+                    f"naive source estimate: repair failed ({repair_exc}); using center fallback",
+                    config,
+                )
+                estimates[idx] = tuple(
+                    tuple(0.0 for _coord_idx in range(config.location_dim))
+                    for _source_idx in range(config.location_num_sources)
+                )
+
+    final_estimates: list[SourceConfig] = []
+    for estimate in estimates:
+        if estimate is None:
+            estimate = tuple(
+                tuple(0.0 for _coord_idx in range(config.location_dim))
+                for _source_idx in range(config.location_num_sources)
+            )
+        _log_location(f"Naive estimate: chose sources {_format_source_array(np.asarray(estimate, dtype=float))}", config)
+        final_estimates.append(estimate)
+    return final_estimates
 
 
 def default_candidate_locations(dim: int, bounds: tuple[float, float]) -> list[Location]:
@@ -1630,12 +2823,13 @@ def build_location_posteriors_many(
 
     completions: list[str] = []
     if batch_messages:
+        posterior_max_new_tokens = max(512, min(2048, 32 * max((len(labels) for labels in branch_labels), default=0) + 128))
         if callable(getattr(questioner, "chat_complete_messages_batched", None)):
             completions = questioner.chat_complete_messages_batched(
                 batch_messages=batch_messages,
                 temperature=config.belief_probability_temperature,
                 block_size=config.batched_block_size,
-                max_new_tokens=512,
+                max_new_tokens=posterior_max_new_tokens,
             )
         else:
             completions = [
@@ -1660,10 +2854,19 @@ def build_location_posteriors_many(
         if not hypotheses:
             scored_states.append(LocationBeliefState([], []))
             continue
+        context_probabilities = _location_posterior_context_probabilities(
+            hypotheses,
+            context_states[branch_idx],
+        )
+        context_distribution = {
+            label: probability
+            for label, probability in zip(labels, context_probabilities)
+        }
         distribution, valid_count = _average_labeled_distributions_from_completions(
             branch_completions,
             labels,
             fallback_to_uniform=config.probability_parse_fallback_to_uniform,
+            fallback_distribution=context_distribution,
         )
         valid_total += valid_count
         scored_state = sort_location_belief_state(
@@ -2285,6 +3488,379 @@ def _write_to_log_if_configured(message: str, config: Config) -> None:
         write_to_log(message, config)
 
 
+def _location_trial_rng(
+    config: Config,
+    trial_idx: int,
+    fallback_rng: np.random.Generator,
+) -> np.random.Generator:
+    if config.location_seed is None:
+        return fallback_rng
+    seed_sequence = np.random.SeedSequence([config.location_seed, trial_idx])
+    return np.random.default_rng(seed_sequence)
+
+
+def _location_trial_planning_rng(
+    config: Config,
+    trial_idx: int,
+    fallback_rng: np.random.Generator,
+) -> np.random.Generator:
+    if config.location_seed is None:
+        return np.random.default_rng(fallback_rng.integers(0, np.iinfo(np.uint32).max))
+    seed_sequence = np.random.SeedSequence([config.location_seed, trial_idx, 1])
+    return np.random.default_rng(seed_sequence)
+
+
+def _make_location_trial_state(
+    config: Config,
+    trial_idx: int,
+    fallback_rng: np.random.Generator,
+    method_name: str,
+) -> _LocationTrialState:
+    env_rng = _location_trial_rng(config, trial_idx, fallback_rng)
+    planning_rng = _location_trial_planning_rng(config, trial_idx, fallback_rng)
+    env = LocationFindingEnv(
+        num_sources=config.location_num_sources,
+        dim=config.location_dim,
+        noise_sd=config.location_noise_sd,
+        rng=env_rng,
+    )
+    return _LocationTrialState(
+        trial_idx=trial_idx,
+        env=env,
+        observations=[],
+        rng=planning_rng,
+        strategy_library=LocationStrategyLibrary() if method_name in {"StrategyEIG", "StrategyEIG+root"} else None,
+    )
+
+
+def _plot_location_trial_state(
+    state: _LocationTrialState,
+    belief_state: LocationBeliefState,
+    final_rmse: float,
+    final_top_probability: float,
+    config: Config,
+    output_dir: Path | None,
+) -> None:
+    if not config.location_plot_trials:
+        return
+    if output_dir is None:
+        _log_location("plotting requested but no output directory was provided; skipping trial plot", config)
+        return
+    plot_path = output_dir / f"location_trial_{state.trial_idx + 1:03d}.png"
+    _plot_location_trial(
+        state.env,
+        state.observations,
+        belief_state,
+        state.trial_idx,
+        final_rmse,
+        final_top_probability,
+        plot_path,
+    )
+    _log_location(f"saved trial plot to {plot_path}", config)
+
+
+def _run_location_finding_batched(
+    questioner: "Model",
+    config: Config,
+    rng: np.random.Generator | None = None,
+    output_dir: Path | None = None,
+    method_name: str = "EIG",
+) -> LocationFindingMetrics:
+    rng = rng or np.random.default_rng()
+    rmse_totals = np.zeros(config.location_num_rounds, dtype=float)
+    top_probability_totals = np.zeros(config.location_num_rounds, dtype=float)
+    selected_eig_totals = np.zeros(config.location_num_rounds, dtype=float)
+
+    _log_location(
+        f"Running {config.location_num_trials} Location Finding trial(s) in cross-trial batches: "
+        f"method={method_name}, batch_size={config.location_trial_batch_size}, "
+        f"rounds={config.location_num_rounds}, sources={config.location_num_sources}, "
+        f"dim={config.location_dim}, noise_sd={config.location_noise_sd}, "
+        f"candidates={config.location_target_num_candidates}, depth={config.location_search_depth}, "
+        f"quadrature_order={config.location_eig_quadrature_order}, "
+        f"max_total_beliefs={config.location_max_total_beliefs}, "
+        f"max_llm_prompt_beliefs={config.location_max_llm_prompt_beliefs}, "
+        f"num_mc_samples={config.num_mc_samples}, "
+        f"posterior_mode={config.location_posterior_mode}, "
+        f"location_seed={config.location_seed}",
+        config,
+    )
+
+    for batch_start in range(0, config.location_num_trials, config.location_trial_batch_size):
+        batch_trial_indices = list(
+            range(batch_start, min(config.location_num_trials, batch_start + config.location_trial_batch_size))
+        )
+        states = [
+            _make_location_trial_state(config, trial_idx, rng, method_name)
+            for trial_idx in batch_trial_indices
+        ]
+        for state in states:
+            _log_location(
+                f"trial {state.trial_idx + 1}/{config.location_num_trials}: sampled hidden environment "
+                f"with true_sources={_format_source_array(state.env.true_theta)}",
+                config,
+            )
+
+        if method_name == "Naive":
+            for round_idx in range(config.location_num_rounds):
+                for state in states:
+                    _write_to_log_if_configured(
+                        f"\nLocation Finding trial {state.trial_idx + 1}: Round {round_idx + 1}\n",
+                        config,
+                    )
+                    _log_location(
+                        f"trial {state.trial_idx + 1}/{config.location_num_trials}, "
+                        f"round {round_idx + 1}/{config.location_num_rounds}, "
+                        f"naive conversation observations={len(state.observations)}",
+                        config,
+                    )
+                best_locations = choose_locations_naive_many(
+                    questioner,
+                    [state.observations for state in states],
+                    config,
+                )
+                for state, best_location in zip(states, best_locations):
+                    observation = state.env.run_experiment(best_location)
+                    state.observations.append(observation)
+                    print_and_log(
+                        f"[location] Selected query {list(best_location)} with score 0.000000; "
+                        f"observed {observation.value:.2f}",
+                        config,
+                    )
+
+                estimates = estimate_sources_naive_many(
+                    questioner,
+                    [state.observations for state in states],
+                    config,
+                )
+                for state, estimate in zip(states, estimates):
+                    state.final_estimate = estimate
+                    state.final_rmse = source_rmse(estimate, state.env.true_theta)
+                    rmse_totals[round_idx] += state.final_rmse
+                    top_probability_totals[round_idx] += 1.0
+                    print_and_log(
+                        f"[location] Naive source RMSE after round {round_idx + 1}: {state.final_rmse:.6f}",
+                        config,
+                    )
+
+            for state in states:
+                plot_state = LocationBeliefState(
+                    hypotheses=[] if state.final_estimate is None else [state.final_estimate],
+                    probabilities=[] if state.final_estimate is None else [1.0],
+                )
+                _plot_location_trial_state(
+                    state,
+                    plot_state,
+                    state.final_rmse,
+                    1.0 if state.final_estimate is not None else 0.0,
+                    config,
+                    output_dir,
+                )
+            continue
+
+        initial_hypotheses_many = _generate_location_hypotheses_many(
+            questioner,
+            [state.observations for state in states],
+            [None for _state in states],
+            config,
+            label="batched initial belief generation",
+        )
+        for state, initial_hypotheses in zip(states, initial_hypotheses_many):
+            if not initial_hypotheses:
+                _log_location("No valid initial LLM hypotheses; using deterministic fallback support", config)
+        initial_hypotheses_many = [
+            initial_hypotheses if initial_hypotheses else _default_source_hypotheses(config)
+            for initial_hypotheses in initial_hypotheses_many
+        ]
+        initial_belief_states = build_location_posteriors_many(
+            questioner,
+            initial_hypotheses_many,
+            [state.observations for state in states],
+            config,
+            label="batched initial posterior scoring",
+        )
+        for state, belief_state in zip(states, initial_belief_states):
+            state.belief_state = belief_state
+            prompt_belief_state = prompt_location_belief_state(belief_state, config)
+            _log_location(
+                f"trial {state.trial_idx + 1}: initial posterior {_summarize_belief_state(belief_state)}; "
+                f"reservoir={len(belief_state.hypotheses)}, "
+                f"prompt={len(prompt_belief_state.hypotheses)}, "
+                f"ESS={_location_effective_sample_size(belief_state):.2f}",
+                config,
+            )
+
+        for round_idx in range(config.location_num_rounds):
+            prompt_belief_states = [
+                prompt_location_belief_state(state.belief_state, config)  # type: ignore[arg-type]
+                for state in states
+            ]
+            eig_belief_states: list[LocationBeliefState] = []
+            eig_sample_collapsed_flags: list[bool] = []
+            support_label = "strategy_support"
+            for state in states:
+                if method_name == "EIG":
+                    eig_belief_state, eig_sample_collapsed = sample_location_eig_belief_state(
+                        state.belief_state,  # type: ignore[arg-type]
+                        config,
+                        state.rng,
+                    )
+                    support_label = "EIG_support"
+                elif method_name in {"StrategyEIG", "StrategyEIG+root"}:
+                    eig_belief_state = state.belief_state  # type: ignore[assignment]
+                    eig_sample_collapsed = False
+                    support_label = "strategy_root_support" if method_name == "StrategyEIG+root" else "strategy_support"
+                else:
+                    eig_belief_state = state.belief_state  # type: ignore[assignment]
+                    eig_sample_collapsed = False
+                    support_label = "naive_support"
+                eig_belief_states.append(eig_belief_state)
+                eig_sample_collapsed_flags.append(eig_sample_collapsed)
+
+            for state, prompt_belief_state, eig_belief_state, eig_sample_collapsed in zip(
+                states,
+                prompt_belief_states,
+                eig_belief_states,
+                eig_sample_collapsed_flags,
+            ):
+                _write_to_log_if_configured(
+                    f"\nLocation Finding trial {state.trial_idx + 1}: Round {round_idx + 1}\n",
+                    config,
+                )
+                _log_location(
+                    f"trial {state.trial_idx + 1}/{config.location_num_trials}, "
+                    f"round {round_idx + 1}/{config.location_num_rounds}, "
+                    f"posterior {_summarize_belief_state(state.belief_state)}; "
+                    f"reservoir={len(state.belief_state.hypotheses)}, "
+                    f"prompt={len(prompt_belief_state.hypotheses)}, "
+                    f"{support_label}={len(eig_belief_state.hypotheses)}, "
+                    f"ESS={_location_effective_sample_size(state.belief_state):.2f}",
+                    config,
+                )
+                if eig_sample_collapsed:
+                    _log_location("EIG posterior sampling produced one unique hypothesis; EIG support is collapsed", config)
+
+            if method_name == "EIG":
+                candidates_many = generate_location_candidates_many(
+                    questioner,
+                    prompt_belief_states,
+                    [state.observations for state in states],
+                    config,
+                )
+                best_locations: list[Location] = []
+                best_scores: list[float] = []
+                for state, eig_belief_state, candidates in zip(states, eig_belief_states, candidates_many):
+                    scores = score_candidate_locations(
+                        eig_belief_state,
+                        candidates,
+                        config,
+                        questioner=questioner,
+                        observations=state.observations,
+                    )
+                    best_idx = int(np.argmax(scores)) if scores else 0
+                    best_locations.append(candidates[best_idx])
+                    best_scores.append(float(scores[best_idx]) if scores else 0.0)
+            else:
+                strategy_results = choose_locations_with_strategy_rollouts_many(
+                    questioner,
+                    states,
+                    config,
+                    round_idx,
+                    fixed_root=method_name == "StrategyEIG+root",
+                )
+                best_locations = [location for location, _score, _evaluation in strategy_results]
+                best_scores = [score for _location, score, _evaluation in strategy_results]
+
+            for state, best_location, best_score in zip(states, best_locations, best_scores):
+                observation = state.env.run_experiment(best_location)
+                state.observations.append(observation)
+                print_and_log(
+                    f"[location] Selected query {list(best_location)} with score {best_score:.6f}; "
+                    f"observed {observation.value:.2f}",
+                    config,
+                )
+
+            generated_hypotheses_many = _generate_location_hypotheses_many(
+                questioner,
+                [state.observations for state in states],
+                prompt_belief_states,
+                config,
+                label=f"batched round {round_idx + 1} belief update",
+            )
+            merged_hypotheses_many: list[list[SourceConfig]] = []
+            reservoir_before_trim: list[int] = []
+            previous_belief_states: list[LocationBeliefState] = []
+            for state, generated_hypotheses in zip(states, generated_hypotheses_many):
+                previous_belief_state = state.belief_state  # type: ignore[assignment]
+                merged_hypotheses = _merge_hypotheses(previous_belief_state, generated_hypotheses)
+                merged_hypotheses_many.append(merged_hypotheses)
+                reservoir_before_trim.append(len(merged_hypotheses))
+                previous_belief_states.append(previous_belief_state)
+                _log_location(
+                    f"round {round_idx + 1}: reservoir update merging previous={len(previous_belief_state.hypotheses)} "
+                    f"with generated={len(generated_hypotheses)} -> unique={len(merged_hypotheses)}",
+                    config,
+                )
+            updated_belief_states = build_location_posteriors_many(
+                questioner,
+                merged_hypotheses_many,
+                [state.observations for state in states],
+                config,
+                context_states=previous_belief_states,
+                label=f"batched round {round_idx + 1} posterior scoring",
+            )
+            for state, belief_state, before_trim, best_score in zip(
+                states,
+                updated_belief_states,
+                reservoir_before_trim,
+                best_scores,
+            ):
+                state.belief_state = belief_state
+                if before_trim > len(belief_state.hypotheses):
+                    _log_location(
+                        f"round {round_idx + 1}: reservoir trimmed {before_trim} -> "
+                        f"{len(belief_state.hypotheses)} by top posterior",
+                        config,
+                    )
+                prompt_belief_state = prompt_location_belief_state(belief_state, config)
+                _log_location(
+                    f"round {round_idx + 1}: posterior after observation {_summarize_belief_state(belief_state)}; "
+                    f"reservoir={len(belief_state.hypotheses)}, "
+                    f"prompt={len(prompt_belief_state.hypotheses)}, "
+                    f"ESS={_location_effective_sample_size(belief_state):.2f}",
+                    config,
+                )
+                current_rmse = _top_source_rmse(belief_state, state.env.true_theta)
+                top_probability = belief_state.probabilities[0] if belief_state.probabilities else 0.0
+                rmse_totals[round_idx] += current_rmse
+                top_probability_totals[round_idx] += top_probability
+                selected_eig_totals[round_idx] += best_score
+                print_and_log(
+                    f"[location] Top source RMSE after round {round_idx + 1}: {current_rmse:.6f}; "
+                    f"top probability {top_probability:.6f}",
+                    config,
+                )
+
+        for state in states:
+            final_rmse = _top_source_rmse(state.belief_state, state.env.true_theta)  # type: ignore[arg-type]
+            final_top_probability = state.belief_state.probabilities[0] if state.belief_state and state.belief_state.probabilities else 0.0
+            _plot_location_trial_state(
+                state,
+                state.belief_state,  # type: ignore[arg-type]
+                final_rmse,
+                final_top_probability,
+                config,
+                output_dir,
+            )
+
+    divisor = float(config.location_num_trials)
+    return LocationFindingMetrics(
+        source_rmse=(rmse_totals / divisor).tolist(),
+        top_probability=(top_probability_totals / divisor).tolist(),
+        selected_eig=(selected_eig_totals / divisor).tolist(),
+    )
+
+
 def run_location_finding(
     questioner: "Model",
     config: Config,
@@ -2296,10 +3872,20 @@ def run_location_finding(
         raise ValueError("Location Finding currently supports 2D source locations")
     if config.location_noise_sd != 0.5:
         raise ValueError("The initial Location Finding implementation requires known noise_sd=0.5")
-    if method_name not in {"EIG", "StrategyEIG"}:
-        raise ValueError("Location Finding currently supports method_name='EIG' or 'StrategyEIG'")
+    if method_name not in {"EIG", "StrategyEIG", "StrategyEIG+root", "Naive"}:
+        raise ValueError(
+            "Location Finding currently supports method_name='EIG', 'StrategyEIG', 'StrategyEIG+root', or 'Naive'"
+        )
     if config.location_strategy_num_retrieved > config.location_strategy_num_candidates:
         raise ValueError("location_strategy_num_retrieved must be less than or equal to location_strategy_num_candidates")
+    if config.location_trial_batch_size > 1:
+        return _run_location_finding_batched(
+            questioner,
+            config,
+            rng=rng,
+            output_dir=output_dir,
+            method_name=method_name,
+        )
 
     rng = rng or np.random.default_rng()
     rmse_totals = np.zeros(config.location_num_rounds, dtype=float)
@@ -2316,23 +3902,75 @@ def run_location_finding(
         f"max_total_beliefs={config.location_max_total_beliefs}, "
         f"max_llm_prompt_beliefs={config.location_max_llm_prompt_beliefs}, "
         f"num_mc_samples={config.num_mc_samples}, "
-        f"posterior_mode={config.location_posterior_mode}",
+        f"posterior_mode={config.location_posterior_mode}, "
+        f"location_seed={config.location_seed}",
         config,
     )
     for trial_idx in range(config.location_num_trials):
+        env_rng = _location_trial_rng(config, trial_idx, rng)
         env = LocationFindingEnv(
             num_sources=config.location_num_sources,
             dim=config.location_dim,
             noise_sd=config.location_noise_sd,
-            rng=rng,
+            rng=env_rng,
         )
         observations: list[LocationObservation] = []
-        strategy_library = LocationStrategyLibrary() if method_name == "StrategyEIG" else None
+        strategy_library = LocationStrategyLibrary() if method_name in {"StrategyEIG", "StrategyEIG+root"} else None
         _log_location(
             f"trial {trial_idx + 1}/{config.location_num_trials}: sampled hidden environment "
             f"with true_sources={_format_source_array(env.true_theta)}",
             config,
         )
+        if method_name == "Naive":
+            final_estimate: SourceConfig | None = None
+            final_rmse = float("inf")
+            for round_idx in range(config.location_num_rounds):
+                _write_to_log_if_configured(f"\nLocation Finding trial {trial_idx + 1}: Round {round_idx + 1}\n", config)
+                _log_location(
+                    f"trial {trial_idx + 1}/{config.location_num_trials}, "
+                    f"round {round_idx + 1}/{config.location_num_rounds}, "
+                    f"naive conversation observations={len(observations)}",
+                    config,
+                )
+                best_location = choose_location_naive(questioner, observations, config)
+                observation = env.run_experiment(best_location)
+                observations.append(observation)
+                print_and_log(
+                    f"[location] Selected query {list(best_location)} with score 0.000000; "
+                    f"observed {observation.value:.2f}",
+                    config,
+                )
+
+                final_estimate = estimate_sources_naive(questioner, observations, config)
+                final_rmse = source_rmse(final_estimate, env.true_theta)
+                rmse_totals[round_idx] += final_rmse
+                top_probability_totals[round_idx] += 1.0
+                print_and_log(
+                    f"[location] Naive source RMSE after round {round_idx + 1}: {final_rmse:.6f}",
+                    config,
+                )
+
+            if config.location_plot_trials:
+                if output_dir is None:
+                    _log_location("plotting requested but no output directory was provided; skipping trial plot", config)
+                else:
+                    plot_path = output_dir / f"location_trial_{trial_idx + 1:03d}.png"
+                    plot_state = LocationBeliefState(
+                        hypotheses=[] if final_estimate is None else [final_estimate],
+                        probabilities=[] if final_estimate is None else [1.0],
+                    )
+                    _plot_location_trial(
+                        env,
+                        observations,
+                        plot_state,
+                        trial_idx,
+                        final_rmse,
+                        1.0 if final_estimate is not None else 0.0,
+                        plot_path,
+                    )
+                    _log_location(f"saved trial plot to {plot_path}", config)
+            continue
+
         initial_hypotheses = generate_location_hypotheses(
             questioner,
             observations,
@@ -2364,10 +4002,14 @@ def run_location_finding(
             if method_name == "EIG":
                 eig_belief_state, eig_sample_collapsed = sample_location_eig_belief_state(belief_state, config, rng)
                 support_label = "EIG_support"
+            elif method_name in {"StrategyEIG", "StrategyEIG+root"}:
+                eig_belief_state = belief_state
+                eig_sample_collapsed = False
+                support_label = "strategy_root_support" if method_name == "StrategyEIG+root" else "strategy_support"
             else:
                 eig_belief_state = belief_state
                 eig_sample_collapsed = False
-                support_label = "strategy_support"
+                support_label = "naive_support"
             _write_to_log_if_configured(f"\nLocation Finding trial {trial_idx + 1}: Round {round_idx + 1}\n", config)
             _log_location(
                 f"trial {trial_idx + 1}/{config.location_num_trials}, "
@@ -2393,9 +4035,12 @@ def run_location_finding(
                 best_idx = int(np.argmax(scores)) if scores else 0
                 best_location = candidates[best_idx]
                 best_score = float(scores[best_idx]) if scores else 0.0
+            elif method_name == "Naive":
+                best_location = choose_location_naive(questioner, observations, config)
+                best_score = 0.0
             else:
                 if strategy_library is None:
-                    raise ValueError("StrategyEIG requires an in-memory strategy library")
+                    raise ValueError(f"{method_name} requires an in-memory strategy library")
                 best_location, best_score, _best_strategy = choose_location_with_strategy_rollouts(
                     questioner,
                     belief_state,
@@ -2404,6 +4049,7 @@ def run_location_finding(
                     config,
                     rng,
                     round_idx,
+                    fixed_root=method_name == "StrategyEIG+root",
                 )
             observation = env.run_experiment(best_location)
             observations.append(observation)
