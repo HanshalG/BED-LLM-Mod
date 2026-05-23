@@ -118,25 +118,15 @@ def test_location_finding_runs_one_full_trial_through_bed_runner():
         belief_distribution_num_calls=1,
     )
 
-    # The location_finding Naive method uses the direct naive query prompt, not
-    # EIG candidate generation:
-    # - Initial belief generation
-    # - Per-round naive location
-    # - Per-round belief refresh
-    hypothesis_json = (
-        '{"hypotheses":[[[0.0,0.0],[1.0,1.0]],[[1.0,-1.0],[-1.0,1.0]]]}'
-    )
+    # Plain Naive: query from observation history + end-of-round source estimate only.
     location_a_json = '{"location":[0.1,0.1]}'
     location_b_json = '{"location":[0.5,-0.5]}'
     estimate_json = '{"sources":[[0.0,0.0],[1.0,1.0]]}'
     questioner = _ScriptedModel(
         completions=[
-            hypothesis_json,    # initial belief generation
             location_a_json,    # round 1 naive location
-            hypothesis_json,    # round 1 belief refresh
             estimate_json,      # round 1 naive source estimate
             location_b_json,    # round 2 naive location
-            hypothesis_json,    # round 2 belief refresh
             estimate_json,      # round 2 naive source estimate
         ],
     )
@@ -155,6 +145,70 @@ def test_location_finding_runs_one_full_trial_through_bed_runner():
     assert "source_rmse" in summary.metrics
     assert "top_probability" in summary.metrics
     assert len(summary.metrics["source_rmse"]) == 2
+
+
+def test_location_naive_skips_belief_generation(monkeypatch):
+    """Plain Naive must not call hypothesis generation or posterior scoring."""
+    from environments.location_finding import runner as lf_runner
+
+    hypothesis_json = (
+        '{"hypotheses":[[[0.0,0.0],[1.0,1.0]],[[1.0,-1.0],[-1.0,1.0]]]}'
+    )
+    calls: list[str] = []
+
+    original = lf_runner.generate_location_hypotheses
+
+    def _track(*args, **kwargs):
+        calls.append(str(kwargs.get("label", "")))
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(lf_runner, "generate_location_hypotheses", _track)
+
+    config = Config(
+        task="location_finding",
+        method_names=["Naive"],
+        location_num_rounds=1,
+        location_num_trials=1,
+        location_num_sources=2,
+        location_dim=2,
+        location_noise_sd=0.5,
+        location_query_bounds=[-2.0, 2.0],
+        location_max_total_beliefs=50,
+        location_max_llm_prompt_beliefs=10,
+        location_num_generated_hypotheses=4,
+        location_target_num_candidates=3,
+        location_search_depth=1,
+        location_eig_quadrature_order=5,
+        location_seed=42,
+        generation_temperature_diverse=0.0,
+        belief_distribution_num_calls=1,
+    )
+    questioner = _ScriptedModel(
+        completions=[
+            '{"location":[0.1,0.1]}',
+            '{"sources":[[0.0,0.0],[1.0,1.0]]}',
+        ],
+    )
+    run_from_config(config, questioner=questioner, answerer=None, method_name="Naive")
+    assert calls == []
+
+    calls.clear()
+    questioner_belief = _ScriptedModel(
+        completions=[
+            hypothesis_json,
+            '{"location":[0.1,0.1]}',
+            hypothesis_json,
+            '{"sources":[[0.0,0.0],[1.0,1.0]]}',
+        ],
+    )
+    run_from_config(
+        config,
+        questioner=questioner_belief,
+        answerer=None,
+        method_name="naive+belief",
+    )
+    assert "initial belief generation" in calls
+    assert "belief refresh" in calls
 
 
 def test_location_finding_observe_uses_seeded_rng_for_reproducibility():
@@ -187,6 +241,81 @@ def test_registry_dispatch_does_not_require_main_py():
 
     assert env.name == "animals"
     assert method.name == "EIG"
+
+
+def test_hyperbolic_discounting_runs_one_trial_through_run_from_config():
+    config = Config(
+        task="hyperbolic_discounting",
+        method_names=["EIG"],
+        htd_num_rounds=1,
+        htd_num_trials=1,
+        htd_noise_sd=0.25,
+        htd_target_num_candidates=2,
+        htd_search_depth=1,
+        htd_posterior_mode="analytical_likelihood",
+        htd_max_total_beliefs=20,
+        htd_max_llm_prompt_beliefs=6,
+        htd_num_generated_hypotheses=4,
+        generation_temperature_diverse=0.0,
+    )
+    hypothesis_json = (
+        '{"hypotheses":[{"k":0.5,"alpha":1.0},{"k":1.5,"alpha":0.8}]}'
+    )
+    designs_json = (
+        '{"designs":[{"iR":10,"dR":20,"days":7},{"iR":5,"dR":30,"days":14}]}'
+    )
+    questioner = _ScriptedModel(
+        completions=[
+            hypothesis_json,
+            designs_json,
+            hypothesis_json,
+        ],
+    )
+    run_result, summary = run_from_config(
+        config,
+        questioner=questioner,
+        answerer=None,
+        method_name="EIG",
+    )
+    assert len(run_result.trials) == 1
+    assert len(run_result.trials[0].rounds) == 1
+    assert "parameter_rmse" in summary.metrics
+
+
+def test_hyperbolic_discounting_batched_run_from_config():
+    config = Config(
+        task="hyperbolic_discounting",
+        method_names=["EIG"],
+        htd_num_rounds=1,
+        htd_num_trials=2,
+        htd_trial_batch_size=2,
+        htd_target_num_candidates=2,
+        htd_search_depth=1,
+        htd_posterior_mode="analytical_likelihood",
+        htd_max_total_beliefs=20,
+        htd_max_llm_prompt_beliefs=6,
+        htd_num_generated_hypotheses=4,
+        generation_temperature_diverse=0.0,
+    )
+    hypothesis_json = '{"hypotheses":[{"k":0.5,"alpha":1.0},{"k":1.5,"alpha":0.8}]}'
+    designs_json = '{"designs":[{"iR":10,"dR":20,"days":7},{"iR":5,"dR":30,"days":14}]}'
+    questioner = _ScriptedModel(
+        completions=[],
+        batched_completions=[
+            [hypothesis_json, hypothesis_json],
+            [designs_json, designs_json],
+            [hypothesis_json, hypothesis_json],
+        ],
+    )
+    run_result, summary = run_from_config(
+        config,
+        questioner=questioner,
+        answerer=None,
+        method_name="EIG",
+    )
+    assert len(run_result.trials) == 0
+    assert "parameter_rmse" in summary.metrics
+    assert "implied_choice_accuracy" in summary.metrics
 
 
 def test_unknown_task_in_config_raises_keyerror_through_run_from_config():

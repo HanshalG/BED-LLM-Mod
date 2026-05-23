@@ -4,7 +4,16 @@ from __future__ import annotations
 
 import pytest
 
-from core import AnimalsConfig, BaseConfig, LocationConfig, animals_view, base_view, location_view
+from core import (
+    AnimalsConfig,
+    BaseConfig,
+    HyperbolicConfig,
+    LocationConfig,
+    animals_view,
+    base_view,
+    hyperbolic_view,
+    location_view,
+)
 from helpers import Config
 
 
@@ -81,6 +90,35 @@ def test_location_view_extracts_location_fields():
     assert view.eig_quadrature_order == 11
     # Derived: 3 + 2 + 2 + 1 = 8
     assert view.strategy_num_candidates == 8
+
+
+def test_hyperbolic_view_extracts_hyperbolic_fields():
+    config = Config(
+        task="hyperbolic_discounting",
+        htd_num_rounds=6,
+        htd_num_trials=2,
+        htd_noise_sd=0.3,
+        htd_ir_bounds=[1.0, 50.0],
+        htd_dr_bounds=[2.0, 80.0],
+        htd_days_bounds=[7, 90],
+        htd_max_total_beliefs=200,
+        htd_target_num_candidates=9,
+        htd_search_depth=2,
+        htd_posterior_mode="llm_distribution",
+        htd_k_mean=0.1,
+        htd_k_std=0.9,
+        htd_alpha_scale=1.5,
+    )
+    view = hyperbolic_view(config)
+    assert isinstance(view, HyperbolicConfig)
+    assert view.num_rounds == 6
+    assert view.num_trials == 2
+    assert view.noise_sd == pytest.approx(0.3)
+    assert view.ir_bounds == (1.0, 50.0)
+    assert view.dr_bounds == (2.0, 80.0)
+    assert view.days_bounds == (7, 90)
+    assert view.posterior_mode == "llm_distribution"
+    assert view.alpha_scale == pytest.approx(1.5)
 
 
 def test_location_view_rejects_malformed_query_bounds():

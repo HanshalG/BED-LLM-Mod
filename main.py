@@ -29,6 +29,8 @@ def main():
     config.run_id = resolve_run_id()
     if config.task == "location_finding":
         target_description = f"{config.location_num_trials} Location Finding trial(s)"
+    elif config.task == "hyperbolic_discounting":
+        target_description = f"{config.htd_num_trials} Hyperbolic Temporal Discounting trial(s)"
     else:
         target_description = f"{len(config.animals[config.version])} target animal(s)"
     print(
@@ -81,7 +83,7 @@ def main():
             }
         )
 
-        if config.task == "location_finding":
+        if config.task in {"location_finding", "hyperbolic_discounting"}:
             questioner_specs = []
             seen_questioner_specs = set()
             for pair in config.model_pairs:
@@ -102,7 +104,11 @@ def main():
             questioner = pair.questioner.model
             answerer = pair.answerer.model
             questioner_model = models[pair.questioner]
-            answerer_model = None if config.task == "location_finding" else models[pair.answerer]
+            answerer_model = (
+                None
+                if config.task in {"location_finding", "hyperbolic_discounting"}
+                else models[pair.answerer]
+            )
 
             for method_name in config.method_names:
                 item = run_context.new_item(
@@ -124,6 +130,48 @@ def main():
                     output_dir=item.item_dir,
                 )
                 metrics = summary.metrics
+
+                if config.task == "hyperbolic_discounting":
+                    parameter_rmse = metrics.get("parameter_rmse", [])
+                    k_rmse = metrics.get("k_rmse", [])
+                    top_probability = metrics.get("top_probability", [])
+                    selected_eig = metrics.get("selected_eig", [])
+                    implied_choice_accuracy = metrics.get("implied_choice_accuracy", [])
+                    parameter_rmse_path = item.item_dir / "parameter_rmse.npy"
+                    k_rmse_path = item.item_dir / "k_rmse.npy"
+                    top_probability_path = item.item_dir / "top_probability.npy"
+                    selected_eig_path = item.item_dir / "selected_eig.npy"
+                    implied_choice_accuracy_path = item.item_dir / "implied_choice_accuracy.npy"
+                    np.save(parameter_rmse_path, np.array(parameter_rmse))
+                    np.save(k_rmse_path, np.array(k_rmse))
+                    np.save(top_probability_path, np.array(top_probability))
+                    np.save(selected_eig_path, np.array(selected_eig))
+                    np.save(implied_choice_accuracy_path, np.array(implied_choice_accuracy))
+                    add_item_artifact(item, "parameter_rmse", parameter_rmse_path, run_context)
+                    add_item_artifact(item, "k_rmse", k_rmse_path, run_context)
+                    add_item_artifact(item, "top_probability", top_probability_path, run_context)
+                    add_item_artifact(item, "selected_eig", selected_eig_path, run_context)
+                    add_item_artifact(item, "implied_choice_accuracy", implied_choice_accuracy_path, run_context)
+                    set_item_metrics(
+                        item,
+                        {
+                            "parameter_rmse": parameter_rmse,
+                            "k_rmse": k_rmse,
+                            "top_probability": top_probability,
+                            "selected_eig": selected_eig,
+                            "implied_choice_accuracy": implied_choice_accuracy,
+                        },
+                    )
+                    run_context.write_metadata()
+                    run_context.write_metrics()
+                    wandb.log({
+                        "parameter_rmse": parameter_rmse,
+                        "k_rmse": k_rmse,
+                        "top_probability": top_probability,
+                        "selected_eig": selected_eig,
+                        "implied_choice_accuracy": implied_choice_accuracy,
+                    })
+                    continue
 
                 if config.task == "location_finding":
                     source_rmse = metrics.get("source_rmse", [])

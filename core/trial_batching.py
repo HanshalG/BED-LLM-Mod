@@ -9,6 +9,8 @@ def trial_batch_size(config: Any, env_name: str) -> int:
     """Return configured cross-trial batch size for ``env_name``."""
     if env_name == "location_finding":
         return int(getattr(config, "location_trial_batch_size", 1) or 1)
+    if env_name == "hyperbolic_discounting":
+        return int(getattr(config, "htd_trial_batch_size", 1) or 1)
     return int(getattr(config, "trial_batch_size", 1) or 1)
 
 

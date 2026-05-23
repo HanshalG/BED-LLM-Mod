@@ -236,3 +236,9 @@ def test_naive_does_not_require_candidates():
         config=None,
     )
     assert result.action == "naive-action"
+
+
+def test_naive_maintains_belief_only_for_naive_belief_variant():
+    assert Naive(method_name="naive").maintains_belief is False
+    assert Naive(method_name="Naive").maintains_belief is False
+    assert Naive(method_name="naive+belief").maintains_belief is True

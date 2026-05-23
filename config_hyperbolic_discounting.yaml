@@ -1,0 +1,37 @@
+task: hyperbolic_discounting
+method_names:
+  - EIG
+  - naive
+model_pairs:
+  - questioner: stub
+    answerer: stub
+
+htd_num_trials: 1
+htd_num_rounds: 3
+htd_noise_sd: 0.25
+htd_search_depth: 1
+htd_eig_quadrature_order: 9
+htd_posterior_mode: analytical_likelihood
+htd_target_num_candidates: 5
+htd_max_total_beliefs: 100
+htd_max_llm_prompt_beliefs: 20
+htd_num_generated_hypotheses: 8
+htd_ir_bounds: [0.0, 100.0]
+htd_dr_bounds: [0.0, 100.0]
+htd_days_bounds: [1, 365]
+htd_k_mean: 0.0
+htd_k_std: 1.0
+htd_alpha_scale: 1.0
+htd_seed: 0
+htd_trial_batch_size: 1
+# Optional BoxingGym-style holdout designs for implied_choice_accuracy metrics:
+# htd_eval_holdout_designs:
+#   - {iR: 10.0, dR: 40.0, days: 7}
+#   - {iR: 5.0, dR: 30.0, days: 30}
+
+num_mc_samples: 10
+batched_block_size: 8
+generation_temperature_diverse: 0.0
+generation_temperature_simple: 0.0
+belief_probability_temperature: 0.0
+belief_distribution_num_calls: 1

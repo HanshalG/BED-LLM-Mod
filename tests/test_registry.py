@@ -93,6 +93,7 @@ def test_defaults_register_both_built_in_environments():
 
     assert "animals" in list_environments()
     assert "location_finding" in list_environments()
+    assert "hyperbolic_discounting" in list_environments()
     assert list_methods("animals") == [
         "EIG",
         "Entropy",
@@ -104,6 +105,14 @@ def test_defaults_register_both_built_in_environments():
         "split",
     ]
     assert list_methods("location_finding") == [
+        "EIG",
+        "Naive",
+        "StrategyEIG",
+        "StrategyEIG+root",
+        "naive",
+        "naive+belief",
+    ]
+    assert list_methods("hyperbolic_discounting") == [
         "EIG",
         "Naive",
         "StrategyEIG",

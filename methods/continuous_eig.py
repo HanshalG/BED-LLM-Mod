@@ -109,11 +109,15 @@ def score_continuous_forward_search(
         raise ValueError("continuous forward search supports search_depth 1 or 2 only")
 
     batched_depth2 = getattr(environment, "score_continuous_forward_search_depth2_batched", None)
-    if (
-        callable(batched_depth2)
-        and model is not None
+    env_name = getattr(environment, "name", None)
+    use_batched_depth2 = (
+        env_name == "location_finding"
         and getattr(config, "location_posterior_mode", None) == "llm_distribution"
-    ):
+    ) or (
+        env_name == "hyperbolic_discounting"
+        and getattr(config, "htd_posterior_mode", None) == "llm_distribution"
+    )
+    if callable(batched_depth2) and model is not None and use_batched_depth2:
         return batched_depth2(
             belief_state,
             candidates,

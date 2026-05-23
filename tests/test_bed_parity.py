@@ -39,15 +39,10 @@ def _reset_registry():
 def test_location_naive_bed_runner_matches_legacy_smoke(tmp_path):
     from environments.location_finding.runner import run_location_finding
 
-    hypothesis_json = (
-        '{"hypotheses":[[[0.0,0.0],[1.0,1.0]],[[1.0,-1.0],[-1.0,1.0]]]}'
-    )
     location_json = '{"location":[0.1,0.1]}'
     estimate_json = '{"sources":[[0.0,0.0],[1.0,1.0]]}'
     completions = [
-        hypothesis_json,
         location_json,
-        hypothesis_json,
         estimate_json,
     ]
     legacy_model = _ScriptedModel(list(completions))

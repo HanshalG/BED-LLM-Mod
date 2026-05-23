@@ -35,9 +35,15 @@ def build_eig_method(config: Any, environment: Environment | None = None) -> Met
 
         return AnimalsForwardSearchEIG()
     if environment is not None and _has_predictive_means(environment):
-        noise_sd = float(getattr(config, "location_noise_sd", 0.5))
-        quadrature_order = int(getattr(config, "location_eig_quadrature_order", 15))
-        search_depth = int(getattr(config, "location_search_depth", 1))
+        env_name = getattr(environment, "name", None)
+        if env_name == "hyperbolic_discounting":
+            noise_sd = float(getattr(config, "htd_noise_sd", 0.25))
+            quadrature_order = int(getattr(config, "htd_eig_quadrature_order", 15))
+            search_depth = int(getattr(config, "htd_search_depth", 1))
+        else:
+            noise_sd = float(getattr(config, "location_noise_sd", 0.5))
+            quadrature_order = int(getattr(config, "location_eig_quadrature_order", 15))
+            search_depth = int(getattr(config, "location_search_depth", 1))
         return ContinuousEIG(
             noise_sd=noise_sd,
             quadrature_order=quadrature_order,
@@ -47,6 +53,17 @@ def build_eig_method(config: Any, environment: Environment | None = None) -> Met
         noise_sd = float(getattr(config, "location_noise_sd", 0.5))
         quadrature_order = int(getattr(config, "location_eig_quadrature_order", 15))
         search_depth = int(getattr(config, "location_search_depth", 1))
+        return ContinuousEIG(
+            noise_sd=noise_sd,
+            quadrature_order=quadrature_order,
+            search_depth=search_depth,
+        )
+    if task == "hyperbolic_discounting" or (
+        environment is not None and getattr(environment, "name", None) == "hyperbolic_discounting"
+    ):
+        noise_sd = float(getattr(config, "htd_noise_sd", 0.25))
+        quadrature_order = int(getattr(config, "htd_eig_quadrature_order", 15))
+        search_depth = int(getattr(config, "htd_search_depth", 1))
         return ContinuousEIG(
             noise_sd=noise_sd,
             quadrature_order=quadrature_order,

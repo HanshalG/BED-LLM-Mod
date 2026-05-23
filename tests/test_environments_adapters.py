@@ -11,6 +11,8 @@ import pytest
 
 from core import BeliefState
 from environments.animals import AnimalsBEDEnvironment
+from environments.hyperbolic_discounting import HyperbolicBEDEnvironment
+from environments.hyperbolic_discounting.runner import HyperbolicDesign, HyperbolicObservation, HyperbolicParams
 from environments.location_finding import LocationBEDEnvironment
 from helpers import Config
 
@@ -306,3 +308,57 @@ def test_animals_adapter_early_stops_on_correct_observation():
 
     assert env.early_stop(belief, history=[], hidden_state="dog", latest_observation="Correct!")
     assert not env.early_stop(belief, history=[], hidden_state="dog", latest_observation="Yes")
+
+
+def _hyperbolic_config() -> Config:
+    return Config(
+        task="hyperbolic_discounting",
+        htd_num_rounds=2,
+        htd_num_trials=1,
+        htd_noise_sd=0.25,
+        htd_target_num_candidates=2,
+        htd_search_depth=1,
+        htd_eig_quadrature_order=5,
+        htd_posterior_mode="analytical_likelihood",
+        htd_max_total_beliefs=20,
+        htd_max_llm_prompt_beliefs=8,
+        generation_temperature_diverse=0.0,
+    )
+
+
+def test_hyperbolic_adapter_sample_hidden_state_respects_fixed_theta():
+    truth = HyperbolicParams(k=1.1, alpha=0.7)
+    env = HyperbolicBEDEnvironment(config=_hyperbolic_config(), true_theta=truth)
+    sampled = env.sample_hidden_state(np.random.default_rng(0))
+    assert sampled == truth
+
+
+def test_hyperbolic_adapter_observe_and_likelihood():
+    import hyperbolic_discounting as legacy
+
+    config = _hyperbolic_config()
+    truth = HyperbolicParams(k=1.0, alpha=1.0)
+    env = HyperbolicBEDEnvironment(config=config, true_theta=truth)
+    design = HyperbolicDesign(immediate_reward=2.0, delayed_reward=30.0, days=10)
+    rng = np.random.default_rng(0)
+    observation = env.observe(design, truth, rng)
+    assert observation.design == design
+    hypothesis = HyperbolicParams(k=1.2, alpha=0.9)
+    single = env.log_likelihood(hypothesis, design, observation)
+    batched = env.log_likelihood_many((hypothesis,), design, observation)
+    np.testing.assert_allclose(np.array([single]), batched)
+    mean = legacy.latent_mean(design, hypothesis)
+    assert env.predictive_means((hypothesis,), design)[0] == pytest.approx(mean)
+
+
+def test_hyperbolic_adapter_round_metrics():
+    config = _hyperbolic_config()
+    truth = HyperbolicParams(k=1.0, alpha=1.0)
+    env = HyperbolicBEDEnvironment(config=config)
+    belief = BeliefState(
+        hypotheses=(HyperbolicParams(k=1.0, alpha=1.0), HyperbolicParams(k=2.0, alpha=1.0)),
+        probabilities=(0.8, 0.2),
+    )
+    metrics = env.round_metrics(belief, history=[], hidden_state=truth)
+    assert metrics["parameter_rmse"] == pytest.approx(0.0)
+    assert metrics["top_probability"] == pytest.approx(0.8)

@@ -37,6 +37,9 @@ def run_from_config(
             raise ValueError(
                 "The initial Location Finding implementation requires known noise_sd=0.5"
             )
+    if env_name == "hyperbolic_discounting":
+        if config.htd_noise_sd <= 0.0:
+            raise ValueError("htd_noise_sd must be positive")
 
     batch_size = trial_batch_size(config, env_name)
     if batch_size > 1:
@@ -87,7 +90,11 @@ def run_configured_experiments(
 
     for pair in config.model_pairs:
         questioner_model = models[pair.questioner]
-        answerer_model = None if config.task == "location_finding" else models[pair.answerer]
+        answerer_model = (
+            None
+            if config.task in {"location_finding", "hyperbolic_discounting"}
+            else models[pair.answerer]
+        )
         for method_name in config.method_names:
             build_method(config.task, method_name, config)
             key = (pair.questioner.model, pair.answerer.model, method_name)
@@ -150,6 +157,8 @@ def _first_method_name(config: Any) -> str:
 def _trial_round_counts(config: Any, env_name: str) -> tuple[int, int]:
     if env_name == "location_finding":
         return int(config.location_num_trials), int(config.location_num_rounds)
+    if env_name == "hyperbolic_discounting":
+        return int(config.htd_num_trials), int(config.htd_num_rounds)
     if env_name == "animals":
         animals_table = list(getattr(config, "animals", []) or [])
         version = int(getattr(config, "version", 0))
@@ -163,4 +172,6 @@ def _trial_round_counts(config: Any, env_name: str) -> tuple[int, int]:
 def _seed(config: Any, env_name: str) -> int | None:
     if env_name == "location_finding":
         return getattr(config, "location_seed", None)
+    if env_name == "hyperbolic_discounting":
+        return getattr(config, "htd_seed", None)
     return getattr(config, "seed", None)

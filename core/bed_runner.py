@@ -110,7 +110,11 @@ class BEDRunner(Generic[H, A, O, S]):
             env.set_active_method(getattr(method, "name", type(method).__name__))
 
         hidden_state = env.sample_hidden_state(self.rng)
-        belief_state: BeliefState[H] = env.initial_belief_state(model, config)
+        maintains_belief = getattr(method, "maintains_belief", True)
+        if maintains_belief:
+            belief_state: BeliefState[H] = env.initial_belief_state(model, config)
+        else:
+            belief_state = BeliefState()
         history: list[tuple[A, O]] = []
         rounds: list[RoundResult[A, O]] = []
 
@@ -139,7 +143,8 @@ class BEDRunner(Generic[H, A, O, S]):
             )
             observation = env.observe(chosen.action, hidden_state, self.rng)
             history.append((chosen.action, observation))
-            belief_state = env.update_belief_state(belief_state, history, model, config)
+            if maintains_belief:
+                belief_state = env.update_belief_state(belief_state, history, model, config)
 
             metrics = dict(env.round_metrics(belief_state, history, hidden_state))
             if hasattr(method, "metrics_after_observation"):

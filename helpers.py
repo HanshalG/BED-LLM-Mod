@@ -21,11 +21,12 @@ if TYPE_CHECKING:
 
 
 ReasoningEffort = Literal["low", "medium", "high"]
-TaskMode = Literal["animals", "location_finding"]
+TaskMode = Literal["animals", "location_finding", "hyperbolic_discounting"]
 BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
 LocationPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
+HyperbolicPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
 
 
 @dataclass(frozen=True)
@@ -123,6 +124,25 @@ class Config:
     location_strategy_belief_summary_top_k: int = 5
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
     location_max_new_tokens: int = 8192
+    htd_num_rounds: int = 20
+    htd_num_trials: int = 1
+    htd_trial_batch_size: int = 1
+    htd_seed: int | None = None
+    htd_noise_sd: float = 0.25
+    htd_ir_bounds: list[float] = field(default_factory=lambda: [0.0, 100.0])
+    htd_dr_bounds: list[float] = field(default_factory=lambda: [0.0, 100.0])
+    htd_days_bounds: list[int] = field(default_factory=lambda: [1, 365])
+    htd_max_total_beliefs: int = 1000
+    htd_max_llm_prompt_beliefs: int = 40
+    htd_num_generated_hypotheses: int = 0
+    htd_target_num_candidates: int = 15
+    htd_search_depth: int = 2
+    htd_eig_quadrature_order: int = 15
+    htd_posterior_mode: HyperbolicPosteriorMode = "analytical_likelihood"
+    htd_k_mean: float = 0.0
+    htd_k_std: float = 1.0
+    htd_alpha_scale: float = 1.0
+    htd_eval_holdout_designs: list[dict[str, object]] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         # When location_num_generated_hypotheses is left at the sentinel (0), link it to
@@ -130,6 +150,8 @@ class Config:
         # load_config() behaviour of defaulting the two together.
         if self.location_num_generated_hypotheses == 0:
             self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
+        if self.htd_num_generated_hypotheses == 0:
+            self.htd_num_generated_hypotheses = self.htd_max_llm_prompt_beliefs
 
     @property
     def location_strategy_num_candidates(self) -> int:
@@ -305,8 +327,8 @@ def _read_bounds(raw: dict, key: str, default: list[float]) -> list[float]:
 def load_config(path: str) -> Config:
     raw = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
     task = raw.get("task", "animals")
-    if task not in {"animals", "location_finding"}:
-        raise ValueError("task must be one of: animals, location_finding")
+    if task not in {"animals", "location_finding", "hyperbolic_discounting"}:
+        raise ValueError("task must be one of: animals, location_finding, hyperbolic_discounting")
     model_pairs = [
         _normalize_model_pair(pair, index)
         for index, pair in enumerate(raw.get("model_pairs", []))
@@ -448,8 +470,53 @@ def load_config(path: str) -> Config:
     if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
         raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
     location_max_new_tokens = _read_positive_int(raw, "location_max_new_tokens", 8192)
+    htd_num_rounds = _read_positive_int(raw, "htd_num_rounds", 20)
+    htd_num_trials = _read_positive_int(raw, "htd_num_trials", 1)
+    htd_trial_batch_size = _read_positive_int(raw, "htd_trial_batch_size", 1)
+    htd_seed = raw.get("htd_seed")
+    if htd_seed is not None and (not isinstance(htd_seed, int) or isinstance(htd_seed, bool)):
+        raise ValueError("htd_seed must be an integer or null")
+    htd_noise_sd = _read_positive_float(raw, "htd_noise_sd", 0.25)
+    htd_ir_bounds = _read_bounds(raw, "htd_ir_bounds", [0.0, 100.0])
+    htd_dr_bounds = _read_bounds(raw, "htd_dr_bounds", [0.0, 100.0])
+    days_bounds_raw = raw.get("htd_days_bounds", [1, 365])
+    if not isinstance(days_bounds_raw, list) or len(days_bounds_raw) != 2:
+        raise ValueError("htd_days_bounds must be a list of two integers")
+    htd_days_bounds = [int(days_bounds_raw[0]), int(days_bounds_raw[1])]
+    if htd_days_bounds[0] < 1 or htd_days_bounds[1] < htd_days_bounds[0]:
+        raise ValueError("htd_days_bounds must satisfy 1 <= low <= high")
+    htd_max_total_beliefs = _read_positive_int(raw, "htd_max_total_beliefs", 1000)
+    htd_max_llm_prompt_beliefs = _read_positive_int(raw, "htd_max_llm_prompt_beliefs", 40)
+    htd_num_generated_hypotheses = _read_positive_int(
+        raw,
+        "htd_num_generated_hypotheses",
+        htd_max_llm_prompt_beliefs,
+    )
+    htd_target_num_candidates = _read_positive_int(raw, "htd_target_num_candidates", 15)
+    htd_search_depth = raw.get("htd_search_depth", 2)
+    if not isinstance(htd_search_depth, int) or isinstance(htd_search_depth, bool):
+        raise ValueError("htd_search_depth must be an integer")
+    if htd_search_depth not in {1, 2}:
+        raise ValueError("htd_search_depth must be one of: 1, 2")
+    htd_eig_quadrature_order = _read_positive_int(raw, "htd_eig_quadrature_order", 15)
+    htd_posterior_mode = raw.get("htd_posterior_mode", "analytical_likelihood")
+    if htd_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
+        raise ValueError("htd_posterior_mode must be one of: analytical_likelihood, llm_distribution")
+    htd_k_mean = float(raw.get("htd_k_mean", 0.0))
+    htd_k_std = _read_positive_float(raw, "htd_k_std", 1.0)
+    htd_alpha_scale = _read_positive_float(raw, "htd_alpha_scale", 1.0)
+    htd_eval_holdout_designs = raw.get("htd_eval_holdout_designs", [])
+    if htd_eval_holdout_designs is None:
+        htd_eval_holdout_designs = []
+    if not isinstance(htd_eval_holdout_designs, list):
+        raise ValueError("htd_eval_holdout_designs must be a list of design objects")
+    for index, item in enumerate(htd_eval_holdout_designs):
+        if not isinstance(item, dict):
+            raise ValueError(f"htd_eval_holdout_designs[{index}] must be a mapping")
     method_names = raw.get("method_names", raw.get("extraction_methods", []))
     if task == "location_finding" and not method_names:
+        method_names = ["EIG"]
+    if task == "hyperbolic_discounting" and not method_names:
         method_names = ["EIG"]
     return Config(
         version = raw.get("version", 0),
@@ -513,6 +580,25 @@ def load_config(path: str) -> Config:
         location_strategy_belief_summary_top_k = location_strategy_belief_summary_top_k,
         location_posterior_mode = location_posterior_mode,
         location_max_new_tokens = location_max_new_tokens,
+        htd_num_rounds = htd_num_rounds,
+        htd_num_trials = htd_num_trials,
+        htd_trial_batch_size = htd_trial_batch_size,
+        htd_seed = htd_seed,
+        htd_noise_sd = htd_noise_sd,
+        htd_ir_bounds = htd_ir_bounds,
+        htd_dr_bounds = htd_dr_bounds,
+        htd_days_bounds = htd_days_bounds,
+        htd_max_total_beliefs = htd_max_total_beliefs,
+        htd_max_llm_prompt_beliefs = htd_max_llm_prompt_beliefs,
+        htd_num_generated_hypotheses = htd_num_generated_hypotheses,
+        htd_target_num_candidates = htd_target_num_candidates,
+        htd_search_depth = htd_search_depth,
+        htd_eig_quadrature_order = htd_eig_quadrature_order,
+        htd_posterior_mode = htd_posterior_mode,
+        htd_k_mean = htd_k_mean,
+        htd_k_std = htd_k_std,
+        htd_alpha_scale = htd_alpha_scale,
+        htd_eval_holdout_designs = htd_eval_holdout_designs,
     )
 
 

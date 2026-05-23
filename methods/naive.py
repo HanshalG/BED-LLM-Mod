@@ -25,6 +25,15 @@ class Naive(Method[H, A, O, S]):
     def name(self) -> str:
         return self.method_name
 
+    @property
+    def maintains_belief(self) -> bool:
+        """Whether the runner should maintain an explicit belief state.
+
+        Plain ``naive`` / ``Naive`` use only observation history for queries and
+        estimates.  ``naive+belief`` additionally tracks a weighted posterior.
+        """
+        return self.method_name == "naive+belief"
+
     def select_action(
         self,
         candidates: Sequence[A],

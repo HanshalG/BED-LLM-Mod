@@ -184,6 +184,61 @@ def animals_view(config: Any) -> AnimalsConfig:
     )
 
 
+@dataclass(frozen=True)
+class HyperbolicConfig:
+    """All fields used by the hyperbolic temporal discounting environment."""
+
+    num_rounds: int = 20
+    num_trials: int = 1
+    trial_batch_size: int = 1
+    seed: int | None = None
+    noise_sd: float = 0.25
+    ir_bounds: tuple[float, float] = (0.0, 100.0)
+    dr_bounds: tuple[float, float] = (0.0, 100.0)
+    days_bounds: tuple[int, int] = (1, 365)
+    max_total_beliefs: int = 1000
+    max_llm_prompt_beliefs: int = 40
+    num_generated_hypotheses: int = 40
+    target_num_candidates: int = 15
+    search_depth: int = 2
+    eig_quadrature_order: int = 15
+    posterior_mode: str = "analytical_likelihood"
+    k_mean: float = 0.0
+    k_std: float = 1.0
+    alpha_scale: float = 1.0
+    belief_distribution_permute_history: bool = False
+
+
+def hyperbolic_view(config: Any) -> HyperbolicConfig:
+    """Project hyperbolic-discounting fields out of a legacy ``Config``."""
+    ir_bounds_raw = getattr(config, "htd_ir_bounds", [0.0, 100.0]) or [0.0, 100.0]
+    dr_bounds_raw = getattr(config, "htd_dr_bounds", [0.0, 100.0]) or [0.0, 100.0]
+    days_bounds_raw = getattr(config, "htd_days_bounds", [1, 365]) or [1, 365]
+    if len(ir_bounds_raw) != 2 or len(dr_bounds_raw) != 2 or len(days_bounds_raw) != 2:
+        raise ValueError("htd_*_bounds must each have exactly 2 entries")
+    return HyperbolicConfig(
+        num_rounds=int(getattr(config, "htd_num_rounds", 20)),
+        num_trials=int(getattr(config, "htd_num_trials", 1)),
+        trial_batch_size=int(getattr(config, "htd_trial_batch_size", 1)),
+        seed=getattr(config, "htd_seed", None),
+        noise_sd=float(getattr(config, "htd_noise_sd", 0.25)),
+        ir_bounds=(float(ir_bounds_raw[0]), float(ir_bounds_raw[1])),
+        dr_bounds=(float(dr_bounds_raw[0]), float(dr_bounds_raw[1])),
+        days_bounds=(int(days_bounds_raw[0]), int(days_bounds_raw[1])),
+        max_total_beliefs=int(getattr(config, "htd_max_total_beliefs", 1000)),
+        max_llm_prompt_beliefs=int(getattr(config, "htd_max_llm_prompt_beliefs", 40)),
+        num_generated_hypotheses=int(getattr(config, "htd_num_generated_hypotheses", 40)),
+        target_num_candidates=int(getattr(config, "htd_target_num_candidates", 15)),
+        search_depth=int(getattr(config, "htd_search_depth", 2)),
+        eig_quadrature_order=int(getattr(config, "htd_eig_quadrature_order", 15)),
+        posterior_mode=getattr(config, "htd_posterior_mode", "analytical_likelihood"),
+        k_mean=float(getattr(config, "htd_k_mean", 0.0)),
+        k_std=float(getattr(config, "htd_k_std", 1.0)),
+        alpha_scale=float(getattr(config, "htd_alpha_scale", 1.0)),
+        belief_distribution_permute_history=getattr(config, "belief_distribution_permute_history", False),
+    )
+
+
 def location_view(config: Any) -> LocationConfig:
     """Project the location-finding-specific fields out of a legacy ``Config``."""
     query_bounds_raw = getattr(config, "location_query_bounds", [-2.0, 2.0]) or [-2.0, 2.0]

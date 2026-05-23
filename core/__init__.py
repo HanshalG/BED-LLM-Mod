@@ -18,9 +18,11 @@ from .bed_runner import BEDRunner, RoundResult, TrialResult, RunResult
 from .config import (
     AnimalsConfig,
     BaseConfig,
+    HyperbolicConfig,
     LocationConfig,
     animals_view,
     base_view,
+    hyperbolic_view,
     location_view,
 )
 from .experiment_summary import ExperimentSummary
@@ -45,8 +47,10 @@ __all__ = [
     "AnimalsConfig",
     "BaseConfig",
     "LocationConfig",
+    "HyperbolicConfig",
     "animals_view",
     "base_view",
+    "hyperbolic_view",
     "location_view",
     "build_environment",
     "build_method",
