@@ -6,9 +6,9 @@ def main():
 
     import numpy as np
 
+    from core.experiment import run_from_config
     from helpers import build_models, format_config_for_log, load_config, resolve_run_id, write_to_log
     from model import build_model_adapter
-    from questions_game import twenty_questions_animals
 
     import time
 
@@ -116,68 +116,56 @@ def main():
                 write_to_log(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)
                 print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
 
-                if config.task == "location_finding":
-                    if method_name not in {"EIG", "StrategyEIG", "StrategyEIG+root", "Naive"}:
-                        raise ValueError(
-                            "Location Finding currently supports method_name='EIG', 'StrategyEIG', "
-                            "'StrategyEIG+root', or 'Naive'"
-                        )
-                    from location_finding import run_location_finding
+                _run_result, summary = run_from_config(
+                    config,
+                    questioner_model,
+                    answerer_model,
+                    method_name=method_name,
+                    output_dir=item.item_dir,
+                )
+                metrics = summary.metrics
 
-                    metrics = run_location_finding(
-                        questioner_model,
-                        config,
-                        output_dir=item.item_dir,
-                        method_name=method_name,
-                    )
+                if config.task == "location_finding":
+                    source_rmse = metrics.get("source_rmse", [])
+                    top_probability = metrics.get("top_probability", [])
+                    selected_eig = metrics.get("selected_eig", [])
                     source_rmse_path = item.item_dir / "source_rmse.npy"
                     top_probability_path = item.item_dir / "top_probability.npy"
                     selected_eig_path = item.item_dir / "selected_eig.npy"
-                    write_to_log(f"Source RMSE trace: {metrics.source_rmse}\n", config)
-                    write_to_log(f"Top probability trace: {metrics.top_probability}\n", config)
-                    write_to_log(f"Selected EIG trace: {metrics.selected_eig}\n", config)
+                    write_to_log(f"Source RMSE trace: {source_rmse}\n", config)
+                    write_to_log(f"Top probability trace: {top_probability}\n", config)
+                    write_to_log(f"Selected EIG trace: {selected_eig}\n", config)
                     print(f"[main] Saving Location Finding source RMSE trace to {source_rmse_path}")
-                    np.save(source_rmse_path, np.array(metrics.source_rmse))
+                    np.save(source_rmse_path, np.array(source_rmse))
                     add_item_artifact(item, "source_rmse", source_rmse_path, run_context)
                     print(f"[main] Saving Location Finding top probability trace to {top_probability_path}")
-                    np.save(top_probability_path, np.array(metrics.top_probability))
+                    np.save(top_probability_path, np.array(top_probability))
                     add_item_artifact(item, "top_probability", top_probability_path, run_context)
                     print(f"[main] Saving Location Finding selected EIG trace to {selected_eig_path}")
-                    np.save(selected_eig_path, np.array(metrics.selected_eig))
+                    np.save(selected_eig_path, np.array(selected_eig))
                     add_item_artifact(item, "selected_eig", selected_eig_path, run_context)
                     for plot_idx, plot_path in enumerate(sorted(item.item_dir.glob("location_trial_*.png")), start=1):
                         add_item_artifact(item, f"location_trial_plot_{plot_idx:03d}", plot_path, run_context)
                     set_item_metrics(
                         item,
                         {
-                            "source_rmse": metrics.source_rmse,
-                            "top_probability": metrics.top_probability,
-                            "selected_eig": metrics.selected_eig,
+                            "source_rmse": source_rmse,
+                            "top_probability": top_probability,
+                            "selected_eig": selected_eig,
                         },
                     )
                     run_context.write_metadata()
                     run_context.write_metrics()
-                    print(f"Source RMSE: {metrics.source_rmse}\n\n")
+                    print(f"Source RMSE: {source_rmse}\n\n")
                     wandb.log({
-                        "source_rmse": metrics.source_rmse,
-                        "top_probability": metrics.top_probability,
-                        "selected_eig": metrics.selected_eig,
+                        "source_rmse": source_rmse,
+                        "top_probability": top_probability,
+                        "selected_eig": selected_eig,
                     })
                     continue
 
-                game_metrics = twenty_questions_animals(
-                    questioner_model,
-                    answerer_model,
-                    config.animals[config.version],
-                    method_name,
-                    config,
-                )
-                if hasattr(game_metrics, "correct_guess") and hasattr(game_metrics, "correct_belief_mass"):
-                    accuracy = game_metrics.correct_guess
-                    correct_belief_mass = game_metrics.correct_belief_mass
-                else:
-                    accuracy = list(game_metrics)
-                    correct_belief_mass = [0.0] * len(accuracy)
+                accuracy = metrics.get("accuracy", [])
+                correct_belief_mass = metrics.get("correct_belief_mass", [0.0] * len(accuracy))
                 accuracy_path = item.item_dir / "accuracy.npy"
                 correct_belief_mass_path = item.item_dir / "correct_belief_mass.npy"
                 write_to_log(f"Accuracy trace: {accuracy}\n", config)

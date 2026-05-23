@@ -729,23 +729,14 @@ def test_depth_two_eig_generates_fresh_candidates_per_hypothesis_branch():
     hypothesis_b = normalize_source_config([[2, 2], [1, 2], [2, 1]], 3, 2)
     belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
     candidates = [(0.0, 0.0), (1.0, 1.0)]
-    # 4 hypothesis-generation completions (2 candidates × 2 hypotheses), then 4 candidate completions
     fresh_candidate_completion = '{"locations": [[-1, -1], [1, 1]]}'
-    model = FakeLocationModel(
-        ['{"hypotheses": []}' for _ in range(4)] +
-        [fresh_candidate_completion for _ in range(4)]
-    )
+    model = FakeLocationModel([fresh_candidate_completion for _ in range(4)])
 
     scores = score_candidate_locations(belief_state, candidates, config, questioner=model, observations=[])
 
-    # Two batched-call groups: hypothesis generation then candidate generation
-    assert len(model.batched_calls) == 2
-    assert len(model.batched_calls[0]) == 4  # 2 candidates × 2 hypotheses
-    assert len(model.batched_calls[1]) == 4
-    first_hyp_prompt = model.batched_calls[0][0][-1]["content"]
-    assert "Observation history:" in first_hyp_prompt
-    first_cand_prompt = model.batched_calls[1][0][-1]["content"]
-    assert "candidate measurement locations" in first_cand_prompt
+    # Depth-2 forward search: analytical branch refresh, then fresh candidates per branch.
+    assert len(model.calls) == 4
+    assert "candidate measurement locations" in model.calls[0][-1]["content"]
 
     # Manual scores: per-hypothesis branch uses mean signal as representative observation,
     # builds future belief state analytically, scores fresh candidates at depth-1.

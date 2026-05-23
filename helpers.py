@@ -97,6 +97,7 @@ class Config:
     log_path: Path | None = None
     active_prior_animals: list[str] | None = None
     active_answerer_prior_animals: list[str] | None = None
+    animals_num_rounds: int = 20
     location_num_rounds: int = 20
     location_num_trials: int = 1
     location_trial_batch_size: int = 1
@@ -401,6 +402,7 @@ def load_config(path: str) -> Config:
     if not isinstance(forward_search_verbose, bool):
         raise ValueError("forward_search_verbose must be a boolean")
 
+    animals_num_rounds = _read_positive_int(raw, "animals_num_rounds", 20)
     location_num_rounds = _read_positive_int(raw, "location_num_rounds", 20)
     location_num_trials = _read_positive_int(raw, "location_num_trials", 1)
     location_trial_batch_size = _read_positive_int(raw, "location_trial_batch_size", 1)
@@ -485,6 +487,7 @@ def load_config(path: str) -> Config:
         tensor_parallel_size = tensor_parallel_size,
         gpu_memory_utilization = gpu_memory_utilization,
         max_model_len = max_model_len,
+        animals_num_rounds = animals_num_rounds,
         location_num_rounds = location_num_rounds,
         location_num_trials = location_num_trials,
         location_trial_batch_size = location_trial_batch_size,
