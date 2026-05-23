@@ -117,7 +117,10 @@ class RoutingLocationModel:
 
 
 def _location_config(**overrides) -> Config:
-    config = Config(
+    # Build defaults, then let caller overrides win.  All values are passed to
+    # Config() in one shot so that __post_init__ (which resolves the
+    # location_num_generated_hypotheses sentinel) sees the final field values.
+    defaults: dict = dict(
         task="location_finding",
         location_num_rounds=1,
         location_num_trials=1,
@@ -132,9 +135,8 @@ def _location_config(**overrides) -> Config:
         location_eig_quadrature_order=5,
         generation_temperature_diverse=0.0,
     )
-    for key, value in overrides.items():
-        setattr(config, key, value)
-    return config
+    defaults.update(overrides)
+    return Config(**defaults)
 
 
 def _source_rows(num_sources: int, shift: float = 0.0) -> list[list[float]]:
@@ -250,7 +252,7 @@ def test_naive_parsers_prefer_final_json_after_reasoning_history_fragments():
 
 
 def test_belief_generation_prompts_split_initial_and_update_modes():
-    config = _location_config(location_max_llm_prompt_beliefs=7)
+    config = _location_config(location_max_llm_prompt_beliefs=7, location_num_generated_hypotheses=7)
     hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
     belief_state = LocationBeliefState([hypothesis], [1.0])
 

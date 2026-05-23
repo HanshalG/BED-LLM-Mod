@@ -3,15 +3,20 @@ from __future__ import annotations
 import json
 import math
 import re
-from collections import Counter
 from dataclasses import dataclass, field
 from itertools import permutations
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import numpy as np
 
-from helpers import Config, _average_labeled_distributions_from_completions, print_and_log, write_to_log
+from helpers import (
+    Config,
+    _average_labeled_distributions_from_completions,
+    _strip_code_fences,
+    print_and_log,
+    write_to_log,
+)
 
 if TYPE_CHECKING:
     from model import Model
@@ -181,18 +186,6 @@ def _dedupe_source_configs(configs: list[SourceConfig]) -> list[SourceConfig]:
         seen.add(key)
         deduped.append(config)
     return deduped
-
-
-def _strip_code_fences(text: str) -> str:
-    stripped = text.strip()
-    if not stripped.startswith("```"):
-        return stripped
-    lines = stripped.splitlines()
-    if lines and lines[0].startswith("```"):
-        lines = lines[1:]
-    if lines and lines[-1].startswith("```"):
-        lines = lines[:-1]
-    return "\n".join(lines).strip()
 
 
 def _clean_json_completion(text: str) -> str:
@@ -504,10 +497,11 @@ def _log_location(message: str, config: Config) -> None:
 
 
 def _belief_system_prompt(config: Config, *, update: bool) -> str:
+    dim_label = f"{config.location_dim}D"
     role = (
-        "You maintain and refresh a finite Bayesian belief support for a 2D source-localization problem."
+        f"You maintain and refresh a finite Bayesian belief support for a {dim_label} source-localization problem."
         if update
-        else "You maintain a finite Bayesian belief support for a 2D source-localization problem."
+        else f"You maintain a finite Bayesian belief support for a {dim_label} source-localization problem."
     )
     return (
         f"{role}\n\n"
@@ -540,7 +534,7 @@ def _belief_output_contract(config: Config) -> str:
         "Rules:\n"
         "- The final character must be }.\n"
         "- Do not include <eos>, markdown, comments, explanations, or trailing text.\n"
-        f"- Generate up to {config.location_max_llm_prompt_beliefs} source configurations.\n"
+        f"- Generate up to {config.location_num_generated_hypotheses} source configurations.\n"
         f"- Each hypothesis must contain exactly {config.location_num_sources} distinct "
         f"{config.location_dim}D source coordinates.\n"
         "- Do not repeat the same hypothesis with sources in a different order.\n"
@@ -669,14 +663,16 @@ def _location_posterior_distribution_messages(
 def _permuted_location_observation_histories(
     observations: list[LocationObservation],
     num_samples: int,
+    rng: np.random.Generator | None = None,
 ) -> list[list[LocationObservation]]:
     if num_samples < 1:
         raise ValueError("num_samples must be at least 1")
     if len(observations) <= 1:
         return [list(observations) for _ in range(num_samples)]
+    local_rng = rng if rng is not None else np.random.default_rng()
     histories: list[list[LocationObservation]] = []
     for _sample_idx in range(num_samples):
-        permutation = np.random.permutation(len(observations))
+        permutation = local_rng.permutation(len(observations))
         histories.append([observations[int(index)] for index in permutation])
     return histories
 
@@ -1443,17 +1439,16 @@ def generate_location_strategies_many(
         _strategy_phase_batched(questioner, crossover_messages, pending, prepared, target_count, config, "crossover")
 
     # Phase D: diverse — fills any remaining slots
-    diverse_messages = [
-        _strategy_diverse_messages(
-            prepared[i]["belief_state"],  # type: ignore[arg-type]
-            prepared[i]["observations"],  # type: ignore[arg-type]
-            config,
-            target_count - len(prepared[i]["strategies"]),  # type: ignore[arg-type]
-        )
-        for i in range(len(prepared))
-    ]
     pending = [i for i in range(len(prepared)) if len(prepared[i]["strategies"]) < target_count]  # type: ignore[arg-type]
     if pending:
+        diverse_messages: list[Any] = [None] * len(prepared)
+        for i in pending:
+            diverse_messages[i] = _strategy_diverse_messages(
+                prepared[i]["belief_state"],  # type: ignore[arg-type]
+                prepared[i]["observations"],  # type: ignore[arg-type]
+                config,
+                target_count - len(prepared[i]["strategies"]),  # type: ignore[arg-type]
+            )
         _strategy_phase_batched(questioner, diverse_messages, pending, prepared, target_count, config, "diverse")
 
     results: list[list[str]] = []
@@ -1682,17 +1677,16 @@ def generate_location_strategy_roots_many(
         _strategy_root_phase_batched(questioner, crossover_messages, pending, prepared, target_count, config, "crossover")
 
     # Phase D: diverse — fills remaining slots
-    diverse_messages = [
-        _strategy_root_diverse_messages(
-            prepared[i]["belief_state"],  # type: ignore[arg-type]
-            prepared[i]["observations"],  # type: ignore[arg-type]
-            config,
-            target_count - len(prepared[i]["candidates"]),  # type: ignore[arg-type]
-        )
-        for i in range(len(prepared))
-    ]
     pending = [i for i in range(len(prepared)) if len(prepared[i]["candidates"]) < target_count]  # type: ignore[arg-type]
     if pending:
+        diverse_messages: list[Any] = [None] * len(prepared)
+        for i in pending:
+            diverse_messages[i] = _strategy_root_diverse_messages(
+                prepared[i]["belief_state"],  # type: ignore[arg-type]
+                prepared[i]["observations"],  # type: ignore[arg-type]
+                config,
+                target_count - len(prepared[i]["candidates"]),  # type: ignore[arg-type]
+            )
         _strategy_root_phase_batched(questioner, diverse_messages, pending, prepared, target_count, config, "diverse")
 
     results: list[list[LocationStrategyCandidate]] = []
@@ -1823,7 +1817,7 @@ def _root_query_fingerprint(root_queries: list[Location | None]) -> str:
     ]
     if not formatted_queries:
         return ""
-    return Counter(formatted_queries).most_common(1)[0][0]
+    return max(set(formatted_queries), key=formatted_queries.count)
 
 
 def _location_entropy(probabilities: list[float]) -> float:
@@ -2478,7 +2472,8 @@ def generate_location_hypotheses(
     _log_location(
         f"{label}: requesting source hypotheses "
         f"(observations={len(observations)}, previous_beliefs={previous_count}, "
-        f"max_return={config.location_max_llm_prompt_beliefs})",
+        f"max_generate={config.location_num_generated_hypotheses}, "
+        f"max_context={config.location_max_llm_prompt_beliefs})",
         config,
     )
     messages = _belief_generation_messages(observations, belief_state, config)
@@ -2882,11 +2877,7 @@ def estimate_sources_naive_many(
 
     final_estimates: list[SourceConfig] = []
     for estimate in estimates:
-        if estimate is None:
-            estimate = tuple(
-                tuple(0.0 for _coord_idx in range(config.location_dim))
-                for _source_idx in range(config.location_num_sources)
-            )
+        assert estimate is not None, "estimate should be set by the repair loop"
         _log_location(f"Naive estimate: chose sources {_format_source_array(np.asarray(estimate, dtype=float))}", config)
         final_estimates.append(estimate)
     return final_estimates
@@ -2941,16 +2932,40 @@ def build_location_belief_state_unpruned(
     if not hypotheses:
         return LocationBeliefState([], [])
 
-    log_scores = []
-    for hypothesis in hypotheses:
-        log_score = _hypothesis_log_prior(hypothesis)
-        for observation in observations:
-            mean = signal_intensity_for_hypothesis(hypothesis, observation.query)
-            log_score += _log_normal_pdf(observation.value, mean, config.location_noise_sd)
-        log_scores.append(log_score)
+    # theta: (H, S, D) — all hypotheses stacked into a single array
+    theta = np.asarray(hypotheses, dtype=float)
+    H, S, D = theta.shape
+
+    # Log prior: -0.5 * ||theta||^2 - 0.5 * S*D * log(2π), shape (H,)
+    log_scores = (
+        -0.5 * np.sum(theta.reshape(H, -1) ** 2, axis=1)
+        - 0.5 * S * D * math.log(2.0 * math.pi)
+    )
+
+    if observations:
+        queries = np.asarray([obs.query for obs in observations], dtype=float)  # (O, D)
+        values = np.asarray([obs.value for obs in observations], dtype=float)   # (O,)
+        sd = config.location_noise_sd
+        b, m, alpha = 0.1, 1e-4, 1.0
+
+        # Pairwise squared distances between each hypothesis-source and each query.
+        # theta[:, np.newaxis, :, :] → (H, 1, S, D)
+        # queries[np.newaxis, :, np.newaxis, :] → (1, O, 1, D)
+        # distances_sq → (H, O, S)
+        distances_sq = np.sum(
+            (theta[:, np.newaxis, :, :] - queries[np.newaxis, :, np.newaxis, :]) ** 2,
+            axis=3,
+        )
+
+        # Signal means for every (hypothesis, observation) pair: (H, O)
+        means = b + np.sum(alpha / (m + distances_sq), axis=2)
+
+        # Log-likelihood under Gaussian noise: (H, O), then summed over observations → (H,)
+        z = (values[np.newaxis, :] - means) / sd
+        log_scores += np.sum(-0.5 * z * z - math.log(sd) - 0.5 * math.log(2.0 * math.pi), axis=1)
 
     normalizer = _logsumexp(log_scores)
-    probabilities = [math.exp(log_score - normalizer) for log_score in log_scores]
+    probabilities = np.exp(log_scores - normalizer).tolist()
     state = LocationBeliefState(hypotheses, probabilities)
     return sort_location_belief_state(state)
 
@@ -2998,6 +3013,7 @@ def build_location_posteriors_many(
     context_states: list[LocationBeliefState | None] | None = None,
     label: str = "location posterior scoring",
     prune: bool = True,
+    rng: np.random.Generator | None = None,
 ) -> list[LocationBeliefState]:
     if len(hypotheses_many) != len(observations_many):
         raise ValueError("hypotheses_many and observations_many must have the same length")
@@ -3041,6 +3057,7 @@ def build_location_posteriors_many(
             histories = _permuted_location_observation_histories(
                 observations,
                 config.belief_distribution_num_calls,
+                rng,
             )
         else:
             histories = [list(observations) for _call_idx in range(config.belief_distribution_num_calls)]
@@ -4319,9 +4336,6 @@ def run_location_finding(
                     best_idx = int(np.argmax(scores)) if scores else 0
                     best_location = candidates[best_idx]
                     best_score = float(scores[best_idx]) if scores else 0.0
-            elif method_name == "Naive":
-                best_location = choose_location_naive(questioner, observations, config)
-                best_score = 0.0
             else:
                 if strategy_library is None:
                     raise ValueError(f"{method_name} requires an in-memory strategy library")

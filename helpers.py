@@ -107,6 +107,7 @@ class Config:
     location_query_bounds: list[float] = field(default_factory=lambda: [-2.0, 2.0])
     location_max_total_beliefs: int = 1000
     location_max_llm_prompt_beliefs: int = 40
+    location_num_generated_hypotheses: int = 0  # 0 = inherit from location_max_llm_prompt_beliefs
     location_target_num_candidates: int = 15
     location_search_depth: int = 2
     location_eig_quadrature_order: int = 15
@@ -121,6 +122,13 @@ class Config:
     location_strategy_belief_summary_top_k: int = 5
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
     location_max_new_tokens: int = 8192
+
+    def __post_init__(self) -> None:
+        # When location_num_generated_hypotheses is left at the sentinel (0), link it to
+        # location_max_llm_prompt_beliefs so that direct Config() construction matches the
+        # load_config() behaviour of defaulting the two together.
+        if self.location_num_generated_hypotheses == 0:
+            self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
 
     @property
     def location_strategy_num_candidates(self) -> int:
@@ -411,6 +419,11 @@ def load_config(path: str) -> Config:
         "location_max_llm_prompt_beliefs",
         raw.get("location_max_beliefs", 40),
     )
+    location_num_generated_hypotheses = _read_positive_int(
+        raw,
+        "location_num_generated_hypotheses",
+        location_max_llm_prompt_beliefs,
+    )
     location_target_num_candidates = _read_positive_int(raw, "location_target_num_candidates", 15)
     location_search_depth = raw.get("location_search_depth", 2)
     if not isinstance(location_search_depth, int) or isinstance(location_search_depth, bool):
@@ -482,6 +495,7 @@ def load_config(path: str) -> Config:
         location_query_bounds = location_query_bounds,
         location_max_total_beliefs = location_max_total_beliefs,
         location_max_llm_prompt_beliefs = location_max_llm_prompt_beliefs,
+        location_num_generated_hypotheses = location_num_generated_hypotheses,
         location_target_num_candidates = location_target_num_candidates,
         location_search_depth = location_search_depth,
         location_eig_quadrature_order = location_eig_quadrature_order,
@@ -578,17 +592,6 @@ def _json_ready(value: object) -> object:
 
 def format_config_for_log(config: Config) -> str:
     return json.dumps(_json_ready(asdict(config)), indent=2, sort_keys=True)
-
-
-def _build_probability_messages(messages: list[dict[str, str]], responses: list[str]) -> list[dict[str, str]]:
-    probability_messages = [dict(message) for message in messages]
-    if is_answer_likelihood_messages(probability_messages):
-        return probability_messages
-
-    raise ValueError(
-        "chat_probabilities_messages_batched requires dedicated answer likelihood messages. "
-        "Build conversations with answer_likelihood_messages(...)."
-    )
 
 
 def _strip_code_fences(text: str) -> str:
@@ -789,10 +792,15 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
                                        temperature: float,
                                        complete_messages_batched: Callable[..., list[str]],
                                        fallback_to_uniform: bool = False) -> list[dict[str, float]]:
-    probability_messages = [
-        _build_probability_messages(messages, responses)
-        for messages in batch_messages
-    ]
+    # Validate that every message list is in answer-likelihood format, then shallow-copy
+    # so downstream mutation is safe.
+    for messages in batch_messages:
+        if not is_answer_likelihood_messages(list(messages)):
+            raise ValueError(
+                "chat_probabilities_messages_batched requires dedicated answer likelihood messages. "
+                "Build conversations with answer_likelihood_messages(...)."
+            )
+    probability_messages = [[dict(message) for message in messages] for messages in batch_messages]
     results: list[dict[str, float] | None] = [None] * len(probability_messages)
     pending_indices = list(range(len(probability_messages)))
     raw_completions: dict[int, str] = {}
