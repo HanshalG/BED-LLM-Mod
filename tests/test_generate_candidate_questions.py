@@ -19,7 +19,7 @@ class _ModelBase:
 fake_model_module.Model = _ModelBase
 sys.modules.setdefault("model", fake_model_module)
 
-import generate_candidate_questions as gcq
+import environments.animals.questions as gcq
 from helpers import BeliefState, Config
 
 

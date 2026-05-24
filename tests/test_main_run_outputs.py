@@ -6,7 +6,7 @@ import types
 import numpy as np
 
 
-def test_main_writes_one_run_directory_without_legacy_outputs(monkeypatch, tmp_path):
+def test_main_writes_one_run_directory_without_duplicate_outputs(monkeypatch, tmp_path):
     fake_wandb = types.ModuleType("wandb")
     wandb_init_calls = []
     wandb_log_calls = []

@@ -1,22 +1,143 @@
-"""Continuous-observation EIG helpers for location finding."""
+from __future__ import annotations
 
-from .runner import (
-    _expected_information_gain_batch_from_means as expected_information_gain_batch_from_means,
-    _expected_information_gain_from_means as expected_information_gain_from_means,
-    _normal_logpdf_array as normal_logpdf_array,
-    _posterior_probabilities_after_values as posterior_probabilities_after_values,
-    _quadrature_nodes as quadrature_nodes,
-    expected_information_gain,
-    score_candidate_locations,
-)
+import math
 
-__all__ = [
-    "expected_information_gain",
-    "expected_information_gain_batch_from_means",
-    "expected_information_gain_from_means",
-    "normal_logpdf_array",
-    "posterior_probabilities_after_values",
-    "quadrature_nodes",
-    "score_candidate_locations",
-]
+import numpy as np
 
+from helpers import Config
+from .beliefs import _posterior_after_observation
+from .physics import _log_normal_pdf, signal_intensity_for_hypothesis
+from .types import Location, LocationBeliefState, LocationObservation
+
+
+def _quadrature_nodes(order: int) -> tuple[np.ndarray, np.ndarray]:
+    nodes, weights = np.polynomial.hermite.hermgauss(order)
+    return nodes.astype(float), (weights.astype(float) / math.sqrt(math.pi))
+
+
+def expected_information_gain(
+    belief_state: LocationBeliefState,
+    query: Location,
+    noise_sd: float,
+    quadrature_order: int,
+) -> float:
+    if len(belief_state.hypotheses) <= 1:
+        return 0.0
+
+    probabilities = np.asarray(belief_state.probabilities, dtype=float)
+    means = np.asarray(
+        [signal_intensity_for_hypothesis(hypothesis, query) for hypothesis in belief_state.hypotheses],
+        dtype=float,
+    )
+    nodes, weights = _quadrature_nodes(quadrature_order)
+    return _expected_information_gain_from_means(probabilities, means, noise_sd, nodes, weights)
+
+
+def _normal_logpdf_array(values: np.ndarray, means: np.ndarray, noise_sd: float) -> np.ndarray:
+    z = (values - means) / noise_sd
+    return -0.5 * z * z - math.log(noise_sd) - 0.5 * math.log(2.0 * math.pi)
+
+
+def _logsumexp_array(values: np.ndarray, axis: int) -> np.ndarray:
+    max_values = np.max(values, axis=axis, keepdims=True)
+    return np.squeeze(max_values + np.log(np.sum(np.exp(values - max_values), axis=axis, keepdims=True)), axis=axis)
+
+
+def _expected_information_gain_from_means(
+    probabilities: np.ndarray,
+    means: np.ndarray,
+    noise_sd: float,
+    nodes: np.ndarray,
+    weights: np.ndarray,
+) -> float:
+    if len(means) <= 1:
+        return 0.0
+
+    probabilities = np.asarray(probabilities, dtype=float)
+    means = np.asarray(means, dtype=float)
+    y_values = means[:, None] + math.sqrt(2.0) * noise_sd * nodes[None, :]
+    component_log_likelihoods = _normal_logpdf_array(y_values, means[:, None], noise_sd)
+    all_log_likelihoods = _normal_logpdf_array(y_values[:, :, None], means[None, None, :], noise_sd)
+    mixture_log_likelihoods = _logsumexp_array(
+        all_log_likelihoods + np.log(np.maximum(probabilities, 1e-300))[None, None, :],
+        axis=2,
+    )
+    value = np.sum(probabilities[:, None] * weights[None, :] * (component_log_likelihoods - mixture_log_likelihoods))
+    return max(0.0, float(value))
+
+
+def _expected_information_gain_batch_from_means(
+    probability_rows: np.ndarray,
+    means: np.ndarray,
+    noise_sd: float,
+    nodes: np.ndarray,
+    weights: np.ndarray,
+) -> np.ndarray:
+    if len(means) <= 1:
+        return np.zeros(probability_rows.shape[0], dtype=float)
+
+    probability_rows = np.asarray(probability_rows, dtype=float)
+    means = np.asarray(means, dtype=float)
+    y_values = means[None, :, None] + math.sqrt(2.0) * noise_sd * nodes[None, None, :]
+    component_log_likelihoods = _normal_logpdf_array(y_values, means[None, :, None], noise_sd)
+    all_log_likelihoods = _normal_logpdf_array(y_values[:, :, :, None], means[None, None, None, :], noise_sd)
+    mixture_log_likelihoods = _logsumexp_array(
+        all_log_likelihoods + np.log(np.maximum(probability_rows, 1e-300))[:, None, None, :],
+        axis=3,
+    )
+    values = np.sum(
+        probability_rows[:, :, None]
+        * weights[None, None, :]
+        * (component_log_likelihoods - mixture_log_likelihoods),
+        axis=(1, 2),
+    )
+    return np.maximum(values, 0.0)
+
+
+def score_candidate_locations(
+    belief_state: LocationBeliefState,
+    candidates: list[Location],
+    config: Config,
+    questioner: "Model | None" = None,
+    observations: list[LocationObservation] | None = None,
+) -> list[float]:
+    """Score candidates via :mod:`methods.continuous_eig` (depth-1/2 forward search)."""
+    from environments.location_finding.env import LocationBEDEnvironment, _belief_state_from_location
+    from methods.continuous_eig import score_continuous_forward_search
+
+    if not candidates:
+        _log_location("EIG scoring: no candidate locations to score", config)
+        return []
+    if config.location_search_depth == 2 and (questioner is None or observations is None):
+        raise ValueError(
+            "location_search_depth=2 requires questioner and observations for branch updates"
+        )
+
+    env = LocationBEDEnvironment(config=config)
+    history = [(observation.query, observation) for observation in (observations or [])]
+    return score_continuous_forward_search(
+        _belief_state_from_location(belief_state),
+        candidates,
+        env,
+        questioner,
+        history,
+        config,
+        noise_sd=config.location_noise_sd,
+        quadrature_order=config.location_eig_quadrature_order,
+        search_depth=config.location_search_depth,
+    )
+
+
+def _posterior_probabilities_after_values(
+    probabilities: np.ndarray,
+    means: np.ndarray,
+    values: np.ndarray,
+    noise_sd: float,
+) -> np.ndarray:
+    values = np.asarray(values, dtype=float)
+    log_scores = (
+        np.log(np.maximum(probabilities, 1e-300))[None, :]
+        + _normal_logpdf_array(values[:, None], means[None, :], noise_sd)
+    )
+    normalizers = _logsumexp_array(log_scores, axis=1)
+    return np.exp(log_scores - normalizers[:, None])

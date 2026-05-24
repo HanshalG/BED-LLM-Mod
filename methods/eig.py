@@ -26,14 +26,9 @@ def _has_predictive_means(environment: Any) -> bool:
 
 
 def build_eig_method(config: Any, environment: Environment | None = None) -> Method:
-    """Construct the appropriate EIG implementation for ``config`` / ``environment``."""
-    task = getattr(config, "task", None)
-    if task == "animals" or (
-        environment is not None and getattr(environment, "name", None) == "animals"
-    ):
-        from methods.animals_special import AnimalsForwardSearchEIG
-
-        return AnimalsForwardSearchEIG()
+    """Construct the appropriate EIG module for ``config`` / ``environment``."""
+    if environment is not None and callable(getattr(environment, "build_eig_method", None)):
+        return environment.build_eig_method(config)  # type: ignore[attr-defined]
     if environment is not None and _has_predictive_means(environment):
         noise_sd = float(getattr(config, "location_noise_sd", 0.5))
         quadrature_order = int(getattr(config, "location_eig_quadrature_order", 15))
@@ -43,6 +38,14 @@ def build_eig_method(config: Any, environment: Environment | None = None) -> Met
             quadrature_order=quadrature_order,
             search_depth=search_depth,
         )
+    if environment is not None and _has_observation_labels(environment):
+        labels = tuple(getattr(environment, "observation_labels"))
+        return EIGBinary(observation_labels=(labels[0], labels[1]))
+    task = getattr(config, "task", None)
+    if task == "animals":
+        from methods.animals_special import AnimalsForwardSearchEIG
+
+        return AnimalsForwardSearchEIG()
     if task == "location_finding":
         noise_sd = float(getattr(config, "location_noise_sd", 0.5))
         quadrature_order = int(getattr(config, "location_eig_quadrature_order", 15))

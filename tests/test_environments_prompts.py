@@ -1,8 +1,4 @@
-"""Tests for the new ``environments.<env>.prompts`` public surfaces.
-
-These verify the re-export shims so new code can rely on the stable import
-path even before the bodies of the prompt functions are physically moved.
-"""
+"""Tests for the ``environments.<env>.prompts`` public surfaces."""
 
 from __future__ import annotations
 
@@ -17,15 +13,41 @@ from environments.location_finding import prompts as location_prompts
 # ---------------------------------------------------------------------------
 
 
-def test_animals_prompts_exports_match_legacy_module():
-    import prompts as legacy_prompts
+def test_animals_prompts_exports_expected_public_names():
+    expected = {
+        "answer_likelihood_messages",
+        "answer_likelihood_system_prompt",
+        "answer_likelihood_user_prompt",
+        "answer_question_yesno_system_prompt",
+        "answer_question_yesnocorrect_system_prompt",
+        "belief_distribution_system_prompt",
+        "belief_distribution_user_prompt",
+        "candidate_generation_system_message",
+        "candidate_generation_system_message_naive",
+        "conditional_question_generation_prompt",
+        "convert_to_prompt_message",
+        "generate_animals_system_prompt",
+        "generate_animals_user_prompt",
+        "generate_more_animals_system_prompt",
+        "generate_original_animals_system_prompt",
+        "greedy_sample_animal_system_prompt",
+        "greedy_sample_animal_system_prompt_naive",
+        "greedy_sample_animal_user_prompt",
+        "greedy_sample_animal_user_prompt_naive",
+        "is_answer_likelihood_messages",
+        "probability_answer_scores_prompt",
+        "question_generation_prompt_naive",
+        "unconditional_question_generation_prompt",
+        "validate_animal_name_system_prompt",
+        "validate_animal_name_user_prompt",
+        "weighted_conditional_question_generation_prompt",
+        "weighted_greedy_sample_animal_user_prompt_naive",
+        "weighted_question_generation_prompt_naive",
+        "weighted_unconditional_question_generation_prompt",
+    }
 
-    for name in animals_prompts.__all__:
-        legacy = getattr(legacy_prompts, name)
-        new = getattr(animals_prompts, name)
-        assert new is legacy, (
-            f"environments.animals.prompts.{name} should re-export prompts.{name}"
-        )
+    assert set(animals_prompts.__all__) == expected
+    assert all(callable(getattr(animals_prompts, name)) for name in expected)
 
 
 def test_animals_belief_distribution_system_prompt_returns_message_dict():
@@ -46,36 +68,29 @@ def test_animals_answer_likelihood_messages_round_trips_through_validator():
 # ---------------------------------------------------------------------------
 
 
-def test_location_prompts_exports_match_legacy_module():
-    import location_finding as legacy_location
-
-    name_map = {
-        "belief_generation_messages": "_belief_generation_messages",
-        "belief_output_contract": "_belief_output_contract",
-        "belief_system_prompt": "_belief_system_prompt",
-        "candidate_generation_messages": "_candidate_generation_messages",
-        "location_posterior_distribution_messages": "_location_posterior_distribution_messages",
-        "naive_location_messages": "_naive_location_messages",
-        "naive_source_estimate_messages": "_naive_source_estimate_messages",
-        "naive_source_estimate_repair_messages": "_naive_source_estimate_repair_messages",
-        "strategy_crossover_messages": "_strategy_crossover_messages",
-        "strategy_diverse_messages": "_strategy_diverse_messages",
-        "strategy_location_messages": "_strategy_location_messages",
-        "strategy_mutation_messages": "_strategy_mutation_messages",
-        "strategy_root_crossover_messages": "_strategy_root_crossover_messages",
-        "strategy_root_diverse_messages": "_strategy_root_diverse_messages",
-        "strategy_root_mutation_messages": "_strategy_root_mutation_messages",
-        "strategy_root_system_preamble": "_strategy_root_system_preamble",
-        "strategy_system_preamble": "_strategy_system_preamble",
+def test_location_prompts_exports_expected_public_names():
+    expected = {
+        "belief_generation_messages",
+        "belief_output_contract",
+        "belief_system_prompt",
+        "candidate_generation_messages",
+        "location_posterior_distribution_messages",
+        "naive_location_messages",
+        "naive_source_estimate_messages",
+        "naive_source_estimate_repair_messages",
+        "strategy_crossover_messages",
+        "strategy_diverse_messages",
+        "strategy_location_messages",
+        "strategy_mutation_messages",
+        "strategy_root_crossover_messages",
+        "strategy_root_diverse_messages",
+        "strategy_root_mutation_messages",
+        "strategy_root_system_preamble",
+        "strategy_system_preamble",
     }
 
-    for public_name, legacy_name in name_map.items():
-        new = getattr(location_prompts, public_name)
-        legacy = getattr(legacy_location, legacy_name)
-        assert new is legacy, (
-            f"environments.location_finding.prompts.{public_name} should re-export "
-            f"location_finding.{legacy_name}"
-        )
+    assert set(location_prompts.__all__) == expected
+    assert all(callable(getattr(location_prompts, name)) for name in expected)
 
 
 def test_location_belief_system_prompt_includes_dimension_and_source_count():

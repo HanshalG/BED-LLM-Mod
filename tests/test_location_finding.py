@@ -5,39 +5,55 @@ import numpy as np
 import pytest
 
 from helpers import Config
-from location_finding import (
+from core.experiment import run_from_config
+from environments.location_finding.beliefs import (
+    _location_effective_sample_size,
+    build_location_belief_state,
+    build_location_posterior,
+    prompt_location_belief_state,
+    prune_location_beliefs,
+    sample_location_eig_belief_state,
+)
+from environments.location_finding.eig import expected_information_gain, score_candidate_locations
+from environments.location_finding.parsing import (
+    parse_best_source_estimate_from_completion,
+    parse_candidate_locations,
+    parse_location_strategies,
+    parse_single_location_from_completion,
+    parse_source_hypotheses,
+    parse_strategy_location,
+)
+from environments.location_finding.physics import signal_intensity_for_hypothesis, source_rmse
+from environments.location_finding.prompts import (
+    belief_generation_messages as _belief_generation_messages,
+    candidate_generation_messages as _candidate_generation_messages,
+    location_posterior_distribution_messages as _location_posterior_distribution_messages,
+    strategy_diverse_messages as _strategy_diverse_messages,
+    strategy_location_messages as _strategy_location_messages,
+    strategy_mutation_messages as _strategy_mutation_messages,
+)
+from environments.location_finding.strategy import (
+    evaluate_location_strategies_by_rollout,
+    generate_location_strategies,
+)
+from environments.location_finding.types import (
     LocationBeliefState,
     LocationFindingEnv,
+    LocationFindingMetrics,
     LocationObservation,
     LocationStrategyEntry,
     LocationStrategyLibrary,
-    _belief_generation_messages,
-    _candidate_generation_messages,
-    _location_effective_sample_size,
-    _location_posterior_distribution_messages,
-    _strategy_diverse_messages,
-    _strategy_location_messages,
-    _strategy_mutation_messages,
-    build_location_belief_state,
-    build_location_posterior,
-    evaluate_location_strategies_by_rollout,
-    expected_information_gain,
-    generate_location_strategies,
     normalize_source_config,
-    parse_candidate_locations,
-    parse_location_strategies,
-    parse_best_source_estimate_from_completion,
-    parse_single_location_from_completion,
-    parse_strategy_location,
-    parse_source_hypotheses,
-    prompt_location_belief_state,
-    prune_location_beliefs,
-    run_location_finding,
-    sample_location_eig_belief_state,
-    score_candidate_locations,
-    signal_intensity_for_hypothesis,
-    source_rmse,
 )
+
+
+def _run_location_config(model, config, rng=None, output_dir=None, method_name="EIG") -> LocationFindingMetrics:
+    _run, summary = run_from_config(config, model, method_name=method_name, output_dir=output_dir)
+    return LocationFindingMetrics(
+        source_rmse=list(summary.metrics.get("source_rmse", [])),
+        top_probability=list(summary.metrics.get("top_probability", [])),
+        selected_eig=list(summary.metrics.get("selected_eig", [])),
+    )
 
 
 class FakeLocationModel:
@@ -911,7 +927,7 @@ def test_strategy_rollout_final_refresh_uses_llm_posterior_mode():
 
 
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
-def test_run_location_finding_one_round_with_fake_llm_smoke(tmp_path, num_sources):
+def test_run_location_one_round_with_fake_llm_smoke(tmp_path, num_sources):
     initial_hypotheses = _source_hypotheses_json(num_sources)
     candidate_locations = '{"locations": [[0, 0], [1, 1]]}'
     update_hypotheses = _source_hypotheses_json(num_sources, shifts=(0.0, 0.1))
@@ -923,7 +939,7 @@ def test_run_location_finding_one_round_with_fake_llm_smoke(tmp_path, num_source
         location_plot_trials=True,
     )
 
-    metrics = run_location_finding(model, config, rng=np.random.default_rng(1), output_dir=tmp_path)
+    metrics = _run_location_config(model, config, rng=np.random.default_rng(1), output_dir=tmp_path)
 
     assert len(metrics.source_rmse) == 1
     assert len(metrics.top_probability) == 1
@@ -940,7 +956,7 @@ def test_run_location_finding_one_round_with_fake_llm_smoke(tmp_path, num_source
     assert plot_path.stat().st_size > 0
 
 
-def test_run_location_finding_eig_llm_posterior_smoke(tmp_path):
+def test_run_location_eig_llm_posterior_smoke(tmp_path):
     initial_hypotheses = _source_hypotheses_json(3)
     candidate_locations = '{"locations": [[0, 0], [1, 1]]}'
     update_hypotheses = _source_hypotheses_json(3, shifts=(0.0, 0.1))
@@ -960,7 +976,7 @@ def test_run_location_finding_eig_llm_posterior_smoke(tmp_path):
         location_plot_trials=False,
     )
 
-    metrics = run_location_finding(model, config, rng=np.random.default_rng(1), output_dir=tmp_path)
+    metrics = _run_location_config(model, config, rng=np.random.default_rng(1), output_dir=tmp_path)
 
     assert len(metrics.source_rmse) == 1
     assert len(metrics.top_probability) == 1
@@ -972,7 +988,7 @@ def test_run_location_finding_eig_llm_posterior_smoke(tmp_path):
 
 
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
-def test_run_location_finding_strategy_eig_one_round_with_fake_llm_smoke(tmp_path, num_sources):
+def test_run_location_strategy_eig_one_round_with_fake_llm_smoke(tmp_path, num_sources):
     initial_hypotheses = _source_hypotheses_json(num_sources)
     strategy_completion = """
     {"strategies": [
@@ -999,7 +1015,7 @@ def test_run_location_finding_strategy_eig_one_round_with_fake_llm_smoke(tmp_pat
         location_plot_trials=False,
     )
 
-    metrics = run_location_finding(
+    metrics = _run_location_config(
         model,
         config,
         rng=np.random.default_rng(1),
@@ -1018,7 +1034,7 @@ def test_run_location_finding_strategy_eig_one_round_with_fake_llm_smoke(tmp_pat
     assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
 
 
-def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
+def test_run_location_strategy_eig_llm_posterior_smoke(tmp_path):
     initial_hypotheses = _source_hypotheses_json(3)
     strategy_completion = """
     {"strategies": [
@@ -1049,7 +1065,7 @@ def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
         location_plot_trials=False,
     )
 
-    metrics = run_location_finding(
+    metrics = _run_location_config(
         model,
         config,
         rng=np.random.default_rng(1),
@@ -1073,7 +1089,7 @@ def test_run_location_finding_strategy_eig_llm_posterior_smoke(tmp_path):
     assert "\"weights\"" in model.batched_calls[6][0][-1]["content"]             # update posterior
 
 
-def test_run_location_finding_naive_batches_across_trials(tmp_path):
+def test_run_location_naive_batches_across_trials(tmp_path):
     model = RoutingLocationModel(num_sources=2)
     config = _location_config(
         location_num_sources=2,
@@ -1083,7 +1099,7 @@ def test_run_location_finding_naive_batches_across_trials(tmp_path):
         location_plot_trials=True,
     )
 
-    metrics = run_location_finding(model, config, rng=np.random.default_rng(1), output_dir=tmp_path, method_name="Naive")
+    metrics = _run_location_config(model, config, rng=np.random.default_rng(1), output_dir=tmp_path, method_name="Naive")
 
     assert len(metrics.source_rmse) == 2
     assert len(model.calls) == 0
@@ -1091,7 +1107,7 @@ def test_run_location_finding_naive_batches_across_trials(tmp_path):
     assert len(list(tmp_path.glob("location_trial_*.png"))) == 3
 
 
-def test_run_location_finding_eig_batches_initial_candidates_and_updates_across_trials(tmp_path):
+def test_run_location_eig_batches_initial_candidates_and_updates_across_trials(tmp_path):
     model = RoutingLocationModel(num_sources=2)
     config = _location_config(
         location_num_sources=2,
@@ -1102,7 +1118,7 @@ def test_run_location_finding_eig_batches_initial_candidates_and_updates_across_
         location_search_depth=1,
     )
 
-    metrics = run_location_finding(model, config, rng=np.random.default_rng(1), output_dir=tmp_path, method_name="EIG")
+    metrics = _run_location_config(model, config, rng=np.random.default_rng(1), output_dir=tmp_path, method_name="EIG")
 
     assert len(metrics.source_rmse) == 1
     assert len(model.calls) == 0
@@ -1112,7 +1128,7 @@ def test_run_location_finding_eig_batches_initial_candidates_and_updates_across_
     assert "finite Bayesian belief support" in model.batched_calls[2][0][0]["content"]
 
 
-def test_run_location_finding_strategy_root_batches_trials_and_rollouts(tmp_path):
+def test_run_location_strategy_root_batches_trials_and_rollouts(tmp_path):
     model = RoutingLocationModel(num_sources=2)
     config = _location_config(
         location_num_sources=2,
@@ -1125,7 +1141,7 @@ def test_run_location_finding_strategy_root_batches_trials_and_rollouts(tmp_path
         location_strategy_planning_depth=1,
     )
 
-    metrics = run_location_finding(
+    metrics = _run_location_config(
         model,
         config,
         rng=np.random.default_rng(1),

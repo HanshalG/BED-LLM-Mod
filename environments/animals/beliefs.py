@@ -20,7 +20,7 @@ from helpers import (
     sort_belief_state_descending,
 )
 from model import Model
-from prompts import generate_animals_system_prompt, generate_more_animals_system_prompt, \
+from environments.animals.prompts import generate_animals_system_prompt, generate_more_animals_system_prompt, \
     answer_likelihood_messages, belief_distribution_system_prompt, belief_distribution_user_prompt, \
     generate_animals_user_prompt, validate_animal_name_system_prompt, validate_animal_name_user_prompt
 

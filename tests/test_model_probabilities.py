@@ -164,7 +164,7 @@ assert helpers_spec.loader is not None
 sys.modules[helpers_spec.name] = helpers
 helpers_spec.loader.exec_module(helpers)
 
-import prompts as prompts_module
+import environments.animals.prompts as prompts_module
 
 spec = importlib.util.spec_from_file_location("real_model_module", ROOT / "model.py")
 model = importlib.util.module_from_spec(spec)

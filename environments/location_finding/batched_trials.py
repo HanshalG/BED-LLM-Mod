@@ -9,30 +9,25 @@ import numpy as np
 
 from helpers import Config, print_and_log
 
-from .runner import (
-    Location,
-    LocationBeliefState,
-    LocationFindingMetrics,
-    _format_source_array,
-    _generate_location_hypotheses_many,
-    _log_location,
-    _make_location_trial_state,
+from .beliefs import (
+    _location_effective_sample_size,
     _merge_hypotheses,
-    _plot_location_trial_state,
-    _summarize_belief_state,
-    _top_source_rmse,
-    _write_to_log_if_configured,
     build_location_posteriors_many,
-    choose_locations_naive_many,
-    choose_locations_with_strategy_rollouts_many,
-    estimate_sources_naive_many,
-    generate_location_candidates_many,
     prompt_location_belief_state,
     sample_location_eig_belief_state,
-    score_candidate_locations,
-    source_rmse,
-    _location_effective_sample_size,
 )
+from .eig import score_candidate_locations
+from .formatting import _format_source_array, _log_location, _summarize_belief_state
+from .generation import (
+    _generate_location_hypotheses_many,
+    choose_locations_naive_many,
+    estimate_sources_naive_many,
+    generate_location_candidates_many,
+)
+from .physics import _top_source_rmse, source_rmse
+from .plotting import _make_location_trial_state, _plot_location_trial_state, _write_to_log_if_configured
+from .strategy import choose_locations_with_strategy_rollouts_many
+from .types import Location, LocationBeliefState, LocationFindingMetrics
 
 if TYPE_CHECKING:
     from model import Model
@@ -80,6 +75,23 @@ def run_location_trials_batched(
             )
 
         if method_name.lower() in {"naive", "naive+belief"}:
+            if method_name.lower() == "naive+belief":
+                initial_hypotheses_many = _generate_location_hypotheses_many(
+                    questioner,
+                    [state.observations for state in states],
+                    [None for _state in states],
+                    config,
+                    label="batched naive+belief initial belief generation",
+                )
+                initial_belief_states = build_location_posteriors_many(
+                    questioner,
+                    initial_hypotheses_many,
+                    [state.observations for state in states],
+                    config,
+                    label="batched naive+belief initial posterior scoring",
+                )
+                for state, belief_state in zip(states, initial_belief_states):
+                    state.belief_state = belief_state
             for round_idx in range(config.location_num_rounds):
                 for state in states:
                     _write_to_log_if_configured(
@@ -96,6 +108,11 @@ def run_location_trials_batched(
                     questioner,
                     [state.observations for state in states],
                     config,
+                    belief_states=(
+                        [state.belief_state for state in states]
+                        if method_name.lower() == "naive+belief"
+                        else None
+                    ),
                 )
                 for state, best_location in zip(states, best_locations):
                     if best_location is None:
@@ -112,6 +129,29 @@ def run_location_trials_batched(
                         f"observed {observation.value:.2f}",
                         config,
                     )
+
+                if method_name.lower() == "naive+belief":
+                    refreshed_hypotheses_many = _generate_location_hypotheses_many(
+                        questioner,
+                        [state.observations for state in states],
+                        [state.belief_state for state in states],
+                        config,
+                        label="batched naive+belief belief refresh",
+                    )
+                    merged_hypotheses_many = [
+                        _merge_hypotheses(state.belief_state, hypotheses)  # type: ignore[arg-type]
+                        for state, hypotheses in zip(states, refreshed_hypotheses_many)
+                    ]
+                    refreshed_belief_states = build_location_posteriors_many(
+                        questioner,
+                        merged_hypotheses_many,
+                        [state.observations for state in states],
+                        config,
+                        context_states=[state.belief_state for state in states],
+                        label="batched naive+belief posterior scoring",
+                    )
+                    for state, belief_state in zip(states, refreshed_belief_states):
+                        state.belief_state = belief_state
 
                 estimates = estimate_sources_naive_many(
                     questioner,
@@ -365,5 +405,3 @@ def run_location_trials_batched(
         top_probability=(top_probability_totals / divisor).tolist(),
         selected_eig=(selected_eig_totals / divisor).tolist(),
     )
-
-

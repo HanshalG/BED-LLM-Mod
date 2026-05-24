@@ -1,6 +1,6 @@
 from helpers import BeliefState, reverse_history
 from model import Model
-from prompts import greedy_sample_animal_system_prompt, greedy_sample_animal_user_prompt, \
+from environments.animals.prompts import greedy_sample_animal_system_prompt, greedy_sample_animal_user_prompt, \
     greedy_sample_animal_system_prompt_naive, greedy_sample_animal_user_prompt_naive, \
     weighted_greedy_sample_animal_user_prompt_naive
 

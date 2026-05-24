@@ -1,4 +1,4 @@
-"""End-to-end integration tests that drive BEDRunner through ``main_via_runner``.
+"""End-to-end integration tests that drive BEDRunner through ``core.experiment``.
 
 These prove the new architecture works for the full Config → registry →
 Environment + Method → BEDRunner → RunResult slice without going through
@@ -14,7 +14,8 @@ import numpy as np
 import pytest
 
 import core.defaults as core_defaults
-from core import BEDRunner, RunResult, build_environment, build_method
+from core import ActionScore, BEDRunner, BeliefState, Environment, Method, RunResult, build_environment, build_method
+from core.registry import register_environment, register_method
 from environments.location_finding import LocationBEDEnvironment
 from helpers import Config
 from core.experiment import run_from_config
@@ -199,3 +200,59 @@ def test_unknown_method_in_config_raises_keyerror_through_run_from_config():
     config = Config(task="animals", method_names=["WhirligigEIG"], animals=[["dog"]])
     with pytest.raises(KeyError, match="WhirligigEIG"):
         run_from_config(config, questioner=None, answerer=None)
+
+
+class _ThirdEnvironment(Environment[str, str, str, str]):
+    @property
+    def name(self) -> str:
+        return "third_env"
+
+    def sample_hidden_state(self, rng):
+        return "h"
+
+    def observe(self, action, hidden_state, rng):
+        return "o"
+
+    def log_prior(self, hypothesis):
+        return 0.0
+
+    def log_likelihood(self, hypothesis, action, observation):
+        return 0.0
+
+    def initial_belief_state(self, model, config):
+        return BeliefState.uniform(("h",))
+
+    def update_belief_state(self, belief_state, history, model, config):
+        return belief_state
+
+    def generate_candidate_actions(self, belief_state, history, model, config):
+        return ["a"]
+
+    def round_metrics(self, belief_state, history, hidden_state):
+        return {"ran": 1.0}
+
+    def trial_count(self, config):
+        return 1
+
+    def round_count(self, config):
+        return 1
+
+
+class _ThirdMethod(Method[str, str, str, str]):
+    @property
+    def name(self):
+        return "third"
+
+    def select_action(self, candidates, belief_state, environment, model, history, config):
+        return ActionScore(action=candidates[0], score=0.0)
+
+
+def test_run_from_config_accepts_registered_third_environment_without_core_edits():
+    register_environment("third_env", lambda config, questioner, answerer: _ThirdEnvironment())
+    register_method("third_env", "third", lambda config, environment=None: _ThirdMethod())
+    config = Config(task="third_env", method_names=["third"])
+
+    run_result, summary = run_from_config(config, questioner=None, answerer=None)
+
+    assert len(run_result.trials) == 1
+    assert summary.metrics["ran"] == [1.0]

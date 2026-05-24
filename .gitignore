@@ -2,11 +2,15 @@ results/
 logs/
 runs/
 __pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
 wandb/
 slurm_logs/
-runs/
 configs/
 .DS_Store
 .env
+*.png
+!plots/*.png
 tea_debug.log
 condaenv.ph6m_vev.requirements.txt

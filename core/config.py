@@ -1,4 +1,4 @@
-"""Typed configuration views over the legacy flat ``Config`` god-object.
+"""Typed configuration views over the flat ``Config`` god-object.
 
 The repo currently has a single mutable ``helpers.Config`` dataclass with ~70
 fields mixing run/model/logging concerns with both animals- and
@@ -15,9 +15,9 @@ fields relevant to one slice of the system:
 
 New environments and new code paths should consume these typed views via
 :func:`base_view`, :func:`animals_view`, and :func:`location_view` — that way
-adding a third environment doesn't require touching the legacy ``Config``.
+adding a third environment doesn't require touching the flat ``Config``.
 
-Each view is a frozen dataclass.  Because they're built from the legacy
+Each view is a frozen dataclass.  Because they're built from the flat
 ``Config`` *at call time*, they always reflect the current values; there is no
 sync issue.
 """
@@ -84,6 +84,13 @@ class AnimalsConfig:
     answerer_randomize_prior_order_per_trial: bool = False
     answerer_num_prior_trials: int | None = None
     answerer_prior_seed: int | None = None
+    strategy_num_retrieved: int = 2
+    strategy_num_mutation: int = 1
+    strategy_num_crossover: int = 1
+    strategy_num_diverse: int = 2
+    strategy_num_rollouts: int = 8
+    strategy_planning_depth: int = 8
+    strategy_belief_summary_top_k: int = 5
 
 
 # ---------------------------------------------------------------------------
@@ -133,12 +140,12 @@ class LocationConfig:
 
 
 # ---------------------------------------------------------------------------
-# Factories that project a legacy flat ``Config`` into a typed view.
+# Factories that project a flat ``Config`` into a typed view.
 # ---------------------------------------------------------------------------
 
 
 def base_view(config: Any) -> BaseConfig:
-    """Project the run/model/logging fields out of a legacy ``Config``."""
+    """Project the run/model/logging fields out of a flat ``Config``."""
     return BaseConfig(
         run_id=getattr(config, "run_id", ""),
         log_path=getattr(config, "log_path", None),
@@ -153,7 +160,7 @@ def base_view(config: Any) -> BaseConfig:
 
 
 def animals_view(config: Any) -> AnimalsConfig:
-    """Project the animals-specific fields out of a legacy ``Config``."""
+    """Project the animals-specific fields out of a flat ``Config``."""
     return AnimalsConfig(
         version=getattr(config, "version", 0),
         animals=list(getattr(config, "animals", []) or []),
@@ -181,11 +188,18 @@ def animals_view(config: Any) -> AnimalsConfig:
         answerer_randomize_prior_order_per_trial=getattr(config, "answerer_randomize_prior_order_per_trial", False),
         answerer_num_prior_trials=getattr(config, "answerer_num_prior_trials", None),
         answerer_prior_seed=getattr(config, "answerer_prior_seed", None),
+        strategy_num_retrieved=getattr(config, "animals_strategy_num_retrieved", 2),
+        strategy_num_mutation=getattr(config, "animals_strategy_num_mutation", 1),
+        strategy_num_crossover=getattr(config, "animals_strategy_num_crossover", 1),
+        strategy_num_diverse=getattr(config, "animals_strategy_num_diverse", 2),
+        strategy_num_rollouts=getattr(config, "animals_strategy_num_rollouts", 8),
+        strategy_planning_depth=getattr(config, "animals_strategy_planning_depth", 8),
+        strategy_belief_summary_top_k=getattr(config, "animals_strategy_belief_summary_top_k", 5),
     )
 
 
 def location_view(config: Any) -> LocationConfig:
-    """Project the location-finding-specific fields out of a legacy ``Config``."""
+    """Project the location-finding-specific fields out of a flat ``Config``."""
     query_bounds_raw = getattr(config, "location_query_bounds", [-2.0, 2.0]) or [-2.0, 2.0]
     if len(query_bounds_raw) != 2:
         raise ValueError(

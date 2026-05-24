@@ -1,4 +1,4 @@
-"""Padded per-round animals metrics shared by main and questions_game."""
+"""Padded per-round animals metrics shared by animals runner surfaces."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ def padded_trial_metric_series(
     method_name: str,
     num_rounds: int,
 ) -> dict[str, list[float]]:
-    """Expand per-round metrics to fixed ``num_rounds`` (legacy GameMetrics semantics)."""
+    """Expand per-round metrics to fixed ``num_rounds`` (flat GameMetrics semantics)."""
     accuracy = list(raw_metrics.get("accuracy", raw_metrics.get("guess_correct", [])))
     belief_mass = list(raw_metrics.get("correct_belief_mass", []))
 

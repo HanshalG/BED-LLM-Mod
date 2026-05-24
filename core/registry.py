@@ -18,13 +18,14 @@ from .environment import Environment
 from .method import Method
 
 
-# A builder takes the legacy ``Config`` plus the *questioner* LLM and the
+# A builder takes the flat ``Config`` plus the *questioner* LLM and the
 # *answerer* LLM (or None for environments that don't have one) and returns a
 # fully-constructed Environment.
 EnvironmentBuilder = Callable[[Any, Any, Any], Environment]
 
-# A method builder takes the legacy ``Config`` and returns a constructed Method.
-MethodBuilder = Callable[[Any], Method]
+# A method builder takes the flat ``Config`` and optional constructed
+# environment and returns a constructed Method.
+MethodBuilder = Callable[[Any, Environment | None], Method]
 
 
 @dataclass(frozen=True)
@@ -69,7 +70,13 @@ def build_environment(env_name: str, config: Any, questioner: Any, answerer: Any
     return record.build(config, questioner, answerer)
 
 
-def build_method(env_name: str, method_name: str, config: Any) -> Method:
+def build_method(
+    env_name: str,
+    method_name: str,
+    config: Any,
+    *,
+    environment: Environment | None = None,
+) -> Method:
     """Look up the registered builder for ``(env_name, method_name)`` and call it."""
     record = _METHODS.get((env_name, method_name))
     if record is None:
@@ -78,7 +85,15 @@ def build_method(env_name: str, method_name: str, config: Any) -> Method:
             f"known methods for this env: "
             f"{sorted(name for env, name in _METHODS if env == env_name)}"
         )
-    return record.build(config)
+    try:
+        return record.build(config, environment)
+    except TypeError as exc:
+        # Backward compatibility for third-party/test builders registered
+        # before method builders accepted the optional environment argument.
+        try:
+            return record.build(config)  # type: ignore[misc, call-arg]
+        except TypeError:
+            raise exc
 
 
 def list_environments() -> list[str]:

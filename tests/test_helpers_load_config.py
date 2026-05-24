@@ -297,7 +297,7 @@ task: location_finding
     assert config.location_max_llm_prompt_beliefs == 40
 
 
-def test_load_config_uses_legacy_location_max_beliefs_for_prompt_limit(tmp_path):
+def test_load_config_uses_flat_location_max_beliefs_for_prompt_limit(tmp_path):
     config_path = tmp_path / "config.yaml"
     config_path.write_text(
         """

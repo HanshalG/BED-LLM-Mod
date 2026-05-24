@@ -6,8 +6,8 @@ from dataclasses import dataclass
 from typing import Any, Sequence, TypeVar
 
 from core import ActionScore, BeliefState, Environment, Method
-from generate_candidate_questions import evaluate_questions_forward_search, generate_candidate_questions
-from environments.animals.env import AnimalsBEDEnvironment, _belief_state_to_legacy, _history_to_messages
+from environments.animals.questions import evaluate_questions_forward_search, generate_candidate_questions
+from environments.animals.env import AnimalsBEDEnvironment, _belief_state_to_flat, _history_to_messages
 
 
 H = TypeVar("H")
@@ -40,11 +40,11 @@ class AnimalsForwardSearchEIG(Method[str, str, str, str]):
         config: Any,
     ) -> ActionScore[str]:
         _require_animals_env(environment)
-        legacy = _belief_state_to_legacy(belief_state)
+        flat = _belief_state_to_flat(belief_state)
         history_messages = _history_to_messages(history)
         if not candidates:
             candidates = generate_candidate_questions(
-                legacy,
+                flat,
                 history_messages,
                 model,
                 config.generation_temperature_diverse,
@@ -56,7 +56,7 @@ class AnimalsForwardSearchEIG(Method[str, str, str, str]):
         if len(candidates) == 1:
             return ActionScore(action=candidates[0], score=0.0)
         scores = evaluate_questions_forward_search(
-            legacy,
+            flat,
             history_messages,
             list(candidates),
             True,
@@ -91,11 +91,11 @@ class AnimalsEntropy(Method[str, str, str, str]):
         config: Any,
     ) -> ActionScore[str]:
         _require_animals_env(environment)
-        legacy = _belief_state_to_legacy(belief_state)
+        flat = _belief_state_to_flat(belief_state)
         history_messages = _history_to_messages(history)
         if not candidates:
             candidates = generate_candidate_questions(
-                legacy,
+                flat,
                 history_messages,
                 model,
                 config.generation_temperature_diverse,
@@ -105,7 +105,7 @@ class AnimalsEntropy(Method[str, str, str, str]):
         if not candidates:
             raise ValueError("AnimalsEntropy could not produce candidate questions")
         scores = evaluate_questions_forward_search(
-            legacy,
+            flat,
             history_messages,
             list(candidates),
             eig=False,
@@ -136,11 +136,11 @@ class AnimalsSplit(Method[str, str, str, str]):
         config: Any,
     ) -> ActionScore[str]:
         _require_animals_env(environment)
-        legacy = _belief_state_to_legacy(belief_state)
+        flat = _belief_state_to_flat(belief_state)
         history_messages = _history_to_messages(history)
         if not candidates:
             candidates = generate_candidate_questions(
-                legacy,
+                flat,
                 history_messages,
                 model,
                 config.generation_temperature_diverse,
@@ -150,7 +150,7 @@ class AnimalsSplit(Method[str, str, str, str]):
         if not candidates:
             raise ValueError("AnimalsSplit could not produce candidate questions")
         scores = evaluate_questions_forward_search(
-            legacy,
+            flat,
             history_messages,
             list(candidates),
             eig=False,

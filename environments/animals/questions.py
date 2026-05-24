@@ -7,12 +7,12 @@ import numpy as np
 from helpers import BeliefState, Config, ensure_belief_state, format_categorical_belief_summary, \
     is_uniform_belief_state, print_and_log, reverse_history, _binary_entropy, convert_string_to_array
 from model import Model
-from prompts import candidate_generation_system_message, conditional_question_generation_prompt, \
+from environments.animals.prompts import candidate_generation_system_message, conditional_question_generation_prompt, \
     unconditional_question_generation_prompt, weighted_conditional_question_generation_prompt, \
     weighted_unconditional_question_generation_prompt, \
     candidate_generation_system_message_naive, \
     question_generation_prompt_naive, weighted_question_generation_prompt_naive, answer_likelihood_messages
-from update_beliefs import update_beliefs_batched
+from environments.animals.beliefs import update_beliefs_batched
 
 from helpers import write_to_log
 

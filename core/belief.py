@@ -3,7 +3,7 @@
 This is the environment-agnostic replacement for both ``helpers.BeliefState``
 (animals: hypotheses are ``str``) and ``location_finding.LocationBeliefState``
 (hypotheses are ``SourceConfig`` tuples).  The container is parametric in the
-hypothesis type ``H`` so a single implementation can serve both environments
+hypothesis type ``H`` so a single module can serve both environments
 and any future ones.
 
 The class is intentionally frozen / immutable so it can be safely passed

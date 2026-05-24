@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING, Literal
 import numpy as np
 import yaml
 
-from prompts import answer_question_yesnocorrect_system_prompt, generate_original_animals_system_prompt, \
+from environments.animals.prompts import answer_question_yesnocorrect_system_prompt, generate_original_animals_system_prompt, \
     is_answer_likelihood_messages
 
 if TYPE_CHECKING:
@@ -98,6 +98,13 @@ class Config:
     active_prior_animals: list[str] | None = None
     active_answerer_prior_animals: list[str] | None = None
     animals_num_rounds: int = 20
+    animals_strategy_num_retrieved: int = 2
+    animals_strategy_num_mutation: int = 1
+    animals_strategy_num_crossover: int = 1
+    animals_strategy_num_diverse: int = 2
+    animals_strategy_num_rollouts: int = 8
+    animals_strategy_planning_depth: int = 8
+    animals_strategy_belief_summary_top_k: int = 5
     location_num_rounds: int = 20
     location_num_trials: int = 1
     location_trial_batch_size: int = 1
@@ -135,6 +142,24 @@ class Config:
     def location_strategy_num_candidates(self) -> int:
         return (self.location_strategy_num_retrieved + self.location_strategy_num_mutation
                 + self.location_strategy_num_crossover + self.location_strategy_num_diverse)
+
+    @property
+    def base(self):
+        from core.config import base_view
+
+        return base_view(self)
+
+    @property
+    def animals_config(self):
+        from core.config import animals_view
+
+        return animals_view(self)
+
+    @property
+    def location_config(self):
+        from core.config import location_view
+
+        return location_view(self)
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -403,6 +428,27 @@ def load_config(path: str) -> Config:
         raise ValueError("forward_search_verbose must be a boolean")
 
     animals_num_rounds = _read_positive_int(raw, "animals_num_rounds", 20)
+    animals_strategy_num_retrieved = _read_positive_int(
+        raw, "animals_strategy_num_retrieved", raw.get("location_strategy_num_retrieved", 2)
+    )
+    animals_strategy_num_mutation = _read_nonneg_int(
+        raw, "animals_strategy_num_mutation", raw.get("location_strategy_num_mutation", 1)
+    )
+    animals_strategy_num_crossover = _read_nonneg_int(
+        raw, "animals_strategy_num_crossover", raw.get("location_strategy_num_crossover", 1)
+    )
+    animals_strategy_num_diverse = _read_positive_int(
+        raw, "animals_strategy_num_diverse", raw.get("location_strategy_num_diverse", 2)
+    )
+    animals_strategy_num_rollouts = _read_positive_int(
+        raw, "animals_strategy_num_rollouts", raw.get("location_strategy_num_rollouts", 8)
+    )
+    animals_strategy_planning_depth = _read_positive_int(
+        raw, "animals_strategy_planning_depth", raw.get("location_strategy_planning_depth", 8)
+    )
+    animals_strategy_belief_summary_top_k = _read_positive_int(
+        raw, "animals_strategy_belief_summary_top_k", raw.get("location_strategy_belief_summary_top_k", 5)
+    )
     location_num_rounds = _read_positive_int(raw, "location_num_rounds", 20)
     location_num_trials = _read_positive_int(raw, "location_num_trials", 1)
     location_trial_batch_size = _read_positive_int(raw, "location_trial_batch_size", 1)
@@ -488,6 +534,13 @@ def load_config(path: str) -> Config:
         gpu_memory_utilization = gpu_memory_utilization,
         max_model_len = max_model_len,
         animals_num_rounds = animals_num_rounds,
+        animals_strategy_num_retrieved = animals_strategy_num_retrieved,
+        animals_strategy_num_mutation = animals_strategy_num_mutation,
+        animals_strategy_num_crossover = animals_strategy_num_crossover,
+        animals_strategy_num_diverse = animals_strategy_num_diverse,
+        animals_strategy_num_rollouts = animals_strategy_num_rollouts,
+        animals_strategy_planning_depth = animals_strategy_planning_depth,
+        animals_strategy_belief_summary_top_k = animals_strategy_belief_summary_top_k,
         location_num_rounds = location_num_rounds,
         location_num_trials = location_num_trials,
         location_trial_batch_size = location_trial_batch_size,

@@ -1,4 +1,4 @@
-"""Tests for the typed configuration views over the legacy flat ``Config``."""
+"""Tests for the typed configuration views over the flat flat ``Config``."""
 
 from __future__ import annotations
 
@@ -99,8 +99,8 @@ def test_views_are_immutable():
         view.target_num_questions = 99  # type: ignore[misc]
 
 
-def test_views_reflect_legacy_config_updates_each_time_they_are_built():
-    # The legacy Config is mutable; views are constructed on demand so they
+def test_views_reflect_flat_config_updates_each_time_they_are_built():
+    # The flat Config is mutable; views are constructed on demand so they
     # always reflect the current state.
     config = Config(task="animals", target_num_questions=5)
     view1 = animals_view(config)
@@ -126,3 +126,16 @@ def test_base_view_works_on_a_minimally_specified_object():
     # All other fields fall back to defaults.
     assert view.batched_block_size == 50
     assert view.gpu_memory_utilization == pytest.approx(0.88)
+
+
+def test_config_exposes_typed_view_properties():
+    config = Config(
+        run_id="run-1",
+        task="location_finding",
+        location_num_rounds=3,
+        animals_num_rounds=7,
+    )
+
+    assert config.base.run_id == "run-1"
+    assert config.location_config.num_rounds == 3
+    assert config.animals_config.animals_num_rounds == 7

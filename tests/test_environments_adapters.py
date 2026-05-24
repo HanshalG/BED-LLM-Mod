@@ -124,20 +124,20 @@ def test_location_adapter_observe_returns_observation_with_query_intact():
     assert isinstance(obs.value, float)
 
 
-def test_location_adapter_log_prior_matches_legacy_helper():
-    import location_finding as legacy
+def test_location_adapter_log_prior_matches_physics_helper():
+    from environments.location_finding.physics import hypothesis_log_prior
 
     config = _location_config()
     env = LocationBEDEnvironment(config=config)
     hypothesis = ((0.0, 0.0), (1.0, 0.0))
 
-    assert env.log_prior(hypothesis) == pytest.approx(legacy._hypothesis_log_prior(hypothesis))
+    assert env.log_prior(hypothesis) == pytest.approx(hypothesis_log_prior(hypothesis))
 
 
 def test_location_adapter_log_likelihood_single_matches_vectorised():
     config = _location_config()
     env = LocationBEDEnvironment(config=config)
-    from location_finding import LocationObservation
+    from environments.location_finding.types import LocationObservation
 
     hyp1 = ((0.0, 0.0), (1.0, 0.0))
     hyp2 = ((-1.0, 0.5), (0.5, -1.0))
@@ -165,6 +165,26 @@ def test_location_adapter_round_metrics_reports_rmse_and_top_probability():
     assert metrics["top_probability"] == pytest.approx(0.7)
     assert metrics["source_rmse"] == pytest.approx(0.0)
     assert metrics["support_size"] == pytest.approx(2.0)
+
+
+def test_location_naive_belief_includes_current_posterior_in_prompt():
+    config = _location_config()
+    model = _StubLLM()
+    model.complete_responses = ['{"location":[0.1,0.2]}', '{"location":[0.3,0.4]}']
+    env = LocationBEDEnvironment(config=config)
+    belief = BeliefState(
+        hypotheses=(((0.0, 0.0), (1.0, 1.0)), ((-1.0, 0.0), (0.0, -1.0))),
+        probabilities=(0.8, 0.2),
+    )
+
+    env.generate_naive_action(belief, [], model, config, method_name="naive")
+    plain_prompt = model.complete_calls[-1][-1]["content"]
+    env.generate_naive_action(belief, [], model, config, method_name="naive+belief")
+    belief_prompt = model.complete_calls[-1][-1]["content"]
+
+    assert "Current belief summary" not in plain_prompt
+    assert "Current belief summary" in belief_prompt
+    assert '"probability": 0.8' in belief_prompt
 
 
 # ---------------------------------------------------------------------------
@@ -306,3 +326,150 @@ def test_animals_adapter_early_stops_on_correct_observation():
 
     assert env.early_stop(belief, history=[], hidden_state="dog", latest_observation="Correct!")
     assert not env.early_stop(belief, history=[], hidden_state="dog", latest_observation="Yes")
+
+
+def test_animals_strategy_eig_generates_strategy_questions_without_plain_eig(monkeypatch):
+    def fail_plain_eig(*args, **kwargs):
+        raise AssertionError("StrategyEIG should not call plain animals forward-search EIG")
+
+    monkeypatch.setattr("environments.animals.env.evaluate_questions_forward_search", fail_plain_eig)
+    questioner = _StubLLM()
+    questioner.complete_responses = [
+        '{"strategies":["Separate pets from wild cats","Test size before habitat"]}',
+        "Is it commonly kept as a pet?",
+        "Is it larger than a house cat?",
+    ]
+    questioner.probability_responses = [
+        [{"Yes": 0.9, "No": 0.1}, {"Yes": 0.8, "No": 0.2}, {"Yes": 0.1, "No": 0.9}],
+        [{"Yes": 0.1, "No": 0.9}, {"Yes": 0.2, "No": 0.8}, {"Yes": 0.9, "No": 0.1}],
+    ]
+    env = AnimalsBEDEnvironment(
+        config=_animals_config(),
+        answerer=_StubLLM(),
+        target_animals=["dog", "cat", "lion"],
+    )
+    env.set_questioner(questioner)
+    belief = BeliefState(
+        hypotheses=("dog", "cat", "lion"),
+        probabilities=(1 / 3, 1 / 3, 1 / 3),
+    )
+
+    action, score, evaluation = env.choose_strategy_action(
+        belief,
+        history=[],
+        model=questioner,
+        config=_animals_config(
+            animals_strategy_num_rollouts=1,
+            animals_strategy_planning_depth=1,
+        ),
+        rng=np.random.default_rng(0),
+        round_index=0,
+        fixed_root=False,
+    )
+
+    assert action in {"Is it commonly kept as a pet?", "Is it larger than a house cat?"}
+    assert score > 0.0
+    assert evaluation["fixed_root"] is False
+    assert evaluation["num_rollouts"] == 1
+    assert evaluation["planning_depth"] == 1
+    assert "Strategy to follow" in questioner.complete_calls[1][-1]["content"]
+
+
+def test_animals_strategy_eig_root_asks_selected_root_question():
+    questioner = _StubLLM()
+    questioner.complete_responses = [
+        json.dumps(
+            {
+                "candidates": [
+                    {
+                        "strategy": "First split domestic from wild animals.",
+                        "root_question": "Is it commonly kept as a pet?",
+                    },
+                    {
+                        "strategy": "First split very large animals.",
+                        "root_question": "Is it larger than a person?",
+                    },
+                ]
+            }
+        )
+    ]
+    questioner.probability_responses = [
+        [{"Yes": 0.9, "No": 0.1}, {"Yes": 0.8, "No": 0.2}, {"Yes": 0.1, "No": 0.9}],
+        [{"Yes": 0.1, "No": 0.9}, {"Yes": 0.2, "No": 0.8}, {"Yes": 0.9, "No": 0.1}],
+    ]
+    env = AnimalsBEDEnvironment(
+        config=_animals_config(),
+        answerer=_StubLLM(),
+        target_animals=["dog", "cat", "lion"],
+    )
+    env.set_questioner(questioner)
+    belief = BeliefState(
+        hypotheses=("dog", "cat", "lion"),
+        probabilities=(1 / 3, 1 / 3, 1 / 3),
+    )
+
+    action, score, evaluation = env.choose_strategy_action(
+        belief,
+        history=[],
+        model=questioner,
+        config=_animals_config(
+            animals_strategy_num_rollouts=1,
+            animals_strategy_planning_depth=1,
+        ),
+        rng=np.random.default_rng(0),
+        round_index=0,
+        fixed_root=True,
+    )
+
+    assert action in {"Is it commonly kept as a pet?", "Is it larger than a person?"}
+    assert score > 0.0
+    assert evaluation["fixed_root"] is True
+    assert "root_question" in questioner.complete_calls[0][-1]["content"]
+
+
+def test_animals_strategy_eig_rollout_uses_planning_depth_for_followups():
+    questioner = _StubLLM()
+    questioner.complete_responses = [
+        '{"strategies":["Start broad, then follow the likely branch."]}',
+        "Is it commonly kept as a pet?",
+        "Does it usually live indoors?",
+    ]
+    questioner.probability_responses = [
+        [{"Yes": 0.9, "No": 0.1}, {"Yes": 0.8, "No": 0.2}, {"Yes": 0.1, "No": 0.9}],
+        [{"Yes": 0.9, "No": 0.1}, {"Yes": 0.5, "No": 0.5}, {"Yes": 0.2, "No": 0.8}],
+    ]
+    config = _animals_config(
+        animals_strategy_num_retrieved=0,
+        animals_strategy_num_mutation=0,
+        animals_strategy_num_crossover=0,
+        animals_strategy_num_diverse=1,
+        animals_strategy_num_rollouts=1,
+        animals_strategy_planning_depth=2,
+    )
+    env = AnimalsBEDEnvironment(
+        config=config,
+        answerer=_StubLLM(),
+        target_animals=["dog", "cat", "lion"],
+    )
+    env.set_questioner(questioner)
+    belief = BeliefState(
+        hypotheses=("dog", "cat", "lion"),
+        probabilities=(1 / 3, 1 / 3, 1 / 3),
+    )
+
+    action, score, evaluation = env.choose_strategy_action(
+        belief,
+        history=[],
+        model=questioner,
+        config=config,
+        rng=np.random.default_rng(1),
+        round_index=0,
+        fixed_root=False,
+    )
+
+    assert action == "Is it commonly kept as a pet?"
+    assert score > 0.0
+    assert evaluation["planning_depth"] == 2
+    assert evaluation["rollout_scores"][0]
+    assert len(questioner.probability_calls) == 2
+    assert "Does it usually live indoors?" in questioner.probability_calls[1][0][-1]["content"]

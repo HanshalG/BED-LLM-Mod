@@ -117,7 +117,6 @@ def score_continuous_forward_search(
         return batched_depth2(
             belief_state,
             candidates,
-            environment,
             model,
             history,
             config,
@@ -213,4 +212,3 @@ class ContinuousEIG(Method[H, A, O, S]):
             score=float(scores[best_idx]) if scores else 0.0,
             extras={"all_scores": [float(score) for score in scores], "metric_name": "selected_eig"},
         )
-

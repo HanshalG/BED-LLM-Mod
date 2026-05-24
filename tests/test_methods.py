@@ -1,4 +1,4 @@
-"""Tests for the generic Method implementations."""
+"""Tests for the generic Method modules."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import numpy as np
 import pytest
 
 from core import ActionScore, BeliefState, Environment, Method
-from methods import EIGBinary, Naive
+from methods import ContinuousEIG, EIGBinary, Naive, build_eig_method
 
 
 # ---------------------------------------------------------------------------
@@ -27,6 +27,7 @@ class _MockBinaryEnvironment(Environment[str, str, str, str]):
     def __init__(self, yes_probabilities: dict[tuple[str, str], float]):
         # (hypothesis, action) → P("Yes" | hypothesis, action)
         self._yes_probabilities = yes_probabilities
+        self.observation_labels = ("Yes", "No")
 
     @property
     def name(self) -> str:
@@ -199,6 +200,37 @@ def test_eig_binary_raises_with_no_candidates():
             history=[],
             config=None,
         )
+
+
+def test_build_eig_method_prefers_binary_capability_over_task_name():
+    env = _MockBinaryEnvironment(yes_probabilities={})
+    config = type("Config", (), {"task": "custom_binary"})()
+
+    method = build_eig_method(config, environment=env)
+
+    assert isinstance(method, EIGBinary)
+
+
+def test_build_eig_method_prefers_continuous_capability():
+    class _ContinuousEnv(_MockBinaryEnvironment):
+        def predictive_means(self, hypotheses, action):
+            return np.zeros(len(hypotheses))
+
+    env = _ContinuousEnv(yes_probabilities={})
+    config = type(
+        "Config",
+        (),
+        {
+            "task": "custom_continuous",
+            "location_noise_sd": 0.5,
+            "location_eig_quadrature_order": 5,
+            "location_search_depth": 1,
+        },
+    )()
+
+    method = build_eig_method(config, environment=env)
+
+    assert isinstance(method, ContinuousEIG)
 
 
 # ---------------------------------------------------------------------------

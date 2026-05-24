@@ -9,7 +9,7 @@ For each candidate action ``a`` and belief state ``p(h)``, EIG is
 where ``H`` is the Shannon entropy of a Bernoulli with parameter
 ``p(o = "label_a" \\mid a)``.
 
-This implementation works for any environment whose observation space is a
+This module works for any environment whose observation space is a
 finite two-label set.  It uses :meth:`core.Environment.log_likelihood_many`
 to score every hypothesis against both possible observations at once, which
 keeps the LLM-batching efficient for the animals environment.
@@ -131,6 +131,6 @@ class EIGBinary(Method[H, A, O, S]):
         For the animals environment, ``O`` is just the label string itself, so
         we can pass the label through directly.  Environments where ``O`` has
         more structure (e.g. ``LocationObservation``) should not use this
-        method — they need a different EIG implementation entirely.
+        method — they need a different EIG module entirely.
         """
         return label

@@ -62,11 +62,11 @@ def _build_location_environment(config: Any, questioner: Any, answerer: Any) -> 
 
 
 def _build_global_method(method_name: str):
-    def build(config: Any) -> Any:
+    def build(config: Any, environment: Any | None = None) -> Any:
         if method_name == "EIG":
             from methods.eig import build_eig_method
 
-            return build_eig_method(config)
+            return build_eig_method(config, environment=environment)
         if method_name in {"naive", "Naive", "naive+belief"}:
             from methods import Naive
 
@@ -82,7 +82,7 @@ def _build_global_method(method_name: str):
 
 
 def _build_animals_only_method(method_name: str):
-    def build(config: Any) -> Any:
+    def build(config: Any, environment: Any | None = None) -> Any:
         from methods.animals_special import AnimalsEntropy, AnimalsSplit
 
         if method_name == "Entropy":

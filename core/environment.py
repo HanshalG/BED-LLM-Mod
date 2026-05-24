@@ -43,7 +43,7 @@ S = TypeVar("S")  # Hidden-state type (often same as H, kept separate for clarit
 class Environment(ABC, Generic[S, H, A, O]):
     """Abstract base class for BED environments.
 
-    Implementations only need to fill in the methods that are *environment*-
+    Modules only need to fill in the methods that are *environment*-
     specific.  Method-specific concerns (how to score actions for EIG vs
     Naive vs StrategyEIG) live in :class:`core.method.Method`.
     """
@@ -82,7 +82,7 @@ class Environment(ABC, Generic[S, H, A, O]):
         """Log p(observation | action, hypothesis).
 
         For environments where the likelihood is estimated via an LLM call
-        (e.g. animals), implementations should provide a batched fast path
+        (e.g. animals), modules should provide a batched fast path
         through :meth:`log_likelihood_many`.
         """
 
@@ -94,7 +94,7 @@ class Environment(ABC, Generic[S, H, A, O]):
     ) -> np.ndarray:
         """Vectorised default: loop over :meth:`log_likelihood`.
 
-        Environments should override this when a faster batched implementation
+        Environments should override this when a faster batched module
         exists.  The default keeps the contract correct for new environments
         that haven't bothered yet.
         """
@@ -125,7 +125,7 @@ class Environment(ABC, Generic[S, H, A, O]):
     ) -> BeliefState[H]:
         """Update the belief state given a new history.
 
-        Implementations may regenerate hypotheses, score them, prune, etc. —
+        Modules may regenerate hypotheses, score them, prune, etc. —
         anything the environment needs to refresh its finite support.
         """
 
@@ -159,6 +159,25 @@ class Environment(ABC, Generic[S, H, A, O]):
     # ------------------------------------------------------------------
     # Optional hooks
     # ------------------------------------------------------------------
+
+    def validate_config(self, config: Any) -> None:
+        """Validate environment-specific config before a run starts."""
+
+    def trial_count(self, config: Any) -> int:
+        """Number of trials to run for this environment."""
+        return int(getattr(config, "num_trials", 1) or 1)
+
+    def round_count(self, config: Any) -> int:
+        """Number of rounds to run per trial for this environment."""
+        return int(getattr(config, "num_rounds", 1) or 1)
+
+    def run_seed(self, config: Any) -> int | None:
+        """Seed used by the shared runner for this environment."""
+        return getattr(config, "seed", None)
+
+    def configure_for_run(self, config: Any) -> "Environment[S, H, A, O]":
+        """Apply environment-specific run setup and return the environment."""
+        return self
 
     def early_stop(
         self,

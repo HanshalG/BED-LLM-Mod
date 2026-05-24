@@ -6,17 +6,11 @@ from typing import TYPE_CHECKING, Sequence
 
 import numpy as np
 
-from .runner import (
-    Location,
-    LocationBeliefState,
-    LocationObservation,
-    _generate_location_hypotheses_many,
-    _merge_hypotheses,
-    build_location_posteriors_many,
-    expected_information_gain,
-    generate_location_candidates_many,
-    signal_intensity_for_hypothesis,
-)
+from .beliefs import _merge_hypotheses, build_location_posteriors_many
+from .eig import expected_information_gain
+from .generation import _generate_location_hypotheses_many, generate_location_candidates_many
+from .physics import signal_intensity_for_hypothesis
+from .types import Location, LocationBeliefState, LocationObservation
 
 if TYPE_CHECKING:
     from helpers import Config

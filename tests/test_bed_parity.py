@@ -1,4 +1,4 @@
-"""Parity tests: legacy metric shapes vs BEDRunner + summarize_run."""
+"""Parity tests for metric shapes vs BEDRunner + summarize_run."""
 
 from __future__ import annotations
 
@@ -36,22 +36,13 @@ def _reset_registry():
     core_defaults.register_defaults(force=True)
 
 
-def test_location_naive_bed_runner_matches_legacy_smoke(tmp_path):
-    from environments.location_finding.runner import run_location_finding
-
+def test_location_naive_bed_runner_smoke(tmp_path):
     hypothesis_json = (
         '{"hypotheses":[[[0.0,0.0],[1.0,1.0]],[[1.0,-1.0],[-1.0,1.0]]]}'
     )
     location_json = '{"location":[0.1,0.1]}'
     estimate_json = '{"sources":[[0.0,0.0],[1.0,1.0]]}'
-    completions = [
-        hypothesis_json,
-        location_json,
-        hypothesis_json,
-        estimate_json,
-    ]
-    legacy_model = _ScriptedModel(list(completions))
-    bed_model = _ScriptedModel(list(completions))
+    model = _ScriptedModel([hypothesis_json, location_json, hypothesis_json, estimate_json])
     config = Config(
         task="location_finding",
         method_names=["Naive"],
@@ -72,15 +63,12 @@ def test_location_naive_bed_runner_matches_legacy_smoke(tmp_path):
         belief_distribution_num_calls=1,
     )
 
-    legacy = run_location_finding(
-        legacy_model, config, rng=np.random.default_rng(1), output_dir=tmp_path, method_name="Naive"
-    )
     _run, summary = run_from_config(
-        config, bed_model, method_name="Naive", output_dir=tmp_path
+        config, model, method_name="Naive", output_dir=tmp_path
     )
 
-    assert len(summary.metrics["source_rmse"]) == len(legacy.source_rmse)
-    assert summary.metrics["source_rmse"][0] == pytest.approx(legacy.source_rmse[0], rel=0.5)
+    assert len(summary.metrics["source_rmse"]) == 1
+    assert np.isfinite(summary.metrics["source_rmse"][0])
 
 
 def test_animals_naive_metrics_include_accuracy_series():

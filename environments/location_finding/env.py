@@ -1,15 +1,4 @@
-"""Location-finding implementation of :class:`core.Environment`.
-
-This adapter wraps the existing functions in :mod:`location_finding` so the
-location-finding problem can be driven through :class:`core.BEDRunner`
-without callers needing to know about ``SourceConfig`` tuples,
-``LocationFindingEnv``, or any of the other concrete types.
-
-The adapter is intentionally thin: the heavy lifting (LLM-driven hypothesis
-generation, posterior scoring, EIG computation, strategy rollouts) all stays
-in :mod:`location_finding` for now.  This file just provides the
-:class:`core.Environment` contract on top of those functions.
-"""
+"""Location-finding module of :class:`core.Environment`."""
 
 from __future__ import annotations
 
@@ -21,7 +10,12 @@ import numpy as np
 
 from pathlib import Path
 
-from environments.location_finding import runner as _lf
+from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_posterior, sample_location_eig_belief_state
+from environments.location_finding.generation import choose_location_naive, estimate_sources_naive, generate_location_candidates, generate_location_hypotheses
+from environments.location_finding.physics import _hypothesis_log_prior, _log_normal_pdf, _top_source_rmse, signal_intensity_for_hypothesis, source_rmse
+from environments.location_finding.plotting import _plot_location_trial
+from environments.location_finding.strategy import choose_location_with_strategy_rollouts
+from environments.location_finding.types import Location, LocationBeliefState, LocationFindingEnv, LocationObservation, LocationStrategyLibrary, SourceConfig
 from core import BeliefState, Environment
 from core.bed_runner import RunResult
 from core.experiment_summary import ExperimentSummary
@@ -32,11 +26,6 @@ from core.experiment_summary import ExperimentSummary
 #   H = SourceConfig          — a hypothesis is a tuple of source coordinates
 #   A = Location              — an action is a single query location
 #   O = LocationObservation   — an observation pairs the query with a noisy float
-
-
-SourceConfig = _lf.SourceConfig
-Location = _lf.Location
-LocationObservation = _lf.LocationObservation
 
 
 @dataclass
@@ -52,13 +41,30 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     rng: np.random.Generator | None = None
     true_theta: np.ndarray | None = None  # optional pinned ground truth (for tests)
     _last_model: Any = field(default=None, repr=False, compare=False)
-    _last_location_belief: _lf.LocationBeliefState | None = field(default=None, repr=False, compare=False)
+    _last_location_belief: LocationBeliefState | None = field(default=None, repr=False, compare=False)
 
     # ------------------------------------------------------------------
 
     @property
     def name(self) -> str:
         return "location_finding"
+
+    def validate_config(self, config: Any) -> None:
+        if config.location_dim != 2:
+            raise ValueError("Location Finding currently supports 2D source locations")
+        if config.location_noise_sd != 0.5:
+            raise ValueError(
+                "The initial Location Finding module requires known noise_sd=0.5"
+            )
+
+    def trial_count(self, config: Any) -> int:
+        return int(config.location_num_trials)
+
+    def round_count(self, config: Any) -> int:
+        return int(config.location_num_rounds)
+
+    def run_seed(self, config: Any) -> int | None:
+        return getattr(config, "location_seed", None)
 
     # ------------------------------------------------------------------
     # Hidden state / simulation
@@ -83,7 +89,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         # Build a fresh single-shot environment around the supplied ground truth
         # so we don't accumulate state across rounds (the BEDRunner owns the
         # history).  This mirrors LocationFindingEnv.run_experiment exactly.
-        env = _lf.LocationFindingEnv(
+        env = LocationFindingEnv(
             num_sources=self.config.location_num_sources,
             dim=self.config.location_dim,
             noise_sd=self.config.location_noise_sd,
@@ -97,7 +103,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     # ------------------------------------------------------------------
 
     def log_prior(self, hypothesis: SourceConfig) -> float:
-        return _lf._hypothesis_log_prior(hypothesis)
+        return _hypothesis_log_prior(hypothesis)
 
     def log_likelihood(
         self,
@@ -105,8 +111,8 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         action: Location,
         observation: LocationObservation,
     ) -> float:
-        mean = _lf.signal_intensity_for_hypothesis(hypothesis, action)
-        return _lf._log_normal_pdf(observation.value, mean, self.config.location_noise_sd)
+        mean = signal_intensity_for_hypothesis(hypothesis, action)
+        return _log_normal_pdf(observation.value, mean, self.config.location_noise_sd)
 
     def log_likelihood_many(
         self,
@@ -133,7 +139,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     ) -> np.ndarray:
         """Return the noiseless signal mean for every hypothesis at ``action``."""
         return np.asarray(
-            [_lf.signal_intensity_for_hypothesis(hypothesis, action) for hypothesis in hypotheses],
+            [signal_intensity_for_hypothesis(hypothesis, action) for hypothesis in hypotheses],
             dtype=float,
         )
 
@@ -149,7 +155,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         rng = self.rng if self.rng is not None else np.random.default_rng(
             getattr(config, "location_seed", None)
         )
-        sampled, _collapsed = _lf.sample_location_eig_belief_state(location_belief, config, rng)
+        sampled, _collapsed = sample_location_eig_belief_state(location_belief, config, rng)
         return _belief_state_from_location(sampled)
 
     def score_continuous_forward_search_depth2_batched(
@@ -183,14 +189,14 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
 
     def initial_belief_state(self, model: Any, config: Any) -> BeliefState[SourceConfig]:
         self._last_model = model
-        hypotheses = _lf.generate_location_hypotheses(
+        hypotheses = generate_location_hypotheses(
             model,
             observations=[],
             belief_state=None,
             config=config,
             label="initial belief generation",
         )
-        location_state = _lf.build_location_posterior(
+        location_state = build_location_posterior(
             model,
             hypotheses,
             [],
@@ -209,15 +215,15 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     ) -> BeliefState[SourceConfig]:
         observations = [obs for _action, obs in history]
         location_belief = _belief_state_to_location(belief_state)
-        hypotheses = _lf.generate_location_hypotheses(
+        hypotheses = generate_location_hypotheses(
             model,
             observations,
             location_belief,
             config,
             label="belief refresh",
         )
-        merged = _lf._merge_hypotheses(location_belief, hypotheses)
-        location_state = _lf.build_location_posterior(
+        merged = _merge_hypotheses(location_belief, hypotheses)
+        location_state = build_location_posterior(
             model,
             merged,
             observations,
@@ -237,7 +243,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         if getattr(config, "location_posterior_mode", None) == "analytical_likelihood":
             observations = [obs for _action, obs in history]
             location_belief = _belief_state_to_location(belief_state)
-            location_state = _lf.build_location_belief_state(
+            location_state = build_location_belief_state(
                 list(location_belief.hypotheses),
                 observations,
                 config,
@@ -259,7 +265,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     ) -> list[Location]:
         location_belief = _belief_state_to_location(belief_state)
         observations = [obs for _action, obs in history]
-        return _lf.generate_location_candidates(model, location_belief, observations, config)
+        return generate_location_candidates(model, location_belief, observations, config)
 
     # ------------------------------------------------------------------
     # Metrics
@@ -272,7 +278,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         hidden_state: np.ndarray,
     ) -> dict[str, float]:
         location_belief = _belief_state_to_location(belief_state)
-        rmse = _lf._top_source_rmse(location_belief, hidden_state)
+        rmse = _top_source_rmse(location_belief, hidden_state)
         top = belief_state.top()
         top_probability = top[1] if top is not None else 0.0
         return {
@@ -291,7 +297,17 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         *,
         method_name: str | None = None,
     ) -> Location:
-        location = _lf.choose_location_naive(model, [obs for _action, obs in history], config)
+        location_belief = (
+            _belief_state_to_location(belief_state)
+            if method_name == "naive+belief"
+            else None
+        )
+        location = choose_location_naive(
+            model,
+            [obs for _action, obs in history],
+            config,
+            belief_state=location_belief,
+        )
         if location is None:
             raise ValueError("Location naive method could not produce a valid location")
         return location
@@ -307,9 +323,9 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         method_name: str | None = None,
     ) -> dict[str, float]:
         observations = [obs for _action, obs in history]
-        estimate = _lf.estimate_sources_naive(model, observations, config)
+        estimate = estimate_sources_naive(model, observations, config)
         return {
-            "source_rmse": _lf.source_rmse(estimate, hidden_state),
+            "source_rmse": source_rmse(estimate, hidden_state),
             "top_probability": 1.0,
         }
 
@@ -326,9 +342,9 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     ) -> tuple[Location, float, Any]:
         library = getattr(self, "_strategy_library", None)
         if library is None:
-            library = _lf.LocationStrategyLibrary()
+            library = LocationStrategyLibrary()
             self._strategy_library = library
-        location, score, evaluation = _lf.choose_location_with_strategy_rollouts(
+        location, score, evaluation = choose_location_with_strategy_rollouts(
             model,
             _belief_state_to_location(belief_state),
             [obs for _action, obs in history],
@@ -401,7 +417,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             if not trial.rounds:
                 continue
             observations = [round_result.observation for round_result in trial.rounds]
-            env = _lf.LocationFindingEnv(
+            env = LocationFindingEnv(
                 num_sources=config.location_num_sources,
                 dim=config.location_dim,
                 noise_sd=config.location_noise_sd,
@@ -415,13 +431,13 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             if belief_state is None or not belief_state.hypotheses:
                 estimate = None
                 if model is not None and observations:
-                    estimate = _lf.estimate_sources_naive(model, observations, config)
-                belief_state = _lf.LocationBeliefState(
+                    estimate = estimate_sources_naive(model, observations, config)
+                belief_state = LocationBeliefState(
                     hypotheses=[] if estimate is None else [estimate],
                     probabilities=[] if estimate is None else [1.0],
                 )
             plot_path = output_dir / f"location_trial_{trial.trial_index + 1:03d}.png"
-            _lf._plot_location_trial(
+            _plot_location_trial(
                 env,
                 observations,
                 belief_state,
@@ -437,14 +453,14 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
 # ---------------------------------------------------------------------------
 
 
-def _belief_state_to_location(state: BeliefState[SourceConfig]) -> _lf.LocationBeliefState:
-    return _lf.LocationBeliefState(
+def _belief_state_to_location(state: BeliefState[SourceConfig]) -> LocationBeliefState:
+    return LocationBeliefState(
         hypotheses=list(state.hypotheses),
         probabilities=list(state.probabilities),
     )
 
 
-def _belief_state_from_location(state: _lf.LocationBeliefState) -> BeliefState[SourceConfig]:
+def _belief_state_from_location(state: LocationBeliefState) -> BeliefState[SourceConfig]:
     return BeliefState(
         hypotheses=tuple(state.hypotheses),
         probabilities=tuple(float(p) for p in state.probabilities),

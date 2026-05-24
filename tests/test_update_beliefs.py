@@ -17,7 +17,7 @@ fake_model_module.Model = _ModelBase
 sys.modules.setdefault("model", fake_model_module)
 
 from helpers import Config
-from update_beliefs import build_belief_state, filter_valid_animal_names_batched, generate_new_beliefs, initialize_belief_state, update_beliefs_batched
+from environments.animals.beliefs import build_belief_state, filter_valid_animal_names_batched, generate_new_beliefs, initialize_belief_state, update_beliefs_batched
 
 
 class FakeBeliefScoringModel(_ModelBase):

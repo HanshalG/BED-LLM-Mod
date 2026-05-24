@@ -1,95 +1,83 @@
-# BED-LLM reproduction
+# BED-LLM Sequential Experimental Design Framework
 
-This repository contains a reproduction of the paper "BED-LLM: Intelligent information gathering with LLMs and bayesian experimental design". 
-The prompts are tailored to predicting Animals, but can be reused for Celebreties and Things with small adjustments. 
-The split-baseline performs a lot worse than indicated in the paper, so there are probably some implementation details missing.
-There are currently adapters for LLMs with transformers and vLLM, to add a new one simply extend the Model-class.
+This repository contains a framework for non-myopic sequential Bayesian
+experimental design (BED) with LLM-driven proposal and posterior components.
+It currently includes two environments:
 
+- `animals`: 20 Questions over animal identities with LLM answer likelihoods.
+- `location_finding`: continuous source-localization with analytical or
+  LLM-scored posteriors.
 
-## Contents
+The shared runner, belief container, method registry, and common action
+selection modes live under `core/` and `methods/`. Environment-specific
+simulation, prompts, likelihoods, posterior refresh, metrics, and artifacts
+live under `environments/`.
 
-| File / Directory | Description                                                              |
-|------------------|--------------------------------------------------------------------------|
-| `config.yml` | Configurable hyperparameters                                             |
-| `environment.yml` | Conda configuration file                                                 |
-| `model.py` | Interface for LLMs + instantiation using transformers and vLLM           |
-| `main.py` | Execute 20 question game and record results                              |
-| `questions_game.py` | Outline for the 20 question methods for one given animal                 |
-| `generate_candidate_questions.py` | Generate questions for each method (contains MC-EIG/Entropy calculation) |
-| `update_beliefs.py` | Update beliefs using a new question–answer pair                          |
-| `sample_beliefs.py` | Sample beliefs using greedy decoding                                     |
-| `prompts.py` | All prompts used                                                         |
-| `helpers.py` | Config setup and small helper functions                                  |
-| `plots/` | Results graphically displayed                                            |
+## Common Modes
 
+The built-in environments expose the same primary method names:
 
-## Setup
+- `naive`: direct LLM action proposal from task history.
+- `naive+belief`: direct LLM action proposal conditioned on the current belief.
+- `EIG`: expected information gain over candidate actions.
+- `StrategyEIG`: generate and evaluate high-level LLM strategies before acting.
+- `StrategyEIG+root`: generate strategies with fixed root actions and ask the
+  selected root action directly.
 
-I currently use conda:
+Animals also keeps compatibility modes `Entropy` and `split` for reproduction
+comparisons.
+
+## Running Experiments
+
+Create the conda environment:
+
 ```bash
 conda env create -f environment.yml
 conda activate 20_questions_env
 ```
-Some dependencies are installed after environment creation:
+
+Optional model dependencies:
+
 ```bash
 pip install accelerate
 pip install flash-attn --no-build-isolation
 ```
-If you use HuggingFace models that require authentication (like Llama-3.3-70B-Instruct):
-```bash
-huggingface-cli login
-```
-To then run the 20 questions game with hyperparameters as specified in the config.yaml:
+
+Run a configured experiment:
+
 ```bash
 python main.py -c config.yaml
 ```
-Each invocation writes one self-contained run directory under `runs/`, for example
-`runs/20260513T091522_config/`. Use `--run-name` to choose the suffix and
-`--output-root` to place run directories somewhere else.
 
-`search_depth` controls exact recursive lookahead for the animal 20 Questions
-game and accepts any positive integer. Values above 2 expand many hypothetical
-branches, so runtime and LLM calls grow very quickly.
+Each invocation writes a self-contained run directory under `runs/`. Use
+`--run-name` to choose the suffix and `--output-root` to place run directories
+elsewhere.
 
+## Adding An Environment
 
-## Hardware
-I ran the reproduction for Llama-3.3-70B-Instruct and Qwen-2.5-72B-Instruct on 2 A100 GPUs.
-Since there are a lot of LLM-calls happening in even a single round, the code takes a long time to run (~2-3min per question). 
-I recommend using Qwen-2.5-32B-Instruct: It can run on a single A100 GPU, and the time per question is ~5x faster,
-while achieving a solid accuracy of ~70% with the EIG method.
+1. Implement `core.Environment[S, H, A, O]`.
+2. Provide hidden-state sampling, observation simulation, likelihoods, belief
+   initialization/update, candidate generation, and metrics.
+3. Override optional hooks when needed: `validate_config`, `trial_count`,
+   `round_count`, `run_seed`, `configure_for_run`, `save_artifacts`,
+   `run_batched_experiment`, or strategy/naive hooks.
+4. Register the environment and supported methods in `core.defaults`.
 
-Parameters like `batched_block_size` for parallel computation in the LLM or `gpu_memory_utilization` and `max_model_len` for vLLM are 
-specific to my hardware setup.
+For binary LLM likelihoods, use `core.llm_likelihood` and expose
+`observation_labels`, `build_likelihood_messages`, and `get_questioner`. For
+continuous Gaussian observations, expose `predictive_means` and, optionally,
+depth-2 scoring hooks.
 
-vLLM settings can also be overridden per model under each `questioner` or `answerer` entry. This is useful when running two different
-models in the same experiment, because the code keeps both vLLM engines loaded at the same time. For example, to keep a small questioner
-on GPU 0 and a larger answerer on GPU 1:
+## Public Surfaces
 
-```yaml
-model_pairs:
-  - questioner:
-      model: "google/gemma-4-E4B-it"
-      thinking: true
-      cuda_visible_devices: "0"
-      tensor_parallel_size: 1
-      gpu_memory_utilization: 0.80
-      max_model_len: 4096
-    answerer:
-      model: "google/gemma-4-31B-it"
-      thinking: true
-      cuda_visible_devices: "1"
-      tensor_parallel_size: 1
-      gpu_memory_utilization: 0.88
-      max_model_len: 4096
-```
+Use `run_from_config(...)` or `python main.py -c ...` for configured runs. New
+environment code should import from `core/`, `methods/`, and
+`environments/<task>/`; the root-level location-finding entry point has been
+removed.
 
-If the larger model needs multiple GPUs, give it a comma-separated device list and match `tensor_parallel_size`, for example
-`cuda_visible_devices: "1,2"` with `tensor_parallel_size: 2`.
+## Hardware Notes
 
-
-## Results
-My results for the two big open source models used in the paper (in both plots, the questioner and answerer model are the same):
-
-![Accuracy Curves](plots/results_animals_qwen72_llama70.png)
-
-Note that the authors report the results over a single seed, so I did the same here.
+The model adapter supports transformers and vLLM backends. Per-model vLLM
+settings can be supplied under each `questioner` or `answerer` entry, including
+`cuda_visible_devices`, `tensor_parallel_size`, `gpu_memory_utilization`, and
+`max_model_len`.
