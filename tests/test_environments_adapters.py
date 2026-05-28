@@ -231,6 +231,19 @@ def test_animals_adapter_sample_hidden_state_uses_target_animals():
     assert sampled == "wolverine"
 
 
+def test_animals_trial_index_covers_target_pool_without_replacement():
+    env = AnimalsBEDEnvironment(
+        config=_animals_config(animals=[["dog", "cat", "lion"]]),
+        answerer=_StubLLM(),
+        target_animals=["dog", "cat", "lion"],
+    )
+    rng = np.random.default_rng(0)
+
+    sampled = [env.sample_hidden_state_for_trial(index, rng) for index in range(3)]
+
+    assert sampled == ["dog", "cat", "lion"]
+
+
 def test_animals_adapter_observe_calls_answerer_with_yesnocorrect_prompt():
     answerer = _StubLLM()
     answerer.complete_responses = ["Yes"]

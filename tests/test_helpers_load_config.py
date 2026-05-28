@@ -71,6 +71,38 @@ method_names:
     assert config.belief_guess_threshold == pytest.approx(0.99)
 
 
+def test_load_config_projects_nested_environment_options(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+task: location_finding
+model_pairs: []
+method_names:
+  - EIG
+environment:
+  num_rounds: 3
+  num_trials: 2
+  trial_batch_size: 2
+  num_sources: 2
+  dim: 2
+  noise_sd: 0.5
+  query_bounds: [-1.0, 1.0]
+  search_depth: 1
+  eig_quadrature_order: 5
+""".strip(),
+        encoding="utf-8",
+    )
+
+    config = load_config(str(config_path))
+
+    assert config.environment["num_rounds"] == 3
+    assert config.location_num_rounds == 3
+    assert config.location_num_trials == 2
+    assert config.location_trial_batch_size == 2
+    assert config.location_query_bounds == [-1.0, 1.0]
+    assert config.location_search_depth == 1
+
+
 def test_load_config_parses_categorical_belief_state_options(tmp_path):
     config_path = tmp_path / "config.yaml"
     config_path.write_text(

@@ -10,7 +10,7 @@ import numpy as np
 from core import BEDRunner, RunResult, build_environment, build_method
 from core.experiment_summary import ExperimentSummary
 from core.defaults import register_defaults
-from core.trial_batching import supports_trial_batching, trial_batch_size
+from core.trial_batching import trial_batch_size
 
 
 def run_from_config(
@@ -33,20 +33,6 @@ def run_from_config(
     method = build_method(env_name, selected_method, config, environment=env)
 
     batch_size = trial_batch_size(config, env_name)
-    if batch_size > 1:
-        if not supports_trial_batching(env, batch_size):
-            raise ValueError(
-                f"task {env_name!r} does not support trial_batch_size={batch_size}"
-            )
-        summary = env.run_batched_experiment(
-            questioner,
-            method,
-            config,
-            output_dir=output_dir,
-            rng=np.random.default_rng(env.run_seed(config)),
-        )
-        return RunResult(trials=()), summary
-
     runner = BEDRunner(
         environment=env,
         method=method,
@@ -54,12 +40,18 @@ def run_from_config(
         config=config,
         num_trials=env.trial_count(config),
         num_rounds=env.round_count(config),
+        trial_batch_size=batch_size,
         rng=np.random.default_rng(env.run_seed(config)),
     )
     run_result = runner.run()
     summary = env.summarize_run(run_result, config)
     if output_dir is not None:
-        env.save_artifacts(run_result, output_dir, config)
+        artifacts = env.save_artifacts(run_result, output_dir, config)
+        summary = ExperimentSummary(
+            metrics=summary.metrics,
+            logs=summary.logs,
+            artifacts=artifacts,
+        )
     return run_result, summary
 
 
@@ -72,10 +64,11 @@ def run_configured_experiments(
     """Run every configured model-pair/method combination."""
     register_defaults()
     results: dict[tuple[str, str, str], ExperimentSummary] = {}
+    required_roles = required_model_roles_for_config(config)
 
     for pair in config.model_pairs:
-        questioner_model = models[pair.questioner]
-        answerer_model = None if config.task == "location_finding" else models[pair.answerer]
+        questioner_model = models[pair.questioner] if "questioner" in required_roles else None
+        answerer_model = models[pair.answerer] if "answerer" in required_roles else None
         for method_name in config.method_names:
             env = build_environment(config.task, config, questioner_model, answerer_model)
             env.validate_config(config)
@@ -91,6 +84,14 @@ def run_configured_experiments(
             )
             results[key] = summary
     return results
+
+
+def required_model_roles_for_config(config: Any) -> tuple[str, ...]:
+    """Return model-pair roles required by the configured environment."""
+    register_defaults()
+    env = build_environment(getattr(config, "task"), config, None, None)
+    roles = getattr(env, "required_model_roles", lambda _config: ("questioner", "answerer"))(config)
+    return tuple(dict.fromkeys(roles))
 
 
 def _first_method_name(config: Any) -> str:

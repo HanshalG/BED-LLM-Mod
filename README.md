@@ -58,10 +58,14 @@ elsewhere.
 1. Implement `core.Environment[S, H, A, O]`.
 2. Provide hidden-state sampling, observation simulation, likelihoods, belief
    initialization/update, candidate generation, and metrics.
-3. Override optional hooks when needed: `validate_config`, `trial_count`,
-   `round_count`, `run_seed`, `configure_for_run`, `save_artifacts`,
-   `run_batched_experiment`, or strategy/naive hooks.
-4. Register the environment and supported methods in `core.defaults`.
+   Environment belief hooks should consume and return `core.BeliefState[H]`
+   directly; use `.hypotheses` and `.probabilities` for support access.
+3. Put task-specific options under the top-level `environment:` config mapping
+   and validate them in the environment adapter.
+4. Override optional hooks when needed: `validate_config`, `trial_count`,
+   `round_count`, `run_seed`, `configure_for_run`, `save_artifacts`, or
+   strategy/naive hooks.
+5. Register the environment and supported methods in `core.defaults`.
 
 For binary LLM likelihoods, use `core.llm_likelihood` and expose
 `observation_labels`, `build_likelihood_messages`, and `get_questioner`. For
@@ -74,6 +78,23 @@ Use `run_from_config(...)` or `python main.py -c ...` for configured runs. New
 environment code should import from `core/`, `methods/`, and
 `environments/<task>/`; the root-level location-finding entry point has been
 removed.
+
+Task-specific YAML should use this shape:
+
+```yaml
+task: location_finding
+method_names: ["EIG"]
+model_pairs:
+  - questioner: {model: "Qwen/Qwen3.5-4B", thinking: false}
+    answerer: {model: "Qwen/Qwen3.5-4B", thinking: false}
+environment:
+  num_rounds: 20
+  num_trials: 1
+  trial_batch_size: 1
+```
+
+The runner owns trial batching for all environments via `trial_batch_size`;
+environment-specific batched experiment loops should not bypass `BEDRunner`.
 
 ## Hardware Notes
 

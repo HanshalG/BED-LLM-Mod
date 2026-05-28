@@ -65,5 +65,42 @@ class Method(ABC, Generic[H, A, O, S]):
         question-generator) may ignore the list and produce their own action.
         """
 
+    def select_actions(
+        self,
+        candidates_many: Sequence[Sequence[A]],
+        belief_states: Sequence[BeliefState[H]],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        histories: Sequence[Sequence[tuple[A, O]]],
+        config: Any,
+    ) -> list[ActionScore[A]]:
+        """Choose actions for a cross-trial batch."""
+        if len(candidates_many) != len(belief_states) or len(belief_states) != len(histories):
+            raise ValueError("candidates_many, belief_states, and histories must have the same length")
+        return [
+            self.select_action(candidates, belief_state, environment, model, history, config)
+            for candidates, belief_state, history in zip(candidates_many, belief_states, histories)
+        ]
+
+    def metrics_after_observations(
+        self,
+        belief_states: Sequence[BeliefState[H]],
+        histories: Sequence[Sequence[tuple[A, O]]],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        hidden_states: Sequence[S],
+        config: Any,
+    ) -> list[dict[str, float]]:
+        """Optional batched post-observation metrics hook."""
+        metrics_hook = getattr(self, "metrics_after_observation", None)
+        if not callable(metrics_hook):
+            return [{} for _belief_state in belief_states]
+        if len(belief_states) != len(histories) or len(histories) != len(hidden_states):
+            raise ValueError("belief_states, histories, and hidden_states must have the same length")
+        return [
+            metrics_hook(belief_state, history, environment, model, hidden_state, config)
+            for belief_state, history, hidden_state in zip(belief_states, histories, hidden_states)
+        ]
+
     def __repr__(self) -> str:  # pragma: no cover - cosmetic
         return f"{type(self).__name__}(name={self.name!r})"

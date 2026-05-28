@@ -4,10 +4,13 @@ import math
 
 import numpy as np
 
+from core import BeliefState
 from helpers import Config
+from methods.continuous_eig import expected_information_gain_from_means, quadrature_nodes
+from .formatting import _log_location
 from .beliefs import _posterior_after_observation
 from .physics import _log_normal_pdf, signal_intensity_for_hypothesis
-from .types import Location, LocationBeliefState, LocationObservation
+from .types import Location, LocationObservation
 
 
 def _quadrature_nodes(order: int) -> tuple[np.ndarray, np.ndarray]:
@@ -16,7 +19,7 @@ def _quadrature_nodes(order: int) -> tuple[np.ndarray, np.ndarray]:
 
 
 def expected_information_gain(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     query: Location,
     noise_sd: float,
     quadrature_order: int,
@@ -29,8 +32,8 @@ def expected_information_gain(
         [signal_intensity_for_hypothesis(hypothesis, query) for hypothesis in belief_state.hypotheses],
         dtype=float,
     )
-    nodes, weights = _quadrature_nodes(quadrature_order)
-    return _expected_information_gain_from_means(probabilities, means, noise_sd, nodes, weights)
+    nodes, weights = quadrature_nodes(quadrature_order)
+    return expected_information_gain_from_means(probabilities, means, noise_sd, nodes, weights)
 
 
 def _normal_logpdf_array(values: np.ndarray, means: np.ndarray, noise_sd: float) -> np.ndarray:
@@ -95,14 +98,14 @@ def _expected_information_gain_batch_from_means(
 
 
 def score_candidate_locations(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     candidates: list[Location],
     config: Config,
     questioner: "Model | None" = None,
     observations: list[LocationObservation] | None = None,
 ) -> list[float]:
     """Score candidates via :mod:`methods.continuous_eig` (depth-1/2 forward search)."""
-    from environments.location_finding.env import LocationBEDEnvironment, _belief_state_from_location
+    from environments.location_finding.env import LocationBEDEnvironment
     from methods.continuous_eig import score_continuous_forward_search
 
     if not candidates:
@@ -116,7 +119,7 @@ def score_candidate_locations(
     env = LocationBEDEnvironment(config=config)
     history = [(observation.query, observation) for observation in (observations or [])]
     return score_continuous_forward_search(
-        _belief_state_from_location(belief_state),
+        belief_state,
         candidates,
         env,
         questioner,

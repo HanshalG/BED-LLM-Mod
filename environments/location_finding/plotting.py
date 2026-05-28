@@ -5,16 +5,17 @@ from pathlib import Path
 
 import numpy as np
 
+from core import BeliefState
 from helpers import Config, write_to_log
 from .formatting import _format_source_array, _log_location
 from .physics import _signal_grid, _top_source_rmse
-from .types import LocationBeliefState, LocationFindingEnv, LocationObservation, LocationStrategyLibrary, _LocationTrialState
+from .types import LocationFindingEnv, LocationObservation, LocationStrategyLibrary, _LocationTrialState
 
 
 def _plot_location_trial(
     env: LocationFindingEnv,
     observations: list[LocationObservation],
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     trial_idx: int,
     final_rmse: float,
     final_top_probability: float,
@@ -140,7 +141,7 @@ def _order_color(index: int, total: int) -> tuple[int, int, int]:
 def _plot_location_trial_pillow(
     env: LocationFindingEnv,
     observations: list[LocationObservation],
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     trial_idx: int,
     final_rmse: float,
     final_top_probability: float,
@@ -299,7 +300,7 @@ def _make_location_trial_state(
 
 def _plot_location_trial_state(
     state: _LocationTrialState,
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     final_rmse: float,
     final_top_probability: float,
     config: Config,

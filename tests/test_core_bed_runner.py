@@ -239,6 +239,74 @@ def test_runner_records_chosen_action_and_observation_per_round():
         # The chosen ActionScore should carry the method's extras dict.
         assert round_result.chosen.extras is not None
         assert "yes_mass" in round_result.chosen.extras
+    assert trial.final_belief_state is not None
+    assert trial.final_belief_state.support_size >= 1
+
+
+def test_runner_raises_on_empty_candidates_by_default():
+    class EmptyCandidateEnvironment(_NumberGuessEnvironment):
+        def generate_candidate_actions(self, belief_state, history, model, config):
+            return []
+
+    runner = BEDRunner(
+        EmptyCandidateEnvironment(n=4, fixed_state=2),
+        _BisectionMethod(),
+        model=None,
+        config=None,
+        num_trials=1,
+        num_rounds=1,
+    )
+
+    with pytest.raises(ValueError, match="requires candidates"):
+        runner.run_single_trial(0)
+
+
+def test_batched_runner_skips_empty_candidate_trials_without_selecting():
+    class SkipOneEnvironment(_NumberGuessEnvironment):
+        def initial_belief_states(self, trial_indices, model, config):
+            return [
+                BeliefState.uniform(("skip",)) if trial_index == 0 else BeliefState.uniform(("run",))
+                for trial_index in trial_indices
+            ]
+
+        def generate_candidate_actions_many(self, belief_states, histories, model, config):
+            return [
+                [] if belief_state.hypotheses == ("skip",) else [1]
+                for belief_state in belief_states
+            ]
+
+        def on_empty_candidates(self, belief_state, history, round_index, config):
+            return belief_state.hypotheses == ("skip",)
+
+        def update_belief_state(self, belief_state, history, model, config):
+            return belief_state
+
+        def round_metrics(self, belief_state, history, hidden_state):
+            return {"ran": 1.0}
+
+    class StrictMethod(Method[str, int, int, int]):
+        @property
+        def name(self):
+            return "strict"
+
+        def select_action(self, candidates, belief_state, environment, model, history, config):
+            if not candidates:
+                raise AssertionError("empty candidate trial should have been skipped")
+            return ActionScore(action=candidates[0], score=0.0)
+
+    runner = BEDRunner(
+        SkipOneEnvironment(n=2),
+        StrictMethod(),
+        model=None,
+        config=None,
+        num_trials=2,
+        num_rounds=1,
+        trial_batch_size=2,
+    )
+
+    result = runner.run()
+
+    assert [len(trial.rounds) for trial in result.trials] == [0, 1]
 
 
 def test_runner_respects_early_stop():

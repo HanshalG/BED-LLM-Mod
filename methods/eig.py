@@ -40,12 +40,14 @@ def build_eig_method(config: Any, environment: Environment | None = None) -> Met
         )
     if environment is not None and _has_observation_labels(environment):
         labels = tuple(getattr(environment, "observation_labels"))
-        return EIGBinary(observation_labels=(labels[0], labels[1]))
+        search_depth = int(getattr(config, "search_depth", 1))
+        return EIGBinary(observation_labels=(labels[0], labels[1]), search_depth=search_depth)
     task = getattr(config, "task", None)
     if task == "animals":
-        from methods.animals_special import AnimalsForwardSearchEIG
-
-        return AnimalsForwardSearchEIG()
+        return EIGBinary(
+            observation_labels=("Yes", "No"),
+            search_depth=int(getattr(config, "search_depth", 1)),
+        )
     if task == "location_finding":
         noise_sd = float(getattr(config, "location_noise_sd", 0.5))
         quadrature_order = int(getattr(config, "location_eig_quadrature_order", 15))

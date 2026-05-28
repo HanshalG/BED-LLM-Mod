@@ -1,4 +1,5 @@
-from helpers import ModelPair, ModelSpec, build_models
+from core.experiment import required_model_roles_for_config
+from helpers import Config, ModelPair, ModelSpec, build_models
 
 
 def test_build_models_keys_by_full_model_spec():
@@ -24,3 +25,25 @@ def test_build_models_keys_by_full_model_spec():
     assert len(models) == 4
     assert set(calls) == {qwen_plain, qwen_thinking, gemma_thinking, qwen25_logprobs}
     assert models[qwen_plain] != models[qwen_thinking]
+
+
+def test_build_models_can_limit_to_environment_required_roles():
+    questioner = ModelSpec(model="questioner")
+    answerer = ModelSpec(model="answerer")
+    pair = ModelPair(questioner=questioner, answerer=answerer)
+    calls = []
+
+    def fake_build_model_adapter(spec):
+        calls.append(spec)
+        return f"adapter:{spec.model}"
+
+    models = build_models([pair], fake_build_model_adapter, roles=("questioner",))
+
+    assert calls == [questioner]
+    assert set(models) == {questioner}
+
+
+def test_location_finding_declares_questioner_only_model_role():
+    config = Config(task="location_finding")
+
+    assert required_model_roles_for_config(config) == ("questioner",)

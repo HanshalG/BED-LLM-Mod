@@ -14,8 +14,9 @@ class _ModelBase:
 fake_model_module.Model = _ModelBase
 sys.modules.setdefault("model", fake_model_module)
 
+from core import BeliefState, deduped_belief_state, ensure_belief_state, uniform_deduped
+
 from helpers import (
-    BeliefState,
     Config,
     ModelPair,
     ModelSpec,
@@ -23,13 +24,10 @@ from helpers import (
     build_uniform_prior,
     build_output_stem,
     clean_generated_belief_labels,
-    ensure_belief_state,
     format_categorical_belief_summary,
     format_belief_state,
     is_uniform_belief_state,
     load_config,
-    make_belief_state,
-    make_uniform_belief_state,
     normalize_belief_label,
     format_config_for_log,
     get_answerer_prior,
@@ -159,38 +157,48 @@ def test_load_config_defaults_probability_parse_fallback_to_uniform(tmp_path):
     assert config.probability_parse_fallback_to_uniform is True
 
 
-def test_make_belief_state_merges_duplicates_and_normalizes():
-    belief_state = make_belief_state(["Cat", "dog", "cat"], [0.2, 0.3, 0.5])
+def test_deduped_belief_state_merges_duplicates_and_normalizes():
+    belief_state = deduped_belief_state(
+        ["Cat", "dog", "cat"],
+        [0.2, 0.3, 0.5],
+        key=lambda label: label.lower(),
+        normalize=lambda label: label.strip() or None,
+    )
 
-    assert belief_state.beliefs == ["Cat", "dog"]
+    assert belief_state.hypotheses == ("Cat", "dog")
     assert belief_state.probabilities == pytest.approx([0.7, 0.3])
 
 
-def test_make_belief_state_falls_back_to_uniform_when_requested():
-    belief_state = make_belief_state(["cat", "dog"], [0.0, 0.0], fallback_to_uniform=True)
+def test_deduped_belief_state_falls_back_to_uniform_when_requested():
+    belief_state = deduped_belief_state(
+        ["cat", "dog"],
+        [0.0, 0.0],
+        key=lambda label: label.lower(),
+        fallback_to_uniform=True,
+    )
 
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog")
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
     assert is_uniform_belief_state(belief_state)
 
 
 def test_ensure_belief_state_converts_lists_to_uniform_state():
-    belief_state = ensure_belief_state(["cat", "dog", "wolf"])
+    belief_state = ensure_belief_state(["cat", "dog", "wolf"], key=lambda label: label.lower())
 
-    assert belief_state.beliefs == ["cat", "dog", "wolf"]
+    assert belief_state.hypotheses == ("cat", "dog", "wolf")
     assert belief_state.probabilities == pytest.approx([1 / 3, 1 / 3, 1 / 3])
 
 
 def test_ensure_belief_state_dedupes_lists_without_frequency_weighting():
-    belief_state = ensure_belief_state(["cat", "cat", "dog"])
+    belief_state = ensure_belief_state(["cat", "cat", "dog"], key=lambda label: label.lower())
 
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog")
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
 
 
 def test_format_belief_state_limits_entries_when_requested():
     belief_state = BeliefState(
-        beliefs=["cat", "dog", "wolf"],
+        hypotheses=["cat", "dog", "wolf"],
         probabilities=[0.1, 0.7, 0.2],
     )
 
@@ -199,7 +207,7 @@ def test_format_belief_state_limits_entries_when_requested():
 
 def test_format_categorical_belief_summary_includes_count_and_top_entries():
     belief_state = BeliefState(
-        beliefs=["dog", "wolf", "cat"],
+        hypotheses=["dog", "wolf", "cat"],
         probabilities=[0.7, 0.2, 0.1],
     )
 
@@ -210,7 +218,7 @@ def test_format_categorical_belief_summary_includes_count_and_top_entries():
 
 def test_format_categorical_belief_summary_defaults_to_all_entries():
     belief_state = BeliefState(
-        beliefs=["dog", "wolf", "cat"],
+        hypotheses=["dog", "wolf", "cat"],
         probabilities=[0.7, 0.2, 0.1],
     )
 
@@ -219,10 +227,10 @@ def test_format_categorical_belief_summary_defaults_to_all_entries():
     )
 
 
-def test_make_uniform_belief_state_dedupes_without_frequency_weighting():
-    belief_state = make_uniform_belief_state(["cat", "cat", "dog"])
+def test_uniform_deduped_dedupes_without_frequency_weighting():
+    belief_state = uniform_deduped(["cat", "cat", "dog"], key=lambda label: label.lower())
 
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog")
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
     assert is_uniform_belief_state(belief_state)
 
@@ -230,21 +238,21 @@ def test_make_uniform_belief_state_dedupes_without_frequency_weighting():
 def test_build_uniform_prior_dedupes_and_assigns_equal_probabilities():
     belief_state = build_uniform_prior(["cat", "cat", "dog"])
 
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog",)
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
 
 
 def test_build_exponential_rank_prior_with_zero_rate_is_uniform():
     belief_state = build_exponential_rank_prior(["cat", "dog", "wolf"], 0.0)
 
-    assert belief_state.beliefs == ["cat", "dog", "wolf"]
+    assert belief_state.hypotheses == ("cat", "dog", "wolf",)
     assert belief_state.probabilities == pytest.approx([1 / 3, 1 / 3, 1 / 3])
 
 
 def test_build_exponential_rank_prior_positive_rate_is_monotonic_and_normalized():
     belief_state = build_exponential_rank_prior(["cat", "dog", "wolf"], 0.5)
 
-    assert belief_state.beliefs == ["cat", "dog", "wolf"]
+    assert belief_state.hypotheses == ("cat", "dog", "wolf",)
     assert belief_state.probabilities[0] > belief_state.probabilities[1] > belief_state.probabilities[2]
     assert sum(belief_state.probabilities) == pytest.approx(1.0)
 
@@ -258,7 +266,7 @@ def test_get_questioner_prior_uses_uniform_mode():
     belief_state = get_questioner_prior(config)
 
     assert belief_state is not None
-    assert belief_state.beliefs == ["cat", "dog", "wolf"]
+    assert belief_state.hypotheses == ("cat", "dog", "wolf",)
     assert belief_state.probabilities == pytest.approx([1 / 3, 1 / 3, 1 / 3])
 
 
@@ -303,7 +311,7 @@ def test_get_answerer_prior_uniform_is_independent_of_questioner_prior():
     answerer_prior = get_answerer_prior(config)
 
     assert answerer_prior is not None
-    assert answerer_prior.beliefs == ["cat", "dog", "wolf"]
+    assert answerer_prior.hypotheses == ("cat", "dog", "wolf",)
     assert answerer_prior.probabilities == pytest.approx([1 / 3, 1 / 3, 1 / 3])
 
 

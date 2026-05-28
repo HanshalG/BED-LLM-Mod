@@ -53,6 +53,7 @@ class EIGBinary(Method[H, A, O, S]):
     """
 
     observation_labels: tuple[Any, Any]
+    search_depth: int = 1
 
     @property
     def name(self) -> str:
@@ -71,13 +72,21 @@ class EIGBinary(Method[H, A, O, S]):
             raise ValueError("EIGBinary requires at least one candidate action")
         if not belief_state.hypotheses:
             # Can't score without a belief support; return the first candidate.
-            return ActionScore(action=candidates[0], score=0.0)
+            return ActionScore(
+                action=candidates[0],
+                score=0.0,
+                extras={"metric_name": "selected_eig", "all_scores": [0.0] * len(candidates)},
+            )
 
         scores = [
             self._score_action(
                 action,
                 belief_state,
                 environment,
+                model,
+                history,
+                config,
+                depth=max(1, int(self.search_depth)),
             )
             for action in candidates
         ]
@@ -87,6 +96,7 @@ class EIGBinary(Method[H, A, O, S]):
             score=float(scores[best_index]),
             extras={
                 "all_scores": [float(score) for score in scores],
+                "metric_name": "selected_eig",
             },
         )
 
@@ -97,9 +107,14 @@ class EIGBinary(Method[H, A, O, S]):
         action: A,
         belief_state: BeliefState[H],
         environment: Environment[S, H, A, O],
+        model: Any,
+        history: Sequence[tuple[A, O]],
+        config: Any,
+        *,
+        depth: int,
     ) -> float:
         """Compute EIG for a single candidate action."""
-        positive_label, _negative_label = self.observation_labels
+        positive_label, negative_label = self.observation_labels
 
         # Build a synthetic positive observation; the environment then exposes
         # log p(o_positive | a, h) for every hypothesis in one batched call.
@@ -122,7 +137,52 @@ class EIGBinary(Method[H, A, O, S]):
             )
         )
         marginal_entropy = _binary_entropy(marginal_p_yes)
-        return marginal_entropy - conditional_entropy
+        immediate = marginal_entropy - conditional_entropy
+        if depth <= 1:
+            return immediate
+
+        future_value = 0.0
+        branch_specs = (
+            (positive_label, marginal_p_yes),
+            (negative_label, 1.0 - marginal_p_yes),
+        )
+        for label, branch_probability in branch_specs:
+            if branch_probability <= 0.0:
+                continue
+            branch_observation = self._synthesise_observation(action, label)
+            branch_history = list(history) + [(action, branch_observation)]
+            future_belief = environment.belief_after_branch_observation(
+                belief_state,
+                branch_history,
+                model,
+                config,
+            )
+            if future_belief.support_size <= 1:
+                continue
+            future_candidates = list(
+                environment.generate_candidate_actions(
+                    future_belief,
+                    branch_history,
+                    model,
+                    config,
+                )
+            )
+            if not future_candidates:
+                continue
+            future_scores = [
+                self._score_action(
+                    future_action,
+                    future_belief,
+                    environment,
+                    model,
+                    branch_history,
+                    config,
+                    depth=depth - 1,
+                )
+                for future_action in future_candidates
+            ]
+            future_value += branch_probability * max(future_scores)
+        return immediate + future_value
 
     @staticmethod
     def _synthesise_observation(action: A, label: Any) -> Any:

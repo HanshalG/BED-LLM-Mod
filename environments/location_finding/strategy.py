@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
+from core import BeliefState
 from helpers import Config
 from .beliefs import build_location_posteriors_many, prompt_location_belief_state, prune_location_beliefs
 from .formatting import _format_location, _log_location
@@ -11,7 +12,7 @@ from .generation import _generate_location_hypotheses_many, _is_repeated_locatio
 from .parsing import _clean_strategy_text, _strategy_key, parse_location_strategies, parse_location_strategy_roots, parse_strategy_location
 from .physics import signal_intensity_for_hypothesis
 from .prompts import _strategy_crossover_messages, _strategy_diverse_messages, _strategy_location_messages, _strategy_mutation_messages, _strategy_root_crossover_messages, _strategy_root_diverse_messages, _strategy_root_mutation_messages
-from .types import Location, LocationBeliefState, LocationObservation, LocationStrategyCandidate, LocationStrategyEntry, LocationStrategyEvaluation, LocationStrategyLibrary, SourceConfig, _StrategyEvaluationRequest, _StrategyLocationRequest, _StrategyRollout, _dedupe_source_configs
+from .types import Location, LocationObservation, LocationStrategyCandidate, LocationStrategyEntry, LocationStrategyEvaluation, LocationStrategyLibrary, SourceConfig, _StrategyEvaluationRequest, _StrategyLocationRequest, _StrategyRollout, _dedupe_source_configs
 
 if TYPE_CHECKING:
     from model import Model
@@ -124,7 +125,7 @@ def _strategy_phase_batched(
 
 def generate_location_strategies(
     questioner: "Model",
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     library: LocationStrategyLibrary,
     config: Config,
@@ -178,7 +179,7 @@ def generate_location_strategies(
 
 def generate_location_strategies_many(
     questioner: "Model",
-    requests: list[tuple[LocationBeliefState, list[LocationObservation], LocationStrategyLibrary]],
+    requests: list[tuple[BeliefState, list[LocationObservation], LocationStrategyLibrary]],
     config: Config,
 ) -> list[list[str]]:
     if not requests:
@@ -347,7 +348,7 @@ def _strategy_root_phase_batched(
 
 def generate_location_strategy_roots(
     questioner: "Model",
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     library: LocationStrategyLibrary,
     config: Config,
@@ -411,7 +412,7 @@ def generate_location_strategy_roots(
 
 def generate_location_strategy_roots_many(
     questioner: "Model",
-    requests: list[tuple[LocationBeliefState, list[LocationObservation], LocationStrategyLibrary]],
+    requests: list[tuple[BeliefState, list[LocationObservation], LocationStrategyLibrary]],
     config: Config,
 ) -> list[list[LocationStrategyCandidate]]:
     if not requests:
@@ -569,7 +570,7 @@ def generate_strategy_locations_many(
 def generate_strategy_location(
     questioner: "Model",
     strategy: str,
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
 ) -> Location | None:
@@ -581,7 +582,7 @@ def generate_strategy_location(
 
 
 def _sample_source_hypothesis(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     rng: np.random.Generator,
 ) -> tuple[SourceConfig, float]:
     if not belief_state.hypotheses:
@@ -593,7 +594,7 @@ def _sample_source_hypothesis(
 
 
 def _hypothesis_probability(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     hypothesis: SourceConfig,
     probability_floor: float = 1e-300,
 ) -> float:
@@ -632,9 +633,9 @@ def _location_entropy(probabilities: list[float]) -> float:
 
 
 def _align_belief_state_to_support(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     support: list[SourceConfig],
-) -> LocationBeliefState:
+) -> BeliefState:
     probability_lookup = {
         hypothesis: float(probability)
         for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities)
@@ -645,7 +646,7 @@ def _align_belief_state_to_support(
         probabilities = [1.0 / len(support)] * len(support)
     elif total > 0.0:
         probabilities = [float(probability / total) for probability in probabilities]
-    return LocationBeliefState(list(support), probabilities)
+    return BeliefState(list(support), probabilities)
 
 
 def _rollout_entropy_reduction_score(
@@ -689,7 +690,7 @@ def _rollout_entropy_reduction_score(
 def evaluate_location_strategies_by_rollout(
     questioner: "Model",
     strategies: list[str],
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
     rng: np.random.Generator,
@@ -1131,7 +1132,7 @@ def _strategy_entries_from_evaluations(
 
 def choose_location_with_strategy_rollouts(
     questioner: "Model",
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     library: LocationStrategyLibrary,
     config: Config,

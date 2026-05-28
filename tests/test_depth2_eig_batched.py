@@ -11,7 +11,7 @@ from methods.continuous_eig import score_continuous_forward_search
 from environments.location_finding.depth2_eig import score_location_candidates_depth2_batched
 from environments.location_finding.beliefs import build_location_belief_state
 from environments.location_finding.eig import expected_information_gain
-from environments.location_finding.types import LocationBeliefState, LocationObservation, normalize_source_config
+from environments.location_finding.types import LocationObservation, normalize_source_config
 from tests.test_location_finding import FakeLocationModel, _location_config
 
 

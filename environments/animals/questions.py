@@ -4,7 +4,8 @@ from dataclasses import replace
 
 import numpy as np
 
-from helpers import BeliefState, Config, ensure_belief_state, format_categorical_belief_summary, \
+from core import BeliefState
+from helpers import Config, format_categorical_belief_summary, \
     is_uniform_belief_state, print_and_log, reverse_history, _binary_entropy, convert_string_to_array
 from model import Model
 from environments.animals.prompts import candidate_generation_system_message, conditional_question_generation_prompt, \
@@ -12,7 +13,7 @@ from environments.animals.prompts import candidate_generation_system_message, co
     weighted_unconditional_question_generation_prompt, \
     candidate_generation_system_message_naive, \
     question_generation_prompt_naive, weighted_question_generation_prompt_naive, answer_likelihood_messages
-from environments.animals.beliefs import update_beliefs_batched
+from environments.animals.beliefs import ensure_animals_belief_state, update_beliefs_batched
 
 from helpers import write_to_log
 
@@ -26,23 +27,23 @@ def _format_question_preview(questions: list[str]) -> str:
 def generate_candidate_questions(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]],
                                  questioner: Model, generation_temperature: float, num_questions: int,
                                  verbose: bool = True) -> list[str]:
-    belief_state = ensure_belief_state(beliefs)
+    belief_state = ensure_animals_belief_state(beliefs)
     # if there are less than 3 beliefs left, best question is always to check one of them
-    if len(belief_state.beliefs) in [1, 2]:
-        top_belief = belief_state.beliefs[int(np.argmax(belief_state.probabilities))]
+    if len(belief_state.hypotheses) in [1, 2]:
+        top_belief = belief_state.hypotheses[int(np.argmax(belief_state.probabilities))]
         if verbose:
-            print(f"[candidate-gen] Only {len(belief_state.beliefs)} belief(s) left, switching to direct guess")
+            print(f"[candidate-gen] Only {len(belief_state.hypotheses)} belief(s) left, switching to direct guess")
         return [f"Is it {top_belief}?"]
 
     if verbose:
-        print(f"[candidate-gen] Building candidates from {len(belief_state.beliefs)} belief(s) and {len(history_questioner) // 2} prior round(s)")
+        print(f"[candidate-gen] Building candidates from {len(belief_state.hypotheses)} belief(s) and {len(history_questioner) // 2} prior round(s)")
     if is_uniform_belief_state(belief_state):
-        question_prompt = conditional_question_generation_prompt(belief_state.beliefs, num_questions)
+        question_prompt = conditional_question_generation_prompt(belief_state.hypotheses, num_questions)
     else:
         if verbose:
             print(f"[categorical] Candidate generation weights: {format_categorical_belief_summary(belief_state)}")
         weighted_beliefs = sorted(
-            zip(belief_state.beliefs, belief_state.probabilities),
+            zip(belief_state.hypotheses, belief_state.probabilities),
             key=lambda entry: entry[1],
             reverse=True,
         )
@@ -69,7 +70,7 @@ def generate_candidate_questions(beliefs: BeliefState | list[str], history_quest
             )
         else:
             weighted_beliefs = sorted(
-                zip(belief_state.beliefs, belief_state.probabilities),
+                zip(belief_state.hypotheses, belief_state.probabilities),
                 key=lambda entry: entry[1],
                 reverse=True,
             )
@@ -94,23 +95,23 @@ def generate_candidate_questions(beliefs: BeliefState | list[str], history_quest
 
 def _draw_belief_samples(beliefs: BeliefState | list[str], deterministic: bool,
                          num_mc_samples: int) -> tuple[list[str] | np.ndarray, list[float] | None]:
-    belief_state = ensure_belief_state(beliefs)
-    if len(belief_state.beliefs) == 0:
+    belief_state = ensure_animals_belief_state(beliefs)
+    if len(belief_state.hypotheses) == 0:
         return [], None
 
     if deterministic:
-        return belief_state.beliefs, belief_state.probabilities
+        return belief_state.hypotheses, belief_state.probabilities
 
-    if len(belief_state.beliefs) <= num_mc_samples:
-        return belief_state.beliefs, belief_state.probabilities
+    if len(belief_state.hypotheses) <= num_mc_samples:
+        return belief_state.hypotheses, belief_state.probabilities
 
     sampled_indices = np.random.choice(
-        len(belief_state.beliefs),
+        len(belief_state.hypotheses),
         size=num_mc_samples,
         replace=True,
         p=belief_state.probabilities,
     )
-    samples = np.array([belief_state.beliefs[index] for index in sampled_indices])
+    samples = np.array([belief_state.hypotheses[index] for index in sampled_indices])
     return samples, None
 
 
@@ -184,7 +185,7 @@ def _score_questions_from_probability_rows(probabilities: list[dict[str, float]]
 
 def _future_beliefs_for_answer(beliefs: BeliefState | list[str], history_questioner: list[dict[str, str]], question: str,
                                answer: str, questioner: Model, deterministic: bool, config: Config) -> BeliefState:
-    belief_state = ensure_belief_state(beliefs)
+    belief_state = ensure_animals_belief_state(beliefs)
     hypothetical_history = history_questioner + [
         {"role": "assistant", "content": question},
         {"role": "user", "content": answer},
@@ -215,7 +216,7 @@ def _evaluate_questions_forward_search_recursive(
     config: Config,
     depth: int,
 ) -> tuple[list[float], list[list[float]]]:
-    belief_state = ensure_belief_state(beliefs)
+    belief_state = ensure_animals_belief_state(beliefs)
     if depth <= 0:
         raise ValueError("search depth must be a positive integer")
     if len(cand_questions) == 0:
@@ -265,7 +266,7 @@ def _evaluate_questions_forward_search_recursive(
             if branch_probability == 0.0:
                 continue
 
-            future_beliefs = ensure_belief_state(
+            future_beliefs = ensure_animals_belief_state(
                 _future_beliefs_for_answer(
                     belief_state,
                     history_questioner,
@@ -282,7 +283,7 @@ def _evaluate_questions_forward_search_recursive(
                     f"{format_categorical_belief_summary(future_beliefs)}",
                     config,
                 )
-            if len(future_beliefs.beliefs) == 0:
+            if len(future_beliefs.hypotheses) == 0:
                 continue
 
             hypothetical_history = _history_with_answer(history_questioner, question, answer)
@@ -430,7 +431,7 @@ def evaluate_questions_forward_search(beliefs: BeliefState | list[str], history_
                                       cand_questions: list[str],
                                       eig: bool, deterministic: bool, questioner: Model, config: Config,
                                       depth: int = 2) -> list[float]:
-    belief_state = ensure_belief_state(beliefs)
+    belief_state = ensure_animals_belief_state(beliefs)
     if not isinstance(depth, int) or isinstance(depth, bool) or depth < 1:
         raise ValueError("search depth must be a positive integer")
     if depth == 1:
@@ -486,11 +487,11 @@ def generate_candidate_question_naive(history_questioner: list[dict[str, str]], 
                                       generation_temperature: float,
                                       prior_beliefs: BeliefState | None = None,
                                       belief_context_label: str = "prior distribution") -> str:
-    if prior_beliefs is None or len(prior_beliefs.beliefs) == 0:
+    if prior_beliefs is None or len(prior_beliefs.hypotheses) == 0:
         question_prompt = question_generation_prompt_naive()
     else:
         weighted_beliefs = sorted(
-            zip(prior_beliefs.beliefs, prior_beliefs.probabilities),
+            zip(prior_beliefs.hypotheses, prior_beliefs.probabilities),
             key=lambda entry: entry[1],
             reverse=True,
         )

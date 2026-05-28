@@ -6,6 +6,8 @@ from typing import Any
 
 import numpy as np
 
+from core.belief import BeliefState as _BeliefState
+
 
 SourceConfig = tuple[tuple[float, ...], ...]
 
@@ -17,16 +19,6 @@ Location = tuple[float, ...]
 class LocationObservation:
     query: Location
     value: float
-
-
-@dataclass(frozen=True)
-class LocationBeliefState:
-    hypotheses: list[SourceConfig] = field(default_factory=list)
-    probabilities: list[float] = field(default_factory=list)
-
-    def __post_init__(self) -> None:
-        if len(self.hypotheses) != len(self.probabilities):
-            raise ValueError("LocationBeliefState hypotheses and probabilities must have the same length")
 
 
 @dataclass(frozen=True)
@@ -169,7 +161,7 @@ class _LocationTrialState:
     env: "LocationFindingEnv"
     observations: list[LocationObservation]
     rng: np.random.Generator
-    belief_state: LocationBeliefState | None = None
+    belief_state: _BeliefState[SourceConfig] | None = None
     strategy_library: "LocationStrategyLibrary | None" = None
     final_estimate: SourceConfig | None = None
     final_rmse: float = float("inf")
@@ -178,7 +170,7 @@ class _LocationTrialState:
 @dataclass(frozen=True)
 class _StrategyLocationRequest:
     strategy: str
-    belief_state: LocationBeliefState
+    belief_state: _BeliefState[SourceConfig]
     observations: list[LocationObservation]
 
 
@@ -195,20 +187,20 @@ class _StrategyRollout:
     strategy: str
     truth: SourceConfig
     start_probability: float
-    start_belief_state: LocationBeliefState
-    belief_state: LocationBeliefState
+    start_belief_state: _BeliefState[SourceConfig]
+    belief_state: _BeliefState[SourceConfig]
     particle_support: list[SourceConfig] = field(default_factory=list)
     final_generated_hypotheses: list[SourceConfig] = field(default_factory=list)
-    final_scoring_belief_state: LocationBeliefState | None = None
+    final_scoring_belief_state: _BeliefState[SourceConfig] | None = None
     simulated_observations: list[LocationObservation] = field(default_factory=list)
-    simulated_belief_states: list[LocationBeliefState] = field(default_factory=list)
+    simulated_belief_states: list[_BeliefState[SourceConfig]] = field(default_factory=list)
     root_query: Location | None = None
 
 
 @dataclass(frozen=True)
 class _StrategyEvaluationRequest:
     strategies: list[str]
-    belief_state: LocationBeliefState
+    belief_state: _BeliefState[SourceConfig]
     observations: list[LocationObservation]
     rng: np.random.Generator
     root_queries: list[Location | None] | None = None

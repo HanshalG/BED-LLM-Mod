@@ -1,38 +1,36 @@
 version: 0
 task: animals
-
 animals:
-  - ["Coyote", "Wolverine"]
-
+- - Coyote
+  - Wolverine
 model_pairs:
-  - questioner:
-      model: "google/gemma-4-E4B-it"
-      thinking: false
-    answerer:
-      model: "google/gemma-4-E4B-it"
-      thinking: false
-
+- questioner:
+    model: google/gemma-4-E4B-it
+    thinking: false
+  answerer:
+    model: google/gemma-4-E4B-it
+    thinking: false
 method_names:
-  - "naive"
-  - "EIG"
-
+- naive
+- EIG
 batched_block_size: 8
 generation_temperature_diverse: 1.0
 generation_temperature_simple: 1.0
 answer_temperature: 0.7
-search_depth: 1
-target_num_questions: 5
 num_mc_samples: 5
-max_num_samples: 10
-min_num_samples: 5
-threshold_rejection_probability: 0.2
-belief_state_mode: "uniform"
-belief_probability_temperature: 0.0
-belief_distribution_num_calls: 1
-belief_distribution_permute_history: false
-probability_parse_fallback_to_uniform: true
-belief_prior_mode: "none"
-belief_prior_exponential_rate: 0.0
-belief_generation_enabled: true
-belief_filtering_enabled: true
-answerer_sample_from_prior: false
+environment:
+  search_depth: 1
+  target_num_questions: 5
+  max_num_samples: 10
+  min_num_samples: 5
+  threshold_rejection_probability: 0.2
+  belief_generation_enabled: true
+  belief_filtering_enabled: true
+  belief_prior_mode: none
+  belief_prior_exponential_rate: 0.0
+  answerer_sample_from_prior: false
+  belief_state_mode: uniform
+  belief_probability_temperature: 0.0
+  belief_distribution_num_calls: 1
+  belief_distribution_permute_history: false
+  probability_parse_fallback_to_uniform: true

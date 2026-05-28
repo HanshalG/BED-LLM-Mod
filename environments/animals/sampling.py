@@ -1,4 +1,5 @@
-from helpers import BeliefState, reverse_history
+from core import BeliefState
+from helpers import reverse_history
 from model import Model
 from environments.animals.prompts import greedy_sample_animal_system_prompt, greedy_sample_animal_user_prompt, \
     greedy_sample_animal_system_prompt_naive, greedy_sample_animal_user_prompt_naive, \
@@ -14,11 +15,11 @@ def sample_beliefs(beliefs: list[str], history_questioner: list[dict[str, str]],
 
 def sample_beliefs_naive(history_questioner: list[dict[str, str]], questioner: Model, generation_temperature: float,
                          prior_beliefs: BeliefState | None = None) -> str:
-    if prior_beliefs is None or len(prior_beliefs.beliefs) == 0:
+    if prior_beliefs is None or len(prior_beliefs.hypotheses) == 0:
         user_prompt = greedy_sample_animal_user_prompt_naive()
     else:
         weighted_beliefs = sorted(
-            zip(prior_beliefs.beliefs, prior_beliefs.probabilities),
+            zip(prior_beliefs.hypotheses, prior_beliefs.probabilities),
             key=lambda entry: entry[1],
             reverse=True,
         )

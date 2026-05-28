@@ -20,7 +20,8 @@ fake_model_module.Model = _ModelBase
 sys.modules.setdefault("model", fake_model_module)
 
 import environments.animals.questions as gcq
-from helpers import BeliefState, Config
+from core import BeliefState
+from helpers import Config
 
 
 class FakeModel(_ModelBase):
@@ -98,7 +99,7 @@ def _make_config() -> Config:
 
 def _belief_names(beliefs):
     if isinstance(beliefs, BeliefState):
-        return beliefs.beliefs
+        return list(beliefs.hypotheses)
     return beliefs
 
 
@@ -143,7 +144,7 @@ def test_evaluate_questions_forward_search_depth_1_matches_batched():
 
 def test_evaluate_questions_batched_uses_belief_probabilities_when_available():
     beliefs = BeliefState(
-        beliefs=["cat", "dog"],
+        hypotheses=["cat", "dog"],
         probabilities=[0.9, 0.1],
     )
     cand_questions = ["Is it feline?", "Does it bark?"]
@@ -209,7 +210,7 @@ def test_evaluate_questions_batched_builds_dedicated_likelihood_messages():
 
 def test_generate_candidate_questions_uses_weighted_backfill_prompt_for_categorical_state():
     beliefs = BeliefState(
-        beliefs=["cat", "dog", "wolf"],
+        hypotheses=["cat", "dog", "wolf"],
         probabilities=[0.8, 0.15, 0.05],
     )
     model = RecordingQuestionModel(["Is it feline?", "Does it bark?"])
@@ -230,7 +231,7 @@ def test_generate_candidate_questions_uses_weighted_backfill_prompt_for_categori
 
 def test_generate_candidate_questions_logs_weighted_summary_for_categorical_state(capsys):
     beliefs = BeliefState(
-        beliefs=["cat", "dog", "wolf"],
+        hypotheses=["cat", "dog", "wolf"],
         probabilities=[0.8, 0.15, 0.05],
     )
     model = RecordingQuestionModel(["Is it feline?", "Does it bark?"])
@@ -251,7 +252,7 @@ def test_generate_candidate_questions_logs_weighted_summary_for_categorical_stat
 
 def test_generate_candidate_questions_logs_all_questions_without_truncation(capsys):
     beliefs = BeliefState(
-        beliefs=["cat", "dog", "wolf"],
+        hypotheses=["cat", "dog", "wolf"],
         probabilities=[0.8, 0.15, 0.05],
     )
     model = RecordingQuestionModel(
@@ -284,7 +285,7 @@ def test_generate_candidate_questions_logs_all_questions_without_truncation(caps
 
 def test_generate_candidate_question_naive_includes_prior_when_provided():
     prior = BeliefState(
-        beliefs=["cat", "dog"],
+        hypotheses=["cat", "dog"],
         probabilities=[0.8, 0.2],
     )
     model = RecordingQuestionModel(["Is it feline?"])
@@ -304,7 +305,7 @@ def test_generate_candidate_question_naive_includes_prior_when_provided():
 
 def test_generate_candidate_question_naive_can_label_current_posterior_belief_state():
     beliefs = BeliefState(
-        beliefs=["cat", "dog"],
+        hypotheses=["cat", "dog"],
         probabilities=[0.8, 0.2],
     )
     model = RecordingQuestionModel(["Is it feline?"])
@@ -753,7 +754,7 @@ def test_evaluate_questions_forward_search_logs_to_configured_run_file(monkeypat
 
 def test_evaluate_questions_forward_search_logs_categorical_branch_summaries(monkeypatch, tmp_path):
     beliefs = BeliefState(
-        beliefs=["cat", "dog"],
+        hypotheses=["cat", "dog"],
         probabilities=[0.6, 0.4],
     )
     question = "Is it feline?"
@@ -768,8 +769,8 @@ def test_evaluate_questions_forward_search_logs_categorical_branch_summaries(mon
     )
 
     branch_states = {
-        "Yes": BeliefState(beliefs=["cat", "lion"], probabilities=[0.7, 0.3]),
-        "No": BeliefState(beliefs=["dog", "wolf"], probabilities=[0.8, 0.2]),
+        "Yes": BeliefState(hypotheses=["cat", "lion"], probabilities=[0.7, 0.3]),
+        "No": BeliefState(hypotheses=["dog", "wolf"], probabilities=[0.8, 0.2]),
     }
 
     monkeypatch.setattr(
@@ -799,7 +800,7 @@ def test_evaluate_questions_forward_search_logs_categorical_branch_summaries(mon
 
 def test_evaluate_questions_forward_search_preserves_weighted_future_states(monkeypatch):
     beliefs = BeliefState(
-        beliefs=["cat", "dog"],
+        hypotheses=["cat", "dog"],
         probabilities=[0.6, 0.4],
     )
     config = _make_config()
@@ -811,8 +812,8 @@ def test_evaluate_questions_forward_search_preserves_weighted_future_states(monk
         }
     )
     weighted_branch_states = [
-        BeliefState(beliefs=["cat", "lion"], probabilities=[0.8, 0.2]),
-        BeliefState(beliefs=["dog", "wolf"], probabilities=[0.3, 0.7]),
+        BeliefState(hypotheses=["cat", "lion"], probabilities=[0.8, 0.2]),
+        BeliefState(hypotheses=["dog", "wolf"], probabilities=[0.3, 0.7]),
     ]
     generated_probabilities = []
     scored_probabilities = []

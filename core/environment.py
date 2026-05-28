@@ -65,9 +65,38 @@ class Environment(ABC, Generic[S, H, A, O]):
     def sample_hidden_state(self, rng: np.random.Generator) -> S:
         """Sample a hidden ground-truth state for a single trial."""
 
+    def sample_hidden_state_for_trial(self, trial_index: int, rng: np.random.Generator) -> S:
+        """Sample/choose hidden state for a specific trial index."""
+        return self.sample_hidden_state(rng)
+
+    def sample_hidden_states_for_trials(
+        self,
+        trial_indices: Sequence[int],
+        rng: np.random.Generator,
+    ) -> list[S]:
+        """Sample/choose hidden states for a cross-trial batch."""
+        return [
+            self.sample_hidden_state_for_trial(trial_index, rng)
+            for trial_index in trial_indices
+        ]
+
     @abstractmethod
     def observe(self, action: A, hidden_state: S, rng: np.random.Generator) -> O:
         """Return the (possibly noisy) observation for the given action."""
+
+    def observe_many(
+        self,
+        actions: Sequence[A],
+        hidden_states: Sequence[S],
+        rng: np.random.Generator,
+    ) -> list[O]:
+        """Return observations for a cross-trial batch."""
+        if len(actions) != len(hidden_states):
+            raise ValueError("actions and hidden_states must have the same length")
+        return [
+            self.observe(action, hidden_state, rng)
+            for action, hidden_state in zip(actions, hidden_states)
+        ]
 
     # ------------------------------------------------------------------
     # Probabilistic model
@@ -115,6 +144,15 @@ class Environment(ABC, Generic[S, H, A, O]):
     ) -> BeliefState[H]:
         """Bootstrap a belief state for the start of a trial."""
 
+    def initial_belief_states(
+        self,
+        trial_indices: Sequence[int],
+        model: Any,
+        config: Any,
+    ) -> list[BeliefState[H]]:
+        """Bootstrap belief states for a cross-trial batch."""
+        return [self.initial_belief_state(model, config) for _trial_index in trial_indices]
+
     @abstractmethod
     def update_belief_state(
         self,
@@ -129,6 +167,21 @@ class Environment(ABC, Generic[S, H, A, O]):
         anything the environment needs to refresh its finite support.
         """
 
+    def update_belief_states(
+        self,
+        belief_states: Sequence[BeliefState[H]],
+        histories: Sequence[Sequence[tuple[A, O]]],
+        model: Any,
+        config: Any,
+    ) -> list[BeliefState[H]]:
+        """Update belief states for a cross-trial batch."""
+        if len(belief_states) != len(histories):
+            raise ValueError("belief_states and histories must have the same length")
+        return [
+            self.update_belief_state(belief_state, history, model, config)
+            for belief_state, history in zip(belief_states, histories)
+        ]
+
     # ------------------------------------------------------------------
     # Action proposal
     # ------------------------------------------------------------------
@@ -142,6 +195,21 @@ class Environment(ABC, Generic[S, H, A, O]):
         config: Any,
     ) -> list[A]:
         """Propose a list of candidate actions to score for this round."""
+
+    def generate_candidate_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[H]],
+        histories: Sequence[Sequence[tuple[A, O]]],
+        model: Any,
+        config: Any,
+    ) -> list[list[A]]:
+        """Propose candidate actions for a cross-trial batch."""
+        if len(belief_states) != len(histories):
+            raise ValueError("belief_states and histories must have the same length")
+        return [
+            list(self.generate_candidate_actions(belief_state, history, model, config))
+            for belief_state, history in zip(belief_states, histories)
+        ]
 
     # ------------------------------------------------------------------
     # Metrics
@@ -162,6 +230,10 @@ class Environment(ABC, Generic[S, H, A, O]):
 
     def validate_config(self, config: Any) -> None:
         """Validate environment-specific config before a run starts."""
+
+    def required_model_roles(self, config: Any) -> tuple[str, ...]:
+        """Return ``ModelPair`` roles that this environment needs."""
+        return ("questioner", "answerer")
 
     def trial_count(self, config: Any) -> int:
         """Number of trials to run for this environment."""
@@ -206,6 +278,29 @@ class Environment(ABC, Generic[S, H, A, O]):
         """
         raise NotImplementedError(f"{type(self).__name__} does not implement generate_naive_action")
 
+    def generate_naive_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[H]],
+        histories: Sequence[Sequence[tuple[A, O]]],
+        model: Any,
+        config: Any,
+        *,
+        method_name: str | None = None,
+    ) -> list[A]:
+        """Generate direct naive actions for a cross-trial batch."""
+        if len(belief_states) != len(histories):
+            raise ValueError("belief_states and histories must have the same length")
+        return [
+            self.generate_naive_action(
+                belief_state,
+                history,
+                model,
+                config,
+                method_name=method_name,
+            )
+            for belief_state, history in zip(belief_states, histories)
+        ]
+
     def naive_metrics_after_observation(
         self,
         belief_state: BeliefState[H],
@@ -222,6 +317,31 @@ class Environment(ABC, Generic[S, H, A, O]):
         finding uses it to request a final source estimate and compute RMSE.
         """
         return {}
+
+    def naive_metrics_after_observations(
+        self,
+        belief_states: Sequence[BeliefState[H]],
+        histories: Sequence[Sequence[tuple[A, O]]],
+        hidden_states: Sequence[S],
+        model: Any,
+        config: Any,
+        *,
+        method_name: str | None = None,
+    ) -> list[dict[str, float]]:
+        """Compute naive post-observation metrics for a cross-trial batch."""
+        if len(belief_states) != len(histories) or len(histories) != len(hidden_states):
+            raise ValueError("belief_states, histories, and hidden_states must have the same length")
+        return [
+            self.naive_metrics_after_observation(
+                belief_state,
+                history,
+                hidden_state,
+                model,
+                config,
+                method_name=method_name,
+            )
+            for belief_state, history, hidden_state in zip(belief_states, histories, hidden_states)
+        ]
 
     def representative_observation(self, action: A, predictive_mean: float) -> O:
         """Synthetic observation for depth-2+ continuous EIG branch expansion.
@@ -262,6 +382,33 @@ class Environment(ABC, Generic[S, H, A, O]):
         """Choose an action via the environment's StrategyEIG protocol."""
         raise NotImplementedError(f"{type(self).__name__} does not implement choose_strategy_action")
 
+    def choose_strategy_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[H]],
+        histories: Sequence[Sequence[tuple[A, O]]],
+        model: Any,
+        config: Any,
+        rngs: Sequence[np.random.Generator],
+        round_index: int,
+        *,
+        fixed_root: bool = False,
+    ) -> list[tuple[A, float, Any]]:
+        """Choose StrategyEIG actions for a cross-trial batch."""
+        if len(belief_states) != len(histories) or len(histories) != len(rngs):
+            raise ValueError("belief_states, histories, and rngs must have the same length")
+        return [
+            self.choose_strategy_action(
+                belief_state,
+                history,
+                model,
+                config,
+                rng,
+                round_index,
+                fixed_root=fixed_root,
+            )
+            for belief_state, history, rng in zip(belief_states, histories, rngs)
+        ]
+
     def on_empty_candidates(
         self,
         belief_state: BeliefState[H],
@@ -270,7 +417,7 @@ class Environment(ABC, Generic[S, H, A, O]):
         config: Any,
     ) -> bool:
         """Return True to skip the round when no candidate actions were generated."""
-        return True
+        return False
 
     def summarize_run(self, run_result: "RunResult", config: Any) -> ExperimentSummary:
         """Convert a :class:`RunResult` into task-level per-round metric series."""
@@ -297,8 +444,9 @@ class Environment(ABC, Generic[S, H, A, O]):
         run_result: "RunResult",
         output_dir: Path,
         config: Any,
-    ) -> None:
+    ) -> dict[str, Path]:
         """Write optional per-run artifacts (plots, traces) under ``output_dir``."""
+        return {}
 
     def __repr__(self) -> str:  # pragma: no cover - cosmetic
         return f"{type(self).__name__}(name={self.name!r})"

@@ -4,8 +4,9 @@ import json
 
 import numpy as np
 
+from core import BeliefState
 from helpers import Config, print_and_log
-from .types import Location, LocationBeliefState, LocationObservation, LocationStrategyEntry
+from .types import Location, LocationObservation, LocationStrategyEntry
 
 
 def _format_observations(observations: list[LocationObservation]) -> str:
@@ -18,7 +19,7 @@ def _format_observations(observations: list[LocationObservation]) -> str:
     return json.dumps(rows)
 
 
-def _format_weighted_hypotheses(belief_state: LocationBeliefState, top_n: int = 10) -> str:
+def _format_weighted_hypotheses(belief_state: BeliefState, top_n: int = 10) -> str:
     entries = sorted(
         zip(belief_state.hypotheses, belief_state.probabilities),
         key=lambda entry: entry[1],
@@ -41,7 +42,7 @@ def _format_probability(probability: float) -> str:
     return f"{probability:.2e}"
 
 
-def _summarize_belief_state(belief_state: LocationBeliefState, top_n: int = 3) -> str:
+def _summarize_belief_state(belief_state: BeliefState, top_n: int = 3) -> str:
     if not belief_state.hypotheses:
         return "0 belief(s)"
     top_entries = list(zip(belief_state.hypotheses, belief_state.probabilities))[:top_n]

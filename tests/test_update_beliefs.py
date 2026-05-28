@@ -156,7 +156,7 @@ def test_build_belief_state_scores_categorical_probabilities_from_single_json_ca
     assert len(model.calls) == 1
     assert len(model.batched_calls) == 0
     assert model.calls[0]["num_responses"] == 1
-    assert belief_state.beliefs == ["dog", "cat"]
+    assert belief_state.hypotheses == ("dog", "cat",)
     assert belief_state.probabilities == pytest.approx([0.8, 0.2])
 
 
@@ -181,7 +181,7 @@ def test_build_belief_state_ignores_extra_keys_and_assigns_zero_to_missing_keys(
 
     belief_state = build_belief_state(["cat", "dog", "wolf"], [], model, config)
 
-    assert belief_state.beliefs == ["cat", "dog", "wolf"]
+    assert belief_state.hypotheses == ("cat", "dog", "wolf",)
     assert belief_state.probabilities == pytest.approx([1.0, 0.0, 0.0])
 
 
@@ -199,7 +199,7 @@ def test_build_belief_state_averages_multiple_valid_distribution_completions_fro
     assert len(model.calls) == 1
     assert len(model.batched_calls) == 0
     assert model.calls[0]["num_responses"] == 3
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog",)
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
 
 
@@ -216,7 +216,7 @@ def test_build_belief_state_averages_only_valid_distribution_completions():
 
     assert len(model.calls) == 1
     assert len(model.batched_calls) == 0
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog",)
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
 
 
@@ -233,7 +233,7 @@ def test_build_belief_state_falls_back_to_uniform_when_all_distribution_completi
 
     assert len(model.calls) == 1
     assert len(model.batched_calls) == 0
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog",)
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
 
 
@@ -271,7 +271,7 @@ def test_build_belief_state_falls_back_to_uniform_for_multi_label_zero_mass_payl
 
     assert len(model.calls) == 1
     assert len(model.batched_calls) == 0
-    assert belief_state.beliefs == beliefs
+    assert belief_state.hypotheses == tuple(beliefs)
     assert belief_state.probabilities == pytest.approx([1 / len(beliefs)] * len(beliefs))
 
 
@@ -321,7 +321,7 @@ def test_build_belief_state_permutation_mode_batches_one_completion_per_permuted
 
     assert len(model.calls) == 0
     assert len(model.batched_calls) == 1
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog",)
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
 
     batched_call = model.batched_calls[0]
@@ -401,7 +401,7 @@ def test_build_belief_state_permutation_mode_falls_back_to_uniform_when_all_samp
 
     assert len(model.calls) == 0
     assert len(model.batched_calls) == 1
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog",)
     assert belief_state.probabilities == pytest.approx([0.5, 0.5])
 
 
@@ -415,7 +415,7 @@ def test_build_belief_state_uniform_mode_emits_no_categorical_trace(tmp_path, ca
     belief_state = build_belief_state(["cat", "dog"], [], model, config)
 
     captured = capsys.readouterr()
-    assert belief_state.beliefs == ["cat", "dog"]
+    assert belief_state.hypotheses == ("cat", "dog",)
     assert "[categorical]" not in captured.out
     assert not config.log_path.exists()
     assert len(model.calls) == 0
@@ -486,7 +486,7 @@ def test_initialize_belief_state_filters_opening_beliefs_before_building_state()
         config,
     )
 
-    assert belief_state.beliefs == ["Cassowary"]
+    assert belief_state.hypotheses == ("Cassowary",)
     assert belief_state.probabilities == pytest.approx([1.0])
 
 
@@ -506,7 +506,7 @@ def test_build_belief_state_with_prior_uses_bayesian_likelihoods():
 
     belief_state = build_belief_state(["cat", "dog"], history, model, config)
 
-    assert belief_state.beliefs == ["dog", "cat"]
+    assert belief_state.hypotheses == ("dog", "cat",)
     assert belief_state.probabilities == pytest.approx([0.8, 0.2])
     assert len(model.probability_calls) == 1
     assert len(model.probability_calls[0]["messages"]) == 2
@@ -536,7 +536,7 @@ def test_build_belief_state_with_prior_averages_multiple_likelihood_samples():
 
     belief_state = build_belief_state(["cat", "dog"], history, model, config)
 
-    assert belief_state.beliefs == ["dog", "cat"]
+    assert belief_state.hypotheses == ("dog", "cat",)
     assert belief_state.probabilities == pytest.approx([0.6, 0.4])
     assert len(model.probability_calls) == 1
     assert len(model.probability_calls[0]["messages"]) == 4
@@ -564,7 +564,7 @@ def test_update_beliefs_generation_disabled_filters_prior_without_generation_cal
     belief_state = update_beliefs_batched(history, ["cat", "dog"], model, deterministic=False, config=config)
 
     assert model.complete_calls == []
-    assert belief_state.beliefs == ["dog"]
+    assert belief_state.hypotheses == ("dog",)
     assert belief_state.probabilities == pytest.approx([1.0])
     assert len(model.probability_calls) == 2
     first_filter_message = model.probability_calls[1]["messages"][0]
@@ -590,6 +590,6 @@ def test_update_beliefs_generation_disabled_can_skip_filtering():
     belief_state = update_beliefs_batched(history, ["cat", "dog"], model, deterministic=False, config=config)
 
     assert model.complete_calls == []
-    assert belief_state.beliefs == ["dog", "cat"]
+    assert belief_state.hypotheses == ("dog", "cat",)
     assert belief_state.probabilities == pytest.approx([0.9, 0.1])
     assert len(model.probability_calls) == 1

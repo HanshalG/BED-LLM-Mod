@@ -110,6 +110,7 @@ def test_eig_binary_prefers_action_that_splits_belief_into_balanced_halves():
     assert result.action == "q1"
     # EIG for q1 = ln(2) (1 bit of information for a 50/50 binary observation).
     assert result.score == pytest.approx(math.log(2.0))
+    assert result.extras["metric_name"] == "selected_eig"
 
 
 def test_eig_binary_prefers_discriminative_question_under_skewed_belief():

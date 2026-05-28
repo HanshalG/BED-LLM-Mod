@@ -11,7 +11,13 @@ Concrete environments (animals, location_finding, ...) implement the
 :class:`Environment` ABC and are dispatched through :class:`BEDRunner`.
 """
 
-from .belief import BeliefState
+from .belief import (
+    BeliefState,
+    deduped_belief_state,
+    effective_sample_size,
+    ensure_belief_state,
+    uniform_deduped,
+)
 from .environment import Environment
 from .method import Method, ActionScore
 from .bed_runner import BEDRunner, RoundResult, TrialResult, RunResult
@@ -35,6 +41,10 @@ from .registry import (
 
 __all__ = [
     "BeliefState",
+    "deduped_belief_state",
+    "effective_sample_size",
+    "ensure_belief_state",
+    "uniform_deduped",
     "Environment",
     "Method",
     "ActionScore",

@@ -4,17 +4,16 @@ import json
 import math
 import os
 import re
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 import numpy as np
 import yaml
 
-from environments.animals.prompts import answer_question_yesnocorrect_system_prompt, generate_original_animals_system_prompt, \
-    is_answer_likelihood_messages
+from core.belief import BeliefState as _BeliefState, deduped_belief_state, uniform_deduped
 
 if TYPE_CHECKING:
     from model import Model
@@ -46,22 +45,13 @@ class ModelPair:
     answerer: ModelSpec
 
 
-@dataclass(frozen=True)
-class BeliefState:
-    beliefs: list[str] = field(default_factory=list)
-    probabilities: list[float] = field(default_factory=list)
-
-    def __post_init__(self) -> None:
-        if len(self.beliefs) != len(self.probabilities):
-            raise ValueError("BeliefState beliefs and probabilities must have the same length")
-
-
 @dataclass
 class Config:
     version: int = 0
     task: TaskMode = "animals"
     model_pairs: list[ModelPair] = field(default_factory=list)
     method_names: list[str] = field(default_factory=list)
+    environment: dict[str, Any] = field(default_factory=dict)
     animals: list[list[str]] = field(default_factory=list)
     batched_block_size: int = 50
     generation_temperature_diverse: float = 1.0
@@ -132,11 +122,27 @@ class Config:
     location_max_new_tokens: int = 8192
 
     def __post_init__(self) -> None:
+        if self.environment:
+            self._project_environment_settings()
         # When location_num_generated_hypotheses is left at the sentinel (0), link it to
         # location_max_llm_prompt_beliefs so that direct Config() construction matches the
         # load_config() behaviour of defaulting the two together.
         if self.location_num_generated_hypotheses == 0:
             self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
+
+    def _project_environment_settings(self) -> None:
+        """Project nested environment settings onto the current runtime fields.
+
+        The framework-facing config shape is now nested, but the environment
+        modules still consume strongly named attributes.  This projection keeps
+        those modules simple while making YAML/config ownership environment
+        local.
+        """
+        aliases = _environment_aliases(self.task)
+        for key, value in self.environment.items():
+            target = aliases.get(key, key)
+            if hasattr(self, target):
+                setattr(self, target, value)
 
     @property
     def location_strategy_num_candidates(self) -> int:
@@ -327,11 +333,70 @@ def _read_bounds(raw: dict, key: str, default: list[float]) -> list[float]:
     return [low, high]
 
 
+def _environment_aliases(task: str) -> dict[str, str]:
+    """Map canonical nested environment keys to runtime attribute names."""
+    common_animals = {
+        "num_rounds": "animals_num_rounds",
+        "strategy_num_retrieved": "animals_strategy_num_retrieved",
+        "strategy_num_mutation": "animals_strategy_num_mutation",
+        "strategy_num_crossover": "animals_strategy_num_crossover",
+        "strategy_num_diverse": "animals_strategy_num_diverse",
+        "strategy_num_rollouts": "animals_strategy_num_rollouts",
+        "strategy_planning_depth": "animals_strategy_planning_depth",
+        "strategy_belief_summary_top_k": "animals_strategy_belief_summary_top_k",
+    }
+    common_location = {
+        "num_rounds": "location_num_rounds",
+        "num_trials": "location_num_trials",
+        "trial_batch_size": "location_trial_batch_size",
+        "seed": "location_seed",
+        "num_sources": "location_num_sources",
+        "dim": "location_dim",
+        "noise_sd": "location_noise_sd",
+        "query_bounds": "location_query_bounds",
+        "max_total_beliefs": "location_max_total_beliefs",
+        "max_llm_prompt_beliefs": "location_max_llm_prompt_beliefs",
+        "num_generated_hypotheses": "location_num_generated_hypotheses",
+        "target_num_candidates": "location_target_num_candidates",
+        "search_depth": "location_search_depth",
+        "eig_quadrature_order": "location_eig_quadrature_order",
+        "plot_trials": "location_plot_trials",
+        "strategy_num_retrieved": "location_strategy_num_retrieved",
+        "strategy_num_mutation": "location_strategy_num_mutation",
+        "strategy_num_crossover": "location_strategy_num_crossover",
+        "strategy_num_diverse": "location_strategy_num_diverse",
+        "strategy_num_rollouts": "location_strategy_num_rollouts",
+        "strategy_planning_depth": "location_strategy_planning_depth",
+        "strategy_discount_factor": "location_strategy_discount_factor",
+        "strategy_belief_summary_top_k": "location_strategy_belief_summary_top_k",
+        "posterior_mode": "location_posterior_mode",
+        "max_new_tokens": "location_max_new_tokens",
+    }
+    if task == "animals":
+        return common_animals
+    if task == "location_finding":
+        return common_location
+    return {}
+
+
+def _flatten_environment_config(raw: dict) -> tuple[dict, dict[str, Any]]:
+    task = raw.get("task", "animals")
+    nested = raw.get("environment", {}) or {}
+    if not isinstance(nested, dict):
+        raise ValueError("environment must be a mapping when provided")
+    flattened = dict(raw)
+    aliases = _environment_aliases(str(task))
+    for key, value in nested.items():
+        flattened[aliases.get(key, key)] = value
+    return flattened, dict(nested)
+
+
 def load_config(path: str) -> Config:
     raw = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
+    raw, environment = _flatten_environment_config(raw)
     task = raw.get("task", "animals")
-    if task not in {"animals", "location_finding"}:
-        raise ValueError("task must be one of: animals, location_finding")
+    if not isinstance(task, str) or not task:
+        raise ValueError("task must be a non-empty string")
     model_pairs = [
         _normalize_model_pair(pair, index)
         for index, pair in enumerate(raw.get("model_pairs", []))
@@ -502,6 +567,7 @@ def load_config(path: str) -> Config:
         task = task,
         model_pairs = model_pairs,
         method_names = method_names,
+        environment = environment,
         animals = raw.get("animals", []),
         batched_block_size = raw.get("batched_block_size", 50),
         generation_temperature_diverse = raw.get("generation_temperature_diverse", 1.0),
@@ -569,11 +635,18 @@ def load_config(path: str) -> Config:
     )
 
 
-def build_models(model_pairs: list[ModelPair], build_model_adapter: Callable[[ModelSpec], "Model"]) -> dict[ModelSpec, "Model"]:
+def build_models(
+    model_pairs: list[ModelPair],
+    build_model_adapter: Callable[[ModelSpec], "Model"],
+    *,
+    roles: Sequence[str] = ("questioner", "answerer"),
+) -> dict[ModelSpec, "Model"]:
     model_specs: list[ModelSpec] = []
     seen_specs: set[ModelSpec] = set()
+    role_names = tuple(dict.fromkeys(roles))
     for pair in model_pairs:
-        for spec in (pair.answerer, pair.questioner):
+        for role in role_names:
+            spec = getattr(pair, role)
             if spec not in seen_specs:
                 model_specs.append(spec)
                 seen_specs.add(spec)
@@ -848,6 +921,8 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
                                        temperature: float,
                                        complete_messages_batched: Callable[..., list[str]],
                                        fallback_to_uniform: bool = False) -> list[dict[str, float]]:
+    from environments.animals.prompts import is_answer_likelihood_messages
+
     # Validate that every message list is in answer-likelihood format, then shallow-copy
     # so downstream mutation is safe.
     for messages in batch_messages:
@@ -1088,75 +1163,20 @@ def _binary_entropy(p_yes: float, p_no: float) -> float:
     return - (p_yes_clipped * np.log(p_yes_clipped) + p_no_clipped * np.log(p_no_clipped))
 
 
-def make_belief_state(beliefs: list[str], probabilities: list[float] | None = None,
-                      fallback_to_uniform: bool = False) -> BeliefState:
-    if probabilities is None:
-        probabilities = [1.0] * len(beliefs)
+def _normalize_categorical_label(label: str) -> str | None:
+    cleaned_label = label.strip()
+    return cleaned_label or None
 
-    if len(beliefs) != len(probabilities):
-        raise ValueError("beliefs and probabilities must have the same length")
 
-    merged_beliefs: list[str] = []
-    merged_probabilities: list[float] = []
-    belief_indices: dict[str, int] = {}
-
-    for belief, probability in zip(beliefs, probabilities):
-        cleaned_belief = belief.strip()
-        if not cleaned_belief:
-            continue
-
-        try:
-            numeric_probability = float(probability)
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"Invalid belief probability: {probability!r}") from exc
-        if not math.isfinite(numeric_probability) or numeric_probability < 0.0:
-            raise ValueError(f"Belief probabilities must be finite and non-negative: {probability!r}")
-
-        belief_key = cleaned_belief.lower()
-        existing_index = belief_indices.get(belief_key)
-        if existing_index is None:
-            belief_indices[belief_key] = len(merged_beliefs)
-            merged_beliefs.append(cleaned_belief)
-            merged_probabilities.append(numeric_probability)
-        else:
-            merged_probabilities[existing_index] += numeric_probability
-
-    if not merged_beliefs:
-        return BeliefState([], [])
-
-    total_probability = sum(merged_probabilities)
-    if total_probability <= 0.0:
-        if not fallback_to_uniform:
-            raise ValueError("Belief probabilities must sum to a positive value")
-        uniform_probability = 1.0 / len(merged_beliefs)
-        return BeliefState(merged_beliefs, [uniform_probability] * len(merged_beliefs))
-
-    return BeliefState(
-        merged_beliefs,
-        [probability / total_probability for probability in merged_probabilities],
+def build_uniform_prior(animals: list[str]) -> _BeliefState:
+    return uniform_deduped(
+        animals,
+        key=lambda label: label.lower(),
+        normalize=_normalize_categorical_label,
     )
 
 
-def ensure_belief_state(beliefs: BeliefState | list[str]) -> BeliefState:
-    if isinstance(beliefs, BeliefState):
-        return beliefs
-    return make_uniform_belief_state(beliefs)
-
-
-def make_uniform_belief_state(beliefs: list[str]) -> BeliefState:
-    deduped_beliefs = make_belief_state(beliefs, fallback_to_uniform=True).beliefs
-    if not deduped_beliefs:
-        return BeliefState([], [])
-
-    uniform_probability = 1.0 / len(deduped_beliefs)
-    return BeliefState(deduped_beliefs, [uniform_probability] * len(deduped_beliefs))
-
-
-def build_uniform_prior(animals: list[str]) -> BeliefState:
-    return make_uniform_belief_state(animals)
-
-
-def build_exponential_rank_prior(animals: list[str], rate: float) -> BeliefState:
+def build_exponential_rank_prior(animals: list[str], rate: float) -> _BeliefState:
     if isinstance(rate, bool):
         raise ValueError("rate must be a non-negative finite number")
     try:
@@ -1166,15 +1186,21 @@ def build_exponential_rank_prior(animals: list[str], rate: float) -> BeliefState
     if not math.isfinite(numeric_rate) or numeric_rate < 0.0:
         raise ValueError("rate must be a non-negative finite number")
 
-    deduped_animals = make_belief_state(animals, fallback_to_uniform=True).beliefs
+    deduped_animals = build_uniform_prior(animals).hypotheses
     if not deduped_animals:
-        return BeliefState([], [])
+        return _BeliefState()
 
     weights = [
         math.exp(-numeric_rate * index)
         for index in range(len(deduped_animals))
     ]
-    return make_belief_state(deduped_animals, weights, fallback_to_uniform=False)
+    return deduped_belief_state(
+        deduped_animals,
+        weights,
+        key=lambda label: label.lower(),
+        normalize=_normalize_categorical_label,
+        fallback_to_uniform=False,
+    )
 
 
 def _prior_animals_for_config(config: Config, active_animals: list[str] | None) -> list[str]:
@@ -1185,7 +1211,7 @@ def _prior_animals_for_config(config: Config, active_animals: list[str] | None) 
     return config.animals[config.version]
 
 
-def _build_prior_from_mode(animals: list[str], mode: str, rate: float | None, field_name: str) -> BeliefState | None:
+def _build_prior_from_mode(animals: list[str], mode: str, rate: float | None, field_name: str) -> _BeliefState | None:
     if mode == "none":
         return None
     if mode == "uniform":
@@ -1195,7 +1221,7 @@ def _build_prior_from_mode(animals: list[str], mode: str, rate: float | None, fi
     raise ValueError(f"{field_name} must be one of: none, uniform, exponential_rank")
 
 
-def get_questioner_prior(config: Config) -> BeliefState | None:
+def get_questioner_prior(config: Config) -> _BeliefState | None:
     if config.belief_prior_mode == "none":
         return None
     prior_animals = _prior_animals_for_config(config, config.active_prior_animals)
@@ -1207,7 +1233,7 @@ def get_questioner_prior(config: Config) -> BeliefState | None:
     )
 
 
-def get_answerer_prior(config: Config) -> BeliefState | None:
+def get_answerer_prior(config: Config) -> _BeliefState | None:
     if config.answerer_prior_mode == "inherit":
         if config.belief_prior_mode == "none":
             return None
@@ -1229,27 +1255,19 @@ def get_answerer_prior(config: Config) -> BeliefState | None:
     )
 
 
-def get_configured_prior(config: Config) -> BeliefState | None:
+def get_configured_prior(config: Config) -> _BeliefState | None:
     return get_questioner_prior(config)
 
 
-def sort_belief_state_descending(belief_state: BeliefState) -> BeliefState:
-    ordered_entries = sorted(
-        zip(belief_state.beliefs, belief_state.probabilities),
-        key=lambda entry: entry[1],
-        reverse=True,
-    )
-    return BeliefState(
-        [belief for belief, _probability in ordered_entries],
-        [probability for _belief, probability in ordered_entries],
-    )
+def sort_belief_state_descending(belief_state: _BeliefState) -> _BeliefState:
+    return belief_state.sorted_descending()
 
 
-def format_belief_state(belief_state: BeliefState, top_n: int | None = None) -> str:
-    if len(belief_state.beliefs) == 0:
+def format_belief_state(belief_state: _BeliefState, top_n: int | None = None) -> str:
+    if len(belief_state.hypotheses) == 0:
         return "[]"
 
-    entries = list(zip(belief_state.beliefs, belief_state.probabilities))
+    entries = list(zip(belief_state.hypotheses, belief_state.probabilities))
     if top_n is not None:
         entries = sorted(entries, key=lambda entry: entry[1], reverse=True)[:top_n]
 
@@ -1260,19 +1278,19 @@ def format_belief_state(belief_state: BeliefState, top_n: int | None = None) -> 
     return "[" + ", ".join(formatted_entries) + "]"
 
 
-def format_categorical_belief_summary(belief_state: BeliefState, top_n: int | None = None) -> str:
+def format_categorical_belief_summary(belief_state: _BeliefState, top_n: int | None = None) -> str:
     if top_n is None:
-        return f"{len(belief_state.beliefs)} belief(s): {format_belief_state(belief_state)}"
+        return f"{len(belief_state.hypotheses)} belief(s): {format_belief_state(belief_state)}"
 
-    top_count = min(top_n, len(belief_state.beliefs))
-    return f"{len(belief_state.beliefs)} belief(s): {format_belief_state(belief_state, top_n=top_count)}"
+    top_count = min(top_n, len(belief_state.hypotheses))
+    return f"{len(belief_state.hypotheses)} belief(s): {format_belief_state(belief_state, top_n=top_count)}"
 
 
-def is_uniform_belief_state(belief_state: BeliefState, tolerance: float = 1e-9) -> bool:
-    if len(belief_state.beliefs) <= 1:
+def is_uniform_belief_state(belief_state: _BeliefState, tolerance: float = 1e-9) -> bool:
+    if len(belief_state.hypotheses) <= 1:
         return True
 
-    uniform_probability = 1.0 / len(belief_state.beliefs)
+    uniform_probability = 1.0 / len(belief_state.hypotheses)
     return all(
         math.isclose(probability, uniform_probability, rel_tol=tolerance, abs_tol=tolerance)
         for probability in belief_state.probabilities
@@ -1310,6 +1328,8 @@ def sample_permuted_history_messages(history_questioner: list[dict[str, str]], n
 
 
 def get_question_answered(question: str, goal_object: str, answerer: Model, answer_temperature: float) -> str:
+    from environments.animals.prompts import answer_question_yesnocorrect_system_prompt
+
     user_question = {"role": "user", "content": f"{question}"}
     messages = [answer_question_yesnocorrect_system_prompt(entity=goal_object), user_question]
     return answerer.chat_complete(messages=messages, temperature=answer_temperature)[0]
@@ -1325,6 +1345,8 @@ def is_guess_correct_via_answerer(guess: str, goal_object: str, answerer: Model,
 
 
 def generate_original_beliefs(questioner: Model, config: Config) -> list[str]:
+    from environments.animals.prompts import generate_original_animals_system_prompt
+
     generation_temperature, max_num_samples, min_num_samples = config.generation_temperature_diverse, config.max_num_samples, config.min_num_samples
     user_question = {"role": "user", "content": f"Let\'s start the game of 20 questions. Generate a diverse "
                                                 f"set of animals, at least {min_num_samples}."}

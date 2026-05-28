@@ -4,12 +4,13 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
+from core import BeliefState
 from helpers import Config
 from .beliefs import build_location_posterior
 from .formatting import _format_source_array, _log_location, _summarize_candidates
 from .parsing import parse_best_source_estimate_from_completion, parse_candidate_locations, parse_single_location_from_completion, parse_source_hypotheses
 from .prompts import _belief_generation_messages, _candidate_generation_messages, _naive_location_messages, _naive_source_estimate_messages, _naive_source_estimate_repair_messages
-from .types import Location, LocationBeliefState, LocationObservation, SourceConfig
+from .types import Location, LocationObservation, SourceConfig
 
 if TYPE_CHECKING:
     from model import Model
@@ -27,7 +28,7 @@ def _is_repeated_location(location: Location, observations: list[LocationObserva
 def generate_location_hypotheses(
     questioner: "Model",
     observations: list[LocationObservation],
-    belief_state: LocationBeliefState | None,
+    belief_state: BeliefState | None,
     config: Config,
     *,
     label: str = "belief generation",
@@ -59,7 +60,7 @@ def generate_location_hypotheses(
 def _generate_location_hypotheses_many(
     questioner: "Model",
     observations_many: list[list[LocationObservation]],
-    belief_states: list[LocationBeliefState | None],
+    belief_states: list[BeliefState | None],
     config: Config,
     *,
     label: str = "batched belief generation",
@@ -125,7 +126,7 @@ def _generate_location_hypotheses_many(
 
 def generate_location_candidates(
     questioner: "Model",
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
 ) -> list[Location]:
@@ -160,7 +161,7 @@ def generate_location_candidates(
 
 def generate_location_candidates_many(
     questioner: "Model",
-    belief_states: list[LocationBeliefState],
+    belief_states: list[BeliefState],
     observations_many: list[list[LocationObservation]],
     config: Config,
 ) -> list[list[Location]]:
@@ -229,7 +230,7 @@ def choose_location_naive(
     questioner: "Model",
     observations: list[LocationObservation],
     config: Config,
-    belief_state: LocationBeliefState | None = None,
+    belief_state: BeliefState | None = None,
 ) -> Location | None:
     bounds = tuple(config.location_query_bounds)
     _log_location(
@@ -304,7 +305,7 @@ def choose_locations_naive_many(
     questioner: "Model",
     observations_many: list[list[LocationObservation]],
     config: Config,
-    belief_states: list[LocationBeliefState | None] | None = None,
+    belief_states: list[BeliefState | None] | None = None,
 ) -> list[Location | None]:
     if not observations_many:
         return []

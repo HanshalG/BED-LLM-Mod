@@ -5,7 +5,8 @@ from itertools import permutations
 
 import numpy as np
 
-from .types import Location, LocationBeliefState, SourceConfig
+from core import BeliefState
+from .types import Location, SourceConfig
 
 
 def signal_intensity_for_hypothesis(
@@ -52,7 +53,7 @@ def source_rmse(predicted: SourceConfig, true_sources: np.ndarray) -> float:
     return math.sqrt(best_mse)
 
 
-def _top_source_rmse(belief_state: LocationBeliefState, true_sources: np.ndarray) -> float:
+def _top_source_rmse(belief_state: BeliefState, true_sources: np.ndarray) -> float:
     if not belief_state.hypotheses:
         return float("inf")
     return source_rmse(belief_state.hypotheses[0], true_sources)

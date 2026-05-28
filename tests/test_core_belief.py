@@ -6,7 +6,7 @@ import math
 
 import pytest
 
-from core import BeliefState
+from core import BeliefState, deduped_belief_state, ensure_belief_state, uniform_deduped
 
 
 # ---------------------------------------------------------------------------
@@ -68,6 +68,55 @@ def test_from_log_scores_handles_large_negative_values_without_underflow():
     # All log-scores are very negative but equal → uniform after subtracting max.
     state = BeliefState.from_log_scores(["a", "b", "c"], [-1e6, -1e6, -1e6])
     assert pytest.approx(state.probabilities) == (1 / 3, 1 / 3, 1 / 3)
+
+
+def test_deduped_belief_state_merges_case_insensitive_labels_and_preserves_first_spelling():
+    state = deduped_belief_state(
+        [" Cat ", "dog", "cat"],
+        [0.2, 0.3, 0.5],
+        key=lambda label: label.lower(),
+        normalize=lambda label: label.strip() or None,
+    )
+    assert state.hypotheses == ("Cat", "dog")
+    assert state.probabilities == pytest.approx((0.7, 0.3))
+
+
+def test_deduped_belief_state_falls_back_to_uniform_when_requested():
+    state = deduped_belief_state(
+        ["cat", "dog"],
+        [0.0, 0.0],
+        key=lambda label: label.lower(),
+        fallback_to_uniform=True,
+    )
+    assert state.hypotheses == ("cat", "dog")
+    assert state.probabilities == pytest.approx((0.5, 0.5))
+
+
+def test_uniform_deduped_dedupes_without_frequency_weighting():
+    state = uniform_deduped(
+        ["cat", "cat", "dog"],
+        key=lambda label: label.lower(),
+        normalize=lambda label: label.strip() or None,
+    )
+    assert state.hypotheses == ("cat", "dog")
+    assert state.probabilities == pytest.approx((0.5, 0.5))
+
+
+def test_ensure_belief_state_converts_sequences_to_uniform_deduped_state():
+    state = ensure_belief_state(["cat", "dog", "cat"], key=lambda label: label.lower())
+    assert state.hypotheses == ("cat", "dog")
+    assert state.probabilities == pytest.approx((0.5, 0.5))
+
+
+def test_legacy_belief_containers_are_not_exported():
+    import helpers
+    import environments.location_finding.types as location_types
+
+    assert not hasattr(helpers, "BeliefState")
+    assert not hasattr(helpers, "make_belief_state")
+    assert not hasattr(helpers, "make_uniform_belief_state")
+    assert not hasattr(location_types, "LocationBeliefState")
+    assert not hasattr(location_types, "BeliefState")
 
 
 def test_construction_rejects_negative_probabilities():

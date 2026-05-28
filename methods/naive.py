@@ -43,6 +43,28 @@ class Naive(Method[H, A, O, S]):
         )
         return ActionScore(action=action, score=0.0, extras={"metric_name": "selected_eig"})
 
+    def select_actions(
+        self,
+        candidates_many: Sequence[Sequence[A]],
+        belief_states: Sequence[BeliefState[H]],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        histories: Sequence[Sequence[tuple[A, O]]],
+        config: Any,
+    ) -> list[ActionScore[A]]:
+        del candidates_many
+        actions = environment.generate_naive_actions_many(
+            belief_states,
+            histories,
+            model,
+            config,
+            method_name=self.method_name,
+        )
+        return [
+            ActionScore(action=action, score=0.0, extras={"metric_name": "selected_eig"})
+            for action in actions
+        ]
+
     def metrics_after_observation(
         self,
         belief_state: BeliefState[H],
@@ -56,6 +78,24 @@ class Naive(Method[H, A, O, S]):
             belief_state,
             history,
             hidden_state,
+            model,
+            config,
+            method_name=self.method_name,
+        )
+
+    def metrics_after_observations(
+        self,
+        belief_states: Sequence[BeliefState[H]],
+        histories: Sequence[Sequence[tuple[A, O]]],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        hidden_states: Sequence[S],
+        config: Any,
+    ) -> list[dict[str, float]]:
+        return environment.naive_metrics_after_observations(
+            belief_states,
+            histories,
+            hidden_states,
             model,
             config,
             method_name=self.method_name,

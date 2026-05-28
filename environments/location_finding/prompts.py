@@ -5,10 +5,11 @@ import math
 
 import numpy as np
 
+from core import BeliefState
 from helpers import Config
 from .formatting import _format_observations, _format_strategy_entries, _format_weighted_hypotheses, _location_posterior_labels, _source_config_schema_example, _source_count_text
 from .physics import _hypothesis_log_prior, _logsumexp
-from .types import LocationBeliefState, LocationObservation, SourceConfig
+from .types import LocationObservation, SourceConfig
 
 
 def _belief_system_prompt(config: Config, *, update: bool) -> str:
@@ -59,7 +60,7 @@ def _belief_output_contract(config: Config) -> str:
 
 def _belief_generation_messages(
     observations: list[LocationObservation],
-    belief_state: LocationBeliefState | None,
+    belief_state: BeliefState | None,
     config: Config,
 ) -> list[dict[str, str]]:
     is_initial = not observations and (belief_state is None or not belief_state.hypotheses)
@@ -99,7 +100,7 @@ def _belief_generation_messages(
 
 def _location_posterior_context_probabilities(
     hypotheses: list[SourceConfig],
-    context_state: LocationBeliefState | None,
+    context_state: BeliefState | None,
 ) -> list[float]:
     if not hypotheses:
         return []
@@ -193,7 +194,7 @@ def _permuted_location_observation_histories(
 
 
 def _candidate_generation_messages(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
 ) -> list[dict[str, str]]:
@@ -240,7 +241,7 @@ def _candidate_generation_messages(
 def _naive_location_messages(
     observations: list[LocationObservation],
     config: Config,
-    belief_state: LocationBeliefState | None = None,
+    belief_state: BeliefState | None = None,
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = (
@@ -346,7 +347,7 @@ def _strategy_system_preamble(bounds: tuple[float, ...], num_strategies: int, ta
 
 def _strategy_mutation_messages(
     retrieved_entries: list[LocationStrategyEntry],
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
     num_mutation: int,
@@ -368,7 +369,7 @@ def _strategy_mutation_messages(
 
 def _strategy_crossover_messages(
     retrieved_entries: list[LocationStrategyEntry],
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
     num_crossover: int,
@@ -390,7 +391,7 @@ def _strategy_crossover_messages(
 
 
 def _strategy_diverse_messages(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
     num_diverse: int,
@@ -435,7 +436,7 @@ def _strategy_root_system_preamble(bounds: tuple[float, ...], num_strategies: in
 
 def _strategy_root_mutation_messages(
     retrieved_entries: list[LocationStrategyEntry],
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
     num_mutation: int,
@@ -457,7 +458,7 @@ def _strategy_root_mutation_messages(
 
 def _strategy_root_crossover_messages(
     retrieved_entries: list[LocationStrategyEntry],
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
     num_crossover: int,
@@ -479,7 +480,7 @@ def _strategy_root_crossover_messages(
 
 
 def _strategy_root_diverse_messages(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
     num_diverse: int,
@@ -500,7 +501,7 @@ def _strategy_root_diverse_messages(
 
 def _strategy_location_messages(
     strategy: str,
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     observations: list[LocationObservation],
     config: Config,
 ) -> list[dict[str, str]]:

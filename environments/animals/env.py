@@ -31,7 +31,6 @@ from core.bed_runner import RunResult
 from environments.animals.questions import generate_candidate_questions
 from environments.animals.questions import evaluate_questions_forward_search, generate_candidate_question_naive
 from helpers import (
-    BeliefState as FlatAnimalsBeliefState,
     generate_original_beliefs,
     get_configured_prior,
     get_question_answered,
@@ -100,36 +99,36 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
             from helpers import get_answerer_prior
 
             base_prior = get_answerer_prior(config)
-            if base_prior is None or len(base_prior.beliefs) == 0:
+            if base_prior is None or len(base_prior.hypotheses) == 0:
                 raise ValueError(
                     "answerer_sample_from_prior=true requires a non-empty configured prior"
                 )
             num_trials = config.answerer_num_prior_trials
             if num_trials is None:
-                num_trials = len(base_prior.beliefs)
+                num_trials = len(base_prior.hypotheses)
             rng = np.random.default_rng(config.answerer_prior_seed)
             target_animals = []
             for _trial_idx in range(num_trials):
                 if config.answerer_randomize_prior_order_per_trial:
                     prior_order = [
-                        base_prior.beliefs[int(index)]
-                        for index in rng.permutation(len(base_prior.beliefs))
+                        base_prior.hypotheses[int(index)]
+                        for index in rng.permutation(len(base_prior.hypotheses))
                     ]
                 else:
-                    prior_order = list(base_prior.beliefs)
+                    prior_order = list(base_prior.hypotheses)
                 config.active_answerer_prior_animals = prior_order
                 try:
                     trial_prior = get_answerer_prior(config)
                 finally:
                     config.active_answerer_prior_animals = None
-                if trial_prior is None or len(trial_prior.beliefs) == 0:
+                if trial_prior is None or len(trial_prior.hypotheses) == 0:
                     raise ValueError(
                         "answerer_sample_from_prior=true requires a non-empty configured prior"
                     )
                 sampled_index = int(
-                    rng.choice(len(trial_prior.beliefs), p=trial_prior.probabilities)
+                    rng.choice(len(trial_prior.hypotheses), p=trial_prior.probabilities)
                 )
-                target_animals.append(trial_prior.beliefs[sampled_index])
+                target_animals.append(trial_prior.hypotheses[sampled_index])
         self.target_animals = target_animals
         object.__setattr__(self, "_animal_pool", list(target_animals))
         return self
@@ -143,11 +142,6 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
     def run_seed(self, config: Any) -> int | None:
         return getattr(config, "seed", None)
 
-    def build_eig_method(self, config: Any) -> Any:
-        from methods.animals_special import AnimalsForwardSearchEIG
-
-        return AnimalsForwardSearchEIG()
-
     # ------------------------------------------------------------------
     # Hidden state / simulation
     # ------------------------------------------------------------------
@@ -155,6 +149,11 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
     def sample_hidden_state(self, rng: np.random.Generator) -> str:
         index = int(rng.integers(0, len(self._animal_pool)))
         return self._animal_pool[index]
+
+    def sample_hidden_state_for_trial(self, trial_index: int, rng: np.random.Generator) -> str:
+        if self.trial_count(self.config) == len(self._animal_pool):
+            return self._animal_pool[trial_index % len(self._animal_pool)]
+        return self.sample_hidden_state(rng)
 
     def observe(self, action: str, hidden_state: str, rng: np.random.Generator) -> str:
         # The answerer LLM is the source of randomness here.  ``rng`` is
@@ -181,7 +180,7 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
             return float("-inf")
         lookup = {
             belief.lower(): probability
-            for belief, probability in zip(prior.beliefs, prior.probabilities)
+            for belief, probability in zip(prior.hypotheses, prior.probabilities)
         }
         probability = lookup.get(hypothesis.lower(), 0.0)
         return math.log(max(probability, 1e-300))
@@ -245,9 +244,8 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
                 raise ValueError(
                     "belief_generation_enabled=false requires a configured prior"
                 )
-            initial_beliefs = list(prior.beliefs)
-        flat_state = initialize_belief_state(initial_beliefs, [], model, config)
-        return _belief_state_from_flat(flat_state)
+            initial_beliefs = list(prior.hypotheses)
+        return initialize_belief_state(initial_beliefs, [], model, config)
 
     def update_belief_state(
         self,
@@ -257,17 +255,15 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
         config: Any,
     ) -> BeliefState[str]:
         self.set_questioner(model)
-        flat_belief = _belief_state_to_flat(belief_state)
         history_messages = _history_to_messages(history)
         deterministic = False  # categorical/EIG path; deterministic mode is method-controlled
-        flat_updated = update_beliefs_batched(
+        return update_beliefs_batched(
             history_messages,
-            flat_belief,
+            belief_state,
             model,
             deterministic,
             config,
         )
-        return _belief_state_from_flat(flat_updated)
 
     # ------------------------------------------------------------------
     # Action proposal
@@ -288,10 +284,9 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
             top = belief_state.top()
             if top is not None and top[1] >= float(config.belief_guess_threshold):
                 return [f"Is it {top[0]}?"]
-        flat_belief = _belief_state_to_flat(belief_state)
         history_messages = _history_to_messages(history)
         return generate_candidate_questions(
-            flat_belief,
+            belief_state,
             history_messages,
             model,
             config.generation_temperature_diverse,
@@ -347,7 +342,7 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
         history_messages = _history_to_messages(history)
         belief_conditioned = method_name == "naive+belief"
         prior_beliefs = (
-            _belief_state_to_flat(belief_state)
+            belief_state
             if belief_conditioned
             else get_configured_prior(config)
         )
@@ -652,7 +647,7 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
             _history_to_messages(history),
             model,
             config.generation_temperature_simple,
-            prior_beliefs=_belief_state_to_flat(belief_state),
+            prior_beliefs=belief_state,
             belief_context_label="current posterior belief state",
         )
         return fallback.strip()
@@ -720,25 +715,6 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
             self.answerer,
             config.answer_temperature,
         )
-
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-
-def _belief_state_to_flat(state: BeliefState[str]) -> FlatAnimalsBeliefState:
-    return FlatAnimalsBeliefState(
-        beliefs=list(state.hypotheses),
-        probabilities=list(state.probabilities),
-    )
-
-
-def _belief_state_from_flat(state: FlatAnimalsBeliefState) -> BeliefState[str]:
-    return BeliefState(
-        hypotheses=tuple(state.beliefs),
-        probabilities=tuple(float(p) for p in state.probabilities),
-    ).renormalized()
 
 
 def _history_to_messages(history: Sequence[tuple[str, str]]) -> list[dict[str, str]]:

@@ -6,11 +6,12 @@ from typing import TYPE_CHECKING, Sequence
 
 import numpy as np
 
+from core import BeliefState
 from .beliefs import _merge_hypotheses, build_location_posteriors_many
 from .eig import expected_information_gain
 from .generation import _generate_location_hypotheses_many, generate_location_candidates_many
 from .physics import signal_intensity_for_hypothesis
-from .types import Location, LocationBeliefState, LocationObservation
+from .types import Location, LocationObservation
 
 if TYPE_CHECKING:
     from helpers import Config
@@ -18,7 +19,7 @@ if TYPE_CHECKING:
 
 
 def score_location_candidates_depth2_batched(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     candidates: list[Location],
     config: "Config",
     questioner: "Model",

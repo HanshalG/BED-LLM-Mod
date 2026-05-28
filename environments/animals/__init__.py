@@ -14,6 +14,13 @@ To use the prompts:
 """
 
 from . import prompts
-from .env import AnimalsBEDEnvironment
+
+
+def __getattr__(name: str):
+    if name == "AnimalsBEDEnvironment":
+        from .env import AnimalsBEDEnvironment
+
+        return AnimalsBEDEnvironment
+    raise AttributeError(name)
 
 __all__ = ["prompts", "AnimalsBEDEnvironment"]

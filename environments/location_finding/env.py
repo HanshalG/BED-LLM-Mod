@@ -10,12 +10,12 @@ import numpy as np
 
 from pathlib import Path
 
-from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_posterior, sample_location_eig_belief_state
-from environments.location_finding.generation import choose_location_naive, estimate_sources_naive, generate_location_candidates, generate_location_hypotheses
+from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_posterior, build_location_posteriors_many, sample_location_eig_belief_state
+from environments.location_finding.generation import _generate_location_hypotheses_many, choose_location_naive, choose_locations_naive_many, estimate_sources_naive, estimate_sources_naive_many, generate_location_candidates, generate_location_candidates_many, generate_location_hypotheses
 from environments.location_finding.physics import _hypothesis_log_prior, _log_normal_pdf, _top_source_rmse, signal_intensity_for_hypothesis, source_rmse
 from environments.location_finding.plotting import _plot_location_trial
-from environments.location_finding.strategy import choose_location_with_strategy_rollouts
-from environments.location_finding.types import Location, LocationBeliefState, LocationFindingEnv, LocationObservation, LocationStrategyLibrary, SourceConfig
+from environments.location_finding.strategy import choose_location_with_strategy_rollouts, choose_locations_with_strategy_rollouts_many
+from environments.location_finding.types import Location, LocationFindingEnv, LocationObservation, LocationStrategyLibrary, SourceConfig, _LocationTrialState
 from core import BeliefState, Environment
 from core.bed_runner import RunResult
 from core.experiment_summary import ExperimentSummary
@@ -41,7 +41,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     rng: np.random.Generator | None = None
     true_theta: np.ndarray | None = None  # optional pinned ground truth (for tests)
     _last_model: Any = field(default=None, repr=False, compare=False)
-    _last_location_belief: LocationBeliefState | None = field(default=None, repr=False, compare=False)
+    _last_location_belief: BeliefState[SourceConfig] | None = field(default=None, repr=False, compare=False)
 
     # ------------------------------------------------------------------
 
@@ -65,6 +65,9 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
 
     def run_seed(self, config: Any) -> int | None:
         return getattr(config, "location_seed", None)
+
+    def required_model_roles(self, config: Any) -> tuple[str, ...]:
+        return ("questioner",)
 
     # ------------------------------------------------------------------
     # Hidden state / simulation
@@ -151,12 +154,11 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         belief_state: BeliefState[SourceConfig],
         config: Any,
     ) -> BeliefState[SourceConfig]:
-        location_belief = _belief_state_to_location(belief_state)
         rng = self.rng if self.rng is not None else np.random.default_rng(
             getattr(config, "location_seed", None)
         )
-        sampled, _collapsed = sample_location_eig_belief_state(location_belief, config, rng)
-        return _belief_state_from_location(sampled)
+        sampled, _collapsed = sample_location_eig_belief_state(belief_state, config, rng)
+        return sampled
 
     def score_continuous_forward_search_depth2_batched(
         self,
@@ -175,7 +177,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         del noise_sd, quadrature_order
         observations = [observation for _action, observation in history]
         return score_location_candidates_depth2_batched(
-            _belief_state_to_location(belief_state),
+            belief_state,
             list(candidates),
             config,
             model,
@@ -204,7 +206,32 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             label="initial posterior scoring",
         )
         self._last_location_belief = location_state
-        return _belief_state_from_location(location_state)
+        return location_state
+
+    def initial_belief_states(
+        self,
+        trial_indices: Sequence[int],
+        model: Any,
+        config: Any,
+    ) -> list[BeliefState[SourceConfig]]:
+        self._last_model = model
+        hypotheses_many = _generate_location_hypotheses_many(
+            model,
+            [[] for _trial_index in trial_indices],
+            [None for _trial_index in trial_indices],
+            config,
+            label="batched initial belief generation",
+        )
+        states = build_location_posteriors_many(
+            model,
+            hypotheses_many,
+            [[] for _trial_index in trial_indices],
+            config,
+            label="batched initial posterior scoring",
+        )
+        if states:
+            self._last_location_belief = states[-1]
+        return states
 
     def update_belief_state(
         self,
@@ -214,15 +241,14 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         config: Any,
     ) -> BeliefState[SourceConfig]:
         observations = [obs for _action, obs in history]
-        location_belief = _belief_state_to_location(belief_state)
         hypotheses = generate_location_hypotheses(
             model,
             observations,
-            location_belief,
+            belief_state,
             config,
             label="belief refresh",
         )
-        merged = _merge_hypotheses(location_belief, hypotheses)
+        merged = _merge_hypotheses(belief_state, hypotheses)
         location_state = build_location_posterior(
             model,
             merged,
@@ -231,7 +257,38 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             label="posterior scoring",
         )
         self._last_location_belief = location_state
-        return _belief_state_from_location(location_state)
+        return location_state
+
+    def update_belief_states(
+        self,
+        belief_states: Sequence[BeliefState[SourceConfig]],
+        histories: Sequence[Sequence[tuple[Location, LocationObservation]]],
+        model: Any,
+        config: Any,
+    ) -> list[BeliefState[SourceConfig]]:
+        observations_many = [[obs for _action, obs in history] for history in histories]
+        generated_many = _generate_location_hypotheses_many(
+            model,
+            observations_many,
+            list(belief_states),
+            config,
+            label="batched belief refresh",
+        )
+        merged_many = [
+            _merge_hypotheses(belief_state, generated)
+            for belief_state, generated in zip(belief_states, generated_many)
+        ]
+        states = build_location_posteriors_many(
+            model,
+            merged_many,
+            observations_many,
+            config,
+            context_states=list(belief_states),
+            label="batched posterior scoring",
+        )
+        if states:
+            self._last_location_belief = states[-1]
+        return states
 
     def belief_after_branch_observation(
         self,
@@ -242,14 +299,13 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     ) -> BeliefState[SourceConfig]:
         if getattr(config, "location_posterior_mode", None) == "analytical_likelihood":
             observations = [obs for _action, obs in history]
-            location_belief = _belief_state_to_location(belief_state)
             location_state = build_location_belief_state(
-                list(location_belief.hypotheses),
+                list(belief_state.hypotheses),
                 observations,
                 config,
             )
             self._last_location_belief = location_state
-            return _belief_state_from_location(location_state)
+            return location_state
         return self.update_belief_state(belief_state, history, model, config)
 
     # ------------------------------------------------------------------
@@ -263,9 +319,18 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         model: Any,
         config: Any,
     ) -> list[Location]:
-        location_belief = _belief_state_to_location(belief_state)
         observations = [obs for _action, obs in history]
-        return generate_location_candidates(model, location_belief, observations, config)
+        return generate_location_candidates(model, belief_state, observations, config)
+
+    def generate_candidate_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[SourceConfig]],
+        histories: Sequence[Sequence[tuple[Location, LocationObservation]]],
+        model: Any,
+        config: Any,
+    ) -> list[list[Location]]:
+        observations_many = [[obs for _action, obs in history] for history in histories]
+        return generate_location_candidates_many(model, list(belief_states), observations_many, config)
 
     # ------------------------------------------------------------------
     # Metrics
@@ -277,8 +342,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         history: Sequence[tuple[Location, LocationObservation]],
         hidden_state: np.ndarray,
     ) -> dict[str, float]:
-        location_belief = _belief_state_to_location(belief_state)
-        rmse = _top_source_rmse(location_belief, hidden_state)
+        rmse = _top_source_rmse(belief_state, hidden_state)
         top = belief_state.top()
         top_probability = top[1] if top is not None else 0.0
         return {
@@ -298,7 +362,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         method_name: str | None = None,
     ) -> Location:
         location_belief = (
-            _belief_state_to_location(belief_state)
+            belief_state
             if method_name == "naive+belief"
             else None
         )
@@ -311,6 +375,30 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         if location is None:
             raise ValueError("Location naive method could not produce a valid location")
         return location
+
+    def generate_naive_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[SourceConfig]],
+        histories: Sequence[Sequence[tuple[Location, LocationObservation]]],
+        model: Any,
+        config: Any,
+        *,
+        method_name: str | None = None,
+    ) -> list[Location]:
+        observations_many = [[obs for _action, obs in history] for history in histories]
+        prompt_beliefs = [
+            belief_state if method_name == "naive+belief" else None
+            for belief_state in belief_states
+        ]
+        locations = choose_locations_naive_many(
+            model,
+            observations_many,
+            config,
+            belief_states=prompt_beliefs,
+        )
+        if any(location is None for location in locations):
+            raise ValueError("Location naive method could not produce a valid location")
+        return [location for location in locations if location is not None]
 
     def naive_metrics_after_observation(
         self,
@@ -329,6 +417,27 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             "top_probability": 1.0,
         }
 
+    def naive_metrics_after_observations(
+        self,
+        belief_states: Sequence[BeliefState[SourceConfig]],
+        histories: Sequence[Sequence[tuple[Location, LocationObservation]]],
+        hidden_states: Sequence[np.ndarray],
+        model: Any,
+        config: Any,
+        *,
+        method_name: str | None = None,
+    ) -> list[dict[str, float]]:
+        del belief_states, method_name
+        observations_many = [[obs for _action, obs in history] for history in histories]
+        estimates = estimate_sources_naive_many(model, observations_many, config)
+        return [
+            {
+                "source_rmse": source_rmse(estimate, hidden_state),
+                "top_probability": 1.0,
+            }
+            for estimate, hidden_state in zip(estimates, hidden_states)
+        ]
+
     def choose_strategy_action(
         self,
         belief_state: BeliefState[SourceConfig],
@@ -346,7 +455,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             self._strategy_library = library
         location, score, evaluation = choose_location_with_strategy_rollouts(
             model,
-            _belief_state_to_location(belief_state),
+            belief_state,
             [obs for _action, obs in history],
             library,
             config,
@@ -358,33 +467,56 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             raise ValueError("Location StrategyEIG could not produce a valid location")
         return location, float(score), evaluation
 
-    def run_batched_experiment(
+    def choose_strategy_actions_many(
         self,
-        questioner: Any,
-        method: Any,
+        belief_states: Sequence[BeliefState[SourceConfig]],
+        histories: Sequence[Sequence[tuple[Location, LocationObservation]]],
+        model: Any,
         config: Any,
+        rngs: Sequence[np.random.Generator],
+        round_index: int,
         *,
-        output_dir: Path | None = None,
-        rng: np.random.Generator | None = None,
-    ) -> ExperimentSummary:
-        """Run multiple location trials with cross-trial LLM batching."""
-        from environments.location_finding.batched_trials import run_location_trials_batched
-
-        metrics = run_location_trials_batched(
-            questioner,
+        fixed_root: bool = False,
+    ) -> list[tuple[Location, float, Any]]:
+        libraries = getattr(self, "_strategy_libraries_by_history", None)
+        if libraries is None:
+            libraries = {}
+            self._strategy_libraries_by_history = libraries
+        states: list[_LocationTrialState] = []
+        for idx, (belief_state, history, rng) in enumerate(zip(belief_states, histories, rngs)):
+            history_key = id(history)
+            library = libraries.get(history_key)
+            if library is None:
+                library = LocationStrategyLibrary()
+                libraries[history_key] = library
+            state = _LocationTrialState(
+                trial_idx=idx,
+                env=LocationFindingEnv(
+                    num_sources=config.location_num_sources,
+                    dim=config.location_dim,
+                    noise_sd=config.location_noise_sd,
+                    rng=rng,
+                ),
+                observations=[obs for _action, obs in history],
+                rng=rng,
+                belief_state=belief_state,
+                strategy_library=library,
+            )
+            states.append(state)
+        results = choose_locations_with_strategy_rollouts_many(
+            model,
+            states,
             config,
-            rng=rng or self.rng,
-            output_dir=output_dir,
-            method_name=method.name,
+            round_index,
+            fixed_root=fixed_root,
         )
-        return ExperimentSummary(
-            metrics={
-                "source_rmse": list(metrics.source_rmse),
-                "top_probability": list(metrics.top_probability),
-                "selected_eig": list(metrics.selected_eig),
-            },
-            logs=[],
-        )
+        if any(location is None for location, _score, _evaluation in results):
+            raise ValueError("Location StrategyEIG could not produce a valid location")
+        return [
+            (location, float(score), evaluation)
+            for location, score, evaluation in results
+            if location is not None
+        ]
 
     def summarize_run(self, run_result: RunResult, config: Any) -> ExperimentSummary:
         base = super().summarize_run(run_result, config)
@@ -408,11 +540,12 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         run_result: RunResult,
         output_dir: Path,
         config: Any,
-    ) -> None:
+    ) -> dict[str, Path]:
         if not getattr(config, "location_plot_trials", False):
-            return
+            return {}
         output_dir.mkdir(parents=True, exist_ok=True)
         model = self._last_model
+        artifacts: dict[str, Path] = {}
         for trial in run_result.trials:
             if not trial.rounds:
                 continue
@@ -427,12 +560,14 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             final_metrics = trial.rounds[-1].metrics
             final_rmse = float(final_metrics.get("source_rmse", float("inf")))
             top_probability = float(final_metrics.get("top_probability", 0.0))
-            belief_state = self._last_location_belief
+            belief_state = (
+                trial.final_belief_state if trial.final_belief_state is not None else self._last_location_belief
+            )
             if belief_state is None or not belief_state.hypotheses:
                 estimate = None
                 if model is not None and observations:
                     estimate = estimate_sources_naive(model, observations, config)
-                belief_state = LocationBeliefState(
+                belief_state = BeliefState(
                     hypotheses=[] if estimate is None else [estimate],
                     probabilities=[] if estimate is None else [1.0],
                 )
@@ -446,22 +581,5 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
                 top_probability,
                 plot_path,
             )
-
-
-# ---------------------------------------------------------------------------
-# Helpers to bridge core.BeliefState ↔ location_finding.LocationBeliefState
-# ---------------------------------------------------------------------------
-
-
-def _belief_state_to_location(state: BeliefState[SourceConfig]) -> LocationBeliefState:
-    return LocationBeliefState(
-        hypotheses=list(state.hypotheses),
-        probabilities=list(state.probabilities),
-    )
-
-
-def _belief_state_from_location(state: LocationBeliefState) -> BeliefState[SourceConfig]:
-    return BeliefState(
-        hypotheses=tuple(state.hypotheses),
-        probabilities=tuple(float(p) for p in state.probabilities),
-    )
+            artifacts[f"location_trial_plot_{trial.trial_index + 1:03d}"] = plot_path
+        return artifacts

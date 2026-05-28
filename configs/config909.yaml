@@ -1,0 +1,36 @@
+version: 0
+task: animals
+animals:
+  - ["Coyote", "Wolverine", "Otter"]
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
+    answerer:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
+method_names:
+  - "naive"
+  - "EIG"
+batched_block_size: 8
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.2
+answer_temperature: 0.2
+num_mc_samples: 3
+environment:
+  num_rounds: 1
+  search_depth: 1
+  target_num_questions: 3
+  max_num_samples: 6
+  min_num_samples: 3
+  threshold_rejection_probability: 0.2
+  belief_generation_enabled: true
+  belief_filtering_enabled: true
+  belief_prior_mode: none
+  belief_state_mode: uniform
+  belief_probability_temperature: 0.0
+  belief_distribution_num_calls: 1
+  belief_distribution_permute_history: false
+  probability_parse_fallback_to_uniform: true
+  answerer_sample_from_prior: false
+  forward_search_verbose: false

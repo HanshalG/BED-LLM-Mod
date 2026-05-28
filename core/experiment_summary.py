@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -11,3 +12,4 @@ class ExperimentSummary:
 
     metrics: dict[str, list[float]] = field(default_factory=dict)
     logs: dict[str, str] | None = None
+    artifacts: dict[str, Path] = field(default_factory=dict)

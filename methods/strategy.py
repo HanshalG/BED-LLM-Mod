@@ -55,3 +55,37 @@ class StrategyEIG(Method[H, A, O, S]):
             extras={"evaluation": evaluation, "metric_name": "selected_eig"},
         )
 
+    def select_actions(
+        self,
+        candidates_many: Sequence[Sequence[A]],
+        belief_states: Sequence[BeliefState[H]],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        histories: Sequence[Sequence[tuple[A, O]]],
+        config: Any,
+    ) -> list[ActionScore[A]]:
+        del candidates_many
+        if self.rng is None:
+            seed = getattr(config, "location_seed", getattr(config, "seed", None))
+            self.rng = np.random.default_rng(seed)
+        rngs = [
+            np.random.default_rng(int(self.rng.integers(0, np.iinfo(np.uint32).max)))
+            for _belief_state in belief_states
+        ]
+        results = environment.choose_strategy_actions_many(
+            belief_states,
+            histories,
+            model,
+            config,
+            rngs,
+            round_index=len(histories[0]) if histories else 0,
+            fixed_root=self.fixed_root,
+        )
+        return [
+            ActionScore(
+                action=action,
+                score=float(score),
+                extras={"evaluation": evaluation, "metric_name": "selected_eig"},
+            )
+            for action, score, evaluation in results
+        ]

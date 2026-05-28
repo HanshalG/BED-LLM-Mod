@@ -1,44 +1,47 @@
-# Prior-aware categorical smoke test config.
 version: 0
-
+task: animals
 animals:
-  - ["Coyote", "Rhinoceros beetle", "Wolverine", "Saiga antelope", "Yak", "Kiwi", "Zebra", "Golden jackal", "Horseshoe crab", "Sand cat"]
-
+- - Coyote
+  - Rhinoceros beetle
+  - Wolverine
+  - Saiga antelope
+  - Yak
+  - Kiwi
+  - Zebra
+  - Golden jackal
+  - Horseshoe crab
+  - Sand cat
 model_pairs:
-  - questioner:
-      model: "Qwen/Qwen3.5-4B"
-      thinking: false
-    answerer:
-      model: "Qwen/Qwen3.5-4B"
-      thinking: false
-
+- questioner:
+    model: Qwen/Qwen3.5-4B
+    thinking: false
+  answerer:
+    model: Qwen/Qwen3.5-4B
+    thinking: false
 method_names:
-  - "EIG"
-
+- EIG
 batched_block_size: 225
 generation_temperature_diverse: 1.3
 generation_temperature_simple: 1.0
 answer_temperature: 0.7
-search_depth: 1
-forward_search_verbose: false
-target_num_questions: 15
 num_mc_samples: 15
-max_num_samples: 50
-min_num_samples: 15
-threshold_rejection_probability: 0.2
-
-belief_state_mode: "categorical"
-belief_prior_mode: "exponential_rank"
-belief_prior_exponential_rate: 0.35
-belief_generation_enabled: false
-belief_filtering_enabled: false
-
-belief_probability_temperature: 0.0
-belief_distribution_num_calls: 3
-belief_distribution_permute_history: false
-probability_parse_fallback_to_uniform: true
-
-answerer_sample_from_prior: true
-answerer_randomize_prior_order_per_trial: true
-answerer_num_prior_trials: 10
-answerer_prior_seed: 12345
+environment:
+  search_depth: 1
+  forward_search_verbose: false
+  target_num_questions: 15
+  max_num_samples: 50
+  min_num_samples: 15
+  threshold_rejection_probability: 0.2
+  belief_generation_enabled: false
+  belief_filtering_enabled: false
+  belief_prior_mode: exponential_rank
+  belief_prior_exponential_rate: 0.35
+  answerer_sample_from_prior: true
+  answerer_randomize_prior_order_per_trial: true
+  answerer_num_prior_trials: 10
+  answerer_prior_seed: 12345
+  belief_state_mode: categorical
+  belief_probability_temperature: 0.0
+  belief_distribution_num_calls: 3
+  belief_distribution_permute_history: false
+  probability_parse_fallback_to_uniform: true

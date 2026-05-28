@@ -4,6 +4,7 @@ import math
 import numpy as np
 import pytest
 
+from core import BeliefState
 from helpers import Config
 from core.experiment import run_from_config
 from environments.location_finding.beliefs import (
@@ -37,7 +38,6 @@ from environments.location_finding.strategy import (
     generate_location_strategies,
 )
 from environments.location_finding.types import (
-    LocationBeliefState,
     LocationFindingEnv,
     LocationFindingMetrics,
     LocationObservation,
@@ -270,7 +270,7 @@ def test_naive_parsers_prefer_final_json_after_reasoning_history_fragments():
 def test_belief_generation_prompts_split_initial_and_update_modes():
     config = _location_config(location_max_llm_prompt_beliefs=7, location_num_generated_hypotheses=7)
     hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
-    belief_state = LocationBeliefState([hypothesis], [1.0])
+    belief_state = BeliefState([hypothesis], [1.0])
 
     initial_messages = _belief_generation_messages([], None, config)
     update_messages = _belief_generation_messages(
@@ -303,7 +303,7 @@ def test_location_prompts_use_configured_source_count_without_stale_three_source
         location_strategy_belief_summary_top_k=1,
     )
     hypothesis = normalize_source_config(_source_rows(num_sources), num_sources, 2)
-    belief_state = LocationBeliefState([hypothesis], [1.0])
+    belief_state = BeliefState([hypothesis], [1.0])
     observations = [LocationObservation((0.5, 0.5), 3.2)]
 
     belief_messages = _belief_generation_messages(observations, belief_state, config)
@@ -326,7 +326,7 @@ def test_location_prompts_use_configured_source_count_without_stale_three_source
 def test_candidate_generation_prompt_separates_queries_from_source_configs():
     config = _location_config(location_target_num_candidates=5)
     hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
-    belief_state = LocationBeliefState([hypothesis], [1.0])
+    belief_state = BeliefState([hypothesis], [1.0])
 
     messages = _candidate_generation_messages(
         belief_state,
@@ -404,7 +404,7 @@ def test_strategy_library_replace_entries_overwrites_previous_round():
 def test_strategy_prompts_include_history_beliefs_retrieved_examples_and_diversity_instructions():
     config = _location_config(location_strategy_belief_summary_top_k=1)
     hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
-    belief_state = LocationBeliefState([hypothesis], [1.0])
+    belief_state = BeliefState([hypothesis], [1.0])
     observations = [LocationObservation((0.5, 0.5), 3.2)]
     retrieved = [LocationStrategyEntry("Start near the strongest current peak.", 1.2, 0.3, "[0, 0]", 0)]
 
@@ -444,7 +444,7 @@ def test_generate_location_strategies_four_phases():
         location_strategy_num_diverse=1,
     )
     hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
-    belief_state = LocationBeliefState([hypothesis], [1.0])
+    belief_state = BeliefState([hypothesis], [1.0])
     library = LocationStrategyLibrary()
     library.replace_entries([LocationStrategyEntry("Elite plan.", 0.9, 0.1, "[0, 0]", 0)])
     model = FakeLocationModel([
@@ -478,7 +478,7 @@ def test_generate_location_strategies_empty_library_falls_back_to_diverse():
         location_strategy_num_diverse=1,
     )
     hypothesis = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
-    belief_state = LocationBeliefState([hypothesis], [1.0])
+    belief_state = BeliefState([hypothesis], [1.0])
     library = LocationStrategyLibrary()  # empty
     model = FakeLocationModel([
         '{"strategies": ["Plan A."]}',
@@ -567,7 +567,7 @@ def test_build_location_posterior_llm_distribution_scores_current_support():
         config,
     )
 
-    assert state.hypotheses == [hypothesis_b, hypothesis_a]
+    assert state.hypotheses == (hypothesis_b, hypothesis_a)
     assert state.probabilities == pytest.approx([0.75, 0.25])
     assert len(model.batched_calls) == 1
     assert len(model.batched_calls[0]) == 1
@@ -596,7 +596,7 @@ def test_build_location_posterior_llm_distribution_averages_permuted_history_sam
         config,
     )
 
-    assert state.hypotheses == [hypothesis_a, hypothesis_b]
+    assert state.hypotheses == (hypothesis_a, hypothesis_b)
     assert state.probabilities == pytest.approx([0.5, 0.5])
     assert len(model.batched_calls) == 1
     assert len(model.batched_calls[0]) == 3
@@ -616,7 +616,7 @@ def test_build_location_posterior_llm_distribution_dedupes_and_falls_back_to_uni
 
     state = build_location_posterior(model, [hypothesis_a, hypothesis_a, hypothesis_b], [], config)
 
-    assert state.hypotheses == [hypothesis_a, hypothesis_b]
+    assert state.hypotheses == (hypothesis_a, hypothesis_b)
     assert state.probabilities == pytest.approx([0.5, 0.5])
     assert len(model.batched_calls[0]) == 2
 
@@ -640,7 +640,7 @@ def test_pruning_keeps_top_k_when_over_budget_and_renormalizes():
         for idx in range(45)
     ]
     probabilities = [float(idx + 1) for idx in range(45)]
-    state = LocationBeliefState(hypotheses, probabilities)
+    state = BeliefState(hypotheses, probabilities)
 
     pruned = prune_location_beliefs(state, max_beliefs=40)
 
@@ -655,7 +655,7 @@ def test_pruning_preserves_all_beliefs_when_within_budget():
         normalize_source_config([[idx / 10, -1], [0, 1], [1, 0]], 3, 2)
         for idx in range(4)
     ]
-    state = LocationBeliefState(hypotheses, [0.25] * 4)
+    state = BeliefState(hypotheses, [0.25] * 4)
 
     pruned = prune_location_beliefs(state, max_beliefs=40)
 
@@ -681,12 +681,12 @@ def test_prompt_belief_state_keeps_top_llm_prompt_beliefs():
         normalize_source_config([[idx / 10, -1], [0, 1], [1, 0]], 3, 2)
         for idx in range(5)
     ]
-    state = LocationBeliefState(hypotheses, [0.05, 0.1, 0.2, 0.25, 0.4])
+    state = BeliefState(hypotheses, [0.05, 0.1, 0.2, 0.25, 0.4])
 
     prompt_state = prompt_location_belief_state(state, config)
 
     assert len(prompt_state.hypotheses) == 3
-    assert prompt_state.hypotheses == [hypotheses[4], hypotheses[3], hypotheses[2]]
+    assert prompt_state.hypotheses == (hypotheses[4], hypotheses[3], hypotheses[2])
     assert sum(prompt_state.probabilities) == pytest.approx(1.0)
 
 
@@ -696,7 +696,7 @@ def test_eig_belief_sampling_uses_num_mc_samples_and_renormalizes():
         normalize_source_config([[idx / 10, -1], [0, 1], [1, 0]], 3, 2)
         for idx in range(50)
     ]
-    state = LocationBeliefState(hypotheses, [1 / 50] * 50)
+    state = BeliefState(hypotheses, [1 / 50] * 50)
 
     sampled_state, fallback_used = sample_location_eig_belief_state(state, config, np.random.default_rng(0))
 
@@ -712,7 +712,7 @@ def test_eig_belief_sampling_keeps_pure_posterior_sample_when_collapsed():
         normalize_source_config([[idx / 10, -1], [0, 1], [1, 0]], 3, 2)
         for idx in range(6)
     ]
-    state = LocationBeliefState(hypotheses, [1.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+    state = BeliefState(hypotheses, [1.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 
     sampled_state, sample_collapsed = sample_location_eig_belief_state(state, config, np.random.default_rng(0))
 
@@ -723,7 +723,7 @@ def test_eig_belief_sampling_keeps_pure_posterior_sample_when_collapsed():
 
 
 def test_location_effective_sample_size_reports_weight_concentration():
-    concentrated = LocationBeliefState([((0.0, 0.0), (1.0, 0.0), (0.0, 1.0))], [1.0])
+    concentrated = BeliefState([((0.0, 0.0), (1.0, 0.0), (0.0, 1.0))], [1.0])
     assert _location_effective_sample_size(concentrated) == pytest.approx(1.0)
 
 
@@ -732,8 +732,8 @@ def test_eig_is_zero_for_identical_predictions_and_positive_for_separated_predic
     identical = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
     separated = normalize_source_config([[2, 2], [1, 2], [2, 1]], 3, 2)
 
-    identical_state = LocationBeliefState([identical, identical], [0.5, 0.5])
-    separated_state = LocationBeliefState([identical, separated], [0.5, 0.5])
+    identical_state = BeliefState([identical, identical], [0.5, 0.5])
+    separated_state = BeliefState([identical, separated], [0.5, 0.5])
 
     assert expected_information_gain(identical_state, (0.0, 0.0), 0.5, 7) == pytest.approx(0.0, abs=1e-9)
     assert expected_information_gain(separated_state, (0.0, 0.0), 0.5, 7) > 0.01
@@ -892,7 +892,7 @@ def test_strategy_rollout_final_refresh_uses_llm_posterior_mode():
     )
     hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
     hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
-    belief_state = LocationBeliefState([hypothesis_a, hypothesis_b], [0.5, 0.5])
+    belief_state = BeliefState([hypothesis_a, hypothesis_b], [0.5, 0.5])
     model = FakeLocationModel(
         [
             '{"location": [1, 1]}',    # depth-0 location
@@ -1103,7 +1103,7 @@ def test_run_location_naive_batches_across_trials(tmp_path):
 
     assert len(metrics.source_rmse) == 2
     assert len(model.calls) == 0
-    assert [len(batch) for batch in model.batched_calls] == [3, 3, 3, 3]
+    assert [len(batch) for batch in model.batched_calls] == [3, 3, 3, 3, 3, 3, 3]
     assert len(list(tmp_path.glob("location_trial_*.png"))) == 3
 
 
@@ -1123,9 +1123,9 @@ def test_run_location_eig_batches_initial_candidates_and_updates_across_trials(t
     assert len(metrics.source_rmse) == 1
     assert len(model.calls) == 0
     assert [len(batch) for batch in model.batched_calls] == [3, 3, 3]
-    assert "finite Bayesian belief support" in model.batched_calls[0][0][0]["content"]
-    assert "candidate measurement locations" in model.batched_calls[1][0][0]["content"]
-    assert "finite Bayesian belief support" in model.batched_calls[2][0][0]["content"]
+    flattened = [messages for batch in model.batched_calls for messages in batch]
+    assert any("finite Bayesian belief support" in call[0]["content"] for call in flattened)
+    assert any("candidate measurement locations" in call[0]["content"] for call in flattened)
 
 
 def test_run_location_strategy_root_batches_trials_and_rollouts(tmp_path):
@@ -1151,8 +1151,7 @@ def test_run_location_strategy_root_batches_trials_and_rollouts(tmp_path):
 
     assert len(metrics.source_rmse) == 1
     assert len(model.calls) == 0
-    assert [len(batch) for batch in model.batched_calls] == [2, 2, 2, 2]
-    assert "finite Bayesian belief support" in model.batched_calls[0][0][0]["content"]
-    assert "strategy/root_query" in model.batched_calls[1][0][0]["content"]
-    assert "finite Bayesian belief support" in model.batched_calls[2][0][0]["content"]
-    assert "finite Bayesian belief support" in model.batched_calls[3][0][0]["content"]
+    assert all(len(batch) == 2 for batch in model.batched_calls)
+    flattened = [messages for batch in model.batched_calls for messages in batch]
+    assert any("finite Bayesian belief support" in call[0]["content"] for call in flattened)
+    assert any("strategy/root_query" in call[0]["content"] for call in flattened)

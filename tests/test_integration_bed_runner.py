@@ -17,7 +17,7 @@ import core.defaults as core_defaults
 from core import ActionScore, BEDRunner, BeliefState, Environment, Method, RunResult, build_environment, build_method
 from core.registry import register_environment, register_method
 from environments.location_finding import LocationBEDEnvironment
-from helpers import Config
+from helpers import Config, load_config
 from core.experiment import run_from_config
 
 
@@ -255,4 +255,54 @@ def test_run_from_config_accepts_registered_third_environment_without_core_edits
     run_result, summary = run_from_config(config, questioner=None, answerer=None)
 
     assert len(run_result.trials) == 1
+    assert summary.metrics["ran"] == [1.0]
+
+
+def test_yaml_loaded_third_environment_runs_without_loader_edits(tmp_path):
+    register_environment("third_yaml_env", lambda config, questioner, answerer: _ThirdEnvironment())
+    register_method("third_yaml_env", "third", lambda config, environment=None: _ThirdMethod())
+    config_path = tmp_path / "third.yaml"
+    config_path.write_text(
+        """
+task: third_yaml_env
+environment:
+  num_rounds: 1
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: false
+    answerer:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: false
+method_names:
+  - third
+""".strip(),
+        encoding="utf-8",
+    )
+    config = load_config(str(config_path))
+
+    run_result, summary = run_from_config(config, questioner=None, answerer=None)
+
+    assert config.task == "third_yaml_env"
+    assert config.environment == {"num_rounds": 1}
+    assert len(run_result.trials) == 1
+    assert summary.metrics["ran"] == [1.0]
+
+
+def test_runner_accepts_generic_trial_batch_size():
+    class CountingEnvironment(_ThirdEnvironment):
+        def trial_count(self, config):
+            return 3
+
+    register_environment("batched_third_env", lambda config, questioner, answerer: CountingEnvironment())
+    register_method("batched_third_env", "third", lambda config, environment=None: _ThirdMethod())
+    config = Config(
+        task="batched_third_env",
+        method_names=["third"],
+        environment={"trial_batch_size": 2},
+    )
+
+    run_result, summary = run_from_config(config, questioner=None, answerer=None)
+
+    assert [trial.trial_index for trial in run_result.trials] == [0, 1, 2]
     assert summary.metrics["ran"] == [1.0]

@@ -1,19 +1,16 @@
 import math
 
+from core import BeliefState, deduped_belief_state, ensure_belief_state, uniform_deduped
 from helpers import (
-    BeliefState,
     Config,
     _average_labeled_distributions_from_completions,
     clean_generated_belief_labels,
-    ensure_belief_state,
     convert_string_to_array,
     _distribution_with_valid_count_from_batched_messages,
     _distribution_with_valid_count_from_messages,
     format_categorical_belief_summary,
     format_belief_state,
     get_configured_prior,
-    make_belief_state,
-    make_uniform_belief_state,
     print_and_log,
     reverse_history,
     sample_permuted_history_messages,
@@ -23,6 +20,42 @@ from model import Model
 from environments.animals.prompts import generate_animals_system_prompt, generate_more_animals_system_prompt, \
     answer_likelihood_messages, belief_distribution_system_prompt, belief_distribution_user_prompt, \
     generate_animals_user_prompt, validate_animal_name_system_prompt, validate_animal_name_user_prompt
+
+
+def _normalize_animal_belief_label(label: str) -> str | None:
+    cleaned_label = label.strip()
+    return cleaned_label or None
+
+
+def make_animals_belief_state(
+    beliefs: list[str] | tuple[str, ...],
+    probabilities: list[float] | tuple[float, ...] | None = None,
+    *,
+    fallback_to_uniform: bool = False,
+) -> BeliefState[str]:
+    return deduped_belief_state(
+        beliefs,
+        probabilities,
+        key=lambda label: label.lower(),
+        normalize=_normalize_animal_belief_label,
+        fallback_to_uniform=fallback_to_uniform,
+    )
+
+
+def make_uniform_animals_belief_state(beliefs: list[str] | tuple[str, ...]) -> BeliefState[str]:
+    return uniform_deduped(
+        beliefs,
+        key=lambda label: label.lower(),
+        normalize=_normalize_animal_belief_label,
+    )
+
+
+def ensure_animals_belief_state(beliefs: BeliefState[str] | list[str] | tuple[str, ...]) -> BeliefState[str]:
+    return ensure_belief_state(
+        beliefs,
+        key=lambda label: label.lower(),
+        normalize=_normalize_animal_belief_label,
+    )
 
 
 def generate_new_beliefs(system_prompt: dict[str, str], history_questioner: list[dict[str, str]],
@@ -154,22 +187,22 @@ def _filter_valid_animal_names_many(branch_beliefs: list[list[str]], checker: Mo
 
 def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str, str]], questioner: Model,
                           config: Config) -> BeliefState:
-    belief_state = make_belief_state(beliefs, fallback_to_uniform=True)
-    if len(belief_state.beliefs) == 0:
+    belief_state = make_animals_belief_state(beliefs, fallback_to_uniform=True)
+    if len(belief_state.hypotheses) == 0:
         return belief_state
 
     prior_state = get_configured_prior(config)
     if prior_state is not None:
-        return score_beliefs_from_prior_batched(belief_state.beliefs, history_questioner, questioner, config)
+        return score_beliefs_from_prior_batched(belief_state.hypotheses, history_questioner, questioner, config)
 
     messages = (
         [belief_distribution_system_prompt()]
         + reverse_history(history_questioner)
-        + [belief_distribution_user_prompt(belief_state.beliefs)]
+        + [belief_distribution_user_prompt(belief_state.hypotheses)]
     )
     if config.belief_distribution_permute_history:
         batch_messages = [
-            [belief_distribution_system_prompt()] + permuted_history + [belief_distribution_user_prompt(belief_state.beliefs)]
+            [belief_distribution_system_prompt()] + permuted_history + [belief_distribution_user_prompt(belief_state.hypotheses)]
             for permuted_history in sample_permuted_history_messages(
                 history_questioner,
                 config.belief_distribution_num_calls,
@@ -177,7 +210,7 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
         ]
         distribution, valid_distribution_count = _distribution_with_valid_count_from_batched_messages(
             batch_messages,
-            belief_state.beliefs,
+            belief_state.hypotheses,
             temperature=config.belief_probability_temperature,
             complete_messages_batched=questioner.chat_complete_messages_batched,
             block_size=config.batched_block_size,
@@ -186,15 +219,15 @@ def score_beliefs_batched(beliefs: list[str], history_questioner: list[dict[str,
     else:
         distribution, valid_distribution_count = _distribution_with_valid_count_from_messages(
             messages,
-            belief_state.beliefs,
+            belief_state.hypotheses,
             temperature=config.belief_probability_temperature,
             complete_message=questioner.chat_complete,
             num_calls=config.belief_distribution_num_calls,
             fallback_to_uniform=True,
         )
-    scored_state = make_belief_state(
-        belief_state.beliefs,
-        [distribution[belief] for belief in belief_state.beliefs],
+    scored_state = make_animals_belief_state(
+        belief_state.hypotheses,
+        [distribution[belief] for belief in belief_state.hypotheses],
         fallback_to_uniform=False,
     )
     scored_state = sort_belief_state_descending(scored_state)
@@ -239,17 +272,17 @@ def score_beliefs_from_prior_batched(beliefs: list[str], history_questioner: lis
     if prior_state is None:
         raise ValueError("score_beliefs_from_prior_batched requires a configured prior")
 
-    requested_state = make_belief_state(beliefs, fallback_to_uniform=True)
-    if len(requested_state.beliefs) == 0:
+    requested_state = make_animals_belief_state(beliefs, fallback_to_uniform=True)
+    if len(requested_state.hypotheses) == 0:
         return requested_state
 
     prior_lookup = {
         belief.lower(): (belief, probability)
-        for belief, probability in zip(prior_state.beliefs, prior_state.probabilities)
+        for belief, probability in zip(prior_state.hypotheses, prior_state.probabilities)
     }
     labels: list[str] = []
     prior_probabilities: list[float] = []
-    for belief in requested_state.beliefs:
+    for belief in requested_state.hypotheses:
         prior_entry = prior_lookup.get(belief.lower())
         if prior_entry is None:
             continue
@@ -262,7 +295,7 @@ def score_beliefs_from_prior_batched(beliefs: list[str], history_questioner: lis
 
     pairs = _history_question_answer_pairs(history_questioner)
     if not pairs:
-        scored_state = make_belief_state(labels, prior_probabilities, fallback_to_uniform=False)
+        scored_state = make_animals_belief_state(labels, prior_probabilities, fallback_to_uniform=False)
         scored_state = sort_belief_state_descending(scored_state)
         print(f"[beliefs] Scored belief state: {format_belief_state(scored_state)}")
         print_and_log(
@@ -303,7 +336,7 @@ def score_beliefs_from_prior_batched(beliefs: list[str], history_questioner: lis
 
     max_log_score = max(log_scores)
     weights = [math.exp(score - max_log_score) for score in log_scores]
-    scored_state = make_belief_state(labels, weights, fallback_to_uniform=True)
+    scored_state = make_animals_belief_state(labels, weights, fallback_to_uniform=True)
     scored_state = sort_belief_state_descending(scored_state)
 
     print(f"[beliefs] Scored belief state: {format_belief_state(scored_state)}")
@@ -325,12 +358,12 @@ def _score_beliefs_many(branch_beliefs: list[list[str]], histories_questioner: l
     if not branch_beliefs:
         return []
 
-    deduped_states = [make_uniform_belief_state(beliefs) for beliefs in branch_beliefs]
+    deduped_states = [make_uniform_animals_belief_state(beliefs) for beliefs in branch_beliefs]
     if config.belief_state_mode != "categorical":
         return deduped_states
     if get_configured_prior(config) is not None:
         return [
-            score_beliefs_from_prior_batched(belief_state.beliefs, history_questioner, questioner, config)
+            score_beliefs_from_prior_batched(belief_state.hypotheses, history_questioner, questioner, config)
             for belief_state, history_questioner in zip(deduped_states, histories_questioner)
         ]
 
@@ -340,12 +373,12 @@ def _score_beliefs_many(branch_beliefs: list[list[str]], histories_questioner: l
     active_branch_indices: list[int] = []
 
     for branch_idx, (belief_state, history_questioner) in enumerate(zip(deduped_states, histories_questioner)):
-        if len(belief_state.beliefs) == 0:
+        if len(belief_state.hypotheses) == 0:
             branch_prompt_counts.append(0)
             branch_labels.append([])
             continue
 
-        labels = belief_state.beliefs
+        labels = belief_state.hypotheses
         branch_labels.append(labels)
         active_branch_indices.append(branch_idx)
         if config.belief_distribution_permute_history:
@@ -395,7 +428,7 @@ def _score_beliefs_many(branch_beliefs: list[list[str]], histories_questioner: l
             labels,
             fallback_to_uniform=True,
         )
-        scored_state = make_belief_state(
+        scored_state = make_animals_belief_state(
             labels,
             [distribution[belief] for belief in labels],
             fallback_to_uniform=False,
@@ -421,9 +454,9 @@ def _score_beliefs_many(branch_beliefs: list[list[str]], histories_questioner: l
 
 def build_belief_state(beliefs: list[str], history_questioner: list[dict[str, str]], questioner: Model,
                        config: Config) -> BeliefState:
-    deduped_state = make_uniform_belief_state(beliefs)
+    deduped_state = make_uniform_animals_belief_state(beliefs)
     if config.belief_state_mode == "categorical":
-        return score_beliefs_batched(deduped_state.beliefs, history_questioner, questioner, config)
+        return score_beliefs_batched(deduped_state.hypotheses, history_questioner, questioner, config)
     return deduped_state
 
 
@@ -567,11 +600,11 @@ def _check_beliefs_many(branch_beliefs: list[list[str]], histories_questioner: l
 
 def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], beliefs: BeliefState | list[str], questioner: Model,
                          deterministic: bool, config: Config) -> list[BeliefState]:
-    belief_state = ensure_belief_state(beliefs)
+    belief_state = ensure_animals_belief_state(beliefs)
     if not histories_questioner:
         return []
 
-    prior_beliefs = belief_state.beliefs
+    prior_beliefs = belief_state.hypotheses
     generation_temperature = config.generation_temperature_diverse
     max_num_samples = config.max_num_samples
     min_num_samples = config.min_num_samples
@@ -581,7 +614,7 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
 
     if not config.belief_generation_enabled:
         configured_prior = get_configured_prior(config)
-        support_beliefs = configured_prior.beliefs if configured_prior is not None else prior_beliefs
+        support_beliefs = configured_prior.hypotheses if configured_prior is not None else prior_beliefs
         if config.belief_filtering_enabled:
             filtered_beliefs_many = _check_beliefs_many(
                 [list(support_beliefs) for _ in histories_questioner],
@@ -637,7 +670,7 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
         filtered_beliefs_old_many = [list(prior_beliefs) for _ in histories_questioner]
 
     beliefs_updated_many = [
-        make_belief_state(beliefs_new + filtered_beliefs_old, fallback_to_uniform=True).beliefs
+        list(make_animals_belief_state(beliefs_new + filtered_beliefs_old, fallback_to_uniform=True).hypotheses)
         for beliefs_new, filtered_beliefs_old in zip(beliefs_new_many, filtered_beliefs_old_many)
     ]
 
@@ -684,10 +717,11 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
             )
 
         for idx, beliefs_retry in zip(retry_indices, beliefs_retry_many):
-            beliefs_updated_many[idx] = make_belief_state(
+            beliefs_updated_many[idx] = make_animals_belief_state(
                 beliefs_retry + beliefs_updated_many[idx],
                 fallback_to_uniform=True,
-            ).beliefs
+            ).hypotheses
+            beliefs_updated_many[idx] = list(beliefs_updated_many[idx])
             print(f"[beliefs] After retry {retry_idx + 1}, belief pool has {len(beliefs_updated_many[idx])} candidate(s)")
 
     fallback_indices = [
@@ -720,8 +754,8 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
 
 def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | list[str], questioner: Model,
                            deterministic: bool, config: Config) -> BeliefState:
-    belief_state = ensure_belief_state(beliefs)
-    prior_beliefs = belief_state.beliefs
+    belief_state = ensure_animals_belief_state(beliefs)
+    prior_beliefs = belief_state.hypotheses
     prior_summary = format_categorical_belief_summary(belief_state)
     generation_temperature, max_num_samples, min_num_samples = config.generation_temperature_diverse, config.max_num_samples, config.min_num_samples
     answer_temperature, block_size, threshold_rejection_probability = config.answer_temperature, config.batched_block_size, config.threshold_rejection_probability
@@ -740,7 +774,7 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
 
     if not config.belief_generation_enabled:
         configured_prior = get_configured_prior(config)
-        support_beliefs = configured_prior.beliefs if configured_prior is not None else prior_beliefs
+        support_beliefs = configured_prior.hypotheses if configured_prior is not None else prior_beliefs
         if config.belief_filtering_enabled:
             filtered_beliefs = check_beliefs_batched(
                 support_beliefs,
@@ -753,7 +787,7 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
         else:
             filtered_beliefs = list(support_beliefs)
         updated_state = build_belief_state(filtered_beliefs, history, questioner, config)
-        print(f"[beliefs] Belief update complete with {len(updated_state.beliefs)} candidate(s)")
+        print(f"[beliefs] Belief update complete with {len(updated_state.hypotheses)} candidate(s)")
         if config.belief_state_mode == "categorical":
             print_and_log(
                 "[categorical] Weighted belief transition with generation disabled: "
@@ -773,7 +807,7 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
     # in split baseline, return the beliefs sampled using the current history
     if deterministic:
         deterministic_state = build_belief_state(beliefs_new, history, questioner, config)
-        print(f"[beliefs] Deterministic mode returning {len(deterministic_state.beliefs)} belief(s)")
+        print(f"[beliefs] Deterministic mode returning {len(deterministic_state.hypotheses)} belief(s)")
         return deterministic_state
 
     # filter new beliefs according to previous questions+answers
@@ -814,7 +848,7 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
             config,
         )
     # throw out duplicates
-    beliefs_updated = make_belief_state(beliefs_new + filtered_beliefs_old, fallback_to_uniform=True).beliefs
+    beliefs_updated = list(make_animals_belief_state(beliefs_new + filtered_beliefs_old, fallback_to_uniform=True).hypotheses)
     print(f"[beliefs] {len(beliefs_updated)} unique belief(s) remain after merge")
     if config.belief_state_mode == "categorical":
         print_and_log(
@@ -848,7 +882,7 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
                 block_size,
                 threshold_rejection_probability,
             )
-        beliefs_updated = make_belief_state(beliefs_new + beliefs_updated, fallback_to_uniform=True).beliefs
+        beliefs_updated = list(make_animals_belief_state(beliefs_new + beliefs_updated, fallback_to_uniform=True).hypotheses)
         print(f"[beliefs] After retry {retry_idx + 1}, belief pool has {len(beliefs_updated)} candidate(s)")
         if config.belief_state_mode == "categorical":
             print_and_log(
@@ -878,7 +912,7 @@ def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | lis
                 )
 
     updated_state = build_belief_state(beliefs_updated, history, questioner, config)
-    print(f"[beliefs] Belief update complete with {len(updated_state.beliefs)} candidate(s)")
+    print(f"[beliefs] Belief update complete with {len(updated_state.hypotheses)} candidate(s)")
     if config.belief_state_mode == "categorical":
         print_and_log(
             f"[categorical] Weighted belief transition: before={prior_summary} -> after={format_categorical_belief_summary(updated_state)}",

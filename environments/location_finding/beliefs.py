@@ -5,12 +5,13 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
+from core import BeliefState
 from helpers import Config, _average_labeled_distributions_from_completions
 from .formatting import _location_posterior_labels, _log_location, _summarize_belief_state
 from .parsing import parse_source_hypotheses
 from .physics import _hypothesis_log_prior, _log_normal_pdf, _logsumexp, signal_intensity_for_hypothesis
 from .prompts import _belief_generation_messages, _location_posterior_context_probabilities, _location_posterior_distribution_messages, _permuted_location_observation_histories
-from .types import LocationBeliefState, LocationObservation, SourceConfig, _dedupe_source_configs
+from .types import LocationObservation, SourceConfig, _dedupe_source_configs
 
 if TYPE_CHECKING:
     from model import Model
@@ -20,7 +21,7 @@ def build_location_belief_state(
     hypotheses: list[SourceConfig],
     observations: list[LocationObservation],
     config: Config,
-) -> LocationBeliefState:
+) -> BeliefState:
     state = build_location_belief_state_unpruned(hypotheses, observations, config)
     return prune_location_beliefs(state, max_beliefs=config.location_max_total_beliefs)
 
@@ -29,10 +30,10 @@ def build_location_belief_state_unpruned(
     hypotheses: list[SourceConfig],
     observations: list[LocationObservation],
     config: Config,
-) -> LocationBeliefState:
+) -> BeliefState:
     hypotheses = _dedupe_source_configs(hypotheses)
     if not hypotheses:
-        return LocationBeliefState([], [])
+        return BeliefState([], [])
 
     # theta: (H, S, D) — all hypotheses stacked into a single array
     theta = np.asarray(hypotheses, dtype=float)
@@ -68,26 +69,26 @@ def build_location_belief_state_unpruned(
 
     normalizer = _logsumexp(log_scores)
     probabilities = np.exp(log_scores - normalizer).tolist()
-    state = LocationBeliefState(hypotheses, probabilities)
+    state = BeliefState(hypotheses, probabilities)
     return sort_location_belief_state(state)
 
 
-def sort_location_belief_state(belief_state: LocationBeliefState) -> LocationBeliefState:
+def sort_location_belief_state(belief_state: BeliefState) -> BeliefState:
     ordered = sorted(
         zip(belief_state.hypotheses, belief_state.probabilities),
         key=lambda entry: entry[1],
         reverse=True,
     )
-    return LocationBeliefState(
+    return BeliefState(
         [hypothesis for hypothesis, _probability in ordered],
         [float(probability) for _hypothesis, probability in ordered],
     )
 
 
 def prune_location_beliefs(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     max_beliefs: int,
-) -> LocationBeliefState:
+) -> BeliefState:
     if len(belief_state.hypotheses) <= max_beliefs:
         return belief_state
 
@@ -99,8 +100,8 @@ def prune_location_beliefs(
     total = sum(probability for _hypothesis, probability in ordered)
     if total <= 0.0:
         probability = 1.0 / len(ordered)
-        return LocationBeliefState([hypothesis for hypothesis, _probability in ordered], [probability] * len(ordered))
-    return LocationBeliefState(
+        return BeliefState([hypothesis for hypothesis, _probability in ordered], [probability] * len(ordered))
+    return BeliefState(
         [hypothesis for hypothesis, _probability in ordered],
         [float(probability / total) for _hypothesis, probability in ordered],
     )
@@ -112,11 +113,11 @@ def build_location_posteriors_many(
     observations_many: list[list[LocationObservation]],
     config: Config,
     *,
-    context_states: list[LocationBeliefState | None] | None = None,
+    context_states: list[BeliefState | None] | None = None,
     label: str = "location posterior scoring",
     prune: bool = True,
     rng: np.random.Generator | None = None,
-) -> list[LocationBeliefState]:
+) -> list[BeliefState]:
     if len(hypotheses_many) != len(observations_many):
         raise ValueError("hypotheses_many and observations_many must have the same length")
     if context_states is None:
@@ -190,7 +191,7 @@ def build_location_posteriors_many(
                 f"Expected {len(batch_messages)} location posterior completions, received {len(completions)}"
             )
 
-    scored_states: list[LocationBeliefState] = []
+    scored_states: list[BeliefState] = []
     completion_offset = 0
     valid_total = 0
     prompt_total = 0
@@ -201,7 +202,7 @@ def build_location_posteriors_many(
         completion_offset += prompt_count
         prompt_total += prompt_count
         if not hypotheses:
-            scored_states.append(LocationBeliefState([], []))
+            scored_states.append(BeliefState([], []))
             continue
         context_probabilities = _location_posterior_context_probabilities(
             hypotheses,
@@ -219,7 +220,7 @@ def build_location_posteriors_many(
         )
         valid_total += valid_count
         scored_state = sort_location_belief_state(
-            LocationBeliefState(
+            BeliefState(
                 hypotheses,
                 [distribution[label] for label in labels],
             )
@@ -247,10 +248,10 @@ def build_location_posterior(
     observations: list[LocationObservation],
     config: Config,
     *,
-    context_state: LocationBeliefState | None = None,
+    context_state: BeliefState | None = None,
     label: str = "location posterior scoring",
     prune: bool = True,
-) -> LocationBeliefState:
+) -> BeliefState:
     return build_location_posteriors_many(
         questioner,
         [hypotheses],
@@ -263,13 +264,13 @@ def build_location_posterior(
 
 
 def prompt_location_belief_state(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     config: Config,
-) -> LocationBeliefState:
+) -> BeliefState:
     return prune_location_beliefs(belief_state, max_beliefs=config.location_max_llm_prompt_beliefs)
 
 
-def _location_effective_sample_size(belief_state: LocationBeliefState) -> float:
+def _location_effective_sample_size(belief_state: BeliefState) -> float:
     if not belief_state.probabilities:
         return 0.0
     probabilities = np.asarray(belief_state.probabilities, dtype=float)
@@ -280,10 +281,10 @@ def _location_effective_sample_size(belief_state: LocationBeliefState) -> float:
 
 
 def sample_location_eig_belief_state(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     config: Config,
     rng: np.random.Generator,
-) -> tuple[LocationBeliefState, bool]:
+) -> tuple[BeliefState, bool]:
     if len(belief_state.hypotheses) <= config.num_mc_samples:
         return belief_state, False
 
@@ -300,16 +301,16 @@ def sample_location_eig_belief_state(
 
     sampled_hypotheses = [belief_state.hypotheses[int(index)] for index in unique_indices]
     sampled_probabilities = [float(count / np.sum(counts)) for count in counts]
-    sampled_state = sort_location_belief_state(LocationBeliefState(sampled_hypotheses, sampled_probabilities))
+    sampled_state = sort_location_belief_state(BeliefState(sampled_hypotheses, sampled_probabilities))
     return sampled_state, sample_collapsed
 
 
 def _posterior_after_observation(
-    belief_state: LocationBeliefState,
+    belief_state: BeliefState,
     query: Location,
     value: float,
     noise_sd: float,
-) -> LocationBeliefState:
+) -> BeliefState:
     if not belief_state.hypotheses:
         return belief_state
     log_scores = []
@@ -318,12 +319,12 @@ def _posterior_after_observation(
         log_scores.append(math.log(max(probability, 1e-300)) + _log_normal_pdf(value, mean, noise_sd))
     normalizer = _logsumexp(log_scores)
     return sort_location_belief_state(
-        LocationBeliefState(
+        BeliefState(
             list(belief_state.hypotheses),
             [math.exp(log_score - normalizer) for log_score in log_scores],
         )
     )
 
 
-def _merge_hypotheses(previous: LocationBeliefState, generated: list[SourceConfig]) -> list[SourceConfig]:
+def _merge_hypotheses(previous: BeliefState, generated: list[SourceConfig]) -> list[SourceConfig]:
     return _dedupe_source_configs(list(previous.hypotheses) + list(generated))

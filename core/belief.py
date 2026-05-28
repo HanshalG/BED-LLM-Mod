@@ -1,10 +1,8 @@
 """Generic weighted belief state over a finite hypothesis support.
 
-This is the environment-agnostic replacement for both ``helpers.BeliefState``
-(animals: hypotheses are ``str``) and ``location_finding.LocationBeliefState``
-(hypotheses are ``SourceConfig`` tuples).  The container is parametric in the
-hypothesis type ``H`` so a single module can serve both environments
-and any future ones.
+This environment-agnostic container is parametric in the hypothesis type ``H``:
+animals use ``str`` hypotheses, location finding uses ``SourceConfig`` tuples,
+and future environments can supply their own immutable hypothesis type.
 
 The class is intentionally frozen / immutable so it can be safely passed
 between trial state, EIG scoring, and logging without aliasing bugs.  Helper
@@ -16,7 +14,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import Callable, Generic, Iterable, Sequence, TypeVar
+from typing import Any, Callable, Generic, Iterable, Sequence, TypeVar
 
 import numpy as np
 
@@ -260,3 +258,97 @@ class BeliefState(Generic[H]):
     def to_numpy(self) -> np.ndarray:
         """Return probabilities as a numpy array (useful for vectorised math)."""
         return np.asarray(self.probabilities, dtype=float)
+
+
+def deduped_belief_state(
+    hypotheses: Sequence[H],
+    weights: Sequence[float] | None = None,
+    *,
+    key: Callable[[H], Any] | None = None,
+    normalize: Callable[[H], H | None] | None = None,
+    fallback_to_uniform: bool = False,
+) -> BeliefState[H]:
+    """Build a weighted belief state while merging duplicate hypotheses.
+
+    Duplicate identity is controlled by ``key``; the first normalized spelling /
+    object is preserved and duplicate weights are summed.  ``normalize`` may
+    return ``None`` to drop a hypothesis before de-duplication.
+    """
+    if weights is None:
+        weights = [1.0] * len(hypotheses)
+    if len(hypotheses) != len(weights):
+        raise ValueError("hypotheses and weights must have the same length")
+
+    key_fn = key or (lambda hypothesis: hypothesis)
+    merged_hypotheses: list[H] = []
+    merged_weights: list[float] = []
+    indices: dict[Any, int] = {}
+
+    for hypothesis, weight in zip(hypotheses, weights):
+        normalized = normalize(hypothesis) if normalize is not None else hypothesis
+        if normalized is None:
+            continue
+
+        try:
+            numeric_weight = float(weight)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"Invalid belief weight: {weight!r}") from exc
+        if not math.isfinite(numeric_weight) or numeric_weight < 0.0:
+            raise ValueError(f"Belief weights must be finite and non-negative: {weight!r}")
+
+        hypothesis_key = key_fn(normalized)
+        existing_index = indices.get(hypothesis_key)
+        if existing_index is None:
+            indices[hypothesis_key] = len(merged_hypotheses)
+            merged_hypotheses.append(normalized)
+            merged_weights.append(numeric_weight)
+        else:
+            merged_weights[existing_index] += numeric_weight
+
+    if not merged_hypotheses:
+        return BeliefState()
+
+    return BeliefState.from_unnormalized(
+        merged_hypotheses,
+        merged_weights,
+        fallback_to_uniform=fallback_to_uniform,
+    )
+
+
+def uniform_deduped(
+    hypotheses: Sequence[H],
+    *,
+    key: Callable[[H], Any] | None = None,
+    normalize: Callable[[H], H | None] | None = None,
+) -> BeliefState[H]:
+    """Build a uniform belief state over first-seen unique hypotheses."""
+    deduped = deduped_belief_state(
+        hypotheses,
+        [1.0] * len(hypotheses),
+        key=key,
+        normalize=normalize,
+        fallback_to_uniform=True,
+    )
+    return BeliefState.uniform(deduped.hypotheses)
+
+
+def ensure_belief_state(
+    value: BeliefState[H] | Sequence[H],
+    *,
+    key: Callable[[H], Any] | None = None,
+    normalize: Callable[[H], H | None] | None = None,
+) -> BeliefState[H]:
+    """Return ``value`` as a :class:`BeliefState`.
+
+    Existing belief states are returned unchanged.  Sequences become uniform
+    de-duplicated states.
+    """
+    if isinstance(value, BeliefState):
+        return value
+    return uniform_deduped(value, key=key, normalize=normalize)
+
+
+def effective_sample_size(probabilities: Sequence[float]) -> float:
+    """Compute ESS = 1 / sum(p_i^2) for a probability vector."""
+    squared = sum(float(probability) ** 2 for probability in probabilities)
+    return 1.0 / squared if squared > 0.0 else 0.0

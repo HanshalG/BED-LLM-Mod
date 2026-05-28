@@ -1,0 +1,40 @@
+version: 0
+task: location_finding
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
+    answerer:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
+method_names:
+  - "StrategyEIG"
+  - "StrategyEIG+root"
+batched_block_size: 8
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.2
+num_mc_samples: 3
+environment:
+  num_rounds: 1
+  num_trials: 3
+  trial_batch_size: 3
+  seed: 53
+  num_sources: 2
+  dim: 2
+  noise_sd: 0.5
+  query_bounds: [-2.0, 2.0]
+  max_total_beliefs: 30
+  max_llm_prompt_beliefs: 8
+  num_generated_hypotheses: 4
+  target_num_candidates: 3
+  search_depth: 1
+  eig_quadrature_order: 5
+  plot_trials: false
+  posterior_mode: analytical_likelihood
+  strategy_num_retrieved: 1
+  strategy_num_mutation: 0
+  strategy_num_crossover: 0
+  strategy_num_diverse: 1
+  strategy_num_rollouts: 1
+  strategy_planning_depth: 1
+  probability_parse_fallback_to_uniform: true

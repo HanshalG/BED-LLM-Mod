@@ -7,6 +7,9 @@ from typing import Any
 
 def trial_batch_size(config: Any, env_name: str) -> int:
     """Return configured cross-trial batch size for ``env_name``."""
+    environment = getattr(config, "environment", {}) or {}
+    if isinstance(environment, dict) and "trial_batch_size" in environment:
+        return int(environment["trial_batch_size"] or 1)
     if env_name == "location_finding":
         return int(getattr(config, "location_trial_batch_size", 1) or 1)
     return int(getattr(config, "trial_batch_size", 1) or 1)
@@ -14,6 +17,4 @@ def trial_batch_size(config: Any, env_name: str) -> int:
 
 def supports_trial_batching(environment: Any, batch_size: int) -> bool:
     """Whether ``environment`` can run with ``batch_size > 1``."""
-    if batch_size <= 1:
-        return True
-    return callable(getattr(environment, "run_batched_experiment", None))
+    return batch_size >= 1
