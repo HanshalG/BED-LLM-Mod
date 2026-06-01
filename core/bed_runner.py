@@ -127,7 +127,12 @@ class BEDRunner(Generic[H, A, O, S]):
         config = self.config
 
         hidden_state = env.sample_hidden_state_for_trial(trial_index, self.rng)
-        belief_state: BeliefState[H] = env.initial_belief_state(model, config)
+        requires_belief_state = method.requires_belief_state(env, config)
+        belief_state: BeliefState[H] = (
+            env.initial_belief_state(model, config)
+            if requires_belief_state
+            else BeliefState()
+        )
         history: list[tuple[A, O]] = []
         rounds: list[RoundResult[A, O]] = []
 
@@ -156,9 +161,14 @@ class BEDRunner(Generic[H, A, O, S]):
             )
             observation = env.observe(chosen.action, hidden_state, self.rng)
             history.append((chosen.action, observation))
-            belief_state = env.update_belief_state(belief_state, history, model, config)
+            if requires_belief_state:
+                belief_state = env.update_belief_state(belief_state, history, model, config)
 
-            metrics = dict(env.round_metrics(belief_state, history, hidden_state))
+            metrics = (
+                dict(env.round_metrics(belief_state, history, hidden_state))
+                if requires_belief_state
+                else {}
+            )
             if hasattr(method, "metrics_after_observation"):
                 metrics.update(
                     method.metrics_after_observation(
@@ -182,7 +192,10 @@ class BEDRunner(Generic[H, A, O, S]):
                 )
             )
 
-            if env.early_stop(belief_state, history, hidden_state, observation):
+            if (
+                requires_belief_state
+                and env.early_stop(belief_state, history, hidden_state, observation)
+            ):
                 break
 
         final_metrics = rounds[-1].metrics if rounds else {}
@@ -204,7 +217,12 @@ class BEDRunner(Generic[H, A, O, S]):
 
         trial_indices = list(trial_indices)
         hidden_states = env.sample_hidden_states_for_trials(trial_indices, self.rng)
-        belief_states: list[BeliefState[H]] = env.initial_belief_states(trial_indices, model, config)
+        requires_belief_state = method.requires_belief_state(env, config)
+        belief_states: list[BeliefState[H]] = (
+            env.initial_belief_states(trial_indices, model, config)
+            if requires_belief_state
+            else [BeliefState() for _trial_index in trial_indices]
+        )
         histories: list[list[tuple[A, O]]] = [[] for _trial_index in trial_indices]
         rounds_by_trial: list[list[RoundResult[A, O]]] = [[] for _trial_index in trial_indices]
         active = [True for _trial_index in trial_indices]
@@ -280,12 +298,15 @@ class BEDRunner(Generic[H, A, O, S]):
             for position, chosen, observation in zip(runnable_positions, chosen_many, observations):
                 histories[position].append((chosen.action, observation))
 
-            updated_beliefs = env.update_belief_states(
-                runnable_beliefs,
-                [histories[idx] for idx in runnable_positions],
-                model,
-                config,
-            )
+            if requires_belief_state:
+                updated_beliefs = env.update_belief_states(
+                    runnable_beliefs,
+                    [histories[idx] for idx in runnable_positions],
+                    model,
+                    config,
+                )
+            else:
+                updated_beliefs = list(runnable_beliefs)
             if len(updated_beliefs) != len(runnable_positions):
                 raise ValueError("update_belief_states returned the wrong number of belief states")
             for position, belief_state in zip(runnable_positions, updated_beliefs):
@@ -309,7 +330,11 @@ class BEDRunner(Generic[H, A, O, S]):
                 observations,
                 method_metrics_many,
             ):
-                metrics = dict(env.round_metrics(belief_states[position], histories[position], hidden_states[position]))
+                metrics = (
+                    dict(env.round_metrics(belief_states[position], histories[position], hidden_states[position]))
+                    if requires_belief_state
+                    else {}
+                )
                 metrics.update(method_metrics)
                 if chosen.extras and "metric_name" in chosen.extras:
                     metrics[str(chosen.extras["metric_name"])] = float(chosen.score)
@@ -322,7 +347,15 @@ class BEDRunner(Generic[H, A, O, S]):
                         metrics=metrics,
                     )
                 )
-                if env.early_stop(belief_states[position], histories[position], hidden_states[position], observation):
+                if (
+                    requires_belief_state
+                    and env.early_stop(
+                        belief_states[position],
+                        histories[position],
+                        hidden_states[position],
+                        observation,
+                    )
+                ):
                     active[position] = False
 
         return [

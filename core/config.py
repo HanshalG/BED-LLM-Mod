@@ -125,7 +125,7 @@ class LocationConfig:
     strategy_discount_factor: float = 1.0
     strategy_belief_summary_top_k: int = 5
     posterior_mode: str = "analytical_likelihood"
-    max_new_tokens: int = 8192
+    max_new_tokens: int = 4096
     belief_distribution_permute_history: bool = False  # shared with animals
 
     @property
@@ -231,6 +231,6 @@ def location_view(config: Any) -> LocationConfig:
         strategy_discount_factor=getattr(config, "location_strategy_discount_factor", 1.0),
         strategy_belief_summary_top_k=getattr(config, "location_strategy_belief_summary_top_k", 5),
         posterior_mode=getattr(config, "location_posterior_mode", "analytical_likelihood"),
-        max_new_tokens=getattr(config, "location_max_new_tokens", 8192),
+        max_new_tokens=getattr(config, "location_max_new_tokens", None) or getattr(config, "max_model_len", 4096),
         belief_distribution_permute_history=getattr(config, "belief_distribution_permute_history", False),
     )

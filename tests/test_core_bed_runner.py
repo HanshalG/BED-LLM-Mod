@@ -158,6 +158,73 @@ class _BisectionMethod(Method[int, int, int, int]):
         return ActionScore(action=best_action, score=-best_distance, extras={"yes_mass": best_yes_mass})
 
 
+class _DirectNoBeliefMethod(Method[int, int, int, int]):
+    skip_candidate_generation = True
+
+    @property
+    def name(self) -> str:
+        return "direct_no_belief"
+
+    def requires_belief_state(self, environment, config) -> bool:
+        return False
+
+    def select_action(
+        self,
+        candidates: Sequence[int],
+        belief_state: BeliefState[int],
+        environment: Environment,
+        model: Any,
+        history: Sequence,
+        config: Any,
+    ) -> ActionScore[int]:
+        assert not candidates
+        assert belief_state.support_size == 0
+        return ActionScore(action=1, score=0.0, extras={"metric_name": "selected_eig"})
+
+    def metrics_after_observation(
+        self,
+        belief_state: BeliefState[int],
+        history: Sequence[tuple[int, int]],
+        environment: Environment,
+        model: Any,
+        hidden_state: int,
+        config: Any,
+    ) -> dict[str, float]:
+        assert belief_state.support_size == 0
+        return {"history_len": float(len(history))}
+
+
+class _CountingNumberGuessEnvironment(_NumberGuessEnvironment):
+    def __init__(self, n: int, fixed_state: int | None = None):
+        super().__init__(n=n, fixed_state=fixed_state)
+        self.initial_calls = 0
+        self.update_calls = 0
+        self.round_metric_calls = 0
+
+    def initial_belief_state(self, model: Any, config: Any) -> BeliefState[int]:
+        self.initial_calls += 1
+        return super().initial_belief_state(model, config)
+
+    def update_belief_state(
+        self,
+        belief_state: BeliefState[int],
+        history: Sequence[tuple[int, int]],
+        model: Any,
+        config: Any,
+    ) -> BeliefState[int]:
+        self.update_calls += 1
+        return super().update_belief_state(belief_state, history, model, config)
+
+    def round_metrics(
+        self,
+        belief_state: BeliefState[int],
+        history: Sequence[tuple[int, int]],
+        hidden_state: int,
+    ) -> dict[str, float]:
+        self.round_metric_calls += 1
+        return super().round_metrics(belief_state, history, hidden_state)
+
+
 # ---------------------------------------------------------------------------
 # Tests
 # ---------------------------------------------------------------------------
@@ -259,6 +326,50 @@ def test_runner_raises_on_empty_candidates_by_default():
 
     with pytest.raises(ValueError, match="requires candidates"):
         runner.run_single_trial(0)
+
+
+def test_runner_skips_belief_lifecycle_when_method_does_not_require_it():
+    env = _CountingNumberGuessEnvironment(n=4, fixed_state=2)
+    runner = BEDRunner(
+        env,
+        _DirectNoBeliefMethod(),
+        model=None,
+        config=None,
+        num_trials=1,
+        num_rounds=2,
+    )
+
+    trial = runner.run_single_trial(0)
+
+    assert env.initial_calls == 0
+    assert env.update_calls == 0
+    assert env.round_metric_calls == 0
+    assert trial.final_belief_state is not None
+    assert trial.final_belief_state.support_size == 0
+    assert trial.final_metrics["history_len"] == 2.0
+    assert trial.final_metrics["selected_eig"] == 0.0
+
+
+def test_batched_runner_skips_belief_lifecycle_when_method_does_not_require_it():
+    env = _CountingNumberGuessEnvironment(n=4, fixed_state=2)
+    runner = BEDRunner(
+        env,
+        _DirectNoBeliefMethod(),
+        model=None,
+        config=None,
+        num_trials=3,
+        num_rounds=1,
+        trial_batch_size=3,
+    )
+
+    result = runner.run()
+
+    assert env.initial_calls == 0
+    assert env.update_calls == 0
+    assert env.round_metric_calls == 0
+    assert len(result.trials) == 3
+    assert all(trial.final_belief_state is not None for trial in result.trials)
+    assert all(trial.final_belief_state.support_size == 0 for trial in result.trials)
 
 
 def test_batched_runner_skips_empty_candidate_trials_without_selecting():

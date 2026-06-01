@@ -105,7 +105,8 @@ def test_location_belief_system_prompt_includes_dimension_and_source_count():
     text = location_prompts.belief_system_prompt(config, update=False)
 
     assert "2D" in text
-    assert "noise_sd=0.5" in text
+    assert "y = signal(x; theta) * exp(epsilon)" in text
+    assert "epsilon ~ Normal(0, 0.5)" in text
 
 
 def test_location_strategy_system_preamble_includes_bounds_and_count():

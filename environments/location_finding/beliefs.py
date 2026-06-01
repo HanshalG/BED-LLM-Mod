@@ -9,7 +9,7 @@ from core import BeliefState
 from helpers import Config, _average_labeled_distributions_from_completions
 from .formatting import _location_posterior_labels, _log_location, _summarize_belief_state
 from .parsing import parse_source_hypotheses
-from .physics import _hypothesis_log_prior, _log_normal_pdf, _logsumexp, signal_intensity_for_hypothesis
+from .physics import _hypothesis_log_prior, _logsumexp, observation_log_likelihood, signal_intensity_for_hypothesis
 from .prompts import _belief_generation_messages, _location_posterior_context_probabilities, _location_posterior_distribution_messages, _permuted_location_observation_histories
 from .types import LocationObservation, SourceConfig, _dedupe_source_configs
 
@@ -63,9 +63,15 @@ def build_location_belief_state_unpruned(
         # Signal means for every (hypothesis, observation) pair: (H, O)
         means = b + np.sum(alpha / (m + distances_sq), axis=2)
 
-        # Log-likelihood under Gaussian noise: (H, O), then summed over observations → (H,)
-        z = (values[np.newaxis, :] - means) / sd
-        log_scores += np.sum(-0.5 * z * z - math.log(sd) - 0.5 * math.log(2.0 * math.pi), axis=1)
+        # Log-likelihood under multiplicative log-normal noise: (H, O),
+        # then summed over observations → (H,).
+        if np.any(values <= 0.0):
+            log_scores += float("-inf")
+        else:
+            log_values = np.log(values)
+            log_means = np.log(means)
+            z = (log_values[np.newaxis, :] - log_means) / sd
+            log_scores += np.sum(-0.5 * z * z - math.log(sd) - 0.5 * math.log(2.0 * math.pi), axis=1)
 
     normalizer = _logsumexp(log_scores)
     probabilities = np.exp(log_scores - normalizer).tolist()
@@ -173,13 +179,12 @@ def build_location_posteriors_many(
 
     completions: list[str] = []
     if batch_messages:
-        posterior_max_new_tokens = max(512, min(2048, 32 * max((len(labels) for labels in branch_labels), default=0) + 128))
         if callable(getattr(questioner, "chat_complete_messages_batched", None)):
             completions = questioner.chat_complete_messages_batched(
                 batch_messages=batch_messages,
                 temperature=config.belief_probability_temperature,
                 block_size=config.batched_block_size,
-                max_new_tokens=posterior_max_new_tokens,
+                max_new_tokens=config.location_max_new_tokens,
             )
         else:
             completions = [
@@ -316,7 +321,7 @@ def _posterior_after_observation(
     log_scores = []
     for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities):
         mean = signal_intensity_for_hypothesis(hypothesis, query)
-        log_scores.append(math.log(max(probability, 1e-300)) + _log_normal_pdf(value, mean, noise_sd))
+        log_scores.append(math.log(max(probability, 1e-300)) + observation_log_likelihood(value, mean, noise_sd))
     normalizer = _logsumexp(log_scores)
     return sort_location_belief_state(
         BeliefState(

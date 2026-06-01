@@ -141,11 +141,15 @@ class LocationFindingEnv:
 
     def step(self, query: Location | np.ndarray) -> float:
         intensity = self.signal_intensity(query)
-        return float(self.rng.normal(intensity, self.noise_sd))
+        from .physics import sample_observation
+
+        return sample_observation(intensity, self.noise_sd, self.rng)
 
     def run_experiment(self, query: Location | np.ndarray) -> LocationObservation:
         query_tuple = normalize_location(query, self.dim)
-        observation = round(self.step(query_tuple), 2)
+        from .physics import round_positive_observation
+
+        observation = round_positive_observation(self.step(query_tuple), 2)
         result = LocationObservation(query=query_tuple, value=float(observation))
         self.observed_data.append(result)
         return result

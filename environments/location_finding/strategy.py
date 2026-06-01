@@ -8,9 +8,9 @@ from core import BeliefState
 from helpers import Config
 from .beliefs import build_location_posteriors_many, prompt_location_belief_state, prune_location_beliefs
 from .formatting import _format_location, _log_location
-from .generation import _generate_location_hypotheses_many, _is_repeated_location
+from .generation import _completion_excerpt, _generate_location_hypotheses_many
 from .parsing import _clean_strategy_text, _strategy_key, parse_location_strategies, parse_location_strategy_roots, parse_strategy_location
-from .physics import signal_intensity_for_hypothesis
+from .physics import round_positive_observation, sample_observation, signal_intensity_for_hypothesis
 from .prompts import _strategy_crossover_messages, _strategy_diverse_messages, _strategy_location_messages, _strategy_mutation_messages, _strategy_root_crossover_messages, _strategy_root_diverse_messages, _strategy_root_mutation_messages
 from .types import Location, LocationObservation, LocationStrategyCandidate, LocationStrategyEntry, LocationStrategyEvaluation, LocationStrategyLibrary, SourceConfig, _StrategyEvaluationRequest, _StrategyLocationRequest, _StrategyRollout, _dedupe_source_configs
 
@@ -42,8 +42,6 @@ def _extend_unique_strategy_candidates(
     for candidate in candidates:
         cleaned = _clean_strategy_text(candidate.strategy)
         if cleaned is None or candidate.root_query is None:
-            continue
-        if _is_repeated_location(candidate.root_query, observations):
             continue
         key = _strategy_key(cleaned)
         if key in seen:
@@ -549,11 +547,8 @@ def generate_strategy_locations_many(
             raise ValueError(f"Expected {len(pending)} strategy-location completions, received {len(completions)}")
         still_pending: list[int] = []
         for request_idx, completion in zip(pending, completions):
-            request = requests[request_idx]
             try:
                 location = parse_strategy_location(completion, config.location_dim, bounds)
-                if _is_repeated_location(location, request.observations):
-                    raise ValueError("Location repeats a previous query")
                 results[request_idx] = location
             except ValueError as exc:
                 _log_location(
@@ -561,6 +556,7 @@ def generate_strategy_locations_many(
                     + ("; retrying" if attempt < 2 else "; giving up"),
                     config,
                 )
+                _log_location(f"strategy location raw completion excerpt: {_completion_excerpt(completion)}", config)
                 still_pending.append(request_idx)
         pending = still_pending
 
@@ -778,7 +774,10 @@ def evaluate_location_strategies_by_rollout(
             if depth_idx == 0 and rollout.root_query is None:
                 rollout.root_query = location
             mean = signal_intensity_for_hypothesis(rollout.truth, location)
-            observed_value = float(round(rng.normal(mean, config.location_noise_sd), 2))
+            observed_value = round_positive_observation(
+                sample_observation(mean, config.location_noise_sd, rng),
+                2,
+            )
             rollout.simulated_observations.append(
                 LocationObservation(query=location, value=observed_value)
             )
@@ -989,7 +988,10 @@ def evaluate_location_strategies_by_rollout_many(
             if depth_idx == 0 and rollout.root_query is None:
                 rollout.root_query = location
             mean = signal_intensity_for_hypothesis(rollout.truth, location)
-            observed_value = float(round(request.rng.normal(mean, config.location_noise_sd), 2))
+            observed_value = round_positive_observation(
+                sample_observation(mean, config.location_noise_sd, request.rng),
+                2,
+            )
             rollout.simulated_observations.append(
                 LocationObservation(query=location, value=observed_value)
             )

@@ -25,6 +25,14 @@ def _is_repeated_location(location: Location, observations: list[LocationObserva
     return any(_location_key(observation.query) == key for observation in observations)
 
 
+def _completion_excerpt(completion: str, max_chars: int = 800) -> str:
+    cleaned = completion.replace("\n", "\\n")
+    if len(cleaned) <= max_chars:
+        return cleaned
+    half = max_chars // 2
+    return f"{cleaned[:half]} ... {cleaned[-half:]}"
+
+
 def generate_location_hypotheses(
     questioner: "Model",
     observations: list[LocationObservation],
@@ -243,8 +251,6 @@ def choose_location_naive(
         completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
         try:
             location = parse_single_location_from_completion(completion, config.location_dim, bounds)
-            if _is_repeated_location(location, observations):
-                raise ValueError("Location repeats a previous query")
             _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
             return location
         except ValueError as exc:
@@ -253,6 +259,7 @@ def choose_location_naive(
                 + ("; retrying" if attempt < 2 else "; giving up"),
                 config,
             )
+            _log_location(f"naive query generation raw completion excerpt: {_completion_excerpt(completion)}", config)
     return None
 
 
@@ -278,6 +285,7 @@ def estimate_sources_naive(
         )
     except ValueError as exc:
         _log_location(f"naive source estimate: could not parse estimate ({exc}); retrying JSON repair", config)
+        _log_location(f"naive source estimate raw completion excerpt: {_completion_excerpt(completion)}", config)
         repair_completion = questioner.chat_complete(
             _naive_source_estimate_repair_messages(completion, observations, config),
             temperature=0.0,
@@ -346,11 +354,8 @@ def choose_locations_naive_many(
             raise ValueError(f"Expected {len(pending)} naive query completions, received {len(completions)}")
         still_pending: list[int] = []
         for idx, completion in zip(pending, completions):
-            item_observations = observations_many[idx]
             try:
                 location = parse_single_location_from_completion(completion, config.location_dim, bounds)
-                if _is_repeated_location(location, item_observations):
-                    raise ValueError("Location repeats a previous query")
                 _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
                 results[idx] = location
             except ValueError as exc:
@@ -359,6 +364,7 @@ def choose_locations_naive_many(
                     + ("; retrying" if attempt < 2 else "; giving up"),
                     config,
                 )
+                _log_location(f"naive query generation raw completion excerpt: {_completion_excerpt(completion)}", config)
                 still_pending.append(idx)
         pending = still_pending
 
@@ -404,6 +410,7 @@ def estimate_sources_naive_many(
             )
         except ValueError as exc:
             _log_location(f"naive source estimate: could not parse estimate ({exc}); will retry JSON repair", config)
+            _log_location(f"naive source estimate raw completion excerpt: {_completion_excerpt(completion)}", config)
             estimate = None
             failed_indices.append(len(estimates))
         estimates.append(estimate)

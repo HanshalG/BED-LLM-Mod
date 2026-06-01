@@ -24,7 +24,13 @@ from environments.location_finding.parsing import (
     parse_source_hypotheses,
     parse_strategy_location,
 )
-from environments.location_finding.physics import signal_intensity_for_hypothesis, source_rmse
+from environments.location_finding.physics import (
+    observation_log_likelihood,
+    round_positive_observation,
+    sample_observation,
+    signal_intensity_for_hypothesis,
+    source_rmse,
+)
 from environments.location_finding.prompts import (
     belief_generation_messages as _belief_generation_messages,
     candidate_generation_messages as _candidate_generation_messages,
@@ -182,6 +188,54 @@ def test_location_env_matches_signal_defaults_and_records_noisy_observation():
     assert observation.query == (0.25, -0.5)
     assert isinstance(observation.value, float)
     assert env.observed_data == [observation]
+
+
+def test_location_observation_model_is_lognormal_and_eig_prefers_informative_queries():
+    rng = np.random.default_rng(123)
+    mean = 2.5
+    noise_sd = 0.5
+    samples = np.asarray([sample_observation(mean, noise_sd, rng) for _idx in range(20_000)])
+    log_residuals = np.log(samples) - math.log(mean)
+
+    assert np.all(samples > 0.0)
+    assert float(np.mean(log_residuals)) == pytest.approx(0.0, abs=0.02)
+    assert float(np.var(log_residuals)) == pytest.approx(noise_sd**2, rel=0.08)
+    assert observation_log_likelihood(mean, mean, noise_sd) > observation_log_likelihood(
+        mean * math.exp(noise_sd),
+        mean,
+        noise_sd,
+    )
+
+    near = normalize_source_config([[0.0, 0.0]], 1, 2)
+    far = normalize_source_config([[2.0, 2.0]], 1, 2)
+    belief = BeliefState([near, far], [0.5, 0.5])
+    on_source_eig = expected_information_gain(belief, (0.0, 0.0), noise_sd, 7)
+    far_query_eig = expected_information_gain(belief, (3.0, 3.0), noise_sd, 7)
+
+    assert on_source_eig >= 0.0
+    assert far_query_eig >= 0.0
+    assert on_source_eig > far_query_eig
+
+
+def test_rounded_lognormal_observations_preserve_positive_posterior_support():
+    config = _location_config(location_num_sources=1)
+    near_zero = round_positive_observation(0.004, 2)
+
+    assert near_zero == pytest.approx(0.01)
+    assert observation_log_likelihood(near_zero, 0.1, config.location_noise_sd) > float("-inf")
+
+    hypotheses = [
+        normalize_source_config([[3.0, 3.0]], 1, 2),
+        normalize_source_config([[-3.0, -3.0]], 1, 2),
+    ]
+    state = build_location_belief_state(
+        hypotheses,
+        [LocationObservation((0.0, 0.0), near_zero)],
+        config,
+    )
+
+    assert np.all(np.isfinite(state.probabilities))
+    assert sum(state.probabilities) == pytest.approx(1.0)
 
 
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
@@ -949,7 +1003,8 @@ def test_run_location_one_round_with_fake_llm_smoke(tmp_path, num_sources):
     assert metrics.selected_eig[0] >= 0.0
     assert len(model.calls) == 3
     assert f"exactly {num_sources} hidden signal sources" in model.calls[0][0]["content"]
-    assert "noise_sd=0.5" in model.calls[0][0]["content"]
+    assert "y = signal(x; theta) * exp(epsilon)" in model.calls[0][0]["content"]
+    assert "epsilon ~ Normal(0, 0.5)" in model.calls[0][0]["content"]
     assert "Do not output source configurations" in model.calls[1][0]["content"]
     plot_path = tmp_path / "location_trial_001.png"
     assert plot_path.exists()
@@ -1103,7 +1158,9 @@ def test_run_location_naive_batches_across_trials(tmp_path):
 
     assert len(metrics.source_rmse) == 2
     assert len(model.calls) == 0
-    assert [len(batch) for batch in model.batched_calls] == [3, 3, 3, 3, 3, 3, 3]
+    # Pure naive does not need initial/posterior belief batches; each round only
+    # requests a naive query and a naive source estimate.
+    assert [len(batch) for batch in model.batched_calls] == [3, 3, 3, 3]
     assert len(list(tmp_path.glob("location_trial_*.png"))) == 3
 
 

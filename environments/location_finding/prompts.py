@@ -12,6 +12,22 @@ from .physics import _hypothesis_log_prior, _logsumexp
 from .types import LocationObservation, SourceConfig
 
 
+def _measurement_model_description(config: Config) -> str:
+    return (
+        "Measurement model:\n"
+        "A query is a 2D coordinate x = [x1,x2].\n"
+        "The noiseless signal at x is:\n"
+        "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
+        "with b=0.1, alpha=1.0, m=0.0001.\n"
+        f"Observed readings are on the raw signal scale with multiplicative noise: "
+        f"y = signal(x; theta) * exp(epsilon), epsilon ~ Normal(0, {config.location_noise_sd}). "
+        f"Equivalently, log y ~ Normal(log signal(x; theta), {config.location_noise_sd}). "
+        "A single reading carries roughly +/-50% multiplicative noise, so do not over-trust one value.\n"
+        "Numeric anchors: readings are approximately 0.1 far from all sources, approximately 1 at distance 1 "
+        "from one source, and approximately 100 within distance 0.1 of a source."
+    )
+
+
 def _belief_system_prompt(config: Config, *, update: bool) -> str:
     dim_label = f"{config.location_dim}D"
     role = (
@@ -28,12 +44,7 @@ def _belief_system_prompt(config: Config, *, update: bool) -> str:
         "Prior:\n"
         "Each source coordinate is independently drawn from Normal(0,1). Prior-plausible coordinates are usually "
         "near the origin, but the data can justify separated sources.\n\n"
-        "Measurement model:\n"
-        "A query is a 2D coordinate x = [x1,x2].\n"
-        "The noiseless signal at x is:\n"
-        "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
-        "with b=0.1, alpha=1.0, m=0.0001.\n"
-        f"The observed scalar signal is y ~ Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
+        f"{_measurement_model_description(config)}\n\n"
         "Interpretation:\n"
         "- Very high observations indicate at least one source is probably close to the queried coordinate.\n"
         "- Low or moderate observations make it unlikely that any source is extremely close to the queried coordinate.\n"
@@ -149,14 +160,13 @@ def _location_posterior_distribution_messages(
         f"There are exactly {_source_count_text(config.location_num_sources)}. Each candidate hypothesis is a "
         f"set of {config.location_num_sources} distinct {config.location_dim}D source coordinates. "
         "The source order is irrelevant.\n\n"
-        "Measurement model:\n"
-        "A query is a 2D coordinate x = [x1,x2]. The noiseless signal is "
-        "b + sum_k alpha / (m + ||theta_k - x||^2), with b=0.1, alpha=1.0, m=0.0001. "
-        f"The observed scalar signal is y ~ Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n"
+        f"{_measurement_model_description(config)}\n"
         "Interpretation: a very high observation near a coordinate means at least one source is probably very close "
         "to that coordinate; a low observation rules out any source being very close to that query location.\n\n"
-        "context_probability is each hypothesis's prior weight from before the current observations; treat it as "
-        "your starting point and update it based on how well each hypothesis explains the observation history. "
+        "context_probability is your current belief in each hypothesis (the previous round's posterior, or the "
+        "Normal(0,1) prior on the first update). Produce the full posterior implied by the entire observation "
+        "history below; use context_probability only as a soft anchor, not as a factor to multiply by the "
+        "likelihood of these same observations again. "
         "Assign posterior mass across only the listed candidate hypothesis ids. "
         "Do not invent new ids or source configurations. Prefer a sparse posterior: "
         "include only ids with meaningful positive mass and omit ids that are inconsistent with the observations."
@@ -204,11 +214,7 @@ def _candidate_generation_messages(
         f"There are exactly {_source_count_text(config.location_num_sources)}. "
         "The goal is to choose the next query coordinate x = [x1,x2] "
         "to learn the source locations as efficiently as possible.\n\n"
-        "Measurement model:\n"
-        "The noiseless signal at query x is:\n"
-        "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
-        "with b=0.1, alpha=1.0, m=0.0001.\n"
-        f"The observed scalar signal is y ~ Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
+        f"{_measurement_model_description(config)}\n\n"
         "Allowed query coordinates:\n"
         f"Each coordinate must be in [{bounds[0]}, {bounds[1]}].\n\n"
         "Design objective:\n"
@@ -224,7 +230,6 @@ def _candidate_generation_messages(
         "- Do not include <eos>, markdown, comments, explanations, or trailing text.\n"
         f"- Generate exactly {config.location_target_num_candidates} candidate measurement locations.\n"
         "- Every coordinate must be within the allowed query bounds.\n"
-        "- Do not repeat previous query locations.\n"
         "- Spread candidates across different regions and hypotheses — include locations that discriminate between "
         "competing hypotheses, not just refinements of the single most likely one."
     )
@@ -248,11 +253,7 @@ def _naive_location_messages(
         "You choose the next measurement location for a 2D source-localization experiment.\n\n"
         f"There are exactly {_source_count_text(config.location_num_sources)}. "
         "The hidden sources are fixed but unknown. A query is a 2D coordinate x = [x1,x2].\n\n"
-        "Measurement model:\n"
-        "The noiseless signal at query x is:\n"
-        "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
-        "with b=0.1, alpha=1.0, m=0.0001. The observed scalar signal is "
-        f"Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
+        f"{_measurement_model_description(config)}\n\n"
         f"Allowed query coordinates: each coordinate must be in [{bounds[0]}, {bounds[1]}].\n\n"
         "Use only the task description, the previous query/observation history, "
         "and any current belief summary provided by the user.\n\n"
@@ -261,7 +262,6 @@ def _naive_location_messages(
         "Rules:\n"
         "- Do not include markdown, comments, explanations, or trailing text.\n"
         "- Output a measurement/query location only — do not output source hypotheses or source coordinates.\n"
-        "- Do not repeat a previous query location.\n"
         "- If you reason internally, still end with exactly one JSON object in the required shape."
     )
     belief_context = ""
@@ -282,17 +282,15 @@ def _naive_source_estimate_messages(
     observations: list[LocationObservation],
     config: Config,
 ) -> list[dict[str, str]]:
-    bounds = tuple(config.location_query_bounds)
     system = (
         "You output a JSON source-location estimate for a 2D source-localization game.\n"
         "Return only compact JSON in the required format. Do not include markdown or explanations outside the JSON.\n\n"
         f"There are exactly {_source_count_text(config.location_num_sources)}. "
         "The hidden sources are fixed but unknown. A query is a 2D coordinate x = [x1,x2]. "
         "Use only the observation history below.\n\n"
-        "Measurement model:\n"
-        "signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2)\n"
-        f"with b=0.1, alpha=1.0, m=0.0001, noise_sd={config.location_noise_sd}.\n\n"
-        f"Source coordinates are expected to lie in approximately [{bounds[0]}, {bounds[1]}] per coordinate.\n\n"
+        f"{_measurement_model_description(config)}\n\n"
+        "Each source coordinate is drawn independently from Normal(0,1); plausible values cluster near the "
+        "origin (typically within ~[-3,3]).\n\n"
         "Output exactly this compact JSON shape as the final answer:\n"
         f"{{\"sources\":{_source_config_schema_example(config.location_num_sources, config.location_dim)}}}\n"
     )
@@ -324,14 +322,12 @@ def _naive_source_estimate_repair_messages(
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
-def _strategy_system_preamble(bounds: tuple[float, ...], num_strategies: int, task_instruction: str) -> str:
+def _strategy_system_preamble(config: Config, bounds: tuple[float, ...], num_strategies: int, task_instruction: str) -> str:
     return (
         "You propose natural-language adaptive strategies for a 2D source-localization experiment.\n\n"
         "A strategy is a few-sentence high-level plan for choosing future measurement locations. It should describe "
         "how to adapt after high, low, or ambiguous signal observations, not just name one coordinate.\n\n"
-        "Measurement model:\n"
-        "The noiseless signal at query x is: signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2), "
-        "with b=0.1, alpha=1.0, m=0.0001. Noise is Gaussian.\n"
+        f"{_measurement_model_description(config)}\n"
         "Interpretation: a very high observation means at least one source is probably very close to that query; "
         "a low observation rules out any source being very close to that query; signals from multiple sources add.\n\n"
         "Return only this exact compact JSON shape:\n"
@@ -354,6 +350,7 @@ def _strategy_mutation_messages(
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = _strategy_system_preamble(
+        config,
         bounds, num_mutation,
         "Generate good perturbations of the retrieved strategies. Do not copy any retrieved strategy verbatim.",
     )
@@ -376,6 +373,7 @@ def _strategy_crossover_messages(
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = _strategy_system_preamble(
+        config,
         bounds, num_crossover,
         "Generate good crossovers of the retrieved strategies. "
         "Each result must be meaningfully different from any individual retrieved strategy.",
@@ -398,6 +396,7 @@ def _strategy_diverse_messages(
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = _strategy_system_preamble(
+        config,
         bounds, num_diverse,
         "Make their likely first measurement locations or first decision criteria different, "
         "so the options do not collapse to the same first move.",
@@ -411,16 +410,14 @@ def _strategy_diverse_messages(
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
-def _strategy_root_system_preamble(bounds: tuple[float, ...], num_strategies: int, task_instruction: str) -> str:
+def _strategy_root_system_preamble(config: Config, bounds: tuple[float, ...], num_strategies: int, task_instruction: str) -> str:
     return (
         "You propose adaptive strategies for a 2D source-localization experiment. Each strategy must include a fixed "
         "root measurement location that will be asked first whenever that strategy is evaluated or selected.\n\n"
         "A strategy is a few-sentence high-level plan for choosing future measurement locations after the fixed root "
         "measurement. The root_query is the first concrete query that commits the strategy to a distinctive opening "
         "measurement.\n\n"
-        "Measurement model:\n"
-        "The noiseless signal at query x is: signal(x; theta) = b + sum_k alpha / (m + ||theta_k - x||^2), "
-        "with b=0.1, alpha=1.0, m=0.0001. Noise is Gaussian.\n"
+        f"{_measurement_model_description(config)}\n"
         "Interpretation: a very high observation means at least one source is probably very close to that query; "
         "a low observation rules out any source being very close to that query; signals from multiple sources add.\n\n"
         "Return only this exact compact JSON shape:\n"
@@ -429,8 +426,7 @@ def _strategy_root_system_preamble(bounds: tuple[float, ...], num_strategies: in
         "- Do not include markdown, comments, explanations, or trailing text.\n"
         f"- Generate exactly {num_strategies} strategy/root_query pairs.\n"
         f"- {task_instruction}\n"
-        f"- Every root_query coordinate must be in [{bounds[0]}, {bounds[1]}].\n"
-        "- Do not repeat a previous query location."
+        f"- Every root_query coordinate must be in [{bounds[0]}, {bounds[1]}]."
     )
 
 
@@ -443,6 +439,7 @@ def _strategy_root_mutation_messages(
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = _strategy_root_system_preamble(
+        config,
         bounds, num_mutation,
         "Generate good perturbations of the retrieved strategies. Do not copy any retrieved strategy/root_query verbatim.",
     )
@@ -465,6 +462,7 @@ def _strategy_root_crossover_messages(
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = _strategy_root_system_preamble(
+        config,
         bounds, num_crossover,
         "Generate good crossovers of the retrieved strategies. "
         "Each result must be meaningfully different from any individual retrieved strategy.",
@@ -487,6 +485,7 @@ def _strategy_root_diverse_messages(
 ) -> list[dict[str, str]]:
     bounds = tuple(config.location_query_bounds)
     system = _strategy_root_system_preamble(
+        config,
         bounds, num_diverse,
         "The strategies and root_query locations must differ substantively from one another.",
     )
@@ -509,17 +508,14 @@ def _strategy_location_messages(
     system = (
         "You choose the next measurement location for a 2D source-localization experiment by following a supplied "
         "natural-language strategy.\n\n"
-        f"There are exactly {_source_count_text(config.location_num_sources)}. "
-        "A query is a 2D coordinate x = [x1,x2]. The noiseless signal is "
-        "b + sum_k alpha / (m + ||theta_k - x||^2), with b=0.1, alpha=1.0, m=0.0001. The observed scalar signal is "
-        f"Normal(signal(x; theta), noise_sd={config.location_noise_sd}).\n\n"
+        f"There are exactly {_source_count_text(config.location_num_sources)}.\n\n"
+        f"{_measurement_model_description(config)}\n\n"
         f"Allowed query coordinates: each coordinate must be in [{bounds[0]}, {bounds[1]}].\n\n"
         "Return only this exact compact JSON shape:\n"
         "{\"location\":[x1,y1]}\n\n"
         "Rules:\n"
         "- Do not include markdown, comments, explanations, or trailing text.\n"
         "- Output a measurement/query location, not a source configuration.\n"
-        "- Do not repeat a previous query location.\n"
         "- If you reason internally, still end with exactly one JSON object in the required shape."
     )
     user = (
@@ -548,8 +544,24 @@ strategy_mutation_messages = _strategy_mutation_messages
 strategy_root_crossover_messages = _strategy_root_crossover_messages
 strategy_root_diverse_messages = _strategy_root_diverse_messages
 strategy_root_mutation_messages = _strategy_root_mutation_messages
-strategy_root_system_preamble = _strategy_root_system_preamble
-strategy_system_preamble = _strategy_system_preamble
+def strategy_system_preamble(
+    bounds: tuple[float, ...],
+    num_strategies: int,
+    task_instruction: str,
+    config: Config | None = None,
+) -> str:
+    config = config or Config(task="location_finding", location_noise_sd=0.5)
+    return _strategy_system_preamble(config, bounds, num_strategies, task_instruction)
+
+
+def strategy_root_system_preamble(
+    bounds: tuple[float, ...],
+    num_strategies: int,
+    task_instruction: str,
+    config: Config | None = None,
+) -> str:
+    config = config or Config(task="location_finding", location_noise_sd=0.5)
+    return _strategy_root_system_preamble(config, bounds, num_strategies, task_instruction)
 
 __all__ = [
     "belief_generation_messages",

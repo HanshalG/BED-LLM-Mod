@@ -12,7 +12,7 @@ from pathlib import Path
 
 from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_posterior, build_location_posteriors_many, sample_location_eig_belief_state
 from environments.location_finding.generation import _generate_location_hypotheses_many, choose_location_naive, choose_locations_naive_many, estimate_sources_naive, estimate_sources_naive_many, generate_location_candidates, generate_location_candidates_many, generate_location_hypotheses
-from environments.location_finding.physics import _hypothesis_log_prior, _log_normal_pdf, _top_source_rmse, signal_intensity_for_hypothesis, source_rmse
+from environments.location_finding.physics import _hypothesis_log_prior, _top_source_rmse, observation_log_likelihood, signal_intensity_for_hypothesis, source_rmse
 from environments.location_finding.plotting import _plot_location_trial
 from environments.location_finding.strategy import choose_location_with_strategy_rollouts, choose_locations_with_strategy_rollouts_many
 from environments.location_finding.types import Location, LocationFindingEnv, LocationObservation, LocationStrategyLibrary, SourceConfig, _LocationTrialState
@@ -115,7 +115,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         observation: LocationObservation,
     ) -> float:
         mean = signal_intensity_for_hypothesis(hypothesis, action)
-        return _log_normal_pdf(observation.value, mean, self.config.location_noise_sd)
+        return observation_log_likelihood(observation.value, mean, self.config.location_noise_sd)
 
     def log_likelihood_many(
         self,
@@ -132,7 +132,9 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         distances_sq = np.sum((theta - query[np.newaxis, np.newaxis, :]) ** 2, axis=2)  # (H, S)
         means = b + np.sum(alpha / (m + distances_sq), axis=1)                          # (H,)
         sd = self.config.location_noise_sd
-        z = (observation.value - means) / sd
+        if observation.value <= 0.0:
+            return np.full(len(hypotheses), float("-inf"), dtype=float)
+        z = (math.log(observation.value) - np.log(means)) / sd
         return -0.5 * z * z - math.log(sd) - 0.5 * math.log(2.0 * math.pi)
 
     def predictive_means(
@@ -399,6 +401,9 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         if any(location is None for location in locations):
             raise ValueError("Location naive method could not produce a valid location")
         return [location for location in locations if location is not None]
+
+    def naive_requires_belief_state(self, method_name: str | None = None) -> bool:
+        return method_name == "naive+belief"
 
     def naive_metrics_after_observation(
         self,

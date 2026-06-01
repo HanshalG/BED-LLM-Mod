@@ -126,7 +126,6 @@ def filter_valid_animal_names_batched(beliefs: list[str], checker: Model, block_
         conversations,
         temperature=0.0,
         block_size=block_size,
-        max_new_tokens=8,
     )
     if len(completions) != len(beliefs):
         raise ValueError(
@@ -159,7 +158,6 @@ def _filter_valid_animal_names_many(branch_beliefs: list[list[str]], checker: Mo
         conversations,
         temperature=0.0,
         block_size=block_size,
-        max_new_tokens=8,
     )
     if len(completions) != len(flattened_beliefs):
         raise ValueError(

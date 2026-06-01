@@ -57,7 +57,7 @@ class Model(ABC):
 
     @abstractmethod
     def chat_complete_messages_batched(self, batch_messages: list[list[dict[str, str]]], temperature: float,
-                                       block_size: int, max_new_tokens: int = 8192) -> list[str]:
+                                       block_size: int, max_new_tokens: int | None = None) -> list[str]:
         raise NotImplementedError
 
     @abstractmethod
@@ -84,6 +84,7 @@ class BaseVLLMAdapter(Model):
             tensor_parallel_size = torch.cuda.device_count()
 
         max_model_len = spec.max_model_len or config.max_model_len
+        self.max_model_len = max_model_len
         gpu_memory_utilization = spec.gpu_memory_utilization or config.gpu_memory_utilization
 
         extra_kwargs_raw = os.environ.get("BED_LLM_VLLM_KWARGS")
@@ -117,6 +118,28 @@ class BaseVLLMAdapter(Model):
             add_generation_prompt=True,
             **self._chat_template_kwargs(),
         )
+
+    def _prompt_token_count(self, prompt) -> int:
+        prompt_token_ids = prompt.get("prompt_token_ids") if isinstance(prompt, dict) else None
+        if prompt_token_ids is not None:
+            return len(prompt_token_ids)
+        return len(self.tokenizer(prompt, add_special_tokens=False).input_ids)
+
+    def _max_new_tokens_for_prompts(self, prompts: list, requested_max_tokens: int) -> int:
+        if not prompts:
+            return requested_max_tokens
+        remaining_context = [
+            self.max_model_len - self._prompt_token_count(prompt)
+            for prompt in prompts
+        ]
+        max_new_tokens = min(requested_max_tokens, min(remaining_context))
+        if max_new_tokens < 1:
+            longest_prompt = max(self._prompt_token_count(prompt) for prompt in prompts)
+            raise ValueError(
+                f"Prompt length {longest_prompt} leaves no room for generation "
+                f"within max_model_len={self.max_model_len}"
+            )
+        return max_new_tokens
 
     def _build_sampling_params(self, temperature: float, max_tokens: int, n: int) -> SamplingParams:
         return SamplingParams(
@@ -194,9 +217,10 @@ class BaseVLLMAdapter(Model):
 
         for start_idx in range(0, len(prompts), block_size):
             block_prompts = prompts[start_idx:start_idx + block_size]
+            block_max_new_tokens = self._max_new_tokens_for_prompts(block_prompts, max_new_tokens)
             sampling_params = self._build_sampling_params(
                 temperature=temperature,
-                max_tokens=max_new_tokens,
+                max_tokens=block_max_new_tokens,
                 n=1,
             )
             outputs = self.llm.generate(block_prompts, sampling_params)
@@ -210,9 +234,10 @@ class BaseVLLMAdapter(Model):
     def chat_complete(self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1) -> list[str]:
         start_time = time.perf_counter()
         prompt = self._messages_to_prompt(messages)
+        max_new_tokens = self._max_new_tokens_for_prompts([prompt], self.config.location_max_new_tokens)
         sampling_params = self._build_sampling_params(
             temperature=temperature,
-            max_tokens=self.config.location_max_new_tokens,
+            max_tokens=max_new_tokens,
             n=num_responses,
         )
         outputs = self.llm.generate([prompt], sampling_params)
@@ -231,13 +256,13 @@ class BaseVLLMAdapter(Model):
         return completions
 
     def chat_complete_messages_batched(self, batch_messages: list[list[dict[str, str]]], temperature: float,
-                                       block_size: int, max_new_tokens: int = 8192) -> list[str]:
+                                       block_size: int, max_new_tokens: int | None = None) -> list[str]:
         start_time = time.perf_counter()
         completions = self._chat_complete_messages_batched(
             batch_messages=batch_messages,
             temperature=temperature,
             block_size=block_size,
-            max_new_tokens=max_new_tokens,
+            max_new_tokens=max_new_tokens or self.config.location_max_new_tokens,
         )
 
         elapsed_time = time.perf_counter() - start_time
@@ -268,6 +293,7 @@ class BaseVLLMAdapter(Model):
                 temperature,
                 self._chat_complete_messages_batched,
                 fallback_to_uniform=self.config.probability_parse_fallback_to_uniform,
+                max_new_tokens=self.config.location_max_new_tokens,
             )
 
         elapsed_time = time.perf_counter() - start_time
@@ -294,8 +320,14 @@ class QwenVLLMAdapter(BaseVLLMAdapter):
             return text
         thought, separator, final_text = text.rpartition("</think>")
         if not separator or not final_text.strip():
+            if os.environ.get("BED_LLM_LOG_REASONING_TRACES") == "1" and self.config.log_path is not None:
+                write_to_log(f"Qwen raw completion without final answer:\n{text}\n\n", self.config)
             return text.strip()
-        #write_to_log(f"Reasoning trace: {thought}\n", self.config)
+        if os.environ.get("BED_LLM_LOG_REASONING_TRACES") == "1" and self.config.log_path is not None:
+            write_to_log(
+                f"Qwen reasoning trace:\n{thought}\n\nQwen final answer:\n{final_text.strip()}\n\n",
+                self.config,
+            )
         return final_text.strip()
 
 

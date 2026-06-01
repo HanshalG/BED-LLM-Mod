@@ -119,7 +119,7 @@ class Config:
     location_strategy_discount_factor: float = 1.0
     location_strategy_belief_summary_top_k: int = 5
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
-    location_max_new_tokens: int = 8192
+    location_max_new_tokens: int | None = None
 
     def __post_init__(self) -> None:
         if self.environment:
@@ -129,6 +129,19 @@ class Config:
         # load_config() behaviour of defaulting the two together.
         if self.location_num_generated_hypotheses == 0:
             self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
+        self.location_max_new_tokens = self.effective_max_model_len
+
+    @property
+    def effective_max_model_len(self) -> int:
+        model_lengths = [
+            spec.max_model_len
+            for pair in self.model_pairs
+            for spec in (pair.questioner, pair.answerer)
+            if spec.max_model_len is not None
+        ]
+        if model_lengths:
+            return max(model_lengths)
+        return self.max_model_len
 
     def _project_environment_settings(self) -> None:
         """Project nested environment settings onto the current runtime fields.
@@ -370,7 +383,6 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "strategy_discount_factor": "location_strategy_discount_factor",
         "strategy_belief_summary_top_k": "location_strategy_belief_summary_top_k",
         "posterior_mode": "location_posterior_mode",
-        "max_new_tokens": "location_max_new_tokens",
     }
     if task == "animals":
         return common_animals
@@ -558,7 +570,6 @@ def load_config(path: str) -> Config:
     location_posterior_mode = raw.get("location_posterior_mode", "analytical_likelihood")
     if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
         raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
-    location_max_new_tokens = _read_positive_int(raw, "location_max_new_tokens", 8192)
     method_names = raw.get("method_names", raw.get("extraction_methods", []))
     if task == "location_finding" and not method_names:
         method_names = ["EIG"]
@@ -631,7 +642,7 @@ def load_config(path: str) -> Config:
         location_strategy_discount_factor = location_strategy_discount_factor,
         location_strategy_belief_summary_top_k = location_strategy_belief_summary_top_k,
         location_posterior_mode = location_posterior_mode,
-        location_max_new_tokens = location_max_new_tokens,
+        location_max_new_tokens = None,
     )
 
 
@@ -920,7 +931,8 @@ def _uniform_probability_response(responses: list[str]) -> dict[str, float]:
 def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]], responses: list[str], block_size: int,
                                        temperature: float,
                                        complete_messages_batched: Callable[..., list[str]],
-                                       fallback_to_uniform: bool = False) -> list[dict[str, float]]:
+                                       fallback_to_uniform: bool = False,
+                                       max_new_tokens: int | None = None) -> list[dict[str, float]]:
     from environments.animals.prompts import is_answer_likelihood_messages
 
     # Validate that every message list is in answer-likelihood format, then shallow-copy
@@ -944,7 +956,7 @@ def _probability_results_from_messages(batch_messages: list[list[dict[str, str]]
             [probability_messages[index] for index in pending_indices],
             temperature=temperature,
             block_size=block_size,
-            max_new_tokens=64,
+            max_new_tokens=max_new_tokens,
         )
 
         if len(completions) != len(pending_indices):

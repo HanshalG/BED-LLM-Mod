@@ -182,6 +182,8 @@ def test_location_naive_belief_includes_current_posterior_in_prompt():
     env.generate_naive_action(belief, [], model, config, method_name="naive+belief")
     belief_prompt = model.complete_calls[-1][-1]["content"]
 
+    assert env.naive_requires_belief_state("naive") is False
+    assert env.naive_requires_belief_state("naive+belief") is True
     assert "Current belief summary" not in plain_prompt
     assert "Current belief summary" in belief_prompt
     assert '"probability": 0.8' in belief_prompt

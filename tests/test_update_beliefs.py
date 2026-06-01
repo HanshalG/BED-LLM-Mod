@@ -452,7 +452,7 @@ def test_filter_valid_animal_names_batched_keeps_only_exact_yes_completions():
     assert beliefs == ["Cassowary", "Southern cassowary"]
     assert len(model.batched_calls) == 1
     assert model.batched_calls[0]["temperature"] == 0.0
-    assert model.batched_calls[0]["max_new_tokens"] == 8
+    assert model.batched_calls[0]["max_new_tokens"] == 8192
 
 
 def test_filter_valid_animal_names_batched_preserves_clean_variants():

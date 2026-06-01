@@ -29,8 +29,8 @@ def quadrature_nodes(order: int) -> tuple[np.ndarray, np.ndarray]:
     return nodes.astype(float), weights.astype(float) / math.sqrt(math.pi)
 
 
-def normal_logpdf_array(values: np.ndarray, means: np.ndarray, noise_sd: float) -> np.ndarray:
-    z = (values - means) / noise_sd
+def log_observation_logpdf_array(log_values: np.ndarray, log_means: np.ndarray, noise_sd: float) -> np.ndarray:
+    z = (log_values - log_means) / noise_sd
     return -0.5 * z * z - math.log(noise_sd) - 0.5 * math.log(2.0 * math.pi)
 
 
@@ -45,9 +45,10 @@ def expected_information_gain_from_means(
         return 0.0
     probabilities = np.asarray(probabilities, dtype=float)
     means = np.asarray(means, dtype=float)
-    y_values = means[:, None] + math.sqrt(2.0) * noise_sd * nodes[None, :]
-    component_log_likelihoods = normal_logpdf_array(y_values, means[:, None], noise_sd)
-    all_log_likelihoods = normal_logpdf_array(y_values[:, :, None], means[None, None, :], noise_sd)
+    log_means = np.log(means)
+    log_y_values = log_means[:, None] + math.sqrt(2.0) * noise_sd * nodes[None, :]
+    component_log_likelihoods = log_observation_logpdf_array(log_y_values, log_means[:, None], noise_sd)
+    all_log_likelihoods = log_observation_logpdf_array(log_y_values[:, :, None], log_means[None, None, :], noise_sd)
     max_values = np.max(
         all_log_likelihoods + np.log(np.maximum(probabilities, 1e-300))[None, None, :],
         axis=2,

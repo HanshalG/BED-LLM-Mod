@@ -49,6 +49,19 @@ class Method(ABC, Generic[H, A, O, S]):
     def name(self) -> str:
         """Short identifier used for logging and run-naming."""
 
+    def requires_belief_state(
+        self,
+        environment: Environment[S, H, A, O],
+        config: Any,
+    ) -> bool:
+        """Return whether the runner should maintain posterior belief state.
+
+        Most BED methods score actions from a posterior and therefore need the
+        full belief lifecycle.  Direct baselines may opt out when their
+        environment hooks can operate from history alone.
+        """
+        return True
+
     @abstractmethod
     def select_action(
         self,

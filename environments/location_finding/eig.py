@@ -9,7 +9,7 @@ from helpers import Config
 from methods.continuous_eig import expected_information_gain_from_means, quadrature_nodes
 from .formatting import _log_location
 from .beliefs import _posterior_after_observation
-from .physics import _log_normal_pdf, signal_intensity_for_hypothesis
+from .physics import signal_intensity_for_hypothesis
 from .types import Location, LocationObservation
 
 
@@ -36,8 +36,8 @@ def expected_information_gain(
     return expected_information_gain_from_means(probabilities, means, noise_sd, nodes, weights)
 
 
-def _normal_logpdf_array(values: np.ndarray, means: np.ndarray, noise_sd: float) -> np.ndarray:
-    z = (values - means) / noise_sd
+def _log_observation_logpdf_array(log_values: np.ndarray, log_means: np.ndarray, noise_sd: float) -> np.ndarray:
+    z = (log_values - log_means) / noise_sd
     return -0.5 * z * z - math.log(noise_sd) - 0.5 * math.log(2.0 * math.pi)
 
 
@@ -58,9 +58,10 @@ def _expected_information_gain_from_means(
 
     probabilities = np.asarray(probabilities, dtype=float)
     means = np.asarray(means, dtype=float)
-    y_values = means[:, None] + math.sqrt(2.0) * noise_sd * nodes[None, :]
-    component_log_likelihoods = _normal_logpdf_array(y_values, means[:, None], noise_sd)
-    all_log_likelihoods = _normal_logpdf_array(y_values[:, :, None], means[None, None, :], noise_sd)
+    log_means = np.log(means)
+    log_y_values = log_means[:, None] + math.sqrt(2.0) * noise_sd * nodes[None, :]
+    component_log_likelihoods = _log_observation_logpdf_array(log_y_values, log_means[:, None], noise_sd)
+    all_log_likelihoods = _log_observation_logpdf_array(log_y_values[:, :, None], log_means[None, None, :], noise_sd)
     mixture_log_likelihoods = _logsumexp_array(
         all_log_likelihoods + np.log(np.maximum(probabilities, 1e-300))[None, None, :],
         axis=2,
@@ -81,9 +82,10 @@ def _expected_information_gain_batch_from_means(
 
     probability_rows = np.asarray(probability_rows, dtype=float)
     means = np.asarray(means, dtype=float)
-    y_values = means[None, :, None] + math.sqrt(2.0) * noise_sd * nodes[None, None, :]
-    component_log_likelihoods = _normal_logpdf_array(y_values, means[None, :, None], noise_sd)
-    all_log_likelihoods = _normal_logpdf_array(y_values[:, :, :, None], means[None, None, None, :], noise_sd)
+    log_means = np.log(means)
+    log_y_values = log_means[None, :, None] + math.sqrt(2.0) * noise_sd * nodes[None, None, :]
+    component_log_likelihoods = _log_observation_logpdf_array(log_y_values, log_means[None, :, None], noise_sd)
+    all_log_likelihoods = _log_observation_logpdf_array(log_y_values[:, :, :, None], log_means[None, None, None, :], noise_sd)
     mixture_log_likelihoods = _logsumexp_array(
         all_log_likelihoods + np.log(np.maximum(probability_rows, 1e-300))[:, None, None, :],
         axis=3,
@@ -138,9 +140,13 @@ def _posterior_probabilities_after_values(
     noise_sd: float,
 ) -> np.ndarray:
     values = np.asarray(values, dtype=float)
+    if np.any(values <= 0.0):
+        return np.zeros((len(values), len(probabilities)), dtype=float)
+    log_values = np.log(values)
+    log_means = np.log(means)
     log_scores = (
         np.log(np.maximum(probabilities, 1e-300))[None, :]
-        + _normal_logpdf_array(values[:, None], means[None, :], noise_sd)
+        + _log_observation_logpdf_array(log_values[:, None], log_means[None, :], noise_sd)
     )
     normalizers = _logsumexp_array(log_scores, axis=1)
     return np.exp(log_scores - normalizers[:, None])

@@ -72,7 +72,7 @@ def test_continuous_eig_calls_depth2_hook_with_adapter_signature():
             self.args = None
 
         def predictive_means(self, hypotheses, action):
-            return pytest.importorskip("numpy").array([0.0 for _ in hypotheses], dtype=float)
+            return pytest.importorskip("numpy").array([1.0 for _ in hypotheses], dtype=float)
 
         def score_continuous_forward_search_depth2_batched(
             self,

@@ -301,6 +301,14 @@ class Environment(ABC, Generic[S, H, A, O]):
             for belief_state, history in zip(belief_states, histories)
         ]
 
+    def naive_requires_belief_state(self, method_name: str | None = None) -> bool:
+        """Return whether a naive variant needs maintained posterior beliefs.
+
+        The conservative default preserves legacy behavior for environments
+        whose naive metrics or prompts still consume posterior state.
+        """
+        return True
+
     def naive_metrics_after_observation(
         self,
         belief_state: BeliefState[H],

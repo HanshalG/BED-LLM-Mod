@@ -22,9 +22,33 @@ def signal_intensity_for_hypothesis(
     return float(b + np.sum(alpha / (m + distances_squared)))
 
 
-def _log_normal_pdf(value: float, mean: float, sd: float) -> float:
-    z = (value - mean) / sd
-    return -0.5 * z * z - math.log(sd) - 0.5 * math.log(2.0 * math.pi)
+def sample_observation(mean: float, noise_sd: float, rng: np.random.Generator) -> float:
+    """Sample multiplicative log-normal observation noise around ``mean``."""
+    if mean <= 0.0:
+        raise ValueError(f"mean must be positive for log-normal observations (got {mean})")
+    return float(mean * math.exp(float(rng.normal(0.0, noise_sd))))
+
+
+def round_positive_observation(value: float, decimals: int = 2) -> float:
+    """Round display-scale observations while preserving positive likelihood support."""
+    rounded = round(float(value), decimals)
+    if rounded > 0.0:
+        return float(rounded)
+    return 10.0 ** (-decimals)
+
+
+def observation_log_likelihood(value: float, mean: float, noise_sd: float) -> float:
+    """Log likelihood under log(value) ~ Normal(log(mean), noise_sd).
+
+    The 1 / value Jacobian term is omitted because it is constant across
+    hypotheses for a fixed observation and cancels in posterior comparisons.
+    """
+    if value <= 0.0:
+        return float("-inf")
+    if mean <= 0.0:
+        raise ValueError(f"mean must be positive for log-normal observations (got {mean})")
+    z = (math.log(value) - math.log(mean)) / noise_sd
+    return -0.5 * z * z - math.log(noise_sd) - 0.5 * math.log(2.0 * math.pi)
 
 
 def _logsumexp(log_values: list[float] | np.ndarray) -> float:

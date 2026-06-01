@@ -536,3 +536,30 @@ max_model_len: 8192
     assert config.tensor_parallel_size == 2
     assert config.gpu_memory_utilization == pytest.approx(0.95)
     assert config.max_model_len == 8192
+    assert config.location_max_new_tokens == 8192
+
+
+def test_load_config_derives_generation_budget_from_model_specs(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+task: location_finding
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.6-35B-A3B"
+      max_model_len: 16384
+    answerer:
+      model: "Qwen/Qwen3.6-35B-A3B"
+      max_model_len: 8192
+method_names:
+  - naive
+environment:
+  num_rounds: 1
+  num_trials: 1
+""".strip(),
+        encoding="utf-8",
+    )
+
+    config = load_config(str(config_path))
+
+    assert config.location_max_new_tokens == 16384

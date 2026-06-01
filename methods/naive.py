@@ -25,6 +25,14 @@ class Naive(Method[H, A, O, S]):
     def name(self) -> str:
         return self.method_name
 
+    def requires_belief_state(
+        self,
+        environment: Environment[S, H, A, O],
+        config: Any,
+    ) -> bool:
+        del config
+        return environment.naive_requires_belief_state(self.method_name)
+
     def select_action(
         self,
         candidates: Sequence[A],

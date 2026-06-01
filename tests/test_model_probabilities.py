@@ -403,7 +403,7 @@ def test_chat_probabilities_messages_batched_preserves_order_across_blocks_and_i
     assert low_temp == pytest.approx(expected)
     assert high_temp == pytest.approx(expected)
     assert stub_model.temperatures == [0.1, 1.7]
-    assert stub_model.max_new_tokens == [64, 64]
+    assert stub_model.max_new_tokens == [None, None]
     assert stub_model.block_questions == [
         ["Question A?", "Question B?"],
         ["Question C?"],
