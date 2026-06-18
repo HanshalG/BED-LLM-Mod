@@ -45,6 +45,23 @@ def run_from_config(
     )
     run_result = runner.run()
     summary = env.summarize_run(run_result, config)
+    if env_name == "location_finding" and getattr(config, "location_eig_bounds_enabled", False):
+        from environments.location_finding.eig_bounds import estimate_eig_bounds_from_run_result
+
+        contrastive_seed = getattr(config, "location_eig_bounds_seed", None)
+        if contrastive_seed is None:
+            base_seed = getattr(config, "location_seed", None)
+            contrastive_seed = None if base_seed is None else int(base_seed) + 1
+        eig_bound_metrics = estimate_eig_bounds_from_run_result(
+            run_result,
+            config,
+            rng=np.random.default_rng(contrastive_seed),
+        ).as_metric_traces()
+        summary = ExperimentSummary(
+            metrics={**summary.metrics, **eig_bound_metrics},
+            logs=summary.logs,
+            artifacts=summary.artifacts,
+        )
     if output_dir is not None:
         artifacts = env.save_artifacts(run_result, output_dir, config)
         summary = ExperimentSummary(

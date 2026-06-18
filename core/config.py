@@ -108,7 +108,6 @@ class LocationConfig:
     num_sources: int = 3
     dim: int = 2
     noise_sd: float = 0.5
-    query_bounds: tuple[float, float] = (-2.0, 2.0)
     max_total_beliefs: int = 1000
     max_llm_prompt_beliefs: int = 40
     num_generated_hypotheses: int = 40
@@ -124,7 +123,15 @@ class LocationConfig:
     strategy_planning_depth: int = 8
     strategy_discount_factor: float = 1.0
     strategy_belief_summary_top_k: int = 5
+    strategy_rollout_refresh_hypotheses_each_step: bool = False
+    strategy_rollout_scoring_support_mode: str = "union"
+    strategy_rollout_scoring_support_size: int = 32
+    strategy_rollout_score_mode: str = "start_final_entropy_drop"
     posterior_mode: str = "analytical_likelihood"
+    eig_bounds_enabled: bool = False
+    eig_bounds_inner_samples: int = 5000
+    eig_bounds_seed: int | None = None
+    eig_bounds_chunk_size: int = 8192
     max_new_tokens: int = 4096
     belief_distribution_permute_history: bool = False  # shared with animals
 
@@ -199,13 +206,6 @@ def animals_view(config: Any) -> AnimalsConfig:
 
 def location_view(config: Any) -> LocationConfig:
     """Project the location-finding-specific fields out of a flat ``Config``."""
-    query_bounds_raw = getattr(config, "location_query_bounds", [-2.0, 2.0]) or [-2.0, 2.0]
-    if len(query_bounds_raw) != 2:
-        raise ValueError(
-            f"location_query_bounds must have exactly 2 entries, got {len(query_bounds_raw)}"
-        )
-    query_bounds = (float(query_bounds_raw[0]), float(query_bounds_raw[1]))
-
     return LocationConfig(
         num_rounds=getattr(config, "location_num_rounds", 20),
         num_trials=getattr(config, "location_num_trials", 1),
@@ -214,7 +214,6 @@ def location_view(config: Any) -> LocationConfig:
         num_sources=getattr(config, "location_num_sources", 3),
         dim=getattr(config, "location_dim", 2),
         noise_sd=getattr(config, "location_noise_sd", 0.5),
-        query_bounds=query_bounds,
         max_total_beliefs=getattr(config, "location_max_total_beliefs", 1000),
         max_llm_prompt_beliefs=getattr(config, "location_max_llm_prompt_beliefs", 40),
         num_generated_hypotheses=getattr(config, "location_num_generated_hypotheses", 40),
@@ -230,7 +229,31 @@ def location_view(config: Any) -> LocationConfig:
         strategy_planning_depth=getattr(config, "location_strategy_planning_depth", 8),
         strategy_discount_factor=getattr(config, "location_strategy_discount_factor", 1.0),
         strategy_belief_summary_top_k=getattr(config, "location_strategy_belief_summary_top_k", 5),
+        strategy_rollout_refresh_hypotheses_each_step=getattr(
+            config,
+            "location_strategy_rollout_refresh_hypotheses_each_step",
+            False,
+        ),
+        strategy_rollout_scoring_support_mode=getattr(
+            config,
+            "location_strategy_rollout_scoring_support_mode",
+            "union",
+        ),
+        strategy_rollout_scoring_support_size=getattr(
+            config,
+            "location_strategy_rollout_scoring_support_size",
+            32,
+        ),
+        strategy_rollout_score_mode=getattr(
+            config,
+            "location_strategy_rollout_score_mode",
+            "start_final_entropy_drop",
+        ),
         posterior_mode=getattr(config, "location_posterior_mode", "analytical_likelihood"),
+        eig_bounds_enabled=getattr(config, "location_eig_bounds_enabled", False),
+        eig_bounds_inner_samples=getattr(config, "location_eig_bounds_inner_samples", 5000),
+        eig_bounds_seed=getattr(config, "location_eig_bounds_seed", None),
+        eig_bounds_chunk_size=getattr(config, "location_eig_bounds_chunk_size", 8192),
         max_new_tokens=getattr(config, "location_max_new_tokens", None) or getattr(config, "max_model_len", 4096),
         belief_distribution_permute_history=getattr(config, "belief_distribution_permute_history", False),
     )

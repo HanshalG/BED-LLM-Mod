@@ -892,6 +892,158 @@ def test_qwen_adapter_returns_raw_text_when_only_reasoning_is_present():
     assert result == "Thinking Process:\n\ndraft"
 
 
+def _thinking_adapter(adapter_cls, *, max_model_len=10_000, thinking_budget=3, final_budget=2):
+    adapter = adapter_cls.__new__(adapter_cls)
+    adapter.model_name = "Qwen/Qwen3.5-4B" if adapter_cls is model.QwenVLLMAdapter else "google/gemma-4-E4B-it"
+    adapter.config = _make_runtime_config()
+    adapter.tokenizer = _TokenizerWithIds()
+    adapter.max_model_len = max_model_len
+    adapter.thinking = True
+    adapter.thinking_max_new_tokens = thinking_budget
+    adapter.thinking_final_max_new_tokens = final_budget
+    adapter.use_logprobs = False
+    return adapter
+
+
+def test_qwen_forced_thinking_exit_closes_think_channel_and_returns_final_answer():
+    adapter = _thinking_adapter(model.QwenVLLMAdapter, thinking_budget=3, final_budget=2)
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="draft reasoning", token_ids=[1, 2, 3])],
+                    prompt_token_ids=[11, 22],
+                )
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: {\"Yes\": 1}", token_ids=[4])],
+                prompt_token_ids=[33, 44],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    completions = adapter.chat_complete([{"role": "user", "content": "Prompt"}], temperature=0.0)
+
+    assert completions == ['{"Yes": 1}']
+    assert calls[0][1].kwargs["max_tokens"] == 3
+    assert calls[1][1].kwargs["max_tokens"] == 2
+    assert calls[1][0] == ["Promptdraft reasoning\n</think>\nFinal Answer:"]
+
+
+def test_qwen_forced_thinking_exit_preserves_batched_order():
+    adapter = _thinking_adapter(model.QwenVLLMAdapter, thinking_budget=3, final_budget=2)
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="<think>a</think>\nA", token_ids=[1])],
+                    prompt_token_ids=[11],
+                ),
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="draft", token_ids=[1, 2, 3])],
+                    prompt_token_ids=[22],
+                ),
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="short draft", token_ids=[1])],
+                    prompt_token_ids=[33],
+                ),
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: B", token_ids=[4])],
+                prompt_token_ids=[44],
+            ),
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: C", token_ids=[5])],
+                prompt_token_ids=[55],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    completions = adapter.chat_complete_messages_batched(
+        [
+            [{"role": "user", "content": "Prompt A"}],
+            [{"role": "user", "content": "Prompt B"}],
+            [{"role": "user", "content": "Prompt C"}],
+        ],
+        temperature=0.0,
+        block_size=3,
+        max_new_tokens=99,
+    )
+
+    assert completions == ["A", "B", "C"]
+    assert calls[1][0] == [
+        "Prompt Bdraft\n</think>\nFinal Answer:",
+        "Prompt Cshort draft\n</think>\nFinal Answer:",
+    ]
+
+
+def test_qwen_forced_thinking_exit_runs_for_short_thought_only_output():
+    adapter = _thinking_adapter(model.QwenVLLMAdapter, thinking_budget=10, final_budget=2)
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="short draft", token_ids=[1])],
+                    prompt_token_ids=[11],
+                )
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: done", token_ids=[2])],
+                prompt_token_ids=[22],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    assert adapter.chat_complete([{"role": "user", "content": "Prompt"}], temperature=0.0) == ["done"]
+    assert calls[0][1].kwargs["max_tokens"] == 10
+    assert calls[1][0] == ["Promptshort draft\n</think>\nFinal Answer:"]
+
+
+def test_qwen_forced_thinking_exit_reserves_final_context_when_clamping():
+    adapter = _thinking_adapter(model.QwenVLLMAdapter, max_model_len=50, thinking_budget=30, final_budget=5)
+    prompt = "Prompt"
+    expected_first_budget = adapter.max_model_len - len(prompt) - adapter._forced_final_reserve_tokens()
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="x" * expected_first_budget,
+                                                   token_ids=list(range(expected_first_budget)))],
+                    prompt_token_ids=[11],
+                )
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: done", token_ids=[99])],
+                prompt_token_ids=[22],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    assert adapter.chat_complete([{"role": "user", "content": prompt}], temperature=0.0) == ["done"]
+    assert calls[0][1].kwargs["max_tokens"] == expected_first_budget
+    assert calls[1][1].kwargs["max_tokens"] == 5
+
+
 def test_gemma_adapter_passes_enable_thinking_to_chat_template(monkeypatch):
     tokenizer = _TokenizerRecorder(prompt="gemma prompt")
     tokenizer_calls = []
@@ -965,6 +1117,154 @@ def test_gemma_adapter_falls_back_to_output_text_when_parse_response_has_no_cont
 
     result = adapter._normalize_completion_output(types.SimpleNamespace(text="raw", token_ids=[1]))
     assert result == "raw"
+
+
+def test_gemma_forced_thinking_exit_uses_channel_closer():
+    adapter = _thinking_adapter(model.GemmaVLLMAdapter, thinking_budget=3, final_budget=2)
+    adapter.tokenizer.parse_response = lambda payload: (
+        {"thinking": "draft"} if payload == [1, 2, 3] else {"content": "already final"}
+    )
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="raw thought", token_ids=[1, 2, 3])],
+                    prompt_token_ids=[11],
+                )
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: [1, 2]", token_ids=[9])],
+                prompt_token_ids=[22],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    completions = adapter.chat_complete([{"role": "user", "content": "Prompt"}], temperature=0.0)
+
+    assert completions == ["[1, 2]"]
+    assert calls[0][1].kwargs["max_tokens"] == 3
+    assert calls[1][1].kwargs["max_tokens"] == 2
+    assert calls[1][0] == ["Promptraw thought\n<channel|>\nFinal Answer:"]
+
+
+def test_gemma_forced_thinking_exit_runs_for_short_thought_only_output():
+    adapter = _thinking_adapter(model.GemmaVLLMAdapter, thinking_budget=10, final_budget=2)
+    adapter.tokenizer.parse_response = lambda payload: (
+        {"thinking": "draft"} if payload == [1] else {"content": "already final"}
+    )
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="<|channel>thought\ndraft", token_ids=[1])],
+                    prompt_token_ids=[11],
+                )
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: {\"location\": [0, 0]}", token_ids=[9])],
+                prompt_token_ids=[22],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    completions = adapter.chat_complete([{"role": "user", "content": "Prompt"}], temperature=0.0)
+
+    assert completions == ['{"location": [0, 0]}']
+    assert calls[0][1].kwargs["max_tokens"] == 10
+    assert calls[1][1].kwargs["max_tokens"] == 2
+    assert calls[1][0] == ["Prompt<|channel>thought\ndraft\n<channel|>\nFinal Answer:"]
+
+
+def test_gemma_forced_thinking_exit_rejects_content_that_is_still_thought_channel():
+    adapter = _thinking_adapter(model.GemmaVLLMAdapter, thinking_budget=10, final_budget=2)
+    adapter.tokenizer.parse_response = lambda payload: (
+        {"content": "<|channel>thought\nnot final\n<channel|>"} if payload == [1]
+        else {"content": "already final"}
+    )
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(
+                        text="<|channel>thought\nnot final\n<channel|>",
+                        token_ids=[1],
+                    )],
+                    prompt_token_ids=[11],
+                )
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer: {\"ok\": true}", token_ids=[9])],
+                prompt_token_ids=[22],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    completions = adapter.chat_complete([{"role": "user", "content": "Prompt"}], temperature=0.0)
+
+    assert completions == ['{"ok": true}']
+    assert calls[1][0] == ["Prompt<|channel>thought\nnot final\n<channel|>\nFinal Answer:"]
+
+
+def test_gemma_forced_thinking_exit_keeps_raw_text_when_final_continuation_is_empty():
+    adapter = _thinking_adapter(model.GemmaVLLMAdapter, thinking_budget=3, final_budget=2)
+    adapter.tokenizer.parse_response = lambda payload: {"thinking": "draft"}
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                types.SimpleNamespace(
+                    outputs=[types.SimpleNamespace(text="raw thought", token_ids=[1, 2, 3])],
+                    prompt_token_ids=[11],
+                )
+            ]
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="Final Answer:   ", token_ids=[9])],
+                prompt_token_ids=[22],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    assert adapter.chat_complete([{"role": "user", "content": "Prompt"}], temperature=0.0) == ["raw thought"]
+    assert len(calls) == 2
+
+
+def test_gemma_content_output_does_not_force_continuation():
+    adapter = _thinking_adapter(model.GemmaVLLMAdapter, thinking_budget=3, final_budget=2)
+    adapter.tokenizer.parse_response = lambda payload: {"content": "Yes"}
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text="ignored", token_ids=[1, 2, 3])],
+                prompt_token_ids=[11],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    assert adapter.chat_complete([{"role": "user", "content": "Prompt"}], temperature=0.0) == ["Yes"]
+    assert len(calls) == 1
 
 
 def test_gemma_adapter_requires_token_ids_for_parse_response():

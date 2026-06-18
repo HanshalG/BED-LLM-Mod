@@ -47,7 +47,12 @@ method_names:
     assert config.model_pairs == [
         ModelPair(
             questioner=ModelSpec(model="Qwen/Qwen3.5-4B", thinking=False),
-            answerer=ModelSpec(model="google/gemma-4-E4B-it", thinking=True),
+            answerer=ModelSpec(
+                model="google/gemma-4-E4B-it",
+                thinking=True,
+                thinking_max_new_tokens=4096,
+                thinking_final_max_new_tokens=512,
+            ),
         ),
         ModelPair(
             questioner=ModelSpec(model="openai/gpt-oss-20b", reasoning_effort="high"),
@@ -71,6 +76,39 @@ method_names:
     assert config.belief_guess_threshold == pytest.approx(0.99)
 
 
+def test_load_config_parses_thinking_budgets_with_defaults(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: true
+      thinking_max_new_tokens: 1024
+      thinking_final_max_new_tokens: 128
+    answerer:
+      model: "google/gemma-4-E4B-it"
+      thinking: true
+""".strip(),
+        encoding="utf-8",
+    )
+
+    config = load_config(str(config_path))
+
+    assert config.model_pairs[0].questioner == ModelSpec(
+        model="Qwen/Qwen3.5-4B",
+        thinking=True,
+        thinking_max_new_tokens=1024,
+        thinking_final_max_new_tokens=128,
+    )
+    assert config.model_pairs[0].answerer == ModelSpec(
+        model="google/gemma-4-E4B-it",
+        thinking=True,
+        thinking_max_new_tokens=4096,
+        thinking_final_max_new_tokens=512,
+    )
+
+
 def test_load_config_projects_nested_environment_options(tmp_path):
     config_path = tmp_path / "config.yaml"
     config_path.write_text(
@@ -86,9 +124,16 @@ environment:
   num_sources: 2
   dim: 2
   noise_sd: 0.5
-  query_bounds: [-1.0, 1.0]
   search_depth: 1
   eig_quadrature_order: 5
+  eig_bounds_enabled: true
+  eig_bounds_inner_samples: 11
+  eig_bounds_seed: 456
+  eig_bounds_chunk_size: 7
+  strategy_rollout_refresh_hypotheses_each_step: true
+  strategy_rollout_scoring_support_mode: truth_plus_sampled
+  strategy_rollout_scoring_support_size: 9
+  strategy_rollout_score_mode: future_step_support_sum
 """.strip(),
         encoding="utf-8",
     )
@@ -99,8 +144,15 @@ environment:
     assert config.location_num_rounds == 3
     assert config.location_num_trials == 2
     assert config.location_trial_batch_size == 2
-    assert config.location_query_bounds == [-1.0, 1.0]
     assert config.location_search_depth == 1
+    assert config.location_eig_bounds_enabled is True
+    assert config.location_eig_bounds_inner_samples == 11
+    assert config.location_eig_bounds_seed == 456
+    assert config.location_eig_bounds_chunk_size == 7
+    assert config.location_strategy_rollout_refresh_hypotheses_each_step is True
+    assert config.location_strategy_rollout_scoring_support_mode == "truth_plus_sampled"
+    assert config.location_strategy_rollout_scoring_support_size == 9
+    assert config.location_strategy_rollout_score_mode == "future_step_support_sum"
 
 
 def test_load_config_parses_categorical_belief_state_options(tmp_path):
@@ -183,13 +235,20 @@ location_num_trials: 2
 location_num_sources: 3
 location_dim: 2
 location_noise_sd: 0.5
-location_query_bounds: [-2, 2]
 location_max_total_beliefs: 123
 location_max_llm_prompt_beliefs: 40
 location_target_num_candidates: 15
 location_search_depth: 2
 location_eig_quadrature_order: 9
 location_plot_trials: true
+location_eig_bounds_enabled: true
+location_eig_bounds_inner_samples: 13
+location_eig_bounds_seed: 321
+location_eig_bounds_chunk_size: 17
+location_strategy_rollout_refresh_hypotheses_each_step: true
+location_strategy_rollout_scoring_support_mode: truth_plus_sampled
+location_strategy_rollout_scoring_support_size: 19
+location_strategy_rollout_score_mode: future_step_support_sum
 """.strip(),
         encoding="utf-8",
     )
@@ -203,13 +262,20 @@ location_plot_trials: true
     assert config.location_num_sources == 3
     assert config.location_dim == 2
     assert config.location_noise_sd == pytest.approx(0.5)
-    assert config.location_query_bounds == [-2.0, 2.0]
     assert config.location_max_total_beliefs == 123
     assert config.location_max_llm_prompt_beliefs == 40
     assert config.location_target_num_candidates == 15
     assert config.location_search_depth == 2
     assert config.location_eig_quadrature_order == 9
     assert config.location_plot_trials is True
+    assert config.location_eig_bounds_enabled is True
+    assert config.location_eig_bounds_inner_samples == 13
+    assert config.location_eig_bounds_seed == 321
+    assert config.location_eig_bounds_chunk_size == 17
+    assert config.location_strategy_rollout_refresh_hypotheses_each_step is True
+    assert config.location_strategy_rollout_scoring_support_mode == "truth_plus_sampled"
+    assert config.location_strategy_rollout_scoring_support_size == 19
+    assert config.location_strategy_rollout_score_mode == "future_step_support_sum"
     # location_strategy_num_candidates is now a derived property: the sum of the four
     # evolutionary-phase counts (retrieved + mutation + crossover + diverse).
     # Defaults are 2 + 1 + 1 + 2 = 6.
@@ -283,6 +349,69 @@ location_posterior_mode: vibes
     )
 
     with pytest.raises(ValueError, match="location_posterior_mode"):
+        load_config(str(config_path))
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("location_eig_bounds_enabled", "yes"),
+        ("location_eig_bounds_inner_samples", 0),
+        ("location_eig_bounds_seed", "seed"),
+        ("location_eig_bounds_chunk_size", 0),
+    ],
+)
+def test_load_config_rejects_invalid_location_eig_bound_options(tmp_path, field, value):
+    config_path = tmp_path / "config.yaml"
+    rendered_value = f'"{value}"' if isinstance(value, str) else str(value).lower()
+    config_path.write_text(
+        f"""
+model_pairs: []
+task: location_finding
+{field}: {rendered_value}
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match=field):
+        load_config(str(config_path))
+
+
+@pytest.mark.parametrize(
+    ("yaml_body", "message"),
+    [
+        ("location_strategy_rollout_scoring_support_mode: vibes", "location_strategy_rollout_scoring_support_mode"),
+        ("location_strategy_rollout_scoring_support_size: 0", "location_strategy_rollout_scoring_support_size"),
+        ("location_strategy_rollout_score_mode: vibes", "location_strategy_rollout_score_mode"),
+        (
+            "location_posterior_mode: llm_distribution\n"
+            "location_strategy_rollout_scoring_support_mode: truth_plus_sampled",
+            "truth_plus_sampled",
+        ),
+        (
+            "location_posterior_mode: llm_distribution\n"
+            "location_strategy_rollout_scoring_support_mode: truth_start_end",
+            "truth_start_end",
+        ),
+        (
+            "location_posterior_mode: llm_distribution\n"
+            "location_strategy_rollout_refresh_hypotheses_each_step: true",
+            "location_strategy_rollout_refresh_hypotheses_each_step",
+        ),
+    ],
+)
+def test_load_config_rejects_invalid_location_strategy_rollout_options(tmp_path, yaml_body, message):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        f"""
+model_pairs: []
+task: location_finding
+{yaml_body}
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match=message):
         load_config(str(config_path))
 
 
@@ -445,6 +574,81 @@ model_pairs:
     )
 
     with pytest.raises(ValueError, match="thinking is not supported"):
+        load_config(str(config_path))
+
+
+@pytest.mark.parametrize("field", ["thinking_max_new_tokens", "thinking_final_max_new_tokens"])
+def test_load_config_rejects_invalid_thinking_budget_values(tmp_path, field):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        f"""
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: true
+      {field}: 0
+    answerer:
+      model: "Qwen/Qwen3.5-4B"
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match=field):
+        load_config(str(config_path))
+
+
+def test_load_config_rejects_thinking_budgets_without_thinking_enabled(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.5-4B"
+      thinking: false
+      thinking_max_new_tokens: 1024
+    answerer:
+      model: "Qwen/Qwen3.5-4B"
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="thinking budgets require thinking: true"):
+        load_config(str(config_path))
+
+
+def test_load_config_rejects_thinking_budgets_for_gpt_oss(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+model_pairs:
+  - questioner:
+      model: "openai/gpt-oss-20b"
+      thinking_max_new_tokens: 1024
+    answerer:
+      model: "Qwen/Qwen3.5-4B"
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="thinking budgets are not supported"):
+        load_config(str(config_path))
+
+
+def test_load_config_rejects_thinking_budgets_for_plain_models(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+model_pairs:
+  - questioner:
+      model: "meta/llama-3"
+      thinking_max_new_tokens: 1024
+    answerer:
+      model: "Qwen/Qwen3.5-4B"
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="thinking budgets are only supported"):
         load_config(str(config_path))
 
 

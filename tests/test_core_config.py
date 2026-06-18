@@ -55,7 +55,6 @@ def test_location_view_extracts_location_fields():
         location_num_sources=4,
         location_dim=3,
         location_noise_sd=0.25,
-        location_query_bounds=[-4.0, 4.0],
         location_max_total_beliefs=500,
         location_max_llm_prompt_beliefs=30,
         location_num_generated_hypotheses=25,
@@ -64,6 +63,14 @@ def test_location_view_extracts_location_fields():
         location_strategy_num_mutation=2,
         location_strategy_num_crossover=2,
         location_strategy_num_diverse=1,
+        location_strategy_rollout_refresh_hypotheses_each_step=True,
+        location_strategy_rollout_scoring_support_mode="truth_plus_sampled",
+        location_strategy_rollout_scoring_support_size=17,
+        location_strategy_rollout_score_mode="future_step_support_sum",
+        location_eig_bounds_enabled=True,
+        location_eig_bounds_inner_samples=101,
+        location_eig_bounds_seed=44,
+        location_eig_bounds_chunk_size=2048,
     )
 
     view = location_view(config)
@@ -74,23 +81,20 @@ def test_location_view_extracts_location_fields():
     assert view.num_sources == 4
     assert view.dim == 3
     assert view.noise_sd == pytest.approx(0.25)
-    assert view.query_bounds == (-4.0, 4.0)
     assert view.max_total_beliefs == 500
     assert view.max_llm_prompt_beliefs == 30
     assert view.num_generated_hypotheses == 25
     assert view.eig_quadrature_order == 11
+    assert view.eig_bounds_enabled is True
+    assert view.eig_bounds_inner_samples == 101
+    assert view.eig_bounds_seed == 44
+    assert view.eig_bounds_chunk_size == 2048
+    assert view.strategy_rollout_refresh_hypotheses_each_step is True
+    assert view.strategy_rollout_scoring_support_mode == "truth_plus_sampled"
+    assert view.strategy_rollout_scoring_support_size == 17
+    assert view.strategy_rollout_score_mode == "future_step_support_sum"
     # Derived: 3 + 2 + 2 + 1 = 8
     assert view.strategy_num_candidates == 8
-
-
-def test_location_view_rejects_malformed_query_bounds():
-    config = Config(
-        task="location_finding",
-        location_query_bounds=[1.0, 2.0, 3.0],
-    )
-    with pytest.raises(ValueError, match="query_bounds"):
-        location_view(config)
-
 
 def test_views_are_immutable():
     config = Config(task="animals", target_num_questions=7)

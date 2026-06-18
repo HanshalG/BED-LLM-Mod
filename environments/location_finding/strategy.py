@@ -6,7 +6,12 @@ import numpy as np
 
 from core import BeliefState
 from helpers import Config
-from .beliefs import build_location_posteriors_many, prompt_location_belief_state, prune_location_beliefs
+from .beliefs import (
+    build_location_belief_state_unpruned,
+    build_location_posteriors_many,
+    prompt_location_belief_state,
+    prune_location_beliefs,
+)
 from .formatting import _format_location, _log_location
 from .generation import _completion_excerpt, _generate_location_hypotheses_many
 from .parsing import _clean_strategy_text, _strategy_key, parse_location_strategies, parse_location_strategy_roots, parse_strategy_location
@@ -281,9 +286,7 @@ def _strategy_root_phase_single(
     for attempt in range(3):
         completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
         try:
-            parsed = parse_location_strategy_roots(
-                completion, config.location_dim, tuple(config.location_query_bounds)
-            )
+            parsed = parse_location_strategy_roots(completion, config.location_dim)
             _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations)
             return
         except ValueError as exc:
@@ -324,9 +327,7 @@ def _strategy_root_phase_batched(
             item = prepared[request_idx]
             item_observations: list[LocationObservation] = item["observations"]  # type: ignore[assignment]
             try:
-                parsed = parse_location_strategy_roots(
-                    completion, config.location_dim, tuple(config.location_query_bounds)
-                )
+                parsed = parse_location_strategy_roots(completion, config.location_dim)
                 _extend_unique_strategy_candidates(
                     item["candidates"],  # type: ignore[arg-type]
                     parsed,
@@ -519,7 +520,6 @@ def generate_strategy_locations_many(
     if not requests:
         return []
 
-    bounds = tuple(config.location_query_bounds)
     batch_messages = [
         _strategy_location_messages(request.strategy, request.belief_state, request.observations, config)
         for request in requests
@@ -548,7 +548,7 @@ def generate_strategy_locations_many(
         still_pending: list[int] = []
         for request_idx, completion in zip(pending, completions):
             try:
-                location = parse_strategy_location(completion, config.location_dim, bounds)
+                location = parse_strategy_location(completion, config.location_dim)
                 results[request_idx] = location
             except ValueError as exc:
                 _log_location(
@@ -607,6 +607,11 @@ def _full_rollout_observations(
     return list(real_observations) + list(rollout.simulated_observations)
 
 
+def _effective_strategy_rollout_depth(config: Config, observations: list[LocationObservation]) -> int:
+    rounds_remaining = max(int(config.location_num_rounds) - len(observations), 0)
+    return max(0, min(int(config.location_strategy_planning_depth), rounds_remaining))
+
+
 def _root_query_fingerprint(root_queries: list[Location | None]) -> str:
     formatted_queries = [
         _format_location(query)
@@ -645,22 +650,114 @@ def _align_belief_state_to_support(
     return BeliefState(list(support), probabilities)
 
 
-def _rollout_entropy_reduction_score(
-    rollout: _StrategyRollout,
-    real_observations: list[LocationObservation],
-    config: Config,
-) -> float:
-    support = _dedupe_source_configs(
+def _union_rollout_scoring_support(rollout: _StrategyRollout) -> list[SourceConfig]:
+    return _dedupe_source_configs(
         list(rollout.particle_support)
+        + list(rollout.generated_hypotheses)
         + list(rollout.final_generated_hypotheses)
         + list(rollout.belief_state.hypotheses)
         + ([] if rollout.final_scoring_belief_state is None else list(rollout.final_scoring_belief_state.hypotheses))
         + [rollout.truth]
     )
+
+
+def _truth_plus_sampled_rollout_scoring_support(
+    rollout: _StrategyRollout,
+    config: Config,
+) -> list[SourceConfig]:
+    pool = _dedupe_source_configs(
+        list(rollout.generated_hypotheses)
+        + list(rollout.final_generated_hypotheses)
+        + ([] if rollout.final_scoring_belief_state is None else list(rollout.final_scoring_belief_state.hypotheses))
+    )
+    pool = [hypothesis for hypothesis in pool if hypothesis != rollout.truth]
+    if not pool:
+        return _union_rollout_scoring_support(rollout)
+
+    sample_size = min(config.location_strategy_rollout_scoring_support_size, len(pool))
+    rng = np.random.default_rng(0 if rollout.scoring_seed is None else rollout.scoring_seed)
+    if sample_size < len(pool):
+        sampled_indices = rng.choice(len(pool), size=sample_size, replace=False)
+        sampled = [pool[int(index)] for index in sampled_indices]
+    else:
+        sampled = pool
+    return _dedupe_source_configs([rollout.truth] + sampled)
+
+
+def _truth_start_end_rollout_scoring_support(rollout: _StrategyRollout) -> list[SourceConfig]:
+    end_state = rollout.final_scoring_belief_state or rollout.belief_state
+    return _dedupe_source_configs(
+        [rollout.truth]
+        + list(rollout.start_belief_state.hypotheses)
+        + list(end_state.hypotheses)
+    )
+
+
+def _rollout_scoring_support(
+    rollout: _StrategyRollout,
+    config: Config,
+) -> list[SourceConfig]:
+    if config.location_strategy_rollout_scoring_support_mode == "truth_plus_sampled":
+        return _truth_plus_sampled_rollout_scoring_support(rollout, config)
+    if config.location_strategy_rollout_scoring_support_mode == "truth_start_end":
+        return _truth_start_end_rollout_scoring_support(rollout)
+    return _union_rollout_scoring_support(rollout)
+
+
+def _future_step_rollout_support(rollout: _StrategyRollout, step_idx: int) -> list[SourceConfig]:
+    if step_idx == len(rollout.simulated_observations) - 1 and rollout.final_scoring_belief_state is not None:
+        return list(rollout.final_scoring_belief_state.hypotheses)
+    if step_idx < len(rollout.simulated_supports):
+        return list(rollout.simulated_supports[step_idx])
+    if step_idx < len(rollout.simulated_belief_states):
+        return list(rollout.simulated_belief_states[step_idx].hypotheses)
+    return _union_rollout_scoring_support(rollout)
+
+
+def _future_step_support_entropy_reduction_score(
+    rollout: _StrategyRollout,
+    real_observations: list[LocationObservation],
+    config: Config,
+) -> float:
+    if not rollout.simulated_observations:
+        return 0.0
+    gamma = config.location_strategy_discount_factor
+    score = 0.0
+    for step_idx in range(len(rollout.simulated_observations)):
+        support = _dedupe_source_configs(_future_step_rollout_support(rollout, step_idx))
+        if len(support) <= 1:
+            continue
+        previous_history = list(real_observations) + list(rollout.simulated_observations[:step_idx])
+        next_history = previous_history + [rollout.simulated_observations[step_idx]]
+        previous_state = build_location_belief_state_unpruned(support, previous_history, config)
+        next_state = build_location_belief_state_unpruned(support, next_history, config)
+        score += (gamma ** step_idx) * (
+            _location_entropy(previous_state.probabilities) - _location_entropy(next_state.probabilities)
+        )
+    return float(score)
+
+
+def _rollout_entropy_reduction_score(
+    rollout: _StrategyRollout,
+    real_observations: list[LocationObservation],
+    config: Config,
+) -> float:
+    if getattr(config, "location_strategy_rollout_score_mode", "start_final_entropy_drop") == "future_step_support_sum":
+        return _future_step_support_entropy_reduction_score(rollout, real_observations, config)
+
+    support = _rollout_scoring_support(rollout, config)
     if len(support) <= 1:
         return 0.0
-    start_state = _align_belief_state_to_support(rollout.start_belief_state, support)
-    final_state = _align_belief_state_to_support(rollout.final_scoring_belief_state or rollout.belief_state, support)
+    if config.location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end"}:
+        start_state = build_location_belief_state_unpruned(support, real_observations, config)
+        final_state = build_location_belief_state_unpruned(
+            support,
+            _full_rollout_observations(real_observations, rollout),
+            config,
+        )
+    else:
+        start_state = _align_belief_state_to_support(rollout.start_belief_state, support)
+        final_state = _align_belief_state_to_support(rollout.final_scoring_belief_state or rollout.belief_state, support)
     if config.location_strategy_discount_factor >= 1.0:
         return _location_entropy(start_state.probabilities) - _location_entropy(final_state.probabilities)
     if not rollout.simulated_observations:
@@ -681,6 +778,38 @@ def _rollout_entropy_reduction_score(
         )
         previous_state = next_state
     return score
+
+
+def _refresh_rollout_hypotheses_for_step(
+    questioner: "Model",
+    rollouts: list[_StrategyRollout],
+    stepped_indices: list[int],
+    branch_histories: list[list[LocationObservation]],
+    config: Config,
+    *,
+    label: str,
+) -> None:
+    if not stepped_indices:
+        return
+    generated_many = _generate_location_hypotheses_many(
+        questioner,
+        branch_histories,
+        [
+            prompt_location_belief_state(rollouts[rollout_idx].belief_state, config)
+            for rollout_idx in stepped_indices
+        ],
+        config,
+        label=label,
+    )
+    for rollout_idx, generated_hypotheses in zip(stepped_indices, generated_many):
+        rollout = rollouts[rollout_idx]
+        rollout.generated_hypotheses.extend(generated_hypotheses)
+        rollout.particle_support = _dedupe_source_configs(
+            list(rollout.particle_support)
+            + list(rollout.belief_state.hypotheses)
+            + list(generated_hypotheses)
+            + [rollout.truth]
+        )
 
 
 def evaluate_location_strategies_by_rollout(
@@ -726,10 +855,12 @@ def evaluate_location_strategies_by_rollout(
                     belief_state=belief_state,
                     particle_support=list(belief_state.hypotheses),
                     root_query=root_queries[strategy_index],
+                    scoring_seed=int(rng.integers(0, np.iinfo(np.uint32).max)),
                 )
             )
 
-    for depth_idx in range(config.location_strategy_planning_depth):
+    effective_depth = _effective_strategy_rollout_depth(config, observations)
+    for depth_idx in range(effective_depth):
         active_indices = [
             rollout_idx
             for rollout_idx, rollout in enumerate(rollouts)
@@ -785,10 +916,23 @@ def evaluate_location_strategies_by_rollout(
 
         # Phase 2: batch-update belief states (respects location_posterior_mode)
         if stepped_indices:
+            branch_histories = [
+                _full_rollout_observations(observations, rollouts[i])
+                for i in stepped_indices
+            ]
+            if config.location_strategy_rollout_refresh_hypotheses_each_step:
+                _refresh_rollout_hypotheses_for_step(
+                    questioner,
+                    rollouts,
+                    stepped_indices,
+                    branch_histories,
+                    config,
+                    label=f"strategy rollout depth {depth_idx + 1} belief refresh",
+                )
             updated_states = build_location_posteriors_many(
                 questioner,
                 [rollouts[i].particle_support for i in stepped_indices],
-                [_full_rollout_observations(observations, rollouts[i]) for i in stepped_indices],
+                branch_histories,
                 config,
                 context_states=[rollouts[i].belief_state for i in stepped_indices],
                 label=f"strategy rollout depth {depth_idx + 1} belief update",
@@ -797,6 +941,7 @@ def evaluate_location_strategies_by_rollout(
             for rollout_idx, updated_state in zip(stepped_indices, updated_states):
                 rollouts[rollout_idx].belief_state = updated_state
                 rollouts[rollout_idx].simulated_belief_states.append(updated_state)
+                rollouts[rollout_idx].simulated_supports.append(list(updated_state.hypotheses))
 
     final_refresh_indices = [
         rollout_idx
@@ -828,7 +973,10 @@ def evaluate_location_strategies_by_rollout(
         final_supports = [
             _dedupe_source_configs(
                 list(rollouts[rollout_idx].particle_support)
+                + list(rollouts[rollout_idx].generated_hypotheses)
                 + list(rollouts[rollout_idx].final_generated_hypotheses)
+                + list(rollouts[rollout_idx].belief_state.hypotheses)
+                + [rollouts[rollout_idx].truth]
             )
             for rollout_idx in final_refresh_indices
         ]
@@ -936,14 +1084,26 @@ def evaluate_location_strategies_by_rollout_many(
                         belief_state=request.belief_state,
                         particle_support=list(request.belief_state.hypotheses),
                         root_query=root_queries[strategy_index],
+                        scoring_seed=int(request.rng.integers(0, np.iinfo(np.uint32).max)),
                     )
                 )
 
-    for depth_idx in range(config.location_strategy_planning_depth):
+    max_effective_depth = max(
+        (
+            _effective_strategy_rollout_depth(config, request.observations)
+            for request in requests
+        ),
+        default=0,
+    )
+    for depth_idx in range(max_effective_depth):
         active_indices = [
             rollout_idx
             for rollout_idx, rollout in enumerate(rollouts)
             if rollout.belief_state.hypotheses
+            and depth_idx < _effective_strategy_rollout_depth(
+                config,
+                requests[rollout.request_index].observations,
+            )
         ]
         if not active_indices:
             break
@@ -999,13 +1159,23 @@ def evaluate_location_strategies_by_rollout_many(
 
         # Phase 2: batch-update belief states (respects location_posterior_mode)
         if stepped_indices_many:
+            branch_histories_many = [
+                _full_rollout_observations(requests[rollouts[i].request_index].observations, rollouts[i])
+                for i in stepped_indices_many
+            ]
+            if config.location_strategy_rollout_refresh_hypotheses_each_step:
+                _refresh_rollout_hypotheses_for_step(
+                    questioner,
+                    rollouts,
+                    stepped_indices_many,
+                    branch_histories_many,
+                    config,
+                    label=f"strategy rollout depth {depth_idx + 1} belief refresh",
+                )
             updated_states_many = build_location_posteriors_many(
                 questioner,
                 [rollouts[i].particle_support for i in stepped_indices_many],
-                [
-                    _full_rollout_observations(requests[rollouts[i].request_index].observations, rollouts[i])
-                    for i in stepped_indices_many
-                ],
+                branch_histories_many,
                 config,
                 context_states=[rollouts[i].belief_state for i in stepped_indices_many],
                 label=f"strategy rollout depth {depth_idx + 1} belief update",
@@ -1014,6 +1184,7 @@ def evaluate_location_strategies_by_rollout_many(
             for rollout_idx, updated_state in zip(stepped_indices_many, updated_states_many):
                 rollouts[rollout_idx].belief_state = updated_state
                 rollouts[rollout_idx].simulated_belief_states.append(updated_state)
+                rollouts[rollout_idx].simulated_supports.append(list(updated_state.hypotheses))
 
     final_refresh_indices = [
         rollout_idx
@@ -1043,7 +1214,10 @@ def evaluate_location_strategies_by_rollout_many(
         final_supports = [
             _dedupe_source_configs(
                 list(rollouts[rollout_idx].particle_support)
+                + list(rollouts[rollout_idx].generated_hypotheses)
                 + list(rollouts[rollout_idx].final_generated_hypotheses)
+                + list(rollouts[rollout_idx].belief_state.hypotheses)
+                + [rollouts[rollout_idx].truth]
             )
             for rollout_idx in final_refresh_indices
         ]
@@ -1132,6 +1306,57 @@ def _strategy_entries_from_evaluations(
     ]
 
 
+def _log_selected_strategy(
+    evaluation: LocationStrategyEvaluation,
+    location: Location | None,
+    config: Config,
+    *,
+    trial_index: int | None = None,
+    round_index: int | None = None,
+) -> None:
+    prefix_parts = ["strategy selected"]
+    if trial_index is not None:
+        prefix_parts.append(f"trial={trial_index}")
+    if round_index is not None:
+        prefix_parts.append(f"round={round_index}")
+    prefix = " ".join(prefix_parts)
+    _log_location(
+        f"{prefix}: score={evaluation.mean_score:.6f}, "
+        f"variance={evaluation.score_variance:.6f}, "
+        f"root={evaluation.root_query_fingerprint!r}, "
+        f"location={_format_location(location) if location is not None else 'None'}, "
+        f"strategy={evaluation.strategy!r}",
+        config,
+    )
+
+
+def _log_strategy_ranking(
+    evaluations: list[LocationStrategyEvaluation],
+    config: Config,
+    *,
+    trial_index: int | None = None,
+    round_index: int | None = None,
+) -> None:
+    if not evaluations:
+        return
+    ranked = sorted(evaluations, key=lambda evaluation: evaluation.mean_score, reverse=True)
+    best_score = ranked[0].mean_score
+    prefix_parts = ["strategy ranking"]
+    if trial_index is not None:
+        prefix_parts.append(f"trial={trial_index}")
+    if round_index is not None:
+        prefix_parts.append(f"round={round_index}")
+    prefix = " ".join(prefix_parts)
+    for rank, evaluation in enumerate(ranked, start=1):
+        margin = best_score - evaluation.mean_score
+        _log_location(
+            f"{prefix} rank={rank}: score={evaluation.mean_score:.6f}, "
+            f"margin_from_best={margin:.6f}, variance={evaluation.score_variance:.6f}, "
+            f"root={evaluation.root_query_fingerprint!r}, strategy={evaluation.strategy!r}",
+            config,
+        )
+
+
 def choose_location_with_strategy_rollouts(
     questioner: "Model",
     belief_state: BeliefState,
@@ -1163,6 +1388,7 @@ def choose_location_with_strategy_rollouts(
     if not evaluations:
         return None, 0.0, None
 
+    _log_strategy_ranking(evaluations, config, round_index=round_index)
     best_evaluation = max(evaluations, key=lambda evaluation: evaluation.mean_score)
     _log_location(
         "strategy rollout: best strategy "
@@ -1181,6 +1407,12 @@ def choose_location_with_strategy_rollouts(
             observations,
             config,
         )
+    _log_selected_strategy(
+        best_evaluation,
+        location,
+        config,
+        round_index=round_index,
+    )
     return location, best_evaluation.mean_score, best_evaluation
 
 
@@ -1234,6 +1466,7 @@ def choose_locations_with_strategy_rollouts_many(
             results.append((None, 0.0, None))
             continue
 
+        _log_strategy_ranking(evaluations, config, trial_index=idx, round_index=round_index)
         best_evaluation = max(evaluations, key=lambda evaluation: evaluation.mean_score)
         _log_location(
             "strategy rollout: best strategy "
@@ -1260,5 +1493,15 @@ def choose_locations_with_strategy_rollouts_many(
         for result_idx, location in zip(selected_location_indices, selected_locations):
             _old_location, score, evaluation = results[result_idx]
             results[result_idx] = (location, score, evaluation)
+
+    for result_idx, (location, _score, evaluation) in enumerate(results):
+        if evaluation is not None:
+            _log_selected_strategy(
+                evaluation,
+                location,
+                config,
+                trial_index=result_idx,
+                round_index=round_index,
+            )
 
     return results

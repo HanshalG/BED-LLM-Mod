@@ -21,7 +21,6 @@ environment:
   num_sources: 3
   dim: 2
   noise_sd: 0.5
-  query_bounds:
   - -2.0
   - 2.0
   max_total_beliefs: 1000

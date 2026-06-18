@@ -151,7 +151,11 @@ def parse_source_hypotheses(completion: str, num_sources: int, dim: int) -> list
     return _extract_partial_source_configs(completion, num_sources, dim)
 
 
-def parse_candidate_locations(completion: str, dim: int, bounds: tuple[float, float]) -> list[Location]:
+def parse_candidate_locations(
+    completion: str,
+    dim: int,
+    bounds: tuple[float, float] | None = None,
+) -> list[Location]:
     payload = _loads_json_value(completion)
     if isinstance(payload, dict):
         for key in ("locations", "candidates", "queries", "points", "location"):
@@ -162,7 +166,6 @@ def parse_candidate_locations(completion: str, dim: int, bounds: tuple[float, fl
     if not isinstance(payload, list):
         raise ValueError("Candidate location completion must decode to a JSON list or object")
 
-    low, high = bounds
     locations: list[Location] = []
     seen: set[tuple[float, ...]] = set()
     for item in payload:
@@ -170,8 +173,6 @@ def parse_candidate_locations(completion: str, dim: int, bounds: tuple[float, fl
         try:
             location = normalize_location(raw_location, dim)
         except ValueError:
-            continue
-        if any(value < low or value > high for value in location):
             continue
         key = tuple(round(value, 6) for value in location)
         if key in seen:
@@ -181,7 +182,12 @@ def parse_candidate_locations(completion: str, dim: int, bounds: tuple[float, fl
     return locations
 
 
-def parse_single_location(completion: str, dim: int, bounds: tuple[float, float]) -> Location:
+def parse_single_location(
+    completion: str,
+    dim: int,
+    bounds: tuple[float, float] | None = None,
+) -> Location:
+    del bounds
     payload = _loads_json_value(completion)
     if isinstance(payload, dict):
         for key in ("location", "query", "point"):
@@ -189,14 +195,14 @@ def parse_single_location(completion: str, dim: int, bounds: tuple[float, float]
                 payload = payload[key]
                 break
     location = normalize_location(payload, dim)
-    low, high = bounds
-    if any(value < low or value > high for value in location):
-        raise ValueError("Location is outside query bounds")
     return location
 
 
-def parse_single_location_from_completion(completion: str, dim: int, bounds: tuple[float, float]) -> Location:
-    low, high = bounds
+def parse_single_location_from_completion(
+    completion: str,
+    dim: int,
+    bounds: tuple[float, float] | None = None,
+) -> Location:
     for payload in reversed(_extract_json_values(completion)):
         raw_location: object = payload
         if isinstance(payload, dict):
@@ -211,8 +217,6 @@ def parse_single_location_from_completion(completion: str, dim: int, bounds: tup
         try:
             location = normalize_location(raw_location, dim)
         except ValueError:
-            continue
-        if any(value < low or value > high for value in location):
             continue
         return location
     try:
@@ -278,7 +282,7 @@ def _strategy_key(strategy: str) -> str:
 def _collect_strategy_root_candidates(
     payload: object,
     dim: int,
-    bounds: tuple[float, float],
+    bounds: tuple[float, float] | None = None,
 ) -> list[LocationStrategyCandidate]:
     candidates: list[LocationStrategyCandidate] = []
     if isinstance(payload, list):
@@ -311,9 +315,6 @@ def _collect_strategy_root_candidates(
         root_query = normalize_location(raw_root, dim)
     except ValueError:
         return candidates
-    low, high = bounds
-    if any(value < low or value > high for value in root_query):
-        return candidates
     candidates.append(LocationStrategyCandidate(strategy=strategy, root_query=root_query))
     return candidates
 
@@ -334,7 +335,7 @@ def parse_location_strategies(completion: str) -> list[str]:
 def parse_location_strategy_roots(
     completion: str,
     dim: int,
-    bounds: tuple[float, float],
+    bounds: tuple[float, float] | None = None,
 ) -> list[LocationStrategyCandidate]:
     payload = _loads_json_value(completion)
     candidates: list[LocationStrategyCandidate] = []
@@ -350,7 +351,11 @@ def parse_location_strategy_roots(
     return candidates
 
 
-def parse_strategy_location(completion: str, dim: int, bounds: tuple[float, float]) -> Location:
+def parse_strategy_location(
+    completion: str,
+    dim: int,
+    bounds: tuple[float, float] | None = None,
+) -> Location:
     payload = _loads_json_value(completion)
     raw_location = payload
     if isinstance(payload, dict):
@@ -365,7 +370,4 @@ def parse_strategy_location(completion: str, dim: int, bounds: tuple[float, floa
             raise ValueError("Strategy location completion must include location, query, or point")
 
     location = normalize_location(raw_location, dim)
-    low, high = bounds
-    if any(value < low or value > high for value in location):
-        raise ValueError("Strategy location is outside allowed query bounds")
     return location

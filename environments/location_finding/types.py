@@ -26,6 +26,7 @@ class LocationFindingMetrics:
     source_rmse: list[float]
     top_probability: list[float]
     selected_eig: list[float]
+    realized_entropy_drop: list[float] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -194,11 +195,14 @@ class _StrategyRollout:
     start_belief_state: _BeliefState[SourceConfig]
     belief_state: _BeliefState[SourceConfig]
     particle_support: list[SourceConfig] = field(default_factory=list)
+    generated_hypotheses: list[SourceConfig] = field(default_factory=list)
     final_generated_hypotheses: list[SourceConfig] = field(default_factory=list)
     final_scoring_belief_state: _BeliefState[SourceConfig] | None = None
     simulated_observations: list[LocationObservation] = field(default_factory=list)
     simulated_belief_states: list[_BeliefState[SourceConfig]] = field(default_factory=list)
+    simulated_supports: list[list[SourceConfig]] = field(default_factory=list)
     root_query: Location | None = None
+    scoring_seed: int | None = None
 
 
 @dataclass(frozen=True)

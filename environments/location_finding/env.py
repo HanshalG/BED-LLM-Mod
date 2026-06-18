@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import dataclass, field
 from typing import Any, Sequence
@@ -10,7 +11,7 @@ import numpy as np
 
 from pathlib import Path
 
-from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_posterior, build_location_posteriors_many, sample_location_eig_belief_state
+from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_belief_state_unpruned, build_location_posterior, build_location_posteriors_many, sample_location_eig_belief_state
 from environments.location_finding.generation import _generate_location_hypotheses_many, choose_location_naive, choose_locations_naive_many, estimate_sources_naive, estimate_sources_naive_many, generate_location_candidates, generate_location_candidates_many, generate_location_hypotheses
 from environments.location_finding.physics import _hypothesis_log_prior, _top_source_rmse, observation_log_likelihood, signal_intensity_for_hypothesis, source_rmse
 from environments.location_finding.plotting import _plot_location_trial
@@ -352,6 +353,11 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             "top_probability": float(top_probability),
             "support_size": float(belief_state.support_size),
             "ess": belief_state.effective_sample_size(),
+            "realized_entropy_drop": _realized_entropy_drop_on_current_support(
+                belief_state,
+                history,
+                self.config,
+            ),
         }
 
     def generate_naive_action(
@@ -536,6 +542,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
                 "source_rmse": metrics.get("source_rmse", []),
                 "top_probability": metrics.get("top_probability", []),
                 "selected_eig": metrics.get("selected_eig", []),
+                "realized_entropy_drop": metrics.get("realized_entropy_drop", []),
             },
             logs=base.logs,
         )
@@ -546,11 +553,28 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         output_dir: Path,
         config: Any,
     ) -> dict[str, Path]:
-        if not getattr(config, "location_plot_trials", False):
-            return {}
         output_dir.mkdir(parents=True, exist_ok=True)
-        model = self._last_model
         artifacts: dict[str, Path] = {}
+
+        per_trial_metrics_path = output_dir / "location_per_trial_metrics.json"
+        per_trial_metrics_path.write_text(
+            json.dumps(_location_per_trial_metrics_payload(run_result), indent=2) + "\n",
+            encoding="utf-8",
+        )
+        artifacts["location_per_trial_metrics"] = per_trial_metrics_path
+
+        selected_strategies = _location_selected_strategies_payload(run_result)
+        if selected_strategies:
+            selected_strategies_path = output_dir / "location_selected_strategies.jsonl"
+            with selected_strategies_path.open("w", encoding="utf-8") as handle:
+                for record in selected_strategies:
+                    handle.write(json.dumps(record, sort_keys=True) + "\n")
+            artifacts["location_selected_strategies"] = selected_strategies_path
+
+        if not getattr(config, "location_plot_trials", False):
+            return artifacts
+
+        model = self._last_model
         for trial in run_result.trials:
             if not trial.rounds:
                 continue
@@ -588,3 +612,114 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             )
             artifacts[f"location_trial_plot_{trial.trial_index + 1:03d}"] = plot_path
         return artifacts
+
+
+def _jsonable_location_value(value: Any) -> Any:
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, np.generic):
+        return value.item()
+    if isinstance(value, LocationObservation):
+        return {
+            "query": list(value.query),
+            "value": float(value.value),
+        }
+    if isinstance(value, tuple):
+        return [_jsonable_location_value(item) for item in value]
+    if isinstance(value, list):
+        return [_jsonable_location_value(item) for item in value]
+    if isinstance(value, dict):
+        return {str(key): _jsonable_location_value(item) for key, item in value.items()}
+    return value
+
+
+def _location_entropy_from_probabilities(probabilities: Sequence[float]) -> float:
+    values = np.asarray(list(probabilities), dtype=float)
+    values = values[values > 0.0]
+    if len(values) == 0:
+        return 0.0
+    return float(-np.sum(values * np.log(values)))
+
+
+def _realized_entropy_drop_on_current_support(
+    belief_state: BeliefState[SourceConfig],
+    history: Sequence[tuple[Location, LocationObservation]],
+    config: Any,
+) -> float:
+    if not history or not belief_state.hypotheses:
+        return 0.0
+
+    observations = [observation for _action, observation in history]
+    previous_observations = observations[:-1]
+    support = list(belief_state.hypotheses)
+    previous_state = build_location_belief_state_unpruned(
+        support,
+        previous_observations,
+        config,
+    )
+    current_state = build_location_belief_state_unpruned(
+        support,
+        observations,
+        config,
+    )
+    previous_entropy = _location_entropy_from_probabilities(previous_state.probabilities)
+    current_entropy = _location_entropy_from_probabilities(current_state.probabilities)
+    return previous_entropy - current_entropy
+
+
+def _location_per_trial_metrics_payload(run_result: RunResult) -> dict[str, Any]:
+    metric_names = sorted(
+        {
+            metric_name
+            for trial in run_result.trials
+            for round_result in trial.rounds
+            for metric_name in round_result.metrics
+        }
+    )
+    trials = []
+    for trial in run_result.trials:
+        metrics = {
+            metric_name: [
+                float(round_result.metrics[metric_name])
+                for round_result in trial.rounds
+                if metric_name in round_result.metrics
+            ]
+            for metric_name in metric_names
+        }
+        trials.append(
+            {
+                "trial_index": int(trial.trial_index),
+                "hidden_state": _jsonable_location_value(trial.hidden_state),
+                "num_rounds": len(trial.rounds),
+                "metrics": metrics,
+            }
+        )
+    return {
+        "metric_names": metric_names,
+        "trials": trials,
+    }
+
+
+def _location_selected_strategies_payload(run_result: RunResult) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for trial in run_result.trials:
+        for round_result in trial.rounds:
+            evaluation = (round_result.chosen.extras or {}).get("evaluation")
+            if evaluation is None:
+                continue
+            observation = round_result.observation
+            record = {
+                "trial_index": int(trial.trial_index),
+                "round_index": int(round_result.round_index),
+                "location": _jsonable_location_value(round_result.chosen.action),
+                "observation": _jsonable_location_value(observation),
+                "selected_eig": float(round_result.chosen.score),
+                "strategy": str(getattr(evaluation, "strategy", "")),
+                "mean_score": float(getattr(evaluation, "mean_score", round_result.chosen.score)),
+                "score_variance": float(getattr(evaluation, "score_variance", 0.0)),
+                "root_query": _jsonable_location_value(getattr(evaluation, "root_query", None)),
+                "root_query_fingerprint": str(getattr(evaluation, "root_query_fingerprint", "")),
+                "rollout_scores": _jsonable_location_value(getattr(evaluation, "rollout_scores", [])),
+            }
+            records.append(record)
+    return records

@@ -138,11 +138,9 @@ def generate_location_candidates(
     observations: list[LocationObservation],
     config: Config,
 ) -> list[Location]:
-    bounds = tuple(config.location_query_bounds)
     _log_location(
         f"candidate generation: requesting {config.location_target_num_candidates} location(s) "
-        f"(observations={len(observations)}, beliefs={len(belief_state.hypotheses)}, "
-        f"bounds=[{bounds[0]}, {bounds[1]}])",
+        f"(observations={len(observations)}, beliefs={len(belief_state.hypotheses)})",
         config,
     )
     messages = _candidate_generation_messages(belief_state, observations, config)
@@ -150,7 +148,7 @@ def generate_location_candidates(
     for attempt in range(3):
         completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
         try:
-            candidates = parse_candidate_locations(completion, config.location_dim, bounds)
+            candidates = parse_candidate_locations(completion, config.location_dim)
             break
         except ValueError as exc:
             _log_location(
@@ -177,7 +175,6 @@ def generate_location_candidates_many(
         raise ValueError("belief_states and observations_many must have the same length")
     if not belief_states:
         return []
-    bounds = tuple(config.location_query_bounds)
     _log_location(
         f"candidate generation: requesting candidates for {len(belief_states)} trial(s) "
         f"as a cross-trial batch (block_size={config.batched_block_size})",
@@ -211,7 +208,7 @@ def generate_location_candidates_many(
         still_pending: list[int] = []
         for idx, completion in zip(pending, completions):
             try:
-                results[idx] = parse_candidate_locations(completion, config.location_dim, bounds)
+                results[idx] = parse_candidate_locations(completion, config.location_dim)
             except ValueError as exc:
                 _log_location(
                     f"candidate generation: attempt {attempt + 1}/3 item {idx} could not parse candidates ({exc})"
@@ -240,17 +237,15 @@ def choose_location_naive(
     config: Config,
     belief_state: BeliefState | None = None,
 ) -> Location | None:
-    bounds = tuple(config.location_query_bounds)
     _log_location(
-        f"naive query generation: requesting one location "
-        f"(observations={len(observations)}, bounds=[{bounds[0]}, {bounds[1]}])",
+        f"naive query generation: requesting one location (observations={len(observations)})",
         config,
     )
     messages = _naive_location_messages(observations, config, belief_state=belief_state)
     for attempt in range(3):
         completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
         try:
-            location = parse_single_location_from_completion(completion, config.location_dim, bounds)
+            location = parse_single_location_from_completion(completion, config.location_dim)
             _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
             return location
         except ValueError as exc:
@@ -317,7 +312,6 @@ def choose_locations_naive_many(
 ) -> list[Location | None]:
     if not observations_many:
         return []
-    bounds = tuple(config.location_query_bounds)
     _log_location(
         f"naive query generation: requesting {len(observations_many)} location(s) "
         f"as a cross-trial batch (block_size={config.batched_block_size})",
@@ -355,7 +349,7 @@ def choose_locations_naive_many(
         still_pending: list[int] = []
         for idx, completion in zip(pending, completions):
             try:
-                location = parse_single_location_from_completion(completion, config.location_dim, bounds)
+                location = parse_single_location_from_completion(completion, config.location_dim)
                 _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
                 results[idx] = location
             except ValueError as exc:

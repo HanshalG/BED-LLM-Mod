@@ -153,6 +153,204 @@ class BaseVLLMAdapter(Model):
     def _normalize_completion_output(self, output) -> str:
         return output.text.lstrip()
 
+    def _completion_raw_text(self, output) -> str:
+        return (getattr(output, "text", "") or "").lstrip()
+
+    def _completion_has_final_answer(self, output) -> bool:
+        return True
+
+    def _forced_thinking_exit_enabled(self) -> bool:
+        return False
+
+    def _forced_thinking_closer(self) -> str:
+        return ""
+
+    def _forced_final_prompt(self, prompt, output) -> str:
+        raw_completion = self._completion_raw_text(output)
+        closer = self._forced_thinking_closer()
+        stripped_raw = raw_completion.rstrip()
+        stripped_closer = closer.lstrip()
+        for boundary in ("</think>", "<channel|>"):
+            if stripped_raw.endswith(boundary) and stripped_closer.startswith(boundary):
+                closer = stripped_closer[len(boundary):]
+                break
+        return f"{prompt}{raw_completion}{closer}"
+
+    def _strip_forced_final_output(self, text: str) -> str:
+        stripped = text.strip()
+        prefix = "Final Answer:"
+        for boundary in ("</think>", "<channel|>"):
+            if boundary in stripped:
+                stripped = stripped.rpartition(boundary)[2].strip()
+        if prefix in stripped:
+            stripped = stripped.rpartition(prefix)[2].strip()
+        return stripped
+
+    def _normalize_forced_final_output(self, output) -> str:
+        return self._strip_forced_final_output(self._completion_raw_text(output))
+
+    def _completion_hit_generation_budget(self, output, max_tokens: int) -> bool:
+        finish_reason = getattr(output, "finish_reason", None)
+        if isinstance(finish_reason, str) and finish_reason.lower() == "length":
+            return True
+
+        token_ids = getattr(output, "token_ids", None)
+        return token_ids is not None and len(token_ids) >= max_tokens
+
+    def _completion_token_count(self, output) -> int | None:
+        token_ids = getattr(output, "token_ids", None)
+        if token_ids is None:
+            return None
+        return len(token_ids)
+
+    def _completion_finish_reason(self, output) -> str:
+        finish_reason = getattr(output, "finish_reason", None)
+        return finish_reason if isinstance(finish_reason, str) else ""
+
+    def _forced_final_max_new_tokens(self) -> int:
+        return 0
+
+    def _forced_final_reserve_tokens(self) -> int:
+        closer = self._forced_thinking_closer()
+        if not closer:
+            return self._forced_final_max_new_tokens()
+        return self._forced_final_max_new_tokens() + len(
+            self.tokenizer(closer, add_special_tokens=False).input_ids
+        )
+
+    def _first_pass_max_new_tokens_for_prompts(self, prompts: list, requested_max_tokens: int) -> int:
+        return self._max_new_tokens_for_prompts(prompts, requested_max_tokens)
+
+    def _maybe_force_final_answers(
+        self,
+        prompts: list,
+        outputs: list,
+        initial_max_tokens: int,
+        temperature: float,
+    ) -> list[str]:
+        completions = [
+            self._normalize_completion_output(output) if output is not None else ""
+            for output in outputs
+        ]
+        if not self._forced_thinking_exit_enabled():
+            return completions
+
+        forced_indices = [
+            idx
+            for idx, output in enumerate(outputs)
+            if output is not None
+            and not self._completion_has_final_answer(output)
+        ]
+        if not forced_indices:
+            return completions
+
+        budget_limited_indices = [
+            idx
+            for idx in forced_indices
+            if self._completion_hit_generation_budget(outputs[idx], initial_max_tokens)
+        ]
+        continuation_prompts = [
+            self._forced_final_prompt(prompts[idx], outputs[idx])
+            for idx in forced_indices
+        ]
+        try:
+            final_max_new_tokens = self._max_new_tokens_for_prompts(
+                continuation_prompts,
+                self._forced_final_max_new_tokens(),
+            )
+        except ValueError:
+            return completions
+
+        sampling_params = self._build_sampling_params(
+            temperature=temperature,
+            max_tokens=final_max_new_tokens,
+            n=1,
+        )
+        continuation_outputs = self.llm.generate(continuation_prompts, sampling_params)
+        forced_count = 0
+        empty_count = 0
+        for original_idx, request_output in zip(forced_indices, continuation_outputs):
+            if not request_output.outputs:
+                empty_count += 1
+                continue
+            forced_text = self._normalize_forced_final_output(request_output.outputs[0])
+            if forced_text:
+                completions[original_idx] = forced_text
+                forced_count += 1
+            else:
+                empty_count += 1
+
+        wandb.log({
+            "event": "Forced thinking exit",
+            "forced_thinking_exit_count": forced_count,
+            "forced_thinking_exit_length_count": len(budget_limited_indices),
+            "forced_thinking_exit_early_stop_count": len(forced_indices) - len(budget_limited_indices),
+            "forced_thinking_exit_empty_count": empty_count,
+        })
+        self._log_forced_thinking_exits(
+            prompts,
+            outputs,
+            continuation_outputs,
+            forced_indices,
+            initial_max_tokens,
+            final_max_new_tokens,
+            set(budget_limited_indices),
+        )
+
+        return completions
+
+    @staticmethod
+    def _completion_excerpt(text: str, limit: int = 500) -> str:
+        trace_chars = os.environ.get("BED_LLM_REASONING_TRACE_CHARS")
+        if trace_chars:
+            if trace_chars.lower() == "full":
+                limit = 0
+            else:
+                try:
+                    limit = max(0, int(trace_chars))
+                except ValueError:
+                    limit = 500
+        text = text.strip()
+        if limit <= 0:
+            return text
+        if len(text) <= limit:
+            return text
+        half = max(1, limit // 2)
+        return f"{text[:half]}\n...\n{text[-half:]}"
+
+    def _log_forced_thinking_exits(
+        self,
+        prompts: list,
+        raw_outputs: list,
+        forced_outputs: list,
+        forced_indices: list[int],
+        initial_max_tokens: int,
+        final_max_new_tokens: int,
+        budget_limited_indices: set[int],
+    ) -> None:
+        if os.environ.get("BED_LLM_LOG_REASONING_TRACES") != "1" or self.config.log_path is None:
+            return
+        for original_idx, forced_output in zip(forced_indices, forced_outputs):
+            forced_text = ""
+            if forced_output.outputs:
+                forced_text = self._completion_raw_text(forced_output.outputs[0])
+            raw_output = raw_outputs[original_idx]
+            prompt_tokens = self._prompt_token_count(prompts[original_idx])
+            raw_tokens = self._completion_token_count(raw_output)
+            write_to_log(
+                "Forced thinking exit:\n"
+                f"model={self.model_name}\n"
+                f"prompt_tokens={prompt_tokens}\n"
+                f"first_pass_max_tokens={initial_max_tokens}\n"
+                f"first_pass_output_tokens={raw_tokens if raw_tokens is not None else 'unknown'}\n"
+                f"first_pass_finish_reason={self._completion_finish_reason(raw_output) or 'unknown'}\n"
+                f"first_pass_budget_limited={original_idx in budget_limited_indices}\n"
+                f"forced_final_max_tokens={final_max_new_tokens}\n"
+                f"raw_completion_excerpt:\n{self._completion_excerpt(self._completion_raw_text(raw_output))}\n\n"
+                f"forced_final_excerpt:\n{self._completion_excerpt(forced_text)}\n\n",
+                self.config,
+            )
+
     def _chat_probabilities_messages_batched_via_logprobs(
         self,
         messages: list[list[dict[str, str]]],
@@ -217,16 +415,24 @@ class BaseVLLMAdapter(Model):
 
         for start_idx in range(0, len(prompts), block_size):
             block_prompts = prompts[start_idx:start_idx + block_size]
-            block_max_new_tokens = self._max_new_tokens_for_prompts(block_prompts, max_new_tokens)
+            block_max_new_tokens = self._first_pass_max_new_tokens_for_prompts(block_prompts, max_new_tokens)
             sampling_params = self._build_sampling_params(
                 temperature=temperature,
                 max_tokens=block_max_new_tokens,
                 n=1,
             )
             outputs = self.llm.generate(block_prompts, sampling_params)
-            completions.extend(
-                self._normalize_completion_output(output.outputs[0]) if output.outputs else ""
+            completion_outputs = [
+                output.outputs[0] if output.outputs else None
                 for output in outputs
+            ]
+            completions.extend(
+                self._maybe_force_final_answers(
+                    block_prompts,
+                    completion_outputs,
+                    block_max_new_tokens,
+                    temperature,
+                )
             )
 
         return completions
@@ -234,17 +440,19 @@ class BaseVLLMAdapter(Model):
     def chat_complete(self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1) -> list[str]:
         start_time = time.perf_counter()
         prompt = self._messages_to_prompt(messages)
-        max_new_tokens = self._max_new_tokens_for_prompts([prompt], self.config.location_max_new_tokens)
+        max_new_tokens = self._first_pass_max_new_tokens_for_prompts([prompt], self.config.location_max_new_tokens)
         sampling_params = self._build_sampling_params(
             temperature=temperature,
             max_tokens=max_new_tokens,
             n=num_responses,
         )
         outputs = self.llm.generate([prompt], sampling_params)
-        completions = [
-            self._normalize_completion_output(output)
-            for output in outputs[0].outputs
-        ]
+        completions = self._maybe_force_final_answers(
+            [prompt for _output in outputs[0].outputs],
+            list(outputs[0].outputs),
+            max_new_tokens,
+            temperature,
+        )
 
         elapsed_time = time.perf_counter() - start_time
         wandb.log({
@@ -310,12 +518,42 @@ class QwenVLLMAdapter(BaseVLLMAdapter):
     def __init__(self, spec: ModelSpec, config: Config, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
         super().__init__(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
         self.thinking = bool(spec.thinking)
+        self.thinking_max_new_tokens = spec.thinking_max_new_tokens or 4096
+        self.thinking_final_max_new_tokens = spec.thinking_final_max_new_tokens or 512
 
     def _chat_template_kwargs(self) -> dict[str, object]:
         return {"enable_thinking": self.thinking}
 
+    def _forced_thinking_exit_enabled(self) -> bool:
+        return self.thinking
+
+    def _forced_thinking_closer(self) -> str:
+        return "\n</think>\nFinal Answer:"
+
+    def _forced_final_max_new_tokens(self) -> int:
+        return self.thinking_final_max_new_tokens
+
+    def _first_pass_max_new_tokens_for_prompts(self, prompts: list, requested_max_tokens: int) -> int:
+        if not self.thinking:
+            return super()._first_pass_max_new_tokens_for_prompts(prompts, requested_max_tokens)
+        requested = min(requested_max_tokens, self.thinking_max_new_tokens)
+        reserve = self._forced_final_reserve_tokens()
+        remaining_with_reserve = [
+            self.max_model_len - self._prompt_token_count(prompt) - reserve
+            for prompt in prompts
+        ]
+        if remaining_with_reserve and min(remaining_with_reserve) >= 1:
+            requested = min(requested, min(remaining_with_reserve))
+        return self._max_new_tokens_for_prompts(prompts, requested)
+
+    def _completion_has_final_answer(self, output) -> bool:
+        if not self.thinking:
+            return True
+        _thought, separator, final_text = self._completion_raw_text(output).rpartition("</think>")
+        return bool(separator and final_text.strip())
+
     def _normalize_completion_output(self, output) -> str:
-        text = output.text.lstrip()
+        text = self._completion_raw_text(output)
         if not self.thinking:
             return text
         thought, separator, final_text = text.rpartition("</think>")
@@ -335,6 +573,8 @@ class GemmaVLLMAdapter(BaseVLLMAdapter):
     def __init__(self, spec: ModelSpec, config: Config, tensor_parallel_size: int | None = None, dtype: str = "bfloat16"):
         super().__init__(spec=spec, config=config, tensor_parallel_size=tensor_parallel_size, dtype=dtype)
         self.thinking = bool(spec.thinking)
+        self.thinking_max_new_tokens = spec.thinking_max_new_tokens or 4096
+        self.thinking_final_max_new_tokens = spec.thinking_final_max_new_tokens or 512
 
     def _tokenizer_kwargs(self) -> dict[str, object]:
         return {
@@ -344,7 +584,44 @@ class GemmaVLLMAdapter(BaseVLLMAdapter):
     def _chat_template_kwargs(self) -> dict[str, object]:
         return {"enable_thinking": self.thinking}
 
-    def _normalize_completion_output(self, output) -> str:
+    def _forced_thinking_exit_enabled(self) -> bool:
+        return self.thinking
+
+    def _forced_thinking_closer(self) -> str:
+        return "\n<channel|>\nFinal Answer:"
+
+    def _forced_final_max_new_tokens(self) -> int:
+        return self.thinking_final_max_new_tokens
+
+    def _first_pass_max_new_tokens_for_prompts(self, prompts: list, requested_max_tokens: int) -> int:
+        if not self.thinking:
+            return super()._first_pass_max_new_tokens_for_prompts(prompts, requested_max_tokens)
+        requested = min(requested_max_tokens, self.thinking_max_new_tokens)
+        reserve = self._forced_final_reserve_tokens()
+        remaining_with_reserve = [
+            self.max_model_len - self._prompt_token_count(prompt) - reserve
+            for prompt in prompts
+        ]
+        if remaining_with_reserve and min(remaining_with_reserve) >= 1:
+            requested = min(requested, min(remaining_with_reserve))
+        return self._max_new_tokens_for_prompts(prompts, requested)
+
+    @staticmethod
+    def _strip_thinking_channels(text: str) -> str:
+        remaining = text
+        kept_parts: list[str] = []
+        while "<|channel>" in remaining:
+            before, _marker, after_marker = remaining.partition("<|channel>")
+            kept_parts.append(before)
+            _channel_name, closer, after_channel = after_marker.partition("<channel|>")
+            if not closer:
+                remaining = ""
+                break
+            remaining = after_channel
+        kept_parts.append(remaining)
+        return "".join(kept_parts).strip()
+
+    def _parse_response_content(self, output) -> str | None:
         parse_response = getattr(self.tokenizer, "parse_response", None)
         if parse_response is None:
             raise ValueError(f"{self.model_name} tokenizer does not expose parse_response()")
@@ -353,17 +630,31 @@ class GemmaVLLMAdapter(BaseVLLMAdapter):
         if not token_ids:
             raise ValueError(f"{self.model_name} completion is missing token_ids required for parse_response()")
 
-        #write reasoning trace to log
-        #write_to_log(f"Reasoning trace: {self.tokenizer.decode(token_ids)}\n", self.config)
-        
         parsed = parse_response(token_ids)
         if isinstance(parsed, dict):
             content = parsed.get("content")
             if isinstance(content, str) and content.strip():
-                return content.strip()
+                stripped_content = self._strip_thinking_channels(content)
+                if stripped_content:
+                    return stripped_content
+        return None
+
+    def _completion_has_final_answer(self, output) -> bool:
+        if not self.thinking:
+            return True
+        return self._parse_response_content(output) is not None
+
+    def _normalize_completion_output(self, output) -> str:
+        #write reasoning trace to log
+        #write_to_log(f"Reasoning trace: {self.tokenizer.decode(token_ids)}\n", self.config)
+
+        content = self._parse_response_content(output)
+        if content is not None:
+            return content
 
         # Gemma occasionally emits only a reasoning channel for structured JSON prompts.
         # Keep the run alive and let downstream JSON parsers/fallbacks handle the text.
+        token_ids = getattr(output, "token_ids", None)
         fallback_text = getattr(output, "text", "") or self.tokenizer.decode(token_ids)
         return fallback_text.strip()
 

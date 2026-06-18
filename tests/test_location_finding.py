@@ -4,17 +4,25 @@ import math
 import numpy as np
 import pytest
 
+import model
 from core import BeliefState
 from helpers import Config
 from core.experiment import run_from_config
 from environments.location_finding.beliefs import (
     _location_effective_sample_size,
     build_location_belief_state,
+    build_location_belief_state_unpruned,
     build_location_posterior,
     prompt_location_belief_state,
     prune_location_beliefs,
     sample_location_eig_belief_state,
 )
+from environments.location_finding.eig_bounds import (
+    eig_bound_values_for_history,
+    history_log_likelihoods,
+    logmeanexp,
+)
+from environments.location_finding.env import LocationBEDEnvironment
 from environments.location_finding.eig import expected_information_gain, score_candidate_locations
 from environments.location_finding.parsing import (
     parse_best_source_estimate_from_completion,
@@ -41,7 +49,11 @@ from environments.location_finding.prompts import (
 )
 from environments.location_finding.strategy import (
     evaluate_location_strategies_by_rollout,
+    generate_strategy_locations_many,
     generate_location_strategies,
+    _location_entropy,
+    _rollout_entropy_reduction_score,
+    _rollout_scoring_support,
 )
 from environments.location_finding.types import (
     LocationFindingEnv,
@@ -49,6 +61,8 @@ from environments.location_finding.types import (
     LocationObservation,
     LocationStrategyEntry,
     LocationStrategyLibrary,
+    _StrategyLocationRequest,
+    _StrategyRollout,
     normalize_source_config,
 )
 
@@ -59,6 +73,7 @@ def _run_location_config(model, config, rng=None, output_dir=None, method_name="
         source_rmse=list(summary.metrics.get("source_rmse", [])),
         top_probability=list(summary.metrics.get("top_probability", [])),
         selected_eig=list(summary.metrics.get("selected_eig", [])),
+        realized_entropy_drop=list(summary.metrics.get("realized_entropy_drop", [])),
     )
 
 
@@ -149,7 +164,6 @@ def _location_config(**overrides) -> Config:
         location_num_sources=3,
         location_dim=2,
         location_noise_sd=0.5,
-        location_query_bounds=[-2.0, 2.0],
         location_max_total_beliefs=1000,
         location_max_llm_prompt_beliefs=40,
         location_target_num_candidates=2,
@@ -217,6 +231,80 @@ def test_location_observation_model_is_lognormal_and_eig_prefers_informative_que
     assert on_source_eig > far_query_eig
 
 
+def test_location_total_eig_bound_values_match_manual_likelihood_ratio():
+    noise_sd = 0.5
+    observations = [
+        LocationObservation((0.0, 0.0), 1.2),
+        LocationObservation((1.0, 0.0), 0.8),
+    ]
+    true_theta = np.asarray([[0.0, 0.0]], dtype=float)
+    contrastive_thetas = np.asarray([[[1.0, 0.0]], [[2.0, 0.0]]], dtype=float)
+
+    lower, upper = eig_bound_values_for_history(
+        true_theta,
+        observations,
+        contrastive_thetas,
+        noise_sd=noise_sd,
+        chunk_size=1,
+    )
+
+    true_log = sum(
+        observation_log_likelihood(
+            observation.value,
+            signal_intensity_for_hypothesis(((0.0, 0.0),), observation.query),
+            noise_sd,
+        )
+        for observation in observations
+    )
+    contrastive_logs = np.asarray(
+        [
+            sum(
+                observation_log_likelihood(
+                    observation.value,
+                    signal_intensity_for_hypothesis(tuple(tuple(row) for row in theta), observation.query),
+                    noise_sd,
+                )
+                for observation in observations
+            )
+            for theta in contrastive_thetas
+        ],
+        dtype=float,
+    )
+
+    assert history_log_likelihoods(
+        true_theta[None, :, :],
+        observations,
+        noise_sd=noise_sd,
+    )[0] == pytest.approx(true_log)
+    assert lower == pytest.approx(true_log - logmeanexp(np.concatenate(([true_log], contrastive_logs))))
+    assert upper == pytest.approx(true_log - logmeanexp(contrastive_logs))
+
+
+def test_location_round_metrics_include_realized_entropy_drop():
+    config = _location_config(location_num_sources=1)
+    env = LocationBEDEnvironment(config)
+    truth = normalize_source_config([[0.0, 0.0]], 1, 2)
+    other = normalize_source_config([[1.0, 0.0]], 1, 2)
+    observation = LocationObservation(
+        (0.0, 0.0),
+        signal_intensity_for_hypothesis(truth, (0.0, 0.0)),
+    )
+    posterior = build_location_belief_state([truth, other], [observation], config)
+
+    metrics = env.round_metrics(
+        posterior,
+        [((0.0, 0.0), observation)],
+        np.asarray(truth, dtype=float),
+    )
+
+    support = list(posterior.hypotheses)
+    previous = build_location_belief_state_unpruned(support, [], config)
+    current = build_location_belief_state_unpruned(support, [observation], config)
+    expected = _location_entropy(previous.probabilities) - _location_entropy(current.probabilities)
+    assert metrics["realized_entropy_drop"] == pytest.approx(expected)
+    assert metrics["realized_entropy_drop"] > 0.0
+
+
 def test_rounded_lognormal_observations_preserve_positive_posterior_support():
     config = _location_config(location_num_sources=1)
     near_zero = round_positive_observation(0.004, 2)
@@ -236,6 +324,76 @@ def test_rounded_lognormal_observations_preserve_positive_posterior_support():
 
     assert np.all(np.isfinite(state.probabilities))
     assert sum(state.probabilities) == pytest.approx(1.0)
+
+
+def test_gemma_thought_only_strategy_location_is_forced_to_final_json():
+    class _Tokenizer:
+        def apply_chat_template(self, messages, **kwargs):
+            assert kwargs["enable_thinking"] is True
+            return "Prompt"
+
+        def __call__(self, text, add_special_tokens=False):
+            return type("Tokenized", (), {"input_ids": list(range(len(text)))})()
+
+        def parse_response(self, token_ids):
+            return {"thinking": "draft"} if token_ids == [1] else {"content": "unused"}
+
+    calls = []
+
+    def fake_generate(prompts, sampling_params):
+        calls.append((prompts, sampling_params))
+        if len(calls) == 1:
+            return [
+                type("RequestOutput", (), {
+                    "outputs": [
+                        type("CompletionOutput", (), {
+                            "text": "<|channel>thought\nchoose [0.25, -0.5]",
+                            "token_ids": [1],
+                            "finish_reason": "stop",
+                        })()
+                    ],
+                    "prompt_token_ids": [11],
+                })()
+            ]
+        return [
+            type("RequestOutput", (), {
+                "outputs": [
+                    type("CompletionOutput", (), {
+                        "text": 'Final Answer: {"location": [0.25, -0.5]}',
+                        "token_ids": [2],
+                        "finish_reason": "stop",
+                    })()
+                ],
+                "prompt_token_ids": [22],
+            })()
+        ]
+
+    adapter = model.GemmaVLLMAdapter.__new__(model.GemmaVLLMAdapter)
+    adapter.model_name = "google/gemma-4-E4B-it"
+    adapter.config = _location_config(
+        location_num_sources=1,
+        location_max_new_tokens=4096,
+        batched_block_size=8,
+    )
+    adapter.tokenizer = _Tokenizer()
+    adapter.max_model_len = 32768
+    adapter.thinking = True
+    adapter.thinking_max_new_tokens = 2048
+    adapter.thinking_final_max_new_tokens = 512
+    adapter.use_logprobs = False
+    adapter.llm = type("LLM", (), {})()
+    adapter.llm.generate = fake_generate
+
+    belief_state = BeliefState([normalize_source_config([[0.0, 0.0]], 1, 2)], [1.0])
+    locations = generate_strategy_locations_many(
+        adapter,
+        [_StrategyLocationRequest("Pick the next location.", belief_state, [])],
+        adapter.config,
+    )
+
+    assert locations == [(0.25, -0.5)]
+    assert len(calls) == 2
+    assert calls[1][0] == ["Prompt<|channel>thought\nchoose [0.25, -0.5]\n<channel|>\nFinal Answer:"]
 
 
 @pytest.mark.parametrize("num_sources", [2, 3, 4])
@@ -314,7 +472,7 @@ def test_naive_parsers_prefer_final_json_after_reasoning_history_fragments():
     {"sources":[[0.9,-0.2],[0.75,0.55]]}
     """
 
-    assert parse_single_location_from_completion(location_completion, 2, (-2.0, 2.0)) == (0.75, -0.25)
+    assert parse_single_location_from_completion(location_completion, 2) == (0.75, -0.25)
     assert parse_best_source_estimate_from_completion(source_completion, 2, 2) == (
         (0.75, 0.55),
         (0.9, -0.2),
@@ -416,11 +574,9 @@ def test_parse_location_strategies_dedupes_json_wrapped_strategy_text():
     ]
 
 
-def test_parse_strategy_location_accepts_single_location_json_and_checks_bounds():
-    assert parse_strategy_location('{"location": [0.25, -1]}', 2, (-2.0, 2.0)) == (0.25, -1.0)
-
-    with pytest.raises(ValueError, match="outside allowed query bounds"):
-        parse_strategy_location('{"location": [3, 0]}', 2, (-2.0, 2.0))
+def test_parse_strategy_location_accepts_single_location_json_without_bounds():
+    assert parse_strategy_location('{"location": [0.25, -1]}', 2) == (0.25, -1.0)
+    assert parse_strategy_location('{"location": [3, 0]}', 2) == (3.0, 0.0)
 
 
 def test_strategy_library_retrieves_best_entries_and_new_library_is_empty():
@@ -547,12 +703,12 @@ def test_generate_location_strategies_empty_library_falls_back_to_diverse():
     assert all("Retrieved elite strategies" not in call[-1]["content"] for call in model.calls)
 
 
-def test_parse_candidate_locations_filters_bounds_duplicates_and_invalid_entries():
+def test_parse_candidate_locations_filters_duplicates_and_invalid_entries_without_bounds():
     completion = '{"locations": [[0, 0], [3, 0], [0, 0], ["bad", 1], {"location": [1.5, -2]}]}'
 
-    locations = parse_candidate_locations(completion, dim=2, bounds=(-2.0, 2.0))
+    locations = parse_candidate_locations(completion, dim=2)
 
-    assert locations == [(0.0, 0.0), (1.5, -2.0)]
+    assert locations == [(0.0, 0.0), (3.0, 0.0), (1.5, -2.0)]
 
 
 
@@ -686,6 +842,175 @@ def test_generated_refresh_hypotheses_compete_with_existing_support():
 
     assert state.hypotheses[0] == generated
     assert state.probabilities[0] > state.probabilities[1]
+
+
+def test_truth_plus_sampled_rollout_scoring_support_includes_truth_and_caps_size():
+    config = _location_config(
+        location_num_sources=1,
+        location_strategy_rollout_scoring_support_mode="truth_plus_sampled",
+        location_strategy_rollout_scoring_support_size=2,
+    )
+    truth = normalize_source_config([[0, 0]], 1, 2)
+    generated = [
+        normalize_source_config([[1, 0]], 1, 2),
+        normalize_source_config([[0, 1]], 1, 2),
+        normalize_source_config([[2, 0]], 1, 2),
+    ]
+    belief_state = build_location_belief_state([truth, generated[0]], [], config)
+    rollout = _StrategyRollout(
+        request_index=0,
+        strategy_index=0,
+        strategy="test",
+        truth=truth,
+        start_probability=0.5,
+        start_belief_state=belief_state,
+        belief_state=belief_state,
+        particle_support=list(belief_state.hypotheses),
+        generated_hypotheses=list(generated),
+        scoring_seed=123,
+    )
+
+    support = _rollout_scoring_support(rollout, config)
+
+    assert support[0] == truth
+    assert len(support) == 3
+    assert set(support[1:]).issubset(set(generated))
+
+
+def test_truth_plus_sampled_rollout_scoring_support_falls_back_to_union_without_generated_pool():
+    config = _location_config(
+        location_num_sources=1,
+        location_strategy_rollout_scoring_support_mode="truth_plus_sampled",
+        location_strategy_rollout_scoring_support_size=2,
+    )
+    truth = normalize_source_config([[0, 0]], 1, 2)
+    other = normalize_source_config([[1, 0]], 1, 2)
+    belief_state = build_location_belief_state([truth, other], [], config)
+    rollout = _StrategyRollout(
+        request_index=0,
+        strategy_index=0,
+        strategy="test",
+        truth=truth,
+        start_probability=0.5,
+        start_belief_state=belief_state,
+        belief_state=belief_state,
+        particle_support=list(belief_state.hypotheses),
+        scoring_seed=123,
+    )
+
+    assert _rollout_scoring_support(rollout, config) == [truth, other]
+
+
+def test_truth_plus_sampled_entropy_score_recomputes_distributions_on_sampled_support():
+    config = _location_config(
+        location_num_sources=1,
+        location_strategy_rollout_scoring_support_mode="truth_plus_sampled",
+        location_strategy_rollout_scoring_support_size=2,
+    )
+    truth = normalize_source_config([[0, 0]], 1, 2)
+    other_a = normalize_source_config([[1, 0]], 1, 2)
+    other_b = normalize_source_config([[0, 1]], 1, 2)
+    belief_state = build_location_belief_state([truth, other_a], [], config)
+    observation = LocationObservation((0.0, 0.0), signal_intensity_for_hypothesis(truth, (0.0, 0.0)))
+    rollout = _StrategyRollout(
+        request_index=0,
+        strategy_index=0,
+        strategy="test",
+        truth=truth,
+        start_probability=0.5,
+        start_belief_state=belief_state,
+        belief_state=belief_state,
+        particle_support=list(belief_state.hypotheses),
+        generated_hypotheses=[other_a, other_b],
+        simulated_observations=[observation],
+        scoring_seed=123,
+    )
+
+    support = _rollout_scoring_support(rollout, config)
+    expected_start = build_location_belief_state_unpruned(support, [], config)
+    expected_final = build_location_belief_state_unpruned(support, [observation], config)
+
+    assert _rollout_entropy_reduction_score(rollout, [], config) == pytest.approx(
+        _location_entropy(expected_start.probabilities) - _location_entropy(expected_final.probabilities)
+    )
+
+
+def test_truth_start_end_rollout_scoring_support_uses_truth_start_and_end():
+    config = _location_config(
+        location_num_sources=1,
+        location_strategy_rollout_scoring_support_mode="truth_start_end",
+    )
+    truth = normalize_source_config([[0, 0]], 1, 2)
+    start_other = normalize_source_config([[1, 0]], 1, 2)
+    end_other = normalize_source_config([[0, 1]], 1, 2)
+    generated_only = normalize_source_config([[2, 0]], 1, 2)
+    start_state = build_location_belief_state([truth, start_other], [], config)
+    end_state = build_location_belief_state([truth, end_other], [], config)
+    rollout = _StrategyRollout(
+        request_index=0,
+        strategy_index=0,
+        strategy="test",
+        truth=truth,
+        start_probability=0.5,
+        start_belief_state=start_state,
+        belief_state=end_state,
+        particle_support=[generated_only],
+        generated_hypotheses=[generated_only],
+        final_scoring_belief_state=end_state,
+    )
+
+    support = _rollout_scoring_support(rollout, config)
+
+    assert support == [truth, start_other, end_other]
+
+
+def test_future_step_support_sum_scores_each_transition_on_next_support():
+    config = _location_config(
+        location_num_sources=1,
+        location_strategy_rollout_score_mode="future_step_support_sum",
+        location_strategy_discount_factor=1.0,
+    )
+    truth = normalize_source_config([[0, 0]], 1, 2)
+    step1_other = normalize_source_config([[1, 0]], 1, 2)
+    step2_other = normalize_source_config([[0, 1]], 1, 2)
+    start_state = build_location_belief_state([truth, step1_other], [], config)
+    observation_1 = LocationObservation(
+        (0.0, 0.0),
+        signal_intensity_for_hypothesis(truth, (0.0, 0.0)),
+    )
+    observation_2 = LocationObservation(
+        (0.0, 1.0),
+        signal_intensity_for_hypothesis(truth, (0.0, 1.0)),
+    )
+    step1_support = [truth, step1_other]
+    step2_support = [truth, step1_other, step2_other]
+    rollout = _StrategyRollout(
+        request_index=0,
+        strategy_index=0,
+        strategy="test",
+        truth=truth,
+        start_probability=0.5,
+        start_belief_state=start_state,
+        belief_state=start_state,
+        particle_support=list(step2_support),
+        simulated_observations=[observation_1, observation_2],
+        simulated_supports=[step1_support, step2_support],
+    )
+
+    expected_step_1 = (
+        _location_entropy(build_location_belief_state_unpruned(step1_support, [], config).probabilities)
+        - _location_entropy(build_location_belief_state_unpruned(step1_support, [observation_1], config).probabilities)
+    )
+    expected_step_2 = (
+        _location_entropy(build_location_belief_state_unpruned(step2_support, [observation_1], config).probabilities)
+        - _location_entropy(
+            build_location_belief_state_unpruned(step2_support, [observation_1, observation_2], config).probabilities
+        )
+    )
+
+    assert _rollout_entropy_reduction_score(rollout, [], config) == pytest.approx(
+        expected_step_1 + expected_step_2
+    )
 
 
 def test_pruning_keeps_top_k_when_over_budget_and_renormalizes():
@@ -889,6 +1214,7 @@ def _weighted_hypotheses_from_strategy_prompt(prompt: str) -> list[dict]:
 
 def test_strategy_rollout_uses_closed_form_steps_then_one_final_refresh():
     config = _location_config(
+        location_num_rounds=3,
         location_strategy_num_rollouts=1,
         location_strategy_planning_depth=3,
         location_strategy_belief_summary_top_k=2,
@@ -937,8 +1263,92 @@ def test_strategy_rollout_uses_closed_form_steps_then_one_final_refresh():
     assert any(abs(probability - 0.5) > 1e-3 for probability in second_prompt_probabilities)
 
 
+def test_strategy_rollout_depth_is_capped_by_remaining_rounds():
+    config = _location_config(
+        location_num_rounds=2,
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=3,
+        location_strategy_belief_summary_top_k=2,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
+    belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
+    existing_observation = LocationObservation((0.0, 0.0), 1.0)
+    model = FakeLocationModel(
+        [
+            '{"location": [1, 1]}',
+            '{"hypotheses": []}',
+        ]
+    )
+
+    evaluations = evaluate_location_strategies_by_rollout(
+        model,
+        ["Probe a discriminative suspected peak, then refine with offsets."],
+        belief_state,
+        [existing_observation],
+        config,
+        np.random.default_rng(4),
+    )
+
+    assert len(evaluations) == 1
+    assert math.isfinite(evaluations[0].mean_score)
+    assert len(model.batched_calls) == 2
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
+    assert "{\"hypotheses\"" in model.batched_calls[1][0][-1]["content"]
+    assert model.batched_calls[1][0][-1]["content"].count("signal_strength") == 2
+
+
+def test_strategy_rollout_can_refresh_hypotheses_at_each_simulated_step():
+    config = _location_config(
+        location_num_rounds=2,
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=2,
+        location_strategy_belief_summary_top_k=3,
+        location_strategy_rollout_refresh_hypotheses_each_step=True,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
+    generated_step_1 = normalize_source_config([[0.5, 0.5], [1.5, -0.5], [-1.5, 0.25]], 3, 2)
+    generated_step_2 = normalize_source_config([[0.2, 0.2], [1.2, -0.2], [-1.2, 0.5]], 3, 2)
+    belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
+    model = FakeLocationModel(
+        [
+            '{"location": [1, 1]}',
+            json.dumps({"hypotheses": [[list(source) for source in generated_step_1], ["bad", 1]]}),
+            '{"location": [0, 0]}',
+            json.dumps({"hypotheses": [[list(source) for source in generated_step_2], [[0, 0]]]}),
+            '{"hypotheses": []}',
+        ]
+    )
+
+    evaluations = evaluate_location_strategies_by_rollout(
+        model,
+        ["Probe a suspected peak, then refine with offsets."],
+        belief_state,
+        [],
+        config,
+        np.random.default_rng(4),
+    )
+
+    assert len(evaluations) == 1
+    assert math.isfinite(evaluations[0].mean_score)
+    assert len(model.batched_calls) == 5
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
+    assert "{\"hypotheses\"" in model.batched_calls[1][0][-1]["content"]
+    assert "{\"location\":[x1,y1]}" in model.batched_calls[2][0][0]["content"]
+    assert "{\"hypotheses\"" in model.batched_calls[3][0][-1]["content"]
+    assert "{\"hypotheses\"" in model.batched_calls[4][0][-1]["content"]
+
+    second_location_prompt = model.batched_calls[2][0][-1]["content"]
+    final_refresh_prompt = model.batched_calls[4][0][-1]["content"]
+    assert second_location_prompt.count("signal_strength") == 1
+    assert final_refresh_prompt.count("signal_strength") == 2
+    assert "0.5" in second_location_prompt
+
+
 def test_strategy_rollout_final_refresh_uses_llm_posterior_mode():
     config = _location_config(
+        location_num_rounds=2,
         location_posterior_mode="llm_distribution",
         location_strategy_num_rollouts=1,
         location_strategy_planning_depth=2,
@@ -1088,6 +1498,32 @@ def test_run_location_strategy_eig_one_round_with_fake_llm_smoke(tmp_path, num_s
     assert f"exactly {num_sources} hidden signal sources" in model.batched_calls[0][0][0]["content"]
     assert "{\"location\":[x1,y1]}" in model.batched_calls[0][0][0]["content"]
 
+    per_trial_path = tmp_path / "location_per_trial_metrics.json"
+    assert per_trial_path.exists()
+    per_trial_payload = json.loads(per_trial_path.read_text())
+    assert per_trial_payload["metric_names"] == [
+        "ess",
+        "realized_entropy_drop",
+        "selected_eig",
+        "source_rmse",
+        "support_size",
+        "top_probability",
+    ]
+    assert per_trial_payload["trials"][0]["metrics"]["realized_entropy_drop"] == pytest.approx(
+        metrics.realized_entropy_drop
+    )
+    assert per_trial_payload["trials"][0]["metrics"]["source_rmse"] == pytest.approx(metrics.source_rmse)
+    assert per_trial_payload["trials"][0]["metrics"]["selected_eig"] == pytest.approx(metrics.selected_eig)
+
+    strategies_path = tmp_path / "location_selected_strategies.jsonl"
+    assert strategies_path.exists()
+    strategy_records = [json.loads(line) for line in strategies_path.read_text().splitlines()]
+    assert len(strategy_records) == 1
+    assert strategy_records[0]["trial_index"] == 0
+    assert strategy_records[0]["round_index"] == 0
+    assert strategy_records[0]["location"] == [1.0, 1.0]
+    assert strategy_records[0]["strategy"].startswith("Start at the center")
+
 
 def test_run_location_strategy_eig_llm_posterior_smoke(tmp_path):
     initial_hypotheses = _source_hypotheses_json(3)
@@ -1183,6 +1619,38 @@ def test_run_location_eig_batches_initial_candidates_and_updates_across_trials(t
     flattened = [messages for batch in model.batched_calls for messages in batch]
     assert any("finite Bayesian belief support" in call[0]["content"] for call in flattened)
     assert any("candidate measurement locations" in call[0]["content"] for call in flattened)
+
+
+def test_run_location_eig_bounds_adds_separate_total_eig_metrics():
+    model = RoutingLocationModel(num_sources=1)
+    config = _location_config(
+        location_num_sources=1,
+        location_num_trials=2,
+        location_num_rounds=1,
+        location_trial_batch_size=2,
+        location_target_num_candidates=2,
+        location_search_depth=1,
+        location_eig_bounds_enabled=True,
+        location_eig_bounds_inner_samples=3,
+        location_eig_bounds_seed=77,
+        location_eig_bounds_chunk_size=2,
+    )
+
+    _run_result, summary = run_from_config(config, model, method_name="EIG")
+
+    for metric_name in (
+        "total_eig_lower_bound",
+        "total_eig_upper_bound",
+        "total_eig_lower_bound_se",
+        "total_eig_upper_bound_se",
+    ):
+        assert metric_name in summary.metrics
+        assert len(summary.metrics[metric_name]) == 1
+        assert math.isfinite(summary.metrics[metric_name][0])
+    assert len(summary.metrics["source_rmse"]) == 1
+    assert len(summary.metrics["selected_eig"]) == 1
+    assert len(model.calls) == 0
+    assert [len(batch) for batch in model.batched_calls] == [2, 2, 2]
 
 
 def test_run_location_strategy_root_batches_trials_and_rollouts(tmp_path):

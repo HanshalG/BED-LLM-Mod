@@ -107,7 +107,6 @@ def test_location_finding_runs_one_full_trial_through_bed_runner():
         location_num_sources=2,
         location_dim=2,
         location_noise_sd=0.5,
-        location_query_bounds=[-2.0, 2.0],
         location_max_total_beliefs=50,
         location_max_llm_prompt_beliefs=10,
         location_num_generated_hypotheses=4,

@@ -90,7 +90,6 @@ def _location_config() -> Config:
         location_num_sources=2,
         location_dim=2,
         location_noise_sd=0.5,
-        location_query_bounds=[-2.0, 2.0],
         location_max_total_beliefs=50,
         location_max_llm_prompt_beliefs=10,
         location_target_num_candidates=2,

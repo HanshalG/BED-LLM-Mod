@@ -25,6 +25,8 @@ BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
 LocationPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
+LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled", "truth_start_end"]
+LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_step_support_sum"]
 
 
 @dataclass(frozen=True)
@@ -32,6 +34,8 @@ class ModelSpec:
     model: str
     thinking: bool | None = None
     reasoning_effort: ReasoningEffort | None = None
+    thinking_max_new_tokens: int | None = None
+    thinking_final_max_new_tokens: int | None = None
     use_logprobs: bool = False
     tensor_parallel_size: int | None = None
     gpu_memory_utilization: float | None = None
@@ -102,7 +106,6 @@ class Config:
     location_num_sources: int = 3
     location_dim: int = 2
     location_noise_sd: float = 0.5
-    location_query_bounds: list[float] = field(default_factory=lambda: [-2.0, 2.0])
     location_max_total_beliefs: int = 1000
     location_max_llm_prompt_beliefs: int = 40
     location_num_generated_hypotheses: int = 0  # 0 = inherit from location_max_llm_prompt_beliefs
@@ -118,7 +121,15 @@ class Config:
     location_strategy_planning_depth: int = 8
     location_strategy_discount_factor: float = 1.0
     location_strategy_belief_summary_top_k: int = 5
+    location_strategy_rollout_refresh_hypotheses_each_step: bool = False
+    location_strategy_rollout_scoring_support_mode: LocationStrategyRolloutScoringSupportMode = "union"
+    location_strategy_rollout_scoring_support_size: int = 32
+    location_strategy_rollout_score_mode: LocationStrategyRolloutScoreMode = "start_final_entropy_drop"
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
+    location_eig_bounds_enabled: bool = False
+    location_eig_bounds_inner_samples: int = 5000
+    location_eig_bounds_seed: int | None = None
+    location_eig_bounds_chunk_size: int = 8192
     location_max_new_tokens: int | None = None
 
     def __post_init__(self) -> None:
@@ -129,6 +140,42 @@ class Config:
         # load_config() behaviour of defaulting the two together.
         if self.location_num_generated_hypotheses == 0:
             self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
+        if self.location_strategy_rollout_scoring_support_mode not in {
+            "union",
+            "truth_plus_sampled",
+            "truth_start_end",
+        }:
+            raise ValueError(
+                "location_strategy_rollout_scoring_support_mode must be one of: "
+                "union, truth_plus_sampled, truth_start_end"
+            )
+        if self.location_strategy_rollout_scoring_support_size <= 0:
+            raise ValueError("location_strategy_rollout_scoring_support_size must be positive")
+        if self.location_strategy_rollout_score_mode not in {
+            "start_final_entropy_drop",
+            "future_step_support_sum",
+        }:
+            raise ValueError(
+                "location_strategy_rollout_score_mode must be one of: "
+                "start_final_entropy_drop, future_step_support_sum"
+            )
+        if (
+            self.location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end"}
+            and self.location_posterior_mode != "analytical_likelihood"
+        ):
+            raise ValueError(
+                "location_strategy_rollout_scoring_support_mode "
+                f"'{self.location_strategy_rollout_scoring_support_mode}' "
+                "requires location_posterior_mode='analytical_likelihood'"
+            )
+        if (
+            self.location_strategy_rollout_refresh_hypotheses_each_step
+            and self.location_posterior_mode != "analytical_likelihood"
+        ):
+            raise ValueError(
+                "location_strategy_rollout_refresh_hypotheses_each_step requires "
+                "location_posterior_mode='analytical_likelihood'"
+            )
         self.location_max_new_tokens = self.effective_max_model_len
 
     @property
@@ -197,6 +244,22 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if reasoning_effort is not None and reasoning_effort not in {"low", "medium", "high"}:
         raise ValueError(f"{side_name}.reasoning_effort must be one of: low, medium, high")
 
+    thinking_max_new_tokens = raw_spec.get("thinking_max_new_tokens")
+    if thinking_max_new_tokens is not None and (
+        not isinstance(thinking_max_new_tokens, int)
+        or isinstance(thinking_max_new_tokens, bool)
+        or thinking_max_new_tokens < 1
+    ):
+        raise ValueError(f"{side_name}.thinking_max_new_tokens must be a positive integer or null")
+
+    thinking_final_max_new_tokens = raw_spec.get("thinking_final_max_new_tokens")
+    if thinking_final_max_new_tokens is not None and (
+        not isinstance(thinking_final_max_new_tokens, int)
+        or isinstance(thinking_final_max_new_tokens, bool)
+        or thinking_final_max_new_tokens < 1
+    ):
+        raise ValueError(f"{side_name}.thinking_final_max_new_tokens must be a positive integer or null")
+
     use_logprobs = raw_spec.get("use_logprobs", False)
     if not isinstance(use_logprobs, bool):
         raise ValueError(f"{side_name}.use_logprobs must be a boolean when provided")
@@ -250,6 +313,8 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if is_harmony:
         if thinking is not None:
             raise ValueError(f"{side_name}.thinking is not supported for {model_name}")
+        if thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None:
+            raise ValueError(f"{side_name}.thinking budgets are not supported for {model_name}")
         if use_logprobs:
             raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
         return ModelSpec(
@@ -263,9 +328,22 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
             raise ValueError(f"{side_name}.reasoning_effort is not supported for {model_name}")
         if use_logprobs and not is_qwen25:
             raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
+        normalized_thinking = False if thinking is None else thinking
+        if not normalized_thinking and (
+            thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None
+        ):
+            raise ValueError(f"{side_name}.thinking budgets require thinking: true")
         return ModelSpec(
             model=model_name,
-            thinking=False if thinking is None else thinking,
+            thinking=normalized_thinking,
+            thinking_max_new_tokens=(
+                thinking_max_new_tokens if thinking_max_new_tokens is not None
+                else 4096 if normalized_thinking else None
+            ),
+            thinking_final_max_new_tokens=(
+                thinking_final_max_new_tokens if thinking_final_max_new_tokens is not None
+                else 512 if normalized_thinking else None
+            ),
             use_logprobs=use_logprobs,
             **vllm_kwargs,
         )
@@ -274,6 +352,8 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
         raise ValueError(f"{side_name}.thinking is only supported for Qwen and Gemma 4 models")
     if reasoning_effort is not None:
         raise ValueError(f"{side_name}.reasoning_effort is only supported for gpt-oss models")
+    if thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None:
+        raise ValueError(f"{side_name}.thinking budgets are only supported for Qwen and Gemma 4 models")
     if use_logprobs:
         raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
 
@@ -333,19 +413,6 @@ def _read_probability(raw: dict, key: str, default: float) -> float:
     return coerced
 
 
-def _read_bounds(raw: dict, key: str, default: list[float]) -> list[float]:
-    value = raw.get(key, default)
-    if not isinstance(value, (list, tuple)) or len(value) != 2:
-        raise ValueError(f"{key} must be a two-item list [low, high]")
-    try:
-        low, high = (float(value[0]), float(value[1]))
-    except (TypeError, ValueError) as exc:
-        raise ValueError(f"{key} must contain numeric low/high values") from exc
-    if not math.isfinite(low) or not math.isfinite(high) or low >= high:
-        raise ValueError(f"{key} must contain finite values with low < high")
-    return [low, high]
-
-
 def _environment_aliases(task: str) -> dict[str, str]:
     """Map canonical nested environment keys to runtime attribute names."""
     common_animals = {
@@ -366,7 +433,6 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "num_sources": "location_num_sources",
         "dim": "location_dim",
         "noise_sd": "location_noise_sd",
-        "query_bounds": "location_query_bounds",
         "max_total_beliefs": "location_max_total_beliefs",
         "max_llm_prompt_beliefs": "location_max_llm_prompt_beliefs",
         "num_generated_hypotheses": "location_num_generated_hypotheses",
@@ -382,7 +448,15 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "strategy_planning_depth": "location_strategy_planning_depth",
         "strategy_discount_factor": "location_strategy_discount_factor",
         "strategy_belief_summary_top_k": "location_strategy_belief_summary_top_k",
+        "strategy_rollout_refresh_hypotheses_each_step": "location_strategy_rollout_refresh_hypotheses_each_step",
+        "strategy_rollout_scoring_support_mode": "location_strategy_rollout_scoring_support_mode",
+        "strategy_rollout_scoring_support_size": "location_strategy_rollout_scoring_support_size",
+        "strategy_rollout_score_mode": "location_strategy_rollout_score_mode",
         "posterior_mode": "location_posterior_mode",
+        "eig_bounds_enabled": "location_eig_bounds_enabled",
+        "eig_bounds_inner_samples": "location_eig_bounds_inner_samples",
+        "eig_bounds_seed": "location_eig_bounds_seed",
+        "eig_bounds_chunk_size": "location_eig_bounds_chunk_size",
     }
     if task == "animals":
         return common_animals
@@ -537,7 +611,6 @@ def load_config(path: str) -> Config:
     location_num_sources = _read_positive_int(raw, "location_num_sources", 3)
     location_dim = _read_positive_int(raw, "location_dim", 2)
     location_noise_sd = _read_positive_float(raw, "location_noise_sd", 0.5)
-    location_query_bounds = _read_bounds(raw, "location_query_bounds", [-2.0, 2.0])
     location_max_total_beliefs = _read_positive_int(raw, "location_max_total_beliefs", 1000)
     location_max_llm_prompt_beliefs = _read_positive_int(
         raw,
@@ -567,9 +640,73 @@ def load_config(path: str) -> Config:
     location_strategy_planning_depth = _read_positive_int(raw, "location_strategy_planning_depth", 8)
     location_strategy_discount_factor = _read_probability(raw, "location_strategy_discount_factor", 1.0)
     location_strategy_belief_summary_top_k = _read_positive_int(raw, "location_strategy_belief_summary_top_k", 5)
+    location_strategy_rollout_refresh_hypotheses_each_step = raw.get(
+        "location_strategy_rollout_refresh_hypotheses_each_step",
+        False,
+    )
+    if not isinstance(location_strategy_rollout_refresh_hypotheses_each_step, bool):
+        raise ValueError("location_strategy_rollout_refresh_hypotheses_each_step must be a boolean")
+    location_strategy_rollout_scoring_support_mode = raw.get(
+        "location_strategy_rollout_scoring_support_mode",
+        "union",
+    )
+    if location_strategy_rollout_scoring_support_mode not in {"union", "truth_plus_sampled", "truth_start_end"}:
+        raise ValueError(
+            "location_strategy_rollout_scoring_support_mode must be one of: "
+            "union, truth_plus_sampled, truth_start_end"
+        )
+    location_strategy_rollout_scoring_support_size = _read_positive_int(
+        raw,
+        "location_strategy_rollout_scoring_support_size",
+        32,
+    )
+    location_strategy_rollout_score_mode = raw.get(
+        "location_strategy_rollout_score_mode",
+        "start_final_entropy_drop",
+    )
+    if location_strategy_rollout_score_mode not in {"start_final_entropy_drop", "future_step_support_sum"}:
+        raise ValueError(
+            "location_strategy_rollout_score_mode must be one of: "
+            "start_final_entropy_drop, future_step_support_sum"
+        )
     location_posterior_mode = raw.get("location_posterior_mode", "analytical_likelihood")
     if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
         raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
+    if (
+        location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end"}
+        and location_posterior_mode != "analytical_likelihood"
+    ):
+        raise ValueError(
+            "location_strategy_rollout_scoring_support_mode "
+            f"'{location_strategy_rollout_scoring_support_mode}' "
+            "requires location_posterior_mode='analytical_likelihood'"
+        )
+    if (
+        location_strategy_rollout_refresh_hypotheses_each_step
+        and location_posterior_mode != "analytical_likelihood"
+    ):
+        raise ValueError(
+            "location_strategy_rollout_refresh_hypotheses_each_step requires "
+            "location_posterior_mode='analytical_likelihood'"
+        )
+    location_eig_bounds_enabled = raw.get("location_eig_bounds_enabled", False)
+    if not isinstance(location_eig_bounds_enabled, bool):
+        raise ValueError("location_eig_bounds_enabled must be a boolean")
+    location_eig_bounds_inner_samples = _read_positive_int(
+        raw,
+        "location_eig_bounds_inner_samples",
+        5000,
+    )
+    location_eig_bounds_seed = raw.get("location_eig_bounds_seed")
+    if location_eig_bounds_seed is not None and (
+        not isinstance(location_eig_bounds_seed, int) or isinstance(location_eig_bounds_seed, bool)
+    ):
+        raise ValueError("location_eig_bounds_seed must be an integer or null")
+    location_eig_bounds_chunk_size = _read_positive_int(
+        raw,
+        "location_eig_bounds_chunk_size",
+        8192,
+    )
     method_names = raw.get("method_names", raw.get("extraction_methods", []))
     if task == "location_finding" and not method_names:
         method_names = ["EIG"]
@@ -625,7 +762,6 @@ def load_config(path: str) -> Config:
         location_num_sources = location_num_sources,
         location_dim = location_dim,
         location_noise_sd = location_noise_sd,
-        location_query_bounds = location_query_bounds,
         location_max_total_beliefs = location_max_total_beliefs,
         location_max_llm_prompt_beliefs = location_max_llm_prompt_beliefs,
         location_num_generated_hypotheses = location_num_generated_hypotheses,
@@ -641,7 +777,15 @@ def load_config(path: str) -> Config:
         location_strategy_planning_depth = location_strategy_planning_depth,
         location_strategy_discount_factor = location_strategy_discount_factor,
         location_strategy_belief_summary_top_k = location_strategy_belief_summary_top_k,
+        location_strategy_rollout_refresh_hypotheses_each_step = location_strategy_rollout_refresh_hypotheses_each_step,
+        location_strategy_rollout_scoring_support_mode = location_strategy_rollout_scoring_support_mode,
+        location_strategy_rollout_scoring_support_size = location_strategy_rollout_scoring_support_size,
+        location_strategy_rollout_score_mode = location_strategy_rollout_score_mode,
         location_posterior_mode = location_posterior_mode,
+        location_eig_bounds_enabled = location_eig_bounds_enabled,
+        location_eig_bounds_inner_samples = location_eig_bounds_inner_samples,
+        location_eig_bounds_seed = location_eig_bounds_seed,
+        location_eig_bounds_chunk_size = location_eig_bounds_chunk_size,
         location_max_new_tokens = None,
     )
 
