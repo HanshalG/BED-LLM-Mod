@@ -32,7 +32,8 @@ make this true. No row requires new experiments before submission.
    qualitative strategies/trajectories.
 3. Complete 4–6 page draft in `paper/` following the OUTCOME PLAYBOOK row that applies,
    with limitations section covering: forced-thinking-exit rate, single environment
-   family, no MPC ablation (future work), workshop-scale trial counts.
+   family, constructed (method-blind) environment with the robustness heatmap as scope
+   evidence, no MPC ablation (future work), workshop-scale trial counts.
 4. `EXPERIMENTS.md` accounts for every result in the paper, each traceable to a commit/tag.
 5. Repo state committed and tagged; CURRENT STATE updated to "submitted/awaiting".
 
@@ -46,10 +47,10 @@ on the jobs.
 
 ## CURRENT STATE (updated 2026-07-08) — read this first
 
-Phases 1–3 are DONE; Phase 4 is RUNNING; writing has not started. The Path A
-infrastructure is committed locally and tagged `path-a-final-sweep`. Later sections of
-this document are the design history and detailed specs — consult them when a step below
-needs detail, but execute from here.
+Phases 1–3 are DONE; Phase 4 is RUNNING; paper skeleton is started in `paper/`
+and compiles. The Path A infrastructure is committed locally and tagged
+`path-a-final-sweep`. Later sections of this document are the design history and
+detailed specs — consult them when a step below needs detail, but execute from here.
 
 Status of the Minimum Publishable Package:
 
@@ -72,21 +73,12 @@ is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
 
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Check the gh200/msc SLURM wall-clock limits against projected runtime.** Recovery
-   script exists (`scripts/recover_depth_sweep_metrics.py`) and is smoke-tested, but the
-   live jobs may still hit wall-clock before a complete round of StrategyEIG metrics.
-2. **Create the paper skeleton.** `paper/` with a 4–6 page
-   workshop layout: abstract stub using the question-driven framing ("Can LLMs evaluate
-   their own experimental plans?"), section stubs, and placeholder slots for the four
-   figures: (i) main paired depth/contrast figure, (ii) ranking-fidelity diagnostics,
-   (iii) cost-vs-depth table, (iv) qualitative strategies+trajectories figure. The
-   WRITE-NOW LIST covers what can be drafted from already-banked results.
-3. **Add qualitative-figure extraction to packaging.** Extend
+1. **Add qualitative-figure extraction to packaging.** Extend
    `scripts/build_path_a_package.py` (or a sibling script) to pull 2–3 verbatim evolved
    NL strategies with their query trajectories from the sweep runs — ideally a trial
    where greedy stalls at a decoy branch and StrategyEIG routes past it. Reasoning
    traces are already logged.
-4. **RMSE repair analyses (free, from existing gate JSONL — no new runs).**
+2. **RMSE repair analyses (free, from existing gate JSONL — no new runs).**
    (a) Exculpation check: correlation between REALIZED entropy drop and REALIZED ΔRMSE
    across candidates within each probe, plus RMSE between/within-strategy SNR. If
    realized-realized ≈ 0, no scorer could rank point-RMSE at probe horizons — the
@@ -96,6 +88,22 @@ is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
    near truth-log-prob levels, completing the story (scorer predicts posterior quality;
    point-RMSE is a noisy discretization). Append both to
    `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`.
+3. **Environment robustness heatmap (CPU-only, addresses the "hand-tuned env" critique).**
+   Extend `scripts/constrained_oracle_check.py` into a parameter sweep: oracle gap
+   (planner − greedy final RMSE, non-LLM, analytic) over a grid of signal lengthscale ×
+   max step radius × noise_sd (~3×3×3, 100+ trials per cell, embarrassingly parallel on
+   CPU). Deliverable: a heatmap of where non-myopia pays, with the Phase 4 operating
+   point marked. This converts "we tuned until it worked" into "we mapped the region
+   where planning matters and evaluated inside it" — the strongest available answer to
+   the contrived-environment review. Appendix figure + 2 sentences in main text.
+4. **Env framing in the paper (free, write into the skeleton).** Present the env with
+   its physical semantics — mobile agent, movement cost (locality constraint),
+   short-range sensor (local-bump finite-range signal), junction structure (branch-decoy
+   prior) — not as an abstract tuned geometry. State explicitly that geometry selection
+   was METHOD-BLIND (tuned against non-LLM oracle policies only; StrategyEIG never
+   entered the tuning loop). Report the failed geometries transparently as a finding:
+   most geometries are greedy-friendly, myopic traps are rare in this family — which
+   explains the original null results and motivates the constructed instance.
 5. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
    Path A artifact into `configs/archive/`; live configs must be findable at a glance.
 6. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then

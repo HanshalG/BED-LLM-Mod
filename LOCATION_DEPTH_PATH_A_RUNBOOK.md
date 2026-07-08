@@ -50,6 +50,20 @@ Live Phase 4 cluster state as of 2026-07-08:
 | 102018 | `loc_branch_constr26_mpp30` | `msc` | pending | - | `loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5. |
 | 102019 | `loc_branch_uncon26_mpp30` | `msc` | pending | - | `loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5. |
 
+Wall-clock check as of 2026-07-08:
+
+- Slurm time limits are not the immediate risk: running GH200 jobs report
+  `TimeLimit=UNLIMITED`, running MSC jobs report `TimeLimit=365-00:00:00`,
+  and pending GH200/MSC jobs report `TimeLimit=UNLIMITED`.
+- The immediate risk is throughput. All four running full50 jobs have written
+  only the 150 non-StrategyEIG control decisions and no metrics file. The old
+  GH200 jobs are inside depth-1 refresh blocks of about 71k hypothetical
+  source-support refreshes; the optimized MSC jobs are inside depth-1 refresh
+  blocks of about 8k refreshes.
+- The MPP30 fallback jobs are still priority-pending, and Slurm's projected
+  start times are not useful near-term guarantees. Do not count on them to land
+  before the running jobs advance.
+
 ## Phase 1 Gate
 
 Completed 26B A4B result: `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`.

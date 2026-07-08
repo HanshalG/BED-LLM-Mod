@@ -1,0 +1,215 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{xcolor}
+
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{Can Language Models Evaluate Their Own Experimental Plans?}
+\author{Hanshal Goyal}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language models can propose rich natural-language experimental
+strategies, but non-myopic Bayesian experimental design requires more than
+plausible plans: the model must rank those plans by their expected downstream
+information gain. We study this question in a locality-constrained
+location-finding environment designed to expose a greedy-planning gap. Our
+diagnostic first measures whether rollout-scored natural-language strategies
+predict realized information gain. The current 26B A4B gate shows positive
+rank fidelity for entropy and truth-anchored posterior quality, while point
+RMSE remains noisy. We then pre-register a paired depth-sweep analysis comparing
+greedy EIG, StrategyEIG depths 1/3/5, and matched-compute myopic controls.
+\todo{Fill final Phase 4 result sentence after package validation.}
+\end{abstract}
+
+\section{Introduction}
+
+Sequential experimental design often needs non-myopic decisions: a low-value
+measurement now can move the experimenter into a region where future
+measurements become valuable. Classical planners can exploit this structure
+when the model, action space, and constraints are explicit. The harder question
+for LLM-driven BED is whether a general-purpose language model can formulate
+and evaluate reusable natural-language strategies without training a
+task-specific planner.
+
+This paper asks a deliberately narrow question: can LLM-generated strategies be
+ranked by their realized downstream information gain? We focus on a constrained
+location-finding task where a non-LLM oracle shows that lookahead should matter.
+The contribution is not a new robotics planner, but a diagnostic and
+experimental scaffold for natural-language strategy planning.
+
+Our contributions are:
+\begin{enumerate}
+  \item A ranking-fidelity diagnostic for StrategyEIG, measuring whether
+  rollout-estimated EIG ranks natural-language strategies by realized entropy
+  reduction and truth-anchored posterior quality.
+  \item A locality-constrained location-finding benchmark with a banked
+  non-LLM oracle gap between greedy EIG and a depth-2 planner.
+  \item A pre-registered paired depth sweep with matched-compute myopic
+  controls, designed to separate non-myopic objective gains from extra rollout
+  compute.
+  \item A cost-vs-depth accounting that contrasts natural-language strategy
+  rollout with brute-force LLM n-step expansion.
+\end{enumerate}
+
+\section{Related Work}
+
+\paragraph{Bayesian experimental design.}
+Deep adaptive design learns amortized policies for sequential BED in fixed
+parametric spaces, while classical online planners optimize explicit
+transition-constrained design problems. Our setting keeps the probabilistic
+model explicit but asks an LLM to generate and score strategy-level policies.
+
+\paragraph{Constrained BED and informative path planning.}
+Constrained location finding is structurally close to informative path
+planning. Guo et al.'s COPEx work on constrained BED via online planning is
+especially adjacent: it studies transition-constrained location finding and
+uses learned posterior/predictive surrogates with scenario-tree lookahead. Our
+differentiation is the portable natural-language strategy scaffold and its
+ranking-fidelity diagnostic, not novelty of the constrained-planning task.
+
+\paragraph{LLM-driven experimental design.}
+BED-LLM-style greedy and brute-force n-step question expansion provide a
+natural baseline. Brute-force n-step expansion can be non-myopic, but its tree
+cost grows quickly with depth. StrategyEIG aims to keep evaluation roughly
+linear in the number of candidate strategies and rollout depth.
+
+\section{Method}
+
+\subsection{StrategyEIG}
+
+At each round, the model proposes candidate natural-language strategies and
+associated root queries. Each strategy is evaluated by simulating rollout
+trajectories under an analytical location posterior, scoring the expected
+entropy reduction on a controlled support. The selected strategy executes its
+root query in the real environment, after which the posterior is updated from
+the realized observation.
+
+\subsection{Ranking-Fidelity Diagnostic}
+
+For a belief state, we generate a fixed set of candidate strategies and score
+each candidate at depths 2, 3, and 5. We then deploy each candidate under paired
+simulation seeds and compare estimated rollout score against realized entropy
+drop, realized truth log posterior probability, and realized RMSE. Spearman
+rank correlation and top-1 regret are the main diagnostic quantities because
+deployment only uses the argmax strategy.
+
+\subsection{Paired Depth Sweep}
+
+The final sweep uses shared hidden states, initial beliefs, and observation
+noise across greedy EIG, naive baselines, StrategyEIG depths, and
+matched-compute myopic controls. The pre-registered primary endpoint is paired
+final truth log posterior probability with bootstrap confidence intervals on
+the mean paired difference. Secondary endpoints are point RMSE, expected
+posterior RMSE, posterior entropy, and paired win-rate distributions.
+
+\section{Environment}
+
+The headline task is a one-source branch-decoy location-finding environment
+with local-bump observations, short movement radius, and six measurement
+rounds. The finite-range signal makes far branches hard to distinguish until
+the agent commits movement, creating a structural gap between greedy EIG and
+lookahead planning.
+
+The banked non-LLM oracle check uses 120 paired trials. Greedy EIG reaches final
+RMSE 0.5606, while a depth-2 planner reaches 0.1529. The planner win rate is
+0.525, suggesting heavy-tailed improvements and motivating mean paired effects
+with bootstrap intervals rather than only rank tests.
+
+\section{Results}
+
+\subsection{Ranking Fidelity}
+
+The Phase 1 26B A4B gate passes the information-ranking criterion. Across the
+banked gate, entropy Spearman correlations are positive at all depths, and
+truth-log-posterior correlations are also positive. Point-RMSE correlations are
+near zero, motivating the truth-anchored primary endpoint for the final sweep.
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.9\linewidth}{\centering
+  Placeholder: ranking-fidelity diagnostics figure. Include entropy
+  Spearman, truth-log-prob Spearman, RMSE Spearman, top-1 regret, and SNR by
+  depth.}}
+  \caption{Strategy ranking fidelity before the final depth sweep.}
+  \label{fig:ranking-fidelity}
+\end{figure}
+
+\subsection{Depth Sweep}
+
+\todo{Insert final constrained and unconstrained paired results after
+\texttt{scripts/build\_path\_a\_package.py} and
+\texttt{scripts/validate\_path\_a\_package.py} pass. Report the
+pre-registered primary endpoint first.}
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.9\linewidth}{\centering
+  Placeholder: main paired constrained/unconstrained contrast. Show greedy EIG,
+  StrategyEIG d1/d3/d5, and matched-compute myopic controls with confidence
+  intervals.}}
+  \caption{Final paired depth-sweep contrast.}
+  \label{fig:depth-sweep}
+\end{figure}
+
+\subsection{Cost Versus Depth}
+
+\todo{Insert cost table generated by
+\texttt{scripts/cost\_vs\_depth\_table.py}, comparing brute-force n-step LLM
+EIG with StrategyEIG rollout cost.}
+
+\begin{table}[t]
+  \centering
+  \begin{tabular}{lrrr}
+    \toprule
+    Method & Depth & LLM calls & Notes \\
+    \midrule
+    Brute-force n-step EIG & 1--3 & \todo{fill} & Tree expansion \\
+    StrategyEIG & 1--5 & \todo{fill} & Strategy rollout \\
+    \bottomrule
+  \end{tabular}
+  \caption{Cost-vs-depth accounting.}
+  \label{tab:cost}
+\end{table}
+
+\subsection{Qualitative Strategies}
+
+\todo{Insert 2--3 evolved strategies and paired query trajectories, ideally a
+trial where greedy stalls near a decoy branch and StrategyEIG routes past it.}
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox{0.9\linewidth}{\centering
+  Placeholder: strategy text snippets next to constrained query trajectories.}}
+  \caption{Qualitative natural-language strategies and resulting query paths.}
+  \label{fig:qualitative}
+\end{figure}
+
+\section{Limitations}
+
+The current study is workshop-scale. It uses one constrained environment
+family, one headline model family, and a limited number of paired trials. The
+thinking-enabled 26B A4B runs have nontrivial forced-thinking-exit rates, which
+must be reported with token usage. We do not include an MPC-style direct
+action-sequence ablation in the minimum package; it remains important future
+work for separating the value of natural-language strategies from direct action
+planning.
+
+\section{Conclusion}
+
+\todo{Choose final framing from the outcome playbook after Phase 4 metrics
+land. Keep the claim tied to paired truth-log-posterior probability, RMSE only
+where supported, and matched-compute controls.}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
