@@ -10,7 +10,7 @@ from .beliefs import build_location_posterior
 from .formatting import _format_source_array, _log_location, _summarize_candidates
 from .parsing import parse_best_source_estimate_from_completion, parse_candidate_locations, parse_single_location_from_completion, parse_source_hypotheses
 from .prompts import _belief_generation_messages, _candidate_generation_messages, _naive_location_messages, _naive_source_estimate_messages, _naive_source_estimate_repair_messages
-from .types import Location, LocationObservation, SourceConfig
+from .types import Location, LocationObservation, SourceConfig, last_query_from_observations, project_location_to_step_radius
 
 if TYPE_CHECKING:
     from model import Model
@@ -156,7 +156,11 @@ def generate_location_candidates(
                 + ("; retrying" if attempt < 2 else "; giving up"),
                 config,
             )
-    selected = candidates[:config.location_target_num_candidates]
+    previous_query = last_query_from_observations(observations)
+    selected = [
+        project_location_to_step_radius(candidate, previous_query, config)
+        for candidate in candidates[:config.location_target_num_candidates]
+    ]
     _log_location(
         f"candidate generation: parsed={len(candidates)}, returned={len(selected)}, "
         f"locations={_summarize_candidates(selected)}",
@@ -221,7 +225,11 @@ def generate_location_candidates_many(
     candidates_many: list[list[Location]] = []
     for idx, raw in enumerate(results):
         candidates = raw if raw is not None else []
-        selected = candidates[:config.location_target_num_candidates]
+        previous_query = last_query_from_observations(observations_many[idx])
+        selected = [
+            project_location_to_step_radius(candidate, previous_query, config)
+            for candidate in candidates[:config.location_target_num_candidates]
+        ]
         _log_location(
             f"candidate generation: item {idx} parsed={len(candidates)}, returned={len(selected)}, "
             f"locations={_summarize_candidates(selected)}",
@@ -245,7 +253,11 @@ def choose_location_naive(
     for attempt in range(3):
         completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
         try:
-            location = parse_single_location_from_completion(completion, config.location_dim)
+            location = project_location_to_step_radius(
+                parse_single_location_from_completion(completion, config.location_dim),
+                last_query_from_observations(observations),
+                config,
+            )
             _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
             return location
         except ValueError as exc:
@@ -349,7 +361,11 @@ def choose_locations_naive_many(
         still_pending: list[int] = []
         for idx, completion in zip(pending, completions):
             try:
-                location = parse_single_location_from_completion(completion, config.location_dim)
+                location = project_location_to_step_radius(
+                    parse_single_location_from_completion(completion, config.location_dim),
+                    last_query_from_observations(observations_many[idx]),
+                    config,
+                )
                 _log_location(f"Naive selection: chose direct LLM query {list(location)}", config)
                 results[idx] = location
             except ValueError as exc:

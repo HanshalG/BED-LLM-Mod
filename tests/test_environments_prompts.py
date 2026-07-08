@@ -109,7 +109,28 @@ def test_location_belief_system_prompt_includes_dimension_and_source_count():
     assert "epsilon ~ Normal(0, 0.5)" in text
 
 
-def test_location_strategy_system_preamble_includes_bounds_and_count():
+def test_location_belief_system_prompt_describes_branch_decoy_local_bump_model():
+    from helpers import Config
+
+    config = Config(
+        task="location_finding",
+        location_num_sources=1,
+        location_dim=2,
+        location_source_prior="branch_decoy",
+        location_source_radius=2.2,
+        location_signal_model="local_bump",
+        location_signal_lengthscale=0.5,
+        location_signal_amplitude=8.0,
+    )
+    text = location_prompts.belief_system_prompt(config, update=False)
+
+    assert "branch endpoints" in text
+    assert "exp(-||theta_k - x||^2 / (2 * ell^2))" in text
+    assert "A=8" in text
+    assert "ell=0.5" in text
+
+
+def test_location_strategy_system_preamble_includes_count_without_global_bounds():
     text = location_prompts.strategy_system_preamble(
         bounds=(-2.0, 2.0),
         num_strategies=5,
@@ -117,5 +138,26 @@ def test_location_strategy_system_preamble_includes_bounds_and_count():
     )
 
     assert "Generate exactly 5 strategies" in text
-    assert "[-2.0, 2.0]" in text
+    assert "[-2.0, 2.0]" not in text
     assert "Be creative." in text
+
+
+def test_location_query_prompts_include_step_radius_constraint_when_enabled():
+    from helpers import Config
+    from environments.location_finding.types import LocationObservation
+
+    config = Config(
+        task="location_finding",
+        location_num_sources=1,
+        location_dim=2,
+        location_noise_sd=0.5,
+        location_max_step_radius=0.5,
+    )
+    observations = [LocationObservation(query=(1.0, -1.0), value=0.4)]
+
+    messages = location_prompts.naive_location_messages(observations, config)
+    text = "\n".join(message["content"] for message in messages)
+
+    assert "Movement constraint" in text
+    assert "previous query was [1.0, -1.0]" in text
+    assert "within Euclidean distance 0.5" in text

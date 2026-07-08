@@ -121,9 +121,15 @@ environment:
   num_rounds: 3
   num_trials: 2
   trial_batch_size: 2
+  source_prior: branch_decoy
+  source_radius: 2.2
   num_sources: 2
   dim: 2
   noise_sd: 0.5
+  signal_model: local_bump
+  signal_lengthscale: 0.5
+  signal_amplitude: 8.0
+  max_step_radius: 0.75
   search_depth: 1
   eig_quadrature_order: 5
   eig_bounds_enabled: true
@@ -134,6 +140,7 @@ environment:
   strategy_rollout_scoring_support_mode: truth_plus_sampled
   strategy_rollout_scoring_support_size: 9
   strategy_rollout_score_mode: future_step_support_sum
+  strategy_rollout_final_refresh_enabled: false
 """.strip(),
         encoding="utf-8",
     )
@@ -144,6 +151,12 @@ environment:
     assert config.location_num_rounds == 3
     assert config.location_num_trials == 2
     assert config.location_trial_batch_size == 2
+    assert config.location_source_prior == "branch_decoy"
+    assert config.location_source_radius == pytest.approx(2.2)
+    assert config.location_signal_model == "local_bump"
+    assert config.location_signal_lengthscale == pytest.approx(0.5)
+    assert config.location_signal_amplitude == pytest.approx(8.0)
+    assert config.location_max_step_radius == pytest.approx(0.75)
     assert config.location_search_depth == 1
     assert config.location_eig_bounds_enabled is True
     assert config.location_eig_bounds_inner_samples == 11
@@ -153,6 +166,7 @@ environment:
     assert config.location_strategy_rollout_scoring_support_mode == "truth_plus_sampled"
     assert config.location_strategy_rollout_scoring_support_size == 9
     assert config.location_strategy_rollout_score_mode == "future_step_support_sum"
+    assert config.location_strategy_rollout_final_refresh_enabled is False
 
 
 def test_load_config_parses_categorical_belief_state_options(tmp_path):
@@ -232,9 +246,14 @@ model_pairs: []
 task: location_finding
 location_num_rounds: 7
 location_num_trials: 2
+location_source_prior: branch_decoy
+location_source_radius: 2.2
 location_num_sources: 3
 location_dim: 2
 location_noise_sd: 0.5
+location_signal_model: local_bump
+location_signal_lengthscale: 0.5
+location_signal_amplitude: 8.0
 location_max_total_beliefs: 123
 location_max_llm_prompt_beliefs: 40
 location_target_num_candidates: 15
@@ -249,6 +268,7 @@ location_strategy_rollout_refresh_hypotheses_each_step: true
 location_strategy_rollout_scoring_support_mode: truth_plus_sampled
 location_strategy_rollout_scoring_support_size: 19
 location_strategy_rollout_score_mode: future_step_support_sum
+location_strategy_rollout_final_refresh_enabled: false
 """.strip(),
         encoding="utf-8",
     )
@@ -259,9 +279,14 @@ location_strategy_rollout_score_mode: future_step_support_sum
     assert config.method_names == ["EIG"]
     assert config.location_num_rounds == 7
     assert config.location_num_trials == 2
+    assert config.location_source_prior == "branch_decoy"
+    assert config.location_source_radius == pytest.approx(2.2)
     assert config.location_num_sources == 3
     assert config.location_dim == 2
     assert config.location_noise_sd == pytest.approx(0.5)
+    assert config.location_signal_model == "local_bump"
+    assert config.location_signal_lengthscale == pytest.approx(0.5)
+    assert config.location_signal_amplitude == pytest.approx(8.0)
     assert config.location_max_total_beliefs == 123
     assert config.location_max_llm_prompt_beliefs == 40
     assert config.location_target_num_candidates == 15
@@ -276,6 +301,7 @@ location_strategy_rollout_score_mode: future_step_support_sum
     assert config.location_strategy_rollout_scoring_support_mode == "truth_plus_sampled"
     assert config.location_strategy_rollout_scoring_support_size == 19
     assert config.location_strategy_rollout_score_mode == "future_step_support_sum"
+    assert config.location_strategy_rollout_final_refresh_enabled is False
     # location_strategy_num_candidates is now a derived property: the sum of the four
     # evolutionary-phase counts (retrieved + mutation + crossover + diverse).
     # Defaults are 2 + 1 + 1 + 2 = 6.
@@ -383,6 +409,13 @@ task: location_finding
         ("location_strategy_rollout_scoring_support_mode: vibes", "location_strategy_rollout_scoring_support_mode"),
         ("location_strategy_rollout_scoring_support_size: 0", "location_strategy_rollout_scoring_support_size"),
         ("location_strategy_rollout_score_mode: vibes", "location_strategy_rollout_score_mode"),
+        ("location_max_step_radius: 0", "location_max_step_radius"),
+        ("location_max_step_radius: false", "location_max_step_radius"),
+        ("location_source_prior: maze", "location_source_prior"),
+        ("location_source_radius: 0", "location_source_radius"),
+        ("location_signal_model: laser", "location_signal_model"),
+        ("location_signal_lengthscale: 0", "location_signal_lengthscale"),
+        ("location_signal_amplitude: 0", "location_signal_amplitude"),
         (
             "location_posterior_mode: llm_distribution\n"
             "location_strategy_rollout_scoring_support_mode: truth_plus_sampled",
@@ -392,6 +425,15 @@ task: location_finding
             "location_posterior_mode: llm_distribution\n"
             "location_strategy_rollout_scoring_support_mode: truth_start_end",
             "truth_start_end",
+        ),
+        (
+            "location_posterior_mode: llm_distribution\n"
+            "location_strategy_rollout_scoring_support_mode: fixed_common",
+            "fixed_common",
+        ),
+        (
+            "location_strategy_rollout_final_refresh_enabled: sometimes",
+            "location_strategy_rollout_final_refresh_enabled",
         ),
         (
             "location_posterior_mode: llm_distribution\n"
@@ -767,3 +809,53 @@ environment:
     config = load_config(str(config_path))
 
     assert config.location_max_new_tokens == 16384
+
+
+def test_phase4_constrained_and_unconstrained_location_configs_load():
+    constrained = load_config("configs/config_location_branch_decoy_local.yaml")
+    unconstrained = load_config("configs/config_location_branch_decoy_local_unconstrained.yaml")
+    final_constrained = load_config("configs/config_location_branch_decoy_local_final50.yaml")
+    final_unconstrained = load_config("configs/config_location_branch_decoy_local_unconstrained_final50.yaml")
+    final_constrained_26b = load_config("configs/config_location_branch_decoy_local_final50_26b_a4b.yaml")
+    final_unconstrained_26b = load_config(
+        "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml"
+    )
+    rollout8 = load_config("configs/config_location_branch_decoy_local_final50_rollouts8.yaml")
+    rollout32 = load_config("configs/config_location_branch_decoy_local_final50_rollouts32.yaml")
+
+    assert constrained.task == "location_finding"
+    assert unconstrained.task == "location_finding"
+    assert constrained.location_source_prior == "branch_decoy"
+    assert unconstrained.location_source_prior == "branch_decoy"
+    assert constrained.location_signal_model == "local_bump"
+    assert unconstrained.location_signal_model == "local_bump"
+    assert constrained.location_max_step_radius == pytest.approx(0.5)
+    assert unconstrained.location_max_step_radius is None
+    assert constrained.location_num_trials == unconstrained.location_num_trials
+    assert constrained.location_num_rounds == unconstrained.location_num_rounds
+    assert constrained.location_strategy_num_rollouts == unconstrained.location_strategy_num_rollouts
+    assert final_constrained.task == "location_finding"
+    assert final_unconstrained.task == "location_finding"
+    assert final_constrained.location_num_trials == 50
+    assert final_unconstrained.location_num_trials == 50
+    assert final_constrained.location_max_step_radius == pytest.approx(0.5)
+    assert final_unconstrained.location_max_step_radius is None
+    assert final_constrained.location_num_rounds == final_unconstrained.location_num_rounds
+    assert final_constrained.location_strategy_num_rollouts == final_unconstrained.location_strategy_num_rollouts
+    assert final_constrained_26b.location_num_trials == 50
+    assert final_unconstrained_26b.location_num_trials == 50
+    assert final_constrained_26b.location_max_step_radius == pytest.approx(0.5)
+    assert final_unconstrained_26b.location_max_step_radius is None
+    assert final_constrained_26b.model_pairs[0].questioner.model == "google/gemma-4-26B-A4B-it"
+    assert final_unconstrained_26b.model_pairs[0].questioner.model == "google/gemma-4-26B-A4B-it"
+    assert final_constrained_26b.location_strategy_num_rollouts == 16
+    assert final_constrained_26b.location_strategy_planning_depth == 3
+    assert rollout8.location_num_trials == 50
+    assert rollout32.location_num_trials == 50
+    assert rollout8.location_max_step_radius == pytest.approx(0.5)
+    assert rollout32.location_max_step_radius == pytest.approx(0.5)
+    assert [
+        rollout8.location_strategy_num_rollouts,
+        final_constrained.location_strategy_num_rollouts,
+        rollout32.location_strategy_num_rollouts,
+    ] == [8, 16, 32]

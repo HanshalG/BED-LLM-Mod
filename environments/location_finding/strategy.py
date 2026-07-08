@@ -17,7 +17,7 @@ from .generation import _completion_excerpt, _generate_location_hypotheses_many
 from .parsing import _clean_strategy_text, _strategy_key, parse_location_strategies, parse_location_strategy_roots, parse_strategy_location
 from .physics import round_positive_observation, sample_observation, signal_intensity_for_hypothesis
 from .prompts import _strategy_crossover_messages, _strategy_diverse_messages, _strategy_location_messages, _strategy_mutation_messages, _strategy_root_crossover_messages, _strategy_root_diverse_messages, _strategy_root_mutation_messages
-from .types import Location, LocationObservation, LocationStrategyCandidate, LocationStrategyEntry, LocationStrategyEvaluation, LocationStrategyLibrary, SourceConfig, _StrategyEvaluationRequest, _StrategyLocationRequest, _StrategyRollout, _dedupe_source_configs
+from .types import Location, LocationObservation, LocationStrategyCandidate, LocationStrategyEntry, LocationStrategyEvaluation, LocationStrategyLibrary, SourceConfig, _StrategyEvaluationRequest, _StrategyLocationRequest, _StrategyRollout, _dedupe_source_configs, last_query_from_observations, project_location_to_step_radius
 
 if TYPE_CHECKING:
     from model import Model
@@ -43,6 +43,7 @@ def _extend_unique_strategy_candidates(
     seen: set[str],
     limit: int,
     observations: list[LocationObservation],
+    config: Config,
 ) -> None:
     for candidate in candidates:
         cleaned = _clean_strategy_text(candidate.strategy)
@@ -52,7 +53,12 @@ def _extend_unique_strategy_candidates(
         if key in seen:
             continue
         seen.add(key)
-        target.append(LocationStrategyCandidate(strategy=cleaned, root_query=candidate.root_query))
+        root_query = project_location_to_step_radius(
+            candidate.root_query,
+            last_query_from_observations(observations),
+            config,
+        )
+        target.append(LocationStrategyCandidate(strategy=cleaned, root_query=root_query))
         if len(target) >= limit:
             return
 
@@ -287,7 +293,7 @@ def _strategy_root_phase_single(
         completion = questioner.chat_complete(messages, temperature=config.generation_temperature_diverse)[0]
         try:
             parsed = parse_location_strategy_roots(completion, config.location_dim)
-            _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations)
+            _extend_unique_strategy_candidates(candidates, parsed, seen, target_count, observations, config)
             return
         except ValueError as exc:
             _log_location(
@@ -334,6 +340,7 @@ def _strategy_root_phase_batched(
                     item["seen"],  # type: ignore[arg-type]
                     target_count,
                     item_observations,
+                    config,
                 )
             except ValueError as exc:
                 _log_location(
@@ -369,7 +376,7 @@ def generate_location_strategy_roots(
     )
 
     # Phase R: retrieved (no LLM call)
-    _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations)
+    _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations, config)
 
     # Phase M: mutation (falls back to diverse if library empty)
     if config.location_strategy_num_mutation > 0:
@@ -433,7 +440,7 @@ def generate_location_strategy_roots_many(
             f"diverse={config.location_strategy_num_diverse}, library_size={len(library)}",
             config,
         )
-        _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations)
+        _extend_unique_strategy_candidates(candidates, retrieved_candidates, seen, target_count, observations, config)
         prepared.append({
             "candidates": candidates,
             "seen": seen,
@@ -548,7 +555,12 @@ def generate_strategy_locations_many(
         still_pending: list[int] = []
         for request_idx, completion in zip(pending, completions):
             try:
-                location = parse_strategy_location(completion, config.location_dim)
+                request = requests[request_idx]
+                location = project_location_to_step_radius(
+                    parse_strategy_location(completion, config.location_dim),
+                    last_query_from_observations(request.observations),
+                    config,
+                )
                 results[request_idx] = location
             except ValueError as exc:
                 _log_location(
@@ -587,6 +599,34 @@ def _sample_source_hypothesis(
     probabilities = probabilities / np.sum(probabilities)
     sampled_index = int(rng.choice(len(belief_state.hypotheses), p=probabilities))
     return belief_state.hypotheses[sampled_index], float(probabilities[sampled_index])
+
+
+def _sample_common_rollout_controls(
+    belief_state: BeliefState,
+    rng: np.random.Generator,
+    num_rollouts: int,
+    max_depth: int,
+) -> list[tuple[SourceConfig, float, int, tuple[float, ...]]]:
+    """Sample common Monte Carlo controls used to compare strategies fairly."""
+    controls: list[tuple[SourceConfig, float, int, tuple[float, ...]]] = []
+    for _rollout_idx in range(num_rollouts):
+        truth, start_probability = _sample_source_hypothesis(belief_state, rng)
+        scoring_seed = int(rng.integers(0, np.iinfo(np.uint32).max))
+        noise_zs = tuple(float(z) for z in rng.normal(0.0, 1.0, size=max(0, int(max_depth))))
+        controls.append((truth, start_probability, scoring_seed, noise_zs))
+    return controls
+
+
+def _sample_controlled_observation_value(
+    mean: float,
+    noise_sd: float,
+    rollout: _StrategyRollout,
+    depth_idx: int,
+    rng: np.random.Generator,
+) -> float:
+    if depth_idx < len(rollout.noise_zs):
+        return float(mean * np.exp(noise_sd * rollout.noise_zs[depth_idx]))
+    return sample_observation(mean, noise_sd, rng)
 
 
 def _hypothesis_probability(
@@ -697,6 +737,10 @@ def _rollout_scoring_support(
     rollout: _StrategyRollout,
     config: Config,
 ) -> list[SourceConfig]:
+    if config.location_strategy_rollout_scoring_support_mode == "fixed_common":
+        if rollout.fixed_common_support:
+            return list(rollout.fixed_common_support)
+        return _dedupe_source_configs(list(rollout.start_belief_state.hypotheses) + [rollout.truth])
     if config.location_strategy_rollout_scoring_support_mode == "truth_plus_sampled":
         return _truth_plus_sampled_rollout_scoring_support(rollout, config)
     if config.location_strategy_rollout_scoring_support_mode == "truth_start_end":
@@ -748,7 +792,7 @@ def _rollout_entropy_reduction_score(
     support = _rollout_scoring_support(rollout, config)
     if len(support) <= 1:
         return 0.0
-    if config.location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end"}:
+    if config.location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end", "fixed_common"}:
         start_state = build_location_belief_state_unpruned(support, real_observations, config)
         final_state = build_location_belief_state_unpruned(
             support,
@@ -840,26 +884,38 @@ def evaluate_location_strategies_by_rollout(
             for strategy, root_query in zip(strategies, root_queries)
         ]
 
+    effective_depth = _effective_strategy_rollout_depth(config, observations)
+    rollout_controls = _sample_common_rollout_controls(
+        belief_state,
+        rng,
+        config.location_strategy_num_rollouts,
+        effective_depth,
+    )
+    fixed_common_support = _dedupe_source_configs(
+        list(belief_state.hypotheses)
+        + [truth for truth, _probability, _seed, _noise_zs in rollout_controls]
+    )
     rollouts: list[_StrategyRollout] = []
     for strategy_index, strategy in enumerate(strategies):
-        for _rollout_idx in range(config.location_strategy_num_rollouts):
-            truth, start_probability = _sample_source_hypothesis(belief_state, rng)
+        for rollout_index, (truth, start_probability, scoring_seed, noise_zs) in enumerate(rollout_controls):
             rollouts.append(
                 _StrategyRollout(
                     request_index=0,
                     strategy_index=strategy_index,
+                    rollout_index=rollout_index,
                     strategy=strategy,
                     truth=truth,
                     start_probability=start_probability,
                     start_belief_state=belief_state,
                     belief_state=belief_state,
                     particle_support=list(belief_state.hypotheses),
+                    fixed_common_support=list(fixed_common_support),
                     root_query=root_queries[strategy_index],
-                    scoring_seed=int(rng.integers(0, np.iinfo(np.uint32).max)),
+                    scoring_seed=scoring_seed,
+                    noise_zs=noise_zs,
                 )
             )
 
-    effective_depth = _effective_strategy_rollout_depth(config, observations)
     for depth_idx in range(effective_depth):
         active_indices = [
             rollout_idx
@@ -904,9 +960,15 @@ def evaluate_location_strategies_by_rollout(
                 continue
             if depth_idx == 0 and rollout.root_query is None:
                 rollout.root_query = location
-            mean = signal_intensity_for_hypothesis(rollout.truth, location)
+            mean = signal_intensity_for_hypothesis(rollout.truth, location, config=config)
             observed_value = round_positive_observation(
-                sample_observation(mean, config.location_noise_sd, rng),
+                _sample_controlled_observation_value(
+                    mean,
+                    config.location_noise_sd,
+                    rollout,
+                    depth_idx,
+                    rng,
+                ),
                 2,
             )
             rollout.simulated_observations.append(
@@ -948,7 +1010,7 @@ def evaluate_location_strategies_by_rollout(
         for rollout_idx, rollout in enumerate(rollouts)
         if rollout.belief_state.hypotheses
     ]
-    if final_refresh_indices:
+    if final_refresh_indices and config.location_strategy_rollout_final_refresh_enabled:
         final_histories = [
             _full_rollout_observations(observations, rollouts[rollout_idx])
             for rollout_idx in final_refresh_indices
@@ -1070,21 +1132,34 @@ def evaluate_location_strategies_by_rollout_many(
             ]
             continue
 
+        effective_depth = _effective_strategy_rollout_depth(config, request.observations)
+        rollout_controls = _sample_common_rollout_controls(
+            request.belief_state,
+            request.rng,
+            config.location_strategy_num_rollouts,
+            effective_depth,
+        )
+        fixed_common_support = _dedupe_source_configs(
+            list(request.belief_state.hypotheses)
+            + [truth for truth, _probability, _seed, _noise_zs in rollout_controls]
+        )
         for strategy_index, strategy in enumerate(request.strategies):
-            for _rollout_idx in range(config.location_strategy_num_rollouts):
-                truth, start_probability = _sample_source_hypothesis(request.belief_state, request.rng)
+            for rollout_index, (truth, start_probability, scoring_seed, noise_zs) in enumerate(rollout_controls):
                 rollouts.append(
                     _StrategyRollout(
                         request_index=request_idx,
                         strategy_index=strategy_index,
+                        rollout_index=rollout_index,
                         strategy=strategy,
                         truth=truth,
                         start_probability=start_probability,
                         start_belief_state=request.belief_state,
                         belief_state=request.belief_state,
                         particle_support=list(request.belief_state.hypotheses),
+                        fixed_common_support=list(fixed_common_support),
                         root_query=root_queries[strategy_index],
-                        scoring_seed=int(request.rng.integers(0, np.iinfo(np.uint32).max)),
+                        scoring_seed=scoring_seed,
+                        noise_zs=noise_zs,
                     )
                 )
 
@@ -1147,9 +1222,15 @@ def evaluate_location_strategies_by_rollout_many(
                 continue
             if depth_idx == 0 and rollout.root_query is None:
                 rollout.root_query = location
-            mean = signal_intensity_for_hypothesis(rollout.truth, location)
+            mean = signal_intensity_for_hypothesis(rollout.truth, location, config=config)
             observed_value = round_positive_observation(
-                sample_observation(mean, config.location_noise_sd, request.rng),
+                _sample_controlled_observation_value(
+                    mean,
+                    config.location_noise_sd,
+                    rollout,
+                    depth_idx,
+                    request.rng,
+                ),
                 2,
             )
             rollout.simulated_observations.append(
@@ -1191,7 +1272,7 @@ def evaluate_location_strategies_by_rollout_many(
         for rollout_idx, rollout in enumerate(rollouts)
         if rollout.belief_state.hypotheses
     ]
-    if final_refresh_indices:
+    if final_refresh_indices and config.location_strategy_rollout_final_refresh_enabled:
         final_histories = [
             _full_rollout_observations(
                 requests[rollouts[rollout_idx].request_index].observations,

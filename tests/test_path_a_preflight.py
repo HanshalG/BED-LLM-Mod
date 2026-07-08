@@ -1,0 +1,25 @@
+from pathlib import Path
+
+from scripts.path_a_preflight import _check_configs, run_preflight
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_path_a_preflight_passes_local_launch_readiness_checks():
+    payload = run_preflight(ROOT)
+
+    assert payload["ok"] is True
+    checks = {check["name"]: check for check in payload["checks"]}
+    assert checks["configs"]["ok"] is True
+    assert "26B-A4B" in checks["configs"]["detail"]
+    assert checks["gh200_launcher"]["ok"] is True
+    assert checks["launch_commands"]["ok"] is True
+    assert payload["package_validation"]["ok"] is False
+
+
+def test_path_a_preflight_reports_missing_configs(tmp_path):
+    check = _check_configs(tmp_path)
+
+    assert check.ok is False
+    assert "missing" in check.detail

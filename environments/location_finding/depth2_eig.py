@@ -10,7 +10,7 @@ from core import BeliefState
 from .beliefs import _merge_hypotheses, build_location_posteriors_many
 from .eig import expected_information_gain
 from .generation import _generate_location_hypotheses_many, generate_location_candidates_many
-from .physics import signal_intensity_for_hypothesis
+from .physics import signal_intensities_for_hypotheses
 from .types import Location, LocationObservation
 
 if TYPE_CHECKING:
@@ -42,16 +42,13 @@ def score_location_candidates_depth2_batched(
         totals = [float(score) for score in immediate_scores]
     else:
         totals = [
-            expected_information_gain(belief_state, candidate, noise_sd, quadrature_order)
+            expected_information_gain(belief_state, candidate, noise_sd, quadrature_order, config=config)
             for candidate in candidates
         ]
 
     branch_specs: list[tuple[int, float, LocationObservation]] = []
     for candidate_idx, candidate in enumerate(candidates):
-        means = np.asarray(
-            [signal_intensity_for_hypothesis(hypothesis, candidate) for hypothesis in hypotheses],
-            dtype=float,
-        )
+        means = signal_intensities_for_hypotheses(np.asarray(list(hypotheses), dtype=float), candidate, config=config)
         for mean, hypothesis_probability in zip(means, probabilities):
             if hypothesis_probability == 0.0:
                 continue
@@ -101,7 +98,7 @@ def score_location_candidates_depth2_batched(
         if not future_candidates or len(future_state.hypotheses) <= 1:
             continue
         future_scores = [
-            expected_information_gain(future_state, future_candidate, noise_sd, quadrature_order)
+            expected_information_gain(future_state, future_candidate, noise_sd, quadrature_order, config=config)
             for future_candidate in future_candidates
         ]
         if future_scores:

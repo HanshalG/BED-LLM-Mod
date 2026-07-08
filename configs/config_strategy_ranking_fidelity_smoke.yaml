@@ -1,0 +1,62 @@
+# Small StrategyEIG ranking-fidelity smoke config.
+# Intended for scripts/strategy_ranking_fidelity.py with tiny CLI overrides first.
+version: 0
+task: location_finding
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-E4B-it"
+      thinking: true
+      thinking_max_new_tokens: 4096
+      thinking_final_max_new_tokens: 512
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-E4B-it"
+      thinking: true
+      thinking_max_new_tokens: 4096
+      thinking_final_max_new_tokens: 512
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+method_names:
+  - "StrategyEIG"
+batched_block_size: 256
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.0
+answer_temperature: 0.7
+num_mc_samples: 3
+location_max_new_tokens: 4096
+probability_parse_fallback_to_uniform: false
+environment:
+  num_rounds: 6
+  num_trials: 20
+  trial_batch_size: 1
+  seed: 1304
+  num_sources: 2
+  dim: 2
+  noise_sd: 0.5
+  max_total_beliefs: 40
+  max_llm_prompt_beliefs: 10
+  num_generated_hypotheses: 12
+  target_num_candidates: 10
+  search_depth: 1
+  strategy_num_retrieved: 2
+  strategy_num_mutation: 2
+  strategy_num_crossover: 2
+  strategy_num_diverse: 4
+  strategy_num_rollouts: 8
+  strategy_planning_depth: 3
+  strategy_discount_factor: 0.5
+  strategy_belief_summary_top_k: 10
+  strategy_rollout_refresh_hypotheses_each_step: true
+  strategy_rollout_scoring_support_mode: fixed_common
+  strategy_rollout_scoring_support_size: 32
+  strategy_rollout_score_mode: start_final_entropy_drop
+  strategy_rollout_final_refresh_enabled: false
+  eig_quadrature_order: 5
+  plot_trials: false
+  posterior_mode: analytical_likelihood
+  eig_bounds_enabled: false

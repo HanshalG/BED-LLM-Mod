@@ -9,7 +9,7 @@ from helpers import Config
 from methods.continuous_eig import expected_information_gain_from_means, quadrature_nodes
 from .formatting import _log_location
 from .beliefs import _posterior_after_observation
-from .physics import signal_intensity_for_hypothesis
+from .physics import signal_intensities_for_hypotheses
 from .types import Location, LocationObservation
 
 
@@ -23,14 +23,16 @@ def expected_information_gain(
     query: Location,
     noise_sd: float,
     quadrature_order: int,
+    config: Config | None = None,
 ) -> float:
     if len(belief_state.hypotheses) <= 1:
         return 0.0
 
     probabilities = np.asarray(belief_state.probabilities, dtype=float)
-    means = np.asarray(
-        [signal_intensity_for_hypothesis(hypothesis, query) for hypothesis in belief_state.hypotheses],
-        dtype=float,
+    means = signal_intensities_for_hypotheses(
+        np.asarray(list(belief_state.hypotheses), dtype=float),
+        query,
+        config=config,
     )
     nodes, weights = quadrature_nodes(quadrature_order)
     return expected_information_gain_from_means(probabilities, means, noise_sd, nodes, weights)

@@ -1,0 +1,39 @@
+# Reproducible parameter set for scripts/constrained_oracle_check.py.
+#
+# Run example:
+# python scripts/constrained_oracle_check.py \
+#   --num-trials 120 \
+#   --num-rounds 6 \
+#   --num-particles 40 \
+#   --grid-size 11 \
+#   --arena 2.5 \
+#   --max-step-radius 0.5 \
+#   --noise-sd 0.15 \
+#   --planner-depth 2 \
+#   --planning-support-size 6 \
+#   --source-prior branch_decoy \
+#   --source-radius 2.2 \
+#   --signal-model local_bump \
+#   --signal-lengthscale 0.5 \
+#   --signal-amplitude 8.0 \
+#   --num-sources 1 \
+#   --seed 1304 \
+#   --output-dir results/constrained_oracle \
+#   --run-name constrained_oracle_branch_decoy_local_r22_l05_t120_d2
+num_trials: 120
+num_rounds: 6
+num_particles: 40
+grid_size: 11
+arena: 2.5
+max_step_radius: 0.5
+noise_sd: 0.15
+planner_depth: 2
+planning_support_size: 6
+source_prior: branch_decoy
+source_radius: 2.2
+num_sources: 1
+seed: 1304
+fixed_first_query: true
+signal_model: local_bump
+signal_lengthscale: 0.5
+signal_amplitude: 8.0

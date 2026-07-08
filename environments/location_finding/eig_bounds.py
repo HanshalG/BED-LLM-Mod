@@ -8,6 +8,7 @@ from typing import Any, Sequence
 
 import numpy as np
 
+from environments.location_finding.physics import sample_source_configs_from_prior, signal_intensities_from_distances
 from environments.location_finding.types import LocationObservation
 
 
@@ -43,11 +44,20 @@ def sample_prior_source_configs(
     count: int,
     num_sources: int,
     dim: int,
+    source_prior: str = "normal",
+    source_radius: float = 1.0,
 ) -> np.ndarray:
     """Draw contrastive source configurations from the location prior."""
     if count < 1:
         raise ValueError("count must be positive")
-    return rng.normal(0.0, 1.0, size=(count, num_sources, dim))
+    return sample_source_configs_from_prior(
+        rng,
+        count=count,
+        num_sources=num_sources,
+        dim=dim,
+        source_prior=source_prior,
+        source_radius=source_radius,
+    )
 
 
 def history_log_likelihoods(
@@ -56,6 +66,9 @@ def history_log_likelihoods(
     *,
     noise_sd: float,
     chunk_size: int = 8192,
+    signal_model: str = "inverse_square",
+    signal_lengthscale: float = 0.75,
+    signal_amplitude: float = 5.0,
 ) -> np.ndarray:
     """Return log p(history | theta) for each theta sample.
 
@@ -83,7 +96,12 @@ def history_log_likelihoods(
                 break
             query = np.asarray(observation.query, dtype=float)
             distances_sq = np.sum((chunk - query[None, None, :]) ** 2, axis=2)
-            means = 0.1 + np.sum(1.0 / (1e-4 + distances_sq), axis=1)
+            means = signal_intensities_from_distances(
+                distances_sq,
+                signal_model=signal_model,
+                signal_lengthscale=signal_lengthscale,
+                signal_amplitude=signal_amplitude,
+            )
             z = (math.log(observation.value) - np.log(means)) / noise_sd
             log_likelihood += -0.5 * z * z + constant
         result[start:stop] = log_likelihood
@@ -107,6 +125,9 @@ def eig_bound_values_for_history(
     *,
     noise_sd: float,
     chunk_size: int = 8192,
+    signal_model: str = "inverse_square",
+    signal_lengthscale: float = 0.75,
+    signal_amplitude: float = 5.0,
 ) -> tuple[float, float]:
     """Compute one sPCE lower value and one sNMC upper value for a history."""
     true_log_likelihood = float(
@@ -115,6 +136,9 @@ def eig_bound_values_for_history(
             observations,
             noise_sd=noise_sd,
             chunk_size=chunk_size,
+            signal_model=signal_model,
+            signal_lengthscale=signal_lengthscale,
+            signal_amplitude=signal_amplitude,
         )[0]
     )
     contrastive_log_likelihoods = history_log_likelihoods(
@@ -122,6 +146,9 @@ def eig_bound_values_for_history(
         observations,
         noise_sd=noise_sd,
         chunk_size=chunk_size,
+        signal_model=signal_model,
+        signal_lengthscale=signal_lengthscale,
+        signal_amplitude=signal_amplitude,
     )
     lower_denom = logmeanexp(
         np.concatenate(([true_log_likelihood], contrastive_log_likelihoods))
@@ -147,6 +174,8 @@ def estimate_eig_bounds_from_run_result(
             count=inner_samples,
             num_sources=int(getattr(config, "location_num_sources", 3)),
             dim=int(getattr(config, "location_dim", 2)),
+            source_prior=str(getattr(config, "location_source_prior", "normal")),
+            source_radius=float(getattr(config, "location_source_radius", 1.0)),
         )
         lower, upper = eig_bound_values_for_history(
             np.asarray(trial.hidden_state, dtype=float),
@@ -154,6 +183,9 @@ def estimate_eig_bounds_from_run_result(
             contrastive_thetas,
             noise_sd=float(getattr(config, "location_noise_sd", 0.5)),
             chunk_size=chunk_size,
+            signal_model=str(getattr(config, "location_signal_model", "inverse_square")),
+            signal_lengthscale=float(getattr(config, "location_signal_lengthscale", 0.75)),
+            signal_amplitude=float(getattr(config, "location_signal_amplitude", 5.0)),
         )
         lower_values.append(float(lower))
         upper_values.append(float(upper))

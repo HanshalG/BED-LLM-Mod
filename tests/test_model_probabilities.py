@@ -1,6 +1,7 @@
 import sys
 import types
 import importlib.util
+import json
 import math
 from enum import Enum
 from pathlib import Path
@@ -836,6 +837,129 @@ def test_chat_complete_uses_harmony_stop_tokens_and_parsed_final_output():
     assert captured["prompts"] == [{"prompt_token_ids": [11, 22, 33]}]
     assert captured["sampling_params"].kwargs["stop_token_ids"] == [200002, 200012]
     assert captured["sampling_params"].kwargs["skip_special_tokens"] is False
+
+
+def test_chat_complete_logs_token_usage_jsonl(tmp_path):
+    adapter = model.BaseVLLMAdapter.__new__(model.BaseVLLMAdapter)
+    adapter.model_name = "test/model"
+    adapter.config = helpers.Config(
+        log_path=tmp_path / "run.log",
+    )
+    adapter.config.location_max_new_tokens = 16
+    adapter.tokenizer = _TokenizerWithIds()
+    adapter.max_model_len = 1000
+    adapter.use_logprobs = False
+
+    def fake_generate(prompts, sampling_params):
+        assert prompts == ["Prompt"]
+        assert sampling_params.kwargs["max_tokens"] == 16
+        return [
+            types.SimpleNamespace(
+                outputs=[
+                    types.SimpleNamespace(
+                        text=" done",
+                        token_ids=[1, 2, 3],
+                        finish_reason="stop",
+                    )
+                ],
+                prompt_token_ids=[11, 22],
+            )
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    completions = adapter.chat_complete(
+        [{"role": "user", "content": "Prompt"}],
+        temperature=0.2,
+    )
+
+    assert completions == ["done"]
+    records = [
+        json.loads(line)
+        for line in adapter.config.log_path.read_text(encoding="utf-8").splitlines()
+    ]
+    assert records == [
+        {
+            "event": "llm_token_usage",
+            "model": "test/model",
+            "call_type": "chat",
+            "prompt_tokens": 2,
+            "completion_tokens": 3,
+            "total_tokens": 5,
+            "max_new_tokens": 16,
+            "temperature": 0.2,
+            "response_index": 0,
+            "finish_reason": "stop",
+        }
+    ]
+
+
+def test_chat_complete_messages_batched_logs_token_usage_jsonl(tmp_path):
+    adapter = model.BaseVLLMAdapter.__new__(model.BaseVLLMAdapter)
+    adapter.model_name = "test/model"
+    adapter.config = helpers.Config(
+        log_path=tmp_path / "run.log",
+    )
+    adapter.config.location_max_new_tokens = 16
+    adapter.tokenizer = _TokenizerWithIds()
+    adapter.max_model_len = 1000
+    adapter.use_logprobs = False
+
+    def fake_generate(prompts, sampling_params):
+        assert prompts == ["Prompt A", "Prompt B"]
+        assert sampling_params.kwargs["max_tokens"] == 12
+        return [
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text=" A", token_ids=[1])],
+                prompt_token_ids=[11, 22, 33],
+            ),
+            types.SimpleNamespace(
+                outputs=[types.SimpleNamespace(text=" B", token_ids=[4, 5])],
+                prompt_token_ids=[44],
+            ),
+        ]
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    completions = adapter.chat_complete_messages_batched(
+        [
+            [{"role": "user", "content": "Prompt A"}],
+            [{"role": "user", "content": "Prompt B"}],
+        ],
+        temperature=0.4,
+        block_size=2,
+        max_new_tokens=12,
+    )
+
+    assert completions == ["A", "B"]
+    records = [
+        json.loads(line)
+        for line in adapter.config.log_path.read_text(encoding="utf-8").splitlines()
+    ]
+    assert records == [
+        {
+            "event": "llm_token_usage",
+            "model": "test/model",
+            "call_type": "batched_chat",
+            "prompt_tokens": 3,
+            "completion_tokens": 1,
+            "total_tokens": 4,
+            "max_new_tokens": 12,
+            "temperature": 0.4,
+            "block_index": 0,
+        },
+        {
+            "event": "llm_token_usage",
+            "model": "test/model",
+            "call_type": "batched_chat",
+            "prompt_tokens": 1,
+            "completion_tokens": 2,
+            "total_tokens": 3,
+            "max_new_tokens": 12,
+            "temperature": 0.4,
+            "block_index": 1,
+        },
+    ]
 
 
 def test_normalize_completion_output_falls_back_to_plain_text_for_base_adapter():

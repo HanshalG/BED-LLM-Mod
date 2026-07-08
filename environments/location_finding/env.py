@@ -13,7 +13,7 @@ from pathlib import Path
 
 from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_belief_state_unpruned, build_location_posterior, build_location_posteriors_many, sample_location_eig_belief_state
 from environments.location_finding.generation import _generate_location_hypotheses_many, choose_location_naive, choose_locations_naive_many, estimate_sources_naive, estimate_sources_naive_many, generate_location_candidates, generate_location_candidates_many, generate_location_hypotheses
-from environments.location_finding.physics import _hypothesis_log_prior, _top_source_rmse, observation_log_likelihood, signal_intensity_for_hypothesis, source_rmse
+from environments.location_finding.physics import _top_source_rmse, hypothesis_log_prior_for_config, observation_log_likelihood, sample_source_configs_from_prior, signal_intensities_for_hypotheses, signal_intensity_for_hypothesis, source_rmse
 from environments.location_finding.plotting import _plot_location_trial
 from environments.location_finding.strategy import choose_location_with_strategy_rollouts, choose_locations_with_strategy_rollouts_many
 from environments.location_finding.types import Location, LocationFindingEnv, LocationObservation, LocationStrategyLibrary, SourceConfig, _LocationTrialState
@@ -53,10 +53,18 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     def validate_config(self, config: Any) -> None:
         if config.location_dim != 2:
             raise ValueError("Location Finding currently supports 2D source locations")
-        if config.location_noise_sd != 0.5:
-            raise ValueError(
-                "The initial Location Finding module requires known noise_sd=0.5"
-            )
+        if getattr(config, "location_source_prior", "normal") not in {"normal", "branch_decoy"}:
+            raise ValueError("location_source_prior must be one of: normal, branch_decoy")
+        if float(getattr(config, "location_source_radius", 1.0)) <= 0.0:
+            raise ValueError("location_source_radius must be positive")
+        if config.location_noise_sd <= 0.0:
+            raise ValueError("location_noise_sd must be positive")
+        if getattr(config, "location_signal_model", "inverse_square") not in {"inverse_square", "local_bump"}:
+            raise ValueError("location_signal_model must be one of: inverse_square, local_bump")
+        if float(getattr(config, "location_signal_lengthscale", 0.75)) <= 0.0:
+            raise ValueError("location_signal_lengthscale must be positive")
+        if float(getattr(config, "location_signal_amplitude", 5.0)) <= 0.0:
+            raise ValueError("location_signal_amplitude must be positive")
 
     def trial_count(self, config: Any) -> int:
         return int(config.location_num_trials)
@@ -77,12 +85,14 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     def sample_hidden_state(self, rng: np.random.Generator) -> np.ndarray:
         if self.true_theta is not None:
             return np.asarray(self.true_theta, dtype=float)
-        # Standard Normal prior, identical to the original LocationFindingEnv reset path.
-        return rng.normal(
-            0.0,
-            1.0,
-            size=(self.config.location_num_sources, self.config.location_dim),
-        )
+        return sample_source_configs_from_prior(
+            rng,
+            count=1,
+            num_sources=self.config.location_num_sources,
+            dim=self.config.location_dim,
+            source_prior=getattr(self.config, "location_source_prior", "normal"),
+            source_radius=float(getattr(self.config, "location_source_radius", 1.0)),
+        )[0]
 
     def observe(
         self,
@@ -97,6 +107,11 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             num_sources=self.config.location_num_sources,
             dim=self.config.location_dim,
             noise_sd=self.config.location_noise_sd,
+            signal_model=getattr(self.config, "location_signal_model", "inverse_square"),
+            signal_lengthscale=float(getattr(self.config, "location_signal_lengthscale", 0.75)),
+            signal_amplitude=float(getattr(self.config, "location_signal_amplitude", 5.0)),
+            source_prior=getattr(self.config, "location_source_prior", "normal"),
+            source_radius=float(getattr(self.config, "location_source_radius", 1.0)),
             true_theta=hidden_state,
             rng=rng,
         )
@@ -107,7 +122,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
     # ------------------------------------------------------------------
 
     def log_prior(self, hypothesis: SourceConfig) -> float:
-        return _hypothesis_log_prior(hypothesis)
+        return hypothesis_log_prior_for_config(hypothesis, self.config)
 
     def log_likelihood(
         self,
@@ -115,7 +130,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         action: Location,
         observation: LocationObservation,
     ) -> float:
-        mean = signal_intensity_for_hypothesis(hypothesis, action)
+        mean = signal_intensity_for_hypothesis(hypothesis, action, config=self.config)
         return observation_log_likelihood(observation.value, mean, self.config.location_noise_sd)
 
     def log_likelihood_many(
@@ -129,9 +144,7 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
             return np.empty(0, dtype=float)
         theta = np.asarray(list(hypotheses), dtype=float)  # (H, S, D)
         query = np.asarray(action, dtype=float)             # (D,)
-        b, m, alpha = 0.1, 1e-4, 1.0
-        distances_sq = np.sum((theta - query[np.newaxis, np.newaxis, :]) ** 2, axis=2)  # (H, S)
-        means = b + np.sum(alpha / (m + distances_sq), axis=1)                          # (H,)
+        means = signal_intensities_for_hypotheses(theta, query, config=self.config)
         sd = self.config.location_noise_sd
         if observation.value <= 0.0:
             return np.full(len(hypotheses), float("-inf"), dtype=float)
@@ -144,8 +157,10 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         action: Location,
     ) -> np.ndarray:
         """Return the noiseless signal mean for every hypothesis at ``action``."""
+        if not hypotheses:
+            return np.empty(0, dtype=float)
         return np.asarray(
-            [signal_intensity_for_hypothesis(hypothesis, action) for hypothesis in hypotheses],
+            signal_intensities_for_hypotheses(np.asarray(list(hypotheses), dtype=float), action, config=self.config),
             dtype=float,
         )
 

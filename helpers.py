@@ -25,7 +25,7 @@ BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
 LocationPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
-LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled", "truth_start_end"]
+LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled", "truth_start_end", "fixed_common"]
 LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_step_support_sum"]
 
 
@@ -103,9 +103,15 @@ class Config:
     location_num_trials: int = 1
     location_trial_batch_size: int = 1
     location_seed: int | None = None
+    location_source_prior: str = "normal"
+    location_source_radius: float = 1.0
     location_num_sources: int = 3
     location_dim: int = 2
     location_noise_sd: float = 0.5
+    location_signal_model: str = "inverse_square"
+    location_signal_lengthscale: float = 0.75
+    location_signal_amplitude: float = 5.0
+    location_max_step_radius: float | None = None
     location_max_total_beliefs: int = 1000
     location_max_llm_prompt_beliefs: int = 40
     location_num_generated_hypotheses: int = 0  # 0 = inherit from location_max_llm_prompt_beliefs
@@ -125,6 +131,7 @@ class Config:
     location_strategy_rollout_scoring_support_mode: LocationStrategyRolloutScoringSupportMode = "union"
     location_strategy_rollout_scoring_support_size: int = 32
     location_strategy_rollout_score_mode: LocationStrategyRolloutScoreMode = "start_final_entropy_drop"
+    location_strategy_rollout_final_refresh_enabled: bool = True
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
     location_eig_bounds_enabled: bool = False
     location_eig_bounds_inner_samples: int = 5000
@@ -140,14 +147,28 @@ class Config:
         # load_config() behaviour of defaulting the two together.
         if self.location_num_generated_hypotheses == 0:
             self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
+        if self.location_source_prior not in {"normal", "branch_decoy"}:
+            raise ValueError("location_source_prior must be one of: normal, branch_decoy")
+        self.location_source_radius = float(self.location_source_radius)
+        if not math.isfinite(self.location_source_radius) or self.location_source_radius <= 0.0:
+            raise ValueError("location_source_radius must be positive")
+        if self.location_signal_model not in {"inverse_square", "local_bump"}:
+            raise ValueError("location_signal_model must be one of: inverse_square, local_bump")
+        self.location_signal_lengthscale = float(self.location_signal_lengthscale)
+        if not math.isfinite(self.location_signal_lengthscale) or self.location_signal_lengthscale <= 0.0:
+            raise ValueError("location_signal_lengthscale must be positive")
+        self.location_signal_amplitude = float(self.location_signal_amplitude)
+        if not math.isfinite(self.location_signal_amplitude) or self.location_signal_amplitude <= 0.0:
+            raise ValueError("location_signal_amplitude must be positive")
         if self.location_strategy_rollout_scoring_support_mode not in {
             "union",
             "truth_plus_sampled",
             "truth_start_end",
+            "fixed_common",
         }:
             raise ValueError(
                 "location_strategy_rollout_scoring_support_mode must be one of: "
-                "union, truth_plus_sampled, truth_start_end"
+                "union, truth_plus_sampled, truth_start_end, fixed_common"
             )
         if self.location_strategy_rollout_scoring_support_size <= 0:
             raise ValueError("location_strategy_rollout_scoring_support_size must be positive")
@@ -160,7 +181,7 @@ class Config:
                 "start_final_entropy_drop, future_step_support_sum"
             )
         if (
-            self.location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end"}
+            self.location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end", "fixed_common"}
             and self.location_posterior_mode != "analytical_likelihood"
         ):
             raise ValueError(
@@ -176,6 +197,14 @@ class Config:
                 "location_strategy_rollout_refresh_hypotheses_each_step requires "
                 "location_posterior_mode='analytical_likelihood'"
             )
+        if not isinstance(self.location_strategy_rollout_final_refresh_enabled, bool):
+            raise ValueError("location_strategy_rollout_final_refresh_enabled must be a boolean")
+        if self.location_max_step_radius is not None:
+            if isinstance(self.location_max_step_radius, bool):
+                raise ValueError("location_max_step_radius must be a positive number or null")
+            self.location_max_step_radius = float(self.location_max_step_radius)
+            if not math.isfinite(self.location_max_step_radius) or self.location_max_step_radius <= 0.0:
+                raise ValueError("location_max_step_radius must be a positive number or null")
         self.location_max_new_tokens = self.effective_max_model_len
 
     @property
@@ -430,9 +459,15 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "num_trials": "location_num_trials",
         "trial_batch_size": "location_trial_batch_size",
         "seed": "location_seed",
+        "source_prior": "location_source_prior",
+        "source_radius": "location_source_radius",
         "num_sources": "location_num_sources",
         "dim": "location_dim",
         "noise_sd": "location_noise_sd",
+        "signal_model": "location_signal_model",
+        "signal_lengthscale": "location_signal_lengthscale",
+        "signal_amplitude": "location_signal_amplitude",
+        "max_step_radius": "location_max_step_radius",
         "max_total_beliefs": "location_max_total_beliefs",
         "max_llm_prompt_beliefs": "location_max_llm_prompt_beliefs",
         "num_generated_hypotheses": "location_num_generated_hypotheses",
@@ -452,6 +487,7 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "strategy_rollout_scoring_support_mode": "location_strategy_rollout_scoring_support_mode",
         "strategy_rollout_scoring_support_size": "location_strategy_rollout_scoring_support_size",
         "strategy_rollout_score_mode": "location_strategy_rollout_score_mode",
+        "strategy_rollout_final_refresh_enabled": "location_strategy_rollout_final_refresh_enabled",
         "posterior_mode": "location_posterior_mode",
         "eig_bounds_enabled": "location_eig_bounds_enabled",
         "eig_bounds_inner_samples": "location_eig_bounds_inner_samples",
@@ -608,9 +644,28 @@ def load_config(path: str) -> Config:
         not isinstance(location_seed, int) or isinstance(location_seed, bool)
     ):
         raise ValueError("location_seed must be an integer or null")
+    location_source_prior = raw.get("location_source_prior", "normal")
+    if location_source_prior not in {"normal", "branch_decoy"}:
+        raise ValueError("location_source_prior must be one of: normal, branch_decoy")
+    location_source_radius = _read_positive_float(raw, "location_source_radius", 1.0)
     location_num_sources = _read_positive_int(raw, "location_num_sources", 3)
     location_dim = _read_positive_int(raw, "location_dim", 2)
     location_noise_sd = _read_positive_float(raw, "location_noise_sd", 0.5)
+    location_signal_model = raw.get("location_signal_model", "inverse_square")
+    if location_signal_model not in {"inverse_square", "local_bump"}:
+        raise ValueError("location_signal_model must be one of: inverse_square, local_bump")
+    location_signal_lengthscale = _read_positive_float(raw, "location_signal_lengthscale", 0.75)
+    location_signal_amplitude = _read_positive_float(raw, "location_signal_amplitude", 5.0)
+    location_max_step_radius = raw.get("location_max_step_radius")
+    if location_max_step_radius is not None:
+        if isinstance(location_max_step_radius, bool):
+            raise ValueError("location_max_step_radius must be a positive number or null")
+        try:
+            location_max_step_radius = float(location_max_step_radius)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("location_max_step_radius must be a positive number or null") from exc
+        if not math.isfinite(location_max_step_radius) or location_max_step_radius <= 0.0:
+            raise ValueError("location_max_step_radius must be a positive number or null")
     location_max_total_beliefs = _read_positive_int(raw, "location_max_total_beliefs", 1000)
     location_max_llm_prompt_beliefs = _read_positive_int(
         raw,
@@ -650,10 +705,10 @@ def load_config(path: str) -> Config:
         "location_strategy_rollout_scoring_support_mode",
         "union",
     )
-    if location_strategy_rollout_scoring_support_mode not in {"union", "truth_plus_sampled", "truth_start_end"}:
+    if location_strategy_rollout_scoring_support_mode not in {"union", "truth_plus_sampled", "truth_start_end", "fixed_common"}:
         raise ValueError(
             "location_strategy_rollout_scoring_support_mode must be one of: "
-            "union, truth_plus_sampled, truth_start_end"
+            "union, truth_plus_sampled, truth_start_end, fixed_common"
         )
     location_strategy_rollout_scoring_support_size = _read_positive_int(
         raw,
@@ -669,11 +724,17 @@ def load_config(path: str) -> Config:
             "location_strategy_rollout_score_mode must be one of: "
             "start_final_entropy_drop, future_step_support_sum"
         )
+    location_strategy_rollout_final_refresh_enabled = raw.get(
+        "location_strategy_rollout_final_refresh_enabled",
+        True,
+    )
+    if not isinstance(location_strategy_rollout_final_refresh_enabled, bool):
+        raise ValueError("location_strategy_rollout_final_refresh_enabled must be a boolean")
     location_posterior_mode = raw.get("location_posterior_mode", "analytical_likelihood")
     if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
         raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
     if (
-        location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end"}
+        location_strategy_rollout_scoring_support_mode in {"truth_plus_sampled", "truth_start_end", "fixed_common"}
         and location_posterior_mode != "analytical_likelihood"
     ):
         raise ValueError(
@@ -759,9 +820,15 @@ def load_config(path: str) -> Config:
         location_num_trials = location_num_trials,
         location_trial_batch_size = location_trial_batch_size,
         location_seed = location_seed,
+        location_source_prior = location_source_prior,
+        location_source_radius = location_source_radius,
         location_num_sources = location_num_sources,
         location_dim = location_dim,
         location_noise_sd = location_noise_sd,
+        location_signal_model = location_signal_model,
+        location_signal_lengthscale = location_signal_lengthscale,
+        location_signal_amplitude = location_signal_amplitude,
+        location_max_step_radius = location_max_step_radius,
         location_max_total_beliefs = location_max_total_beliefs,
         location_max_llm_prompt_beliefs = location_max_llm_prompt_beliefs,
         location_num_generated_hypotheses = location_num_generated_hypotheses,
@@ -781,6 +848,7 @@ def load_config(path: str) -> Config:
         location_strategy_rollout_scoring_support_mode = location_strategy_rollout_scoring_support_mode,
         location_strategy_rollout_scoring_support_size = location_strategy_rollout_scoring_support_size,
         location_strategy_rollout_score_mode = location_strategy_rollout_score_mode,
+        location_strategy_rollout_final_refresh_enabled = location_strategy_rollout_final_refresh_enabled,
         location_posterior_mode = location_posterior_mode,
         location_eig_bounds_enabled = location_eig_bounds_enabled,
         location_eig_bounds_inner_samples = location_eig_bounds_inner_samples,

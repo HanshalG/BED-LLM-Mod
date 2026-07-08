@@ -105,9 +105,15 @@ class LocationConfig:
     num_trials: int = 1
     trial_batch_size: int = 1
     seed: int | None = None
+    source_prior: str = "normal"
+    source_radius: float = 1.0
     num_sources: int = 3
     dim: int = 2
     noise_sd: float = 0.5
+    signal_model: str = "inverse_square"
+    signal_lengthscale: float = 0.75
+    signal_amplitude: float = 5.0
+    max_step_radius: float | None = None
     max_total_beliefs: int = 1000
     max_llm_prompt_beliefs: int = 40
     num_generated_hypotheses: int = 40
@@ -127,6 +133,7 @@ class LocationConfig:
     strategy_rollout_scoring_support_mode: str = "union"
     strategy_rollout_scoring_support_size: int = 32
     strategy_rollout_score_mode: str = "start_final_entropy_drop"
+    strategy_rollout_final_refresh_enabled: bool = True
     posterior_mode: str = "analytical_likelihood"
     eig_bounds_enabled: bool = False
     eig_bounds_inner_samples: int = 5000
@@ -211,9 +218,15 @@ def location_view(config: Any) -> LocationConfig:
         num_trials=getattr(config, "location_num_trials", 1),
         trial_batch_size=getattr(config, "location_trial_batch_size", 1),
         seed=getattr(config, "location_seed", None),
+        source_prior=getattr(config, "location_source_prior", "normal"),
+        source_radius=getattr(config, "location_source_radius", 1.0),
         num_sources=getattr(config, "location_num_sources", 3),
         dim=getattr(config, "location_dim", 2),
         noise_sd=getattr(config, "location_noise_sd", 0.5),
+        signal_model=getattr(config, "location_signal_model", "inverse_square"),
+        signal_lengthscale=getattr(config, "location_signal_lengthscale", 0.75),
+        signal_amplitude=getattr(config, "location_signal_amplitude", 5.0),
+        max_step_radius=getattr(config, "location_max_step_radius", None),
         max_total_beliefs=getattr(config, "location_max_total_beliefs", 1000),
         max_llm_prompt_beliefs=getattr(config, "location_max_llm_prompt_beliefs", 40),
         num_generated_hypotheses=getattr(config, "location_num_generated_hypotheses", 40),
@@ -248,6 +261,11 @@ def location_view(config: Any) -> LocationConfig:
             config,
             "location_strategy_rollout_score_mode",
             "start_final_entropy_drop",
+        ),
+        strategy_rollout_final_refresh_enabled=getattr(
+            config,
+            "location_strategy_rollout_final_refresh_enabled",
+            True,
         ),
         posterior_mode=getattr(config, "location_posterior_mode", "analytical_likelihood"),
         eig_bounds_enabled=getattr(config, "location_eig_bounds_enabled", False),

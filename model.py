@@ -207,6 +207,67 @@ class BaseVLLMAdapter(Model):
         finish_reason = getattr(output, "finish_reason", None)
         return finish_reason if isinstance(finish_reason, str) else ""
 
+    @staticmethod
+    def _request_prompt_token_count(request_output) -> int | None:
+        prompt_token_ids = getattr(request_output, "prompt_token_ids", None)
+        if prompt_token_ids is None:
+            return None
+        return len(prompt_token_ids)
+
+    def _log_llm_token_usage(
+        self,
+        *,
+        call_type: str,
+        prompt,
+        output=None,
+        request_output=None,
+        temperature: float,
+        max_new_tokens: int,
+        block_index: int | None = None,
+        response_index: int | None = None,
+    ) -> None:
+        if self.config.log_path is None:
+            return
+
+        prompt_tokens = (
+            self._request_prompt_token_count(request_output)
+            if request_output is not None
+            else None
+        )
+        if prompt_tokens is None:
+            prompt_tokens = self._prompt_token_count(prompt)
+        completion_tokens = (
+            self._completion_token_count(output)
+            if output is not None
+            else None
+        )
+        payload = {
+            "event": "llm_token_usage",
+            "model": self.model_name,
+            "call_type": call_type,
+            "prompt_tokens": prompt_tokens,
+            "completion_tokens": completion_tokens,
+            "total_tokens": (
+                prompt_tokens + completion_tokens
+                if completion_tokens is not None
+                else None
+            ),
+            "max_new_tokens": max_new_tokens,
+            "temperature": temperature,
+        }
+        if block_index is not None:
+            payload["block_index"] = block_index
+        if response_index is not None:
+            payload["response_index"] = response_index
+        finish_reason = self._completion_finish_reason(output) if output is not None else ""
+        if finish_reason:
+            payload["finish_reason"] = finish_reason
+
+        try:
+            write_to_log(json.dumps(payload, sort_keys=True) + "\n", self.config)
+        except Exception:
+            return
+
     def _forced_final_max_new_tokens(self) -> int:
         return 0
 
@@ -269,7 +330,19 @@ class BaseVLLMAdapter(Model):
         continuation_outputs = self.llm.generate(continuation_prompts, sampling_params)
         forced_count = 0
         empty_count = 0
-        for original_idx, request_output in zip(forced_indices, continuation_outputs):
+        for continuation_idx, (original_idx, request_output) in enumerate(
+            zip(forced_indices, continuation_outputs)
+        ):
+            forced_output = request_output.outputs[0] if request_output.outputs else None
+            self._log_llm_token_usage(
+                call_type="forced_final",
+                prompt=continuation_prompts[continuation_idx],
+                output=forced_output,
+                request_output=request_output,
+                temperature=temperature,
+                max_new_tokens=final_max_new_tokens,
+                response_index=original_idx,
+            )
             if not request_output.outputs:
                 empty_count += 1
                 continue
@@ -426,6 +499,18 @@ class BaseVLLMAdapter(Model):
                 output.outputs[0] if output.outputs else None
                 for output in outputs
             ]
+            for block_offset, (prompt, request_output, output) in enumerate(
+                zip(block_prompts, outputs, completion_outputs)
+            ):
+                self._log_llm_token_usage(
+                    call_type="batched_chat",
+                    prompt=prompt,
+                    output=output,
+                    request_output=request_output,
+                    temperature=temperature,
+                    max_new_tokens=block_max_new_tokens,
+                    block_index=start_idx + block_offset,
+                )
             completions.extend(
                 self._maybe_force_final_answers(
                     block_prompts,
@@ -447,6 +532,17 @@ class BaseVLLMAdapter(Model):
             n=num_responses,
         )
         outputs = self.llm.generate([prompt], sampling_params)
+        request_output = outputs[0]
+        for response_idx, output in enumerate(request_output.outputs):
+            self._log_llm_token_usage(
+                call_type="chat",
+                prompt=prompt,
+                output=output,
+                request_output=request_output,
+                temperature=temperature,
+                max_new_tokens=max_new_tokens,
+                response_index=response_idx,
+            )
         completions = self._maybe_force_final_answers(
             [prompt for _output in outputs[0].outputs],
             list(outputs[0].outputs),

@@ -9,7 +9,7 @@ from core import BeliefState
 from helpers import Config, _average_labeled_distributions_from_completions
 from .formatting import _location_posterior_labels, _log_location, _summarize_belief_state
 from .parsing import parse_source_hypotheses
-from .physics import _hypothesis_log_prior, _logsumexp, observation_log_likelihood, signal_intensity_for_hypothesis
+from .physics import _logsumexp, hypothesis_log_prior_for_config, observation_log_likelihood, signal_intensities_from_distances, signal_intensity_for_hypothesis
 from .prompts import _belief_generation_messages, _location_posterior_context_probabilities, _location_posterior_distribution_messages, _permuted_location_observation_histories
 from .types import LocationObservation, SourceConfig, _dedupe_source_configs
 
@@ -39,17 +39,13 @@ def build_location_belief_state_unpruned(
     theta = np.asarray(hypotheses, dtype=float)
     H, S, D = theta.shape
 
-    # Log prior: -0.5 * ||theta||^2 - 0.5 * S*D * log(2π), shape (H,)
-    log_scores = (
-        -0.5 * np.sum(theta.reshape(H, -1) ** 2, axis=1)
-        - 0.5 * S * D * math.log(2.0 * math.pi)
-    )
+    del S
+    log_scores = np.asarray([hypothesis_log_prior_for_config(hypothesis, config) for hypothesis in hypotheses], dtype=float)
 
     if observations:
         queries = np.asarray([obs.query for obs in observations], dtype=float)  # (O, D)
         values = np.asarray([obs.value for obs in observations], dtype=float)   # (O,)
         sd = config.location_noise_sd
-        b, m, alpha = 0.1, 1e-4, 1.0
 
         # Pairwise squared distances between each hypothesis-source and each query.
         # theta[:, np.newaxis, :, :] → (H, 1, S, D)
@@ -61,7 +57,12 @@ def build_location_belief_state_unpruned(
         )
 
         # Signal means for every (hypothesis, observation) pair: (H, O)
-        means = b + np.sum(alpha / (m + distances_sq), axis=2)
+        means = signal_intensities_from_distances(
+            distances_sq,
+            signal_model=getattr(config, "location_signal_model", "inverse_square"),
+            signal_lengthscale=float(getattr(config, "location_signal_lengthscale", 0.75)),
+            signal_amplitude=float(getattr(config, "location_signal_amplitude", 5.0)),
+        )
 
         # Log-likelihood under multiplicative log-normal noise: (H, O),
         # then summed over observations → (H,).
@@ -161,7 +162,7 @@ def build_location_posteriors_many(
             branch_prompt_counts.append(0)
             continue
         active_branch_indices.append(branch_idx)
-        context_probabilities = _location_posterior_context_probabilities(hypotheses, context_state)
+        context_probabilities = _location_posterior_context_probabilities(hypotheses, context_state, config)
         if config.belief_distribution_permute_history:
             histories = _permuted_location_observation_histories(
                 observations,
@@ -212,6 +213,7 @@ def build_location_posteriors_many(
         context_probabilities = _location_posterior_context_probabilities(
             hypotheses,
             context_states[branch_idx],
+            config,
         )
         context_distribution = {
             label: probability
@@ -315,12 +317,13 @@ def _posterior_after_observation(
     query: Location,
     value: float,
     noise_sd: float,
+    config: Config | None = None,
 ) -> BeliefState:
     if not belief_state.hypotheses:
         return belief_state
     log_scores = []
     for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities):
-        mean = signal_intensity_for_hypothesis(hypothesis, query)
+        mean = signal_intensity_for_hypothesis(hypothesis, query, config=config)
         log_scores.append(math.log(max(probability, 1e-300)) + observation_log_likelihood(value, mean, noise_sd))
     normalizer = _logsumexp(log_scores)
     return sort_location_belief_state(

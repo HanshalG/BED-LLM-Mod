@@ -52,9 +52,15 @@ def test_location_view_extracts_location_fields():
         task="location_finding",
         location_num_rounds=10,
         location_num_trials=3,
+        location_source_prior="branch_decoy",
+        location_source_radius=2.2,
         location_num_sources=4,
         location_dim=3,
         location_noise_sd=0.25,
+        location_signal_model="local_bump",
+        location_signal_lengthscale=0.5,
+        location_signal_amplitude=8.0,
+        location_max_step_radius=0.75,
         location_max_total_beliefs=500,
         location_max_llm_prompt_beliefs=30,
         location_num_generated_hypotheses=25,
@@ -67,6 +73,7 @@ def test_location_view_extracts_location_fields():
         location_strategy_rollout_scoring_support_mode="truth_plus_sampled",
         location_strategy_rollout_scoring_support_size=17,
         location_strategy_rollout_score_mode="future_step_support_sum",
+        location_strategy_rollout_final_refresh_enabled=False,
         location_eig_bounds_enabled=True,
         location_eig_bounds_inner_samples=101,
         location_eig_bounds_seed=44,
@@ -78,9 +85,15 @@ def test_location_view_extracts_location_fields():
     assert isinstance(view, LocationConfig)
     assert view.num_rounds == 10
     assert view.num_trials == 3
+    assert view.source_prior == "branch_decoy"
+    assert view.source_radius == pytest.approx(2.2)
     assert view.num_sources == 4
     assert view.dim == 3
     assert view.noise_sd == pytest.approx(0.25)
+    assert view.signal_model == "local_bump"
+    assert view.signal_lengthscale == pytest.approx(0.5)
+    assert view.signal_amplitude == pytest.approx(8.0)
+    assert view.max_step_radius == pytest.approx(0.75)
     assert view.max_total_beliefs == 500
     assert view.max_llm_prompt_beliefs == 30
     assert view.num_generated_hypotheses == 25
@@ -93,6 +106,7 @@ def test_location_view_extracts_location_fields():
     assert view.strategy_rollout_scoring_support_mode == "truth_plus_sampled"
     assert view.strategy_rollout_scoring_support_size == 17
     assert view.strategy_rollout_score_mode == "future_step_support_sum"
+    assert view.strategy_rollout_final_refresh_enabled is False
     # Derived: 3 + 2 + 2 + 1 = 8
     assert view.strategy_num_candidates == 8
 

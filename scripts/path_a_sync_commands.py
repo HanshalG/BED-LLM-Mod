@@ -1,0 +1,70 @@
+from __future__ import annotations
+
+import argparse
+import shlex
+import subprocess
+from pathlib import Path
+
+
+DEFAULT_REMOTE = "oat0:/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z/"
+GENERATED_PREFIXES = ("results/", "plots/", "runs/")
+REQUIRED_SYNC_PATHS = (
+    "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml",
+    "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
+)
+
+
+def parse_git_status_paths(status_output: str, *, include_generated: bool = False) -> list[str]:
+    paths: list[str] = []
+    for line in status_output.splitlines():
+        if not line:
+            continue
+        path = line[3:]
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1]
+        if not include_generated and path.startswith(GENERATED_PREFIXES):
+            continue
+        paths.append(path)
+    return sorted(dict.fromkeys(paths))
+
+
+def changed_paths(*, include_generated: bool = False) -> list[str]:
+    result = subprocess.run(
+        ["git", "status", "--porcelain"],
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    paths = parse_git_status_paths(result.stdout, include_generated=include_generated)
+    for path in REQUIRED_SYNC_PATHS:
+        if Path(path).exists():
+            paths.append(path)
+    return sorted(dict.fromkeys(paths))
+
+
+def build_rsync_command(paths: list[str], *, remote: str = DEFAULT_REMOTE) -> str:
+    if not paths:
+        return "# no changed files to sync"
+    quoted_paths = " ".join(shlex.quote(path) for path in paths)
+    return f"rsync -avR {quoted_paths} {shlex.quote(remote)}"
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Print a non-mutating rsync command for current Path A changes.")
+    parser.add_argument("--remote", default=DEFAULT_REMOTE)
+    parser.add_argument("--include-generated", action="store_true", help="Include results/, plots/, and runs/ changes")
+    parser.add_argument("--list", action="store_true", help="Print one path per line instead of an rsync command")
+    args = parser.parse_args()
+
+    paths = changed_paths(include_generated=args.include_generated)
+    if args.list:
+        for path in paths:
+            print(path)
+        return
+    print("# Run from the repository root after reviewing the file list.")
+    print("# This only syncs changed/untracked files reported by git status.")
+    print(build_rsync_command(paths, remote=args.remote))
+
+
+if __name__ == "__main__":
+    main()

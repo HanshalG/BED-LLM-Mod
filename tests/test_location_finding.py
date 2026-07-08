@@ -64,6 +64,7 @@ from environments.location_finding.types import (
     _StrategyLocationRequest,
     _StrategyRollout,
     normalize_source_config,
+    project_location_to_step_radius,
 )
 
 
@@ -99,6 +100,56 @@ class FakeLocationModel:
 
     def chat_probabilities_messages_batched(self, messages, responses, temperature, block_size):
         raise AssertionError("chat_probabilities_messages_batched should not be used in Location Finding smoke test")
+
+
+def test_location_step_radius_projection_clamps_to_previous_query():
+    config = Config(
+        task="location_finding",
+        location_num_sources=1,
+        location_dim=2,
+        location_noise_sd=0.5,
+        location_max_step_radius=0.5,
+    )
+
+    projected = project_location_to_step_radius((2.0, 0.0), (0.0, 0.0), config)
+
+    assert projected == pytest.approx((0.5, 0.0))
+
+
+def test_candidate_generation_projects_locations_to_step_radius():
+    model = FakeLocationModel(['{"locations":[[2.0,0.0],[0.0,0.25]]}'])
+    config = Config(
+        task="location_finding",
+        location_num_sources=1,
+        location_dim=2,
+        location_noise_sd=0.5,
+        location_target_num_candidates=2,
+        location_max_step_radius=0.5,
+    )
+    belief_state = BeliefState(hypotheses=[((0.0, 0.0),)], probabilities=[1.0])
+    observations = [LocationObservation(query=(0.0, 0.0), value=1.0)]
+
+    candidates = LocationBEDEnvironment(config).generate_candidate_actions(
+        belief_state,
+        [(observations[0].query, observations[0])],
+        model,
+        config,
+    )
+
+    assert candidates[0] == pytest.approx((0.5, 0.0))
+    assert candidates[1] == pytest.approx((0.0, 0.25))
+
+
+def test_location_environment_allows_lower_noise_for_constrained_oracle_variant():
+    config = Config(
+        task="location_finding",
+        location_num_sources=1,
+        location_dim=2,
+        location_noise_sd=0.25,
+        location_max_step_radius=0.5,
+    )
+
+    LocationBEDEnvironment(config).validate_config(config)
 
 
 class RoutingLocationModel:
@@ -202,6 +253,38 @@ def test_location_env_matches_signal_defaults_and_records_noisy_observation():
     assert observation.query == (0.25, -0.5)
     assert isinstance(observation.value, float)
     assert env.observed_data == [observation]
+
+
+def test_location_env_supports_local_bump_signal_model():
+    true_theta = np.array([[1.0, 0.0]])
+    env = LocationFindingEnv(
+        num_sources=1,
+        true_theta=true_theta,
+        signal_model="local_bump",
+        signal_lengthscale=0.5,
+        signal_amplitude=8.0,
+        rng=np.random.default_rng(0),
+    )
+
+    on_source = env.signal_intensity([1.0, 0.0])
+    far = env.signal_intensity([-2.0, 0.0])
+
+    assert on_source == pytest.approx(8.1)
+    assert far == pytest.approx(0.1, abs=1e-6)
+
+
+def test_location_env_samples_branch_decoy_prior_near_endpoints():
+    rng = np.random.default_rng(123)
+    env = LocationFindingEnv(
+        num_sources=1,
+        source_prior="branch_decoy",
+        source_radius=2.2,
+        rng=rng,
+    )
+    endpoints = np.asarray([[-1.43, 0.0], [2.2, 1.76], [2.2, -1.76]])
+    distances = np.linalg.norm(env.true_theta[0][None, :] - endpoints, axis=1)
+
+    assert np.min(distances) < 0.5
 
 
 def test_location_observation_model_is_lognormal_and_eig_prefers_informative_queries():
@@ -964,6 +1047,32 @@ def test_truth_start_end_rollout_scoring_support_uses_truth_start_and_end():
     assert support == [truth, start_other, end_other]
 
 
+def test_fixed_common_rollout_scoring_support_uses_shared_support():
+    config = _location_config(
+        location_num_sources=1,
+        location_strategy_rollout_scoring_support_mode="fixed_common",
+    )
+    truth = normalize_source_config([[0, 0]], 1, 2)
+    start_other = normalize_source_config([[1, 0]], 1, 2)
+    common_other = normalize_source_config([[0, 1]], 1, 2)
+    generated_only = normalize_source_config([[2, 0]], 1, 2)
+    start_state = build_location_belief_state([truth, start_other], [], config)
+    rollout = _StrategyRollout(
+        request_index=0,
+        strategy_index=0,
+        strategy="test",
+        truth=truth,
+        start_probability=0.5,
+        start_belief_state=start_state,
+        belief_state=start_state,
+        particle_support=[generated_only],
+        fixed_common_support=[truth, common_other],
+        generated_hypotheses=[generated_only],
+    )
+
+    assert _rollout_scoring_support(rollout, config) == [truth, common_other]
+
+
 def test_future_step_support_sum_scores_each_transition_on_next_support():
     config = _location_config(
         location_num_sources=1,
@@ -1261,6 +1370,41 @@ def test_strategy_rollout_uses_closed_form_steps_then_one_final_refresh():
     second_prompt_hypotheses = _weighted_hypotheses_from_strategy_prompt(second_location_prompt)
     second_prompt_probabilities = [row["probability"] for row in second_prompt_hypotheses]
     assert any(abs(probability - 0.5) > 1e-3 for probability in second_prompt_probabilities)
+
+
+def test_strategy_rollout_can_disable_final_refresh_for_scoring():
+    config = _location_config(
+        location_num_rounds=3,
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=3,
+        location_strategy_belief_summary_top_k=2,
+        location_strategy_rollout_final_refresh_enabled=False,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
+    belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
+    model = FakeLocationModel(
+        [
+            '{"location": [1, 1]}',
+            '{"location": [0, 0]}',
+            '{"location": [-1, -1]}',
+        ]
+    )
+
+    evaluations = evaluate_location_strategies_by_rollout(
+        model,
+        ["Probe a discriminative suspected peak, then refine with offsets."],
+        belief_state,
+        [],
+        config,
+        np.random.default_rng(4),
+    )
+
+    assert len(evaluations) == 1
+    assert math.isfinite(evaluations[0].mean_score)
+    assert len(model.batched_calls) == 3
+    assert all("{\"location\":[x1,y1]}" in batch[0][0]["content"] for batch in model.batched_calls)
+    assert all("{\"hypotheses\"" not in batch[0][-1]["content"] for batch in model.batched_calls)
 
 
 def test_strategy_rollout_depth_is_capped_by_remaining_rounds():

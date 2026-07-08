@@ -73,6 +73,40 @@ def normalize_location(raw_location: object, dim: int) -> Location:
     return tuple(values)
 
 
+def location_max_step_radius(config: Any) -> float | None:
+    value = getattr(config, "location_max_step_radius", None)
+    if value is None:
+        return None
+    radius = float(value)
+    if not math.isfinite(radius) or radius <= 0.0:
+        raise ValueError("location_max_step_radius must be a positive number or null")
+    return radius
+
+
+def last_query_from_observations(observations: list[LocationObservation]) -> Location | None:
+    return observations[-1].query if observations else None
+
+
+def project_location_to_step_radius(
+    location: Location,
+    previous_query: Location | None,
+    config: Any,
+) -> Location:
+    radius = location_max_step_radius(config)
+    dim = int(getattr(config, "location_dim", len(location)))
+    query = np.asarray(normalize_location(location, dim), dtype=float)
+    if radius is None or previous_query is None:
+        return tuple(float(value) for value in query)
+
+    previous = np.asarray(normalize_location(previous_query, dim), dtype=float)
+    delta = query - previous
+    distance = float(np.linalg.norm(delta))
+    if distance <= radius or distance <= 0.0:
+        return tuple(float(value) for value in query)
+    projected = previous + delta * (radius / distance)
+    return tuple(float(value) for value in projected)
+
+
 def normalize_source_config(raw_config: object, num_sources: int, dim: int) -> SourceConfig:
     try:
         source_rows = list(raw_config)  # type: ignore[arg-type]
@@ -107,6 +141,11 @@ class LocationFindingEnv:
         m: float = 1e-4,
         alpha: float = 1.0,
         noise_sd: float = 0.5,
+        signal_model: str = "inverse_square",
+        signal_lengthscale: float = 0.75,
+        signal_amplitude: float = 5.0,
+        source_prior: str = "normal",
+        source_radius: float = 1.0,
         true_theta: np.ndarray | None = None,
         rng: np.random.Generator | None = None,
     ) -> None:
@@ -116,6 +155,11 @@ class LocationFindingEnv:
         self.m = m
         self.alpha = alpha
         self.noise_sd = noise_sd
+        self.signal_model = signal_model
+        self.signal_lengthscale = signal_lengthscale
+        self.signal_amplitude = signal_amplitude
+        self.source_prior = source_prior
+        self.source_radius = source_radius
         self.rng = rng or np.random.default_rng()
         self.observed_data: list[LocationObservation] = []
         self.true_theta = np.zeros((self.num_sources, self.dim), dtype=float)
@@ -124,7 +168,16 @@ class LocationFindingEnv:
     def reset(self, true_theta: np.ndarray | None = None) -> None:
         self.observed_data = []
         if true_theta is None:
-            self.true_theta = self.rng.normal(0.0, 1.0, size=(self.num_sources, self.dim))
+            from .physics import sample_source_configs_from_prior
+
+            self.true_theta = sample_source_configs_from_prior(
+                self.rng,
+                count=1,
+                num_sources=self.num_sources,
+                dim=self.dim,
+                source_prior=self.source_prior,
+                source_radius=self.source_radius,
+            )[0]
         else:
             theta = np.asarray(true_theta, dtype=float)
             if theta.shape != (self.num_sources, self.dim):
@@ -137,8 +190,20 @@ class LocationFindingEnv:
         query_arr = np.asarray(query, dtype=float)
         if query_arr.shape != (self.dim,):
             raise ValueError(f"query must have shape {(self.dim,)}, received {query_arr.shape}")
+        from .physics import signal_intensities_from_distances
+
         distances_squared = np.sum((self.true_theta - query_arr) ** 2, axis=1)
-        return float(self.b + np.sum(self.alpha / (self.m + distances_squared)))
+        return float(
+            signal_intensities_from_distances(
+                distances_squared,
+                b=self.b,
+                m=self.m,
+                alpha=self.alpha,
+                signal_model=self.signal_model,
+                signal_lengthscale=self.signal_lengthscale,
+                signal_amplitude=self.signal_amplitude,
+            )
+        )
 
     def step(self, query: Location | np.ndarray) -> float:
         intensity = self.signal_intensity(query)
@@ -195,6 +260,7 @@ class _StrategyRollout:
     start_belief_state: _BeliefState[SourceConfig]
     belief_state: _BeliefState[SourceConfig]
     particle_support: list[SourceConfig] = field(default_factory=list)
+    fixed_common_support: list[SourceConfig] = field(default_factory=list)
     generated_hypotheses: list[SourceConfig] = field(default_factory=list)
     final_generated_hypotheses: list[SourceConfig] = field(default_factory=list)
     final_scoring_belief_state: _BeliefState[SourceConfig] | None = None
@@ -203,6 +269,8 @@ class _StrategyRollout:
     simulated_supports: list[list[SourceConfig]] = field(default_factory=list)
     root_query: Location | None = None
     scoring_seed: int | None = None
+    noise_zs: tuple[float, ...] = field(default_factory=tuple)
+    rollout_index: int = 0
 
 
 @dataclass(frozen=True)
