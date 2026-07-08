@@ -12,6 +12,7 @@ from scripts.compare_location_depth_sweeps import (
     write_comparison_report,
 )
 from scripts.cost_vs_depth_table import write_cost_table
+from scripts.extract_location_qualitative_examples import extract_qualitative_examples
 from scripts.validate_path_a_package import summary_payload, validate_path_a_package
 
 
@@ -34,6 +35,7 @@ def build_path_a_package(
     output_dir: Path,
     plot_dir: Path,
     cost_dir: Path,
+    qualitative_dir: Path,
     run_name: str,
     validate_root: Path,
 ) -> dict[str, Any]:
@@ -59,6 +61,16 @@ def build_path_a_package(
         cost_dir,
         run_name,
     )
+    qualitative_constrained = extract_qualitative_examples(
+        summary_path=constrained,
+        output_dir=qualitative_dir,
+        run_label=f"{run_name}_constrained",
+    )
+    qualitative_unconstrained = extract_qualitative_examples(
+        summary_path=unconstrained,
+        output_dir=qualitative_dir,
+        run_label=f"{run_name}_unconstrained",
+    )
     validation = summary_payload(validate_path_a_package(validate_root))
     return {
         "comparison_summary": str(comparison_summary_path),
@@ -67,6 +79,10 @@ def build_path_a_package(
         "headline_plot": str(headline_plot_path),
         "cost_json": str(cost_json_path),
         "cost_report": str(cost_md_path),
+        "qualitative_constrained_json": qualitative_constrained["json_path"],
+        "qualitative_constrained_report": qualitative_constrained["markdown_path"],
+        "qualitative_unconstrained_json": qualitative_unconstrained["json_path"],
+        "qualitative_unconstrained_report": qualitative_unconstrained["markdown_path"],
         "validation": validation,
     }
 
@@ -78,6 +94,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=Path("results/location_depth_sweeps"))
     parser.add_argument("--plot-dir", type=Path, default=Path("plots/location_depth_sweeps"))
     parser.add_argument("--cost-dir", type=Path, default=Path("results/cost_vs_depth"))
+    parser.add_argument("--qualitative-dir", type=Path, default=Path("results/location_qualitative"))
     parser.add_argument("--run-name", default="location_branch_decoy_depth_contrast_26b_a4b")
     parser.add_argument("--validate-root", type=Path, default=Path("."))
     parser.add_argument("--json", action="store_true", help="Emit machine-readable JSON")
@@ -89,6 +106,7 @@ def main() -> None:
         output_dir=args.output_dir,
         plot_dir=args.plot_dir,
         cost_dir=args.cost_dir,
+        qualitative_dir=args.qualitative_dir,
         run_name=args.run_name,
         validate_root=args.validate_root,
     )

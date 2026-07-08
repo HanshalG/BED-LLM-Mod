@@ -41,13 +41,13 @@ Live Phase 4 cluster state as of 2026-07-08:
 
 | Job ID | Job name | Partition | State | Node | Run name | Notes |
 |---:|---|---|---|---|---|---|
-| 101778 | `loc_branch_constr26_f50` | `gh200` | running | `oat21` | `loc_branch_decoy_local_constrained_final50_26b_a4b` | Original full50 constrained job; 150 decisions written, no metrics yet. |
-| 101779 | `loc_branch_uncon26_f50` | `gh200` | running | `oat22` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b` | Original full50 unconstrained job; 150 decisions written, no metrics yet. |
-| 101993 | `loc_branch_constr26_f50_opt` | `gh200` | pending | - | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch, waiting on priority. |
+| 101778 | `loc_branch_constr26_f50` | `gh200` | canceled | `oat21` | `loc_branch_decoy_local_constrained_final50_26b_a4b` | Original full50 constrained job; canceled after 13h+ because it remained at 150 decisions with no metrics and was blocking GH200 capacity. |
+| 101779 | `loc_branch_uncon26_f50` | `gh200` | canceled | `oat22` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b` | Original full50 unconstrained job; canceled after 13h+ because it remained at 150 decisions with no metrics and was blocking GH200 capacity. |
+| 101993 | `loc_branch_constr26_f50_opt` | `gh200` | running | `oat21` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch; started after old GH200 originals were canceled. |
 | 101994 | `loc_branch_uncon26_f50_opt` | `gh200` | pending | - | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch, waiting on priority. |
 | 101998 | `loc_branch_constr26_f50_optm2` | `msc` | running | `oat15` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2` | Optimized full50 constrained MSC run; 150 decisions written, in first heavy StrategyEIG refresh block. |
 | 101996 | `loc_branch_uncon26_f50_optm` | `msc` | running | `oat14` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc` | Optimized full50 unconstrained MSC run; 150 decisions written, in first heavy StrategyEIG refresh block. |
-| 102018 | `loc_branch_constr26_mpp30` | `msc` | pending | - | `loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5. |
+| 102018 | `loc_branch_constr26_mpp30` | `msc` | running | `oat16` | `loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; run dir not yet created at first post-start check. |
 | 102019 | `loc_branch_uncon26_mpp30` | `msc` | pending | - | `loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5. |
 
 Wall-clock check as of 2026-07-08:
@@ -63,6 +63,10 @@ Wall-clock check as of 2026-07-08:
 - The MPP30 fallback jobs are still priority-pending, and Slurm's projected
   start times are not useful near-term guarantees. Do not count on them to land
   before the running jobs advance.
+- On 2026-07-08, the old original GH200 jobs `101778`/`101779` were canceled
+  after the user noted other people were waiting on those nodes. This does not
+  remove them from the ledger; it makes them ineligible as canonical completed
+  runs under the rule below.
 
 ## Phase 1 Gate
 
@@ -247,6 +251,31 @@ Rationale:
   planner win rate, so rank tests alone can miss heavy-tailed planning gains.
   Mean paired effects with bootstrap intervals are therefore the correct
   primary summary.
+
+Canonical run-selection rule:
+
+- Select the canonical constrained/unconstrained pair before looking at any
+  Phase 4 metric values. A pair is eligible only if both arms complete the full
+  requested run and write a fixed-root metrics summary.
+- First choose the eligible pair with the largest completed paired-trial count.
+  Therefore any complete 50-trial pair beats any complete 30-trial fallback
+  pair.
+- If multiple eligible pairs have the same completed paired-trial count, break
+  ties by launch priority, not by result values:
+  1. original full50 GH200 pair: jobs `101778` / `101779`;
+  2. optimized full50 GH200 pair: jobs `101993` / `101994`;
+  3. optimized full50 MSC pair: jobs `101998` / `101996`;
+  4. MPP30 MSC fallback pair: jobs `102018` / `102019`.
+- Before a non-original variant can become canonical, verify scientific
+  config-equivalence against the original intended run: same environment,
+  source prior, signal model, seed policy, trial count, round count, strategy
+  depths, rollout count, scoring mode, posterior mode, and matched-compute
+  controls. Throughput-only changes such as branch grouping, partition, node,
+  or launch wrapper are allowed only if they do not change the scientific
+  policy definition. Any result-affecting difference makes the variant an
+  appendix run rather than the canonical run.
+- Every other completed pair must be reported as replication or sensitivity
+  evidence in the appendix. Redundant completions are never silently dropped.
 
 ## Rollout Ablation
 

@@ -107,6 +107,7 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
         output_dir=tmp_path / "results/location_depth_sweeps",
         plot_dir=tmp_path / "plots/location_depth_sweeps",
         cost_dir=tmp_path / "results/cost_vs_depth",
+        qualitative_dir=tmp_path / "results/location_qualitative",
         run_name="demo",
         validate_root=tmp_path,
     )
@@ -119,6 +120,10 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
         "headline_plot",
         "cost_json",
         "cost_report",
+        "qualitative_constrained_json",
+        "qualitative_constrained_report",
+        "qualitative_unconstrained_json",
+        "qualitative_unconstrained_report",
     ):
         assert Path(payload[key]).exists()
     assert (tmp_path / "results/location_depth_sweeps/demo_REPORT.md").exists()
