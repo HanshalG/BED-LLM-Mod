@@ -72,12 +72,9 @@ is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
 
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Write the sweep recovery aggregator.** `fixed_root_depth_sweep_metrics.json` is
-   written only at the end of the job (`scripts/location_fixed_root_depth_sweep.py`
-   ~L1163); only the decisions JSONL is incremental. Build
-   `scripts/recover_depth_sweep_metrics.py` that rebuilds the metrics summary from
-   `fixed_root_depth_sweep_decisions.jsonl` + config, and test it on a smoke run. Also
-   check the gh200 SLURM wall-clock limit against projected runtime.
+1. **Check the gh200/msc SLURM wall-clock limits against projected runtime.** Recovery
+   script exists (`scripts/recover_depth_sweep_metrics.py`) and is smoke-tested, but the
+   live jobs may still hit wall-clock before a complete round of StrategyEIG metrics.
 2. **Create the paper skeleton.** `paper/` with a 4–6 page
    workshop layout: abstract stub using the question-driven framing ("Can LLMs evaluate
    their own experimental plans?"), section stubs, and placeholder slots for the four

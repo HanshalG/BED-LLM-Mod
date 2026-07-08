@@ -157,3 +157,9 @@ python scripts/validate_path_a_package.py --root .
 ```
 
 Completion requires this validator to pass.
+
+If a run exits before the metrics file is written, use
+`scripts/recover_depth_sweep_metrics.py` first. The recovery command is recorded
+in `LOCATION_DEPTH_PATH_A_RUNBOOK.md`; it writes
+`fixed_root_depth_sweep_metrics_recovered.json` by default so recovered metrics
+can be inspected before promotion.

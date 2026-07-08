@@ -287,3 +287,37 @@ Audit the minimum publishable package before writing up claims:
 ```bash
 python scripts/validate_path_a_package.py --root .
 ```
+
+## Recovery From Incremental Decisions
+
+If a fixed-root sweep exits before `fixed_root_depth_sweep_metrics.json` is
+written, recover the partial or complete summary from
+`fixed_root_depth_sweep_decisions.jsonl`:
+
+```bash
+python scripts/recover_depth_sweep_metrics.py \
+  --config configs/config_location_branch_decoy_local_final50_26b_a4b.yaml \
+  --run-dir runs/loc_branch_decoy_local_constrained_final50_26b_a4b \
+  --max-depth 5 \
+  --include-myopic-controls
+```
+
+For the MPP30 fallback runs, pass the same subset flags used at launch:
+
+```bash
+python scripts/recover_depth_sweep_metrics.py \
+  --config configs/config_location_branch_decoy_local_final50_26b_a4b.yaml \
+  --run-dir runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc \
+  --max-depth 5 \
+  --include-myopic-controls \
+  --strategy-depths 1,3,5 \
+  --eval-depths 1,3,5 \
+  --myopic-control-depths 3,5
+```
+
+Recovery reuses the selected actions and observations already in the decision
+JSONL, so it does not regenerate strategies or rollout scores. Because the
+current decision JSONL does not store refreshed hypothesis supports, exact
+posterior metrics still replay the normal belief-generation/update path from
+the config. Treat `*_recovered.json` as an auditable recovery artifact before
+promoting it to the canonical metrics filename.
