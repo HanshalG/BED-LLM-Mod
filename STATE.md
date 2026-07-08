@@ -32,22 +32,16 @@ Positioning: `results/POSITIONING.md` (COPEx + IPP covered). Operational command
 `LOCATION_DEPTH_PATH_A_RUNBOOK.md` and `PHASE4_LAUNCH_HANDOFF.md`. The Phase 4 endpoint
 is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
 
+RMSE repair analysis: **DONE for current records** —
+`results/ranking_fidelity/RMSE_REPAIR.md` and
+`results/ranking_fidelity/rmse_repair_analysis.json`. Realized entropy/truth-log-prob
+gains are only weakly rank-aligned with realized point-RMSE gains; expected posterior RMSE
+cannot be recovered exactly from the current aggregate records because final posterior
+supports/probabilities were not logged.
+
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Confirm MPP30 startup and keep active jobs <=8.** `102018` started after canceling
-   `101778`/`101779`, but its run directory had not appeared at the first post-start
-   check. Recheck startup logs/run directory before assuming progress.
-2. **RMSE repair analyses (free, from existing gate JSONL — no new runs).**
-   (a) Exculpation check: correlation between REALIZED entropy drop and REALIZED ΔRMSE
-   across candidates within each probe, plus RMSE between/within-strategy SNR. If
-   realized-realized ≈ 0, no scorer could rank point-RMSE at probe horizons — the
-   endpoint is unrankable and the estimator is exonerated; that sentence goes in the
-   paper. (b) Recompute realized RMSE as EXPECTED posterior RMSE from the stored final
-   posteriors + truth, and redo the Spearman ρ table with it. Expected: it correlates
-   near truth-log-prob levels, completing the story (scorer predicts posterior quality;
-   point-RMSE is a noisy discretization). Append both to
-   `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`.
-3. **Environment robustness heatmap (CPU-only, addresses the "hand-tuned env" critique).**
+1. **Environment robustness heatmap (CPU-only, addresses the "hand-tuned env" critique).**
    Extend `scripts/constrained_oracle_check.py` into a parameter sweep: oracle gap
    (planner − greedy final RMSE, non-LLM, analytic) over a grid of signal lengthscale ×
    max step radius × noise_sd (~3×3×3, 100+ trials per cell, embarrassingly parallel on
@@ -55,7 +49,7 @@ is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
    point marked. This converts "we tuned until it worked" into "we mapped the region
    where planning matters and evaluated inside it" — the strongest available answer to
    the contrived-environment review. Appendix figure + 2 sentences in main text.
-4. **Env framing in the paper (free, write into the skeleton).** Present the env with
+2. **Env framing in the paper (free, write into the skeleton).** Present the env with
    its physical semantics — mobile agent, movement cost (locality constraint),
    short-range sensor (local-bump finite-range signal), junction structure (branch-decoy
    prior) — not as an abstract tuned geometry. State explicitly that geometry selection
@@ -63,9 +57,14 @@ is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
    entered the tuning loop). Report the failed geometries transparently as a finding:
    most geometries are greedy-friendly, myopic traps are rare in this family — which
    explains the original null results and motivates the constructed instance.
-5. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
+3. **Add posterior-state logging for future ranking-fidelity repair runs.** Existing 26B
+   aggregate records do not store final posterior supports/probabilities, so expected
+   posterior RMSE could not be recomputed from the current JSONL. If any follow-up
+   ranking-fidelity run is launched, log deployment final posterior states or expected
+   posterior RMSE directly.
+4. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
    Path A artifact into `configs/archive/`; live configs must be findable at a glance.
-6. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
+5. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
    analysis strictly per the pre-registered section, then results into the skeleton
    following the OUTCOME PLAYBOOK row in GOAL.md that applies.
 
