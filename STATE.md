@@ -41,14 +41,10 @@ supports/probabilities were not logged.
 
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Environment robustness heatmap (CPU-only, addresses the "hand-tuned env" critique).**
-   Extend `scripts/constrained_oracle_check.py` into a parameter sweep: oracle gap
-   (planner − greedy final RMSE, non-LLM, analytic) over a grid of signal lengthscale ×
-   max step radius × noise_sd (~3×3×3, 100+ trials per cell, embarrassingly parallel on
-   CPU). Deliverable: a heatmap of where non-myopia pays, with the Phase 4 operating
-   point marked. This converts "we tuned until it worked" into "we mapped the region
-   where planning matters and evaluated inside it" — the strongest available answer to
-   the contrived-environment review. Appendix figure + 2 sentences in main text.
+1. **Run the full environment robustness heatmap.** The sweep script exists and has been
+   smoke-tested (`scripts/constrained_oracle_robustness_sweep.py`), but the 3x3x3,
+   100-trial evidence heatmap has not been run yet. Command is recorded in
+   `LOCATION_DEPTH_PATH_A_RUNBOOK.md`.
 2. **Env framing in the paper (free, write into the skeleton).** Present the env with
    its physical semantics — mobile agent, movement cost (locality constraint),
    short-range sensor (local-bump finite-range signal), junction structure (branch-decoy

@@ -154,6 +154,38 @@ python scripts/constrained_oracle_check.py \
 The headline oracle evidence should remain in
 `results/constrained_oracle/REPORT.md`.
 
+## Environment Robustness Heatmap
+
+To address the hand-tuned-environment critique, run the CPU-only robustness
+sweep over signal lengthscale, movement radius, and observation noise. The
+script writes per-cell oracle summaries plus a heatmap where negative values
+mean the depth planner beats greedy EIG on final RMSE:
+
+```bash
+python scripts/constrained_oracle_robustness_sweep.py \
+  --signal-lengthscales 0.35,0.5,0.75 \
+  --max-step-radii 0.4,0.5,0.7 \
+  --noise-sds 0.1,0.15,0.25 \
+  --num-trials 100 \
+  --num-rounds 6 \
+  --num-particles 64 \
+  --grid-size 13 \
+  --arena 2.2 \
+  --planner-depth 2 \
+  --planning-support-size 8 \
+  --source-prior branch_decoy \
+  --source-radius 2.2 \
+  --signal-amplitude 8.0 \
+  --run-name branch_decoy_local_robustness \
+  --output-dir results/constrained_oracle_robustness \
+  --plot-dir plots/constrained_oracle_robustness
+```
+
+Smoke-tested locally with a 2x2x1, two-trial sweep:
+`results/constrained_oracle_robustness_smoke/smoke_robustness_REPORT.md` and
+`plots/constrained_oracle_robustness_smoke/smoke_robustness_heatmap.png`. This
+smoke is a mechanics check only, not paper evidence.
+
 ## Phase 4 Final Sweeps
 
 After the Phase 1 gate passes, launch the constrained and unconstrained paired
