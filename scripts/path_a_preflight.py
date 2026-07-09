@@ -15,6 +15,8 @@ if str(PROJECT_ROOT) not in sys.path:
 from helpers import load_config
 from scripts.path_a_launch_commands import build_split_mpp30_commands
 from scripts.validate_path_a_package import summary_payload, validate_path_a_package
+from scripts.validate_paper_draft import summary_payload as paper_summary_payload
+from scripts.validate_paper_draft import validate_paper_draft
 
 
 FINAL_CONFIGS = (
@@ -125,13 +127,15 @@ def run_preflight(root: Path) -> dict[str, Any]:
         _check_commands(),
     ]
     package_payload = summary_payload(validate_path_a_package(root))
+    paper_payload = paper_summary_payload(validate_paper_draft(root / "paper"))
     return {
-        "ok": all(check.ok for check in checks),
+        "ok": all(check.ok for check in checks) and bool(paper_payload["ok"]),
         "checks": [
             {"name": check.name, "ok": check.ok, "detail": check.detail}
             for check in checks
         ],
         "package_validation": package_payload,
+        "paper_validation": paper_payload,
     }
 
 
@@ -147,6 +151,7 @@ def main() -> None:
         for check in payload["checks"]:
             status = "ok" if check["ok"] else "fail"
             print(f"[{status}] {check['name']}: {check['detail']}")
+        print(f"paper_validation_ok: {payload['paper_validation']['ok']}")
         print(f"package_validation_ok: {payload['package_validation']['ok']}")
     raise SystemExit(0 if payload["ok"] else 1)
 

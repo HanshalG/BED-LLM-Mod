@@ -1550,6 +1550,15 @@ headline plot, and qualitative examples. Focused cost/package tests pass
 `8 passed`).
 Follow-up 16:48 London verification: full local suite passes after the planned-cost
 artifact changes: `pytest tests/ -q` (`456 passed, 1 skipped`).
+Follow-up 17:02 London paper-validation hardening: added `scripts/validate_paper_draft.py`
+to compile `paper/main.tex` in a temporary directory with `pdflatex`, `bibtex`, and two
+final `pdflatex` passes, then verify the 4--6 page workshop target. The current draft
+validates at 6 pages. `scripts/path_a_preflight.py --json` now includes
+`paper_validation.ok=true` while leaving `package_validation.ok=false` until Phase 4
+depth-sweep/qualitative artifacts exist. Focused tests pass:
+`pytest tests/test_validate_paper_draft.py tests/test_path_a_preflight.py -q` (`6 passed`).
+Follow-up 17:03 London verification: full local suite passes after paper-validator and
+preflight integration: `pytest tests/ -q` (`459 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

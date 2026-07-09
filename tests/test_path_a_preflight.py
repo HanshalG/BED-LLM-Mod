@@ -17,6 +17,11 @@ def test_path_a_preflight_passes_local_launch_readiness_checks():
     assert checks["split_tools"]["ok"] is True
     assert checks["launch_commands"]["ok"] is True
     assert "split-MPP30" in checks["launch_commands"]["detail"]
+    assert payload["paper_validation"]["ok"] is True
+    assert any(
+        check["name"] == "paper_page_count" and check["detail"] == "6 pages"
+        for check in payload["paper_validation"]["checks"]
+    )
     assert payload["package_validation"]["ok"] is False
 
 
