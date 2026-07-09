@@ -1444,6 +1444,11 @@ jobs. No final or recovered metrics exist for either MPP30 run, decision logs re
 `90`/`90`, and traceback/runtime/OOM/killed signatures remain zero. Constrained `102018`
 advanced to 57/256 in its current prompt block; unconstrained `102019` advanced to
 167/256 in its current prompt block.
+Follow-up 14:24 London cancellation: user requested freeing the effectively-too-slow
+long-running jobs. There were zero user-owned `gh200` jobs at cancellation time; the only
+active jobs were MSC `102018` (`loc_branch_constr26_mpp30` on `oat16`) and `102019`
+(`loc_branch_uncon26_mpp30` on `oat21`). Both were canceled with `scancel`, and a
+post-cancel `squeue -u hanyal` check returned no jobs.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1460,11 +1465,13 @@ Config archive cleanup: **DONE locally** — numbered pilot/smoke configs were m
 top-level `configs/` into `configs/archive/numbered/`; live top-level configs are now the
 descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
 
-## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
+## NEXT ACTIONS (in order)
 
-1. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
-   analysis strictly per the pre-registered section, then results into the skeleton
-   following the OUTCOME PLAYBOOK row in GOAL.md that applies.
+1. No active cluster jobs are currently running for this goal. Decide the next experiment
+   path before relaunching: either a lighter GH200 Singularity ranking-fidelity check, or
+   a redesigned Path A run that avoids the slow first StrategyEIG block.
+2. If relaunching on GH200, use the Singularity/container launchers only; do not use the
+   A100/conda ranking or 20-questions scripts on GH200.
 
 ## OPERATIONAL KNOWLEDGE (repo memory — keep updated here, not in chat)
 
