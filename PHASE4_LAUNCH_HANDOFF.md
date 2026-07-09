@@ -15,20 +15,21 @@ It is intentionally command-oriented and avoids extra experiment branches.
   - `results/location_depth_sweeps/*_REPORT.md`
   - `plots/location_depth_sweeps/*_headline_rmse.png`
   - `results/cost_vs_depth/*_cost_vs_depth.md`
-- Live cluster state as of 2026-07-08:
-  - `101778` constrained full50 original: running on `gh200` / `oat21`,
-    150 decisions, no metrics.
-  - `101779` unconstrained full50 original: running on `gh200` / `oat22`,
-    150 decisions, no metrics.
-  - `101993` constrained full50 optimized GH200: pending.
-  - `101994` unconstrained full50 optimized GH200: pending.
+- Live cluster state as of 2026-07-09 01:55 London:
+  - Old GH200 originals `101778`/`101779`: canceled because they were alive but
+    effectively too slow and occupying GH200 nodes.
+  - `101993` constrained full50 optimized GH200: running on `gh200` / `oat21`,
+    no metrics yet; inside first StrategyEIG depth-1 belief-refresh block.
+  - `101994` unconstrained full50 optimized GH200: pending on `gh200`.
   - `101998` constrained full50 optimized MSC: running on `msc` / `oat15`,
-    150 decisions, no metrics, inside first heavy StrategyEIG refresh block.
+    no metrics yet; inside first StrategyEIG depth-1 belief-refresh block.
   - `101996` unconstrained full50 optimized MSC: running on `msc` / `oat14`,
-    150 decisions, no metrics, inside first heavy StrategyEIG refresh block.
-  - `102018` constrained MPP30 fallback: pending on `msc`.
-  - `102019` unconstrained MPP30 fallback: pending on `msc`.
-- Active/pending job count for the Path A sweep is 8. Do not launch more until
+    no metrics yet; inside first StrategyEIG depth-1 belief-refresh block.
+  - `102018` constrained MPP30 fallback: running on `msc` / `oat16`, no metrics
+    yet; inside first StrategyEIG depth-1 belief-refresh block.
+  - `102019` unconstrained MPP30 fallback: pending on `msc`; run directory not
+    created yet.
+- Active/pending job count for the Path A sweep is 6. Do not launch more until
   something finishes or the user explicitly asks to cancel/relaunch.
 
 ## Local Preflight

@@ -17,11 +17,14 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING/PENDING** — six active Path A jobs remain after
-   canceling the old too-slow GH200 originals `101778`/`101779`: optimized GH200 job
-   `101993` is running on `oat21`, optimized GH200 job `101994` is pending, optimized
-   MSC jobs `101998`/`101996` are running on `oat15`/`oat14`, constrained MPP30 job
-   `102018` is running on `oat16`, and unconstrained MPP30 job `102019` is pending.
+2. Headline depth sweep: **RUNNING/PENDING** — checked 2026-07-09 01:55 London. Six
+   active Path A jobs remain after canceling the old too-slow GH200 originals
+   `101778`/`101779`: optimized GH200 job `101993` is running on `oat21`, optimized
+   GH200 job `101994` is pending, optimized MSC jobs `101998`/`101996` are running on
+   `oat15`/`oat14`, constrained MPP30 job `102018` is running on `oat16`, and
+   unconstrained MPP30 job `102019` is pending. No final metrics files exist yet; all
+   running Path A sweep jobs are still inside the first StrategyEIG depth-1
+   belief-refresh block.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
