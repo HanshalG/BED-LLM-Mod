@@ -29,9 +29,9 @@ Status of the Minimum Publishable Package:
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
    stderr is non-erroring for all four jobs and still updating. Recent progress snapshots
-   were `101996` reached 170/256 in its current block, `101998` reached 192/256 in its
-   current block, `102018` reached 152/256 in its current block, and `102019` reached
-   101/256 in its current block after clearing a 108-prompt block.
+   were `101996` reached 180/256 in its current block, `101998` reached 250/256 in its
+   current block, `102018` reached 175/256 in its current block, and `102019` reached
+   146/256 in its current block after clearing a 108-prompt block.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
