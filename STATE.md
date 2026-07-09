@@ -54,12 +54,13 @@ Posterior-state logging for future ranking-fidelity runs: **DONE in code** —
 candidate-level expected posterior RMSE means/drops, and per-deployment final posterior
 hypothesis supports/probabilities. `scripts/ranking_fidelity_rmse_repair.py` detects these
 future fields and reports expected-posterior-RMSE-drop alignment when available.
+Config archive cleanup: **DONE locally** — numbered pilot/smoke configs were moved from
+top-level `configs/` into `configs/archive/numbered/`; live top-level configs are now the
+descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
 
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
-   Path A artifact into `configs/archive/`; live configs must be findable at a glance.
-2. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
+1. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
    analysis strictly per the pre-registered section, then results into the skeleton
    following the OUTCOME PLAYBOOK row in GOAL.md that applies.
 

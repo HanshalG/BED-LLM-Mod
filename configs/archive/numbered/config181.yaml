@@ -1,0 +1,56 @@
+version: 0
+task: "location_finding"
+
+model_pairs:
+  - questioner:
+      model: "Qwen/Qwen3.6-35B-A3B"
+      thinking: true
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.50
+      max_model_len: 32768
+    answerer:
+      model: "Qwen/Qwen3.6-35B-A3B"
+      thinking: true
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.50
+      max_model_len: 32768
+
+method_names:
+  - "StrategyEIG"
+
+batched_block_size: 32
+generation_temperature_diverse: 1.0
+generation_temperature_simple: 0.5
+answer_temperature: 0.7
+num_mc_samples: 6
+
+location_num_rounds: 10
+location_num_trials: 10
+location_seed: 12345
+location_num_sources: 2
+location_dim: 2
+location_noise_sd: 0.5
+
+location_max_total_beliefs: 50
+location_max_llm_prompt_beliefs: 10
+location_num_generated_hypotheses: 50
+
+location_target_num_candidates: 12
+location_search_depth: 2
+location_eig_quadrature_order: 5
+
+location_strategy_num_retrieved: 2
+location_strategy_num_mutation: 1
+location_strategy_num_crossover: 1
+location_strategy_num_diverse: 2
+location_strategy_num_rollouts: 4
+location_strategy_planning_depth: 3
+location_strategy_discount_factor: 1.0
+location_strategy_belief_summary_top_k: 2
+
+location_plot_trials: true
+location_posterior_mode: "analytical_likelihood"
+location_max_new_tokens: 16384
+location_trial_batch_size: 1

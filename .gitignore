@@ -17,6 +17,8 @@ slurm_logs/
 configs/
 !configs/
 configs/*
+!configs/archive/
+!configs/archive/**
 !configs/config_strategy_ranking_fidelity_smoke.yaml
 !configs/config_constrained_oracle_check.yaml
 !configs/config_location_branch_decoy_local.yaml

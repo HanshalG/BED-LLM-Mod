@@ -1,0 +1,45 @@
+version: 0
+task: "location_finding"
+
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 4096
+    answerer:
+      model: "google/gemma-4-E4B-it"
+      thinking: false
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 4096
+
+method_names:
+  - "StrategyEIG"
+
+batched_block_size: 8
+generation_temperature_diverse: 1.2
+generation_temperature_simple: 0.7
+answer_temperature: 0.7
+num_mc_samples: 8
+
+location_num_rounds: 4
+location_num_trials: 1
+location_num_sources: 2
+location_dim: 2
+location_noise_sd: 0.5
+location_max_total_beliefs: 200
+location_max_llm_prompt_beliefs: 32
+location_target_num_candidates: 8
+location_search_depth: 1
+location_eig_quadrature_order: 7
+location_plot_trials: false
+location_strategy_num_candidates: 6
+location_strategy_num_retrieved: 2
+location_strategy_num_rollouts: 6
+location_strategy_planning_depth: 4
+location_strategy_belief_summary_top_k: 10
+location_posterior_mode: "analytical_likelihood"
