@@ -2131,6 +2131,15 @@ other-user pressure: `yononi` jobs running on `oat19`/`oat22`, several `yononi` 
 pending, and dependency-stuck `hendov` job `97547`; `sinfo` showed `oat21` idle. Per the
 current launch-discipline rule, did not submit the short support-grid 3-trial pilot while
 other users' GH200 jobs are pending.
+Follow-up 18:24 London repeated queue gate: local worktree was clean at commit `f98edee`
+before this note. Cluster check again showed `squeue -u hanyal` empty and active user job
+count `0`, but GH200 still had the same other-user pressure: `yononi` running on
+`oat19`/`oat22`, several `yononi` jobs pending, dependency-stuck `hendov` job `97547`,
+and `oat21` idle. Per the launch-discipline rule, did not submit the support-grid
+3-trial pilot. Paper-side work is also already at the intended pre-results state:
+`python scripts/validate_paper_draft.py --json` passes with 6 pages and only the four
+allowed Phase-4-dependent TODOs, so the remaining meaningful blocker is external queue
+availability or an explicit user decision to override the courtesy gate.
 
 ## NEXT ACTIONS (in order)
 
