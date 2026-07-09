@@ -2140,21 +2140,43 @@ and `oat21` idle. Per the launch-discipline rule, did not submit the support-gri
 `python scripts/validate_paper_draft.py --json` passes with 6 pages and only the four
 allowed Phase-4-dependent TODOs, so the remaining meaningful blocker is external queue
 availability or an explicit user decision to override the courtesy gate.
+Follow-up 19:28 London non-GH200 launch: the user explicitly said to use `msc` and `llm`
+now, overriding the previous GH200 courtesy wait. Submitted support-grid constrained
+3-trial/6-round pilot `102224` (`loc_branch_constr26_sg_t3r6`, run
+`loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t3r6`) with
+`sbatch --partition=msc,llm --exclude=oat12` through
+`scripts/run_location_fixed_root_depth_sweep.sh` and `BED_LLM_SKIP_ENV_SETUP=1`. It uses
+`configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml`,
+StrategyEIG depths 1/3/5, eval depths 1/3/5, matched-compute myopic controls 3/5,
+3 trials, 6 rounds, fixed-support deployed belief updates, analytic future rollout
+queries, and support-grid candidates. Startup check found the job queued for an A100
+allocation on `msc,llm` with reason
+`Nodes_required_for_job_are_DOWN,_DRAINED_or_reserved_for_jobs_in_higher_priority_partitions`;
+this is expected because the non-GH200 launcher requests `gres/gpu:a100:1`, while the
+visible idle `msc` node was H100 (`oat21`). Do not submit a duplicate with the same
+run name. Next check should inspect `squeue -j 102224`, then logs once allocated.
+Follow-up 19:30 London startup: `102224` allocated on `msc` / `oat11` with `oat12`
+excluded and `gres/gpu:a100:1`. Slurm stdout shows `BED_LLM_SKIP_ENV_SETUP=1`, vLLM
+startup for `google/gemma-4-26B-A4B-it`, and checkpoint loading completed; stderr only
+has ordinary c10d/NCCL/cuda deprecation warnings so far. Next monitoring should check
+whether `runs/loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t3r6/run.log`
+appears and confirm hidden LLM paths remain zero (`candidate_llm`, `strategy_location`,
+belief-refresh requests).
 
 ## NEXT ACTIONS (in order)
 
-1. When GH200 queue pressure is low enough, launch a support-grid constrained
-   3-trial/6-round pilot with the same settings as `102208` to see whether the d5 smoke
-   signal survives more than one trial. Keep it to one short job and continue excluding
-   `oat12`; do not jump ahead of other users' pending GH200 jobs just because one node is
-   momentarily idle.
+1. Monitor `102224` (`loc_branch_constr26_sg_t3r6`) on `msc,llm`. Once allocated, check
+   `slurm_logs/slurm-102224.out`, `slurm_logs/slurm-102224.err`, and
+   `runs/loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t3r6/run.log` for model
+   startup, forced exits, hidden LLM candidate/rollout calls, and final metrics.
 2. If the 3-trial support-grid pilot completes quickly and has plausible traces, scale
    to split constrained MPP30 blocks with `candidate_generation_mode: support_grid` using
    `python scripts/path_a_launch_commands.py --split-mpp30 --support-grid`. Otherwise keep
    the paper path on ranking-fidelity/diagnostic fallback and avoid spending more GH200
    time.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
-   jobs, excluding `oat12`.
+   jobs, excluding `oat12`. User has approved using `msc`/`llm` instead of waiting for
+   GH200.
 4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
    to avoid the broken user-site NumPy. The GH200 launchers already export this.
 
