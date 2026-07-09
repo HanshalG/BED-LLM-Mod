@@ -263,28 +263,18 @@ action sequences. StrategyEIG uses one root strategy set per deployed decision
 and $BRd$ simulated rollout steps. Thus increasing depth from 1 to 5 changes
 StrategyEIG's rollout work linearly, from $160$ to $800$ simulated steps per
 decision, while the brute-force candidate-set proxy grows from $1$ to $11{,}111$
-root-equivalent LLM expansions per decision.
+root-equivalent LLM expansions per decision. The package also emits the
+corresponding Markdown cost table for exact counts; Figure~\ref{fig:cost-depth}
+shows the scaling visually.
 
-\begin{table}[t]
+\begin{figure}[t]
   \centering
-  \begin{tabular}{lrrr}
-    \toprule
-    Method & Depth & Per-decision proxy & Notes \\
-    \midrule
-    Brute-force n-step EIG & 1 & $1$ candidate set / $10$ leaves & Tree expansion \\
-    Brute-force n-step EIG & 3 & $111$ candidate sets / $1{,}000$ leaves & Tree expansion \\
-    Brute-force n-step EIG & 5 & $11{,}111$ candidate sets / $100{,}000$ leaves & Tree expansion \\
-    StrategyEIG & 1 & $1$ root set + $160$ rollout steps & $B=10$, $R=16$ \\
-    StrategyEIG & 3 & $1$ root set + $480$ rollout steps & Linear in depth \\
-    StrategyEIG & 5 & $1$ root set + $800$ rollout steps & Linear in depth \\
-    \bottomrule
-  \end{tabular}
+  \includegraphics[width=0.78\linewidth]{../results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png}
   \caption{Cost-vs-depth accounting for the Path A sweep settings. Observed
-  token totals will be filled from run logs after the paired sweep completes;
-  this table records the fixed algorithmic scaling used to interpret those
-  totals.}
-  \label{tab:cost}
-\end{table}
+  token totals will be filled from completed run logs; this plot records the
+  fixed algorithmic scaling used to interpret them.}
+  \label{fig:cost-depth}
+\end{figure}
 
 \subsection{Qualitative Strategies}
 

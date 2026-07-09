@@ -26,6 +26,13 @@ REQUIRED_LIMITATION_PATTERNS = {
     "workshop_scale_trials": (r"workshop[- ]scale", r"limited number of paired\s+trials"),
 }
 
+REQUIRED_FIGURE_LABELS = {
+    "ranking_fidelity_diagnostics": "fig:ranking-fidelity",
+    "main_depth_contrast": "fig:depth-sweep",
+    "cost_vs_depth": "fig:cost-depth",
+    "qualitative_strategies": "fig:qualitative",
+}
+
 
 @dataclass(frozen=True)
 class CheckResult:
@@ -112,6 +119,28 @@ def _paper_text_checks(tex: str) -> list[CheckResult]:
                 "paper_limitations_coverage",
                 True,
                 f"{len(REQUIRED_LIMITATION_PATTERNS)} required limitation topic(s)",
+            )
+        )
+
+    missing_figures = [
+        name
+        for name, label in REQUIRED_FIGURE_LABELS.items()
+        if f"\\label{{{label}}}" not in tex
+    ]
+    if missing_figures:
+        checks.append(
+            CheckResult(
+                "paper_required_figures",
+                False,
+                "missing: " + ", ".join(missing_figures),
+            )
+        )
+    else:
+        checks.append(
+            CheckResult(
+                "paper_required_figures",
+                True,
+                f"{len(REQUIRED_FIGURE_LABELS)} required figure label(s)",
             )
         )
     return checks

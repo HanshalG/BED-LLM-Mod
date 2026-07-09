@@ -12,6 +12,15 @@ The runs report forced-thinking-exit rates. We do not include an MPC-style
 ablation; that remains future work.
 """
 
+VALID_FIGURE_LABELS = """
+\\begin{figure}\\label{fig:ranking-fidelity}\\end{figure}
+\\begin{figure}\\label{fig:depth-sweep}\\end{figure}
+\\begin{figure}\\label{fig:cost-depth}\\end{figure}
+\\begin{figure}\\label{fig:qualitative}\\end{figure}
+"""
+
+VALID_TEXT_CHECKS = VALID_LIMITATIONS_TEXT + VALID_FIGURE_LABELS
+
 
 def test_validate_paper_draft_reports_missing_tex(tmp_path):
     results = vpd.validate_paper_draft(tmp_path)
@@ -27,7 +36,7 @@ def test_validate_paper_draft_runs_latex_bibtex_and_checks_pages(tmp_path, monke
     paper_dir.mkdir()
     (paper_dir / "main.tex").write_text(
         "\\documentclass{article}\\begin{document}x\n"
-        + VALID_LIMITATIONS_TEXT
+        + VALID_TEXT_CHECKS
         + "\\end{document}\n"
     )
     commands = []
@@ -57,7 +66,7 @@ def test_validate_paper_draft_rejects_unexpected_todo_before_compile(tmp_path, m
     (paper_dir / "main.tex").write_text(
         "\\documentclass{article}\\begin{document}\n"
         "\\todo{rewrite this vague section someday}\n"
-        + VALID_LIMITATIONS_TEXT
+        + VALID_TEXT_CHECKS
         + "\\end{document}\n"
     )
 
@@ -92,6 +101,28 @@ def test_validate_paper_draft_rejects_missing_required_limitations(tmp_path, mon
     )
     assert limitations_check["ok"] is False
     assert "forced_thinking_exit_rate" in limitations_check["detail"]
+
+
+def test_validate_paper_draft_rejects_missing_required_figures(tmp_path, monkeypatch):
+    paper_dir = tmp_path / "paper"
+    paper_dir.mkdir()
+    (paper_dir / "main.tex").write_text(
+        "\\documentclass{article}\\begin{document}\n"
+        + VALID_LIMITATIONS_TEXT
+        + "\\end{document}\n"
+    )
+
+    def fail_if_called(command, *, cwd: Path, timeout: int):
+        raise AssertionError("compile should not run after text validation fails")
+
+    monkeypatch.setattr(vpd, "_run", fail_if_called)
+
+    payload = vpd.summary_payload(vpd.validate_paper_draft(paper_dir))
+
+    assert payload["ok"] is False
+    figure_check = next(check for check in payload["checks"] if check["name"] == "paper_required_figures")
+    assert figure_check["ok"] is False
+    assert "cost_vs_depth" in figure_check["detail"]
 
 
 def test_latex_pages_from_output_parses_singular_and_plural():

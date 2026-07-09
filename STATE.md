@@ -1613,6 +1613,16 @@ qualitative examples. Focused tests pass:
 `pytest tests/test_cost_vs_depth_table.py tests/test_validate_path_a_package.py
 tests/test_build_path_a_package.py tests/test_path_a_preflight.py -q` (`12 passed`),
 and the full suite passes: `pytest tests/ -q` (`464 passed, 1 skipped`).
+Follow-up 15:00 London paper figure coverage: `paper/main.tex` now uses the generated
+cost-vs-depth PNG as Figure `fig:cost-depth` instead of only the inline cost table, while
+the exact cost counts remain in the package Markdown table. `validate_paper_draft.py`
+now verifies that the draft contains the four goal-required figure slots: ranking
+diagnostics, main depth contrast, cost-vs-depth, and qualitative strategies. The current
+paper validates with four allowed Phase-4 placeholders, all six limitation topics, four
+required figure labels, successful compile, and 6-page count. Preflight remains green
+for launch readiness, paper, and ledger; package validation still waits only on the
+Phase-4 depth-sweep report, headline RMSE plot, and qualitative examples. Full suite
+passes: `pytest tests/ -q` (`465 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
@@ -1646,4 +1656,4 @@ and the full suite passes: `pytest tests/ -q` (`464 passed, 1 skipped`).
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 464 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 465 passed, 1 skipped).
