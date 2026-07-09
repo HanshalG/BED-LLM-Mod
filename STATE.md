@@ -1914,16 +1914,21 @@ requesting 1600 hypothetical source-support refreshes with `block_size=256`. Thi
 alive but likely to be the next expensive section. The run log showed 97 LLM usage events,
 25 forced thinking exits, and 2 parse-retry messages at this check. Fatal-error grep over
 102177 Slurm/run logs was still clean.
+Follow-up 16:19 London GH200 queue release: after the user noted the long-running GH200
+Path A jobs were alive but effectively too slow and should not hold nodes while others
+wait, canceled the split-MPP30 job set `102177`--`102182` with `scancel`. Live `squeue`
+after cancellation showed no active or pending jobs for `hanyal`, and an `oat12`-scoped
+queue check was also empty. Treat the partial run directories from these jobs as aborted
+diagnostic artifacts only; they do not contribute packageable Phase 4 results.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor jobs `102177,102178,102179,102180,102181,102182` with
-   `squeue -j 102177,102178,102179,102180,102181,102182 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"`.
-   Confirm none starts on `oat12`; launch commands exclude it, but the check is cheap.
-2. Once the three constrained blocks and three unconstrained blocks finish, combine them
-   with `python scripts/path_a_launch_commands.py --split-mpp30`'s two combine commands,
-   then run the printed `build_path_a_package.py` command. The expected package run name is
-   `location_branch_decoy_depth_contrast_26b_a4b_mpp30_split`.
+1. Do not wait for or package the canceled split-MPP30 jobs `102177`--`102182`. Before
+   relaunching, choose a cheaper Path A variant that avoids the 1600-refresh StrategyEIG
+   bottleneck observed in `102177` (for example fewer candidates/rollouts, no per-step
+   refresh, or a smaller paired pilot that still preserves the pre-registered endpoints).
+2. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
+   jobs, excluding `oat12`.
 3. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
    to avoid the broken user-site NumPy. The GH200 launchers already export this.
 
