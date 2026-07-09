@@ -58,6 +58,10 @@ Paper method/protocol section: **DONE for the current skeleton** — `paper/main
 now describes strategy/root generation, analytical rollout scoring, fixed-common paired
 scoring controls, the ranking-fidelity deployment diagnostic, and the pre-registered
 paired depth-sweep endpoints/myopic controls.
+Paper related-work citations: **DONE for the current skeleton** — `paper/main.tex` now
+cites DAD, COPEx/constrained BED, and BED-LLM using `paper/references.bib`. The paper
+compiled to 5 pages with `pdflatex`, `bibtex`, `pdflatex`, `pdflatex`; generated PDF and
+auxiliary files were removed from the worktree.
 Paper limitations section: **DONE for the current skeleton** — `paper/main.tex` now
 covers workshop-scale trial counts, one constrained environment family, constructed
 method-blind geometry with robustness heatmap scope evidence, forced-thinking-exit/token

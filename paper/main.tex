@@ -65,23 +65,26 @@ Our contributions are:
 
 \paragraph{Bayesian experimental design.}
 Deep adaptive design learns amortized policies for sequential BED in fixed
-parametric spaces, while classical online planners optimize explicit
-transition-constrained design problems. Our setting keeps the probabilistic
-model explicit but asks an LLM to generate and score strategy-level policies.
+parametric spaces \citep{foster2021deep}, while classical online planners
+optimize explicit transition-constrained design problems. Our setting keeps the
+probabilistic model explicit but asks an LLM to generate and score
+strategy-level policies.
 
 \paragraph{Constrained BED and informative path planning.}
 Constrained location finding is structurally close to informative path
 planning. Guo et al.'s COPEx work on constrained BED via online planning is
-especially adjacent: it studies transition-constrained location finding and
-uses learned posterior/predictive surrogates with scenario-tree lookahead. Our
-differentiation is the portable natural-language strategy scaffold and its
-ranking-fidelity diagnostic, not novelty of the constrained-planning task.
+especially adjacent \citep{guo2026constrained}: it studies
+transition-constrained location finding and uses learned posterior/predictive
+surrogates with scenario-tree lookahead. Our differentiation is the portable
+natural-language strategy scaffold and its ranking-fidelity diagnostic, not
+novelty of the constrained-planning task.
 
 \paragraph{LLM-driven experimental design.}
 BED-LLM-style greedy and brute-force n-step question expansion provide a
-natural baseline. Brute-force n-step expansion can be non-myopic, but its tree
-cost grows quickly with depth. StrategyEIG aims to keep evaluation roughly
-linear in the number of candidate strategies and rollout depth.
+natural baseline \citep{choudhury2025bedllm}. Brute-force n-step expansion can
+be non-myopic, but its tree cost grows quickly with depth. StrategyEIG aims to
+keep evaluation roughly linear in the number of candidate strategies and
+rollout depth.
 
 \section{Method}
 
