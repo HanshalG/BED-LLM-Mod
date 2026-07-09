@@ -1649,6 +1649,10 @@ the ledger evidence checks. Focused tests pass:
 `pytest tests/test_validate_experiments_ledger.py tests/test_path_a_preflight.py -q`
 (`6 passed`), and the full suite passes: `pytest tests/ -q`
 (`466 passed, 1 skipped`).
+Follow-up 15:11 London cluster cancellation check: after the user noted that the
+13-hour GH200 jobs should be canceled to free shared nodes, live `squeue -u hanyal`
+returned no active or pending jobs at all. No `scancel` was issued because there were no
+job IDs to cancel.
 
 ## NEXT ACTIONS (in order)
 
