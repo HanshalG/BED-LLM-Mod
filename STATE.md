@@ -1559,6 +1559,14 @@ depth-sweep/qualitative artifacts exist. Focused tests pass:
 `pytest tests/test_validate_paper_draft.py tests/test_path_a_preflight.py -q` (`6 passed`).
 Follow-up 17:03 London verification: full local suite passes after paper-validator and
 preflight integration: `pytest tests/ -q` (`459 passed, 1 skipped`).
+Follow-up 17:13 London experiment-ledger cleanup: non-mutating `squeue -u hanyal`
+returned no active jobs, so `EXPERIMENTS.md` was updated to mark stale GH200/MSC
+full50/MPP30 rows as canceled/stale with no final metrics. Added ledger rows for the
+tracked planned cost artifact (`fa03be5`) and paper draft validation (`ad1a4c2`).
+Follow-up 17:14 London verification: package validation still has ranking/oracle/cost
+green and only Phase-4-derived depth sweep report/headline plot/qualitative examples
+missing; paper validation is green at 6 pages; preflight is green with
+`paper_validation.ok=true`; full local suite passes (`459 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
