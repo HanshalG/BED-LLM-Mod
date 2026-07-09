@@ -1937,6 +1937,11 @@ after about two minutes; `102190` is still queued for `(Priority)`. The constrai
 run directory has created `run.log`; fatal-error grep over the early run/slurm logs found
 no traceback, runtime/value/import error, OOM, missing file, invalid location, exception,
 or cancellation marker. This only verifies early job health, not throughput yet.
+Follow-up 16:26 London no-refresh pilot early-silence check: `102189` remains running on
+`oat21` at about 3--4 minutes elapsed and `102190` remains queued for `(Priority)`.
+`run.log` exists but still has zero `llm_token_usage`, forced-exit, strategy-rollout, or
+fixed-root markers, so it is likely still in container/model startup. Fatal-error grep is
+still clean. The no-refresh throughput question is not answered yet.
 
 ## NEXT ACTIONS (in order)
 
