@@ -1663,6 +1663,17 @@ Focused tests pass:
 `pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
 tests/test_path_a_preflight.py -q` (`7 passed`), and the full suite passes:
 `pytest tests/ -q` (`466 passed, 1 skipped`).
+Follow-up 15:15 London sync/readiness hardening: `scripts/path_a_sync_commands.py` now
+includes the exact banked evidence artifacts needed for remote package validation, not
+only code/config files: ranking reports and diagnostics plot, constrained-oracle report,
+robustness report/summary/heatmap, and preregistered cost JSON/Markdown/PNG. Because
+`path_a_remote_readiness.py` reuses the required sync list, remote readiness will now
+block if those banked artifacts are missing before a split-MPP30 relaunch/package build.
+`LOCATION_DEPTH_PATH_A_RUNBOOK.md` documents that the sync manifest includes those
+banked evidence artifacts. Focused tests pass:
+`pytest tests/test_path_a_sync_commands.py tests/test_path_a_remote_readiness.py
+tests/test_path_a_preflight.py -q` (`14 passed`), and the full suite passes:
+`pytest tests/ -q` (`467 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

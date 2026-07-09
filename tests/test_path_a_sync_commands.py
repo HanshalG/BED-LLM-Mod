@@ -72,3 +72,17 @@ def test_required_sync_paths_include_package_builder_dependencies():
         "scripts/validate_path_a_package.py",
     ):
         assert path in REQUIRED_SYNC_PATHS
+
+
+def test_required_sync_paths_include_banked_package_evidence():
+    for path in (
+        "results/ranking_fidelity/REPORT.md",
+        "results/ranking_fidelity/PHASE1_26B_A4B_GATE.md",
+        "results/ranking_fidelity/rankfid26b_a4b_gate_v2ghs_configured_t20_m8_aggregate_plot.png",
+        "results/constrained_oracle/REPORT.md",
+        "results/constrained_oracle_robustness/branch_decoy_local_robustness_REPORT.md",
+        "plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png",
+        "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.md",
+        "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png",
+    ):
+        assert path in REQUIRED_SYNC_PATHS

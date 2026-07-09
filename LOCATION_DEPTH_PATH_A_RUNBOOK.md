@@ -39,7 +39,9 @@ Current code state to protect before interpreting the final sweeps:
   `scripts/cost_vs_depth_table.py`,
   `scripts/extract_location_qualitative_examples.py`,
   `scripts/llm_token_usage.py`, and
-  `scripts/validate_path_a_package.py`. Use
+  `scripts/validate_path_a_package.py`. The sync manifest also includes the
+  banked ranking-fidelity, constrained-oracle, robustness-heatmap, and planned
+  cost artifacts needed for remote package validation. Use
   `python scripts/path_a_sync_commands.py --list` as the source of truth before
   syncing to the cluster.
 
