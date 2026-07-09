@@ -17,22 +17,22 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 05:38 London after canceling the
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 05:39 London after canceling the
    slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
-   `101994` are no longer present in the live queue; verified again at 05:38 BST that no
+   `101994` are no longer present in the live queue; verified again at 05:39 BST that no
    GH200 jobs are live for this user. A direct `gh200` partition check showed no
    user-owned GH200 jobs, so no cancellation was needed.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
-   MPP30 job `102019` running on `oat21`. At 05:38 London, those four MSC jobs were the
+   MPP30 job `102019` running on `oat21`. At 05:39 London, those four MSC jobs were the
    only live jobs for this user. No final or recovered metrics files existed at the last
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
    stderr is non-erroring for all four jobs and still updating. Recent progress snapshots
-   were `101996` reached 178/256 in its current block after clearing a 120-prompt block,
-   `101998` reached 211/256 in its current block after clearing a 131-prompt block, `102018`
-   reached 172/256 in its current block after clearing a 102-prompt block, and `102019`
-   reached 111/256 in its current block after clearing a 108-prompt block.
+   were `101996` reached 215/256 in its current block after clearing a 120-prompt block,
+   `101998` cleared its 256-prompt block and reached 101/111 in a subsequent smaller
+   block, `102018` reached 206/256 in its current block after clearing a 102-prompt block,
+   and `102019` reached 203/256 after clearing a 108-prompt block.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
