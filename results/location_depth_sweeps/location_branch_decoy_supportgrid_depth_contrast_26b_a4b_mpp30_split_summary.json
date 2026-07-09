@@ -1,0 +1,1042 @@
+{
+  "constrained": {
+    "config_path": "/auto/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z/configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml",
+    "max_step_radius": 0.5,
+    "num_rounds": 6,
+    "num_trials": 30,
+    "policies": {
+      "EIG": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.36531582863433765,
+          "posterior_entropy": 0.9439628505668318,
+          "source_rmse": 0.4117866181446862,
+          "truth_log_probability": -1.6721005068720578
+        },
+        "final_rmse_mean": 0.4117866181446862,
+        "final_rmse_std": 0.8546034033100839,
+        "rmse_trace": [
+          0.948316108667728,
+          0.7076578837096579,
+          0.6178446613819014,
+          0.7722717602120258,
+          1.0110279298285236,
+          0.4117866181446862
+        ]
+      },
+      "StrategyEIG-d1": {
+        "final_metrics": {
+          "expected_posterior_rmse": 1.0730775846773701,
+          "posterior_entropy": 1.672779305199767,
+          "source_rmse": 0.9287657261554612,
+          "truth_log_probability": -2.5317085984462215
+        },
+        "final_rmse_mean": 0.9287657261554612,
+        "final_rmse_std": 1.210175589839994,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              0.4732814964884291,
+              0.9437233404601818
+            ],
+            "mean": 0.7077617560430325,
+            "p": 6.600150715045966e-05
+          },
+          "posterior_entropy": {
+            "ci95": [
+              0.5155708910352105,
+              0.9475831772618226
+            ],
+            "mean": 0.7288164546329354,
+            "p": 8.069576141997331e-06
+          },
+          "source_rmse": {
+            "ci95": [
+              0.17655780411448377,
+              0.8915359748204776
+            ],
+            "mean": 0.5169791080107753,
+            "p": 0.008373849066749973
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -1.2683915872097233,
+              -0.45401867483732766
+            ],
+            "mean": -0.8596080915741637,
+            "p": 0.001333546516126437
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          0.17655780411448377,
+          0.8915359748204776
+        ],
+        "paired_delta_vs_eig_mean": 0.5169791080107753,
+        "paired_delta_vs_eig_p": 0.008373849066749973,
+        "rmse_trace": [
+          0.9280862394447023,
+          0.9280862394447023,
+          0.9280862394447023,
+          1.0109587954984154,
+          1.0126183903424826,
+          0.9287657261554612
+        ]
+      },
+      "StrategyEIG-d3": {
+        "final_metrics": {
+          "expected_posterior_rmse": 1.004525436938637,
+          "posterior_entropy": 1.4487484637876684,
+          "source_rmse": 1.1270420327669135,
+          "truth_log_probability": -2.5897183235787766
+        },
+        "final_rmse_mean": 1.1270420327669135,
+        "final_rmse_std": 1.2927685904674817,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              0.36372782381017427,
+              0.9208961339151444
+            ],
+            "mean": 0.6392096083042992,
+            "p": 0.0001199249751483693
+          },
+          "posterior_entropy": {
+            "ci95": [
+              0.2793451962719448,
+              0.7286728452457228
+            ],
+            "mean": 0.5047856132208368,
+            "p": 0.0005927448088530606
+          },
+          "source_rmse": {
+            "ci95": [
+              0.19378330024878926,
+              1.2342819348069216
+            ],
+            "mean": 0.7152554146222273,
+            "p": 0.007601272165390899
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -1.2685666107133302,
+              -0.5366058733227084
+            ],
+            "mean": -0.9176178167067189,
+            "p": 0.00016721280031765972
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          0.19378330024878926,
+          1.2342819348069216
+        ],
+        "paired_delta_vs_eig_mean": 0.7152554146222273,
+        "paired_delta_vs_eig_p": 0.007601272165390899,
+        "rmse_trace": [
+          1.0575974319637782,
+          0.9680626517125915,
+          1.0453523129353484,
+          0.9653264308596347,
+          0.8880532203883333,
+          1.1270420327669135
+        ]
+      },
+      "StrategyEIG-d5": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.4740663168455819,
+          "posterior_entropy": 1.1856066506824112,
+          "source_rmse": 0.5417139406793295,
+          "truth_log_probability": -1.9822866845213951
+        },
+        "final_rmse_mean": 0.5417139406793295,
+        "final_rmse_std": 0.9990036707442954,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.14766327993238976,
+              0.3492616015895974
+            ],
+            "mean": 0.10875048821124414,
+            "p": 0.05070213506377894
+          },
+          "posterior_entropy": {
+            "ci95": [
+              0.01892212814761253,
+              0.46111278128837313
+            ],
+            "mean": 0.24164380011557937,
+            "p": 0.05576654608399675
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.13635670503996375,
+              0.39555641993205926
+            ],
+            "mean": 0.12992732253464317,
+            "p": 0.012145952364550218
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.7401094492906276,
+              0.15997314336252016
+            ],
+            "mean": -0.3101861776493371,
+            "p": 0.08041056244281564
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.13635670503996375,
+          0.39555641993205926
+        ],
+        "paired_delta_vs_eig_mean": 0.12992732253464317,
+        "paired_delta_vs_eig_p": 0.012145952364550218,
+        "rmse_trace": [
+          1.1728100184728583,
+          1.1693335237758555,
+          1.1691604608345108,
+          1.000650182338761,
+          1.0857053067730438,
+          0.5417139406793295
+        ]
+      },
+      "StrategyEIG-myopic-d3": {
+        "final_metrics": {
+          "expected_posterior_rmse": 1.0730775846773701,
+          "posterior_entropy": 1.672779305199767,
+          "source_rmse": 0.9287657261554612,
+          "truth_log_probability": -2.5317085984462215
+        },
+        "final_rmse_mean": 0.9287657261554612,
+        "final_rmse_std": 1.210175589839994,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              0.4497067902629782,
+              0.9423781419063236
+            ],
+            "mean": 0.7077617560430325,
+            "p": 6.600150715045966e-05
+          },
+          "posterior_entropy": {
+            "ci95": [
+              0.5289625473802538,
+              0.9324086819295101
+            ],
+            "mean": 0.7288164546329354,
+            "p": 8.069576141997331e-06
+          },
+          "source_rmse": {
+            "ci95": [
+              0.1766970870638964,
+              0.9080761069158815
+            ],
+            "mean": 0.5169791080107753,
+            "p": 0.008373849066749973
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -1.2661953833708424,
+              -0.45475448831557425
+            ],
+            "mean": -0.8596080915741637,
+            "p": 0.001333546516126437
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          0.1766970870638964,
+          0.9080761069158815
+        ],
+        "paired_delta_vs_eig_mean": 0.5169791080107753,
+        "paired_delta_vs_eig_p": 0.008373849066749973,
+        "rmse_trace": [
+          0.9280862394447023,
+          0.9280862394447023,
+          0.9280862394447023,
+          1.0109587954984154,
+          1.0126183903424826,
+          0.9287657261554612
+        ]
+      },
+      "StrategyEIG-myopic-d5": {
+        "final_metrics": {
+          "expected_posterior_rmse": 1.0730775846773701,
+          "posterior_entropy": 1.672779305199767,
+          "source_rmse": 0.9287657261554612,
+          "truth_log_probability": -2.5317085984462215
+        },
+        "final_rmse_mean": 0.9287657261554612,
+        "final_rmse_std": 1.210175589839994,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              0.4636495601453824,
+              0.946312807881688
+            ],
+            "mean": 0.7077617560430325,
+            "p": 6.600150715045966e-05
+          },
+          "posterior_entropy": {
+            "ci95": [
+              0.521425699432156,
+              0.9509389216406718
+            ],
+            "mean": 0.7288164546329354,
+            "p": 8.069576141997331e-06
+          },
+          "source_rmse": {
+            "ci95": [
+              0.18229176384788065,
+              0.9061382480825682
+            ],
+            "mean": 0.5169791080107753,
+            "p": 0.008373849066749973
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -1.2673675304262026,
+              -0.4472022714353493
+            ],
+            "mean": -0.8596080915741637,
+            "p": 0.001333546516126437
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          0.18229176384788065,
+          0.9061382480825682
+        ],
+        "paired_delta_vs_eig_mean": 0.5169791080107753,
+        "paired_delta_vs_eig_p": 0.008373849066749973,
+        "rmse_trace": [
+          0.9280862394447023,
+          0.9280862394447023,
+          0.9280862394447023,
+          1.0109587954984154,
+          1.0126183903424826,
+          0.9287657261554612
+        ]
+      },
+      "naive": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.3796089095195036,
+          "posterior_entropy": 1.1334676255264777,
+          "source_rmse": 0.166467018518866,
+          "truth_log_probability": -1.4840156362178298
+        },
+        "final_rmse_mean": 0.166467018518866,
+        "final_rmse_std": 0.4101015088885329,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.24774319504930495,
+              0.2600713163631044
+            ],
+            "mean": 0.01429308088516598,
+            "p": 0.9507977437491857
+          },
+          "posterior_entropy": {
+            "ci95": [
+              -0.03688708737088527,
+              0.4452890480671278
+            ],
+            "mean": 0.189504774959646,
+            "p": 0.2410383682677867
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.5530281720028671,
+              0.002816253815389275
+            ],
+            "mean": -0.2453195996258202,
+            "p": 0.5049031767231309
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.22838875325494726,
+              0.6030855509034072
+            ],
+            "mean": 0.1880848706542283,
+            "p": 0.3876591697007249
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.5530281720028671,
+          0.002816253815389275
+        ],
+        "paired_delta_vs_eig_mean": -0.2453195996258202,
+        "paired_delta_vs_eig_p": 0.5049031767231309,
+        "rmse_trace": [
+          0.978689286682626,
+          0.978689286682626,
+          0.888719373699499,
+          0.816871135976159,
+          0.253042708065031,
+          0.166467018518866
+        ]
+      },
+      "naive+belief": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.9682370136535154,
+          "posterior_entropy": 1.6695853353510857,
+          "source_rmse": 1.1373953984069542,
+          "truth_log_probability": -2.578046066514704
+        },
+        "final_rmse_mean": 1.1373953984069542,
+        "final_rmse_std": 1.2272916848861255,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              0.34432191583488586,
+              0.8473581778536373
+            ],
+            "mean": 0.6029211850191776,
+            "p": 0.0002136528570964155
+          },
+          "posterior_entropy": {
+            "ci95": [
+              0.5113397170142118,
+              0.9425381340406819
+            ],
+            "mean": 0.725622484784254,
+            "p": 1.8839835739769558e-05
+          },
+          "source_rmse": {
+            "ci95": [
+              0.3272396598432659,
+              1.1353352956061529
+            ],
+            "mean": 0.725608780262268,
+            "p": 0.005876125414159519
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -1.3764623213109795,
+              -0.4799993147465577
+            ],
+            "mean": -0.9059455596426459,
+            "p": 0.0006893605573928749
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          0.3272396598432659,
+          1.1353352956061529
+        ],
+        "paired_delta_vs_eig_mean": 0.725608780262268,
+        "paired_delta_vs_eig_p": 0.005876125414159519,
+        "rmse_trace": [
+          0.8852744978736251,
+          0.8852744978736251,
+          0.8852744978736251,
+          0.879239732789441,
+          0.8834240399814797,
+          1.1373953984069542
+        ]
+      }
+    },
+    "run_metadata": {
+      "combined": true,
+      "combined_from": [
+        {
+          "cuda_visible_devices": "0",
+          "hostname": "oat11.cs.ox.ac.uk",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "questioner_model": "google/gemma-4-26B-A4B-it",
+          "questioner_thinking": true,
+          "questioner_thinking_max_new_tokens": 4096,
+          "slurm_job_id": "102226",
+          "slurm_job_name": "loc_branch_constr26_sg_b00",
+          "slurm_nodelist": "oat11",
+          "slurm_partition": "msc,llm"
+        },
+        {
+          "cuda_visible_devices": "0",
+          "hostname": "oat11.cs.ox.ac.uk",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "questioner_model": "google/gemma-4-26B-A4B-it",
+          "questioner_thinking": true,
+          "questioner_thinking_max_new_tokens": 4096,
+          "slurm_job_id": "102227",
+          "slurm_job_name": "loc_branch_constr26_sg_b10",
+          "slurm_nodelist": "oat11",
+          "slurm_partition": "msc,llm"
+        },
+        {
+          "cuda_visible_devices": "0",
+          "hostname": "oat11.cs.ox.ac.uk",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "questioner_model": "google/gemma-4-26B-A4B-it",
+          "questioner_thinking": true,
+          "questioner_thinking_max_new_tokens": 4096,
+          "slurm_job_id": "102228",
+          "slurm_job_name": "loc_branch_constr26_sg_b20",
+          "slurm_nodelist": "oat11",
+          "slurm_partition": "msc,llm"
+        }
+      ],
+      "questioner_model": "google/gemma-4-26B-A4B-it",
+      "questioner_thinking": true,
+      "questioner_thinking_max_new_tokens": 4096
+    },
+    "signal_model": "local_bump",
+    "source_prior": "branch_decoy",
+    "token_usage": {
+      "by_call_type": {
+        "batched_chat": {
+          "calls": 850,
+          "completion_tokens": 2418131,
+          "prompt_tokens": 714752,
+          "total_tokens": 3132883,
+          "unknown_completion_token_records": 0
+        },
+        "chat": {
+          "calls": 30,
+          "completion_tokens": 90085,
+          "prompt_tokens": 18090,
+          "total_tokens": 108175,
+          "unknown_completion_token_records": 0
+        },
+        "forced_final": {
+          "calls": 128,
+          "completion_tokens": 4049,
+          "prompt_tokens": 624413,
+          "total_tokens": 628462,
+          "unknown_completion_token_records": 0
+        }
+      },
+      "by_model": {
+        "google/gemma-4-26B-A4B-it": {
+          "calls": 1008,
+          "completion_tokens": 2512265,
+          "prompt_tokens": 1357255,
+          "total_tokens": 3869520,
+          "unknown_completion_token_records": 0
+        }
+      },
+      "log_path": "runs/loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_mpp30_b00_10/run.log",
+      "total": {
+        "calls": 1008,
+        "completion_tokens": 2512265,
+        "prompt_tokens": 1357255,
+        "total_tokens": 3869520,
+        "unknown_completion_token_records": 0
+      }
+    }
+  },
+  "unconstrained": {
+    "config_path": "/auto/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z/configs/config_location_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b.yaml",
+    "max_step_radius": null,
+    "num_rounds": 6,
+    "num_trials": 30,
+    "policies": {
+      "EIG": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.0792800004299025,
+          "posterior_entropy": 1.0832322275408826,
+          "source_rmse": 0.10143519814840976,
+          "truth_log_probability": -1.7168730671208914
+        },
+        "final_rmse_mean": 0.10143519814840976,
+        "final_rmse_std": 0.049619243403731576,
+        "rmse_trace": [
+          0.8135655989005024,
+          0.10450057776566617,
+          0.10062732533126968,
+          0.10241840504545457,
+          0.10375322475250764,
+          0.10143519814840976
+        ]
+      },
+      "StrategyEIG-d1": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.0791328323132195,
+          "posterior_entropy": 1.1243979634085346,
+          "source_rmse": 0.10291499384979877,
+          "truth_log_probability": -1.5831354859732785
+        },
+        "final_rmse_mean": 0.10291499384979877,
+        "final_rmse_std": 0.04715017093033064,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.015080674355438948,
+              0.014569494417246982
+            ],
+            "mean": -0.00014716811668303738,
+            "p": 1.0
+          },
+          "posterior_entropy": {
+            "ci95": [
+              -0.08547895228045327,
+              0.16850458760051149
+            ],
+            "mean": 0.041165735867652424,
+            "p": 0.5508533811553021
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.012663139484195193,
+              0.016366401031220574
+            ],
+            "mean": 0.0014797957013890104,
+            "p": 0.8939037218157218
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.248474306962474,
+              0.5104881551961123
+            ],
+            "mean": 0.1337375811476131,
+            "p": 0.7733798447723831
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.012663139484195193,
+          0.016366401031220574
+        ],
+        "paired_delta_vs_eig_mean": 0.0014797957013890104,
+        "paired_delta_vs_eig_p": 0.8939037218157218,
+        "rmse_trace": [
+          0.9432119263726669,
+          0.10469705297613949,
+          0.10365723697696932,
+          0.10092835523926945,
+          0.10143371350894247,
+          0.10291499384979877
+        ]
+      },
+      "StrategyEIG-d3": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.09040960049746831,
+          "posterior_entropy": 1.1454885621050266,
+          "source_rmse": 0.10773046276884313,
+          "truth_log_probability": -1.8625548215552565
+        },
+        "final_rmse_mean": 0.10773046276884313,
+        "final_rmse_std": 0.05806658494481185,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.001678309112688992,
+              0.025309371020609858
+            ],
+            "mean": 0.011129600067565784,
+            "p": 0.14419333166922269
+          },
+          "posterior_entropy": {
+            "ci95": [
+              -0.02201412780152367,
+              0.16619099024825634
+            ],
+            "mean": 0.06225633456414415,
+            "p": 0.45902079220853087
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.009729885915615499,
+              0.022231758639955697
+            ],
+            "mean": 0.006295264620433335,
+            "p": 0.6661372044883171
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.4953224043635541,
+              0.2556344862951217
+            ],
+            "mean": -0.14568175443436454,
+            "p": 0.14992858865958403
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.009729885915615499,
+          0.022231758639955697
+        ],
+        "paired_delta_vs_eig_mean": 0.006295264620433335,
+        "paired_delta_vs_eig_p": 0.6661372044883171,
+        "rmse_trace": [
+          1.144027984910241,
+          0.5398555343985016,
+          0.3617766117711342,
+          0.1970619019914097,
+          0.19602164798459012,
+          0.10773046276884313
+        ]
+      },
+      "StrategyEIG-d5": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.07492803950469656,
+          "posterior_entropy": 1.0291350232220475,
+          "source_rmse": 0.10284450983591299,
+          "truth_log_probability": -1.6319074142269012
+        },
+        "final_rmse_mean": 0.10284450983591299,
+        "final_rmse_std": 0.05145492139015137,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.025243543722659387,
+              0.012439639698978412
+            ],
+            "mean": -0.0043519609252059355,
+            "p": 0.8693007747525946
+          },
+          "posterior_entropy": {
+            "ci95": [
+              -0.20793604119520961,
+              0.09815166587068778
+            ],
+            "mean": -0.05409720431883466,
+            "p": 0.37645949782003635
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.012775800877768195,
+              0.01480304590510777
+            ],
+            "mean": 0.0014093116875032485,
+            "p": 0.8336348830246822
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.33583164250371544,
+              0.5751262490663355
+            ],
+            "mean": 0.08496565289399056,
+            "p": 0.7891701209219365
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.012775800877768195,
+          0.01480304590510777
+        ],
+        "paired_delta_vs_eig_mean": 0.0014093116875032485,
+        "paired_delta_vs_eig_p": 0.8336348830246822,
+        "rmse_trace": [
+          1.1289022979822765,
+          0.6231612275361122,
+          0.37613603887057423,
+          0.36971330993287466,
+          0.10489173710436557,
+          0.10284450983591299
+        ]
+      },
+      "StrategyEIG-myopic-d3": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.0791328323132195,
+          "posterior_entropy": 1.1243979634085346,
+          "source_rmse": 0.10291499384979877,
+          "truth_log_probability": -1.5831354859732785
+        },
+        "final_rmse_mean": 0.10291499384979877,
+        "final_rmse_std": 0.04715017093033064,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.01585969672007942,
+              0.014595763733995178
+            ],
+            "mean": -0.00014716811668303738,
+            "p": 1.0
+          },
+          "posterior_entropy": {
+            "ci95": [
+              -0.09123572777921422,
+              0.17458102040533055
+            ],
+            "mean": 0.041165735867652424,
+            "p": 0.5508533811553021
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.012698953922221517,
+              0.016731325322230796
+            ],
+            "mean": 0.0014797957013890104,
+            "p": 0.8939037218157218
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.24801641166321053,
+              0.5310921223796974
+            ],
+            "mean": 0.1337375811476131,
+            "p": 0.7733798447723831
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.012698953922221517,
+          0.016731325322230796
+        ],
+        "paired_delta_vs_eig_mean": 0.0014797957013890104,
+        "paired_delta_vs_eig_p": 0.8939037218157218,
+        "rmse_trace": [
+          0.9432119263726669,
+          0.10469705297613949,
+          0.10365723697696932,
+          0.10092835523926945,
+          0.10143371350894247,
+          0.10291499384979877
+        ]
+      },
+      "StrategyEIG-myopic-d5": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.0791328323132195,
+          "posterior_entropy": 1.1243979634085346,
+          "source_rmse": 0.10291499384979877,
+          "truth_log_probability": -1.5831354859732785
+        },
+        "final_rmse_mean": 0.10291499384979877,
+        "final_rmse_std": 0.04715017093033064,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.015325766972944434,
+              0.014863152504378616
+            ],
+            "mean": -0.00014716811668303738,
+            "p": 1.0
+          },
+          "posterior_entropy": {
+            "ci95": [
+              -0.08318502486461506,
+              0.17842502115518943
+            ],
+            "mean": 0.041165735867652424,
+            "p": 0.5508533811553021
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.012568323032081703,
+              0.01705166577018354
+            ],
+            "mean": 0.0014797957013890104,
+            "p": 0.8939037218157218
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.2291041705724411,
+              0.5305346237377543
+            ],
+            "mean": 0.1337375811476131,
+            "p": 0.7733798447723831
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.012568323032081703,
+          0.01705166577018354
+        ],
+        "paired_delta_vs_eig_mean": 0.0014797957013890104,
+        "paired_delta_vs_eig_p": 0.8939037218157218,
+        "rmse_trace": [
+          0.9432119263726669,
+          0.10469705297613949,
+          0.10365723697696932,
+          0.10092835523926945,
+          0.10143371350894247,
+          0.10291499384979877
+        ]
+      },
+      "naive": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.15256203474452998,
+          "posterior_entropy": 0.9236415223697817,
+          "source_rmse": 0.08888180044313304,
+          "truth_log_probability": -1.496269401745437
+        },
+        "final_rmse_mean": 0.08888180044313304,
+        "final_rmse_std": 0.046433589210727384,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.018475476405192995,
+              0.19990894890635244
+            ],
+            "mean": 0.07328203431462749,
+            "p": 0.1812415508709701
+          },
+          "posterior_entropy": {
+            "ci95": [
+              -0.3585285331752429,
+              0.04182459508247197
+            ],
+            "mean": -0.15959070517110063,
+            "p": 0.05318399947052221
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.02182872780101909,
+              -0.004990148549684774
+            ],
+            "mean": -0.012553397705276718,
+            "p": 0.005099322378997393
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.28967279778439603,
+              0.7202074116555478
+            ],
+            "mean": 0.22060366537545437,
+            "p": 0.3135271367449551
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.02182872780101909,
+          -0.004990148549684774
+        ],
+        "paired_delta_vs_eig_mean": -0.012553397705276718,
+        "paired_delta_vs_eig_p": 0.005099322378997393,
+        "rmse_trace": [
+          1.016601099933948,
+          0.6621721412984353,
+          0.5893757677097464,
+          0.41545470784599825,
+          0.09325712678515088,
+          0.08888180044313304
+        ]
+      },
+      "naive+belief": {
+        "final_metrics": {
+          "expected_posterior_rmse": 0.08771986390178793,
+          "posterior_entropy": 1.224874598514666,
+          "source_rmse": 0.09509137692412445,
+          "truth_log_probability": -1.7486384554787577
+        },
+        "final_rmse_mean": 0.09509137692412445,
+        "final_rmse_std": 0.04447269100613264,
+        "paired_delta_vs_eig": {
+          "expected_posterior_rmse": {
+            "ci95": [
+              -0.0016506272303796646,
+              0.020140273348663734
+            ],
+            "mean": 0.008439863471885422,
+            "p": 0.5237220369674411
+          },
+          "posterior_entropy": {
+            "ci95": [
+              0.04397677091773024,
+              0.2549721238715724
+            ],
+            "mean": 0.1416423709737835,
+            "p": 0.0671629269823934
+          },
+          "source_rmse": {
+            "ci95": [
+              -0.014556588416716434,
+              0.0005935780068189301
+            ],
+            "mean": -0.006343821224285323,
+            "p": 0.12353425375256957
+          },
+          "truth_log_probability": {
+            "ci95": [
+              -0.32803968908378944,
+              0.24922999822873745
+            ],
+            "mean": -0.031765388357866,
+            "p": 0.967186933958065
+          }
+        },
+        "paired_delta_vs_eig_ci95": [
+          -0.014556588416716434,
+          0.0005935780068189301
+        ],
+        "paired_delta_vs_eig_mean": -0.006343821224285323,
+        "paired_delta_vs_eig_p": 0.12353425375256957,
+        "rmse_trace": [
+          0.8852744978736251,
+          0.10517157449151907,
+          0.10566143630396194,
+          0.09778048033578436,
+          0.09511492601312303,
+          0.09509137692412445
+        ]
+      }
+    },
+    "run_metadata": {
+      "combined": true,
+      "combined_from": [
+        {
+          "cuda_visible_devices": "0",
+          "hostname": "oat11.cs.ox.ac.uk",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "questioner_model": "google/gemma-4-26B-A4B-it",
+          "questioner_thinking": true,
+          "questioner_thinking_max_new_tokens": 4096,
+          "slurm_job_id": "102238",
+          "slurm_job_name": "loc_branch_uncon26_sg_b00",
+          "slurm_nodelist": "oat11",
+          "slurm_partition": "msc,llm"
+        },
+        {
+          "cuda_visible_devices": "0",
+          "hostname": "oat11.cs.ox.ac.uk",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "questioner_model": "google/gemma-4-26B-A4B-it",
+          "questioner_thinking": true,
+          "questioner_thinking_max_new_tokens": 4096,
+          "slurm_job_id": "102239",
+          "slurm_job_name": "loc_branch_uncon26_sg_b10",
+          "slurm_nodelist": "oat11",
+          "slurm_partition": "msc,llm"
+        },
+        {
+          "cuda_visible_devices": "0",
+          "hostname": "oat14.cs.ox.ac.uk",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "questioner_model": "google/gemma-4-26B-A4B-it",
+          "questioner_thinking": true,
+          "questioner_thinking_max_new_tokens": 4096,
+          "slurm_job_id": "102240",
+          "slurm_job_name": "loc_branch_uncon26_sg_b20",
+          "slurm_nodelist": "oat14",
+          "slurm_partition": "msc,llm"
+        }
+      ],
+      "questioner_model": "google/gemma-4-26B-A4B-it",
+      "questioner_thinking": true,
+      "questioner_thinking_max_new_tokens": 4096
+    },
+    "signal_model": "local_bump",
+    "source_prior": "branch_decoy",
+    "token_usage": {
+      "by_call_type": {
+        "batched_chat": {
+          "calls": 843,
+          "completion_tokens": 2298185,
+          "prompt_tokens": 640155,
+          "total_tokens": 2938340,
+          "unknown_completion_token_records": 0
+        },
+        "chat": {
+          "calls": 30,
+          "completion_tokens": 88398,
+          "prompt_tokens": 18090,
+          "total_tokens": 106488,
+          "unknown_completion_token_records": 0
+        },
+        "forced_final": {
+          "calls": 150,
+          "completion_tokens": 3409,
+          "prompt_tokens": 709537,
+          "total_tokens": 712946,
+          "unknown_completion_token_records": 0
+        }
+      },
+      "by_model": {
+        "google/gemma-4-26B-A4B-it": {
+          "calls": 1023,
+          "completion_tokens": 2389992,
+          "prompt_tokens": 1367782,
+          "total_tokens": 3757774,
+          "unknown_completion_token_records": 0
+        }
+      },
+      "log_path": "runs/loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b_mpp30_b00_10/run.log",
+      "total": {
+        "calls": 1023,
+        "completion_tokens": 2389992,
+        "prompt_tokens": 1367782,
+        "total_tokens": 3757774,
+        "unknown_completion_token_records": 0
+      }
+    }
+  }
+}

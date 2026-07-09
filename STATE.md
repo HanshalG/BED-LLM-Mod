@@ -7,8 +7,8 @@ history, this file wins.
 
 ## CURRENT STATE (updated 2026-07-09)
 
-Phases 1–3 are DONE. Phase 4 has one completed constrained support-grid MPP30 sweep and
-one unconstrained support-grid MPP30 contrast split currently live. The user has asked to
+Phases 1–3 are DONE. Phase 4 now has completed constrained and unconstrained support-grid
+MPP30 depth-sweep arms, combined into a validated Path A package. The user has asked to
 use only `msc` and `llm` for cluster launches for now; keep `--exclude=oat12` on new
 Slurm jobs.
 
@@ -28,18 +28,16 @@ Minimum Publishable Package status:
    `runs/loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_split/`.
    A tracked summary is in
    `results/location_depth_sweeps/constrained_supportgrid_mpp30_26b_a4b_summary.md`.
-4. Unconstrained contrast arm: LAUNCHED for the support-grid path as three 10-trial split
-   jobs on `msc,llm` with `--exclude=oat12`:
-   - `102238` / `loc_branch_uncon26_sg_b00`, trials 0--9, allocated on `msc` / `oat11`.
-   - `102239` / `loc_branch_uncon26_sg_b10`, trials 10--19, allocated on `msc` / `oat11`.
-   - `102240` / `loc_branch_uncon26_sg_b20`, trials 20--29, allocated on `msc` / `oat14`.
-   These mirror the constrained support-grid MPP30 sweep but use
-   `configs/config_location_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b.yaml`.
-5. Paper package: INCOMPLETE. The paper skeleton exists and had compiled before this
-   support-grid result. The draft has now been updated with the completed constrained
-   support-grid MPP30 result as an interim constrained-only result and with the actual
-   support-grid compute setting (`B=6`, `R=8`) in the cost section. It still awaits the
-   unconstrained arm and package validation before final claims.
+4. Unconstrained contrast arm: COMPLETED for the support-grid path. Jobs `102238`,
+   `102239`, and `102240` ran on `msc` nodes with `BED_LLM_SKIP_ENV_SETUP=1`,
+   `--partition=msc,llm`, and `--exclude=oat12`. They were rsynced locally and combined
+   into `runs/loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b_split/`.
+5. Paper package: VALIDATED. `scripts/build_path_a_package.py` produced the final
+   constrained/unconstrained comparison artifacts under `results/location_depth_sweeps/`,
+   `plots/location_depth_sweeps/`, `results/cost_vs_depth/`, and
+   `results/location_qualitative/`. `scripts/validate_path_a_package.py --root .` and
+   `scripts/validate_experiments_ledger.py` pass. The draft has been updated from the
+   constrained-only placeholder toward the completed contrast result.
 
 Completed constrained support-grid MPP30 result:
 
@@ -62,41 +60,38 @@ Completed constrained support-grid MPP30 result:
   myopic/short-horizon StrategyEIG under constraints, but the LLM strategy scaffold still
   trails the analytic greedy/naive baselines in this run."
 
+Completed unconstrained support-grid MPP30 contrast:
+
+- Config/run shape mirrors the constrained sweep, except `location_max_step_radius` is
+  unset. Seed 1304, 30 paired trials, 6 rounds, branch-decoy/local-bump source, 26B A4B
+  thinking, analytical posterior, fixed-support deployed beliefs, analytic rollout future
+  queries, support-grid candidate generation, depths 1/3/5 plus matched-compute myopic
+  controls.
+- Cost: 1023 LLM calls and 3,757,774 total tokens across the three split jobs.
+- Final RMSE means: naive 0.0889, naive+belief 0.0951, EIG 0.1014, StrategyEIG-d5 0.1028,
+  StrategyEIG-d1 0.1029, StrategyEIG-d3 0.1077.
+- Interpretation: the unconstrained arm is flat across StrategyEIG depths and all methods
+  are tightly clustered; naive slightly beats EIG on final RMSE in this run. This supports
+  the intended contrast that removing the movement constraint removes the measurable depth
+  effect, while also reinforcing that StrategyEIG does not beat the simple baselines here.
+
 Latest cluster state:
 
-- Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
-  As of the latest health check, `102238` and `102239` are on `msc` / `oat11`, and
-  `102240` is on `msc` / `oat14`. The run directories exist and each has a `run.log`.
-  At about 33.3 minutes elapsed, block `b00` (`102238`) had completed and left the queue;
-  its metrics/report/plot existed, with 480 decision rows, 342 token events, 52 forced
-  thinking exits, and zero traceback/runtime/OOM/killed/location-parse errors. Blocks
-  `b10` (`102239`) and `b20` (`102240`) were still allocated on `msc` (`oat11` and
-  `oat14`, respectively), with none on `oat12`. Both remaining blocks had completed
-  round 5/6 and were in final-round StrategyEIG work. Their metrics/reports/plots did
-  not exist yet. Decision rows were `430` for both remaining blocks. Token-event counts
-  were `301` and `320`, respectively; forced thinking exits were `40` and `58`. There
-  were zero traceback/runtime/OOM/killed/location-parse errors in all three logs. Note for
-  future checks: token usage events are logged as lowercase `llm_token_usage`, not
-  uppercase `LLM_USAGE`.
+- Live jobs: none as of the latest `squeue -u hanyal` check. Jobs `102238`, `102239`, and
+  `102240` all completed with metrics/report/plot artifacts, 480 decision rows each, and
+  zero traceback/runtime/OOM/killed/location-parse errors. Token usage events are logged
+  as lowercase `llm_token_usage`, not uppercase `LLM_USAGE`.
 - For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
   changes this again. Do not use GH200 unless explicitly requested again.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor `102238`, `102239`, and `102240` until they finish, then rsync their run
-   directories locally and combine them with `scripts/combine_location_fixed_root_depth_sweeps.py`.
-2. If the unconstrained arm finishes, run the current package builder with the constrained
-   and unconstrained support-grid summaries; if the result framing still needs a
-   constrained-only fallback, implement that explicitly rather than silently bypassing
-   validation.
-3. Update the paper/result framing away from "StrategyEIG beats baselines" and toward the
-   outcome-playbook row where planning depth/objective improves information metrics or
-   StrategyEIG internals, but RMSE/baseline wins remain partial. The first constrained
-   interim edit is in `paper/main.tex`; revise again after the unconstrained arm and
-   package comparison land.
-4. If packaging constrained-only evidence, either extend the package scripts explicitly or
-   create a separate constrained-only appendix/report path. Do not silently pass off a
-   constrained-only package as the full constrained/unconstrained MPP.
+1. Finish paper polish around the completed package: tighten abstract/conclusion around
+   the honest result row, update limitations with observed token/forced-exit counts, and
+   rerun `python scripts/validate_paper_draft.py`.
+2. Force-add the ignored paper-facing package artifacts that should be tracked, then commit
+   and push the completed Path A package state.
+3. Decide whether to tag the repo after paper validation passes.
 
 ## OPERATIONAL KNOWLEDGE
 

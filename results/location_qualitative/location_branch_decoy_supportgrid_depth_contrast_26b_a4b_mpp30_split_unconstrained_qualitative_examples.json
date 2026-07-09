@@ -1,0 +1,233 @@
+[
+  {
+    "eig_final_source_rmse": 0.15532356696676908,
+    "eig_final_truth_log_probability": -2.11227827204784,
+    "eig_trajectory": [
+      [
+        2.2,
+        1.76
+      ],
+      [
+        -1.5,
+        0.05
+      ],
+      [
+        2.3,
+        -1.8
+      ],
+      [
+        2.2,
+        -1.76
+      ],
+      [
+        2.1,
+        -1.72
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "hidden_state": [
+      [
+        2.0846897068467065,
+        -1.7564994416954944
+      ]
+    ],
+    "plot_path": "results/location_qualitative/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_unconstrained_qualitative_example_1.png",
+    "policy_final_source_rmse": 0.02798762512721102,
+    "policy_final_truth_log_probability": -1.219105317157589,
+    "policy_label": "StrategyEIG-d3",
+    "policy_trajectory": [
+      [
+        2.2,
+        1.76
+      ],
+      [
+        -1.43,
+        0.0
+      ],
+      [
+        -1.43,
+        0.0
+      ],
+      [
+        2.2,
+        -1.76
+      ],
+      [
+        2.3,
+        -1.8
+      ],
+      [
+        2.3,
+        -1.8
+      ]
+    ],
+    "rmse_delta_vs_eig": -0.12733594183955804,
+    "run_label": "location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_unconstrained",
+    "selected_strategies": [],
+    "source_points": [
+      [
+        2.0846897068467065,
+        -1.7564994416954944
+      ]
+    ],
+    "trial_index": 10,
+    "truth_log_probability_delta_vs_eig": 0.8931729548902512
+  },
+  {
+    "eig_final_source_rmse": 0.15532356696676908,
+    "eig_final_truth_log_probability": -2.11227827204784,
+    "eig_trajectory": [
+      [
+        2.2,
+        1.76
+      ],
+      [
+        -1.5,
+        0.05
+      ],
+      [
+        2.3,
+        -1.8
+      ],
+      [
+        2.2,
+        -1.76
+      ],
+      [
+        2.1,
+        -1.72
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "hidden_state": [
+      [
+        2.0846897068467065,
+        -1.7564994416954944
+      ]
+    ],
+    "plot_path": "results/location_qualitative/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_unconstrained_qualitative_example_2.png",
+    "policy_final_source_rmse": 0.02798762512721102,
+    "policy_final_truth_log_probability": -1.219105317157589,
+    "policy_label": "StrategyEIG-d5",
+    "policy_trajectory": [
+      [
+        2.2,
+        1.76
+      ],
+      [
+        -1.43,
+        0.0
+      ],
+      [
+        -1.43,
+        0.0
+      ],
+      [
+        2.2,
+        -1.76
+      ],
+      [
+        2.3,
+        -1.8
+      ],
+      [
+        2.3,
+        -1.8
+      ]
+    ],
+    "rmse_delta_vs_eig": -0.12733594183955804,
+    "run_label": "location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_unconstrained",
+    "selected_strategies": [],
+    "source_points": [
+      [
+        2.0846897068467065,
+        -1.7564994416954944
+      ]
+    ],
+    "trial_index": 10,
+    "truth_log_probability_delta_vs_eig": 0.8931729548902512
+  },
+  {
+    "eig_final_source_rmse": 0.21907395362049215,
+    "eig_final_truth_log_probability": -4.95922661681636,
+    "eig_trajectory": [
+      [
+        2.2,
+        1.76
+      ],
+      [
+        2.2,
+        -1.6
+      ],
+      [
+        2.25,
+        -1.81
+      ],
+      [
+        2.15,
+        -1.71
+      ],
+      [
+        2.2,
+        -1.76
+      ],
+      [
+        -1.36,
+        -0.1
+      ]
+    ],
+    "hidden_state": [
+      [
+        2.3764621681611295,
+        -1.5271676922029358
+      ]
+    ],
+    "plot_path": "results/location_qualitative/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_unconstrained_qualitative_example_3.png",
+    "policy_final_source_rmse": 0.13498785473362596,
+    "policy_final_truth_log_probability": -3.514935169272675,
+    "policy_label": "StrategyEIG-d1",
+    "policy_trajectory": [
+      [
+        -1.43,
+        0.0
+      ],
+      [
+        2.2,
+        1.76
+      ],
+      [
+        2.2,
+        -1.76
+      ],
+      [
+        2.2,
+        -1.5
+      ],
+      [
+        2.2,
+        -1.5
+      ],
+      [
+        2.2,
+        -1.5
+      ]
+    ],
+    "rmse_delta_vs_eig": -0.08408609888686619,
+    "run_label": "location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_unconstrained",
+    "selected_strategies": [],
+    "source_points": [
+      [
+        2.3764621681611295,
+        -1.5271676922029358
+      ]
+    ],
+    "trial_index": 19,
+    "truth_log_probability_delta_vs_eig": 1.444291447543685
+  }
+]

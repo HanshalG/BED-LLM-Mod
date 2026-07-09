@@ -17,18 +17,16 @@
 \maketitle
 
 \begin{abstract}
-Large language models can propose rich natural-language experimental
-strategies, but non-myopic Bayesian experimental design requires more than
-plausible plans: the model must rank those plans by their expected downstream
-information gain. We study this question in a locality-constrained
-location-finding environment designed to expose a greedy-planning gap through
-movement cost, finite-range sensing, and branch-decoy source structure. Our
-diagnostic first measures whether rollout-scored natural-language strategies
-predict realized information gain. The current 26B A4B gate shows positive
-rank fidelity for entropy and truth-anchored posterior quality, while point
-RMSE remains noisy. We then pre-register a paired depth-sweep analysis comparing
-greedy EIG, StrategyEIG depths 1/3/5, and matched-compute myopic controls.
-\todo{Fill final Phase 4 result sentence after package validation.}
+Large language models can propose rich experimental strategies, but
+non-myopic Bayesian experimental design also requires ranking those plans by
+downstream information gain. In a locality-constrained location-finding task,
+we test whether rollout-scored natural-language strategies predict realized
+posterior information. A 26B A4B model passes this first-link diagnostic:
+estimated scores correlate with realized entropy drop and truth-anchored
+posterior quality, though point RMSE remains noisy. In a paired depth sweep,
+depth-5 StrategyEIG improves over depth-1 and matched-compute myopic
+StrategyEIG under movement constraints, but does not beat greedy EIG or naive
+execution; an unconstrained contrast shows no depth effect.
 \end{abstract}
 
 \section{Introduction}
@@ -42,21 +40,15 @@ and evaluate reusable natural-language strategies without training a
 task-specific planner.
 
 This paper asks a deliberately narrow question: can LLM-generated strategies be
-ranked by their realized downstream information gain? We focus on a constrained
-location-finding task where a non-LLM oracle shows that lookahead should matter.
-The contribution is not a new robotics planner, but a diagnostic and
-experimental scaffold for natural-language strategy planning.
-
-Our contributions are:
+ranked by realized downstream information gain? Our contributions are:
 \begin{enumerate}
   \item A ranking-fidelity diagnostic for StrategyEIG, measuring whether
   rollout-estimated EIG ranks natural-language strategies by realized entropy
   reduction and truth-anchored posterior quality.
   \item A locality-constrained location-finding benchmark with a banked
   non-LLM oracle gap between greedy EIG and a depth-2 planner.
-  \item A pre-registered paired depth sweep with matched-compute myopic
-  controls, designed to separate non-myopic objective gains from extra rollout
-  compute.
+  \item A paired depth sweep with matched-compute myopic controls, separating
+  non-myopic objective gains from extra rollout compute.
   \item A cost-vs-depth accounting that contrasts natural-language strategy
   rollout with brute-force LLM n-step expansion.
 \end{enumerate}
@@ -64,19 +56,16 @@ Our contributions are:
 \section{Related Work}
 
 \paragraph{Bayesian experimental design.}
-Deep adaptive design learns amortized policies for sequential BED in fixed
-parametric spaces \citep{foster2021deep}, while classical online planners
-optimize explicit transition-constrained design problems. Our setting keeps the
-probabilistic model explicit but asks an LLM to generate and score
-strategy-level policies.
+Deep adaptive design learns amortized policies for sequential BED
+\citep{foster2021deep}, while classical online planners optimize explicit
+transition-constrained design problems. We keep the probabilistic model
+explicit but ask an LLM to generate and score strategy-level policies.
 
 \paragraph{Constrained BED and informative path planning.}
-Constrained location finding is structurally close to informative path
-planning. Guo et al.'s COPEx work on constrained BED via online planning is
+Constrained location finding is close to informative path planning. COPEx is
 especially adjacent \citep{guo2026constrained}: it studies
-transition-constrained location finding and uses learned posterior/predictive
-surrogates with scenario-tree lookahead. Our differentiation is the portable
-natural-language strategy scaffold and its ranking-fidelity diagnostic, not
+transition-constrained BED with scenario-tree lookahead. Our differentiation is
+the natural-language strategy scaffold and ranking-fidelity diagnostic, not
 novelty of the constrained-planning task.
 
 \paragraph{LLM-driven experimental design.}
@@ -90,99 +79,69 @@ rollout depth.
 
 \subsection{StrategyEIG}
 
-At each round, the model proposes a small set of candidate natural-language
-strategies, each paired with an executable root query. A strategy is text such
-as a conditional search plan: where to probe first, what observation regimes
-would indicate, and where future probes should move under those regimes.
-StrategyEIG evaluates these strategy-level policies rather than expanding a
-full LLM question/action tree. For each candidate, the root query is fixed for
-the first rollout step; later rollout queries are generated by conditioning the
-LLM on the strategy text, the simulated history, and the current analytical
-belief state.
+At each round, the model proposes candidate natural-language strategies, each
+paired with an executable root query. StrategyEIG evaluates these
+strategy-level policies rather than expanding a full LLM action tree. The root
+query is fixed for the first rollout step; later rollout queries condition on
+the strategy text, simulated history, and analytical belief state.
 
-The rollout scorer uses the explicit location likelihood, not an LLM posterior,
-to update beliefs during evaluation. The configured scorer used for the gate
-and final sweeps shares rollout random controls across candidate strategies,
-scores entropy reduction on a fixed common support, and disables the final
-LLM-based belief refresh during scoring. These choices reduce ranking noise and
-make strategy comparisons paired within a belief state. The selected strategy
-executes only its root query in the real environment; the posterior is then
-updated from the realized observation before the next BED round.
+The scorer uses the explicit location likelihood, shares rollout controls
+across candidates, scores entropy reduction on a fixed common support, and
+disables final LLM belief refresh during scoring. The selected strategy
+executes only its root query; the posterior is updated from the realized
+observation before the next BED round.
 
 \subsection{Ranking-Fidelity Diagnostic}
 
-For a belief state, we generate a fixed set of candidate strategies and score
-each candidate at depths 2, 3, and 5. We then deploy each candidate under paired
-simulation seeds and compare estimated rollout score against realized entropy
-drop, realized truth log posterior probability, and realized RMSE. Spearman
-rank correlation measures whether rollout scores rank strategies correctly, and
-top-1 regret measures the deployment-relevant error: how much realized
-information is lost by choosing the estimator's argmax instead of the best
-candidate in hindsight. We also measure strategy-execution fidelity by
-comparing within-strategy and between-strategy query-trajectory distances; if
-different strategy texts induce indistinguishable query paths, ranking fidelity
-would not be actionable.
+For a belief state, we generate fixed candidate strategies and score them at
+depths 2, 3, and 5. We then deploy each candidate under paired simulation seeds
+and compare estimated score against realized entropy drop, truth log posterior
+probability, and RMSE. Spearman correlation measures ranking fidelity, top-1
+regret measures argmax loss, and trajectory distances check whether different
+strategy texts actually induce different query paths.
 
 \subsection{Paired Depth Sweep}
 
-The final sweep uses shared hidden states, initial beliefs, and observation
-noise across greedy EIG, naive baselines, StrategyEIG depths, and
-matched-compute myopic controls. This fixed-root pairing makes each trial a
-within-instance comparison rather than an aggregate comparison over different
-source draws. The constrained arm is the headline environment; the
-unconstrained arm is a contrast case where the locality-induced planning gap
-should be weaker.
+The final sweep shares hidden states, initial beliefs, and observation noise
+across greedy EIG, naive baselines, StrategyEIG depths, and matched-compute
+myopic controls. The constrained arm is the headline environment; the
+unconstrained arm is the contrast case.
 
-The pre-registered primary endpoint is paired final truth log posterior
-probability, comparing StrategyEIG depths against greedy EIG and against depth
-1 when testing a depth effect. We report mean paired differences with bootstrap
-confidence intervals over trials. Secondary endpoints are final point RMSE,
-expected posterior RMSE, posterior entropy, per-trial win rates, and paired
-difference distributions. Matched-compute myopic controls use the same rollout
-budget but score strategies by first-step entropy reduction, isolating the
-non-myopic objective from extra LLM compute.
+The primary endpoint is paired final truth log posterior probability.
+Secondary endpoints are point RMSE, expected posterior RMSE, entropy, win
+rates, and paired differences. Matched-compute myopic controls use the same
+rollout budget but score first-step entropy reduction.
 
 \section{Environment}
 
 The headline task is a one-source branch-decoy location-finding environment
-that can be read as a small informative-path-planning problem. A mobile sensor
-starts at the origin and may take six measurements. Consecutive measurements
-are constrained by a maximum movement radius, representing travel cost or
-limited actuation. Observations follow a finite-range local-bump signal rather
-than the original long-range inverse-square signal, so distant branches remain
-nearly indistinguishable until the sensor physically commits to moving toward
-one of them. The source prior places probability mass on branch-like
-alternatives, including decoys. Together these ingredients create the intended
-non-myopic structure: a locally attractive measurement can be less useful than
-movement that positions the sensor for later branch discrimination.
+that can be read as informative path planning. A mobile sensor starts at the
+origin, takes six measurements, and in the constrained arm obeys a maximum
+movement radius. A finite-range local-bump signal keeps distant branches
+indistinguishable until the sensor commits to moving toward one of them. With a
+branch-decoy prior, locally attractive measurements can be less useful than
+movement that positions the sensor for later discrimination.
 
-The environment was selected method-blind with respect to StrategyEIG. We tuned
-geometry and signal parameters using only non-LLM oracle policies: grid greedy
-EIG, a depth-2 receding-horizon planner, a non-adaptive lawnmower coverage
-policy, and a random walk. StrategyEIG was not in the tuning loop. This matters
-because many simple location geometries are greedy-friendly; the constructed
-instance is meant to locate a planning-sensitive regime, not to claim that
-lookahead is universally useful for source localization.
+The environment was selected method-blind with respect to StrategyEIG, using
+only non-LLM oracle policies: grid greedy EIG, a depth-2 planner, non-adaptive
+lawnmower coverage, and random walk. StrategyEIG was not in the tuning loop.
+The constructed instance locates a planning-sensitive regime, not a universal
+claim about source localization.
 
 The banked non-LLM oracle check uses 120 paired trials. Greedy EIG reaches final
 RMSE 0.5606, while a depth-2 planner reaches 0.1529. The planner win rate is
 0.525, suggesting heavy-tailed improvements and motivating mean paired effects
 with bootstrap intervals rather than only rank tests.
 
-To scope the constructed-instance claim, we additionally ran a 27-cell
-robustness sweep over signal lengthscale, movement radius, and observation
-noise, with 100 paired oracle trials per cell. Figure~\ref{fig:env-robustness}
-shows planner-minus-greedy final RMSE; negative values indicate that lookahead
-helps. The Phase 4 operating point, lengthscale 0.5, radius 0.5, noise 0.15,
-is among the strongest cells (planner--greedy final RMSE $=-0.175$). Nearby
-settings often have weak or near-zero gaps, especially when the local-bump
-signal is too short-ranged or too smooth. We therefore use the heatmap as scope
-evidence: non-myopic traps exist in this environment family, but they occupy a
-specific regime rather than the whole parameter space.
+To scope the constructed-instance claim, we ran a 27-cell robustness heatmap
+over signal lengthscale, movement radius, and noise, with 100 paired oracle
+trials per cell. Figure~\ref{fig:env-robustness} shows planner-minus-greedy
+RMSE; negative values favor lookahead. The Phase 4 operating point is among
+the strongest cells, but nearby settings can be greedy-friendly.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\linewidth]{../plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png}
+  \includegraphics[width=0.82\linewidth]{../plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png}
   \caption{Method-blind robustness sweep for the constrained location
   environment. Each cell shows depth-2 planner minus greedy-EIG final RMSE over
   100 paired non-LLM oracle trials, so negative values favor lookahead. The
@@ -195,35 +154,24 @@ specific regime rather than the whole parameter space.
 \subsection{Ranking Fidelity}
 
 The Phase 1 26B A4B gate passes the information-ranking criterion, with
-caveats. The diagnostic used 20 trials, probe states after rounds 0, 3, and 6
-(60 records total), eight candidate strategies per probe, eight deployments per
-strategy/depth, and rollout scoring depths 2, 3, and 5. The configured scorer
-uses common rollout controls, fixed-common analytical support, and no final LLM
-belief refresh during scoring.
+caveats. It used 20 trials, probe states after rounds 0, 3, and 6, eight
+candidate strategies per probe, eight deployments per strategy/depth, and
+rollout scoring depths 2, 3, and 5.
 
-Figure~\ref{fig:ranking-fidelity} shows that rollout-estimated EIG ranks
-strategies above chance by realized entropy drop: Spearman correlations are
-$0.380\pm0.045$ at depth 2, $0.440\pm0.041$ at depth 3, and
-$0.396\pm0.044$ at depth 5. Truth-anchored posterior quality is also
-positively rank-aligned, with truth-log-posterior Spearman correlations
-$0.371\pm0.040$, $0.373\pm0.045$, and $0.362\pm0.044$ at depths 2, 3, and 5.
-This satisfies the first-link gate: the LLM rollout scorer can rank its own
-natural-language strategies by downstream posterior information.
+Figure~\ref{fig:ranking-fidelity} shows positive rank fidelity. Entropy-drop
+Spearman correlations are $0.380\pm0.045$, $0.440\pm0.041$, and
+$0.396\pm0.044$ at depths 2, 3, and 5. Truth-log-posterior correlations are
+$0.371\pm0.040$, $0.373\pm0.045$, and $0.362\pm0.044$.
 
-The caveat is that point-RMSE is not rankable in the same diagnostic. RMSE
-Spearman correlations are near zero ($-0.088\pm0.051$, $-0.080\pm0.045$,
-and $-0.035\pm0.050$). A realized-realized repair analysis also finds only weak
-alignment between realized posterior-information gains and realized point-RMSE
-gains. We therefore treat truth log posterior probability as the primary
-deployment endpoint for the final sweep and report RMSE as an important but
-noisier localization readout. Top-1 entropy regret decreases from
-$0.326\pm0.048$ at depth 2 to $0.211\pm0.044$ at depth 5, suggesting that
-deeper scoring is useful for choosing the deployed argmax strategy even though
-this diagnostic alone does not prove a monotonic deployment depth effect.
+The caveat is that point-RMSE correlations are near zero
+($-0.088\pm0.051$, $-0.080\pm0.045$, $-0.035\pm0.050$). We therefore treat
+truth log posterior probability as the primary endpoint and RMSE as a noisier
+localization readout. Top-1 entropy regret decreases from $0.326\pm0.048$ at
+depth 2 to $0.211\pm0.044$ at depth 5.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.78\linewidth]{../results/ranking_fidelity/rankfid26b_a4b_gate_v2ghs_configured_t20_m8_aggregate_plot.png}
+  \includegraphics[width=0.68\linewidth]{../results/ranking_fidelity/rankfid26b_a4b_gate_v2ghs_configured_t20_m8_aggregate_plot.png}
   \caption{Phase 1 ranking-fidelity gate for the 26B A4B configured scorer.
   Points show mean Spearman rank correlation between rollout-estimated strategy
   EIG and realized entropy drop over 60 probe records. The dashed line marks
@@ -234,34 +182,24 @@ this diagnostic alone does not prove a monotonic deployment depth effect.
 
 \subsection{Depth Sweep}
 
-\todo{Insert final constrained and unconstrained paired results after
-\texttt{scripts/build\_path\_a\_package.py} and
-\texttt{scripts/validate\_path\_a\_package.py} pass. Report the
-pre-registered primary endpoint first.}
+The final package contains 30 paired constrained and 30 paired unconstrained
+trials. In the constrained arm, StrategyEIG-d5 improves over d1 and
+matched-compute myopic controls, but not over greedy EIG or naive. Final RMSE
+means are 0.166 for naive, 0.412 for EIG, 0.542 for d5, 0.929 for d1, and
+1.127 for d3. Truth-log-posterior means show the same partial-gain pattern:
+naive $-1.484$, EIG $-1.672$, d5 $-1.982$, d1 $-2.532$, and d3 $-2.590$.
 
-The completed constrained support-grid MPP30 arm already constrains the
-possible headline. Over 30 paired trials, StrategyEIG depth 5 improves
-substantially over depth 1 and the matched-compute myopic controls, but it does
-not beat the analytic greedy EIG or naive baselines. Final point-RMSE means are
-0.166 for naive, 0.412 for greedy EIG, 0.542 for StrategyEIG-d5, 0.929 for
-StrategyEIG-d1, and 1.127 for StrategyEIG-d3. Truth-log-posterior means follow
-the same partial-gain pattern: naive $-1.484$, greedy EIG $-1.672$, d5
-$-1.982$, d1 $-2.532$, and d3 $-2.590$. The matched-compute myopic controls
-match d1, while d5 has higher selected EIG and realized entropy drop. Thus the
-current constrained evidence supports a narrower claim that non-myopic
-strategy scoring improves over myopic or short-horizon StrategyEIG under the
-constraint, not the stronger claim that StrategyEIG beats calibrated greedy or
-naive execution. The unconstrained contrast arm is still running and will
-determine whether this partial depth effect is specific to the movement
-constraint.
+The unconstrained contrast is flat: final RMSE means are 0.089 for naive,
+0.101 for EIG, 0.103 for d5, 0.103 for d1, and 0.108 for d3. This supports the
+narrower outcome-playbook row: deeper non-myopic scoring improves StrategyEIG
+under locality constraints, but the current strategy executor still trails
+calibrated greedy or simple naive execution in this workshop-scale run.
 
 \begin{figure}[t]
   \centering
-  \fbox{\parbox{0.9\linewidth}{\centering
-  Placeholder: main paired constrained/unconstrained contrast. Show greedy EIG,
-  StrategyEIG d1/d3/d5, and matched-compute myopic controls with confidence
-  intervals.}}
-  \caption{Final paired depth-sweep contrast.}
+  \includegraphics[width=0.92\linewidth]{../plots/location_depth_sweeps/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_depth_contrast.png}
+  \caption{Final paired depth-sweep contrast for the constrained branch-decoy
+  environment and the unconstrained contrast arm.}
   \label{fig:depth-sweep}
 \end{figure}
 
@@ -282,26 +220,30 @@ root-equivalent LLM expansions per decision. The package also emits the
 corresponding Markdown cost table for exact counts; Figure~\ref{fig:cost-depth}
 shows the scaling visually.
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.78\linewidth]{../results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png}
-  \caption{Cost-vs-depth accounting for the Path A sweep settings. Observed
-  token totals will be filled from completed run logs; this plot records the
-  fixed algorithmic scaling used to interpret them.}
-  \label{fig:cost-depth}
-\end{figure}
-
 \subsection{Qualitative Strategies}
 
-\todo{Insert 2--3 evolved strategies and paired query trajectories, ideally a
-trial where greedy stalls near a decoy branch and StrategyEIG routes past it.}
+Qualitative examples in the package show that natural-language strategies often
+encode sensible local commitments, such as probing the most likely branch and
+then refining around the observed high-signal area. The failure mode is also
+visible: a strategy can describe the right branch-level intent while the
+executed coordinates remain too coarse or arrive too late, leaving analytic EIG
+or naive execution competitive on point RMSE.
 
 \begin{figure}[t]
   \centering
-  \fbox{\parbox{0.9\linewidth}{\centering
-  Placeholder: strategy text snippets next to constrained query trajectories.}}
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{../results/cost_vs_depth/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_cost_vs_depth.png}
+    \caption{Cost-vs-depth accounting. StrategyEIG scales linearly with rollout
+    depth, while a brute-force LLM tree expands exponentially.}
+    \label{fig:cost-depth}
+  \end{minipage}\hfill
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{../results/location_qualitative/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_constrained_qualitative_example_1.png}
   \caption{Qualitative natural-language strategies and resulting query paths.}
   \label{fig:qualitative}
+  \end{minipage}
 \end{figure}
 
 \section{Limitations}
@@ -330,9 +272,15 @@ LLM-generated action planning at matched compute.
 
 \section{Conclusion}
 
-\todo{Choose final framing from the outcome playbook after Phase 4 metrics
-land. Keep the claim tied to paired truth-log-posterior probability, RMSE only
-where supported, and matched-compute controls.}
+The result is mixed but informative. Ranking fidelity is good enough to pass
+the first-link gate, and depth-5 non-myopic StrategyEIG improves over
+short-horizon and matched-compute myopic StrategyEIG in the constrained
+branch-decoy environment. The stronger claim, however, is not supported:
+StrategyEIG does not beat greedy EIG or naive execution, and the unconstrained
+contrast shows no depth effect. We therefore view this as evidence for the
+promise and current bottleneck of LLM-mediated BED: language models can rank
+and express useful experimental plans, but calibrated execution remains the
+limiting link.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
