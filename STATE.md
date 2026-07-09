@@ -1886,6 +1886,15 @@ has `run.log` (no decision files or metrics yet). The log is actively updating a
 length-capped call parsed only 1 before the next call recovered to 12. Grep over the
 102177 Slurm/run logs still finds no fatal errors/OOM/missing-file/invalid-location
 messages. Forced thinking exits remain zero.
+Follow-up 16:11 London split-MPP30 decision progress: `102177` remains running on `oat21`
+at about 9 minutes elapsed, while `102178`--`102182` are still pending on `gh200` for
+`(Priority)`; no job is on excluded `oat12`. The constrained b00 run now has
+`fixed_root_depth_sweep_decisions.jsonl` with 30 decision rows: 20 naive rows (two rounds
+across 10 trials) and 10 EIG rows (round 0 across 10 trials). The log shows 50 LLM usage
+events, 20 naive selections, 11 candidate-generation markers, and no StrategyEIG markers
+yet. Forced thinking exits have started during candidate generation (`10` counted), but
+grep over 102177 Slurm/run logs still found no fatal errors/OOM/missing-file or invalid
+location messages.
 
 ## NEXT ACTIONS (in order)
 
