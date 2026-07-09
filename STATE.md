@@ -120,7 +120,12 @@ Status of the Minimum Publishable Package:
    for all four jobs. The 09:19 London poll again found no final/recovered metrics and
    unchanged decision counts; all four jobs were live with fresh progress: `101996` at
    252/256, `101998` at 58/256, `102018` at 190/256, and `102019` at 145/256. Runtime
-   error counts remained zero for all four jobs.
+   error counts remained zero for all four jobs. At 09:21 London, a fresh queue check
+   confirmed there were still no user-owned `gh200` jobs. The slow full50 fallback MSC
+   jobs `101996` and `101998` were canceled at the user's request to free nodes. The only
+   remaining live Path A jobs are the optimized MPP30 pair: constrained `102018` on
+   `oat16` and unconstrained `102019` on `oat21`; both still had no final or recovered
+   metrics at the cancellation check.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
