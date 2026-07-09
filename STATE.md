@@ -1592,6 +1592,15 @@ qualitative artifacts. Focused tests pass:
 `pytest tests/test_validate_paper_draft.py tests/test_path_a_preflight.py -q`
 (`8 passed`), and the full suite passes: `pytest tests/ -q`
 (`464 passed, 1 skipped`).
+Follow-up 14:53 London package-validation hardening: `scripts/validate_path_a_package.py`
+now also requires a non-empty ranking-fidelity diagnostics plot, so the package validator
+covers the banked ranking figure family rather than only the ranking report. Current
+package validation marks ranking gate, ranking diagnostics plot, constrained oracle, and
+planned cost green; it still fails only on the expected Phase-4 depth-sweep report,
+headline RMSE plot, and qualitative strategy examples. Focused tests pass:
+`pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
+tests/test_path_a_preflight.py -q` (`7 passed`), and the full suite passes:
+`pytest tests/ -q` (`464 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

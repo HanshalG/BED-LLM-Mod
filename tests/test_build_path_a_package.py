@@ -125,6 +125,7 @@ def _write_existing_gate_artifacts(root):
         "Spearman top-1 SNR",
         encoding="utf-8",
     )
+    (root / "results/ranking_fidelity/demo_plot.png").write_bytes(b"png")
     (root / "results/constrained_oracle").mkdir(parents=True)
     (root / "results/constrained_oracle/REPORT.md").write_text(
         "Planner greedy RMSE",

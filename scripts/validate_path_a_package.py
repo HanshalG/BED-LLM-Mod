@@ -63,6 +63,27 @@ def _check_headline_plot(root: Path) -> CheckResult:
     return CheckResult("headline_rmse_plot", True, str(path))
 
 
+def _check_ranking_fidelity_plot(root: Path) -> CheckResult:
+    path = _first_existing_or_glob(
+        root,
+        [
+            "plots/ranking_fidelity/*_diagnostics.png",
+            "plots/ranking_fidelity/*_plot.png",
+            "results/ranking_fidelity/*_diagnostics.png",
+            "results/ranking_fidelity/*_plot.png",
+        ],
+    )
+    if path is None:
+        return CheckResult(
+            "ranking_fidelity_diagnostics_plot",
+            False,
+            "missing ranking-fidelity diagnostics plot",
+        )
+    if path.stat().st_size <= 0:
+        return CheckResult("ranking_fidelity_diagnostics_plot", False, f"{path} is empty")
+    return CheckResult("ranking_fidelity_diagnostics_plot", True, str(path))
+
+
 def _check_qualitative_examples(root: Path) -> CheckResult:
     report_paths = sorted(root.glob("results/location_qualitative/*_qualitative_examples.md"))
     if not report_paths:
@@ -115,6 +136,7 @@ def validate_path_a_package(root: Path) -> list[CheckResult]:
             ],
             required_phrases=["spearman", "top-1", "snr"],
         ),
+        _check_ranking_fidelity_plot(root),
         _check_report(
             root,
             name="constrained_oracle",

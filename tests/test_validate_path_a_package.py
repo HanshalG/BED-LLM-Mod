@@ -11,6 +11,9 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         tmp_path / "results/ranking_fidelity/REPORT.md",
         "Spearman correlations, top-1 regret, and SNR all reported.",
     )
+    ranking_plot = tmp_path / "results/ranking_fidelity/demo_plot.png"
+    ranking_plot.parent.mkdir(parents=True, exist_ok=True)
+    ranking_plot.write_bytes(b"png")
     _write(
         tmp_path / "results/constrained_oracle/REPORT.md",
         "Planner beats greedy on RMSE in the constrained oracle check.",
@@ -49,6 +52,7 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
     assert payload["ok"] is True
     assert {item["name"] for item in payload["checks"]} == {
         "ranking_fidelity_gate",
+        "ranking_fidelity_diagnostics_plot",
         "constrained_oracle",
         "depth_sweep_headline_and_control",
         "headline_rmse_plot",
@@ -71,6 +75,9 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
         tmp_path / "results/ranking_fidelity/REPORT.md",
         "Spearman correlations, top-1 regret, and SNR all reported.",
     )
+    ranking_plot = tmp_path / "plots/ranking_fidelity/demo_diagnostics.png"
+    ranking_plot.parent.mkdir(parents=True, exist_ok=True)
+    ranking_plot.write_bytes(b"png")
     _write(
         tmp_path / "results/constrained_oracle/REPORT.md",
         "Planner beats greedy on RMSE in the constrained oracle check.",
