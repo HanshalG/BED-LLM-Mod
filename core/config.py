@@ -134,6 +134,7 @@ class LocationConfig:
     strategy_rollout_scoring_support_size: int = 32
     strategy_rollout_score_mode: str = "start_final_entropy_drop"
     strategy_rollout_final_refresh_enabled: bool = True
+    strategy_rollout_query_mode: str = "llm_strategy"
     posterior_mode: str = "analytical_likelihood"
     eig_bounds_enabled: bool = False
     eig_bounds_inner_samples: int = 5000
@@ -266,6 +267,11 @@ def location_view(config: Any) -> LocationConfig:
             config,
             "location_strategy_rollout_final_refresh_enabled",
             True,
+        ),
+        strategy_rollout_query_mode=getattr(
+            config,
+            "location_strategy_rollout_query_mode",
+            "llm_strategy",
         ),
         posterior_mode=getattr(config, "location_posterior_mode", "analytical_likelihood"),
         eig_bounds_enabled=getattr(config, "location_eig_bounds_enabled", False),

@@ -1957,17 +1957,31 @@ Follow-up 16:37 London micro startup check: `102192` remains running on `oat21` 
 1--2 minutes elapsed. The run log exists but is still only at fixed-root startup, with
 zero LLM usage events, zero forced exits, zero decision rows, no metrics file, and a
 clean fatal-error grep. Throughput is not yet measured.
+Follow-up 16:48 London analytic-rollout contingency: micro no-refresh job `102192`
+completed on `oat21` in about 6 minutes wall time and wrote metrics. It used 16 LLM calls,
+70,401 total tokens, 3 forced thinking exits, 8 decision rows, and no rollout-step
+hypothesis refreshes. It proves the full fixed-root machinery can complete, but direct
+LLM future-query rollout simulation still scales poorly. Added
+`location_strategy_rollout_query_mode` with default `llm_strategy` and new `analytic_eig`
+mode; in `analytic_eig`, simulated future rollout steps after the fixed root choose
+support-derived candidate locations by analytical one-step EIG, avoiding LLM
+strategy-location calls. Focused local tests pass:
+`pytest tests/test_location_finding.py tests/test_helpers_load_config.py tests/test_core_config.py -q`
+(`157 passed`). Synced the code/config changes to the cluster and launched constrained
+analytic micro job `102194` (`loc_branch_constr26_micro_an`, run
+`loc_branch_decoy_local_constrained_micro_analytic_26b_a4b_t1r1`) on `gh200` with
+`--exclude=oat12`; it started on `oat21`, with no jobs on `oat12`.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor micro pilot job `102192` with
-   `squeue -j 102192 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
+1. Monitor analytic micro job `102194` with
+   `squeue -j 102194 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
    off `oat12`.
-2. If `102192` completes and writes metrics, extract the full cost/time per one-trial
-   one-round fixed-root pass and use that to choose the next scale-up. If even `2`
-   candidates x `2` rollouts is too slow, stop spending on LLM rollout-query simulation
-   and switch to the hybrid/analytic-execution contingency instead of further GH200
-   retries.
+2. If `102194` completes with far fewer LLM calls than `102192`, use
+   `location_strategy_rollout_query_mode: analytic_eig` for the next scaled pilot
+   (likely constrained first, 3--5 paired trials) before relaunching any MPP30 split. If
+   it fails or does not materially reduce cost, pivot the paper framing toward the
+   ranking-fidelity/diagnostic fallback rather than spending more GH200 time.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
 4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`

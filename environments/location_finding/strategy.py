@@ -12,6 +12,7 @@ from .beliefs import (
     prompt_location_belief_state,
     prune_location_beliefs,
 )
+from .eig import expected_information_gain
 from .formatting import _format_location, _log_location
 from .generation import _completion_excerpt, _generate_location_hypotheses_many
 from .parsing import _clean_strategy_text, _strategy_key, parse_location_strategies, parse_location_strategy_roots, parse_strategy_location
@@ -589,6 +590,47 @@ def generate_strategy_location(
     )[0]
 
 
+def _analytic_rollout_candidate_locations(
+    belief_state: BeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+) -> list[Location]:
+    previous_query = last_query_from_observations(observations)
+    candidates: list[Location] = []
+    seen: set[Location] = set()
+    for hypothesis in belief_state.hypotheses:
+        for source in hypothesis:
+            projected = project_location_to_step_radius(tuple(float(value) for value in source), previous_query, config)
+            rounded = tuple(round(float(value), 10) for value in projected)
+            if rounded in seen:
+                continue
+            seen.add(rounded)
+            candidates.append(projected)
+    return candidates
+
+
+def _choose_analytic_rollout_location(
+    belief_state: BeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+) -> Location | None:
+    candidates = _analytic_rollout_candidate_locations(belief_state, observations, config)
+    if not candidates:
+        return None
+    scores = [
+        expected_information_gain(
+            belief_state,
+            candidate,
+            config.location_noise_sd,
+            config.location_eig_quadrature_order,
+            config=config,
+        )
+        for candidate in candidates
+    ]
+    best_idx = int(np.argmax(np.asarray(scores, dtype=float)))
+    return candidates[best_idx]
+
+
 def _sample_source_hypothesis(
     belief_state: BeliefState,
     rng: np.random.Generator,
@@ -931,11 +973,19 @@ def evaluate_location_strategies_by_rollout(
             if depth_idx == 0 and rollouts[rollout_idx].root_query is not None
         ]
         generated_indices = [rollout_idx for rollout_idx in active_indices if rollout_idx not in fixed_root_indices]
-        locations_by_index: dict[int, Location] = {
+        locations_by_index: dict[int, Location | None] = {
             rollout_idx: rollouts[rollout_idx].root_query  # type: ignore[dict-item]
             for rollout_idx in fixed_root_indices
         }
-        if generated_indices:
+        if generated_indices and config.location_strategy_rollout_query_mode == "analytic_eig":
+            for rollout_idx in generated_indices:
+                rollout = rollouts[rollout_idx]
+                locations_by_index[rollout_idx] = _choose_analytic_rollout_location(
+                    rollout.belief_state,
+                    _full_rollout_observations(observations, rollout),
+                    config,
+                )
+        elif generated_indices:
             location_requests = [
                 _StrategyLocationRequest(
                     strategy=rollouts[rollout_idx].strategy,

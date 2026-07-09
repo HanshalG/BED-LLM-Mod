@@ -1407,6 +1407,42 @@ def test_strategy_rollout_can_disable_final_refresh_for_scoring():
     assert all("{\"hypotheses\"" not in batch[0][-1]["content"] for batch in model.batched_calls)
 
 
+def test_strategy_rollout_can_use_analytic_eig_future_queries_without_llm_calls():
+    config = _location_config(
+        location_num_rounds=3,
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=3,
+        location_strategy_belief_summary_top_k=2,
+        location_strategy_rollout_final_refresh_enabled=False,
+        location_strategy_rollout_query_mode="analytic_eig",
+        location_signal_model="local_bump",
+        location_signal_lengthscale=0.5,
+        location_signal_amplitude=8.0,
+        location_max_step_radius=0.75,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
+    belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
+    model = FakeLocationModel([])
+
+    evaluations = evaluate_location_strategies_by_rollout(
+        model,
+        ["Use the fixed root, then let the calibrated executor refine analytically."],
+        belief_state,
+        [],
+        config,
+        np.random.default_rng(4),
+        root_queries=[(0.0, 0.0)],
+    )
+
+    assert len(evaluations) == 1
+    assert evaluations[0].root_query == (0.0, 0.0)
+    assert math.isfinite(evaluations[0].mean_score)
+    assert evaluations[0].mean_score > 0.0
+    assert model.batched_calls == []
+    assert model.calls == []
+
+
 def test_strategy_rollout_depth_is_capped_by_remaining_rounds():
     config = _location_config(
         location_num_rounds=2,

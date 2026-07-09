@@ -141,6 +141,7 @@ environment:
   strategy_rollout_scoring_support_size: 9
   strategy_rollout_score_mode: future_step_support_sum
   strategy_rollout_final_refresh_enabled: false
+  strategy_rollout_query_mode: analytic_eig
 """.strip(),
         encoding="utf-8",
     )
@@ -167,6 +168,7 @@ environment:
     assert config.location_strategy_rollout_scoring_support_size == 9
     assert config.location_strategy_rollout_score_mode == "future_step_support_sum"
     assert config.location_strategy_rollout_final_refresh_enabled is False
+    assert config.location_strategy_rollout_query_mode == "analytic_eig"
 
 
 def test_load_config_parses_categorical_belief_state_options(tmp_path):
@@ -269,6 +271,7 @@ location_strategy_rollout_scoring_support_mode: truth_plus_sampled
 location_strategy_rollout_scoring_support_size: 19
 location_strategy_rollout_score_mode: future_step_support_sum
 location_strategy_rollout_final_refresh_enabled: false
+location_strategy_rollout_query_mode: analytic_eig
 """.strip(),
         encoding="utf-8",
     )
@@ -302,6 +305,7 @@ location_strategy_rollout_final_refresh_enabled: false
     assert config.location_strategy_rollout_scoring_support_size == 19
     assert config.location_strategy_rollout_score_mode == "future_step_support_sum"
     assert config.location_strategy_rollout_final_refresh_enabled is False
+    assert config.location_strategy_rollout_query_mode == "analytic_eig"
     # location_strategy_num_candidates is now a derived property: the sum of the four
     # evolutionary-phase counts (retrieved + mutation + crossover + diverse).
     # Defaults are 2 + 1 + 1 + 2 = 6.
@@ -409,6 +413,7 @@ task: location_finding
         ("location_strategy_rollout_scoring_support_mode: vibes", "location_strategy_rollout_scoring_support_mode"),
         ("location_strategy_rollout_scoring_support_size: 0", "location_strategy_rollout_scoring_support_size"),
         ("location_strategy_rollout_score_mode: vibes", "location_strategy_rollout_score_mode"),
+        ("location_strategy_rollout_query_mode: vibes", "location_strategy_rollout_query_mode"),
         ("location_max_step_radius: 0", "location_max_step_radius"),
         ("location_max_step_radius: false", "location_max_step_radius"),
         ("location_source_prior: maze", "location_source_prior"),

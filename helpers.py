@@ -27,6 +27,7 @@ AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
 LocationPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
 LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled", "truth_start_end", "fixed_common"]
 LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_step_support_sum"]
+LocationStrategyRolloutQueryMode = Literal["llm_strategy", "analytic_eig"]
 
 
 @dataclass(frozen=True)
@@ -132,6 +133,7 @@ class Config:
     location_strategy_rollout_scoring_support_size: int = 32
     location_strategy_rollout_score_mode: LocationStrategyRolloutScoreMode = "start_final_entropy_drop"
     location_strategy_rollout_final_refresh_enabled: bool = True
+    location_strategy_rollout_query_mode: LocationStrategyRolloutQueryMode = "llm_strategy"
     location_posterior_mode: LocationPosteriorMode = "analytical_likelihood"
     location_eig_bounds_enabled: bool = False
     location_eig_bounds_inner_samples: int = 5000
@@ -199,6 +201,11 @@ class Config:
             )
         if not isinstance(self.location_strategy_rollout_final_refresh_enabled, bool):
             raise ValueError("location_strategy_rollout_final_refresh_enabled must be a boolean")
+        if self.location_strategy_rollout_query_mode not in {"llm_strategy", "analytic_eig"}:
+            raise ValueError(
+                "location_strategy_rollout_query_mode must be one of: "
+                "llm_strategy, analytic_eig"
+            )
         if self.location_max_step_radius is not None:
             if isinstance(self.location_max_step_radius, bool):
                 raise ValueError("location_max_step_radius must be a positive number or null")
@@ -488,6 +495,7 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "strategy_rollout_scoring_support_size": "location_strategy_rollout_scoring_support_size",
         "strategy_rollout_score_mode": "location_strategy_rollout_score_mode",
         "strategy_rollout_final_refresh_enabled": "location_strategy_rollout_final_refresh_enabled",
+        "strategy_rollout_query_mode": "location_strategy_rollout_query_mode",
         "posterior_mode": "location_posterior_mode",
         "eig_bounds_enabled": "location_eig_bounds_enabled",
         "eig_bounds_inner_samples": "location_eig_bounds_inner_samples",
@@ -730,6 +738,15 @@ def load_config(path: str) -> Config:
     )
     if not isinstance(location_strategy_rollout_final_refresh_enabled, bool):
         raise ValueError("location_strategy_rollout_final_refresh_enabled must be a boolean")
+    location_strategy_rollout_query_mode = raw.get(
+        "location_strategy_rollout_query_mode",
+        "llm_strategy",
+    )
+    if location_strategy_rollout_query_mode not in {"llm_strategy", "analytic_eig"}:
+        raise ValueError(
+            "location_strategy_rollout_query_mode must be one of: "
+            "llm_strategy, analytic_eig"
+        )
     location_posterior_mode = raw.get("location_posterior_mode", "analytical_likelihood")
     if location_posterior_mode not in {"analytical_likelihood", "llm_distribution"}:
         raise ValueError("location_posterior_mode must be one of: analytical_likelihood, llm_distribution")
@@ -849,6 +866,7 @@ def load_config(path: str) -> Config:
         location_strategy_rollout_scoring_support_size = location_strategy_rollout_scoring_support_size,
         location_strategy_rollout_score_mode = location_strategy_rollout_score_mode,
         location_strategy_rollout_final_refresh_enabled = location_strategy_rollout_final_refresh_enabled,
+        location_strategy_rollout_query_mode = location_strategy_rollout_query_mode,
         location_posterior_mode = location_posterior_mode,
         location_eig_bounds_enabled = location_eig_bounds_enabled,
         location_eig_bounds_inner_samples = location_eig_bounds_inner_samples,

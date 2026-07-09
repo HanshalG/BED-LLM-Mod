@@ -74,6 +74,7 @@ def test_location_view_extracts_location_fields():
         location_strategy_rollout_scoring_support_size=17,
         location_strategy_rollout_score_mode="future_step_support_sum",
         location_strategy_rollout_final_refresh_enabled=False,
+        location_strategy_rollout_query_mode="analytic_eig",
         location_eig_bounds_enabled=True,
         location_eig_bounds_inner_samples=101,
         location_eig_bounds_seed=44,
@@ -107,6 +108,7 @@ def test_location_view_extracts_location_fields():
     assert view.strategy_rollout_scoring_support_size == 17
     assert view.strategy_rollout_score_mode == "future_step_support_sum"
     assert view.strategy_rollout_final_refresh_enabled is False
+    assert view.strategy_rollout_query_mode == "analytic_eig"
     # Derived: 3 + 2 + 2 + 1 = 8
     assert view.strategy_num_candidates == 8
 
