@@ -1,9 +1,16 @@
-from scripts.path_a_launch_commands import build_path_a_commands, build_split_mpp30_commands
+from scripts.path_a_launch_commands import (
+    DEFAULT_EXCLUDE_NODES_ARG,
+    DEFAULT_EXCLUDED_NODES,
+    build_path_a_commands,
+    build_split_mpp30_commands,
+)
 
 
 def test_path_a_launch_commands_use_gh200_singularity_and_package_builder():
     commands = build_path_a_commands()
 
+    assert DEFAULT_EXCLUDED_NODES == ("oat12",)
+    assert DEFAULT_EXCLUDE_NODES_ARG == "oat12"
     assert commands.constrained_sbatch.startswith(
         'BED_LLM_VLLM_KWARGS=\'{"max_num_seqs":100,"enforce_eager":false}\' '
         "BED_LLM_LOG_REASONING_TRACES=1 sbatch"

@@ -5,6 +5,10 @@ from dataclasses import dataclass
 import shlex
 
 
+DEFAULT_EXCLUDED_NODES = ("oat12",)
+DEFAULT_EXCLUDE_NODES_ARG = ",".join(DEFAULT_EXCLUDED_NODES)
+
+
 @dataclass(frozen=True)
 class PathACommands:
     constrained_sbatch: str
@@ -58,7 +62,7 @@ def build_path_a_commands(
     num_trials: int | None = None,
     trial_offset: int | None = None,
     total_trials: int | None = None,
-    exclude_nodes: str | None = "oat12",
+    exclude_nodes: str | None = DEFAULT_EXCLUDE_NODES_ARG,
 ) -> PathACommands:
     launcher = "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh"
     if run_suffix:
@@ -199,7 +203,7 @@ def build_split_mpp30_commands(
     myopic_control_depths: str = "3,5",
     vllm_kwargs: str = '{"max_num_seqs":100,"enforce_eager":false}',
     log_reasoning_traces: bool = True,
-    exclude_nodes: str | None = "oat12",
+    exclude_nodes: str | None = DEFAULT_EXCLUDE_NODES_ARG,
 ) -> PathASplitCommands:
     if not offsets:
         raise ValueError("offsets must contain at least one trial offset")
@@ -308,7 +312,7 @@ def main() -> None:
     parser.add_argument("--block-trials", type=int, default=10, help="Trials per split-MPP30 block")
     parser.add_argument(
         "--exclude-nodes",
-        default="oat12",
+        default=DEFAULT_EXCLUDE_NODES_ARG,
         help="Comma-separated Slurm node exclusion list for sbatch commands; pass an empty string to disable.",
     )
     args = parser.parse_args()

@@ -13,7 +13,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from helpers import load_config
-from scripts.path_a_launch_commands import build_split_mpp30_commands
+from scripts.path_a_launch_commands import DEFAULT_EXCLUDE_NODES_ARG, build_split_mpp30_commands
 from scripts.validate_experiments_ledger import summary_payload as ledger_summary_payload
 from scripts.validate_experiments_ledger import validate_experiments_ledger
 from scripts.validate_path_a_package import summary_payload, validate_path_a_package
@@ -104,7 +104,7 @@ def _check_commands() -> PreflightCheck:
         "BED_LLM_LOG_REASONING_TRACES=1",
         "run_location_fixed_root_depth_sweep_gh200_singularity.sh",
         "--partition=gh200",
-        "--exclude=oat12",
+        f"--exclude={DEFAULT_EXCLUDE_NODES_ARG}",
         "--include-myopic-controls",
         "--strategy-depths 1,3,5",
         "--eval-depths 1,3,5",
@@ -143,7 +143,7 @@ def _check_commands() -> PreflightCheck:
     return PreflightCheck(
         "launch_commands",
         True,
-        "split-MPP30 dry-run commands are ready with oat12 excluded and package artifacts listed",
+        f"split-MPP30 dry-run commands are ready with {DEFAULT_EXCLUDE_NODES_ARG} excluded and package artifacts listed",
     )
 
 

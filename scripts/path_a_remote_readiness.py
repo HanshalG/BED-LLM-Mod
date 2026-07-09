@@ -14,6 +14,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from scripts.path_a_launch_commands import DEFAULT_EXCLUDED_NODES
 from scripts.path_a_sync_commands import REQUIRED_SYNC_PATHS
 
 
@@ -23,7 +24,6 @@ REQUIRED_REMOTE_FILES = REQUIRED_SYNC_PATHS
 MAX_ACTIVE_JOBS = 8
 SPLIT_MPP30_JOB_COUNT = 6
 MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH = MAX_ACTIVE_JOBS - SPLIT_MPP30_JOB_COUNT
-DEFAULT_EXCLUDED_NODES = ("oat12",)
 
 
 def _expand_slurm_nodelist(text: str) -> set[str]:

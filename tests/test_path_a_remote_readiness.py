@@ -1,4 +1,5 @@
 from scripts.path_a_remote_readiness import (
+    DEFAULT_EXCLUDED_NODES,
     REQUIRED_REMOTE_FILES,
     _expand_slurm_nodelist,
     parse_remote_probe,
@@ -8,6 +9,7 @@ from scripts.path_a_remote_readiness import (
 
 
 def test_parse_remote_probe_detects_ready_state():
+    assert DEFAULT_EXCLUDED_NODES == ("oat12",)
     file_lines = "\n".join(f"OK {path}" for path in REQUIRED_REMOTE_FILES)
     output = f"""ACTIVE_JOBS
 0

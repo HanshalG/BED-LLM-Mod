@@ -1788,6 +1788,17 @@ cluster checkout lacks the current paper/ledger validators or draft inputs. Veri
 `pytest tests/test_path_a_sync_commands.py tests/test_path_a_remote_readiness.py
 tests/test_path_a_preflight.py -q` (`17 passed`), and the full suite passes:
 `pytest tests/ -q` (`472 passed, 1 skipped`).
+Follow-up 15:45 London exclusion source-of-truth cleanup: `scripts/path_a_launch_commands.py`
+now owns `DEFAULT_EXCLUDED_NODES` / `DEFAULT_EXCLUDE_NODES_ARG`, and both
+`path_a_preflight.py` and `path_a_remote_readiness.py` import that value rather than
+duplicating the `oat12` literal. This keeps generated split-MPP30 commands,
+preflight launch-shape validation, and remote GH200 readiness aligned if the excluded
+node set changes. Focused tests pass:
+`pytest tests/test_path_a_launch_commands.py tests/test_path_a_remote_readiness.py
+tests/test_path_a_preflight.py -q` (`17 passed`), `python scripts/path_a_preflight.py
+--json` still reports `split-MPP30 dry-run commands are ready with oat12 excluded and
+package artifacts listed`, and the full suite passes: `pytest tests/ -q`
+(`472 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
