@@ -49,6 +49,10 @@ Paper ranking-fidelity section: **DONE for the current skeleton** — `paper/mai
 now reports the 26B A4B Phase 1 gate numbers, includes the aggregate ranking-fidelity
 plot, states the positive entropy/truth-log-prob first-link result, and preserves the
 near-zero RMSE-rank caveat.
+Paper method/protocol section: **DONE for the current skeleton** — `paper/main.tex`
+now describes strategy/root generation, analytical rollout scoring, fixed-common paired
+scoring controls, the ranking-fidelity deployment diagnostic, and the pre-registered
+paired depth-sweep endpoints/myopic controls.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
