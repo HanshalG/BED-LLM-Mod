@@ -1261,6 +1261,12 @@ Cluster courtesy check 2026-07-09 13:29 London: user asked to cancel the slow 13
 GH200 jobs if present because other people were waiting on those nodes. Fresh `squeue`
 showed zero user-owned `gh200` jobs, so no `scancel` was issued. The only live jobs were
 MSC MPP30 `102018` constrained on `oat16` and `102019` unconstrained on `oat21`.
+Follow-up 13:30 London poll: still exactly two live MSC jobs, constrained `102018` on
+`oat16` and unconstrained `102019` on `oat21`; user-owned `gh200` job count remains zero.
+No final or recovered metrics exist for either MPP30 run, and decision logs remain
+`90`/`90`. Error signatures remain zero for traceback, runtime error, OOM, and killed
+markers. Latest stderr progress was constrained `102018` at 112/256 in its current
+prompt block and unconstrained `102019` at 102/256 in its current prompt block.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
