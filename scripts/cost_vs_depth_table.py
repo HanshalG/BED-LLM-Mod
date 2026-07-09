@@ -6,6 +6,10 @@ from pathlib import Path
 import sys
 from typing import Any
 
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import yaml
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -376,14 +380,63 @@ def markdown_table(rows: list[dict[str, Any]]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write_cost_table(paths: list[Path], output_dir: Path, run_name: str) -> tuple[Path, Path]:
-    rows = [row_from_path(path) for path in paths]
+def write_cost_plot(rows: list[dict[str, Any]], output_dir: Path, run_name: str) -> Path | None:
+    proxy_rows = [
+        (row, proxy)
+        for row in rows
+        for proxy in row.get("brute_force_cost_proxy", [])
+        if isinstance(proxy, dict)
+    ]
+    if not proxy_rows:
+        return None
+
+    fig, ax = plt.subplots(figsize=(6.4, 4.2))
+    for row in rows:
+        proxies = [proxy for proxy in row.get("brute_force_cost_proxy", []) if isinstance(proxy, dict)]
+        if not proxies:
+            continue
+        depths = [int(proxy["depth"]) for proxy in proxies]
+        strategy_steps = [float(proxy["strategy_simulated_steps"]) for proxy in proxies]
+        brute_force_sets = [float(proxy["brute_force_candidate_sets"]) for proxy in proxies]
+        label = str(row["label"])
+        ax.plot(depths, strategy_steps, marker="o", linewidth=2, label=f"{label}: StrategyEIG")
+        ax.plot(
+            depths,
+            brute_force_sets,
+            marker="s",
+            linewidth=2,
+            linestyle="--",
+            label=f"{label}: brute-force",
+        )
+
+    ax.set_yscale("log")
+    ax.set_xlabel("Planning depth")
+    ax.set_ylabel("Per-sweep proxy count (log scale)")
+    ax.set_title("Cost scaling versus planning depth")
+    ax.grid(True, which="both", alpha=0.25)
+    ax.legend(fontsize=7)
+    fig.tight_layout()
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    png_path = output_dir / f"{run_name}_cost_vs_depth.png"
+    fig.savefig(png_path, dpi=200)
+    plt.close(fig)
+    return png_path
+
+
+def write_cost_artifacts(rows: list[dict[str, Any]], output_dir: Path, run_name: str) -> tuple[Path, Path, Path | None]:
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / f"{run_name}_cost_vs_depth.json"
     md_path = output_dir / f"{run_name}_cost_vs_depth.md"
     json_path.write_text(json.dumps({"rows": rows}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     md_path.write_text(markdown_table(rows), encoding="utf-8")
-    return json_path, md_path
+    png_path = write_cost_plot(rows, output_dir, run_name)
+    return json_path, md_path, png_path
+
+
+def write_cost_table(paths: list[Path], output_dir: Path, run_name: str) -> tuple[Path, Path, Path | None]:
+    rows = [row_from_path(path) for path in paths]
+    return write_cost_artifacts(rows, output_dir, run_name)
 
 
 def write_planned_cost_table(
@@ -392,14 +445,9 @@ def write_planned_cost_table(
     run_name: str,
     *,
     max_depth: int | None = None,
-) -> tuple[Path, Path]:
+) -> tuple[Path, Path, Path | None]:
     rows = [row_from_config(path, max_depth=max_depth) for path in paths]
-    output_dir.mkdir(parents=True, exist_ok=True)
-    json_path = output_dir / f"{run_name}_cost_vs_depth.json"
-    md_path = output_dir / f"{run_name}_cost_vs_depth.md"
-    json_path.write_text(json.dumps({"rows": rows}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    md_path.write_text(markdown_table(rows), encoding="utf-8")
-    return json_path, md_path
+    return write_cost_artifacts(rows, output_dir, run_name)
 
 
 def main() -> None:
@@ -419,16 +467,18 @@ def main() -> None:
     )
     args = parser.parse_args()
     if args.from_config:
-        json_path, md_path = write_planned_cost_table(
+        json_path, md_path, png_path = write_planned_cost_table(
             args.paths,
             args.output_dir,
             args.run_name,
             max_depth=args.max_depth,
         )
     else:
-        json_path, md_path = write_cost_table(args.paths, args.output_dir, args.run_name)
+        json_path, md_path, png_path = write_cost_table(args.paths, args.output_dir, args.run_name)
     print(f"Wrote {json_path}")
     print(f"Wrote {md_path}")
+    if png_path is not None:
+        print(f"Wrote {png_path}")
 
 
 if __name__ == "__main__":

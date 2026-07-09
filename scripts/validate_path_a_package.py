@@ -84,6 +84,25 @@ def _check_ranking_fidelity_plot(root: Path) -> CheckResult:
     return CheckResult("ranking_fidelity_diagnostics_plot", True, str(path))
 
 
+def _check_cost_plot(root: Path) -> CheckResult:
+    path = _first_existing_or_glob(
+        root,
+        [
+            "plots/cost_vs_depth/*_cost_vs_depth.png",
+            "results/cost_vs_depth/*_cost_vs_depth.png",
+        ],
+    )
+    if path is None:
+        return CheckResult(
+            "cost_vs_depth_plot",
+            False,
+            "missing cost-vs-depth plot",
+        )
+    if path.stat().st_size <= 0:
+        return CheckResult("cost_vs_depth_plot", False, f"{path} is empty")
+    return CheckResult("cost_vs_depth_plot", True, str(path))
+
+
 def _check_qualitative_examples(root: Path) -> CheckResult:
     report_paths = sorted(root.glob("results/location_qualitative/*_qualitative_examples.md"))
     if not report_paths:
@@ -168,6 +187,7 @@ def validate_path_a_package(root: Path) -> list[CheckResult]:
                 "bf/strategy root-set ratio",
             ],
         ),
+        _check_cost_plot(root),
     ]
 
 

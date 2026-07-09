@@ -78,13 +78,14 @@ def test_write_cost_table_from_run_dir_and_log(tmp_path):
     )
 
     output_dir = tmp_path / "out"
-    json_path, md_path = write_cost_table([run_dir], output_dir, "demo")
+    json_path, md_path, png_path = write_cost_table([run_dir], output_dir, "demo")
     data = json.loads(json_path.read_text(encoding="utf-8"))
     text = md_path.read_text(encoding="utf-8")
 
     assert data["rows"][0]["label"] == "run_a"
     assert data["rows"][0]["total_tokens"] == 7
     assert "| run_a | unknown |" in text
+    assert png_path is None
 
 
 def test_row_from_config_builds_planned_path_a_proxy(tmp_path):
@@ -142,7 +143,7 @@ def test_write_planned_cost_table_from_configs(tmp_path):
         encoding="utf-8",
     )
 
-    json_path, md_path = write_planned_cost_table(
+    json_path, md_path, png_path = write_planned_cost_table(
         [config_path],
         tmp_path / "out",
         "planned",
@@ -155,6 +156,9 @@ def test_write_planned_cost_table_from_configs(tmp_path):
     assert "LLM Cost vs Depth" in text
     assert "brute-force n-step EIG proxy" in text
     assert "Planned config rows report algorithmic scaling only" in text
+    assert png_path is not None
+    assert png_path.exists()
+    assert png_path.stat().st_size > 0
 
 
 def test_markdown_table_notes_fixed_root_total_cost():

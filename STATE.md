@@ -1601,6 +1601,18 @@ headline RMSE plot, and qualitative strategy examples. Focused tests pass:
 `pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
 tests/test_path_a_preflight.py -q` (`7 passed`), and the full suite passes:
 `pytest tests/ -q` (`464 passed, 1 skipped`).
+Follow-up 14:56 London cost-figure closure: `scripts/cost_vs_depth_table.py` now emits a
+PNG cost-vs-depth scaling figure alongside its JSON/Markdown outputs, and
+`validate_path_a_package.py` requires that non-empty cost figure. Regenerated
+`results/cost_vs_depth/path_a_preregistered_cost_vs_depth.{json,md,png}` from the active
+26B A4B constrained/unconstrained final50 configs; the PNG is force-added because
+`results/*` is broadly ignored. Current package validation marks ranking report,
+ranking diagnostics plot, constrained oracle, planned cost report, and planned cost plot
+green; it still fails only on Phase-4 depth-sweep report, headline RMSE plot, and
+qualitative examples. Focused tests pass:
+`pytest tests/test_cost_vs_depth_table.py tests/test_validate_path_a_package.py
+tests/test_build_path_a_package.py tests/test_path_a_preflight.py -q` (`12 passed`),
+and the full suite passes: `pytest tests/ -q` (`464 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

@@ -159,6 +159,7 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
         "headline_plot",
         "cost_json",
         "cost_report",
+        "cost_plot",
         "qualitative_constrained_json",
         "qualitative_constrained_report",
         "qualitative_unconstrained_json",

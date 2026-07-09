@@ -45,6 +45,8 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         tmp_path / "results/cost_vs_depth/demo_cost_vs_depth.md",
         "LLM Cost vs Depth\nStrategyEIG vs brute-force n-step EIG proxy\nBF/Strategy root-set ratio",
     )
+    cost_plot = tmp_path / "results/cost_vs_depth/demo_cost_vs_depth.png"
+    cost_plot.write_bytes(b"png")
 
     results = validate_path_a_package(tmp_path)
     payload = summary_payload(results)
@@ -58,6 +60,7 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         "headline_rmse_plot",
         "qualitative_strategy_examples",
         "cost_vs_depth",
+        "cost_vs_depth_plot",
     }
 
 
@@ -112,6 +115,9 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
         tmp_path / "results/cost_vs_depth/demo_cost_vs_depth.md",
         "LLM Cost vs Depth\nStrategyEIG vs brute-force n-step EIG proxy\nBF/Strategy root-set ratio",
     )
+    cost_plot = tmp_path / "plots/cost_vs_depth/demo_cost_vs_depth.png"
+    cost_plot.parent.mkdir(parents=True, exist_ok=True)
+    cost_plot.write_bytes(b"png")
 
     payload = summary_payload(validate_path_a_package(tmp_path))
 

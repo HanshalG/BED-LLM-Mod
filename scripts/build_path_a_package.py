@@ -56,7 +56,7 @@ def build_path_a_package(
     plot_comparison(contrast_plot_path, comparison)
     plot_headline_rmse(headline_plot_path, comparison)
 
-    cost_json_path, cost_md_path = write_cost_table(
+    cost_json_path, cost_md_path, cost_plot_path = write_cost_table(
         [constrained, unconstrained],
         cost_dir,
         run_name,
@@ -79,6 +79,7 @@ def build_path_a_package(
         "headline_plot": str(headline_plot_path),
         "cost_json": str(cost_json_path),
         "cost_report": str(cost_md_path),
+        "cost_plot": str(cost_plot_path) if cost_plot_path is not None else None,
         "qualitative_constrained_json": qualitative_constrained["json_path"],
         "qualitative_constrained_report": qualitative_constrained["markdown_path"],
         "qualitative_unconstrained_json": qualitative_unconstrained["json_path"],
