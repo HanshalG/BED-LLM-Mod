@@ -27,6 +27,19 @@ def test_path_a_launch_commands_use_gh200_singularity_and_package_builder():
         commands.package_command
     )
     assert "results/cost_vs_depth" in commands.package_command
+    assert "plots/location_depth_sweeps/location_branch_decoy_depth_contrast_26b_a4b_depth_contrast.png" in (
+        commands.package_artifacts
+    )
+    assert "plots/location_depth_sweeps/location_branch_decoy_depth_contrast_26b_a4b_headline_rmse.png" in (
+        commands.package_artifacts
+    )
+    assert (
+        "plots/location_depth_sweeps/"
+        "location_branch_decoy_depth_contrast_26b_a4b_paired_trial_truth_log_probability_deltas.png"
+    ) in commands.package_artifacts
+    assert "results/location_qualitative/location_branch_decoy_depth_contrast_26b_a4b_constrained_qualitative_examples.md" in (
+        commands.package_artifacts
+    )
 
 
 def test_path_a_launch_commands_allow_partition_override():
@@ -126,3 +139,10 @@ def test_split_mpp30_commands_print_all_blocks_combines_and_package():
         commands.package_command
     )
     assert "--run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30_split" in commands.package_command
+    assert (
+        "plots/location_depth_sweeps/"
+        "location_branch_decoy_depth_contrast_26b_a4b_mpp30_split_depth_contrast.png"
+    ) in commands.package_artifacts
+    assert (
+        "results/cost_vs_depth/location_branch_decoy_depth_contrast_26b_a4b_mpp30_split_cost_vs_depth.png"
+    ) in commands.package_artifacts

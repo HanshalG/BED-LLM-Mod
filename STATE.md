@@ -1736,6 +1736,16 @@ validation still intentionally fails until Phase 4 artifacts exist; the newly ex
 missing set includes `results/location_depth_sweeps/*_REPORT.md`,
 `plots/location_depth_sweeps/*_depth_contrast.png`, headline RMSE, paired RMSE,
 paired truth-log, and constrained qualitative artifacts.
+Follow-up 15:35 London relaunch-handoff checklist hardening: `scripts/path_a_launch_commands.py`
+now exposes and prints the exact expected package artifacts after the package command,
+including the explicit depth-contrast figure, headline RMSE figure, paired RMSE and
+truth-log plots, constrained qualitative report/trajectory, and cost report/plot. This
+turns the split-MPP30 launch helper into a command-plus-artifact checklist for the next
+relaunch. `python scripts/path_a_launch_commands.py --split-mpp30` now ends with the
+full expected artifact list. Focused tests pass:
+`pytest tests/test_path_a_launch_commands.py tests/test_path_a_preflight.py
+tests/test_validate_path_a_package.py -q` (`14 passed`), and the full suite passes:
+`pytest tests/ -q` (`468 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

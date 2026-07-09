@@ -10,6 +10,7 @@ class PathACommands:
     constrained_sbatch: str
     unconstrained_sbatch: str
     package_command: str
+    package_artifacts: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -18,6 +19,22 @@ class PathASplitCommands:
     constrained_combine_command: str
     unconstrained_combine_command: str
     package_command: str
+    package_artifacts: tuple[str, ...]
+
+
+def _package_artifacts(package_run_name: str) -> tuple[str, ...]:
+    return (
+        f"results/location_depth_sweeps/{package_run_name}_REPORT.md",
+        f"results/location_depth_sweeps/{package_run_name}_summary.json",
+        f"plots/location_depth_sweeps/{package_run_name}_depth_contrast.png",
+        f"plots/location_depth_sweeps/{package_run_name}_headline_rmse.png",
+        f"plots/location_depth_sweeps/{package_run_name}_paired_trial_rmse_deltas.png",
+        f"plots/location_depth_sweeps/{package_run_name}_paired_trial_truth_log_probability_deltas.png",
+        f"results/location_qualitative/{package_run_name}_constrained_qualitative_examples.md",
+        f"results/location_qualitative/{package_run_name}_constrained_qualitative_example_1.png",
+        f"results/cost_vs_depth/{package_run_name}_cost_vs_depth.md",
+        f"results/cost_vs_depth/{package_run_name}_cost_vs_depth.png",
+    )
 
 
 def build_path_a_commands(
@@ -120,6 +137,7 @@ def build_path_a_commands(
         constrained_sbatch=constrained_sbatch,
         unconstrained_sbatch=unconstrained_sbatch,
         package_command=package_command,
+        package_artifacts=_package_artifacts(package_run_name),
     )
 
 
@@ -237,6 +255,7 @@ def build_split_mpp30_commands(
             output_run_name=combined_unconstrained_run_name,
         ),
         package_command=package_command,
+        package_artifacts=_package_artifacts(package_run_name),
     )
 
 
@@ -313,6 +332,10 @@ def main() -> None:
         print()
         print("# Build package after both combined summaries exist:")
         print(split_commands.package_command)
+        print()
+        print("# Expected package artifacts:")
+        for artifact in split_commands.package_artifacts:
+            print(artifact)
         return
 
     commands = build_path_a_commands(
@@ -342,6 +365,10 @@ def main() -> None:
     print()
     print("# Build package after both jobs finish:")
     print(commands.package_command)
+    print()
+    print("# Expected package artifacts:")
+    for artifact in commands.package_artifacts:
+        print(artifact)
 
 
 if __name__ == "__main__":
