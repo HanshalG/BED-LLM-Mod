@@ -1710,6 +1710,17 @@ checklists were updated to name the artifact. Focused tests pass:
 tests/test_path_a_preflight.py tests/test_location_fixed_root_depth_sweep.py -q`
 (`18 passed`), and the full suite passes: `pytest tests/ -q`
 (`468 passed, 1 skipped`).
+Follow-up 15:30 London primary-endpoint plot hardening: the paired-trial plotting helper
+now accepts a metric name and label, and `build_path_a_package.py` generates an additional
+constrained per-trial final truth-log-probability delta plot at
+`plots/location_depth_sweeps/*_paired_trial_truth_log_probability_deltas.png`. Package
+validation now requires this non-empty truth-log paired plot separately from the RMSE
+paired plot, protecting the pre-registered primary endpoint visualization. The runbook
+and launch handoff checklists were updated to name the truth-log paired plot. Focused
+tests pass:
+`pytest tests/test_location_fixed_root_depth_sweep.py tests/test_build_path_a_package.py
+tests/test_validate_path_a_package.py tests/test_path_a_preflight.py -q` (`18 passed`),
+and the full suite passes: `pytest tests/ -q` (`468 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

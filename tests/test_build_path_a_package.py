@@ -112,7 +112,10 @@ def _summary(max_step_radius):
                     {"action": [0.0, 0.0], "observation": {"query": [0.0, 0.0], "value": 1.0}},
                     {"action": [0.5, 0.0], "observation": {"query": [0.5, 0.0], "value": 2.0}},
                 ],
-                "round_metrics": [{"source_rmse": 0.8}, {"source_rmse": 0.6, "truth_log_probability": -2.0}],
+                "round_metrics": [
+                    {"source_rmse": 0.8, "truth_log_probability": -2.5},
+                    {"source_rmse": 0.6, "truth_log_probability": -2.0},
+                ],
             },
             {
                 "trial_index": 0,
@@ -123,7 +126,10 @@ def _summary(max_step_radius):
                     {"action": [0.0, 0.0], "observation": {"query": [0.0, 0.0], "value": 1.0}},
                     {"action": [1.0, 0.0], "observation": {"query": [1.0, 0.0], "value": 8.0}},
                 ],
-                "round_metrics": [{"source_rmse": 0.7}, {"source_rmse": 0.1, "truth_log_probability": -0.2}],
+                "round_metrics": [
+                    {"source_rmse": 0.7, "truth_log_probability": -1.5},
+                    {"source_rmse": 0.1, "truth_log_probability": -0.2},
+                ],
             },
         ],
     }
@@ -192,6 +198,7 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
         "contrast_plot",
         "headline_plot",
         "paired_trial_delta_plot",
+        "paired_trial_truth_log_plot",
         "cost_json",
         "cost_report",
         "cost_plot",
@@ -204,6 +211,9 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
     assert (tmp_path / "results/location_depth_sweeps/demo_REPORT.md").exists()
     assert (tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png").stat().st_size > 0
     assert (tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png").stat().st_size > 0
+    assert (
+        tmp_path / "plots/location_depth_sweeps/demo_paired_trial_truth_log_probability_deltas.png"
+    ).stat().st_size > 0
     assert "StrategyEIG vs brute-force n-step EIG proxy" in (
         tmp_path / "results/cost_vs_depth/demo_cost_vs_depth.md"
     ).read_text(encoding="utf-8")

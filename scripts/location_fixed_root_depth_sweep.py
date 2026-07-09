@@ -824,10 +824,17 @@ def _paired_trial_delta_rows(
     return sorted(rows, key=lambda row: (str(row["policy_label"]), int(row["trial_index"])))
 
 
-def _plot_paired_trial_differences(summary: dict[str, Any], plot_path: Path) -> None:
+def _plot_paired_trial_differences(
+    summary: dict[str, Any],
+    plot_path: Path,
+    *,
+    metric_name: str = "source_rmse",
+    ylabel: str | None = None,
+    title: str | None = None,
+) -> None:
     import matplotlib.pyplot as plt
 
-    rows = _paired_trial_delta_rows(summary.get("per_trial", []))
+    rows = _paired_trial_delta_rows(summary.get("per_trial", []), metric_name=metric_name)
     if not rows:
         return
     labels = sorted({str(row["policy_label"]) for row in rows})
@@ -846,8 +853,8 @@ def _plot_paired_trial_differences(summary: dict[str, Any], plot_path: Path) -> 
 
     ax.set_xticks(np.arange(len(labels)))
     ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=8)
-    ax.set_ylabel("per-trial final RMSE delta vs EIG")
-    ax.set_title("Paired per-trial final RMSE differences")
+    ax.set_ylabel(ylabel or f"per-trial final {metric_name} delta vs EIG")
+    ax.set_title(title or f"Paired per-trial final {metric_name} differences")
     fig.tight_layout()
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(plot_path, dpi=160)

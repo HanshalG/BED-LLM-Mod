@@ -387,6 +387,9 @@ python scripts/compare_location_rollout_ablation.py \
   RMSE trace for greedy EIG and StrategyEIG depths 1, 3, and 5.
 - `plots/location_depth_sweeps/*_paired_trial_rmse_deltas.png`: constrained
   per-trial paired final RMSE deltas versus greedy EIG for the main contrasts.
+- `plots/location_depth_sweeps/*_paired_trial_truth_log_probability_deltas.png`:
+  constrained per-trial paired final truth-log-probability deltas versus greedy
+  EIG for the primary endpoint.
 - `results/location_qualitative/*_constrained_qualitative_examples.md` and
   `results/location_qualitative/*_constrained_qualitative_example_*.png`:
   constrained-arm qualitative strategy snippets plus paired query trajectories.

@@ -51,6 +51,7 @@ def build_path_a_package(
     contrast_plot_path = plot_dir / f"{run_name}.png"
     headline_plot_path = plot_dir / f"{run_name}_headline_rmse.png"
     paired_trial_delta_plot_path = plot_dir / f"{run_name}_paired_trial_rmse_deltas.png"
+    paired_trial_truth_log_plot_path = plot_dir / f"{run_name}_paired_trial_truth_log_probability_deltas.png"
 
     comparison_summary_path.write_text(
         json.dumps(comparison, indent=2, sort_keys=True) + "\n",
@@ -60,6 +61,13 @@ def build_path_a_package(
     plot_comparison(contrast_plot_path, comparison)
     plot_headline_rmse(headline_plot_path, comparison)
     _plot_paired_trial_differences(constrained_summary, paired_trial_delta_plot_path)
+    _plot_paired_trial_differences(
+        constrained_summary,
+        paired_trial_truth_log_plot_path,
+        metric_name="truth_log_probability",
+        ylabel="per-trial final truth log-probability delta vs EIG",
+        title="Paired per-trial final truth log-probability differences",
+    )
 
     cost_json_path, cost_md_path, cost_plot_path = write_cost_table(
         [constrained, unconstrained],
@@ -83,6 +91,7 @@ def build_path_a_package(
         "contrast_plot": str(contrast_plot_path),
         "headline_plot": str(headline_plot_path),
         "paired_trial_delta_plot": str(paired_trial_delta_plot_path),
+        "paired_trial_truth_log_plot": str(paired_trial_truth_log_plot_path),
         "cost_json": str(cost_json_path),
         "cost_report": str(cost_md_path),
         "cost_plot": str(cost_plot_path) if cost_plot_path is not None else None,

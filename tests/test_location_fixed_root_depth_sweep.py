@@ -286,28 +286,35 @@ def test_paired_trial_delta_rows_keep_trial_labels_and_plot(tmp_path):
         {
             "trial_index": 0,
             "policy_label": "EIG",
-            "round_metrics": [{"source_rmse": 0.5}],
+            "round_metrics": [{"source_rmse": 0.5, "truth_log_probability": -2.0}],
         },
         {
             "trial_index": 0,
             "policy_label": "StrategyEIG-d2",
-            "round_metrics": [{"source_rmse": 0.2}],
+            "round_metrics": [{"source_rmse": 0.2, "truth_log_probability": -0.5}],
         },
         {
             "trial_index": 1,
             "policy_label": "EIG",
-            "round_metrics": [{"source_rmse": 0.8}],
+            "round_metrics": [{"source_rmse": 0.8, "truth_log_probability": -1.0}],
         },
         {
             "trial_index": 1,
             "policy_label": "StrategyEIG-d2",
-            "round_metrics": [{"source_rmse": 0.9}],
+            "round_metrics": [{"source_rmse": 0.9, "truth_log_probability": -1.5}],
         },
     ]
 
     rows = _paired_trial_delta_rows(per_trial)
+    truth_rows = _paired_trial_delta_rows(per_trial, metric_name="truth_log_probability")
     plot_path = tmp_path / "paired_trial_deltas.png"
+    truth_plot_path = tmp_path / "paired_trial_truth_log_deltas.png"
     _plot_paired_trial_differences({"per_trial": per_trial}, plot_path)
+    _plot_paired_trial_differences(
+        {"per_trial": per_trial},
+        truth_plot_path,
+        metric_name="truth_log_probability",
+    )
 
     assert rows == [
         {
@@ -329,8 +336,30 @@ def test_paired_trial_delta_rows_keep_trial_labels_and_plot(tmp_path):
             "delta": pytest.approx(0.1),
         },
     ]
+    assert truth_rows == [
+        {
+            "trial_index": 0,
+            "policy_label": "StrategyEIG-d2",
+            "metric_name": "truth_log_probability",
+            "policy_value": -0.5,
+            "baseline_label": "EIG",
+            "baseline_value": -2.0,
+            "delta": pytest.approx(1.5),
+        },
+        {
+            "trial_index": 1,
+            "policy_label": "StrategyEIG-d2",
+            "metric_name": "truth_log_probability",
+            "policy_value": -1.5,
+            "baseline_label": "EIG",
+            "baseline_value": -1.0,
+            "delta": pytest.approx(-0.5),
+        },
+    ]
     assert plot_path.exists()
     assert plot_path.stat().st_size > 0
+    assert truth_plot_path.exists()
+    assert truth_plot_path.stat().st_size > 0
 
 
 def test_depth_sweep_report_contains_paired_delta_table(tmp_path):
