@@ -1904,6 +1904,16 @@ marker count 1), with 65 LLM usage events and 14 forced thinking exits. One stra
 proposal attempt failed to parse after forced finalization and is retrying, but grep over
 102177 Slurm/run logs found no fatal `Traceback`, runtime/value/import error, OOM,
 missing-file, invalid-location, or exception messages.
+Follow-up 16:15 London split-MPP30 rollout-refresh entry: `102177` is still running on
+`oat21` at about 12--13 minutes elapsed; `102178`--`102182` remain pending on `gh200` for
+`(Priority)`, and no job is on excluded `oat12`. The decisions file remains at 30 rows
+(`naive`, `naive+belief`, and `EIG`, all round 0), with no metrics file yet. StrategyEIG
+strategy/root generation recovered from earlier parse retries and produced batched
+strategy proposals; the run has now entered `strategy rollout depth 1 belief refresh`,
+requesting 1600 hypothetical source-support refreshes with `block_size=256`. This is
+alive but likely to be the next expensive section. The run log showed 97 LLM usage events,
+25 forced thinking exits, and 2 parse-retry messages at this check. Fatal-error grep over
+102177 Slurm/run logs was still clean.
 
 ## NEXT ACTIONS (in order)
 
