@@ -68,7 +68,13 @@ Status of the Minimum Publishable Package:
    logs still `90`/`90`, no `gh200` jobs, and only the same MSC pair live (`102018` at
    10:52:52 elapsed on `oat16`, `102019` at 8:12:54 elapsed on `oat21`). Error signatures
    remained zero. Latest stderr progress was constrained `102018` at 220/256 and
-   unconstrained `102019` at 187/256 in their current prompt blocks.
+   unconstrained `102019` at 187/256 in their current prompt blocks. The 10:16 London
+   poll again found no final/recovered metrics, decision logs still `90`/`90`, no `gh200`
+   jobs, and only the same MSC pair live (`102018` at 10:53:46 elapsed on `oat16`,
+   `102019` at 8:13:48 elapsed on `oat21`). Error signatures remained zero. Constrained
+   `102018` completed the prior block, updated its run log at 10:15:33, and entered a
+   113-prompt block; unconstrained `102019` was near the end of its prompt block at
+   231/256.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
    MPP30 job `102019` running on `oat21`. At 08:43 London, those four MSC jobs were the
