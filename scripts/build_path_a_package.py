@@ -13,6 +13,7 @@ from scripts.compare_location_depth_sweeps import (
 )
 from scripts.cost_vs_depth_table import write_cost_table
 from scripts.extract_location_qualitative_examples import extract_qualitative_examples
+from scripts.location_fixed_root_depth_sweep import _plot_paired_trial_differences
 from scripts.validate_path_a_package import summary_payload, validate_path_a_package
 
 
@@ -39,7 +40,9 @@ def build_path_a_package(
     run_name: str,
     validate_root: Path,
 ) -> dict[str, Any]:
-    comparison = compare_depth_sweeps(_load_summary(constrained), _load_summary(unconstrained))
+    constrained_summary = _load_summary(constrained)
+    unconstrained_summary = _load_summary(unconstrained)
+    comparison = compare_depth_sweeps(constrained_summary, unconstrained_summary)
     output_dir.mkdir(parents=True, exist_ok=True)
     plot_dir.mkdir(parents=True, exist_ok=True)
 
@@ -47,6 +50,7 @@ def build_path_a_package(
     report_path = output_dir / f"{run_name}_REPORT.md"
     contrast_plot_path = plot_dir / f"{run_name}.png"
     headline_plot_path = plot_dir / f"{run_name}_headline_rmse.png"
+    paired_trial_delta_plot_path = plot_dir / f"{run_name}_paired_trial_rmse_deltas.png"
 
     comparison_summary_path.write_text(
         json.dumps(comparison, indent=2, sort_keys=True) + "\n",
@@ -55,6 +59,7 @@ def build_path_a_package(
     write_comparison_report(report_path, comparison)
     plot_comparison(contrast_plot_path, comparison)
     plot_headline_rmse(headline_plot_path, comparison)
+    _plot_paired_trial_differences(constrained_summary, paired_trial_delta_plot_path)
 
     cost_json_path, cost_md_path, cost_plot_path = write_cost_table(
         [constrained, unconstrained],
@@ -77,6 +82,7 @@ def build_path_a_package(
         "comparison_report": str(report_path),
         "contrast_plot": str(contrast_plot_path),
         "headline_plot": str(headline_plot_path),
+        "paired_trial_delta_plot": str(paired_trial_delta_plot_path),
         "cost_json": str(cost_json_path),
         "cost_report": str(cost_md_path),
         "cost_plot": str(cost_plot_path) if cost_plot_path is not None else None,

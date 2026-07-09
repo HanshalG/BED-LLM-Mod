@@ -191,6 +191,7 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
         "comparison_report",
         "contrast_plot",
         "headline_plot",
+        "paired_trial_delta_plot",
         "cost_json",
         "cost_report",
         "cost_plot",
@@ -202,6 +203,7 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
         assert Path(payload[key]).exists()
     assert (tmp_path / "results/location_depth_sweeps/demo_REPORT.md").exists()
     assert (tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png").stat().st_size > 0
+    assert (tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png").stat().st_size > 0
     assert "StrategyEIG vs brute-force n-step EIG proxy" in (
         tmp_path / "results/cost_vs_depth/demo_cost_vs_depth.md"
     ).read_text(encoding="utf-8")

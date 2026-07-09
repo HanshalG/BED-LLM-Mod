@@ -1699,6 +1699,17 @@ explicitly. Focused tests pass:
 tests/test_extract_location_qualitative_examples.py tests/test_path_a_preflight.py -q`
 (`9 passed`), and the full suite passes: `pytest tests/ -q`
 (`468 passed, 1 skipped`).
+Follow-up 15:26 London paired-difference package hardening: `build_path_a_package.py` now
+generates a package-level constrained per-trial final RMSE delta plot at
+`plots/location_depth_sweeps/*_paired_trial_rmse_deltas.png`, using the constrained
+summary's `per_trial` records. `validate_path_a_package.py` now requires that non-empty
+paired-trial plot, so the preregistered requirement to report per-trial paired-difference
+plots cannot be missed when Phase 4 metrics arrive. The runbook and launch handoff
+checklists were updated to name the artifact. Focused tests pass:
+`pytest tests/test_build_path_a_package.py tests/test_validate_path_a_package.py
+tests/test_path_a_preflight.py tests/test_location_fixed_root_depth_sweep.py -q`
+(`18 passed`), and the full suite passes: `pytest tests/ -q`
+(`468 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

@@ -40,6 +40,8 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
+    paired_plot_path = tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png"
+    paired_plot_path.write_bytes(b"png")
     _write(
         tmp_path / "results/location_qualitative/demo_constrained_qualitative_examples.md",
         "Qualitative Location Strategy Examples\nRMSE delta vs EIG\nRoot query",
@@ -65,6 +67,7 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         "constrained_oracle_robustness_heatmap",
         "depth_sweep_headline_and_control",
         "headline_rmse_plot",
+        "paired_trial_delta_plot",
         "qualitative_strategy_examples",
         "cost_vs_depth",
         "cost_vs_depth_plot",
@@ -114,6 +117,8 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
+    paired_plot_path = tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png"
+    paired_plot_path.write_bytes(b"png")
     _write(
         tmp_path / "results/location_qualitative/a_constrained_qualitative_examples.md",
         "Qualitative Location Strategy Examples\nNo StrategyEIG examples were available.",
@@ -171,6 +176,8 @@ def test_validate_path_a_package_rejects_unconstrained_only_qualitative_examples
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
+    paired_plot_path = tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png"
+    paired_plot_path.write_bytes(b"png")
     _write(
         tmp_path / "results/location_qualitative/demo_unconstrained_qualitative_examples.md",
         "Qualitative Location Strategy Examples\nRMSE delta vs EIG\nRoot query",
