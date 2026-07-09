@@ -1,0 +1,531 @@
+{
+  "base_config": {
+    "arena": 2.2,
+    "fixed_first_query": true,
+    "grid_size": 13,
+    "max_step_radius": 1.0,
+    "noise_sd": 0.1,
+    "num_particles": 64,
+    "num_rounds": 6,
+    "num_sources": 1,
+    "num_trials": 100,
+    "planner_depth": 2,
+    "planning_support_size": 8,
+    "seed": 1304,
+    "signal_amplitude": 8.0,
+    "signal_lengthscale": 0.5,
+    "signal_model": "local_bump",
+    "source_prior": "branch_decoy",
+    "source_radius": 2.2
+  },
+  "cells": [
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.7199699768345345,
+        "lawnmower_final_rmse": 0.7237079264627044,
+        "planner_final_rmse": 0.7196767618025067,
+        "planner_minus_greedy_final_rmse": -0.00029321503202785795,
+        "planner_minus_greedy_final_rmse_std": 0.0022284894156319457,
+        "planner_minus_lawnmower_final_rmse": -0.004031164660197708,
+        "planner_win_rate_vs_greedy": 0.24,
+        "planner_win_rate_vs_lawnmower": 0.73,
+        "required_trials_80_power_half_gap": 1812.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p4_n0p1",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p4_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.7881079818273582,
+        "lawnmower_final_rmse": 0.7900838119729023,
+        "planner_final_rmse": 0.7877587181514936,
+        "planner_minus_greedy_final_rmse": -0.0003492636758647725,
+        "planner_minus_greedy_final_rmse_std": 0.003168646144587392,
+        "planner_minus_lawnmower_final_rmse": -0.00232509382140858,
+        "planner_win_rate_vs_greedy": 0.21,
+        "planner_win_rate_vs_lawnmower": 0.63,
+        "required_trials_80_power_half_gap": 2582.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p4_n0p15",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p4_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.8911000580530296,
+        "lawnmower_final_rmse": 0.8927996921938103,
+        "planner_final_rmse": 0.890803240575826,
+        "planner_minus_greedy_final_rmse": -0.0002968174772038135,
+        "planner_minus_greedy_final_rmse_std": 0.002982494755700256,
+        "planner_minus_lawnmower_final_rmse": -0.001996451617984577,
+        "planner_win_rate_vs_greedy": 0.28,
+        "planner_win_rate_vs_lawnmower": 0.4,
+        "required_trials_80_power_half_gap": 3167.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p4_n0p25",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p4_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.9045643888200646,
+        "lawnmower_final_rmse": 0.9055949052710642,
+        "planner_final_rmse": 0.9046375136689647,
+        "planner_minus_greedy_final_rmse": 7.312484889981051e-05,
+        "planner_minus_greedy_final_rmse_std": 0.0013610539780445166,
+        "planner_minus_lawnmower_final_rmse": -0.0009573916020994534,
+        "planner_win_rate_vs_greedy": 0.22,
+        "planner_win_rate_vs_lawnmower": 0.48,
+        "required_trials_80_power_half_gap": 10865.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p5_n0p1",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p5_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.8711633810290768,
+        "lawnmower_final_rmse": 0.8736360970124215,
+        "planner_final_rmse": 0.8711714456960493,
+        "planner_minus_greedy_final_rmse": 8.064666972675024e-06,
+        "planner_minus_greedy_final_rmse_std": 0.00044783355983833353,
+        "planner_minus_lawnmower_final_rmse": -0.0024646513163722817,
+        "planner_win_rate_vs_greedy": 0.16,
+        "planner_win_rate_vs_lawnmower": 0.6,
+        "required_trials_80_power_half_gap": 96703.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p5_n0p15",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p5_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.8663867988250044,
+        "lawnmower_final_rmse": 0.8675844166400892,
+        "planner_final_rmse": 0.8658577219477752,
+        "planner_minus_greedy_final_rmse": -0.0005290768772291068,
+        "planner_minus_greedy_final_rmse_std": 0.007368870526962626,
+        "planner_minus_lawnmower_final_rmse": -0.0017266946923139915,
+        "planner_win_rate_vs_greedy": 0.37,
+        "planner_win_rate_vs_lawnmower": 0.57,
+        "required_trials_80_power_half_gap": 6084.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p5_n0p25",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p5_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.8118252987684943,
+        "lawnmower_final_rmse": 0.8171613194647918,
+        "planner_final_rmse": 0.8117907991726289,
+        "planner_minus_greedy_final_rmse": -3.4499595865742804e-05,
+        "planner_minus_greedy_final_rmse_std": 0.001312899668042642,
+        "planner_minus_lawnmower_final_rmse": -0.00537052029216312,
+        "planner_win_rate_vs_greedy": 0.37,
+        "planner_win_rate_vs_lawnmower": 0.63,
+        "required_trials_80_power_half_gap": 45417.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p7_n0p1",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p7_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.866957668035191,
+        "lawnmower_final_rmse": 0.8704795900358504,
+        "planner_final_rmse": 0.8669236253457691,
+        "planner_minus_greedy_final_rmse": -3.404268942212128e-05,
+        "planner_minus_greedy_final_rmse_std": 0.0008331216315541851,
+        "planner_minus_lawnmower_final_rmse": -0.0035559646900811957,
+        "planner_win_rate_vs_greedy": 0.38,
+        "planner_win_rate_vs_lawnmower": 0.61,
+        "required_trials_80_power_half_gap": 18783.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p7_n0p15",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p7_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.7860574259067744,
+        "lawnmower_final_rmse": 0.7901825318609004,
+        "planner_final_rmse": 0.7862058104448308,
+        "planner_minus_greedy_final_rmse": 0.00014838453805645065,
+        "planner_minus_greedy_final_rmse_std": 0.0020389942690516843,
+        "planner_minus_lawnmower_final_rmse": -0.003976721416069636,
+        "planner_win_rate_vs_greedy": 0.28,
+        "planner_win_rate_vs_lawnmower": 0.56,
+        "required_trials_80_power_half_gap": 5922.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p35_r0p7_n0p25",
+      "signal_lengthscale": 0.35,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p35_r0p7_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.14758219489881072,
+        "lawnmower_final_rmse": 0.7983845756726451,
+        "planner_final_rmse": 0.12500589906005416,
+        "planner_minus_greedy_final_rmse": -0.022576295838756522,
+        "planner_minus_greedy_final_rmse_std": 0.17286384936676955,
+        "planner_minus_lawnmower_final_rmse": -0.6733786766125909,
+        "planner_win_rate_vs_greedy": 0.21,
+        "planner_win_rate_vs_lawnmower": 0.94,
+        "required_trials_80_power_half_gap": 1839.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p4_n0p1",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p4_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.6083835204831302,
+        "lawnmower_final_rmse": 0.8521675083596318,
+        "planner_final_rmse": 0.4178961876063081,
+        "planner_minus_greedy_final_rmse": -0.19048733287682215,
+        "planner_minus_greedy_final_rmse_std": 0.4096604330468609,
+        "planner_minus_lawnmower_final_rmse": -0.434271320753324,
+        "planner_win_rate_vs_greedy": 0.39,
+        "planner_win_rate_vs_lawnmower": 0.82,
+        "required_trials_80_power_half_gap": 146.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p4_n0p15",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p4_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.9511017019147378,
+        "lawnmower_final_rmse": 0.9618557248845022,
+        "planner_final_rmse": 0.9547357717745389,
+        "planner_minus_greedy_final_rmse": 0.0036340698598010908,
+        "planner_minus_greedy_final_rmse_std": 0.04261954472085655,
+        "planner_minus_lawnmower_final_rmse": -0.0071199531099634126,
+        "planner_win_rate_vs_greedy": 0.18,
+        "planner_win_rate_vs_lawnmower": 0.65,
+        "required_trials_80_power_half_gap": 4314.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p4_n0p25",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p4_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.26546684332356774,
+        "lawnmower_final_rmse": 0.879961961303873,
+        "planner_final_rmse": 0.18650885126661748,
+        "planner_minus_greedy_final_rmse": -0.07895799205695028,
+        "planner_minus_greedy_final_rmse_std": 0.34927275289329635,
+        "planner_minus_lawnmower_final_rmse": -0.6934531100372557,
+        "planner_win_rate_vs_greedy": 0.2,
+        "planner_win_rate_vs_lawnmower": 0.88,
+        "required_trials_80_power_half_gap": 614.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p5_n0p1",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p5_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.7522139418012256,
+        "lawnmower_final_rmse": 0.8634550872324368,
+        "planner_final_rmse": 0.5770683789841722,
+        "planner_minus_greedy_final_rmse": -0.17514556281705324,
+        "planner_minus_greedy_final_rmse_std": 0.4279504929721219,
+        "planner_minus_lawnmower_final_rmse": -0.2863867082482646,
+        "planner_win_rate_vs_greedy": 0.38,
+        "planner_win_rate_vs_lawnmower": 0.64,
+        "required_trials_80_power_half_gap": 188.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p5_n0p15",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p5_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.7567721130177643,
+        "lawnmower_final_rmse": 0.7539907102986645,
+        "planner_final_rmse": 0.7566063318521695,
+        "planner_minus_greedy_final_rmse": -0.0001657811655945128,
+        "planner_minus_greedy_final_rmse_std": 0.018480421172420037,
+        "planner_minus_lawnmower_final_rmse": 0.0026156215535051612,
+        "planner_win_rate_vs_greedy": 0.14,
+        "planner_win_rate_vs_lawnmower": 0.53,
+        "required_trials_80_power_half_gap": 389700.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p5_n0p25",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p5_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.04402838471970481,
+        "lawnmower_final_rmse": 0.7779996469740286,
+        "planner_final_rmse": 0.04397090454602032,
+        "planner_minus_greedy_final_rmse": -5.748017368449099e-05,
+        "planner_minus_greedy_final_rmse_std": 0.031194473808703008,
+        "planner_minus_lawnmower_final_rmse": -0.7340287424280082,
+        "planner_win_rate_vs_greedy": 0.24,
+        "planner_win_rate_vs_lawnmower": 0.95,
+        "required_trials_80_power_half_gap": 9236241.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p7_n0p1",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p7_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.055903569685061535,
+        "lawnmower_final_rmse": 0.8328609212241321,
+        "planner_final_rmse": 0.046319954360783636,
+        "planner_minus_greedy_final_rmse": -0.009583615324277893,
+        "planner_minus_greedy_final_rmse_std": 0.03346812143646427,
+        "planner_minus_lawnmower_final_rmse": -0.7865409668633483,
+        "planner_win_rate_vs_greedy": 0.4,
+        "planner_win_rate_vs_lawnmower": 0.92,
+        "required_trials_80_power_half_gap": 383.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p7_n0p15",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p7_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.12884018545682077,
+        "lawnmower_final_rmse": 0.7668202662014366,
+        "planner_final_rmse": 0.11832386248140146,
+        "planner_minus_greedy_final_rmse": -0.010516322975419292,
+        "planner_minus_greedy_final_rmse_std": 0.062294923888525866,
+        "planner_minus_lawnmower_final_rmse": -0.6484964037200354,
+        "planner_win_rate_vs_greedy": 0.34,
+        "planner_win_rate_vs_lawnmower": 0.85,
+        "required_trials_80_power_half_gap": 1101.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p5_r0p7_n0p25",
+      "signal_lengthscale": 0.5,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p5_r0p7_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.03922360237231205,
+        "lawnmower_final_rmse": 0.5461607855840527,
+        "planner_final_rmse": 0.049976711974937776,
+        "planner_minus_greedy_final_rmse": 0.010753109602625719,
+        "planner_minus_greedy_final_rmse_std": 0.09964382788890035,
+        "planner_minus_lawnmower_final_rmse": -0.4961840736091148,
+        "planner_win_rate_vs_greedy": 0.23,
+        "planner_win_rate_vs_lawnmower": 0.85,
+        "required_trials_80_power_half_gap": 2693.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p4_n0p1",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p4_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.04766095863532764,
+        "lawnmower_final_rmse": 0.6712368487496368,
+        "planner_final_rmse": 0.06855844760351097,
+        "planner_minus_greedy_final_rmse": 0.02089748896818332,
+        "planner_minus_greedy_final_rmse_std": 0.14525239848279012,
+        "planner_minus_lawnmower_final_rmse": -0.602678401146126,
+        "planner_win_rate_vs_greedy": 0.18,
+        "planner_win_rate_vs_lawnmower": 0.9,
+        "required_trials_80_power_half_gap": 1516.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p4_n0p15",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p4_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.4,
+      "metrics": {
+        "greedy_final_rmse": 0.0632003946768231,
+        "lawnmower_final_rmse": 0.7218390060288123,
+        "planner_final_rmse": 0.05953453321899007,
+        "planner_minus_greedy_final_rmse": -0.003665861457833034,
+        "planner_minus_greedy_final_rmse_std": 0.02415759235229612,
+        "planner_minus_lawnmower_final_rmse": -0.6623044728098223,
+        "planner_win_rate_vs_greedy": 0.3,
+        "planner_win_rate_vs_lawnmower": 0.86,
+        "required_trials_80_power_half_gap": 1362.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p4_n0p25",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p4_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.03600113019310262,
+        "lawnmower_final_rmse": 0.6231731908433192,
+        "planner_final_rmse": 0.04657390772210654,
+        "planner_minus_greedy_final_rmse": 0.01057277752900392,
+        "planner_minus_greedy_final_rmse_std": 0.12666754371929126,
+        "planner_minus_lawnmower_final_rmse": -0.5765992831212127,
+        "planner_win_rate_vs_greedy": 0.29,
+        "planner_win_rate_vs_lawnmower": 0.86,
+        "required_trials_80_power_half_gap": 4502.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p5_n0p1",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p5_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.04072341198496849,
+        "lawnmower_final_rmse": 0.6654620072983704,
+        "planner_final_rmse": 0.04272553337553954,
+        "planner_minus_greedy_final_rmse": 0.0020021213905710546,
+        "planner_minus_greedy_final_rmse_std": 0.01729079670049451,
+        "planner_minus_lawnmower_final_rmse": -0.6227364739228309,
+        "planner_win_rate_vs_greedy": 0.21,
+        "planner_win_rate_vs_lawnmower": 0.89,
+        "required_trials_80_power_half_gap": 2339.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p5_n0p15",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p5_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.5,
+      "metrics": {
+        "greedy_final_rmse": 0.05341945276819507,
+        "lawnmower_final_rmse": 0.7828348223729483,
+        "planner_final_rmse": 0.050474023170834166,
+        "planner_minus_greedy_final_rmse": -0.0029454295973609067,
+        "planner_minus_greedy_final_rmse_std": 0.014336058745049963,
+        "planner_minus_lawnmower_final_rmse": -0.732360799202114,
+        "planner_win_rate_vs_greedy": 0.29,
+        "planner_win_rate_vs_lawnmower": 0.85,
+        "required_trials_80_power_half_gap": 743.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p5_n0p25",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p5_n0p25_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.02371757162862463,
+        "lawnmower_final_rmse": 0.1345091264148947,
+        "planner_final_rmse": 0.02324492931620175,
+        "planner_minus_greedy_final_rmse": -0.0004726423124228791,
+        "planner_minus_greedy_final_rmse_std": 0.019901108778340747,
+        "planner_minus_lawnmower_final_rmse": -0.11126419709869298,
+        "planner_win_rate_vs_greedy": 0.28,
+        "planner_win_rate_vs_lawnmower": 0.81,
+        "required_trials_80_power_half_gap": 55599.0
+      },
+      "noise_sd": 0.1,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p7_n0p1",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p7_n0p1_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.03438629811065612,
+        "lawnmower_final_rmse": 0.22372210002944334,
+        "planner_final_rmse": 0.03387028183370454,
+        "planner_minus_greedy_final_rmse": -0.0005160162769515802,
+        "planner_minus_greedy_final_rmse_std": 0.01599757209600018,
+        "planner_minus_lawnmower_final_rmse": -0.18985181819573888,
+        "planner_win_rate_vs_greedy": 0.21,
+        "planner_win_rate_vs_lawnmower": 0.85,
+        "required_trials_80_power_half_gap": 30141.0
+      },
+      "noise_sd": 0.15,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p7_n0p15",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p7_n0p15_summary.json"
+    },
+    {
+      "max_step_radius": 0.7,
+      "metrics": {
+        "greedy_final_rmse": 0.050694275355513164,
+        "lawnmower_final_rmse": 0.4430315969995568,
+        "planner_final_rmse": 0.04935047871300728,
+        "planner_minus_greedy_final_rmse": -0.001343796642505875,
+        "planner_minus_greedy_final_rmse_std": 0.01814031918376609,
+        "planner_minus_lawnmower_final_rmse": -0.39368111828654945,
+        "planner_win_rate_vs_greedy": 0.29,
+        "planner_win_rate_vs_lawnmower": 0.88,
+        "required_trials_80_power_half_gap": 5715.0
+      },
+      "noise_sd": 0.25,
+      "run_name": "branch_decoy_local_robustness_l0p75_r0p7_n0p25",
+      "signal_lengthscale": 0.75,
+      "summary_path": "results/constrained_oracle_robustness/branch_decoy_local_robustness_cells/branch_decoy_local_robustness_l0p75_r0p7_n0p25_summary.json"
+    }
+  ],
+  "heatmap_path": "plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png",
+  "highlight_cell": {
+    "max_step_radius": 0.5,
+    "noise_sd": 0.15,
+    "signal_lengthscale": 0.5
+  },
+  "max_step_radii": [
+    0.4,
+    0.5,
+    0.7
+  ],
+  "noise_sds": [
+    0.1,
+    0.15,
+    0.25
+  ],
+  "run_name": "branch_decoy_local_robustness",
+  "signal_lengthscales": [
+    0.35,
+    0.5,
+    0.75
+  ]
+}

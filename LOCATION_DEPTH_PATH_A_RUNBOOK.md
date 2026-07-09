@@ -176,6 +176,8 @@ python scripts/constrained_oracle_robustness_sweep.py \
   --source-prior branch_decoy \
   --source-radius 2.2 \
   --signal-amplitude 8.0 \
+  --workers 8 \
+  --resume \
   --run-name branch_decoy_local_robustness \
   --output-dir results/constrained_oracle_robustness \
   --plot-dir plots/constrained_oracle_robustness

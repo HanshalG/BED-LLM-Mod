@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ProcessPoolExecutor, as_completed
 import json
 from dataclasses import replace
 from pathlib import Path
@@ -48,8 +49,28 @@ def _cell_summary(summary: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _run_cell(task: tuple[int, OracleConfig, Path, str, float, float, float, bool]) -> dict[str, Any]:
+    cell_index, config, cell_dir, run_name, lengthscale, step_radius, noise_sd, resume = task
+    cell_name = _cell_run_name(run_name, lengthscale, step_radius, noise_sd)
+    summary_path = cell_dir / f"{cell_name}_summary.json"
+    if resume and summary_path.exists():
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    else:
+        summary = run_oracle_check(config, cell_dir, cell_name, plot_dir=None)
+    return {
+        "index": cell_index,
+        "run_name": cell_name,
+        "signal_lengthscale": float(lengthscale),
+        "max_step_radius": float(step_radius),
+        "noise_sd": float(noise_sd),
+        "summary_path": str(summary_path),
+        "metrics": _cell_summary(summary),
+    }
+
+
 def _write_report(path: Path, payload: dict[str, Any]) -> None:
     config = payload["base_config"]
+    highlight = payload.get("highlight_cell")
     lines = [
         "# Constrained Oracle Robustness Sweep",
         "",
@@ -70,12 +91,23 @@ def _write_report(path: Path, payload: dict[str, Any]) -> None:
         f"- Planning support size: {config['planning_support_size']}",
         f"- Signal amplitude: {config['signal_amplitude']}",
         f"- Seed: {config['seed']}",
-        "",
-        "## Cells",
-        "",
-        "| lengthscale | max step radius | noise sd | planner - greedy final RMSE | planner - lawnmower final RMSE | win rate vs greedy |",
-        "|---:|---:|---:|---:|---:|---:|",
     ]
+    if highlight:
+        lines.append(
+            "- Highlighted operating point: "
+            f"lengthscale {highlight['signal_lengthscale']}, "
+            f"max step radius {highlight['max_step_radius']}, "
+            f"noise sd {highlight['noise_sd']}"
+        )
+    lines.extend(
+        [
+            "",
+            "## Cells",
+            "",
+            "| lengthscale | max step radius | noise sd | planner - greedy final RMSE | planner - lawnmower final RMSE | win rate vs greedy |",
+            "|---:|---:|---:|---:|---:|---:|",
+        ]
+    )
     for cell in payload["cells"]:
         metrics = cell["metrics"]
         lines.append(
@@ -107,6 +139,7 @@ def _plot_heatmap(path: Path, payload: dict[str, Any]) -> None:
     lengthscales = payload["signal_lengthscales"]
     radii = payload["max_step_radii"]
     noises = payload["noise_sds"]
+    highlight = payload.get("highlight_cell")
     fig, axes = plt.subplots(1, len(noises), figsize=(4.2 * len(noises), 3.6), squeeze=False)
     values_by_key = {
         (cell["signal_lengthscale"], cell["max_step_radius"], cell["noise_sd"]): cell["metrics"][
@@ -132,6 +165,16 @@ def _plot_heatmap(path: Path, payload: dict[str, Any]) -> None:
             for j in range(len(radii)):
                 if np.isfinite(matrix[i, j]):
                     axis.text(j, i, f"{matrix[i, j]:.2f}", ha="center", va="center", fontsize=8)
+        if highlight and abs(noise_sd - highlight["noise_sd"]) < 1e-12:
+            try:
+                i = lengthscales.index(highlight["signal_lengthscale"])
+                j = radii.index(highlight["max_step_radius"])
+            except ValueError:
+                pass
+            else:
+                rect = plt.Rectangle((j - 0.5, i - 0.5), 1, 1, fill=False, edgecolor="black", linewidth=2.0)
+                axis.add_patch(rect)
+                axis.text(j, i + 0.32, "Phase 4", ha="center", va="center", fontsize=7, fontweight="bold")
     fig.colorbar(image, ax=axes.ravel().tolist(), shrink=0.85, label="planner - greedy final RMSE")
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=160, bbox_inches="tight")
@@ -147,11 +190,14 @@ def run_robustness_sweep(
     output_dir: Path,
     plot_dir: Path,
     run_name: str,
+    workers: int = 1,
+    resume: bool = False,
+    highlight_cell: dict[str, float] | None = None,
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     cell_dir = output_dir / f"{run_name}_cells"
     cell_dir.mkdir(parents=True, exist_ok=True)
-    cells: list[dict[str, Any]] = []
+    tasks: list[tuple[int, OracleConfig, Path, str, float, float, float, bool]] = []
     cell_index = 0
     for lengthscale in signal_lengthscales:
         for step_radius in max_step_radii:
@@ -164,18 +210,31 @@ def run_robustness_sweep(
                     noise_sd=float(noise_sd),
                     seed=int(base_config.seed + cell_index * 997),
                 )
-                cell_name = _cell_run_name(run_name, lengthscale, step_radius, noise_sd)
-                summary = run_oracle_check(config, cell_dir, cell_name, plot_dir=None)
-                cells.append(
-                    {
-                        "run_name": cell_name,
-                        "signal_lengthscale": float(lengthscale),
-                        "max_step_radius": float(step_radius),
-                        "noise_sd": float(noise_sd),
-                        "summary_path": str(cell_dir / f"{cell_name}_summary.json"),
-                        "metrics": _cell_summary(summary),
-                    }
+                tasks.append(
+                    (
+                        cell_index,
+                        config,
+                        cell_dir,
+                        run_name,
+                        float(lengthscale),
+                        float(step_radius),
+                        float(noise_sd),
+                        resume,
+                    )
                 )
+
+    workers = max(1, int(workers))
+    if workers == 1:
+        cells = [_run_cell(task) for task in tasks]
+    else:
+        cells = []
+        with ProcessPoolExecutor(max_workers=workers) as executor:
+            futures = [executor.submit(_run_cell, task) for task in tasks]
+            for future in as_completed(futures):
+                cells.append(future.result())
+        cells.sort(key=lambda cell: cell["index"])
+    for cell in cells:
+        cell.pop("index", None)
 
     payload = {
         "run_name": run_name,
@@ -185,6 +244,12 @@ def run_robustness_sweep(
         "noise_sds": [float(value) for value in noise_sds],
         "cells": cells,
     }
+    if highlight_cell is not None:
+        payload["highlight_cell"] = {
+            "signal_lengthscale": float(highlight_cell["signal_lengthscale"]),
+            "max_step_radius": float(highlight_cell["max_step_radius"]),
+            "noise_sd": float(highlight_cell["noise_sd"]),
+        }
     heatmap_path = plot_dir / f"{run_name}_heatmap.png"
     try:
         _plot_heatmap(heatmap_path, payload)
@@ -221,6 +286,12 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=Path("results/constrained_oracle_robustness"))
     parser.add_argument("--plot-dir", type=Path, default=Path("plots/constrained_oracle_robustness"))
     parser.add_argument("--run-name", default="branch_decoy_local_robustness")
+    parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--highlight-lengthscale", type=float, default=0.5)
+    parser.add_argument("--highlight-step-radius", type=float, default=0.5)
+    parser.add_argument("--highlight-noise-sd", type=float, default=0.15)
+    parser.add_argument("--no-highlight", action="store_true")
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args()
 
@@ -251,6 +322,15 @@ def main() -> None:
         output_dir=args.output_dir,
         plot_dir=args.plot_dir,
         run_name=args.run_name,
+        workers=args.workers,
+        resume=args.resume,
+        highlight_cell=None
+        if args.no_highlight
+        else {
+            "signal_lengthscale": args.highlight_lengthscale,
+            "max_step_radius": args.highlight_step_radius,
+            "noise_sd": args.highlight_noise_sd,
+        },
     )
     if args.json:
         print(json.dumps({key: value for key, value in payload.items() if key != "cells"}, indent=2, sort_keys=True))
@@ -263,4 +343,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

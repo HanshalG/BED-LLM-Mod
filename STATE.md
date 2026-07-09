@@ -5,7 +5,7 @@ ACTIONS below to reflect reality, and append a row to `EXPERIMENTS.md` for anyth
 launched. A stale STATE.md is a bug — fix it before doing anything else. If this file
 conflicts with GOAL.md's design history, this file wins.
 
-## CURRENT STATE (updated 2026-07-08)
+## CURRENT STATE (updated 2026-07-09)
 
 Phases 1–3 are DONE; Phase 4 is RUNNING; paper skeleton is started in `paper/` and
 compiles. The Path A infrastructure is committed locally and tagged `path-a-final-sweep`.
@@ -28,6 +28,13 @@ Status of the Minimum Publishable Package:
 
 Oracle evidence: `results/constrained_oracle/REPORT.md` (branch-decoy/local-bump env,
 greedy 0.56 vs planner 0.15 final RMSE, win rate 0.525 — heavy-tailed wins).
+Environment robustness heatmap: **DONE** —
+`results/constrained_oracle_robustness/branch_decoy_local_robustness_REPORT.md` and
+`plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png`
+(27 cells, 100 trials/cell). The Phase 4 operating point is one of the strongest
+mapped cells: planner − greedy final RMSE = -0.175 at lengthscale 0.5, radius 0.5,
+noise 0.15; many nearby cells are weak/near-zero, so frame this as a mapped
+planning-sensitive regime rather than a universal property of the location family.
 Positioning: `results/POSITIONING.md` (COPEx + IPP covered). Operational commands:
 `LOCATION_DEPTH_PATH_A_RUNBOOK.md` and `PHASE4_LAUNCH_HANDOFF.md`. The Phase 4 endpoint
 is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
@@ -41,11 +48,7 @@ supports/probabilities were not logged.
 
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Run the full environment robustness heatmap.** The sweep script exists and has been
-   smoke-tested (`scripts/constrained_oracle_robustness_sweep.py`), but the 3x3x3,
-   100-trial evidence heatmap has not been run yet. Command is recorded in
-   `LOCATION_DEPTH_PATH_A_RUNBOOK.md`.
-2. **Env framing in the paper (free, write into the skeleton).** Present the env with
+1. **Env framing in the paper (free, write into the skeleton).** Present the env with
    its physical semantics — mobile agent, movement cost (locality constraint),
    short-range sensor (local-bump finite-range signal), junction structure (branch-decoy
    prior) — not as an abstract tuned geometry. State explicitly that geometry selection
@@ -53,14 +56,14 @@ supports/probabilities were not logged.
    entered the tuning loop). Report the failed geometries transparently as a finding:
    most geometries are greedy-friendly, myopic traps are rare in this family — which
    explains the original null results and motivates the constructed instance.
-3. **Add posterior-state logging for future ranking-fidelity repair runs.** Existing 26B
+2. **Add posterior-state logging for future ranking-fidelity repair runs.** Existing 26B
    aggregate records do not store final posterior supports/probabilities, so expected
    posterior RMSE could not be recomputed from the current JSONL. If any follow-up
    ranking-fidelity run is launched, log deployment final posterior states or expected
    posterior RMSE directly.
-4. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
+3. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
    Path A artifact into `configs/archive/`; live configs must be findable at a glance.
-5. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
+4. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
    analysis strictly per the pre-registered section, then results into the skeleton
    following the OUTCOME PLAYBOOK row in GOAL.md that applies.
 
