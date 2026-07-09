@@ -250,7 +250,10 @@ Status of the Minimum Publishable Package:
    remained constrained `102018` on `oat16` at 10:30:59 elapsed and unconstrained `102019`
    on `oat21` at 7:51:01 elapsed, with zero traceback/runtime/OOM/kill signatures.
    Constrained `102018` was 229/256 in its current prompt block, and unconstrained
-   `102019` was 58/256 in its current prompt block.
+   `102019` was 58/256 in its current prompt block. At 09:55 London, after the user
+   requested canceling the stale/too-slow GH200 path if still live, both the full user
+   queue and a GH200-only user queue showed no `hanyal` GH200 jobs, so no `scancel` was
+   needed. The only live jobs remained the MSC MPP30 pair `102018` and `102019`.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
