@@ -14,6 +14,8 @@ REQUIRED_SYNC_PATHS = (
     "paper/references.bib",
     "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
+    "configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml",
+    "configs/config_location_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_mpp30_norefresh_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_unconstrained_mpp30_norefresh_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_micro_norefresh_26b_a4b.yaml",

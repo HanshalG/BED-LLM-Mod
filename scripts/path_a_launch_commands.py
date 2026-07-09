@@ -192,6 +192,8 @@ def build_split_mpp30_commands(
     total_trials: int = 30,
     constrained_job_name: str = "loc_branch_constr26_f50",
     unconstrained_job_name: str = "loc_branch_uncon26_f50",
+    constrained_config: str = "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml",
+    unconstrained_config: str = "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
     constrained_run_name: str = "loc_branch_decoy_local_constrained_final50_26b_a4b",
     unconstrained_run_name: str = "loc_branch_decoy_local_unconstrained_final50_26b_a4b",
     combined_constrained_run_name: str = "loc_branch_decoy_local_constrained_mpp30_26b_a4b_split",
@@ -218,6 +220,8 @@ def build_split_mpp30_commands(
             partition=partition,
             constrained_job_name=constrained_job_name,
             unconstrained_job_name=unconstrained_job_name,
+            constrained_config=constrained_config,
+            unconstrained_config=unconstrained_config,
             constrained_run_name=constrained_run_name,
             unconstrained_run_name=unconstrained_run_name,
             max_depth=max_depth,
@@ -277,6 +281,11 @@ def main() -> None:
         action="store_true",
         help="Print the full split-MPP30 command set: six sbatches, two combines, and package command.",
     )
+    parser.add_argument(
+        "--support-grid",
+        action="store_true",
+        help="Use the throughput-safe support-grid MPP30 config/run names.",
+    )
     parser.add_argument("--partition", default="gh200")
     parser.add_argument("--max-depth", type=int, default=5)
     parser.add_argument("--constrained-job-name", default="loc_branch_constr26_f50")
@@ -317,8 +326,36 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    if args.support_grid:
+        if args.constrained_config == "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml":
+            args.constrained_config = "configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml"
+        if args.unconstrained_config == "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml":
+            args.unconstrained_config = (
+                "configs/config_location_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b.yaml"
+            )
+        if args.constrained_job_name == "loc_branch_constr26_f50":
+            args.constrained_job_name = "loc_branch_constr26_sg"
+        if args.unconstrained_job_name == "loc_branch_uncon26_f50":
+            args.unconstrained_job_name = "loc_branch_uncon26_sg"
+        if args.constrained_run_name == "loc_branch_decoy_local_constrained_final50_26b_a4b":
+            args.constrained_run_name = "loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b"
+        if args.unconstrained_run_name == "loc_branch_decoy_local_unconstrained_final50_26b_a4b":
+            args.unconstrained_run_name = "loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b"
+        if args.package_run_name == "location_branch_decoy_depth_contrast_26b_a4b":
+            args.package_run_name = "location_branch_decoy_depth_contrast_26b_a4b_supportgrid"
+
     if args.split_mpp30:
         offsets = tuple(int(part.strip()) for part in args.offsets.split(",") if part.strip())
+        combined_constrained_run_name = (
+            "loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_split"
+            if args.support_grid
+            else "loc_branch_decoy_local_constrained_mpp30_26b_a4b_split"
+        )
+        combined_unconstrained_run_name = (
+            "loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b_split"
+            if args.support_grid
+            else "loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split"
+        )
         split_commands = build_split_mpp30_commands(
             partition=args.partition,
             offsets=offsets,
@@ -326,8 +363,12 @@ def main() -> None:
             total_trials=args.total_trials or 30,
             constrained_job_name=args.constrained_job_name,
             unconstrained_job_name=args.unconstrained_job_name,
+            constrained_config=args.constrained_config,
+            unconstrained_config=args.unconstrained_config,
             constrained_run_name=args.constrained_run_name,
             unconstrained_run_name=args.unconstrained_run_name,
+            combined_constrained_run_name=combined_constrained_run_name,
+            combined_unconstrained_run_name=combined_unconstrained_run_name,
             package_run_name=args.package_run_name
             if args.package_run_name != "location_branch_decoy_depth_contrast_26b_a4b"
             else "location_branch_decoy_depth_contrast_26b_a4b_mpp30_split",

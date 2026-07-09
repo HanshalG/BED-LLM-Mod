@@ -2103,6 +2103,28 @@ its JSON payload, and three example trajectory plots. The Markdown is explicitly
 smoke-only (`n=1`). `python scripts/validate_path_a_package.py --json` now passes the
 `qualitative_strategy_examples` check; `python scripts/path_a_preflight.py --json` still
 correctly reports only the real Phase 4 depth-sweep artifacts as pending.
+Follow-up support-grid MPP command prep: added support-grid split-MPP30 command generation
+and sync coverage. `python scripts/path_a_launch_commands.py --split-mpp30 --support-grid`
+now prints six GH200 sbatches with `--exclude=oat12`, support-grid constrained and
+unconstrained configs, three 10-trial blocks per arm, combine commands, and package
+artifacts under `location_branch_decoy_depth_contrast_26b_a4b_supportgrid`. The
+support-grid MPP configs are ignored by the repo-wide `configs/*` rule, so they must be
+force-added when committing and explicitly synced via `scripts/path_a_sync_commands.py`.
+Focused checks passed:
+`pytest tests/test_location_finding.py tests/test_path_a_launch_commands.py tests/test_path_a_sync_commands.py tests/test_helpers_load_config.py tests/test_core_config.py -q`
+(`179 passed`). `python scripts/path_a_preflight.py --json` passed top-level checks,
+ledger validation, and paper validation; it still correctly reports only real Phase 4
+depth-sweep artifacts as missing. Queue check after this prep showed `squeue -u hanyal`
+empty and GH200 occupied/pending by other users (`yononi` running on `oat19`/`oat22`,
+several `yononi` pending jobs, plus a dependency-stuck `hendov` job), so no new job was
+launched.
+Follow-up sync verification: committed the support-grid MPP prep, ran the sync command
+emitted by `python scripts/path_a_sync_commands.py`, and verified the remote checkout can
+generate the support-grid split-MPP30 sbatches/package commands with the synced files.
+The remote `rg` binary is unavailable, so use `grep` for remote command filtering. GH200
+queue pressure was unchanged after sync (`squeue -u hanyal` empty; other users running
+and pending on GH200), so the support-grid 3-trial pilot remains unlaunched out of
+cluster courtesy.
 
 ## NEXT ACTIONS (in order)
 
@@ -2112,9 +2134,10 @@ correctly reports only the real Phase 4 depth-sweep artifacts as pending.
    `oat12`; do not jump ahead of other users' pending GH200 jobs just because one node is
    momentarily idle.
 2. If the 3-trial support-grid pilot completes quickly and has plausible traces, scale
-   to split constrained MPP30 blocks with `candidate_generation_mode: support_grid`.
-   Otherwise keep the paper path on ranking-fidelity/diagnostic fallback and avoid
-   spending more GH200 time.
+   to split constrained MPP30 blocks with `candidate_generation_mode: support_grid` using
+   `python scripts/path_a_launch_commands.py --split-mpp30 --support-grid`. Otherwise keep
+   the paper path on ranking-fidelity/diagnostic fallback and avoid spending more GH200
+   time.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
 4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`

@@ -164,3 +164,30 @@ def test_split_mpp30_commands_print_all_blocks_combines_and_package():
     assert (
         "results/cost_vs_depth/location_branch_decoy_depth_contrast_26b_a4b_mpp30_split_cost_vs_depth.png"
     ) in commands.package_artifacts
+
+
+def test_split_mpp30_commands_can_use_support_grid_configs():
+    commands = build_split_mpp30_commands(
+        constrained_job_name="loc_branch_constr26_sg",
+        unconstrained_job_name="loc_branch_uncon26_sg",
+        constrained_config="configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml",
+        unconstrained_config=(
+            "configs/config_location_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b.yaml"
+        ),
+        constrained_run_name="loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b",
+        unconstrained_run_name="loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b",
+        combined_constrained_run_name="loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_split",
+        combined_unconstrained_run_name="loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b_split",
+        package_run_name="location_branch_decoy_depth_contrast_26b_a4b_supportgrid",
+    )
+
+    assert len(commands.sbatch_commands) == 6
+    first = commands.sbatch_commands[0]
+    assert "--job-name=loc_branch_constr26_sg_b00" in first
+    assert "configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml" in first
+    assert "--run-name loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_mpp30_b00_10" in first
+    assert (
+        "runs/loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_split/"
+        "fixed_root_depth_sweep_metrics.json"
+    ) in commands.package_command
+    assert "--run-name location_branch_decoy_depth_contrast_26b_a4b_supportgrid" in commands.package_command
