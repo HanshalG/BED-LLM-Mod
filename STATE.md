@@ -17,10 +17,10 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 08:43 London after the user
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 08:45 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
-   partition checks through 08:26 London showed no user-owned GH200 jobs, so no `scancel`
+   partition checks through 08:45 London showed no user-owned GH200 jobs, so no `scancel`
    was needed.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
@@ -33,7 +33,10 @@ Status of the Minimum Publishable Package:
    reached 218/256 in a fresh block; and `102019` reached 132/256 in a fresh block.
    None of the four decision logs advanced, and no metrics or recovered metrics files
    exist yet. All four jobs remain live in `squeue`; all four Slurm stderr files advanced
-   during this poll.
+   during this poll. The 08:45 London progress snapshot had `101996` at 224/256 in its
+   current block, `101998` at 91/198, and `102018`/`102019` starting fresh 256-prompt
+   blocks; run logs were updated at 08:44–08:45 for the MPP30 pair and 08:40 for the
+   full50 pair.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
