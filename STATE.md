@@ -178,6 +178,13 @@ Status of the Minimum Publishable Package:
    clean with zero traceback/runtime/OOM/kill signatures. Latest stderr progress was
    constrained `102018` at 85/256 in a prompt block and unconstrained `102019` at
    198/256 in a prompt block; run logs were last updated at 09:32 and 09:34 respectively.
+   The 09:39 London poll still found only the two MSC MPP30 jobs active: constrained
+   `102018` on `oat16` at 10:16:43 elapsed and unconstrained `102019` on `oat21` at
+   7:36:45 elapsed. No final or recovered metrics existed for either run; both decision
+   logs remained at `90` rows. Both jobs remained clean with zero traceback/runtime/OOM/
+   kill signatures. Constrained `102018` had advanced to 117/256 in its current prompt
+   block; unconstrained `102019` had updated its run log at 09:38 and started another
+   fresh 256-prompt block.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
