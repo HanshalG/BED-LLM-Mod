@@ -9,6 +9,7 @@ from helpers import Config
 from scripts.location_fixed_root_depth_sweep import (
     _DepthBranch,
     _group_strategy_branch_indices,
+    _make_depth_sweep_rng_plan,
     _metric_summary_by_policy,
     _observe_with_noise_z,
     _paired_delta_summary_by_policy,
@@ -137,6 +138,63 @@ def test_trial_window_supports_split_replay_offsets():
         _trial_window(50, num_trials=0, trial_offset=0)
     with pytest.raises(ValueError, match="total_trials"):
         _trial_window(50, num_trials=10, trial_offset=20, total_trials=29)
+
+
+def _rng_trace_for_trial_block(
+    *,
+    seed: int,
+    total_trials: int,
+    num_rounds: int,
+    policy_count: int,
+    trial_offset: int,
+    num_trials: int,
+) -> tuple[np.ndarray, dict[int, list[int]], dict[int, tuple[float, float]]]:
+    plan = _make_depth_sweep_rng_plan(
+        seed,
+        total_trials=total_trials,
+        num_rounds=num_rounds,
+    )
+    replay_trials = trial_offset + num_trials
+    branch_seeds: dict[int, list[int]] = {}
+    hidden_draws: dict[int, tuple[float, float]] = {}
+    for trial_index in range(replay_trials):
+        hidden_draws[trial_index] = tuple(float(value) for value in plan.master_rng.normal(size=2))
+        seeds = [plan.next_branch_seed() for _ in range(policy_count)]
+        if trial_index >= trial_offset:
+            branch_seeds[trial_index] = seeds
+    return plan.paired_noise_zs, branch_seeds, hidden_draws
+
+
+def test_split_trial_rng_plan_matches_monolithic_trial_slice():
+    policy_count = len(
+        _policy_specs(
+            5,
+            include_myopic_controls=True,
+            strategy_depths=[1, 3, 5],
+            myopic_control_depths=[3, 5],
+        )
+    )
+    full_noise, full_branch_seeds, full_hidden_draws = _rng_trace_for_trial_block(
+        seed=1304,
+        total_trials=30,
+        num_rounds=6,
+        policy_count=policy_count,
+        trial_offset=0,
+        num_trials=30,
+    )
+    split_noise, split_branch_seeds, split_hidden_draws = _rng_trace_for_trial_block(
+        seed=1304,
+        total_trials=30,
+        num_rounds=6,
+        policy_count=policy_count,
+        trial_offset=10,
+        num_trials=10,
+    )
+
+    assert split_noise[10:20] == pytest.approx(full_noise[10:20])
+    for trial_index in range(10, 20):
+        assert split_hidden_draws[trial_index] == pytest.approx(full_hidden_draws[trial_index])
+        assert split_branch_seeds[trial_index] == full_branch_seeds[trial_index]
 
 
 def test_strategy_state_grouping_shares_only_identical_branch_states():

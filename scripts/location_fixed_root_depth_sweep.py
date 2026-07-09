@@ -199,6 +199,30 @@ def _trial_window(
     return trial_offset, selected_num_trials, total_intended_trials, replay_trials
 
 
+@dataclass
+class _DepthSweepRngPlan:
+    master_rng: np.random.Generator
+    paired_noise_zs: np.ndarray
+
+    def next_branch_seed(self) -> int:
+        return int(self.master_rng.integers(0, np.iinfo(np.uint32).max))
+
+
+def _make_depth_sweep_rng_plan(
+    seed: int | None,
+    *,
+    total_trials: int,
+    num_rounds: int,
+) -> _DepthSweepRngPlan:
+    master_rng = np.random.default_rng(seed)
+    paired_noise_zs = master_rng.normal(
+        0.0,
+        1.0,
+        size=(total_trials, num_rounds),
+    )
+    return _DepthSweepRngPlan(master_rng=master_rng, paired_noise_zs=paired_noise_zs)
+
+
 def _jsonable(value: Any) -> Any:
     if isinstance(value, np.ndarray):
         return value.tolist()
@@ -912,13 +936,13 @@ def run_fixed_root_depth_sweep(
     env.validate_config(config)
     env.rng = np.random.default_rng(config.location_seed)
 
-    seed = config.location_seed
-    master_rng = np.random.default_rng(seed)
-    paired_noise_zs = master_rng.normal(
-        0.0,
-        1.0,
-        size=(total_intended_trials, config.location_num_rounds),
+    rng_plan = _make_depth_sweep_rng_plan(
+        config.location_seed,
+        total_trials=total_intended_trials,
+        num_rounds=config.location_num_rounds,
     )
+    master_rng = rng_plan.master_rng
+    paired_noise_zs = rng_plan.paired_noise_zs
     branches: list[_DepthBranch] = []
     per_trial: list[dict[str, Any]] = []
     policy_specs = _policy_specs(
@@ -945,11 +969,11 @@ def run_fixed_root_depth_sweep(
         hidden_state = env.sample_hidden_state_for_trial(trial_index, master_rng)
         if trial_index < trial_offset:
             for _policy_label, _policy_kind, _policy_depth, _selection_depth in policy_specs:
-                int(master_rng.integers(0, np.iinfo(np.uint32).max))
+                rng_plan.next_branch_seed()
             continue
         initial_belief = env.initial_belief_state(questioner, config)
         for policy_label, policy_kind, policy_depth, selection_depth in policy_specs:
-            branch_seed = int(master_rng.integers(0, np.iinfo(np.uint32).max))
+            branch_seed = rng_plan.next_branch_seed()
             branches.append(
                 _DepthBranch(
                     trial_index=trial_index,

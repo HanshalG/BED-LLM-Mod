@@ -1462,6 +1462,11 @@ observation-noise array before replaying hidden-state/branch RNG. This preserves
 relative to the intended monolithic 30-trial run instead of only replaying through the
 end of the current block. Focused split tests and the full local suite pass
 (`449 passed, 1 skipped`); non-mutating `squeue -u hanyal` check returned no jobs.
+Follow-up 15:08 London split-RNG hardening: factored fixed-root sweep RNG setup into a
+small `_make_depth_sweep_rng_plan` helper and added a regression test proving that MPP30
+split block 10..19 with `--total-trials 30` matches the monolithic 30-trial stream for
+observation noise, hidden-state RNG draws, and branch seeds. Full local suite passes
+(`450 passed, 1 skipped`); non-mutating `squeue -u hanyal` still returned no jobs.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1508,4 +1513,4 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 404 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 450 passed, 1 skipped).
