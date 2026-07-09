@@ -1474,6 +1474,14 @@ remote readiness currently reports zero active jobs and an idle `gh200` node, bu
 `ok_to_launch=false` because the remote checkout is missing
 `scripts/combine_location_fixed_root_depth_sweeps.py`; sync is required before any
 split relaunch. Full local suite passes (`450 passed, 1 skipped`).
+Follow-up 15:25 London split command ergonomics:
+`python scripts/path_a_launch_commands.py --split-mpp30` now prints the complete split
+MPP30 workflow in one non-mutating command set: six GH200 `sbatch` commands, two combiner
+commands, and the final
+`build_path_a_package.py` command. `PHASE4_LAUNCH_HANDOFF.md` now points to this as the
+canonical command source. Full local suite passes (`451 passed, 1 skipped`). Read-only
+remote readiness is unchanged: zero active jobs, one idle `gh200` node, and
+`ok_to_launch=false` only because the combiner has not been synced to the cluster yet.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1497,8 +1505,8 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
    readiness is false only because the new combiner is not on the cluster checkout yet.
 2. If the user asks to relaunch, prefer the split MPP30 path: three 10-trial blocks per side
    (`--trial-offset` 0, 10, 20 plus `--total-trials 30`), depths 1/3/5, myopic controls
-   3/5, GH200 Singularity launcher, then combine constrained blocks and unconstrained
-   blocks separately before running `scripts/build_path_a_package.py`.
+   3/5, GH200 Singularity launcher. Generate the exact launch/combine/package commands
+   with `python scripts/path_a_launch_commands.py --split-mpp30`.
 3. If relaunching on GH200, use the Singularity/container launchers only; do not use the
    A100/conda ranking or 20-questions scripts on GH200.
 
@@ -1522,4 +1530,4 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 450 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 451 passed, 1 skipped).

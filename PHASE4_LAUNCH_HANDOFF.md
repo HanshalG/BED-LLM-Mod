@@ -107,23 +107,10 @@ draws before running the block, and `--total-trials 30` draws the same observati
 array as the intended single 30-trial run.
 
 ```bash
-for off in 0 10 20; do
-  suffix=$(printf "mpp30_b%02d_10" "$off")
-  job_suffix=$(printf "b%02d" "$off")
-  python scripts/path_a_launch_commands.py \
-    --partition gh200 \
-    --run-suffix "_${suffix}" \
-    --job-suffix "_${job_suffix}" \
-    --strategy-depths 1,3,5 \
-    --eval-depths 1,3,5 \
-    --myopic-control-depths 3,5 \
-    --num-trials 10 \
-    --trial-offset "$off" \
-    --total-trials 30
-done
+python scripts/path_a_launch_commands.py --split-mpp30
 ```
 
-Submit the printed commands after syncing current code to the cluster checkout.
+Submit the printed `sbatch` commands after syncing current code to the cluster checkout.
 The equivalent explicit shape for each constrained/unconstrained pair is:
 
 ```bash

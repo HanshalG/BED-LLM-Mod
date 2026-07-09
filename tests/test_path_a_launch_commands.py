@@ -1,4 +1,4 @@
-from scripts.path_a_launch_commands import build_path_a_commands
+from scripts.path_a_launch_commands import build_path_a_commands, build_split_mpp30_commands
 
 
 def test_path_a_launch_commands_use_gh200_singularity_and_package_builder():
@@ -83,3 +83,46 @@ def test_path_a_launch_commands_can_select_trial_blocks():
         assert "--trial-offset 20" in sbatch
         assert "--total-trials 30" in sbatch
     assert "runs/loc_branch_decoy_local_constrained_final50_26b_a4b_b20" in commands.package_command
+
+
+def test_split_mpp30_commands_print_all_blocks_combines_and_package():
+    commands = build_split_mpp30_commands()
+
+    assert len(commands.sbatch_commands) == 6
+    for offset in (0, 10, 20):
+        constrained = [
+            command for command in commands.sbatch_commands
+            if f"--job-name=loc_branch_constr26_f50_b{offset:02d}" in command
+        ]
+        unconstrained = [
+            command for command in commands.sbatch_commands
+            if f"--job-name=loc_branch_uncon26_f50_b{offset:02d}" in command
+        ]
+        assert len(constrained) == 1
+        assert len(unconstrained) == 1
+        for command in (constrained[0], unconstrained[0]):
+            assert "--partition=gh200" in command
+            assert "--strategy-depths 1,3,5" in command
+            assert "--eval-depths 1,3,5" in command
+            assert "--myopic-control-depths 3,5" in command
+            assert "--num-trials 10" in command
+            assert f"--trial-offset {offset}" in command
+            assert "--total-trials 30" in command
+
+    assert "scripts/combine_location_fixed_root_depth_sweeps.py" in commands.constrained_combine_command
+    assert "loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10" in (
+        commands.constrained_combine_command
+    )
+    assert "loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b10_10" in (
+        commands.constrained_combine_command
+    )
+    assert "loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b20_10" in (
+        commands.constrained_combine_command
+    )
+    assert "loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b20_10" in (
+        commands.unconstrained_combine_command
+    )
+    assert "runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json" in (
+        commands.package_command
+    )
+    assert "--run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30_split" in commands.package_command
