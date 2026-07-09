@@ -64,10 +64,12 @@ Latest cluster state:
 - Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
   As of the latest health check, `102238` and `102239` are on `msc` / `oat11`, and
   `102240` is on `msc` / `oat14`. The run directories exist and each has a `run.log`.
-  All three had loaded the model, completed vLLM warmup/graph capture, and reached
-  initial hypothesis generation. No decision files or metrics existed yet, which is
-  expected this early. Early greps found zero traceback/runtime/OOM/killed/location-parse
-  errors.
+  At about 4 minutes elapsed, all three had loaded the model, completed vLLM warmup/graph
+  capture, and were still in initial hypothesis generation. No decision files or metrics
+  existed yet, which is expected this early. The first initial-belief calls had succeeded
+  on the split jobs, with parsed 12-valid-source batches appearing in logs. Early greps
+  found zero traceback/runtime/OOM/killed/location-parse errors. Note for future checks:
+  token usage events are logged as lowercase `llm_token_usage`, not uppercase `LLM_USAGE`.
 - For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
   changes this again. Do not use GH200 unless explicitly requested again.
 
