@@ -17,7 +17,7 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 03:08 London after canceling the
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 03:10 London after canceling the
    slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
    `101994` are no longer present in the live queue; `squeue -p gh200` is empty for this
    user. Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
@@ -26,11 +26,11 @@ Status of the Minimum Publishable Package:
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
    stderr is fresh and non-erroring for all four jobs; recent progress snapshots were
-   `101996` in a fresh 256-prompt batch at 52/256 after completing 1-, 4-, 73-, and
-   185-prompt blocks, `101998` in a 242-prompt batch at 163/242 after completing 30-, 64-,
+   `101996` in a fresh 256-prompt batch at 95/256 after completing 1-, 4-, 73-, and
+   185-prompt blocks, `101998` in a 242-prompt batch at 193/242 after completing 30-, 64-,
    109-, and 256-prompt blocks, `102018` starting another 256-prompt batch after
-   completing 112-, 120-, and 256-prompt blocks, and `102019` in a fresh 256-prompt batch
-   at 154/256 after completing 120-, 123-, 127-, and 256-prompt blocks.
+   completing 112-, 120-, and 256-prompt blocks, and `102019` starting a 116-prompt block
+   after completing 120-, 123-, 127-, and two 256-prompt blocks.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
