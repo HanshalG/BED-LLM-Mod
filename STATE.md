@@ -1953,6 +1953,10 @@ job `102192` (`loc_branch_constr26_micro_nr`, run
 `loc_branch_decoy_local_constrained_micro_norefresh_26b_a4b_t1r1`) using 1 paired trial,
 1 round, StrategyEIG depths 1/3/5, eval depths 1/3/5, and matched-compute myopic controls
 3/5. `102192` started on `oat21`; no jobs were on `oat12`.
+Follow-up 16:37 London micro startup check: `102192` remains running on `oat21` at about
+1--2 minutes elapsed. The run log exists but is still only at fixed-root startup, with
+zero LLM usage events, zero forced exits, zero decision rows, no metrics file, and a
+clean fatal-error grep. Throughput is not yet measured.
 
 ## NEXT ACTIONS (in order)
 
