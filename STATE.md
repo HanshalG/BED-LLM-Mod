@@ -109,6 +109,10 @@ Status of the Minimum Publishable Package:
    London poll again found no final/recovered metrics and unchanged decision counts; all
    four jobs were live with fresh progress: `101996` at 120/256, `101998` at 220/256,
    `102018` at 128/256, and `102019` at 87/144 after completing its previous block.
+   Runtime error counts remained zero for all four jobs. The 09:17 London poll again found
+   no final/recovered metrics and unchanged decision counts; all four jobs were live with
+   fresh progress: `101996` at 161/256, `101998` at 33/74 after completing its previous
+   block, `102018` at 164/256, and `102019` at 9/256 after completing its previous block.
    Runtime error counts remained zero for all four jobs.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
