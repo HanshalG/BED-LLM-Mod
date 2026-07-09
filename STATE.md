@@ -17,7 +17,7 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 08:45 London after the user
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 08:46 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
    partition checks through 08:45 London showed no user-owned GH200 jobs, so no `scancel`
@@ -25,7 +25,7 @@ Status of the Minimum Publishable Package:
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
    MPP30 job `102019` running on `oat21`. At 08:43 London, those four MSC jobs were the
-   only live jobs for this user. No final or recovered metrics files existed at the last
+   only live jobs for this user. No final or recovered metrics files existed at the 08:46
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
    stderr is non-erroring for all four jobs. Recent progress snapshots were `101996`
@@ -36,7 +36,10 @@ Status of the Minimum Publishable Package:
    during this poll. The 08:45 London progress snapshot had `101996` at 224/256 in its
    current block, `101998` at 91/198, and `102018`/`102019` starting fresh 256-prompt
    blocks; run logs were updated at 08:44–08:45 for the MPP30 pair and 08:40 for the
-   full50 pair.
+   full50 pair. The 08:46 London progress snapshot had `101996` in a shorter 61-prompt
+   block at 16/61 after finishing the previous 256-prompt block, `101998` at 130/198,
+   `102018` at 32/256, and `102019` at 27/256. Decision logs remained unchanged at the
+   cheap-control counts (`90`, `90`, `150`, `150`) and no recovered metrics existed.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
