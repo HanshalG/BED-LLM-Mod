@@ -168,6 +168,11 @@ Status of the Minimum Publishable Package:
    remain `90`/`90`; error signatures remain zero. Constrained `102018` advanced to
    236/256, nearly through its current block, while unconstrained `102019` advanced to
    140/256.
+   Follow-up 11:00 London poll: still the same two live MSC jobs, zero user-owned
+   `gh200` jobs, and no final/recovered metrics for either MPP30 run. Decision logs
+   remain `90`/`90`; error signatures remain zero. Both run logs advanced: constrained
+   `102018` updated at 11:00:33 and was 124/125 through a short block; unconstrained
+   `102019` updated at 11:00:38 and entered a 126-prompt block.
    Earlier checks: checked 2026-07-09 09:05 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
