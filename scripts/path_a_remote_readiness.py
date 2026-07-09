@@ -15,6 +15,7 @@ REQUIRED_REMOTE_FILES = (
     "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
     "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh",
     "scripts/location_fixed_root_depth_sweep.py",
+    "scripts/combine_location_fixed_root_depth_sweeps.py",
     "scripts/build_path_a_package.py",
     "scripts/path_a_preflight.py",
     "scripts/path_a_launch_commands.py",

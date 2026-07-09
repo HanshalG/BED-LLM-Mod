@@ -11,6 +11,16 @@ GENERATED_PREFIXES = ("results/", "plots/", "runs/")
 REQUIRED_SYNC_PATHS = (
     "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
+    "scripts/build_path_a_package.py",
+    "scripts/combine_location_fixed_root_depth_sweeps.py",
+    "scripts/location_fixed_root_depth_sweep.py",
+    "scripts/path_a_launch_commands.py",
+    "scripts/path_a_preflight.py",
+    "scripts/path_a_remote_readiness.py",
+    "scripts/path_a_sync_commands.py",
+    "scripts/recover_depth_sweep_metrics.py",
+    "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh",
+    "scripts/validate_path_a_package.py",
 )
 
 

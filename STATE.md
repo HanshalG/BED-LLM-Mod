@@ -1467,6 +1467,13 @@ small `_make_depth_sweep_rng_plan` helper and added a regression test proving th
 split block 10..19 with `--total-trials 30` matches the monolithic 30-trial stream for
 observation noise, hidden-state RNG draws, and branch seeds. Full local suite passes
 (`450 passed, 1 skipped`); non-mutating `squeue -u hanyal` still returned no jobs.
+Follow-up 15:17 London sync/readiness hardening: `scripts/path_a_sync_commands.py` now
+forces the split-run/packaging scripts into the rsync list even from a clean committed
+tree, and `scripts/path_a_remote_readiness.py` now requires the split combiner. Read-only
+remote readiness currently reports zero active jobs and an idle `gh200` node, but
+`ok_to_launch=false` because the remote checkout is missing
+`scripts/combine_location_fixed_root_depth_sweeps.py`; sync is required before any
+split relaunch. Full local suite passes (`450 passed, 1 skipped`).
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1485,12 +1492,14 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
 
 ## NEXT ACTIONS (in order)
 
-1. No active cluster jobs are currently running for this goal. If the user asks to
-   relaunch, prefer the split MPP30 path: three 10-trial blocks per side
+1. No active cluster jobs are currently running for this goal. Before relaunch, sync the
+   required Path A files with `python scripts/path_a_sync_commands.py`; current remote
+   readiness is false only because the new combiner is not on the cluster checkout yet.
+2. If the user asks to relaunch, prefer the split MPP30 path: three 10-trial blocks per side
    (`--trial-offset` 0, 10, 20 plus `--total-trials 30`), depths 1/3/5, myopic controls
    3/5, GH200 Singularity launcher, then combine constrained blocks and unconstrained
    blocks separately before running `scripts/build_path_a_package.py`.
-2. If relaunching on GH200, use the Singularity/container launchers only; do not use the
+3. If relaunching on GH200, use the Singularity/container launchers only; do not use the
    A100/conda ranking or 20-questions scripts on GH200.
 
 ## OPERATIONAL KNOWLEDGE (repo memory — keep updated here, not in chat)
