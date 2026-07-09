@@ -1757,6 +1757,18 @@ commands with the exclusion. Focused tests pass:
 `pytest tests/test_path_a_launch_commands.py tests/test_path_a_preflight.py -q`
 (`11 passed`), and the full suite passes: `pytest tests/ -q`
 (`469 passed, 1 skipped`).
+Follow-up 15:39 London preflight launch-shape hardening: `scripts/path_a_preflight.py`
+now verifies the generated split-MPP30 command set includes the GH200 partition,
+`--exclude=oat12`, all three trial offsets (0/10/20), the 10-trial block size,
+`--total-trials 30`, myopic controls, the GH200 Singularity launcher, combine/package
+commands, and the expected package artifact families. This makes a green preflight
+stronger evidence that the next relaunch will use the intended safe split path. Verified
+`python scripts/path_a_preflight.py --json` reports
+`split-MPP30 dry-run commands are ready with oat12 excluded and package artifacts listed`.
+Focused tests pass:
+`pytest tests/test_path_a_preflight.py tests/test_path_a_launch_commands.py -q`
+(`11 passed`), and the full suite passes: `pytest tests/ -q`
+(`469 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

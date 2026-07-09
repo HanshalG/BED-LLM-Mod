@@ -103,11 +103,15 @@ def _check_commands() -> PreflightCheck:
         "BED_LLM_VLLM_KWARGS=",
         "BED_LLM_LOG_REASONING_TRACES=1",
         "run_location_fixed_root_depth_sweep_gh200_singularity.sh",
+        "--partition=gh200",
+        "--exclude=oat12",
         "--include-myopic-controls",
         "--strategy-depths 1,3,5",
         "--eval-depths 1,3,5",
         "--myopic-control-depths 3,5",
         "--num-trials 10",
+        "--trial-offset 0",
+        "--trial-offset 10",
         "--trial-offset 20",
         "--total-trials 30",
         "combine_location_fixed_root_depth_sweeps.py",
@@ -118,7 +122,29 @@ def _check_commands() -> PreflightCheck:
         return PreflightCheck("launch_commands", False, f"missing command snippets: {missing}")
     if len(commands.sbatch_commands) != 6:
         return PreflightCheck("launch_commands", False, f"expected 6 sbatch commands, got {len(commands.sbatch_commands)}")
-    return PreflightCheck("launch_commands", True, "split-MPP30 dry-run commands are ready")
+    artifact_required = [
+        "_depth_contrast.png",
+        "_headline_rmse.png",
+        "_paired_trial_rmse_deltas.png",
+        "_paired_trial_truth_log_probability_deltas.png",
+        "_constrained_qualitative_examples.md",
+        "_constrained_qualitative_example_1.png",
+        "_cost_vs_depth.md",
+        "_cost_vs_depth.png",
+    ]
+    artifact_text = "\n".join(commands.package_artifacts)
+    missing_artifacts = [needle for needle in artifact_required if needle not in artifact_text]
+    if missing_artifacts:
+        return PreflightCheck(
+            "launch_commands",
+            False,
+            f"missing expected package artifact snippets: {missing_artifacts}",
+        )
+    return PreflightCheck(
+        "launch_commands",
+        True,
+        "split-MPP30 dry-run commands are ready with oat12 excluded and package artifacts listed",
+    )
 
 
 def run_preflight(root: Path) -> dict[str, Any]:
