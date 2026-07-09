@@ -18,6 +18,9 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         tmp_path / "results/constrained_oracle/REPORT.md",
         "Planner beats greedy on RMSE in the constrained oracle check.",
     )
+    robustness_heatmap = tmp_path / "plots/constrained_oracle_robustness/demo_heatmap.png"
+    robustness_heatmap.parent.mkdir(parents=True, exist_ok=True)
+    robustness_heatmap.write_bytes(b"png")
     _write(
         tmp_path / "results/location_depth_sweeps/demo_REPORT.md",
         "\n".join(
@@ -56,6 +59,7 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         "ranking_fidelity_gate",
         "ranking_fidelity_diagnostics_plot",
         "constrained_oracle",
+        "constrained_oracle_robustness_heatmap",
         "depth_sweep_headline_and_control",
         "headline_rmse_plot",
         "qualitative_strategy_examples",
@@ -85,6 +89,9 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
         tmp_path / "results/constrained_oracle/REPORT.md",
         "Planner beats greedy on RMSE in the constrained oracle check.",
     )
+    robustness_heatmap = tmp_path / "plots/constrained_oracle_robustness/demo_heatmap.png"
+    robustness_heatmap.parent.mkdir(parents=True, exist_ok=True)
+    robustness_heatmap.write_bytes(b"png")
     _write(
         tmp_path / "results/location_depth_sweeps/demo_REPORT.md",
         "\n".join(

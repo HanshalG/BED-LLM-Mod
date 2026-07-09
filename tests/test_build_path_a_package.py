@@ -131,6 +131,8 @@ def _write_existing_gate_artifacts(root):
         "Planner greedy RMSE",
         encoding="utf-8",
     )
+    (root / "plots/constrained_oracle_robustness").mkdir(parents=True)
+    (root / "plots/constrained_oracle_robustness/demo_heatmap.png").write_bytes(b"png")
 
 
 def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path):

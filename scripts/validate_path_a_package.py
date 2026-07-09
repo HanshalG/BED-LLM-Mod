@@ -103,6 +103,25 @@ def _check_cost_plot(root: Path) -> CheckResult:
     return CheckResult("cost_vs_depth_plot", True, str(path))
 
 
+def _check_robustness_heatmap(root: Path) -> CheckResult:
+    path = _first_existing_or_glob(
+        root,
+        [
+            "plots/constrained_oracle_robustness/*_heatmap.png",
+            "results/constrained_oracle_robustness/*_heatmap.png",
+        ],
+    )
+    if path is None:
+        return CheckResult(
+            "constrained_oracle_robustness_heatmap",
+            False,
+            "missing constrained-oracle robustness heatmap",
+        )
+    if path.stat().st_size <= 0:
+        return CheckResult("constrained_oracle_robustness_heatmap", False, f"{path} is empty")
+    return CheckResult("constrained_oracle_robustness_heatmap", True, str(path))
+
+
 def _check_qualitative_examples(root: Path) -> CheckResult:
     report_paths = sorted(root.glob("results/location_qualitative/*_qualitative_examples.md"))
     if not report_paths:
@@ -162,6 +181,7 @@ def validate_path_a_package(root: Path) -> list[CheckResult]:
             patterns=["results/constrained_oracle/REPORT.md"],
             required_phrases=["planner", "greedy", "rmse"],
         ),
+        _check_robustness_heatmap(root),
         _check_report(
             root,
             name="depth_sweep_headline_and_control",

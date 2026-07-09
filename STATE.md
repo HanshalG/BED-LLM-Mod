@@ -1653,6 +1653,16 @@ Follow-up 15:11 London cluster cancellation check: after the user noted that the
 13-hour GH200 jobs should be canceled to free shared nodes, live `squeue -u hanyal`
 returned no active or pending jobs at all. No `scancel` was issued because there were no
 job IDs to cancel.
+Follow-up 15:12 London package-validation hardening: `scripts/validate_path_a_package.py`
+now requires a non-empty constrained-oracle robustness heatmap, matching the paper
+limitations scope evidence and the ledger's required robustness row. Current package
+validation marks ranking gate, ranking diagnostics plot, constrained oracle, robustness
+heatmap, planned cost report, and planned cost plot green; it still fails only on the
+Phase-4-derived depth-sweep report, headline RMSE plot, and qualitative strategy examples.
+Focused tests pass:
+`pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
+tests/test_path_a_preflight.py -q` (`7 passed`), and the full suite passes:
+`pytest tests/ -q` (`466 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
