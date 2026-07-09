@@ -14,7 +14,10 @@ It is intentionally command-oriented and avoids extra experiment branches.
 - Final sweep artifacts: not present yet.
   - `results/location_depth_sweeps/*_REPORT.md`
   - `plots/location_depth_sweeps/*_headline_rmse.png`
-  - `results/cost_vs_depth/*_cost_vs_depth.md`
+  - `results/location_qualitative/*_qualitative_examples.md`
+- Cost-vs-depth artifacts: present for the pre-registered settings.
+  - `results/cost_vs_depth/path_a_preregistered_cost_vs_depth.md`
+  - `results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png`
 - Live cluster state as of 2026-07-09 14:45 London:
   - Old GH200 originals `101778`/`101779`: canceled because they were alive but
     effectively too slow and occupying GH200 nodes.
@@ -45,11 +48,14 @@ Expected local status before final sweeps:
 
 - `path_a_preflight.py`: launch readiness is OK.
 - `validate_path_a_package.py`: package validation is incomplete until final sweep
-  reports/plots/cost table exist.
+  reports, headline plot, and qualitative strategy examples exist.
 
 ## Sync To Cluster
 
-Review the file list, then sync current changed code/configs/scripts/tests:
+Review the file list, then sync current changed code/configs/scripts/tests. The sync
+manifest includes the package-builder dependency chain (`compare_location_depth_sweeps.py`,
+`cost_vs_depth_table.py`, `extract_location_qualitative_examples.py`, and
+`llm_token_usage.py`) so remote packaging does not accidentally use stale helpers:
 
 ```bash
 python scripts/path_a_sync_commands.py --list

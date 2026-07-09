@@ -60,3 +60,15 @@ def test_changed_paths_includes_required_launch_configs(tmp_path, monkeypatch):
     monkeypatch.setattr("scripts.path_a_sync_commands.subprocess.run", fake_run)
 
     assert changed_paths() == sorted([*REQUIRED_SYNC_PATHS, "helpers.py"])
+
+
+def test_required_sync_paths_include_package_builder_dependencies():
+    for path in (
+        "scripts/build_path_a_package.py",
+        "scripts/compare_location_depth_sweeps.py",
+        "scripts/cost_vs_depth_table.py",
+        "scripts/extract_location_qualitative_examples.py",
+        "scripts/llm_token_usage.py",
+        "scripts/validate_path_a_package.py",
+    ):
+        assert path in REQUIRED_SYNC_PATHS

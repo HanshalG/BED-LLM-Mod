@@ -1623,6 +1623,17 @@ required figure labels, successful compile, and 6-page count. Preflight remains 
 for launch readiness, paper, and ledger; package validation still waits only on the
 Phase-4 depth-sweep report, headline RMSE plot, and qualitative examples. Full suite
 passes: `pytest tests/ -q` (`465 passed, 1 skipped`).
+Follow-up 15:03 London sync/readiness hardening: `scripts/path_a_sync_commands.py` now
+includes the full package-builder dependency chain (`compare_location_depth_sweeps.py`,
+`cost_vs_depth_table.py`, `extract_location_qualitative_examples.py`, and
+`llm_token_usage.py`) in required sync/readiness paths, preventing a remote package build
+from using stale helper code after the local cost-figure changes. `PHASE4_LAUNCH_HANDOFF.md`
+now reflects that cost-vs-depth Markdown and PNG artifacts are already present, and that
+the package remains incomplete only until Phase-4 depth-sweep/headline/qualitative
+artifacts exist. Focused tests pass:
+`pytest tests/test_path_a_sync_commands.py tests/test_path_a_preflight.py
+tests/test_validate_path_a_package.py -q` (`12 passed`), and the full suite passes:
+`pytest tests/ -q` (`466 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
@@ -1656,4 +1667,4 @@ passes: `pytest tests/ -q` (`465 passed, 1 skipped`).
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 465 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 466 passed, 1 skipped).
