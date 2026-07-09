@@ -2087,6 +2087,14 @@ Follow-up local artifact: copied the completed `102208` run directory back to lo
 `runs/loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t1r6/` and added the compact
 diagnostic note `results/location_fixed_root_depth_sweep/support_grid_pilot_t1r6.md`.
 No new cluster job was launched because the GH200 queue still had other users pending.
+Follow-up verification: GH200 still had other users' pending jobs, so no new LLM job was
+launched. Ran the broader local test/preflight checks after the support-grid changes:
+`pytest tests/ -q` passed (`482 passed, 1 skipped`), `python scripts/validate_experiments_ledger.py`
+passed, and `python scripts/path_a_preflight.py --json` passed its top-level checks with
+ledger and paper validation OK. The preflight still correctly reports the Phase 4 package
+artifacts as pending: headline/control depth sweep report and summary, depth contrast and
+headline RMSE plots, paired RMSE and truth-log-probability delta plots, and qualitative
+strategy examples.
 
 ## NEXT ACTIONS (in order)
 
@@ -2124,4 +2132,4 @@ No new cluster job was launched because the GH200 queue still had other users pe
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 475 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 482 passed, 1 skipped).
