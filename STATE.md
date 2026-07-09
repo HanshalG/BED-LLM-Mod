@@ -17,7 +17,12 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 09:05 London after the user
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 10:23 London after the user
+   asked to cancel the slow 13-hour GH200 jobs to free nodes for other users. Live Slurm
+   queue showed zero user-owned jobs on the `gh200` partition, so there were no GH200 job
+   IDs to cancel. Only MSC jobs `102018` constrained MPP30 on `oat16` and `102019`
+   unconstrained MPP30 on `oat21` were live.
+   Earlier checks: checked 2026-07-09 09:05 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
    partition checks through 09:05 London showed no user-owned GH200 jobs, so no `scancel`
