@@ -165,7 +165,12 @@ Status of the Minimum Publishable Package:
    decision logs still at `90`/`90`. Both jobs remained live and clean with zero
    traceback/runtime/OOM/kill signatures. Constrained `102018` had completed the
    145-prompt block and entered a fresh 256-prompt block, with its run log updated at
-   09:32; unconstrained `102019` was 194/256 in its current block.
+   09:32; unconstrained `102019` was 194/256 in its current block. The 09:34 London poll
+   again found no final or recovered metrics and decision logs still at `90`/`90`. Both
+   jobs remained live and clean with zero traceback/runtime/OOM/kill signatures.
+   Constrained `102018` was still at the start of its fresh 256-prompt block in the latest
+   visible stderr line; unconstrained `102019` had completed its prior block, started
+   another fresh 256-prompt block, and updated its run log at 09:34.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
