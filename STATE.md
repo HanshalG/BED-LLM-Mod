@@ -2083,6 +2083,10 @@ d5 routed toward the distant branch/root early (`[2.2, 1.76]`, then intermediate
 while d1 and myopic controls repeatedly selected local-mode roots near `[-1.43, 0]` /
 the x-axis. This is the desired first-link behavior qualitatively, but it remains a
 single-trial smoke result only.
+Follow-up local artifact: copied the completed `102208` run directory back to local
+`runs/loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t1r6/` and added the compact
+diagnostic note `results/location_fixed_root_depth_sweep/support_grid_pilot_t1r6.md`.
+No new cluster job was launched because the GH200 queue still had other users pending.
 
 ## NEXT ACTIONS (in order)
 
