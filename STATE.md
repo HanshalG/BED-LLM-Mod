@@ -1379,6 +1379,11 @@ Follow-up 13:49 London poll #2: still exactly two live MSC jobs and zero user-ow
 remain `90`/`90`, and traceback/runtime/OOM/killed signatures remain zero. Constrained
 `102018` advanced to 206/256 in its current prompt block. Unconstrained `102019` updated
 its run log at 13:49:50 after finishing a block and was at 53/76 in a short prompt block.
+Follow-up 13:50 London poll: still exactly two live MSC jobs and zero user-owned `gh200`
+jobs. No final or recovered metrics exist for either MPP30 run, decision logs remain
+`90`/`90`, and traceback/runtime/OOM/killed signatures remain zero. Constrained `102018`
+updated its run log at 13:50:40 and advanced to 249/256, nearly through its current
+prompt block. Unconstrained `102019` had moved into a fresh 256-prompt block at 26/256.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
