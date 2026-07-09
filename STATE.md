@@ -1257,6 +1257,10 @@ method-blind geometry with robustness heatmap scope evidence, forced-thinking-ex
 reporting, RMSE as a noisy secondary endpoint, and the missing MPC/action-sequence
 ablation as future work. The paper compiled to 5 pages with `pdflatex` twice after this
 edit; generated PDF/auxiliary files were removed from the worktree.
+Cluster courtesy check 2026-07-09 13:29 London: user asked to cancel the slow 13-hour
+GH200 jobs if present because other people were waiting on those nodes. Fresh `squeue`
+showed zero user-owned `gh200` jobs, so no `scancel` was issued. The only live jobs were
+MSC MPP30 `102018` constrained on `oat16` and `102019` unconstrained on `oat21`.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
