@@ -554,6 +554,12 @@ Status of the Minimum Publishable Package:
    `102018` still showed the current 133-prompt block at its start, while unconstrained
    `102019` completed the prior 256-prompt block, updated its run log at 12:39:33, and
    entered a fresh 256-prompt block.
+   Follow-up 12:40 London poll: still exactly two live jobs, MSC `102018` constrained on
+   `oat16` and MSC `102019` unconstrained on `oat21`; user-owned `gh200` job count
+   remains zero. No final or recovered metrics exist for either MPP30 run, decision logs
+   remain `90`/`90`, and traceback/runtime/OOM/killed signatures remain zero. Constrained
+   `102018` advanced to 23/133 in its current prompt block; unconstrained `102019` was
+   just starting its fresh 256-prompt block at 3/256.
    Earlier checks: checked 2026-07-09 09:05 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
