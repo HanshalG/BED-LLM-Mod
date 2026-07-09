@@ -52,6 +52,10 @@ Status of the Minimum Publishable Package:
    `gh200` jobs, and no final/recovered metrics. Decision logs remain `90`/`90`; runtime
    error signatures remain zero. Latest stderr progress was constrained `102018` at
    11/256 in the fresh block and unconstrained `102019` at 81/256.
+   Follow-up 10:31 London poll: still the same two live MSC jobs, zero user-owned
+   `gh200` jobs, and no final/recovered metrics. Decision logs remain `90`/`90`; runtime
+   error signatures remain zero. Latest stderr progress advanced to constrained `102018`
+   at 83/256 and unconstrained `102019` at 121/256 in their current prompt blocks.
    Earlier checks: checked 2026-07-09 09:05 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
