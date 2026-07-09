@@ -67,7 +67,11 @@ Status of the Minimum Publishable Package:
    cheap-control counts (`90`, `90`, `150`, `150`) and no recovered metrics existed. The
    09:06 London poll again found no final/recovered metrics and the same decision counts;
    all four jobs were live with fresh stderr progress: `101996` at 11/72, `101998` at
-   122/256, `102018` at 73/192, and `102019` at 214/256.
+   122/256, `102018` at 73/192, and `102019` at 214/256. The 09:07 London poll again
+   found no final/recovered metrics and the same decision counts; all four jobs were live
+   with fresh progress: `101996` at 14/256, `101998` at 147/256, `102018` at 123/192, and
+   `102019` at 33/121 after completing its previous block. Error greps only found the
+   known pip dependency-resolver setup warning, not runtime tracebacks/OOMs/kills.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
