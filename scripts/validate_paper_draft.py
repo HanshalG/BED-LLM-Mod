@@ -10,6 +10,23 @@ import tempfile
 from typing import Any
 
 
+ALLOWED_TODO_KEYWORDS = (
+    ("Phase 4", "package validation"),
+    ("constrained and unconstrained paired results", "pre-registered primary endpoint"),
+    ("evolved strategies", "query trajectories"),
+    ("outcome playbook", "truth-log-posterior probability"),
+)
+
+REQUIRED_LIMITATION_PATTERNS = {
+    "forced_thinking_exit_rate": (r"forced[- ]thinking[- ]exit",),
+    "single_environment_family": (r"one constrained\s+environment family",),
+    "method_blind_constructed_environment": (r"method[- ]blind", r"deliberately constructed|constructed"),
+    "robustness_heatmap_scope": (r"robustness heatmap",),
+    "no_mpc_ablation": (r"MPC[- ]style", r"future work"),
+    "workshop_scale_trials": (r"workshop[- ]scale", r"limited number of paired\s+trials"),
+}
+
+
 @dataclass(frozen=True)
 class CheckResult:
     name: str
@@ -49,6 +66,57 @@ def _tail(text: str, max_chars: int = 2000) -> str:
     return text[-max_chars:] if len(text) > max_chars else text
 
 
+def _todo_bodies(tex: str) -> list[str]:
+    return re.findall(r"\\todo\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}", tex, flags=re.DOTALL)
+
+
+def _text_contains_all(text: str, patterns: tuple[str, ...]) -> bool:
+    return all(re.search(pattern, text, flags=re.IGNORECASE | re.DOTALL) for pattern in patterns)
+
+
+def _paper_text_checks(tex: str) -> list[CheckResult]:
+    checks: list[CheckResult] = []
+    todos = _todo_bodies(tex)
+    unexpected_todos = [
+        todo.strip()
+        for todo in todos
+        if not any(all(keyword in todo for keyword in allowed) for allowed in ALLOWED_TODO_KEYWORDS)
+    ]
+    if unexpected_todos:
+        checks.append(
+            CheckResult(
+                "paper_todo_scope",
+                False,
+                "unexpected TODO(s): " + "; ".join(unexpected_todos),
+            )
+        )
+    else:
+        checks.append(CheckResult("paper_todo_scope", True, f"{len(todos)} allowed TODO marker(s)"))
+
+    missing_limitations = [
+        name
+        for name, patterns in REQUIRED_LIMITATION_PATTERNS.items()
+        if not _text_contains_all(tex, patterns)
+    ]
+    if missing_limitations:
+        checks.append(
+            CheckResult(
+                "paper_limitations_coverage",
+                False,
+                "missing: " + ", ".join(missing_limitations),
+            )
+        )
+    else:
+        checks.append(
+            CheckResult(
+                "paper_limitations_coverage",
+                True,
+                f"{len(REQUIRED_LIMITATION_PATTERNS)} required limitation topic(s)",
+            )
+        )
+    return checks
+
+
 def validate_paper_draft(
     paper_dir: Path,
     *,
@@ -63,6 +131,10 @@ def validate_paper_draft(
     if not tex_path.exists():
         return [CheckResult("paper_tex_exists", False, f"missing {tex_path}")]
     checks.append(CheckResult("paper_tex_exists", True, str(tex_path)))
+    tex = tex_path.read_text(encoding="utf-8")
+    checks.extend(_paper_text_checks(tex))
+    if not all(check.ok for check in checks):
+        return checks
 
     with tempfile.TemporaryDirectory(prefix="bed_llm_paper_build_") as tmp:
         build_dir = Path(tmp)

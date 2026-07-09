@@ -1522,6 +1522,10 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
 Follow-up 16:02 London queue check: user requested canceling the slow 13-hour GH200 jobs
 because others were waiting, but `squeue -u hanyal` returned no active or pending jobs;
 there was nothing left to cancel.
+Follow-up 14:48 London queue check: user again agreed the too-slow GH200 jobs should be
+canceled if they were still alive. A fresh `squeue -u hanyal` returned an empty queue
+header only: no running or pending user-owned jobs on `gh200`, `msc`, or any other
+partition, so no `scancel` was issued.
 Follow-up 16:12 London paper progress: filled the draft cost-vs-depth section with the
 pre-registered Path A per-decision scaling for `B=10` candidate roots and `R=16`
 rollouts (brute-force depth 5 proxy `11,111` candidate sets / `100,000` leaves vs
@@ -1578,6 +1582,16 @@ depth-sweep/headline/qualitative outputs. Focused tests pass:
 (`6 passed`).
 Follow-up 17:26 London verification: full local suite passes after ledger-validator
 integration: `pytest tests/ -q` (`462 passed, 1 skipped`).
+Follow-up 14:50 London paper-validation hardening: `scripts/validate_paper_draft.py`
+now rejects unexpected `\todo{}` markers and verifies the goal-required limitations
+coverage before running LaTeX. The current draft validates with exactly four allowed
+Phase-4 placeholders, all six required limitation topics, successful compile, and 6-page
+count. Preflight remains green for launch readiness, paper validation, and ledger
+validation; package validation still waits only on Phase-4 depth-sweep/headline/
+qualitative artifacts. Focused tests pass:
+`pytest tests/test_validate_paper_draft.py tests/test_path_a_preflight.py -q`
+(`8 passed`), and the full suite passes: `pytest tests/ -q`
+(`464 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
@@ -1611,4 +1625,4 @@ integration: `pytest tests/ -q` (`462 passed, 1 skipped`).
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 453 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 464 passed, 1 skipped).

@@ -4,6 +4,15 @@ import subprocess
 from scripts import validate_paper_draft as vpd
 
 
+VALID_LIMITATIONS_TEXT = """
+This is a workshop-scale study with one constrained environment family and a
+limited number of paired trials. The environment is deliberately constructed
+and selected method-blind. We report a robustness heatmap as scope evidence.
+The runs report forced-thinking-exit rates. We do not include an MPC-style
+ablation; that remains future work.
+"""
+
+
 def test_validate_paper_draft_reports_missing_tex(tmp_path):
     results = vpd.validate_paper_draft(tmp_path)
     payload = vpd.summary_payload(results)
@@ -16,7 +25,11 @@ def test_validate_paper_draft_reports_missing_tex(tmp_path):
 def test_validate_paper_draft_runs_latex_bibtex_and_checks_pages(tmp_path, monkeypatch):
     paper_dir = tmp_path / "paper"
     paper_dir.mkdir()
-    (paper_dir / "main.tex").write_text("\\documentclass{article}\\begin{document}x\\end{document}\n")
+    (paper_dir / "main.tex").write_text(
+        "\\documentclass{article}\\begin{document}x\n"
+        + VALID_LIMITATIONS_TEXT
+        + "\\end{document}\n"
+    )
     commands = []
 
     def fake_run(command, *, cwd: Path, timeout: int):
@@ -36,6 +49,49 @@ def test_validate_paper_draft_runs_latex_bibtex_and_checks_pages(tmp_path, monke
     assert payload["ok"] is True
     assert [command[0] for command in commands] == ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
     assert payload["checks"][-1] == {"name": "paper_page_count", "ok": True, "detail": "5 pages"}
+
+
+def test_validate_paper_draft_rejects_unexpected_todo_before_compile(tmp_path, monkeypatch):
+    paper_dir = tmp_path / "paper"
+    paper_dir.mkdir()
+    (paper_dir / "main.tex").write_text(
+        "\\documentclass{article}\\begin{document}\n"
+        "\\todo{rewrite this vague section someday}\n"
+        + VALID_LIMITATIONS_TEXT
+        + "\\end{document}\n"
+    )
+
+    def fail_if_called(command, *, cwd: Path, timeout: int):
+        raise AssertionError("compile should not run after text validation fails")
+
+    monkeypatch.setattr(vpd, "_run", fail_if_called)
+
+    payload = vpd.summary_payload(vpd.validate_paper_draft(paper_dir))
+
+    assert payload["ok"] is False
+    todo_check = next(check for check in payload["checks"] if check["name"] == "paper_todo_scope")
+    assert todo_check["ok"] is False
+    assert "rewrite this vague section someday" in todo_check["detail"]
+
+
+def test_validate_paper_draft_rejects_missing_required_limitations(tmp_path, monkeypatch):
+    paper_dir = tmp_path / "paper"
+    paper_dir.mkdir()
+    (paper_dir / "main.tex").write_text("\\documentclass{article}\\begin{document}x\\end{document}\n")
+
+    def fail_if_called(command, *, cwd: Path, timeout: int):
+        raise AssertionError("compile should not run after text validation fails")
+
+    monkeypatch.setattr(vpd, "_run", fail_if_called)
+
+    payload = vpd.summary_payload(vpd.validate_paper_draft(paper_dir))
+
+    assert payload["ok"] is False
+    limitations_check = next(
+        check for check in payload["checks"] if check["name"] == "paper_limitations_coverage"
+    )
+    assert limitations_check["ok"] is False
+    assert "forced_thinking_exit_rate" in limitations_check["detail"]
 
 
 def test_latex_pages_from_output_parses_singular_and_plural():
