@@ -8,8 +8,9 @@ history, this file wins.
 ## CURRENT STATE (updated 2026-07-09)
 
 Phases 1–3 are DONE. Phase 4 has one completed constrained support-grid MPP30 sweep and
-no active cluster jobs as of the latest `squeue` check. The user has asked to use only
-`msc` and `llm` for cluster launches for now; keep `--exclude=oat12` on new Slurm jobs.
+one unconstrained support-grid MPP30 contrast split currently live. The user has asked to
+use only `msc` and `llm` for cluster launches for now; keep `--exclude=oat12` on new
+Slurm jobs.
 
 Minimum Publishable Package status:
 
@@ -27,9 +28,13 @@ Minimum Publishable Package status:
    `runs/loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_split/`.
    A tracked summary is in
    `results/location_depth_sweeps/constrained_supportgrid_mpp30_26b_a4b_summary.md`.
-4. Unconstrained contrast arm: NOT RUN for the support-grid path. The existing
-   `scripts/build_path_a_package.py` still expects both constrained and unconstrained
-   summaries. Do not assume the package validator can pass from constrained-only evidence.
+4. Unconstrained contrast arm: LAUNCHED for the support-grid path as three 10-trial split
+   jobs on `msc,llm` with `--exclude=oat12`:
+   - `102238` / `loc_branch_uncon26_sg_b00`, trials 0--9, allocated on `msc` / `oat11`.
+   - `102239` / `loc_branch_uncon26_sg_b10`, trials 10--19, allocated on `msc` / `oat11`.
+   - `102240` / `loc_branch_uncon26_sg_b20`, trials 20--29, allocated on `msc` / `oat14`.
+   These mirror the constrained support-grid MPP30 sweep but use
+   `configs/config_location_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b.yaml`.
 5. Paper package: INCOMPLETE. The paper skeleton exists and had compiled before this
    support-grid result, but result framing now needs to reflect the actual MPP30 outcome.
 
@@ -56,18 +61,19 @@ Completed constrained support-grid MPP30 result:
 
 Latest cluster state:
 
-- `squeue -u hanyal` returned no jobs. Nothing is active or pending for this user.
-- For any new launch, use `--partition=msc,llm --exclude=oat12` unless the user changes
-  this again. Do not use GH200 unless explicitly requested again.
+- Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
+  The run directories exist and each has a `run.log`.
+- For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
+  changes this again. Do not use GH200 unless explicitly requested again.
 
 ## NEXT ACTIONS (in order)
 
-1. Keep state and ledger truthful: validate `EXPERIMENTS.md` after every edit and commit
-   the state/ledger/result summary update.
-2. Decide with evidence whether to spend on the unconstrained support-grid contrast arm.
-   It is needed by the current Path A package builder, but the constrained result already
-   failed the optimistic "StrategyEIG beats EIG/naive" headline. If launched, use split
-   jobs on `msc,llm`, `--exclude=oat12`, and keep the active-job cap at or below 8.
+1. Monitor `102238`, `102239`, and `102240` until they finish, then rsync their run
+   directories locally and combine them with `scripts/combine_location_fixed_root_depth_sweeps.py`.
+2. If the unconstrained arm finishes, run the current package builder with the constrained
+   and unconstrained support-grid summaries; if the result framing still needs a
+   constrained-only fallback, implement that explicitly rather than silently bypassing
+   validation.
 3. Update the paper/result framing away from "StrategyEIG beats baselines" and toward the
    outcome-playbook row where planning depth/objective improves information metrics or
    StrategyEIG internals, but RMSE/baseline wins remain partial.
