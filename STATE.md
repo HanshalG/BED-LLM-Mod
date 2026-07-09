@@ -2167,6 +2167,14 @@ about 2 minutes elapsed. The run log exists and shows the fixed-root sweep start
 `configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml`, initial
 belief generation began, and the first LLM token-usage event completed successfully
 (`4059` total tokens, finish reason `stop`). No metrics yet; this is normal startup.
+Follow-up 19:35 London health check: `102224` was still running on `msc` / `oat11` at
+about 6.5 minutes elapsed. No metrics yet, but the run reached the intended path:
+18 LLM usage events, 0 forced exits, 0 LLM candidate-generation calls, 2 support-grid
+candidate-generation rounds, 0 strategy-location rollout calls, 33 decision rows, and
+1/6 completed rounds. The log shows support-grid candidates including the distant branch
+locations, strategy+root proposals, then `batched belief refresh: disabled; reweighting
+existing support only`. No traceback/runtime/OOM/killed signatures. If pace stays close
+to round 1, rough completion time is on the order of 35--45 minutes from start.
 
 ## NEXT ACTIONS (in order)
 
