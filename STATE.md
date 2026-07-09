@@ -735,6 +735,10 @@ Status of the Minimum Publishable Package:
    `90`/`90`, and traceback/runtime/OOM/killed signatures remain zero. Constrained
    `102018` updated its run log at 13:09:48 and advanced to 250/256 in its current prompt
    block; unconstrained `102019` advanced to 172/256 in its current prompt block.
+   Follow-up 13:12 London cancellation check after the user confirmed the 13-hour GH200
+   jobs should be canceled to free nodes: live queue showed zero user-owned `gh200` jobs,
+   so no `scancel` was needed. The only live jobs were still MSC `102018` constrained on
+   `oat16` and MSC `102019` unconstrained on `oat21`; these were left running.
    Earlier checks: checked 2026-07-09 09:05 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
