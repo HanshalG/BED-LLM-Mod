@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shlex
 import subprocess
 from dataclasses import dataclass
@@ -22,6 +23,39 @@ REQUIRED_REMOTE_FILES = REQUIRED_SYNC_PATHS
 MAX_ACTIVE_JOBS = 8
 SPLIT_MPP30_JOB_COUNT = 6
 MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH = MAX_ACTIVE_JOBS - SPLIT_MPP30_JOB_COUNT
+DEFAULT_EXCLUDED_NODES = ("oat12",)
+
+
+def _expand_slurm_nodelist(text: str) -> set[str]:
+    nodes: set[str] = set()
+    bracket_pattern = re.compile(r"\b([A-Za-z][A-Za-z0-9_-]*?)\[([0-9,\-]+)\]")
+    for match in bracket_pattern.finditer(text):
+        prefix = match.group(1)
+        for part in match.group(2).split(","):
+            if "-" in part:
+                start_text, end_text = part.split("-", 1)
+                width = max(len(start_text), len(end_text))
+                for number in range(int(start_text), int(end_text) + 1):
+                    nodes.add(f"{prefix}{number:0{width}d}")
+            else:
+                nodes.add(f"{prefix}{part}")
+    text_without_brackets = bracket_pattern.sub(" ", text)
+    nodes.update(re.findall(r"\b[A-Za-z][A-Za-z0-9_-]*\d+\b", text_without_brackets))
+    return nodes
+
+
+def _has_usable_idle_gh200(lines: list[str], *, excluded_nodes: tuple[str, ...] = DEFAULT_EXCLUDED_NODES) -> bool:
+    excluded = set(excluded_nodes)
+    for line in lines:
+        if "idle" not in line:
+            continue
+        nodelist = line.split()[-1] if line.split() else ""
+        nodes = _expand_slurm_nodelist(nodelist)
+        if not nodes:
+            return True
+        if any(node not in excluded for node in nodes):
+            return True
+    return False
 
 
 @dataclass(frozen=True)
@@ -38,7 +72,7 @@ class RemoteReadiness:
             or self.active_jobs > MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH
         ):
             return False
-        if not any("idle" in line for line in self.gh200_lines):
+        if not _has_usable_idle_gh200(self.gh200_lines):
             return False
         return all(self.files.values())
 

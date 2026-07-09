@@ -1,5 +1,6 @@
 from scripts.path_a_remote_readiness import (
     REQUIRED_REMOTE_FILES,
+    _expand_slurm_nodelist,
     parse_remote_probe,
     payload,
     remote_probe_script,
@@ -65,6 +66,39 @@ REQUIRED_FILES
     readiness = parse_remote_probe(output)
 
     assert readiness.ok_to_launch is True
+
+
+def test_remote_readiness_blocks_when_only_excluded_gh200_node_is_idle():
+    file_lines = "\n".join(f"OK {path}" for path in REQUIRED_REMOTE_FILES)
+    output = f"""ACTIVE_JOBS
+0
+QUEUE
+GH200_SINFO
+gh200 up infinite 1 idle oat12
+REQUIRED_FILES
+{file_lines}
+"""
+
+    readiness = parse_remote_probe(output)
+
+    assert readiness.ok_to_launch is False
+
+
+def test_remote_readiness_allows_idle_gh200_range_with_usable_nodes():
+    file_lines = "\n".join(f"OK {path}" for path in REQUIRED_REMOTE_FILES)
+    output = f"""ACTIVE_JOBS
+0
+QUEUE
+GH200_SINFO
+gh200 up infinite 3 idle oat[12,19,21-22]
+REQUIRED_FILES
+{file_lines}
+"""
+
+    readiness = parse_remote_probe(output)
+
+    assert readiness.ok_to_launch is True
+    assert _expand_slurm_nodelist("oat[12,19,21-22]") == {"oat12", "oat19", "oat21", "oat22"}
 
 
 def test_remote_probe_script_is_read_only_and_quotes_remote_dir():

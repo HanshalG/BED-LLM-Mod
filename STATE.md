@@ -1769,6 +1769,15 @@ Focused tests pass:
 `pytest tests/test_path_a_preflight.py tests/test_path_a_launch_commands.py -q`
 (`11 passed`), and the full suite passes: `pytest tests/ -q`
 (`469 passed, 1 skipped`).
+Follow-up 15:41 London remote-readiness node-exclusion hardening: `scripts/path_a_remote_readiness.py`
+now expands Slurm node lists and treats an idle GH200 line as launch-usable only if at
+least one idle node is not in the default excluded set (`oat12`). This prevents remote
+readiness from reporting `ok_to_launch=true` when the only idle GH200 node is one the
+generated split-MPP30 commands will exclude. Focused tests cover the `oat12`-only block
+and mixed range `oat[12,19,21-22]` allow case:
+`pytest tests/test_path_a_remote_readiness.py tests/test_path_a_preflight.py -q`
+(`9 passed`), and the full suite passes: `pytest tests/ -q`
+(`471 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
