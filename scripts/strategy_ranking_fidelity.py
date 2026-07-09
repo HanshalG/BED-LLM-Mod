@@ -23,6 +23,7 @@ from core.defaults import register_defaults
 from environments.location_finding.beliefs import build_location_belief_state_unpruned
 from environments.location_finding.env import LocationBEDEnvironment
 from environments.location_finding.physics import round_positive_observation, signal_intensity_for_hypothesis, source_rmse
+from environments.location_finding.task_loss import posterior_expected_source_rmse
 from environments.location_finding.strategy import (
     evaluate_location_strategies_by_rollout_many,
     generate_location_strategy_roots_many,
@@ -192,23 +193,13 @@ def _fixed_support_truth_log_probability(
     return math.log(1e-300)
 
 
-def _posterior_expected_rmse(belief_state: BeliefState[SourceConfig], hidden_state: np.ndarray) -> float | None:
-    if not belief_state.hypotheses:
-        return None
-    total = 0.0
-    has_mass = False
-    for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities):
-        probability_float = float(probability)
-        if probability_float <= 0.0 or not math.isfinite(probability_float):
-            continue
-        total += probability_float * source_rmse(hypothesis, hidden_state)
-        has_mass = True
-    return float(total) if has_mass else None
+def _posterior_expected_rmse(belief_state: BeliefState[SourceConfig]) -> float | None:
+    value = posterior_expected_source_rmse(belief_state)
+    return float(value) if math.isfinite(value) else None
 
 
 def _posterior_state_record(
     belief_state: BeliefState[SourceConfig],
-    hidden_state: np.ndarray,
     *,
     candidate_index: int,
     replicate_index: int,
@@ -216,7 +207,7 @@ def _posterior_state_record(
     return {
         "candidate_index": int(candidate_index),
         "replicate_index": int(replicate_index),
-        "expected_rmse": _posterior_expected_rmse(belief_state, hidden_state),
+        "expected_rmse": _posterior_expected_rmse(belief_state),
         "hypotheses": [
             [[float(value) for value in source] for source in hypothesis]
             for hypothesis in belief_state.hypotheses
@@ -382,7 +373,7 @@ def _deploy_candidates_for_depth(
     fixed_support = _dedupe_source_configs(list(probe.belief_state.hypotheses) + [truth])
     start_observations = [observation for _action, observation in probe.history]
     start_rmse = _best_rmse(probe.belief_state, probe.hidden_state)
-    start_expected_posterior_rmse = _posterior_expected_rmse(probe.belief_state, probe.hidden_state)
+    start_expected_posterior_rmse = _posterior_expected_rmse(probe.belief_state)
     branches: list[_DeploymentBranch] = []
     for candidate_index, candidate in enumerate(candidates):
         if candidate.root_query is None:
@@ -459,7 +450,7 @@ def _deploy_candidates_for_depth(
         truth_log_probs[branch.candidate_index].append(
             _fixed_support_truth_log_probability(fixed_support, end_observations, truth, config)
         )
-        posterior_expected_rmse = _posterior_expected_rmse(branch.belief_state, probe.hidden_state)
+        posterior_expected_rmse = _posterior_expected_rmse(branch.belief_state)
         if posterior_expected_rmse is not None:
             expected_posterior_rmses[branch.candidate_index].append(posterior_expected_rmse)
             if start_expected_posterior_rmse is not None:
@@ -469,7 +460,6 @@ def _deploy_candidates_for_depth(
         final_posterior_states[branch.candidate_index].append(
             _posterior_state_record(
                 branch.belief_state,
-                probe.hidden_state,
                 candidate_index=branch.candidate_index,
                 replicate_index=branch.replicate_index,
             )

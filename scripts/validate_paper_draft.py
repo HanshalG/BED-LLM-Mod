@@ -10,27 +10,21 @@ import tempfile
 from typing import Any
 
 
-ALLOWED_TODO_KEYWORDS = (
-    ("Phase 4", "package validation"),
-    ("constrained and unconstrained paired results", "pre-registered primary endpoint"),
-    ("evolved strategies", "query trajectories"),
-    ("outcome playbook", "truth-log-posterior probability"),
-)
+ALLOWED_TODO_KEYWORDS: tuple[tuple[str, ...], ...] = ()
 
 REQUIRED_LIMITATION_PATTERNS = {
-    "forced_thinking_exit_rate": (r"forced[- ]thinking[- ]exit",),
-    "single_environment_family": (r"one constrained\s+environment family",),
-    "method_blind_constructed_environment": (r"method[- ]blind", r"deliberately constructed|constructed"),
-    "robustness_heatmap_scope": (r"robustness heatmap",),
-    "no_mpc_ablation": (r"MPC[- ]style", r"future work"),
-    "workshop_scale_trials": (r"workshop[- ]scale", r"limited number of paired\s+trials"),
+    "gate1_stopped": (r"Gate 1", r"not run|deliberately not run"),
+    "exact_likelihood_scope": (r"exact analytic likelihood",),
+    "legacy_local_fallback": (r"legacy records", r"local fallback"),
+    "particle_approximation": (r"particle", r"numerical approximation"),
+    "single_model_limited_trials": (r"one model family", r"limited number of paired trials"),
+    "no_arbitration_claim": (r"no performance claim", r"arbitration"),
+    "transfer_scope": (r"LLM-estimated posteriors", r"transfer for free"),
 }
 
 REQUIRED_FIGURE_LABELS = {
-    "ranking_fidelity_diagnostics": "fig:ranking-fidelity",
-    "main_depth_contrast": "fig:depth-sweep",
-    "cost_vs_depth": "fig:cost-depth",
-    "qualitative_strategies": "fig:qualitative",
+    "task_loss_ranking_fidelity": "fig:ranking-fidelity",
+    "path_a_depth_contrast": "fig:depth-sweep",
 }
 
 

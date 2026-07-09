@@ -232,18 +232,16 @@ def test_posterior_state_record_includes_expected_rmse_and_support():
         hypotheses=[((0.0, 0.0),), ((2.0, 0.0),)],
         probabilities=[0.25, 0.75],
     )
-    hidden_state = np.asarray([[1.0, 0.0]], dtype=float)
-
-    expected = _posterior_expected_rmse(belief, hidden_state)
+    expected = _posterior_expected_rmse(belief)
     record = _posterior_state_record(
         belief,
-        hidden_state,
         candidate_index=3,
         replicate_index=4,
     )
 
-    assert expected == pytest.approx(np.sqrt(0.5))
-    assert record["expected_rmse"] == pytest.approx(np.sqrt(0.5))
+    expected_risk = 0.25 * 1.5 / np.sqrt(2.0) + 0.75 * 0.5 / np.sqrt(2.0)
+    assert expected == pytest.approx(expected_risk)
+    assert record["expected_rmse"] == pytest.approx(expected_risk)
     assert record["candidate_index"] == 3
     assert record["replicate_index"] == 4
     assert record["hypotheses"] == [[[0.0, 0.0]], [[2.0, 0.0]]]

@@ -1,9 +1,9 @@
-# Path A Workshop Draft
+# Path B Workshop Draft
 
-This directory holds the write-now paper skeleton for the location-finding
-Path A result. The Phase 4 sweep numbers are intentionally left as placeholders
-until `results/location_depth_sweeps/*_REPORT.md` exists and the
-pre-registered analysis in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` has been run.
+This directory holds the workshop draft for the Path B Gate-0-failure outcome.
+Path A is retained as the motivating entropy/task-loss mismatch; Path B tests
+expected posterior RMSE as the repair and stops before Gate 1 when ranking
+fidelity remains below threshold.
 
 Draft validation:
 
@@ -17,7 +17,5 @@ workshop target.
 
 Required figure slots:
 
-- Main paired constrained/unconstrained depth contrast.
-- Ranking-fidelity diagnostic.
-- Cost-vs-depth table/plot.
-- Qualitative strategies plus query trajectories.
+- Path B task-loss ranking-fidelity diagnostic.
+- Banked Path A constrained/unconstrained depth contrast.

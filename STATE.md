@@ -5,9 +5,18 @@ ACTIONS below to reflect reality, and append a row to `EXPERIMENTS.md` for anyth
 launched. A stale STATE.md is a bug. If this file conflicts with GOAL.md's design
 history, this file wins.
 
-## CURRENT STATE (updated 2026-07-09)
+## CURRENT STATE (updated 2026-07-10)
 
-Status: submitted/awaiting.
+Status: **Path B negative-result package complete/validated** — the task-loss scorer did not reach the preregistered
+ranking-fidelity threshold on the standard task, so Gate 1 cluster spend is closed. The
+canonical common-support depth-1 replay reaches macro Spearman rho 0.231 versus realized
+posterior-risk reduction (threshold approximately 0.3); 32/256/1024-rollout sensitivity
+runs all fail. Evidence is in `results/ranking_fidelity/PATH_B_GATE0_TASK_LOSS.md` and
+`results/ranking_fidelity/PATH_B_GATE0_DIAGNOSIS.md`. No LLM calls or cluster jobs were
+used. `results/path_b/GATE1_NOT_RUN.md` records the preregistered stop. The five-page
+negative-result draft and rendered PDF pass the Path B package and paper validators;
+the package is traced to tag `path-b-gate0-negative-20260710`. The Path A package below
+remains banked motivation material.
 
 Phases 1–4 are DONE for the Path A workshop package. The ranking-fidelity gate, constrained
 oracle, constrained support-grid MPP30 sweep, unconstrained contrast arm, paper-facing
@@ -90,10 +99,14 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
-1. Await user review/submission feedback. No cluster jobs are currently needed for the
-   Path A definition of done.
-2. If the user asks for follow-up experiments, continue to use `--partition=msc,llm
-   --exclude=oat12` unless they change that constraint.
+Path B reset (2026-07-10): GOAL.md now targets goal-oriented arbitration that must beat
+naive AND greedy EIG on the STANDARD task. Path A artifacts are banked as motivation.
+
+1. Await user review/submission feedback on the Path B negative-result package. No
+   cluster jobs are needed or authorized by the completed experiment chain.
+2. If revisiting the method after review, treat later-round-only abstaining arbitration
+   as a new hypothesis requiring a new pre-registration; do not retroactively call the
+   current Gate 0 a pass.
 
 ## OPERATIONAL KNOWLEDGE
 

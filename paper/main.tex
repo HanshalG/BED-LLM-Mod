@@ -1,15 +1,13 @@
 \documentclass[10pt]{article}
 
 \usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{natbib}
-\usepackage{xcolor}
 
-\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
-
-\title{Can Language Models Evaluate Their Own Experimental Plans?}
+\title{When Experimental-Plan Scores Miss Task Loss:\\A Diagnostic Study of LLM Bayesian Design}
 \author{Hanshal Goyal}
 \date{}
 
@@ -17,268 +15,278 @@
 \maketitle
 
 \begin{abstract}
-Large language models can propose rich experimental strategies, but
-non-myopic Bayesian experimental design also requires ranking those plans by
-downstream information gain. In a locality-constrained location-finding task,
-we test whether rollout-scored natural-language strategies predict realized
-posterior information. A 26B A4B model passes this first-link diagnostic:
-estimated scores correlate with realized entropy drop and truth-anchored
-posterior quality, though point RMSE remains noisy. In a paired depth sweep,
-depth-5 StrategyEIG improves over depth-1 and matched-compute myopic
-StrategyEIG under movement constraints, but does not beat greedy EIG or naive
-execution; an unconstrained contrast shows no depth effect.
+Large language models can propose rich experimental plans, but deploying those
+plans requires a scorer whose rankings survive contact with realized task loss.
+We study this link in multi-source location finding with an explicit likelihood.
+An entropy-based StrategyEIG scorer ranks realized entropy reduction
+($\rho=0.38$--$0.44$), yet is nearly uncorrelated with realized localization
+RMSE and does not beat naive or greedy-EIG execution. We then test the natural
+repair: replace entropy with expected posterior permutation-matched RMSE. A
+pre-registered, no-LLM replay over 60 standard-task probe states fails its
+proceed gate: the depth-1 task-loss scorer reaches macro Spearman
+$\rho=0.231$ against realized posterior-risk reduction, below the $\approx0.3$
+threshold. Increasing rollout integration to 1024 samples and repairing
+particle-support coupling do not recover the gate. We therefore stop before
+policy deployment. The result is a measured negative finding: task-aligned
+utilities are not sufficient when posterior-predictive plan values weakly rank
+truth-conditional outcomes.
 \end{abstract}
 
 \section{Introduction}
 
-Sequential experimental design often needs non-myopic decisions: a low-value
-measurement now can move the experimenter into a region where future
-measurements become valuable. Classical planners can exploit this structure
-when the model, action space, and constraints are explicit. The harder question
-for LLM-driven BED is whether a general-purpose language model can formulate
-and evaluate reusable natural-language strategies without training a
-task-specific planner.
+LLM-driven Bayesian experimental design (BED) separates an attractive pair of
+capabilities. A language model can express a reusable strategy in natural
+language, while an explicit simulator can score the strategy before execution.
+This separation promises non-myopic planning without training a task-specific
+policy or expanding a full LLM action tree. It also creates a fragile link: the
+quantity that is easy to estimate in simulation may not rank the quantity the
+user ultimately cares about.
 
-This paper asks a deliberately narrow question: can LLM-generated strategies be
-ranked by realized downstream information gain? Our contributions are:
+Information gain is the standard BED objective. For localization, however,
+posterior concentration is not the same as localization accuracy. A posterior
+can lose entropy by concentrating on the wrong branch of a multimodal source
+configuration. This is not merely a philosophical distinction: in our banked
+Path A experiments, entropy-scored plans rank realized entropy and
+truth-log-posterior quality, while their correlation with point RMSE is near
+zero and the resulting StrategyEIG policy trails naive and greedy EIG.
+
+This paper asks whether replacing entropy with a task-aligned posterior loss
+repairs that first decision link. We use expected posterior
+permutation-matched RMSE, which is available at decision time and never accesses
+the hidden source configuration. Before implementing or deploying an
+arbitration policy, we pre-register a local ranking-fidelity gate on existing
+standard-task candidate roots. The gate fails, including after rollout-count,
+horizon, and support-resampling diagnostics. Following the pre-registration,
+we do not launch the downstream policy pilot.
+
+Our contributions are:
 \begin{enumerate}
-  \item A ranking-fidelity diagnostic for StrategyEIG, measuring whether
-  rollout-estimated EIG ranks natural-language strategies by realized entropy
-  reduction and truth-anchored posterior quality.
-  \item A locality-constrained location-finding benchmark with a banked
-  non-LLM oracle gap between greedy EIG and a depth-2 planner.
-  \item A paired depth sweep with matched-compute myopic controls, separating
-  non-myopic objective gains from extra rollout compute.
-  \item A cost-vs-depth accounting that contrasts natural-language strategy
-  rollout with brute-force LLM n-step expansion.
+  \item A two-link diagnostic that separates scorer-to-posterior-objective
+  fidelity from posterior-objective-to-task-loss rankability.
+  \item A measured entropy/task-loss mismatch for LLM-scaffolded experimental
+  design, supported by paired Path A policy results.
+  \item A no-LLM test of expected posterior RMSE as a repair on standard
+  multi-source location finding, including convergence and support checks.
+  \item A negative-result protocol in which a failed scorer gate prevents an
+  expensive policy claim rather than being hidden by a downstream sweep.
 \end{enumerate}
 
 \section{Related Work}
 
 \paragraph{Bayesian experimental design.}
-Deep adaptive design learns amortized policies for sequential BED
-\citep{foster2021deep}, while classical online planners optimize explicit
-transition-constrained design problems. We keep the probabilistic model
-explicit but ask an LLM to generate and score strategy-level policies.
+Deep adaptive design amortizes sequential BED policies and evaluates total
+information gain with contrastive bounds \citep{foster2021deep}. Classical
+decision-theoretic design also permits utilities defined by downstream loss
+rather than entropy. Our setting keeps the location likelihood explicit so that
+the utility question can be isolated from learned-posterior error.
 
-\paragraph{Constrained BED and informative path planning.}
-Constrained location finding is close to informative path planning. COPEx is
-especially adjacent \citep{guo2026constrained}: it studies
-transition-constrained BED with scenario-tree lookahead. Our differentiation is
-the natural-language strategy scaffold and ranking-fidelity diagnostic, not
-novelty of the constrained-planning task.
+\paragraph{LLM-driven design.}
+BED-LLM uses language models for intelligent information gathering
+\citep{choudhury2025bedllm}. Brute-force LLM lookahead can be non-myopic but
+grows rapidly with depth. Strategy-level rollout instead asks an LLM to propose
+natural-language policies and uses simulation to rank them. We focus on the
+validity of that ranking, not on claiming a new decision-theoretic utility.
 
-\paragraph{LLM-driven experimental design.}
-BED-LLM-style greedy and brute-force n-step question expansion provide a
-natural baseline \citep{choudhury2025bedllm}. Brute-force n-step expansion can
-be non-myopic, but its tree cost grows quickly with depth. StrategyEIG aims to
-keep evaluation roughly linear in the number of candidate strategies and
-rollout depth.
+\paragraph{Online planning.}
+Constrained BED and informative path planning optimize explicit transition
+models. COPEx is directly adjacent \citep{guo2026constrained}. The constrained
+Path A environment in this paper is diagnostic background: its purpose is to
+show that a planning gap can exist while an LLM scaffold still fails to exploit
+it. The Path B gate itself uses standard unconstrained multi-source location
+finding and no environment engineering.
 
-\section{Method}
+\section{Diagnostic Framework}
 
-\subsection{StrategyEIG}
+\subsection{Location Posterior And Task Loss}
 
-At each round, the model proposes candidate natural-language strategies, each
-paired with an executable root query. StrategyEIG evaluates these
-strategy-level policies rather than expanding a full LLM action tree. The root
-query is fixed for the first rollout step; later rollout queries condition on
-the strategy text, simulated history, and analytical belief state.
+A hidden configuration $\theta$ contains two source locations in $\mathbb R^2$.
+At query $x$, the signal is an inverse-square sum with multiplicative log-normal
+noise. A finite particle support $\{\theta_i\}$ is reweighted with the exact
+likelihood. Source labels are exchangeable, so configurations are canonically
+ordered before averaging and all RMSEs use best-permutation matching.
 
-The scorer uses the explicit location likelihood, shares rollout controls
-across candidates, scores entropy reduction on a fixed common support, and
-disables final LLM belief refresh during scoring. The selected strategy
-executes only its root query; the posterior is updated from the realized
-observation before the next BED round.
+For posterior $p$, let $\hat\theta(p)$ be its canonical posterior mean. We define
+the decision-time posterior risk
+\[
+  L(p)=\mathbb E_{\theta\sim p}
+  \left[\operatorname{RMSE}_{\rm perm}(\theta,\hat\theta(p))\right].
+\]
+For a candidate root query $x$, the estimated utility is the Monte Carlo
+posterior-predictive reduction
+\[
+  \widehat U(x)=L(p_t)-
+  \frac{1}{R}\sum_{r=1}^R L(p_{t+1}^{(r)}).
+\]
+This utility is task-aligned but truth-free: simulated truths are sampled from
+$p_t$. The realized smooth target fixes the recorded hidden truth, generates
+paired observation noise, updates the same exact-likelihood posterior, and
+measures the resulting reduction in $L$. We also report realized point-RMSE
+reduction to the fixed truth.
 
-\subsection{Ranking-Fidelity Diagnostic}
+\subsection{Gate 0 Protocol}
 
-For a belief state, we generate fixed candidate strategies and score them at
-depths 2, 3, and 5. We then deploy each candidate under paired simulation seeds
-and compare estimated score against realized entropy drop, truth log posterior
-probability, and RMSE. Spearman correlation measures ranking fidelity, top-1
-regret measures argmax loss, and trajectory distances check whether different
-strategy texts actually induce different query paths.
+We reuse 60 probe records from 20 trials at history lengths 0, 3, and 6. Each
+record contains the hidden state, realized history, and 6--10 LLM-proposed
+strategy roots. Legacy records do not contain rollout posterior snapshots or
+future query trajectories, so we use the pre-specified local fallback: score
+the stored roots with the analytic location model and no LLM calls. The
+canonical result uses depth 1, where there is no continuation-policy mismatch.
 
-\subsection{Paired Depth Sweep}
+The posterior approximation begins with a common pool of 100,000 normal-prior
+particles, conditions on each history, systematically resamples 256 particles,
+and applies likelihood-targeted MCMC rejuvenation. Candidate comparisons share
+random controls. The canonical scorer uses 256 posterior-predictive rollouts and
+the smooth target averages 256 truth-conditional deployments.
 
-The final sweep shares hidden states, initial beliefs, and observation noise
-across greedy EIG, naive baselines, StrategyEIG depths, and matched-compute
-myopic controls. The constrained arm is the headline environment; the
-unconstrained arm is the contrast case.
+For each probe we compute Spearman correlation across candidate roots and then
+macro-average over probes. The pre-registered proceed threshold is
+$\rho\gtrsim0.3$ at a tested horizon. We additionally report (i) the old entropy
+scorer against the new smooth target where available, (ii) task scorer against
+point-RMSE reduction, and (iii) the rankability ceiling: realized smooth-target
+reduction against realized point-RMSE reduction. If the task scorer fails, no
+arbitration policy or cluster pilot is run.
 
-The primary endpoint is paired final truth log posterior probability.
-Secondary endpoints are point RMSE, expected posterior RMSE, entropy, win
-rates, and paired differences. Matched-compute myopic controls use the same
-rollout budget but score first-step entropy reduction.
+\subsection{Path A Motivation}
 
-\section{Environment}
-
-The headline task is a one-source branch-decoy location-finding environment
-that can be read as informative path planning. A mobile sensor starts at the
-origin, takes six measurements, and in the constrained arm obeys a maximum
-movement radius. A finite-range local-bump signal keeps distant branches
-indistinguishable until the sensor commits to moving toward one of them. With a
-branch-decoy prior, locally attractive measurements can be less useful than
-movement that positions the sensor for later discrimination.
-
-The environment was selected method-blind with respect to StrategyEIG, using
-only non-LLM oracle policies: grid greedy EIG, a depth-2 planner, non-adaptive
-lawnmower coverage, and random walk. StrategyEIG was not in the tuning loop.
-The constructed instance locates a planning-sensitive regime, not a universal
-claim about source localization.
-
-The banked non-LLM oracle check uses 120 paired trials. Greedy EIG reaches final
-RMSE 0.5606, while a depth-2 planner reaches 0.1529. The planner win rate is
-0.525, suggesting heavy-tailed improvements and motivating mean paired effects
-with bootstrap intervals rather than only rank tests.
-
-To scope the constructed-instance claim, we ran a 27-cell robustness heatmap
-over signal lengthscale, movement radius, and noise, with 100 paired oracle
-trials per cell. Figure~\ref{fig:env-robustness} shows planner-minus-greedy
-RMSE; negative values favor lookahead. The Phase 4 operating point is among
-the strongest cells, but nearby settings can be greedy-friendly.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.82\linewidth]{../plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png}
-  \caption{Method-blind robustness sweep for the constrained location
-  environment. Each cell shows depth-2 planner minus greedy-EIG final RMSE over
-  100 paired non-LLM oracle trials, so negative values favor lookahead. The
-  boxed cell is the pre-registered Phase 4 operating point.}
-  \label{fig:env-robustness}
-\end{figure}
+Path A evaluates entropy-scored StrategyEIG on a locality-constrained
+branch-decoy environment. It uses common rollout controls, fixed-support
+analytical posterior updates, support-grid candidate generation, and
+matched-compute myopic controls. Thirty paired trials compare naive, greedy EIG,
+and StrategyEIG depths 1, 3, and 5. A second 30-trial arm removes the movement
+constraint. These runs motivate the repair; they are not evidence for the Path B
+task-loss method.
 
 \section{Results}
 
-\subsection{Ranking Fidelity}
+\subsection{Entropy Fidelity Does Not Imply Localization Fidelity}
 
-The Phase 1 26B A4B gate passes the information-ranking criterion, with
-caveats. It used 20 trials, probe states after rounds 0, 3, and 6, eight
-candidate strategies per probe, eight deployments per strategy/depth, and
-rollout scoring depths 2, 3, and 5.
+The 26B A4B entropy scorer appears successful under an information-only gate.
+Across depths 2, 3, and 5, estimated-vs-realized entropy Spearman correlations
+are $0.380\pm0.045$, $0.440\pm0.041$, and $0.396\pm0.044$; corresponding
+truth-log-posterior correlations are about 0.36--0.37. Yet point-RMSE
+correlations are $-0.088\pm0.051$, $-0.080\pm0.045$, and
+$-0.035\pm0.050$. The scorer ranks its own information objective but not the
+localization endpoint.
 
-Figure~\ref{fig:ranking-fidelity} shows positive rank fidelity. Entropy-drop
-Spearman correlations are $0.380\pm0.045$, $0.440\pm0.041$, and
-$0.396\pm0.044$ at depths 2, 3, and 5. Truth-log-posterior correlations are
-$0.371\pm0.040$, $0.373\pm0.045$, and $0.362\pm0.044$.
-
-The caveat is that point-RMSE correlations are near zero
-($-0.088\pm0.051$, $-0.080\pm0.045$, $-0.035\pm0.050$). We therefore treat
-truth log posterior probability as the primary endpoint and RMSE as a noisier
-localization readout. Top-1 entropy regret decreases from $0.326\pm0.048$ at
-depth 2 to $0.211\pm0.044$ at depth 5.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.68\linewidth]{../results/ranking_fidelity/rankfid26b_a4b_gate_v2ghs_configured_t20_m8_aggregate_plot.png}
-  \caption{Phase 1 ranking-fidelity gate for the 26B A4B configured scorer.
-  Points show mean Spearman rank correlation between rollout-estimated strategy
-  EIG and realized entropy drop over 60 probe records. The dashed line marks
-  the pre-specified proceed threshold. Truth-log-posterior correlations are
-  also positive at all depths, while point-RMSE correlations are near zero.}
-  \label{fig:ranking-fidelity}
-\end{figure}
-
-\subsection{Depth Sweep}
-
-The final package contains 30 paired constrained and 30 paired unconstrained
-trials. In the constrained arm, StrategyEIG-d5 improves over d1 and
-matched-compute myopic controls, but not over greedy EIG or naive. Final RMSE
-means are 0.166 for naive, 0.412 for EIG, 0.542 for d5, 0.929 for d1, and
-1.127 for d3. Truth-log-posterior means show the same partial-gain pattern:
-naive $-1.484$, EIG $-1.672$, d5 $-1.982$, d1 $-2.532$, and d3 $-2.590$.
-
-The unconstrained contrast is flat: final RMSE means are 0.089 for naive,
-0.101 for EIG, 0.103 for d5, 0.103 for d1, and 0.108 for d3. This supports the
-narrower outcome-playbook row: deeper non-myopic scoring improves StrategyEIG
-under locality constraints, but the current strategy executor still trails
-calibrated greedy or simple naive execution in this workshop-scale run.
+The paired policy sweep confirms that this disconnect matters. In the
+constrained arm, final RMSE means are 0.166 for naive, 0.412 for greedy EIG,
+0.542 for StrategyEIG-d5, 0.929 for d1, and 1.127 for d3. Depth 5 improves over
+shorter StrategyEIG and matched-compute myopic controls, but it does not beat
+either baseline. In the unconstrained arm, all methods are near the task ceiling
+(0.089--0.108 RMSE) and depth has no meaningful effect.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.92\linewidth]{../plots/location_depth_sweeps/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_depth_contrast.png}
-  \caption{Final paired depth-sweep contrast for the constrained branch-decoy
-  environment and the unconstrained contrast arm.}
+  \includegraphics[width=0.88\linewidth]{../plots/location_depth_sweeps/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_depth_contrast.png}
+  \caption{Banked Path A result. Deeper entropy scoring improves the
+  StrategyEIG scaffold in the constrained arm, but StrategyEIG remains worse
+  than naive and greedy EIG. The unconstrained contrast is flat.}
   \label{fig:depth-sweep}
 \end{figure}
 
-\subsection{Cost Versus Depth}
+\subsection{Task-Loss Repair Fails Its Gate}
 
-StrategyEIG is meant to buy non-myopic evaluation without the exponential LLM
-tree expansion of brute-force n-step EIG. The final package reports observed
-token totals from the completed sweep logs. For the support-grid MPP30 path,
-the package-level proxy uses $B=2$ root candidates and $R=8$ paired rollouts.
-A brute-force depth-$d$ LLM EIG proxy expands
-$1+B+\cdots+B^{d-1}$ candidate sets per deployed decision and has $B^d$ leaf
-action sequences. StrategyEIG uses one root strategy set per deployed decision
-and $BRd$ simulated rollout steps. Thus increasing depth from 1 to 5 changes
-StrategyEIG's rollout work linearly, from $16$ to $80$ simulated steps per
-decision, while the brute-force candidate-set proxy grows from $1$ to $31$
-root-equivalent LLM expansions per decision. The package also emits the
-corresponding Markdown cost table for exact counts; Figure~\ref{fig:cost-depth}
-shows the scaling visually.
+Figure~\ref{fig:ranking-fidelity} shows the canonical Path B Gate 0 result.
+At depth 1, the task-loss scorer reaches $\rho=0.231$ against realized
+posterior-risk reduction, with a 95\% bootstrap interval $[0.098,0.360]$.
+This is positive but below the $\approx0.3$ proceed threshold. Correlation with
+realized point-RMSE reduction is 0.249 $[0.130,0.371]$. The rankability ceiling
+between realized posterior-risk and point-RMSE reductions is only 0.165
+$[0.020,0.301]$.
 
-\subsection{Qualitative Strategies}
-
-Qualitative examples in the package show that natural-language strategies often
-encode sensible local commitments, such as probing the most likely branch and
-then refining around the observed high-signal area. The failure mode is also
-visible: a strategy can describe the right branch-level intent while the
-executed coordinates remain too coarse or arrive too late, leaving analytic EIG
-or naive execution competitive on point RMSE.
+The failure is not explained by one unlucky integration budget. With
+independently resampled supports, depth-1 task-loss correlations are 0.278 at
+256 samples and 0.262 at 1024 samples. The mean score-SE to between-candidate-SD
+ratio falls from 0.316 to 0.162, but fidelity does not improve. A common prior
+pool and deterministic systematic resampling yield the canonical 0.231 result.
+Longer horizons also fail: depth 3 reaches 0.145 in the 256-sample diagnostic.
 
 \begin{figure}[t]
   \centering
-  \begin{minipage}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{../results/cost_vs_depth/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_cost_vs_depth.png}
-    \caption{Cost-vs-depth accounting. StrategyEIG scales linearly with rollout
-    depth, while a brute-force LLM tree expands exponentially.}
-    \label{fig:cost-depth}
-  \end{minipage}\hfill
-  \begin{minipage}{0.48\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{../results/location_qualitative/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_constrained_qualitative_example_1.png}
-  \caption{Qualitative natural-language strategies and resulting query paths.}
-  \label{fig:qualitative}
-  \end{minipage}
+  \includegraphics[width=0.76\linewidth]{../plots/ranking_fidelity/path_b_gate0_task_loss.png}
+  \caption{Path B Gate 0. Macro-average within-probe Spearman correlation for
+  the task-loss scorer and its realized targets. The dashed line is the
+  pre-registered proceed threshold. The canonical depth-1 scorer remains below
+  it, so the policy pilot is not launched.}
+  \label{fig:ranking-fidelity}
 \end{figure}
+
+The round split identifies the break. Task-vs-smooth correlation is 0.055 at
+the prior state, 0.305 after three observations, and 0.335 after six. Once data
+concentrate the posterior, posterior-predictive utility becomes modestly useful.
+Before data, however, the scorer averages over possible truths while each
+realized ranking is conditional on one unknown draw. More rollouts estimate the
+Bayesian average more precisely; they do not make it predict which prior draw
+occurred. Selecting only the later rounds would pass, but that stratum was not
+pre-registered and would omit the first decision faced by the deployed policy.
+
+\subsection{Why The Stop Matters}
+
+The proposed downstream method would have included the plain raw-history naive
+query, greedy-EIG query, and LLM strategic roots, then defaulted to naive unless
+another candidate exceeded it by one rollout standard error. That conservative
+rule can control estimator noise, but it cannot repair a scorer whose rankings
+are weakly related to realized gains. Gate 0 therefore prevents a costly and
+statistically ambiguous policy sweep. No result in this paper claims that
+task-loss arbitration beats naive or greedy EIG.
+
+\section{Discussion}
+
+The experiments expose two distinct failures. Entropy StrategyEIG has good
+scorer-to-objective fidelity but poor objective-to-RMSE alignment. Expected
+posterior RMSE fixes the semantic objective, yet its posterior-predictive values
+still weakly rank truth-conditional outcomes, especially before observations.
+The second failure is subtler: the utility can be Bayes-rational in expectation
+without being a reliable per-instance arbiter among candidate LLM plans.
+
+This distinction changes how LLM-BED systems should be evaluated. Reporting
+only selected EIG or entropy drop can certify the simulator rather than the
+task. Reporting only final RMSE can obscure whether failure comes from proposal
+quality, score noise, or an unrankable endpoint. A useful diagnostic chain is:
+estimated score to realized smooth objective, smooth objective to point task
+loss, and finally policy improvement under paired deployment. Each link needs
+its own uncertainty and stop rule.
+
+The negative result does not show that task-aligned utilities are useless.
+Later-round states cross the nominal correlation threshold, suggesting that
+arbitration may become viable after posterior concentration. A future method
+could explicitly abstain at early rounds and activate only after an online
+fidelity or effective-sample-size criterion. That is a new, post-hoc hypothesis,
+not a claim tested here.
 
 \section{Limitations}
 
-This is a workshop-scale study. The final sweep uses one constrained
-environment family, one headline model family, and a limited number of paired
-trials, so any positive result should be read as evidence that the StrategyEIG
-scaffold can exploit a mapped planning-sensitive regime, not as a universal
-claim about source localization. The environment is deliberately constructed:
-finite-range sensing, movement constraints, and branch-decoy priors create a
-setting where a non-LLM oracle planner beats greedy EIG. We reduce selection
-bias by choosing the geometry using only method-blind non-LLM oracle policies
-and by reporting the robustness heatmap in Figure~\ref{fig:env-robustness},
-which shows that many nearby geometries remain greedy-friendly.
+This is a workshop-scale diagnostic based on one model family and 60 probe
+states from a limited number of paired trials. The standard-task Gate 0 uses an
+exact analytic likelihood, so it isolates utility fidelity under a particle
+posterior; open-ended LLM-BED settings must also contend with LLM-estimated
+posterior error. The legacy records omit rollout posterior snapshots, requiring
+a local fallback. Depth 1 avoids future-policy mismatch, but the common
+100,000-particle pool, 256-particle support, and MCMC rejuvenation remain a
+numerical approximation. Low late-round importance effective sample size is
+reported rather than treated as exact posterior coverage.
 
-The language-model runs also carry systems-level caveats. Thinking-enabled
-26B A4B inference used 3.87M tokens in the constrained arm and 3.76M in the
-unconstrained arm, with 128 and 150 forced-thinking exits respectively.
-Because the ranking-fidelity diagnostic finds truth-anchored information
-metrics easier to rank than point RMSE, the paper treats RMSE as a secondary,
-noisier localization readout. Finally, the minimum package does not include an
-MPC-style direct action-sequence ablation; that remains future work for
-separating strategy abstraction from direct LLM-generated action planning at
-matched compute.
+Path A uses one deliberately constructed constrained environment family,
+method-blind oracle selection, a robustness heatmap, and a limited number of
+paired trials. Its 26B A4B runs use millions of tokens and include
+forced-thinking exits. The minimum package lacks an MPC-style direct
+action-sequence ablation; that remains future work. Most importantly, Gate 1 is
+not missing positive evidence: it was deliberately not run after the
+pre-registered Gate 0 failure. Therefore we make no performance claim for the
+unimplemented arbitration policy and no claim that task-aligned utilities
+transfer for free to LLM-estimated posteriors.
 
 \section{Conclusion}
 
-The result is mixed but informative. Ranking fidelity is good enough to pass
-the first-link gate, and depth-5 non-myopic StrategyEIG improves over
-short-horizon and matched-compute myopic StrategyEIG in the constrained
-branch-decoy environment. The stronger claim, however, is not supported:
-StrategyEIG does not beat greedy EIG or naive execution, and the unconstrained
-contrast shows no depth effect. We therefore view this as evidence for the
-promise and current bottleneck of LLM-mediated BED: language models can rank
-and express useful experimental plans, but calibrated execution remains the
-limiting link.
+An LLM experimental-design scaffold can rank entropy reduction while failing
+to rank localization accuracy. Replacing entropy with expected posterior RMSE
+is principled but does not automatically repair the per-instance selection
+link: our standard-task scorer remains below its pre-registered fidelity gate
+after rollout and support diagnostics. The scientifically useful result is the
+stop itself. Before asking whether deeper LLM plans beat naive or greedy design,
+we should establish that their scores rank the realized task-facing quantity;
+in this study, neither entropy nor its task-loss replacement clears that bar
+robustly.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
