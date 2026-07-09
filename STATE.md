@@ -17,21 +17,20 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 03:14 London after canceling the
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 03:15 London after canceling the
    slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
    `101994` are no longer present in the live queue; no GH200 jobs are live for this user.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
-   MPP30 job `102019` running on `oat21`. At 03:14 London, those four MSC jobs were the
+   MPP30 job `102019` running on `oat21`. At 03:15 London, those four MSC jobs were the
    only live jobs for this user. No final metrics files existed at the last
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
    stderr is fresh and non-erroring for all four jobs; recent progress snapshots were
-   `101996` in a fresh 256-prompt batch at 146/256 after completing 1-, 4-, 73-, and
-   185-prompt blocks, `101998` starting an 11-prompt block after completing 30-, 64-,
-   103-, 109-, 242-, and 256-prompt blocks, `102018` in another 256-prompt batch at 75/256
-   after completing 112-, 120-, and 256-prompt blocks, and `102019` in another 256-prompt
-   batch at 2/256 after completing 116-, 120-, 123-, 127-, and two 256-prompt blocks.
+   `101996` in a 110-prompt block at 32/110 after completing earlier prompt blocks,
+   `101998` in a fresh 256-prompt block at 2/256 after a completed 3-prompt block,
+   `102018` in a 256-prompt block at 163/256, and `102019` in a 256-prompt block at
+   218/256.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
