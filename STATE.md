@@ -67,11 +67,11 @@ Latest cluster state:
 - Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
   As of the latest health check, `102238` and `102239` are on `msc` / `oat11`, and
   `102240` is on `msc` / `oat14`. The run directories exist and each has a `run.log`.
-  At about 26 minutes elapsed, all three were still allocated on `msc` and none were on
-  `oat12`. All three had completed round 4/6 and entered the next batched naive-query
-  generation step. Metrics/reports/plots did not exist yet. Decision rows were `320` for
-  each block. Token-event counts were `229`, `221`, and `219`, respectively; forced
-  thinking exits were `29`, `20`, and `28`. There were zero
+  At about 27.3 minutes elapsed, all three were still allocated on `msc` and none were on
+  `oat12`. All three had completed round 4/6 and were progressing through round-5 work.
+  Metrics/reports/plots did not exist yet. Decision rows were `350` for block `b00` and
+  `330` for blocks `b10` and `b20`. Token-event counts were `245`, `238`, and `238`,
+  respectively; forced thinking exits were `35`, `27`, and `37`. There were zero
   traceback/runtime/OOM/killed/location-parse errors in all three logs. Note for future
   checks: token usage events are logged as lowercase `llm_token_usage`, not uppercase
   `LLM_USAGE`.
