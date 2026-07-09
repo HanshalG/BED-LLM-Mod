@@ -16,6 +16,8 @@ REQUIRED_SYNC_PATHS = (
     "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_mpp30_norefresh_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_unconstrained_mpp30_norefresh_26b_a4b.yaml",
+    "configs/config_location_branch_decoy_local_micro_norefresh_26b_a4b.yaml",
+    "configs/config_location_branch_decoy_local_unconstrained_micro_norefresh_26b_a4b.yaml",
     "plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png",
     "results/constrained_oracle/REPORT.md",
     "results/constrained_oracle_robustness/branch_decoy_local_robustness_REPORT.md",

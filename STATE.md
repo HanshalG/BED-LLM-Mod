@@ -1942,16 +1942,28 @@ Follow-up 16:26 London no-refresh pilot early-silence check: `102189` remains ru
 `run.log` exists but still has zero `llm_token_usage`, forced-exit, strategy-rollout, or
 fixed-root markers, so it is likely still in container/model startup. Fatal-error grep is
 still clean. The no-refresh throughput question is not answered yet.
+Follow-up 16:35 London no-refresh pilot scale-down: canceled the 3-trial no-refresh
+pilot jobs `102189` and `102190`. The constrained side removed the old 1600
+hypothesis-refresh bottleneck (`refresh=0`) but still stalled before the first
+StrategyEIG decision row: 9 control decisions only, 206 LLM usage events, 41 forced
+thinking exits, no metrics, and no fatal errors. The remaining bottleneck is rollout
+query generation for depth-3/depth-5 scoring. Added micro no-refresh configs with 2
+target candidates and 2 rollouts, then launched one constrained micro throughput pass as
+job `102192` (`loc_branch_constr26_micro_nr`, run
+`loc_branch_decoy_local_constrained_micro_norefresh_26b_a4b_t1r1`) using 1 paired trial,
+1 round, StrategyEIG depths 1/3/5, eval depths 1/3/5, and matched-compute myopic controls
+3/5. `102192` started on `oat21`; no jobs were on `oat12`.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor pilot jobs `102189,102190` with
-   `squeue -j 102189,102190 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm
-   they do not land on `oat12`.
-2. Once either pilot starts, watch whether it passes the first StrategyEIG decision block
-   and writes metrics. If the no-refresh pilot is fast enough, relaunch the MPP30 split
-   using the norefresh configs and the same Path A depths/controls; if it is still too
-   slow, cut further by candidate count before spending on a 30-trial package.
+1. Monitor micro pilot job `102192` with
+   `squeue -j 102192 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
+   off `oat12`.
+2. If `102192` completes and writes metrics, extract the full cost/time per one-trial
+   one-round fixed-root pass and use that to choose the next scale-up. If even `2`
+   candidates x `2` rollouts is too slow, stop spending on LLM rollout-query simulation
+   and switch to the hybrid/analytic-execution contingency instead of further GH200
+   retries.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
 4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
