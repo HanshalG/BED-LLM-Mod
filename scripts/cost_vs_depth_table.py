@@ -3,7 +3,14 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
 from typing import Any
+
+import yaml
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.llm_token_usage import summarize_llm_token_usage
 
@@ -169,15 +176,74 @@ def _brute_force_cost_proxy(data: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
-def row_from_path(input_path: Path) -> dict[str, Any]:
-    resolved = _resolve_input(input_path)
-    if resolved.suffix == ".log":
-        data: dict[str, Any] = {}
-        token_usage = summarize_llm_token_usage(resolved)
-    else:
-        data = _read_json(resolved)
-        token_usage = _token_usage_from_json(resolved, data)
+def _config_label(path: Path, data: dict[str, Any]) -> str:
+    run_name = data.get("run_name")
+    if isinstance(run_name, str) and run_name:
+        return run_name
+    return path.stem
 
+
+def _config_env(data: dict[str, Any]) -> dict[str, Any]:
+    env = data.get("environment")
+    return env if isinstance(env, dict) else {}
+
+
+def _read_yaml(path: Path) -> dict[str, Any]:
+    with path.open("r", encoding="utf-8") as handle:
+        data = yaml.safe_load(handle)
+    if not isinstance(data, dict):
+        raise ValueError(f"Expected YAML object in {path}")
+    return data
+
+
+def _planned_cost_data_from_config(path: Path, *, max_depth: int | None = None) -> dict[str, Any]:
+    data = _read_yaml(path)
+    env = _config_env(data)
+    configured_depth = _int(
+        env.get("strategy_planning_depth")
+        or data.get("location_strategy_planning_depth")
+        or data.get("strategy_planning_depth")
+    )
+    selected_max_depth = max_depth if max_depth is not None else configured_depth
+    if selected_max_depth <= 0:
+        raise ValueError(f"Could not infer a positive max depth from {path}")
+
+    num_trials = _int(env.get("num_trials") or data.get("location_num_trials"))
+    num_rounds = _int(env.get("num_rounds") or data.get("location_num_rounds"))
+    branching_factor = _int(
+        env.get("target_num_candidates")
+        or env.get("strategy_num_candidates")
+        or data.get("location_target_num_candidates")
+        or data.get("location_strategy_num_candidates")
+    )
+    rollouts = _int(env.get("strategy_num_rollouts") or data.get("location_strategy_num_rollouts"))
+    if num_trials <= 0 or num_rounds <= 0 or branching_factor <= 0 or rollouts <= 0:
+        raise ValueError(
+            "Config cost proxy requires positive num_trials, num_rounds, "
+            "target_num_candidates, and strategy_num_rollouts"
+        )
+
+    return {
+        "run_name": _config_label(path, data),
+        "config_path": str(path),
+        "max_depth": selected_max_depth,
+        "num_trials": num_trials,
+        "num_rounds": num_rounds,
+        "location_target_num_candidates": branching_factor,
+        "location_strategy_num_rollouts": rollouts,
+        "aggregate_by_strategy_depth": {},
+        "token_usage": _empty_token_usage(),
+    }
+
+
+def row_from_config(input_path: Path, *, max_depth: int | None = None) -> dict[str, Any]:
+    data = _planned_cost_data_from_config(input_path, max_depth=max_depth)
+    row = _row_from_data(input_path, data, _empty_token_usage())
+    row["method"] = "StrategyEIG planned fixed-root sweep"
+    return row
+
+
+def _row_from_data(path: Path, data: dict[str, Any], token_usage: dict[str, Any]) -> dict[str, Any]:
     total = token_usage.get("total", {})
     total_tokens = _int(total.get("total_tokens"))
     prompt_tokens = _int(total.get("prompt_tokens"))
@@ -188,8 +254,8 @@ def row_from_path(input_path: Path) -> dict[str, Any]:
     trial_rounds = None if num_trials is None or num_rounds is None else num_trials * num_rounds
 
     return {
-        "label": _infer_label(resolved, data),
-        "path": str(resolved),
+        "label": _infer_label(path, data),
+        "path": str(path),
         "method": _infer_method(data),
         "depth": _infer_depth(data),
         "num_trials": num_trials,
@@ -202,6 +268,18 @@ def row_from_path(input_path: Path) -> dict[str, Any]:
         "tokens_per_trial_round": _ratio(total_tokens, trial_rounds),
         "brute_force_cost_proxy": _brute_force_cost_proxy(data),
     }
+
+
+def row_from_path(input_path: Path) -> dict[str, Any]:
+    resolved = _resolve_input(input_path)
+    if resolved.suffix == ".log":
+        data: dict[str, Any] = {}
+        token_usage = summarize_llm_token_usage(resolved)
+    else:
+        data = _read_json(resolved)
+        token_usage = _token_usage_from_json(resolved, data)
+
+    return _row_from_data(resolved, data, token_usage)
 
 
 def _fmt(value: Any) -> str:
@@ -248,6 +326,11 @@ def markdown_table(rows: list[dict[str, Any]]) -> str:
         "Note: fixed-root depth sweeps report total run cost for the full depth set; "
         "use separate single-depth runs for strict per-depth wall-clock/token accounting."
     )
+    if any(str(row.get("method", "")).startswith("StrategyEIG planned") for row in rows):
+        lines.append(
+            "Planned config rows report algorithmic scaling only; token totals stay zero "
+            "until completed run logs are supplied."
+        )
     proxy_rows = [
         (row, proxy)
         for row in rows
@@ -303,13 +386,47 @@ def write_cost_table(paths: list[Path], output_dir: Path, run_name: str) -> tupl
     return json_path, md_path
 
 
+def write_planned_cost_table(
+    paths: list[Path],
+    output_dir: Path,
+    run_name: str,
+    *,
+    max_depth: int | None = None,
+) -> tuple[Path, Path]:
+    rows = [row_from_config(path, max_depth=max_depth) for path in paths]
+    output_dir.mkdir(parents=True, exist_ok=True)
+    json_path = output_dir / f"{run_name}_cost_vs_depth.json"
+    md_path = output_dir / f"{run_name}_cost_vs_depth.md"
+    json_path.write_text(json.dumps({"rows": rows}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    md_path.write_text(markdown_table(rows), encoding="utf-8")
+    return json_path, md_path
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build a BED-LLM token-cost table from run logs/summaries.")
     parser.add_argument("paths", nargs="+", type=Path, help="Run dirs, summary JSON files, or run.log files")
     parser.add_argument("--output-dir", type=Path, default=Path("results/cost_vs_depth"))
     parser.add_argument("--run-name", default="cost_vs_depth")
+    parser.add_argument(
+        "--from-config",
+        action="store_true",
+        help="Treat paths as YAML configs and emit planned cost proxies without token totals.",
+    )
+    parser.add_argument(
+        "--max-depth",
+        type=int,
+        help="Maximum depth for planned config cost proxies; defaults to config strategy_planning_depth.",
+    )
     args = parser.parse_args()
-    json_path, md_path = write_cost_table(args.paths, args.output_dir, args.run_name)
+    if args.from_config:
+        json_path, md_path = write_planned_cost_table(
+            args.paths,
+            args.output_dir,
+            args.run_name,
+            max_depth=args.max_depth,
+        )
+    else:
+        json_path, md_path = write_cost_table(args.paths, args.output_dir, args.run_name)
     print(f"Wrote {json_path}")
     print(f"Wrote {md_path}")
 

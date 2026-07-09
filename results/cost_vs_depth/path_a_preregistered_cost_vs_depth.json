@@ -1,0 +1,156 @@
+{
+  "rows": [
+    {
+      "brute_force_cost_proxy": [
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 1.0,
+          "brute_force_candidate_sets": 300,
+          "brute_force_leaf_sequences": 3000,
+          "deployed_decisions": 300,
+          "depth": 1,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 48000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 11.0,
+          "brute_force_candidate_sets": 3300,
+          "brute_force_leaf_sequences": 30000,
+          "deployed_decisions": 300,
+          "depth": 2,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 96000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 111.0,
+          "brute_force_candidate_sets": 33300,
+          "brute_force_leaf_sequences": 300000,
+          "deployed_decisions": 300,
+          "depth": 3,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 144000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 1111.0,
+          "brute_force_candidate_sets": 333300,
+          "brute_force_leaf_sequences": 3000000,
+          "deployed_decisions": 300,
+          "depth": 4,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 192000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 11111.0,
+          "brute_force_candidate_sets": 3333300,
+          "brute_force_leaf_sequences": 30000000,
+          "deployed_decisions": 300,
+          "depth": 5,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 240000
+        }
+      ],
+      "calls": 0,
+      "completion_tokens": 0,
+      "depth": "1..5",
+      "label": "config_location_branch_decoy_local_final50",
+      "method": "StrategyEIG planned fixed-root sweep",
+      "num_rounds": 6.0,
+      "num_trials": 50.0,
+      "path": "configs/config_location_branch_decoy_local_final50.yaml",
+      "prompt_tokens": 0,
+      "tokens_per_trial": 0.0,
+      "tokens_per_trial_round": 0.0,
+      "total_tokens": 0
+    },
+    {
+      "brute_force_cost_proxy": [
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 1.0,
+          "brute_force_candidate_sets": 300,
+          "brute_force_leaf_sequences": 3000,
+          "deployed_decisions": 300,
+          "depth": 1,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 48000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 11.0,
+          "brute_force_candidate_sets": 3300,
+          "brute_force_leaf_sequences": 30000,
+          "deployed_decisions": 300,
+          "depth": 2,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 96000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 111.0,
+          "brute_force_candidate_sets": 33300,
+          "brute_force_leaf_sequences": 300000,
+          "deployed_decisions": 300,
+          "depth": 3,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 144000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 1111.0,
+          "brute_force_candidate_sets": 333300,
+          "brute_force_leaf_sequences": 3000000,
+          "deployed_decisions": 300,
+          "depth": 4,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 192000
+        },
+        {
+          "branching_factor": 10,
+          "brute_force_candidate_set_ratio_vs_strategy": 11111.0,
+          "brute_force_candidate_sets": 3333300,
+          "brute_force_leaf_sequences": 30000000,
+          "deployed_decisions": 300,
+          "depth": 5,
+          "rollouts": 16,
+          "strategy_rollout_paths": 48000,
+          "strategy_root_sets": 300,
+          "strategy_simulated_steps": 240000
+        }
+      ],
+      "calls": 0,
+      "completion_tokens": 0,
+      "depth": "1..5",
+      "label": "config_location_branch_decoy_local_unconstrained_final50",
+      "method": "StrategyEIG planned fixed-root sweep",
+      "num_rounds": 6.0,
+      "num_trials": 50.0,
+      "path": "configs/config_location_branch_decoy_local_unconstrained_final50.yaml",
+      "prompt_tokens": 0,
+      "tokens_per_trial": 0.0,
+      "tokens_per_trial_round": 0.0,
+      "total_tokens": 0
+    }
+  ]
+}

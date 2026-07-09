@@ -1539,6 +1539,17 @@ package validation still fails as expected until Phase 4 outputs exist: missing 
 sweep report, headline plot, qualitative examples, and cost report.
 Follow-up 16:31 London verification: after the paper cost section and qualitative-package
 validator changes, the full local suite passes: `pytest tests/ -q` (`454 passed, 1 skipped`).
+Follow-up 16:46 London cost artifact closure: `scripts/cost_vs_depth_table.py` now supports
+`--from-config --max-depth` planned cost proxies, with direct `python scripts/...` execution
+working via the standard project-root bootstrap. Generated
+`results/cost_vs_depth/path_a_preregistered_cost_vs_depth.{json,md}` from the constrained
+and unconstrained final50 configs with `--max-depth 5`. Package validation now marks
+`cost_vs_depth` OK; remaining missing checks are Phase-4-derived depth sweep report,
+headline plot, and qualitative examples. Focused cost/package tests pass
+(`pytest tests/test_cost_vs_depth_table.py tests/test_validate_path_a_package.py -q`,
+`8 passed`).
+Follow-up 16:48 London verification: full local suite passes after the planned-cost
+artifact changes: `pytest tests/ -q` (`456 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
