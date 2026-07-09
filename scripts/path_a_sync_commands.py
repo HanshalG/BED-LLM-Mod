@@ -18,6 +18,8 @@ REQUIRED_SYNC_PATHS = (
     "results/constrained_oracle/REPORT.md",
     "results/constrained_oracle_robustness/branch_decoy_local_robustness_REPORT.md",
     "results/constrained_oracle_robustness/branch_decoy_local_robustness_summary.json",
+    "plots/constrained_oracle_robustness_smoke/smoke_robustness_heatmap.png",
+    "results/constrained_oracle_robustness_smoke/smoke_robustness_REPORT.md",
     "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.json",
     "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.md",
     "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png",

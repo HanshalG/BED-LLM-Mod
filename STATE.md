@@ -1843,18 +1843,32 @@ valid Path A package. Focused tests pass:
 `pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
 tests/test_path_a_preflight.py -q` (`11 passed`), and the full suite passes:
 `pytest tests/ -q` (`475 passed, 1 skipped`).
+Follow-up 16:25 London remote sync/readiness closure: synced the required Path A launch,
+package, paper, ledger, and banked-evidence files to the cluster checkout with
+`python scripts/path_a_sync_commands.py` / `rsync -avR`. The sync manifest now also
+includes the completed local-smoke robustness artifacts referenced by `EXPERIMENTS.md`,
+so remote ledger validation no longer fails on missing complete-row artifacts. Verified
+remote readiness from local reports `ok_to_launch: true`, zero active jobs, no missing
+files, one idle usable GH200 node (`oat21`, with `oat12` still excluded by launch
+commands), and no launch blockers. Verified remote preflight succeeds when run with the
+same Python user-site guard used by the GH200 launcher:
+`PYTHONNOUSERSITE=1 python3 scripts/path_a_preflight.py --json` (`ok: true`; only expected
+Phase 4 package artifacts are pending inside package validation). Focused tests pass:
+`pytest tests/test_path_a_sync_commands.py tests/test_path_a_remote_readiness.py
+tests/test_path_a_preflight.py -q` (`18 passed`), and the full suite passes:
+`pytest tests/ -q` (`475 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
-1. No active cluster jobs are currently running for this goal. Before relaunch, sync the
-   required Path A files with `python scripts/path_a_sync_commands.py`; current remote
-   readiness is false only because required scripts are not on the cluster checkout yet.
-2. If the user asks to relaunch, prefer the split MPP30 path: three 10-trial blocks per side
+1. Remote checkout is synced and launch-ready. If the user asks to relaunch, prefer the
+   split MPP30 path: three 10-trial blocks per side
    (`--trial-offset` 0, 10, 20 plus `--total-trials 30`), depths 1/3/5, myopic controls
    3/5, GH200 Singularity launcher. Generate the exact launch/combine/package commands
    with `python scripts/path_a_launch_commands.py --split-mpp30`.
-3. If relaunching on GH200, use the Singularity/container launchers only; do not use the
+2. If relaunching on GH200, use the Singularity/container launchers only; do not use the
    A100/conda ranking or 20-questions scripts on GH200.
+3. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
+   to avoid the broken user-site NumPy. The GH200 launchers already export this.
 
 ## OPERATIONAL KNOWLEDGE (repo memory — keep updated here, not in chat)
 
@@ -1876,4 +1890,4 @@ tests/test_path_a_preflight.py -q` (`11 passed`), and the full suite passes:
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 468 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 475 passed, 1 skipped).

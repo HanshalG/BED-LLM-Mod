@@ -93,6 +93,8 @@ def test_required_sync_paths_include_banked_package_evidence():
         "results/constrained_oracle/REPORT.md",
         "results/constrained_oracle_robustness/branch_decoy_local_robustness_REPORT.md",
         "plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png",
+        "results/constrained_oracle_robustness_smoke/smoke_robustness_REPORT.md",
+        "plots/constrained_oracle_robustness_smoke/smoke_robustness_heatmap.png",
         "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.md",
         "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png",
     ):
