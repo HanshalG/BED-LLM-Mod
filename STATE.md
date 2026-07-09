@@ -1895,6 +1895,15 @@ events, 20 naive selections, 11 candidate-generation markers, and no StrategyEIG
 yet. Forced thinking exits have started during candidate generation (`10` counted), but
 grep over 102177 Slurm/run logs still found no fatal errors/OOM/missing-file or invalid
 location messages.
+Follow-up 16:13 London split-MPP30 StrategyEIG entry check: `102177` remains running on
+`oat21` at about 11 minutes elapsed; `102178`--`102182` are still pending on `gh200` for
+`(Priority)`, and no job is on excluded `oat12`. The constrained b00 decisions file is
+still at 30 rows: `naive` 10, `naive+belief` 10, `EIG` 10, all at round 0; no metrics file
+yet. The run log has reached strategy proposal/mutation for StrategyEIG setup (`strategy`
+marker count 1), with 65 LLM usage events and 14 forced thinking exits. One strategy+root
+proposal attempt failed to parse after forced finalization and is retrying, but grep over
+102177 Slurm/run logs found no fatal `Traceback`, runtime/value/import error, OOM,
+missing-file, invalid-location, or exception messages.
 
 ## NEXT ACTIONS (in order)
 
