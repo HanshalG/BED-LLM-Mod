@@ -1519,6 +1519,26 @@ future fields and reports expected-posterior-RMSE-drop alignment when available.
 Config archive cleanup: **DONE locally** — numbered pilot/smoke configs were moved from
 top-level `configs/` into `configs/archive/numbered/`; live top-level configs are now the
 descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
+Follow-up 16:02 London queue check: user requested canceling the slow 13-hour GH200 jobs
+because others were waiting, but `squeue -u hanyal` returned no active or pending jobs;
+there was nothing left to cancel.
+Follow-up 16:12 London paper progress: filled the draft cost-vs-depth section with the
+pre-registered Path A per-decision scaling for `B=10` candidate roots and `R=16`
+rollouts (brute-force depth 5 proxy `11,111` candidate sets / `100,000` leaves vs
+StrategyEIG `800` simulated rollout steps per decision). `pdflatex`, `bibtex`, and two
+final `pdflatex` passes completed successfully; TeX build byproducts were removed.
+Follow-up 16:23 London package-validator hardening: `validate_path_a_package.py` now
+checks the fourth required figure family by requiring non-empty qualitative
+StrategyEIG examples and a trajectory PNG under `results/location_qualitative/`; it
+accepts a later valid report if another arm's qualitative report is empty. Updated the
+package-builder test fixture to include mini fixed-root decisions so qualitative
+extraction is validated end-to-end. Focused tests pass:
+`pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
+tests/test_extract_location_qualitative_examples.py -q` (`5 passed`). Current local
+package validation still fails as expected until Phase 4 outputs exist: missing depth
+sweep report, headline plot, qualitative examples, and cost report.
+Follow-up 16:31 London verification: after the paper cost section and qualitative-package
+validator changes, the full local suite passes: `pytest tests/ -q` (`454 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

@@ -63,6 +63,47 @@ def _check_headline_plot(root: Path) -> CheckResult:
     return CheckResult("headline_rmse_plot", True, str(path))
 
 
+def _check_qualitative_examples(root: Path) -> CheckResult:
+    report_paths = sorted(root.glob("results/location_qualitative/*_qualitative_examples.md"))
+    if not report_paths:
+        return CheckResult(
+            "qualitative_strategy_examples",
+            False,
+            "missing results/location_qualitative/*_qualitative_examples.md",
+        )
+    valid_report_path: Path | None = None
+    for report_path in report_paths:
+        text = _read_text(report_path)
+        if "No StrategyEIG examples were available." in text:
+            continue
+        if _contains_all(
+            text,
+            ["Qualitative Location Strategy Examples", "RMSE delta vs EIG", "Root query"],
+        ):
+            valid_report_path = report_path
+            break
+    if valid_report_path is None:
+        return CheckResult(
+            "qualitative_strategy_examples",
+            False,
+            "qualitative reports exist but contain no complete StrategyEIG examples",
+        )
+
+    plot_path = _first_existing_or_glob(
+        root,
+        ["results/location_qualitative/*_qualitative_example_*.png"],
+    )
+    if plot_path is None:
+        return CheckResult(
+            "qualitative_strategy_examples",
+            False,
+            "missing results/location_qualitative/*_qualitative_example_*.png",
+        )
+    if plot_path.stat().st_size <= 0:
+        return CheckResult("qualitative_strategy_examples", False, f"{plot_path} is empty")
+    return CheckResult("qualitative_strategy_examples", True, f"{valid_report_path}; {plot_path}")
+
+
 def validate_path_a_package(root: Path) -> list[CheckResult]:
     return [
         _check_report(
@@ -94,6 +135,7 @@ def validate_path_a_package(root: Path) -> list[CheckResult]:
             ],
         ),
         _check_headline_plot(root),
+        _check_qualitative_examples(root),
         _check_report(
             root,
             name="cost_vs_depth",
