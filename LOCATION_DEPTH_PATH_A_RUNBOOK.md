@@ -385,6 +385,9 @@ python scripts/compare_location_rollout_ablation.py \
   expected posterior RMSE, posterior entropy, and truth log posterior
   probability, including the `StrategyEIG-myopic-d3` and
   `StrategyEIG-myopic-d5` matched-compute controls.
+- `results/location_depth_sweeps/*_summary.json`: machine-readable
+  constrained/unconstrained comparison payload containing EIG, StrategyEIG
+  depths 1/3/5, and matched-compute myopic controls.
 - `plots/location_depth_sweeps/*_depth_contrast.png`: main contrast figure
   showing constrained and unconstrained paired deltas for RMSE and posterior
   entropy.

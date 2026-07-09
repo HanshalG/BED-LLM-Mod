@@ -1,9 +1,34 @@
+import json
+
 from scripts.validate_path_a_package import summary_payload, validate_path_a_package
 
 
 def _write(path, text="ok"):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
+
+
+def _write_depth_summary(root):
+    policies = {
+        label: {"final_rmse_mean": 0.5}
+        for label in (
+            "EIG",
+            "StrategyEIG-d1",
+            "StrategyEIG-d3",
+            "StrategyEIG-d5",
+            "StrategyEIG-myopic-d3",
+            "StrategyEIG-myopic-d5",
+        )
+    }
+    _write(
+        root / "results/location_depth_sweeps/demo_summary.json",
+        json.dumps(
+            {
+                "constrained": {"policies": policies},
+                "unconstrained": {"policies": {"EIG": {"final_rmse_mean": 0.6}}},
+            }
+        ),
+    )
 
 
 def test_validate_path_a_package_passes_complete_mpp(tmp_path):
@@ -37,6 +62,7 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
             ]
         ),
     )
+    _write_depth_summary(tmp_path)
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
@@ -72,6 +98,7 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         "constrained_oracle",
         "constrained_oracle_robustness_heatmap",
         "depth_sweep_headline_and_control",
+        "depth_sweep_summary",
         "depth_contrast_plot",
         "headline_rmse_plot",
         "paired_trial_delta_plot",
@@ -122,6 +149,7 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
             ]
         ),
     )
+    _write_depth_summary(tmp_path)
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
@@ -187,6 +215,7 @@ def test_validate_path_a_package_rejects_unconstrained_only_qualitative_examples
             ]
         ),
     )
+    _write_depth_summary(tmp_path)
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")

@@ -30,6 +30,7 @@ SPLIT_COMBINER = Path("scripts/combine_location_fixed_root_depth_sweeps.py")
 EXPECTED_PENDING_PACKAGE_CHECKS = frozenset(
     {
         "depth_sweep_headline_and_control",
+        "depth_sweep_summary",
         "depth_contrast_plot",
         "headline_rmse_plot",
         "paired_trial_delta_plot",

@@ -209,6 +209,10 @@ def test_build_path_a_package_creates_reports_plots_costs_and_validates(tmp_path
     ):
         assert Path(payload[key]).exists()
     assert (tmp_path / "results/location_depth_sweeps/demo_REPORT.md").exists()
+    summary = json.loads((tmp_path / "results/location_depth_sweeps/demo_summary.json").read_text(encoding="utf-8"))
+    assert "constrained" in summary
+    assert "unconstrained" in summary
+    assert "StrategyEIG-d3" in summary["constrained"]["policies"]
     assert (tmp_path / "plots/location_depth_sweeps/demo_depth_contrast.png").stat().st_size > 0
     assert (tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png").stat().st_size > 0
     assert (tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png").stat().st_size > 0

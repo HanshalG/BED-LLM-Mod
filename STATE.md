@@ -1818,6 +1818,17 @@ or missing required synced files. Focused tests pass:
 `pytest tests/test_path_a_remote_readiness.py tests/test_path_a_preflight.py
 tests/test_path_a_sync_commands.py -q` (`18 passed`), and the full suite passes:
 `pytest tests/ -q` (`473 passed, 1 skipped`).
+Follow-up 15:52 London depth-summary package gate: `validate_path_a_package.py` now
+requires `results/location_depth_sweeps/*_summary.json` in addition to the Markdown
+report and plots. The summary must include both constrained and unconstrained comparison
+payloads, and the constrained side must contain EIG, StrategyEIG depths 1/3/5, and
+matched-compute myopic controls 3/5. `path_a_preflight.py` treats this as an expected
+Phase 4-pending package item before sweep results land. The runbook and launch handoff
+evidence lists now name the summary JSON explicitly. Focused tests pass:
+`pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
+tests/test_path_a_preflight.py -q` (`9 passed`), `validate_path_a_package.py --json`
+now reports the missing summary as a Phase 4 artifact, and the full suite passes:
+`pytest tests/ -q` (`473 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
