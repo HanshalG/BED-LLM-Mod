@@ -67,14 +67,14 @@ Latest cluster state:
 - Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
   As of the latest health check, `102238` and `102239` are on `msc` / `oat11`, and
   `102240` is on `msc` / `oat14`. The run directories exist and each has a `run.log`.
-  At about 11 minutes elapsed, all three had loaded the model, completed vLLM
-  warmup/graph capture, finished the 10 initial-belief generations for their block,
-  completed round 1/6, and entered the next batched naive-query generation step
-  (`requesting 10 location(s)`). Decision files existed with 30 rows per split, and no
-  metrics existed yet. Each split had 41 `llm_token_usage` events, one forced thinking
-  exit, and zero traceback/runtime/OOM/killed/location-parse errors. Slurm/run logs showed
-  the jobs actively processing, so they were not stalled. Note for future checks: token
-  usage events are logged as lowercase `llm_token_usage`, not uppercase `LLM_USAGE`.
+  At about 12 minutes elapsed, all three were still allocated on `msc` and none were on
+  `oat12`. All three had completed round 1/6 and were still in the next batched
+  naive-query generation work. Metrics/reports did not exist yet. Decision rows were
+  `80` for block `b00`, `90` for block `b10`, and `80` for block `b20`. Token-event
+  counts were `54`, `51`, and `52`, respectively; forced thinking exits were `4`, `1`,
+  and `2`. There were zero traceback/runtime/OOM/killed/location-parse errors in all
+  three logs. Note for future checks: token usage events are logged as lowercase
+  `llm_token_usage`, not uppercase `LLM_USAGE`.
 - For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
   changes this again. Do not use GH200 unless explicitly requested again.
 
