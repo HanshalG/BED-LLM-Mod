@@ -17,23 +17,24 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 08:11 London after the user
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 08:12 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
-   partition checks through 08:11 London showed no user-owned GH200 jobs, so no `scancel`
+   partition checks through 08:12 London showed no user-owned GH200 jobs, so no `scancel`
    was needed.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
-   MPP30 job `102019` running on `oat21`. At 08:11 London, those four MSC jobs were the
+   MPP30 job `102019` running on `oat21`. At 08:12 London, those four MSC jobs were the
    only live jobs for this user. No final or recovered metrics files existed at the last
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
    stderr is non-erroring for all four jobs. Recent progress snapshots were `101996`
-   reached 106/256 in its current fresh block; `101998` reached 102/256 in its current
-   fresh block; `102018` reached 20/256 in the fresh block after its 28-prompt follow-up;
-   and `102019` reached 204/256 in its current fresh block.
+   reached 166/256 in its current fresh block; `101998` reached 168/256 in its current
+   fresh block; `102018` reached 97/256 in the fresh block after its 28-prompt follow-up;
+   and `102019` finished a 148-prompt follow-up, rendered another fresh 256-prompt block,
+   and started that block.
    None of the four decision logs advanced, and no metrics or recovered metrics files
-   exist yet. All four jobs remain live in `squeue`; the constrained MPP30 `run.log` and
+   exist yet. All four jobs remain live in `squeue`; the unconstrained MPP30 `run.log` and
    all four Slurm stderr files advanced during this poll.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
