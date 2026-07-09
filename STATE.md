@@ -17,7 +17,7 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 after canceling the
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 02:05 London after canceling the
    slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
    `101994` are canceled; remaining Path A jobs are optimized MSC jobs `101998`/`101996`
    running on `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and
@@ -40,8 +40,12 @@ mapped cells: planner − greedy final RMSE = -0.175 at lengthscale 0.5, radius 
 noise 0.15; many nearby cells are weak/near-zero, so frame this as a mapped
 planning-sensitive regime rather than a universal property of the location family.
 Positioning: `results/POSITIONING.md` (COPEx + IPP covered). Operational commands:
-`LOCATION_DEPTH_PATH_A_RUNBOOK.md` and `PHASE4_LAUNCH_HANDOFF.md`. The Phase 4 endpoint
-is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
+`LOCATION_DEPTH_PATH_A_RUNBOOK.md` and `PHASE4_LAUNCH_HANDOFF.md`; both now point the
+packaging command at the active MPP30 MSC run names first, with the optimized full50 MSC
+pair as the fallback if it finishes first. The Phase 4 endpoint is pre-registered in
+`LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed. `validate_path_a_package.py`
+currently passes the ranking-fidelity and oracle checks but fails the expected missing
+depth-sweep report, headline plot, and cost-vs-depth table until Phase 4 metrics exist.
 Paper env framing: **DONE for the current skeleton** — `paper/main.tex` now presents the
 task as a mobile-sensor, movement-cost, finite-range-sensing, branch-decoy environment;
 states that geometry selection was method-blind with respect to StrategyEIG; includes the

@@ -37,32 +37,31 @@ Current code state to protect before interpreting the final sweeps:
   `tests/test_location_fixed_root_depth_sweep.py`, and
   `tests/test_path_a_launch_commands.py`.
 
-Live Phase 4 cluster state as of 2026-07-08:
+Live Phase 4 cluster state as of 2026-07-09:
 
 | Job ID | Job name | Partition | State | Node | Run name | Notes |
 |---:|---|---|---|---|---|---|
 | 101778 | `loc_branch_constr26_f50` | `gh200` | canceled | `oat21` | `loc_branch_decoy_local_constrained_final50_26b_a4b` | Original full50 constrained job; canceled after 13h+ because it remained at 150 decisions with no metrics and was blocking GH200 capacity. |
 | 101779 | `loc_branch_uncon26_f50` | `gh200` | canceled | `oat22` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b` | Original full50 unconstrained job; canceled after 13h+ because it remained at 150 decisions with no metrics and was blocking GH200 capacity. |
-| 101993 | `loc_branch_constr26_f50_opt` | `gh200` | running | `oat21` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch; started after old GH200 originals were canceled. |
-| 101994 | `loc_branch_uncon26_f50_opt` | `gh200` | pending | - | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch, waiting on priority. |
-| 101998 | `loc_branch_constr26_f50_optm2` | `msc` | running | `oat15` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2` | Optimized full50 constrained MSC run; 150 decisions written, in first heavy StrategyEIG refresh block. |
-| 101996 | `loc_branch_uncon26_f50_optm` | `msc` | running | `oat14` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc` | Optimized full50 unconstrained MSC run; 150 decisions written, in first heavy StrategyEIG refresh block. |
-| 102018 | `loc_branch_constr26_mpp30` | `msc` | running | `oat16` | `loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; run dir not yet created at first post-start check. |
-| 102019 | `loc_branch_uncon26_mpp30` | `msc` | pending | - | `loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5. |
+| 101993 | `loc_branch_constr26_f50_opt` | `gh200` | canceled | `oat21` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch; canceled to free GH200 capacity after showing low-yield throughput. |
+| 101994 | `loc_branch_uncon26_f50_opt` | `gh200` | canceled | - | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch; canceled before running. |
+| 101998 | `loc_branch_constr26_f50_optm2` | `msc` | running | `oat15` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2` | Optimized full50 constrained MSC run; no metrics yet, active in vLLM generation. |
+| 101996 | `loc_branch_uncon26_f50_optm` | `msc` | running | `oat14` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc` | Optimized full50 unconstrained MSC run; no metrics yet, active in vLLM generation. |
+| 102018 | `loc_branch_constr26_mpp30` | `msc` | running | `oat16` | `loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; no metrics yet, active in vLLM generation. |
+| 102019 | `loc_branch_uncon26_mpp30` | `msc` | running | `oat21` | `loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; model loading/starting at latest check. |
 
-Wall-clock check as of 2026-07-08:
+Wall-clock check as of 2026-07-09:
 
 - Slurm time limits are not the immediate risk: running GH200 jobs report
   `TimeLimit=UNLIMITED`, running MSC jobs report `TimeLimit=365-00:00:00`,
   and pending GH200/MSC jobs report `TimeLimit=UNLIMITED`.
-- The immediate risk is throughput. All four running full50 jobs have written
-  only the 150 non-StrategyEIG control decisions and no metrics file. The old
-  GH200 jobs are inside depth-1 refresh blocks of about 71k hypothetical
-  source-support refreshes; the optimized MSC jobs are inside depth-1 refresh
-  blocks of about 8k refreshes.
-- The MPP30 fallback jobs are still priority-pending, and Slurm's projected
-  start times are not useful near-term guarantees. Do not count on them to land
-  before the running jobs advance.
+- The immediate risk is throughput. No active Phase 4 run has written a final
+  metrics file yet. The old GH200 jobs showed the worst throughput and were
+  canceled; the active MSC jobs are making progress through vLLM generation
+  batches, but completion time remains uncertain.
+- The MPP30 fallback jobs are now running on MSC. Treat the first completed
+  constrained/unconstrained pair as the canonical packaging input, preferring
+  MPP30 for workshop scope unless the full50 MSC pair finishes first.
 - On 2026-07-08, the old original GH200 jobs `101778`/`101779` were canceled
   after the user noted other people were waiting on those nodes. This does not
   remove them from the ledger; it makes them ineligible as canonical completed
@@ -231,12 +230,24 @@ When both finish, compare them:
 
 ```bash
 python scripts/build_path_a_package.py \
-  --constrained runs/loc_branch_decoy_local_constrained_final50_26b_a4b/fixed_root_depth_sweep_metrics.json \
-  --unconstrained runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b/fixed_root_depth_sweep_metrics.json \
+  --constrained runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
+  --unconstrained runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
   --output-dir results/location_depth_sweeps \
   --cost-dir results/cost_vs_depth \
   --plot-dir plots/location_depth_sweeps \
-  --run-name location_branch_decoy_depth_contrast_26b_a4b
+  --run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30
+```
+
+If the full50 optimized MSC pair finishes first, use:
+
+```bash
+python scripts/build_path_a_package.py \
+  --constrained runs/loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2/fixed_root_depth_sweep_metrics.json \
+  --unconstrained runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc/fixed_root_depth_sweep_metrics.json \
+  --output-dir results/location_depth_sweeps \
+  --cost-dir results/cost_vs_depth \
+  --plot-dir plots/location_depth_sweeps \
+  --run-name location_branch_decoy_depth_contrast_26b_a4b_full50_msc
 ```
 
 ## Pre-registered Analysis

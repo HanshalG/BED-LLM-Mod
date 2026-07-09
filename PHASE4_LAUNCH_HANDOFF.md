@@ -15,22 +15,21 @@ It is intentionally command-oriented and avoids extra experiment branches.
   - `results/location_depth_sweeps/*_REPORT.md`
   - `plots/location_depth_sweeps/*_headline_rmse.png`
   - `results/cost_vs_depth/*_cost_vs_depth.md`
-- Live cluster state as of 2026-07-09 01:55 London:
+- Live cluster state as of 2026-07-09 02:05 London:
   - Old GH200 originals `101778`/`101779`: canceled because they were alive but
     effectively too slow and occupying GH200 nodes.
-  - `101993` constrained full50 optimized GH200: running on `gh200` / `oat21`,
-    no metrics yet; inside first StrategyEIG depth-1 belief-refresh block.
-  - `101994` unconstrained full50 optimized GH200: pending on `gh200`.
+  - Optimized GH200 relaunches `101993`/`101994`: canceled to free GH200 capacity
+    after they showed the same low-yield throughput pattern.
   - `101998` constrained full50 optimized MSC: running on `msc` / `oat15`,
-    no metrics yet; inside first StrategyEIG depth-1 belief-refresh block.
+    no metrics yet; active in vLLM generation.
   - `101996` unconstrained full50 optimized MSC: running on `msc` / `oat14`,
-    no metrics yet; inside first StrategyEIG depth-1 belief-refresh block.
+    no metrics yet; active in vLLM generation.
   - `102018` constrained MPP30 fallback: running on `msc` / `oat16`, no metrics
-    yet; inside first StrategyEIG depth-1 belief-refresh block.
-  - `102019` unconstrained MPP30 fallback: pending on `msc`; run directory not
-    created yet.
-- Active/pending job count for the Path A sweep is 6. Do not launch more until
-  something finishes or the user explicitly asks to cancel/relaunch.
+    yet; active in vLLM generation.
+  - `102019` unconstrained MPP30 fallback: running on `msc` / `oat21`; model was
+    loading/starting at the latest check.
+- Active job count for the Path A sweep is 4. Do not launch more until something
+  finishes or the user explicitly asks to cancel/relaunch.
 
 ## Local Preflight
 
@@ -129,26 +128,41 @@ sbatch --partition=msc --exclude=oat10,oat12 --job-name=loc_branch_uncon26_mpp30
 ```bash
 squeue -u hanyal -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"
 
-tail -n 80 runs/loc_branch_decoy_local_constrained_final50_26b_a4b/run.log
-tail -n 80 runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b/run.log
+tail -n 80 runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/run.log
+tail -n 80 runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/run.log
 
 grep -E "Traceback|RuntimeError|ValueError|could not produce a valid location|OOM|Killed|CANCELLED|TIMEOUT" \
-  runs/loc_branch_decoy_local_constrained_final50_26b_a4b/run.log \
-  runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b/run.log
+  runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/run.log \
+  runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/run.log
 ```
 
 ## Build The Package
 
-After both sweep metrics files exist:
+Preferred packaging path: after both MPP30 fallback metrics files exist, build
+the minimum publishable package from the 30-trial paired constrained and
+unconstrained runs:
 
 ```bash
 python scripts/build_path_a_package.py \
-  --constrained runs/loc_branch_decoy_local_constrained_final50_26b_a4b/fixed_root_depth_sweep_metrics.json \
-  --unconstrained runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b/fixed_root_depth_sweep_metrics.json \
+  --constrained runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
+  --unconstrained runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
   --output-dir results/location_depth_sweeps \
   --cost-dir results/cost_vs_depth \
   --plot-dir plots/location_depth_sweeps \
-  --run-name location_branch_decoy_depth_contrast_26b_a4b
+  --run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30
+```
+
+If the full50 optimized MSC pair finishes first, package that larger run
+instead:
+
+```bash
+python scripts/build_path_a_package.py \
+  --constrained runs/loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2/fixed_root_depth_sweep_metrics.json \
+  --unconstrained runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc/fixed_root_depth_sweep_metrics.json \
+  --output-dir results/location_depth_sweeps \
+  --cost-dir results/cost_vs_depth \
+  --plot-dir plots/location_depth_sweeps \
+  --run-name location_branch_decoy_depth_contrast_26b_a4b_full50_msc
 ```
 
 Then audit:
