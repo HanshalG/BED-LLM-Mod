@@ -71,7 +71,11 @@ Status of the Minimum Publishable Package:
    found no final/recovered metrics and the same decision counts; all four jobs were live
    with fresh progress: `101996` at 14/256, `101998` at 147/256, `102018` at 123/192, and
    `102019` at 33/121 after completing its previous block. Error greps only found the
-   known pip dependency-resolver setup warning, not runtime tracebacks/OOMs/kills.
+   known pip dependency-resolver setup warning, not runtime tracebacks/OOMs/kills. The
+   09:08 London poll again found no final/recovered metrics and unchanged decision counts;
+   all four jobs were live with fresh progress: `101996` at 60/256, `101998` at 219/256,
+   `102018` at 161/192, and `102019` at 28/256. Runtime error counts for traceback,
+   runtime error, OOM, and kill signatures were zero for all four jobs.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
