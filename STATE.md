@@ -2049,16 +2049,23 @@ analytical EIG future rollout queries and added a regression test. Focused tests
 replacement `102207` (`loc_branch_constr26_anfs2_t3r6`, run
 `loc_branch_decoy_local_constrained_analytic_fixedsupport2_26b_a4b_t3r6`) on `gh200` with
 `--exclude=oat12`. Startup check showed `102207` pending for priority.
+Follow-up 17:46 London cluster-courtesy cancellation: the user noted the long GH200 pilot
+was alive but effectively too slow and should be canceled if it was not useful. Live
+`squeue` showed `102207` running on `gh200` / `oat21` at 7:44 elapsed. Canceled `102207`
+with `scancel` and confirmed `squeue -u hanyal` was empty afterward; there are no live
+user-owned jobs on `gh200`, `msc`, or other partitions. Slurm accounting is disabled, so
+there is no `sacct` state to record. Treat the fixed-support batched-analytic 3-trial
+6-round pilot as aborted for GH200 courtesy before final metrics.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor corrected fixed-support pilot job `102207` with
-   `squeue -j 102207 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
-   off `oat12`.
-2. If the fixed-support 3-trial/6-round pilot completes cleanly, extract calls/tokens/
-   forced exits and paired metrics. If cost and traces are acceptable, the next scale step
-   is a split constrained MPP30 relaunch, still one or two jobs at a time. If traces are
-   flat, keep the paper path on the ranking-fidelity/diagnostic fallback.
+1. Before relaunching anything, inspect the partial `102207` run logs/decision rows to
+   quantify why the corrected fixed-support batched-analytic path was still too slow
+   (LLM usage events, forced exits, decision count, strategy-location calls, and belief
+   refresh logs).
+2. Decide on a cheaper next experiment rather than another multi-round GH200 pilot:
+   either a smaller ranking-fidelity diagnostic, a non-LLM/analytic sanity check, or a
+   drastically reduced StrategyEIG run that can finish within a short wall-clock window.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
 4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`

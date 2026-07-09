@@ -28,6 +28,7 @@ LocationPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
 LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled", "truth_start_end", "fixed_common"]
 LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_step_support_sum"]
 LocationStrategyRolloutQueryMode = Literal["llm_strategy", "analytic_eig"]
+LocationCandidateGenerationMode = Literal["llm", "support_grid"]
 
 
 @dataclass(frozen=True)
@@ -117,6 +118,7 @@ class Config:
     location_max_llm_prompt_beliefs: int = 40
     location_num_generated_hypotheses: int = 0  # 0 = inherit from location_max_llm_prompt_beliefs
     location_belief_support_refresh_enabled: bool = True
+    location_candidate_generation_mode: LocationCandidateGenerationMode = "llm"
     location_target_num_candidates: int = 15
     location_search_depth: int = 2
     location_eig_quadrature_order: int = 15
@@ -152,6 +154,10 @@ class Config:
             self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
         if not isinstance(self.location_belief_support_refresh_enabled, bool):
             raise ValueError("location_belief_support_refresh_enabled must be a boolean")
+        if self.location_candidate_generation_mode not in {"llm", "support_grid"}:
+            raise ValueError(
+                "location_candidate_generation_mode must be one of: llm, support_grid"
+            )
         if self.location_source_prior not in {"normal", "branch_decoy"}:
             raise ValueError("location_source_prior must be one of: normal, branch_decoy")
         self.location_source_radius = float(self.location_source_radius)
@@ -482,6 +488,7 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "max_llm_prompt_beliefs": "location_max_llm_prompt_beliefs",
         "num_generated_hypotheses": "location_num_generated_hypotheses",
         "belief_support_refresh_enabled": "location_belief_support_refresh_enabled",
+        "candidate_generation_mode": "location_candidate_generation_mode",
         "target_num_candidates": "location_target_num_candidates",
         "search_depth": "location_search_depth",
         "eig_quadrature_order": "location_eig_quadrature_order",
@@ -695,6 +702,11 @@ def load_config(path: str) -> Config:
     )
     if not isinstance(location_belief_support_refresh_enabled, bool):
         raise ValueError("location_belief_support_refresh_enabled must be a boolean")
+    location_candidate_generation_mode = raw.get("location_candidate_generation_mode", "llm")
+    if location_candidate_generation_mode not in {"llm", "support_grid"}:
+        raise ValueError(
+            "location_candidate_generation_mode must be one of: llm, support_grid"
+        )
     location_target_num_candidates = _read_positive_int(raw, "location_target_num_candidates", 15)
     location_search_depth = raw.get("location_search_depth", 2)
     if not isinstance(location_search_depth, int) or isinstance(location_search_depth, bool):
@@ -860,6 +872,7 @@ def load_config(path: str) -> Config:
         location_max_llm_prompt_beliefs = location_max_llm_prompt_beliefs,
         location_num_generated_hypotheses = location_num_generated_hypotheses,
         location_belief_support_refresh_enabled = location_belief_support_refresh_enabled,
+        location_candidate_generation_mode = location_candidate_generation_mode,
         location_target_num_candidates = location_target_num_candidates,
         location_search_depth = location_search_depth,
         location_eig_quadrature_order = location_eig_quadrature_order,

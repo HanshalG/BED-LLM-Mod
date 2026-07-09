@@ -642,6 +642,38 @@ def test_candidate_generation_prompt_separates_queries_from_source_configs():
     assert "BoxingGym" not in system_prompt
 
 
+def test_support_grid_candidate_generation_uses_no_llm_and_respects_step_radius():
+    config = _location_config(
+        location_num_sources=1,
+        location_target_num_candidates=4,
+        location_candidate_generation_mode="support_grid",
+        location_max_step_radius=0.5,
+    )
+    belief_state = BeliefState(
+        [
+            normalize_source_config([[2.0, 0.0]], 1, 2),
+            normalize_source_config([[0.0, 1.0]], 1, 2),
+        ],
+        [0.8, 0.2],
+    )
+    history = [((0.0, 0.0), LocationObservation((0.0, 0.0), 0.2))]
+    model = FakeLocationModel([])
+
+    candidates = LocationBEDEnvironment(config).generate_candidate_actions_many(
+        [belief_state],
+        [history],
+        model,
+        config,
+    )[0]
+
+    assert len(candidates) == 4
+    assert model.calls == []
+    assert model.batched_calls == []
+    assert candidates[0] == pytest.approx((0.5, 0.0))
+    for candidate in candidates:
+        assert math.dist(candidate, history[-1][0]) <= 0.5 + 1e-9
+
+
 def test_parse_location_strategies_dedupes_json_wrapped_strategy_text():
     completion = """
     {"strategies": [

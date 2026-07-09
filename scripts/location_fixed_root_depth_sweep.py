@@ -1342,6 +1342,7 @@ def run_fixed_root_depth_sweep(
         "location_max_step_radius": config.location_max_step_radius,
         "location_strategy_num_rollouts": config.location_strategy_num_rollouts,
         "location_strategy_num_candidates": config.location_strategy_num_candidates,
+        "location_candidate_generation_mode": getattr(config, "location_candidate_generation_mode", "llm"),
         "location_strategy_discount_factor": config.location_strategy_discount_factor,
         "location_strategy_rollout_score_mode": config.location_strategy_rollout_score_mode,
         "location_strategy_rollout_scoring_support_mode": config.location_strategy_rollout_scoring_support_mode,

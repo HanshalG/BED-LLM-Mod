@@ -118,6 +118,7 @@ class LocationConfig:
     max_llm_prompt_beliefs: int = 40
     num_generated_hypotheses: int = 40
     belief_support_refresh_enabled: bool = True
+    candidate_generation_mode: str = "llm"
     target_num_candidates: int = 15
     search_depth: int = 2
     eig_quadrature_order: int = 15
@@ -236,6 +237,11 @@ def location_view(config: Any) -> LocationConfig:
             config,
             "location_belief_support_refresh_enabled",
             True,
+        ),
+        candidate_generation_mode=getattr(
+            config,
+            "location_candidate_generation_mode",
+            "llm",
         ),
         target_num_candidates=getattr(config, "location_target_num_candidates", 15),
         search_depth=getattr(config, "location_search_depth", 2),

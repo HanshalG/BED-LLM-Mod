@@ -131,6 +131,7 @@ environment:
   signal_amplitude: 8.0
   max_step_radius: 0.75
   belief_support_refresh_enabled: false
+  candidate_generation_mode: support_grid
   search_depth: 1
   eig_quadrature_order: 5
   eig_bounds_enabled: true
@@ -160,6 +161,7 @@ environment:
     assert config.location_signal_amplitude == pytest.approx(8.0)
     assert config.location_max_step_radius == pytest.approx(0.75)
     assert config.location_belief_support_refresh_enabled is False
+    assert config.location_candidate_generation_mode == "support_grid"
     assert config.location_search_depth == 1
     assert config.location_eig_bounds_enabled is True
     assert config.location_eig_bounds_inner_samples == 11
@@ -261,6 +263,7 @@ location_signal_amplitude: 8.0
 location_max_total_beliefs: 123
 location_max_llm_prompt_beliefs: 40
 location_belief_support_refresh_enabled: false
+location_candidate_generation_mode: support_grid
 location_target_num_candidates: 15
 location_search_depth: 2
 location_eig_quadrature_order: 9
@@ -296,6 +299,7 @@ location_strategy_rollout_query_mode: analytic_eig
     assert config.location_max_total_beliefs == 123
     assert config.location_max_llm_prompt_beliefs == 40
     assert config.location_belief_support_refresh_enabled is False
+    assert config.location_candidate_generation_mode == "support_grid"
     assert config.location_target_num_candidates == 15
     assert config.location_search_depth == 2
     assert config.location_eig_quadrature_order == 9
@@ -418,6 +422,7 @@ task: location_finding
         ("location_strategy_rollout_scoring_support_size: 0", "location_strategy_rollout_scoring_support_size"),
         ("location_strategy_rollout_score_mode: vibes", "location_strategy_rollout_score_mode"),
         ("location_strategy_rollout_query_mode: vibes", "location_strategy_rollout_query_mode"),
+        ("location_candidate_generation_mode: vibes", "location_candidate_generation_mode"),
         ("location_max_step_radius: 0", "location_max_step_radius"),
         ("location_max_step_radius: false", "location_max_step_radius"),
         ("location_source_prior: maze", "location_source_prior"),

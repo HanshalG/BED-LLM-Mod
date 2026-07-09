@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -31,6 +32,82 @@ def _completion_excerpt(completion: str, max_chars: int = 800) -> str:
         return cleaned
     half = max_chars // 2
     return f"{cleaned[:half]} ... {cleaned[-half:]}"
+
+
+def _dedupe_locations(locations: list[Location]) -> list[Location]:
+    seen: set[tuple[float, ...]] = set()
+    deduped: list[Location] = []
+    for location in locations:
+        key = _location_key(location)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(tuple(float(value) for value in location))
+    return deduped
+
+
+def generate_support_grid_location_candidates(
+    belief_state: BeliefState,
+    observations: list[LocationObservation],
+    config: Config,
+) -> list[Location]:
+    """Deterministically propose candidate queries from the posterior support.
+
+    This is a cheap alternative to LLM candidate generation for throughput
+    diagnostics: try high-probability source locations first, then fill with a
+    small local ring around the last query/top mode.  Movement constraints are
+    still enforced through the same projection helper used for LLM candidates.
+    """
+    target = int(config.location_target_num_candidates)
+    previous_query = last_query_from_observations(observations)
+    candidates: list[Location] = []
+
+    top_entries = belief_state.top_k(max(target, int(getattr(config, "location_strategy_belief_summary_top_k", 5))))
+    for hypothesis, _probability in top_entries:
+        source_array = np.asarray(hypothesis, dtype=float)
+        if source_array.ndim == 1:
+            source_array = source_array.reshape(1, -1)
+        for source in source_array:
+            candidates.append(tuple(float(value) for value in source[: config.location_dim]))
+
+    if previous_query is not None:
+        center = tuple(float(value) for value in previous_query)
+    elif candidates:
+        center = candidates[0]
+    else:
+        center = tuple(0.0 for _ in range(config.location_dim))
+
+    radius = getattr(config, "location_max_step_radius", None)
+    if radius is None:
+        radius = max(0.25, float(getattr(config, "location_source_radius", 1.0)) / 4.0)
+    radius = float(radius)
+    if config.location_dim == 2:
+        for angle in np.linspace(0.0, 2.0 * math.pi, num=max(8, target * 2), endpoint=False):
+            candidates.append(
+                (
+                    float(center[0] + radius * math.cos(float(angle))),
+                    float(center[1] + radius * math.sin(float(angle))),
+                )
+            )
+    else:
+        for axis in range(config.location_dim):
+            for sign in (-1.0, 1.0):
+                point = list(center)
+                point[axis] += sign * radius
+                candidates.append(tuple(float(value) for value in point))
+
+    projected = [
+        project_location_to_step_radius(candidate, previous_query, config)
+        for candidate in candidates
+        if not _is_repeated_location(candidate, observations)
+    ]
+    selected = _dedupe_locations(projected)[:target]
+    _log_location(
+        f"candidate generation: support_grid returned={len(selected)}, "
+        f"locations={_summarize_candidates(selected)}",
+        config,
+    )
+    return selected
 
 
 def generate_location_hypotheses(
@@ -138,6 +215,9 @@ def generate_location_candidates(
     observations: list[LocationObservation],
     config: Config,
 ) -> list[Location]:
+    if getattr(config, "location_candidate_generation_mode", "llm") == "support_grid":
+        return generate_support_grid_location_candidates(belief_state, observations, config)
+
     _log_location(
         f"candidate generation: requesting {config.location_target_num_candidates} location(s) "
         f"(observations={len(observations)}, beliefs={len(belief_state.hypotheses)})",
@@ -179,6 +259,15 @@ def generate_location_candidates_many(
         raise ValueError("belief_states and observations_many must have the same length")
     if not belief_states:
         return []
+    if getattr(config, "location_candidate_generation_mode", "llm") == "support_grid":
+        _log_location(
+            f"candidate generation: using support_grid for {len(belief_states)} trial(s)",
+            config,
+        )
+        return [
+            generate_support_grid_location_candidates(belief_state, observations, config)
+            for belief_state, observations in zip(belief_states, observations_many)
+        ]
     _log_location(
         f"candidate generation: requesting candidates for {len(belief_states)} trial(s) "
         f"as a cross-trial batch (block_size={config.batched_block_size})",
