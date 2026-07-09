@@ -27,6 +27,16 @@ FINAL_CONFIGS = (
 )
 FINAL_LAUNCHER = Path("scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh")
 SPLIT_COMBINER = Path("scripts/combine_location_fixed_root_depth_sweeps.py")
+EXPECTED_PENDING_PACKAGE_CHECKS = frozenset(
+    {
+        "depth_sweep_headline_and_control",
+        "depth_contrast_plot",
+        "headline_rmse_plot",
+        "paired_trial_delta_plot",
+        "truth_log_paired_trial_delta_plot",
+        "qualitative_strategy_examples",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -147,14 +157,37 @@ def _check_commands() -> PreflightCheck:
     )
 
 
+def _check_package_validation_state(package_payload: dict[str, Any]) -> PreflightCheck:
+    failed = [
+        str(check.get("name", ""))
+        for check in package_payload.get("checks", [])
+        if not check.get("ok")
+    ]
+    unexpected_failed = sorted(name for name in failed if name not in EXPECTED_PENDING_PACKAGE_CHECKS)
+    if unexpected_failed:
+        return PreflightCheck(
+            "package_banked_evidence",
+            False,
+            "unexpected package failures: " + ", ".join(unexpected_failed),
+        )
+    if not failed:
+        return PreflightCheck("package_banked_evidence", True, "complete package validates")
+    return PreflightCheck(
+        "package_banked_evidence",
+        True,
+        "banked evidence present; pending Phase 4 checks: " + ", ".join(sorted(failed)),
+    )
+
+
 def run_preflight(root: Path) -> dict[str, Any]:
+    package_payload = summary_payload(validate_path_a_package(root))
     checks = [
         _check_configs(root),
         _check_launcher(root),
         _check_split_tools(root),
         _check_commands(),
+        _check_package_validation_state(package_payload),
     ]
-    package_payload = summary_payload(validate_path_a_package(root))
     paper_payload = paper_summary_payload(validate_paper_draft(root / "paper"))
     ledger_payload = ledger_summary_payload(validate_experiments_ledger(root / "EXPERIMENTS.md", root=root))
     return {

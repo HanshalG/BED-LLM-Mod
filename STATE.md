@@ -1799,6 +1799,17 @@ tests/test_path_a_preflight.py -q` (`17 passed`), `python scripts/path_a_preflig
 --json` still reports `split-MPP30 dry-run commands are ready with oat12 excluded and
 package artifacts listed`, and the full suite passes: `pytest tests/ -q`
 (`472 passed, 1 skipped`).
+Follow-up 15:47 London preflight banked-package gate: `scripts/path_a_preflight.py`
+now includes a `package_banked_evidence` check. It allows the known Phase 4-derived
+package failures (depth report, depth-contrast/headline/paired plots, constrained
+qualitative examples), but fails preflight if any banked evidence check such as
+ranking fidelity, constrained oracle, robustness heatmap, or cost-vs-depth fails.
+This keeps preflight useful before Phase 4 while still protecting already-complete
+package evidence. Verified `python scripts/path_a_preflight.py --json` reports
+`banked evidence present; pending Phase 4 checks: ...`. Focused tests pass:
+`pytest tests/test_path_a_preflight.py tests/test_validate_path_a_package.py -q`
+(`8 passed`), and the full suite passes: `pytest tests/ -q`
+(`473 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

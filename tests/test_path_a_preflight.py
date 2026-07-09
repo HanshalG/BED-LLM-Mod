@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts.path_a_preflight import _check_configs, _check_split_tools, run_preflight
+from scripts.path_a_preflight import _check_configs, _check_package_validation_state, _check_split_tools, run_preflight
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +19,8 @@ def test_path_a_preflight_passes_local_launch_readiness_checks():
     assert "split-MPP30" in checks["launch_commands"]["detail"]
     assert "oat12 excluded" in checks["launch_commands"]["detail"]
     assert "package artifacts listed" in checks["launch_commands"]["detail"]
+    assert checks["package_banked_evidence"]["ok"] is True
+    assert "pending Phase 4 checks" in checks["package_banked_evidence"]["detail"]
     assert payload["paper_validation"]["ok"] is True
     assert any(
         check["name"] == "paper_page_count" and check["detail"] == "6 pages"
@@ -30,6 +32,22 @@ def test_path_a_preflight_passes_local_launch_readiness_checks():
         for check in payload["ledger_validation"]["checks"]
     )
     assert payload["package_validation"]["ok"] is False
+
+
+def test_path_a_preflight_rejects_unexpected_package_validation_failures():
+    check = _check_package_validation_state(
+        {
+            "ok": False,
+            "checks": [
+                {"name": "ranking_fidelity_gate", "ok": False, "detail": "missing report"},
+                {"name": "headline_rmse_plot", "ok": False, "detail": "missing Phase 4 plot"},
+            ],
+        }
+    )
+
+    assert check.ok is False
+    assert "ranking_fidelity_gate" in check.detail
+    assert "headline_rmse_plot" not in check.detail
 
 
 def test_path_a_preflight_reports_missing_configs(tmp_path):
