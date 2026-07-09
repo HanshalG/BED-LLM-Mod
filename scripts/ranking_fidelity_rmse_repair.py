@@ -73,6 +73,10 @@ def _depth_record_metrics(record: dict[str, Any], depth: str) -> dict[str, Any] 
         realized.get("truth_log_prob_mean", []),
         realized.get("rmse_drop_mean", []),
     )
+    expected_rmse_drop, rmse_for_expected = _clean_pair(
+        realized.get("expected_posterior_rmse_drop_mean", []),
+        realized.get("rmse_drop_mean", []),
+    )
     rmse_stds = [
         float(value)
         for value in realized.get("rmse_drop_std", [])
@@ -92,6 +96,7 @@ def _depth_record_metrics(record: dict[str, Any], depth: str) -> dict[str, Any] 
         "spearman_realized_entropy_vs_rmse_drop": _spearman(entropy, rmse),
         "pearson_realized_entropy_vs_rmse_drop": _pearson(entropy, rmse),
         "spearman_truth_log_prob_vs_rmse_drop": _spearman(truth, rmse_for_truth),
+        "spearman_expected_posterior_rmse_drop_vs_rmse_drop": _spearman(expected_rmse_drop, rmse_for_expected),
         "rmse_var_between_strategies": rmse_between,
         "rmse_var_within_strategy": rmse_within,
         "rmse_snr_between_over_within": rmse_snr,
@@ -121,6 +126,7 @@ def analyze_rmse_repair(records: list[dict[str, Any]]) -> dict[str, Any]:
             "spearman_realized_entropy_vs_rmse_drop",
             "pearson_realized_entropy_vs_rmse_drop",
             "spearman_truth_log_prob_vs_rmse_drop",
+            "spearman_expected_posterior_rmse_drop_vs_rmse_drop",
             "rmse_snr_between_over_within",
             "strategy_query_distance_ratio",
         ):
@@ -134,21 +140,32 @@ def analyze_rmse_repair(records: list[dict[str, Any]]) -> dict[str, Any]:
                 "se": _std_error(values),
                 "n": len(values),
             }
+    expected_values = [
+        float(item["spearman_expected_posterior_rmse_drop_vs_rmse_drop"])
+        for item in per_record
+        if item.get("spearman_expected_posterior_rmse_drop_vs_rmse_drop") is not None
+        and math.isfinite(float(item["spearman_expected_posterior_rmse_drop_vs_rmse_drop"]))
+    ]
+    expected_status = {
+        "status": "available" if expected_values else "unavailable_from_current_records",
+        "reason": (
+            "Future ranking-fidelity records include candidate-level expected posterior "
+            "RMSE drops and final posterior states, so expected posterior RMSE can be "
+            "analyzed directly."
+            if expected_values
+            else "The aggregate ranking-fidelity JSONL stores candidate-level realized "
+            "entropy drops, point-RMSE drops, truth-log-probability means, and "
+            "query-distance diagnostics, but it does not store final posterior "
+            "hypothesis supports/probabilities for each deployment. Expected "
+            "posterior RMSE cannot be recomputed exactly without those posterior states."
+        ),
+    }
     return {
         "num_records": len(records),
         "depths": depths,
         "by_depth": by_depth,
         "per_record": per_record,
-        "expected_posterior_rmse": {
-            "status": "unavailable_from_current_records",
-            "reason": (
-                "The aggregate ranking-fidelity JSONL stores candidate-level realized "
-                "entropy drops, point-RMSE drops, truth-log-probability means, and "
-                "query-distance diagnostics, but it does not store final posterior "
-                "hypothesis supports/probabilities for each deployment. Expected "
-                "posterior RMSE cannot be recomputed exactly without those posterior states."
-            ),
-        },
+        "expected_posterior_rmse": expected_status,
     }
 
 
@@ -161,13 +178,14 @@ def write_report(path: Path, analysis: dict[str, Any]) -> None:
         "",
         "## Realized-Realized Link",
         "",
-        "| Depth | entropy-drop vs RMSE-drop Spearman | truth-log-prob vs RMSE-drop Spearman | RMSE SNR | query distance ratio |",
-        "|---:|---:|---:|---:|---:|",
+        "| Depth | entropy-drop vs RMSE-drop Spearman | truth-log-prob vs RMSE-drop Spearman | expected-posterior-RMSE-drop vs RMSE-drop Spearman | RMSE SNR | query distance ratio |",
+        "|---:|---:|---:|---:|---:|---:|",
     ]
     for depth in analysis["depths"]:
         metrics = analysis["by_depth"][str(depth)]
         entropy = metrics["spearman_realized_entropy_vs_rmse_drop"]
         truth = metrics["spearman_truth_log_prob_vs_rmse_drop"]
+        expected = metrics["spearman_expected_posterior_rmse_drop_vs_rmse_drop"]
         snr = metrics["rmse_snr_between_over_within"]
         qdist = metrics["strategy_query_distance_ratio"]
         lines.append(
@@ -177,6 +195,7 @@ def write_report(path: Path, analysis: dict[str, Any]) -> None:
                     str(depth),
                     _format_mean_se(entropy),
                     _format_mean_se(truth),
+                    _format_mean_se(expected),
                     _format_mean_se(snr),
                     _format_mean_se(qdist),
                 ]
@@ -245,7 +264,7 @@ def append_report_section(path: Path, analysis_report_path: Path, analysis: dict
     lines.extend(
         [
             "",
-            "Expected posterior RMSE could not be recomputed from the current aggregate JSONL:",
+            f"Expected posterior RMSE status: `{analysis['expected_posterior_rmse']['status']}`.",
             analysis["expected_posterior_rmse"]["reason"],
             "",
         ]

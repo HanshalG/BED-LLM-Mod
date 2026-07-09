@@ -192,6 +192,39 @@ def _fixed_support_truth_log_probability(
     return math.log(1e-300)
 
 
+def _posterior_expected_rmse(belief_state: BeliefState[SourceConfig], hidden_state: np.ndarray) -> float | None:
+    if not belief_state.hypotheses:
+        return None
+    total = 0.0
+    has_mass = False
+    for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities):
+        probability_float = float(probability)
+        if probability_float <= 0.0 or not math.isfinite(probability_float):
+            continue
+        total += probability_float * source_rmse(hypothesis, hidden_state)
+        has_mass = True
+    return float(total) if has_mass else None
+
+
+def _posterior_state_record(
+    belief_state: BeliefState[SourceConfig],
+    hidden_state: np.ndarray,
+    *,
+    candidate_index: int,
+    replicate_index: int,
+) -> dict[str, Any]:
+    return {
+        "candidate_index": int(candidate_index),
+        "replicate_index": int(replicate_index),
+        "expected_rmse": _posterior_expected_rmse(belief_state, hidden_state),
+        "hypotheses": [
+            [[float(value) for value in source] for source in hypothesis]
+            for hypothesis in belief_state.hypotheses
+        ],
+        "probabilities": [float(probability) for probability in belief_state.probabilities],
+    }
+
+
 def _trajectory_distance(first: list[Location], second: list[Location]) -> float:
     max_len = max(len(first), len(second))
     if max_len == 0:
@@ -349,6 +382,7 @@ def _deploy_candidates_for_depth(
     fixed_support = _dedupe_source_configs(list(probe.belief_state.hypotheses) + [truth])
     start_observations = [observation for _action, observation in probe.history]
     start_rmse = _best_rmse(probe.belief_state, probe.hidden_state)
+    start_expected_posterior_rmse = _posterior_expected_rmse(probe.belief_state, probe.hidden_state)
     branches: list[_DeploymentBranch] = []
     for candidate_index, candidate in enumerate(candidates):
         if candidate.root_query is None:
@@ -413,6 +447,9 @@ def _deploy_candidates_for_depth(
     entropy_drops: list[list[float]] = [[] for _candidate in candidates]
     rmse_drops: list[list[float]] = [[] for _candidate in candidates]
     truth_log_probs: list[list[float]] = [[] for _candidate in candidates]
+    expected_posterior_rmses: list[list[float]] = [[] for _candidate in candidates]
+    expected_posterior_rmse_drops: list[list[float]] = [[] for _candidate in candidates]
+    final_posterior_states: list[list[dict[str, Any]]] = [[] for _candidate in candidates]
     for branch in branches:
         end_observations = [observation for _action, observation in branch.history]
         entropy_drops[branch.candidate_index].append(
@@ -422,9 +459,25 @@ def _deploy_candidates_for_depth(
         truth_log_probs[branch.candidate_index].append(
             _fixed_support_truth_log_probability(fixed_support, end_observations, truth, config)
         )
+        posterior_expected_rmse = _posterior_expected_rmse(branch.belief_state, probe.hidden_state)
+        if posterior_expected_rmse is not None:
+            expected_posterior_rmses[branch.candidate_index].append(posterior_expected_rmse)
+            if start_expected_posterior_rmse is not None:
+                expected_posterior_rmse_drops[branch.candidate_index].append(
+                    start_expected_posterior_rmse - posterior_expected_rmse
+                )
+        final_posterior_states[branch.candidate_index].append(
+            _posterior_state_record(
+                branch.belief_state,
+                probe.hidden_state,
+                candidate_index=branch.candidate_index,
+                replicate_index=branch.replicate_index,
+            )
+        )
 
     return {
         "fixed_support_size": len(fixed_support),
+        "start_expected_posterior_rmse": start_expected_posterior_rmse,
         "strategy_execution_fidelity": _strategy_execution_fidelity(branches),
         "entropy_drop_mean": [
             float(np.mean(values)) if values else None
@@ -450,6 +503,23 @@ def _deploy_candidates_for_depth(
             float(np.std(values, ddof=1)) if len(values) > 1 else 0.0 if values else None
             for values in truth_log_probs
         ],
+        "expected_posterior_rmse_mean": [
+            float(np.mean(values)) if values else None
+            for values in expected_posterior_rmses
+        ],
+        "expected_posterior_rmse_std": [
+            float(np.std(values, ddof=1)) if len(values) > 1 else 0.0 if values else None
+            for values in expected_posterior_rmses
+        ],
+        "expected_posterior_rmse_drop_mean": [
+            float(np.mean(values)) if values else None
+            for values in expected_posterior_rmse_drops
+        ],
+        "expected_posterior_rmse_drop_std": [
+            float(np.std(values, ddof=1)) if len(values) > 1 else 0.0 if values else None
+            for values in expected_posterior_rmse_drops
+        ],
+        "final_posterior_states": final_posterior_states,
         "deployments_per_candidate": [
             len(values)
             for values in entropy_drops

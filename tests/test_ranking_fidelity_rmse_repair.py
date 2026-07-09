@@ -34,6 +34,17 @@ def test_analyze_rmse_repair_computes_realized_realized_link():
     assert analysis["expected_posterior_rmse"]["status"] == "unavailable_from_current_records"
 
 
+def test_analyze_rmse_repair_uses_future_expected_posterior_rmse_drop_records():
+    record = _record()
+    record["realized_by_depth"]["2"]["expected_posterior_rmse_drop_mean"] = [0.1, 0.2, 0.3]
+
+    analysis = analyze_rmse_repair([record])
+
+    depth = analysis["by_depth"]["2"]
+    assert analysis["expected_posterior_rmse"]["status"] == "available"
+    assert depth["spearman_expected_posterior_rmse_drop_vs_rmse_drop"]["mean"] == pytest.approx(1.0)
+
+
 def test_rmse_repair_report_and_append_section_are_written(tmp_path):
     analysis = analyze_rmse_repair([_record()])
     report_path = tmp_path / "RMSE_REPAIR.md"

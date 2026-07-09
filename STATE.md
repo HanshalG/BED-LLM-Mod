@@ -49,17 +49,17 @@ RMSE repair analysis: **DONE for current records** —
 gains are only weakly rank-aligned with realized point-RMSE gains; expected posterior RMSE
 cannot be recovered exactly from the current aggregate records because final posterior
 supports/probabilities were not logged.
+Posterior-state logging for future ranking-fidelity runs: **DONE in code** —
+`scripts/strategy_ranking_fidelity.py` now records start expected posterior RMSE,
+candidate-level expected posterior RMSE means/drops, and per-deployment final posterior
+hypothesis supports/probabilities. `scripts/ranking_fidelity_rmse_repair.py` detects these
+future fields and reports expected-posterior-RMSE-drop alignment when available.
 
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Add posterior-state logging for future ranking-fidelity repair runs.** Existing 26B
-   aggregate records do not store final posterior supports/probabilities, so expected
-   posterior RMSE could not be recomputed from the current JSONL. If any follow-up
-   ranking-fidelity run is launched, log deployment final posterior states or expected
-   posterior RMSE directly.
-2. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
+1. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
    Path A artifact into `configs/archive/`; live configs must be findable at a glance.
-3. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
+2. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
    analysis strictly per the pre-registered section, then results into the skeleton
    following the OUTCOME PLAYBOOK row in GOAL.md that applies.
 

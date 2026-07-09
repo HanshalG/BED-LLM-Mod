@@ -12,6 +12,8 @@ from scripts.strategy_ranking_fidelity import (
     _diagnostic_num_rounds,
     _generate_probe_states,
     _gate_assessment,
+    _posterior_expected_rmse,
+    _posterior_state_record,
     _state_depth_metrics,
     _write_report,
 )
@@ -223,6 +225,29 @@ def test_baseline_score_variant_restores_legacy_refresh_settings():
     assert configured.location_strategy_rollout_scoring_support_mode == "fixed_common"
     assert configured.location_strategy_rollout_final_refresh_enabled is False
     assert configured.location_strategy_rollout_refresh_hypotheses_each_step is True
+
+
+def test_posterior_state_record_includes_expected_rmse_and_support():
+    belief = BeliefState(
+        hypotheses=[((0.0, 0.0),), ((2.0, 0.0),)],
+        probabilities=[0.25, 0.75],
+    )
+    hidden_state = np.asarray([[1.0, 0.0]], dtype=float)
+
+    expected = _posterior_expected_rmse(belief, hidden_state)
+    record = _posterior_state_record(
+        belief,
+        hidden_state,
+        candidate_index=3,
+        replicate_index=4,
+    )
+
+    assert expected == pytest.approx(np.sqrt(0.5))
+    assert record["expected_rmse"] == pytest.approx(np.sqrt(0.5))
+    assert record["candidate_index"] == 3
+    assert record["replicate_index"] == 4
+    assert record["hypotheses"] == [[[0.0, 0.0]], [[2.0, 0.0]]]
+    assert record["probabilities"] == [0.25, 0.75]
 
 
 def test_diagnostic_num_rounds_leaves_horizon_after_latest_probe_state():
