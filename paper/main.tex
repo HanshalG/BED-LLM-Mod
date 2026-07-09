@@ -281,17 +281,27 @@ trial where greedy stalls near a decoy branch and StrategyEIG routes past it.}
 
 \section{Limitations}
 
-The current study is workshop-scale. It uses one constrained environment
-family, one headline model family, and a limited number of paired trials. The
-environment is constructed, not a claim that all source-localization problems
-reward lookahead. We mitigate this by selecting the geometry using only
-method-blind non-LLM oracle policies and by reporting the robustness heatmap in
-Figure~\ref{fig:env-robustness}, which shows that many nearby geometries remain
-greedy-friendly. The thinking-enabled 26B A4B runs have nontrivial
-forced-thinking-exit rates, which must be reported with token usage. We do not
-include an MPC-style direct action-sequence ablation in the minimum package; it
-remains important future work for separating the value of natural-language
-strategies from direct action planning.
+This is a workshop-scale study. The final sweep uses one constrained
+environment family, one headline model family, and a limited number of paired
+trials, so any positive result should be read as evidence that the StrategyEIG
+scaffold can exploit a mapped planning-sensitive regime, not as a universal
+claim about source localization. The environment is deliberately constructed:
+finite-range sensing, movement constraints, and branch-decoy priors create a
+setting where a non-LLM oracle planner beats greedy EIG. We reduce selection
+bias by choosing the geometry using only method-blind non-LLM oracle policies
+and by reporting the robustness heatmap in Figure~\ref{fig:env-robustness},
+which shows that many nearby geometries remain greedy-friendly.
+
+The language-model runs also carry systems-level caveats. Thinking-enabled
+26B A4B inference has nontrivial forced-thinking-exit rates; final claims must
+therefore report token usage and forced-exit counts alongside accuracy metrics.
+Because the ranking-fidelity diagnostic finds truth-anchored information
+metrics easier to rank than point RMSE, the paper treats RMSE as a secondary,
+noisier localization readout rather than the sole arbiter of planning quality.
+Finally, the minimum package does not include an MPC-style direct
+action-sequence ablation. That ablation remains important future work for
+separating the value of natural-language strategy abstraction from direct
+LLM-generated action planning at matched compute.
 
 \section{Conclusion}
 

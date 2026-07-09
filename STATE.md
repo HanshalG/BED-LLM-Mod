@@ -17,14 +17,15 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING/PENDING** — checked 2026-07-09 01:55 London. Six
-   active Path A jobs remain after canceling the old too-slow GH200 originals
-   `101778`/`101779`: optimized GH200 job `101993` is running on `oat21`, optimized
-   GH200 job `101994` is pending, optimized MSC jobs `101998`/`101996` are running on
-   `oat15`/`oat14`, constrained MPP30 job `102018` is running on `oat16`, and
-   unconstrained MPP30 job `102019` is pending. No final metrics files exist yet; all
-   running Path A sweep jobs are still inside the first StrategyEIG depth-1
-   belief-refresh block.
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 after canceling the
+   slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
+   `101994` are canceled; remaining Path A jobs are optimized MSC jobs `101998`/`101996`
+   running on `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and
+   unconstrained MPP30 job `102019` running on `oat21`. No final metrics files existed
+   at the last check. Slurm logs show the older MSC jobs are alive in vLLM generation
+   batches rather than crashed; recent progress snapshots were roughly `101998` 171/256
+   and `102018` 206/256 in their current batch, while `101996` had just started another
+   256-prompt batch and `102019` was loading/starting.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
@@ -53,6 +54,12 @@ Paper method/protocol section: **DONE for the current skeleton** — `paper/main
 now describes strategy/root generation, analytical rollout scoring, fixed-common paired
 scoring controls, the ranking-fidelity deployment diagnostic, and the pre-registered
 paired depth-sweep endpoints/myopic controls.
+Paper limitations section: **DONE for the current skeleton** — `paper/main.tex` now
+covers workshop-scale trial counts, one constrained environment family, constructed
+method-blind geometry with robustness heatmap scope evidence, forced-thinking-exit/token
+reporting, RMSE as a noisy secondary endpoint, and the missing MPC/action-sequence
+ablation as future work. The paper compiled to 5 pages with `pdflatex` twice after this
+edit; generated PDF/auxiliary files were removed from the worktree.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
