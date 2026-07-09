@@ -93,7 +93,7 @@ cd /users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z
 
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=gh200 --job-name=loc_branch_constr26_f50 \
+sbatch --partition=gh200 --exclude=oat12 --job-name=loc_branch_constr26_f50 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_final50_26b_a4b.yaml \
   --run-name loc_branch_decoy_local_constrained_final50_26b_a4b \
@@ -102,7 +102,7 @@ sbatch --partition=gh200 --job-name=loc_branch_constr26_f50 \
 
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=gh200 --job-name=loc_branch_uncon26_f50 \
+sbatch --partition=gh200 --exclude=oat12 --job-name=loc_branch_uncon26_f50 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml \
   --run-name loc_branch_decoy_local_unconstrained_final50_26b_a4b \
@@ -133,7 +133,7 @@ The equivalent explicit shape for each constrained/unconstrained pair is:
 ```bash
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=gh200 --job-name=loc_branch_constr26_f50_b00 \
+sbatch --partition=gh200 --exclude=oat12 --job-name=loc_branch_constr26_f50_b00 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_final50_26b_a4b.yaml \
   --run-name loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10 \
@@ -143,7 +143,7 @@ sbatch --partition=gh200 --job-name=loc_branch_constr26_f50_b00 \
 
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=gh200 --job-name=loc_branch_uncon26_f50_b00 \
+sbatch --partition=gh200 --exclude=oat12 --job-name=loc_branch_uncon26_f50_b00 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml \
   --run-name loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b00_10 \

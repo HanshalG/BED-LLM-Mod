@@ -58,6 +58,7 @@ def build_path_a_commands(
     num_trials: int | None = None,
     trial_offset: int | None = None,
     total_trials: int | None = None,
+    exclude_nodes: str | None = "oat12",
 ) -> PathACommands:
     launcher = "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh"
     if run_suffix:
@@ -84,11 +85,16 @@ def build_path_a_commands(
         depth_args.extend(["--trial-offset", str(trial_offset)])
     if total_trials is not None:
         depth_args.extend(["--total-trials", str(total_trials)])
+    sbatch_options = [
+        "sbatch",
+        f"--partition={partition}",
+    ]
+    if exclude_nodes:
+        sbatch_options.append(f"--exclude={exclude_nodes}")
 
     constrained_sbatch = env_prefix + " " + " ".join(
-        [
-            "sbatch",
-            f"--partition={partition}",
+        sbatch_options
+        + [
             f"--job-name={constrained_job_name}",
             launcher,
             constrained_config,
@@ -101,9 +107,8 @@ def build_path_a_commands(
         + depth_args
     )
     unconstrained_sbatch = env_prefix + " " + " ".join(
-        [
-            "sbatch",
-            f"--partition={partition}",
+        sbatch_options
+        + [
             f"--job-name={unconstrained_job_name}",
             launcher,
             unconstrained_config,
@@ -194,6 +199,7 @@ def build_split_mpp30_commands(
     myopic_control_depths: str = "3,5",
     vllm_kwargs: str = '{"max_num_seqs":100,"enforce_eager":false}',
     log_reasoning_traces: bool = True,
+    exclude_nodes: str | None = "oat12",
 ) -> PathASplitCommands:
     if not offsets:
         raise ValueError("offsets must contain at least one trial offset")
@@ -221,6 +227,7 @@ def build_split_mpp30_commands(
             num_trials=block_trials,
             trial_offset=offset,
             total_trials=total_trials,
+            exclude_nodes=exclude_nodes,
         )
         sbatch_commands.extend([commands.constrained_sbatch, commands.unconstrained_sbatch])
         constrained_block_runs.append(_run_name(constrained_run_name, suffix))
@@ -299,6 +306,11 @@ def main() -> None:
     parser.add_argument("--total-trials", type=int, help="Total intended paired trial count for RNG replay")
     parser.add_argument("--offsets", default="0,10,20", help="Comma-separated offsets for --split-mpp30")
     parser.add_argument("--block-trials", type=int, default=10, help="Trials per split-MPP30 block")
+    parser.add_argument(
+        "--exclude-nodes",
+        default="oat12",
+        help="Comma-separated Slurm node exclusion list for sbatch commands; pass an empty string to disable.",
+    )
     args = parser.parse_args()
 
     if args.split_mpp30:
@@ -321,6 +333,7 @@ def main() -> None:
             strategy_depths=args.strategy_depths or "1,3,5",
             eval_depths=args.eval_depths or "1,3,5",
             myopic_control_depths=args.myopic_control_depths or "3,5",
+            exclude_nodes=args.exclude_nodes or None,
         )
         print("# Submit after syncing this code to the cluster checkout:")
         for command in split_commands.sbatch_commands:
@@ -358,6 +371,7 @@ def main() -> None:
         num_trials=args.num_trials,
         trial_offset=args.trial_offset,
         total_trials=args.total_trials,
+        exclude_nodes=args.exclude_nodes or None,
     )
     print("# Submit after syncing this code to the cluster checkout:")
     print(commands.constrained_sbatch)

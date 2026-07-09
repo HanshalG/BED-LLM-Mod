@@ -20,7 +20,9 @@ export BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}'
 export BED_LLM_LOG_REASONING_TRACES=1
 ```
 
-Add `--exclude=oat12` to `sbatch` commands when that node should be avoided.
+The Path A launch helper adds `--exclude=oat12` by default, matching the current
+cluster hygiene note. Override with `--exclude-nodes ""` only if that node is
+explicitly cleared for use.
 
 ## Reproducibility Snapshot
 
@@ -84,7 +86,7 @@ environment mismatch. The GH200 path runs inside the vLLM container.
 
 ```bash
 for off in 0 4 8 12 16; do
-  sbatch --partition=gh200 --job-name="rankfid26b_a4b_v2ghs_o${off}" \
+  sbatch --partition=gh200 --exclude=oat12 --job-name="rankfid26b_a4b_v2ghs_o${off}" \
     scripts/run_strategy_ranking_fidelity_gh200_singularity.sh \
     configs/config_strategy_ranking_fidelity_26b_a4b.yaml \
     --run-name "rankfid26b_a4b_gate_v2ghs_configured_t20_m8_o${off}" \
@@ -223,7 +225,7 @@ is ample idle capacity:
 ```bash
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=gh200 --job-name=loc_branch_constr26_f50 \
+sbatch --partition=gh200 --exclude=oat12 --job-name=loc_branch_constr26_f50 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_final50_26b_a4b.yaml \
   --run-name loc_branch_decoy_local_constrained_final50_26b_a4b \
@@ -232,7 +234,7 @@ sbatch --partition=gh200 --job-name=loc_branch_constr26_f50 \
 
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=gh200 --job-name=loc_branch_uncon26_f50 \
+sbatch --partition=gh200 --exclude=oat12 --job-name=loc_branch_uncon26_f50 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml \
   --run-name loc_branch_decoy_local_unconstrained_final50_26b_a4b \

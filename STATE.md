@@ -1746,6 +1746,17 @@ full expected artifact list. Focused tests pass:
 `pytest tests/test_path_a_launch_commands.py tests/test_path_a_preflight.py
 tests/test_validate_path_a_package.py -q` (`14 passed`), and the full suite passes:
 `pytest tests/ -q` (`468 passed, 1 skipped`).
+Follow-up 15:37 London node-exclusion launch hardening: `scripts/path_a_launch_commands.py`
+now includes `--exclude=oat12` by default in all generated Path A `sbatch`
+commands, matching the operational note to avoid that node. The helper exposes
+`exclude_nodes` and the CLI exposes `--exclude-nodes`, so the exclusion can be
+changed or disabled explicitly if the cluster state changes. The runbook and Phase 4
+handoff explicit command examples now show `--exclude=oat12`. Verified
+`python scripts/path_a_launch_commands.py --split-mpp30` prints all six split
+commands with the exclusion. Focused tests pass:
+`pytest tests/test_path_a_launch_commands.py tests/test_path_a_preflight.py -q`
+(`11 passed`), and the full suite passes: `pytest tests/ -q`
+(`469 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

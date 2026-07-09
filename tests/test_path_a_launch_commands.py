@@ -9,12 +9,14 @@ def test_path_a_launch_commands_use_gh200_singularity_and_package_builder():
         "BED_LLM_LOG_REASONING_TRACES=1 sbatch"
     )
     assert "--partition=gh200" in commands.constrained_sbatch
+    assert "--exclude=oat12" in commands.constrained_sbatch
     assert "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh" in commands.constrained_sbatch
     assert "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml" in commands.constrained_sbatch
     assert "--include-myopic-controls" in commands.constrained_sbatch
     assert "--max-depth 5" in commands.constrained_sbatch
 
     assert "--partition=gh200" in commands.unconstrained_sbatch
+    assert "--exclude=oat12" in commands.unconstrained_sbatch
     assert "BED_LLM_LOG_REASONING_TRACES=1 sbatch" in commands.unconstrained_sbatch
     assert (
         "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml"
@@ -43,10 +45,18 @@ def test_path_a_launch_commands_use_gh200_singularity_and_package_builder():
 
 
 def test_path_a_launch_commands_allow_partition_override():
-    commands = build_path_a_commands(partition="msc", max_depth=3)
+    commands = build_path_a_commands(partition="msc", max_depth=3, exclude_nodes="oat19")
 
     assert "--partition=msc" in commands.constrained_sbatch
+    assert "--exclude=oat19" in commands.constrained_sbatch
     assert "--max-depth 3" in commands.constrained_sbatch
+
+
+def test_path_a_launch_commands_can_disable_node_exclusion():
+    commands = build_path_a_commands(exclude_nodes=None)
+
+    assert "--exclude=" not in commands.constrained_sbatch
+    assert "--exclude=" not in commands.unconstrained_sbatch
 
 
 def test_path_a_launch_commands_can_disable_trace_env():
@@ -115,6 +125,7 @@ def test_split_mpp30_commands_print_all_blocks_combines_and_package():
         assert len(unconstrained) == 1
         for command in (constrained[0], unconstrained[0]):
             assert "--partition=gh200" in command
+            assert "--exclude=oat12" in command
             assert "--strategy-depths 1,3,5" in command
             assert "--eval-depths 1,3,5" in command
             assert "--myopic-control-depths 3,5" in command
