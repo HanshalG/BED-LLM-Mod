@@ -2095,6 +2095,14 @@ ledger and paper validation OK. The preflight still correctly reports the Phase 
 artifacts as pending: headline/control depth sweep report and summary, depth contrast and
 headline RMSE plots, paired RMSE and truth-log-probability delta plots, and qualitative
 strategy examples.
+Follow-up qualitative smoke artifact: GH200 still had other users' pending jobs, so no
+new LLM job was launched. Used `scripts/extract_location_qualitative_examples.py` on the
+completed support-grid smoke run to create
+`results/location_qualitative/support_grid_smoke_constrained_qualitative_examples.md`,
+its JSON payload, and three example trajectory plots. The Markdown is explicitly labeled
+smoke-only (`n=1`). `python scripts/validate_path_a_package.py --json` now passes the
+`qualitative_strategy_examples` check; `python scripts/path_a_preflight.py --json` still
+correctly reports only the real Phase 4 depth-sweep artifacts as pending.
 
 ## NEXT ACTIONS (in order)
 
