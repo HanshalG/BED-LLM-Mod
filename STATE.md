@@ -1920,16 +1920,36 @@ wait, canceled the split-MPP30 job set `102177`--`102182` with `scancel`. Live `
 after cancellation showed no active or pending jobs for `hanyal`, and an `oat12`-scoped
 queue check was also empty. Treat the partial run directories from these jobs as aborted
 diagnostic artifacts only; they do not contribute packageable Phase 4 results.
+Follow-up 16:22 London no-refresh Path A pilot launch: added explicit constrained and
+unconstrained 26B A4B pilot configs that keep the fixed-root Path A endpoints but disable
+`strategy_rollout_refresh_hypotheses_each_step`, reduce target candidates to 6, reduce
+rollouts to 8, keep fixed-common analytical scoring, and keep final rollout refresh off.
+Submitted two GH200 Singularity pilot jobs, both with `--exclude=oat12`: `102189`
+(`loc_branch_constr26_nr_p3`, run
+`loc_branch_decoy_local_constrained_mpp30_norefresh_26b_a4b_pilot3`) and `102190`
+(`loc_branch_uncon26_nr_p3`, run
+`loc_branch_decoy_local_unconstrained_mpp30_norefresh_26b_a4b_pilot3`). Each runs 3 paired
+trials from the 30-trial RNG plan, StrategyEIG depths 1/3/5, eval depths 1/3/5, and
+matched-compute myopic controls 3/5. Immediate `squeue` showed both pending on `gh200`
+for `(Priority)` and no jobs on `oat12`.
+Follow-up 16:24 London no-refresh pilot startup check: `102189` is running on `oat21`
+after about two minutes; `102190` is still queued for `(Priority)`. The constrained pilot
+run directory has created `run.log`; fatal-error grep over the early run/slurm logs found
+no traceback, runtime/value/import error, OOM, missing file, invalid location, exception,
+or cancellation marker. This only verifies early job health, not throughput yet.
 
 ## NEXT ACTIONS (in order)
 
-1. Do not wait for or package the canceled split-MPP30 jobs `102177`--`102182`. Before
-   relaunching, choose a cheaper Path A variant that avoids the 1600-refresh StrategyEIG
-   bottleneck observed in `102177` (for example fewer candidates/rollouts, no per-step
-   refresh, or a smaller paired pilot that still preserves the pre-registered endpoints).
-2. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
+1. Monitor pilot jobs `102189,102190` with
+   `squeue -j 102189,102190 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm
+   they do not land on `oat12`.
+2. Once either pilot starts, watch whether it passes the first StrategyEIG decision block
+   and writes metrics. If the no-refresh pilot is fast enough, relaunch the MPP30 split
+   using the norefresh configs and the same Path A depths/controls; if it is still too
+   slow, cut further by candidate count before spending on a 30-trial package.
+3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
-3. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
+4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
    to avoid the broken user-site NumPy. The GH200 launchers already export this.
 
 ## OPERATIONAL KNOWLEDGE (repo memory — keep updated here, not in chat)

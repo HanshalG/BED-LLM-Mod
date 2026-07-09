@@ -1,0 +1,72 @@
+# Cheaper Path A pilot/fallback config: constrained, 26B A4B, no rollout-step
+# hypothesis refresh. This keeps the paired fixed-root endpoints but avoids the
+# 1600-refresh StrategyEIG bottleneck seen in the refresh-each-step final50 run.
+version: 0
+task: location_finding
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26B-A4B-it"
+      thinking: true
+      thinking_max_new_tokens: 4096
+      thinking_final_max_new_tokens: 512
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26B-A4B-it"
+      thinking: true
+      thinking_max_new_tokens: 4096
+      thinking_final_max_new_tokens: 512
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+method_names:
+  - "StrategyEIG"
+batched_block_size: 256
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.0
+answer_temperature: 0.7
+num_mc_samples: 3
+location_max_new_tokens: 4096
+probability_parse_fallback_to_uniform: false
+environment:
+  num_rounds: 6
+  num_trials: 30
+  trial_batch_size: 3
+  seed: 1304
+  source_prior: branch_decoy
+  source_radius: 2.2
+  num_sources: 1
+  dim: 2
+  signal_model: local_bump
+  signal_lengthscale: 0.5
+  signal_amplitude: 8.0
+  noise_sd: 0.15
+  max_step_radius: 0.5
+  max_total_beliefs: 40
+  max_llm_prompt_beliefs: 10
+  num_generated_hypotheses: 12
+  target_num_candidates: 6
+  search_depth: 1
+  strategy_num_retrieved: 1
+  strategy_num_mutation: 1
+  strategy_num_crossover: 1
+  strategy_num_diverse: 3
+  strategy_num_rollouts: 8
+  strategy_planning_depth: 3
+  strategy_discount_factor: 1.0
+  strategy_belief_summary_top_k: 10
+  strategy_rollout_refresh_hypotheses_each_step: false
+  strategy_rollout_scoring_support_mode: fixed_common
+  strategy_rollout_scoring_support_size: 32
+  strategy_rollout_score_mode: start_final_entropy_drop
+  strategy_rollout_final_refresh_enabled: false
+  eig_quadrature_order: 5
+  plot_trials: true
+  posterior_mode: analytical_likelihood
+  eig_bounds_enabled: true
+  eig_bounds_inner_samples: 5000
+  eig_bounds_seed: 2304
+  eig_bounds_chunk_size: 8192
