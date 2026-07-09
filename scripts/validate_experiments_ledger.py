@@ -38,11 +38,13 @@ REQUIRED_EVIDENCE = {
         "path_a_preregistered_cost_vs_depth",
         "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.md",
         "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.json",
+        "results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png",
     ],
     "paper_validation": [
         "Path A paper draft",
         "scripts/validate_paper_draft.py",
         "paper/main.tex",
+        "paper_required_figures",
     ],
 }
 

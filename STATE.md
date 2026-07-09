@@ -1641,6 +1641,14 @@ required evidence checklist including cost PNG and qualitative artifacts, and tr
 rollout-count ablation as optional appendix evidence rather than MPP-required output.
 Recovery instructions now use split-block run names. Full suite passes:
 `pytest tests/ -q` (`466 passed, 1 skipped`).
+Follow-up 15:09 London ledger evidence refresh: `EXPERIMENTS.md` now records the
+cost-vs-depth PNG artifact and commit `d0e3957`, and the paper-validation row now records
+the stronger validator scope including `paper_required_figures` with commit `ebd6e54`.
+`validate_experiments_ledger.py` now requires the cost PNG and paper figure-scope text in
+the ledger evidence checks. Focused tests pass:
+`pytest tests/test_validate_experiments_ledger.py tests/test_path_a_preflight.py -q`
+(`6 passed`), and the full suite passes: `pytest tests/ -q`
+(`466 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
