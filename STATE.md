@@ -2125,6 +2125,12 @@ The remote `rg` binary is unavailable, so use `grep` for remote command filterin
 queue pressure was unchanged after sync (`squeue -u hanyal` empty; other users running
 and pending on GH200), so the support-grid 3-trial pilot remains unlaunched out of
 cluster courtesy.
+Follow-up 18:23 London queue gate: local worktree was clean at commit `6dfe5ab`. Cluster
+check showed `squeue -u hanyal` empty and active user job count `0`. GH200 still had
+other-user pressure: `yononi` jobs running on `oat19`/`oat22`, several `yononi` jobs
+pending, and dependency-stuck `hendov` job `97547`; `sinfo` showed `oat21` idle. Per the
+current launch-discipline rule, did not submit the short support-grid 3-trial pilot while
+other users' GH200 jobs are pending.
 
 ## NEXT ACTIONS (in order)
 
