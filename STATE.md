@@ -1344,6 +1344,11 @@ jobs should be canceled to free shared nodes, `squeue -p gh200` returned no user
 GH200 job IDs before `scancel`, so there was nothing active to cancel. Post-check queue
 still showed only the two MSC jobs: constrained `102018` on `oat16` at 14:20 elapsed and
 unconstrained `102019` on `oat21` at 11:40 elapsed.
+Follow-up 13:44 London poll: still exactly two live MSC jobs and zero user-owned `gh200`
+jobs. No final or recovered metrics exist for either MPP30 run, decision logs remain
+`90`/`90`, and traceback/runtime/OOM/killed signatures remain zero. Constrained `102018`
+updated its run log at 13:42:17 and was at 38/256 in a fresh prompt block; unconstrained
+`102019` updated its run log at 13:42:58 and was at 90/256 in its current prompt block.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
