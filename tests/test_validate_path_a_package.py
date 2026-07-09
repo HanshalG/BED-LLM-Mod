@@ -118,6 +118,32 @@ def test_validate_path_a_package_reports_missing_artifacts(tmp_path):
     assert "missing" in payload["checks"][0]["detail"]
 
 
+def test_validate_path_a_package_accepts_later_valid_depth_summary(tmp_path):
+    stale = tmp_path / "results/location_depth_sweeps/a_summary.json"
+    stale.parent.mkdir(parents=True, exist_ok=True)
+    stale.write_text("{bad json", encoding="utf-8")
+    _write_depth_summary(tmp_path)
+
+    checks = summary_payload(validate_path_a_package(tmp_path))["checks"]
+    summary_check = next(item for item in checks if item["name"] == "depth_sweep_summary")
+
+    assert summary_check["ok"] is True
+    assert summary_check["detail"].endswith("demo_summary.json")
+
+
+def test_validate_path_a_package_rejects_invalid_depth_summaries(tmp_path):
+    _write(
+        tmp_path / "results/location_depth_sweeps/demo_summary.json",
+        json.dumps({"constrained": {"policies": {"EIG": {}}}, "unconstrained": {"policies": {}}}),
+    )
+
+    checks = summary_payload(validate_path_a_package(tmp_path))["checks"]
+    summary_check = next(item for item in checks if item["name"] == "depth_sweep_summary")
+
+    assert summary_check["ok"] is False
+    assert "StrategyEIG-d1" in summary_check["detail"]
+
+
 def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_path):
     _write(
         tmp_path / "results/ranking_fidelity/REPORT.md",

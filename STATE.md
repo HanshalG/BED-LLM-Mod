@@ -1829,6 +1829,20 @@ evidence lists now name the summary JSON explicitly. Focused tests pass:
 tests/test_path_a_preflight.py -q` (`9 passed`), `validate_path_a_package.py --json`
 now reports the missing summary as a Phase 4 artifact, and the full suite passes:
 `pytest tests/ -q` (`473 passed, 1 skipped`).
+Follow-up 16:05 London cluster queue cleanup check: after the user noted the long-running
+GH200 jobs were alive but too slow and should be canceled if not useful, `ssh oat0 squeue
+-u hanyal` showed no active or pending jobs for `hanyal`. No `scancel` was needed; the
+cluster is currently clear from this account's queue view.
+Follow-up 16:10 London depth-summary stale-artifact hardening: `validate_path_a_package.py`
+now scans all `results/location_depth_sweeps/*_summary.json` files and accepts the first
+valid summary with constrained/unconstrained payloads plus the required constrained EIG,
+StrategyEIG d1/d3/d5, and matched-compute myopic d3/d5 policies. If none are valid, it
+reports the concrete rejection reasons instead of failing on whichever stale artifact
+sorts first. This prevents an old corrupt or incomplete summary from blocking a current
+valid Path A package. Focused tests pass:
+`pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
+tests/test_path_a_preflight.py -q` (`11 passed`), and the full suite passes:
+`pytest tests/ -q` (`475 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

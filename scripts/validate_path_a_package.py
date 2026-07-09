@@ -52,44 +52,43 @@ def _check_report(
 
 
 def _check_depth_sweep_summary(root: Path) -> CheckResult:
-    path = _first_existing_or_glob(
-        root,
-        ["results/location_depth_sweeps/*_summary.json"],
-    )
-    if path is None:
+    paths = sorted(root.glob("results/location_depth_sweeps/*_summary.json"))
+    if not paths:
         return CheckResult(
             "depth_sweep_summary",
             False,
             "missing results/location_depth_sweeps/*_summary.json",
         )
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        return CheckResult("depth_sweep_summary", False, f"{path} is invalid JSON: {exc}")
-    missing_sides = [
-        side
-        for side in ("constrained", "unconstrained")
-        if not isinstance(data.get(side), dict)
-    ]
-    if missing_sides:
-        return CheckResult("depth_sweep_summary", False, f"{path} missing side(s): {', '.join(missing_sides)}")
-    constrained_policies = data.get("constrained", {}).get("policies", {})
-    required_policies = {
-        "EIG",
-        "StrategyEIG-d1",
-        "StrategyEIG-d3",
-        "StrategyEIG-d5",
-        "StrategyEIG-myopic-d3",
-        "StrategyEIG-myopic-d5",
-    }
-    missing_policies = sorted(required_policies.difference(constrained_policies))
-    if missing_policies:
-        return CheckResult(
-            "depth_sweep_summary",
-            False,
-            f"{path} missing constrained policies: {', '.join(missing_policies)}",
-        )
-    return CheckResult("depth_sweep_summary", True, str(path))
+    reasons: list[str] = []
+    for path in paths:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            reasons.append(f"{path} invalid JSON: {exc}")
+            continue
+        missing_sides = [
+            side
+            for side in ("constrained", "unconstrained")
+            if not isinstance(data.get(side), dict)
+        ]
+        if missing_sides:
+            reasons.append(f"{path} missing side(s): {', '.join(missing_sides)}")
+            continue
+        constrained_policies = data.get("constrained", {}).get("policies", {})
+        required_policies = {
+            "EIG",
+            "StrategyEIG-d1",
+            "StrategyEIG-d3",
+            "StrategyEIG-d5",
+            "StrategyEIG-myopic-d3",
+            "StrategyEIG-myopic-d5",
+        }
+        missing_policies = sorted(required_policies.difference(constrained_policies))
+        if missing_policies:
+            reasons.append(f"{path} missing constrained policies: {', '.join(missing_policies)}")
+            continue
+        return CheckResult("depth_sweep_summary", True, str(path))
+    return CheckResult("depth_sweep_summary", False, "no valid depth summary found: " + "; ".join(reasons))
 
 
 def _check_headline_plot(root: Path) -> CheckResult:
