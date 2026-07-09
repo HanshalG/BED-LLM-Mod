@@ -2175,18 +2175,34 @@ candidate-generation rounds, 0 strategy-location rollout calls, 33 decision rows
 locations, strategy+root proposals, then `batched belief refresh: disabled; reweighting
 existing support only`. No traceback/runtime/OOM/killed signatures. If pace stays close
 to round 1, rough completion time is on the order of 35--45 minutes from start.
+Follow-up 19:49 London support-grid pilot result and MPP launch: `102224` completed on
+`msc` / `oat11` and artifacts were copied locally to
+`runs/loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t3r6/`. It finished all
+6 rounds with 98 LLM calls, 357,295 total tokens, 10 forced exits, 0 LLM candidate calls,
+0 strategy-location rollout calls, 6 support-grid candidate rounds, 6 disabled
+belief-refresh rounds, 144 decision rows, and no fatal errors. The 3-trial smoke signal
+is plausible and depth-aligned: final RMSE d5 0.073, d3 0.089, d1/myopic 1.862; final
+truth-log-prob d5 -1.084, d3 -1.921, d1/myopic -2.538. Naive final RMSE was 0.917 and
+truth-log-prob -1.818. Based on that, launched constrained support-grid MPP30 split
+blocks on `msc,llm` with `BED_LLM_SKIP_ENV_SETUP=1` and `--exclude=oat12`:
+`102226`/`loc_branch_constr26_sg_b00` for trials 0--9, `102227`/`..._b10` for trials
+10--19, and `102228`/`..._b20` for trials 20--29. Startup check showed all three
+allocated on `msc` / `oat11`, loading `google/gemma-4-26B-A4B-it` normally with only
+ordinary c10d/NCCL/cuda warnings. Keep monitoring these three; do not launch
+unconstrained contrast until the constrained split blocks complete or fail.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor `102224` (`loc_branch_constr26_sg_t3r6`) on `msc,llm`. Once allocated, check
-   `slurm_logs/slurm-102224.out`, `slurm_logs/slurm-102224.err`, and
-   `runs/loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t3r6/run.log` for model
-   startup, forced exits, hidden LLM candidate/rollout calls, and final metrics.
-2. If the 3-trial support-grid pilot completes quickly and has plausible traces, scale
-   to split constrained MPP30 blocks with `candidate_generation_mode: support_grid` using
-   `python scripts/path_a_launch_commands.py --split-mpp30 --support-grid`. Otherwise keep
-   the paper path on ranking-fidelity/diagnostic fallback and avoid spending more GH200
-   time.
+1. Monitor constrained support-grid MPP30 blocks `102226`, `102227`, and `102228` on
+   `msc` / `oat11`. Check `squeue`, each `slurm_logs/slurm-<job>.{out,err}`, and run logs
+   under `runs/loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_mpp30_b*_10/`
+   for model startup, forced exits, hidden LLM candidate/rollout calls, disabled belief
+   refreshes, completed rounds, and final metrics.
+2. When all three constrained blocks complete, combine them with
+   `scripts/combine_location_fixed_root_depth_sweeps.py` using the support-grid split
+   command printed by `python scripts/path_a_launch_commands.py --split-mpp30 --support-grid`.
+   Then inspect paired d5/d3/d1 vs EIG/myopic/naive signals before launching any
+   unconstrained contrast.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`. User has approved using `msc`/`llm` instead of waiting for
    GH200.
