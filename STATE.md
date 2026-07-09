@@ -1303,6 +1303,12 @@ No final or recovered metrics exist for either MPP30 run, decision logs remain `
 and traceback/runtime/OOM/killed signatures remain zero. Constrained `102018` moved into
 another 256-prompt block and was at 34/256. Unconstrained `102019` finished its previous
 block, updated its run log at 13:35:52, and entered a short 76-prompt block.
+Follow-up 13:37 London poll: still exactly two live MSC jobs, constrained `102018` on
+`oat16` and unconstrained `102019` on `oat21`; user-owned `gh200` job count remains zero.
+No final or recovered metrics exist for either MPP30 run, decision logs remain `90`/`90`,
+and traceback/runtime/OOM/killed signatures remain zero. Constrained `102018` advanced
+to 60/256 in its current prompt block. Unconstrained `102019` updated its run log at
+13:36:03 and advanced to 53/256 in its current prompt block.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
