@@ -2023,22 +2023,31 @@ unconstrained micro analytic configs to set it false; focused tests pass:
 (`159 passed`). Code/config were synced to the cluster for the next relaunch. The current
 `102199` job was left running because there was no explicit active cancellation request
 in this continuation.
+Follow-up 17:27 London fixed-support relaunch: live check showed obsolete `102199` still
+running on `gh200` / `oat21` with no metrics after about 19 minutes, 494 LLM usage
+events, 142 forced exits, and 33 decision rows. Canceled `102199` and confirmed it left
+the queue. Launched fixed-support replacement `102206` (`loc_branch_constr26_anfs_t3r6`,
+run `loc_branch_decoy_local_constrained_analytic_fixedsupport_26b_a4b_t3r6`) on `gh200`
+with `--exclude=oat12`. It uses the synced config with
+`belief_support_refresh_enabled: false`, 3 paired trials, 6 rounds, StrategyEIG depths
+1/3/5, eval depths 1/3/5, matched-compute myopic controls 3/5, 2 target strategy/root
+candidates, 8 rollouts, fixed-common scoring, no rollout-step refresh, and analytic
+future rollout queries. Startup check found `102206` pending for priority with Slurm
+logs created; config grep on the cluster confirmed `belief_support_refresh_enabled:
+false`.
 
 ## NEXT ACTIONS (in order)
 
-1. Decide whether to cancel obsolete live job `102199`. It is running the old deployed
-   belief-refresh path and is too expensive to use as the scaling evidence unless it
-   happens to finish before the next check.
-2. After `102199` is complete or canceled, relaunch one constrained 3-trial/6-round pilot
-   with the synced fixed-support config (`belief_support_refresh_enabled: false`) and
-   `--exclude=oat12`. Do not launch MPP30 until this fixed-support pilot proves throughput.
-3. If the fixed-support 3-trial/6-round pilot completes cleanly, extract calls/tokens/
+1. Monitor fixed-support pilot job `102206` with
+   `squeue -j 102206 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
+   off `oat12`.
+2. If the fixed-support 3-trial/6-round pilot completes cleanly, extract calls/tokens/
    forced exits and paired metrics. If cost and traces are acceptable, the next scale step
    is a split constrained MPP30 relaunch, still one or two jobs at a time. If traces are
    flat, keep the paper path on the ranking-fidelity/diagnostic fallback.
-4. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
+3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
-5. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
+4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
    to avoid the broken user-site NumPy. The GH200 launchers already export this.
 
 ## OPERATIONAL KNOWLEDGE (repo memory — keep updated here, not in chat)
