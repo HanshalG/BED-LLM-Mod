@@ -2190,6 +2190,14 @@ blocks on `msc,llm` with `BED_LLM_SKIP_ENV_SETUP=1` and `--exclude=oat12`:
 allocated on `msc` / `oat11`, loading `google/gemma-4-26B-A4B-it` normally with only
 ordinary c10d/NCCL/cuda warnings. Keep monitoring these three; do not launch
 unconstrained contrast until the constrained split blocks complete or fail.
+Follow-up 20:08 London MPP split health: constrained split jobs `102226`, `102227`, and
+`102228` were still running on `msc` / `oat11` at about 18 minutes elapsed. All three are
+healthy and on the intended support-grid path with no fatal errors, 0 LLM candidate
+generation calls, 0 strategy-location rollout calls, 3 support-grid candidate rounds,
+2 disabled belief-refresh rounds, 190 decision rows, and 2/6 completed rounds each.
+LLM usage/forced exits were: `102226` 120 calls / 10 forced exits, `102227` 115 / 5,
+`102228` 124 / 14. Rough ETA from this pace is another 35--40 minutes, but this is a
+weak estimate because later rounds may have different prompt lengths.
 
 ## NEXT ACTIONS (in order)
 
