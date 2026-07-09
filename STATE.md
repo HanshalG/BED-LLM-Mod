@@ -67,14 +67,13 @@ Latest cluster state:
 - Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
   As of the latest health check, `102238` and `102239` are on `msc` / `oat11`, and
   `102240` is on `msc` / `oat14`. The run directories exist and each has a `run.log`.
-  At about 22 minutes elapsed, all three were still allocated on `msc` and none were on
-  `oat12`. All three had completed round 3/6 and were still in the next batched
-  naive-query generation step. Metrics/reports/plots did not exist yet. Decision rows
-  were `250` for each block. Token-event counts were `167`, `161`, and `173`,
-  respectively; forced thinking exits were `17`, `11`, and `23`. There were zero
-  traceback/runtime/OOM/killed/location-parse errors in all three logs. Note for future
-  checks: token usage events are logged as lowercase `llm_token_usage`, not uppercase
-  `LLM_USAGE`.
+  At about 23.25 minutes elapsed, all three were still allocated on `msc` and none were
+  on `oat12`. All three had completed round 3/6 and were in round-4 StrategyEIG proposal
+  work. Metrics/reports/plots did not exist yet. Decision rows were `270` for each block.
+  Token-event counts were `182`, `173`, and `188`, respectively; forced thinking exits
+  were `22`, `13`, and `28`. There were zero traceback/runtime/OOM/killed/location-parse
+  errors in all three logs. Note for future checks: token usage events are logged as
+  lowercase `llm_token_usage`, not uppercase `LLM_USAGE`.
 - For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
   changes this again. Do not use GH200 unless explicitly requested again.
 
