@@ -2076,13 +2076,21 @@ completed on `gh200` / `oat21` in about 10.5 minutes with metrics: 34 LLM usage 
 `completed_rounds=6`, and 48 decision rows. Single-trial final RMSE was EIG/naive/d5
 0.092 versus d1/d3/myopic/naive+belief 2.473; this is a throughput and smoke-signal run
 only, not evidence for a depth claim. `squeue -u hanyal` was empty afterward.
+Follow-up 18:06 London launch discipline check: did not launch the planned 3-trial
+support-grid follow-up because the GH200 partition had other users' pending jobs even
+though `oat21` was idle. Extracted `102208` traces instead. The smoke mechanism is clear:
+d5 routed toward the distant branch/root early (`[2.2, 1.76]`, then intermediate points),
+while d1 and myopic controls repeatedly selected local-mode roots near `[-1.43, 0]` /
+the x-axis. This is the desired first-link behavior qualitatively, but it remains a
+single-trial smoke result only.
 
 ## NEXT ACTIONS (in order)
 
-1. If GH200 remains uncongested, the next useful launch is a support-grid constrained
+1. When GH200 queue pressure is low enough, launch a support-grid constrained
    3-trial/6-round pilot with the same settings as `102208` to see whether the d5 smoke
    signal survives more than one trial. Keep it to one short job and continue excluding
-   `oat12`.
+   `oat12`; do not jump ahead of other users' pending GH200 jobs just because one node is
+   momentarily idle.
 2. If the 3-trial support-grid pilot completes quickly and has plausible traces, scale
    to split constrained MPP30 blocks with `candidate_generation_mode: support_grid`.
    Otherwise keep the paper path on ranking-fidelity/diagnostic fallback and avoid
