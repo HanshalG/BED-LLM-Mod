@@ -45,6 +45,10 @@ Paper env framing: **DONE for the current skeleton** — `paper/main.tex` now pr
 task as a mobile-sensor, movement-cost, finite-range-sensing, branch-decoy environment;
 states that geometry selection was method-blind with respect to StrategyEIG; includes the
 robustness heatmap figure; and scopes the claim to a mapped planning-sensitive regime.
+Paper ranking-fidelity section: **DONE for the current skeleton** — `paper/main.tex`
+now reports the 26B A4B Phase 1 gate numbers, includes the aggregate ranking-fidelity
+plot, states the positive entropy/truth-log-prob first-link result, and preserves the
+near-zero RMSE-rank caveat.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and

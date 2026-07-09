@@ -164,18 +164,41 @@ specific regime rather than the whole parameter space.
 
 \subsection{Ranking Fidelity}
 
-The Phase 1 26B A4B gate passes the information-ranking criterion. Across the
-banked gate, entropy Spearman correlations are positive at all depths, and
-truth-log-posterior correlations are also positive. Point-RMSE correlations are
-near zero, motivating the truth-anchored primary endpoint for the final sweep.
+The Phase 1 26B A4B gate passes the information-ranking criterion, with
+caveats. The diagnostic used 20 trials, probe states after rounds 0, 3, and 6
+(60 records total), eight candidate strategies per probe, eight deployments per
+strategy/depth, and rollout scoring depths 2, 3, and 5. The configured scorer
+uses common rollout controls, fixed-common analytical support, and no final LLM
+belief refresh during scoring.
+
+Figure~\ref{fig:ranking-fidelity} shows that rollout-estimated EIG ranks
+strategies above chance by realized entropy drop: Spearman correlations are
+$0.380\pm0.045$ at depth 2, $0.440\pm0.041$ at depth 3, and
+$0.396\pm0.044$ at depth 5. Truth-anchored posterior quality is also
+positively rank-aligned, with truth-log-posterior Spearman correlations
+$0.371\pm0.040$, $0.373\pm0.045$, and $0.362\pm0.044$ at depths 2, 3, and 5.
+This satisfies the first-link gate: the LLM rollout scorer can rank its own
+natural-language strategies by downstream posterior information.
+
+The caveat is that point-RMSE is not rankable in the same diagnostic. RMSE
+Spearman correlations are near zero ($-0.088\pm0.051$, $-0.080\pm0.045$,
+and $-0.035\pm0.050$). A realized-realized repair analysis also finds only weak
+alignment between realized posterior-information gains and realized point-RMSE
+gains. We therefore treat truth log posterior probability as the primary
+deployment endpoint for the final sweep and report RMSE as an important but
+noisier localization readout. Top-1 entropy regret decreases from
+$0.326\pm0.048$ at depth 2 to $0.211\pm0.044$ at depth 5, suggesting that
+deeper scoring is useful for choosing the deployed argmax strategy even though
+this diagnostic alone does not prove a monotonic deployment depth effect.
 
 \begin{figure}[t]
   \centering
-  \fbox{\parbox{0.9\linewidth}{\centering
-  Placeholder: ranking-fidelity diagnostics figure. Include entropy
-  Spearman, truth-log-prob Spearman, RMSE Spearman, top-1 regret, and SNR by
-  depth.}}
-  \caption{Strategy ranking fidelity before the final depth sweep.}
+  \includegraphics[width=0.78\linewidth]{../results/ranking_fidelity/rankfid26b_a4b_gate_v2ghs_configured_t20_m8_aggregate_plot.png}
+  \caption{Phase 1 ranking-fidelity gate for the 26B A4B configured scorer.
+  Points show mean Spearman rank correlation between rollout-estimated strategy
+  EIG and realized entropy drop over 60 probe records. The dashed line marks
+  the pre-specified proceed threshold. Truth-log-posterior correlations are
+  also positive at all depths, while point-RMSE correlations are near zero.}
   \label{fig:ranking-fidelity}
 \end{figure}
 
