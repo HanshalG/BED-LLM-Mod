@@ -207,7 +207,13 @@ Status of the Minimum Publishable Package:
    than writing metrics: constrained `102018` started a 123-prompt block and unconstrained
    `102019` was 6/256 in a fresh block. Queue state remained constrained `102018` on
    `oat16` at 10:21:16 elapsed and unconstrained `102019` on `oat21` at 7:41:18 elapsed,
-   with zero traceback/runtime/OOM/kill signatures.
+   with zero traceback/runtime/OOM/kill signatures. The 09:44 London poll again found no
+   final or recovered metrics and both decision logs at `90` rows. Constrained `102018`
+   completed the short 123-prompt wave, updated its run log at 09:43:59, and started a
+   fresh 256-prompt block; unconstrained `102019` was 57/256 in its current prompt block.
+   Queue state remained constrained `102018` on `oat16` at 10:22:22 elapsed and
+   unconstrained `102019` on `oat21` at 7:42:24 elapsed, with zero
+   traceback/runtime/OOM/kill signatures.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
