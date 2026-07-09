@@ -131,7 +131,11 @@ Status of the Minimum Publishable Package:
    was also live and clean; a focused log check showed it had completed the previous
    depth-1 rollout refresh wave (`43625` parsed generated hypotheses across `3749/4800`
    nonempty refreshes) and had entered the expensive depth-2 belief-refresh phase
-   requesting `4800` hypothetical source-support refreshes.
+   requesting `4800` hypothetical source-support refreshes. The 09:24 London poll again
+   found no final or recovered metrics and decision logs still at `90`/`90`. Both jobs
+   remained live with fresh stderr progress and zero traceback/runtime/OOM/kill signatures:
+   constrained `102018` was 20/256 in its current prompt-processing block, and
+   unconstrained `102019` was 166/256 in its current block.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
