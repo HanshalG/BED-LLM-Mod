@@ -1634,6 +1634,13 @@ artifacts exist. Focused tests pass:
 `pytest tests/test_path_a_sync_commands.py tests/test_path_a_preflight.py
 tests/test_validate_path_a_package.py -q` (`12 passed`), and the full suite passes:
 `pytest tests/ -q` (`466 passed, 1 skipped`).
+Follow-up 15:06 London runbook cleanup: `LOCATION_DEPTH_PATH_A_RUNBOOK.md` now matches
+the current split-MPP30 relaunch plan rather than the stale monolithic MSC/GH200 state.
+It records zero active Phase 4 jobs, the split-block combine/package path, the current
+required evidence checklist including cost PNG and qualitative artifacts, and treats
+rollout-count ablation as optional appendix evidence rather than MPP-required output.
+Recovery instructions now use split-block run names. Full suite passes:
+`pytest tests/ -q` (`466 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

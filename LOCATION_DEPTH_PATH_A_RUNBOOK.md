@@ -30,12 +30,18 @@ Current code state to protect before interpreting the final sweeps:
 - Cluster checkout:
   `/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z`.
 - Final reproducibility tag: `path-a-final-sweep`.
-- Synced cluster code includes the shared-state optimization and MPP30
-  fallback depth subset support in:
+- Synced cluster code must include the shared-state optimization, split-MPP30
+  fallback support, and package-builder dependency chain in:
   `scripts/location_fixed_root_depth_sweep.py`,
   `scripts/path_a_launch_commands.py`,
-  `tests/test_location_fixed_root_depth_sweep.py`, and
-  `tests/test_path_a_launch_commands.py`.
+  `scripts/build_path_a_package.py`,
+  `scripts/compare_location_depth_sweeps.py`,
+  `scripts/cost_vs_depth_table.py`,
+  `scripts/extract_location_qualitative_examples.py`,
+  `scripts/llm_token_usage.py`, and
+  `scripts/validate_path_a_package.py`. Use
+  `python scripts/path_a_sync_commands.py --list` as the source of truth before
+  syncing to the cluster.
 
 Live Phase 4 cluster state as of 2026-07-09:
 
@@ -45,27 +51,19 @@ Live Phase 4 cluster state as of 2026-07-09:
 | 101779 | `loc_branch_uncon26_f50` | `gh200` | canceled | `oat22` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b` | Original full50 unconstrained job; canceled after 13h+ because it remained at 150 decisions with no metrics and was blocking GH200 capacity. |
 | 101993 | `loc_branch_constr26_f50_opt` | `gh200` | canceled | `oat21` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch; canceled to free GH200 capacity after showing low-yield throughput. |
 | 101994 | `loc_branch_uncon26_f50_opt` | `gh200` | canceled | - | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt` | Optimized GH200 relaunch; canceled before running. |
-| 101998 | `loc_branch_constr26_f50_optm2` | `msc` | running | `oat15` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2` | Optimized full50 constrained MSC run; no metrics yet, active in vLLM generation. |
-| 101996 | `loc_branch_uncon26_f50_optm` | `msc` | running | `oat14` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc` | Optimized full50 unconstrained MSC run; no metrics yet, active in vLLM generation. |
-| 102018 | `loc_branch_constr26_mpp30` | `msc` | running | `oat16` | `loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; no metrics yet, active in vLLM generation. |
-| 102019 | `loc_branch_uncon26_mpp30` | `msc` | running | `oat21` | `loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; model loading/starting at latest check. |
+| 101998 | `loc_branch_constr26_f50_optm2` | `msc` | stale/canceled | `oat15` | `loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2` | Optimized full50 constrained MSC run; no final or recovered metrics. |
+| 101996 | `loc_branch_uncon26_f50_optm` | `msc` | stale/canceled | `oat14` | `loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc` | Optimized full50 unconstrained MSC run; no final or recovered metrics. |
+| 102018 | `loc_branch_constr26_mpp30` | `msc` | canceled | `oat16` | `loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; canceled after remaining too slow, no final or recovered metrics. |
+| 102019 | `loc_branch_uncon26_mpp30` | `msc` | canceled | `oat21` | `loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc` | MPP fallback: 30 trials, depths 1/3/5, myopic controls 3/5; canceled after remaining too slow, no final or recovered metrics. |
 
-Wall-clock check as of 2026-07-09:
+Wall-clock check as of the latest local state:
 
-- Slurm time limits are not the immediate risk: running GH200 jobs report
-  `TimeLimit=UNLIMITED`, running MSC jobs report `TimeLimit=365-00:00:00`,
-  and pending GH200/MSC jobs report `TimeLimit=UNLIMITED`.
-- The immediate risk is throughput. No active Phase 4 run has written a final
-  metrics file yet. The old GH200 jobs showed the worst throughput and were
-  canceled; the active MSC jobs are making progress through vLLM generation
-  batches, but completion time remains uncertain.
-- The MPP30 fallback jobs are now running on MSC. Treat the first completed
-  constrained/unconstrained pair as the canonical packaging input, preferring
-  MPP30 for workshop scope unless the full50 MSC pair finishes first.
-- On 2026-07-08, the old original GH200 jobs `101778`/`101779` were canceled
-  after the user noted other people were waiting on those nodes. This does not
-  remove them from the ledger; it makes them ineligible as canonical completed
-  runs under the rule below.
+- Active Phase 4 job count is 0.
+- No completed Phase 4 fixed-root depth-sweep metrics are available.
+- The recommended relaunch path is the split MPP30 command set printed by
+  `python scripts/path_a_launch_commands.py --split-mpp30`: three 10-trial
+  blocks per side with trial offsets 0, 10, and 20, depths 1/3/5, and myopic
+  controls 3/5. Combine the block summaries before building the package.
 
 ## Phase 1 Gate
 
@@ -203,8 +201,22 @@ python scripts/path_a_sync_commands.py --list
 python scripts/path_a_sync_commands.py
 python scripts/path_a_preflight.py --root .
 python scripts/path_a_remote_readiness.py
-python scripts/path_a_launch_commands.py
+python scripts/path_a_launch_commands.py --split-mpp30
 ```
+
+The preferred workshop relaunch is split MPP30: six GH200 Singularity jobs
+(constrained/unconstrained for offsets 0, 10, and 20), then one combine command
+per side, then the package builder. The launch-command script prints the exact
+`sbatch`, combine, and package commands. Submit only after syncing the files
+listed by `path_a_sync_commands.py` and confirming remote readiness.
+
+```bash
+python scripts/path_a_launch_commands.py --split-mpp30
+```
+
+The original monolithic full50 commands are retained for reproducibility only.
+Do not submit them again unless intentionally creating a new run name and there
+is ample idle capacity:
 
 ```bash
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
@@ -226,28 +238,37 @@ sbatch --partition=gh200 --job-name=loc_branch_uncon26_f50 \
   --include-myopic-controls
 ```
 
-When both finish, compare them:
+After all split blocks finish, combine constrained and unconstrained blocks and
+build the package using the commands printed by
+`python scripts/path_a_launch_commands.py --split-mpp30`. The explicit combined
+package shape is:
 
 ```bash
+python scripts/combine_location_fixed_root_depth_sweeps.py \
+  runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10 \
+  runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b10_10 \
+  runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b20_10 \
+  --output runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
+  --report runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/REPORT.md \
+  --plot runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/fixed_root_depth_sweep.png \
+  --paired-delta-plot runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/paired_trial_rmse_deltas.png
+
+python scripts/combine_location_fixed_root_depth_sweeps.py \
+  runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b00_10 \
+  runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b10_10 \
+  runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b20_10 \
+  --output runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
+  --report runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/REPORT.md \
+  --plot runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/fixed_root_depth_sweep.png \
+  --paired-delta-plot runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/paired_trial_rmse_deltas.png
+
 python scripts/build_path_a_package.py \
-  --constrained runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
-  --unconstrained runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
+  --constrained runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
+  --unconstrained runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
   --output-dir results/location_depth_sweeps \
   --cost-dir results/cost_vs_depth \
   --plot-dir plots/location_depth_sweeps \
-  --run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30
-```
-
-If the full50 optimized MSC pair finishes first, use:
-
-```bash
-python scripts/build_path_a_package.py \
-  --constrained runs/loc_branch_decoy_local_constrained_final50_26b_a4b_sharedopt_msc2/fixed_root_depth_sweep_metrics.json \
-  --unconstrained runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_sharedopt_msc/fixed_root_depth_sweep_metrics.json \
-  --output-dir results/location_depth_sweeps \
-  --cost-dir results/cost_vs_depth \
-  --plot-dir plots/location_depth_sweeps \
-  --run-name location_branch_decoy_depth_contrast_26b_a4b_full50_msc
+  --run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30_split
 ```
 
 ## Pre-registered Analysis
@@ -302,15 +323,18 @@ Canonical run-selection rule:
 - Select the canonical constrained/unconstrained pair before looking at any
   Phase 4 metric values. A pair is eligible only if both arms complete the full
   requested run and write a fixed-root metrics summary.
-- First choose the eligible pair with the largest completed paired-trial count.
-  Therefore any complete 50-trial pair beats any complete 30-trial fallback
-  pair.
+- First choose the eligible pair with the largest completed paired-trial count,
+  subject to workshop-scope practicality. The currently recommended canonical
+  relaunch is the split MPP30 pair because it is the only active plan designed
+  to finish in small auditable blocks.
 - If multiple eligible pairs have the same completed paired-trial count, break
   ties by launch priority, not by result values:
-  1. original full50 GH200 pair: jobs `101778` / `101779`;
-  2. optimized full50 GH200 pair: jobs `101993` / `101994`;
-  3. optimized full50 MSC pair: jobs `101998` / `101996`;
-  4. MPP30 MSC fallback pair: jobs `102018` / `102019`.
+  1. future split MPP30 GH200 pair printed by
+     `python scripts/path_a_launch_commands.py --split-mpp30`;
+  2. any future full50 pair launched with fresh run names and enough idle
+     capacity;
+  3. historical full50 or MPP30 reruns only if they unexpectedly complete and
+     pass the config-equivalence check below.
 - Before a non-original variant can become canonical, verify scientific
   config-equivalence against the original intended run: same environment,
   source prior, signal model, seed policy, trial count, round count, strategy
@@ -353,14 +377,22 @@ python scripts/compare_location_rollout_ablation.py \
   including the `StrategyEIG-myopic-dN` matched-compute controls.
 - `plots/location_depth_sweeps/*_headline_rmse.png`: paper-facing constrained
   RMSE trace for greedy EIG and StrategyEIG depths 1, 3, and 5.
-- `results/location_rollout_ablation/*_REPORT.md`: rollout-count ablation.
+- `results/location_qualitative/*_qualitative_examples.md` and
+  `results/location_qualitative/*_qualitative_example_*.png`: qualitative
+  strategy snippets plus paired query trajectories.
 - `results/cost_vs_depth/*_cost_vs_depth.md`: token-cost table generated from
   completed run summaries/logs.
+- `results/cost_vs_depth/*_cost_vs_depth.png`: paper-facing cost-vs-depth
+  scaling figure.
 - Each generated report should include the config path, model, host, SLURM job,
   and token usage summary when LLM calls were made.
 
-The package builder above also generates the cost table. To regenerate only the
-cost table after the fixed-root sweeps finish:
+Optional appendix evidence:
+
+- `results/location_rollout_ablation/*_REPORT.md`: rollout-count ablation.
+
+The package builder above also generates the cost table and plot. To regenerate
+only the cost artifacts after the fixed-root sweeps finish:
 
 ```bash
 python scripts/cost_vs_depth_table.py \
@@ -390,12 +422,13 @@ python scripts/recover_depth_sweep_metrics.py \
   --include-myopic-controls
 ```
 
-For the MPP30 fallback runs, pass the same subset flags used at launch:
+For split MPP30 block recovery, pass the same subset flags used at launch and
+the block's run directory:
 
 ```bash
 python scripts/recover_depth_sweep_metrics.py \
   --config configs/config_location_branch_decoy_local_final50_26b_a4b.yaml \
-  --run-dir runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc \
+  --run-dir runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10 \
   --max-depth 5 \
   --include-myopic-controls \
   --strategy-depths 1,3,5 \
