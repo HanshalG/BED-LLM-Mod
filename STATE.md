@@ -1975,17 +1975,31 @@ Follow-up 16:50 London analytic micro startup check: `102194` remains running on
 at about 1--2 minutes elapsed. Its run log exists but is still only at fixed-root
 startup: zero LLM usage events, zero forced exits, zero decision rows, no metrics file,
 and fatal-error grep remains clean. Analytic-rollout throughput is not yet measured.
+Follow-up 16:56 London analytic micro completion and scale pilot: `102194` completed on
+`oat21` and wrote metrics. It used `location_strategy_rollout_query_mode: analytic_eig`,
+8 rollouts, 2 target strategy/root candidates, 18 LLM calls, 86,048 total tokens, 5
+forced exits, zero strategy-location LLM calls, 8 decision rows, and no fatal errors.
+Compared with `102192` (LLM future-query mode, 2 rollouts, 16 calls, 70,401 tokens),
+analytic rollout removed the rollout-query multiplier: 4x more rollouts cost only 2
+additional calls, with the extra calls coming from forced-final/hypothesis-refresh
+bookkeeping rather than simulated future-query generation. Launched the next constrained
+analytic scale pilot `102196` (`loc_branch_constr26_an_t3r1`, run
+`loc_branch_decoy_local_constrained_analytic_26b_a4b_t3r1`) on `gh200` with `--exclude=oat12`.
+It uses 3 paired trials, 1 round, StrategyEIG depths 1/3/5, eval depths 1/3/5,
+matched-compute myopic controls 3/5, 2 target strategy/root candidates, 8 rollouts,
+fixed-common scoring, no rollout-step refresh, and analytic future rollout queries.
+Immediate queue check showed `102196` running on `oat21`; no jobs were on `oat12`.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor analytic micro job `102194` with
-   `squeue -j 102194 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
+1. Monitor analytic scale pilot job `102196` with
+   `squeue -j 102196 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
    off `oat12`.
-2. If `102194` completes with far fewer LLM calls than `102192`, use
-   `location_strategy_rollout_query_mode: analytic_eig` for the next scaled pilot
-   (likely constrained first, 3--5 paired trials) before relaunching any MPP30 split. If
-   it fails or does not materially reduce cost, pivot the paper framing toward the
-   ranking-fidelity/diagnostic fallback rather than spending more GH200 time.
+2. If `102196` completes cleanly, extract calls/tokens/forced exits and paired metrics.
+   If 3-trial/1-round cost is acceptable, the next scale step is constrained analytic
+   3-trial/6-round or a 5-trial constrained pilot before any MPP30 relaunch. If it still
+   runs too long, keep the paper path on the ranking-fidelity/diagnostic fallback and
+   avoid more GH200 spending.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
 4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
