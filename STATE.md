@@ -521,6 +521,13 @@ Status of the Minimum Publishable Package:
    user-owned jobs on the `gh200` partition, so there were no job IDs to `scancel`. The
    only live jobs remained MSC `102018` constrained on `oat16` and MSC `102019`
    unconstrained on `oat21`; both were left untouched.
+   Follow-up 12:36 London poll: still exactly two live jobs, MSC `102018` constrained on
+   `oat16` and MSC `102019` unconstrained on `oat21`; user-owned `gh200` job count
+   remains zero. No final or recovered metrics exist for either MPP30 run, decision logs
+   remain `90`/`90`, and traceback/runtime/OOM/killed signatures remain zero.
+   Constrained `102018` advanced to 166/192 in its current prompt block, while
+   unconstrained `102019` updated its run log at 12:34:16 and was 39/256 in a fresh
+   prompt block.
    Earlier checks: checked 2026-07-09 09:05 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
