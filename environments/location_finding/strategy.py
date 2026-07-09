@@ -1243,7 +1243,18 @@ def evaluate_location_strategies_by_rollout_many(
             rollout_idx: rollouts[rollout_idx].root_query  # type: ignore[dict-item]
             for rollout_idx in fixed_root_indices
         }
-        if generated_indices:
+        if generated_indices and config.location_strategy_rollout_query_mode == "analytic_eig":
+            for rollout_idx in generated_indices:
+                rollout = rollouts[rollout_idx]
+                locations_by_index[rollout_idx] = _choose_analytic_rollout_location(
+                    rollout.belief_state,
+                    _full_rollout_observations(
+                        requests[rollout.request_index].observations,
+                        rollout,
+                    ),
+                    config,
+                )
+        elif generated_indices:
             location_requests = [
                 _StrategyLocationRequest(
                     strategy=rollouts[rollout_idx].strategy,

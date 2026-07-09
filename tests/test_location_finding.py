@@ -48,7 +48,9 @@ from environments.location_finding.prompts import (
     strategy_mutation_messages as _strategy_mutation_messages,
 )
 from environments.location_finding.strategy import (
+    _StrategyEvaluationRequest,
     evaluate_location_strategies_by_rollout,
+    evaluate_location_strategies_by_rollout_many,
     generate_strategy_locations_many,
     generate_location_strategies,
     _location_entropy,
@@ -1462,6 +1464,47 @@ def test_strategy_rollout_can_use_analytic_eig_future_queries_without_llm_calls(
     assert evaluations[0].root_query == (0.0, 0.0)
     assert math.isfinite(evaluations[0].mean_score)
     assert evaluations[0].mean_score > 0.0
+    assert model.batched_calls == []
+    assert model.calls == []
+
+
+def test_batched_strategy_rollout_can_use_analytic_eig_future_queries_without_llm_calls():
+    config = _location_config(
+        location_num_rounds=3,
+        location_strategy_num_rollouts=1,
+        location_strategy_planning_depth=3,
+        location_strategy_belief_summary_top_k=2,
+        location_strategy_rollout_final_refresh_enabled=False,
+        location_strategy_rollout_query_mode="analytic_eig",
+        location_signal_model="local_bump",
+        location_signal_lengthscale=0.5,
+        location_signal_amplitude=8.0,
+        location_max_step_radius=0.75,
+    )
+    hypothesis_a = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    hypothesis_b = normalize_source_config([[0, 0], [1, -1], [-1, 1]], 3, 2)
+    belief_state = build_location_belief_state([hypothesis_a, hypothesis_b], [], config)
+    model = FakeLocationModel([])
+
+    evaluations_many = evaluate_location_strategies_by_rollout_many(
+        model,
+        [
+            _StrategyEvaluationRequest(
+                strategies=["Use the fixed root, then let the calibrated executor refine analytically."],
+                belief_state=belief_state,
+                observations=[],
+                rng=np.random.default_rng(4),
+                root_queries=[(0.0, 0.0)],
+            )
+        ],
+        config,
+    )
+
+    assert len(evaluations_many) == 1
+    assert len(evaluations_many[0]) == 1
+    assert evaluations_many[0][0].root_query == (0.0, 0.0)
+    assert math.isfinite(evaluations_many[0][0].mean_score)
+    assert evaluations_many[0][0].mean_score > 0.0
     assert model.batched_calls == []
     assert model.calls == []
 

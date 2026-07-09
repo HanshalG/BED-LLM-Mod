@@ -2035,11 +2035,25 @@ candidates, 8 rollouts, fixed-common scoring, no rollout-step refresh, and analy
 future rollout queries. Startup check found `102206` pending for priority with Slurm
 logs created; config grep on the cluster confirmed `belief_support_refresh_enabled:
 false`.
+Follow-up 17:39 London batched analytic-query fix: `102206` showed the fixed deployed
+belief-support setting was not enough. After about 11 minutes it still had no metrics,
+154+ LLM usage events, 43+ forced exits, and only 9 decision rows. The log showed
+48 batched temperature-0.0 location completions immediately after strategy/root
+proposals, before any deployed belief refresh. Remote config parsing confirmed
+`location_strategy_rollout_query_mode: analytic_eig`, so the bug was in the batched
+StrategyEIG evaluator path: it lacked the `analytic_eig` branch already present in the
+single evaluator. Patched `evaluate_location_strategies_by_rollout_many(...)` to use
+analytical EIG future rollout queries and added a regression test. Focused tests pass:
+`pytest tests/test_location_finding.py tests/test_helpers_load_config.py tests/test_core_config.py -q`
+(`160 passed`). Canceled `102206`, synced the patch to the cluster, and launched corrected
+replacement `102207` (`loc_branch_constr26_anfs2_t3r6`, run
+`loc_branch_decoy_local_constrained_analytic_fixedsupport2_26b_a4b_t3r6`) on `gh200` with
+`--exclude=oat12`. Startup check showed `102207` pending for priority.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor fixed-support pilot job `102206` with
-   `squeue -j 102206 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
+1. Monitor corrected fixed-support pilot job `102207` with
+   `squeue -j 102207 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
    off `oat12`.
 2. If the fixed-support 3-trial/6-round pilot completes cleanly, extract calls/tokens/
    forced exits and paired metrics. If cost and traces are acceptable, the next scale step
