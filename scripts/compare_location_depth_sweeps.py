@@ -15,6 +15,13 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from scripts.llm_token_usage import token_usage_report_lines
 
+PAIRED_METRIC_NAMES = (
+    "source_rmse",
+    "expected_posterior_rmse",
+    "posterior_entropy",
+    "truth_log_probability",
+)
+
 
 def _load_summary(path: Path) -> dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -71,10 +78,14 @@ def _comparison_side(summary: dict[str, Any]) -> dict[str, Any]:
                 _maybe_float(value)
                 for value in rmse.get("mean_trace", [])
             ],
+            "final_metrics": {
+                metric_name: _maybe_float(aggregate.get(policy_label, {}).get(metric_name, {}).get("final_mean"))
+                for metric_name in PAIRED_METRIC_NAMES
+            },
         }
         if policy_label != "EIG":
             paired_metrics: dict[str, Any] = {}
-            for metric_name in ("source_rmse", "posterior_entropy"):
+            for metric_name in PAIRED_METRIC_NAMES:
                 delta = paired.get(policy_label, {}).get(metric_name, {})
                 paired_metrics[metric_name] = {
                     "mean": _maybe_float(delta.get("final_delta_mean")),
@@ -192,13 +203,14 @@ def write_comparison_report(path: Path, comparison: dict[str, Any]) -> None:
             ]
         )
         for policy_label, policy in side["policies"].items():
-            rmse = _format_optional(policy.get("final_rmse_mean"))
             if policy_label == "EIG":
-                lines.append(f"| `{policy_label}` | `source_rmse` | {rmse} | n/a | n/a | n/a |")
+                for metric_name in PAIRED_METRIC_NAMES:
+                    final_value = _format_optional(policy.get("final_metrics", {}).get(metric_name))
+                    lines.append(f"| `{policy_label}` | `{metric_name}` | {final_value} | n/a | n/a | n/a |")
                 continue
-            for metric_name in ("source_rmse", "posterior_entropy"):
+            for metric_name in PAIRED_METRIC_NAMES:
                 metric_delta = policy.get("paired_delta_vs_eig", {}).get(metric_name, {})
-                final_value = rmse if metric_name == "source_rmse" else "n/a"
+                final_value = _format_optional(policy.get("final_metrics", {}).get(metric_name))
                 delta = _format_optional(metric_delta.get("mean"))
                 ci = metric_delta.get("ci95")
                 ci_text = _format_ci(ci) if ci is not None else "n/a"

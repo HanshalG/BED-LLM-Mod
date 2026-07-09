@@ -8,7 +8,9 @@ def _summary(max_step_radius):
     aggregate = {
         "EIG": {
             "source_rmse": {"final_mean": 0.5, "final_std": 0.1, "mean_trace": [0.9, 0.5]},
+            "expected_posterior_rmse": {"final_mean": 0.55, "final_std": 0.1, "mean_trace": [0.95, 0.55]},
             "posterior_entropy": {"final_mean": 1.0, "final_std": 0.1, "mean_trace": [1.2, 1.0]},
+            "truth_log_probability": {"final_mean": -1.2, "final_std": 0.2, "mean_trace": [-1.5, -1.2]},
         }
     }
     paired = {}
@@ -16,10 +18,21 @@ def _summary(max_step_radius):
         label = f"StrategyEIG-d{depth}"
         aggregate[label] = {
             "source_rmse": {"final_mean": final, "final_std": 0.05, "mean_trace": [0.8, final]},
+            "expected_posterior_rmse": {
+                "final_mean": final + 0.05,
+                "final_std": 0.05,
+                "mean_trace": [0.85, final + 0.05],
+            },
             "posterior_entropy": {"final_mean": 0.8, "final_std": 0.1, "mean_trace": [1.1, 0.8]},
+            "truth_log_probability": {"final_mean": -0.6, "final_std": 0.2, "mean_trace": [-1.2, -0.6]},
         }
         paired[label] = {
             "source_rmse": {
+                "final_delta_mean": final - 0.5,
+                "final_delta_ci95": [final - 0.6, final - 0.4],
+                "wilcoxon_signed_rank_p": 0.25,
+            },
+            "expected_posterior_rmse": {
                 "final_delta_mean": final - 0.5,
                 "final_delta_ci95": [final - 0.6, final - 0.4],
                 "wilcoxon_signed_rank_p": 0.25,
@@ -29,23 +42,42 @@ def _summary(max_step_radius):
                 "final_delta_ci95": [-0.3, -0.1],
                 "wilcoxon_signed_rank_p": 0.25,
             },
+            "truth_log_probability": {
+                "final_delta_mean": 0.6,
+                "final_delta_ci95": [0.4, 0.8],
+                "wilcoxon_signed_rank_p": 0.25,
+            },
         }
-    aggregate["StrategyEIG-myopic-d3"] = {
-        "source_rmse": {"final_mean": 0.4, "final_std": 0.06, "mean_trace": [0.85, 0.4]},
-        "posterior_entropy": {"final_mean": 0.9, "final_std": 0.12, "mean_trace": [1.15, 0.9]},
-    }
-    paired["StrategyEIG-myopic-d3"] = {
-        "source_rmse": {
-            "final_delta_mean": -0.1,
-            "final_delta_ci95": [-0.2, 0.0],
-            "wilcoxon_signed_rank_p": 0.5,
-        },
-        "posterior_entropy": {
-            "final_delta_mean": -0.1,
-            "final_delta_ci95": [-0.2, 0.0],
-            "wilcoxon_signed_rank_p": 0.5,
-        },
-    }
+    for depth in (3, 5):
+        label = f"StrategyEIG-myopic-d{depth}"
+        aggregate[label] = {
+            "source_rmse": {"final_mean": 0.4, "final_std": 0.06, "mean_trace": [0.85, 0.4]},
+            "expected_posterior_rmse": {"final_mean": 0.45, "final_std": 0.06, "mean_trace": [0.9, 0.45]},
+            "posterior_entropy": {"final_mean": 0.9, "final_std": 0.12, "mean_trace": [1.15, 0.9]},
+            "truth_log_probability": {"final_mean": -1.0, "final_std": 0.2, "mean_trace": [-1.4, -1.0]},
+        }
+        paired[label] = {
+            "source_rmse": {
+                "final_delta_mean": -0.1,
+                "final_delta_ci95": [-0.2, 0.0],
+                "wilcoxon_signed_rank_p": 0.5,
+            },
+            "expected_posterior_rmse": {
+                "final_delta_mean": -0.1,
+                "final_delta_ci95": [-0.2, 0.0],
+                "wilcoxon_signed_rank_p": 0.5,
+            },
+            "posterior_entropy": {
+                "final_delta_mean": -0.1,
+                "final_delta_ci95": [-0.2, 0.0],
+                "wilcoxon_signed_rank_p": 0.5,
+            },
+            "truth_log_probability": {
+                "final_delta_mean": 0.2,
+                "final_delta_ci95": [0.0, 0.4],
+                "wilcoxon_signed_rank_p": 0.5,
+            },
+        }
     return {
         "config_path": "configs/example.yaml",
         "max_depth": 5,

@@ -45,27 +45,39 @@ def _summary(max_step_radius):
         "aggregate": {
             "EIG": {
                 "source_rmse": {"final_mean": 0.5, "final_std": 0.1, "mean_trace": [0.9, 0.5]},
+                "expected_posterior_rmse": {"final_mean": 0.55, "final_std": 0.1, "mean_trace": [0.95, 0.55]},
                 "posterior_entropy": {"final_mean": 1.1, "final_std": 0.2, "mean_trace": [1.4, 1.1]},
+                "truth_log_probability": {"final_mean": -1.0, "final_std": 0.2, "mean_trace": [-1.5, -1.0]},
             },
             "StrategyEIG-d2": {
                 "source_rmse": {"final_mean": 0.2, "final_std": 0.05, "mean_trace": [0.8, 0.2]},
+                "expected_posterior_rmse": {"final_mean": 0.25, "final_std": 0.05, "mean_trace": [0.85, 0.25]},
                 "posterior_entropy": {"final_mean": 0.7, "final_std": 0.1, "mean_trace": [1.3, 0.7]},
+                "truth_log_probability": {"final_mean": -0.4, "final_std": 0.2, "mean_trace": [-1.2, -0.4]},
             },
             "StrategyEIG-d1": {
                 "source_rmse": {"final_mean": 0.45, "final_std": 0.07, "mean_trace": [0.88, 0.45]},
+                "expected_posterior_rmse": {"final_mean": 0.5, "final_std": 0.07, "mean_trace": [0.9, 0.5]},
                 "posterior_entropy": {"final_mean": 1.0, "final_std": 0.12, "mean_trace": [1.35, 1.0]},
+                "truth_log_probability": {"final_mean": -0.9, "final_std": 0.2, "mean_trace": [-1.4, -0.9]},
             },
             "StrategyEIG-d3": {
                 "source_rmse": {"final_mean": 0.18, "final_std": 0.04, "mean_trace": [0.78, 0.18]},
+                "expected_posterior_rmse": {"final_mean": 0.23, "final_std": 0.04, "mean_trace": [0.82, 0.23]},
                 "posterior_entropy": {"final_mean": 0.65, "final_std": 0.08, "mean_trace": [1.25, 0.65]},
+                "truth_log_probability": {"final_mean": -0.35, "final_std": 0.2, "mean_trace": [-1.1, -0.35]},
             },
             "StrategyEIG-d5": {
                 "source_rmse": {"final_mean": 0.16, "final_std": 0.03, "mean_trace": [0.76, 0.16]},
+                "expected_posterior_rmse": {"final_mean": 0.2, "final_std": 0.03, "mean_trace": [0.8, 0.2]},
                 "posterior_entropy": {"final_mean": 0.6, "final_std": 0.07, "mean_trace": [1.2, 0.6]},
+                "truth_log_probability": {"final_mean": -0.3, "final_std": 0.2, "mean_trace": [-1.0, -0.3]},
             },
             "StrategyEIG-myopic-d2": {
                 "source_rmse": {"final_mean": 0.4, "final_std": 0.06, "mean_trace": [0.85, 0.4]},
+                "expected_posterior_rmse": {"final_mean": 0.45, "final_std": 0.06, "mean_trace": [0.9, 0.45]},
                 "posterior_entropy": {"final_mean": 0.9, "final_std": 0.12, "mean_trace": [1.35, 0.9]},
+                "truth_log_probability": {"final_mean": -0.8, "final_std": 0.2, "mean_trace": [-1.3, -0.8]},
             },
         },
         "paired_delta_vs_eig": {
@@ -75,14 +87,29 @@ def _summary(max_step_radius):
                     "final_delta_ci95": [-0.4, -0.2],
                     "wilcoxon_signed_rank_p": 0.25,
                 },
+                "expected_posterior_rmse": {
+                    "final_delta_mean": -0.3,
+                    "final_delta_ci95": [-0.4, -0.2],
+                    "wilcoxon_signed_rank_p": 0.25,
+                },
                 "posterior_entropy": {
                     "final_delta_mean": -0.4,
                     "final_delta_ci95": [-0.6, -0.1],
                     "wilcoxon_signed_rank_p": 0.125,
                 },
+                "truth_log_probability": {
+                    "final_delta_mean": 0.6,
+                    "final_delta_ci95": [0.4, 0.8],
+                    "wilcoxon_signed_rank_p": 0.25,
+                },
             },
             "StrategyEIG-d1": {
                 "source_rmse": {
+                    "final_delta_mean": -0.05,
+                    "final_delta_ci95": [-0.12, 0.02],
+                    "wilcoxon_signed_rank_p": 0.75,
+                },
+                "expected_posterior_rmse": {
                     "final_delta_mean": -0.05,
                     "final_delta_ci95": [-0.12, 0.02],
                     "wilcoxon_signed_rank_p": 0.75,
@@ -92,9 +119,19 @@ def _summary(max_step_radius):
                     "final_delta_ci95": [-0.2, 0.0],
                     "wilcoxon_signed_rank_p": 0.5,
                 },
+                "truth_log_probability": {
+                    "final_delta_mean": 0.1,
+                    "final_delta_ci95": [-0.02, 0.22],
+                    "wilcoxon_signed_rank_p": 0.75,
+                },
             },
             "StrategyEIG-d3": {
                 "source_rmse": {
+                    "final_delta_mean": -0.32,
+                    "final_delta_ci95": [-0.44, -0.2],
+                    "wilcoxon_signed_rank_p": 0.125,
+                },
+                "expected_posterior_rmse": {
                     "final_delta_mean": -0.32,
                     "final_delta_ci95": [-0.44, -0.2],
                     "wilcoxon_signed_rank_p": 0.125,
@@ -104,6 +141,11 @@ def _summary(max_step_radius):
                     "final_delta_ci95": [-0.65, -0.2],
                     "wilcoxon_signed_rank_p": 0.0625,
                 },
+                "truth_log_probability": {
+                    "final_delta_mean": 0.65,
+                    "final_delta_ci95": [0.45, 0.8],
+                    "wilcoxon_signed_rank_p": 0.125,
+                },
             },
             "StrategyEIG-d5": {
                 "source_rmse": {
@@ -111,9 +153,19 @@ def _summary(max_step_radius):
                     "final_delta_ci95": [-0.46, -0.22],
                     "wilcoxon_signed_rank_p": 0.0625,
                 },
+                "expected_posterior_rmse": {
+                    "final_delta_mean": -0.35,
+                    "final_delta_ci95": [-0.47, -0.23],
+                    "wilcoxon_signed_rank_p": 0.0625,
+                },
                 "posterior_entropy": {
                     "final_delta_mean": -0.5,
                     "final_delta_ci95": [-0.7, -0.25],
+                    "wilcoxon_signed_rank_p": 0.0625,
+                },
+                "truth_log_probability": {
+                    "final_delta_mean": 0.7,
+                    "final_delta_ci95": [0.5, 0.9],
                     "wilcoxon_signed_rank_p": 0.0625,
                 },
             },
@@ -123,10 +175,20 @@ def _summary(max_step_radius):
                     "final_delta_ci95": [-0.2, 0.0],
                     "wilcoxon_signed_rank_p": 0.5,
                 },
+                "expected_posterior_rmse": {
+                    "final_delta_mean": -0.1,
+                    "final_delta_ci95": [-0.2, 0.0],
+                    "wilcoxon_signed_rank_p": 0.5,
+                },
                 "posterior_entropy": {
                     "final_delta_mean": -0.2,
                     "final_delta_ci95": [-0.3, -0.05],
                     "wilcoxon_signed_rank_p": 0.25,
+                },
+                "truth_log_probability": {
+                    "final_delta_mean": 0.2,
+                    "final_delta_ci95": [0.0, 0.4],
+                    "wilcoxon_signed_rank_p": 0.5,
                 },
             }
         },
@@ -179,7 +241,9 @@ def test_write_comparison_report_mentions_both_sides(tmp_path):
     assert "## Headline Constrained Depths" in text
     assert "| `StrategyEIG-d3` | 0.1800 | 0.0400 | -0.3200 | [-0.4400, -0.2000] | 0.1250 |" in text
     assert "| `StrategyEIG-d2` | `source_rmse` | 0.2000 | -0.3000 | [-0.4000, -0.2000] | 0.2500 |" in text
-    assert "| `StrategyEIG-d2` | `posterior_entropy` | n/a | -0.4000 | [-0.6000, -0.1000] | 0.1250 |" in text
+    assert "| `StrategyEIG-d2` | `expected_posterior_rmse` | 0.2500 | -0.3000 | [-0.4000, -0.2000] | 0.2500 |" in text
+    assert "| `StrategyEIG-d2` | `posterior_entropy` | 0.7000 | -0.4000 | [-0.6000, -0.1000] | 0.1250 |" in text
+    assert "| `StrategyEIG-d2` | `truth_log_probability` | -0.4000 | 0.6000 | [0.4000, 0.8000] | 0.2500 |" in text
     assert "| `StrategyEIG-myopic-d2` | `source_rmse` | 0.4000 | -0.1000 | [-0.2000, 0.0000] | 0.5000 |" in text
 
 

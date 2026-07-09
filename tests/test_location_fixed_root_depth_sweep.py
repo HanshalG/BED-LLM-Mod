@@ -8,6 +8,7 @@ from environments.location_finding.types import LocationObservation, LocationStr
 from helpers import Config
 from scripts.location_fixed_root_depth_sweep import (
     _DepthBranch,
+    _expected_posterior_rmse,
     _group_strategy_branch_indices,
     _make_depth_sweep_rng_plan,
     _metric_summary_by_policy,
@@ -57,10 +58,12 @@ def test_truth_augmented_state_exposes_truth_log_probability():
         config,
     )
     truth_log_probability = _truth_log_probability(state, hidden_state)
+    expected_posterior_rmse = _expected_posterior_rmse(state, hidden_state)
 
     assert len(state.hypotheses) == 2
     assert math.isfinite(truth_log_probability)
     assert math.exp(truth_log_probability) > 0.5
+    assert expected_posterior_rmse < 1.0
 
 
 def test_policy_metric_summary_and_paired_delta_use_policy_labels():
@@ -69,16 +72,36 @@ def test_policy_metric_summary_and_paired_delta_use_policy_labels():
             "trial_index": 0,
             "policy_label": "EIG",
             "round_metrics": [
-                {"source_rmse": 0.8, "posterior_entropy": 1.5, "truth_log_probability": -2.0},
-                {"source_rmse": 0.5, "posterior_entropy": 1.0, "truth_log_probability": -1.0},
+                {
+                    "source_rmse": 0.8,
+                    "expected_posterior_rmse": 0.85,
+                    "posterior_entropy": 1.5,
+                    "truth_log_probability": -2.0,
+                },
+                {
+                    "source_rmse": 0.5,
+                    "expected_posterior_rmse": 0.55,
+                    "posterior_entropy": 1.0,
+                    "truth_log_probability": -1.0,
+                },
             ],
         },
         {
             "trial_index": 0,
             "policy_label": "StrategyEIG-d2",
             "round_metrics": [
-                {"source_rmse": 0.7, "posterior_entropy": 1.2, "truth_log_probability": -1.5},
-                {"source_rmse": 0.2, "posterior_entropy": 0.6, "truth_log_probability": -0.4},
+                {
+                    "source_rmse": 0.7,
+                    "expected_posterior_rmse": 0.75,
+                    "posterior_entropy": 1.2,
+                    "truth_log_probability": -1.5,
+                },
+                {
+                    "source_rmse": 0.2,
+                    "expected_posterior_rmse": 0.25,
+                    "posterior_entropy": 0.6,
+                    "truth_log_probability": -0.4,
+                },
             ],
         },
     ]
@@ -93,6 +116,7 @@ def test_policy_metric_summary_and_paired_delta_use_policy_labels():
     assert summary["EIG"]["source_rmse"]["final_mean"] == pytest.approx(0.5)
     assert summary["StrategyEIG-d2"]["posterior_entropy"]["mean_trace"] == pytest.approx([1.2, 0.6])
     assert deltas["StrategyEIG-d2"]["source_rmse"]["final_delta_mean"] == pytest.approx(-0.3)
+    assert deltas["StrategyEIG-d2"]["expected_posterior_rmse"]["final_delta_mean"] == pytest.approx(-0.3)
     assert deltas["StrategyEIG-d2"]["truth_log_probability"]["final_delta_mean"] == pytest.approx(0.6)
     assert deltas["StrategyEIG-d2"]["source_rmse"]["final_delta_ci95"] == pytest.approx([-0.3, -0.3])
     assert deltas["StrategyEIG-d2"]["source_rmse"]["wilcoxon_signed_rank_p"] is not None
@@ -346,13 +370,28 @@ def test_depth_sweep_report_contains_paired_delta_table(tmp_path):
             },
         },
         "aggregate": {
-            "EIG": {"source_rmse": {"final_mean": 0.5, "final_std": 0.1}},
-            "StrategyEIG-d2": {"source_rmse": {"final_mean": 0.2, "final_std": 0.05}},
-            "StrategyEIG-myopic-d2": {"source_rmse": {"final_mean": 0.4, "final_std": 0.07}},
+            "EIG": {
+                "source_rmse": {"final_mean": 0.5, "final_std": 0.1},
+                "expected_posterior_rmse": {"final_mean": 0.55, "final_std": 0.1},
+            },
+            "StrategyEIG-d2": {
+                "source_rmse": {"final_mean": 0.2, "final_std": 0.05},
+                "expected_posterior_rmse": {"final_mean": 0.25, "final_std": 0.05},
+            },
+            "StrategyEIG-myopic-d2": {
+                "source_rmse": {"final_mean": 0.4, "final_std": 0.07},
+                "expected_posterior_rmse": {"final_mean": 0.45, "final_std": 0.07},
+            },
         },
         "paired_delta_vs_eig": {
             "StrategyEIG-d2": {
                 "source_rmse": {
+                    "n": 2,
+                    "final_delta_mean": -0.3,
+                    "final_delta_ci95": [-0.4, -0.2],
+                    "wilcoxon_signed_rank_p": 0.25,
+                },
+                "expected_posterior_rmse": {
                     "n": 2,
                     "final_delta_mean": -0.3,
                     "final_delta_ci95": [-0.4, -0.2],
@@ -373,6 +412,12 @@ def test_depth_sweep_report_contains_paired_delta_table(tmp_path):
             },
             "StrategyEIG-myopic-d2": {
                 "source_rmse": {
+                    "n": 2,
+                    "final_delta_mean": -0.1,
+                    "final_delta_ci95": [-0.2, 0.0],
+                    "wilcoxon_signed_rank_p": 0.5,
+                },
+                "expected_posterior_rmse": {
                     "n": 2,
                     "final_delta_mean": -0.1,
                     "final_delta_ci95": [-0.2, 0.0],
@@ -406,4 +451,5 @@ def test_depth_sweep_report_contains_paired_delta_table(tmp_path):
     assert "| `batched_chat` | 2 | 11 | 22 | 33 |" in text
     assert "Paired trial delta plot: `plots/example_paired_trial_rmse_deltas.png`" in text
     assert "| `StrategyEIG-d2` | `source_rmse` | 2 | -0.3000 | [-0.4000, -0.2000] | 0.25 |" in text
+    assert "| `StrategyEIG-d2` | `expected_posterior_rmse` | 2 | -0.3000 | [-0.4000, -0.2000] | 0.25 |" in text
     assert "| `StrategyEIG-myopic-d2` | `source_rmse` | 2 | -0.1000 | [-0.2000, 0.0000] | 0.5 |" in text

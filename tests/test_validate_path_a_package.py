@@ -30,6 +30,9 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
                 "`StrategyEIG-d3`",
                 "`StrategyEIG-d5`",
                 "`StrategyEIG-myopic-d3`",
+                "`StrategyEIG-myopic-d5`",
+                "`truth_log_probability`",
+                "`expected_posterior_rmse`",
                 "paired final delta vs EIG",
             ]
         ),
@@ -101,6 +104,9 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
                 "`StrategyEIG-d3`",
                 "`StrategyEIG-d5`",
                 "`StrategyEIG-myopic-d3`",
+                "`StrategyEIG-myopic-d5`",
+                "`truth_log_probability`",
+                "`expected_posterior_rmse`",
                 "paired final delta vs EIG",
             ]
         ),

@@ -372,11 +372,17 @@ python scripts/compare_location_rollout_ablation.py \
 
 - `results/ranking_fidelity/REPORT.md`: Spearman, SNR, and top-1 regret by
   depth, including the aggregate gate assessment.
+- `results/ranking_fidelity/*_aggregate_plot.png` or another
+  ranking-fidelity diagnostics plot: paper-facing ranking diagnostics figure.
 - `results/constrained_oracle/REPORT.md`: oracle greedy-vs-planner gap and
   linked RMSE figure for the selected constrained environment.
+- `plots/constrained_oracle_robustness/*_heatmap.png`: robustness heatmap used
+  as scope evidence for the method-blind constrained environment.
 - `results/location_depth_sweeps/*_REPORT.md`: constrained/unconstrained
-  paired RMSE and entropy deltas versus EIG with CIs and test statistics,
-  including the `StrategyEIG-myopic-dN` matched-compute controls.
+  paired deltas versus EIG with CIs and test statistics for point RMSE,
+  expected posterior RMSE, posterior entropy, and truth log posterior
+  probability, including the `StrategyEIG-myopic-d3` and
+  `StrategyEIG-myopic-d5` matched-compute controls.
 - `plots/location_depth_sweeps/*_headline_rmse.png`: paper-facing constrained
   RMSE trace for greedy EIG and StrategyEIG depths 1, 3, and 5.
 - `results/location_qualitative/*_qualitative_examples.md` and

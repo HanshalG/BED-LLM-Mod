@@ -1674,6 +1674,20 @@ banked evidence artifacts. Focused tests pass:
 `pytest tests/test_path_a_sync_commands.py tests/test_path_a_remote_readiness.py
 tests/test_path_a_preflight.py -q` (`14 passed`), and the full suite passes:
 `pytest tests/ -q` (`467 passed, 1 skipped`).
+Follow-up 15:20 London endpoint/reporting hardening: fixed-root depth sweeps and
+recovered summaries now compute `expected_posterior_rmse` from the truth-augmented
+posterior at every round, alongside `source_rmse`, `posterior_entropy`, and
+`truth_log_probability`. `compare_location_depth_sweeps.py` now carries all four
+pre-registered paired metrics into the package report, including final baseline values
+for EIG. `validate_path_a_package.py` now requires the Phase 4 report to mention the
+primary truth-log endpoint, expected posterior RMSE, and both matched-compute myopic
+controls (`StrategyEIG-myopic-d3` and `StrategyEIG-myopic-d5`) before the package can
+pass. The runbook and launch handoff evidence checklists were updated to match. Focused
+tests pass:
+`pytest tests/test_location_fixed_root_depth_sweep.py tests/test_recover_depth_sweep_metrics.py
+tests/test_compare_location_depth_sweeps.py tests/test_validate_path_a_package.py
+tests/test_build_path_a_package.py -q` (`19 passed`), and the full suite passes:
+`pytest tests/ -q` (`467 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

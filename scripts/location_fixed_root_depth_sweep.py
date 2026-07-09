@@ -24,7 +24,7 @@ from core import BeliefState
 from core.defaults import register_defaults
 from environments.location_finding.beliefs import build_location_belief_state_unpruned
 from environments.location_finding.env import LocationBEDEnvironment
-from environments.location_finding.physics import round_positive_observation, signal_intensity_for_hypothesis
+from environments.location_finding.physics import round_positive_observation, signal_intensity_for_hypothesis, source_rmse
 from environments.location_finding.strategy import (
     _strategy_entries_from_evaluations,
     evaluate_location_strategies_by_rollout_many,
@@ -42,6 +42,13 @@ from environments.location_finding.types import (
 from helpers import Config, load_config, resolve_run_id
 from scripts.llm_token_usage import summarize_llm_token_usage, token_usage_report_lines
 from methods.eig import build_eig_method
+
+PAIRED_METRIC_NAMES = (
+    "source_rmse",
+    "expected_posterior_rmse",
+    "posterior_entropy",
+    "truth_log_probability",
+)
 
 
 @dataclass
@@ -292,6 +299,20 @@ def _truth_log_probability(
     return math.log(1e-300)
 
 
+def _expected_posterior_rmse(
+    belief_state: BeliefState[SourceConfig],
+    hidden_state: np.ndarray,
+) -> float:
+    if not belief_state.hypotheses:
+        return float("inf")
+    return float(
+        sum(
+            float(probability) * source_rmse(hypothesis, hidden_state)
+            for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities)
+        )
+    )
+
+
 def _observe_with_noise_z(
     action: Location,
     hidden_state: np.ndarray,
@@ -508,7 +529,7 @@ def _paired_delta_summary_by_policy(
             and int(record["trial_index"]) in baseline_by_trial
         ]
         metric_deltas: dict[str, Any] = {}
-        for metric_name in ("source_rmse", "posterior_entropy", "truth_log_probability"):
+        for metric_name in PAIRED_METRIC_NAMES:
             deltas = []
             auc_deltas = []
             for record in policy_records:
@@ -694,7 +715,7 @@ def _write_depth_sweep_report(report_path: Path, summary: dict[str, Any]) -> Non
     )
     paired = summary.get("paired_delta_vs_eig", {})
     for policy_label in sorted(paired):
-        for metric_name in ("source_rmse", "posterior_entropy", "truth_log_probability"):
+        for metric_name in PAIRED_METRIC_NAMES:
             metric = paired[policy_label].get(metric_name, {})
             ci = metric.get("final_delta_ci95", [None, None])
             ci_text = (
@@ -1261,6 +1282,10 @@ def run_fixed_root_depth_sweep(
                     config,
                 )
                 metrics["posterior_entropy"] = _entropy(truth_augmented_state.probabilities)
+                metrics["expected_posterior_rmse"] = _expected_posterior_rmse(
+                    truth_augmented_state,
+                    branch.hidden_state,
+                )
                 metrics["truth_log_probability"] = _truth_log_probability(
                     truth_augmented_state,
                     branch.hidden_state,

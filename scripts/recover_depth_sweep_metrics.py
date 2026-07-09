@@ -20,6 +20,7 @@ from scripts.llm_token_usage import summarize_llm_token_usage
 from scripts.location_fixed_root_depth_sweep import (
     _DepthBranch,
     _entropy,
+    _expected_posterior_rmse,
     _fidelity_summary,
     _jsonable,
     _metric_summary,
@@ -199,6 +200,10 @@ def _summary_from_replayed_histories(
                 config,
             )
             metrics["posterior_entropy"] = _entropy(truth_augmented_state.probabilities)
+            metrics["expected_posterior_rmse"] = _expected_posterior_rmse(
+                truth_augmented_state,
+                branch.hidden_state,
+            )
             metrics["truth_log_probability"] = _truth_log_probability(
                 truth_augmented_state,
                 branch.hidden_state,

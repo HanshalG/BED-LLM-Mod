@@ -7,8 +7,11 @@ It is intentionally command-oriented and avoids extra experiment branches.
 
 - Ranking-fidelity gate: present and passing.
   - `results/ranking_fidelity/REPORT.md`
+  - `results/ranking_fidelity/rankfid26b_a4b_gate_v2ghs_configured_t20_m8_aggregate_plot.png`
 - Constrained oracle evidence: present.
   - `results/constrained_oracle/REPORT.md`
+- Robustness evidence: present.
+  - `plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png`
 - Pre-registered Phase 4 endpoint: present.
   - `LOCATION_DEPTH_PATH_A_RUNBOOK.md`, "Pre-registered Analysis"
 - Final sweep artifacts: not present yet.
@@ -55,7 +58,9 @@ Expected local status before final sweeps:
 Review the file list, then sync current changed code/configs/scripts/tests. The sync
 manifest includes the package-builder dependency chain (`compare_location_depth_sweeps.py`,
 `cost_vs_depth_table.py`, `extract_location_qualitative_examples.py`, and
-`llm_token_usage.py`) so remote packaging does not accidentally use stale helpers:
+`llm_token_usage.py`) plus the banked ranking-fidelity, constrained-oracle,
+robustness-heatmap, and preregistered cost artifacts so remote packaging does
+not accidentally use stale helpers or miss already-banked evidence:
 
 ```bash
 python scripts/path_a_sync_commands.py --list
@@ -69,7 +74,9 @@ The generated `rsync -avR ...` command targets:
 oat0:/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z/
 ```
 
-By default it excludes generated `results/`, `plots/`, and `runs/`.
+By default it excludes unlisted generated `results/`, `plots/`, and `runs/`,
+while still syncing the exact banked evidence artifacts required by
+`validate_path_a_package.py`.
 
 ## Launch Commands
 
