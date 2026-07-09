@@ -1489,6 +1489,14 @@ split launch shape. Local preflight passes its launch-readiness checks and still
 passes (`452 passed, 1 skipped`). Read-only remote readiness remains unchanged: zero
 active jobs, one idle `gh200` node, and `ok_to_launch=false` only because the combiner
 has not been synced to the cluster yet.
+Follow-up 15:38 London remote-readiness cap fix: remote readiness now shares the forced
+sync manifest and enforces the 8-job cap for a six-job split-MPP30 launch, so it only
+allows launch when at most two jobs are already active. Read-only remote readiness
+currently reports zero active jobs and one idle `gh200` node, but `ok_to_launch=false`
+because the cluster checkout is missing
+`scripts/combine_location_fixed_root_depth_sweeps.py` and
+`scripts/recover_depth_sweep_metrics.py`. Full local suite passes
+(`453 passed, 1 skipped`).
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1509,7 +1517,7 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
 
 1. No active cluster jobs are currently running for this goal. Before relaunch, sync the
    required Path A files with `python scripts/path_a_sync_commands.py`; current remote
-   readiness is false only because the new combiner is not on the cluster checkout yet.
+   readiness is false only because required scripts are not on the cluster checkout yet.
 2. If the user asks to relaunch, prefer the split MPP30 path: three 10-trial blocks per side
    (`--trial-offset` 0, 10, 20 plus `--total-trials 30`), depths 1/3/5, myopic controls
    3/5, GH200 Singularity launcher. Generate the exact launch/combine/package commands
@@ -1537,4 +1545,4 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 452 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 453 passed, 1 skipped).

@@ -5,22 +5,23 @@ import json
 import shlex
 import subprocess
 from dataclasses import dataclass
+from pathlib import Path
+import sys
 from typing import Any
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.path_a_sync_commands import REQUIRED_SYNC_PATHS
 
 
 DEFAULT_HOST = "oat0"
 DEFAULT_REMOTE_DIR = "/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z"
-REQUIRED_REMOTE_FILES = (
-    "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml",
-    "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
-    "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh",
-    "scripts/location_fixed_root_depth_sweep.py",
-    "scripts/combine_location_fixed_root_depth_sweeps.py",
-    "scripts/build_path_a_package.py",
-    "scripts/path_a_preflight.py",
-    "scripts/path_a_launch_commands.py",
-    "scripts/validate_path_a_package.py",
-)
+REQUIRED_REMOTE_FILES = REQUIRED_SYNC_PATHS
+MAX_ACTIVE_JOBS = 8
+SPLIT_MPP30_JOB_COUNT = 6
+MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH = MAX_ACTIVE_JOBS - SPLIT_MPP30_JOB_COUNT
 
 
 @dataclass(frozen=True)
@@ -32,7 +33,10 @@ class RemoteReadiness:
 
     @property
     def ok_to_launch(self) -> bool:
-        if self.active_jobs is None or self.active_jobs > 6:
+        if (
+            self.active_jobs is None
+            or self.active_jobs > MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH
+        ):
             return False
         if not any("idle" in line for line in self.gh200_lines):
             return False

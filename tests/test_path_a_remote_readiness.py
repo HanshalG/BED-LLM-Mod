@@ -33,7 +33,7 @@ def test_parse_remote_probe_blocks_on_missing_files_or_many_jobs():
         for index, path in enumerate(REQUIRED_REMOTE_FILES)
     )
     output = f"""ACTIVE_JOBS
-7
+3
 QUEUE
 job line
 GH200_SINFO
@@ -46,8 +46,25 @@ REQUIRED_FILES
     data = payload(readiness)
 
     assert readiness.ok_to_launch is False
-    assert data["active_jobs"] == 7
+    assert data["active_jobs"] == 3
     assert data["missing_files"] == [REQUIRED_REMOTE_FILES[0]]
+
+
+def test_parse_remote_probe_allows_two_existing_jobs_before_split_launch():
+    file_lines = "\n".join(f"OK {path}" for path in REQUIRED_REMOTE_FILES)
+    output = f"""ACTIVE_JOBS
+2
+QUEUE
+job line
+GH200_SINFO
+gh200 up infinite 1 idle oat21
+REQUIRED_FILES
+{file_lines}
+"""
+
+    readiness = parse_remote_probe(output)
+
+    assert readiness.ok_to_launch is True
 
 
 def test_remote_probe_script_is_read_only_and_quotes_remote_dir():
