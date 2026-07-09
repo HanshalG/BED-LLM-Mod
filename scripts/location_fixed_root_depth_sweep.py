@@ -1346,6 +1346,7 @@ def run_fixed_root_depth_sweep(
         "location_strategy_rollout_score_mode": config.location_strategy_rollout_score_mode,
         "location_strategy_rollout_scoring_support_mode": config.location_strategy_rollout_scoring_support_mode,
         "location_strategy_rollout_refresh_hypotheses_each_step": config.location_strategy_rollout_refresh_hypotheses_each_step,
+        "location_belief_support_refresh_enabled": config.location_belief_support_refresh_enabled,
         "location_strategy_rollout_query_mode": config.location_strategy_rollout_query_mode,
         "include_myopic_controls": include_myopic_controls,
         "token_usage": summarize_llm_token_usage(config.log_path),

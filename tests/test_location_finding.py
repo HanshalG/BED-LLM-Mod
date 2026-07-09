@@ -927,6 +927,29 @@ def test_generated_refresh_hypotheses_compete_with_existing_support():
     assert state.probabilities[0] > state.probabilities[1]
 
 
+def test_deployed_belief_update_can_skip_llm_support_refresh():
+    config = _location_config(location_belief_support_refresh_enabled=False)
+    env = LocationBEDEnvironment(config)
+    model = FakeLocationModel([])
+    old = normalize_source_config([[0, 1], [1, 0], [-1, -1]], 3, 2)
+    generated = normalize_source_config([[0, 0], [1, 1], [-1, -1]], 3, 2)
+    query = (0.0, 0.0)
+    observation = LocationObservation(query=query, value=signal_intensity_for_hypothesis(generated, query))
+    belief_state = BeliefState([old], [1.0])
+
+    states = env.update_belief_states(
+        [belief_state],
+        [[(query, observation)]],
+        model,
+        config,
+    )
+
+    assert len(model.calls) == 0
+    assert len(model.batched_calls) == 0
+    assert states[0].hypotheses == (old,)
+    assert generated not in states[0].hypotheses
+
+
 def test_truth_plus_sampled_rollout_scoring_support_includes_truth_and_caps_size():
     config = _location_config(
         location_num_sources=1,

@@ -64,6 +64,7 @@ def test_location_view_extracts_location_fields():
         location_max_total_beliefs=500,
         location_max_llm_prompt_beliefs=30,
         location_num_generated_hypotheses=25,
+        location_belief_support_refresh_enabled=False,
         location_eig_quadrature_order=11,
         location_strategy_num_retrieved=3,
         location_strategy_num_mutation=2,
@@ -98,6 +99,7 @@ def test_location_view_extracts_location_fields():
     assert view.max_total_beliefs == 500
     assert view.max_llm_prompt_beliefs == 30
     assert view.num_generated_hypotheses == 25
+    assert view.belief_support_refresh_enabled is False
     assert view.eig_quadrature_order == 11
     assert view.eig_bounds_enabled is True
     assert view.eig_bounds_inner_samples == 101

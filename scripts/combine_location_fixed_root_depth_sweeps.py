@@ -65,6 +65,8 @@ def _validate_compatible(summaries: list[dict[str, Any]]) -> None:
         "location_strategy_rollout_score_mode",
         "location_strategy_rollout_scoring_support_mode",
         "location_strategy_rollout_refresh_hypotheses_each_step",
+        "location_belief_support_refresh_enabled",
+        "location_strategy_rollout_query_mode",
         "include_myopic_controls",
     ]
     first = summaries[0]

@@ -12,6 +12,7 @@ import numpy as np
 from pathlib import Path
 
 from environments.location_finding.beliefs import _merge_hypotheses, build_location_belief_state, build_location_belief_state_unpruned, build_location_posterior, build_location_posteriors_many, sample_location_eig_belief_state
+from environments.location_finding.formatting import _log_location
 from environments.location_finding.generation import _generate_location_hypotheses_many, choose_location_naive, choose_locations_naive_many, estimate_sources_naive, estimate_sources_naive_many, generate_location_candidates, generate_location_candidates_many, generate_location_hypotheses
 from environments.location_finding.physics import _top_source_rmse, hypothesis_log_prior_for_config, observation_log_likelihood, sample_source_configs_from_prior, signal_intensities_for_hypotheses, signal_intensity_for_hypothesis, source_rmse
 from environments.location_finding.plotting import _plot_location_trial
@@ -259,14 +260,17 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         config: Any,
     ) -> BeliefState[SourceConfig]:
         observations = [obs for _action, obs in history]
-        hypotheses = generate_location_hypotheses(
-            model,
-            observations,
-            belief_state,
-            config,
-            label="belief refresh",
-        )
-        merged = _merge_hypotheses(belief_state, hypotheses)
+        if getattr(config, "location_belief_support_refresh_enabled", True):
+            hypotheses = generate_location_hypotheses(
+                model,
+                observations,
+                belief_state,
+                config,
+                label="belief refresh",
+            )
+            merged = _merge_hypotheses(belief_state, hypotheses)
+        else:
+            merged = list(belief_state.hypotheses)
         location_state = build_location_posterior(
             model,
             merged,
@@ -285,17 +289,24 @@ class LocationBEDEnvironment(Environment["np.ndarray", SourceConfig, Location, L
         config: Any,
     ) -> list[BeliefState[SourceConfig]]:
         observations_many = [[obs for _action, obs in history] for history in histories]
-        generated_many = _generate_location_hypotheses_many(
-            model,
-            observations_many,
-            list(belief_states),
-            config,
-            label="batched belief refresh",
-        )
-        merged_many = [
-            _merge_hypotheses(belief_state, generated)
-            for belief_state, generated in zip(belief_states, generated_many)
-        ]
+        if getattr(config, "location_belief_support_refresh_enabled", True):
+            generated_many = _generate_location_hypotheses_many(
+                model,
+                observations_many,
+                list(belief_states),
+                config,
+                label="batched belief refresh",
+            )
+            merged_many = [
+                _merge_hypotheses(belief_state, generated)
+                for belief_state, generated in zip(belief_states, generated_many)
+            ]
+        else:
+            _log_location(
+                "batched belief refresh: disabled; reweighting existing support only",
+                config,
+            )
+            merged_many = [list(belief_state.hypotheses) for belief_state in belief_states]
         states = build_location_posteriors_many(
             model,
             merged_many,

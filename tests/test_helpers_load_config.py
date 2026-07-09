@@ -130,6 +130,7 @@ environment:
   signal_lengthscale: 0.5
   signal_amplitude: 8.0
   max_step_radius: 0.75
+  belief_support_refresh_enabled: false
   search_depth: 1
   eig_quadrature_order: 5
   eig_bounds_enabled: true
@@ -158,6 +159,7 @@ environment:
     assert config.location_signal_lengthscale == pytest.approx(0.5)
     assert config.location_signal_amplitude == pytest.approx(8.0)
     assert config.location_max_step_radius == pytest.approx(0.75)
+    assert config.location_belief_support_refresh_enabled is False
     assert config.location_search_depth == 1
     assert config.location_eig_bounds_enabled is True
     assert config.location_eig_bounds_inner_samples == 11
@@ -258,6 +260,7 @@ location_signal_lengthscale: 0.5
 location_signal_amplitude: 8.0
 location_max_total_beliefs: 123
 location_max_llm_prompt_beliefs: 40
+location_belief_support_refresh_enabled: false
 location_target_num_candidates: 15
 location_search_depth: 2
 location_eig_quadrature_order: 9
@@ -292,6 +295,7 @@ location_strategy_rollout_query_mode: analytic_eig
     assert config.location_signal_amplitude == pytest.approx(8.0)
     assert config.location_max_total_beliefs == 123
     assert config.location_max_llm_prompt_beliefs == 40
+    assert config.location_belief_support_refresh_enabled is False
     assert config.location_target_num_candidates == 15
     assert config.location_search_depth == 2
     assert config.location_eig_quadrature_order == 9
@@ -439,6 +443,10 @@ task: location_finding
         (
             "location_strategy_rollout_final_refresh_enabled: sometimes",
             "location_strategy_rollout_final_refresh_enabled",
+        ),
+        (
+            "location_belief_support_refresh_enabled: sometimes",
+            "location_belief_support_refresh_enabled",
         ),
         (
             "location_posterior_mode: llm_distribution\n"

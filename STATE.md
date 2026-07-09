@@ -2008,20 +2008,37 @@ It uses 3 paired trials, 6 rounds, StrategyEIG depths 1/3/5, eval depths 1/3/5,
 matched-compute myopic controls 3/5, 2 target strategy/root candidates, 8 rollouts,
 fixed-common scoring, no rollout-step refresh, and analytic future rollout queries.
 Startup check showed `102199` running on `oat21`; no active jobs were on `oat12`.
+Follow-up 17:24 London deployed-refresh bottleneck and fix: `102199` is still running on
+`gh200` / `oat21` and remains off `oat12`, but it is not a viable scaling path in its
+current launched form. After about 16 minutes it had 468 LLM usage events, 140 forced
+thinking exits, 24 decision rows, no metrics file, and had only completed round 1/6.
+The key diagnosis is that `strategy_rollout_final_refresh_enabled: false` was already
+set, so the expensive repeated 48-way `batched belief refresh` calls are not rollout
+scoring; they are the deployed branch belief-support refresh after actions. Added a new
+default-preserving config flag `location_belief_support_refresh_enabled` / nested
+`belief_support_refresh_enabled`. When false, deployed belief updates reweight existing
+support instead of asking the LLM for fresh hypotheses. Updated the constrained and
+unconstrained micro analytic configs to set it false; focused tests pass:
+`pytest tests/test_location_finding.py tests/test_helpers_load_config.py tests/test_core_config.py -q`
+(`159 passed`). Code/config were synced to the cluster for the next relaunch. The current
+`102199` job was left running because there was no explicit active cancellation request
+in this continuation.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor analytic multi-round pilot job `102199` with
-   `squeue -j 102199 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
-   off `oat12`.
-2. If `102199` completes cleanly, extract calls/tokens/forced exits and paired metrics.
-   If 3-trial/6-round cost and traces are acceptable, the next scale step is a split
-   constrained MPP30 relaunch, still one or two jobs at a time. If it runs too long or the
-   traces are flat, keep the paper path on the ranking-fidelity/diagnostic fallback and
-   avoid more GH200 spending.
-3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
+1. Decide whether to cancel obsolete live job `102199`. It is running the old deployed
+   belief-refresh path and is too expensive to use as the scaling evidence unless it
+   happens to finish before the next check.
+2. After `102199` is complete or canceled, relaunch one constrained 3-trial/6-round pilot
+   with the synced fixed-support config (`belief_support_refresh_enabled: false`) and
+   `--exclude=oat12`. Do not launch MPP30 until this fixed-support pilot proves throughput.
+3. If the fixed-support 3-trial/6-round pilot completes cleanly, extract calls/tokens/
+   forced exits and paired metrics. If cost and traces are acceptable, the next scale step
+   is a split constrained MPP30 relaunch, still one or two jobs at a time. If traces are
+   flat, keep the paper path on the ranking-fidelity/diagnostic fallback.
+4. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
-4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
+5. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
    to avoid the broken user-site NumPy. The GH200 launchers already export this.
 
 ## OPERATIONAL KNOWLEDGE (repo memory — keep updated here, not in chat)

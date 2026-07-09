@@ -116,6 +116,7 @@ class Config:
     location_max_total_beliefs: int = 1000
     location_max_llm_prompt_beliefs: int = 40
     location_num_generated_hypotheses: int = 0  # 0 = inherit from location_max_llm_prompt_beliefs
+    location_belief_support_refresh_enabled: bool = True
     location_target_num_candidates: int = 15
     location_search_depth: int = 2
     location_eig_quadrature_order: int = 15
@@ -149,6 +150,8 @@ class Config:
         # load_config() behaviour of defaulting the two together.
         if self.location_num_generated_hypotheses == 0:
             self.location_num_generated_hypotheses = self.location_max_llm_prompt_beliefs
+        if not isinstance(self.location_belief_support_refresh_enabled, bool):
+            raise ValueError("location_belief_support_refresh_enabled must be a boolean")
         if self.location_source_prior not in {"normal", "branch_decoy"}:
             raise ValueError("location_source_prior must be one of: normal, branch_decoy")
         self.location_source_radius = float(self.location_source_radius)
@@ -478,6 +481,7 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "max_total_beliefs": "location_max_total_beliefs",
         "max_llm_prompt_beliefs": "location_max_llm_prompt_beliefs",
         "num_generated_hypotheses": "location_num_generated_hypotheses",
+        "belief_support_refresh_enabled": "location_belief_support_refresh_enabled",
         "target_num_candidates": "location_target_num_candidates",
         "search_depth": "location_search_depth",
         "eig_quadrature_order": "location_eig_quadrature_order",
@@ -685,6 +689,12 @@ def load_config(path: str) -> Config:
         "location_num_generated_hypotheses",
         location_max_llm_prompt_beliefs,
     )
+    location_belief_support_refresh_enabled = raw.get(
+        "location_belief_support_refresh_enabled",
+        True,
+    )
+    if not isinstance(location_belief_support_refresh_enabled, bool):
+        raise ValueError("location_belief_support_refresh_enabled must be a boolean")
     location_target_num_candidates = _read_positive_int(raw, "location_target_num_candidates", 15)
     location_search_depth = raw.get("location_search_depth", 2)
     if not isinstance(location_search_depth, int) or isinstance(location_search_depth, bool):
@@ -849,6 +859,7 @@ def load_config(path: str) -> Config:
         location_max_total_beliefs = location_max_total_beliefs,
         location_max_llm_prompt_beliefs = location_max_llm_prompt_beliefs,
         location_num_generated_hypotheses = location_num_generated_hypotheses,
+        location_belief_support_refresh_enabled = location_belief_support_refresh_enabled,
         location_target_num_candidates = location_target_num_candidates,
         location_search_depth = location_search_depth,
         location_eig_quadrature_order = location_eig_quadrature_order,

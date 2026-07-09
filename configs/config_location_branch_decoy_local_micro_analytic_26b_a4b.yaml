@@ -48,6 +48,7 @@ environment:
   max_total_beliefs: 40
   max_llm_prompt_beliefs: 10
   num_generated_hypotheses: 12
+  belief_support_refresh_enabled: false
   target_num_candidates: 6
   search_depth: 1
   strategy_num_retrieved: 1
