@@ -1869,6 +1869,15 @@ Submitted jobs were `102177` (`loc_branch_constr26_f50_b00`),
 on `gh200` for `(Priority)` with no node assigned, so none were on excluded `oat12`.
 After ledger/state sync, `102177` was running on `oat21` and the other five remained
 pending for `(Priority)`. `EXPERIMENTS.md` has one launch row per job.
+Follow-up 16:47 London early launch health check: `102177` remains the only running split
+job, on `oat21`; `102178`--`102182` remain pending on `gh200` for `(Priority)`. The
+running block's Slurm output shows the expected GH200 Singularity path: cached image,
+in-container dependency install, vLLM 26B A4B load, CUDA graph capture, then location
+initial belief generation. `runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10/run.log`
+has initial belief LLM calls and parsed 12 valid unique source configurations; no decision
+files or metrics yet, which is expected this early. Grep over the 102177 Slurm/run logs
+found no `Traceback`, runtime/value/import error, OOM, missing-file, or invalid-location
+messages. Forced thinking exits in the run log were zero at this check.
 
 ## NEXT ACTIONS (in order)
 
