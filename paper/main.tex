@@ -21,7 +21,8 @@ Large language models can propose rich natural-language experimental
 strategies, but non-myopic Bayesian experimental design requires more than
 plausible plans: the model must rank those plans by their expected downstream
 information gain. We study this question in a locality-constrained
-location-finding environment designed to expose a greedy-planning gap. Our
+location-finding environment designed to expose a greedy-planning gap through
+movement cost, finite-range sensing, and branch-decoy source structure. Our
 diagnostic first measures whether rollout-scored natural-language strategies
 predict realized information gain. The current 26B A4B gate shows positive
 rank fidelity for entropy and truth-anchored posterior quality, while point
@@ -114,15 +115,50 @@ posterior RMSE, posterior entropy, and paired win-rate distributions.
 \section{Environment}
 
 The headline task is a one-source branch-decoy location-finding environment
-with local-bump observations, short movement radius, and six measurement
-rounds. The finite-range signal makes far branches hard to distinguish until
-the agent commits movement, creating a structural gap between greedy EIG and
-lookahead planning.
+that can be read as a small informative-path-planning problem. A mobile sensor
+starts at the origin and may take six measurements. Consecutive measurements
+are constrained by a maximum movement radius, representing travel cost or
+limited actuation. Observations follow a finite-range local-bump signal rather
+than the original long-range inverse-square signal, so distant branches remain
+nearly indistinguishable until the sensor physically commits to moving toward
+one of them. The source prior places probability mass on branch-like
+alternatives, including decoys. Together these ingredients create the intended
+non-myopic structure: a locally attractive measurement can be less useful than
+movement that positions the sensor for later branch discrimination.
+
+The environment was selected method-blind with respect to StrategyEIG. We tuned
+geometry and signal parameters using only non-LLM oracle policies: grid greedy
+EIG, a depth-2 receding-horizon planner, a non-adaptive lawnmower coverage
+policy, and a random walk. StrategyEIG was not in the tuning loop. This matters
+because many simple location geometries are greedy-friendly; the constructed
+instance is meant to locate a planning-sensitive regime, not to claim that
+lookahead is universally useful for source localization.
 
 The banked non-LLM oracle check uses 120 paired trials. Greedy EIG reaches final
 RMSE 0.5606, while a depth-2 planner reaches 0.1529. The planner win rate is
 0.525, suggesting heavy-tailed improvements and motivating mean paired effects
 with bootstrap intervals rather than only rank tests.
+
+To scope the constructed-instance claim, we additionally ran a 27-cell
+robustness sweep over signal lengthscale, movement radius, and observation
+noise, with 100 paired oracle trials per cell. Figure~\ref{fig:env-robustness}
+shows planner-minus-greedy final RMSE; negative values indicate that lookahead
+helps. The Phase 4 operating point, lengthscale 0.5, radius 0.5, noise 0.15,
+is among the strongest cells (planner--greedy final RMSE $=-0.175$). Nearby
+settings often have weak or near-zero gaps, especially when the local-bump
+signal is too short-ranged or too smooth. We therefore use the heatmap as scope
+evidence: non-myopic traps exist in this environment family, but they occupy a
+specific regime rather than the whole parameter space.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{../plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png}
+  \caption{Method-blind robustness sweep for the constrained location
+  environment. Each cell shows depth-2 planner minus greedy-EIG final RMSE over
+  100 paired non-LLM oracle trials, so negative values favor lookahead. The
+  boxed cell is the pre-registered Phase 4 operating point.}
+  \label{fig:env-robustness}
+\end{figure}
 
 \section{Results}
 
@@ -197,11 +233,15 @@ trial where greedy stalls near a decoy branch and StrategyEIG routes past it.}
 
 The current study is workshop-scale. It uses one constrained environment
 family, one headline model family, and a limited number of paired trials. The
-thinking-enabled 26B A4B runs have nontrivial forced-thinking-exit rates, which
-must be reported with token usage. We do not include an MPC-style direct
-action-sequence ablation in the minimum package; it remains important future
-work for separating the value of natural-language strategies from direct action
-planning.
+environment is constructed, not a claim that all source-localization problems
+reward lookahead. We mitigate this by selecting the geometry using only
+method-blind non-LLM oracle policies and by reporting the robustness heatmap in
+Figure~\ref{fig:env-robustness}, which shows that many nearby geometries remain
+greedy-friendly. The thinking-enabled 26B A4B runs have nontrivial
+forced-thinking-exit rates, which must be reported with token usage. We do not
+include an MPC-style direct action-sequence ablation in the minimum package; it
+remains important future work for separating the value of natural-language
+strategies from direct action planning.
 
 \section{Conclusion}
 

@@ -38,6 +38,10 @@ planning-sensitive regime rather than a universal property of the location famil
 Positioning: `results/POSITIONING.md` (COPEx + IPP covered). Operational commands:
 `LOCATION_DEPTH_PATH_A_RUNBOOK.md` and `PHASE4_LAUNCH_HANDOFF.md`. The Phase 4 endpoint
 is pre-registered in `LOCATION_DEPTH_PATH_A_RUNBOOK.md` before metrics landed.
+Paper env framing: **DONE for the current skeleton** — `paper/main.tex` now presents the
+task as a mobile-sensor, movement-cost, finite-range-sensing, branch-decoy environment;
+states that geometry selection was method-blind with respect to StrategyEIG; includes the
+robustness heatmap figure; and scopes the claim to a mapped planning-sensitive regime.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -48,22 +52,14 @@ supports/probabilities were not logged.
 
 ## NEXT ACTIONS (in order, all local-only, none touch the running jobs)
 
-1. **Env framing in the paper (free, write into the skeleton).** Present the env with
-   its physical semantics — mobile agent, movement cost (locality constraint),
-   short-range sensor (local-bump finite-range signal), junction structure (branch-decoy
-   prior) — not as an abstract tuned geometry. State explicitly that geometry selection
-   was METHOD-BLIND (tuned against non-LLM oracle policies only; StrategyEIG never
-   entered the tuning loop). Report the failed geometries transparently as a finding:
-   most geometries are greedy-friendly, myopic traps are rare in this family — which
-   explains the original null results and motivates the constructed instance.
-2. **Add posterior-state logging for future ranking-fidelity repair runs.** Existing 26B
+1. **Add posterior-state logging for future ranking-fidelity repair runs.** Existing 26B
    aggregate records do not store final posterior supports/probabilities, so expected
    posterior RMSE could not be recomputed from the current JSONL. If any follow-up
    ranking-fidelity run is launched, log deployment final posterior states or expected
    posterior RMSE directly.
-3. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
+2. **Archive dead configs.** Move numbered `configs/config*.yaml` not referenced by any
    Path A artifact into `configs/archive/`; live configs must be findable at a glance.
-4. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
+3. When jobs finish: recovery-or-normal packaging via `PHASE4_LAUNCH_HANDOFF.md`, then
    analysis strictly per the pre-registered section, then results into the skeleton
    following the OUTCOME PLAYBOOK row in GOAL.md that applies.
 
