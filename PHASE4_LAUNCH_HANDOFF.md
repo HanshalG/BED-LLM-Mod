@@ -16,6 +16,7 @@ It is intentionally command-oriented and avoids extra experiment branches.
   - `LOCATION_DEPTH_PATH_A_RUNBOOK.md`, "Pre-registered Analysis"
 - Final sweep artifacts: not present yet.
   - `results/location_depth_sweeps/*_REPORT.md`
+  - `plots/location_depth_sweeps/*_depth_contrast.png`
   - `plots/location_depth_sweeps/*_headline_rmse.png`
   - `plots/location_depth_sweeps/*_paired_trial_rmse_deltas.png`
   - `plots/location_depth_sweeps/*_paired_trial_truth_log_probability_deltas.png`

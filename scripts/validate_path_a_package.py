@@ -63,6 +63,22 @@ def _check_headline_plot(root: Path) -> CheckResult:
     return CheckResult("headline_rmse_plot", True, str(path))
 
 
+def _check_depth_contrast_plot(root: Path) -> CheckResult:
+    path = _first_existing_or_glob(
+        root,
+        ["plots/location_depth_sweeps/*_depth_contrast.png"],
+    )
+    if path is None:
+        return CheckResult(
+            "depth_contrast_plot",
+            False,
+            "missing plots/location_depth_sweeps/*_depth_contrast.png",
+        )
+    if path.stat().st_size <= 0:
+        return CheckResult("depth_contrast_plot", False, f"{path} is empty")
+    return CheckResult("depth_contrast_plot", True, str(path))
+
+
 def _check_paired_trial_delta_plot(root: Path) -> CheckResult:
     path = _first_existing_or_glob(
         root,
@@ -230,6 +246,7 @@ def validate_path_a_package(root: Path) -> list[CheckResult]:
                 "paired final delta vs eig",
             ],
         ),
+        _check_depth_contrast_plot(root),
         _check_headline_plot(root),
         _check_paired_trial_delta_plot(root),
         _check_truth_log_paired_trial_delta_plot(root),

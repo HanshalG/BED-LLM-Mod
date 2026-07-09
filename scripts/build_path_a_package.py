@@ -48,7 +48,7 @@ def build_path_a_package(
 
     comparison_summary_path = output_dir / f"{run_name}_summary.json"
     report_path = output_dir / f"{run_name}_REPORT.md"
-    contrast_plot_path = plot_dir / f"{run_name}.png"
+    contrast_plot_path = plot_dir / f"{run_name}_depth_contrast.png"
     headline_plot_path = plot_dir / f"{run_name}_headline_rmse.png"
     paired_trial_delta_plot_path = plot_dir / f"{run_name}_paired_trial_rmse_deltas.png"
     paired_trial_truth_log_plot_path = plot_dir / f"{run_name}_paired_trial_truth_log_probability_deltas.png"

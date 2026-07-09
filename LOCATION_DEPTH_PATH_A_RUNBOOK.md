@@ -383,6 +383,9 @@ python scripts/compare_location_rollout_ablation.py \
   expected posterior RMSE, posterior entropy, and truth log posterior
   probability, including the `StrategyEIG-myopic-d3` and
   `StrategyEIG-myopic-d5` matched-compute controls.
+- `plots/location_depth_sweeps/*_depth_contrast.png`: main contrast figure
+  showing constrained and unconstrained paired deltas for RMSE and posterior
+  entropy.
 - `plots/location_depth_sweeps/*_headline_rmse.png`: paper-facing constrained
   RMSE trace for greedy EIG and StrategyEIG depths 1, 3, and 5.
 - `plots/location_depth_sweeps/*_paired_trial_rmse_deltas.png`: constrained

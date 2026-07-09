@@ -328,7 +328,7 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     summary_path = args.output_dir / f"{args.run_name}_summary.json"
     report_path = args.output_dir / f"{args.run_name}_REPORT.md"
-    plot_path = args.plot_dir / f"{args.run_name}.png"
+    plot_path = args.plot_dir / f"{args.run_name}_depth_contrast.png"
     headline_plot_path = args.plot_dir / f"{args.run_name}_headline_rmse.png"
 
     summary_path.write_text(json.dumps(comparison, indent=2, sort_keys=True) + "\n", encoding="utf-8")

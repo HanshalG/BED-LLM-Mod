@@ -1721,6 +1721,21 @@ tests pass:
 `pytest tests/test_location_fixed_root_depth_sweep.py tests/test_build_path_a_package.py
 tests/test_validate_path_a_package.py tests/test_path_a_preflight.py -q` (`18 passed`),
 and the full suite passes: `pytest tests/ -q` (`468 passed, 1 skipped`).
+Follow-up 15:33 London main-contrast package hardening: `build_path_a_package.py` and
+`compare_location_depth_sweeps.py` now emit the package's main constrained/unconstrained
+contrast figure with the explicit suffix
+`plots/location_depth_sweeps/*_depth_contrast.png`, and
+`validate_path_a_package.py` now requires that non-empty figure. This closes a package
+gate gap where the contrast plot existed in the builder payload but was not enforced by
+validation. The runbook and launch handoff evidence lists now name the depth-contrast
+figure directly. Focused tests pass:
+`pytest tests/test_compare_location_depth_sweeps.py tests/test_build_path_a_package.py
+tests/test_validate_path_a_package.py tests/test_path_a_preflight.py -q` (`12 passed`),
+and the full suite passes: `pytest tests/ -q` (`468 passed, 1 skipped`). Current package
+validation still intentionally fails until Phase 4 artifacts exist; the newly explicit
+missing set includes `results/location_depth_sweeps/*_REPORT.md`,
+`plots/location_depth_sweeps/*_depth_contrast.png`, headline RMSE, paired RMSE,
+paired truth-log, and constrained qualitative artifacts.
 
 ## NEXT ACTIONS (in order)
 

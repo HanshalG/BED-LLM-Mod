@@ -40,6 +40,8 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
+    depth_contrast_plot = tmp_path / "plots/location_depth_sweeps/demo_depth_contrast.png"
+    depth_contrast_plot.write_bytes(b"png")
     paired_plot_path = tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png"
     paired_plot_path.write_bytes(b"png")
     truth_log_paired_plot_path = (
@@ -70,6 +72,7 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
         "constrained_oracle",
         "constrained_oracle_robustness_heatmap",
         "depth_sweep_headline_and_control",
+        "depth_contrast_plot",
         "headline_rmse_plot",
         "paired_trial_delta_plot",
         "truth_log_paired_trial_delta_plot",
@@ -122,6 +125,8 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
+    depth_contrast_plot = tmp_path / "plots/location_depth_sweeps/demo_depth_contrast.png"
+    depth_contrast_plot.write_bytes(b"png")
     paired_plot_path = tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png"
     paired_plot_path.write_bytes(b"png")
     truth_log_paired_plot_path = (
@@ -185,6 +190,8 @@ def test_validate_path_a_package_rejects_unconstrained_only_qualitative_examples
     plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
+    depth_contrast_plot = tmp_path / "plots/location_depth_sweeps/demo_depth_contrast.png"
+    depth_contrast_plot.write_bytes(b"png")
     paired_plot_path = tmp_path / "plots/location_depth_sweeps/demo_paired_trial_rmse_deltas.png"
     paired_plot_path.write_bytes(b"png")
     truth_log_paired_plot_path = (
