@@ -239,6 +239,22 @@ this diagnostic alone does not prove a monotonic deployment depth effect.
 \texttt{scripts/validate\_path\_a\_package.py} pass. Report the
 pre-registered primary endpoint first.}
 
+The completed constrained support-grid MPP30 arm already constrains the
+possible headline. Over 30 paired trials, StrategyEIG depth 5 improves
+substantially over depth 1 and the matched-compute myopic controls, but it does
+not beat the analytic greedy EIG or naive baselines. Final point-RMSE means are
+0.166 for naive, 0.412 for greedy EIG, 0.542 for StrategyEIG-d5, 0.929 for
+StrategyEIG-d1, and 1.127 for StrategyEIG-d3. Truth-log-posterior means follow
+the same partial-gain pattern: naive $-1.484$, greedy EIG $-1.672$, d5
+$-1.982$, d1 $-2.532$, and d3 $-2.590$. The matched-compute myopic controls
+match d1, while d5 has higher selected EIG and realized entropy drop. Thus the
+current constrained evidence supports a narrower claim that non-myopic
+strategy scoring improves over myopic or short-horizon StrategyEIG under the
+constraint, not the stronger claim that StrategyEIG beats calibrated greedy or
+naive execution. The unconstrained contrast arm is still running and will
+determine whether this partial depth effect is specific to the movement
+constraint.
+
 \begin{figure}[t]
   \centering
   \fbox{\parbox{0.9\linewidth}{\centering
@@ -254,15 +270,14 @@ pre-registered primary endpoint first.}
 StrategyEIG is meant to buy non-myopic evaluation without the exponential LLM
 tree expansion of brute-force n-step EIG. The final package will report observed
 token totals from the completed sweep logs using
-\texttt{scripts/cost\_vs\_depth\_table.py}. Before those runs land, the
-algorithmic comparison is already fixed by the pre-registered Path A settings:
-the LLM generates $B=10$ candidate root strategies per decision and evaluates
-them with $R=16$ paired rollouts. A brute-force depth-$d$ LLM EIG proxy expands
+\texttt{scripts/cost\_vs\_depth\_table.py}. For the support-grid MPP30 path,
+the throughput-safe setting uses $B=6$ root candidates and $R=8$ paired
+rollouts. A brute-force depth-$d$ LLM EIG proxy expands
 $1+B+\cdots+B^{d-1}$ candidate sets per deployed decision and has $B^d$ leaf
 action sequences. StrategyEIG uses one root strategy set per deployed decision
 and $BRd$ simulated rollout steps. Thus increasing depth from 1 to 5 changes
-StrategyEIG's rollout work linearly, from $160$ to $800$ simulated steps per
-decision, while the brute-force candidate-set proxy grows from $1$ to $11{,}111$
+StrategyEIG's rollout work linearly, from $48$ to $240$ simulated steps per
+decision, while the brute-force candidate-set proxy grows from $1$ to $1{,}555$
 root-equivalent LLM expansions per decision. The package also emits the
 corresponding Markdown cost table for exact counts; Figure~\ref{fig:cost-depth}
 shows the scaling visually.

@@ -36,7 +36,10 @@ Minimum Publishable Package status:
    These mirror the constrained support-grid MPP30 sweep but use
    `configs/config_location_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b.yaml`.
 5. Paper package: INCOMPLETE. The paper skeleton exists and had compiled before this
-   support-grid result, but result framing now needs to reflect the actual MPP30 outcome.
+   support-grid result. The draft has now been updated with the completed constrained
+   support-grid MPP30 result as an interim constrained-only result and with the actual
+   support-grid compute setting (`B=6`, `R=8`) in the cost section. It still awaits the
+   unconstrained arm and package validation before final claims.
 
 Completed constrained support-grid MPP30 result:
 
@@ -64,12 +67,13 @@ Latest cluster state:
 - Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
   As of the latest health check, `102238` and `102239` are on `msc` / `oat11`, and
   `102240` is on `msc` / `oat14`. The run directories exist and each has a `run.log`.
-  At about 4 minutes elapsed, all three had loaded the model, completed vLLM warmup/graph
-  capture, and were still in initial hypothesis generation. No decision files or metrics
-  existed yet, which is expected this early. The first initial-belief calls had succeeded
-  on the split jobs, with parsed 12-valid-source batches appearing in logs. Early greps
-  found zero traceback/runtime/OOM/killed/location-parse errors. Note for future checks:
-  token usage events are logged as lowercase `llm_token_usage`, not uppercase `LLM_USAGE`.
+  At about 5.5 minutes elapsed, all three had loaded the model, completed vLLM
+  warmup/graph capture, and were still in initial hypothesis generation. No decision
+  files or metrics existed yet, which is expected this early. Each split had 5
+  `llm_token_usage` events, zero forced exits, and repeated parsed 12-valid-source
+  initial-belief batches in logs. Early greps found zero
+  traceback/runtime/OOM/killed/location-parse errors. Note for future checks: token usage
+  events are logged as lowercase `llm_token_usage`, not uppercase `LLM_USAGE`.
 - For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
   changes this again. Do not use GH200 unless explicitly requested again.
 
@@ -83,7 +87,9 @@ Latest cluster state:
    validation.
 3. Update the paper/result framing away from "StrategyEIG beats baselines" and toward the
    outcome-playbook row where planning depth/objective improves information metrics or
-   StrategyEIG internals, but RMSE/baseline wins remain partial.
+   StrategyEIG internals, but RMSE/baseline wins remain partial. The first constrained
+   interim edit is in `paper/main.tex`; revise again after the unconstrained arm and
+   package comparison land.
 4. If packaging constrained-only evidence, either extend the package scripts explicitly or
    create a separate constrained-only appendix/report path. Do not silently pass off a
    constrained-only package as the full constrained/unconstrained MPP.
