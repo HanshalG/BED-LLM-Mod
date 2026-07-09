@@ -1778,6 +1778,16 @@ and mixed range `oat[12,19,21-22]` allow case:
 `pytest tests/test_path_a_remote_readiness.py tests/test_path_a_preflight.py -q`
 (`9 passed`), and the full suite passes: `pytest tests/ -q`
 (`471 passed, 1 skipped`).
+Follow-up 15:43 London sync-manifest preflight closure: `scripts/path_a_sync_commands.py`
+now includes the paper and ledger inputs used by remote preflight:
+`EXPERIMENTS.md`, `paper/main.tex`, `paper/references.bib`,
+`scripts/validate_experiments_ledger.py`, and `scripts/validate_paper_draft.py`.
+Because remote readiness reuses the same required sync list, it will now block if the
+cluster checkout lacks the current paper/ledger validators or draft inputs. Verified
+`python scripts/path_a_sync_commands.py --list` includes those files. Focused tests pass:
+`pytest tests/test_path_a_sync_commands.py tests/test_path_a_remote_readiness.py
+tests/test_path_a_preflight.py -q` (`17 passed`), and the full suite passes:
+`pytest tests/ -q` (`472 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

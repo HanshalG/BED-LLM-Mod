@@ -9,6 +9,9 @@ from pathlib import Path
 DEFAULT_REMOTE = "oat0:/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z/"
 GENERATED_PREFIXES = ("results/", "plots/", "runs/")
 REQUIRED_SYNC_PATHS = (
+    "EXPERIMENTS.md",
+    "paper/main.tex",
+    "paper/references.bib",
     "configs/config_location_branch_decoy_local_final50_26b_a4b.yaml",
     "configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml",
     "plots/constrained_oracle_robustness/branch_decoy_local_robustness_heatmap.png",
@@ -34,7 +37,9 @@ REQUIRED_SYNC_PATHS = (
     "scripts/path_a_sync_commands.py",
     "scripts/recover_depth_sweep_metrics.py",
     "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh",
+    "scripts/validate_experiments_ledger.py",
     "scripts/validate_path_a_package.py",
+    "scripts/validate_paper_draft.py",
 )
 
 
