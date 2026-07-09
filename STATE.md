@@ -7,8 +7,9 @@ conflicts with GOAL.md's design history, this file wins.
 
 ## CURRENT STATE (updated 2026-07-09)
 
-Phases 1–3 are DONE; Phase 4 is PAUSED after canceling too-slow cluster jobs; paper skeleton is started in `paper/` and
-compiles. The Path A infrastructure is committed locally and tagged `path-a-final-sweep`.
+Phases 1–3 are DONE; Phase 4 is in an analytic-rollout pilot relaunch path after canceling
+the earlier too-slow cluster jobs. The paper skeleton is started in `paper/` and compiles.
+The Path A infrastructure is committed locally and tagged `path-a-final-sweep`.
 GOAL.md holds the design specs, outcome playbook, and definition of done — consult it for
 detail; execute from here.
 
@@ -1995,16 +1996,28 @@ active job, `102196` (`loc_branch_constr26_an_t3r1`) on `gh200` / `oat21`, elaps
 pilot is not on `oat12`, has only 1 logged LLM call, 0 forced exits, 0 strategy-location
 LLM calls, 0 decision rows, no metrics yet, and no fatal-error signatures. Leave `102196`
 running; it is the intended small analytic scale pilot, not the obsolete slow launch set.
+Follow-up 17:08 London analytic scale result and next pilot: `102196` completed cleanly on
+`gh200` / `oat21` in under 8 minutes and wrote metrics. It used 56 LLM usage events,
+254,724 total tokens, 17 forced thinking exits, 24 decision rows, and zero
+strategy-location LLM calls. The one-round, three-trial metrics are throughput-only
+(EIG final RMSE 0.860; StrategyEIG-d1/d3 1.689; StrategyEIG-d5 1.784), but the run proves
+analytic future rollout queries keep rollout-query LLM cost at zero. Launched one
+constrained multi-round pilot `102199` (`loc_branch_constr26_an_t3r6`, run
+`loc_branch_decoy_local_constrained_analytic_26b_a4b_t3r6`) on `gh200` with `--exclude=oat12`.
+It uses 3 paired trials, 6 rounds, StrategyEIG depths 1/3/5, eval depths 1/3/5,
+matched-compute myopic controls 3/5, 2 target strategy/root candidates, 8 rollouts,
+fixed-common scoring, no rollout-step refresh, and analytic future rollout queries.
+Startup check showed `102199` running on `oat21`; no active jobs were on `oat12`.
 
 ## NEXT ACTIONS (in order)
 
-1. Monitor analytic scale pilot job `102196` with
-   `squeue -j 102196 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
+1. Monitor analytic multi-round pilot job `102199` with
+   `squeue -j 102199 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"` and confirm it stays
    off `oat12`.
-2. If `102196` completes cleanly, extract calls/tokens/forced exits and paired metrics.
-   If 3-trial/1-round cost is acceptable, the next scale step is constrained analytic
-   3-trial/6-round or a 5-trial constrained pilot before any MPP30 relaunch. If it still
-   runs too long, keep the paper path on the ranking-fidelity/diagnostic fallback and
+2. If `102199` completes cleanly, extract calls/tokens/forced exits and paired metrics.
+   If 3-trial/6-round cost and traces are acceptable, the next scale step is a split
+   constrained MPP30 relaunch, still one or two jobs at a time. If it runs too long or the
+   traces are flat, keep the paper path on the ranking-fidelity/diagnostic fallback and
    avoid more GH200 spending.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
