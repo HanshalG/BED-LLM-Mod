@@ -62,7 +62,12 @@ Completed constrained support-grid MPP30 result:
 Latest cluster state:
 
 - Live jobs: `102238`, `102239`, and `102240`, all on `msc` nodes and none on `oat12`.
-  The run directories exist and each has a `run.log`.
+  As of the latest health check, `102238` and `102239` are on `msc` / `oat11`, and
+  `102240` is on `msc` / `oat14`. The run directories exist and each has a `run.log`.
+  All three had loaded the model, completed vLLM warmup/graph capture, and reached
+  initial hypothesis generation. No decision files or metrics existed yet, which is
+  expected this early. Early greps found zero traceback/runtime/OOM/killed/location-parse
+  errors.
 - For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
   changes this again. Do not use GH200 unless explicitly requested again.
 
