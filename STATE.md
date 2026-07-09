@@ -17,23 +17,23 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 05:48 London after canceling the
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 05:49 London after canceling the
    slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
-   `101994` are no longer present in the live queue; verified again at 05:48 BST that no
+   `101994` are no longer present in the live queue; verified again at 05:49 BST that no
    GH200 jobs are live for this user. A direct `gh200` partition check showed no
    user-owned GH200 jobs, so no cancellation was needed.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
-   MPP30 job `102019` running on `oat21`. At 05:48 London, those four MSC jobs were the
+   MPP30 job `102019` running on `oat21`. At 05:49 London, those four MSC jobs were the
    only live jobs for this user. No final or recovered metrics files existed at the last
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
    stderr is non-erroring for all four jobs and still updating. Recent progress snapshots
-   were `101996` reached 167/256 in its current block after clearing a 124-prompt block,
-   `101998` reached 212/256 in its current block after clearing a 111-prompt block,
-   `102018` reached 168/256 in its current block after clearing a 109-prompt block, and
-   `102019` cleared its tiny 5-prompt block and started another 256-prompt block, reaching
-   28/256. All four Slurm stderr files advanced during this poll.
+   were `101996` reached 192/256 in its current block after clearing a 124-prompt block,
+   `101998` cleared its 256-prompt block and started a 108-prompt block, `102018` reached
+   180/256 in its current block after clearing a 109-prompt block, and `102019` reached
+   114/256 after clearing its tiny 5-prompt block and starting another 256-prompt block.
+   All four Slurm stderr files advanced during this poll.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
