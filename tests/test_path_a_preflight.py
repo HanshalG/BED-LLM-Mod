@@ -22,6 +22,11 @@ def test_path_a_preflight_passes_local_launch_readiness_checks():
         check["name"] == "paper_page_count" and check["detail"] == "6 pages"
         for check in payload["paper_validation"]["checks"]
     )
+    assert payload["ledger_validation"]["ok"] is True
+    assert any(
+        check["name"] == "required_cost_vs_depth" and check["ok"] is True
+        for check in payload["ledger_validation"]["checks"]
+    )
     assert payload["package_validation"]["ok"] is False
 
 

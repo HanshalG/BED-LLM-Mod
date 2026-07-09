@@ -1567,6 +1567,17 @@ Follow-up 17:14 London verification: package validation still has ranking/oracle
 green and only Phase-4-derived depth sweep report/headline plot/qualitative examples
 missing; paper validation is green at 6 pages; preflight is green with
 `paper_validation.ok=true`; full local suite passes (`459 passed, 1 skipped`).
+Follow-up 17:25 London ledger-validation hardening: added
+`scripts/validate_experiments_ledger.py` and integrated it into `path_a_preflight.py`.
+The ledger validator checks required evidence rows (ranking gate, constrained oracle,
+robustness, planned cost, paper validation), rejects running/pending statuses, requires
+commit/tag cells, and verifies complete-row artifacts exist. Current preflight has
+paper and ledger validation green; package validation still waits only on Phase 4
+depth-sweep/headline/qualitative outputs. Focused tests pass:
+`pytest tests/test_validate_experiments_ledger.py tests/test_path_a_preflight.py -q`
+(`6 passed`).
+Follow-up 17:26 London verification: full local suite passes after ledger-validator
+integration: `pytest tests/ -q` (`462 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
