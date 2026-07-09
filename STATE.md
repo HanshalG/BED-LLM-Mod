@@ -17,7 +17,7 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 02:33 London after canceling the
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 02:36 London after canceling the
    slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
    `101994` are no longer present in the live queue; `squeue -p gh200` is empty for this
    user. Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
@@ -25,15 +25,10 @@ Status of the Minimum Publishable Package:
    MPP30 job `102019` running on `oat21`. No final metrics files existed at the last
    check. Decision logs were still at the cheap-control counts: MPP30 constrained `90`,
    MPP30 unconstrained `90`, full50 constrained `150`, and full50 unconstrained `150`. Slurm
-   stderr is fresh, so the processes
-   are alive in vLLM generation rather than crashed; recent progress snapshots were
-   `101996` completed a 256-prompt generation batch plus a 74-prompt batch and started
-   another 256-prompt batch, then completed that batch plus a 96-prompt batch and started
-   a new 256-prompt batch; `101998` finished a 256-prompt batch plus a 107-prompt batch
-   and started another 256-prompt batch, reaching about 100/256; `102018` finished its
-   129-prompt batch and started another 256-prompt batch, reaching about 165/256; and
-   `102019` finished its 256-prompt batch plus a 113-prompt batch plus another
-   256-prompt batch and started a 122-prompt batch.
+   stderr is fresh, so the processes are alive in vLLM generation rather than crashed;
+   recent progress snapshots were `101996` in a 256-prompt batch at 83/256, `101998` in a
+   256-prompt batch at 221/256, `102018` finished a 111-prompt batch and started another
+   256-prompt batch, and `102019` in a 256-prompt batch at 155/256.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
