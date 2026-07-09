@@ -175,6 +175,21 @@ def _parse_depth_list(value: str | None) -> list[int] | None:
     return depths
 
 
+def _trial_window(
+    configured_num_trials: int,
+    *,
+    num_trials: int | None,
+    trial_offset: int = 0,
+) -> tuple[int, int, int]:
+    if trial_offset < 0:
+        raise ValueError("trial_offset must be non-negative")
+    selected_num_trials = int(configured_num_trials if num_trials is None else num_trials)
+    if selected_num_trials <= 0:
+        raise ValueError("num_trials must be positive")
+    total_replay_trials = trial_offset + selected_num_trials
+    return trial_offset, selected_num_trials, total_replay_trials
+
+
 def _jsonable(value: Any) -> Any:
     if isinstance(value, np.ndarray):
         return value.tolist()
@@ -812,6 +827,7 @@ def run_fixed_root_depth_sweep(
     num_trials: int | None,
     num_rounds: int | None,
     run_name: str | None,
+    trial_offset: int = 0,
     include_myopic_controls: bool = False,
     strategy_depths: list[int] | None = None,
     eval_depths: list[int] | None = None,
@@ -832,7 +848,12 @@ def run_fixed_root_depth_sweep(
 
     register_defaults()
     config.run_id = resolve_run_id()
-    config.location_num_trials = int(num_trials or config.location_num_trials)
+    trial_offset, selected_num_trials, total_replay_trials = _trial_window(
+        config.location_num_trials,
+        num_trials=num_trials,
+        trial_offset=trial_offset,
+    )
+    config.location_num_trials = selected_num_trials
     config.location_num_rounds = int(num_rounds or config.location_num_rounds)
     config.method_names = ["naive", "naive+belief", "EIG", "StrategyEIG+root"]
 
@@ -846,6 +867,12 @@ def run_fixed_root_depth_sweep(
         f"Fixed-root depth sweep max_depth={max_depth}\n",
         encoding="utf-8",
     )
+    if trial_offset:
+        with config.log_path.open("a", encoding="utf-8") as log_handle:
+            log_handle.write(
+                f"Trial block: offset={trial_offset}, num_trials={selected_num_trials}, "
+                f"replayed_prefix={total_replay_trials}\n"
+            )
 
     try:
         import wandb
@@ -879,7 +906,7 @@ def run_fixed_root_depth_sweep(
     paired_noise_zs = master_rng.normal(
         0.0,
         1.0,
-        size=(config.location_num_trials, config.location_num_rounds),
+        size=(total_replay_trials, config.location_num_rounds),
     )
     branches: list[_DepthBranch] = []
     per_trial: list[dict[str, Any]] = []
@@ -903,8 +930,12 @@ def run_fixed_root_depth_sweep(
             "eval_depths must include every StrategyEIG selection depth; missing "
             + ",".join(str(depth) for depth in missing_selection_depths)
         )
-    for trial_index in range(config.location_num_trials):
+    for trial_index in range(total_replay_trials):
         hidden_state = env.sample_hidden_state_for_trial(trial_index, master_rng)
+        if trial_index < trial_offset:
+            for _policy_label, _policy_kind, _policy_depth, _selection_depth in policy_specs:
+                int(master_rng.integers(0, np.iinfo(np.uint32).max))
+            continue
         initial_belief = env.initial_belief_state(questioner, config)
         for policy_label, policy_kind, policy_depth, selection_depth in policy_specs:
             branch_seed = int(master_rng.integers(0, np.iinfo(np.uint32).max))
@@ -1222,6 +1253,8 @@ def run_fixed_root_depth_sweep(
     summary = {
         "config_path": str(config_path),
         "max_depth": max_depth,
+        "trial_offset": trial_offset,
+        "trial_indices": list(range(trial_offset, trial_offset + selected_num_trials)),
         "strategy_depths": strategy_depths or list(range(1, max_depth + 1)),
         "eval_depths": selected_eval_depths,
         "myopic_control_depths": (
@@ -1325,6 +1358,15 @@ def main() -> None:
         help="Comma-separated matched-compute myopic control depths, default 2..max-depth.",
     )
     parser.add_argument("--num-trials", type=int)
+    parser.add_argument(
+        "--trial-offset",
+        type=int,
+        default=0,
+        help=(
+            "Skip this many leading paired trials while replaying their RNG draws. "
+            "Use with --num-trials to split a larger sweep into packageable blocks."
+        ),
+    )
     parser.add_argument("--num-rounds", type=int)
     parser.add_argument(
         "--include-myopic-controls",
@@ -1351,6 +1393,7 @@ def main() -> None:
         num_trials=args.num_trials,
         num_rounds=args.num_rounds,
         run_name=args.run_name,
+        trial_offset=args.trial_offset,
         include_myopic_controls=args.include_myopic_controls,
         strategy_depths=strategy_depths,
         eval_depths=eval_depths,

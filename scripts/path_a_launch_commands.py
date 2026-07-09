@@ -30,6 +30,8 @@ def build_path_a_commands(
     strategy_depths: str | None = None,
     eval_depths: str | None = None,
     myopic_control_depths: str | None = None,
+    num_trials: int | None = None,
+    trial_offset: int | None = None,
 ) -> PathACommands:
     launcher = "scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh"
     if run_suffix:
@@ -50,6 +52,10 @@ def build_path_a_commands(
         depth_args.extend(["--eval-depths", eval_depths])
     if myopic_control_depths:
         depth_args.extend(["--myopic-control-depths", myopic_control_depths])
+    if num_trials is not None:
+        depth_args.extend(["--num-trials", str(num_trials)])
+    if trial_offset is not None:
+        depth_args.extend(["--trial-offset", str(trial_offset)])
 
     constrained_sbatch = env_prefix + " " + " ".join(
         [
@@ -136,6 +142,8 @@ def main() -> None:
     parser.add_argument("--strategy-depths", help="Comma-separated StrategyEIG depths to run")
     parser.add_argument("--eval-depths", help="Comma-separated rollout evaluation depths to compute")
     parser.add_argument("--myopic-control-depths", help="Comma-separated myopic-control depths to run")
+    parser.add_argument("--num-trials", type=int, help="Override number of trials in each printed run")
+    parser.add_argument("--trial-offset", type=int, help="Replay and skip this many leading paired trials")
     args = parser.parse_args()
 
     commands = build_path_a_commands(
@@ -155,6 +163,8 @@ def main() -> None:
         strategy_depths=args.strategy_depths,
         eval_depths=args.eval_depths,
         myopic_control_depths=args.myopic_control_depths,
+        num_trials=args.num_trials,
+        trial_offset=args.trial_offset,
     )
     print("# Submit after syncing this code to the cluster checkout:")
     print(commands.constrained_sbatch)

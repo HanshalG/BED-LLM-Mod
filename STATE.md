@@ -7,7 +7,7 @@ conflicts with GOAL.md's design history, this file wins.
 
 ## CURRENT STATE (updated 2026-07-09)
 
-Phases 1–3 are DONE; Phase 4 is RUNNING; paper skeleton is started in `paper/` and
+Phases 1–3 are DONE; Phase 4 is PAUSED after canceling too-slow cluster jobs; paper skeleton is started in `paper/` and
 compiles. The Path A infrastructure is committed locally and tagged `path-a-final-sweep`.
 GOAL.md holds the design specs, outcome playbook, and definition of done — consult it for
 detail; execute from here.
@@ -17,7 +17,7 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 10:23 London after the user
+2. Headline depth sweep: **PAUSED / NEEDS SPLIT RELAUNCH** — checked 2026-07-09 10:23 London after the user
    asked to cancel the slow 13-hour GH200 jobs to free nodes for other users. Live Slurm
    queue showed zero user-owned jobs on the `gh200` partition, so there were no GH200 job
    IDs to cancel. Only MSC jobs `102018` constrained MPP30 on `oat16` and `102019`
@@ -1449,6 +1449,13 @@ long-running jobs. There were zero user-owned `gh200` jobs at cancellation time;
 active jobs were MSC `102018` (`loc_branch_constr26_mpp30` on `oat16`) and `102019`
 (`loc_branch_uncon26_mpp30` on `oat21`). Both were canceled with `scancel`, and a
 post-cancel `squeue -u hanyal` check returned no jobs.
+Follow-up 14:45 London local recovery work: added split-trial support for
+`scripts/location_fixed_root_depth_sweep.py` via `--trial-offset`, preserving paired RNG
+by replaying skipped trial draws; added `scripts/combine_location_fixed_root_depth_sweeps.py`
+to merge completed split blocks into the single metrics JSON expected by the Path A
+package builder; updated `scripts/path_a_launch_commands.py` to print block-specific
+`--num-trials`/`--trial-offset` commands. Full local suite passes
+(`449 passed, 1 skipped`).
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1467,9 +1474,11 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
 
 ## NEXT ACTIONS (in order)
 
-1. No active cluster jobs are currently running for this goal. Decide the next experiment
-   path before relaunching: either a lighter GH200 Singularity ranking-fidelity check, or
-   a redesigned Path A run that avoids the slow first StrategyEIG block.
+1. No active cluster jobs are currently running for this goal. If the user asks to
+   relaunch, prefer the split MPP30 path: three 10-trial blocks per side
+   (`--trial-offset` 0, 10, 20), depths 1/3/5, myopic controls 3/5, GH200 Singularity
+   launcher, then combine constrained blocks and unconstrained blocks separately before
+   running `scripts/build_path_a_package.py`.
 2. If relaunching on GH200, use the Singularity/container launchers only; do not use the
    A100/conda ranking or 20-questions scripts on GH200.
 

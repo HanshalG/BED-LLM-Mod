@@ -15,21 +15,18 @@ It is intentionally command-oriented and avoids extra experiment branches.
   - `results/location_depth_sweeps/*_REPORT.md`
   - `plots/location_depth_sweeps/*_headline_rmse.png`
   - `results/cost_vs_depth/*_cost_vs_depth.md`
-- Live cluster state as of 2026-07-09 02:05 London:
+- Live cluster state as of 2026-07-09 14:45 London:
   - Old GH200 originals `101778`/`101779`: canceled because they were alive but
     effectively too slow and occupying GH200 nodes.
   - Optimized GH200 relaunches `101993`/`101994`: canceled to free GH200 capacity
     after they showed the same low-yield throughput pattern.
-  - `101998` constrained full50 optimized MSC: running on `msc` / `oat15`,
-    no metrics yet; active in vLLM generation.
-  - `101996` unconstrained full50 optimized MSC: running on `msc` / `oat14`,
-    no metrics yet; active in vLLM generation.
-  - `102018` constrained MPP30 fallback: running on `msc` / `oat16`, no metrics
-    yet; active in vLLM generation.
-  - `102019` unconstrained MPP30 fallback: running on `msc` / `oat21`; model was
-    loading/starting at the latest check.
-- Active job count for the Path A sweep is 4. Do not launch more until something
-  finishes or the user explicitly asks to cancel/relaunch.
+  - `101998`/`101996` optimized full50 MSC jobs: no longer active.
+  - `102018` constrained MPP30 fallback and `102019` unconstrained MPP30 fallback:
+    canceled after the user requested freeing the effectively-too-slow long-running
+    jobs. They had no final or recovered metrics.
+- Active job count for the Path A sweep is 0.
+- The recommended relaunch path is now split MPP30: three 10-trial blocks per side
+  using `--trial-offset` 0, 10, and 20, then combine block metrics before packaging.
 
 ## Local Preflight
 
@@ -99,29 +96,58 @@ These use thinking-enabled `google/gemma-4-26B-A4B-it`, 50 paired trials, 6
 rounds, 16 rollouts, and include matched-compute `StrategyEIG-myopic-dN`
 controls.
 
-The current MPP fallback commands, already submitted as jobs `102018` and
-`102019`, use the same configs with subset flags to reduce the package to the
-depths needed for the paper:
+The canceled MPP fallback commands used one 30-trial job per side. Do not reuse
+that monolithic shape unless there is ample idle capacity. Prefer the split MPP30
+commands below so partial blocks finish and can be combined.
+
+Each block uses the same configs with subset flags to reduce the package to the
+depths needed for the paper. The `--trial-offset` option replays skipped RNG
+draws before running the block, preserving paired trial identities relative to a
+single 30-trial run.
+
+```bash
+for off in 0 10 20; do
+  suffix=$(printf "mpp30_b%02d_10" "$off")
+  job_suffix=$(printf "b%02d" "$off")
+  python scripts/path_a_launch_commands.py \
+    --partition gh200 \
+    --run-suffix "_${suffix}" \
+    --job-suffix "_${job_suffix}" \
+    --strategy-depths 1,3,5 \
+    --eval-depths 1,3,5 \
+    --myopic-control-depths 3,5 \
+    --num-trials 10 \
+    --trial-offset "$off"
+done
+```
+
+Submit the printed commands after syncing current code to the cluster checkout.
+The equivalent explicit shape for each constrained/unconstrained pair is:
 
 ```bash
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=msc --exclude=oat10,oat12 --job-name=loc_branch_constr26_mpp30 \
+sbatch --partition=gh200 --job-name=loc_branch_constr26_f50_b00 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_final50_26b_a4b.yaml \
-  --run-name loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc \
-  --max-depth 5 --num-trials 30 --include-myopic-controls \
-  --strategy-depths 1,3,5 --eval-depths 1,3,5 --myopic-control-depths 3,5
+  --run-name loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10 \
+  --max-depth 5 --include-myopic-controls \
+  --strategy-depths 1,3,5 --eval-depths 1,3,5 --myopic-control-depths 3,5 \
+  --num-trials 10 --trial-offset 0
 
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
-sbatch --partition=msc --exclude=oat10,oat12 --job-name=loc_branch_uncon26_mpp30 \
+sbatch --partition=gh200 --job-name=loc_branch_uncon26_f50_b00 \
   scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh \
   configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml \
-  --run-name loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc \
-  --max-depth 5 --num-trials 30 --include-myopic-controls \
-  --strategy-depths 1,3,5 --eval-depths 1,3,5 --myopic-control-depths 3,5
+  --run-name loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b00_10 \
+  --max-depth 5 --include-myopic-controls \
+  --strategy-depths 1,3,5 --eval-depths 1,3,5 --myopic-control-depths 3,5 \
+  --num-trials 10 --trial-offset 0
 ```
+
+Use offsets 10 and 20 with matching `_b10_10` and `_b20_10` run names for the
+remaining blocks.
 
 ## Monitor
 
@@ -138,18 +164,37 @@ grep -E "Traceback|RuntimeError|ValueError|could not produce a valid location|OO
 
 ## Build The Package
 
-Preferred packaging path: after both MPP30 fallback metrics files exist, build
-the minimum publishable package from the 30-trial paired constrained and
-unconstrained runs:
+Preferred packaging path: after all three constrained blocks and all three
+unconstrained blocks have metrics, combine each side, then build the minimum
+publishable package from the combined 30-trial paired constrained and
+unconstrained summaries:
 
 ```bash
+python scripts/combine_location_fixed_root_depth_sweeps.py \
+  runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10 \
+  runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b10_10 \
+  runs/loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b20_10 \
+  --output runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
+  --report runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/REPORT.md \
+  --plot runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/fixed_root_depth_sweep.png \
+  --paired-delta-plot runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/paired_trial_rmse_deltas.png
+
+python scripts/combine_location_fixed_root_depth_sweeps.py \
+  runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b00_10 \
+  runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b10_10 \
+  runs/loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b20_10 \
+  --output runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
+  --report runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/REPORT.md \
+  --plot runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/fixed_root_depth_sweep.png \
+  --paired-delta-plot runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/paired_trial_rmse_deltas.png
+
 python scripts/build_path_a_package.py \
-  --constrained runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
-  --unconstrained runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/fixed_root_depth_sweep_metrics.json \
+  --constrained runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
+  --unconstrained runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_split/fixed_root_depth_sweep_metrics.json \
   --output-dir results/location_depth_sweeps \
   --cost-dir results/cost_vs_depth \
   --plot-dir plots/location_depth_sweeps \
-  --run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30
+  --run-name location_branch_decoy_depth_contrast_26b_a4b_mpp30_split
 ```
 
 If the full50 optimized MSC pair finishes first, package that larger run

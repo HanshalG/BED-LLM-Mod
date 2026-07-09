@@ -15,6 +15,7 @@ from scripts.location_fixed_root_depth_sweep import (
     _paired_trial_delta_rows,
     _plot_paired_trial_differences,
     _policy_specs,
+    _trial_window,
     _truth_augmented_state,
     _truth_log_probability,
     _write_depth_sweep_report,
@@ -123,6 +124,16 @@ def test_policy_specs_can_select_mpp_depth_subset():
     assert ("StrategyEIG-myopic-d3", "StrategyEIG-myopic-control", 3, 1) in specs
     assert ("StrategyEIG-myopic-d5", "StrategyEIG-myopic-control", 5, 1) in specs
     assert ("StrategyEIG-myopic-d2", "StrategyEIG-myopic-control", 2, 1) not in specs
+
+
+def test_trial_window_supports_split_replay_offsets():
+    assert _trial_window(50, num_trials=10, trial_offset=20) == (20, 10, 30)
+    assert _trial_window(50, num_trials=None, trial_offset=0) == (0, 50, 50)
+
+    with pytest.raises(ValueError, match="trial_offset"):
+        _trial_window(50, num_trials=10, trial_offset=-1)
+    with pytest.raises(ValueError, match="num_trials"):
+        _trial_window(50, num_trials=0, trial_offset=0)
 
 
 def test_strategy_state_grouping_shares_only_identical_branch_states():
