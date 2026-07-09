@@ -23,7 +23,13 @@ Status of the Minimum Publishable Package:
    partition checks through 09:05 London showed no user-owned GH200 jobs, so no `scancel`
    was needed. The 09:05 live queue also had no `gh200` entries for this user. A fresh
    10:06 London cancellation check again found zero user-owned `gh200` jobs, so no
-   cancellation was performed; only MSC jobs `102018` and `102019` were live.
+   cancellation was performed; only MSC jobs `102018` and `102019` were live. The 10:08
+   London poll again found no final or recovered metrics, no user-owned `gh200` jobs, and
+   only the same two MSC jobs live: constrained `102018` on `oat16` at 10:45:32 elapsed
+   and unconstrained `102019` on `oat21` at 8:05:34 elapsed. Decision logs remained at
+   `90` rows for both runs. Runtime error signatures were still zero for traceback,
+   runtime error, OOM, and killed markers. Latest stderr progress was constrained `102018`
+   at 10/256 in a prompt block and unconstrained `102019` at 100/256 in a prompt block.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
    MPP30 job `102019` running on `oat21`. At 08:43 London, those four MSC jobs were the
