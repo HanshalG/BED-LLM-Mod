@@ -127,13 +127,16 @@ def test_policy_specs_can_select_mpp_depth_subset():
 
 
 def test_trial_window_supports_split_replay_offsets():
-    assert _trial_window(50, num_trials=10, trial_offset=20) == (20, 10, 30)
-    assert _trial_window(50, num_trials=None, trial_offset=0) == (0, 50, 50)
+    assert _trial_window(50, num_trials=10, trial_offset=20) == (20, 10, 30, 30)
+    assert _trial_window(50, num_trials=10, trial_offset=10, total_trials=30) == (10, 10, 30, 20)
+    assert _trial_window(50, num_trials=None, trial_offset=0) == (0, 50, 50, 50)
 
     with pytest.raises(ValueError, match="trial_offset"):
         _trial_window(50, num_trials=10, trial_offset=-1)
     with pytest.raises(ValueError, match="num_trials"):
         _trial_window(50, num_trials=0, trial_offset=0)
+    with pytest.raises(ValueError, match="total_trials"):
+        _trial_window(50, num_trials=10, trial_offset=20, total_trials=29)
 
 
 def test_strategy_state_grouping_shares_only_identical_branch_states():

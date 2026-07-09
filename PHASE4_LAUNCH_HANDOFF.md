@@ -26,7 +26,8 @@ It is intentionally command-oriented and avoids extra experiment branches.
     jobs. They had no final or recovered metrics.
 - Active job count for the Path A sweep is 0.
 - The recommended relaunch path is now split MPP30: three 10-trial blocks per side
-  using `--trial-offset` 0, 10, and 20, then combine block metrics before packaging.
+  using `--trial-offset` 0, 10, and 20 plus `--total-trials 30`, then combine block
+  metrics before packaging.
 
 ## Local Preflight
 
@@ -101,9 +102,9 @@ that monolithic shape unless there is ample idle capacity. Prefer the split MPP3
 commands below so partial blocks finish and can be combined.
 
 Each block uses the same configs with subset flags to reduce the package to the
-depths needed for the paper. The `--trial-offset` option replays skipped RNG
-draws before running the block, preserving paired trial identities relative to a
-single 30-trial run.
+depths needed for the paper. The `--trial-offset` option replays skipped trial RNG
+draws before running the block, and `--total-trials 30` draws the same observation-noise
+array as the intended single 30-trial run.
 
 ```bash
 for off in 0 10 20; do
@@ -117,7 +118,8 @@ for off in 0 10 20; do
     --eval-depths 1,3,5 \
     --myopic-control-depths 3,5 \
     --num-trials 10 \
-    --trial-offset "$off"
+    --trial-offset "$off" \
+    --total-trials 30
 done
 ```
 
@@ -133,7 +135,7 @@ sbatch --partition=gh200 --job-name=loc_branch_constr26_f50_b00 \
   --run-name loc_branch_decoy_local_constrained_final50_26b_a4b_mpp30_b00_10 \
   --max-depth 5 --include-myopic-controls \
   --strategy-depths 1,3,5 --eval-depths 1,3,5 --myopic-control-depths 3,5 \
-  --num-trials 10 --trial-offset 0
+  --num-trials 10 --trial-offset 0 --total-trials 30
 
 BED_LLM_VLLM_KWARGS='{"max_num_seqs":100,"enforce_eager":false}' \
 BED_LLM_LOG_REASONING_TRACES=1 \
@@ -143,7 +145,7 @@ sbatch --partition=gh200 --job-name=loc_branch_uncon26_f50_b00 \
   --run-name loc_branch_decoy_local_unconstrained_final50_26b_a4b_mpp30_b00_10 \
   --max-depth 5 --include-myopic-controls \
   --strategy-depths 1,3,5 --eval-depths 1,3,5 --myopic-control-depths 3,5 \
-  --num-trials 10 --trial-offset 0
+  --num-trials 10 --trial-offset 0 --total-trials 30
 ```
 
 Use offsets 10 and 20 with matching `_b10_10` and `_b20_10` run names for the

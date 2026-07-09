@@ -71,9 +71,15 @@ def test_path_a_launch_commands_can_select_depth_subsets():
 
 
 def test_path_a_launch_commands_can_select_trial_blocks():
-    commands = build_path_a_commands(num_trials=10, trial_offset=20, run_suffix="_b20")
+    commands = build_path_a_commands(
+        num_trials=10,
+        trial_offset=20,
+        total_trials=30,
+        run_suffix="_b20",
+    )
 
     for sbatch in (commands.constrained_sbatch, commands.unconstrained_sbatch):
         assert "--num-trials 10" in sbatch
         assert "--trial-offset 20" in sbatch
+        assert "--total-trials 30" in sbatch
     assert "runs/loc_branch_decoy_local_constrained_final50_26b_a4b_b20" in commands.package_command

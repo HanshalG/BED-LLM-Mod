@@ -1454,8 +1454,14 @@ Follow-up 14:45 London local recovery work: added split-trial support for
 by replaying skipped trial draws; added `scripts/combine_location_fixed_root_depth_sweeps.py`
 to merge completed split blocks into the single metrics JSON expected by the Path A
 package builder; updated `scripts/path_a_launch_commands.py` to print block-specific
-`--num-trials`/`--trial-offset` commands. Full local suite passes
+`--num-trials`/`--trial-offset` commands. Full local suite passed
 (`449 passed, 1 skipped`).
+Follow-up 15:02 London split-RNG correction: the split commands now include
+`--total-trials 30` so every 10-trial MPP30 block draws the same full 30-trial
+observation-noise array before replaying hidden-state/branch RNG. This preserves pairing
+relative to the intended monolithic 30-trial run instead of only replaying through the
+end of the current block. Focused split tests and the full local suite pass
+(`449 passed, 1 skipped`); non-mutating `squeue -u hanyal` check returned no jobs.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1476,9 +1482,9 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
 
 1. No active cluster jobs are currently running for this goal. If the user asks to
    relaunch, prefer the split MPP30 path: three 10-trial blocks per side
-   (`--trial-offset` 0, 10, 20), depths 1/3/5, myopic controls 3/5, GH200 Singularity
-   launcher, then combine constrained blocks and unconstrained blocks separately before
-   running `scripts/build_path_a_package.py`.
+   (`--trial-offset` 0, 10, 20 plus `--total-trials 30`), depths 1/3/5, myopic controls
+   3/5, GH200 Singularity launcher, then combine constrained blocks and unconstrained
+   blocks separately before running `scripts/build_path_a_package.py`.
 2. If relaunching on GH200, use the Singularity/container launchers only; do not use the
    A100/conda ranking or 20-questions scripts on GH200.
 
