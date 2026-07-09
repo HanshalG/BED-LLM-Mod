@@ -17,7 +17,7 @@ Status of the Minimum Publishable Package:
 1. Ranking-fidelity gate: **PASSED** — `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md`
    (26B A4B, 60 records: entropy ρ 0.38–0.44, truth-log-prob ρ ≈ 0.37 positive at all
    depths, top-1 regret improves with depth 0.33→0.21, RMSE ρ ≈ 0).
-2. Headline depth sweep: **RUNNING** — checked 2026-07-09 02:25 London after canceling the
+2. Headline depth sweep: **RUNNING** — checked 2026-07-09 02:27 London after canceling the
    slow/low-yield GH200 path to free nodes for other users. GH200 jobs `101993` and
    `101994` are no longer present in the live queue; `squeue -p gh200` is empty for this
    user. Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
@@ -28,11 +28,10 @@ Status of the Minimum Publishable Package:
    stderr is fresh, so the processes
    are alive in vLLM generation rather than crashed; recent progress snapshots were
    `101996` completed a 256-prompt generation batch plus a 74-prompt batch and started
-   another 256-prompt batch, reaching about 38/256 by the last check; `101998` reached
-   about 209/256 in a new generation batch after finishing a 132-prompt batch; `102018`
-   finished its 256-prompt batch and started a 129-prompt batch, reaching about 18/129;
-   and `102019` reached about 127/256 in a new generation batch after finishing several
-   small generation batches.
+   another 256-prompt batch, reaching about 87/256 by the last check; `101998` finished
+   a 256-prompt batch and started a 107-prompt batch; `102018` finished its 129-prompt
+   batch and started another 256-prompt batch; and `102019` reached about 216/256 in a
+   new generation batch after finishing several small generation batches.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
