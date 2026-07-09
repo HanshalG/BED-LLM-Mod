@@ -1869,7 +1869,7 @@ Submitted jobs were `102177` (`loc_branch_constr26_f50_b00`),
 on `gh200` for `(Priority)` with no node assigned, so none were on excluded `oat12`.
 After ledger/state sync, `102177` was running on `oat21` and the other five remained
 pending for `(Priority)`. `EXPERIMENTS.md` has one launch row per job.
-Follow-up 16:47 London early launch health check: `102177` remains the only running split
+Follow-up 16:07 London early launch health check: `102177` remains the only running split
 job, on `oat21`; `102178`--`102182` remain pending on `gh200` for `(Priority)`. The
 running block's Slurm output shows the expected GH200 Singularity path: cached image,
 in-container dependency install, vLLM 26B A4B load, CUDA graph capture, then location
@@ -1878,6 +1878,14 @@ has initial belief LLM calls and parsed 12 valid unique source configurations; n
 files or metrics yet, which is expected this early. Grep over the 102177 Slurm/run logs
 found no `Traceback`, runtime/value/import error, OOM, missing-file, or invalid-location
 messages. Forced thinking exits in the run log were zero at this check.
+Follow-up 16:09 London split-MPP30 progress check: `102177` is still running on `oat21`
+at about 6--7 minutes elapsed, while `102178`--`102182` remain pending on `gh200` for
+`(Priority)`; no job is on excluded `oat12`. The constrained b00 run directory still only
+has `run.log` (no decision files or metrics yet). The log is actively updating and shows
+8 initial-belief LLM calls; seven parsed 12 valid unique source configurations, while one
+length-capped call parsed only 1 before the next call recovered to 12. Grep over the
+102177 Slurm/run logs still finds no fatal errors/OOM/missing-file/invalid-location
+messages. Forced thinking exits remain zero.
 
 ## NEXT ACTIONS (in order)
 
