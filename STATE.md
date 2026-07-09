@@ -95,7 +95,11 @@ Status of the Minimum Publishable Package:
    counts; all four jobs were live with fresh progress: `101996` starting a short
    52-prompt block after completing its previous block, `101998` at 73/256, `102018` at
    5/256, and `102019` at 17/256 after completing its previous block. Runtime error
-   counts remained zero for all four jobs.
+   counts remained zero for all four jobs. The 09:13 London poll again found no
+   final/recovered metrics and unchanged decision counts; all four jobs were live with
+   fresh progress: `101996` at 14/256 after completing its short block, `101998` at
+   112/256, `102018` at 22/256, and `102019` at 37/256. Runtime error counts remained
+   zero for all four jobs.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
