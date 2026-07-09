@@ -7,10 +7,13 @@ history, this file wins.
 
 ## CURRENT STATE (updated 2026-07-09)
 
-Phases 1–3 are DONE. Phase 4 now has completed constrained and unconstrained support-grid
-MPP30 depth-sweep arms, combined into a validated Path A package. The user has asked to
-use only `msc` and `llm` for cluster launches for now; keep `--exclude=oat12` on new
-Slurm jobs.
+Status: submitted/awaiting.
+
+Phases 1–4 are DONE for the Path A workshop package. The ranking-fidelity gate, constrained
+oracle, constrained support-grid MPP30 sweep, unconstrained contrast arm, paper-facing
+package, 6-page paper draft, ledger, commit, push, and tag are complete. The user has
+asked to use only `msc` and `llm` for any future cluster launches for now; keep
+`--exclude=oat12` on new Slurm jobs.
 
 Minimum Publishable Package status:
 
@@ -32,12 +35,13 @@ Minimum Publishable Package status:
    `102239`, and `102240` ran on `msc` nodes with `BED_LLM_SKIP_ENV_SETUP=1`,
    `--partition=msc,llm`, and `--exclude=oat12`. They were rsynced locally and combined
    into `runs/loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b_split/`.
-5. Paper package: VALIDATED. `scripts/build_path_a_package.py` produced the final
+5. Paper package: VALIDATED and SUBMITTED/AWAITING. `scripts/build_path_a_package.py` produced the final
    constrained/unconstrained comparison artifacts under `results/location_depth_sweeps/`,
    `plots/location_depth_sweeps/`, `results/cost_vs_depth/`, and
    `results/location_qualitative/`. `scripts/validate_path_a_package.py --root .` and
-   `scripts/validate_experiments_ledger.py` pass. The draft has been updated from the
-   constrained-only placeholder toward the completed contrast result.
+   `scripts/validate_experiments_ledger.py` pass. `python scripts/validate_paper_draft.py`
+   passes with a 6-page draft and no TODO markers. The current branch is pushed and the
+   latest submitted/awaiting state is tagged `path-a-package-20260709`.
 
 Completed constrained support-grid MPP30 result:
 
@@ -86,12 +90,10 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
-1. Finish paper polish around the completed package: tighten abstract/conclusion around
-   the honest result row, update limitations with observed token/forced-exit counts, and
-   rerun `python scripts/validate_paper_draft.py`.
-2. Force-add the ignored paper-facing package artifacts that should be tracked, then commit
-   and push the completed Path A package state.
-3. Decide whether to tag the repo after paper validation passes.
+1. Await user review/submission feedback. No cluster jobs are currently needed for the
+   Path A definition of done.
+2. If the user asks for follow-up experiments, continue to use `--partition=msc,llm
+   --exclude=oat12` unless they change that constraint.
 
 ## OPERATIONAL KNOWLEDGE
 

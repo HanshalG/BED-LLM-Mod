@@ -206,16 +206,15 @@ calibrated greedy or simple naive execution in this workshop-scale run.
 \subsection{Cost Versus Depth}
 
 StrategyEIG is meant to buy non-myopic evaluation without the exponential LLM
-tree expansion of brute-force n-step EIG. The final package will report observed
-token totals from the completed sweep logs using
-\texttt{scripts/cost\_vs\_depth\_table.py}. For the support-grid MPP30 path,
-the throughput-safe setting uses $B=6$ root candidates and $R=8$ paired
-rollouts. A brute-force depth-$d$ LLM EIG proxy expands
+tree expansion of brute-force n-step EIG. The final package reports observed
+token totals from the completed sweep logs. For the support-grid MPP30 path,
+the package-level proxy uses $B=2$ root candidates and $R=8$ paired rollouts.
+A brute-force depth-$d$ LLM EIG proxy expands
 $1+B+\cdots+B^{d-1}$ candidate sets per deployed decision and has $B^d$ leaf
 action sequences. StrategyEIG uses one root strategy set per deployed decision
 and $BRd$ simulated rollout steps. Thus increasing depth from 1 to 5 changes
-StrategyEIG's rollout work linearly, from $48$ to $240$ simulated steps per
-decision, while the brute-force candidate-set proxy grows from $1$ to $1{,}555$
+StrategyEIG's rollout work linearly, from $16$ to $80$ simulated steps per
+decision, while the brute-force candidate-set proxy grows from $1$ to $31$
 root-equivalent LLM expansions per decision. The package also emits the
 corresponding Markdown cost table for exact counts; Figure~\ref{fig:cost-depth}
 shows the scaling visually.
@@ -260,15 +259,14 @@ and by reporting the robustness heatmap in Figure~\ref{fig:env-robustness},
 which shows that many nearby geometries remain greedy-friendly.
 
 The language-model runs also carry systems-level caveats. Thinking-enabled
-26B A4B inference has nontrivial forced-thinking-exit rates; final claims must
-therefore report token usage and forced-exit counts alongside accuracy metrics.
+26B A4B inference used 3.87M tokens in the constrained arm and 3.76M in the
+unconstrained arm, with 128 and 150 forced-thinking exits respectively.
 Because the ranking-fidelity diagnostic finds truth-anchored information
 metrics easier to rank than point RMSE, the paper treats RMSE as a secondary,
-noisier localization readout rather than the sole arbiter of planning quality.
-Finally, the minimum package does not include an MPC-style direct
-action-sequence ablation. That ablation remains important future work for
-separating the value of natural-language strategy abstraction from direct
-LLM-generated action planning at matched compute.
+noisier localization readout. Finally, the minimum package does not include an
+MPC-style direct action-sequence ablation; that remains future work for
+separating strategy abstraction from direct LLM-generated action planning at
+matched compute.
 
 \section{Conclusion}
 
