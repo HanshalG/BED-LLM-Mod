@@ -253,7 +253,16 @@ Status of the Minimum Publishable Package:
    `102019` was 58/256 in its current prompt block. At 09:55 London, after the user
    requested canceling the stale/too-slow GH200 path if still live, both the full user
    queue and a GH200-only user queue showed no `hanyal` GH200 jobs, so no `scancel` was
-   needed. The only live jobs remained the MSC MPP30 pair `102018` and `102019`.
+   needed. The only live jobs remained the MSC MPP30 pair `102018` and `102019`. The
+   09:56 London poll again found only the MSC MPP30 pair active and confirmed
+   `GH200_COUNT 0`. Both runs still had no final or recovered metrics. The decision
+   files were `fixed_root_depth_sweep_decisions.jsonl` with 90 rows for both runs
+   (constrained mtime 00:01:48, unconstrained mtime 02:18:50), so the visible progress is
+   still inside expensive prompt/scoring waves rather than new deployed decisions.
+   Constrained `102018` had fresh run-log activity at 09:54:42 and was 2/256 in its latest
+   prompt block; unconstrained `102019` had fresh run-log activity at 09:55:59 and was
+   14/192 in its latest prompt block. Error counts remained zero for traceback, runtime,
+   OOM, and killed signatures.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
