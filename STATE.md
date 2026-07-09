@@ -21,7 +21,9 @@ Status of the Minimum Publishable Package:
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
    partition checks through 09:05 London showed no user-owned GH200 jobs, so no `scancel`
-   was needed. The 09:05 live queue also had no `gh200` entries for this user.
+   was needed. The 09:05 live queue also had no `gh200` entries for this user. A fresh
+   10:06 London cancellation check again found zero user-owned `gh200` jobs, so no
+   cancellation was performed; only MSC jobs `102018` and `102019` were live.
    Remaining Path A jobs are optimized MSC jobs `101998`/`101996` running on
    `oat15`/`oat14`, constrained MPP30 job `102018` running on `oat16`, and unconstrained
    MPP30 job `102019` running on `oat21`. At 08:43 London, those four MSC jobs were the
