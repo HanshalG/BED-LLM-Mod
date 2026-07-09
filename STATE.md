@@ -1971,6 +1971,10 @@ strategy-location calls. Focused local tests pass:
 analytic micro job `102194` (`loc_branch_constr26_micro_an`, run
 `loc_branch_decoy_local_constrained_micro_analytic_26b_a4b_t1r1`) on `gh200` with
 `--exclude=oat12`; it started on `oat21`, with no jobs on `oat12`.
+Follow-up 16:50 London analytic micro startup check: `102194` remains running on `oat21`
+at about 1--2 minutes elapsed. Its run log exists but is still only at fixed-root
+startup: zero LLM usage events, zero forced exits, zero decision rows, no metrics file,
+and fatal-error grep remains clean. Analytic-rollout throughput is not yet measured.
 
 ## NEXT ACTIONS (in order)
 
