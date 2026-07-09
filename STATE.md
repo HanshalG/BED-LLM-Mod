@@ -1989,6 +1989,12 @@ It uses 3 paired trials, 1 round, StrategyEIG depths 1/3/5, eval depths 1/3/5,
 matched-compute myopic controls 3/5, 2 target strategy/root candidates, 8 rollouts,
 fixed-common scoring, no rollout-step refresh, and analytic future rollout queries.
 Immediate queue check showed `102196` running on `oat21`; no jobs were on `oat12`.
+Follow-up 17:00 London GH200 courtesy check: live `squeue -u hanyal` showed exactly one
+active job, `102196` (`loc_branch_constr26_an_t3r1`) on `gh200` / `oat21`, elapsed about
+4 minutes. There were no old 13-hour GH200 jobs alive and nothing to cancel. The current
+pilot is not on `oat12`, has only 1 logged LLM call, 0 forced exits, 0 strategy-location
+LLM calls, 0 decision rows, no metrics yet, and no fatal-error signatures. Leave `102196`
+running; it is the intended small analytic scale pilot, not the obsolete slow launch set.
 
 ## NEXT ACTIONS (in order)
 
