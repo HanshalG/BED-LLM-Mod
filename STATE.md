@@ -262,6 +262,12 @@ Status of the Minimum Publishable Package:
    Constrained `102018` had fresh run-log activity at 09:54:42 and was 2/256 in its latest
    prompt block; unconstrained `102019` had fresh run-log activity at 09:55:59 and was
    14/192 in its latest prompt block. Error counts remained zero for traceback, runtime,
+   OOM, and killed signatures. The 09:57 London poll again found only the MSC MPP30 pair
+   active, with `GH200_COUNT 0`. Both final and recovered metrics were still missing, and
+   both decision logs remained at 90 rows. Queue state was constrained `102018` on
+   `oat16` at 10:35:11 elapsed and unconstrained `102019` on `oat21` at 7:55:13 elapsed.
+   Constrained `102018` had advanced to 18/256 in its current prompt block; unconstrained
+   `102019` had advanced to 49/192. Error counts remained zero for traceback, runtime,
    OOM, and killed signatures.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
