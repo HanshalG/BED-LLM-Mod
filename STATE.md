@@ -101,6 +101,11 @@ Status of the Minimum Publishable Package:
    killed markers. Latest stderr progress was constrained `102018` at 92/256 in its
    current prompt block and unconstrained `102019` at 201/256, near the end of its
    current prompt block.
+   Follow-up 10:44 London poll: still the same two live MSC jobs, zero user-owned
+   `gh200` jobs, and no final/recovered metrics for either MPP30 run. Decision logs
+   remain `90`/`90`; error signatures remain zero. Constrained `102018` advanced slowly
+   to 101/256 in its current prompt block. Unconstrained `102019` updated its run log at
+   10:44:11 after finishing the prior block and entered a short 144-prompt block.
    Earlier checks: checked 2026-07-09 09:05 London after the user
    requested canceling the slow/low-yield GH200 path to free nodes for other users. GH200
    jobs `101993` and `101994` were already absent from the live queue; direct `gh200`
