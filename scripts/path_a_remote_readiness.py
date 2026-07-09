@@ -67,14 +67,27 @@ class RemoteReadiness:
 
     @property
     def ok_to_launch(self) -> bool:
-        if (
-            self.active_jobs is None
-            or self.active_jobs > MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH
-        ):
-            return False
-        if not _has_usable_idle_gh200(self.gh200_lines):
-            return False
-        return all(self.files.values())
+        return not launch_blockers(self)
+
+
+def launch_blockers(readiness: RemoteReadiness) -> list[str]:
+    blockers: list[str] = []
+    if readiness.active_jobs is None:
+        blockers.append("could not parse active job count")
+    elif readiness.active_jobs > MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH:
+        blockers.append(
+            f"active job count {readiness.active_jobs} exceeds "
+            f"{MAX_ACTIVE_JOBS_BEFORE_SPLIT_LAUNCH} allowed before six-job split launch"
+        )
+    if not _has_usable_idle_gh200(readiness.gh200_lines):
+        blockers.append(
+            "no idle usable GH200 node after excluding "
+            + ",".join(DEFAULT_EXCLUDED_NODES)
+        )
+    missing_files = [path for path, exists in readiness.files.items() if not exists]
+    if missing_files:
+        blockers.append(f"{len(missing_files)} required file(s) missing on remote checkout")
+    return blockers
 
 
 def remote_probe_script(remote_dir: str = DEFAULT_REMOTE_DIR) -> str:
@@ -143,6 +156,7 @@ def parse_remote_probe(output: str) -> RemoteReadiness:
 def payload(readiness: RemoteReadiness) -> dict[str, Any]:
     return {
         "ok_to_launch": readiness.ok_to_launch,
+        "launch_blockers": launch_blockers(readiness),
         "active_jobs": readiness.active_jobs,
         "queue_lines": readiness.queue_lines,
         "gh200_lines": readiness.gh200_lines,
@@ -178,6 +192,9 @@ def main() -> None:
     else:
         print(f"ok_to_launch: {data['ok_to_launch']}")
         print(f"active_jobs: {data['active_jobs']}")
+        print("launch_blockers:")
+        for blocker in data["launch_blockers"]:
+            print(f"  {blocker}")
         print("gh200:")
         for line in data["gh200_lines"]:
             print(f"  {line}")

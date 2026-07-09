@@ -1810,6 +1810,14 @@ package evidence. Verified `python scripts/path_a_preflight.py --json` reports
 `pytest tests/test_path_a_preflight.py tests/test_validate_path_a_package.py -q`
 (`8 passed`), and the full suite passes: `pytest tests/ -q`
 (`473 passed, 1 skipped`).
+Follow-up 15:50 London remote-readiness diagnostics: `scripts/path_a_remote_readiness.py`
+now includes a `launch_blockers` field in its JSON payload and prints those blockers in
+text mode. It explicitly reports whether launch readiness is blocked by too many active
+jobs for a six-job split launch, no usable idle GH200 node after excluded-node filtering,
+or missing required synced files. Focused tests pass:
+`pytest tests/test_path_a_remote_readiness.py tests/test_path_a_preflight.py
+tests/test_path_a_sync_commands.py -q` (`18 passed`), and the full suite passes:
+`pytest tests/ -q` (`473 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 

@@ -25,6 +25,7 @@ REQUIRED_FILES
     data = payload(readiness)
 
     assert readiness.ok_to_launch is True
+    assert data["launch_blockers"] == []
     assert data["active_jobs"] == 0
     assert data["missing_files"] == []
     assert "gh200 up infinite 3 idle oat[19,21-22]" in data["gh200_lines"]
@@ -51,6 +52,8 @@ REQUIRED_FILES
     assert readiness.ok_to_launch is False
     assert data["active_jobs"] == 3
     assert data["missing_files"] == [REQUIRED_REMOTE_FILES[0]]
+    assert any("active job count 3" in blocker for blocker in data["launch_blockers"])
+    assert any("required file(s) missing" in blocker for blocker in data["launch_blockers"])
 
 
 def test_parse_remote_probe_allows_two_existing_jobs_before_split_launch():
@@ -82,8 +85,10 @@ REQUIRED_FILES
 """
 
     readiness = parse_remote_probe(output)
+    data = payload(readiness)
 
     assert readiness.ok_to_launch is False
+    assert data["launch_blockers"] == ["no idle usable GH200 node after excluding oat12"]
 
 
 def test_remote_readiness_allows_idle_gh200_range_with_usable_nodes():
