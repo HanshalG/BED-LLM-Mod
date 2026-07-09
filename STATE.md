@@ -293,7 +293,13 @@ Status of the Minimum Publishable Package:
    `oat21` at 7:59:08 elapsed. Constrained `102018` had advanced to 162/256 in its
    current prompt block. Unconstrained `102019` was early in its new 256-prompt block at
    6/256 after the prior run-log update at 10:00:06. Error counts remained zero for
-   traceback, runtime, OOM, and killed signatures.
+   traceback, runtime, OOM, and killed signatures. The 10:02 London poll again found only
+   the MSC MPP30 pair active, with `GH200_COUNT 0`; `ANY_METRICS 0` and both decision logs
+   still had 90 rows. Queue state was constrained `102018` on `oat16` at 10:40:05 elapsed
+   and unconstrained `102019` on `oat21` at 8:00:07 elapsed. Constrained `102018` had
+   moved slowly to 164/256 in its current prompt block. Unconstrained `102019` had advanced
+   to 100/256 in its current prompt block. Error counts remained zero for traceback,
+   runtime, OOM, and killed signatures.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
