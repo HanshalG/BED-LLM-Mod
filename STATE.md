@@ -125,7 +125,13 @@ Status of the Minimum Publishable Package:
    jobs `101996` and `101998` were canceled at the user's request to free nodes. The only
    remaining live Path A jobs are the optimized MPP30 pair: constrained `102018` on
    `oat16` and unconstrained `102019` on `oat21`; both still had no final or recovered
-   metrics at the cancellation check.
+   metrics at the cancellation check. The 09:23 London poll still found no final or
+   recovered metrics and decision logs remained at `90`/`90`. `102019` was actively
+   processing a 256-prompt block at 96/256 with zero runtime-error signatures. `102018`
+   was also live and clean; a focused log check showed it had completed the previous
+   depth-1 rollout refresh wave (`43625` parsed generated hypotheses across `3749/4800`
+   nonempty refreshes) and had entered the expensive depth-2 belief-refresh phase
+   requesting `4800` hypothetical source-support refreshes.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
