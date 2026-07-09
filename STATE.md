@@ -2162,6 +2162,11 @@ has ordinary c10d/NCCL/cuda deprecation warnings so far. Next monitoring should 
 whether `runs/loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t3r6/run.log`
 appears and confirm hidden LLM paths remain zero (`candidate_llm`, `strategy_location`,
 belief-refresh requests).
+Follow-up 19:31 London startup log: `102224` was still running on `msc` / `oat11` at
+about 2 minutes elapsed. The run log exists and shows the fixed-root sweep started from
+`configs/config_location_branch_decoy_local_supportgrid_mpp30_26b_a4b.yaml`, initial
+belief generation began, and the first LLM token-usage event completed successfully
+(`4059` total tokens, finish reason `stop`). No metrics yet; this is normal startup.
 
 ## NEXT ACTIONS (in order)
 
