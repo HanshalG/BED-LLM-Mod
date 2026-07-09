@@ -170,7 +170,14 @@ Status of the Minimum Publishable Package:
    jobs remained live and clean with zero traceback/runtime/OOM/kill signatures.
    Constrained `102018` was still at the start of its fresh 256-prompt block in the latest
    visible stderr line; unconstrained `102019` had completed its prior block, started
-   another fresh 256-prompt block, and updated its run log at 09:34.
+   another fresh 256-prompt block, and updated its run log at 09:34. A 09:37 London
+   Slurm check found no user-owned GH200 jobs remaining. The only active jobs were still
+   the optimized MPP30 MSC pair: constrained `102018` running on `oat16` for 10:15:30
+   and unconstrained `102019` running on `oat21` for 7:35:32. Neither run had final or
+   recovered metrics; both decision logs remained at `90` rows. Both jobs were live and
+   clean with zero traceback/runtime/OOM/kill signatures. Latest stderr progress was
+   constrained `102018` at 85/256 in a prompt block and unconstrained `102019` at
+   198/256 in a prompt block; run logs were last updated at 09:32 and 09:34 respectively.
 3. Matched-compute myopic controls: **RUNNING** — included in the same jobs
    (`--include-myopic-controls`).
 4. Cost-vs-depth table: script ready (`scripts/cost_vs_depth_table.py`), runs at packaging.
