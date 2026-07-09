@@ -72,7 +72,7 @@ def main() -> None:
             print(path)
         return
     print("# Run from the repository root after reviewing the file list.")
-    print("# This only syncs changed/untracked files reported by git status.")
+    print("# This syncs git-status paths plus required Path A launch/package files.")
     print(build_rsync_command(paths, remote=args.remote))
 
 

@@ -143,12 +143,17 @@ remaining blocks.
 ```bash
 squeue -u hanyal -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"
 
-tail -n 80 runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/run.log
-tail -n 80 runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/run.log
-
-grep -E "Traceback|RuntimeError|ValueError|could not produce a valid location|OOM|Killed|CANCELLED|TIMEOUT" \
-  runs/loc_branch_decoy_local_constrained_mpp30_26b_a4b_msc/run.log \
-  runs/loc_branch_decoy_local_unconstrained_mpp30_26b_a4b_msc/run.log
+for side in constrained unconstrained; do
+  for off in 0 10 20; do
+    run="runs/loc_branch_decoy_local_${side}_final50_26b_a4b_mpp30_b$(printf "%02d" "$off")_10"
+    echo "--- ${run} ---"
+    test -s "${run}/fixed_root_depth_sweep_metrics.json" && echo "metrics: present" || echo "metrics: missing"
+    wc -l "${run}/fixed_root_depth_sweep_decisions.jsonl" 2>/dev/null || true
+    tail -n 30 "${run}/run.log" 2>/dev/null || true
+    grep -E "Traceback|RuntimeError|ValueError|could not produce a valid location|OOM|Killed|CANCELLED|TIMEOUT" \
+      "${run}/run.log" 2>/dev/null || true
+  done
+done
 ```
 
 ## Build The Package

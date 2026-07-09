@@ -1497,6 +1497,13 @@ because the cluster checkout is missing
 `scripts/combine_location_fixed_root_depth_sweeps.py` and
 `scripts/recover_depth_sweep_metrics.py`. Full local suite passes
 (`453 passed, 1 skipped`).
+Follow-up 15:43 London handoff cleanup: `PHASE4_LAUNCH_HANDOFF.md` now monitors the six
+split-MPP30 block run directories instead of the canceled monolithic MSC run names, and
+`scripts/path_a_sync_commands.py` now describes its output as git-status paths plus
+required Path A launch/package files. Full local suite still passes
+(`453 passed, 1 skipped`). Read-only remote readiness remains unchanged: zero active
+jobs, one idle `gh200` node, and `ok_to_launch=false` until the missing scripts are
+synced.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
