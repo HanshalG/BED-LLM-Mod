@@ -1857,16 +1857,28 @@ Phase 4 package artifacts are pending inside package validation). Focused tests 
 `pytest tests/test_path_a_sync_commands.py tests/test_path_a_remote_readiness.py
 tests/test_path_a_preflight.py -q` (`18 passed`), and the full suite passes:
 `pytest tests/ -q` (`475 passed, 1 skipped`).
+Follow-up 16:40 London split-MPP30 Phase 4 launch: submitted all six Path A split jobs on
+`gh200` from the synced cluster checkout using
+`scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh`, the 26B A4B configs,
+StrategyEIG depths 1/3/5, eval depths 1/3/5, matched-compute myopic controls 3/5,
+10-trial blocks at offsets 0/10/20, `--total-trials 30`, and `--exclude=oat12`.
+Submitted jobs were `102177` (`loc_branch_constr26_f50_b00`),
+`102178` (`loc_branch_uncon26_f50_b00`), `102179` (`loc_branch_constr26_f50_b10`),
+`102180` (`loc_branch_uncon26_f50_b10`), `102181` (`loc_branch_constr26_f50_b20`), and
+`102182` (`loc_branch_uncon26_f50_b20`). Immediate `squeue` check showed all six pending
+on `gh200` for `(Priority)` with no node assigned, so none were on excluded `oat12`.
+After ledger/state sync, `102177` was running on `oat21` and the other five remained
+pending for `(Priority)`. `EXPERIMENTS.md` has one launch row per job.
 
 ## NEXT ACTIONS (in order)
 
-1. Remote checkout is synced and launch-ready. If the user asks to relaunch, prefer the
-   split MPP30 path: three 10-trial blocks per side
-   (`--trial-offset` 0, 10, 20 plus `--total-trials 30`), depths 1/3/5, myopic controls
-   3/5, GH200 Singularity launcher. Generate the exact launch/combine/package commands
-   with `python scripts/path_a_launch_commands.py --split-mpp30`.
-2. If relaunching on GH200, use the Singularity/container launchers only; do not use the
-   A100/conda ranking or 20-questions scripts on GH200.
+1. Monitor jobs `102177,102178,102179,102180,102181,102182` with
+   `squeue -j 102177,102178,102179,102180,102181,102182 -o "%.18i %.40j %.20P %.2t %.12M %.60R %.50N"`.
+   Confirm none starts on `oat12`; launch commands exclude it, but the check is cheap.
+2. Once the three constrained blocks and three unconstrained blocks finish, combine them
+   with `python scripts/path_a_launch_commands.py --split-mpp30`'s two combine commands,
+   then run the printed `build_path_a_package.py` command. The expected package run name is
+   `location_branch_decoy_depth_contrast_26b_a4b_mpp30_split`.
 3. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
    to avoid the broken user-site NumPy. The GH200 launchers already export this.
 
