@@ -385,9 +385,9 @@ python scripts/compare_location_rollout_ablation.py \
   `StrategyEIG-myopic-d5` matched-compute controls.
 - `plots/location_depth_sweeps/*_headline_rmse.png`: paper-facing constrained
   RMSE trace for greedy EIG and StrategyEIG depths 1, 3, and 5.
-- `results/location_qualitative/*_qualitative_examples.md` and
-  `results/location_qualitative/*_qualitative_example_*.png`: qualitative
-  strategy snippets plus paired query trajectories.
+- `results/location_qualitative/*_constrained_qualitative_examples.md` and
+  `results/location_qualitative/*_constrained_qualitative_example_*.png`:
+  constrained-arm qualitative strategy snippets plus paired query trajectories.
 - `results/cost_vs_depth/*_cost_vs_depth.md`: token-cost table generated from
   completed run summaries/logs.
 - `results/cost_vs_depth/*_cost_vs_depth.png`: paper-facing cost-vs-depth

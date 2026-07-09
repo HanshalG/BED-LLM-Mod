@@ -41,10 +41,10 @@ def test_validate_path_a_package_passes_complete_mpp(tmp_path):
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
     _write(
-        tmp_path / "results/location_qualitative/demo_qualitative_examples.md",
+        tmp_path / "results/location_qualitative/demo_constrained_qualitative_examples.md",
         "Qualitative Location Strategy Examples\nRMSE delta vs EIG\nRoot query",
     )
-    qualitative_plot = tmp_path / "results/location_qualitative/demo_qualitative_example_1.png"
+    qualitative_plot = tmp_path / "results/location_qualitative/demo_constrained_qualitative_example_1.png"
     qualitative_plot.parent.mkdir(parents=True, exist_ok=True)
     qualitative_plot.write_bytes(b"png")
     _write(
@@ -115,14 +115,14 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
     plot_path.parent.mkdir(parents=True, exist_ok=True)
     plot_path.write_bytes(b"png")
     _write(
-        tmp_path / "results/location_qualitative/a_empty_qualitative_examples.md",
+        tmp_path / "results/location_qualitative/a_constrained_qualitative_examples.md",
         "Qualitative Location Strategy Examples\nNo StrategyEIG examples were available.",
     )
     _write(
-        tmp_path / "results/location_qualitative/z_valid_qualitative_examples.md",
+        tmp_path / "results/location_qualitative/z_constrained_qualitative_examples.md",
         "Qualitative Location Strategy Examples\nRMSE delta vs EIG\nRoot query",
     )
-    qualitative_plot = tmp_path / "results/location_qualitative/z_valid_qualitative_example_1.png"
+    qualitative_plot = tmp_path / "results/location_qualitative/z_constrained_qualitative_example_1.png"
     qualitative_plot.write_bytes(b"png")
     _write(
         tmp_path / "results/cost_vs_depth/demo_cost_vs_depth.md",
@@ -135,3 +135,58 @@ def test_validate_path_a_package_accepts_later_nonempty_qualitative_report(tmp_p
     payload = summary_payload(validate_path_a_package(tmp_path))
 
     assert payload["ok"] is True
+
+
+def test_validate_path_a_package_rejects_unconstrained_only_qualitative_examples(tmp_path):
+    _write(
+        tmp_path / "results/ranking_fidelity/REPORT.md",
+        "Spearman correlations, top-1 regret, and SNR all reported.",
+    )
+    ranking_plot = tmp_path / "plots/ranking_fidelity/demo_diagnostics.png"
+    ranking_plot.parent.mkdir(parents=True, exist_ok=True)
+    ranking_plot.write_bytes(b"png")
+    _write(
+        tmp_path / "results/constrained_oracle/REPORT.md",
+        "Planner beats greedy on RMSE in the constrained oracle check.",
+    )
+    robustness_heatmap = tmp_path / "plots/constrained_oracle_robustness/demo_heatmap.png"
+    robustness_heatmap.parent.mkdir(parents=True, exist_ok=True)
+    robustness_heatmap.write_bytes(b"png")
+    _write(
+        tmp_path / "results/location_depth_sweeps/demo_REPORT.md",
+        "\n".join(
+            [
+                "## Headline Constrained Depths",
+                "`StrategyEIG-d1`",
+                "`StrategyEIG-d3`",
+                "`StrategyEIG-d5`",
+                "`StrategyEIG-myopic-d3`",
+                "`StrategyEIG-myopic-d5`",
+                "`truth_log_probability`",
+                "`expected_posterior_rmse`",
+                "paired final delta vs EIG",
+            ]
+        ),
+    )
+    plot_path = tmp_path / "plots/location_depth_sweeps/demo_headline_rmse.png"
+    plot_path.parent.mkdir(parents=True, exist_ok=True)
+    plot_path.write_bytes(b"png")
+    _write(
+        tmp_path / "results/location_qualitative/demo_unconstrained_qualitative_examples.md",
+        "Qualitative Location Strategy Examples\nRMSE delta vs EIG\nRoot query",
+    )
+    qualitative_plot = tmp_path / "results/location_qualitative/demo_unconstrained_qualitative_example_1.png"
+    qualitative_plot.write_bytes(b"png")
+    _write(
+        tmp_path / "results/cost_vs_depth/demo_cost_vs_depth.md",
+        "LLM Cost vs Depth\nStrategyEIG vs brute-force n-step EIG proxy\nBF/Strategy root-set ratio",
+    )
+    cost_plot = tmp_path / "plots/cost_vs_depth/demo_cost_vs_depth.png"
+    cost_plot.parent.mkdir(parents=True, exist_ok=True)
+    cost_plot.write_bytes(b"png")
+
+    checks = summary_payload(validate_path_a_package(tmp_path))["checks"]
+    qualitative_check = next(item for item in checks if item["name"] == "qualitative_strategy_examples")
+
+    assert qualitative_check["ok"] is False
+    assert "constrained" in qualitative_check["detail"]

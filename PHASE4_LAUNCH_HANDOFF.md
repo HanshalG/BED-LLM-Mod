@@ -17,7 +17,8 @@ It is intentionally command-oriented and avoids extra experiment branches.
 - Final sweep artifacts: not present yet.
   - `results/location_depth_sweeps/*_REPORT.md`
   - `plots/location_depth_sweeps/*_headline_rmse.png`
-  - `results/location_qualitative/*_qualitative_examples.md`
+  - `results/location_qualitative/*_constrained_qualitative_examples.md`
+  - `results/location_qualitative/*_constrained_qualitative_example_*.png`
 - Cost-vs-depth artifacts: present for the pre-registered settings.
   - `results/cost_vs_depth/path_a_preregistered_cost_vs_depth.md`
   - `results/cost_vs_depth/path_a_preregistered_cost_vs_depth.png`

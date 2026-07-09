@@ -1688,6 +1688,17 @@ tests pass:
 tests/test_compare_location_depth_sweeps.py tests/test_validate_path_a_package.py
 tests/test_build_path_a_package.py -q` (`19 passed`), and the full suite passes:
 `pytest tests/ -q` (`467 passed, 1 skipped`).
+Follow-up 15:23 London qualitative-package hardening: `validate_path_a_package.py` now
+requires the qualitative strategy report and trajectory PNG to come from the constrained
+headline arm (`*_constrained_qualitative_examples.md` and
+`*_constrained_qualitative_example_*.png`) rather than allowing the unconstrained contrast
+arm alone to satisfy the paper-facing qualitative figure requirement. The runbook and
+Phase 4 launch handoff were updated to name those constrained qualitative artifacts
+explicitly. Focused tests pass:
+`pytest tests/test_validate_path_a_package.py tests/test_build_path_a_package.py
+tests/test_extract_location_qualitative_examples.py tests/test_path_a_preflight.py -q`
+(`9 passed`), and the full suite passes: `pytest tests/ -q`
+(`468 passed, 1 skipped`).
 
 ## NEXT ACTIONS (in order)
 
@@ -1721,4 +1732,4 @@ tests/test_build_path_a_package.py -q` (`19 passed`), and the full suite passes:
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 466 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 468 passed, 1 skipped).

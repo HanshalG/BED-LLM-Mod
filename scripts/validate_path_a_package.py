@@ -123,12 +123,12 @@ def _check_robustness_heatmap(root: Path) -> CheckResult:
 
 
 def _check_qualitative_examples(root: Path) -> CheckResult:
-    report_paths = sorted(root.glob("results/location_qualitative/*_qualitative_examples.md"))
+    report_paths = sorted(root.glob("results/location_qualitative/*_constrained_qualitative_examples.md"))
     if not report_paths:
         return CheckResult(
             "qualitative_strategy_examples",
             False,
-            "missing results/location_qualitative/*_qualitative_examples.md",
+            "missing results/location_qualitative/*_constrained_qualitative_examples.md",
         )
     valid_report_path: Path | None = None
     for report_path in report_paths:
@@ -150,13 +150,13 @@ def _check_qualitative_examples(root: Path) -> CheckResult:
 
     plot_path = _first_existing_or_glob(
         root,
-        ["results/location_qualitative/*_qualitative_example_*.png"],
+        ["results/location_qualitative/*_constrained_qualitative_example_*.png"],
     )
     if plot_path is None:
         return CheckResult(
             "qualitative_strategy_examples",
             False,
-            "missing results/location_qualitative/*_qualitative_example_*.png",
+            "missing results/location_qualitative/*_constrained_qualitative_example_*.png",
         )
     if plot_path.stat().st_size <= 0:
         return CheckResult("qualitative_strategy_examples", False, f"{plot_path} is empty")
