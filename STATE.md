@@ -2056,16 +2056,37 @@ with `scancel` and confirmed `squeue -u hanyal` was empty afterward; there are n
 user-owned jobs on `gh200`, `msc`, or other partitions. Slurm accounting is disabled, so
 there is no `sacct` state to record. Treat the fixed-support batched-analytic 3-trial
 6-round pilot as aborted for GH200 courtesy before final metrics.
+Follow-up 18:06 London support-grid candidate optimization: inspected the aborted `102207`
+partial logs and confirmed the hidden expensive paths were fixed (`strategy_location=0`,
+`belief_refresh_requesting=0`, `completed_rounds=1`, `decisions=33`). Remaining cost was
+ordinary LLM prompting, dominated by candidate generation plus forced-final calls.
+Implemented default-preserving `location_candidate_generation_mode` with modes `llm`
+and `support_grid`; the new support-grid mode proposes deterministic posterior-support
+and local-ring candidates without LLM calls. Focused tests pass:
+`pytest tests/test_location_finding.py tests/test_helpers_load_config.py tests/test_core_config.py -q`
+(`162 passed`). Committed locally as `84a2e9c` and tagged
+`path-a-support-grid-candidates-20260709`. Synced code/configs to the cluster and launched
+short GH200 pilot `102208` (`loc_branch_constr26_sg_t1r6`, run
+`loc_branch_decoy_local_constrained_supportgrid_26b_a4b_t1r6`) with 1 paired trial,
+6 rounds, StrategyEIG depths 1/3/5, eval depths 1/3/5, myopic controls 3/5, fixed-support
+belief updates, analytic future rollout queries, and `support_grid` candidates. It
+completed on `gh200` / `oat21` in about 10.5 minutes with metrics: 34 LLM usage events,
+126,519 total tokens, 5 forced exits, `candidate_llm=0`, `support_grid=6`,
+`strategy_location=0`, `belief_refresh_requesting=0`, `refresh_disabled=6`,
+`completed_rounds=6`, and 48 decision rows. Single-trial final RMSE was EIG/naive/d5
+0.092 versus d1/d3/myopic/naive+belief 2.473; this is a throughput and smoke-signal run
+only, not evidence for a depth claim. `squeue -u hanyal` was empty afterward.
 
 ## NEXT ACTIONS (in order)
 
-1. Before relaunching anything, inspect the partial `102207` run logs/decision rows to
-   quantify why the corrected fixed-support batched-analytic path was still too slow
-   (LLM usage events, forced exits, decision count, strategy-location calls, and belief
-   refresh logs).
-2. Decide on a cheaper next experiment rather than another multi-round GH200 pilot:
-   either a smaller ranking-fidelity diagnostic, a non-LLM/analytic sanity check, or a
-   drastically reduced StrategyEIG run that can finish within a short wall-clock window.
+1. If GH200 remains uncongested, the next useful launch is a support-grid constrained
+   3-trial/6-round pilot with the same settings as `102208` to see whether the d5 smoke
+   signal survives more than one trial. Keep it to one short job and continue excluding
+   `oat12`.
+2. If the 3-trial support-grid pilot completes quickly and has plausible traces, scale
+   to split constrained MPP30 blocks with `candidate_generation_mode: support_grid`.
+   Otherwise keep the paper path on ranking-fidelity/diagnostic fallback and avoid
+   spending more GH200 time.
 3. Recheck `squeue -u hanyal` before any new launch and keep the cluster cap at <=8 active
    jobs, excluding `oat12`.
 4. For ad hoc remote Python preflight commands on the login node, set `PYTHONNOUSERSITE=1`
