@@ -1339,6 +1339,11 @@ No final or recovered metrics exist for either MPP30 run, decision logs remain `
 and traceback/runtime/OOM/killed signatures remain zero. Constrained `102018` advanced
 to 214/256, nearing the end of its current prompt block, and unconstrained `102019`
 advanced to 114/256.
+Follow-up 13:43 London cancellation check: after the user agreed the slow 13-hour GH200
+jobs should be canceled to free shared nodes, `squeue -p gh200` returned no user-owned
+GH200 job IDs before `scancel`, so there was nothing active to cancel. Post-check queue
+still showed only the two MSC jobs: constrained `102018` on `oat16` at 14:20 elapsed and
+unconstrained `102019` on `oat21` at 11:40 elapsed.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
