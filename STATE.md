@@ -1482,6 +1482,13 @@ commands, and the final
 canonical command source. Full local suite passes (`451 passed, 1 skipped`). Read-only
 remote readiness is unchanged: zero active jobs, one idle `gh200` node, and
 `ok_to_launch=false` only because the combiner has not been synced to the cluster yet.
+Follow-up 15:31 London preflight alignment: `scripts/path_a_preflight.py` now validates
+the split-MPP30 workflow directly, including the local combiner script and six-command
+split launch shape. Local preflight passes its launch-readiness checks and still reports
+`package_validation_ok=false`, expected until sweep results exist. Full local suite
+passes (`452 passed, 1 skipped`). Read-only remote readiness remains unchanged: zero
+active jobs, one idle `gh200` node, and `ok_to_launch=false` only because the combiner
+has not been synced to the cluster yet.
 
 RMSE repair analysis: **DONE for current records** —
 `results/ranking_fidelity/RMSE_REPAIR.md` and
@@ -1530,4 +1537,4 @@ descriptively named Path A/ranking/oracle configs plus `configs/cluster_smoke/`.
   spending on. Thinking budget 4096 → ~30% forced-exit rate (12k/41k calls in the final
   sweeps) — first suspect if results are marginal; the one reserved appendix follow-up is
   an 8k-budget replicate of depths {1, 5}.
-- Tests: `pytest tests/ -q` must stay green (last known: 451 passed, 1 skipped).
+- Tests: `pytest tests/ -q` must stay green (last known: 452 passed, 1 skipped).

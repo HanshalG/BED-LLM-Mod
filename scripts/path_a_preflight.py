@@ -13,7 +13,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from helpers import load_config
-from scripts.path_a_launch_commands import build_path_a_commands
+from scripts.path_a_launch_commands import build_split_mpp30_commands
 from scripts.validate_path_a_package import summary_payload, validate_path_a_package
 
 
@@ -22,6 +22,7 @@ FINAL_CONFIGS = (
     Path("configs/config_location_branch_decoy_local_unconstrained_final50_26b_a4b.yaml"),
 )
 FINAL_LAUNCHER = Path("scripts/run_location_fixed_root_depth_sweep_gh200_singularity.sh")
+SPLIT_COMBINER = Path("scripts/combine_location_fixed_root_depth_sweeps.py")
 
 
 @dataclass(frozen=True)
@@ -77,12 +78,20 @@ def _check_launcher(root: Path) -> PreflightCheck:
     return PreflightCheck("gh200_launcher", True, str(FINAL_LAUNCHER))
 
 
+def _check_split_tools(root: Path) -> PreflightCheck:
+    path = root / SPLIT_COMBINER
+    if not path.exists():
+        return PreflightCheck("split_tools", False, f"missing {SPLIT_COMBINER}")
+    return PreflightCheck("split_tools", True, str(SPLIT_COMBINER))
+
+
 def _check_commands() -> PreflightCheck:
-    commands = build_path_a_commands()
+    commands = build_split_mpp30_commands()
     text = "\n".join(
         [
-            commands.constrained_sbatch,
-            commands.unconstrained_sbatch,
+            *commands.sbatch_commands,
+            commands.constrained_combine_command,
+            commands.unconstrained_combine_command,
             commands.package_command,
         ]
     )
@@ -91,18 +100,28 @@ def _check_commands() -> PreflightCheck:
         "BED_LLM_LOG_REASONING_TRACES=1",
         "run_location_fixed_root_depth_sweep_gh200_singularity.sh",
         "--include-myopic-controls",
+        "--strategy-depths 1,3,5",
+        "--eval-depths 1,3,5",
+        "--myopic-control-depths 3,5",
+        "--num-trials 10",
+        "--trial-offset 20",
+        "--total-trials 30",
+        "combine_location_fixed_root_depth_sweeps.py",
         "build_path_a_package.py",
     ]
     missing = [needle for needle in required if needle not in text]
     if missing:
         return PreflightCheck("launch_commands", False, f"missing command snippets: {missing}")
-    return PreflightCheck("launch_commands", True, "dry-run commands are ready")
+    if len(commands.sbatch_commands) != 6:
+        return PreflightCheck("launch_commands", False, f"expected 6 sbatch commands, got {len(commands.sbatch_commands)}")
+    return PreflightCheck("launch_commands", True, "split-MPP30 dry-run commands are ready")
 
 
 def run_preflight(root: Path) -> dict[str, Any]:
     checks = [
         _check_configs(root),
         _check_launcher(root),
+        _check_split_tools(root),
         _check_commands(),
     ]
     package_payload = summary_payload(validate_path_a_package(root))
