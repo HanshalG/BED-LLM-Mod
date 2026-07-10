@@ -2,15 +2,47 @@ def main():
     import argparse
     from pathlib import Path
 
-    import wandb
+    try:
+        import wandb
+    except ImportError:
+        class _NoOpWandb:
+            @staticmethod
+            def init(*args, **kwargs):
+                return None
+
+            @staticmethod
+            def log(*args, **kwargs):
+                return None
+
+            @staticmethod
+            def login(*args, **kwargs):
+                return None
+
+        wandb = _NoOpWandb()
 
     import numpy as np
 
     from core.experiment import required_model_roles_for_config, run_from_config
     from helpers import build_models, format_config_for_log, load_config, resolve_run_id, write_to_log
-    from model import build_model_adapter
+    from model_factory import build_model_adapter
 
     import time
+
+    def usage_snapshot(adapters):
+        unique = {id(adapter): adapter for adapter in adapters if adapter is not None}
+        snapshots = [
+            adapter.usage_snapshot()
+            for adapter in unique.values()
+            if callable(getattr(adapter, "usage_snapshot", None))
+        ]
+        return {
+            "cost_usd": sum(item.get("adapter_cost_usd", 0.0) for item in snapshots),
+            "requests": sum(item.get("adapter_requests", 0) for item in snapshots),
+            "prompt_tokens": sum(item.get("adapter_prompt_tokens", 0) for item in snapshots),
+            "completion_tokens": sum(item.get("adapter_completion_tokens", 0) for item in snapshots),
+            "reasoning_tokens": sum(item.get("adapter_reasoning_tokens", 0) for item in snapshots),
+            "forced_exits": sum(item.get("forced_exits", 0) for item in snapshots),
+        }
 
     start_time = time.perf_counter()
     parser = argparse.ArgumentParser()
@@ -103,6 +135,8 @@ def main():
                 write_to_log(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n", config)
                 print(f"Starting with models Q: {questioner}, A: {answerer}, method {method_name}\n\n")
 
+                usage_before = usage_snapshot([questioner_model, answerer_model])
+
                 _run_result, summary = run_from_config(
                     config,
                     questioner_model,
@@ -112,6 +146,12 @@ def main():
                 )
                 metrics = summary.metrics
 
+                usage_after = usage_snapshot([questioner_model, answerer_model])
+                usage_delta = {
+                    key: usage_after[key] - usage_before[key]
+                    for key in usage_after
+                }
+
                 metric_payload = {}
                 for metric_name, series in sorted(metrics.items()):
                     metric_path = item.item_dir / f"{metric_name}.npy"
@@ -120,6 +160,9 @@ def main():
                     np.save(metric_path, np.array(series))
                     add_item_artifact(item, metric_name, metric_path, run_context)
                     metric_payload[metric_name] = series
+                if pair.questioner.backend == "openrouter" or pair.answerer.backend == "openrouter":
+                    for key, value in usage_delta.items():
+                        metric_payload[f"backend_{key}"] = [value]
                 for artifact_name, artifact_path in sorted(summary.artifacts.items()):
                     add_item_artifact(item, artifact_name, artifact_path, run_context)
                 set_item_metrics(item, metric_payload)

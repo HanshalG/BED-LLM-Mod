@@ -1,6 +1,11 @@
 from core import BeliefState
 from helpers import reverse_history
-from model import Model
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from model import Model
+else:
+    Model = Any
 from environments.animals.prompts import greedy_sample_animal_system_prompt, greedy_sample_animal_user_prompt, \
     greedy_sample_animal_system_prompt_naive, greedy_sample_animal_user_prompt_naive, \
     weighted_greedy_sample_animal_user_prompt_naive

@@ -16,7 +16,12 @@ from helpers import (
     sample_permuted_history_messages,
     sort_belief_state_descending,
 )
-from model import Model
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from model import Model
+else:
+    Model = Any
 from environments.animals.prompts import generate_animals_system_prompt, generate_more_animals_system_prompt, \
     answer_likelihood_messages, belief_distribution_system_prompt, belief_distribution_user_prompt, \
     generate_animals_user_prompt, validate_animal_name_system_prompt, validate_animal_name_user_prompt

@@ -1,13 +1,17 @@
 import contextlib
 import io
 from dataclasses import replace
+from typing import TYPE_CHECKING, Any
 
 import numpy as np
 
 from core import BeliefState
 from helpers import Config, format_categorical_belief_summary, \
     is_uniform_belief_state, print_and_log, reverse_history, _binary_entropy, convert_string_to_array
-from model import Model
+if TYPE_CHECKING:
+    from model import Model
+else:
+    Model = Any
 from environments.animals.prompts import candidate_generation_system_message, conditional_question_generation_prompt, \
     unconditional_question_generation_prompt, weighted_conditional_question_generation_prompt, \
     weighted_unconditional_question_generation_prompt, \

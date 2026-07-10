@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 
 
 ReasoningEffort = Literal["low", "medium", "high"]
+ModelBackend = Literal["vllm", "openrouter"]
 TaskMode = Literal["animals", "location_finding", "paprika_customer_service"]
 BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
@@ -34,6 +35,7 @@ LocationCandidateGenerationMode = Literal["llm", "support_grid"]
 @dataclass(frozen=True)
 class ModelSpec:
     model: str
+    backend: ModelBackend = "vllm"
     thinking: bool | None = None
     reasoning_effort: ReasoningEffort | None = None
     thinking_max_new_tokens: int | None = None
@@ -158,6 +160,13 @@ class Config:
     paprika_num_refresh_hypotheses: int = 6
     paprika_max_hypotheses: int = 24
     paprika_structured_max_retries: int = 2
+    openrouter_budget_usd: float = 20.0
+    openrouter_projected_cost_usd: float = 0.0
+    openrouter_concurrency: int = 6
+    openrouter_max_retries: int = 5
+    openrouter_backoff_seconds: float = 1.0
+    openrouter_spend_path: str = "results/path_e/openrouter_spend.json"
+    openrouter_max_output_tokens: int = 2048
 
     def __post_init__(self) -> None:
         if self.environment:
@@ -257,6 +266,18 @@ class Config:
             raise ValueError("paprika_task_offset must be a non-negative integer")
         if not isinstance(self.paprika_structured_max_retries, int) or isinstance(self.paprika_structured_max_retries, bool) or self.paprika_structured_max_retries < 0:
             raise ValueError("paprika_structured_max_retries must be a non-negative integer")
+        if self.openrouter_budget_usd <= 0.0:
+            raise ValueError("openrouter_budget_usd must be positive")
+        if self.openrouter_projected_cost_usd < 0.0:
+            raise ValueError("openrouter_projected_cost_usd must be non-negative")
+        if self.openrouter_concurrency <= 0:
+            raise ValueError("openrouter_concurrency must be positive")
+        if self.openrouter_max_retries < 0:
+            raise ValueError("openrouter_max_retries must be non-negative")
+        if self.openrouter_backoff_seconds <= 0.0:
+            raise ValueError("openrouter_backoff_seconds must be positive")
+        if self.openrouter_max_output_tokens <= 0:
+            raise ValueError("openrouter_max_output_tokens must be positive")
 
     @property
     def effective_max_model_len(self) -> int:
@@ -321,6 +342,10 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     model_name = raw_spec.get("model")
     if not isinstance(model_name, str) or not model_name:
         raise ValueError(f"{side_name}.model must be a non-empty string")
+
+    backend = raw_spec.get("backend", "vllm")
+    if backend not in {"vllm", "openrouter"}:
+        raise ValueError(f"{side_name}.backend must be one of: vllm, openrouter")
 
     thinking = raw_spec.get("thinking")
     if thinking is not None and not isinstance(thinking, bool):
@@ -405,6 +430,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
             raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
         return ModelSpec(
             model=model_name,
+            backend=backend,
             reasoning_effort=reasoning_effort or "low",
             **vllm_kwargs,
         )
@@ -421,6 +447,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
             raise ValueError(f"{side_name}.thinking budgets require thinking: true")
         return ModelSpec(
             model=model_name,
+            backend=backend,
             thinking=normalized_thinking,
             thinking_max_new_tokens=(
                 thinking_max_new_tokens if thinking_max_new_tokens is not None
@@ -443,7 +470,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if use_logprobs:
         raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
 
-    return ModelSpec(model=model_name, **vllm_kwargs)
+    return ModelSpec(model=model_name, backend=backend, **vllm_kwargs)
 
 
 def _normalize_model_pair(raw_pair: object, index: int) -> ModelPair:
@@ -968,6 +995,13 @@ def load_config(path: str) -> Config:
         paprika_num_refresh_hypotheses = raw.get("paprika_num_refresh_hypotheses", 6),
         paprika_max_hypotheses = raw.get("paprika_max_hypotheses", 24),
         paprika_structured_max_retries = raw.get("paprika_structured_max_retries", 2),
+        openrouter_budget_usd = float(raw.get("openrouter_budget_usd", 20.0)),
+        openrouter_projected_cost_usd = float(raw.get("openrouter_projected_cost_usd", 0.0)),
+        openrouter_concurrency = _read_positive_int(raw, "openrouter_concurrency", 6),
+        openrouter_max_retries = _read_nonneg_int(raw, "openrouter_max_retries", 5),
+        openrouter_backoff_seconds = _read_positive_float(raw, "openrouter_backoff_seconds", 1.0),
+        openrouter_spend_path = raw.get("openrouter_spend_path", "results/path_e/openrouter_spend.json"),
+        openrouter_max_output_tokens = _read_positive_int(raw, "openrouter_max_output_tokens", 2048),
     )
 
 

@@ -18,6 +18,7 @@ configs/
 !configs/
 configs/*
 !configs/config_paprika_step0a_smoke_26b_a4b.yaml
+!configs/config_paprika_step0a_smoke_openrouter.yaml
 !configs/archive/
 !configs/archive/**
 !configs/config_strategy_ranking_fidelity_smoke.yaml
