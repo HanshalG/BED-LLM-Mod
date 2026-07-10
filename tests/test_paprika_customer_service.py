@@ -38,7 +38,7 @@ class RoutingQuestioner:
             return [json.dumps({"hypotheses": [f"cause {index} and remedy {index}" for index in range(count)]})]
         if '"candidates"' in text:
             count = int(re.search(r"exactly (\d+)", text).group(1))
-            return [json.dumps({"candidates": [{"query": f"Check diagnostic {index}?", "outcomes": ["positive", "negative", "unknown"]} for index in range(count)]})]
+            return [json.dumps({"candidates": [{"query": f"Check diagnostic {index}?", "kind": "diagnostic", "outcomes": ["positive", "negative", "unknown"]} for index in range(count)]})]
         if '"probabilities"' in text:
             return [json.dumps({"probabilities": {"positive": 0.7, "negative": 0.2, "unknown": 0.1}})]
         if '"outcome"' in text and '"clean"' in text:
@@ -104,6 +104,14 @@ class FlakyLikelihoodQuestioner(RoutingQuestioner):
                     self.failed_likelihood_once = True
                     break
         return responses
+
+
+class AlwaysValidJudgeQuestioner(RoutingQuestioner):
+    def chat_complete(self, messages, temperature, num_responses=1):
+        text = "\n".join(message["content"] for message in messages)
+        if "Reply with <VALID>" in text:
+            return ["<VALID>"]
+        return super().chat_complete(messages, temperature, num_responses)
 
 
 def test_load_released_shape_exposes_private_solution() -> None:
@@ -226,6 +234,25 @@ def test_naive_is_history_only_and_still_uses_native_early_stop(tmp_path: Path) 
     assert summary.metrics["resolved"] == [1.0]
     assert not any('"hypotheses"' in text for text in questioner.prompt_texts)
     assert questioner.batch_calls == 0
+
+
+def test_diagnostic_query_cannot_be_falsely_resolved_by_success_judge() -> None:
+    questioner = AlwaysValidJudgeQuestioner()
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+    )
+    run_result, summary = run_from_config(
+        config, questioner, RoutingCustomer(), method_name="EIG"
+    )
+    assert run_result.trials[0].rounds[0].chosen.action.kind == "diagnostic"
+    assert summary.metrics["resolved"] == [0.0]
+    assert not any("Reply with <VALID>" in text for text in questioner.prompt_texts)
 
 
 def test_full_two_step_expands_each_root_outcome(tmp_path: Path) -> None:

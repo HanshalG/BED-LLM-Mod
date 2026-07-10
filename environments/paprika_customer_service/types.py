@@ -19,6 +19,7 @@ class PaprikaAction:
     outcomes: tuple[str, ...]
     scenario: str
     transcript: tuple[tuple[str, str], ...] = ()
+    kind: str = "diagnostic"
 
     def __post_init__(self) -> None:
         query = self.query.strip()
@@ -29,6 +30,8 @@ class PaprikaAction:
             raise ValueError("Paprika actions require 3-5 answer outcomes")
         if len({outcome.casefold() for outcome in outcomes}) != len(outcomes):
             raise ValueError("Paprika action outcomes must be unique")
+        if self.kind not in {"diagnostic", "solution"}:
+            raise ValueError("Paprika action kind must be 'diagnostic' or 'solution'")
         object.__setattr__(self, "query", query)
         object.__setattr__(self, "outcomes", outcomes)
 
@@ -39,4 +42,3 @@ class PaprikaObservation:
     mapped_outcome: str | None
     mapped_cleanly: bool
     goal_reached: bool = False
-

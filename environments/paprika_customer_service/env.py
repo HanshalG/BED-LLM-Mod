@@ -471,7 +471,15 @@ class PaprikaCustomerServiceEnvironment(
             if not isinstance(item, dict) or not isinstance(item.get("query"), str) or not isinstance(item.get("outcomes"), list):
                 continue
             try:
-                actions.append(PaprikaAction(item["query"], tuple(item["outcomes"]), scenario, transcript))
+                actions.append(
+                    PaprikaAction(
+                        item["query"],
+                        tuple(item["outcomes"]),
+                        scenario,
+                        transcript,
+                        kind=item.get("kind", ""),
+                    )
+                )
             except (TypeError, ValueError):
                 continue
         unique: dict[str, PaprikaAction] = {action.query.casefold(): action for action in actions}
@@ -534,8 +542,10 @@ class PaprikaCustomerServiceEnvironment(
         del rng
         reply = self._cached_complete(self.answerer, customer_messages(action, hidden_state.solution), float(getattr(self.config, "answer_temperature", 0.7)), namespace="answerer:customer").strip()
         customer_goal = reply.casefold() == "goal reached"
-        judge = self._cached_complete(self._questioner(), judge_messages(hidden_state.scenario, hidden_state.solution, action.query), 0.0, namespace="questioner:success_judge")
-        goal = customer_goal or ("<VALID>" in judge and "<NOTVALID>" not in judge)
+        goal = customer_goal
+        if not customer_goal and action.kind == "solution":
+            judge = self._cached_complete(self._questioner(), judge_messages(hidden_state.scenario, hidden_state.solution, action.query), 0.0, namespace="questioner:success_judge")
+            goal = "<VALID>" in judge and "<NOTVALID>" not in judge
         if customer_goal:
             return PaprikaObservation(reply=reply, mapped_outcome=None, mapped_cleanly=True, goal_reached=True)
         map_messages = mapping_messages(reply, action.outcomes)
@@ -634,6 +644,6 @@ class PaprikaCustomerServiceEnvironment(
         path = output_dir / "paprika_smoke.json"
         records = []
         for trial in run_result.trials:
-            records.append({"task_id": trial.hidden_state.task_id, "scenario": trial.hidden_state.scenario, "solution": trial.hidden_state.solution, "turns": [{"query": round_result.chosen.action.query, "outcomes": list(round_result.chosen.action.outcomes), "reply": round_result.observation.reply, "mapped_outcome": round_result.observation.mapped_outcome, "mapped_cleanly": round_result.observation.mapped_cleanly, "goal_reached": round_result.observation.goal_reached} for round_result in trial.rounds], "final_metrics": trial.final_metrics})
+            records.append({"task_id": trial.hidden_state.task_id, "scenario": trial.hidden_state.scenario, "solution": trial.hidden_state.solution, "turns": [{"query": round_result.chosen.action.query, "kind": round_result.chosen.action.kind, "outcomes": list(round_result.chosen.action.outcomes), "reply": round_result.observation.reply, "mapped_outcome": round_result.observation.mapped_outcome, "mapped_cleanly": round_result.observation.mapped_cleanly, "goal_reached": round_result.observation.goal_reached} for round_result in trial.rounds], "final_metrics": trial.final_metrics})
         path.write_text(json.dumps(records, indent=2) + "\n")
         return {"paprika_smoke": path}

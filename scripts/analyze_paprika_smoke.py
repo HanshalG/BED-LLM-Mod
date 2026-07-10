@@ -84,6 +84,7 @@ def analyze(run_dir: Path, *, coverage_threshold: float = 0.85) -> dict[str, Any
                 "num_turns": len(trial.get("turns", [])),
                 "resolved": bool(trial.get("final_metrics", {}).get("resolved")),
                 "queries": [turn.get("query") for turn in trial.get("turns", [])],
+                "kinds": [turn.get("kind") for turn in trial.get("turns", [])],
                 "replies": [turn.get("reply") for turn in trial.get("turns", [])],
             }
             for trial in trials

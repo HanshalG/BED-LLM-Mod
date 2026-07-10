@@ -33,7 +33,7 @@ class _RoutingQuestioner:
             return [json.dumps({"hypotheses": [f"candidate cause {i} with remedy {i}" for i in range(count)]})]
         if '"candidates"' in text:
             count = int(re.search(r"exactly (\d+)", text).group(1))
-            return [json.dumps({"candidates": [{"query": f"Run diagnostic check {i}?", "outcomes": ["positive", "negative", "unknown"]} for i in range(count)]})]
+            return [json.dumps({"candidates": [{"query": f"Run diagnostic check {i}?", "kind": "diagnostic", "outcomes": ["positive", "negative", "unknown"]} for i in range(count)]})]
         if '"probabilities"' in text:
             return [json.dumps({"probabilities": {"positive": 0.6, "negative": 0.3, "unknown": 0.1}})]
         if '"outcome"' in text and '"clean"' in text:
