@@ -33,7 +33,7 @@ must remain explicit limitations in reporting.
 
 ## Adapter Evidence
 
-Implementation through commit `cae1f42` provides:
+Implementation through commit `4d8be37` provides:
 
 - hash-verified loading without vendoring the upstream dataset;
 - LLM-generated cause/remedy hypotheses, history-conditioned refinement, explicit
@@ -45,6 +45,7 @@ Implementation through commit `cae1f42` provides:
 - prompt-scoped replay for paired roots/simulator responses at identical states;
 - batched root, branch, and follow-up likelihood evaluation;
 - per-turn resolution, turns-used, answer-space coverage, and cache diagnostics.
+- bounded structured-output repair with retry and terminal-failure metrics.
 
 The deterministic mechanics smoke uses five tasks from the pinned official evaluation
 split for two rounds and reports answer-space coverage 1.00. It is explicitly **not LLM
