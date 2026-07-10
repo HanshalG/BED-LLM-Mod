@@ -148,7 +148,11 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    baseline, not a prerequisite for the environments. Use OpenRouter for the whole
    paired set, seed 1304, and the same non-thinking answerer. The EIG/full2 arms share
    root candidates and prompt cache; provider seed 1304 is sent on every API request.
-   Cost-project from a one-task full2 micro-pilot before launching all ten tasks. Claim-1 check: 1-step > naive.
+   The one-task/one-round full2 cost micro-pilot completed with 1,235 requests, 419,382
+   tokens, $0.08430807, zero terminal failures, and 236.7 seconds at concurrency 24.
+   A linear 10-task x 2-round full2 projection is about $1.69 before early stopping and
+   support-growth effects. OpenRouter concurrency is now 64 for subsequent runs.
+   Claim-1 check: 1-step > naive.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
