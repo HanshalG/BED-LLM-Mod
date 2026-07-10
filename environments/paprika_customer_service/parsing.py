@@ -51,9 +51,15 @@ def parse_distribution(text: str, outcomes: tuple[str, ...]) -> tuple[float, ...
     lookup = {str(key).strip().casefold(): value for key, value in raw.items()}
     values: list[float] = []
     for outcome in outcomes:
-        value = lookup.get(outcome.casefold())
+        key = outcome.casefold()
+        if key not in lookup:
+            raise ValueError(f"Missing numeric probability for {outcome!r}")
+        value = lookup[key]
         if isinstance(value, bool):
             raise ValueError("Outcome probabilities must be numeric")
+        if value is None:
+            values.append(0.0)
+            continue
         try:
             number = float(value)
         except (TypeError, ValueError) as exc:
@@ -65,4 +71,3 @@ def parse_distribution(text: str, outcomes: tuple[str, ...]) -> tuple[float, ...
     if total <= 0.0:
         raise ValueError("Outcome probabilities must have positive total mass")
     return tuple(value / total for value in values)
-

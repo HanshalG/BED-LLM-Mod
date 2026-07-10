@@ -9,6 +9,7 @@ import pytest
 
 from core.experiment import run_from_config
 from environments.paprika_customer_service import PaprikaAction, load_paprika_tasks
+from environments.paprika_customer_service.parsing import parse_distribution
 from helpers import Config, load_config
 from methods.categorical_eig import categorical_eig
 
@@ -235,6 +236,16 @@ def test_explicit_observation_is_repaired_to_supported_non_uncertainty_outcome()
 def test_categorical_eig_matches_deterministic_binary_information() -> None:
     value = categorical_eig([0.5, 0.5], np.asarray([[1.0, 0.0], [0.0, 1.0]]))
     assert value == pytest.approx(np.log(2.0))
+
+
+def test_distribution_treats_explicit_null_as_zero_but_rejects_missing_key() -> None:
+    outcomes = ("yes", "no", "unknown")
+    parsed = parse_distribution(
+        '{"probabilities":{"yes":0.75,"no":null,"unknown":0.25}}', outcomes
+    )
+    assert parsed == pytest.approx((0.75, 0.0, 0.25))
+    with pytest.raises(ValueError, match="Missing numeric probability"):
+        parse_distribution('{"probabilities":{"yes":0.75,"unknown":0.25}}', outcomes)
 
 
 def test_nested_paprika_config_aliases(tmp_path: Path) -> None:
