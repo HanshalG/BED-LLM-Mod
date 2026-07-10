@@ -114,6 +114,7 @@ class OpenRouterAdapter:
         self.concurrency = int(config.openrouter_concurrency)
         self.max_retries = int(config.openrouter_max_retries)
         self.backoff_seconds = float(config.openrouter_backoff_seconds)
+        self.seed = config.paprika_seed if config.task == "paprika_customer_service" else None
         self.tracker = OpenRouterBudgetTracker(config, self.model_name)
         self.forced_exits = 0
         self.local_cost_usd = 0.0
@@ -134,6 +135,8 @@ class OpenRouterAdapter:
         }
         if self.thinking:
             payload["reasoning"] = {"enabled": True, "exclude": False}
+        if self.seed is not None:
+            payload["seed"] = int(self.seed)
         return payload
 
     def _post(self, payload: dict[str, Any]) -> dict[str, Any]:
