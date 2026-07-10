@@ -15,7 +15,7 @@ naive AND 1-step EIG on paired external-benchmark endpoints. 20Q/Wordle/Mastermi
 harness/unit-test only (greedy near-optimal there); location finding is closed. All
 Path A/B/C/D location & 20Q material is banked history below.
 
-Path E Step 0 implementation status (2026-07-10): implementation through commit `4d8be37` is pushed. The
+Path E Step 0 implementation status (2026-07-10): implementation through commit `cfdc9a0` is pushed. The
 Paprika customer-service adapter now loads the hash-pinned official release, preserves
 the released public `agent` scenario and private `env` solution verbatim, uses the
 native semantic success rule, generates 3--5 outcome answer spaces, scores categorical
@@ -41,6 +41,10 @@ Strict JSON/schema parsing now has two bounded repair attempts by default. Faile
 inside batched likelihood/candidate calls are retried together, and cumulative retry and
 terminal-failure counts are emitted as metrics. Tests cover recovery for malformed
 single and batched responses.
+`scripts/analyze_paprika_smoke.py` implements the real-smoke automated gate: five tasks,
+nonempty turns, coverage >= 0.85, zero terminal structured failures, and no runtime-error
+signatures. It also reports forced-exit rate and surfaces all queries/replies, while
+requiring a separate manual semantic transcript review before Step 0a can pass.
 
 Phases 1–4 are DONE for the Path A workshop package. The ranking-fidelity gate, constrained
 oracle, constrained support-grid MPP30 sweep, unconstrained contrast arm, paper-facing
@@ -127,7 +131,7 @@ Path E reset (2026-07-10): external benchmarks with structural sequential gaps. 
 GOAL.md for the six environment requirements (R1-R6) and the full validation chain.
 
 1. **Finish Step 0a's real-model gate:** when `oat0` is reachable, sync pushed commit
-   `4d8be37`, run `scripts/fetch_paprika.py`, and launch
+   `cfdc9a0`, run `scripts/fetch_paprika.py`, and launch
    `configs/config_paprika_step0a_smoke_26b_a4b.yaml` on
    `--partition=msc,llm --exclude=oat12`. Inspect all five transcripts, answer-set
    coverage (must be >= ~85%), parse failures, semantic success behavior, and forced

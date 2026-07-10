@@ -33,7 +33,7 @@ must remain explicit limitations in reporting.
 
 ## Adapter Evidence
 
-Implementation through commit `4d8be37` provides:
+Implementation through commit `cfdc9a0` provides:
 
 - hash-verified loading without vendoring the upstream dataset;
 - LLM-generated cause/remedy hypotheses, history-conditioned refinement, explicit
@@ -66,6 +66,8 @@ Proceed only if clean answer mapping is at least approximately 85%, transcripts 
 semantically reasonable, native success checks do not show obvious false positives, and
 structured-output failures are controlled. The launch is currently pending because
 `ssh oat0` returns `No route to host` from the active machine.
+After completion, run `scripts/analyze_paprika_smoke.py` on the run directory. An
+automated pass still requires manual review of every surfaced query/reply transcript.
 
 ## Distribution Caveat
 
