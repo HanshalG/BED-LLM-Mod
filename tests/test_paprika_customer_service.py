@@ -200,6 +200,38 @@ def test_explicit_observation_cannot_map_to_uncertainty_outcome() -> None:
     assert observation.mapped_cleanly is False
 
 
+def test_explicit_observation_is_repaired_to_supported_non_uncertainty_outcome() -> None:
+    class RepairingMapper(RoutingQuestioner):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            text = "\n".join(message["content"] for message in messages)
+            if "This is a repair pass" in text:
+                return [json.dumps({"outcome": "The sink drains normally", "clean": True})]
+            if '"outcome"' in text and '"clean"' in text:
+                return [json.dumps({"outcome": "Not checked / cannot determine", "clean": True})]
+            return super().chat_complete(messages, temperature, num_responses)
+
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+    )
+    env = PaprikaCustomerServiceEnvironment(config, RoutingCustomer())
+    env.questioner = RepairingMapper()
+    action = PaprikaAction(
+        "Run the disposal and check whether the sink drains.",
+        ("The sink drains normally", "The sink drains slowly", "Not checked / cannot determine"),
+        "scenario",
+    )
+    env.answerer.chat_complete = lambda *args, **kwargs: [
+        "The sink drains fine, but the dishwasher still has water."
+    ]
+    observation = env.observe(action, load_paprika_tasks(FIXTURE)[0], np.random.default_rng(0))
+    assert observation.mapped_outcome == "The sink drains normally"
+    assert observation.mapped_cleanly is True
+
+
 def test_categorical_eig_matches_deterministic_binary_information() -> None:
     value = categorical_eig([0.5, 0.5], np.asarray([[1.0, 0.0], [0.0, 1.0]]))
     assert value == pytest.approx(np.log(2.0))

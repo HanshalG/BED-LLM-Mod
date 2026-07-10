@@ -603,7 +603,24 @@ class PaprikaCustomerServiceEnvironment(
         clean = mapping.get("clean") is True and isinstance(selected, str)
         canonical = next((outcome for outcome in action.outcomes if clean and outcome.casefold() == selected.strip().casefold()), None)
         if canonical is not None and _is_uncertainty_outcome(canonical) and not _reply_explicitly_uncertain(reply):
-            canonical = None
+            alternatives = tuple(outcome for outcome in action.outcomes if not _is_uncertainty_outcome(outcome))
+            repaired = self._complete_parsed(
+                self._questioner(),
+                mapping_messages(reply, alternatives, uncertainty_forbidden=True),
+                0.0,
+                namespace="questioner:outcome_mapper_repair",
+                parser=parse_json_object,
+            )
+            selected = repaired.get("outcome")
+            clean = repaired.get("clean") is True and isinstance(selected, str)
+            canonical = next(
+                (
+                    outcome
+                    for outcome in alternatives
+                    if clean and outcome.casefold() == selected.strip().casefold()
+                ),
+                None,
+            )
         return PaprikaObservation(reply=reply, mapped_outcome=canonical, mapped_cleanly=canonical is not None, goal_reached=goal)
 
     def round_metrics(self, belief_state: BeliefState[str], history: Sequence[tuple[PaprikaAction, PaprikaObservation]], hidden_state: PaprikaTask) -> dict[str, float]:

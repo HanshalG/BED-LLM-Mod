@@ -31,7 +31,7 @@ def filtering_messages(scenario: str, hypotheses: Sequence[str], history: Sequen
 
 
 def candidate_messages(scenario: str, beliefs: Sequence[str], history: Sequence[tuple[PaprikaAction, object]], count: int) -> list[dict[str, str]]:
-    return [{"role": "system", "content": "Propose concise customer-service diagnostic questions or corrective solution attempts and a discrete answer space. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nConversation:\n{transcript_text(history)}\nReturn exactly {count} candidates as {{\"candidates\":[{{\"query\":\"...\",\"kind\":\"diagnostic\" or \"solution\",\"outcomes\":[\"...\",\"...\",\"...\"]}}]}}. Every candidate needs 3-5 mutually exclusive customer-observable replies to that exact query/action. Outcomes must describe what the customer reports or observes, never a recommended next action or an unobserved diagnosis. Include a 'not checked / cannot determine' outcome whenever a non-technical customer may not know. Use kind=solution only when the query explicitly proposes a diagnosis or corrective action that could solve the issue; inspection and information-gathering are diagnostic."}]
+    return [{"role": "system", "content": "Propose concise customer-service diagnostic questions or corrective solution attempts and a discrete answer space. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nConversation:\n{transcript_text(history)}\nReturn exactly {count} candidates as {{\"candidates\":[{{\"query\":\"...\",\"kind\":\"diagnostic\" or \"solution\",\"outcomes\":[\"...\",\"...\",\"...\"]}}]}}. Every candidate needs 3-5 mutually exclusive customer-observable replies to that exact query/action. Outcomes must describe what the customer reports or observes, never a recommended next action or an unobserved diagnosis. For a diagnostic query, outcomes directly answer the requested observation. For a solution attempt, outcomes describe the result AFTER trying it and must cover at least: problem resolved, action completed but problem unchanged, and unable to perform or determine. Do not substitute pre-action conditions (for example, whether a part was dirty) for post-action results (whether cleaning fixed the problem). Include a 'not checked / cannot determine' outcome whenever a non-technical customer may not know. Use kind=solution only when the query explicitly proposes a diagnosis or corrective action that could solve the issue; inspection and information-gathering are diagnostic."}]
 
 
 def likelihood_messages(hypothesis: str, action: PaprikaAction) -> list[dict[str, str]]:
@@ -44,8 +44,19 @@ def customer_messages(action: PaprikaAction, solution: str) -> list[dict[str, st
     return [{"role": "system", "content": f"You are the customer in this scenario: {action.scenario}\nThe private solution is: {solution}\nOnly answer what the agent asks. Be concise and non-technical. Never reveal the private solution directly. If the latest proposed diagnosis/action solves the issue, reply exactly 'Goal reached'."}, {"role": "user", "content": f"Conversation so far:\n{transcript or '(none)'}\nAgent: {action.query}\nCustomer:"}]
 
 
-def mapping_messages(reply: str, outcomes: Sequence[str]) -> list[dict[str, str]]:
-    return [{"role": "system", "content": "Map a customer reply to the single semantically matching proposed outcome. Return strict JSON only."}, {"role": "user", "content": f"Reply: {reply}\nOutcomes:\n" + "\n".join(f"- {value}" for value in outcomes) + "\nReturn {\"outcome\": <exact outcome string or null>, \"clean\": true or false}. Prefer the outcome directly confirmed or contradicted by the reply. Select a 'not checked / cannot determine' outcome only when the customer explicitly says they did not check, do not know, cannot tell, or cannot perform the check. Never map an explicit observation to uncertainty. Use clean=false if no outcome adequately represents the reply."}]
+def mapping_messages(
+    reply: str,
+    outcomes: Sequence[str],
+    *,
+    uncertainty_forbidden: bool = False,
+) -> list[dict[str, str]]:
+    constraint = (
+        " This is a repair pass because an explicit observation was previously mapped to uncertainty. "
+        "Map only if one listed outcome is directly supported; otherwise return null with clean=false."
+        if uncertainty_forbidden
+        else " Select a 'not checked / cannot determine' outcome only when the customer explicitly says they did not check, do not know, cannot tell, or cannot perform the check. Never map an explicit observation to uncertainty."
+    )
+    return [{"role": "system", "content": "Map a customer reply to the single semantically matching proposed outcome. Return strict JSON only."}, {"role": "user", "content": f"Reply: {reply}\nOutcomes:\n" + "\n".join(f"- {value}" for value in outcomes) + "\nReturn {\"outcome\": <exact outcome string or null>, \"clean\": true or false}. Consider only the part of the reply relevant to the query; extra troubleshooting context does not invalidate a direct match. Prefer the outcome directly confirmed or contradicted by the reply." + constraint + " Use clean=false if no outcome adequately represents the reply."}]
 
 
 def judge_messages(scenario: str, solution: str, query: str) -> list[dict[str, str]]:
