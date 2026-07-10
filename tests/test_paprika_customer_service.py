@@ -74,6 +74,13 @@ class SolvingCustomer(RoutingCustomer):
         return ["Goal reached"]
 
 
+class EmbeddedGoalCustomer(RoutingCustomer):
+    def chat_complete(self, messages, temperature, num_responses=1):
+        del messages, temperature, num_responses
+        self.calls += 1
+        return ["The device works correctly now. Goal reached."]
+
+
 class FlakyCandidateQuestioner(RoutingQuestioner):
     def __init__(self) -> None:
         super().__init__()
@@ -168,6 +175,35 @@ def test_candidate_kind_downgrades_checks_but_keeps_explicit_corrections() -> No
     assert solution.kind == "solution"
     assert increased.kind == "solution"
     assert recalibrated.kind == "solution"
+
+
+def test_candidate_parser_always_adds_uncertainty_outcome() -> None:
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+    )
+    env = PaprikaCustomerServiceEnvironment(config, RoutingCustomer())
+    action = env._parse_candidates(
+        json.dumps(
+            {
+                "candidates": [
+                    {
+                        "query": "Check the indicator?",
+                        "kind": "diagnostic",
+                        "outcomes": ["green", "red", "off"],
+                    }
+                ]
+            }
+        ),
+        "scenario",
+        [],
+        1,
+    )[0]
+    assert len(action.outcomes) == 4
+    assert "Not attempted / cannot determine" in action.outcomes
 
 
 def test_explicit_observation_cannot_map_to_uncertainty_outcome() -> None:
@@ -327,6 +363,22 @@ def test_goal_reached_stops_without_categorical_mapping(tmp_path: Path) -> None:
     assert summary.metrics["resolved"] == [1.0]
 
 
+def test_embedded_goal_reached_phrase_is_terminal(tmp_path: Path) -> None:
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["naive"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=3,
+    )
+    run_result, summary = run_from_config(
+        config, RoutingQuestioner(), EmbeddedGoalCustomer(), output_dir=tmp_path
+    )
+    assert len(run_result.trials[0].rounds) == 1
+    assert summary.metrics["resolved"] == [1.0]
+
+
 def test_naive_is_history_only_and_still_uses_native_early_stop(tmp_path: Path) -> None:
     questioner = RoutingQuestioner()
     config = Config(
@@ -396,6 +448,61 @@ def test_diagnostic_query_cannot_be_falsely_resolved_by_success_judge() -> None:
     assert run_result.trials[0].rounds[0].chosen.action.kind == "diagnostic"
     assert summary.metrics["resolved"] == [0.0]
     assert not any("Reply with <VALID>" in text for text in questioner.prompt_texts)
+
+
+def test_failed_solution_attempt_cannot_be_resolved_by_success_judge() -> None:
+    questioner = AlwaysValidJudgeQuestioner()
+    customer = RoutingCustomer()
+    customer.chat_complete = lambda *args, **kwargs: [
+        "I can't connect to any network right now; it still isn't working."
+    ]
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+    )
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    env = PaprikaCustomerServiceEnvironment(config, customer)
+    env.questioner = questioner
+    action = PaprikaAction(
+        "Enable mobile data or connect to Wi-Fi.",
+        ("working", "not working", "Not attempted / cannot determine"),
+        "scenario",
+        kind="solution",
+    )
+    observation = env.observe(action, load_paprika_tasks(FIXTURE)[0], np.random.default_rng(0))
+    assert observation.goal_reached is False
+    assert not any("Reply with <VALID>" in text for text in questioner.prompt_texts)
+
+
+def test_prospective_attempt_maps_cleanly_to_uncertainty() -> None:
+    class UncertaintyMapper(RoutingQuestioner):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            text = "\n".join(message["content"] for message in messages)
+            if '"outcome"' in text and '"clean"' in text:
+                return [json.dumps({"outcome": "Not attempted / cannot determine", "clean": True})]
+            return super().chat_complete(messages, temperature, num_responses)
+
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+    )
+    customer = RoutingCustomer()
+    customer.chat_complete = lambda *args, **kwargs: ["I'll try that now."]
+    env = PaprikaCustomerServiceEnvironment(config, customer)
+    env.questioner = UncertaintyMapper()
+    action = PaprikaAction(
+        "Check the setting?",
+        ("enabled", "disabled", "Not attempted / cannot determine"),
+        "scenario",
+    )
+    observation = env.observe(action, load_paprika_tasks(FIXTURE)[0], np.random.default_rng(0))
+    assert observation.mapped_outcome == "Not attempted / cannot determine"
+    assert observation.mapped_cleanly is True
 
 
 def test_full_two_step_expands_each_root_outcome(tmp_path: Path) -> None:

@@ -100,8 +100,33 @@ def _reply_explicitly_uncertain(reply: str) -> bool:
         "do not know", "don't know", "not sure", "cannot tell", "can't tell",
         "cannot determine", "can't determine", "unable to check", "cannot check",
         "can't check", "unable to perform", "cannot perform", "can't perform",
+        "i'll check", "i will check", "i'll try", "i will try", "not yet",
+        "haven't tried", "have not tried",
     )
     return any(marker in normalized for marker in markers)
+
+
+def _reply_reports_failed_attempt(reply: str) -> bool:
+    normalized = reply.casefold()
+    markers = (
+        "didn't work", "did not work", "hasn't worked", "has not worked",
+        "still not", "still isn't", "still doesn't", "still won't", "still can't",
+        "still cannot", "unable to", "can't connect", "cannot connect",
+        "couldn't", "could not", "failed to", "not working",
+    )
+    return any(marker in normalized for marker in markers)
+
+
+def _ensure_uncertainty_outcome(values: Sequence[str]) -> tuple[str, ...]:
+    outcomes = _dedupe([str(value) for value in values])
+    if any(_is_uncertainty_outcome(outcome) for outcome in outcomes):
+        return tuple(outcomes)
+    uncertainty = "Not attempted / cannot determine"
+    if len(outcomes) < 5:
+        outcomes.append(uncertainty)
+    else:
+        outcomes[-1] = uncertainty
+    return tuple(outcomes)
 
 
 class PaprikaCustomerServiceEnvironment(
@@ -521,7 +546,7 @@ class PaprikaCustomerServiceEnvironment(
                 actions.append(
                     PaprikaAction(
                         item["query"],
-                        tuple(item["outcomes"]),
+                        _ensure_uncertainty_outcome(item["outcomes"]),
                         scenario,
                         transcript,
                         kind=_normalized_action_kind(item["query"], item.get("kind", "")),
@@ -588,10 +613,19 @@ class PaprikaCustomerServiceEnvironment(
     def observe(self, action: PaprikaAction, hidden_state: PaprikaTask, rng: np.random.Generator) -> PaprikaObservation:
         del rng
         reply = self._cached_complete(self.answerer, customer_messages(action, hidden_state.solution), float(getattr(self.config, "answer_temperature", 0.7)), namespace="answerer:customer").strip()
-        customer_goal = reply.casefold() == "goal reached"
+        customer_goal = "goal reached" in reply.casefold()
         goal = customer_goal
-        if not customer_goal and action.kind == "solution":
-            judge = self._cached_complete(self._questioner(), judge_messages(hidden_state.scenario, hidden_state.solution, action.query), 0.0, namespace="questioner:success_judge")
+        if (
+            not customer_goal
+            and action.kind == "solution"
+            and not _reply_reports_failed_attempt(reply)
+        ):
+            judge = self._cached_complete(
+                self._questioner(),
+                judge_messages(hidden_state.scenario, hidden_state.solution, action.query, reply),
+                0.0,
+                namespace="questioner:success_judge",
+            )
             goal = "<VALID>" in judge and "<NOTVALID>" not in judge
         if customer_goal:
             return PaprikaObservation(reply=reply, mapped_outcome=None, mapped_cleanly=True, goal_reached=True)
