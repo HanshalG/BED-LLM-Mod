@@ -19,6 +19,7 @@ FIXTURE = Path(__file__).parent / "fixtures" / "paprika_customer_service_tiny.js
 class RoutingQuestioner:
     def __init__(self) -> None:
         self.calls = 0
+        self.batch_calls = 0
 
     def chat_complete(self, messages, temperature, num_responses=1):
         del temperature, num_responses
@@ -40,6 +41,7 @@ class RoutingQuestioner:
 
     def chat_complete_messages_batched(self, batch_messages, temperature, block_size, max_new_tokens=None):
         del block_size, max_new_tokens
+        self.batch_calls += 1
         return [self.chat_complete(messages, temperature)[0] for messages in batch_messages]
 
     def chat_probabilities_messages_batched(self, messages, responses, temperature, block_size):
@@ -131,6 +133,7 @@ def test_five_task_runner_smoke_logs_full_answer_coverage(tmp_path: Path) -> Non
     assert summary.metrics["answer_set_coverage"] == [1.0, 1.0]
     assert summary.metrics["resolved"] == [0.0, 0.0]
     assert customer.calls == 10
+    assert questioner.batch_calls == 20  # two candidates per decision, not per hypothesis
     smoke = json.loads((tmp_path / "paprika_smoke.json").read_text())
     assert len(smoke) == 5
     assert all(turn["mapped_cleanly"] for trial in smoke for turn in trial["turns"])

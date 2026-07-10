@@ -126,6 +126,55 @@ class PaprikaCustomerServiceEnvironment(
         self._shared_cache_misses += 1
         return response
 
+    def _cached_complete_many(
+        self,
+        model: Any,
+        batch_messages: Sequence[list[dict[str, str]]],
+        temperature: float,
+        *,
+        namespace: str,
+    ) -> list[str]:
+        if not batch_messages:
+            return []
+        enabled = bool(getattr(self.config, "paprika_shared_call_cache_enabled", True))
+        cache = getattr(model, "_paprika_shared_call_cache", None)
+        if cache is None:
+            cache = {}
+            setattr(model, "_paprika_shared_call_cache", cache)
+        keys = [
+            (
+                namespace,
+                float(temperature),
+                json.dumps(messages, sort_keys=True, ensure_ascii=True),
+            )
+            for messages in batch_messages
+        ]
+        results: list[str | None] = [None] * len(keys)
+        missing_positions: list[int] = []
+        missing_messages: list[list[dict[str, str]]] = []
+        for index, (key, messages) in enumerate(zip(keys, batch_messages)):
+            if enabled and key in cache:
+                results[index] = cache[key]
+                self._shared_cache_hits += 1
+            else:
+                missing_positions.append(index)
+                missing_messages.append(messages)
+        if missing_messages:
+            responses = model.chat_complete_messages_batched(
+                missing_messages,
+                temperature=temperature,
+                block_size=int(getattr(self.config, "batched_block_size", 50)),
+                max_new_tokens=getattr(self.config, "location_max_new_tokens", None),
+            )
+            if len(responses) != len(missing_messages):
+                raise ValueError("Batched Paprika completion returned the wrong response count")
+            for position, response in zip(missing_positions, responses):
+                results[position] = response
+                if enabled:
+                    cache[keys[position]] = response
+                self._shared_cache_misses += 1
+        return [str(result) for result in results]
+
     def trial_count(self, config: Any) -> int:
         return int(getattr(config, "paprika_num_trials", 5))
 
@@ -163,16 +212,27 @@ class PaprikaCustomerServiceEnvironment(
     def _likelihood_for(self, hypothesis: str, action: PaprikaAction) -> tuple[float, ...]:
         key = (hypothesis, action)
         if key not in self._likelihood_cache:
-            text = self._cached_complete(
-                self._questioner(),
-                likelihood_messages(hypothesis, action),
-                float(getattr(self.config, "generation_temperature_simple", 0.0)),
-                namespace="questioner:likelihood",
-            )
-            self._likelihood_cache[key] = parse_distribution(text, action.outcomes)
+            self.outcome_likelihoods([hypothesis], action)
         return self._likelihood_cache[key]
 
     def outcome_likelihoods(self, hypotheses: Sequence[str], action: PaprikaAction) -> np.ndarray:
+        missing = [
+            hypothesis
+            for hypothesis in hypotheses
+            if (hypothesis, action) not in self._likelihood_cache
+        ]
+        if missing:
+            messages = [likelihood_messages(hypothesis, action) for hypothesis in missing]
+            responses = self._cached_complete_many(
+                self._questioner(),
+                messages,
+                float(getattr(self.config, "generation_temperature_simple", 0.0)),
+                namespace="questioner:likelihood",
+            )
+            for hypothesis, response in zip(missing, responses):
+                self._likelihood_cache[(hypothesis, action)] = parse_distribution(
+                    response, action.outcomes
+                )
         return np.asarray([self._likelihood_for(hypothesis, action) for hypothesis in hypotheses])
 
     def log_likelihood_many(self, hypotheses: Sequence[str], action: PaprikaAction, observation: PaprikaObservation) -> np.ndarray:

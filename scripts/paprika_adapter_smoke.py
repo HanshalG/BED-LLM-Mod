@@ -36,6 +36,12 @@ class _RoutingQuestioner:
             return ["<NOTVALID>"]
         raise RuntimeError("Unrecognized smoke prompt")
 
+    def chat_complete_messages_batched(
+        self, batch_messages, temperature, block_size, max_new_tokens=None
+    ):
+        del block_size, max_new_tokens
+        return [self.chat_complete(messages, temperature)[0] for messages in batch_messages]
+
 
 class _RoutingCustomer:
     def chat_complete(self, messages, temperature, num_responses=1):
