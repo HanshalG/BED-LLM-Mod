@@ -261,6 +261,10 @@ class Environment(ABC, Generic[S, H, A, O]):
         """Return True to terminate the trial early (default: never)."""
         return False
 
+    def early_stop_without_belief_state(self) -> bool:
+        """Whether a direct method may use :meth:`early_stop` with an empty belief."""
+        return False
+
     def generate_naive_action(
         self,
         belief_state: BeliefState[H],

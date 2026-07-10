@@ -387,6 +387,9 @@ class PaprikaCustomerServiceEnvironment(
         del belief_state, history, hidden_state
         return latest_observation.goal_reached
 
+    def early_stop_without_belief_state(self) -> bool:
+        return True
+
     def build_eig_method(self, config: Any) -> CategoricalEIG:
         del config
         return CategoricalEIG()
@@ -413,6 +416,34 @@ class PaprikaCustomerServiceEnvironment(
             raise RuntimeError("Could not determine Paprika scenario")
         text = self._cached_complete(model, candidate_messages(scenario, (), history, 1), float(getattr(config, "generation_temperature_simple", 0.7)), namespace="questioner:naive_action")
         return self._parse_candidates(text, scenario, history, 1)[0]
+
+    def naive_requires_belief_state(self, method_name: str | None = None) -> bool:
+        del method_name
+        return False
+
+    def naive_metrics_after_observation(
+        self,
+        belief_state: BeliefState[str],
+        history: Sequence[tuple[PaprikaAction, PaprikaObservation]],
+        hidden_state: PaprikaTask,
+        model: Any,
+        config: Any,
+        *,
+        method_name: str | None = None,
+    ) -> dict[str, float]:
+        del belief_state, hidden_state, model, config, method_name
+        latest = history[-1][1]
+        return {
+            "resolved": float(any(observation.goal_reached for _action, observation in history)),
+            "turns_used": float(len(history)),
+            "answer_set_coverage": sum(
+                observation.mapped_cleanly for _action, observation in history
+            )
+            / len(history),
+            "latest_answer_mapped_cleanly": float(latest.mapped_cleanly),
+            "shared_call_cache_hits": float(self._shared_cache_hits),
+            "shared_call_cache_misses": float(self._shared_cache_misses),
+        }
 
     def save_artifacts(self, run_result: Any, output_dir: Path, config: Any) -> dict[str, Path]:
         del config

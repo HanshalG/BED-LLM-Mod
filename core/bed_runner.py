@@ -193,9 +193,8 @@ class BEDRunner(Generic[H, A, O, S]):
             )
 
             if (
-                requires_belief_state
-                and env.early_stop(belief_state, history, hidden_state, observation)
-            ):
+                requires_belief_state or env.early_stop_without_belief_state()
+            ) and env.early_stop(belief_state, history, hidden_state, observation):
                 break
 
         final_metrics = rounds[-1].metrics if rounds else {}
@@ -348,13 +347,9 @@ class BEDRunner(Generic[H, A, O, S]):
                     )
                 )
                 if (
-                    requires_belief_state
-                    and env.early_stop(
-                        belief_states[position],
-                        histories[position],
-                        hidden_states[position],
-                        observation,
-                    )
+                    requires_belief_state or env.early_stop_without_belief_state()
+                ) and env.early_stop(
+                    belief_states[position], histories[position], hidden_states[position], observation
                 ):
                     active[position] = False
 

@@ -20,11 +20,13 @@ class RoutingQuestioner:
     def __init__(self) -> None:
         self.calls = 0
         self.batch_calls = 0
+        self.prompt_texts = []
 
     def chat_complete(self, messages, temperature, num_responses=1):
         del temperature, num_responses
         self.calls += 1
         text = messages[-1]["content"]
+        self.prompt_texts.append(text)
         if '"refined_hypotheses"' in text:
             count = int(re.search(r"exactly (\d+)", text).group(1))
             return [json.dumps({"refined_hypotheses": [f"refined cause {self.calls}-{index} with remedy" for index in range(count)]})]
@@ -169,6 +171,28 @@ def test_goal_reached_stops_without_categorical_mapping(tmp_path: Path) -> None:
     )
     assert len(run_result.trials[0].rounds) == 1
     assert summary.metrics["resolved"] == [1.0]
+
+
+def test_naive_is_history_only_and_still_uses_native_early_stop(tmp_path: Path) -> None:
+    questioner = RoutingQuestioner()
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["naive"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=3,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+    )
+    run_result, summary = run_from_config(
+        config, questioner, SolvingCustomer(), output_dir=tmp_path
+    )
+    assert len(run_result.trials[0].rounds) == 1
+    assert run_result.trials[0].final_belief_state.hypotheses == ()
+    assert summary.metrics["resolved"] == [1.0]
+    assert not any('"hypotheses"' in text for text in questioner.prompt_texts)
+    assert questioner.batch_calls == 0
 
 
 def test_full_two_step_expands_each_root_outcome(tmp_path: Path) -> None:
