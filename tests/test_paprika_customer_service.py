@@ -101,11 +101,13 @@ def test_nested_paprika_config_aliases(tmp_path: Path) -> None:
         "  trial_batch_size: 1\n"
         "  num_hypotheses: 3\n"
         "  num_candidates: 2\n"
+        "  shared_call_cache_enabled: true\n"
     )
     config = load_config(str(path))
     assert config.paprika_data_path == str(FIXTURE)
     assert config.paprika_num_trials == 5
     assert config.paprika_num_candidates == 2
+    assert config.paprika_shared_call_cache_enabled is True
 
 
 def test_five_task_runner_smoke_logs_full_answer_coverage(tmp_path: Path) -> None:
@@ -171,3 +173,28 @@ def test_full_two_step_expands_each_root_outcome(tmp_path: Path) -> None:
     assert chosen.extras["planning_depth"] == 2
     assert chosen.extras["expanded_branch_counts"] == [3, 3]
     assert len(chosen.extras["candidate_scores"]) == 2
+
+
+def test_paired_methods_reuse_identical_root_candidates_and_customer_reply() -> None:
+    questioner = RoutingQuestioner()
+    customer = RoutingCustomer()
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+        paprika_shared_call_cache_enabled=True,
+    )
+    eig_run, _ = run_from_config(config, questioner, customer, method_name="EIG")
+    two_run, two_summary = run_from_config(
+        config, questioner, customer, method_name="Full2StepEIG"
+    )
+    eig_round = eig_run.trials[0].rounds[0]
+    two_round = two_run.trials[0].rounds[0]
+    assert eig_round.candidates == two_round.candidates
+    assert eig_round.observation == two_round.observation
+    assert customer.calls == 1
+    assert two_summary.metrics["shared_call_cache_hits"][0] > 0

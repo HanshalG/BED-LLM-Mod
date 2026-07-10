@@ -37,3 +37,4 @@ environment:
   seed: 1304
   num_hypotheses: 12
   num_candidates: 5
+  shared_call_cache_enabled: true

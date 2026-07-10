@@ -56,6 +56,8 @@ class PaprikaCustomerServiceEnvironment(
         self._active_task: PaprikaTask | None = None
         self._scenario_by_support: dict[tuple[str, ...], str] = {}
         self._likelihood_cache: dict[tuple[str, PaprikaAction], tuple[float, ...]] = {}
+        self._shared_cache_hits = 0
+        self._shared_cache_misses = 0
 
     @property
     def name(self) -> str:
@@ -96,6 +98,34 @@ class PaprikaCustomerServiceEnvironment(
             raise RuntimeError("Paprika environment has no attached questioner")
         return self.questioner
 
+    def _cached_complete(
+        self,
+        model: Any,
+        messages: list[dict[str, str]],
+        temperature: float,
+        *,
+        namespace: str,
+    ) -> str:
+        if not bool(getattr(self.config, "paprika_shared_call_cache_enabled", True)):
+            self._shared_cache_misses += 1
+            return _complete(model, messages, temperature)
+        cache = getattr(model, "_paprika_shared_call_cache", None)
+        if cache is None:
+            cache = {}
+            setattr(model, "_paprika_shared_call_cache", cache)
+        key = (
+            namespace,
+            float(temperature),
+            json.dumps(messages, sort_keys=True, ensure_ascii=True),
+        )
+        if key in cache:
+            self._shared_cache_hits += 1
+            return cache[key]
+        response = _complete(model, messages, temperature)
+        cache[key] = response
+        self._shared_cache_misses += 1
+        return response
+
     def trial_count(self, config: Any) -> int:
         return int(getattr(config, "paprika_num_trials", 5))
 
@@ -133,10 +163,11 @@ class PaprikaCustomerServiceEnvironment(
     def _likelihood_for(self, hypothesis: str, action: PaprikaAction) -> tuple[float, ...]:
         key = (hypothesis, action)
         if key not in self._likelihood_cache:
-            text = _complete(
+            text = self._cached_complete(
                 self._questioner(),
                 likelihood_messages(hypothesis, action),
                 float(getattr(self.config, "generation_temperature_simple", 0.0)),
+                namespace="questioner:likelihood",
             )
             self._likelihood_cache[key] = parse_distribution(text, action.outcomes)
         return self._likelihood_cache[key]
@@ -149,7 +180,7 @@ class PaprikaCustomerServiceEnvironment(
 
     def _initial_for_task(self, task: PaprikaTask, model: Any, config: Any) -> BeliefState[str]:
         count = int(getattr(config, "paprika_num_hypotheses", 12))
-        text = _complete(model, hypothesis_messages(task.scenario, count), float(getattr(config, "generation_temperature_diverse", 1.0)))
+        text = self._cached_complete(model, hypothesis_messages(task.scenario, count), float(getattr(config, "generation_temperature_diverse", 1.0)), namespace="questioner:hypotheses")
         hypotheses = parse_string_list(text, "hypotheses", minimum=count, maximum=count)
         state = BeliefState.uniform(hypotheses)
         self._scenario_by_support[state.hypotheses] = task.scenario
@@ -204,18 +235,18 @@ class PaprikaCustomerServiceEnvironment(
         if not scenario:
             raise RuntimeError("Could not associate Paprika belief support with a scenario")
         count = int(getattr(config, "paprika_num_candidates", 5))
-        text = _complete(model, candidate_messages(scenario, belief_state.hypotheses, history, count), float(getattr(config, "generation_temperature_diverse", 1.0)))
+        text = self._cached_complete(model, candidate_messages(scenario, belief_state.hypotheses, history, count), float(getattr(config, "generation_temperature_diverse", 1.0)), namespace="questioner:candidates")
         return self._parse_candidates(text, scenario, history, count)
 
     def observe(self, action: PaprikaAction, hidden_state: PaprikaTask, rng: np.random.Generator) -> PaprikaObservation:
         del rng
-        reply = _complete(self.answerer, customer_messages(action, hidden_state.solution), float(getattr(self.config, "answer_temperature", 0.7))).strip()
+        reply = self._cached_complete(self.answerer, customer_messages(action, hidden_state.solution), float(getattr(self.config, "answer_temperature", 0.7)), namespace="answerer:customer").strip()
         customer_goal = reply.casefold() == "goal reached"
-        judge = _complete(self._questioner(), judge_messages(hidden_state.scenario, hidden_state.solution, action.query), 0.0)
+        judge = self._cached_complete(self._questioner(), judge_messages(hidden_state.scenario, hidden_state.solution, action.query), 0.0, namespace="questioner:success_judge")
         goal = customer_goal or ("<VALID>" in judge and "<NOTVALID>" not in judge)
         if customer_goal:
             return PaprikaObservation(reply=reply, mapped_outcome=None, mapped_cleanly=True, goal_reached=True)
-        mapping = parse_json_object(_complete(self._questioner(), mapping_messages(reply, action.outcomes), 0.0))
+        mapping = parse_json_object(self._cached_complete(self._questioner(), mapping_messages(reply, action.outcomes), 0.0, namespace="questioner:outcome_mapper"))
         selected = mapping.get("outcome")
         clean = mapping.get("clean") is True and isinstance(selected, str)
         canonical = next((outcome for outcome in action.outcomes if clean and outcome.casefold() == selected.strip().casefold()), None)
@@ -226,7 +257,7 @@ class PaprikaCustomerServiceEnvironment(
         solved = any(observation.goal_reached for _action, observation in history)
         clean_count = sum(observation.mapped_cleanly for _action, observation in history)
         exact_mass = sum(probability for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities) if hypothesis.casefold() == hidden_state.solution.casefold())
-        return {"resolved": float(solved), "turns_used": float(len(history)), "answer_set_coverage": clean_count / len(history), "latest_answer_mapped_cleanly": float(latest.mapped_cleanly), "true_solution_exact_mass": float(exact_mass)}
+        return {"resolved": float(solved), "turns_used": float(len(history)), "answer_set_coverage": clean_count / len(history), "latest_answer_mapped_cleanly": float(latest.mapped_cleanly), "true_solution_exact_mass": float(exact_mass), "shared_call_cache_hits": float(self._shared_cache_hits), "shared_call_cache_misses": float(self._shared_cache_misses)}
 
     def early_stop(self, belief_state: BeliefState[str], history: Sequence[tuple[PaprikaAction, PaprikaObservation]], hidden_state: PaprikaTask, latest_observation: PaprikaObservation) -> bool:
         del belief_state, history, hidden_state
@@ -256,7 +287,7 @@ class PaprikaCustomerServiceEnvironment(
             scenario = self._active_task.scenario
         if not scenario:
             raise RuntimeError("Could not determine Paprika scenario")
-        text = _complete(model, candidate_messages(scenario, (), history, 1), float(getattr(config, "generation_temperature_simple", 0.7)))
+        text = self._cached_complete(model, candidate_messages(scenario, (), history, 1), float(getattr(config, "generation_temperature_simple", 0.7)), namespace="questioner:naive_action")
         return self._parse_candidates(text, scenario, history, 1)[0]
 
     def save_artifacts(self, run_result: Any, output_dir: Path, config: Any) -> dict[str, Path]:
