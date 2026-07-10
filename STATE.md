@@ -15,7 +15,7 @@ naive AND 1-step EIG on paired external-benchmark endpoints. 20Q/Wordle/Mastermi
 harness/unit-test only (greedy near-optimal there); location finding is closed. All
 Path A/B/C/D location & 20Q material is banked history below.
 
-Path E Step 0 implementation status (2026-07-10): implementation through commit `35bc9dd` is pushed. The
+Path E Step 0 implementation status (2026-07-10): implementation through commit `cae1f42` is pushed. The
 Paprika customer-service adapter now loads the hash-pinned official release, preserves
 the released public `agent` scenario and private `env` solution verbatim, uses the
 native semantic success rule, generates 3--5 outcome answer spaces, scores categorical
@@ -33,6 +33,10 @@ it is explicitly labeled NOT LLM EVIDENCE in
 `results/path_e/step0a_adapter_smoke/REPORT.json`. The exact-posterior Mastermind harness
 for depth 1/2 is implemented and tested. The required real 26B A4B five-task coverage
 smoke has not launched because `ssh oat0` currently fails with `No route to host`.
+The naive arm is now truly belief-free while retaining native early stopping and endpoint
+metrics. Full two-step execution batches the complete root/branch/follow-up tree rather
+than issuing serial calls; its integration test requires four logical batches including
+the deployed posterior refresh.
 
 Phases 1–4 are DONE for the Path A workshop package. The ranking-fidelity gate, constrained
 oracle, constrained support-grid MPP30 sweep, unconstrained contrast arm, paper-facing
@@ -119,7 +123,7 @@ Path E reset (2026-07-10): external benchmarks with structural sequential gaps. 
 GOAL.md for the six environment requirements (R1-R6) and the full validation chain.
 
 1. **Finish Step 0a's real-model gate:** when `oat0` is reachable, sync pushed commit
-   `35bc9dd`, run `scripts/fetch_paprika.py`, and launch
+   `cae1f42`, run `scripts/fetch_paprika.py`, and launch
    `configs/config_paprika_step0a_smoke_26b_a4b.yaml` on
    `--partition=msc,llm --exclude=oat12`. Inspect all five transcripts, answer-set
    coverage (must be >= ~85%), parse failures, semantic success behavior, and forced
