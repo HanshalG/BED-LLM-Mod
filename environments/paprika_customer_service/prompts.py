@@ -21,6 +21,15 @@ def hypothesis_messages(scenario: str, count: int) -> list[dict[str, str]]:
     return [{"role": "system", "content": "Generate plausible hidden causes for customer-service troubleshooting. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nReturn exactly {count} distinct hypotheses as {{\"hypotheses\":[...]}}. Each hypothesis must state a cause and remedy; do not assume access to the private benchmark solution."}]
 
 
+def refinement_messages(scenario: str, beliefs: Sequence[str], history: Sequence[tuple[PaprikaAction, object]], count: int) -> list[dict[str, str]]:
+    return [{"role": "system", "content": "Refine a troubleshooting differential from new customer evidence. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nConversation:\n{transcript_text(history)}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nReturn exactly {count} additional or corrected cause-and-remedy hypotheses as {{\"refined_hypotheses\":[...]}}. Use only public scenario and conversation evidence."}]
+
+
+def filtering_messages(scenario: str, hypotheses: Sequence[str], history: Sequence[tuple[PaprikaAction, object]]) -> list[dict[str, str]]:
+    numbered = "\n".join(f"{index}: {hypothesis}" for index, hypothesis in enumerate(hypotheses))
+    return [{"role": "system", "content": "Filter troubleshooting hypotheses for consistency with observed evidence. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nConversation:\n{transcript_text(history)}\nCandidate hypotheses:\n{numbered}\nReturn {{\"keep_indices\":[...]}} containing every zero-based index still plausibly consistent. Do not discard merely because evidence is absent; discard only contradictions."}]
+
+
 def candidate_messages(scenario: str, beliefs: Sequence[str], history: Sequence[tuple[PaprikaAction, object]], count: int) -> list[dict[str, str]]:
     return [{"role": "system", "content": "Propose concise customer-service diagnostic questions or actions and a discrete answer space. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nConversation:\n{transcript_text(history)}\nReturn exactly {count} candidates as {{\"candidates\":[{{\"query\":\"...\",\"outcomes\":[\"...\",\"...\",\"...\"]}}]}}. Every candidate needs 3-5 mutually exclusive, collectively useful outcomes."}]
 

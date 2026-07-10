@@ -169,6 +169,9 @@ class PaprikaConfig:
     num_hypotheses: int = 12
     num_candidates: int = 5
     shared_call_cache_enabled: bool = True
+    belief_refresh_enabled: bool = True
+    num_refresh_hypotheses: int = 6
+    max_hypotheses: int = 24
 
 
 # ---------------------------------------------------------------------------
@@ -327,4 +330,11 @@ def paprika_view(config: Any) -> PaprikaConfig:
         shared_call_cache_enabled=bool(
             getattr(config, "paprika_shared_call_cache_enabled", True)
         ),
+        belief_refresh_enabled=bool(
+            getattr(config, "paprika_belief_refresh_enabled", True)
+        ),
+        num_refresh_hypotheses=int(
+            getattr(config, "paprika_num_refresh_hypotheses", 6)
+        ),
+        max_hypotheses=int(getattr(config, "paprika_max_hypotheses", 24)),
     )

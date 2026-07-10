@@ -154,6 +154,9 @@ class Config:
     paprika_num_hypotheses: int = 12
     paprika_num_candidates: int = 5
     paprika_shared_call_cache_enabled: bool = True
+    paprika_belief_refresh_enabled: bool = True
+    paprika_num_refresh_hypotheses: int = 6
+    paprika_max_hypotheses: int = 24
 
     def __post_init__(self) -> None:
         if self.environment:
@@ -239,9 +242,12 @@ class Config:
             raise ValueError("paprika_verify_official_hash must be a boolean")
         if not isinstance(self.paprika_shared_call_cache_enabled, bool):
             raise ValueError("paprika_shared_call_cache_enabled must be a boolean")
+        if not isinstance(self.paprika_belief_refresh_enabled, bool):
+            raise ValueError("paprika_belief_refresh_enabled must be a boolean")
         for name in (
             "paprika_num_trials", "paprika_num_rounds", "paprika_trial_batch_size",
             "paprika_num_hypotheses", "paprika_num_candidates",
+            "paprika_num_refresh_hypotheses", "paprika_max_hypotheses",
         ):
             value = getattr(self, name)
             if not isinstance(value, int) or isinstance(value, bool) or value <= 0:
@@ -553,6 +559,9 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "seed": "paprika_seed", "num_hypotheses": "paprika_num_hypotheses",
         "num_candidates": "paprika_num_candidates",
         "shared_call_cache_enabled": "paprika_shared_call_cache_enabled",
+        "belief_refresh_enabled": "paprika_belief_refresh_enabled",
+        "num_refresh_hypotheses": "paprika_num_refresh_hypotheses",
+        "max_hypotheses": "paprika_max_hypotheses",
     }
     if task == "animals":
         return common_animals
@@ -951,6 +960,9 @@ def load_config(path: str) -> Config:
         paprika_num_hypotheses = raw.get("paprika_num_hypotheses", 12),
         paprika_num_candidates = raw.get("paprika_num_candidates", 5),
         paprika_shared_call_cache_enabled = raw.get("paprika_shared_call_cache_enabled", True),
+        paprika_belief_refresh_enabled = raw.get("paprika_belief_refresh_enabled", True),
+        paprika_num_refresh_hypotheses = raw.get("paprika_num_refresh_hypotheses", 6),
+        paprika_max_hypotheses = raw.get("paprika_max_hypotheses", 24),
     )
 
 

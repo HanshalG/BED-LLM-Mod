@@ -38,3 +38,6 @@ environment:
   num_hypotheses: 12
   num_candidates: 5
   shared_call_cache_enabled: true
+  belief_refresh_enabled: true
+  num_refresh_hypotheses: 6
+  max_hypotheses: 24

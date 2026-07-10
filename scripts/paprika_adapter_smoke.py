@@ -22,6 +22,12 @@ class _RoutingQuestioner:
     def chat_complete(self, messages, temperature, num_responses=1):
         del temperature, num_responses
         text = messages[-1]["content"]
+        if '"refined_hypotheses"' in text:
+            count = int(re.search(r"exactly (\d+)", text).group(1))
+            return [json.dumps({"refined_hypotheses": [f"refined candidate cause {i} with remedy" for i in range(count)]})]
+        if '"keep_indices"' in text:
+            indices = [int(value) for value in re.findall(r"^(\d+):", text, re.MULTILINE)]
+            return [json.dumps({"keep_indices": indices})]
         if '"hypotheses"' in text:
             count = int(re.search(r"exactly (\d+)", text).group(1))
             return [json.dumps({"hypotheses": [f"candidate cause {i} with remedy {i}" for i in range(count)]})]

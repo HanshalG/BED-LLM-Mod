@@ -21,6 +21,8 @@ from .prompts import (
     judge_messages,
     likelihood_messages,
     mapping_messages,
+    refinement_messages,
+    filtering_messages,
 )
 from .types import PaprikaAction, PaprikaObservation, PaprikaTask
 
@@ -40,6 +42,22 @@ def _dedupe(values: Sequence[str]) -> list[str]:
         if clean and clean.casefold() not in seen:
             result.append(clean)
             seen.add(clean.casefold())
+    return result
+
+
+def _dedupe_indices(values: Sequence[Any], upper_bound: int) -> list[int]:
+    result: list[int] = []
+    seen: set[int] = set()
+    for value in values:
+        if isinstance(value, bool):
+            continue
+        try:
+            index = int(value)
+        except (TypeError, ValueError):
+            continue
+        if 0 <= index < upper_bound and index not in seen:
+            result.append(index)
+            seen.add(index)
     return result
 
 
@@ -236,7 +254,11 @@ class PaprikaCustomerServiceEnvironment(
         return np.asarray([self._likelihood_for(hypothesis, action) for hypothesis in hypotheses])
 
     def log_likelihood_many(self, hypotheses: Sequence[str], action: PaprikaAction, observation: PaprikaObservation) -> np.ndarray:
-        return np.asarray([self.log_likelihood(h, action, observation) for h in hypotheses])
+        if not observation.mapped_cleanly or observation.mapped_outcome is None:
+            return np.zeros(len(hypotheses), dtype=float)
+        outcome_index = action.outcomes.index(observation.mapped_outcome)
+        matrix = self.outcome_likelihoods(hypotheses, action)
+        return np.log(np.maximum(matrix[:, outcome_index], 1e-12))
 
     def _initial_for_task(self, task: PaprikaTask, model: Any, config: Any) -> BeliefState[str]:
         count = int(getattr(config, "paprika_num_hypotheses", 12))
@@ -257,18 +279,60 @@ class PaprikaCustomerServiceEnvironment(
         return [self._initial_for_task(self.tasks[index], model, config) for index in trial_indices]
 
     def update_belief_state(self, belief_state: BeliefState[str], history: Sequence[tuple[PaprikaAction, PaprikaObservation]], model: Any, config: Any) -> BeliefState[str]:
-        del model, config
         if (
             not history
             or not history[-1][1].mapped_cleanly
             or history[-1][1].mapped_outcome is None
         ):
             return belief_state
-        action, observation = history[-1]
-        log_weights = np.log(np.maximum(np.asarray(belief_state.probabilities), 1e-300))
-        log_weights += self.log_likelihood_many(belief_state.hypotheses, action, observation)
-        updated = BeliefState.from_log_scores(belief_state.hypotheses, log_weights)
-        self._scenario_by_support[updated.hypotheses] = action.scenario
+        scenario = history[0][0].scenario
+        hypotheses = list(belief_state.hypotheses)
+        if bool(getattr(config, "paprika_belief_refresh_enabled", True)):
+            count = int(getattr(config, "paprika_num_refresh_hypotheses", 6))
+            response = self._cached_complete(
+                model,
+                refinement_messages(scenario, hypotheses, history, count),
+                float(getattr(config, "generation_temperature_diverse", 1.0)),
+                namespace="questioner:hypothesis_refinement",
+            )
+            hypotheses = _dedupe(
+                hypotheses
+                + parse_string_list(
+                    response,
+                    "refined_hypotheses",
+                    minimum=count,
+                    maximum=count,
+                )
+            )
+            filter_response = parse_json_object(
+                self._cached_complete(
+                    model,
+                    filtering_messages(scenario, hypotheses, history),
+                    float(getattr(config, "generation_temperature_simple", 0.0)),
+                    namespace="questioner:hypothesis_filter",
+                )
+            )
+            indices = filter_response.get("keep_indices")
+            if not isinstance(indices, list):
+                raise ValueError("Hypothesis filter must return keep_indices")
+            kept_indices = _dedupe_indices(indices, len(hypotheses))
+            if not kept_indices:
+                raise ValueError("Hypothesis filter rejected every candidate")
+            hypotheses = [hypotheses[index] for index in kept_indices]
+
+        log_weights = np.full(len(hypotheses), -math.log(len(hypotheses)), dtype=float)
+        for action, observation in history:
+            if observation.mapped_cleanly and observation.mapped_outcome is not None:
+                log_weights += self.log_likelihood_many(hypotheses, action, observation)
+        updated = BeliefState.from_log_scores(hypotheses, log_weights)
+        maximum = int(getattr(config, "paprika_max_hypotheses", 24))
+        if len(updated.hypotheses) > maximum:
+            order = np.argsort(-np.asarray(updated.probabilities))[:maximum]
+            updated = BeliefState(
+                hypotheses=tuple(updated.hypotheses[int(index)] for index in order),
+                probabilities=tuple(updated.probabilities[int(index)] for index in order),
+            )
+        self._scenario_by_support[updated.hypotheses] = scenario
         return updated
 
     def _parse_candidates(self, text: str, scenario: str, history: Sequence[tuple[PaprikaAction, PaprikaObservation]], expected: int) -> list[PaprikaAction]:

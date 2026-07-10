@@ -36,8 +36,8 @@
       "latest_answer_mapped_cleanly": 1.0,
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 2.0,
-      "shared_call_cache_misses": 19.0,
-      "selected_eig": 0.0
+      "shared_call_cache_misses": 41.0,
+      "selected_eig": 1.9984014443252818e-16
     }
   },
   {
@@ -77,8 +77,8 @@
       "latest_answer_mapped_cleanly": 1.0,
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 5.0,
-      "shared_call_cache_misses": 37.0,
-      "selected_eig": 0.0
+      "shared_call_cache_misses": 81.0,
+      "selected_eig": 1.9984014443252818e-16
     }
   },
   {
@@ -118,8 +118,8 @@
       "latest_answer_mapped_cleanly": 1.0,
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 8.0,
-      "shared_call_cache_misses": 55.0,
-      "selected_eig": 0.0
+      "shared_call_cache_misses": 121.0,
+      "selected_eig": 1.9984014443252818e-16
     }
   },
   {
@@ -159,8 +159,8 @@
       "latest_answer_mapped_cleanly": 1.0,
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 11.0,
-      "shared_call_cache_misses": 73.0,
-      "selected_eig": 0.0
+      "shared_call_cache_misses": 161.0,
+      "selected_eig": 1.9984014443252818e-16
     }
   },
   {
@@ -200,8 +200,8 @@
       "latest_answer_mapped_cleanly": 1.0,
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 14.0,
-      "shared_call_cache_misses": 91.0,
-      "selected_eig": 0.0
+      "shared_call_cache_misses": 201.0,
+      "selected_eig": 1.9984014443252818e-16
     }
   }
 ]

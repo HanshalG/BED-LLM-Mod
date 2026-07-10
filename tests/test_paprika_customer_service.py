@@ -25,6 +25,12 @@ class RoutingQuestioner:
         del temperature, num_responses
         self.calls += 1
         text = messages[-1]["content"]
+        if '"refined_hypotheses"' in text:
+            count = int(re.search(r"exactly (\d+)", text).group(1))
+            return [json.dumps({"refined_hypotheses": [f"refined cause {self.calls}-{index} with remedy" for index in range(count)]})]
+        if '"keep_indices"' in text:
+            indices = [int(value) for value in re.findall(r"^(\d+):", text, re.MULTILINE)]
+            return [json.dumps({"keep_indices": indices})]
         if '"hypotheses"' in text:
             count = int(re.search(r"exactly (\d+)", text).group(1))
             return [json.dumps({"hypotheses": [f"cause {index} and remedy {index}" for index in range(count)]})]
@@ -133,7 +139,15 @@ def test_five_task_runner_smoke_logs_full_answer_coverage(tmp_path: Path) -> Non
     assert summary.metrics["answer_set_coverage"] == [1.0, 1.0]
     assert summary.metrics["resolved"] == [0.0, 0.0]
     assert customer.calls == 10
-    assert questioner.batch_calls == 20  # two candidates per decision, not per hypothesis
+    # One batch per candidate/action matrix. Round two also scores newly refined
+    # hypotheses against the previous action, so this is 7 batches per task rather
+    # than one request per hypothesis.
+    assert questioner.batch_calls == 35
+    assert all(len(trial.final_belief_state.hypotheses) == 15 for trial in run_result.trials)
+    assert all(
+        any(hypothesis.startswith("refined cause") for hypothesis in trial.final_belief_state.hypotheses)
+        for trial in run_result.trials
+    )
     smoke = json.loads((tmp_path / "paprika_smoke.json").read_text())
     assert len(smoke) == 5
     assert all(turn["mapped_cleanly"] for trial in smoke for turn in trial["turns"])
