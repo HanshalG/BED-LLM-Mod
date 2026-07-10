@@ -33,7 +33,7 @@ environment:
   verify_official_hash: true
   num_trials: 10
   num_rounds: 5
-  trial_batch_size: 1
+  trial_batch_size: 10
   task_offset: 0
   seed: 1304
   num_hypotheses: 12

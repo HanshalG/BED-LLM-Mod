@@ -275,6 +275,9 @@ class BEDRunner(Generic[H, A, O, S]):
             if not runnable_positions:
                 continue
 
+            prepare_action_batch = getattr(env, "prepare_action_batch", None)
+            if callable(prepare_action_batch):
+                prepare_action_batch(runnable_hidden_states)
             chosen_many = method.select_actions(
                 runnable_candidates,
                 runnable_beliefs,

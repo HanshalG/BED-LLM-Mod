@@ -345,6 +345,36 @@ def test_naive_is_history_only_and_still_uses_native_early_stop(tmp_path: Path) 
     assert questioner.batch_calls == 0
 
 
+def test_naive_policy_actions_batch_across_trials_without_private_solutions(tmp_path: Path) -> None:
+    questioner = RoutingQuestioner()
+    customer = RoutingCustomer()
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["naive"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=5,
+        paprika_num_rounds=1,
+        paprika_trial_batch_size=5,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+    )
+
+    run_result, _summary = run_from_config(
+        config, questioner, customer, output_dir=tmp_path
+    )
+
+    assert len(run_result.trials) == 5
+    assert questioner.batch_calls == 1
+    assert customer.calls == 5
+    private_solutions = [task.solution for task in load_paprika_tasks(FIXTURE)]
+    assert not any(
+        solution in prompt
+        for solution in private_solutions
+        for prompt in questioner.prompt_texts
+    )
+
+
 def test_diagnostic_query_cannot_be_falsely_resolved_by_success_judge() -> None:
     questioner = AlwaysValidJudgeQuestioner()
     config = Config(

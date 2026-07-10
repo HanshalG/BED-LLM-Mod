@@ -192,6 +192,9 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    and produced no metrics. All processes were stopped; provider usage was reconciled
    exactly to $0.31118538. Relaunch only after the `flock`/atomic-write stress test and
    focused suite pass.
+   The repaired scaffolded run is active. Serial naive throughput was diagnosed before
+   evidence landed; both naive configs now use trial batch size 10 and Paprika batches
+   policy generation across public scenarios without exposing private solutions.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

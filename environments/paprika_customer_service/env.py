@@ -115,6 +115,7 @@ class PaprikaCustomerServiceEnvironment(
         self.questioner: Any | None = None
         self.tasks: list[PaprikaTask] = []
         self._active_task: PaprikaTask | None = None
+        self._active_batch_scenarios: tuple[str, ...] = ()
         self._scenario_by_support: dict[tuple[str, ...], str] = {}
         self._likelihood_cache: dict[tuple[str, PaprikaAction], tuple[float, ...]] = {}
         self._shared_cache_hits = 0
@@ -155,6 +156,9 @@ class PaprikaCustomerServiceEnvironment(
 
     def set_questioner(self, model: Any) -> None:
         self.questioner = model
+
+    def prepare_action_batch(self, hidden_states: Sequence[PaprikaTask]) -> None:
+        self._active_batch_scenarios = tuple(task.scenario for task in hidden_states)
 
     def _questioner(self) -> Any:
         if self.questioner is None:
@@ -668,6 +672,49 @@ class PaprikaCustomerServiceEnvironment(
             float(getattr(config, "generation_temperature_simple", 0.7)),
             namespace="questioner:naive_action",
             parser=lambda text: self._parse_candidates(text, scenario, history, 1)[0],
+        )
+
+    def generate_naive_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[str]],
+        histories: Sequence[Sequence[tuple[PaprikaAction, PaprikaObservation]]],
+        model: Any,
+        config: Any,
+        *,
+        method_name: str | None = None,
+    ) -> list[PaprikaAction]:
+        del belief_states, method_name
+        if len(histories) != len(self._active_batch_scenarios):
+            raise ValueError("Paprika naive batch context does not match active histories")
+        scenarios = [
+            history[0][0].scenario if history else scenario
+            for history, scenario in zip(histories, self._active_batch_scenarios)
+        ]
+        messages = [
+            candidate_messages(scenario, (), history, 1)
+            for scenario, history in zip(scenarios, histories)
+        ]
+        temperature = float(getattr(config, "generation_temperature_simple", 0.7))
+        responses = self._cached_complete_many(
+            model,
+            messages,
+            temperature,
+            namespace="questioner:naive_action",
+        )
+        return self._parse_many_with_retries(
+            model,
+            messages,
+            responses,
+            temperature,
+            namespace="questioner:naive_action",
+            parsers=[
+                (
+                    lambda text, scenario=scenario, history=history: self._parse_candidates(
+                        text, scenario, history, 1
+                    )[0]
+                )
+                for scenario, history in zip(scenarios, histories)
+            ],
         )
 
     def naive_requires_belief_state(self, method_name: str | None = None) -> bool:
