@@ -61,6 +61,24 @@ def _dedupe_indices(values: Sequence[Any], upper_bound: int) -> list[int]:
     return result
 
 
+def _normalized_action_kind(query: str, proposed_kind: str) -> str:
+    del proposed_kind
+    normalized = query.strip().casefold()
+    diagnostic_prefixes = (
+        "is ", "are ", "does ", "do ", "did ", "has ", "have ", "can you ",
+        "could you ", "would you ", "check ", "please check ", "inspect ",
+        "please inspect ", "verify ", "please verify ", "listen ", "please listen ",
+    )
+    if normalized.startswith(diagnostic_prefixes) or normalized.endswith("?"):
+        return "diagnostic"
+    solution_verbs = (
+        "replace", "recalibrate", "calibrate", "reset", "restart", "reinstall",
+        "update", "enable", "disable", "reconnect", "repair", "refill", "clear",
+        "clean", "adjust", "remove", "straighten", "close", "open", "tighten",
+    )
+    return "solution" if any(verb in normalized.split() for verb in solution_verbs) else "diagnostic"
+
+
 class PaprikaCustomerServiceEnvironment(
     Environment[PaprikaTask, str, PaprikaAction, PaprikaObservation]
 ):
@@ -477,7 +495,7 @@ class PaprikaCustomerServiceEnvironment(
                         tuple(item["outcomes"]),
                         scenario,
                         transcript,
-                        kind=item.get("kind", ""),
+                        kind=_normalized_action_kind(item["query"], item.get("kind", "")),
                     )
                 )
             except (TypeError, ValueError):

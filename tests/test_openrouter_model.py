@@ -58,6 +58,7 @@ def test_openrouter_smoke_config_is_nonthinking_and_uses_verified_slug() -> None
     assert spec.model == "google/gemma-4-26b-a4b-it"
     assert spec.thinking is False
     assert config.openrouter_projected_cost_usd == 1.0
+    assert config.openrouter_concurrency == 24
 
 
 def test_openrouter_adapter_tracks_native_cost_without_reasoning(monkeypatch, tmp_path: Path) -> None:

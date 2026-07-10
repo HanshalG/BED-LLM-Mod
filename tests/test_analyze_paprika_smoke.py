@@ -53,3 +53,12 @@ def test_smoke_analysis_fails_low_coverage_or_terminal_parse_failure(tmp_path: P
     failed = analyze(_write_run(tmp_path / "failed", clean=10, total=10, failures=1.0))
     assert low["automated_pass"] is False
     assert failed["automated_pass"] is False
+
+
+def test_smoke_analysis_uses_cumulative_artifact_retry_counts(tmp_path: Path) -> None:
+    run_dir = _write_run(tmp_path, clean=10, total=10)
+    path = next(run_dir.rglob("paprika_smoke.json"))
+    trials = json.loads(path.read_text())
+    trials[-1]["final_metrics"]["structured_parse_retries"] = 12.0
+    path.write_text(json.dumps(trials))
+    assert analyze(run_dir)["structured_parse_retries"] == 12.0

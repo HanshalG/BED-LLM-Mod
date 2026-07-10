@@ -134,6 +134,31 @@ def test_action_requires_three_to_five_unique_outcomes() -> None:
         PaprikaAction("Check it", ("yes", "YES", "unknown"), "scenario")
 
 
+def test_candidate_kind_downgrades_checks_but_keeps_explicit_corrections() -> None:
+    model = RoutingQuestioner()
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=1,
+    )
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    env = PaprikaCustomerServiceEnvironment(config, RoutingCustomer())
+    diagnostic = env._parse_candidates(
+        json.dumps({"candidates": [{"query": "Can you check the setting?", "kind": "solution", "outcomes": ["yes", "no", "unknown"]}]}),
+        "scenario", [], 1,
+    )[0]
+    solution = env._parse_candidates(
+        json.dumps({"candidates": [{"query": "Please replace the depleted ribbon.", "kind": "diagnostic", "outcomes": ["fixed", "not fixed", "cannot do"]}]}),
+        "scenario", [], 1,
+    )[0]
+    assert diagnostic.kind == "diagnostic"
+    assert solution.kind == "solution"
+
+
 def test_categorical_eig_matches_deterministic_binary_information() -> None:
     value = categorical_eig([0.5, 0.5], np.asarray([[1.0, 0.0], [0.0, 1.0]]))
     assert value == pytest.approx(np.log(2.0))

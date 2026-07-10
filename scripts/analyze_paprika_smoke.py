@@ -41,8 +41,10 @@ def analyze(run_dir: Path, *, coverage_threshold: float = 0.85) -> dict[str, Any
     coverage = clean / len(turns) if turns else 0.0
     failures_trace = metrics.get("structured_parse_failures", [])
     retries_trace = metrics.get("structured_parse_retries", [])
-    terminal_failures = max(failures_trace, default=0.0)
-    retries = max(retries_trace, default=0.0)
+    artifact_failures = [trial.get("final_metrics", {}).get("structured_parse_failures", 0.0) for trial in trials]
+    artifact_retries = [trial.get("final_metrics", {}).get("structured_parse_retries", 0.0) for trial in trials]
+    terminal_failures = max([*failures_trace, *artifact_failures], default=0.0)
+    retries = max([*retries_trace, *artifact_retries], default=0.0)
 
     log_path = run_dir / "run.log"
     log_text = log_path.read_text(errors="replace") if log_path.exists() else ""

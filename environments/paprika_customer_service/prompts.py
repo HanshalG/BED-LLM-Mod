@@ -45,7 +45,7 @@ def customer_messages(action: PaprikaAction, solution: str) -> list[dict[str, st
 
 
 def mapping_messages(reply: str, outcomes: Sequence[str]) -> list[dict[str, str]]:
-    return [{"role": "system", "content": "Map a customer reply to one proposed outcome. Return strict JSON only."}, {"role": "user", "content": f"Reply: {reply}\nOutcomes:\n" + "\n".join(f"- {value}" for value in outcomes) + "\nReturn {\"outcome\": <exact outcome string or null>, \"clean\": true or false}. Use clean=false if no outcome adequately represents the reply."}]
+    return [{"role": "system", "content": "Map a customer reply to the single semantically matching proposed outcome. Return strict JSON only."}, {"role": "user", "content": f"Reply: {reply}\nOutcomes:\n" + "\n".join(f"- {value}" for value in outcomes) + "\nReturn {\"outcome\": <exact outcome string or null>, \"clean\": true or false}. Prefer the outcome directly confirmed or contradicted by the reply. Select a 'not checked / cannot determine' outcome only when the customer explicitly says they did not check, do not know, cannot tell, or cannot perform the check. Never map an explicit observation to uncertainty. Use clean=false if no outcome adequately represents the reply."}]
 
 
 def judge_messages(scenario: str, solution: str, query: str) -> list[dict[str, str]]:
