@@ -188,6 +188,10 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    is insufficient signal, not failure. If the matched gate truly fails, the single
    pre-planned rescue is thinking only for hypothesis/candidate generation; otherwise
    stop and discuss.
+   The first concurrent five-round launch set exposed a spend-ledger interprocess race
+   and produced no metrics. All processes were stopped; provider usage was reconciled
+   exactly to $0.31118538. Relaunch only after the `flock`/atomic-write stress test and
+   focused suite pass.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

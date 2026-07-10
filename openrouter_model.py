@@ -4,13 +4,17 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
 import threading
 import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
+
+import fcntl
 
 from helpers import Config, ModelSpec, _probability_results_from_messages, write_to_log
 
@@ -31,7 +35,7 @@ class OpenRouterBudgetTracker:
         self.projected = float(config.openrouter_projected_cost_usd)
         self.run_id = config.run_id or "unassigned"
         self.model = model
-        with _SPEND_LOCK:
+        with self._locked_transaction():
             payload = self._read()
             spent = float(payload.get("total_spent_usd", 0.0))
             if spent + self.projected > self.budget + 1e-12:
@@ -48,10 +52,43 @@ class OpenRouterBudgetTracker:
             raise OpenRouterBudgetError(f"Invalid spend ledger at {self.path}")
         return payload
 
+    @contextmanager
+    def _locked_transaction(self):
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        lock_path = self.path.with_suffix(self.path.suffix + ".lock")
+        with _SPEND_LOCK, lock_path.open("a+") as lock_file:
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+            try:
+                yield
+            finally:
+                fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+
+    def _atomic_write(self, payload: dict[str, Any]) -> None:
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        temporary_path: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="w",
+                encoding="utf-8",
+                dir=self.path.parent,
+                prefix=f".{self.path.name}.",
+                suffix=".tmp",
+                delete=False,
+            ) as temporary:
+                temporary_path = Path(temporary.name)
+                temporary.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+                temporary.flush()
+                os.fsync(temporary.fileno())
+            os.replace(temporary_path, self.path)
+            temporary_path = None
+        finally:
+            if temporary_path is not None:
+                temporary_path.unlink(missing_ok=True)
+
     def add(self, cost: float, usage: dict[str, Any]) -> float:
         if cost < 0.0:
             raise OpenRouterBudgetError("OpenRouter reported negative cost")
-        with _SPEND_LOCK:
+        with self._locked_transaction():
             payload = self._read()
             total = float(payload.get("total_spent_usd", 0.0)) + cost
             if total > self.budget + 1e-9:
@@ -71,14 +108,11 @@ class OpenRouterBudgetTracker:
             run["reasoning_tokens"] = int(run.get("reasoning_tokens", 0)) + int(details.get("reasoning_tokens", 0) or 0)
             payload["budget_usd"] = self.budget
             payload["total_spent_usd"] = total
-            self.path.parent.mkdir(parents=True, exist_ok=True)
-            temporary = self.path.with_suffix(self.path.suffix + ".tmp")
-            temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
-            temporary.replace(self.path)
+            self._atomic_write(payload)
             return total
 
     def snapshot(self) -> dict[str, Any]:
-        with _SPEND_LOCK:
+        with self._locked_transaction():
             payload = self._read()
             run = (payload.get("runs") or {}).get(self.run_id, {})
             return {

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import multiprocessing
 import urllib.error
 from pathlib import Path
 
@@ -8,7 +9,7 @@ import pytest
 
 from helpers import Config, ModelSpec, load_config
 from model_factory import build_model_adapter
-from openrouter_model import OpenRouterAdapter, OpenRouterBudgetError
+from openrouter_model import OpenRouterAdapter, OpenRouterBudgetError, OpenRouterBudgetTracker
 
 
 class _Response:
@@ -49,6 +50,23 @@ def _config(tmp_path: Path, **overrides) -> Config:
     }
     values.update(overrides)
     return Config(**values)
+
+
+def _concurrent_tracker_writer(path: str, run_id: str, count: int) -> None:
+    config = Config(
+        run_id=run_id,
+        openrouter_spend_path=path,
+        openrouter_budget_usd=20.0,
+        openrouter_projected_cost_usd=0.0,
+    )
+    tracker = OpenRouterBudgetTracker(config, "test-model")
+    usage = {
+        "prompt_tokens": 2,
+        "completion_tokens": 1,
+        "completion_tokens_details": {"reasoning_tokens": 0},
+    }
+    for _ in range(count):
+        tracker.add(0.001, usage)
 
 
 def test_openrouter_smoke_config_is_nonthinking_and_uses_verified_slug() -> None:
@@ -152,6 +170,25 @@ def test_openrouter_refuses_projected_overspend(monkeypatch, tmp_path: Path) -> 
             ModelSpec(model="google/gemma-4-26b-a4b-it", backend="openrouter"),
             _config(tmp_path, openrouter_projected_cost_usd=1.0),
         )
+
+
+def test_spend_tracker_serializes_concurrent_processes(tmp_path: Path) -> None:
+    path = tmp_path / "spend.json"
+    context = multiprocessing.get_context("fork")
+    processes = [
+        context.Process(target=_concurrent_tracker_writer, args=(str(path), f"run-{index}", 50))
+        for index in range(4)
+    ]
+    for process in processes:
+        process.start()
+    for process in processes:
+        process.join(timeout=20)
+        assert process.exitcode == 0
+
+    payload = json.loads(path.read_text())
+    assert payload["total_spent_usd"] == pytest.approx(0.2)
+    assert sum(run["requests"] for run in payload["runs"].values()) == 200
+    assert not list(tmp_path.glob(".spend.json.*.tmp"))
 
 
 def test_lazy_factory_builds_openrouter_without_gpu_import(monkeypatch, tmp_path: Path) -> None:
