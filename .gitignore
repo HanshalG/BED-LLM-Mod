@@ -48,3 +48,4 @@ results/path_e/*
 !results/path_e/step0a_adapter_smoke/REPORT.json
 !results/path_e/step0a_adapter_smoke/paprika_smoke.json
 !results/path_e/STEP0_ENVIRONMENT_STANDING.md
+!results/path_e/STEP0A_OPENROUTER_SMOKE.md

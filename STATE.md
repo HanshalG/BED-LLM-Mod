@@ -15,7 +15,18 @@ naive AND 1-step EIG on paired external-benchmark endpoints. 20Q/Wordle/Mastermi
 harness/unit-test only (greedy near-optimal there); location finding is closed. All
 Path A/B/C/D location & 20Q material is banked history below.
 
-Path E Step 0 implementation status (2026-07-10): implementation through commit `cfdc9a0` is pushed. The
+Path E Step 0 implementation status (2026-07-11): **Step 0a and Step 0b are passed**.
+The canonical real-model Paprika smoke is
+`20260711T000402_paprika-step0a-openrouter-26b-nonthinking-v6` at commit `8b84edf`.
+Across five official eval tasks and nine realized turns it achieved 8/9 = 88.89%
+manually verified answer-set coverage, zero terminal structured failures, zero runtime
+failures, and one genuine exact-remedy resolution. It used OpenRouter
+`google/gemma-4-26b-a4b-it` without reasoning: 642 requests, 198,897 tokens, no forced
+exits, and $0.04004851. Evidence is tracked in
+`results/path_e/STEP0A_OPENROUTER_SMOKE.md`. Cumulative OpenRouter development spend is
+$0.19704997 of $20. The exact-posterior Mastermind depth-1/depth-2 harness remains green.
+
+The Paprika implementation is pushed. The
 Paprika customer-service adapter now loads the hash-pinned official release, preserves
 the released public `agent` scenario and private `env` solution verbatim, uses the
 native semantic success rule, generates 3--5 outcome answer spaces, scores categorical
@@ -32,7 +43,8 @@ pinned file has 100% mapping coverage;
 it is explicitly labeled NOT LLM EVIDENCE in
 `results/path_e/step0a_adapter_smoke/REPORT.json`. The exact-posterior Mastermind harness
 for depth 1/2 is implemented and tested. The required real 26B A4B five-task coverage
-smoke has not launched because `ssh oat0` currently fails with `No route to host`.
+smoke originally waited on the unavailable cluster and was completed through the
+authorized OpenRouter bridge instead.
 The naive arm is now truly belief-free while retaining native early stopping and endpoint
 metrics. Full two-step execution batches the complete root/branch/follow-up tree rather
 than issuing serial calls; its integration test requires four logical batches including
@@ -130,30 +142,33 @@ Latest cluster state:
 Path E reset (2026-07-10): external benchmarks with structural sequential gaps. See
 GOAL.md for the six environment requirements (R1-R6) and the full validation chain.
 
-1. **Finish Step 0a's real-model gate:** when `oat0` is reachable, sync pushed commit
-   `cfdc9a0`, run `scripts/fetch_paprika.py`, and launch
-   `configs/config_paprika_step0a_smoke_26b_a4b.yaml` on
-   `--partition=msc,llm --exclude=oat12`. Inspect all five transcripts, answer-set
-   coverage (must be >= ~85%), parse failures, semantic success behavior, and forced
-   thinking exits. Revise prompts and repeat rather than scaling if coverage fails.
-2. **Step 0b mechanics are complete locally:** exact Mastermind posterior, one-step EIG,
-   and optimal two-step lookahead tests pass. Before claims runs, retain this as a
-   harness-only invariant and do not promote Mastermind to an evaluation environment.
-3. **Step 1 gap pilot (cheap, gates everything):** 10 paired customer-service tasks,
-   naive vs 1-step EIG vs full 2-step, 26B A4B thinking (per Hanshal: 26B A4B for ALL
-   runs incl. pilots; log forced-thinking-exit rate, raise budget to 8k+ if >10-15%). Claim-1 check: 1-step > naive.
+1. **Step 1 gap pilot (active gate):** 10 paired customer-service tasks, naive vs
+   one-step EIG vs full two-step. Per Hanshal's correction, belief-scaffolded EIG and
+   full-two-step run **without reasoning**; reasoning is a distinct naive-thinking
+   baseline, not a prerequisite for the environments. Use OpenRouter for the whole
+   paired set, seed 1304, and the same non-thinking answerer. The EIG/full2 arms share
+   root candidates and prompt cache; provider seed 1304 is sent on every API request.
+   Cost-project from a one-task full2 micro-pilot before launching all ten tasks. Claim-1 check: 1-step > naive.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
-4. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
+2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
    availability-gating trigger; CRN across tied set; depth cap 2; trigger/token
    logging); 10-task four-arm pilot; calibrate then FREEZE epsilon; check selective
    lookahead tokens <= ~40% of full 2-step.
-5. **Step 3:** pre-register endpoints/analysis/epsilon/canonical-run rule in the runbook,
+3. **Step 3:** pre-register endpoints/analysis/epsilon/canonical-run rule in the runbook,
    then 50-100 paired customer-service tasks (powered from Step 2), four arms; then
    AgentClinic 50+ cases if on schedule. `--partition=msc,llm --exclude=oat12`.
-6. **Step 4:** paper per GOAL.md playbook; location-finding saga = one honest paragraph.
+4. **Step 4:** paper per GOAL.md playbook; location-finding saga = one honest paragraph.
 
 ## OPERATIONAL KNOWLEDGE
+
+- **OpenRouter (while cluster is down)**: base_url https://openrouter.ai/api/v1,
+  key in `OPENROUTER_API_KEY` (never commit). $20 total budget, FULLY authorized;
+  refuse runs projected past remaining budget; flag Hanshal at ~$18 cumulative; track
+  spend per run in `EXPERIMENTS.md`. Cost-project every run from
+  smoke tokens first (Path A reference: a 30-trial 3-arm location sweep used ~3.9M
+  tokens; Paprika turns are longer — measure, don't assume). Cluster ops notes below
+  still apply once `ssh oat0` recovers.
 
 - Remote checkout: `/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z`.
 - Use `ssh oat0` for cluster access. Use `PYTHONNOUSERSITE=1` for remote login-node Python

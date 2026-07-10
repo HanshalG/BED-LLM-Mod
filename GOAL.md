@@ -13,6 +13,15 @@ can and must edit.
 - **Precedence**: `STATE.md` > this file.
 - **Cluster**: at most 8 active jobs; `--partition=msc,llm --exclude=oat12`; no GH200
   unless Hanshal asks.
+- **API fallback (added 2026-07-10, cluster down)**: OpenRouter with a $20 budget is
+  authorized for Gemma 4 26B A4B inference (details/spend tracking in `STATE.md`).
+  Rules: never commit the API key (env var only); log cost per run in `EXPERIMENTS.md`;
+  the FULL $20 is authorized (per Hanshal, 2026-07-10) — still cost-project each run
+  before launch and prioritize spend in validation-chain order (smoke → Step 1 → Step 2
+  → headline), and tell Hanshal when cumulative spend reaches ~$18 so a top-up can be
+  arranged before anything stalls mid-run; never mix backends (API vs cluster vLLM)
+  WITHIN one paired comparison — a paired run set completes on the backend it started
+  on, and the ledger records the backend per run.
 
 ## MOTIVATION (one paragraph of history — details in banked Path A–D artifacts)
 
