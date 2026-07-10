@@ -5,7 +5,7 @@ ACTIONS below to reflect reality, and append a row to `EXPERIMENTS.md` for anyth
 launched. A stale STATE.md is a bug. If this file conflicts with GOAL.md's design
 history, this file wins.
 
-## CURRENT STATE (updated 2026-07-10)
+## CURRENT STATE (updated 2026-07-11)
 
 Status: **Path E active** â€” non-myopic LLM experimental design on EXTERNAL interactive
 benchmarks (GOAL.md): primary env = Paprika customer-service troubleshooting tasks
@@ -172,18 +172,22 @@ D. Analyzer must be finalized (censoring rule, tie handling in the 6/10 count â€
 Path E reset (2026-07-10): external benchmarks with structural sequential gaps. See
 GOAL.md for the six environment requirements (R1-R6) and the full validation chain.
 
-1. **Step 1 gap pilot (active gate):** 10 paired customer-service tasks, naive vs
-   one-step EIG vs full two-step. Per Hanshal's correction, belief-scaffolded EIG and
-   full-two-step run **without reasoning**; reasoning is a distinct naive-thinking
-   baseline, not a prerequisite for the environments. Use OpenRouter for the whole
-   paired set, seed 1304, and the same non-thinking answerer. The EIG/full2 arms share
-   root candidates and prompt cache; provider seed 1304 is sent on every API request.
+1. **Step 1 gap pilot (active gate):** 10 paired customer-service tasks, five rounds,
+   with non-thinking naive, thinking naive, one-step EIG, and full two-step. Belief-
+   scaffolded EIG/full2 and matched naive run without reasoning; 8k-thinking naive is
+   the adversarial comparator. Use OpenRouter for the whole paired set, seed 1304, and
+   the same non-thinking answerer. EIG/full2 share root candidates and prompt cache;
+   provider seed 1304 is sent on every API request.
    The one-task/one-round full2 cost micro-pilot completed with 1,235 requests, 419,382
    tokens, $0.08430807, zero terminal failures, and 236.7 seconds at concurrency 24.
-   A linear 10-task x 2-round full2 projection is about $1.69 before early stopping and
-   support-growth effects. The active Step 1 runs instantiated at concurrency 64;
-   OpenRouter concurrency is now 128 for subsequent runs.
-   Claim-1 check: 1-step > naive.
+   The two premature two-round launches were canceled with no metrics after spending
+   $0.02221529 total. The five-round scaffolded run reserves a conservative $12
+   projection to cover support/prompt growth; concurrency is 128.
+   Matched Claim-1 gate: EIG > naive non-thinking. Adversarial read: EIG vs naive
+   thinking, reported but not substituted for the matched gate. A majority-tie result
+   is insufficient signal, not failure. If the matched gate truly fails, the single
+   pre-planned rescue is thinking only for hypothesis/candidate generation; otherwise
+   stop and discuss.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

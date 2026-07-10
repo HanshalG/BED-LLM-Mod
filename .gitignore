@@ -22,6 +22,7 @@ configs/*
 !configs/config_paprika_step1_full2_cost_micro_openrouter.yaml
 !configs/config_paprika_step1_scaffolded_openrouter.yaml
 !configs/config_paprika_step1_naive_thinking_openrouter.yaml
+!configs/config_paprika_step1_naive_nonthinking_openrouter.yaml
 !configs/archive/
 !configs/archive/**
 !configs/config_strategy_ranking_fidelity_smoke.yaml

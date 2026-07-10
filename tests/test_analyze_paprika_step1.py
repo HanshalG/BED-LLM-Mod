@@ -51,7 +51,8 @@ def _write_run(path: Path, methods: dict[str, list[int | None]]) -> None:
 
 def test_step1_analyzer_applies_paired_gate_rules(tmp_path: Path) -> None:
     scaffolded = tmp_path / "scaffolded"
-    naive = tmp_path / "naive"
+    naive_nonthinking = tmp_path / "naive_nonthinking"
+    naive_thinking = tmp_path / "naive_thinking"
     _write_run(
         scaffolded,
         {
@@ -59,12 +60,13 @@ def test_step1_analyzer_applies_paired_gate_rules(tmp_path: Path) -> None:
             "Full2StepEIG": [1, 1, 1, 1, 1, 1, None, None, None, None],
         },
     )
-    _write_run(naive, {"naive": [2, 2, None, None, None, None, None, None, None, None]})
+    _write_run(naive_nonthinking, {"naive": [2, 2, None, None, None, None, None, None, None, None]})
+    _write_run(naive_thinking, {"naive": [1, 1, 2, 2, None, None, None, None, None, None]})
 
-    result = analyze(scaffolded, naive)
+    result = analyze(scaffolded, naive_nonthinking, naive_thinking, round_budget=2)
 
     assert result["status"] == "claims1_and_2_pass"
-    assert result["claim1_eig_vs_naive"]["directional_pass"] is True
+    assert result["claim1_matched_eig_vs_naive_nonthinking"]["gate_pass"] is True
     assert result["claim2_full2_vs_eig"]["gate_pass"] is True
     assert result["arms"]["Full2StepEIG"]["resolution_at_budget"] == 0.6
     assert result["arms"]["EIG"]["answer_set_coverage"] == 1.0
@@ -72,7 +74,8 @@ def test_step1_analyzer_applies_paired_gate_rules(tmp_path: Path) -> None:
 
 def test_step1_analyzer_stops_when_eig_does_not_beat_naive(tmp_path: Path) -> None:
     scaffolded = tmp_path / "scaffolded"
-    naive = tmp_path / "naive"
+    naive_nonthinking = tmp_path / "naive_nonthinking"
+    naive_thinking = tmp_path / "naive_thinking"
     _write_run(
         scaffolded,
         {
@@ -80,9 +83,30 @@ def test_step1_analyzer_stops_when_eig_does_not_beat_naive(tmp_path: Path) -> No
             "Full2StepEIG": [None] * 10,
         },
     )
-    _write_run(naive, {"naive": [1] * 10})
+    _write_run(naive_nonthinking, {"naive": [1] * 10})
+    _write_run(naive_thinking, {"naive": [1] * 10})
 
-    result = analyze(scaffolded, naive)
+    result = analyze(scaffolded, naive_nonthinking, naive_thinking, round_budget=2)
 
-    assert result["status"] == "claim1_fail_stop"
-    assert result["claim1_eig_vs_naive"]["directional_pass"] is False
+    assert result["status"] == "claim1_matched_fail_rescue_or_stop"
+    assert result["claim1_matched_eig_vs_naive_nonthinking"]["gate_pass"] is False
+
+
+def test_step1_analyzer_marks_mostly_ties_insufficient(tmp_path: Path) -> None:
+    scaffolded = tmp_path / "scaffolded"
+    naive_nonthinking = tmp_path / "naive_nonthinking"
+    naive_thinking = tmp_path / "naive_thinking"
+    _write_run(
+        scaffolded,
+        {
+            "EIG": [1, None] + [None] * 8,
+            "Full2StepEIG": [1, None] + [None] * 8,
+        },
+    )
+    _write_run(naive_nonthinking, {"naive": [None, 1] + [None] * 8})
+    _write_run(naive_thinking, {"naive": [1, None] + [None] * 8})
+
+    result = analyze(scaffolded, naive_nonthinking, naive_thinking, round_budget=2)
+
+    assert result["status"] == "claim1_matched_insufficient_signal"
+    assert result["claim1_matched_eig_vs_naive_nonthinking"]["mostly_ties"] is True

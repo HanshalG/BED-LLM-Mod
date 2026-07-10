@@ -142,11 +142,52 @@ def _comparison(
     }
 
 
-def analyze(scaffolded_run: Path, naive_run: Path, *, round_budget: int = 2) -> dict[str, Any]:
+def _gate_outcome(
+    comparison: dict[str, Any],
+    summaries: dict[str, dict[str, Any]],
+    *,
+    better: str,
+    baseline: str,
+    require_six_wins: bool,
+) -> dict[str, Any]:
+    resolution_advantage = (
+        summaries[better]["resolution_at_budget"]
+        - summaries[baseline]["resolution_at_budget"]
+    )
+    clear_edge = bool(
+        resolution_advantage >= 0.2 - 1e-12
+        or comparison["mean_censored_turn_delta"] <= -0.2 + 1e-12
+    )
+    mostly_ties = comparison["ties"] >= 6
+    directional = comparison["wins"] > comparison["losses"]
+    passed = clear_edge or (
+        comparison["wins"] >= 6 if require_six_wins else directional and not mostly_ties
+    )
+    status = "pass" if passed else "insufficient_signal" if mostly_ties else "fail"
+    comparison.update(
+        {
+            "gate_status": status,
+            "gate_pass": passed,
+            "mostly_ties": mostly_ties,
+            "resolution_rate_advantage": resolution_advantage,
+            "clear_edge": clear_edge,
+        }
+    )
+    return comparison
+
+
+def analyze(
+    scaffolded_run: Path,
+    naive_nonthinking_run: Path,
+    naive_thinking_run: Path,
+    *,
+    round_budget: int = 5,
+) -> dict[str, Any]:
     arms = {
         "EIG": load_arm(scaffolded_run, "EIG"),
         "Full2StepEIG": load_arm(scaffolded_run, "Full2StepEIG"),
-        "naive": load_arm(naive_run, "naive"),
+        "naive_nonthinking": load_arm(naive_nonthinking_run, "naive"),
+        "naive_thinking": load_arm(naive_thinking_run, "naive"),
     }
     arm_values = {name: _task_values(arm, round_budget) for name, arm in arms.items()}
     task_sets = {tuple(sorted(values)) for values in arm_values.values()}
@@ -155,36 +196,39 @@ def analyze(scaffolded_run: Path, naive_run: Path, *, round_budget: int = 2) -> 
     summaries = {
         name: _arm_summary(arm, arm_values[name], round_budget) for name, arm in arms.items()
     }
-    claim1 = _comparison("EIG", "naive", arm_values)
-    claim2 = _comparison("Full2StepEIG", "EIG", arm_values)
-    claim1["directional_pass"] = bool(
-        claim1["wins"] > claim1["losses"]
-        or claim1["mean_censored_turn_delta"] < 0.0
-        or summaries["EIG"]["resolution_at_budget"] > summaries["naive"]["resolution_at_budget"]
+    claim1 = _gate_outcome(
+        _comparison("EIG", "naive_nonthinking", arm_values),
+        summaries,
+        better="EIG",
+        baseline="naive_nonthinking",
+        require_six_wins=False,
     )
-    resolution_advantage = (
-        summaries["Full2StepEIG"]["resolution_at_budget"]
-        - summaries["EIG"]["resolution_at_budget"]
+    adversarial = _comparison("EIG", "naive_thinking", arm_values)
+    claim2 = _gate_outcome(
+        _comparison("Full2StepEIG", "EIG", arm_values),
+        summaries,
+        better="Full2StepEIG",
+        baseline="EIG",
+        require_six_wins=True,
     )
-    claim2["gate_pass"] = bool(
-        claim2["wins"] >= 6
-        or resolution_advantage >= 0.2 - 1e-12
-        or claim2["mean_censored_turn_delta"] <= -0.2 + 1e-12
-    )
-    claim2["resolution_rate_advantage"] = resolution_advantage
+    if claim1["gate_status"] == "fail":
+        status = "claim1_matched_fail_rescue_or_stop"
+    elif claim1["gate_status"] == "insufficient_signal":
+        status = "claim1_matched_insufficient_signal"
+    elif claim2["gate_status"] == "pass":
+        status = "claims1_and_2_pass"
+    elif claim2["gate_status"] == "insufficient_signal":
+        status = "claim1_pass_claim2_insufficient_signal"
+    else:
+        status = "claim1_only_descope_lookahead"
     return {
-        "status": (
-            "claim1_fail_stop"
-            if not claim1["directional_pass"]
-            else "claims1_and_2_pass"
-            if claim2["gate_pass"]
-            else "claim1_only_descope_lookahead"
-        ),
+        "status": status,
         "round_budget": round_budget,
         "censoring_rule": "unresolved tasks score round_budget + 1 censored turns",
         "claim2_clear_edge_rule": "at least 2/10 additional resolutions or mean censored-turn delta <= -0.2",
         "arms": summaries,
-        "claim1_eig_vs_naive": claim1,
+        "claim1_matched_eig_vs_naive_nonthinking": claim1,
+        "claim1_adversarial_eig_vs_naive_thinking": adversarial,
         "claim2_full2_vs_eig": claim2,
     }
 
@@ -195,16 +239,20 @@ def _markdown(result: dict[str, Any]) -> str:
         "",
         f"Status: **{result['status']}**",
         "",
-        "| arm | resolution@2 | mean censored turns | coverage | cost (USD) | requests |",
+        f"| arm | resolution@{result['round_budget']} | mean censored turns | coverage | cost (USD) | requests |",
         "|---|---:|---:|---:|---:|---:|",
     ]
-    for name in ("naive", "EIG", "Full2StepEIG"):
+    for name in ("naive_nonthinking", "naive_thinking", "EIG", "Full2StepEIG"):
         arm = result["arms"][name]
         lines.append(
             f"| {name} | {arm['resolution_at_budget']:.3f} | {arm['mean_censored_turns']:.3f} | "
             f"{arm['answer_set_coverage']:.3f} | {arm['backend_cost_usd']:.4f} | {arm['backend_requests']} |"
         )
-    for title, key in (("Claim 1: EIG vs naive", "claim1_eig_vs_naive"), ("Claim 2: full2 vs EIG", "claim2_full2_vs_eig")):
+    for title, key in (
+        ("Claim 1 matched: EIG vs naive non-thinking", "claim1_matched_eig_vs_naive_nonthinking"),
+        ("Claim 1 adversarial: EIG vs naive thinking", "claim1_adversarial_eig_vs_naive_thinking"),
+        ("Claim 2: full2 vs EIG", "claim2_full2_vs_eig"),
+    ):
         value = result[key]
         lines.extend(
             [
@@ -222,10 +270,17 @@ def _markdown(result: dict[str, Any]) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--scaffolded-run", type=Path, required=True)
-    parser.add_argument("--naive-run", type=Path, required=True)
+    parser.add_argument("--naive-nonthinking-run", type=Path, required=True)
+    parser.add_argument("--naive-thinking-run", type=Path, required=True)
+    parser.add_argument("--round-budget", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    result = analyze(args.scaffolded_run, args.naive_run)
+    result = analyze(
+        args.scaffolded_run,
+        args.naive_nonthinking_run,
+        args.naive_thinking_run,
+        round_budget=args.round_budget,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n")
     args.output.with_suffix(".md").write_text(_markdown(result))
