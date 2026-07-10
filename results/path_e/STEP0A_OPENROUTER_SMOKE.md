@@ -9,7 +9,7 @@ Status: **PASSED** on 2026-07-11 after automated and manual review.
 - Backend/model: OpenRouter, `google/gemma-4-26b-a4b-it`
 - Configuration: five official Paprika customer-service eval tasks, two-round budget,
   one-step EIG, 12 initial hypotheses, five shared candidates, non-thinking questioner
-  and answerer, seed 1304, concurrency 24 (raised to 64 after this gate run).
+  and answerer, seed 1304, concurrency 24 (raised to 64 for Step 1 and 128 afterward).
 - Cost: $0.04004851 for 642 requests, 135,065 prompt tokens and 63,832 completion
   tokens. Reasoning tokens and forced exits were both zero.
 

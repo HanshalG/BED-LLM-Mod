@@ -139,6 +139,36 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**PRE-LAUNCH AMENDMENTS TO STEP 1 (Hanshal-reviewed, 2026-07-11 — apply BEFORE launching
+the Step 1 configs):**
+
+A. **Extend the horizon: >= 4 rounds (prefer 5), not 2.** With a 2-turn budget the
+   second action has no future, so 2-step lookahead can influence exactly one decision
+   per task, prerequisite chains cannot manifest, and most tasks will be censored —
+   claim 2 could read null purely from horizon truncation (false negative at the key
+   gate). Re-project cost from the micro-pilot (~$0.084/task/round for full2 =>
+   ~$8-10 scaffolded at 5 rounds); the full $20 is authorized and a correct Step 1
+   read outranks the savings. Update both YAML configs before committing them.
+
+B. **Add a non-thinking naive arm** (same tasks/seed; ~$0.50). The thinking-naive arm is
+   the adversarial headline comparator, but if the non-thinking scaffold loses to
+   thinking naive alone, "scaffolding fails" is confounded with "thinking wins".
+   Claim-1 then has two pre-registered readings: matched (EIG vs naive-nonthinking —
+   the clean comparison; this is the gate) and adversarial (EIG vs naive-thinking —
+   the headline if it holds; report honestly either way).
+
+C. **Pre-planned rescue variant (decided now, not post-hoc):** if the matched claim-1
+   read fails, ONE authorized variant may run before the STOP-and-discuss: enable
+   thinking on the scaffold's generation calls only (hypothesis generation + candidate
+   generation — a handful of calls per round), keeping likelihood/mapper/judge calls
+   non-thinking. Anything beyond that single variant is a stop-and-discuss.
+
+D. Analyzer must be finalized (censoring rule, tie handling in the 6/10 count — ties
+   count for neither side, and mostly-tie outcomes are 'insufficient signal' not
+   'fail') BEFORE any Step 1 results are viewed. Watch forced-exit rate on the
+   thinking-naive arm (8k budget).
+
+
 Path E reset (2026-07-10): external benchmarks with structural sequential gaps. See
 GOAL.md for the six environment requirements (R1-R6) and the full validation chain.
 
@@ -151,7 +181,8 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    The one-task/one-round full2 cost micro-pilot completed with 1,235 requests, 419,382
    tokens, $0.08430807, zero terminal failures, and 236.7 seconds at concurrency 24.
    A linear 10-task x 2-round full2 projection is about $1.69 before early stopping and
-   support-growth effects. OpenRouter concurrency is now 64 for subsequent runs.
+   support-growth effects. The active Step 1 runs instantiated at concurrency 64;
+   OpenRouter concurrency is now 128 for subsequent runs.
    Claim-1 check: 1-step > naive.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.

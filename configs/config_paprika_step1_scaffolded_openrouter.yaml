@@ -21,7 +21,7 @@ answer_temperature: 0.7
 probability_parse_fallback_to_uniform: false
 openrouter_budget_usd: 20.0
 openrouter_projected_cost_usd: 4.0
-openrouter_concurrency: 64
+openrouter_concurrency: 128
 openrouter_max_retries: 5
 openrouter_backoff_seconds: 1.0
 openrouter_max_output_tokens: 2048
