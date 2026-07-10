@@ -214,6 +214,9 @@ def test_full_two_step_expands_each_root_outcome(tmp_path: Path) -> None:
     assert chosen.extras["planning_depth"] == 2
     assert chosen.extras["expanded_branch_counts"] == [3, 3]
     assert len(chosen.extras["candidate_scores"]) == 2
+    # Root likelihoods, all branch proposals, all follow-up likelihoods, and
+    # post-observation refined-support likelihoods are each one batched call.
+    assert questioner.batch_calls == 4
 
 
 def test_paired_methods_reuse_identical_root_candidates_and_customer_reply() -> None:

@@ -234,24 +234,37 @@ class PaprikaCustomerServiceEnvironment(
         return self._likelihood_cache[key]
 
     def outcome_likelihoods(self, hypotheses: Sequence[str], action: PaprikaAction) -> np.ndarray:
-        missing = [
-            hypothesis
-            for hypothesis in hypotheses
-            if (hypothesis, action) not in self._likelihood_cache
-        ]
-        if missing:
-            messages = [likelihood_messages(hypothesis, action) for hypothesis in missing]
+        return self.outcome_likelihoods_many([(hypotheses, action)])[0]
+
+    def outcome_likelihoods_many(
+        self,
+        requests: Sequence[tuple[Sequence[str], PaprikaAction]],
+    ) -> list[np.ndarray]:
+        missing_keys: list[tuple[str, PaprikaAction]] = []
+        missing_messages: list[list[dict[str, str]]] = []
+        seen_missing: set[tuple[str, PaprikaAction]] = set()
+        for hypotheses, action in requests:
+            for hypothesis in hypotheses:
+                key = (hypothesis, action)
+                if key not in self._likelihood_cache and key not in seen_missing:
+                    seen_missing.add(key)
+                    missing_keys.append(key)
+                    missing_messages.append(likelihood_messages(hypothesis, action))
+        if missing_messages:
             responses = self._cached_complete_many(
                 self._questioner(),
-                messages,
+                missing_messages,
                 float(getattr(self.config, "generation_temperature_simple", 0.0)),
                 namespace="questioner:likelihood",
             )
-            for hypothesis, response in zip(missing, responses):
+            for (hypothesis, action), response in zip(missing_keys, responses):
                 self._likelihood_cache[(hypothesis, action)] = parse_distribution(
                     response, action.outcomes
                 )
-        return np.asarray([self._likelihood_for(hypothesis, action) for hypothesis in hypotheses])
+        return [
+            np.asarray([self._likelihood_cache[(hypothesis, action)] for hypothesis in hypotheses])
+            for hypotheses, action in requests
+        ]
 
     def log_likelihood_many(self, hypotheses: Sequence[str], action: PaprikaAction, observation: PaprikaObservation) -> np.ndarray:
         if not observation.mapped_cleanly or observation.mapped_outcome is None:
@@ -361,6 +374,35 @@ class PaprikaCustomerServiceEnvironment(
         count = int(getattr(config, "paprika_num_candidates", 5))
         text = self._cached_complete(model, candidate_messages(scenario, belief_state.hypotheses, history, count), float(getattr(config, "generation_temperature_diverse", 1.0)), namespace="questioner:candidates")
         return self._parse_candidates(text, scenario, history, count)
+
+    def generate_candidate_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[str]],
+        histories: Sequence[Sequence[tuple[PaprikaAction, PaprikaObservation]]],
+        model: Any,
+        config: Any,
+    ) -> list[list[PaprikaAction]]:
+        if len(belief_states) != len(histories):
+            raise ValueError("belief_states and histories must have the same length")
+        count = int(getattr(config, "paprika_num_candidates", 5))
+        scenarios: list[str] = []
+        messages: list[list[dict[str, str]]] = []
+        for belief_state, history in zip(belief_states, histories):
+            scenario = history[0][0].scenario if history else self._scenario_by_support.get(belief_state.hypotheses)
+            if not scenario:
+                raise RuntimeError("Could not associate Paprika belief support with a scenario")
+            scenarios.append(scenario)
+            messages.append(candidate_messages(scenario, belief_state.hypotheses, history, count))
+        responses = self._cached_complete_many(
+            model,
+            messages,
+            float(getattr(config, "generation_temperature_diverse", 1.0)),
+            namespace="questioner:candidates",
+        )
+        return [
+            self._parse_candidates(response, scenario, history, count)
+            for response, scenario, history in zip(responses, scenarios, histories)
+        ]
 
     def observe(self, action: PaprikaAction, hidden_state: PaprikaTask, rng: np.random.Generator) -> PaprikaObservation:
         del rng

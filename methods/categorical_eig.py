@@ -94,14 +94,21 @@ class FullTwoStepCategoricalEIG(Method[H, A, O, S]):
         if not callable(scorer) or not callable(branch_observation):
             raise TypeError("Two-step categorical environment lacks branch hooks")
 
-        scores: list[float] = []
-        branch_counts: list[int] = []
         prior = np.asarray(belief_state.probabilities, dtype=float)
-        for candidate in candidates:
-            first_likelihoods = np.asarray(scorer(belief_state.hypotheses, candidate))
-            first_eig = categorical_eig(prior, first_likelihoods)
-            expected_second_eig = 0.0
-            expanded = 0
+        many_scorer = getattr(environment, "outcome_likelihoods_many", None)
+        if callable(many_scorer):
+            first_matrices = many_scorer(
+                [(belief_state.hypotheses, candidate) for candidate in candidates]
+            )
+        else:
+            first_matrices = [scorer(belief_state.hypotheses, candidate) for candidate in candidates]
+        scores = [categorical_eig(prior, matrix) for matrix in first_matrices]
+        branch_counts = [0 for _candidate in candidates]
+        branches: list[tuple[int, float, BeliefState[H], list[tuple[A, O]]]] = []
+        for candidate_index, (candidate, first_likelihoods) in enumerate(
+            zip(candidates, first_matrices)
+        ):
+            first_likelihoods = np.asarray(first_likelihoods)
             for outcome_index in range(first_likelihoods.shape[1]):
                 weights = prior * first_likelihoods[:, outcome_index]
                 outcome_mass = float(np.sum(weights))
@@ -113,21 +120,36 @@ class FullTwoStepCategoricalEIG(Method[H, A, O, S]):
                 )
                 synthetic = branch_observation(candidate, outcome_index)
                 branch_history = list(history) + [(candidate, synthetic)]
-                followups = environment.generate_candidate_actions(
-                    branch_belief, branch_history, model, config
+                branches.append((candidate_index, outcome_mass, branch_belief, branch_history))
+                branch_counts[candidate_index] += 1
+
+        followups_many = environment.generate_candidate_actions_many(
+            [branch[2] for branch in branches],
+            [branch[3] for branch in branches],
+            model,
+            config,
+        )
+        flat_requests: list[tuple[Sequence[H], A]] = []
+        slices: list[tuple[int, int]] = []
+        for (_candidate_index, _mass, branch_belief, _history), followups in zip(
+            branches, followups_many
+        ):
+            start = len(flat_requests)
+            flat_requests.extend((branch_belief.hypotheses, followup) for followup in followups)
+            slices.append((start, len(flat_requests)))
+        if callable(many_scorer):
+            followup_matrices = many_scorer(flat_requests)
+        else:
+            followup_matrices = [scorer(hypotheses, action) for hypotheses, action in flat_requests]
+        for (candidate_index, outcome_mass, branch_belief, _history), (start, end) in zip(
+            branches, slices
+        ):
+            if end > start:
+                best_second = max(
+                    categorical_eig(branch_belief.probabilities, matrix)
+                    for matrix in followup_matrices[start:end]
                 )
-                if followups:
-                    best_second = max(
-                        categorical_eig(
-                            branch_belief.probabilities,
-                            scorer(branch_belief.hypotheses, followup),
-                        )
-                        for followup in followups
-                    )
-                    expected_second_eig += outcome_mass * best_second
-                expanded += 1
-            scores.append(first_eig + expected_second_eig)
-            branch_counts.append(expanded)
+                scores[candidate_index] += outcome_mass * best_second
         best = int(np.argmax(scores))
         return ActionScore(
             action=candidates[best],
