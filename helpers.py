@@ -157,6 +157,7 @@ class Config:
     paprika_belief_refresh_enabled: bool = True
     paprika_num_refresh_hypotheses: int = 6
     paprika_max_hypotheses: int = 24
+    paprika_structured_max_retries: int = 2
 
     def __post_init__(self) -> None:
         if self.environment:
@@ -254,6 +255,8 @@ class Config:
                 raise ValueError(f"{name} must be a positive integer")
         if not isinstance(self.paprika_task_offset, int) or isinstance(self.paprika_task_offset, bool) or self.paprika_task_offset < 0:
             raise ValueError("paprika_task_offset must be a non-negative integer")
+        if not isinstance(self.paprika_structured_max_retries, int) or isinstance(self.paprika_structured_max_retries, bool) or self.paprika_structured_max_retries < 0:
+            raise ValueError("paprika_structured_max_retries must be a non-negative integer")
 
     @property
     def effective_max_model_len(self) -> int:
@@ -562,6 +565,7 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "belief_refresh_enabled": "paprika_belief_refresh_enabled",
         "num_refresh_hypotheses": "paprika_num_refresh_hypotheses",
         "max_hypotheses": "paprika_max_hypotheses",
+        "structured_max_retries": "paprika_structured_max_retries",
     }
     if task == "animals":
         return common_animals
@@ -963,6 +967,7 @@ def load_config(path: str) -> Config:
         paprika_belief_refresh_enabled = raw.get("paprika_belief_refresh_enabled", True),
         paprika_num_refresh_hypotheses = raw.get("paprika_num_refresh_hypotheses", 6),
         paprika_max_hypotheses = raw.get("paprika_max_hypotheses", 24),
+        paprika_structured_max_retries = raw.get("paprika_structured_max_retries", 2),
     )
 
 

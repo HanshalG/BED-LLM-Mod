@@ -41,6 +41,14 @@
       99.0,
       121.0
     ],
+    "structured_parse_retries": [
+      0.0,
+      0.0
+    ],
+    "structured_parse_failures": [
+      0.0,
+      0.0
+    ],
     "selected_eig": [
       0.0,
       1.9984014443252818e-16

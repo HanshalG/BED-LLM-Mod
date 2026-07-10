@@ -172,6 +172,7 @@ class PaprikaConfig:
     belief_refresh_enabled: bool = True
     num_refresh_hypotheses: int = 6
     max_hypotheses: int = 24
+    structured_max_retries: int = 2
 
 
 # ---------------------------------------------------------------------------
@@ -337,4 +338,7 @@ def paprika_view(config: Any) -> PaprikaConfig:
             getattr(config, "paprika_num_refresh_hypotheses", 6)
         ),
         max_hypotheses=int(getattr(config, "paprika_max_hypotheses", 24)),
+        structured_max_retries=int(
+            getattr(config, "paprika_structured_max_retries", 2)
+        ),
     )

@@ -25,7 +25,7 @@ class RoutingQuestioner:
     def chat_complete(self, messages, temperature, num_responses=1):
         del temperature, num_responses
         self.calls += 1
-        text = messages[-1]["content"]
+        text = "\n".join(message["content"] for message in messages)
         self.prompt_texts.append(text)
         if '"refined_hypotheses"' in text:
             count = int(re.search(r"exactly (\d+)", text).group(1))
@@ -71,6 +71,39 @@ class SolvingCustomer(RoutingCustomer):
         del messages, temperature, num_responses
         self.calls += 1
         return ["Goal reached"]
+
+
+class FlakyCandidateQuestioner(RoutingQuestioner):
+    def __init__(self) -> None:
+        super().__init__()
+        self.failed_candidate_once = False
+
+    def chat_complete(self, messages, temperature, num_responses=1):
+        text = messages[-1]["content"]
+        if '"candidates"' in text and not self.failed_candidate_once:
+            self.failed_candidate_once = True
+            self.calls += 1
+            self.prompt_texts.append(text)
+            return ["not json"]
+        return super().chat_complete(messages, temperature, num_responses)
+
+
+class FlakyLikelihoodQuestioner(RoutingQuestioner):
+    def __init__(self) -> None:
+        super().__init__()
+        self.failed_likelihood_once = False
+
+    def chat_complete_messages_batched(self, batch_messages, temperature, block_size, max_new_tokens=None):
+        responses = super().chat_complete_messages_batched(
+            batch_messages, temperature, block_size, max_new_tokens
+        )
+        if not self.failed_likelihood_once:
+            for index, messages in enumerate(batch_messages):
+                if '"probabilities"' in messages[-1]["content"]:
+                    responses[index] = "{bad likelihood}"
+                    self.failed_likelihood_once = True
+                    break
+        return responses
 
 
 def test_load_released_shape_exposes_private_solution() -> None:
@@ -242,3 +275,24 @@ def test_paired_methods_reuse_identical_root_candidates_and_customer_reply() -> 
     assert eig_round.observation == two_round.observation
     assert customer.calls == 1
     assert two_summary.metrics["shared_call_cache_hits"][0] > 0
+
+
+@pytest.mark.parametrize(
+    "questioner_type", [FlakyCandidateQuestioner, FlakyLikelihoodQuestioner]
+)
+def test_structured_output_repair_is_bounded_and_logged(questioner_type) -> None:
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+        paprika_structured_max_retries=2,
+    )
+    _run, summary = run_from_config(
+        config, questioner_type(), RoutingCustomer(), method_name="EIG"
+    )
+    assert summary.metrics["structured_parse_retries"] == [1.0]
+    assert summary.metrics["structured_parse_failures"] == [0.0]

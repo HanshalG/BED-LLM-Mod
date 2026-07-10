@@ -37,6 +37,8 @@
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 2.0,
       "shared_call_cache_misses": 41.0,
+      "structured_parse_retries": 0.0,
+      "structured_parse_failures": 0.0,
       "selected_eig": 1.9984014443252818e-16
     }
   },
@@ -78,6 +80,8 @@
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 5.0,
       "shared_call_cache_misses": 81.0,
+      "structured_parse_retries": 0.0,
+      "structured_parse_failures": 0.0,
       "selected_eig": 1.9984014443252818e-16
     }
   },
@@ -119,6 +123,8 @@
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 8.0,
       "shared_call_cache_misses": 121.0,
+      "structured_parse_retries": 0.0,
+      "structured_parse_failures": 0.0,
       "selected_eig": 1.9984014443252818e-16
     }
   },
@@ -160,6 +166,8 @@
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 11.0,
       "shared_call_cache_misses": 161.0,
+      "structured_parse_retries": 0.0,
+      "structured_parse_failures": 0.0,
       "selected_eig": 1.9984014443252818e-16
     }
   },
@@ -201,6 +209,8 @@
       "true_solution_exact_mass": 0.0,
       "shared_call_cache_hits": 14.0,
       "shared_call_cache_misses": 201.0,
+      "structured_parse_retries": 0.0,
+      "structured_parse_failures": 0.0,
       "selected_eig": 1.9984014443252818e-16
     }
   }
