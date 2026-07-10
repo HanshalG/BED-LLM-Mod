@@ -1,172 +1,221 @@
-# GOAL (Path B): Goal-oriented LLM experimental design that beats naive AND greedy EIG on standard location finding
+# GOAL: Non-myopic Bayesian experimental design for interactive LLM agents, evaluated on external benchmarks (Paprika customer service + MediQ)
 
 ## HOW TO USE THIS DOCUMENT
 
-This file drives all work toward a NeurIPS-workshop submission. It is immutable during
-the run; all LIVING state lives in `STATE.md`, which you can edit. Rules:
+This file is immutable during the run. All living state lives in `STATE.md`, which you
+can and must edit.
 
-- **First action of every session**: read `STATE.md`. Execute from it; use this file for
-  the target result, method spec, gates, playbook, and definition of done.
-- **Maintenance contract**: at the end of every working session, update `STATE.md` and
-  append a row to `EXPERIMENTS.md` for anything launched. A stale `STATE.md` is a bug.
+- **First action of every session**: read `STATE.md`. Execute from its NEXT ACTIONS; use
+  this file for the claims, method spec, gates, playbook, and definition of done.
+- **Maintenance contract**: at the end of every working session update `STATE.md`; append
+  a row to `EXPERIMENTS.md` for every launch (run name, job ID, config, commit/tag,
+  status, key metric, artifacts). A stale `STATE.md` is a bug — fix it first.
 - **Precedence**: `STATE.md` > this file.
-- **Cluster restriction**: at most 8 active jobs; `--partition=msc,llm --exclude=oat12`
-  unless the user changes this.
+- **Cluster**: at most 8 active jobs; `--partition=msc,llm --exclude=oat12`; no GH200
+  unless Hanshal asks.
 
-## THE RESULT WE ARE AFTER (all four required)
+## MOTIVATION (one paragraph of history — details in banked Path A–D artifacts)
 
-A method that, on **standard multi-source location finding** (2–3 sources, 10 rounds,
-NO movement constraint — the DAD-style benchmark setting, not a tuned trap):
+Prior phases established, on location finding: (i) belief scaffolding fails where a naive
+thinking-LLM is already near-oracle (low-dim continuous tasks); (ii) plan-score ranking
+against realized per-instance gains is bounded by posterior concentration (aleatoric
+ceiling), so ranking-fidelity gates must target the smooth expected quantity and method
+value must be measured as average paired policy performance; (iii) lookahead estimator
+noise grows with depth (cap at 2). This phase applies those lessons where the mechanism
+has room to win: external interactive benchmarks with large semantic hypothesis spaces
+and genuine sequential structure.
 
-1. **Beats naive LLM prompting** on paired final RMSE (primary) with bootstrap CI
-   excluding zero.
-2. **Beats greedy LLM EIG** on the same endpoint.
-3. Uses **no environment engineering** — if it only works in a hand-tuned geometry, it
-   does not satisfy this goal.
-4. Has a scorer whose estimates **rank realized ΔRMSE with clearly positive ρ** — the
-   Path A entropy scorer's ρ≈0 against RMSE is disqualifying and must not recur.
+## ENVIRONMENT DOCTRINE (six requirements — all enforced)
 
-## WHY THIS SHOULD WORK (evidence from Path A — treat as banked motivation)
+- R1 Naive must not be near-oracle: hypothesis space too large to track in-context.
+- R2 Greedy must have a STRUCTURAL gap given by the task (prerequisite chains, gated
+  actions, budgets) — never engineered by us. Vanilla 20Q/Wordle/Mastermind fail R2;
+  location finding fails R1. Neither may return as a claims environment.
+- R3 Semantic: LLM priors/generation must be load-bearing.
+- R4 Simulable with ground truth (rollouts + eval).
+- R5 EXTERNAL benchmark — someone else's task definition.
+- R6 Runnable with ≤26B models on msc/llm.
 
-- Naive thinking-LLM ≈ non-LLM oracle planner (0.166 vs 0.153 final RMSE, constrained
-  arm); greedy-EIG scaffolding HURT vs naive in BOTH arms. Lesson: do not replace the
-  LLM's native policy — arbitrate over it.
-- Entropy scoring decorrelates from RMSE (gate ρ≈0) because entropy rewards posterior
-  concentration on ANY hypothesis, including wrong branches. Naive had the best
-  truth-log-prob and RMSE while being middling on entropy drop. Lesson: EIG is the wrong
-  utility for a localization task; use task-loss-aligned utility.
-- Early run `90338`/`90339`: on the standard harder task, StrategyEIG-d3 beat naive by
-  ~15% (3 trials). Lesson: the standard task has headroom; the easy 1-source/6-round
-  variant is at ceiling (all methods 0.089–0.108) and cannot show anything.
+## ENVIRONMENTS
 
-## METHOD SPEC
+**Primary: Paprika customer-service troubleshooting** ("Training a Generally Curious
+Agent", arXiv:2502.17543; code + environments at github.com/tajwarfahim/paprika).
+Belief = candidate issues (LLM-generated + filtered, BED-LLM style — the animals-env
+machinery generalizes); queries = questions/diagnostic actions; user simulator =
+answerer model. The myopic gap is structural: troubleshooting has prerequisite chains
+(cheap establishing questions unlock and inform later checks) which 1-step EIG cannot
+see. Endpoint: turns-to-resolution / resolution@turn-budget, paired per task.
+Positioning bonus: Paprika obtains information-seeking behavior via RL training; we test
+whether an inference-time Bayesian scaffold achieves it without training (and can later
+serve as the SFT/RL teacher — the project's original vision).
 
-**Utility (fixes requirement 4).** Score candidate queries by rollout-estimated
-**expected posterior loss reduction**: expected posterior RMSE = E_{θ∼posterior}
-||θ − θ̂(posterior)|| (best-permutation matched for multi-source), computable at decision
-time with no access to truth. Rollouts reuse the existing analytic machinery (sample
-θ from posterior, simulate observation(s), closed-form reweight, measure expected
-posterior RMSE drop). Non-myopic depth n is a knob, not the headline; start at n ∈ {1, 3}.
+**Second env: MediQ** (arXiv:2406.00922, NeurIPS 2024) — MedQA converted to an
+interactive question-asking benchmark with a patient simulator. Purpose-built for this
+question, and its own headline finding is our motivation: naively prompting models to
+ask questions DROPS accuracy ~11.3% vs not asking (naive interactive info-seeking is
+certified-bad by the benchmark authors — R1 by external evidence). Belief = differential
+diagnosis; queries = history questions. Endpoint: diagnosis accuracy @ question budget,
+paired per case; MediQ's Expert-system variants are native baselines. Fallback if MediQ
+integration stalls: AgentClinic (arXiv:2405.07960). Conference-version upgrade (not this
+workshop): SDBench (arXiv:2506.22405, native dollar-cost axis).
 
-**Candidate set (requirement 2).** Every round, candidates MUST include: (a) the naive
-LLM's proposed query — the PLAIN raw-history naive policy, NOT naive+belief (Path A:
-naive 0.166 vs naive+belief 1.137; belief-summary conditioning poisons the policy),
-(b) the greedy-EIG argmax query, (c) LLM strategic proposals (reuse strategy generation,
-small K). Report the
-selection-frequency table (how often each proposal type wins) — it is the paper's
-attribution analysis.
+**Harness-only: Mastermind (hardcoded filtering, exact posterior)** — unit-tests the
+belief + EIG + lookahead pipeline free of LLM noise. Never a claims environment.
 
-**Conservative override (this, not argmax, delivers the ≈naive floor).** Plain argmax
-over noisy scores overrides naive exactly when scorer noise is largest (winner's curse)
-and can end up WORSE than naive. Rule: default to the naive proposal; depart only when
-another candidate's scored advantage exceeds δ = c · SE, where SE is the per-decision
-standard error of that candidate's rollout score (computable at deployment from the R
-rollouts) and c is fixed a priori (c = 1; pre-registered before Phase 2, not tuned). This is
-what makes "no worse than naive, better when the scorer has signal" approximately true.
+## METHOD
 
-**Name the method** something honest like Task-Aligned Design Arbitration (TADA) or
-goal-oriented StrategyEIG; final name is a writing decision.
+Belief state and 1-step EIG exactly as BED-LLM (arXiv:2508.21184): LLM-proposed
+hypotheses (generation/refinement/filtering), LLM likelihoods, categorical posterior.
+The repo's animals machinery implements this; new envs adapt via `core.Environment`.
 
-## VALIDATION CHAIN (gates in order — do not skip)
+**Answer-space handling (required — these envs answer in free text, unlike 20Q):** per
+candidate query, the LLM proposes a small discrete answer set (3–5 mutually exclusive
+outcomes); likelihoods P(outcome | hypothesis, query) are scored over that set; the
+simulator's actual free-text reply is mapped to the nearest outcome (LLM judge call).
+Log answer-set coverage (fraction of replies that map cleanly); if coverage < ~85% in
+pilots, revise the outcome-proposal prompt before scaling — do not proceed on a leaky
+answer space.
 
-**Gate 0 (local, no cluster, do first).** Re-score the existing ranking-fidelity records
-(`runs/rankfid26b_a4b_gate_v2ghs_*`) with expected posterior RMSE as the estimated
-utility, and compute Spearman ρ against realized ΔRMSE and realized
-expected-posterior-RMSE drop. If the stored records lack rollout-level posterior
-snapshots for the estimated side, fall back to re-scoring the stored candidates with the
-analytic machinery locally — the scorer needs no LLM, so this remains cluster-free.
-The GATING metric is ρ against realized expected-posterior-RMSE drop (the smooth,
-rankable target): PASS ≥ ~0.3 at some depth. Also report ρ against realized point-ΔRMSE
-alongside its rankability ceiling — the realized-vs-realized correlation between
-expected-posterior-RMSE drop and point-ΔRMSE — so a low point-RMSE ρ is attributed to
-endpoint noise, not the objective (Path A showed point-ΔRMSE may be unrankable at probe
-horizons by ANY scorer). FAIL: the objective doesn't rank the smooth target → stop,
-diagnose supports/horizons before any cluster spend. Either way append to
-`results/ranking_fidelity/`.
+**Stopping/commit rule (required):** use the benchmark's native criterion where defined
+(MediQ's Expert abstention decision; Paprika's task success check). Where a commit
+decision is ours, commit when the posterior top-hypothesis mass exceeds a threshold or
+the budget ends (declare the posterior argmax); the threshold is fixed in Step 2 and
+pre-registered — never tuned per run.
 
-**Gate 1 (cheap pilot, cluster).** Standard task (2–3 sources, 10 rounds, noise as in
-`config_location_finding.yaml`), 5 paired trials, arms: naive, greedy EIG, arbitration
-n=1. Checks: (a) naive final RMSE ≥ ~0.4 (headroom exists — if naive is at ceiling,
-increase sources/reduce rounds and re-pilot); (b) **utility-divergence check**: on the
-same candidate sets, fraction of decisions where EIG-argmax ≠ task-loss-argmax — if the
-two utilities rarely disagree (≲15%), there is no room to beat greedy EIG on this task
-regardless of scorer quality; verify posteriors stay multimodal (multi-source ambiguity
-should do this naturally) or the claim needs re-scoping; (c) **override rate + gain**:
-how often arbitration departs from naive and the mean scored/realized gain per override —
-the achievable effect vs naive is bounded by their product; use it to POWER the Phase 2
-trial count instead of defaulting to 30–50; (d) selection-frequency table is
-non-degenerate.
+**Shared candidates (required):** 1-step, full 2-step, and selective arms score the SAME
+K candidate queries per round (and shared rollout seeds where applicable), so arms
+differ only in scoring depth — otherwise lookahead value is confounded with proposal
+quality.
 
-**Phase 2 (headline sweep).** 30–50 paired trials. REQUIRED arms: naive, greedy EIG,
-arbitration n=1, arbitration n=3, matched-compute entropy-utility control (same rollout
-budget — isolates the utility change), and **the no-LLM control: analytic A-optimal
-selection over the same support-grid candidates with NO LLM proposals**. The no-LLM arm
-is not optional — it decides what the paper is: if it alone beats naive, the honest
-contribution is "task-aligned utility" with the LLM as proposer only where the selection
-table shows LLM proposals winning; if LLM proposals (naive's query, strategies) are
-frequently selected and the full method beats the no-LLM arm, the LLM proposal
-distribution is demonstrably load-bearing. Optional arms (cut first): naive+belief,
-no-naive-candidate ablation. Pre-register endpoints in the runbook BEFORE launch:
-primary = paired final RMSE vs naive AND vs greedy EIG; secondary = expected posterior
-RMSE, truth-log-prob, entropy, arbitration-vs-no-LLM delta; bootstrap CIs primary,
-Wilcoxon supporting. Pre-declare the canonical run if variants are launched.
+**Model defaults (per Hanshal, 2026-07-10): 26B A4B thinking is the questioner/belief
+model for ALL runs, pilots included** — no 4B pilot tier. User/patient simulator and
+answer-mapping judge = 26B class. Same simulator model + per-task seed across arms for
+pairing. Operational carry-over from Path A: 26B A4B at a 4096 thinking budget produced
+~30% forced-thinking exits — log the forced-exit rate from the first smoke run onward,
+and raise the budget (8k+) if it exceeds ~10–15%; degraded truncated generations were a
+prime suspect in earlier marginal results.
 
-**Phase 3 (packaging + paper).** Reuse Path A packaging/validators. Paper arc:
-(i) measured failure: entropy-scored LLM design decorrelates from task loss (Path A gate
-+ sweep as motivation, honestly reported); (ii) explanation: multimodal posteriors,
-confident-but-wrong concentration; (iii) fix: goal-oriented utility + proposal-inclusive
-arbitration; (iv) result: beats naive and greedy EIG on a standard task; (v) attribution:
-matched-compute entropy control + selection-frequency table + no-naive-candidate
-ablation. Positioning — CLAIMS DISCIPLINE IS CRITICAL HERE: expected-posterior-loss
-utility is classical decision-theoretic design (Bernardo 1979; A-optimality vs
-D-optimality/EIG; loss-calibrated inference). NEVER claim to propose goal-oriented
-design. The claim is: (a) a measured decorrelation between EIG and task loss for
-LLM-scaffolded design agents, and (b) bringing task-aligned utilities + conservative
-proposal arbitration to LLM experimental design. REQUIRED reading before Phase 2: arXiv
-2605.26093 ("Goal-driven BOED for Robust Decision-Making", May 2026) — directly adjacent,
-non-LLM; write the differentiation into `results/POSITIONING.md`. BED-LLM, DAD, and
-Path A are all EIG-based; the LLM × task-aligned-utility corner is the open one.
-Transferability scoping (a reviewer WILL ask): this testbed has an analytic likelihood,
-so the task-loss scorer is exact; in open-ended LLM-BED settings (20Q-style) the
-posterior is LLM-estimated and the scorer inherits that noise. State explicitly that
-this work isolates the utility question under exact scoring, and that task-aligned
-utilities under LLM-estimated posteriors are the follow-up — do not imply the fix
-transfers for free.
+**Selective 2-step lookahead** on top. Each round, score K candidate queries by 1-step
+EIG. Expand a candidate one extra step ONLY when:
+(a) **tie trigger** — the top candidates are within ε of each other, ε = scoring-noise SE
+    (bootstrap/CRN variance of the EIG estimates), calibrated once in Step 2 then FROZEN
+    and pre-registered. Rationale (the aleatoric lesson): when scores are within noise
+    the myopic argmax is arbitrary — exactly and only then can lookahead change the
+    decision; or
+(b) **gating trigger** — the candidate is an availability-gated action whose EIG depends
+    on an unestablished precondition.
+Expansion: simulate answer branches under the current posterior, generate K′ < K
+follow-ups per branch, score 2-step EIG with common random numbers across the tied set
+(paired comparison, not absolute estimation). Depth cap 2 (banked evidence: depth 3 adds
+noise, not value). Log trigger rate and tokens per round for the cost frontier.
 
-## OUTCOME PLAYBOOK
+**Arms everywhere**: naive agent; benchmark-native baselines (MediQ Expert variants;
+Paprika-reported numbers where comparable); BED-LLM 1-step EIG (faithful — baseline and
+base); full 2-step (upper anchor + cost); selective (ours).
 
-| Phase 2 outcome | Framing |
+## THE THREE NESTED CLAIMS (each independently publishable — this is the scope design)
+
+1. **Transfer**: BED-LLM-style belief scaffolding + 1-step EIG beats naive and native
+   baselines on Paprika customer service and MediQ. Nobody has run BED scaffolding on
+   either benchmark; MediQ's naive-asking-hurts result makes headroom near-certain.
+   This claim alone is a positive workshop paper.
+2. **Lookahead**: full 2-step beats 1-step where sequential structure exists (the
+   genuine bet; gated cheaply in Step 1).
+3. **Efficiency**: selective triggering captures most of 2-step's gain at ≤ ~40% of its
+   lookahead tokens (the mechanism).
+
+Write the paper so claim 1 carries it if claim 2 is weak; claims 2+3 elevate it if they
+land. All endpoints paired per task instance with bootstrap CIs; Wilcoxon supporting.
+
+## VALIDATION CHAIN (in order; gates are numeric and pre-registered)
+
+**Step 0a — environment standing.** Clone Paprika (ledger the commit/URL), adapt the
+customer-service tasks into `core.Environment` (reuse animals-env belief machinery;
+user simulator = answerer model). ACCEPTANCE CRITERION: each adapted task must expose a
+well-defined hidden ground truth (the true issue) and a success check usable for
+likelihood evaluation and endpoint scoring. If the released tasks don't support this
+cleanly, STOP and report to Hanshal with specifics — do not silently invent task
+structure (that is how Path A died). Deliverable: adapter + tests + 5-task smoke log
+including answer-set coverage numbers.
+
+**Step 0b — Mastermind harness test.** Full belief + 1-step EIG + 2-step lookahead
+pipeline with hardcoded filtering (exact posterior, no LLM noise). Unit tests green
+before any claims run.
+
+**Step 1 — gap pilot (cheap; gates the claims).** 10 paired customer-service tasks,
+arms: naive, 1-step EIG, full 2-step (26B A4B, per model defaults). Two independent
+reads:
+- Claim-1 check: 1-step > naive directionally. Expected to pass.
+- Claim-2 check: 2-step > 1-step (≥6/10 or clear turns-to-resolution edge).
+Claim-2 fail → descope to the claim-1 transfer study and CONTINUE (do not stop).
+Claim-1 fail → STOP and discuss with Hanshal (this would contradict BED-LLM's core
+result in a new setting — important, but no autonomous pivot).
+
+**Step 2 — selective implementation + pilot.** Add tie/gating triggers; 10 paired
+tasks, all arms. Checks: trigger rate non-degenerate (neither ~0% nor ~100%); selective
+lookahead tokens ≤ ~40% of full 2-step; selective ≥ 1-step directionally. Calibrate ε
+here, then freeze it. Use pilot effect sizes to power Step 3.
+
+**Step 3 — pre-register, then headline runs.** Endpoints, analysis plan, frozen ε, and
+canonical-run rule written into the runbook BEFORE launch. Customer service: 50–100
+paired tasks (powered from Step 2), all arms. Then MediQ: 50+ paired cases, accuracy @
+question budget, native Expert baselines included. Analyze exactly as registered.
+
+**Step 4 — paper.** Arc: interactive agents must gather information under real task
+structure → BED-LLM's greedy EIG is the right foundation but myopic where actions gate
+actions → selective lookahead triggered exactly where the myopic decision is
+statistically arbitrary → results per the playbook row, on two external benchmarks, at
+bounded extra cost. Location-finding history = one honest paragraph ("when scaffolds
+don't help: tasks where the LLM's native policy is near-oracle").
+
+## OUTCOME PLAYBOOK (choose by table lookup on results day)
+
+| Outcome | Paper |
 |---|---|
-| Beats naive AND greedy, and beats the no-LLM control | Full claim: task-aligned utility + LLM proposal distribution both load-bearing; entropy control isolates the utility, no-LLM control isolates the proposals |
-| Beats naive AND greedy, but no-LLM control matches | Honest reframe: "task-aligned utility fixes LLM-BED scaffolds" — the utility is the contribution, LLM proposals are optional on this task; selection table + 20Q-style tasks as future work for where proposals must matter |
-| Beats greedy, ties naive | "Scaffolds stop hurting: conservative task-aligned arbitration recovers native LLM competence and dominates EIG scaffolds"; selection table shows when overriding naive pays |
-| Ties both (selection ≈ always picks naive) | Diagnostic paper: even task-aligned scorers cannot out-select a strong native policy; scorer-fidelity + selection analysis is the contribution |
-| Gate 0 fails | The decorrelation is deeper than the objective: report entropy AND task-loss scorers both failing to rank realized RMSE — a serious negative result about LLM/rollout plan evaluation, written up with the Path A evidence |
+| All three claims land on both envs | Full method paper: non-myopic BED scaffolding for interactive LLM agents on external benchmarks |
+| Claims 1+2 land; selective captures little | "Lookahead helps interactive LLM agents" + efficiency-frontier analysis; trigger refinement as future work |
+| Claim 1 only (2-step ≈ 1-step) | Transfer study: first BED-LLM evaluation on Paprika + MediQ, beating naive and native baselines; lookahead honestly reported as unnecessary on these tasks |
+| Effects on customer service only (MediQ flat/infeasible) | Single-env version of the applicable row + Mastermind harness validation; MediQ honestly reported or dropped |
+| Claim 1 fails | STOP. Talk to Hanshal. No autonomous pivot. |
 
-Every row is publishable if executed honestly; only the first two are strong. No row
-requires environment engineering.
+Four of five rows are positive papers. No row requires environment engineering.
+
+## POSITIONING / CLAIMS DISCIPLINE
+
+- BED-LLM (arXiv:2508.21184): 1-step; our baseline and foundation — implement faithfully,
+  compare respectfully.
+- Paprika (arXiv:2502.17543): RL-trained curiosity; we are inference-time, training-free;
+  natural teacher-policy story for future SFT/RL.
+- MediQ (arXiv:2406.00922): benchmark + the naive-asking-hurts finding we build on.
+- MeDxAgent (arXiv:2606.03416): agentic consultation with maintained hypotheses —
+  hypothesis-tracking in medicine is NOT novel by itself; our medical claim rests on
+  principled EIG + lookahead. Compare if their code is runnable.
+- Uncertainty-Aware Clarification via IG (arXiv:2606.03135): greedy IG for clarification
+  — the field stops at greedy; we test beyond it.
+- "Shoot First, Ask Questions Later" (arXiv:2510.20886): independent evidence that
+  1-step lookahead mitigates myopic question front-loading — cite as motivation.
+- Learning to Ask (EMNLP 2024 Findings): EIG + preference optimization.
+- DAD/RL-BED: trained, parametric spaces; we are inference-time, open NL spaces.
+- Selective/adaptive search (B*-style): cite, never claim to invent selective expansion.
+- Claims are sample-efficiency / accuracy-at-budget claims, paired, with CIs. No
+  final-accuracy claims the curves don't support. No "first to do X" claims without a
+  check against the positioning list above.
 
 ## DEFINITION OF DONE
 
-1. Gate 0 and Gate 1 artifacts in `results/`; Phase 2 pre-registered before launch and
-   analyzed exactly as registered.
-2. Headline figure: paired final RMSE deltas vs naive and vs greedy EIG with CIs, plus
-   selection-frequency table and matched-compute entropy control.
-3. 4–6 page draft in `paper/` following the applicable playbook row, reusing Path A
-   material as motivation; validators pass; every result traceable via `EXPERIMENTS.md`
-  to a commit/tag.
-4. `STATE.md` updated to reflect completion.
-
-## SALVAGE FROM PATH A (do not rebuild)
-
-Paired fixed-root sweep machinery, support-grid + analytic rollout scoring (swap the
-utility function), ranking-fidelity scripts (swap scored metric), packaging/validators,
-ledger, oracle/robustness artifacts (background material), the Path A paper draft
-(becomes the motivation section), all operational knowledge in `STATE.md`.
+1. Step 0 tests green; Step 1/2 gate artifacts in `results/path_e/`; Step 3
+   pre-registration in the runbook before launch; every run in `EXPERIMENTS.md`
+   traceable to a commit/tag.
+2. Figures: paired endpoint curves (all arms, both envs); performance-vs-lookahead-cost
+   frontier; trigger-rate-vs-round; one qualitative prerequisite-chain example where
+   lookahead flips the decision and pays off.
+3. 4–6 page draft in `paper/` following the applicable playbook row; paper/package/ledger
+   validators pass; `STATE.md` updated to reflect completion.
 
 ## SCOPE DISCIPLINE
 
-This is a workshop paper. The MPP is Gate 0 + Gate 1 + Phase 2 primary arms + one
-attribution control + the paper. Cut order under pressure: no-naive-candidate ablation,
-n=3 arm, naive+belief arm. Do not add environments, constraints, or new scoring modes
-beyond the spec. Do not start any non-MPP item while an MPP item is incomplete.
+MPP = Steps 0–2 + customer-service headline + paper. MediQ is the first extension and
+the only one. Depth cap 2. Do not touch location finding, 20Q/Wordle/Mastermind claims,
+science-workflow envs, dollar costs, or new utilities/scoring modes. If any gate fails,
+the response is the playbook — never an autonomous new path. If anything surprising
+happens outside the playbook's rows, stop and ask Hanshal.

@@ -7,16 +7,32 @@ history, this file wins.
 
 ## CURRENT STATE (updated 2026-07-10)
 
-Status: **Path B negative-result package complete/validated** — the task-loss scorer did not reach the preregistered
-ranking-fidelity threshold on the standard task, so Gate 1 cluster spend is closed. The
-canonical common-support depth-1 replay reaches macro Spearman rho 0.231 versus realized
-posterior-risk reduction (threshold approximately 0.3); 32/256/1024-rollout sensitivity
-runs all fail. Evidence is in `results/ranking_fidelity/PATH_B_GATE0_TASK_LOSS.md` and
-`results/ranking_fidelity/PATH_B_GATE0_DIAGNOSIS.md`. No LLM calls or cluster jobs were
-used. `results/path_b/GATE1_NOT_RUN.md` records the preregistered stop. The five-page
-negative-result draft and rendered PDF pass the Path B package and paper validators;
-the package is traced to tag `path-b-gate0-negative-20260710`. The Path A package below
-remains banked motivation material.
+Status: **Path E active** — non-myopic LLM experimental design on EXTERNAL interactive
+benchmarks (GOAL.md): primary env = Paprika customer-service troubleshooting tasks
+(arXiv:2502.17543, released), second env = MediQ (arXiv:2406.00922; AgentClinic is fallback). Method =
+BED-LLM-style beliefs + selective 2-step lookahead (tie/gating-triggered). Must beat
+naive AND 1-step EIG on paired external-benchmark endpoints. 20Q/Wordle/Mastermind are
+harness/unit-test only (greedy near-optimal there); location finding is closed. All
+Path A/B/C/D location & 20Q material is banked history below.
+
+Path E Step 0 implementation status (2026-07-10): implementation through commit `35bc9dd` is pushed. The
+Paprika customer-service adapter now loads the hash-pinned official release, preserves
+the released public `agent` scenario and private `env` solution verbatim, uses the
+native semantic success rule, generates 3--5 outcome answer spaces, scores categorical
+one-step EIG, judge-maps free-text replies, logs mapping coverage, and writes per-turn
+artifacts. Full depth-two categorical EIG now branches over each root outcome,
+recomputes the posterior, generates branch-conditioned follow-ups, and optimizes the
+expected second-step gain. Paired method runs share prompt-scoped generated hypotheses, root candidates, and
+simulator replies whenever their states are identical. Categorical likelihoods are
+batched by action. After each mapped observation, the adapter generates history-conditioned
+refinements, explicitly filters them for consistency, recomputes full-history posterior
+weights, and prunes to the configured support cap. Focused adapter/config/registry/runner
+tests pass. A deterministic five-task, two-round mechanics smoke against the official
+pinned file has 100% mapping coverage;
+it is explicitly labeled NOT LLM EVIDENCE in
+`results/path_e/step0a_adapter_smoke/REPORT.json`. The exact-posterior Mastermind harness
+for depth 1/2 is implemented and tested. The required real 26B A4B five-task coverage
+smoke has not launched because `ssh oat0` currently fails with `No route to host`.
 
 Phases 1–4 are DONE for the Path A workshop package. The ranking-fidelity gate, constrained
 oracle, constrained support-grid MPP30 sweep, unconstrained contrast arm, paper-facing
@@ -99,14 +115,31 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
-Path B reset (2026-07-10): GOAL.md now targets goal-oriented arbitration that must beat
-naive AND greedy EIG on the STANDARD task. Path A artifacts are banked as motivation.
+Path E reset (2026-07-10): external benchmarks with structural sequential gaps. See
+GOAL.md for the six environment requirements (R1-R6) and the full validation chain.
 
-1. Await user review/submission feedback on the Path B negative-result package. No
-   cluster jobs are needed or authorized by the completed experiment chain.
-2. If revisiting the method after review, treat later-round-only abstaining arbitration
-   as a new hypothesis requiring a new pre-registration; do not retroactively call the
-   current Gate 0 a pass.
+1. **Finish Step 0a's real-model gate:** when `oat0` is reachable, sync pushed commit
+   `35bc9dd`, run `scripts/fetch_paprika.py`, and launch
+   `configs/config_paprika_step0a_smoke_26b_a4b.yaml` on
+   `--partition=msc,llm --exclude=oat12`. Inspect all five transcripts, answer-set
+   coverage (must be >= ~85%), parse failures, semantic success behavior, and forced
+   thinking exits. Revise prompts and repeat rather than scaling if coverage fails.
+2. **Step 0b mechanics are complete locally:** exact Mastermind posterior, one-step EIG,
+   and optimal two-step lookahead tests pass. Before claims runs, retain this as a
+   harness-only invariant and do not promote Mastermind to an evaluation environment.
+3. **Step 1 gap pilot (cheap, gates everything):** 10 paired customer-service tasks,
+   naive vs 1-step EIG vs full 2-step, 26B A4B thinking (per Hanshal: 26B A4B for ALL
+   runs incl. pilots; log forced-thinking-exit rate, raise budget to 8k+ if >10-15%). Claim-1 check: 1-step > naive.
+   Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
+   claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
+4. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
+   availability-gating trigger; CRN across tied set; depth cap 2; trigger/token
+   logging); 10-task four-arm pilot; calibrate then FREEZE epsilon; check selective
+   lookahead tokens <= ~40% of full 2-step.
+5. **Step 3:** pre-register endpoints/analysis/epsilon/canonical-run rule in the runbook,
+   then 50-100 paired customer-service tasks (powered from Step 2), four arms; then
+   AgentClinic 50+ cases if on schedule. `--partition=msc,llm --exclude=oat12`.
+6. **Step 4:** paper per GOAL.md playbook; location-finding saga = one honest paragraph.
 
 ## OPERATIONAL KNOWLEDGE
 
