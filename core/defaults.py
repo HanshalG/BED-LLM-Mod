@@ -47,6 +47,12 @@ def register_defaults(force: bool = False) -> None:
     for method_name in _ANIMALS_ONLY_METHODS:
         register_method("animals", method_name, _build_animals_only_method(method_name))
 
+    register_method(
+        "paprika_customer_service",
+        "Full2StepEIG",
+        _build_paprika_full_two_step,
+    )
+
     _REGISTERED = True
 
 
@@ -66,6 +72,12 @@ def _build_paprika_environment(config: Any, questioner: Any, answerer: Any) -> A
     from environments.paprika_customer_service import PaprikaCustomerServiceEnvironment
 
     return PaprikaCustomerServiceEnvironment(config=config, answerer=answerer)
+
+
+def _build_paprika_full_two_step(config: Any, environment: Any | None = None) -> Any:
+    if environment is None:
+        raise ValueError("Full2StepEIG requires a Paprika environment")
+    return environment.build_full_two_step_eig_method(config)
 
 
 def _build_global_method(method_name: str):

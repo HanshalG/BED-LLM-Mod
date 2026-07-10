@@ -10,7 +10,7 @@ from typing import Any, Sequence
 import numpy as np
 
 from core import BeliefState, Environment
-from methods.categorical_eig import CategoricalEIG
+from methods.categorical_eig import CategoricalEIG, FullTwoStepCategoricalEIG
 
 from .data import load_paprika_tasks
 from .parsing import parse_distribution, parse_json_object, parse_string_list
@@ -235,6 +235,19 @@ class PaprikaCustomerServiceEnvironment(
     def build_eig_method(self, config: Any) -> CategoricalEIG:
         del config
         return CategoricalEIG()
+
+    def build_full_two_step_eig_method(self, config: Any) -> FullTwoStepCategoricalEIG:
+        del config
+        return FullTwoStepCategoricalEIG()
+
+    def branch_observation(self, action: PaprikaAction, outcome_index: int) -> PaprikaObservation:
+        outcome = action.outcomes[outcome_index]
+        return PaprikaObservation(
+            reply=outcome,
+            mapped_outcome=outcome,
+            mapped_cleanly=True,
+            goal_reached=False,
+        )
 
     def generate_naive_action(self, belief_state: BeliefState[str], history: Sequence[tuple[PaprikaAction, PaprikaObservation]], model: Any, config: Any, *, method_name: str | None = None) -> PaprikaAction:
         del method_name

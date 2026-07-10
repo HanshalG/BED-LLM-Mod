@@ -68,3 +68,74 @@ class CategoricalEIG(Method[H, A, O, S]):
             score=scores[best],
             extras={"metric_name": "selected_eig", "candidate_scores": scores},
         )
+
+
+@dataclass
+class FullTwoStepCategoricalEIG(Method[H, A, O, S]):
+    """Exact categorical branching with model-proposed second-step candidates."""
+
+    @property
+    def name(self) -> str:
+        return "Full2StepEIG"
+
+    def select_action(
+        self,
+        candidates: Sequence[A],
+        belief_state: BeliefState[H],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        history: Sequence[tuple[A, O]],
+        config: Any,
+    ) -> ActionScore[A]:
+        if not candidates:
+            raise ValueError("FullTwoStepCategoricalEIG requires candidates")
+        scorer = getattr(environment, "outcome_likelihoods", None)
+        branch_observation = getattr(environment, "branch_observation", None)
+        if not callable(scorer) or not callable(branch_observation):
+            raise TypeError("Two-step categorical environment lacks branch hooks")
+
+        scores: list[float] = []
+        branch_counts: list[int] = []
+        prior = np.asarray(belief_state.probabilities, dtype=float)
+        for candidate in candidates:
+            first_likelihoods = np.asarray(scorer(belief_state.hypotheses, candidate))
+            first_eig = categorical_eig(prior, first_likelihoods)
+            expected_second_eig = 0.0
+            expanded = 0
+            for outcome_index in range(first_likelihoods.shape[1]):
+                weights = prior * first_likelihoods[:, outcome_index]
+                outcome_mass = float(np.sum(weights))
+                if outcome_mass <= 0.0:
+                    continue
+                branch_belief = BeliefState(
+                    hypotheses=belief_state.hypotheses,
+                    probabilities=tuple(weights / outcome_mass),
+                )
+                synthetic = branch_observation(candidate, outcome_index)
+                branch_history = list(history) + [(candidate, synthetic)]
+                followups = environment.generate_candidate_actions(
+                    branch_belief, branch_history, model, config
+                )
+                if followups:
+                    best_second = max(
+                        categorical_eig(
+                            branch_belief.probabilities,
+                            scorer(branch_belief.hypotheses, followup),
+                        )
+                        for followup in followups
+                    )
+                    expected_second_eig += outcome_mass * best_second
+                expanded += 1
+            scores.append(first_eig + expected_second_eig)
+            branch_counts.append(expanded)
+        best = int(np.argmax(scores))
+        return ActionScore(
+            action=candidates[best],
+            score=scores[best],
+            extras={
+                "metric_name": "selected_eig",
+                "candidate_scores": scores,
+                "expanded_branch_counts": branch_counts,
+                "planning_depth": 2,
+            },
+        )

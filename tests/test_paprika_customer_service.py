@@ -150,3 +150,24 @@ def test_goal_reached_stops_without_categorical_mapping(tmp_path: Path) -> None:
     )
     assert len(run_result.trials[0].rounds) == 1
     assert summary.metrics["resolved"] == [1.0]
+
+
+def test_full_two_step_expands_each_root_outcome(tmp_path: Path) -> None:
+    questioner = RoutingQuestioner()
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["Full2StepEIG"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+    )
+    run_result, _summary = run_from_config(
+        config, questioner, RoutingCustomer(), output_dir=tmp_path
+    )
+    chosen = run_result.trials[0].rounds[0].chosen
+    assert chosen.extras["planning_depth"] == 2
+    assert chosen.extras["expanded_branch_counts"] == [3, 3]
+    assert len(chosen.extras["candidate_scores"]) == 2
