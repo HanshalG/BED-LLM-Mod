@@ -238,14 +238,18 @@ def test_categorical_eig_matches_deterministic_binary_information() -> None:
     assert value == pytest.approx(np.log(2.0))
 
 
-def test_distribution_treats_explicit_null_as_zero_but_rejects_missing_key() -> None:
+def test_distribution_treats_explicit_null_and_missing_outcome_as_zero() -> None:
     outcomes = ("yes", "no", "unknown")
     parsed = parse_distribution(
         '{"probabilities":{"yes":0.75,"no":null,"unknown":0.25}}', outcomes
     )
     assert parsed == pytest.approx((0.75, 0.0, 0.25))
-    with pytest.raises(ValueError, match="Missing numeric probability"):
-        parse_distribution('{"probabilities":{"yes":0.75,"unknown":0.25}}', outcomes)
+    missing = parse_distribution(
+        '{"probabilities":{"yes":0.75,"unknown":0.25}}', outcomes
+    )
+    assert missing == pytest.approx((0.75, 0.0, 0.25))
+    with pytest.raises(ValueError, match="positive total mass"):
+        parse_distribution('{"probabilities":{}}', outcomes)
 
 
 def test_nested_paprika_config_aliases(tmp_path: Path) -> None:

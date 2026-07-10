@@ -53,7 +53,8 @@ def parse_distribution(text: str, outcomes: tuple[str, ...]) -> tuple[float, ...
     for outcome in outcomes:
         key = outcome.casefold()
         if key not in lookup:
-            raise ValueError(f"Missing numeric probability for {outcome!r}")
+            values.append(0.0)
+            continue
         value = lookup[key]
         if isinstance(value, bool):
             raise ValueError("Outcome probabilities must be numeric")
