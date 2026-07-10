@@ -1,0 +1,43 @@
+"""Prompts grounded in Paprika's released customer-service protocol."""
+
+from __future__ import annotations
+
+from collections.abc import Sequence
+
+from .types import PaprikaAction
+
+
+def transcript_text(history: Sequence[tuple[PaprikaAction, object]]) -> str:
+    if not history:
+        return "(no previous turns)"
+    lines: list[str] = []
+    for action, observation in history:
+        reply = getattr(observation, "reply", str(observation))
+        lines.extend((f"Agent: {action.query}", f"Customer: {reply}"))
+    return "\n".join(lines)
+
+
+def hypothesis_messages(scenario: str, count: int) -> list[dict[str, str]]:
+    return [{"role": "system", "content": "Generate plausible hidden causes for customer-service troubleshooting. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nReturn exactly {count} distinct hypotheses as {{\"hypotheses\":[...]}}. Each hypothesis must state a cause and remedy; do not assume access to the private benchmark solution."}]
+
+
+def candidate_messages(scenario: str, beliefs: Sequence[str], history: Sequence[tuple[PaprikaAction, object]], count: int) -> list[dict[str, str]]:
+    return [{"role": "system", "content": "Propose concise customer-service diagnostic questions or actions and a discrete answer space. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nConversation:\n{transcript_text(history)}\nReturn exactly {count} candidates as {{\"candidates\":[{{\"query\":\"...\",\"outcomes\":[\"...\",\"...\",\"...\"]}}]}}. Every candidate needs 3-5 mutually exclusive, collectively useful outcomes."}]
+
+
+def likelihood_messages(hypothesis: str, action: PaprikaAction) -> list[dict[str, str]]:
+    outcomes = "\n".join(f"- {outcome}" for outcome in action.outcomes)
+    return [{"role": "system", "content": "Estimate a categorical answer likelihood for troubleshooting. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {action.scenario}\nAssumed hidden cause and remedy: {hypothesis}\nConversation so far:\n" + "\n".join(f"Agent: {q}\nCustomer: {a}" for q, a in action.transcript) + f"\nNext agent query/action: {action.query}\nPossible customer outcomes:\n{outcomes}\nReturn {{\"probabilities\":{{outcome: probability, ...}}}} using exactly those outcome strings. Values must sum to 1."}]
+
+
+def customer_messages(action: PaprikaAction, solution: str) -> list[dict[str, str]]:
+    transcript = "\n".join(f"Agent: {q}\nCustomer: {a}" for q, a in action.transcript)
+    return [{"role": "system", "content": f"You are the customer in this scenario: {action.scenario}\nThe private solution is: {solution}\nOnly answer what the agent asks. Be concise and non-technical. Never reveal the private solution directly. If the latest proposed diagnosis/action solves the issue, reply exactly 'Goal reached'."}, {"role": "user", "content": f"Conversation so far:\n{transcript or '(none)'}\nAgent: {action.query}\nCustomer:"}]
+
+
+def mapping_messages(reply: str, outcomes: Sequence[str]) -> list[dict[str, str]]:
+    return [{"role": "system", "content": "Map a customer reply to one proposed outcome. Return strict JSON only."}, {"role": "user", "content": f"Reply: {reply}\nOutcomes:\n" + "\n".join(f"- {value}" for value in outcomes) + "\nReturn {\"outcome\": <exact outcome string or null>, \"clean\": true or false}. Use clean=false if no outcome adequately represents the reply."}]
+
+
+def judge_messages(scenario: str, solution: str, query: str) -> list[dict[str, str]]:
+    return [{"role": "system", "content": "Judge whether a customer-service agent solved the released task."}, {"role": "user", "content": f"Scenario: {scenario}\nPrivate solution: {solution}\nAgent response: {query}\nReply with <VALID> only if the response diagnoses or proposes the correct solution; otherwise reply <NOTVALID>."}]

@@ -17,6 +17,7 @@ slurm_logs/
 configs/
 !configs/
 configs/*
+!configs/config_paprika_step0a_smoke_26b_a4b.yaml
 !configs/archive/
 !configs/archive/**
 !configs/config_strategy_ranking_fidelity_smoke.yaml
@@ -39,3 +40,9 @@ configs/*
 !plots/*.png
 tea_debug.log
 condaenv.ph6m_vev.requirements.txt
+external/
+!results/path_e/
+results/path_e/*
+!results/path_e/step0a_adapter_smoke/
+!results/path_e/step0a_adapter_smoke/REPORT.json
+!results/path_e/step0a_adapter_smoke/paprika_smoke.json

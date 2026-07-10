@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 
 ReasoningEffort = Literal["low", "medium", "high"]
-TaskMode = Literal["animals", "location_finding"]
+TaskMode = Literal["animals", "location_finding", "paprika_customer_service"]
 BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
@@ -143,6 +143,16 @@ class Config:
     location_eig_bounds_seed: int | None = None
     location_eig_bounds_chunk_size: int = 8192
     location_max_new_tokens: int | None = None
+    paprika_data_path: str | None = None
+    paprika_split: str = "eval"
+    paprika_verify_official_hash: bool = True
+    paprika_num_trials: int = 5
+    paprika_num_rounds: int = 20
+    paprika_trial_batch_size: int = 1
+    paprika_task_offset: int = 0
+    paprika_seed: int | None = None
+    paprika_num_hypotheses: int = 12
+    paprika_num_candidates: int = 5
 
     def __post_init__(self) -> None:
         if self.environment:
@@ -222,6 +232,19 @@ class Config:
             if not math.isfinite(self.location_max_step_radius) or self.location_max_step_radius <= 0.0:
                 raise ValueError("location_max_step_radius must be a positive number or null")
         self.location_max_new_tokens = self.effective_max_model_len
+        if self.paprika_split not in {"train", "eval"}:
+            raise ValueError("paprika_split must be one of: train, eval")
+        if not isinstance(self.paprika_verify_official_hash, bool):
+            raise ValueError("paprika_verify_official_hash must be a boolean")
+        for name in (
+            "paprika_num_trials", "paprika_num_rounds", "paprika_trial_batch_size",
+            "paprika_num_hypotheses", "paprika_num_candidates",
+        ):
+            value = getattr(self, name)
+            if not isinstance(value, int) or isinstance(value, bool) or value <= 0:
+                raise ValueError(f"{name} must be a positive integer")
+        if not isinstance(self.paprika_task_offset, int) or isinstance(self.paprika_task_offset, bool) or self.paprika_task_offset < 0:
+            raise ValueError("paprika_task_offset must be a non-negative integer")
 
     @property
     def effective_max_model_len(self) -> int:
@@ -271,6 +294,12 @@ class Config:
         from core.config import location_view
 
         return location_view(self)
+
+    @property
+    def paprika_config(self):
+        from core.config import paprika_view
+
+        return paprika_view(self)
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -513,10 +542,20 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "eig_bounds_seed": "location_eig_bounds_seed",
         "eig_bounds_chunk_size": "location_eig_bounds_chunk_size",
     }
+    common_paprika = {
+        "data_path": "paprika_data_path", "split": "paprika_split",
+        "verify_official_hash": "paprika_verify_official_hash",
+        "num_trials": "paprika_num_trials", "num_rounds": "paprika_num_rounds",
+        "trial_batch_size": "paprika_trial_batch_size", "task_offset": "paprika_task_offset",
+        "seed": "paprika_seed", "num_hypotheses": "paprika_num_hypotheses",
+        "num_candidates": "paprika_num_candidates",
+    }
     if task == "animals":
         return common_animals
     if task == "location_finding":
         return common_location
+    if task == "paprika_customer_service":
+        return common_paprika
     return {}
 
 
@@ -897,6 +936,16 @@ def load_config(path: str) -> Config:
         location_eig_bounds_seed = location_eig_bounds_seed,
         location_eig_bounds_chunk_size = location_eig_bounds_chunk_size,
         location_max_new_tokens = None,
+        paprika_data_path = raw.get("paprika_data_path"),
+        paprika_split = raw.get("paprika_split", "eval"),
+        paprika_verify_official_hash = raw.get("paprika_verify_official_hash", True),
+        paprika_num_trials = raw.get("paprika_num_trials", 5),
+        paprika_num_rounds = raw.get("paprika_num_rounds", 20),
+        paprika_trial_batch_size = raw.get("paprika_trial_batch_size", 1),
+        paprika_task_offset = raw.get("paprika_task_offset", 0),
+        paprika_seed = raw.get("paprika_seed"),
+        paprika_num_hypotheses = raw.get("paprika_num_hypotheses", 12),
+        paprika_num_candidates = raw.get("paprika_num_candidates", 5),
     )
 
 

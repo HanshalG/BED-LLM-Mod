@@ -1,0 +1,41 @@
+{
+  "status": "adapter_mechanics_only",
+  "not_llm_evidence": true,
+  "source_repository": "https://github.com/tajwarfahim/paprika.git",
+  "source_commit": "8470461554f12f9f9215ee5e78ea19ba1d576b5c",
+  "num_tasks": 5,
+  "rounds_per_task": [
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "mean_final_answer_set_coverage": 1.0,
+  "metric_traces": {
+    "resolved": [
+      0.0,
+      0.0
+    ],
+    "turns_used": [
+      1.0,
+      2.0
+    ],
+    "answer_set_coverage": [
+      1.0,
+      1.0
+    ],
+    "latest_answer_mapped_cleanly": [
+      1.0,
+      1.0
+    ],
+    "true_solution_exact_mass": [
+      0.0,
+      0.0
+    ],
+    "selected_eig": [
+      0.0,
+      0.0
+    ]
+  }
+}

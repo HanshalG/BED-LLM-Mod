@@ -1,0 +1,39 @@
+version: 0
+task: paprika_customer_service
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26B-A4B-it"
+      thinking: true
+      thinking_max_new_tokens: 8192
+      thinking_final_max_new_tokens: 1024
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26B-A4B-it"
+      thinking: true
+      thinking_max_new_tokens: 8192
+      thinking_final_max_new_tokens: 1024
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+method_names:
+  - "EIG"
+batched_block_size: 256
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.0
+answer_temperature: 0.7
+probability_parse_fallback_to_uniform: false
+environment:
+  data_path: external/paprika/llm_exploration/game/game_configs/customer_service.json
+  split: eval
+  verify_official_hash: true
+  num_trials: 5
+  num_rounds: 2
+  trial_batch_size: 1
+  task_offset: 0
+  seed: 1304
+  num_hypotheses: 12
+  num_candidates: 5

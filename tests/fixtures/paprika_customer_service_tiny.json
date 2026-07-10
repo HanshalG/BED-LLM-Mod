@@ -1,0 +1,13 @@
+{
+  "max_turns": 20,
+  "train": [
+    {"agent": "A tablet has dead touch areas.", "env": "Its digitizer is damaged and must be replaced."}
+  ],
+  "eval": [
+    {"agent": "A refrigerator is beeping and not cooling.", "env": "The door is ajar; closing it restores cooling."},
+    {"agent": "A washer starts but does not fill.", "env": "The inlet filter is clogged; cleaning it restores flow."},
+    {"agent": "A coffee machine will not brew.", "env": "The water reservoir is empty; refilling it fixes brewing."},
+    {"agent": "An email client is stuck syncing.", "env": "The local cache is corrupted; deleting it restores syncing."},
+    {"agent": "A vacuum has poor pickup.", "env": "Hair tangles the roller brush; cleaning it restores suction."}
+  ]
+}

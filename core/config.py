@@ -12,6 +12,7 @@ fields relevant to one slice of the system:
 - :class:`BaseConfig` — run/model/logging fields shared by every environment
 - :class:`AnimalsConfig` — animals-game-specific fields
 - :class:`LocationConfig` — location-finding-specific fields
+- :class:`PaprikaConfig` — Paprika customer-service-specific fields
 
 New environments and new code paths should consume these typed views via
 :func:`base_view`, :func:`animals_view`, and :func:`location_view` — that way
@@ -155,6 +156,20 @@ class LocationConfig:
         )
 
 
+@dataclass(frozen=True)
+class PaprikaConfig:
+    data_path: str | None = None
+    split: str = "eval"
+    verify_official_hash: bool = True
+    num_trials: int = 5
+    num_rounds: int = 20
+    trial_batch_size: int = 1
+    task_offset: int = 0
+    seed: int | None = None
+    num_hypotheses: int = 12
+    num_candidates: int = 5
+
+
 # ---------------------------------------------------------------------------
 # Factories that project a flat ``Config`` into a typed view.
 # ---------------------------------------------------------------------------
@@ -292,4 +307,20 @@ def location_view(config: Any) -> LocationConfig:
         eig_bounds_chunk_size=getattr(config, "location_eig_bounds_chunk_size", 8192),
         max_new_tokens=getattr(config, "location_max_new_tokens", None) or getattr(config, "max_model_len", 4096),
         belief_distribution_permute_history=getattr(config, "belief_distribution_permute_history", False),
+    )
+
+
+def paprika_view(config: Any) -> PaprikaConfig:
+    """Project Paprika customer-service fields out of the flat config."""
+    return PaprikaConfig(
+        data_path=getattr(config, "paprika_data_path", None),
+        split=getattr(config, "paprika_split", "eval"),
+        verify_official_hash=getattr(config, "paprika_verify_official_hash", True),
+        num_trials=int(getattr(config, "paprika_num_trials", 5)),
+        num_rounds=int(getattr(config, "paprika_num_rounds", 20)),
+        trial_batch_size=int(getattr(config, "paprika_trial_batch_size", 1)),
+        task_offset=int(getattr(config, "paprika_task_offset", 0)),
+        seed=getattr(config, "paprika_seed", None),
+        num_hypotheses=int(getattr(config, "paprika_num_hypotheses", 12)),
+        num_candidates=int(getattr(config, "paprika_num_candidates", 5)),
     )

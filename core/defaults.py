@@ -38,8 +38,9 @@ def register_defaults(force: bool = False) -> None:
 
     register_environment("animals", _build_animals_environment)
     register_environment("location_finding", _build_location_environment)
+    register_environment("paprika_customer_service", _build_paprika_environment)
 
-    for env_name in ("animals", "location_finding"):
+    for env_name in ("animals", "location_finding", "paprika_customer_service"):
         for method_name in _GLOBAL_METHODS:
             register_method(env_name, method_name, _build_global_method(method_name))
 
@@ -59,6 +60,12 @@ def _build_location_environment(config: Any, questioner: Any, answerer: Any) -> 
     from environments.location_finding import LocationBEDEnvironment
 
     return LocationBEDEnvironment(config=config)
+
+
+def _build_paprika_environment(config: Any, questioner: Any, answerer: Any) -> Any:
+    from environments.paprika_customer_service import PaprikaCustomerServiceEnvironment
+
+    return PaprikaCustomerServiceEnvironment(config=config, answerer=answerer)
 
 
 def _build_global_method(method_name: str):
