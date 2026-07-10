@@ -155,8 +155,49 @@ def test_candidate_kind_downgrades_checks_but_keeps_explicit_corrections() -> No
         json.dumps({"candidates": [{"query": "Please replace the depleted ribbon.", "kind": "diagnostic", "outcomes": ["fixed", "not fixed", "cannot do"]}]}),
         "scenario", [], 1,
     )[0]
+    increased = env._parse_candidates(
+        json.dumps({"candidates": [{"query": "Increase the printer density setting.", "kind": "diagnostic", "outcomes": ["fixed", "not fixed", "cannot do"]}]}),
+        "scenario", [], 1,
+    )[0]
+    recalibrated = env._parse_candidates(
+        json.dumps({"candidates": [{"query": "Perform a full recalibration using test weights.", "kind": "diagnostic", "outcomes": ["fixed", "not fixed", "cannot do"]}]}),
+        "scenario", [], 1,
+    )[0]
     assert diagnostic.kind == "diagnostic"
     assert solution.kind == "solution"
+    assert increased.kind == "solution"
+    assert recalibrated.kind == "solution"
+
+
+def test_explicit_observation_cannot_map_to_uncertainty_outcome() -> None:
+    class IncorrectUncertaintyMapper(RoutingQuestioner):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            text = "\n".join(message["content"] for message in messages)
+            if '"outcome"' in text and '"clean"' in text:
+                return [json.dumps({"outcome": "Not checked / cannot determine", "clean": True})]
+            return super().chat_complete(messages, temperature, num_responses)
+
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+    )
+    env = PaprikaCustomerServiceEnvironment(config, RoutingCustomer())
+    env.questioner = IncorrectUncertaintyMapper()
+    action = PaprikaAction(
+        "Log out and back in.",
+        ("Data is visible", "Data remains missing", "Not checked / cannot determine"),
+        "scenario",
+        kind="diagnostic",
+    )
+    env.answerer.chat_complete = lambda *args, **kwargs: [
+        "I tried logging out and back in, but the data is still missing."
+    ]
+    observation = env.observe(action, load_paprika_tasks(FIXTURE)[0], np.random.default_rng(0))
+    assert observation.mapped_outcome is None
+    assert observation.mapped_cleanly is False
 
 
 def test_categorical_eig_matches_deterministic_binary_information() -> None:

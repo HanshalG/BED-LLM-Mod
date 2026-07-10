@@ -74,9 +74,34 @@ def _normalized_action_kind(query: str, proposed_kind: str) -> str:
     solution_verbs = (
         "replace", "recalibrate", "calibrate", "reset", "restart", "reinstall",
         "update", "enable", "disable", "reconnect", "repair", "refill", "clear",
-        "clean", "adjust", "remove", "straighten", "close", "open", "tighten",
+        "clean", "adjust", "increase", "decrease", "remove", "straighten", "close",
+        "open", "tighten",
     )
-    return "solution" if any(verb in normalized.split() for verb in solution_verbs) else "diagnostic"
+    words = normalized.replace("/", " ").split()
+    is_solution = any(verb in words for verb in solution_verbs) or any(
+        word.startswith(("recalibrat", "calibrat")) for word in words
+    )
+    return "solution" if is_solution else "diagnostic"
+
+
+def _is_uncertainty_outcome(value: str) -> bool:
+    normalized = value.casefold()
+    markers = (
+        "not checked", "cannot determine", "can't determine", "do not know",
+        "don't know", "not sure", "unable to check", "cannot check",
+    )
+    return any(marker in normalized for marker in markers)
+
+
+def _reply_explicitly_uncertain(reply: str) -> bool:
+    normalized = reply.casefold()
+    markers = (
+        "did not check", "didn't check", "have not checked", "haven't checked",
+        "do not know", "don't know", "not sure", "cannot tell", "can't tell",
+        "cannot determine", "can't determine", "unable to check", "cannot check",
+        "can't check", "unable to perform", "cannot perform", "can't perform",
+    )
+    return any(marker in normalized for marker in markers)
 
 
 class PaprikaCustomerServiceEnvironment(
@@ -577,6 +602,8 @@ class PaprikaCustomerServiceEnvironment(
         selected = mapping.get("outcome")
         clean = mapping.get("clean") is True and isinstance(selected, str)
         canonical = next((outcome for outcome in action.outcomes if clean and outcome.casefold() == selected.strip().casefold()), None)
+        if canonical is not None and _is_uncertainty_outcome(canonical) and not _reply_explicitly_uncertain(reply):
+            canonical = None
         return PaprikaObservation(reply=reply, mapped_outcome=canonical, mapped_cleanly=canonical is not None, goal_reached=goal)
 
     def round_metrics(self, belief_state: BeliefState[str], history: Sequence[tuple[PaprikaAction, PaprikaObservation]], hidden_state: PaprikaTask) -> dict[str, float]:
