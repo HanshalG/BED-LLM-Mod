@@ -256,6 +256,14 @@ triplet concurrency remains 250.
 Offset-12 recovery 1 failed closed with the same bounded simulator-faithfulness error
 during arbitration and banked no item. Exact full-triplet recovery 2 launched at
 `20260711T170138`; no task artifact from either failed attempt is canonical.
+Wave 1 is complete and canonical for offsets 10--19. Recovery 2 is the accepted offset
+12 artifact. The combined health validation found exact task coverage, three complete
+methods per task, and 21/21 matching proposal sets at every identical-history
+arbitration/candidate-0 turn. Accepted cost was $0.578927 over 3,576 requests;
+operational spend including failed attempts was $0.619374. Cumulative spend is
+$11.001346/$30. Canonical provenance is tracked in
+`results/path_e/arbitration_headline/CANONICAL_RUNS.json`. Wave 2 (offsets 20--29) is
+next under the same frozen scientific design and aggregate concurrency 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is

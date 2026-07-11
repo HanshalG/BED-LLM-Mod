@@ -1,0 +1,22 @@
+{
+  "scientific_design_commit": "7bc2263",
+  "budget_amendment_commit": "3d900f4",
+  "task_range": [10, 59],
+  "thinking_triplet": {
+    "10": "runs/20260711T163517_paprika-headline-triplet-o10-seed1304",
+    "11": "runs/20260711T163517_paprika-headline-triplet-o11-seed1304",
+    "12": "runs/20260711T170138_paprika-headline-triplet-o12-recovery2-seed1304",
+    "13": "runs/20260711T163517_paprika-headline-triplet-o13-seed1304",
+    "14": "runs/20260711T163517_paprika-headline-triplet-o14-seed1304",
+    "15": "runs/20260711T163517_paprika-headline-triplet-o15-seed1304",
+    "16": "runs/20260711T163517_paprika-headline-triplet-o16-seed1304",
+    "17": "runs/20260711T163517_paprika-headline-triplet-o17-seed1304",
+    "18": "runs/20260711T163517_paprika-headline-triplet-o18-seed1304",
+    "19": "runs/20260711T163517_paprika-headline-triplet-o19-seed1304"
+  },
+  "nonthinking_blocks": {},
+  "failed_attempts": [
+    "runs/20260711T163517_paprika-headline-triplet-o12-seed1304",
+    "runs/20260711T164811_paprika-headline-triplet-o12-recovery1-seed1304"
+  ]
+}
