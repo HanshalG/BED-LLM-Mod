@@ -49,6 +49,11 @@ def main():
     parser.add_argument("--config", "-c", required=True, help="Path to YAML config file")
     parser.add_argument("--run-name", help="Optional human-readable name for this run directory")
     parser.add_argument(
+        "--paprika-task-offset",
+        type=int,
+        help="Override the first Paprika task index for an isolated paired shard",
+    )
+    parser.add_argument(
         "--output-root",
         type=Path,
         default=Path("runs"),
@@ -58,6 +63,14 @@ def main():
     config_path = Path(args.config).resolve()
     print(f"[main] Loading config from {config_path}")
     config = load_config(str(config_path))
+    if args.paprika_task_offset is not None:
+        if config.task != "paprika_customer_service":
+            parser.error("--paprika-task-offset is only valid for paprika_customer_service")
+        if args.paprika_task_offset < 0:
+            parser.error("--paprika-task-offset must be non-negative")
+        config.paprika_task_offset = args.paprika_task_offset
+        if isinstance(config.environment, dict):
+            config.environment["task_offset"] = args.paprika_task_offset
     config.run_id = resolve_run_id()
     print(
         f"[main] Loaded config with {len(config.model_pairs)} model pair(s), "

@@ -192,7 +192,7 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    and produced no metrics. All processes were stopped; provider usage was reconciled
    exactly to $0.31118538. Relaunch only after the `flock`/atomic-write stress test and
    focused suite pass.
-   The repaired scaffolded run is active. Serial naive throughput was diagnosed before
+   The repaired scaffolded run was launched. Serial naive throughput was diagnosed before
    evidence landed; both naive configs now use trial batch size 10 and Paprika batches
    policy generation across public scenarios without exposing private solutions.
    Matched non-thinking naive completed in 155 seconds for $0.00534679. The scaffolded
@@ -220,7 +220,18 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    Both naive controls are now complete and pass coverage: matched 87.5% / 4 resolved;
    policy-only thinking 85.0% / 4 resolved, with one forced exit. Scaffolded EIG later
    hit one empty response after exhausting two repairs at request 2,602; Step 1 configs
-   now use five bounded structured repairs and only scaffolded must rerun.
+   now use five bounded structured repairs. The repair-five EIG arm completed with
+   42/45 = 93.3% answer coverage and 2/10 resolutions, but Full2 later exhausted all
+   five repairs on a likelihood response whose listed outcomes had zero total mass.
+   The failed invocation spent $1.59969375 over 22,333 requests; no paired gate result
+   is used. Because every Paprika candidate now has a guaranteed uncertainty outcome,
+   an all-zero row deterministically assigns its residual mass to that outcome (rows
+   without a guaranteed uncertainty outcome remain invalid). The canonical rerun is
+   isolated into ten one-task paired EIG+Full2 shards so each shard preserves exact
+   shared root candidates and any future terminal failure loses at most one task. Run
+   at most five shards concurrently with per-shard OpenRouter concurrency 24, then
+   combine only ten completed canonical task IDs with
+   `scripts/combine_paprika_step1_splits.py` before the frozen analyzer.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

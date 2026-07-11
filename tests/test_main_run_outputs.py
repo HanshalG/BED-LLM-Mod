@@ -37,8 +37,11 @@ def test_main_writes_one_run_directory_without_duplicate_outputs(monkeypatch, tm
     config_path.write_text(
         """
 version: 0
+task: paprika_customer_service
 animals:
   - ["cat"]
+environment:
+  task_offset: 0
 model_pairs:
   - questioner:
       model: "Qwen/Qwen3.5-4B"
@@ -64,6 +67,8 @@ method_names:
             str(tmp_path / "runs"),
             "--run-name",
             "Smoke Run",
+            "--paprika-task-offset",
+            "7",
         ],
     )
 
@@ -76,6 +81,9 @@ method_names:
     assert run_dir.is_dir()
     assert (run_dir / "run.log").exists()
     assert (run_dir / "config.resolved.json").exists()
+    resolved = json.loads((run_dir / "config.resolved.json").read_text(encoding="utf-8"))
+    assert resolved["paprika_task_offset"] == 7
+    assert resolved["environment"]["task_offset"] == 7
     assert np.load(item_dir / "accuracy.npy").tolist() == [1, 0, 1]
     assert np.load(item_dir / "correct_belief_mass.npy").tolist() == [0.8, 0.6, 1.0]
     assert not (tmp_path / "logs").exists()

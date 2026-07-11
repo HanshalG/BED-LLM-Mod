@@ -288,6 +288,14 @@ def test_distribution_treats_explicit_null_and_missing_outcome_as_zero() -> None
         parse_distribution('{"probabilities":{}}', outcomes)
 
 
+def test_distribution_assigns_all_zero_residual_to_guaranteed_uncertainty() -> None:
+    outcomes = ("works", "still broken", "Not attempted / cannot determine")
+    assert parse_distribution('{"probabilities":{}}', outcomes) == (0.0, 0.0, 1.0)
+    assert parse_distribution(
+        '{"probabilities":{"works":0,"still broken":null}}', outcomes
+    ) == (0.0, 0.0, 1.0)
+
+
 def test_nested_paprika_config_aliases(tmp_path: Path) -> None:
     path = tmp_path / "config.yaml"
     path.write_text(

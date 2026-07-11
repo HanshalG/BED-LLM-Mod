@@ -10,6 +10,27 @@ from typing import Any
 _FENCE_RE = re.compile(r"```(?:json)?\s*(.*?)```", re.IGNORECASE | re.DOTALL)
 
 
+def _uncertainty_outcome_index(outcomes: tuple[str, ...]) -> int | None:
+    markers = (
+        "not attempted",
+        "cannot determine",
+        "can't determine",
+        "do not know",
+        "don't know",
+        "not sure",
+        "unable to check",
+        "cannot check",
+    )
+    return next(
+        (
+            index
+            for index, outcome in enumerate(outcomes)
+            if any(marker in outcome.casefold() for marker in markers)
+        ),
+        None,
+    )
+
+
 def parse_json_object(text: str) -> dict[str, Any]:
     candidates = [text.strip()]
     candidates.extend(match.strip() for match in _FENCE_RE.findall(text))
@@ -70,5 +91,9 @@ def parse_distribution(text: str, outcomes: tuple[str, ...]) -> tuple[float, ...
         values.append(number)
     total = sum(values)
     if total <= 0.0:
+        uncertainty_index = _uncertainty_outcome_index(outcomes)
+        if uncertainty_index is not None:
+            values[uncertainty_index] = 1.0
+            return tuple(values)
         raise ValueError("Outcome probabilities must have positive total mass")
     return tuple(value / total for value in values)
