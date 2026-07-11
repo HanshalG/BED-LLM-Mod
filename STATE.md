@@ -15,16 +15,17 @@ naive AND 1-step EIG on paired external-benchmark endpoints. 20Q/Wordle/Mastermi
 harness/unit-test only (greedy near-optimal there); location finding is closed. All
 Path A/B/C/D location & 20Q material is banked history below.
 
-Path E Step 0 implementation status (2026-07-11): **Step 0a and Step 0b are passed**.
-The canonical real-model Paprika smoke is
-`20260711T000402_paprika-step0a-openrouter-26b-nonthinking-v6` at commit `8b84edf`.
-Across five official eval tasks and nine realized turns it achieved 8/9 = 88.89%
-manually verified answer-set coverage, zero terminal structured failures, zero runtime
-failures, and one genuine exact-remedy resolution. It used OpenRouter
-`google/gemma-4-26b-a4b-it` without reasoning: 642 requests, 198,897 tokens, no forced
-exits, and $0.04004851. Evidence is tracked in
-`results/path_e/STEP0A_OPENROUTER_SMOKE.md`. Cumulative OpenRouter development spend is
-$0.19704997 of $20. The exact-posterior Mastermind depth-1/depth-2 harness remains green.
+Path E Step 0 implementation status (2026-07-11): **repaired-endpoint Step 0a and Step
+0b are passed**. The canonical repaired real-model Paprika smoke is
+`20260711T095626_paprika-step0a-repaired-endpoint-tasks5-9-seed1304` at commit
+`7380339`. Across five official eval tasks and ten realized turns it achieved 9/10 =
+90% answer-set coverage, zero terminal structured failures, zero runtime failures,
+zero raw simulator contradictions, zero final inconsistencies, and two genuine
+exact-remedy resolutions. Manual review passed all five transcripts. It used OpenRouter
+`google/gemma-4-26b-a4b-it` without reasoning: 695 requests, 215,372 tokens, no forced
+exits, and $0.04380104. Evidence is tracked in
+`results/path_e/step0a_repaired/`. All earlier endpoint results remain invalid. The
+exact-posterior Mastermind depth-1/depth-2 harness remains green.
 
 The Paprika implementation is pushed. The
 Paprika customer-service adapter now loads the hash-pinned official release, preserves
@@ -184,8 +185,14 @@ stale Path A validator assertions. Fresh Step 0a config is
 `configs/config_paprika_step0a_repaired_endpoint_openrouter.yaml` (eval tasks 5-9,
 including both audited task families). Do not launch until this implementation commit
 is pushed.
-Fresh repaired-endpoint Step 0a is active as run `20260711T095626` from commit
-`7380339`, using eval tasks 5-9 and the mandatory coverage/faithfulness gates.
+Fresh repaired-endpoint Step 0a run `20260711T095626` passed from commit `7380339` on
+eval tasks 5-9: coverage 90%, zero terminal failures, zero raw/final faithfulness
+contradictions, and manual transcript review passed. The tracked evidence is under
+`results/path_e/step0a_repaired/`. Fresh Step 1 is now authorized. Its frozen configs
+use the same canonical 10 tasks, 5 rounds, and seed 1304 for naive non-thinking, naive
+thinking, and generation-thinking EIG; Full2 remains excluded. The EIG arm is split
+into ten one-task shards at concurrency 23 per shard, while each batched naive arm has
+at most ten simultaneous task calls, keeping practical aggregate concurrency near 250.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are

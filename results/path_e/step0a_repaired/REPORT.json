@@ -1,0 +1,116 @@
+{
+  "status": "automated_pass_manual_review_pending",
+  "automated_pass": true,
+  "manual_transcript_review_required": true,
+  "run_dir": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260711T095626_paprika-step0a-repaired-endpoint-tasks5-9-seed1304",
+  "smoke_artifact": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260711T095626_paprika-step0a-repaired-endpoint-tasks5-9-seed1304/items/000_EIG/paprika_smoke.json",
+  "num_tasks": 5,
+  "num_turns": 10,
+  "cleanly_mapped_turns": 9,
+  "answer_set_coverage": 0.9,
+  "coverage_threshold": 0.85,
+  "structured_parse_retries": 6.0,
+  "structured_parse_failures": 0.0,
+  "simulator_faithfulness_metric_present": true,
+  "simulator_faithfulness_raw_contradiction_rate": 0.0,
+  "simulator_faithfulness_final_inconsistency_rate": 0.0,
+  "simulator_faithfulness_failures": 0.0,
+  "simulator_faithfulness_threshold": 0.0,
+  "forced_thinking_exits": 0,
+  "llm_usage_events": 695,
+  "forced_exit_rate": 0.0,
+  "runtime_error_lines": [],
+  "resolved_tasks": 2,
+  "task_summaries": [
+    {
+      "task_id": "customer_service:eval:0005",
+      "scenario": "The driver reports that the trailer lights are not working while driving at night.",
+      "num_turns": 2,
+      "resolved": false,
+      "queries": [
+        "Replace all non-functional bulbs in the rear light assemblies.",
+        "Tighten all screw terminals inside the trailer junction box."
+      ],
+      "kinds": [
+        "solution",
+        "solution"
+      ],
+      "replies": [
+        "I already tried changing a few bulbs, but they still don't work.",
+        "I checked those terminals, but everything seems tight in there. The lights still aren't working."
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0006",
+      "scenario": "The driver reports that their route navigation app is not updating in real-time.",
+      "num_turns": 2,
+      "resolved": false,
+      "queries": [
+        "Check your device settings to see if 'Set Automatically' is enabled for Date and Time.",
+        "Please disable your Wi-Fi connection to force the device to use cellular data."
+      ],
+      "kinds": [
+        "diagnostic",
+        "solution"
+      ],
+      "replies": [
+        "I already checked that, and the time and date are correct. It's still not updating.",
+        "I tried turning off the Wi-Fi, but the maps are still stuck and won't update the route."
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0007",
+      "scenario": "The customer's gaming console is not responding to controller inputs.",
+      "num_turns": 2,
+      "resolved": false,
+      "queries": [
+        "Connect the controller to the console using a USB cable.",
+        "Perform a full power cycle by unplugging the console from the wall outlet."
+      ],
+      "kinds": [
+        "diagnostic",
+        "diagnostic"
+      ],
+      "replies": [
+        "I already tried that, but nothing happens. The controller still won't work.",
+        "I already tried unplugging it and plugging it back in, but it didn't change anything. The controller still isn't doing anything."
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0008",
+      "scenario": "The customer's pressure cooker is not coming to pressure and starting its cooking cycle.",
+      "num_turns": 2,
+      "resolved": true,
+      "queries": [
+        "Clean the steam release valve and vent assembly with a small brush.",
+        "Reseat the silicone sealing ring inside the lid."
+      ],
+      "kinds": [
+        "solution",
+        "diagnostic"
+      ],
+      "replies": [
+        "I already tried cleaning those parts, but it didn't change anything. It's still not building any pressure.",
+        "Goal reached"
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0009",
+      "scenario": "Guests report that the lobby check-in kiosk is not responding to touch inputs.",
+      "num_turns": 2,
+      "resolved": true,
+      "queries": [
+        "Does the touch input lag occur only during specific times of day?",
+        "Please clean the display screen thoroughly with a microfiber cloth."
+      ],
+      "kinds": [
+        "diagnostic",
+        "solution"
+      ],
+      "replies": [
+        "No, it seems to be happening all the time.",
+        "Goal reached"
+      ]
+    }
+  ]
+}

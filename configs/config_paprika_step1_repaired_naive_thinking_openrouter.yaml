@@ -1,0 +1,45 @@
+version: 0
+task: paprika_customer_service
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: true
+      thinking_max_new_tokens: 8192
+      thinking_final_max_new_tokens: 1024
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: false
+      max_model_len: 32768
+method_names:
+  - "naive"
+batched_block_size: 256
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.0
+answer_temperature: 0.7
+probability_parse_fallback_to_uniform: false
+openrouter_budget_usd: 20.0
+openrouter_projected_cost_usd: 0.5
+openrouter_concurrency: 256
+openrouter_max_retries: 5
+openrouter_backoff_seconds: 1.0
+openrouter_max_output_tokens: 2048
+openrouter_spend_path: results/path_e/openrouter_spend.json
+environment:
+  data_path: external/paprika/llm_exploration/game/game_configs/customer_service.json
+  split: eval
+  verify_official_hash: true
+  num_trials: 10
+  num_rounds: 5
+  trial_batch_size: 10
+  task_offset: 0
+  seed: 1304
+  num_hypotheses: 12
+  num_candidates: 5
+  shared_call_cache_enabled: true
+  belief_refresh_enabled: true
+  num_refresh_hypotheses: 6
+  max_hypotheses: 24
+  structured_max_retries: 5

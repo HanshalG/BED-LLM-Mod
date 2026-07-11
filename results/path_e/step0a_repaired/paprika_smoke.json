@@ -1,0 +1,274 @@
+[
+  {
+    "task_id": "customer_service:eval:0005",
+    "scenario": "The driver reports that the trailer lights are not working while driving at night.",
+    "solution": "The truck's trailer light connector is loose, and securing it will restore trailer lighting.",
+    "turns": [
+      {
+        "query": "Replace all non-functional bulbs in the rear light assemblies.",
+        "kind": "solution",
+        "outcomes": [
+          "Lights are now working",
+          "Lights still do not work",
+          "Bulbs are non-standard/incompatible",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I already tried changing a few bulbs, but they still don't work.",
+        "mapped_outcome": "Lights still do not work",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Tighten all screw terminals inside the trailer junction box.",
+        "kind": "solution",
+        "outcomes": [
+          "The lights are now working.",
+          "The terminals are tight but the lights still do not work.",
+          "The junction box is sealed shut and cannot be opened.",
+          "Not attempted / cannot determine."
+        ],
+        "reply": "I checked those terminals, but everything seems tight in there. The lights still aren't working.",
+        "mapped_outcome": "The terminals are tight but the lights still do not work.",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      }
+    ],
+    "final_metrics": {
+      "resolved": 0.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 131.0,
+      "structured_parse_retries": 1.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 2.0,
+      "simulator_faithfulness_checks": 2.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.08390310957556044
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0006",
+    "scenario": "The driver reports that their route navigation app is not updating in real-time.",
+    "solution": "The delivery van's onboard Wi-Fi hotspot is turned off, and enabling it will restore connectivity for devices.",
+    "turns": [
+      {
+        "query": "Check your device settings to see if 'Set Automatically' is enabled for Date and Time.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "Set Automatically is enabled",
+          "Set Automatically is disabled",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I already checked that, and the time and date are correct. It's still not updating.",
+        "mapped_outcome": null,
+        "mapped_cleanly": false,
+        "goal_reached": false
+      },
+      {
+        "query": "Please disable your Wi-Fi connection to force the device to use cellular data.",
+        "kind": "solution",
+        "outcomes": [
+          "The navigation is now updating in real-time",
+          "The navigation is still not updating",
+          "I am unable to disable the Wi-Fi",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I tried turning off the Wi-Fi, but the maps are still stuck and won't update the route.",
+        "mapped_outcome": "The navigation is still not updating",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      }
+    ],
+    "final_metrics": {
+      "resolved": 0.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 0.5,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 272.0,
+      "structured_parse_retries": 2.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 4.0,
+      "simulator_faithfulness_checks": 4.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.1220643476750313
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0007",
+    "scenario": "The customer's gaming console is not responding to controller inputs.",
+    "solution": "The gaming console's controller is out of charge, and charging it will allow it to connect and function.",
+    "turns": [
+      {
+        "query": "Connect the controller to the console using a USB cable.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "The controller responds immediately via the cable.",
+          "The controller still does not respond despite the cable connection.",
+          "The USB cable or port is physically damaged and won't connect.",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I already tried that, but nothing happens. The controller still won't work.",
+        "mapped_outcome": "The controller still does not respond despite the cable connection.",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Perform a full power cycle by unplugging the console from the wall outlet.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "The controller works after the restart",
+          "The controller still does not work after the restart",
+          "The console failed to power back on",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I already tried unplugging it and plugging it back in, but it didn't change anything. The controller still isn't doing anything.",
+        "mapped_outcome": "The controller still does not work after the restart",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      }
+    ],
+    "final_metrics": {
+      "resolved": 0.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 433.0,
+      "structured_parse_retries": 3.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 6.0,
+      "simulator_faithfulness_checks": 6.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.14116092403483094
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0008",
+    "scenario": "The customer's pressure cooker is not coming to pressure and starting its cooking cycle.",
+    "solution": "The electric pressure cooker lid is not properly sealed, and resealing it will allow pressure to build.",
+    "turns": [
+      {
+        "query": "Clean the steam release valve and vent assembly with a small brush.",
+        "kind": "solution",
+        "outcomes": [
+          "The unit now builds pressure successfully",
+          "The vent is clean but the unit still fails to build pressure",
+          "The vent is too narrow to insert the brush",
+          "I am unable to perform the cleaning",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I already tried cleaning those parts, but it didn't change anything. It's still not building any pressure.",
+        "mapped_outcome": "The vent is clean but the unit still fails to build pressure",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Reseat the silicone sealing ring inside the lid.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "The unit is now building pressure.",
+          "The ring is reseated but still no pressure builds.",
+          "The ring is damaged and cannot be reseated.",
+          "I am unable to remove the ring to reseat it.",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "Goal reached",
+        "mapped_outcome": null,
+        "mapped_cleanly": true,
+        "goal_reached": true
+      }
+    ],
+    "final_metrics": {
+      "resolved": 1.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 561.0,
+      "structured_parse_retries": 4.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 8.0,
+      "simulator_faithfulness_checks": 8.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.07741769835957243
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0009",
+    "scenario": "Guests report that the lobby check-in kiosk is not responding to touch inputs.",
+    "solution": "The hotel lobby kiosk's touchscreen is unresponsive due to a dirty screen, and cleaning it will restore functionality.",
+    "turns": [
+      {
+        "query": "Does the touch input lag occur only during specific times of day?",
+        "kind": "diagnostic",
+        "outcomes": [
+          "Lag is constant regardless of the time.",
+          "Lag only occurs during peak lobby hours.",
+          "Lag only occurs during scheduled system update windows.",
+          "The timing of the lag is unpredictable.",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "No, it seems to be happening all the time.",
+        "mapped_outcome": "Lag is constant regardless of the time.",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Please clean the display screen thoroughly with a microfiber cloth.",
+        "kind": "solution",
+        "outcomes": [
+          "The screen responds perfectly to touch now.",
+          "The screen still does not respond to touch.",
+          "I am unable to locate a microfiber cloth.",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "Goal reached",
+        "mapped_outcome": null,
+        "mapped_cleanly": true,
+        "goal_reached": true
+      }
+    ],
+    "final_metrics": {
+      "resolved": 1.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 695.0,
+      "structured_parse_retries": 6.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 10.0,
+      "simulator_faithfulness_checks": 10.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.11861276540560967
+    }
+  }
+]

@@ -23,6 +23,9 @@ configs/*
 !configs/config_paprika_step1_scaffolded_openrouter.yaml
 !configs/config_paprika_step1_naive_thinking_openrouter.yaml
 !configs/config_paprika_step1_naive_nonthinking_openrouter.yaml
+!configs/config_paprika_step1_repaired_naive_nonthinking_openrouter.yaml
+!configs/config_paprika_step1_repaired_naive_thinking_openrouter.yaml
+!configs/config_paprika_step1_repaired_eig_generation_thinking_split_openrouter.yaml
 !configs/archive/
 !configs/archive/**
 !configs/config_strategy_ranking_fidelity_smoke.yaml
@@ -61,3 +64,7 @@ results/path_e/*
 !results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.json
 !results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.md
 !results/path_e/step1_invalid/PAPRIKA_ENDPOINT_AUDIT.md
+!results/path_e/step0a_repaired/
+!results/path_e/step0a_repaired/REPORT.json
+!results/path_e/step0a_repaired/MANUAL_REVIEW.md
+!results/path_e/step0a_repaired/paprika_smoke.json
