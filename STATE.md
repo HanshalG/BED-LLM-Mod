@@ -253,6 +253,9 @@ invocation is noncanonical; do not reuse its arbitration artifact. Exact full-tr
 recovery 1 launched at `20260711T164811`, using the unchanged scientific design and the
 documented $30 administrative cap. With nine original shards still active, aggregate
 triplet concurrency remains 250.
+Offset-12 recovery 1 failed closed with the same bounded simulator-faithfulness error
+during arbitration and banked no item. Exact full-triplet recovery 2 launched at
+`20260711T170138`; no task artifact from either failed attempt is canonical.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
