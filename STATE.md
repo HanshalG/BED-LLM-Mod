@@ -232,6 +232,10 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    at most five shards concurrently with per-shard OpenRouter concurrency 24, then
    combine only ten completed canonical task IDs with
    `scripts/combine_paprika_step1_splits.py` before the frozen analyzer.
+   The first offsets-0-4 launch wave was canceled after 42 combined requests /
+   $0.00380851 because second-resolution run IDs collided in the spend ledger. No
+   result is used. Concurrent shard launches must now be staggered by at least two
+   seconds so every run retains independently auditable usage.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
