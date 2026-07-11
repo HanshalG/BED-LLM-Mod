@@ -361,6 +361,9 @@ remain noncanonical. Aggregate configured concurrency is 225.
 Offset-44 recovery 2 also failed closed during arbitration and banked no item. Exact
 full-triplet recovery 3 launched unchanged at `20260711T212925`; all three earlier
 attempts remain noncanonical.
+Offset-44 recovery 3 also failed closed during arbitration and banked no item. Exact
+full-triplet recovery 4 launched unchanged at `20260711T213901`; all four earlier
+attempts remain noncanonical.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
