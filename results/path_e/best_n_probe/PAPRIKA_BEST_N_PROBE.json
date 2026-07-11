@@ -1,0 +1,43 @@
+{
+  "status": "competitive_with_arbitration_scale_arm_required",
+  "task_range": [0, 9],
+  "round_budget": 5,
+  "seed": 1304,
+  "endpoint_valid": true,
+  "arms": {
+    "best_n_eig": {
+      "resolution_at_budget": 0.5,
+      "mean_censored_turns": 4.0,
+      "answer_set_coverage": 0.9714285714285714,
+      "backend_cost_usd": 0.4358148399999998,
+      "backend_requests": 3698,
+      "backend_reasoning_tokens": 596195,
+      "backend_forced_exits": 10
+    },
+    "arbitration": {
+      "resolution_at_budget": 0.6,
+      "mean_censored_turns": 3.7
+    },
+    "naive_thinking": {
+      "resolution_at_budget": 0.4,
+      "mean_censored_turns": 4.9
+    }
+  },
+  "comparisons": {
+    "best_n_eig_vs_naive_thinking": {
+      "wins": 4,
+      "losses": 1,
+      "ties": 5,
+      "mean_censored_turn_delta": -0.9,
+      "bootstrap_ci95": [-2.2, 0.4]
+    },
+    "best_n_eig_vs_arbitration": {
+      "wins": 2,
+      "losses": 4,
+      "ties": 4,
+      "mean_censored_turn_delta": 0.3,
+      "bootstrap_ci95": [-1.2, 1.6]
+    }
+  },
+  "preregistered_read": "Best-N EIG is directionally better than thinking naive and statistically indistinguishable from arbitration on ten tasks. Treat goal-anchored generate-and-select as competitive; retain arbitration as the calibrated robustness variant and add the best-N arm to held-out execution before headline analysis."
+}

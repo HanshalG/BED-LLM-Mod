@@ -211,6 +211,7 @@ def analyze(
     headline_run: Path,
     naive_nonthinking_run: Path,
     *,
+    best_n_run: Path | None = None,
     round_budget: int = 5,
     expected_start: int = 10,
     expected_count: int = 50,
@@ -221,6 +222,8 @@ def analyze(
         "naive_thinking": load_arm(headline_run, "naive"),
         "naive_nonthinking": load_arm(naive_nonthinking_run, "naive"),
     }
+    if best_n_run is not None:
+        arms["best_n_eig"] = load_arm(best_n_run, "EIG")
     values = {name: _task_values(arm, round_budget) for name, arm in arms.items()}
     expected_ids = {
         f"customer_service:eval:{index:04d}"
@@ -244,7 +247,8 @@ def analyze(
         "arbitration", "naive_nonthinking", values, summaries
     )
     pairing = _proposal_pairing(arms["arbitration"].records, arms["candidate0"].records)
-    endpoint_valid = all(summary["endpoint_valid"] for summary in summaries.values())
+    core_arm_names = ("arbitration", "candidate0", "naive_thinking", "naive_nonthinking")
+    endpoint_valid = all(summaries[name]["endpoint_valid"] for name in core_arm_names)
     primary_supported = primary["bootstrap_ci95"][1] < 0.0
     causal_supported = causal["bootstrap_ci95"][1] < 0.0
     primary_directional = primary["mean_censored_turn_delta"] < 0.0
@@ -264,7 +268,7 @@ def analyze(
     else:
         claim_read = "claim_b_not_confirmed"
     mechanism = _mechanism_summary(arms["arbitration"].records, causal)
-    return {
+    result = {
         "status": f"{claim_read}_requires_manual_review",
         "claim_read_before_manual_review": claim_read,
         "manual_review_required": True,
@@ -286,6 +290,17 @@ def analyze(
         "mechanism": mechanism,
         "manual_review_plan": _manual_review_plan(values),
     }
+    if "best_n_eig" in arms:
+        result["best_n_endpoint_valid_automated"] = summaries["best_n_eig"][
+            "endpoint_valid"
+        ]
+        result["context_best_n_vs_naive_thinking"] = _headline_comparison(
+            "best_n_eig", "naive_thinking", values, summaries
+        )
+        result["context_best_n_vs_arbitration"] = _headline_comparison(
+            "best_n_eig", "arbitration", values, summaries
+        )
+    return result
 
 
 def _markdown(result: dict[str, Any]) -> str:
@@ -299,7 +314,10 @@ def _markdown(result: dict[str, Any]) -> str:
         f"| arm | resolution@{result['round_budget']} | mean censored turns | coverage | cost (USD) | cost/resolution | requests |",
         "|---|---:|---:|---:|---:|---:|---:|",
     ]
-    for name in ("arbitration", "candidate0", "naive_thinking", "naive_nonthinking"):
+    arm_order = ["arbitration", "candidate0", "naive_thinking", "naive_nonthinking"]
+    if "best_n_eig" in result["arms"]:
+        arm_order.append("best_n_eig")
+    for name in arm_order:
         arm = result["arms"][name]
         cost_per_resolution = arm["cost_per_resolution_usd"]
         cost_text = "n/a" if cost_per_resolution is None else f"{cost_per_resolution:.4f}"
@@ -327,6 +345,24 @@ def _markdown(result: dict[str, Any]) -> str:
                 f"{value['resolution_discordant_losses']}; exact p={value['paired_binary_exact_p']}.",
             ]
         )
+    for title, key in (
+        ("Context: best-N EIG vs thinking naive", "context_best_n_vs_naive_thinking"),
+        ("Context: best-N EIG vs arbitration", "context_best_n_vs_arbitration"),
+    ):
+        if key not in result:
+            continue
+        value = result[key]
+        lines.extend(
+            [
+                "",
+                f"## {title}",
+                "",
+                f"Turn wins/losses/ties: {value['wins']}/{value['losses']}/{value['ties']}.",
+                f"Mean paired censored-turn delta: {value['mean_censored_turn_delta']:.3f}; "
+                f"95% bootstrap CI {value['bootstrap_ci95']}.",
+                f"Resolution delta: {value['resolution_rate_delta']:.3f}.",
+            ]
+        )
     lines.extend(
         [
             "",
@@ -345,6 +381,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--headline-run", type=Path, required=True)
     parser.add_argument("--naive-nonthinking-run", type=Path, required=True)
+    parser.add_argument("--best-n-run", type=Path)
     parser.add_argument("--round-budget", type=int, default=5)
     parser.add_argument("--expected-start", type=int, default=10)
     parser.add_argument("--expected-count", type=int, default=50)
@@ -353,6 +390,7 @@ def main() -> None:
     result = analyze(
         args.headline_run,
         args.naive_nonthinking_run,
+        best_n_run=args.best_n_run,
         round_budget=args.round_budget,
         expected_start=args.expected_start,
         expected_count=args.expected_count,

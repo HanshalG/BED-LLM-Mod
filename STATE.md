@@ -412,6 +412,17 @@ separate from the sealed headline.
 Non-thinking original block 40 failed closed before banking an item. Exact block-40
 recovery 1 and the queued original block 50 launched at `20260711T230931`. Together with
 original blocks 10, 20, and 30, aggregate configured non-thinking concurrency is 255.
+The preregistered best-N outcome read is complete. Best-N EIG resolved 5/10 tasks with
+mean censored turns 4.0, versus thinking naive 4/10 and 4.9 turns (4/1/5 paired
+wins/losses/ties, delta -0.9, bootstrap CI [-2.2, 0.4]) and arbitration 6/10 and 3.7
+turns (2/4/4, delta +0.3, CI [-1.2, 1.6]). It is directionally better than thinking
+naive and statistically indistinguishable from arbitration. Per the decision rule
+written before launch, this is competitive: the paper adopts goal-anchored
+generate-and-select as the clean method identity, arbitration remains the calibrated
+robustness variant, and a best-N EIG arm must run on held-out tasks 10--59 before the
+headline analyzer. This arm addition is triggered solely by the preregistered
+development probe; no held-out comparison has been computed. Evidence is in
+`results/path_e/best_n_probe/`.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is

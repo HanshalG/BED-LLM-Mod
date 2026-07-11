@@ -46,6 +46,15 @@ The thinking triplet runs in this exact order within every task shard:
 The context arm is the existing non-thinking `naive` policy in separate 10-task blocks.
 Generation-thinking EIG and full two-step are not headline arms.
 
+**Pre-registered best-N amendment.** The development-only candidate-elicitation probe
+was specified in `STATE.md` before held-out outcomes were opened. Its competitive read
+requires a separate best-N EIG arm on the same held-out tasks 10--59. This arm requests
+the five best next actions for resolving the issue quickly and applies ordinary
+one-step EIG argmax. It is contextual: it does not alter the arbitration primary or
+co-primary claim rule. Run it before the frozen headline analyzer, include its endpoint
+in the manual disagreement audit, and report comparisons with thinking naive and
+arbitration. Canonical recovery uses one complete EIG task shard per offset.
+
 The same questioner model object and shared prompt cache are used for the thinking
 triplet. Whenever arbitration and candidate 0 have identical public histories, their
 ordered three-proposal sets must be byte-for-byte identical after parsing. The frozen
@@ -163,6 +172,7 @@ Hanshal if cumulative spend approaches $28.
 
 - `configs/config_paprika_arbitration_headline_triplet_openrouter.yaml`
 - `configs/config_paprika_arbitration_headline_nonthinking_openrouter.yaml`
+- `configs/config_paprika_best_n_eig_headline_openrouter.yaml`
 
 Launch only from the pushed commit containing this runbook, configs, analyzer, control,
 and passing focused tests. Record that commit and every launch in `EXPERIMENTS.md`.
@@ -216,6 +226,7 @@ Analyze exactly once after all canonical artifacts are fixed:
 python scripts/analyze_paprika_headline.py \
   --headline-run runs/paprika-headline-triplet-combined-seed1304 \
   --naive-nonthinking-run runs/paprika-headline-nonthinking-combined-seed1304 \
+  --best-n-run runs/paprika-headline-best-n-combined-seed1304 \
   --expected-start 10 --expected-count 50 --round-budget 5 \
   --output results/path_e/arbitration_headline/PAPRIKA_HEADLINE.json
 ```

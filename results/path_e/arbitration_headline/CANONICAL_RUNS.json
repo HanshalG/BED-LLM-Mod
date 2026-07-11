@@ -55,6 +55,7 @@
     "59": "runs/20260711T222015_paprika-headline-triplet-o59-seed1304"
   },
   "nonthinking_blocks": {},
+  "best_n_eig": {},
   "failed_attempts": [
     "runs/20260711T163517_paprika-headline-triplet-o12-seed1304",
     "runs/20260711T164811_paprika-headline-triplet-o12-recovery1-seed1304",

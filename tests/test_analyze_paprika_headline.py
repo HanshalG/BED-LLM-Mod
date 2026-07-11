@@ -96,6 +96,33 @@ def test_headline_analyzer_enforces_tasks_pairing_and_two_comparisons(
     assert len(result["manual_review_plan"]["random_spot_check_task_ids"]) == 10
 
 
+def test_headline_analyzer_adds_best_n_context_without_changing_claim_rule(
+    tmp_path: Path,
+) -> None:
+    headline = tmp_path / "headline"
+    nonthinking = tmp_path / "nonthinking"
+    best_n = tmp_path / "best_n"
+    arbitration = [1] * 20 + [2] * 10 + [None] * 20
+    candidate0 = [2] * 20 + [3] * 10 + [None] * 20
+    thinking = [3] * 20 + [4] * 10 + [None] * 20
+    best_n_turns = [2] * 20 + [3] * 10 + [None] * 20
+    _write_run(
+        headline,
+        {
+            "NaivePrimaryArbitration": arbitration,
+            "NaivePrimaryCandidate0": candidate0,
+            "naive": thinking,
+        },
+    )
+    _write_run(nonthinking, {"naive": [4] * 30 + [None] * 20})
+    _write_run(best_n, {"EIG": best_n_turns})
+    result = analyze(headline, nonthinking, best_n_run=best_n)
+    assert result["claim_read_before_manual_review"] == "claim_b_confirmed"
+    assert result["best_n_endpoint_valid_automated"] is True
+    assert result["context_best_n_vs_naive_thinking"]["wins"] == 30
+    assert result["context_best_n_vs_arbitration"]["losses"] == 30
+
+
 def test_headline_analyzer_rejects_mismatched_root_proposals(tmp_path: Path) -> None:
     headline = tmp_path / "headline"
     nonthinking = tmp_path / "nonthinking"
