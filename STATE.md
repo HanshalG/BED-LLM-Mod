@@ -200,7 +200,7 @@ The initial batched thinking-naive process was terminated after 39 minutes becau
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
 one-task shards; model, thinking budget, prompts, seed, task set, rounds, and endpoint
-are unchanged.
+are unchanged. Recovery timestamp is `20260711T105624`, launched from commit `fbddab9`.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
