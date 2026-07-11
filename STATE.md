@@ -205,6 +205,10 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    treat prospective "I'll try/check" replies as uncertainty, reject failed corrective
    attempts before success judging, recognize embedded "Goal reached", and require
    atomic candidate actions. All arms must rerun from this shared behavior.
+   The next matched run reached 39/46 = 84.78% coverage. Audit showed five of seven
+   misses had a direct listed outcome, but a mapper `null` did not trigger the bounded
+   remap. Explicit non-uncertain replies now get the same non-forcing repair whether the
+   first mapper chose uncertainty or returned null. Relaunch all arms from that fix.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

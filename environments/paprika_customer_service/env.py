@@ -640,7 +640,10 @@ class PaprikaCustomerServiceEnvironment(
         selected = mapping.get("outcome")
         clean = mapping.get("clean") is True and isinstance(selected, str)
         canonical = next((outcome for outcome in action.outcomes if clean and outcome.casefold() == selected.strip().casefold()), None)
-        if canonical is not None and _is_uncertainty_outcome(canonical) and not _reply_explicitly_uncertain(reply):
+        if (
+            not _reply_explicitly_uncertain(reply)
+            and (canonical is None or _is_uncertainty_outcome(canonical))
+        ):
             alternatives = tuple(outcome for outcome in action.outcomes if not _is_uncertainty_outcome(outcome))
             repaired = self._complete_parsed(
                 self._questioner(),

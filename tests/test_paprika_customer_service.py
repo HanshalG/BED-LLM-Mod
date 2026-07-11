@@ -244,7 +244,7 @@ def test_explicit_observation_is_repaired_to_supported_non_uncertainty_outcome()
             if "This is a repair pass" in text:
                 return [json.dumps({"outcome": "The sink drains normally", "clean": True})]
             if '"outcome"' in text and '"clean"' in text:
-                return [json.dumps({"outcome": "Not checked / cannot determine", "clean": True})]
+                return [json.dumps({"outcome": None, "clean": False})]
             return super().chat_complete(messages, temperature, num_responses)
 
     from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
