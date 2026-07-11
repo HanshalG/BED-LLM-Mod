@@ -476,7 +476,10 @@ by offsets 38 and 39 at `20260712T001354`; aggregate configured concurrency rema
 Best-N offset 25 failed after exhausting structured parsing repairs with
 `Model response did not contain a JSON object`; the whole shard is noncanonical. Exact
 unchanged recovery 1 launched at `20260712T001510` in the released slot. Aggregate
-configured concurrency remains 250, and offset 40 waits until recovery capacity clears.
+configured concurrency remains 250; offset 40 remains queued until another slot clears.
+Best-N offset 29 completed and is canonical while offset-25 recovery 1 remains live.
+Its independent released slot was filled by offset 40 at `20260712T001627`; aggregate
+configured concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
