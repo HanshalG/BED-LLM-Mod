@@ -348,6 +348,10 @@ thinking triplets. Together with the still-running 25-concurrency best-N probe, 
 configured concurrency is 250. Offset 49 remains intentionally unlaunched and will fill
 the first released 25-concurrency slot. Health-only and whole-triplet recovery rules are
 unchanged.
+Wave-4A original offset 44 failed closed during thinking naive after arbitration and
+candidate 0 completed. The entire invocation is noncanonical. Exact full-triplet
+recovery 1 launched unchanged at `20260711T210824` into the released slot; offset 49
+remains queued and aggregate configured concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
