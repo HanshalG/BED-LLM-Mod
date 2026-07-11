@@ -81,3 +81,7 @@ results/path_e/*
 !results/path_e/step1_terminal/PAPRIKA_STEP1.json
 !results/path_e/step1_terminal/PAPRIKA_STEP1.md
 !results/path_e/step1_terminal/MANUAL_REVIEW.md
+!results/path_e/arbitration_terminal/
+!results/path_e/arbitration_terminal/PAPRIKA_ARBITRATION.json
+!results/path_e/arbitration_terminal/PAPRIKA_ARBITRATION.md
+!results/path_e/arbitration_terminal/MANUAL_REVIEW.md

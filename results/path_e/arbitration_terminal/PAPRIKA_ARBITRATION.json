@@ -1,0 +1,517 @@
+{
+  "status": "arbitration_pass_stop_and_discuss",
+  "round_budget": 5,
+  "censoring_rule": "unresolved tasks score round_budget + 1 censored turns",
+  "gate_rule": "arbitration must directionally beat thinking naive unless >=6 ties; clear edge is >=0.2 resolution or <=-0.2 mean-turn delta",
+  "endpoint_valid": true,
+  "arms": {
+    "arbitration": {
+      "num_tasks": 10,
+      "resolution_curve": [
+        0.2,
+        0.4,
+        0.5,
+        0.6,
+        0.6
+      ],
+      "resolution_at_budget": 0.6,
+      "mean_censored_turns": 3.7,
+      "answer_set_coverage": 0.9696969696969697,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 33.0,
+      "simulator_faithfulness_checks": 33.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 5.0,
+      "simulator_terminal_checks": 5.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 0.29179813,
+      "backend_requests": 2081,
+      "backend_prompt_tokens": 564495,
+      "backend_completion_tokens": 591523,
+      "backend_reasoning_tokens": 442592,
+      "backend_forced_exits": 6
+    },
+    "naive_nonthinking": {
+      "num_tasks": 10,
+      "resolution_curve": [
+        0.2,
+        0.2,
+        0.2,
+        0.3,
+        0.3
+      ],
+      "resolution_at_budget": 0.3,
+      "mean_censored_turns": 4.8,
+      "answer_set_coverage": 0.926829268292683,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 41.0,
+      "simulator_faithfulness_checks": 41.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 3.0,
+      "simulator_terminal_checks": 3.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 0.01000285,
+      "backend_requests": 209,
+      "backend_prompt_tokens": 62397,
+      "backend_completion_tokens": 6423,
+      "backend_reasoning_tokens": 0,
+      "backend_forced_exits": 0
+    },
+    "naive_thinking": {
+      "num_tasks": 10,
+      "resolution_curve": [
+        0.0,
+        0.0,
+        0.3,
+        0.4,
+        0.4
+      ],
+      "resolution_at_budget": 0.4,
+      "mean_censored_turns": 4.9,
+      "answer_set_coverage": 0.9767441860465116,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 43.0,
+      "simulator_faithfulness_checks": 43.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 4.0,
+      "simulator_terminal_checks": 4.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 0.11580493,
+      "backend_requests": 221,
+      "backend_prompt_tokens": 62064,
+      "backend_completion_tokens": 267489,
+      "backend_reasoning_tokens": 259034,
+      "backend_forced_exits": 2
+    }
+  },
+  "primary_arbitration_vs_naive_thinking": {
+    "better_arm": "arbitration",
+    "baseline_arm": "naive_thinking",
+    "wins": 6,
+    "losses": 0,
+    "ties": 4,
+    "mean_censored_turn_delta": -1.2,
+    "bootstrap_ci95": [
+      -2.2,
+      -0.4
+    ],
+    "wilcoxon_signed_rank_p": null,
+    "per_task": [
+      {
+        "task_id": "customer_service:eval:0000",
+        "outcome": "win",
+        "censored_turn_delta": -5.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0001",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0002",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0003",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0004",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0005",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0006",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0007",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0008",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0009",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      }
+    ],
+    "gate_status": "pass",
+    "gate_pass": true,
+    "mostly_ties": false,
+    "resolution_rate_advantage": 0.19999999999999996,
+    "clear_edge": true
+  },
+  "context_arbitration_vs_naive_nonthinking": {
+    "better_arm": "arbitration",
+    "baseline_arm": "naive_nonthinking",
+    "wins": 4,
+    "losses": 2,
+    "ties": 4,
+    "mean_censored_turn_delta": -1.1,
+    "bootstrap_ci95": [
+      -2.6,
+      0.4
+    ],
+    "wilcoxon_signed_rank_p": null,
+    "per_task": [
+      {
+        "task_id": "customer_service:eval:0000",
+        "outcome": "win",
+        "censored_turn_delta": -5.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0001",
+        "outcome": "win",
+        "censored_turn_delta": -4.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0002",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0003",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0004",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0005",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0006",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0007",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0008",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0009",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      }
+    ]
+  }
+}

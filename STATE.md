@@ -224,8 +224,19 @@ Do not change its settings in flight. The user permits concurrency up to 256 for
 work when healthy and useful, but this run remains frozen for comparability.
 Nine original arbitration shards completed. Original offset 8 exhausted its bounded
 structured repairs during the round-4 analytical belief refresh and produced only an
-empty error-metrics artifact. The identical offset-8-only recovery launched at
-`20260711T153606`; use only its successful artifact in the final combination.
+empty error-metrics artifact. The identical offset-8-only recovery `20260711T153606`
+completed and is the only accepted offset-8 artifact.
+
+**ARBITRATION RESULT: PASS, THEN STOP-AND-DISCUSS.** Manual endpoint review passed all
+10 transcripts. Resolution@5 was 0.60 arbitration versus 0.40 thinking naive and 0.30
+non-thinking naive. Against thinking naive, arbitration had 6 wins / 0 losses / 4 ties,
+mean censored-turn delta -1.2, bootstrap CI [-2.2, -0.4]. EIG overrode candidate 0 on
+12/33 turns; four overrides immediately selected the exact remedy, but several were
+unhelpful. This is a strong 10-task pilot signal, not a definitive effect estimate:
+candidate generation is stochastic and the accepted arm cost 2.52x thinking naive.
+Per the frozen rule, DO NOT launch scaling, MediQ, or another rescue automatically.
+Discuss the paper direction with Hanshal first. Evidence is under
+`results/path_e/arbitration_terminal/`.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
