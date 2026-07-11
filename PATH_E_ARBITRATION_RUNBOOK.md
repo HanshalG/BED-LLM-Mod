@@ -243,5 +243,13 @@ python scripts/build_paprika_headline_manual_review.py \
   --output results/path_e/arbitration_headline/MANUAL_REVIEW.md
 ```
 
+Render the paper-facing descriptive figure directly from the same frozen analysis:
+
+```bash
+python scripts/plot_paprika_headline.py \
+  --analysis results/path_e/arbitration_headline/PAPRIKA_HEADLINE.json \
+  --output-prefix plots/path_e/paprika_headline
+```
+
 Do not launch MediQ until Claim B's automated result and required manual audit both
 pass. If Claim B collapses, stop-and-discuss.
