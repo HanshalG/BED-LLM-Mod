@@ -64,7 +64,8 @@
   "best_n_eig": {
     "10": "runs/20260711T231618_paprika-headline-best-n-o10-seed1304",
     "11": "runs/20260711T231618_paprika-headline-best-n-o11-seed1304",
-    "12": "runs/20260711T231618_paprika-headline-best-n-o12-seed1304"
+    "12": "runs/20260711T231618_paprika-headline-best-n-o12-seed1304",
+    "18": "runs/20260711T232014_paprika-headline-best-n-o18-seed1304"
   },
   "failed_attempts": [
     "runs/20260711T163517_paprika-headline-triplet-o12-seed1304",

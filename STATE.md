@@ -441,6 +441,8 @@ analyzer runs after the best-N arm completes.
 Best-N offset 12 completed and is canonical. Its released slot was filled by offset 22
 at `20260711T233549`; ten best-N shards remain live at aggregate configured concurrency
 250. Canonical best-N offsets 10--12 are recorded in the headline manifest.
+Best-N offset 18 completed and is canonical. Its released slot was filled by offset 23
+at `20260711T233747`; aggregate configured concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
