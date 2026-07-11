@@ -242,9 +242,21 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    IDs 0000-0004 with zero terminal/parse failures. EIG coverage is 20/23 and Full2
    coverage is 21/23; wave cost $2.49816920 over 33,641 requests. Launch offsets 5-9
    under the same staggered protocol, then combine all ten completed shards.
-   Split wave B is active for offsets 5-9 with run IDs `20260711T042601`,
+   Split wave B completed for offsets 5-9 with run IDs `20260711T042601`,
    `20260711T042603`, `20260711T042605`, `20260711T042607`, and
-   `20260711T042609`, again at concurrency 24 each / 120 aggregate.
+   `20260711T042609`. All five paired artifacts cover canonical tasks 0005-0009;
+   EIG coverage is 18/22 and Full2 coverage 23/25. There were zero terminal/parse
+   failures; two offset-6 non-thinking responses reached the output-length limit but
+   repaired successfully. Wave cost $2.91180721 over 39,728 requests.
+   The frozen analyzer has now run once on the deterministic ten-shard combination.
+   Matched Claim 1 FAILS: EIG resolved 3/10 versus non-thinking naive 4/10,
+   wins/losses/ties 3/3/4, mean censored-turn delta +0.6. Adversarial EIG versus
+   thinking naive is 1/4/5, also +0.6. Claim 2 also fails: Full2 resolved 2/10 versus
+   EIG 3/10, 0/1/9, delta +0.4. EIG coverage is 38/45 = 84.4% (just below the pilot
+   threshold); Full2 is 44/48 = 91.7%. Per the predeclared playbook, launch exactly
+   ONE rescue: EIG with thinking on hypothesis/refinement/candidate generation only;
+   likelihood/filter/mapper/judge/customer remain non-thinking. If that matched read
+   does not pass, STOP and discuss with Hanshal; do not implement Step 2 or pivot.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
