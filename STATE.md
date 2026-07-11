@@ -383,6 +383,8 @@ Wave-5A original offset 51 failed closed during candidate 0 after arbitration co
 The whole invocation is noncanonical. Exact full-triplet recovery 1 launched unchanged
 at `20260711T221626` into the released slot; offset 59 remains queued and aggregate
 configured concurrency remains 250.
+Original offset 58 completed and released a slot. The queued original offset 59 launched
+unchanged at `20260711T222015`; aggregate configured concurrency returned to 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
