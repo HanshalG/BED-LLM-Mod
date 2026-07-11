@@ -385,6 +385,21 @@ at `20260711T221626` into the released slot; offset 59 remains queued and aggreg
 configured concurrency remains 250.
 Original offset 58 completed and released a slot. The queued original offset 59 launched
 unchanged at `20260711T222015`; aggregate configured concurrency returned to 250.
+Wave 5 is complete and canonical for offsets 50--59. Recovery 1 is the accepted source
+for offset 51; all other offsets use their first invocation. The health-only combination
+has exact task/method coverage and 17/17 matching ordered proposal sets at eligible
+identical-history turns. Accepted cost was $0.566552 over 3,817 requests; operational
+wave cost including the failed offset-51 attempt was $0.589193 over 3,994 requests.
+Actual cumulative spend, including the still-running best-N probe, was $13.849445/$30 at
+banking time. The complete 50-task thinking headline is now fixed. Next: combine all 50
+thinking triplets, finish and bank the best-N probe, then launch the five frozen
+non-thinking blocks without overlapping another large wave.
+The 50 canonical thinking triplets are combined at
+`runs/paprika-headline-triplet-combined-seed1304`. Structural validation found exactly
+50 records per arm over tasks 10--59 and 88/88 matching proposal sets at all eligible
+identical-history turns. Canonical thinking evaluation totals are $2.727867, 17,595
+requests, 5,188,570 prompt tokens, 5,712,603 completion tokens, 4,525,450 reasoning
+tokens, and 64 forced exits. No policy endpoint comparison has been computed.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is

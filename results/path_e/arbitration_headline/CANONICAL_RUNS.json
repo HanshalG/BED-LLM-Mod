@@ -42,7 +42,17 @@
     "46": "runs/20260711T205544_paprika-headline-triplet-o46-seed1304",
     "47": "runs/20260711T205544_paprika-headline-triplet-o47-seed1304",
     "48": "runs/20260711T205544_paprika-headline-triplet-o48-seed1304",
-    "49": "runs/20260711T211424_paprika-headline-triplet-o49-seed1304"
+    "49": "runs/20260711T211424_paprika-headline-triplet-o49-seed1304",
+    "50": "runs/20260711T220534_paprika-headline-triplet-o50-seed1304",
+    "51": "runs/20260711T221626_paprika-headline-triplet-o51-recovery1-seed1304",
+    "52": "runs/20260711T220534_paprika-headline-triplet-o52-seed1304",
+    "53": "runs/20260711T220534_paprika-headline-triplet-o53-seed1304",
+    "54": "runs/20260711T220534_paprika-headline-triplet-o54-seed1304",
+    "55": "runs/20260711T220534_paprika-headline-triplet-o55-seed1304",
+    "56": "runs/20260711T220534_paprika-headline-triplet-o56-seed1304",
+    "57": "runs/20260711T220534_paprika-headline-triplet-o57-seed1304",
+    "58": "runs/20260711T220534_paprika-headline-triplet-o58-seed1304",
+    "59": "runs/20260711T222015_paprika-headline-triplet-o59-seed1304"
   },
   "nonthinking_blocks": {},
   "failed_attempts": [
@@ -57,6 +67,7 @@
     "runs/20260711T210824_paprika-headline-triplet-o44-recovery1-seed1304",
     "runs/20260711T211909_paprika-headline-triplet-o44-recovery2-seed1304",
     "runs/20260711T212925_paprika-headline-triplet-o44-recovery3-seed1304",
-    "runs/20260711T213901_paprika-headline-triplet-o44-recovery4-seed1304"
+    "runs/20260711T213901_paprika-headline-triplet-o44-recovery4-seed1304",
+    "runs/20260711T220534_paprika-headline-triplet-o51-seed1304"
   ]
 }
