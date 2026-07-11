@@ -468,6 +468,9 @@ configured concurrency remains 250.
 Best-N offset 24 completed and is canonical, extending the contiguous canonical block
 to 10--24. Its released slot was filled by offset 36 at `20260712T000928`; aggregate
 configured concurrency remains 250.
+Best-N offset 26 completed and is canonical. Its released slot was filled by offset 37
+at `20260712T001304`; aggregate configured concurrency remains 250. Offset 25 remains
+live, so the contiguous canonical prefix remains 10--24.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
