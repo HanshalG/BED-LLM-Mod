@@ -142,6 +142,21 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**MID-HEADLINE REMINDERS (2026-07-11, per Hanshal):**
+1. The pre-registered BEST-N ELICITATION PROBE (10 canonical tasks 0-9, disjoint from
+   the held-out 10-59, ~$0.6) has not run — launch it IN PARALLEL with the remaining
+   waves. It settles the paper's method framing (generate-and-select vs calibrated
+   arbitration) and whether a design-(ii) arm joins the held-out comparison later.
+   The hypothesis-elicitation micro-probe stays queued strictly after it.
+2. OUTCOME BLINDNESS: no headline resolution/turn metrics are viewed until all 50 tasks
+   and all arms are complete; analyzer runs ONCE. Operational monitoring (coverage,
+   gate failures, pairing, cost) remains allowed and required.
+3. PAPER REWRITE STARTS NOW (parallel to waves): motivation (faithful transfer fails),
+   method, environment + endpoint-validation section (the audit chain is methods
+   content), related work, limitations — everything except results. The Path B draft's
+   salvageable parts fold into motivation.
+
+
 **PRE-REGISTERED PROBE (2026-07-11, per Hanshal, run BEFORE or alongside the scale-up):
 best-n elicitation for plain EIG.** Hanshal identified an uncontrolled variable: the
 plain-EIG candidate prompt ("Propose concise customer-service diagnostic questions or
@@ -271,6 +286,11 @@ Wave-2 original offset 25 failed after arbitration because candidate 0 hit the s
 bounded simulator-faithfulness failure. The complete invocation is noncanonical. Exact
 full-triplet recovery 1 launched at `20260711T185350`; no artifact from the failed
 attempt may enter the headline.
+Wave 2 is complete and canonical for offsets 20--29, with recovery 1 as the accepted
+offset-25 source. Proposal pairing passed 15/15 eligible identical-history turns.
+Accepted cost was $0.577599 over 3,475 requests; operational spend including the failed
+attempt was $0.630444. Cumulative spend is $11.631791/$30. Wave 3 (offsets 30--39) is
+next under the unchanged design.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
