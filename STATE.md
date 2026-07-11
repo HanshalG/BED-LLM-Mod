@@ -473,6 +473,10 @@ at `20260712T001304`; aggregate configured concurrency remains 250. Offset 25 re
 live, so the contiguous canonical prefix remains 10--24.
 Best-N offsets 34 and 36 completed and are canonical. Their released slots were filled
 by offsets 38 and 39 at `20260712T001354`; aggregate configured concurrency remains 250.
+Best-N offset 25 failed after exhausting structured parsing repairs with
+`Model response did not contain a JSON object`; the whole shard is noncanonical. Exact
+unchanged recovery 1 launched at `20260712T001510` in the released slot. Aggregate
+configured concurrency remains 250, and offset 40 waits until recovery capacity clears.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
