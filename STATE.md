@@ -453,6 +453,8 @@ Best-N offset 13 completed and is canonical. Its released slot was filled by off
 at `20260711T234628`; aggregate configured concurrency remains 250.
 Best-N offset 21 completed and is canonical. Its released slot was filled by offset 29
 at `20260711T234839`; aggregate configured concurrency remains 250.
+Best-N offset 20 completed and is canonical. Its released slot was filled by offset 30
+at `20260711T235510`; aggregate configured concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
