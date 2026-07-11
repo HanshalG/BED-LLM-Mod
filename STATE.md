@@ -242,6 +242,9 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    IDs 0000-0004 with zero terminal/parse failures. EIG coverage is 20/23 and Full2
    coverage is 21/23; wave cost $2.49816920 over 33,641 requests. Launch offsets 5-9
    under the same staggered protocol, then combine all ten completed shards.
+   Split wave B is active for offsets 5-9 with run IDs `20260711T042601`,
+   `20260711T042603`, `20260711T042605`, `20260711T042607`, and
+   `20260711T042609`, again at concurrency 24 each / 120 aggregate.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
