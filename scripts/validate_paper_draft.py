@@ -13,19 +13,19 @@ from typing import Any
 ALLOWED_TODO_KEYWORDS: tuple[tuple[str, ...], ...] = ()
 
 REQUIRED_LIMITATION_PATTERNS = {
-    "gate1_stopped": (r"Gate 1", r"not run|deliberately not run"),
-    "exact_likelihood_scope": (r"exact analytic likelihood",),
-    "legacy_local_fallback": (r"legacy records", r"local fallback"),
-    "particle_approximation": (r"particle", r"numerical approximation"),
-    "single_model_limited_trials": (r"one model family", r"limited number of paired trials"),
-    "no_arbitration_claim": (r"no performance claim", r"arbitration"),
-    "transfer_scope": (r"LLM-estimated posteriors", r"transfer for free"),
+    "single_model_sample_scope": (r"one model family", r"50-task sample"),
+    "finite_support_calibration": (r"finite generated\s+hypothesis supports", r"not\s+calibrated"),
+    "shared_model_errors": (r"share a\s+model\s+family", r"correlated errors"),
+    "provider_nondeterminism": (r"OpenRouter", r"nondeterminism"),
+    "candidate0_scope": (r"Candidate 0", r"causal proposal pairing"),
+    "no_mediq_claim": (r"MediQ\s+transfer", r"has not yet been\s+run"),
+    "two_step_closed": (r"Full two-step lookahead", r"not rehabilitated"),
+    "sealed_headline": (r"held-out outcomes remain sealed",),
+    "endpoint_audit": (r"manual review", r"quarantines the complete\s+headline"),
 }
 
-REQUIRED_FIGURE_LABELS = {
-    "task_loss_ranking_fidelity": "fig:ranking-fidelity",
-    "path_a_depth_contrast": "fig:depth-sweep",
-}
+# Outcome-dependent figures are added only after the frozen analyzer and manual audit.
+REQUIRED_FIGURE_LABELS: dict[str, str] = {}
 
 
 @dataclass(frozen=True)
@@ -232,7 +232,7 @@ def summary_payload(results: list[CheckResult]) -> dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Compile and validate the Path A workshop paper draft.")
+    parser = argparse.ArgumentParser(description="Compile and validate the Path E workshop paper draft.")
     parser.add_argument("--paper-dir", type=Path, default=Path("paper"))
     parser.add_argument("--main-tex", default="main.tex")
     parser.add_argument("--min-pages", type=int, default=4)

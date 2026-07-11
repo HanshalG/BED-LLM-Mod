@@ -7,7 +7,7 @@
 \usepackage{hyperref}
 \usepackage{natbib}
 
-\title{When Experimental-Plan Scores Miss Task Loss:\\A Diagnostic Study of LLM Bayesian Design}
+\title{Belief-Guided Arbitration for Interactive Troubleshooting}
 \author{Hanshal Goyal}
 \date{}
 
@@ -15,278 +15,323 @@
 \maketitle
 
 \begin{abstract}
-Large language models can propose rich experimental plans, but deploying those
-plans requires a scorer whose rankings survive contact with realized task loss.
-We study this link in multi-source location finding with an explicit likelihood.
-An entropy-based StrategyEIG scorer ranks realized entropy reduction
-($\rho=0.38$--$0.44$), yet is nearly uncorrelated with realized localization
-RMSE and does not beat naive or greedy-EIG execution. We then test the natural
-repair: replace entropy with expected posterior permutation-matched RMSE. A
-pre-registered, no-LLM replay over 60 standard-task probe states fails its
-proceed gate: the depth-1 task-loss scorer reaches macro Spearman
-$\rho=0.231$ against realized posterior-risk reduction, below the $\approx0.3$
-threshold. Increasing rollout integration to 1024 samples and repairing
-particle-support coupling do not recover the gate. We therefore stop before
-policy deployment. The result is a measured negative finding: task-aligned
-utilities are not sufficient when posterior-predictive plan values weakly rank
-truth-conditional outcomes.
+Large language model agents often need to gather information before acting, but
+directly transferring Bayesian experimental design (BED) to open-ended
+interaction creates a proposal problem: a statistically informative action can
+be a poor task action. We study this failure on the externally released Paprika
+customer-service benchmark. A faithful BED-LLM transfer and full two-step
+lookahead fail to improve over a thinking agent in a terminal-audited
+development study. We therefore separate proposal from selection. A native
+thinking policy generates three credible next actions; a belief model estimates
+their one-step expected information gain (EIG); and a calibrated arbiter
+overrides the native default only when an alternative clears a one-standard-error
+margin. A ten-task development pilot motivates a preregistered 50-task held-out
+evaluation against thinking and non-thinking agents and a prompt-matched
+candidate-0 control. This draft fixes the method, benchmark adaptation,
+measurement audit, and analysis protocol before held-out outcomes are opened.
+The study tests whether explicit beliefs are more useful for selecting among
+good native proposals than for generating actions from scratch.
 \end{abstract}
 
 \section{Introduction}
 
-LLM-driven Bayesian experimental design (BED) separates an attractive pair of
-capabilities. A language model can express a reusable strategy in natural
-language, while an explicit simulator can score the strategy before execution.
-This separation promises non-myopic planning without training a task-specific
-policy or expanding a full LLM action tree. It also creates a fragile link: the
-quantity that is easy to estimate in simulation may not rank the quantity the
-user ultimately cares about.
+Interactive agents rarely receive all information needed for a correct action.
+A support agent must identify a fault before recommending a remedy; a clinical
+agent must elicit missing symptoms before diagnosing. Language models can ask
+fluent questions, yet fluency does not guarantee useful information gathering.
+MediQ, for example, finds that directly prompting models to ask questions can
+reduce diagnostic performance \citep{li2024mediq}. The design problem is not
+only what to say, but which uncertainty an action should resolve and whether
+that information is worth a scarce interaction turn.
 
-Information gain is the standard BED objective. For localization, however,
-posterior concentration is not the same as localization accuracy. A posterior
-can lose entropy by concentrating on the wrong branch of a multimodal source
-configuration. This is not merely a philosophical distinction: in our banked
-Path A experiments, entropy-scored plans rank realized entropy and
-truth-log-posterior quality, while their correlation with point RMSE is near
-zero and the resulting StrategyEIG policy trails naive and greedy EIG.
+Bayesian experimental design gives a principled answer. Given hypotheses
+$h\in\mathcal H$, posterior $p_t(h)$, and possible outcomes $y$, one-step EIG
+selects the action expected to reduce posterior uncertainty. BED-LLM extends
+this idea to semantic hypothesis spaces by using language models to propose
+hypotheses and score likelihoods \citep{choudhury2025bedllm}. The appeal is
+strong: a training-free scaffold can impose explicit information-seeking
+structure on a general-purpose model.
 
-This paper asks whether replacing entropy with a task-aligned posterior loss
-repairs that first decision link. We use expected posterior
-permutation-matched RMSE, which is available at decision time and never accesses
-the hidden source configuration. Before implementing or deploying an
-arbitration policy, we pre-register a local ranking-fidelity gate on existing
-standard-task candidate roots. The gate fails, including after rollout-count,
-horizon, and support-resampling diagnostics. Following the pre-registration,
-we do not launch the downstream policy pilot.
+Our first result in Paprika is a design diagnosis rather than a positive
+transfer claim. A faithful EIG policy generated schema-valid diagnostic and
+corrective actions but did not beat a thinking native policy in a terminal-valid
+ten-task development study. Full two-step lookahead also failed. Inspecting the
+interface exposed an uncontrolled distinction: the native policy was prompted
+to solve the customer's issue, whereas the generic EIG generator was prompted
+to produce valid candidates. EIG then ranked a weaker proposal set. More
+lookahead could not repair missing task intent.
 
-Our contributions are:
+We respond by assigning the language model and BED scaffold different jobs. The
+native policy proposes its natural next action and two credible alternatives.
+The belief scaffold evaluates those same actions. Candidate 0 is the native
+default; the arbiter selects an alternative only when its EIG advantage exceeds
+a combined one-standard-error threshold. This rule treats score differences
+inside estimated noise as a reason to retain the native action, not as evidence
+for an arbitrary argmax.
+
+The resulting study asks a narrow causal question: can explicit beliefs improve
+selection among already-good native proposals? It includes a mandatory
+candidate-0 control that receives the identical three-proposal prompt but always
+executes the default. This distinguishes value from proposal elicitation from
+value from EIG selection. Our contributions are:
+
 \begin{enumerate}
-  \item A two-link diagnostic that separates scorer-to-posterior-objective
-  fidelity from posterior-objective-to-task-loss rankability.
-  \item A measured entropy/task-loss mismatch for LLM-scaffolded experimental
-  design, supported by paired Path A policy results.
-  \item A no-LLM test of expected posterior RMSE as a repair on standard
-  multi-source location finding, including convergence and support checks.
-  \item A negative-result protocol in which a failed scorer gate prevents an
-  expensive policy claim rather than being hidden by a downstream sweep.
+  \item an external Paprika adaptation with explicit semantic beliefs,
+  categorical answer spaces, likelihood-based EIG, and strict endpoint audits;
+  \item a calibrated native-primary arbitration rule that combines a thinking
+  policy's proposal quality with BED selection;
+  \item a prompt-matched candidate-0 control and shared-candidate protocol that
+  isolate the causal effect of EIG-based overrides; and
+  \item a preregistered paired evaluation with whole-task recovery, outcome
+  blindness, bootstrap uncertainty, and transcript-level endpoint review.
 \end{enumerate}
 
 \section{Related Work}
 
 \paragraph{Bayesian experimental design.}
-Deep adaptive design amortizes sequential BED policies and evaluates total
-information gain with contrastive bounds \citep{foster2021deep}. Classical
-decision-theoretic design also permits utilities defined by downstream loss
-rather than entropy. Our setting keeps the location likelihood explicit so that
-the utility question can be isolated from learned-posterior error.
+BED chooses actions by expected utility under a probabilistic model. Deep
+adaptive design amortizes sequential policies and evaluates total information
+gain with contrastive bounds \citep{foster2021deep}. BED-LLM uses language
+models to extend hypothesis generation and likelihood elicitation to semantic
+domains \citep{choudhury2025bedllm}. Our method keeps its one-step categorical
+EIG foundation but changes the proposal-selection interface after faithful
+end-to-end transfer failed in development.
 
-\paragraph{LLM-driven design.}
-BED-LLM uses language models for intelligent information gathering
-\citep{choudhury2025bedllm}. Brute-force LLM lookahead can be non-myopic but
-grows rapidly with depth. Strategy-level rollout instead asks an LLM to propose
-natural-language policies and uses simulation to rank them. We focus on the
-validity of that ranking, not on claiming a new decision-theoretic utility.
+\paragraph{Curiosity and interactive agents.}
+Paprika trains a generally curious agent with reinforcement learning across
+interactive environments \citep{tajwar2025curious}. We instead ask whether an
+inference-time Bayesian scaffold can improve a fixed model without policy
+training. MediQ turns medical question answering into an adaptive interaction
+and shows that naive question asking is not reliably beneficial
+\citep{li2024mediq}. These benchmarks motivate evaluating information gathering
+through task endpoints rather than through question quality alone.
 
-\paragraph{Online planning.}
-Constrained BED and informative path planning optimize explicit transition
-models. COPEx is directly adjacent \citep{guo2026constrained}. The constrained
-Path A environment in this paper is diagnostic background: its purpose is to
-show that a planning gap can exist while an LLM scaffold still fails to exploit
-it. The Path B gate itself uses standard unconstrained multi-source location
-finding and no environment engineering.
+\paragraph{Planning and selective computation.}
+Multi-step BED can value prerequisite questions whose benefit appears only in
+future decisions, but branching over semantic outcomes is expensive and noisy.
+Our development study tested full two-step lookahead and found no advantage, so
+the held-out method deliberately returns to one-step EIG. The selectivity here
+is statistical rather than temporal: the method selectively trusts an EIG
+override only when the estimated score gap clears a fixed uncertainty margin.
 
-\section{Diagnostic Framework}
+\section{Paprika Troubleshooting Environment}
 
-\subsection{Location Posterior And Task Loss}
+\subsection{External Task Definition}
 
-A hidden configuration $\theta$ contains two source locations in $\mathbb R^2$.
-At query $x$, the signal is an inverse-square sum with multiplicative log-normal
-noise. A finite particle support $\{\theta_i\}$ is reweighted with the exact
-likelihood. Source labels are exchangeable, so configurations are canonically
-ordered before averaging and all RMSEs use best-permutation matching.
+We use the hash-verified official Paprika customer-service release. Each task
+contains a public customer scenario and a private cause/remedy used by the
+released customer simulator and success protocol. The private solution is never
+available to proposal generation, belief construction, likelihood scoring, or
+selection. It enters only the simulator and endpoint checks. This preserves the
+benchmark's task structure instead of inventing a synthetic hidden state.
 
-For posterior $p$, let $\hat\theta(p)$ be its canonical posterior mean. We define
-the decision-time posterior risk
+An interaction consists of up to five atomic diagnostic questions or corrective
+actions. The customer replies in free text. A task resolves when the complete
+conversation establishes or performs the specific private remedy and the
+customer confirms success. Unresolved tasks are censored at six turns for the
+primary turns-to-resolution endpoint.
+
+\subsection{Beliefs, Outcomes, and Likelihoods}
+
+For each public scenario, the questioner proposes a finite support of plausible
+cause-and-remedy hypotheses. After every observation it proposes refinements,
+filters only hypotheses contradicted by the public history, and recomputes the
+posterior over the retained support. The implementation caps support size but
+does not give the model access to the benchmark solution.
+
+Free-text customer replies require an explicit answer-space interface. For each
+candidate action $a$, the model proposes three to five mutually exclusive,
+customer-observable outcomes. Every corrective action includes resolution,
+attempted-but-unchanged, and unable-to-perform outcomes. For hypothesis $h$, an
+LLM likelihood call estimates $p(y\mid h,a)$. A separate non-thinking mapper
+maps the realized reply to one proposed outcome or marks the map unclean.
+Answer-space coverage is the fraction of realized replies mapped cleanly.
+
+The one-step action score is
 \[
-  L(p)=\mathbb E_{\theta\sim p}
-  \left[\operatorname{RMSE}_{\rm perm}(\theta,\hat\theta(p))\right].
+  I_t(a)=\sum_h p_t(h)\sum_y p(y\mid h,a)
+  \log\frac{p(y\mid h,a)}{\sum_{h'}p_t(h')p(y\mid h',a)}.
 \]
-For a candidate root query $x$, the estimated utility is the Monte Carlo
-posterior-predictive reduction
+All candidate actions at a decision share the same posterior support.
+
+\subsection{Endpoint Validation}
+
+Open-ended simulators can invalidate an otherwise careful policy comparison. A
+simulator may claim that a plausible but incorrect remedy succeeded, or claim
+that the private remedy failed. We therefore use a two-layer check. First, each
+reply is audited against the private solution and regenerated within a bounded
+repair budget if inconsistent. Second, every terminal ``Goal reached'' claim is
+checked against the latest action and private remedy. Surviving contradictions
+fail the complete task invocation closed.
+
+The adapter also runs Paprika's complete-conversation success judge after every
+turn. Before policy evaluation, a five-task smoke required at least 85\% clean
+answer-space coverage, zero surviving simulator contradictions, zero structured
+failures, and manual transcript review. An earlier endpoint implementation was
+quarantined when manual audit found false successes; none of those outcomes are
+used as policy evidence. Endpoint auditing is therefore part of the method, not
+post-hoc cleanup.
+
+\section{Belief-Guided Native Arbitration}
+
+At each turn, the thinking questioner sees the public scenario and conversation
+and returns exactly three ordered, atomic actions. Candidate 0 is the action it
+would naturally take next. Candidates 1 and 2 are distinct credible
+alternatives. The same prompt also supplies a discrete observable outcome set
+for each action. The arbiter scores all three actions under the current belief.
+
+To quantify score uncertainty, let
 \[
-  \widehat U(x)=L(p_t)-
-  \frac{1}{R}\sum_{r=1}^R L(p_{t+1}^{(r)}).
+  c_h(a)=\sum_y p(y\mid h,a)
+  \log\frac{p(y\mid h,a)}{p(y\mid a)}
 \]
-This utility is task-aligned but truth-free: simulated truths are sampled from
-$p_t$. The realized smooth target fixes the recorded hidden truth, generates
-paired observation noise, updates the same exact-likelihood posterior, and
-measures the resulting reduction in $L$. We also report realized point-RMSE
-reduction to the fixed truth.
+be the expected information contribution under hypothesis $h$. We compute a
+weighted variance of $c_h(a)$ under $p_t(h)$ and divide by the posterior
+effective sample size $n_{\mathrm{eff}}=1/\sum_h p_t(h)^2$. Its square root is
+the action's standard error $s(a)$.
 
-\subsection{Gate 0 Protocol}
+Let $a_0$ be the native default and $a_*=\arg\max_a I_t(a)$. The deployed rule is
+\[
+  a_t=\begin{cases}
+  a_*, & I_t(a_*)-I_t(a_0)>
+  \sqrt{s(a_*)^2+s(a_0)^2},\\
+  a_0, & \text{otherwise.}
+  \end{cases}
+\]
+The strict inequality and one-SE threshold were frozen after the development
+pilot. The method logs all candidates, scores, standard errors, margins, and
+override decisions.
 
-We reuse 60 probe records from 20 trials at history lengths 0, 3, and 6. Each
-record contains the hidden state, realized history, and 6--10 LLM-proposed
-strategy roots. Legacy records do not contain rollout posterior snapshots or
-future query trajectories, so we use the pre-specified local fallback: score
-the stored roots with the analytic location model and no LLM calls. The
-canonical result uses depth 1, where there is no continuation-policy mismatch.
+\paragraph{Candidate-0 control.}
+The causal control receives the identical ordered three-proposal prompt and
+always executes $a_0$. It constructs no beliefs and performs no EIG scoring.
+Whenever its public history matches arbitration, a shared prompt cache makes
+the ordered proposal set byte-for-byte identical after parsing. The held-out
+analyzer rejects any mismatch. This control separates the effect of eliciting
+three goal-directed actions from the effect of selecting among them with EIG.
 
-The posterior approximation begins with a common pool of 100,000 normal-prior
-particles, conditions on each history, systematically resamples 256 particles,
-and applies likelihood-targeted MCMC rejuvenation. Candidate comparisons share
-random controls. The canonical scorer uses 256 posterior-predictive rollouts and
-the smooth target averages 256 truth-conditional deployments.
+\paragraph{Best-$N$ elicitation probe.}
+A preregistered development-only probe tests a second explanation for faithful
+EIG's failure. It changes only the generic candidate instruction to request the
+five best next actions for resolving the issue quickly, then applies ordinary
+EIG argmax. Tasks and outcomes are disjoint from the held-out evaluation. If
+this variant matches arbitration, the simpler interpretation is goal-anchored
+generation plus EIG selection; if it remains weaker, calibrated native-primary
+selection is load-bearing.
 
-For each probe we compute Spearman correlation across candidate roots and then
-macro-average over probes. The pre-registered proceed threshold is
-$\rho\gtrsim0.3$ at a tested horizon. We additionally report (i) the old entropy
-scorer against the new smooth target where available, (ii) task scorer against
-point-RMSE reduction, and (iii) the rankability ceiling: realized smooth-target
-reduction against realized point-RMSE reduction. If the task scorer fails, no
-arbitration policy or cluster pilot is run.
+\section{Evaluation Protocol}
 
-\subsection{Path A Motivation}
+The held-out Paprika study contains the next 50 unseen official evaluation
+tasks, offsets 10--59 in released order, with seed 1304 and a five-turn budget.
+The thinking comparison jointly evaluates arbitration, candidate 0, and a
+native thinking agent. A separate non-thinking native agent provides context.
+All arms use the same 26B A4B model route; thinking is enabled only for policy
+generation in the designated arms. Simulator, mapping, likelihood, filtering,
+and endpoint calls are non-thinking.
 
-Path A evaluates entropy-scored StrategyEIG on a locality-constrained
-branch-decoy environment. It uses common rollout controls, fixed-support
-analytical posterior updates, support-grid candidate generation, and
-matched-compute myopic controls. Thirty paired trials compare naive, greedy EIG,
-and StrategyEIG depths 1, 3, and 5. A second 30-trial arm removes the movement
-constraint. These runs motivate the repair; they are not evidence for the Path B
-task-loss method.
+The primary endpoint is paired censored turns to resolution for arbitration
+minus thinking naive. The co-primary causal endpoint compares arbitration with
+candidate 0. We report mean paired differences with 5,000-resample bootstrap
+95\% intervals, win/loss/tie counts, and Wilcoxon signed-rank tests. Resolution
+at five turns uses paired discordance counts and an exact two-sided binary test.
+The method claim requires both co-primary bootstrap intervals to exclude zero
+in arbitration's favor.
 
-\section{Results}
+The mechanism analysis reports override rate, immediate resolution after an
+override, and score-margin distributions for arbitration wins, losses, and ties
+against candidate 0. These analyses are descriptive; the threshold cannot be
+retuned. Cost reporting includes requests, tokens, model cost, and cost per
+resolution. Candidate-0 cost is labeled cache-amortized because shared proposals
+can be reused while histories match.
 
-\subsection{Entropy Fidelity Does Not Imply Localization Fidelity}
+Outcome blindness is enforced during execution. Monitoring can inspect process
+health, structured failures, candidate pairing, and cost, but not resolution or
+turn outcomes. A failed thinking unit discards all three methods for that task
+and replays the complete unchanged triplet; partial methods are never combined.
+The final analyzer runs once after all 50 canonical tasks and the non-thinking
+blocks are fixed.
 
-The 26B A4B entropy scorer appears successful under an information-only gate.
-Across depths 2, 3, and 5, estimated-vs-realized entropy Spearman correlations
-are $0.380\pm0.045$, $0.440\pm0.041$, and $0.396\pm0.044$; corresponding
-truth-log-posterior correlations are about 0.36--0.37. Yet point-RMSE
-correlations are $-0.088\pm0.051$, $-0.080\pm0.045$, and
-$-0.035\pm0.050$. The scorer ranks its own information objective but not the
-localization endpoint.
+After automated analysis, manual review covers every task where arms disagree
+on success plus ten seed-selected remaining tasks. Reviewers compare each
+terminal claim and near-remedy against the private benchmark remedy. Any
+surviving false success or false failure quarantines the complete headline
+result rather than dropping a convenient task.
 
-The paired policy sweep confirms that this disconnect matters. In the
-constrained arm, final RMSE means are 0.166 for naive, 0.412 for greedy EIG,
-0.542 for StrategyEIG-d5, 0.929 for d1, and 1.127 for d3. Depth 5 improves over
-shorter StrategyEIG and matched-compute myopic controls, but it does not beat
-either baseline. In the unconstrained arm, all methods are near the task ceiling
-(0.089--0.108 RMSE) and depth has no meaningful effect.
+\section{Results Status}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.88\linewidth]{../plots/location_depth_sweeps/location_branch_decoy_supportgrid_depth_contrast_26b_a4b_mpp30_split_depth_contrast.png}
-  \caption{Banked Path A result. Deeper entropy scoring improves the
-  StrategyEIG scaffold in the constrained arm, but StrategyEIG remains worse
-  than naive and greedy EIG. The unconstrained contrast is flat.}
-  \label{fig:depth-sweep}
-\end{figure}
+The terminal-valid ten-task development pilot selected the arbitration rule for
+held-out testing: arbitration resolved 60\% of tasks versus 40\% for thinking
+naive, with six paired turn wins, no losses, four ties, and a mean censored-turn
+difference of $-1.2$ (development bootstrap interval $[-2.2,-0.4]$). It
+overrode the native default on 12 of 33 decisions. These values are explicitly
+development evidence and do not establish the paper's method claim.
 
-\subsection{Task-Loss Repair Fails Its Gate}
-
-Figure~\ref{fig:ranking-fidelity} shows the canonical Path B Gate 0 result.
-At depth 1, the task-loss scorer reaches $\rho=0.231$ against realized
-posterior-risk reduction, with a 95\% bootstrap interval $[0.098,0.360]$.
-This is positive but below the $\approx0.3$ proceed threshold. Correlation with
-realized point-RMSE reduction is 0.249 $[0.130,0.371]$. The rankability ceiling
-between realized posterior-risk and point-RMSE reductions is only 0.165
-$[0.020,0.301]$.
-
-The failure is not explained by one unlucky integration budget. With
-independently resampled supports, depth-1 task-loss correlations are 0.278 at
-256 samples and 0.262 at 1024 samples. The mean score-SE to between-candidate-SD
-ratio falls from 0.316 to 0.162, but fidelity does not improve. A common prior
-pool and deterministic systematic resampling yield the canonical 0.231 result.
-Longer horizons also fail: depth 3 reaches 0.145 in the 256-sample diagnostic.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.76\linewidth]{../plots/ranking_fidelity/path_b_gate0_task_loss.png}
-  \caption{Path B Gate 0. Macro-average within-probe Spearman correlation for
-  the task-loss scorer and its realized targets. The dashed line is the
-  pre-registered proceed threshold. The canonical depth-1 scorer remains below
-  it, so the policy pilot is not launched.}
-  \label{fig:ranking-fidelity}
-\end{figure}
-
-The round split identifies the break. Task-vs-smooth correlation is 0.055 at
-the prior state, 0.305 after three observations, and 0.335 after six. Once data
-concentrate the posterior, posterior-predictive utility becomes modestly useful.
-Before data, however, the scorer averages over possible truths while each
-realized ranking is conditional on one unknown draw. More rollouts estimate the
-Bayesian average more precisely; they do not make it predict which prior draw
-occurred. Selecting only the later rounds would pass, but that stratum was not
-pre-registered and would omit the first decision faced by the deployed policy.
-
-\subsection{Why The Stop Matters}
-
-The proposed downstream method would have included the plain raw-history naive
-query, greedy-EIG query, and LLM strategic roots, then defaulted to naive unless
-another candidate exceeded it by one rollout standard error. That conservative
-rule can control estimator noise, but it cannot repair a scorer whose rankings
-are weakly related to realized gains. Gate 0 therefore prevents a costly and
-statistically ambiguous policy sweep. No result in this paper claims that
-task-loss arbitration beats naive or greedy EIG.
+The 50-task held-out outcomes remain sealed while this methods draft is written.
+No result-dependent wording, subgroup, threshold, endpoint, or task is selected
+from partial runs. The final paper will populate this section only from the
+frozen analyzer and mandatory manual endpoint audit.
 
 \section{Discussion}
 
-The experiments expose two distinct failures. Entropy StrategyEIG has good
-scorer-to-objective fidelity but poor objective-to-RMSE alignment. Expected
-posterior RMSE fixes the semantic objective, yet its posterior-predictive values
-still weakly rank truth-conditional outcomes, especially before observations.
-The second failure is subtler: the utility can be Bayes-rational in expectation
-without being a reliable per-instance arbiter among candidate LLM plans.
+The central hypothesis is an interface claim. In open semantic tasks, native
+LLM competence may be most valuable for constructing a small set of actions
+that are actually useful, while explicit Bayesian structure may be most
+valuable for discriminating among them. This differs from asking EIG to both
+invent and select actions. The candidate-0 control makes that distinction
+testable rather than rhetorical.
 
-This distinction changes how LLM-BED systems should be evaluated. Reporting
-only selected EIG or entropy drop can certify the simulator rather than the
-task. Reporting only final RMSE can obscure whether failure comes from proposal
-quality, score noise, or an unrankable endpoint. A useful diagnostic chain is:
-estimated score to realized smooth objective, smooth objective to point task
-loss, and finally policy improvement under paired deployment. Each link needs
-its own uncertainty and stop rule.
+The calibrated margin also changes what an EIG score means operationally. An
+argmax always returns a winner, even when candidate differences are negligible
+relative to support variability. Native-primary arbitration instead treats
+small score gaps as insufficient evidence to override a capable policy. This
+does not prove the standard-error estimate is calibrated in a frequentist
+sense; the held-out mechanism analysis only asks whether the frozen rule yields
+useful overrides.
 
-The negative result does not show that task-aligned utilities are useless.
-Later-round states cross the nominal correlation threshold, suggesting that
-arbitration may become viable after posterior concentration. A future method
-could explicitly abstain at early rounds and activate only after an online
-fidelity or effective-sample-size criterion. That is a new, post-hoc hypothesis,
-not a claim tested here.
+The broader target is transfer to MediQ, where hypothesis tracking corresponds
+to differential diagnosis and questions elicit missing clinical facts. That
+experiment is conditional on Paprika's held-out and manual gates. It is not part
+of the present evidence and will not be launched to rescue a null Paprika
+result.
 
 \section{Limitations}
 
-This is a workshop-scale diagnostic based on one model family and 60 probe
-states from a limited number of paired trials. The standard-task Gate 0 uses an
-exact analytic likelihood, so it isolates utility fidelity under a particle
-posterior; open-ended LLM-BED settings must also contend with LLM-estimated
-posterior error. The legacy records omit rollout posterior snapshots, requiring
-a local fallback. Depth 1 avoids future-policy mismatch, but the common
-100,000-particle pool, 256-particle support, and MCMC rejuvenation remain a
-numerical approximation. Low late-round importance effective sample size is
-reported rather than treated as exact posterior coverage.
+The study uses one model family and one externally released troubleshooting
+benchmark. The 50-task sample is workshop scale and has approximately 78\%
+planned power for half the development effect, slightly below the conventional
+80\% target. LLM likelihoods and finite generated hypothesis supports are not
+calibrated probabilistic models; the one-SE margin measures variation across
+that support, not all epistemic uncertainty.
 
-Path A uses one deliberately constructed constrained environment family,
-method-blind oracle selection, a robustness heatmap, and a limited number of
-paired trials. Its 26B A4B runs use millions of tokens and include
-forced-thinking exits. The minimum package lacks an MPC-style direct
-action-sequence ablation; that remains future work. Most importantly, Gate 1 is
-not missing positive evidence: it was deliberately not run after the
-pre-registered Gate 0 failure. Therefore we make no performance claim for the
-unimplemented arbitration policy and no claim that task-aligned utilities
-transfer for free to LLM-estimated posteriors.
+The customer simulator, mapper, likelihood model, and endpoint judges share a
+model family, which can induce correlated errors despite role separation and
+private-solution audits. The strict terminal protocol reduces false endpoint
+claims but may fail closed on otherwise usable interactions, requiring exact
+whole-task replay. Manual review is therefore essential. OpenRouter execution
+also introduces provider nondeterminism despite fixed prompts and seeds.
+
+Candidate 0 is a prompt-matched native default, not an independently sampled
+copy of the plain naive policy. This is intentional for causal proposal pairing,
+but the two baselines answer different questions. The candidate-0 comparison
+isolates EIG selection within a three-proposal interface; the thinking-naive
+comparison estimates end-to-end policy value.
+
+Finally, the method is one-step. Full two-step lookahead failed in the small
+development study and is not rehabilitated here. MediQ transfer has not yet been
+run, so no medical or cross-domain generality claim is made. A positive Paprika
+result would support troubleshooting performance at a fixed turn budget, not a
+universal claim that Bayesian arbitration improves every interactive agent.
 
 \section{Conclusion}
 
-An LLM experimental-design scaffold can rank entropy reduction while failing
-to rank localization accuracy. Replacing entropy with expected posterior RMSE
-is principled but does not automatically repair the per-instance selection
-link: our standard-task scorer remains below its pre-registered fidelity gate
-after rollout and support diagnostics. The scientifically useful result is the
-stop itself. Before asking whether deeper LLM plans beat naive or greedy design,
-we should establish that their scores rank the realized task-facing quantity;
-in this study, neither entropy nor its task-loss replacement clears that bar
-robustly.
+Faithful BED transfer can fail when the proposal interface is detached from the
+task objective. We test a narrower use of beliefs: let a thinking model propose
+good actions, then use one-step EIG only to select among them when the estimated
+advantage is large enough. Paprika provides an external sequential benchmark,
+and a prompt-matched candidate-0 control isolates selection from elicitation.
+The method and analysis are frozen before held-out outcomes are opened. Whether
+beliefs improve troubleshooting selection is therefore an empirical question,
+not a conclusion imported from the development pilot.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

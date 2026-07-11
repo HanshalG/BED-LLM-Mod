@@ -5,19 +5,16 @@ from scripts import validate_paper_draft as vpd
 
 
 VALID_LIMITATIONS_TEXT = """
-This is a workshop-scale study with one constrained environment family and a
-limited number of paired trials. The environment is deliberately constructed
-and selected method-blind. We report a robustness heatmap as scope evidence.
-The runs report forced-thinking-exit rates. We do not include an MPC-style
-ablation; that remains future work.
+This study uses one model family and a 50-task sample. Its finite generated
+hypothesis supports are not calibrated. Simulator and judges share a model
+family, which can create correlated errors. OpenRouter introduces provider
+nondeterminism. Candidate 0 is retained for causal proposal pairing. MediQ
+transfer has not yet been run. Full two-step lookahead is not rehabilitated.
+The held-out outcomes remain sealed. Manual review quarantines the complete
+headline if the endpoint is invalid.
 """
 
-VALID_FIGURE_LABELS = """
-\\begin{figure}\\label{fig:ranking-fidelity}\\end{figure}
-\\begin{figure}\\label{fig:depth-sweep}\\end{figure}
-\\begin{figure}\\label{fig:cost-depth}\\end{figure}
-\\begin{figure}\\label{fig:qualitative}\\end{figure}
-"""
+VALID_FIGURE_LABELS = ""
 
 VALID_TEXT_CHECKS = VALID_LIMITATIONS_TEXT + VALID_FIGURE_LABELS
 
@@ -100,10 +97,10 @@ def test_validate_paper_draft_rejects_missing_required_limitations(tmp_path, mon
         check for check in payload["checks"] if check["name"] == "paper_limitations_coverage"
     )
     assert limitations_check["ok"] is False
-    assert "forced_thinking_exit_rate" in limitations_check["detail"]
+    assert "single_model_sample_scope" in limitations_check["detail"]
 
 
-def test_validate_paper_draft_rejects_missing_required_figures(tmp_path, monkeypatch):
+def test_validate_paper_draft_allows_figures_to_remain_sealed(tmp_path, monkeypatch):
     paper_dir = tmp_path / "paper"
     paper_dir.mkdir()
     (paper_dir / "main.tex").write_text(
@@ -112,17 +109,28 @@ def test_validate_paper_draft_rejects_missing_required_figures(tmp_path, monkeyp
         + "\\end{document}\n"
     )
 
-    def fail_if_called(command, *, cwd: Path, timeout: int):
-        raise AssertionError("compile should not run after text validation fails")
+    commands = []
 
-    monkeypatch.setattr(vpd, "_run", fail_if_called)
+    def fake_run(command, *, cwd: Path, timeout: int):
+        commands.append(command)
+        if command[0] == "pdflatex":
+            output_dir = Path(command[command.index("-output-directory") + 1])
+            output_dir.mkdir(parents=True, exist_ok=True)
+            (output_dir / "main.pdf").write_bytes(b"%PDF-1.4 fake")
+        return subprocess.CompletedProcess(command, 0, stdout="Output written on main.pdf (5 pages, 1 bytes).\n")
+
+    monkeypatch.setattr(vpd, "_run", fake_run)
+    monkeypatch.setattr(vpd, "_pdf_page_count", lambda pdf_path, latex_output="": 5)
 
     payload = vpd.summary_payload(vpd.validate_paper_draft(paper_dir))
 
-    assert payload["ok"] is False
+    assert payload["ok"] is True
     figure_check = next(check for check in payload["checks"] if check["name"] == "paper_required_figures")
-    assert figure_check["ok"] is False
-    assert "cost_vs_depth" in figure_check["detail"]
+    assert figure_check == {
+        "name": "paper_required_figures",
+        "ok": True,
+        "detail": "0 required figure label(s)",
+    }
 
 
 def test_latex_pages_from_output_parses_singular_and_plural():

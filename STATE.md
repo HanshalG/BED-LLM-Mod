@@ -309,6 +309,19 @@ request and is noncanonical. Exact recovery 1 launched in a managed session at
 `20260711T201603`. With nine active wave-3 processes, aggregate configured concurrency
 is 250. The probe remains outcome-blind until completion and does not overlap the
 held-out headline task set.
+Wave-3 original offset 32 failed closed during candidate 0 after arbitration had
+completed. The complete invocation is noncanonical and its first item is discarded.
+Exact full-triplet recovery 1 launched unchanged at `20260711T202059`. During exception
+triage, a context-bearing grep command inadvertently printed the failed invocation's
+arbitration metric line. This was a noncanonical artifact already quarantined before
+inspection; no canonical task outcome was viewed, no comparison was made, and no design,
+recovery, or analysis decision changed. Subsequent health checks must extract only the
+final exception line without surrounding log context.
+The Path E paper's outcome-independent rewrite is now a compiling five-page draft. It
+covers the external benchmark, native-primary EIG arbitration, candidate-0 causal
+control, answer-space and endpoint audit, frozen analysis, outcome blindness, and
+limitations. Its Path E validator passes. The results section explicitly remains sealed
+until the canonical 50-task analyzer and manual audit.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
