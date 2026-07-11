@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from scripts.build_paprika_headline_manual_review import build_review_packet
 from scripts.analyze_paprika_headline import analyze
 
 
@@ -150,3 +151,48 @@ def test_headline_analyzer_rejects_mismatched_root_proposals(tmp_path: Path) -> 
     result = analyze(headline, nonthinking)
     assert result["candidate_pairing"]["valid"] is False
     assert result["claim_read_before_manual_review"] == "invalid_candidate_pairing"
+
+
+def test_manual_review_packet_contains_all_five_arms_and_private_remedy(
+    tmp_path: Path,
+) -> None:
+    headline = tmp_path / "headline"
+    nonthinking = tmp_path / "nonthinking"
+    best_n = tmp_path / "best_n"
+    turns = [None] * 50
+    _write_run(
+        headline,
+        {
+            "NaivePrimaryArbitration": turns,
+            "NaivePrimaryCandidate0": turns,
+            "naive": turns,
+        },
+    )
+    _write_run(nonthinking, {"naive": turns})
+    _write_run(best_n, {"EIG": turns})
+    for run_dir in (headline, nonthinking, best_n):
+        for artifact in run_dir.glob("items/*/paprika_smoke.json"):
+            records = json.loads(artifact.read_text())
+            for record in records:
+                record["scenario"] = "Public scenario"
+                record["solution"] = "Private remedy"
+            artifact.write_text(json.dumps(records))
+    analysis = {
+        "status": "directional_but_uncertain_requires_manual_review",
+        "manual_review_plan": {
+            "success_disagreement_task_ids": ["customer_service:eval:0010"],
+            "random_spot_check_task_ids": [],
+            "all_review_task_ids": ["customer_service:eval:0010"],
+        },
+    }
+    packet = build_review_packet(analysis, headline, nonthinking, best_n)
+    assert "Private remedy" in packet
+    assert "success disagreement" in packet
+    for arm in (
+        "arbitration",
+        "candidate0",
+        "naive_thinking",
+        "naive_nonthinking",
+        "best_n_eig",
+    ):
+        assert f"### {arm}" in packet

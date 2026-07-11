@@ -231,5 +231,17 @@ python scripts/analyze_paprika_headline.py \
   --output results/path_e/arbitration_headline/PAPRIKA_HEADLINE.json
 ```
 
+Then build the frozen manual-review packet from the analyzer-selected disagreement and
+seeded spot-check tasks:
+
+```bash
+python scripts/build_paprika_headline_manual_review.py \
+  --analysis results/path_e/arbitration_headline/PAPRIKA_HEADLINE.json \
+  --headline-run runs/paprika-headline-triplet-combined-seed1304 \
+  --naive-nonthinking-run runs/paprika-headline-nonthinking-combined-seed1304 \
+  --best-n-run runs/paprika-headline-best-n-combined-seed1304 \
+  --output results/path_e/arbitration_headline/MANUAL_REVIEW.md
+```
+
 Do not launch MediQ until Claim B's automated result and required manual audit both
 pass. If Claim B collapses, stop-and-discuss.
