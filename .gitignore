@@ -72,3 +72,7 @@ results/path_e/*
 !results/path_e/step0a_repaired/MANUAL_REVIEW.md
 !results/path_e/step0a_repaired/paprika_smoke.json
 !results/path_e/step0a_repaired/INVALIDATED.md
+!results/path_e/step0a_terminal_repaired/
+!results/path_e/step0a_terminal_repaired/REPORT.json
+!results/path_e/step0a_terminal_repaired/MANUAL_REVIEW.md
+!results/path_e/step0a_terminal_repaired/paprika_smoke.json

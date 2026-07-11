@@ -30,6 +30,7 @@ def analyze(
     *,
     coverage_threshold: float = 0.85,
     faithfulness_threshold: float = 0.0,
+    require_terminal_faithfulness: bool = False,
 ) -> dict[str, Any]:
     smoke_path, trials = _load_one(run_dir, "paprika_smoke.json")
     metrics_path = run_dir / "metrics.json"
@@ -77,6 +78,34 @@ def analyze(
     )
     raw_contradiction_rate = max(raw_faithfulness_rate_trace, default=0.0)
     faithfulness_failures = max(faithfulness_failures_trace, default=0.0)
+    terminal_claims_trace = metrics.get("simulator_terminal_claims", [])
+    terminal_checks_trace = metrics.get("simulator_terminal_checks", [])
+    terminal_rejections_trace = metrics.get("simulator_terminal_rejections", [])
+    artifact_terminal_claims = [
+        trial.get("final_metrics", {}).get("simulator_terminal_claims", 0.0)
+        for trial in trials
+    ]
+    artifact_terminal_checks = [
+        trial.get("final_metrics", {}).get("simulator_terminal_checks", 0.0)
+        for trial in trials
+    ]
+    artifact_terminal_rejections = [
+        trial.get("final_metrics", {}).get("simulator_terminal_rejections", 0.0)
+        for trial in trials
+    ]
+    terminal_metric_present = all(
+        name in metrics
+        for name in (
+            "simulator_terminal_claims",
+            "simulator_terminal_checks",
+            "simulator_terminal_rejections",
+        )
+    )
+    terminal_claims = max([*terminal_claims_trace, *artifact_terminal_claims], default=0.0)
+    terminal_checks = max([*terminal_checks_trace, *artifact_terminal_checks], default=0.0)
+    terminal_rejections = max(
+        [*terminal_rejections_trace, *artifact_terminal_rejections], default=0.0
+    )
 
     log_path = run_dir / "run.log"
     log_text = log_path.read_text(errors="replace") if log_path.exists() else ""
@@ -94,6 +123,8 @@ def analyze(
         and faithfulness_metric_present
         and final_inconsistency_rate <= faithfulness_threshold
         and faithfulness_failures == 0
+        and (terminal_metric_present or not require_terminal_faithfulness)
+        and terminal_checks >= terminal_claims
         and not error_lines
     )
     return {
@@ -114,6 +145,11 @@ def analyze(
         "simulator_faithfulness_final_inconsistency_rate": final_inconsistency_rate,
         "simulator_faithfulness_failures": faithfulness_failures,
         "simulator_faithfulness_threshold": faithfulness_threshold,
+        "simulator_terminal_metric_present": terminal_metric_present,
+        "simulator_terminal_claims": terminal_claims,
+        "simulator_terminal_checks": terminal_checks,
+        "simulator_terminal_rejections": terminal_rejections,
+        "terminal_faithfulness_required": require_terminal_faithfulness,
         "forced_thinking_exits": forced_exits,
         "llm_usage_events": usage_events,
         "forced_exit_rate": forced_exits / usage_events if usage_events else None,
@@ -139,12 +175,14 @@ def main() -> None:
     parser.add_argument("run_dir", type=Path)
     parser.add_argument("--coverage-threshold", type=float, default=0.85)
     parser.add_argument("--faithfulness-threshold", type=float, default=0.0)
+    parser.add_argument("--require-terminal-faithfulness", action="store_true")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     report = analyze(
         args.run_dir,
         coverage_threshold=args.coverage_threshold,
         faithfulness_threshold=args.faithfulness_threshold,
+        require_terminal_faithfulness=args.require_terminal_faithfulness,
     )
     output = args.output or args.run_dir / "paprika_step0_analysis.json"
     output.write_text(json.dumps(report, indent=2) + "\n")

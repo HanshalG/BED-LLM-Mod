@@ -1,0 +1,278 @@
+[
+  {
+    "task_id": "customer_service:eval:0000",
+    "scenario": "The customer's refrigerator is beeping continuously and is not cooling effectively.",
+    "solution": "The refrigerator door is slightly ajar, and properly closing it will stop the beeping and restore cooling.",
+    "turns": [
+      {
+        "query": "Vacuum the condenser coils located at the bottom or back of the unit.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "The refrigerator is now cooling properly",
+          "The coils are clean but the unit still does not cool",
+          "I am unable to access the coils to clean them",
+          "I did not attempt this",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I don't know how to do that, and I'm not sure where those are. Besides, the fridge is still beeping and feels warm.",
+        "mapped_outcome": "I did not attempt this",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Is the door seal tightly closed and free of visible tears or gaps?",
+        "kind": "diagnostic",
+        "outcomes": [
+          "The seal is intact and closes tightly.",
+          "There is a visible tear in the rubber gasket.",
+          "The seal is loose or does not sit flush against the frame.",
+          "I cannot see any damage to the seal.",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "It looks okay to me, but I'll double-check. It's still beeping, though.",
+        "mapped_outcome": "I cannot see any damage to the seal.",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      }
+    ],
+    "final_metrics": {
+      "resolved": 0.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 179.0,
+      "structured_parse_retries": 2.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 2.0,
+      "simulator_faithfulness_checks": 2.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_terminal_claims": 0.0,
+      "simulator_terminal_checks": 0.0,
+      "simulator_terminal_rejections": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.10412971519651375
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0001",
+    "scenario": "The warehouse staff reports that shipping labels are not printing clearly.",
+    "solution": "The shipping label printer's ink ribbon is depleted, and replacing it will restore printing.",
+    "turns": [
+      {
+        "query": "Replace the current label roll with a new roll from a different batch.",
+        "kind": "solution",
+        "outcomes": [
+          "The new labels print clearly",
+          "The new labels are still printing poorly",
+          "No replacement labels are available to test",
+          "Not attempted",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I already tried changing the labels, but the print is still coming out all faded and blurry.",
+        "mapped_outcome": "The new labels are still printing poorly",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Increase the darkness setting in the printer driver preferences.",
+        "kind": "solution",
+        "outcomes": [
+          "The labels are printing clearly now.",
+          "The labels are still printing faintly.",
+          "The darkness setting is greyed out and cannot be changed.",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I tried turning up the darkness, but it didn't help at all. The print is still just as light and blurry as before.",
+        "mapped_outcome": "The labels are still printing faintly.",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      }
+    ],
+    "final_metrics": {
+      "resolved": 0.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 308.0,
+      "structured_parse_retries": 4.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 4.0,
+      "simulator_faithfulness_checks": 4.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_terminal_claims": 0.0,
+      "simulator_terminal_checks": 0.0,
+      "simulator_terminal_rejections": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.1139155454965825
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0002",
+    "scenario": "The fleet manager reports that vehicle data is no longer syncing with their dashboard.",
+    "solution": "The fleet management app's API key has expired, and updating it will restore data integration.",
+    "turns": [
+      {
+        "query": "Test the vehicle battery voltage with a multimeter.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "Voltage is within the normal operating range",
+          "Voltage is below the minimum required threshold",
+          "Voltage is fluctuating erratically",
+          "Cannot perform voltage test",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I don't have a multimeter, and I'm not really sure how to do that. Besides, the vehicles seem to be running fine, so I don't think it's a battery problem.",
+        "mapped_outcome": "Cannot perform voltage test",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Refresh the OAuth credentials within the dashboard settings menu.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "Data sync resumed immediately after the refresh",
+          "The credentials refreshed successfully but data is still missing",
+          "The system returned an error during the refresh process",
+          "I cannot find the OAuth settings in the menu",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I tried refreshing those credentials, but the dashboard is still showing no data coming in from the vehicles.",
+        "mapped_outcome": "The credentials refreshed successfully but data is still missing",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      }
+    ],
+    "final_metrics": {
+      "resolved": 0.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 439.0,
+      "structured_parse_retries": 5.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 6.0,
+      "simulator_faithfulness_checks": 6.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_terminal_claims": 0.0,
+      "simulator_terminal_checks": 0.0,
+      "simulator_terminal_rejections": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.19987116651733536
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0003",
+    "scenario": "The customer's dishwasher is leaving water at the bottom after a cycle.",
+    "solution": "The dishwasher's drain hose is clogged, and clearing it will allow the dishwasher to drain properly.",
+    "turns": [
+      {
+        "query": "Remove and clean the drain pump filter assembly.",
+        "kind": "solution",
+        "outcomes": [
+          "Water drains completely after the cycle",
+          "Water remains at the bottom after cleaning",
+          "The filter is stuck and cannot be removed",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I already checked the filter and it looks clean, but there's still water sitting in the bottom.",
+        "mapped_outcome": "Water remains at the bottom after cleaning",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      },
+      {
+        "query": "Re-route the drain hose into a high loop above the sink level.",
+        "kind": "diagnostic",
+        "outcomes": [
+          "The dishwasher drained successfully.",
+          "The water remains in the bottom of the machine.",
+          "I am unable to reach the hose to move it.",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "I tried that, but the water is still sitting there.",
+        "mapped_outcome": "The water remains in the bottom of the machine.",
+        "mapped_cleanly": true,
+        "goal_reached": false
+      }
+    ],
+    "final_metrics": {
+      "resolved": 0.0,
+      "turns_used": 2.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 602.0,
+      "structured_parse_retries": 8.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 8.0,
+      "simulator_faithfulness_checks": 8.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_terminal_claims": 0.0,
+      "simulator_terminal_checks": 0.0,
+      "simulator_terminal_rejections": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.11592113299942149
+    }
+  },
+  {
+    "task_id": "customer_service:eval:0004",
+    "scenario": "The warehouse staff reports that the scale is giving inconsistent weight readings for packages.",
+    "solution": "The package scale's calibration is off, and recalibrating it will restore accurate weight measurements.",
+    "turns": [
+      {
+        "query": "Perform a calibration using certified standard test weights.",
+        "kind": "solution",
+        "outcomes": [
+          "The scale is now reading accurately",
+          "The scale still gives inconsistent readings",
+          "Calibration failed due to error code",
+          "Not attempted / cannot determine"
+        ],
+        "reply": "Goal reached",
+        "mapped_outcome": null,
+        "mapped_cleanly": true,
+        "goal_reached": true
+      }
+    ],
+    "final_metrics": {
+      "resolved": 1.0,
+      "turns_used": 1.0,
+      "answer_set_coverage": 1.0,
+      "latest_answer_mapped_cleanly": 1.0,
+      "true_solution_exact_mass": 0.0,
+      "shared_call_cache_hits": 0.0,
+      "shared_call_cache_misses": 669.0,
+      "structured_parse_retries": 9.0,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_observations": 9.0,
+      "simulator_faithfulness_checks": 9.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_terminal_claims": 1.0,
+      "simulator_terminal_checks": 1.0,
+      "simulator_terminal_rejections": 0.0,
+      "simulator_faithfulness_raw_contradiction_rate": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "selected_eig": 0.08658777146176083
+    }
+  }
+]

@@ -15,21 +15,18 @@ naive AND 1-step EIG on paired external-benchmark endpoints. 20Q/Wordle/Mastermi
 harness/unit-test only (greedy near-optimal there); location finding is closed. All
 Path A/B/C/D location & 20Q material is banked history below.
 
-Path E Step 0 implementation status (2026-07-11): **Step 0a requires revalidation after
-a second endpoint repair; Step 0b remains passed**. The previously canonical repaired
-real-model Paprika smoke was
-`20260711T095626_paprika-step0a-repaired-endpoint-tasks5-9-seed1304` at commit
-`7380339`. Across five official eval tasks and ten realized turns it achieved 9/10 =
-90% answer-set coverage, zero terminal structured failures, zero runtime failures,
-zero raw simulator contradictions, zero final inconsistencies, and two genuine
-exact-remedy resolutions. Manual review passed all five transcripts. It used OpenRouter
-`google/gemma-4-26b-a4b-it` without reasoning: 695 requests, 215,372 tokens, no forced
-exits, and $0.04380104. Evidence is tracked in
-`results/path_e/step0a_repaired/`, but it is now superseded: later Step 1 manual review
-found that `Straighten the drain hose` incorrectly received `Goal reached` for a private
-clog requiring the clog to be cleared. A specialized terminal-faithfulness adjudicator
-and exact regression now pass, but a fresh real-model smoke is pending. All earlier
-endpoint results remain invalid. The
+Path E Step 0 implementation status (2026-07-11): **terminal-repaired Step 0a and Step
+0b are passed**. The canonical real-model Paprika smoke is
+`20260711T130833_paprika-step0a-terminal-faithfulness-repaired-tasks0-4-seed1304` from
+implementation commit `a5da29a`. Across five official eval tasks and nine realized
+turns it achieved 9/9 = 100% answer-set coverage, zero terminal structured failures,
+zero runtime failures, zero raw/final simulator inconsistencies, and one exact-remedy
+resolution. The specialized terminal gate logged one claim, one check, and zero
+rejections. Manual review passed all five transcripts, including dishwasher alternatives
+that correctly remained non-terminal. It used OpenRouter
+`google/gemma-4-26b-a4b-it` without reasoning: 669 requests, 210,536 tokens, no forced
+exits, and $0.04443824. Evidence is tracked in
+`results/path_e/step0a_terminal_repaired/`. All earlier endpoint results remain invalid. The
 exact-posterior Mastermind depth-1/depth-2 harness remains green.
 
 The Paprika implementation is pushed. The
@@ -200,8 +197,10 @@ that requires the latest action to directly match the private cause/remedy; mere
 plausible alternatives are rejected and regenerated. Fresh five-task real-model
 revalidation on tasks 0-4 is the active gate. No arbitration or policy scaling is
 allowed before that gate and a fully fresh Step 1 pass manual review.
-The terminal-gate smoke launched as run `20260711T130833` from commit `a5da29a` with
-OpenRouter concurrency 256; report and manual review are pending.
+The terminal-gate smoke `20260711T130833` passed from implementation commit `a5da29a`
+with 100% coverage, zero failures/inconsistencies, terminal metrics present, and manual
+review passed. Fresh Step 1 is authorized again, but every arm must rerun from scratch
+under the terminal-repaired endpoint; no artifact from the invalid attempt can be reused.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten

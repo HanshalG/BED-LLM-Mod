@@ -41,6 +41,9 @@ def _write_run(
         "simulator_faithfulness_raw_contradiction_rate": [0.1],
         "simulator_faithfulness_final_inconsistency_rate": [faithfulness_rate],
         "simulator_faithfulness_failures": [float(faithfulness_rate > 0.0)],
+        "simulator_terminal_claims": [1.0],
+        "simulator_terminal_checks": [1.0],
+        "simulator_terminal_rejections": [0.0],
     }}]}))
     (run_dir / "run.log").write_text(
         '\n'.join(['{"event": "llm_token_usage"}'] * 10 + ["Forced thinking exit"] * 2)
@@ -57,6 +60,7 @@ def test_smoke_analysis_passes_coverage_but_requires_manual_review(tmp_path: Pat
     assert report["resolved_tasks"] == 1
     assert report["manual_transcript_review_required"] is True
     assert report["simulator_faithfulness_final_inconsistency_rate"] == 0.0
+    assert report["simulator_terminal_checks"] == 1.0
 
 
 def test_smoke_analysis_fails_low_coverage_or_terminal_parse_failure(tmp_path: Path) -> None:
@@ -88,3 +92,14 @@ def test_smoke_analysis_uses_cumulative_artifact_retry_counts(tmp_path: Path) ->
     trials[-1]["final_metrics"]["structured_parse_retries"] = 12.0
     path.write_text(json.dumps(trials))
     assert analyze(run_dir)["structured_parse_retries"] == 12.0
+
+
+def test_smoke_analysis_can_require_terminal_faithfulness_metrics(tmp_path: Path) -> None:
+    run_dir = _write_run(tmp_path, clean=10, total=10)
+    assert analyze(run_dir, require_terminal_faithfulness=True)["automated_pass"] is True
+    payload = json.loads((run_dir / "metrics.json").read_text())
+    payload["items"][0]["metrics"].pop("simulator_terminal_checks")
+    (run_dir / "metrics.json").write_text(json.dumps(payload))
+    report = analyze(run_dir, require_terminal_faithfulness=True)
+    assert report["automated_pass"] is False
+    assert report["simulator_terminal_metric_present"] is False

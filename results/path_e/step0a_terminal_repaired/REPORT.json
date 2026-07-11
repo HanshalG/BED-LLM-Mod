@@ -1,0 +1,118 @@
+{
+  "status": "automated_pass_manual_review_pending",
+  "automated_pass": true,
+  "manual_transcript_review_required": true,
+  "run_dir": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260711T130833_paprika-step0a-terminal-faithfulness-repaired-tasks0-4-seed1304",
+  "smoke_artifact": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260711T130833_paprika-step0a-terminal-faithfulness-repaired-tasks0-4-seed1304/items/000_EIG/paprika_smoke.json",
+  "num_tasks": 5,
+  "num_turns": 9,
+  "cleanly_mapped_turns": 9,
+  "answer_set_coverage": 1.0,
+  "coverage_threshold": 0.85,
+  "structured_parse_retries": 9.0,
+  "structured_parse_failures": 0.0,
+  "simulator_faithfulness_metric_present": true,
+  "simulator_faithfulness_raw_contradiction_rate": 0.0,
+  "simulator_faithfulness_final_inconsistency_rate": 0.0,
+  "simulator_faithfulness_failures": 0.0,
+  "simulator_faithfulness_threshold": 0.0,
+  "simulator_terminal_metric_present": true,
+  "simulator_terminal_claims": 1.0,
+  "simulator_terminal_checks": 1.0,
+  "simulator_terminal_rejections": 0.0,
+  "terminal_faithfulness_required": true,
+  "forced_thinking_exits": 0,
+  "llm_usage_events": 669,
+  "forced_exit_rate": 0.0,
+  "runtime_error_lines": [],
+  "resolved_tasks": 1,
+  "task_summaries": [
+    {
+      "task_id": "customer_service:eval:0000",
+      "scenario": "The customer's refrigerator is beeping continuously and is not cooling effectively.",
+      "num_turns": 2,
+      "resolved": false,
+      "queries": [
+        "Vacuum the condenser coils located at the bottom or back of the unit.",
+        "Is the door seal tightly closed and free of visible tears or gaps?"
+      ],
+      "kinds": [
+        "diagnostic",
+        "diagnostic"
+      ],
+      "replies": [
+        "I don't know how to do that, and I'm not sure where those are. Besides, the fridge is still beeping and feels warm.",
+        "It looks okay to me, but I'll double-check. It's still beeping, though."
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0001",
+      "scenario": "The warehouse staff reports that shipping labels are not printing clearly.",
+      "num_turns": 2,
+      "resolved": false,
+      "queries": [
+        "Replace the current label roll with a new roll from a different batch.",
+        "Increase the darkness setting in the printer driver preferences."
+      ],
+      "kinds": [
+        "solution",
+        "solution"
+      ],
+      "replies": [
+        "I already tried changing the labels, but the print is still coming out all faded and blurry.",
+        "I tried turning up the darkness, but it didn't help at all. The print is still just as light and blurry as before."
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0002",
+      "scenario": "The fleet manager reports that vehicle data is no longer syncing with their dashboard.",
+      "num_turns": 2,
+      "resolved": false,
+      "queries": [
+        "Test the vehicle battery voltage with a multimeter.",
+        "Refresh the OAuth credentials within the dashboard settings menu."
+      ],
+      "kinds": [
+        "diagnostic",
+        "diagnostic"
+      ],
+      "replies": [
+        "I don't have a multimeter, and I'm not really sure how to do that. Besides, the vehicles seem to be running fine, so I don't think it's a battery problem.",
+        "I tried refreshing those credentials, but the dashboard is still showing no data coming in from the vehicles."
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0003",
+      "scenario": "The customer's dishwasher is leaving water at the bottom after a cycle.",
+      "num_turns": 2,
+      "resolved": false,
+      "queries": [
+        "Remove and clean the drain pump filter assembly.",
+        "Re-route the drain hose into a high loop above the sink level."
+      ],
+      "kinds": [
+        "solution",
+        "diagnostic"
+      ],
+      "replies": [
+        "I already checked the filter and it looks clean, but there's still water sitting in the bottom.",
+        "I tried that, but the water is still sitting there."
+      ]
+    },
+    {
+      "task_id": "customer_service:eval:0004",
+      "scenario": "The warehouse staff reports that the scale is giving inconsistent weight readings for packages.",
+      "num_turns": 1,
+      "resolved": true,
+      "queries": [
+        "Perform a calibration using certified standard test weights."
+      ],
+      "kinds": [
+        "solution"
+      ],
+      "replies": [
+        "Goal reached"
+      ]
+    }
+  ]
+}
