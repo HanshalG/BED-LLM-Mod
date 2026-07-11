@@ -8,13 +8,22 @@ import json
 from pathlib import Path
 from typing import Any
 
-from scripts.analyze_paprika_step1 import (
-    _arm_summary,
-    _comparison,
-    _gate_outcome,
-    _task_values,
-    load_arm,
-)
+try:
+    from scripts.analyze_paprika_step1 import (
+        _arm_summary,
+        _comparison,
+        _gate_outcome,
+        _task_values,
+        load_arm,
+    )
+except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+    from analyze_paprika_step1 import (
+        _arm_summary,
+        _comparison,
+        _gate_outcome,
+        _task_values,
+        load_arm,
+    )
 
 
 def analyze(
