@@ -352,6 +352,9 @@ Wave-4A original offset 44 failed closed during thinking naive after arbitration
 candidate 0 completed. The entire invocation is noncanonical. Exact full-triplet
 recovery 1 launched unchanged at `20260711T210824` into the released slot; offset 49
 remains queued and aggregate configured concurrency remains 250.
+Original offsets 40 and 46 completed, releasing two slots. The queued original offset
+49 launched unchanged at `20260711T211424`. With six other original shards, recovery
+44, and the best-N probe still active, aggregate configured concurrency is 225.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
