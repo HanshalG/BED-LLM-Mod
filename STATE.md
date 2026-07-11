@@ -272,6 +272,8 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    failures, 19/20 clean turns, 2 resolutions, and 2/55 generation forced exits.
    Wave cost $0.22756252 over 2,031 requests and 260,153 reasoning tokens. Launch
    rescue offsets 5-9 under the identical protocol, then combine and analyze once.
+   Rescue split wave B is active as run IDs `20260711T075742`, `20260711T075744`,
+   `20260711T075746`, `20260711T075748`, and `20260711T075750`.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
