@@ -201,6 +201,10 @@ The terminal-gate smoke `20260711T130833` passed from implementation commit `a5d
 with 100% coverage, zero failures/inconsistencies, terminal metrics present, and manual
 review passed. Fresh Step 1 is authorized again, but every arm must rerun from scratch
 under the terminal-repaired endpoint; no artifact from the invalid attempt can be reused.
+The fully fresh three-arm Step 1 launched as timestamp `20260711T133046` from commit
+`2c290dc`: one batched naive non-thinking process, ten isolated naive-thinking tasks,
+and ten isolated generation-thinking EIG tasks. Effective aggregate concurrency is near
+250. Results and mandatory manual review are pending.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
