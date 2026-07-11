@@ -79,7 +79,9 @@
     "24": "runs/20260711T234011_paprika-headline-best-n-o24-seed1304",
     "26": "runs/20260711T234258_paprika-headline-best-n-o26-seed1304",
     "28": "runs/20260711T234628_paprika-headline-best-n-o28-seed1304",
-    "30": "runs/20260711T235510_paprika-headline-best-n-o30-seed1304"
+    "30": "runs/20260711T235510_paprika-headline-best-n-o30-seed1304",
+    "34": "runs/20260712T000300_paprika-headline-best-n-o34-seed1304",
+    "36": "runs/20260712T000928_paprika-headline-best-n-o36-seed1304"
   },
   "failed_attempts": [
     "runs/20260711T163517_paprika-headline-triplet-o12-seed1304",
