@@ -222,6 +222,10 @@ The frozen arbitration run launched at `20260711T143605` from commit `542dfc3` a
 one-task shards (offsets 0--9), with aggregate configured OpenRouter concurrency 230.
 Do not change its settings in flight. The user permits concurrency up to 256 for future
 work when healthy and useful, but this run remains frozen for comparability.
+Nine original arbitration shards completed. Original offset 8 exhausted its bounded
+structured repairs during the round-4 analytical belief refresh and produced only an
+empty error-metrics artifact. The identical offset-8-only recovery launched at
+`20260711T153606`; use only its successful artifact in the final combination.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
