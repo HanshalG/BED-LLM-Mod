@@ -400,6 +400,11 @@ The 50 canonical thinking triplets are combined at
 identical-history turns. Canonical thinking evaluation totals are $2.727867, 17,595
 requests, 5,188,570 prompt tokens, 5,712,603 completion tokens, 4,525,450 reasoning
 tokens, and 64 forced exits. No policy endpoint comparison has been computed.
+The non-thinking headline wave began at `20260711T230647` with 10-task blocks starting
+at offsets 10, 20, 30, and 40. Four 51-concurrency blocks plus the still-running
+25-concurrency best-N probe give aggregate configured concurrency 229. The final block
+at offset 50 remains queued and will fill the first released 51-concurrency slot. No
+thinking-headline process overlaps this wave.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
