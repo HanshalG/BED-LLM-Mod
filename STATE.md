@@ -428,6 +428,16 @@ before banking an item. Exact block-40 recovery 2 launched at `20260711T231618` 
 best-N held-out offsets 10--17 as eight isolated one-task shards. The recovery uses 51
 concurrency and best-N uses 8 x 25 = 200, for aggregate configured concurrency 251.
 Remaining best-N offsets 18--59 fill released slots in canonical order.
+Best-N offsets 10 and 11 completed. Their two released slots were filled by offsets 18
+and 19 at `20260711T232014`; aggregate configured concurrency remains 251.
+Non-thinking block-40 recovery 2 completed and is canonical, completing all five
+non-thinking blocks over tasks 10--59. Its released capacity was filled by best-N
+offsets 20 and 21 at `20260711T232220`; eight best-N shards remain live at aggregate
+configured concurrency 200, plus the two new shards at 50, for 250 total.
+The five canonical non-thinking blocks were structurally combined as
+`runs/paprika-headline-nonthinking-combined-seed1304`: 50 records, exact task IDs
+10--59, one `naive` item per task. Outcomes remain sealed until the frozen joint
+analyzer runs after the best-N arm completes.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
@@ -760,8 +770,9 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
 ## OPERATIONAL KNOWLEDGE
 
 - **OpenRouter (while cluster is down)**: base_url https://openrouter.ai/api/v1,
-  key in `OPENROUTER_API_KEY` (never commit). $20 total budget, FULLY authorized;
-  refuse runs projected past remaining budget; flag Hanshal at ~$18 cumulative; track
+  key in `OPENROUTER_API_KEY` (never commit). $30 total budget, FULLY authorized;
+  refuse runs projected past remaining budget; flag Hanshal before the remaining
+  authorization becomes tight; track
   spend per run in `EXPERIMENTS.md`. Cost-project every run from
   smoke tokens first (Path A reference: a 30-trial 3-arm location sweep used ~3.9M
   tokens; Paprika turns are longer — measure, don't assume). Cluster ops notes below
