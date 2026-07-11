@@ -171,6 +171,20 @@ authorized.** Do NOT stop Path E on the invalid measurement. Conditions, all man
 7. No other scope changes; no new environments; no new method variants beyond the
    above.
 
+Repaired-endpoint implementation status: prior Step 1 evidence is quarantined under
+`results/path_e/step1_invalid/` with explicit INVALID-ENDPOINT labels and a source-run
+manifest. The adapter now uses the released customer role instructions, checks every
+simulator reply against the private solution, regenerates contradictions within the
+bounded repair budget, fails closed if a contradiction survives, and applies the
+authorized complete-conversation success judge every turn with Paprika's
+`Goal reached OR judge` rule. It logs raw contradiction and final inconsistency rates.
+All audited trailer/kiosk discrepancies are committed regressions. Focused verification:
+117 tests pass; the project-wide suite is 536 passed / 1 skipped with four unrelated
+stale Path A validator assertions. Fresh Step 0a config is
+`configs/config_paprika_step0a_repaired_endpoint_openrouter.yaml` (eval tasks 5-9,
+including both audited task families). Do not launch until this implementation commit
+is pushed.
+
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
 combined — Hanshal-reviewed):**

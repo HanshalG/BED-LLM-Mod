@@ -6,7 +6,14 @@ from pathlib import Path
 from scripts.analyze_paprika_smoke import analyze
 
 
-def _write_run(tmp_path: Path, *, clean: int, total: int, failures: float = 0.0) -> Path:
+def _write_run(
+    tmp_path: Path,
+    *,
+    clean: int,
+    total: int,
+    failures: float = 0.0,
+    faithfulness_rate: float = 0.0,
+) -> Path:
     run_dir = tmp_path / "run"
     item_dir = run_dir / "items" / "000_EIG"
     item_dir.mkdir(parents=True)
@@ -31,6 +38,9 @@ def _write_run(tmp_path: Path, *, clean: int, total: int, failures: float = 0.0)
     (run_dir / "metrics.json").write_text(json.dumps({"items": [{"metrics": {
         "structured_parse_retries": [2.0],
         "structured_parse_failures": [failures],
+        "simulator_faithfulness_raw_contradiction_rate": [0.1],
+        "simulator_faithfulness_final_inconsistency_rate": [faithfulness_rate],
+        "simulator_faithfulness_failures": [float(faithfulness_rate > 0.0)],
     }}]}))
     (run_dir / "run.log").write_text(
         '\n'.join(['{"event": "llm_token_usage"}'] * 10 + ["Forced thinking exit"] * 2)
@@ -46,6 +56,7 @@ def test_smoke_analysis_passes_coverage_but_requires_manual_review(tmp_path: Pat
     assert report["forced_exit_rate"] == 0.2
     assert report["resolved_tasks"] == 1
     assert report["manual_transcript_review_required"] is True
+    assert report["simulator_faithfulness_final_inconsistency_rate"] == 0.0
 
 
 def test_smoke_analysis_fails_low_coverage_or_terminal_parse_failure(tmp_path: Path) -> None:
@@ -53,6 +64,21 @@ def test_smoke_analysis_fails_low_coverage_or_terminal_parse_failure(tmp_path: P
     failed = analyze(_write_run(tmp_path / "failed", clean=10, total=10, failures=1.0))
     assert low["automated_pass"] is False
     assert failed["automated_pass"] is False
+
+
+def test_smoke_analysis_fails_missing_or_nonzero_faithfulness_metric(tmp_path: Path) -> None:
+    inconsistent = analyze(
+        _write_run(tmp_path / "inconsistent", clean=10, total=10, faithfulness_rate=0.1)
+    )
+    missing_run = _write_run(tmp_path / "missing", clean=10, total=10)
+    payload = json.loads((missing_run / "metrics.json").read_text())
+    metrics = payload["items"][0]["metrics"]
+    metrics.pop("simulator_faithfulness_final_inconsistency_rate")
+    (missing_run / "metrics.json").write_text(json.dumps(payload))
+    for trial in json.loads(next(missing_run.rglob("paprika_smoke.json")).read_text()):
+        assert "simulator_faithfulness_final_inconsistency_rate" not in trial["final_metrics"]
+    assert inconsistent["automated_pass"] is False
+    assert analyze(missing_run)["automated_pass"] is False
 
 
 def test_smoke_analysis_uses_cumulative_artifact_retry_counts(tmp_path: Path) -> None:

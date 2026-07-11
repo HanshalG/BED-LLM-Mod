@@ -25,7 +25,12 @@ def _load_one(run_dir: Path, name: str) -> tuple[Path, Any]:
     return matches[0], json.loads(matches[0].read_text())
 
 
-def analyze(run_dir: Path, *, coverage_threshold: float = 0.85) -> dict[str, Any]:
+def analyze(
+    run_dir: Path,
+    *,
+    coverage_threshold: float = 0.85,
+    faithfulness_threshold: float = 0.0,
+) -> dict[str, Any]:
     smoke_path, trials = _load_one(run_dir, "paprika_smoke.json")
     metrics_path = run_dir / "metrics.json"
     if not metrics_path.exists():
@@ -45,6 +50,33 @@ def analyze(run_dir: Path, *, coverage_threshold: float = 0.85) -> dict[str, Any
     artifact_retries = [trial.get("final_metrics", {}).get("structured_parse_retries", 0.0) for trial in trials]
     terminal_failures = max([*failures_trace, *artifact_failures], default=0.0)
     retries = max([*retries_trace, *artifact_retries], default=0.0)
+    faithfulness_rate_trace = metrics.get(
+        "simulator_faithfulness_final_inconsistency_rate", []
+    )
+    raw_faithfulness_rate_trace = metrics.get(
+        "simulator_faithfulness_raw_contradiction_rate", []
+    )
+    faithfulness_failures_trace = metrics.get(
+        "simulator_faithfulness_failures", []
+    )
+    artifact_faithfulness_rates = [
+        trial.get("final_metrics", {}).get(
+            "simulator_faithfulness_final_inconsistency_rate"
+        )
+        for trial in trials
+    ]
+    artifact_faithfulness_rates = [
+        float(value) for value in artifact_faithfulness_rates if value is not None
+    ]
+    faithfulness_metric_present = bool(
+        faithfulness_rate_trace or artifact_faithfulness_rates
+    )
+    final_inconsistency_rate = max(
+        [*faithfulness_rate_trace, *artifact_faithfulness_rates],
+        default=float("inf"),
+    )
+    raw_contradiction_rate = max(raw_faithfulness_rate_trace, default=0.0)
+    faithfulness_failures = max(faithfulness_failures_trace, default=0.0)
 
     log_path = run_dir / "run.log"
     log_text = log_path.read_text(errors="replace") if log_path.exists() else ""
@@ -59,6 +91,9 @@ def analyze(run_dir: Path, *, coverage_threshold: float = 0.85) -> dict[str, Any
         and bool(turns)
         and coverage >= coverage_threshold
         and terminal_failures == 0
+        and faithfulness_metric_present
+        and final_inconsistency_rate <= faithfulness_threshold
+        and faithfulness_failures == 0
         and not error_lines
     )
     return {
@@ -74,6 +109,11 @@ def analyze(run_dir: Path, *, coverage_threshold: float = 0.85) -> dict[str, Any
         "coverage_threshold": coverage_threshold,
         "structured_parse_retries": retries,
         "structured_parse_failures": terminal_failures,
+        "simulator_faithfulness_metric_present": faithfulness_metric_present,
+        "simulator_faithfulness_raw_contradiction_rate": raw_contradiction_rate,
+        "simulator_faithfulness_final_inconsistency_rate": final_inconsistency_rate,
+        "simulator_faithfulness_failures": faithfulness_failures,
+        "simulator_faithfulness_threshold": faithfulness_threshold,
         "forced_thinking_exits": forced_exits,
         "llm_usage_events": usage_events,
         "forced_exit_rate": forced_exits / usage_events if usage_events else None,
@@ -98,9 +138,14 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("run_dir", type=Path)
     parser.add_argument("--coverage-threshold", type=float, default=0.85)
+    parser.add_argument("--faithfulness-threshold", type=float, default=0.0)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    report = analyze(args.run_dir, coverage_threshold=args.coverage_threshold)
+    report = analyze(
+        args.run_dir,
+        coverage_threshold=args.coverage_threshold,
+        faithfulness_threshold=args.faithfulness_threshold,
+    )
     output = args.output or args.run_dir / "paprika_step0_analysis.json"
     output.write_text(json.dumps(report, indent=2) + "\n")
     print(output)

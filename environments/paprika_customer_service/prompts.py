@@ -41,7 +41,33 @@ def likelihood_messages(hypothesis: str, action: PaprikaAction) -> list[dict[str
 
 def customer_messages(action: PaprikaAction, solution: str) -> list[dict[str, str]]:
     transcript = "\n".join(f"Agent: {q}\nCustomer: {a}" for q, a in action.transcript)
-    return [{"role": "system", "content": f"You are the customer in this scenario: {action.scenario}\nThe private solution is: {solution}\nOnly answer what the agent asks. Be concise and non-technical. Never reveal the private solution directly. If the latest proposed diagnosis/action solves the issue, reply exactly 'Goal reached'."}, {"role": "user", "content": f"Conversation so far:\n{transcript or '(none)'}\nAgent: {action.query}\nCustomer:"}]
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are going to role-play as a customer experiencing a specific issue.\n\n"
+                "You must adhere to the following guidelines:\n"
+                "1. Only respond to the agent's questions and provide relevant information when prompted.\n"
+                "2. Your responses should be concise and reflect a typical, non-technical customer's knowledge level.\n"
+                "3. You know the private solution, but never reveal it directly.\n"
+                "4. Determine the result of each proposed check or remedy from the true underlying problem.\n"
+                "5. Reply with 'Goal reached' and nothing more if the agent has reached or solved the issue.\n\n"
+                f"Scenario: {action.scenario}\n"
+                f"Private solution: {solution}"
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Conversation so far:\n{transcript or '(none)'}\n"
+                f"Agent: {action.query}\n\n"
+                "Remember: decide the result using the private solution. If this suggestion fixes "
+                "the issue or identifies the correct remedy, reply exactly 'Goal reached'. If it "
+                "does not, give a truthful concise customer response and do not reveal the remedy.\n"
+                "Customer:"
+            ),
+        },
+    ]
 
 
 def mapping_messages(
@@ -59,5 +85,76 @@ def mapping_messages(
     return [{"role": "system", "content": "Map a customer reply to the single semantically matching proposed outcome. Return strict JSON only."}, {"role": "user", "content": f"Reply: {reply}\nOutcomes:\n" + "\n".join(f"- {value}" for value in outcomes) + "\nReturn {\"outcome\": <exact outcome string or null>, \"clean\": true or false}. Consider only the part of the reply relevant to the query; extra troubleshooting context does not invalidate a direct match. Prefer the outcome directly confirmed or contradicted by the reply." + constraint + " Use clean=false if no outcome adequately represents the reply."}]
 
 
-def judge_messages(scenario: str, solution: str, query: str, reply: str) -> list[dict[str, str]]:
-    return [{"role": "system", "content": "Judge whether a customer-service agent solved the released task."}, {"role": "user", "content": f"Scenario: {scenario}\nPrivate solution: {solution}\nAgent response: {query}\nCustomer result: {reply}\nReply with <VALID> only if the agent proposes the specific correct remedy and the customer result confirms or accepts that attempt. A failed, impossible, or rejected attempt is <NOTVALID>."}]
+def success_judge_messages(
+    scenario: str,
+    solution: str,
+    conversation: Sequence[tuple[str, str]],
+) -> list[dict[str, str]]:
+    transcript = "\n".join(
+        f"Agent: {query}\nCustomer: {reply}" for query, reply in conversation
+    )
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are the judge of a customer-service agent trying to help a customer in a "
+                "particular scenario. Verify whether the agent has solved the problem correctly."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Scenario: {scenario}\nPrivate solution: {solution}\n\n"
+                f"The complete conversation begins here:\n{transcript}\n"
+                "(End of conversation)\n\n"
+                "Reply with <VALID> only if the conversation shows that the agent identified or "
+                "suggested the specific correct remedy and the customer confirms the issue is "
+                "resolved. A promise to try, a rejected attempt, or an unconfirmed suggestion is "
+                "<NOTVALID>."
+            ),
+        },
+    ]
+
+
+def faithfulness_messages(
+    action: PaprikaAction,
+    solution: str,
+    reply: str,
+) -> list[dict[str, str]]:
+    transcript = "\n".join(f"Agent: {q}\nCustomer: {a}" for q, a in action.transcript)
+    return [
+        {
+            "role": "system",
+            "content": "Audit whether a simulated customer's reply is faithful to a private ground-truth solution. Return strict JSON only.",
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Scenario: {action.scenario}\nPrivate solution: {solution}\n"
+                f"Previous conversation:\n{transcript or '(none)'}\n"
+                f"Latest agent action: {action.query}\nSimulated customer reply: {reply}\n\n"
+                "Return {\"consistent\": true or false}. A reply is inconsistent if it contradicts "
+                "the private cause/remedy, claims an incorrect remedy solved the issue, says the "
+                "specific correct remedy failed, reveals the private solution without being asked, "
+                "or merely promises to try the correct remedy instead of returning 'Goal reached'."
+            ),
+        },
+    ]
+
+
+def faithfulness_repair_messages(
+    messages: Sequence[dict[str, str]],
+    rejected_reply: str,
+) -> list[dict[str, str]]:
+    return list(messages) + [
+        {"role": "assistant", "content": rejected_reply},
+        {
+            "role": "user",
+            "content": (
+                "That reply contradicted the private ground truth. Regenerate only the customer's "
+                "reply. If the agent reached or suggested the correct remedy, reply exactly 'Goal "
+                "reached'. Otherwise give a concise truthful result consistent with the private "
+                "solution, without revealing that solution."
+            ),
+        },
+    ]

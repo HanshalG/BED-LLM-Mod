@@ -17,11 +17,13 @@ from .parsing import parse_distribution, parse_json_object, parse_string_list
 from .prompts import (
     candidate_messages,
     customer_messages,
+    faithfulness_messages,
+    faithfulness_repair_messages,
     hypothesis_messages,
-    judge_messages,
     likelihood_messages,
     mapping_messages,
     refinement_messages,
+    success_judge_messages,
     filtering_messages,
 )
 from .types import PaprikaAction, PaprikaObservation, PaprikaTask
@@ -147,6 +149,11 @@ class PaprikaCustomerServiceEnvironment(
         self._shared_cache_misses = 0
         self._structured_parse_retries = 0
         self._structured_parse_failures = 0
+        self._simulator_faithfulness_observations = 0
+        self._simulator_faithfulness_checks = 0
+        self._simulator_faithfulness_raw_contradictions = 0
+        self._simulator_faithfulness_repairs = 0
+        self._simulator_faithfulness_failures = 0
 
     @property
     def name(self) -> str:
@@ -614,25 +621,89 @@ class PaprikaCustomerServiceEnvironment(
             ],
         )
 
+    @staticmethod
+    def _parse_faithfulness(text: str) -> bool:
+        value = parse_json_object(text).get("consistent")
+        if not isinstance(value, bool):
+            raise ValueError("Simulator faithfulness response requires boolean 'consistent'")
+        return value
+
+    def _simulator_reply_is_faithful(
+        self,
+        action: PaprikaAction,
+        solution: str,
+        reply: str,
+    ) -> bool:
+        self._simulator_faithfulness_checks += 1
+        return bool(
+            self._complete_parsed(
+                self._evaluation_model(),
+                faithfulness_messages(action, solution, reply),
+                0.0,
+                namespace="questioner:simulator_faithfulness",
+                parser=self._parse_faithfulness,
+            )
+        )
+
+    def _faithful_customer_reply(
+        self,
+        action: PaprikaAction,
+        solution: str,
+    ) -> str:
+        messages = customer_messages(action, solution)
+        temperature = float(getattr(self.config, "answer_temperature", 0.7))
+        reply = self._cached_complete(
+            self.answerer,
+            messages,
+            temperature,
+            namespace="answerer:customer",
+        ).strip()
+        self._simulator_faithfulness_observations += 1
+        maximum = int(getattr(self.config, "paprika_structured_max_retries", 2))
+        for attempt in range(maximum + 1):
+            if self._simulator_reply_is_faithful(action, solution, reply):
+                return reply
+            if attempt == 0:
+                self._simulator_faithfulness_raw_contradictions += 1
+            if attempt >= maximum:
+                self._simulator_faithfulness_failures += 1
+                raise ValueError(
+                    "Customer simulator contradicted the private solution after bounded repairs"
+                )
+            self._simulator_faithfulness_repairs += 1
+            messages = faithfulness_repair_messages(messages, reply)
+            reply = self._cached_complete(
+                self.answerer,
+                messages,
+                temperature,
+                namespace=f"answerer:customer_faithfulness_retry:{attempt + 1}",
+            ).strip()
+        raise AssertionError("unreachable")
+
     def observe(self, action: PaprikaAction, hidden_state: PaprikaTask, rng: np.random.Generator) -> PaprikaObservation:
         del rng
-        reply = self._cached_complete(self.answerer, customer_messages(action, hidden_state.solution), float(getattr(self.config, "answer_temperature", 0.7)), namespace="answerer:customer").strip()
+        reply = self._faithful_customer_reply(action, hidden_state.solution)
         customer_goal = "goal reached" in reply.casefold()
-        goal = customer_goal
-        if (
-            not customer_goal
-            and action.kind == "solution"
-            and not _reply_reports_failed_attempt(reply)
-        ):
-            judge = self._cached_complete(
-                self._evaluation_model(),
-                judge_messages(hidden_state.scenario, hidden_state.solution, action.query, reply),
-                0.0,
-                namespace="questioner:success_judge",
+        conversation = tuple(action.transcript) + ((action.query, reply),)
+        judge = self._cached_complete(
+            self._evaluation_model(),
+            success_judge_messages(
+                hidden_state.scenario,
+                hidden_state.solution,
+                conversation,
+            ),
+            0.0,
+            namespace="questioner:success_judge",
+        )
+        judge_goal = "<VALID>" in judge and "<NOTVALID>" not in judge
+        goal = customer_goal or judge_goal
+        if goal:
+            return PaprikaObservation(
+                reply=reply,
+                mapped_outcome=None,
+                mapped_cleanly=True,
+                goal_reached=True,
             )
-            goal = "<VALID>" in judge and "<NOTVALID>" not in judge
-        if customer_goal:
-            return PaprikaObservation(reply=reply, mapped_outcome=None, mapped_cleanly=True, goal_reached=True)
         map_messages = mapping_messages(reply, action.outcomes)
         mapping = self._complete_parsed(
             self._evaluation_model(),
@@ -666,14 +737,14 @@ class PaprikaCustomerServiceEnvironment(
                 ),
                 None,
             )
-        return PaprikaObservation(reply=reply, mapped_outcome=canonical, mapped_cleanly=canonical is not None, goal_reached=goal)
+        return PaprikaObservation(reply=reply, mapped_outcome=canonical, mapped_cleanly=canonical is not None, goal_reached=False)
 
     def round_metrics(self, belief_state: BeliefState[str], history: Sequence[tuple[PaprikaAction, PaprikaObservation]], hidden_state: PaprikaTask) -> dict[str, float]:
         latest = history[-1][1]
         solved = any(observation.goal_reached for _action, observation in history)
         clean_count = sum(observation.mapped_cleanly for _action, observation in history)
         exact_mass = sum(probability for hypothesis, probability in zip(belief_state.hypotheses, belief_state.probabilities) if hypothesis.casefold() == hidden_state.solution.casefold())
-        return {"resolved": float(solved), "turns_used": float(len(history)), "answer_set_coverage": clean_count / len(history), "latest_answer_mapped_cleanly": float(latest.mapped_cleanly), "true_solution_exact_mass": float(exact_mass), "shared_call_cache_hits": float(self._shared_cache_hits), "shared_call_cache_misses": float(self._shared_cache_misses), "structured_parse_retries": float(self._structured_parse_retries), "structured_parse_failures": float(self._structured_parse_failures)}
+        return {"resolved": float(solved), "turns_used": float(len(history)), "answer_set_coverage": clean_count / len(history), "latest_answer_mapped_cleanly": float(latest.mapped_cleanly), "true_solution_exact_mass": float(exact_mass), "shared_call_cache_hits": float(self._shared_cache_hits), "shared_call_cache_misses": float(self._shared_cache_misses), "structured_parse_retries": float(self._structured_parse_retries), "structured_parse_failures": float(self._structured_parse_failures), **self._simulator_faithfulness_metrics()}
 
     def early_stop(self, belief_state: BeliefState[str], history: Sequence[tuple[PaprikaAction, PaprikaObservation]], hidden_state: PaprikaTask, latest_observation: PaprikaObservation) -> bool:
         del belief_state, history, hidden_state
@@ -786,6 +857,33 @@ class PaprikaCustomerServiceEnvironment(
             "shared_call_cache_misses": float(self._shared_cache_misses),
             "structured_parse_retries": float(self._structured_parse_retries),
             "structured_parse_failures": float(self._structured_parse_failures),
+            **self._simulator_faithfulness_metrics(),
+        }
+
+    def _simulator_faithfulness_metrics(self) -> dict[str, float]:
+        observations = self._simulator_faithfulness_observations
+        return {
+            "simulator_faithfulness_observations": float(observations),
+            "simulator_faithfulness_checks": float(self._simulator_faithfulness_checks),
+            "simulator_faithfulness_raw_contradictions": float(
+                self._simulator_faithfulness_raw_contradictions
+            ),
+            "simulator_faithfulness_repairs": float(
+                self._simulator_faithfulness_repairs
+            ),
+            "simulator_faithfulness_failures": float(
+                self._simulator_faithfulness_failures
+            ),
+            "simulator_faithfulness_raw_contradiction_rate": (
+                self._simulator_faithfulness_raw_contradictions / observations
+                if observations
+                else 0.0
+            ),
+            "simulator_faithfulness_final_inconsistency_rate": (
+                self._simulator_faithfulness_failures / observations
+                if observations
+                else 0.0
+            ),
         }
 
     def save_artifacts(self, run_result: Any, output_dir: Path, config: Any) -> dict[str, Path]:

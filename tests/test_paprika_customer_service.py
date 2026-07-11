@@ -42,6 +42,8 @@ class RoutingQuestioner:
             return [json.dumps({"candidates": [{"query": f"Check diagnostic {index}?", "kind": "diagnostic", "outcomes": ["positive", "negative", "unknown"]} for index in range(count)]})]
         if '"probabilities"' in text:
             return [json.dumps({"probabilities": {"positive": 0.7, "negative": 0.2, "unknown": 0.1}})]
+        if '"consistent"' in text:
+            return [json.dumps({"consistent": True})]
         if '"outcome"' in text and '"clean"' in text:
             return [json.dumps({"outcome": "positive", "clean": True})]
         if "Reply with <VALID>" in text:
@@ -118,6 +120,8 @@ class AlwaysValidJudgeQuestioner(RoutingQuestioner):
     def chat_complete(self, messages, temperature, num_responses=1):
         text = "\n".join(message["content"] for message in messages)
         if "Reply with <VALID>" in text:
+            self.calls += 1
+            self.prompt_texts.append(text)
             return ["<VALID>"]
         return super().chat_complete(messages, temperature, num_responses)
 
@@ -432,10 +436,11 @@ def test_naive_policy_actions_batch_across_trials_without_private_solutions(tmp_
     assert questioner.batch_calls == 1
     assert customer.calls == 5
     private_solutions = [task.solution for task in load_paprika_tasks(FIXTURE)]
+    policy_prompts = [prompt for prompt in questioner.prompt_texts if '"candidates"' in prompt]
     assert not any(
         solution in prompt
         for solution in private_solutions
-        for prompt in questioner.prompt_texts
+        for prompt in policy_prompts
     )
 
 
@@ -454,6 +459,8 @@ def test_thinking_naive_routes_mapping_to_nonthinking_evaluator() -> None:
             del temperature, num_responses
             text = "\n".join(message["content"] for message in messages)
             self.prompt_texts.append(text)
+            if '"consistent"' in text:
+                return [json.dumps({"consistent": True})]
             if '"outcome"' in text and '"clean"' in text:
                 return [json.dumps({"outcome": "positive", "clean": True})]
             if "Reply with <VALID>" in text:
@@ -488,7 +495,7 @@ def test_thinking_scaffold_routes_only_generation_to_thinking_model() -> None:
 
         def chat_complete(self, messages, temperature, num_responses=1):
             text = "\n".join(message["content"] for message in messages)
-            if "You are the customer in this scenario" in text:
+            if "role-play as a customer" in text:
                 self.calls += 1
                 self.prompt_texts.append(text)
                 return ["The diagnostic result is positive."]
@@ -523,7 +530,7 @@ def test_thinking_scaffold_routes_only_generation_to_thinking_model() -> None:
     assert '"outcome"' in evaluator_prompts
 
 
-def test_diagnostic_query_cannot_be_falsely_resolved_by_success_judge() -> None:
+def test_native_success_judge_runs_for_diagnostic_query() -> None:
     questioner = AlwaysValidJudgeQuestioner()
     config = Config(
         task="paprika_customer_service",
@@ -538,12 +545,18 @@ def test_diagnostic_query_cannot_be_falsely_resolved_by_success_judge() -> None:
         config, questioner, RoutingCustomer(), method_name="EIG"
     )
     assert run_result.trials[0].rounds[0].chosen.action.kind == "diagnostic"
-    assert summary.metrics["resolved"] == [0.0]
-    assert not any("Reply with <VALID>" in text for text in questioner.prompt_texts)
+    assert summary.metrics["resolved"] == [1.0]
+    success_prompts = [
+        text for text in questioner.prompt_texts if "Reply with <VALID>" in text
+    ]
+    assert len(success_prompts) == 1
+    assert "The complete conversation begins here" in success_prompts[0]
+    assert "Agent: Check diagnostic 0?" in success_prompts[0]
+    assert "Customer: The diagnostic result is positive." in success_prompts[0]
 
 
-def test_failed_solution_attempt_cannot_be_resolved_by_success_judge() -> None:
-    questioner = AlwaysValidJudgeQuestioner()
+def test_failed_solution_attempt_is_rejected_by_success_judge() -> None:
+    questioner = RoutingQuestioner()
     customer = RoutingCustomer()
     customer.chat_complete = lambda *args, **kwargs: [
         "I can't connect to any network right now; it still isn't working."
@@ -565,7 +578,141 @@ def test_failed_solution_attempt_cannot_be_resolved_by_success_judge() -> None:
     )
     observation = env.observe(action, load_paprika_tasks(FIXTURE)[0], np.random.default_rng(0))
     assert observation.goal_reached is False
-    assert not any("Reply with <VALID>" in text for text in questioner.prompt_texts)
+    assert any("Reply with <VALID>" in text for text in questioner.prompt_texts)
+
+
+def test_trailer_connector_explicit_fix_is_terminal_on_diagnostic_turn() -> None:
+    class EndpointEvaluator(RoutingQuestioner):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            text = "\n".join(message["content"] for message in messages)
+            if '"consistent"' in text:
+                return [json.dumps({"consistent": True})]
+            if "Reply with <VALID>" in text:
+                assert "Agent: Earlier check" in text
+                assert "Customer: The connector looked loose." in text
+                assert "Agent: Check whether the trailer plug is fully seated." in text
+                assert "Customer: It was loose. I tightened it and the lights are working." in text
+                return ["<VALID>"]
+            return super().chat_complete(messages, temperature, num_responses)
+
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    customer = RoutingCustomer()
+    customer.chat_complete = lambda *args, **kwargs: [
+        "It was loose. I tightened it and the lights are working."
+    ]
+    env = PaprikaCustomerServiceEnvironment(
+        Config(task="paprika_customer_service", paprika_data_path=str(FIXTURE), paprika_verify_official_hash=False),
+        customer,
+    )
+    env.questioner = EndpointEvaluator()
+    action = PaprikaAction(
+        "Check whether the trailer plug is fully seated.",
+        ("secure", "loose", "Not attempted / cannot determine"),
+        "Trailer lights are not working.",
+        transcript=(("Earlier check", "The connector looked loose."),),
+        kind="diagnostic",
+    )
+    observation = env.observe(action, load_paprika_tasks(FIXTURE)[0], np.random.default_rng(0))
+    assert observation.goal_reached is True
+
+
+@pytest.mark.parametrize(
+    "first_reply",
+    [
+        "I cleaned the screen, but it is still not working.",
+        "I'll try cleaning it right now.",
+    ],
+)
+def test_kiosk_correct_remedy_contradictions_are_repaired(first_reply: str) -> None:
+    class FaithfulnessEvaluator(RoutingQuestioner):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            text = "\n".join(message["content"] for message in messages)
+            if '"consistent"' in text:
+                inconsistent = first_reply in text
+                return [json.dumps({"consistent": not inconsistent})]
+            if "Reply with <VALID>" in text:
+                return ["<VALID>" if "Customer: Goal reached" in text else "<NOTVALID>"]
+            return super().chat_complete(messages, temperature, num_responses)
+
+    class RepairingCustomer(RoutingCustomer):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            del temperature, num_responses
+            self.calls += 1
+            text = "\n".join(message["content"] for message in messages)
+            return ["Goal reached" if "contradicted the private ground truth" in text else first_reply]
+
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_structured_max_retries=2,
+    )
+    customer = RepairingCustomer()
+    env = PaprikaCustomerServiceEnvironment(config, customer)
+    env.questioner = FaithfulnessEvaluator()
+    action = PaprikaAction(
+        "Clean the kiosk display with a microfiber cloth.",
+        ("touch works", "still broken", "Not attempted / cannot determine"),
+        "The kiosk screen does not respond to touch.",
+        kind="solution",
+    )
+    task = type(load_paprika_tasks(FIXTURE)[0])(
+        task_id="customer_service:eval:kiosk",
+        scenario="The kiosk screen does not respond to touch.",
+        solution="The dirty screen must be cleaned with a microfiber cloth.",
+        split="eval",
+    )
+    observation = env.observe(action, task, np.random.default_rng(0))
+    metrics = env._simulator_faithfulness_metrics()
+    assert observation.reply == "Goal reached"
+    assert observation.goal_reached is True
+    assert customer.calls == 2
+    assert metrics["simulator_faithfulness_raw_contradictions"] == 1.0
+    assert metrics["simulator_faithfulness_repairs"] == 1.0
+    assert metrics["simulator_faithfulness_final_inconsistency_rate"] == 0.0
+
+
+def test_unrepaired_simulator_contradiction_fails_closed() -> None:
+    class RejectingEvaluator(RoutingQuestioner):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            text = "\n".join(message["content"] for message in messages)
+            if '"consistent"' in text:
+                return [json.dumps({"consistent": False})]
+            return super().chat_complete(messages, temperature, num_responses)
+
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_structured_max_retries=2,
+    )
+    customer = RoutingCustomer()
+    env = PaprikaCustomerServiceEnvironment(config, customer)
+    env.questioner = RejectingEvaluator()
+    action = PaprikaAction(
+        "Clean the kiosk display with a microfiber cloth.",
+        ("touch works", "still broken", "Not attempted / cannot determine"),
+        "The kiosk screen does not respond to touch.",
+        kind="solution",
+    )
+    task = type(load_paprika_tasks(FIXTURE)[0])(
+        task_id="customer_service:eval:kiosk",
+        scenario="The kiosk screen does not respond to touch.",
+        solution="The dirty screen must be cleaned with a microfiber cloth.",
+        split="eval",
+    )
+    with pytest.raises(ValueError, match="contradicted the private solution"):
+        env.observe(action, task, np.random.default_rng(0))
+    metrics = env._simulator_faithfulness_metrics()
+    assert customer.calls == 3
+    assert metrics["simulator_faithfulness_repairs"] == 2.0
+    assert metrics["simulator_faithfulness_failures"] == 1.0
+    assert metrics["simulator_faithfulness_final_inconsistency_rate"] == 1.0
 
 
 def test_prospective_attempt_maps_cleanly_to_uncertainty() -> None:
