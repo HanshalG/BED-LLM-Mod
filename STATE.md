@@ -196,6 +196,11 @@ at most ten simultaneous task calls, keeping practical aggregate concurrency nea
 All three arms launched locally as run timestamp `20260711T101551` from commit
 `71fb131`; raw run directories are ignored and the combined valid-endpoint report is
 pending. The frozen projected total is $1.75, below the authorized approximately $3.
+The initial batched thinking-naive process was terminated after 39 minutes because one
+provider response held the entire ten-task batch after nine first-round completions.
+It produced no artifact and is not used. The exact same arm is being recovered as ten
+one-task shards; model, thinking budget, prompts, seed, task set, rounds, and endpoint
+are unchanged.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are

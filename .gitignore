@@ -25,6 +25,7 @@ configs/*
 !configs/config_paprika_step1_naive_nonthinking_openrouter.yaml
 !configs/config_paprika_step1_repaired_naive_nonthinking_openrouter.yaml
 !configs/config_paprika_step1_repaired_naive_thinking_openrouter.yaml
+!configs/config_paprika_step1_repaired_naive_thinking_split_openrouter.yaml
 !configs/config_paprika_step1_repaired_eig_generation_thinking_split_openrouter.yaml
 !configs/archive/
 !configs/archive/**
