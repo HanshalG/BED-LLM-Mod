@@ -405,6 +405,13 @@ at offsets 10, 20, 30, and 40. Four 51-concurrency blocks plus the still-running
 25-concurrency best-N probe give aggregate configured concurrency 229. The final block
 at offset 50 remains queued and will fill the first released 51-concurrency slot. No
 thinking-headline process overlaps this wave.
+The best-N EIG probe completed at `20260711T201603`: one 10-task EIG item, zero structured
+or simulator-faithfulness failures, $0.435815, 3,698 requests, 596,195 reasoning tokens,
+and 10 forced exits. Its development-task outcome read is now allowed and remains
+separate from the sealed headline.
+Non-thinking original block 40 failed closed before banking an item. Exact block-40
+recovery 1 and the queued original block 50 launched at `20260711T230931`. Together with
+original blocks 10, 20, and 30, aggregate configured non-thinking concurrency is 255.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
