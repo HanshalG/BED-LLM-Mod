@@ -355,6 +355,9 @@ remains queued and aggregate configured concurrency remains 250.
 Original offsets 40 and 46 completed, releasing two slots. The queued original offset
 49 launched unchanged at `20260711T211424`. With six other original shards, recovery
 44, and the best-N probe still active, aggregate configured concurrency is 225.
+Offset-44 recovery 1 failed closed during arbitration and banked no item. Exact
+full-triplet recovery 2 launched unchanged at `20260711T211909`; both earlier attempts
+remain noncanonical. Aggregate configured concurrency is 225.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
