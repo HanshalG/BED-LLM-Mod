@@ -291,6 +291,8 @@ offset-25 source. Proposal pairing passed 15/15 eligible identical-history turns
 Accepted cost was $0.577599 over 3,475 requests; operational spend including the failed
 attempt was $0.630444. Cumulative spend is $11.631791/$30. Wave 3 (offsets 30--39) is
 next under the unchanged design.
+Wave 3 launched at `20260711T195210`, offsets 30--39, as ten isolated triplets at
+aggregate configured concurrency 250. Health-only monitoring remains in force.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
