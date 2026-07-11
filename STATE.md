@@ -200,6 +200,8 @@ that requires the latest action to directly match the private cause/remedy; mere
 plausible alternatives are rejected and regenerated. Fresh five-task real-model
 revalidation on tasks 0-4 is the active gate. No arbitration or policy scaling is
 allowed before that gate and a fully fresh Step 1 pass manual review.
+The terminal-gate smoke launched as run `20260711T130833` from commit `a5da29a` with
+OpenRouter concurrency 256; report and manual review are pending.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
