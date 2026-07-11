@@ -237,6 +237,17 @@ candidate generation is stochastic and the accepted arm cost 2.52x thinking naiv
 Per the frozen rule, DO NOT launch scaling, MediQ, or another rescue automatically.
 Discuss the paper direction with Hanshal first. Evidence is under
 `results/path_e/arbitration_terminal/`.
+
+**STOP-AND-DISCUSS NEXT DECISION:** a costed decision memo is now tracked at
+`results/path_e/arbitration_terminal/DECISION_MEMO.md`. The recommended path is a
+pre-registered 50-task held-out Paprika headline on eval offsets 10--59. A
+prompt-matched candidate-0 arm is scientifically required at scale because the pilot's
+thinking-naive baseline used a different one-action prompt; without that control, the
+gain cannot be attributed specifically to EIG overrides rather than three-candidate
+generation. Proposed arms are arbitration, prompt-matched candidate 0, thinking naive,
+and non-thinking naive. Nominal OpenRouter projection is about $2.67, with a conservative
+2x envelope of $5.34; current cumulative spend is $10.38197/$20. This launch is NOT
+authorized yet. Await Hanshal's explicit choice; do not start scaling or MediQ.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
