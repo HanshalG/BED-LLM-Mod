@@ -62,3 +62,10 @@ def test_combine_paprika_splits_rejects_incomplete_shard(tmp_path: Path) -> None
     runs = [_write_shard(tmp_path, index, completed=index != 4) for index in range(10)]
     with pytest.raises(ValueError, match="not complete"):
         combine(runs, tmp_path / "combined")
+
+
+def test_combine_paprika_splits_supports_eig_only_rescue(tmp_path: Path) -> None:
+    runs = [_write_shard(tmp_path, index) for index in range(10)]
+    output = combine(runs, tmp_path / "combined", methods=("EIG",))
+    payload = json.loads((output / "metrics.json").read_text())
+    assert [item["method"] for item in payload["items"]] == ["EIG"]

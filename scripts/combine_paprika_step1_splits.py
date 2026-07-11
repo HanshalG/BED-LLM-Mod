@@ -32,16 +32,24 @@ def _method_item(run_dir: Path, method: str) -> dict[str, Any]:
     return matches[0]
 
 
-def combine(run_dirs: Sequence[Path], output_dir: Path) -> Path:
+def combine(
+    run_dirs: Sequence[Path],
+    output_dir: Path,
+    *,
+    methods: Sequence[str] = METHODS,
+) -> Path:
     if len(run_dirs) != 10:
         raise ValueError("Paprika Step 1 split combination requires exactly ten shards")
-    records_by_method: dict[str, list[dict[str, Any]]] = {method: [] for method in METHODS}
+    methods = tuple(methods)
+    if not methods or any(method not in METHODS for method in methods):
+        raise ValueError(f"methods must be a non-empty subset of {METHODS}")
+    records_by_method: dict[str, list[dict[str, Any]]] = {method: [] for method in methods}
     metrics_by_method: dict[str, dict[str, float]] = {
-        method: {name: 0.0 for name in SUM_METRICS} for method in METHODS
+        method: {name: 0.0 for name in SUM_METRICS} for method in methods
     }
     for run_dir in run_dirs:
         shard_task_id: str | None = None
-        for method in METHODS:
+        for method in methods:
             item = _method_item(run_dir, method)
             artifact = run_dir / item["artifacts"]["paprika_smoke"]
             records = json.loads(artifact.read_text())
@@ -58,7 +66,7 @@ def combine(run_dirs: Sequence[Path], output_dir: Path) -> Path:
                 metrics_by_method[method][name] += float(values[-1])
 
     expected_ids = [f"customer_service:eval:{index:04d}" for index in range(10)]
-    for method in METHODS:
+    for method in methods:
         records_by_method[method].sort(key=lambda record: str(record["task_id"]))
         task_ids = [str(record["task_id"]) for record in records_by_method[method]]
         if task_ids != expected_ids:
@@ -66,7 +74,7 @@ def combine(run_dirs: Sequence[Path], output_dir: Path) -> Path:
 
     output_dir.mkdir(parents=True, exist_ok=False)
     items: list[dict[str, Any]] = []
-    for index, method in enumerate(METHODS):
+    for index, method in enumerate(methods):
         item_dir = output_dir / "items" / f"{index:03d}_{method}"
         item_dir.mkdir(parents=True)
         artifact = item_dir / "paprika_smoke.json"
@@ -103,8 +111,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("run_dirs", nargs=10, type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--methods", nargs="+", choices=METHODS, default=list(METHODS))
     args = parser.parse_args()
-    print(combine(args.run_dirs, args.output_dir))
+    print(combine(args.run_dirs, args.output_dir, methods=args.methods))
 
 
 if __name__ == "__main__":
