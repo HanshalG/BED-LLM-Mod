@@ -218,6 +218,10 @@ gap exceeds one combined standard error. The SE is deterministic from weighted
 per-hypothesis expected information contributions and adds no LLM calls. The frozen
 analyzer compares arbitration primarily against thinking naive and requires endpoint
 validity. After this run, stop-and-discuss regardless of outcome.
+The frozen arbitration run launched at `20260711T143605` from commit `542dfc3` as ten
+one-task shards (offsets 0--9), with aggregate configured OpenRouter concurrency 230.
+Do not change its settings in flight. The user permits concurrency up to 256 for future
+work when healthy and useful, but this run remains frozen for comparability.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
