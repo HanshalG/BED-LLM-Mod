@@ -217,6 +217,10 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    Thinking is now isolated to naive policy generation: likelihood, mapping, and success
    evaluation route through the common non-thinking answerer adapter. The scaffolded
    run is unaffected (both adapters are non-thinking); relaunch thinking naive only.
+   Both naive controls are now complete and pass coverage: matched 87.5% / 4 resolved;
+   policy-only thinking 85.0% / 4 resolved, with one forced exit. Scaffolded EIG later
+   hit one empty response after exhausting two repairs at request 2,602; Step 1 configs
+   now use five bounded structured repairs and only scaffolded must rerun.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

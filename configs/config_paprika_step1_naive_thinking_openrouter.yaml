@@ -42,4 +42,4 @@ environment:
   belief_refresh_enabled: true
   num_refresh_hypotheses: 6
   max_hypotheses: 24
-  structured_max_retries: 2
+  structured_max_retries: 5
