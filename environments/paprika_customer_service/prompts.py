@@ -30,8 +30,33 @@ def filtering_messages(scenario: str, hypotheses: Sequence[str], history: Sequen
     return [{"role": "system", "content": "Filter troubleshooting hypotheses for consistency with observed evidence. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nConversation:\n{transcript_text(history)}\nCandidate hypotheses:\n{numbered}\nReturn {{\"keep_indices\":[...]}} containing every zero-based index still plausibly consistent. Do not discard merely because evidence is absent; discard only contradictions."}]
 
 
-def candidate_messages(scenario: str, beliefs: Sequence[str], history: Sequence[tuple[PaprikaAction, object]], count: int) -> list[dict[str, str]]:
-    return [{"role": "system", "content": "Propose concise customer-service diagnostic questions or corrective solution attempts and a discrete answer space. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nConversation:\n{transcript_text(history)}\nReturn exactly {count} candidates as {{\"candidates\":[{{\"query\":\"...\",\"kind\":\"diagnostic\" or \"solution\",\"outcomes\":[\"...\",\"...\",\"...\"]}}]}}. Every candidate must contain one atomic question or corrective action, never multiple checks joined by 'and' or 'or'. Every candidate needs 3-5 mutually exclusive customer-observable replies to that exact query/action. Outcomes must describe what the customer reports or observes, never a recommended next action or an unobserved diagnosis. For a diagnostic query, outcomes directly answer the requested observation. For a solution attempt, outcomes describe the result AFTER trying it and must cover at least: problem resolved, action completed but problem unchanged, and unable to perform or determine. Do not substitute pre-action conditions (for example, whether a part was dirty) for post-action results (whether cleaning fixed the problem). Always include a 'not attempted / cannot determine' outcome. Use kind=solution only when the query explicitly proposes a diagnosis or corrective action that could solve the issue; inspection and information-gathering are diagnostic."}]
+def candidate_messages(
+    scenario: str,
+    beliefs: Sequence[str],
+    history: Sequence[tuple[PaprikaAction, object]],
+    count: int,
+    *,
+    prompt_mode: str = "standard",
+) -> list[dict[str, str]]:
+    if prompt_mode == "standard":
+        system = (
+            "Propose concise customer-service diagnostic questions or corrective solution "
+            "attempts and a discrete answer space. Return strict JSON only."
+        )
+        objective = ""
+    elif prompt_mode == "best_n":
+        system = (
+            "Propose the best customer-service diagnostic questions or corrective solution "
+            "attempts for resolving the issue quickly, with a discrete answer space. Return "
+            "strict JSON only."
+        )
+        objective = (
+            f"Return your {count} best distinct next actions for resolving the customer's "
+            "issue as quickly as possible. "
+        )
+    else:
+        raise ValueError(f"Unsupported Paprika candidate prompt mode: {prompt_mode}")
+    return [{"role": "system", "content": system}, {"role": "user", "content": f"Scenario: {scenario}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nConversation:\n{transcript_text(history)}\n{objective}Return exactly {count} candidates as {{\"candidates\":[{{\"query\":\"...\",\"kind\":\"diagnostic\" or \"solution\",\"outcomes\":[\"...\",\"...\",\"...\"]}}]}}. Every candidate must contain one atomic question or corrective action, never multiple checks joined by 'and' or 'or'. Every candidate needs 3-5 mutually exclusive customer-observable replies to that exact query/action. Outcomes must describe what the customer reports or observes, never a recommended next action or an unobserved diagnosis. For a diagnostic query, outcomes directly answer the requested observation. For a solution attempt, outcomes describe the result AFTER trying it and must cover at least: problem resolved, action completed but problem unchanged, and unable to perform or determine. Do not substitute pre-action conditions (for example, whether a part was dirty) for post-action results (whether cleaning fixed the problem). Always include a 'not attempted / cannot determine' outcome. Use kind=solution only when the query explicitly proposes a diagnosis or corrective action that could solve the issue; inspection and information-gathering are diagnostic."}]
 
 
 def arbitration_candidate_messages(

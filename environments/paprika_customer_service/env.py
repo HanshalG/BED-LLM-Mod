@@ -190,6 +190,11 @@ class PaprikaCustomerServiceEnvironment(
                 raise ValueError(f"{name} must be a positive integer")
         if getattr(config, "paprika_split", "eval") not in {"train", "eval"}:
             raise ValueError("paprika_split must be 'train' or 'eval'")
+        if getattr(config, "paprika_candidate_prompt_mode", "standard") not in {
+            "standard",
+            "best_n",
+        }:
+            raise ValueError("paprika_candidate_prompt_mode must be 'standard' or 'best_n'")
 
     def set_questioner(self, model: Any) -> None:
         self.questioner = model
@@ -581,7 +586,13 @@ class PaprikaCustomerServiceEnvironment(
         if not scenario:
             raise RuntimeError("Could not associate Paprika belief support with a scenario")
         count = int(getattr(config, "paprika_num_candidates", 5))
-        messages = candidate_messages(scenario, belief_state.hypotheses, history, count)
+        messages = candidate_messages(
+            scenario,
+            belief_state.hypotheses,
+            history,
+            count,
+            prompt_mode=getattr(config, "paprika_candidate_prompt_mode", "standard"),
+        )
         return self._complete_parsed(
             model,
             messages,
@@ -607,7 +618,15 @@ class PaprikaCustomerServiceEnvironment(
             if not scenario:
                 raise RuntimeError("Could not associate Paprika belief support with a scenario")
             scenarios.append(scenario)
-            messages.append(candidate_messages(scenario, belief_state.hypotheses, history, count))
+            messages.append(
+                candidate_messages(
+                    scenario,
+                    belief_state.hypotheses,
+                    history,
+                    count,
+                    prompt_mode=getattr(config, "paprika_candidate_prompt_mode", "standard"),
+                )
+            )
         responses = self._cached_complete_many(
             model,
             messages,

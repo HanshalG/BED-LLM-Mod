@@ -10,6 +10,7 @@ import pytest
 from core.experiment import run_from_config
 from environments.paprika_customer_service import PaprikaAction, load_paprika_tasks
 from environments.paprika_customer_service.parsing import parse_distribution
+from environments.paprika_customer_service.prompts import candidate_messages
 from helpers import Config, load_config
 from methods.categorical_eig import categorical_eig
 
@@ -315,13 +316,33 @@ def test_nested_paprika_config_aliases(tmp_path: Path) -> None:
         "  trial_batch_size: 1\n"
         "  num_hypotheses: 3\n"
         "  num_candidates: 2\n"
+        "  candidate_prompt_mode: best_n\n"
         "  shared_call_cache_enabled: true\n"
     )
     config = load_config(str(path))
     assert config.paprika_data_path == str(FIXTURE)
     assert config.paprika_num_trials == 5
     assert config.paprika_num_candidates == 2
+    assert config.paprika_candidate_prompt_mode == "best_n"
     assert config.paprika_shared_call_cache_enabled is True
+
+
+def test_best_n_candidate_prompt_is_goal_anchored() -> None:
+    messages = candidate_messages(
+        "A device is not working.",
+        ["A loose cable"],
+        [],
+        3,
+        prompt_mode="best_n",
+    )
+    prompt = "\n".join(message["content"] for message in messages)
+    assert "3 best distinct next actions" in prompt
+    assert "resolving the customer's issue as quickly as possible" in prompt
+
+
+def test_invalid_candidate_prompt_mode_is_rejected() -> None:
+    with pytest.raises(ValueError, match="paprika_candidate_prompt_mode"):
+        Config(task="paprika_customer_service", paprika_candidate_prompt_mode="unknown")
 
 
 def test_five_task_runner_smoke_logs_full_answer_coverage(tmp_path: Path) -> None:

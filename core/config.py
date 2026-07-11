@@ -168,6 +168,7 @@ class PaprikaConfig:
     seed: int | None = None
     num_hypotheses: int = 12
     num_candidates: int = 5
+    candidate_prompt_mode: str = "standard"
     shared_call_cache_enabled: bool = True
     belief_refresh_enabled: bool = True
     num_refresh_hypotheses: int = 6
@@ -328,6 +329,7 @@ def paprika_view(config: Any) -> PaprikaConfig:
         seed=getattr(config, "paprika_seed", None),
         num_hypotheses=int(getattr(config, "paprika_num_hypotheses", 12)),
         num_candidates=int(getattr(config, "paprika_num_candidates", 5)),
+        candidate_prompt_mode=getattr(config, "paprika_candidate_prompt_mode", "standard"),
         shared_call_cache_enabled=bool(
             getattr(config, "paprika_shared_call_cache_enabled", True)
         ),
