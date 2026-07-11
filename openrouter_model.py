@@ -203,6 +203,7 @@ class OpenRouterAdapter:
                 TimeoutError,
                 http.client.HTTPException,
                 ConnectionError,
+                json.JSONDecodeError,
             ) as exc:
                 if attempt >= self.max_retries:
                     raise RuntimeError(f"OpenRouter request failed after retries: {exc}") from exc
