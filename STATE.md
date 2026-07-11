@@ -367,6 +367,14 @@ attempts remain noncanonical.
 Offset-44 recovery 4 cleared arbitration but failed closed during candidate 0. Exact
 full-triplet recovery 5 launched unchanged at `20260711T214607`; all five earlier
 attempts remain noncanonical.
+Wave 4 is complete and canonical for offsets 40--49. Recovery 5 is the accepted source
+for offset 44; all other offsets use their first invocation. The health-only combination
+has exact task/method coverage and 16/16 matching ordered proposal sets at eligible
+identical-history turns. Accepted cost was $0.521274 over 3,359 requests; operational
+wave cost including five failed offset-44 attempts was $0.614086 over 4,155 requests.
+Actual cumulative spend, including the still-running best-N probe, was $13.090964/$30 at
+banking time. No additional canonical policy outcome was inspected. Wave 5 offsets
+50--59 is next under the same frozen design and concurrency rule.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
