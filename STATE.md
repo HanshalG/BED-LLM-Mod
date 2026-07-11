@@ -264,6 +264,9 @@ operational spend including failed attempts was $0.619374. Cumulative spend is
 $11.001346/$30. Canonical provenance is tracked in
 `results/path_e/arbitration_headline/CANONICAL_RUNS.json`. Wave 2 (offsets 20--29) is
 next under the same frozen scientific design and aggregate concurrency 250.
+Wave 2 launched at `20260711T180556`, offsets 20--29, as ten isolated full-triplet
+shards at aggregate configured concurrency 250. Same canonical and health-only
+monitoring rules apply.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
