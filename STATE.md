@@ -343,6 +343,11 @@ canonical task outcomes were inadvertently visible, but no arbitration/candidate
 outcome or cross-arm comparison was inspected, and the sample, design, analyzer,
 recovery sources, and launch decisions were already frozen and remain unchanged. Do not
 flush completed run sessions again; use metadata-only polling.
+Wave 4 began at `20260711T205544` with offsets 40--48 as nine isolated unchanged
+thinking triplets. Together with the still-running 25-concurrency best-N probe, aggregate
+configured concurrency is 250. Offset 49 remains intentionally unlaunched and will fill
+the first released 25-concurrency slot. Health-only and whole-triplet recovery rules are
+unchanged.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
