@@ -193,6 +193,9 @@ use the same canonical 10 tasks, 5 rounds, and seed 1304 for naive non-thinking,
 thinking, and generation-thinking EIG; Full2 remains excluded. The EIG arm is split
 into ten one-task shards at concurrency 23 per shard, while each batched naive arm has
 at most ten simultaneous task calls, keeping practical aggregate concurrency near 250.
+All three arms launched locally as run timestamp `20260711T101551` from commit
+`71fb131`; raw run directories are ignored and the combined valid-endpoint report is
+pending. The frozen projected total is $1.75, below the authorized approximately $3.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
