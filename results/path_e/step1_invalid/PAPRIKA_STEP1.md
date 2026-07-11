@@ -1,5 +1,7 @@
 # Paprika Step 1 Gap Pilot
 
+> **INVALID-ENDPOINT:** Diagnostic only. Do not cite as policy evidence. The adapter did not mirror Paprika's released complete-conversation success protocol.
+
 Status: **claim1_matched_fail_rescue_or_stop**
 
 | arm | resolution@5 | mean censored turns | coverage | cost (USD) | requests |

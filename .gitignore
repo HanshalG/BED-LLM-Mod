@@ -53,9 +53,11 @@ results/path_e/*
 !results/path_e/step0a_adapter_smoke/paprika_smoke.json
 !results/path_e/STEP0_ENVIRONMENT_STANDING.md
 !results/path_e/STEP0A_OPENROUTER_SMOKE.md
-!results/path_e/step1/
-!results/path_e/step1/PAPRIKA_STEP1.json
-!results/path_e/step1/PAPRIKA_STEP1.md
-!results/path_e/step1/PAPRIKA_STEP1_RESCUE.json
-!results/path_e/step1/PAPRIKA_STEP1_RESCUE.md
-!results/path_e/step1/PAPRIKA_ENDPOINT_AUDIT.md
+!results/path_e/step1_invalid/
+!results/path_e/step1_invalid/INVALID-ENDPOINT.md
+!results/path_e/step1_invalid/INVALID_SOURCE_RUNS.md
+!results/path_e/step1_invalid/PAPRIKA_STEP1.json
+!results/path_e/step1_invalid/PAPRIKA_STEP1.md
+!results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.json
+!results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.md
+!results/path_e/step1_invalid/PAPRIKA_ENDPOINT_AUDIT.md

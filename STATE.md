@@ -139,6 +139,39 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
+authorized.** Do NOT stop Path E on the invalid measurement. Conditions, all mandatory:
+
+1. **Quarantine first.** All prior Step 1 + rescue results (canonical run, rescue waves)
+   are endpoint-invalid: mark their artifacts INVALID-ENDPOINT, keep them as diagnostics
+   in `results/path_e/step1_invalid/`, and never cite them as policy evidence. The
+   PAPRIKA_ENDPOINT_AUDIT.md stays as the record of why.
+2. **Endpoint repair mirrors Paprika's native complete-conversation success protocol
+   exactly** — no house variant. Every discrepancy example in the audit (trailer
+   connector, kiosk cleaning inconsistency, kiosk remedy contradiction) becomes a
+   committed regression test that must pass.
+3. **Simulator-faithfulness gate (new, required).** The audit shows the simulator can
+   contradict the hidden ground truth — that corrupts the interaction itself, not just
+   scoring, and it biased AGAINST arms that proposed correct remedies. Add a
+   faithfulness check to the revalidation smoke: rate of simulator replies inconsistent
+   with the private solution must be ~0; contradictions are adapter/prompt bugs to fix,
+   not noise to average over.
+4. **Revalidate Step 0a from scratch**: fresh 5-task real-model smoke under the repaired
+   protocol — coverage >= 85%, zero terminal failures, faithfulness ~0, manual
+   transcript review, tracked report. Step 0a's previous pass is void until this runs.
+5. **Fresh paired Step 1** under the same frozen design (10 canonical tasks, 5 rounds,
+   seed 1304, frozen censoring/tie rules): arms = naive non-thinking, naive thinking,
+   EIG with thinking-generation (the authorized rescue config — candidate quality was
+   the diagnosed bottleneck, so it is the primary scaffold arm). NO full 2-step (stays
+   dropped). Projected cost <= ~$3; check against remaining budget before launch.
+6. **The decision-boundary addendum carries over unchanged** to the fresh Step 1:
+   claim-1 pass -> scale claim 1 (more tasks, then MediQ); claim-1 fail under VALID
+   endpoints -> the one pre-registered naive-primary arbitration variant -> then
+   stop-and-discuss regardless.
+7. No other scope changes; no new environments; no new method variants beyond the
+   above.
+
+
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
 combined — Hanshal-reviewed):**
 
@@ -320,12 +353,14 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    = 90.2%. Against thinking naive it is 2/2/6, also +0.2. Total rescue usage is
    4,221 requests, 627,158 reasoning tokens, 13/122 generation forced exits (10.7%),
    and $0.49992433. Authoritative artifacts are
-   `results/path_e/step1/PAPRIKA_STEP1_RESCUE.{json,md}`.
+   `results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.{json,md}` and is quarantined
+   as INVALID-ENDPOINT diagnostic evidence only.
    A post-gate endpoint audit identified a deeper validity problem: the adapter
    does not implement Paprika's released complete-conversation success protocol.
    It can label a prospective `I'll try that` reply as solved, miss explicit
    `that fixed it` replies, and accept simulator replies that contradict the
-   released private remedy. See `results/path_e/step1/PAPRIKA_ENDPOINT_AUDIT.md`.
+   released private remedy. See
+   `results/path_e/step1_invalid/PAPRIKA_ENDPOINT_AUDIT.md`.
    Therefore these Step 1 numbers are endpoint-integration diagnostics plus an
    insufficient policy comparison, not valid evidence that EIG loses on Paprika.
    **NEXT ACTION REQUIRES HANSHAL:** choose whether to (a) stop Path E and write the

@@ -1,5 +1,7 @@
 # Paprika Step 1 Endpoint Audit
 
+> **INVALID-ENDPOINT RECORD:** This audit documents why all neighboring Step 1 policy results are quarantined and must not be cited as policy evidence.
+
 ## Verdict
 
 The completed Paprika Step 1 endpoint is not faithful enough to the released

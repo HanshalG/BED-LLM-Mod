@@ -1,5 +1,7 @@
 # Paprika Step 1 Generation-Thinking Rescue
 
+> **INVALID-ENDPOINT:** Diagnostic only. Do not cite as policy evidence. The adapter did not mirror Paprika's released complete-conversation success protocol.
+
 Status: **rescue_insufficient_stop_and_discuss**
 
 | arm | resolution@5 | mean censored turns | coverage | cost (USD) | requests |

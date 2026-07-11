@@ -1,4 +1,6 @@
 {
+  "validity": "INVALID-ENDPOINT",
+  "invalid_reason": "Paprika success evaluation did not mirror the released complete-conversation protocol.",
   "status": "rescue_insufficient_stop_and_discuss",
   "round_budget": 5,
   "censoring_rule": "unresolved tasks score round_budget + 1 censored turns",
