@@ -139,6 +139,43 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
+combined — Hanshal-reviewed):**
+
+Context: canonical Step 1 failed both claims (naive 0.40 > EIG 0.30 > full2 0.20;
+full2 vs EIG 0/1/9). Diagnosis: scaffold-generated candidates/hypotheses are
+off-target; EIG selection and answer mapping are functioning. Third environment with
+the same scaffold<naive inversion. Consequences regardless of rescue outcome:
+- Full 2-step is DROPPED from all further Path E runs (failed its gate; $5.16/10 tasks
+  is unaffordable at $20 scale). The lookahead claim is closed for this cycle.
+- Reminder: all 10-task reads are +/-1 task from flipping; treat as directional.
+
+**If the combined rescue PASSES matched Claim 1** (thinking-generation EIG >= naive
+under the frozen rules): continue the plan with 1-step EIG as the method arm —
+Step 2 selective lookahead is NOT revived (claim 2 is closed); instead proceed to a
+larger Paprika task set to firm up claim 1, then MediQ transfer.
+
+**If the combined rescue FAILS or TIES**: exactly ONE further pre-authorized variant,
+then stop-and-discuss regardless of anything else:
+- **Naive-primary arbitration**: each round, the thinking-naive policy proposes k=3
+  candidate actions (its natural next action plus two alternatives, from one prompt);
+  the belief state scores ONLY these by categorical 1-step EIG; select naive's top
+  choice unless another proposal beats it by the margin rule (score gap > 1 SE).
+  Everything else (mapping, likelihoods, refresh) as in the canonical EIG arm.
+  Same 10 canonical tasks, same seed, frozen censoring/tie rules, projected <= $2.
+  Rationale (pre-registered): candidates from the 0.40-resolution native policy remove
+  the demonstrated candidate-quality bottleneck; beliefs do selection only; regret vs
+  naive bounded by the default rule.
+- READ: arbitration > naive on the frozen rules -> this becomes the Path E method claim
+  ("belief-guided selection over native LLM proposals") and the paper pivots
+  accordingly; scale it on more tasks before MediQ.
+- Arbitration ties/loses -> STOP. No further variants. Discussion covers the honest
+  remaining options (including the cross-environment characterization: scaffolding
+  helps only when the hypothesis space exceeds native reasoning capacity — 20Q yes,
+  Paprika no, location no).
+Budget note: ~$11 remains; reserve >= $6 for whichever endgame is chosen.
+
+
 **PRE-LAUNCH AMENDMENTS TO STEP 1 (Hanshal-reviewed, 2026-07-11 — apply BEFORE launching
 the Step 1 configs):**
 
@@ -272,8 +309,22 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    failures, 19/20 clean turns, 2 resolutions, and 2/55 generation forced exits.
    Wave cost $0.22756252 over 2,031 requests and 260,153 reasoning tokens. Launch
    rescue offsets 5-9 under the identical protocol, then combine and analyze once.
-   Rescue split wave B is active as run IDs `20260711T075742`, `20260711T075744`,
-   `20260711T075746`, `20260711T075748`, and `20260711T075750`.
+   Rescue split wave B completed as run IDs `20260711T075742`, `20260711T075744`,
+   `20260711T075746`, `20260711T075748`, and `20260711T075750`: zero terminal/parse
+   failures, 18/21 clean turns, 1 resolution, 11/67 generation forced exits,
+   2,190 requests, 367,005 reasoning tokens, and $0.27236181.
+   The frozen rescue analyzer has run once. Result: **INSUFFICIENT SIGNAL; STOP AND
+   DISCUSS**. Rescue EIG resolved 3/10 versus matched naive 4/10, but paired outcomes
+   are 1 win / 1 loss / 8 ties, so the majority-tie rule prevents calling this a
+   directional failure. Mean censored-turn delta is +0.2; coverage improved to 37/41
+   = 90.2%. Against thinking naive it is 2/2/6, also +0.2. Total rescue usage is
+   4,221 requests, 627,158 reasoning tokens, 13/122 generation forced exits (10.7%),
+   and $0.49992433. Authoritative artifacts are
+   `results/path_e/step1/PAPRIKA_STEP1_RESCUE.{json,md}`.
+   **NEXT ACTION REQUIRES HANSHAL:** choose whether to (a) stop Path E and write the
+   honest negative/insufficient external-benchmark result, or (b) explicitly authorize
+   a new pre-registered path. Do not implement selective Step 2, scale Paprika, add
+   another rescue, or pivot to MediQ autonomously.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

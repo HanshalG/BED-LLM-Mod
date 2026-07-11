@@ -56,3 +56,5 @@ results/path_e/*
 !results/path_e/step1/
 !results/path_e/step1/PAPRIKA_STEP1.json
 !results/path_e/step1/PAPRIKA_STEP1.md
+!results/path_e/step1/PAPRIKA_STEP1_RESCUE.json
+!results/path_e/step1/PAPRIKA_STEP1_RESCUE.md
