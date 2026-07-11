@@ -266,9 +266,12 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    using `config_paprika_step1_eig_generation_thinking_rescue_split_openrouter.yaml`.
    Combine only ten completed EIG artifacts, then compare once against the canonical
    matched naive. If that read does not pass, STOP and discuss with Hanshal.
-   Rescue split wave A is active for offsets 0-4 as run IDs `20260711T071533`,
+   Rescue split wave A completed for offsets 0-4 as run IDs `20260711T071533`,
    `20260711T071535`, `20260711T071537`, `20260711T071539`, and
-   `20260711T071541`, at concurrency 24 each / 120 aggregate.
+   `20260711T071541`. All five canonical tasks completed with zero parse/terminal
+   failures, 19/20 clean turns, 2 resolutions, and 2/55 generation forced exits.
+   Wave cost $0.22756252 over 2,031 requests and 260,153 reasoning tokens. Launch
+   rescue offsets 5-9 under the identical protocol, then combine and analyze once.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
