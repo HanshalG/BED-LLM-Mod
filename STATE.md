@@ -15,8 +15,9 @@ naive AND 1-step EIG on paired external-benchmark endpoints. 20Q/Wordle/Mastermi
 harness/unit-test only (greedy near-optimal there); location finding is closed. All
 Path A/B/C/D location & 20Q material is banked history below.
 
-Path E Step 0 implementation status (2026-07-11): **repaired-endpoint Step 0a and Step
-0b are passed**. The canonical repaired real-model Paprika smoke is
+Path E Step 0 implementation status (2026-07-11): **Step 0a requires revalidation after
+a second endpoint repair; Step 0b remains passed**. The previously canonical repaired
+real-model Paprika smoke was
 `20260711T095626_paprika-step0a-repaired-endpoint-tasks5-9-seed1304` at commit
 `7380339`. Across five official eval tasks and ten realized turns it achieved 9/10 =
 90% answer-set coverage, zero terminal structured failures, zero runtime failures,
@@ -24,7 +25,11 @@ zero raw simulator contradictions, zero final inconsistencies, and two genuine
 exact-remedy resolutions. Manual review passed all five transcripts. It used OpenRouter
 `google/gemma-4-26b-a4b-it` without reasoning: 695 requests, 215,372 tokens, no forced
 exits, and $0.04380104. Evidence is tracked in
-`results/path_e/step0a_repaired/`. All earlier endpoint results remain invalid. The
+`results/path_e/step0a_repaired/`, but it is now superseded: later Step 1 manual review
+found that `Straighten the drain hose` incorrectly received `Goal reached` for a private
+clog requiring the clog to be cleared. A specialized terminal-faithfulness adjudicator
+and exact regression now pass, but a fresh real-model smoke is pending. All earlier
+endpoint results remain invalid. The
 exact-posterior Mastermind depth-1/depth-2 harness remains green.
 
 The Paprika implementation is pushed. The
@@ -185,17 +190,16 @@ stale Path A validator assertions. Fresh Step 0a config is
 `configs/config_paprika_step0a_repaired_endpoint_openrouter.yaml` (eval tasks 5-9,
 including both audited task families). Do not launch until this implementation commit
 is pushed.
-Fresh repaired-endpoint Step 0a run `20260711T095626` passed from commit `7380339` on
-eval tasks 5-9: coverage 90%, zero terminal failures, zero raw/final faithfulness
-contradictions, and manual transcript review passed. The tracked evidence is under
-`results/path_e/step0a_repaired/`. Fresh Step 1 is now authorized. Its frozen configs
-use the same canonical 10 tasks, 5 rounds, and seed 1304 for naive non-thinking, naive
-thinking, and generation-thinking EIG; Full2 remains excluded. The EIG arm is split
-into ten one-task shards at concurrency 23 per shard, while each batched naive arm has
-at most ten simultaneous task calls, keeping practical aggregate concurrency near 250.
-All three arms launched locally as run timestamp `20260711T101551` from commit
-`71fb131`; raw run directories are ignored and the combined valid-endpoint report is
-pending. The frozen projected total is $1.75, below the authorized approximately $3.
+Fresh repaired-endpoint Step 0a run `20260711T095626` initially passed on eval tasks
+5-9, but is now superseded by a terminal-faithfulness discrepancy found during the
+required Step 1 transcript review. The first fresh Step 1 attempt is INVALID-ENDPOINT
+and quarantined in `results/path_e/step1_invalid/PAPRIKA_STEP1_REPAIRED_ATTEMPT.md`;
+its automated policy comparison must not be cited. The exact dishwasher mismatch is a
+committed regression. Literal `Goal reached` replies now receive a second strict check
+that requires the latest action to directly match the private cause/remedy; merely
+plausible alternatives are rejected and regenerated. Fresh five-task real-model
+revalidation on tasks 0-4 is the active gate. No arbitration or policy scaling is
+allowed before that gate and a fully fresh Step 1 pass manual review.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten
@@ -206,9 +210,9 @@ hypothesis-refresh JSON and produced no artifact. The identical isolated offset-
 was relaunched as timestamp `20260711T110229` from commit `882c93f`; only the successful
 recovery artifact will enter the paired result.
 Original EIG offset 8 likewise exhausted the bounded structured-repair budget because
-refresh responses lacked six unique hypotheses. The identical isolated offset-8 shard
-was relaunched as timestamp `20260711T111009` from commit `654a7c6`; only its successful
-recovery artifact can enter the paired result.
+refresh responses lacked six unique hypotheses. Both EIG recovery shards and all ten
+thinking-naive recovery shards completed, but the assembled result is quarantined due
+to the manual endpoint failure above.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are

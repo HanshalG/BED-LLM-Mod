@@ -42,6 +42,8 @@ class RoutingQuestioner:
             return [json.dumps({"candidates": [{"query": f"Check diagnostic {index}?", "kind": "diagnostic", "outcomes": ["positive", "negative", "unknown"]} for index in range(count)]})]
         if '"probabilities"' in text:
             return [json.dumps({"probabilities": {"positive": 0.7, "negative": 0.2, "unknown": 0.1}})]
+        if '"terminal_consistent"' in text:
+            return [json.dumps({"terminal_consistent": True})]
         if '"consistent"' in text:
             return [json.dumps({"consistent": True})]
         if '"outcome"' in text and '"clean"' in text:
@@ -713,6 +715,77 @@ def test_unrepaired_simulator_contradiction_fails_closed() -> None:
     assert metrics["simulator_faithfulness_repairs"] == 2.0
     assert metrics["simulator_faithfulness_failures"] == 1.0
     assert metrics["simulator_faithfulness_final_inconsistency_rate"] == 1.0
+
+
+def test_incorrect_drain_hose_terminal_claim_is_rejected_and_repaired() -> None:
+    class TerminalEvaluator(RoutingQuestioner):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            del temperature, num_responses
+            text = "\n".join(message["content"] for message in messages)
+            if '"terminal_consistent"' in text:
+                assert "straightening a drain hose is false" in text
+                return [json.dumps({"terminal_consistent": False})]
+            if '"consistent"' in text:
+                return [json.dumps({"consistent": True})]
+            if "Reply with <VALID>" in text:
+                return ["<NOTVALID>"]
+            if '"outcome"' in text and '"clean"' in text:
+                return [
+                    json.dumps(
+                        {
+                            "outcome": "The water remains after straightening the hose.",
+                            "clean": True,
+                        }
+                    )
+                ]
+            return super().chat_complete(messages, 0.0, 1)
+
+    class RepairingCustomer(RoutingCustomer):
+        def chat_complete(self, messages, temperature, num_responses=1):
+            del temperature, num_responses
+            self.calls += 1
+            text = "\n".join(message["content"] for message in messages)
+            if "contradicted the private ground truth" in text:
+                return ["I straightened the hose, but the water is still there."]
+            return ["Goal reached"]
+
+    from environments.paprika_customer_service.env import PaprikaCustomerServiceEnvironment
+
+    config = Config(
+        task="paprika_customer_service",
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_structured_max_retries=2,
+    )
+    customer = RepairingCustomer()
+    env = PaprikaCustomerServiceEnvironment(config, customer)
+    env.questioner = TerminalEvaluator()
+    action = PaprikaAction(
+        "Straighten the drain hose behind the appliance.",
+        (
+            "The dishwasher drains correctly now.",
+            "The water remains after straightening the hose.",
+            "Not attempted / cannot determine",
+        ),
+        "The dishwasher is leaving water at the bottom.",
+        kind="solution",
+    )
+    task = type(load_paprika_tasks(FIXTURE)[0])(
+        task_id="customer_service:eval:dishwasher",
+        scenario="The dishwasher is leaving water at the bottom.",
+        solution="The drain hose is clogged, and clearing it will restore drainage.",
+        split="eval",
+    )
+    observation = env.observe(action, task, np.random.default_rng(0))
+    metrics = env._simulator_faithfulness_metrics()
+    assert observation.goal_reached is False
+    assert observation.reply == "I straightened the hose, but the water is still there."
+    assert customer.calls == 2
+    assert metrics["simulator_faithfulness_raw_contradictions"] == 1.0
+    assert metrics["simulator_faithfulness_repairs"] == 1.0
+    assert metrics["simulator_terminal_claims"] == 1.0
+    assert metrics["simulator_terminal_rejections"] == 1.0
+    assert metrics["simulator_faithfulness_final_inconsistency_rate"] == 0.0
 
 
 def test_prospective_attempt_maps_cleanly_to_uncertainty() -> None:

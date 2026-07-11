@@ -24,6 +24,7 @@ from .prompts import (
     mapping_messages,
     refinement_messages,
     success_judge_messages,
+    terminal_faithfulness_messages,
     filtering_messages,
 )
 from .types import PaprikaAction, PaprikaObservation, PaprikaTask
@@ -154,6 +155,9 @@ class PaprikaCustomerServiceEnvironment(
         self._simulator_faithfulness_raw_contradictions = 0
         self._simulator_faithfulness_repairs = 0
         self._simulator_faithfulness_failures = 0
+        self._simulator_terminal_claims = 0
+        self._simulator_terminal_checks = 0
+        self._simulator_terminal_rejections = 0
 
     @property
     def name(self) -> str:
@@ -635,7 +639,7 @@ class PaprikaCustomerServiceEnvironment(
         reply: str,
     ) -> bool:
         self._simulator_faithfulness_checks += 1
-        return bool(
+        consistent = bool(
             self._complete_parsed(
                 self._evaluation_model(),
                 faithfulness_messages(action, solution, reply),
@@ -644,6 +648,32 @@ class PaprikaCustomerServiceEnvironment(
                 parser=self._parse_faithfulness,
             )
         )
+        if not consistent or "goal reached" not in reply.casefold():
+            return consistent
+        self._simulator_terminal_claims += 1
+        self._simulator_terminal_checks += 1
+        terminal_consistent = bool(
+            self._complete_parsed(
+                self._evaluation_model(),
+                terminal_faithfulness_messages(action, solution),
+                0.0,
+                namespace="questioner:simulator_terminal_faithfulness",
+                parser=self._parse_terminal_faithfulness,
+            )
+        )
+        if not terminal_consistent:
+            self._simulator_terminal_rejections += 1
+        return terminal_consistent
+
+    @staticmethod
+    def _parse_terminal_faithfulness(text: str) -> bool:
+        value = parse_json_object(text).get("terminal_consistent")
+        if not isinstance(value, bool):
+            raise ValueError(
+                "Simulator terminal faithfulness response requires boolean "
+                "'terminal_consistent'"
+            )
+        return value
 
     def _faithful_customer_reply(
         self,
@@ -874,6 +904,9 @@ class PaprikaCustomerServiceEnvironment(
             "simulator_faithfulness_failures": float(
                 self._simulator_faithfulness_failures
             ),
+            "simulator_terminal_claims": float(self._simulator_terminal_claims),
+            "simulator_terminal_checks": float(self._simulator_terminal_checks),
+            "simulator_terminal_rejections": float(self._simulator_terminal_rejections),
             "simulator_faithfulness_raw_contradiction_rate": (
                 self._simulator_faithfulness_raw_contradictions / observations
                 if observations

@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Sequence
 
 
-METHODS = ("EIG", "Full2StepEIG")
+METHODS = ("naive", "EIG", "Full2StepEIG")
 SUM_METRICS = (
     "backend_cost_usd",
     "backend_requests",
@@ -18,6 +18,14 @@ SUM_METRICS = (
     "backend_reasoning_tokens",
     "backend_forced_exits",
     "structured_parse_failures",
+    "simulator_faithfulness_observations",
+    "simulator_faithfulness_checks",
+    "simulator_faithfulness_raw_contradictions",
+    "simulator_faithfulness_repairs",
+    "simulator_faithfulness_failures",
+    "simulator_terminal_claims",
+    "simulator_terminal_checks",
+    "simulator_terminal_rejections",
 )
 
 
@@ -85,6 +93,18 @@ def combine(
                 metric_payload[name] = [int(value)]
             else:
                 metric_payload[name] = [value]
+        observations = metrics_by_method[method]["simulator_faithfulness_observations"]
+        metric_payload["simulator_faithfulness_raw_contradiction_rate"] = [
+            metrics_by_method[method]["simulator_faithfulness_raw_contradictions"]
+            / observations
+            if observations
+            else 0.0
+        ]
+        metric_payload["simulator_faithfulness_final_inconsistency_rate"] = [
+            metrics_by_method[method]["simulator_faithfulness_failures"] / observations
+            if observations
+            else 0.0
+        ]
         items.append(
             {
                 "method": method,

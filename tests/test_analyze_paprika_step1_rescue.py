@@ -35,6 +35,25 @@ def _write_run(root: Path, method: str, turns: list[int | None]) -> None:
     )
 
 
+def _add_faithfulness_metrics(root: Path) -> None:
+    payload = json.loads((root / "metrics.json").read_text())
+    payload["items"][0]["metrics"].update(
+        {
+            "structured_parse_failures": [0],
+            "simulator_faithfulness_observations": [10],
+            "simulator_faithfulness_checks": [10],
+            "simulator_faithfulness_raw_contradictions": [0],
+            "simulator_faithfulness_repairs": [0],
+            "simulator_faithfulness_failures": [0],
+            "simulator_faithfulness_final_inconsistency_rate": [0],
+            "simulator_terminal_claims": [0],
+            "simulator_terminal_checks": [0],
+            "simulator_terminal_rejections": [0],
+        }
+    )
+    (root / "metrics.json").write_text(json.dumps(payload))
+
+
 def test_rescue_analyzer_reuses_frozen_matched_gate(tmp_path: Path) -> None:
     rescue = tmp_path / "rescue"
     matched = tmp_path / "matched"
@@ -42,6 +61,9 @@ def test_rescue_analyzer_reuses_frozen_matched_gate(tmp_path: Path) -> None:
     _write_run(rescue, "EIG", [1, 1, 1, 1, 1, 1, None, None, None, None])
     _write_run(matched, "naive", [2, 2, None, None, None, None, None, None, None, None])
     _write_run(adversarial, "naive", [1, 1, 2, 2, None, None, None, None, None, None])
+    for run in (rescue, matched, adversarial):
+        _add_faithfulness_metrics(run)
     result = analyze(rescue, matched, adversarial, round_budget=2)
     assert result["status"] == "rescue_pass_continue_claim1_transfer"
+    assert result["endpoint_valid"] is True
     assert result["claim1_matched_rescue_vs_naive_nonthinking"]["gate_pass"] is True

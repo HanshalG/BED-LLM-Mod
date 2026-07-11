@@ -85,6 +85,23 @@ def _arm_summary(arm: Arm, values: dict[str, dict[str, Any]], round_budget: int)
         for turn in range(1, round_budget + 1)
     ]
     metric = lambda name: (arm.metrics.get(name) or [0])[-1]
+    faithfulness_metrics = (
+        "simulator_faithfulness_observations",
+        "simulator_faithfulness_checks",
+        "simulator_faithfulness_raw_contradictions",
+        "simulator_faithfulness_repairs",
+        "simulator_faithfulness_failures",
+        "simulator_faithfulness_final_inconsistency_rate",
+        "simulator_terminal_claims",
+        "simulator_terminal_checks",
+        "simulator_terminal_rejections",
+    )
+    faithfulness_present = all(name in arm.metrics for name in faithfulness_metrics)
+    structured_parse_failures = float(metric("structured_parse_failures"))
+    faithfulness_failures = float(metric("simulator_faithfulness_failures"))
+    final_inconsistency_rate = float(
+        metric("simulator_faithfulness_final_inconsistency_rate")
+    )
     return {
         "num_tasks": len(rows),
         "resolution_curve": resolution_curve,
@@ -93,7 +110,31 @@ def _arm_summary(arm: Arm, values: dict[str, dict[str, Any]], round_budget: int)
         "answer_set_coverage": (
             sum(row["clean_turns"] for row in rows) / total_turns if total_turns else 0.0
         ),
-        "structured_parse_failures": float(metric("structured_parse_failures")),
+        "structured_parse_failures": structured_parse_failures,
+        "simulator_faithfulness_metrics_present": faithfulness_present,
+        "simulator_faithfulness_observations": float(
+            metric("simulator_faithfulness_observations")
+        ),
+        "simulator_faithfulness_checks": float(
+            metric("simulator_faithfulness_checks")
+        ),
+        "simulator_faithfulness_raw_contradictions": float(
+            metric("simulator_faithfulness_raw_contradictions")
+        ),
+        "simulator_faithfulness_repairs": float(
+            metric("simulator_faithfulness_repairs")
+        ),
+        "simulator_faithfulness_failures": faithfulness_failures,
+        "simulator_faithfulness_final_inconsistency_rate": final_inconsistency_rate,
+        "simulator_terminal_claims": float(metric("simulator_terminal_claims")),
+        "simulator_terminal_checks": float(metric("simulator_terminal_checks")),
+        "simulator_terminal_rejections": float(metric("simulator_terminal_rejections")),
+        "endpoint_valid": bool(
+            faithfulness_present
+            and structured_parse_failures == 0.0
+            and faithfulness_failures == 0.0
+            and final_inconsistency_rate == 0.0
+        ),
         "backend_cost_usd": float(metric("backend_cost_usd")),
         "backend_requests": int(metric("backend_requests")),
         "backend_prompt_tokens": int(metric("backend_prompt_tokens")),
@@ -211,7 +252,10 @@ def analyze(
         baseline="EIG",
         require_six_wins=True,
     )
-    if claim1["gate_status"] == "fail":
+    endpoint_valid = all(summary["endpoint_valid"] for summary in summaries.values())
+    if not endpoint_valid:
+        status = "invalid_endpoint_stop"
+    elif claim1["gate_status"] == "fail":
         status = "claim1_matched_fail_rescue_or_stop"
     elif claim1["gate_status"] == "insufficient_signal":
         status = "claim1_matched_insufficient_signal"
@@ -227,6 +271,7 @@ def analyze(
         "censoring_rule": "unresolved tasks score round_budget + 1 censored turns",
         "claim2_clear_edge_rule": "at least 2/10 additional resolutions or mean censored-turn delta <= -0.2",
         "arms": summaries,
+        "endpoint_valid": endpoint_valid,
         "claim1_matched_eig_vs_naive_nonthinking": claim1,
         "claim1_adversarial_eig_vs_naive_thinking": adversarial,
         "claim2_full2_vs_eig": claim2,

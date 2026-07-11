@@ -4,7 +4,10 @@ Run: `20260711T095626_paprika-step0a-repaired-endpoint-tasks5-9-seed1304`
 
 Commit: `7380339`
 
-Decision: **PASS**
+Decision at the time: **PASS**, now **SUPERSEDED / ENDPOINT INCOMPLETE**
+
+See `INVALIDATED.md`. A later canonical-task transcript exposed a terminal-faithfulness
+case this smoke did not exercise, so this pass no longer authorizes policy evidence.
 
 All five official eval-task transcripts were reviewed against their private solutions.
 No simulator reply contradicted the private solution, wrong remedies did not resolve a

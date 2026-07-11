@@ -53,16 +53,22 @@ def analyze(
         require_six_wins=False,
     )
     adversarial = _comparison("rescue_eig", "naive_thinking", values)
-    status = {
-        "pass": "rescue_pass_continue_claim1_transfer",
-        "insufficient_signal": "rescue_insufficient_stop_and_discuss",
-        "fail": "rescue_fail_stop_and_discuss",
-    }[matched["gate_status"]]
+    endpoint_valid = all(summary["endpoint_valid"] for summary in summaries.values())
+    status = (
+        "invalid_endpoint_stop"
+        if not endpoint_valid
+        else {
+            "pass": "rescue_pass_continue_claim1_transfer",
+            "insufficient_signal": "rescue_insufficient_stop_and_discuss",
+            "fail": "rescue_fail_stop_and_discuss",
+        }[matched["gate_status"]]
+    )
     return {
         "status": status,
         "round_budget": round_budget,
         "censoring_rule": "unresolved tasks score round_budget + 1 censored turns",
         "gate_rule": "directional wins unless >=6 ties; or >=0.2 resolution / -0.2 mean-turn clear edge",
+        "endpoint_valid": endpoint_valid,
         "arms": summaries,
         "claim1_matched_rescue_vs_naive_nonthinking": matched,
         "claim1_adversarial_rescue_vs_naive_thinking": adversarial,
@@ -75,14 +81,16 @@ def _markdown(result: dict[str, Any]) -> str:
         "",
         f"Status: **{result['status']}**",
         "",
-        f"| arm | resolution@{result['round_budget']} | mean censored turns | coverage | cost (USD) | requests |",
-        "|---|---:|---:|---:|---:|---:|",
+        f"| arm | resolution@{result['round_budget']} | mean censored turns | coverage | final inconsistency | cost (USD) | requests |",
+        "|---|---:|---:|---:|---:|---:|---:|",
     ]
     for name in ("naive_nonthinking", "naive_thinking", "rescue_eig"):
         arm = result["arms"][name]
         lines.append(
             f"| {name} | {arm['resolution_at_budget']:.3f} | {arm['mean_censored_turns']:.3f} | "
-            f"{arm['answer_set_coverage']:.3f} | {arm['backend_cost_usd']:.4f} | {arm['backend_requests']} |"
+            f"{arm['answer_set_coverage']:.3f} | "
+            f"{arm['simulator_faithfulness_final_inconsistency_rate']:.3f} | "
+            f"{arm['backend_cost_usd']:.4f} | {arm['backend_requests']} |"
         )
     for title, key in (
         ("Matched rescue vs naive non-thinking", "claim1_matched_rescue_vs_naive_nonthinking"),

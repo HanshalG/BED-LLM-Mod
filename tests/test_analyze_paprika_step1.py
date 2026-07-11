@@ -43,6 +43,15 @@ def _write_run(path: Path, methods: dict[str, list[int | None]]) -> None:
                     "backend_completion_tokens": [500],
                     "backend_reasoning_tokens": [0],
                     "backend_forced_exits": [0],
+                    "simulator_faithfulness_observations": [10],
+                    "simulator_faithfulness_checks": [10],
+                    "simulator_faithfulness_raw_contradictions": [0],
+                    "simulator_faithfulness_repairs": [0],
+                    "simulator_faithfulness_failures": [0],
+                    "simulator_faithfulness_final_inconsistency_rate": [0],
+                    "simulator_terminal_claims": [0],
+                    "simulator_terminal_checks": [0],
+                    "simulator_terminal_rejections": [0],
                 },
             }
         )
@@ -66,6 +75,7 @@ def test_step1_analyzer_applies_paired_gate_rules(tmp_path: Path) -> None:
     result = analyze(scaffolded, naive_nonthinking, naive_thinking, round_budget=2)
 
     assert result["status"] == "claims1_and_2_pass"
+    assert result["endpoint_valid"] is True
     assert result["claim1_matched_eig_vs_naive_nonthinking"]["gate_pass"] is True
     assert result["claim2_full2_vs_eig"]["gate_pass"] is True
     assert result["arms"]["Full2StepEIG"]["resolution_at_budget"] == 0.6

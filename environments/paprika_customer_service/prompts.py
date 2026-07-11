@@ -64,6 +64,8 @@ def customer_messages(action: PaprikaAction, solution: str) -> list[dict[str, st
                 "Remember: decide the result using the private solution. If this suggestion fixes "
                 "the issue or identifies the correct remedy, reply exactly 'Goal reached'. If it "
                 "does not, give a truthful concise customer response and do not reveal the remedy.\n"
+                "A merely plausible alternative fix is not enough: the latest action must directly "
+                "implement or identify the specific private cause/remedy.\n"
                 "Customer:"
             ),
         },
@@ -142,6 +144,36 @@ def faithfulness_messages(
     ]
 
 
+def terminal_faithfulness_messages(
+    action: PaprikaAction,
+    solution: str,
+) -> list[dict[str, str]]:
+    transcript = "\n".join(f"Agent: {q}\nCustomer: {a}" for q, a in action.transcript)
+    return [
+        {
+            "role": "system",
+            "content": (
+                "Strictly audit a benchmark customer's terminal success claim against the private "
+                "ground truth. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Scenario: {action.scenario}\nPrivate solution: {solution}\n"
+                f"Previous conversation:\n{transcript or '(none)'}\n"
+                f"Latest agent action: {action.query}\n\n"
+                "The simulator wants to reply 'Goal reached'. Return "
+                '{"terminal_consistent": true or false}. Use true only when the latest action '
+                "directly implements or identifies the specific private cause/remedy. A different "
+                "plausible fix for the same symptom is false. For example, straightening a drain "
+                "hose is false when the private cause is a clogged hose; clearing that clog is "
+                "true. Securing a connector is true when the private cause is a loose connector."
+            ),
+        },
+    ]
+
+
 def faithfulness_repair_messages(
     messages: Sequence[dict[str, str]],
     rejected_reply: str,
@@ -154,7 +186,8 @@ def faithfulness_repair_messages(
                 "That reply contradicted the private ground truth. Regenerate only the customer's "
                 "reply. If the agent reached or suggested the correct remedy, reply exactly 'Goal "
                 "reached'. Otherwise give a concise truthful result consistent with the private "
-                "solution, without revealing that solution."
+                "solution, without revealing that solution. Do not accept a merely plausible "
+                "alternative fix; it must directly match the specific private cause/remedy."
             ),
         },
     ]

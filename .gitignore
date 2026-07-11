@@ -19,6 +19,7 @@ configs/
 configs/*
 !configs/config_paprika_step0a_smoke_26b_a4b.yaml
 !configs/config_paprika_step0a_smoke_openrouter.yaml
+!configs/config_paprika_step0a_terminal_repaired_openrouter.yaml
 !configs/config_paprika_step1_full2_cost_micro_openrouter.yaml
 !configs/config_paprika_step1_scaffolded_openrouter.yaml
 !configs/config_paprika_step1_naive_thinking_openrouter.yaml
@@ -65,7 +66,9 @@ results/path_e/*
 !results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.json
 !results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.md
 !results/path_e/step1_invalid/PAPRIKA_ENDPOINT_AUDIT.md
+!results/path_e/step1_invalid/PAPRIKA_STEP1_REPAIRED_ATTEMPT.md
 !results/path_e/step0a_repaired/
 !results/path_e/step0a_repaired/REPORT.json
 !results/path_e/step0a_repaired/MANUAL_REVIEW.md
 !results/path_e/step0a_repaired/paprika_smoke.json
+!results/path_e/step0a_repaired/INVALIDATED.md
