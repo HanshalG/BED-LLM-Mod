@@ -184,6 +184,8 @@ stale Path A validator assertions. Fresh Step 0a config is
 `configs/config_paprika_step0a_repaired_endpoint_openrouter.yaml` (eval tasks 5-9,
 including both audited task families). Do not launch until this implementation commit
 is pushed.
+Fresh repaired-endpoint Step 0a is active as run `20260711T095626` from commit
+`7380339`, using eval tasks 5-9 and the mandatory coverage/faithfulness gates.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
