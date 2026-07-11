@@ -358,6 +358,9 @@ Original offsets 40 and 46 completed, releasing two slots. The queued original o
 Offset-44 recovery 1 failed closed during arbitration and banked no item. Exact
 full-triplet recovery 2 launched unchanged at `20260711T211909`; both earlier attempts
 remain noncanonical. Aggregate configured concurrency is 225.
+Offset-44 recovery 2 also failed closed during arbitration and banked no item. Exact
+full-triplet recovery 3 launched unchanged at `20260711T212925`; all three earlier
+attempts remain noncanonical.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
