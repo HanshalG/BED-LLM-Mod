@@ -105,7 +105,7 @@ def test_headline_analyzer_adds_best_n_context_without_changing_claim_rule(
     arbitration = [1] * 20 + [2] * 10 + [None] * 20
     candidate0 = [2] * 20 + [3] * 10 + [None] * 20
     thinking = [3] * 20 + [4] * 10 + [None] * 20
-    best_n_turns = [2] * 20 + [3] * 10 + [None] * 20
+    best_n_turns = [2] * 20 + [3] * 10 + [None] * 19 + [1]
     _write_run(
         headline,
         {
@@ -119,8 +119,12 @@ def test_headline_analyzer_adds_best_n_context_without_changing_claim_rule(
     result = analyze(headline, nonthinking, best_n_run=best_n)
     assert result["claim_read_before_manual_review"] == "claim_b_confirmed"
     assert result["best_n_endpoint_valid_automated"] is True
-    assert result["context_best_n_vs_naive_thinking"]["wins"] == 30
+    assert result["context_best_n_vs_naive_thinking"]["wins"] == 31
     assert result["context_best_n_vs_arbitration"]["losses"] == 30
+    assert (
+        "customer_service:eval:0059"
+        in result["manual_review_plan"]["success_disagreement_task_ids"]
+    )
 
 
 def test_headline_analyzer_rejects_mismatched_root_proposals(tmp_path: Path) -> None:

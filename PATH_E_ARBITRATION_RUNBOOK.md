@@ -132,7 +132,7 @@ Descriptive only, with no threshold changes:
 
 After automated analysis, review:
 
-1. every task where the four arms disagree on success; and
+1. every task where any of the five arms disagree on success; and
 2. ten additional tasks sampled without replacement from the remaining tasks using
    NumPy RNG seed 1304.
 
