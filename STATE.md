@@ -201,6 +201,10 @@ provider response held the entire ten-task batch after nine first-round completi
 It produced no artifact and is not used. The exact same arm is being recovered as ten
 one-task shards; model, thinking budget, prompts, seed, task set, rounds, and endpoint
 are unchanged. Recovery timestamp is `20260711T105624`, launched from commit `fbddab9`.
+Original EIG offset 5 also exhausted its bounded structured-repair budget on malformed
+hypothesis-refresh JSON and produced no artifact. The identical isolated offset-5 shard
+was relaunched as timestamp `20260711T110229` from commit `882c93f`; only the successful
+recovery artifact will enter the paired result.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
