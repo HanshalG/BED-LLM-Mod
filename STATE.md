@@ -293,6 +293,9 @@ attempt was $0.630444. Cumulative spend is $11.631791/$30. Wave 3 (offsets 30--3
 next under the unchanged design.
 Wave 3 launched at `20260711T195210`, offsets 30--39, as ten isolated triplets at
 aggregate configured concurrency 250. Health-only monitoring remains in force.
+Wave-3 original offset 30 failed closed during arbitration on the strict bounded
+simulator-faithfulness check and banked no item. Exact full-triplet recovery 1 launched
+at `20260711T195708`; the failed invocation is noncanonical.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
