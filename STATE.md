@@ -375,6 +375,10 @@ wave cost including five failed offset-44 attempts was $0.614086 over 4,155 requ
 Actual cumulative spend, including the still-running best-N probe, was $13.090964/$30 at
 banking time. No additional canonical policy outcome was inspected. Wave 5 offsets
 50--59 is next under the same frozen design and concurrency rule.
+Wave 5 began at `20260711T220534` with offsets 50--58 as nine isolated unchanged
+thinking triplets. Together with the still-running 25-concurrency best-N probe,
+aggregate configured concurrency is 250. Offset 59 remains intentionally queued and
+will fill the first released slot. This is the final thinking-headline wave.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
