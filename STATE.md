@@ -364,6 +364,9 @@ attempts remain noncanonical.
 Offset-44 recovery 3 also failed closed during arbitration and banked no item. Exact
 full-triplet recovery 4 launched unchanged at `20260711T213901`; all four earlier
 attempts remain noncanonical.
+Offset-44 recovery 4 cleared arbitration but failed closed during candidate 0. Exact
+full-triplet recovery 5 launched unchanged at `20260711T214607`; all five earlier
+attempts remain noncanonical.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
