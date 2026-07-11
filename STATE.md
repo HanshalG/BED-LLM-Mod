@@ -423,6 +423,11 @@ robustness variant, and a best-N EIG arm must run on held-out tasks 10--59 befor
 headline analyzer. This arm addition is triggered solely by the preregistered
 development probe; no held-out comparison has been computed. Evidence is in
 `results/path_e/best_n_probe/`.
+Non-thinking blocks 10, 20, 30, and 50 completed. Block-40 recovery 1 also failed closed
+before banking an item. Exact block-40 recovery 2 launched at `20260711T231618` with
+best-N held-out offsets 10--17 as eight isolated one-task shards. The recovery uses 51
+concurrency and best-N uses 8 x 25 = 200, for aggregate configured concurrency 251.
+Remaining best-N offsets 18--59 fill released slots in canonical order.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
