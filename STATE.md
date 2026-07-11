@@ -243,6 +243,10 @@ Headline launch status: wave 1 is running from frozen commit `7bc2263`, timestam
 `20260711T163517`, offsets 10--19, as ten isolated thinking-triplet shards at aggregate
 configured concurrency 250. Do not overlap the non-thinking wave. Monitor only health,
 spend, and completion; apply the frozen whole-triplet recovery rule on failures.
+Hanshal added $10 during wave 1, so the authorized OpenRouter total is now $30 and the
+remaining authorization from the pre-wave spend is $19.61803. Wave 1 retains its
+already-instantiated $20 tracker cap; future frozen configs change only the operational
+budget cap to $30. No scientific or concurrency parameter changes.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
