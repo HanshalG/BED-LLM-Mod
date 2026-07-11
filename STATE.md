@@ -299,6 +299,16 @@ at `20260711T195708`; the failed invocation is noncanonical.
 Wave-3 original offset 35 also failed closed during arbitration on the strict bounded
 simulator-faithfulness check and banked no item. Exact full-triplet recovery 1 launched
 at `20260711T200209`; both wave-3 recoveries preserve aggregate concurrency 250.
+The preregistered best-N EIG candidate-elicitation probe is implemented at commit
+`4708cbe`. The `standard` prompt mode preserves the faithful-EIG prompt; `best_n` adds
+only the frozen goal anchor requesting the five best next actions for resolving the
+issue quickly. The config uses canonical tasks 0--9, seed 1304, five rounds, thinking
+26B A4B, EIG argmax, 25 OpenRouter concurrency, and a $0.60 projection. Its initial
+`20260711T201520` process was terminated by the local launch wrapper before any API
+request and is noncanonical. Exact recovery 1 launched in a managed session at
+`20260711T201603`. With nine active wave-3 processes, aggregate configured concurrency
+is 250. The probe remains outcome-blind until completion and does not overlap the
+held-out headline task set.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
