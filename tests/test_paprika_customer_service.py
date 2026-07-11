@@ -407,6 +407,75 @@ def test_naive_primary_arbitration_runs_three_proposals_and_logs_selection(
     assert artifact[0]["turns"][0]["selection_extras"]["selected_index"] in {0, 1, 2}
 
 
+def test_prompt_matched_candidate0_runs_without_beliefs_and_logs_native_default(
+    tmp_path: Path,
+) -> None:
+    questioner = RoutingQuestioner()
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["NaivePrimaryCandidate0"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+    )
+    run_result, _summary = run_from_config(
+        config,
+        questioner,
+        RoutingCustomer(),
+        method_name="NaivePrimaryCandidate0",
+        output_dir=tmp_path,
+    )
+    trial = run_result.trials[0]
+    assert trial.final_belief_state is not None
+    assert trial.final_belief_state.hypotheses == ()
+    chosen = trial.rounds[0].chosen
+    assert chosen.extras is not None
+    assert chosen.extras["selected_index"] == 0
+    assert chosen.extras["native_overridden"] is False
+    assert chosen.extras["selection_rule"] == "prompt_matched_candidate_0"
+    assert len(chosen.extras["candidate_queries"]) == 3
+    assert not any('"hypotheses"' in prompt for prompt in questioner.prompt_texts)
+    artifact = json.loads((tmp_path / "paprika_smoke.json").read_text())
+    extras = artifact[0]["turns"][0]["selection_extras"]
+    assert extras["candidate_queries"] == chosen.extras["candidate_queries"]
+    assert extras["selected_index"] == 0
+
+
+def test_prompt_matched_candidate0_and_arbitration_share_root_proposals() -> None:
+    questioner = RoutingQuestioner()
+    customer = RoutingCustomer()
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["NaivePrimaryCandidate0", "NaivePrimaryArbitration"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+        paprika_num_hypotheses=3,
+        paprika_shared_call_cache_enabled=True,
+    )
+    candidate0_result, _ = run_from_config(
+        config, questioner, customer, method_name="NaivePrimaryCandidate0"
+    )
+    arbitration_result, _ = run_from_config(
+        config, questioner, customer, method_name="NaivePrimaryArbitration"
+    )
+    candidate_prompts = [
+        prompt
+        for prompt in questioner.prompt_texts
+        if "Candidate 0 must be the single action" in prompt
+    ]
+    assert len(candidate_prompts) == 1
+    candidate0_queries = candidate0_result.trials[0].rounds[0].chosen.extras[
+        "candidate_queries"
+    ]
+    arbitration_queries = arbitration_result.trials[0].rounds[0].chosen.extras[
+        "candidate_queries"
+    ]
+    assert candidate0_queries == arbitration_queries
+
+
 def test_embedded_goal_reached_phrase_is_terminal(tmp_path: Path) -> None:
     config = Config(
         task="paprika_customer_service",

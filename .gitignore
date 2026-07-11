@@ -29,6 +29,8 @@ configs/*
 !configs/config_paprika_step1_repaired_naive_thinking_split_openrouter.yaml
 !configs/config_paprika_step1_repaired_eig_generation_thinking_split_openrouter.yaml
 !configs/config_paprika_arbitration_terminal_split_openrouter.yaml
+!configs/config_paprika_arbitration_headline_triplet_openrouter.yaml
+!configs/config_paprika_arbitration_headline_nonthinking_openrouter.yaml
 !configs/archive/
 !configs/archive/**
 !configs/config_strategy_ranking_fidelity_smoke.yaml
@@ -86,3 +88,8 @@ results/path_e/*
 !results/path_e/arbitration_terminal/PAPRIKA_ARBITRATION.md
 !results/path_e/arbitration_terminal/MANUAL_REVIEW.md
 !results/path_e/arbitration_terminal/DECISION_MEMO.md
+!results/path_e/arbitration_headline/
+!results/path_e/arbitration_headline/POWER.json
+!results/path_e/arbitration_headline/PAPRIKA_HEADLINE.json
+!results/path_e/arbitration_headline/PAPRIKA_HEADLINE.md
+!results/path_e/arbitration_headline/MANUAL_REVIEW.md

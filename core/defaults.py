@@ -57,6 +57,11 @@ def register_defaults(force: bool = False) -> None:
         "NaivePrimaryArbitration",
         _build_paprika_naive_primary_arbitration,
     )
+    register_method(
+        "paprika_customer_service",
+        "NaivePrimaryCandidate0",
+        _build_paprika_naive_primary_candidate0,
+    )
 
     _REGISTERED = True
 
@@ -92,6 +97,15 @@ def _build_paprika_naive_primary_arbitration(
     from methods import PaprikaNaivePrimaryArbitration
 
     return PaprikaNaivePrimaryArbitration()
+
+
+def _build_paprika_naive_primary_candidate0(
+    config: Any, environment: Any | None = None
+) -> Any:
+    del config, environment
+    from methods import PaprikaNaivePrimaryCandidate0
+
+    return PaprikaNaivePrimaryCandidate0()
 
 
 def _build_global_method(method_name: str):

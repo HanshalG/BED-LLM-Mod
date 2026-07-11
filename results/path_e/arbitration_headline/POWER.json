@@ -1,0 +1,31 @@
+{
+  "pilot_task_count": 10,
+  "pilot_deltas": [
+    -5.0,
+    -1.0,
+    0.0,
+    0.0,
+    -2.0,
+    -2.0,
+    0.0,
+    -1.0,
+    0.0,
+    -1.0
+  ],
+  "pilot_mean_censored_turn_delta": -1.2,
+  "pilot_paired_sd": 1.5491933384829668,
+  "shrinkage": 0.5,
+  "assumed_absolute_effect": 0.6,
+  "alpha_two_sided": 0.05,
+  "target_power": 0.8,
+  "normal_approx_required_tasks": 53,
+  "pre_registered_maximum_tasks": 50,
+  "selected_tasks": 50,
+  "normal_approx_power_at_selected_n": 0.7819079987319799,
+  "task_range": {
+    "split": "eval",
+    "start_offset_inclusive": 10,
+    "end_offset_inclusive": 59
+  },
+  "decision": "Freeze the pre-registered maximum N=50. The exact normal approximation requires 53 tasks for 80% power at half the pilot effect; N=50 provides approximately 78% power and stays within the authorized 30-50 range."
+}

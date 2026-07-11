@@ -142,6 +142,105 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**PRE-REGISTERED PROBE (2026-07-11, per Hanshal, run BEFORE or alongside the scale-up):
+best-n elicitation for plain EIG.** Hanshal identified an uncontrolled variable: the
+plain-EIG candidate prompt ("Propose concise customer-service diagnostic questions or
+corrective solution attempts...") never asks for GOOD actions — it elicits
+schema-shaped candidates with no goal anchoring, while the arbitration prompt is
+goal-anchored. The generation-thinking rescue changed reasoning effort but never the
+instruction content, so this is untested. Probe: ONE run, 10 canonical tasks, frozen
+design/endpoint, plain argmax 1-step EIG with the candidate prompt changed to
+best-n elicitation (e.g. "Propose your N best next actions to resolve this customer's
+issue as quickly as possible", N matching the current candidate count; discrete answer
+spaces unchanged; no natural-action anchor — plain EIG has no default slot). Thinking
+per the rescue config. Projected <= ~$0.6. Pre-registered reads:
+- Best-n EIG still loses to thinking naive -> Claim A is robust to elicitation; the
+  arbitration structure (default + margin) is demonstrated load-bearing; say so in the
+  paper.
+- Best-n EIG matches/beats arbitration -> the honest story shifts to "goal-anchored
+  elicitation + EIG selection"; arbitration's default/margin is reported as a
+  robustness variant; scale-up arms are reconsidered WITH Hanshal before launch.
+The ARBITRATION prompt is NOT changed (its natural-action anchor is load-bearing for
+the margin rule and the candidate-0 control). Any elicitation change to arbitration is
+a post-scale-up ablation only.
+
+**FRAMING NOTE (per Hanshal, 2026-07-11):** the preferred method identity is "generate
+n good action candidates, use EIG to select among them" — not "naive with a fallback
+override". The best-n probe above IS that method (design (ii) in the ladder: (i) bland
+elicitation + argmax = failed BED-LLM transfer; (ii) best-n elicitation + argmax = the
+probe; (iii) anchored elicitation + default/margin = pilot-validated arbitration).
+Resolution rule: if (ii) ~ (iii) on the probe read, the paper adopts the clean
+generate-and-select framing with the margin rule reported as an optional safety knob;
+if (ii) < (iii), the margin rule is load-bearing and is framed as CALIBRATED selection
+(act only on score differences exceeding scoring noise — a statistical decision rule,
+not a hedge). If (ii) is competitive, the scale-up carries BOTH (ii) and (iii) as arms
+(same candidate costs; the selection-rule contrast is the ablation reviewers will ask
+for anyway).
+
+**SECOND MICRO-PROBE (queued AFTER the candidate probe, never simultaneously — one
+change at a time for attribution):** goal-anchored hypothesis elicitation. Current
+hypothesis prompts ask for plausible issues; probe variant asks for "the n most likely
+root causes given this conversation so far, ranked". 10 canonical tasks, one arm,
+<= ~$0.6, pre-registered read before launch. Prompt sensitivity is acknowledged as a
+finding-in-itself: log every prompt variant in the ledger and report the elicitation
+sensitivity honestly in the paper.
+
+
+**AUTHORIZATION AT THE STOP-AND-DISCUSS BOUNDARY (2026-07-11, per Hanshal): the
+arbitration scale-up is approved.** The revised Path E claim structure supersedes the
+original GOAL.md claims (STATE precedence):
+
+- Claim A (honest negative, kept): faithful 1-step BED/EIG scaffolding does not beat
+  naive on Paprika; full 2-step failed and is closed.
+- Claim B (the method claim): belief-guided EIG arbitration over native thinking-LLM
+  proposals improves interactive troubleshooting (pilot: 6/0/4 vs thinking naive,
+  +1.2 censored turns, CI [0.4, 2.2], resolution 40%->60%).
+- Claim C (generality, pending): the same arbitration transfers to MediQ.
+
+**Scale-up design (pre-register in the runbook BEFORE launch, then do not deviate):**
+
+1. Tasks: the next N unseen Paprika customer-service eval tasks in released order (no
+   selection). N from a power calc on the pilot effect (assume the win margin shrinks;
+   target ~80% power for a halved effect) subject to the eval pool size and budget —
+   expect N in the 30-50 range. Seed 1304, 5 rounds, frozen censoring/tie rules.
+2. Arms (paired per task): (i) thinking naive; (ii) **candidate-0 control — MANDATORY:
+   identical 3-proposal generation, always execute candidate 0, no EIG scoring** (this
+   isolates the override's causal effect from the effect of eliciting 3 proposals);
+   (iii) arbitration with the FROZEN 1-SE margin rule (no threshold retuning);
+   (iv) naive non-thinking (cheap context arm). Generation-thinking EIG is NOT rerun at
+   scale (its pilot read stands as Claim A evidence).
+3. Primary endpoint: paired censored turns-to-resolution, arbitration vs thinking
+   naive; co-primary: arbitration vs candidate-0 control (the causal read).
+   Secondary: resolution@5, win/tie/loss, cost per resolution. Bootstrap CIs; Wilcoxon
+   supporting.
+4. Pre-registered mechanism analyses (from logs, no extra spend): override rate,
+   per-override outcome, score-margin distribution for good vs bad overrides
+   (calibration of the 1-SE rule — descriptive only, no post-hoc threshold change).
+5. Manual endpoint review: ALL transcripts of any task where arms disagree on success;
+   spot-check 10 random others. Same INVALID-ENDPOINT discipline if anything surfaces.
+6. Budget check before launch (~$10 remains; projected all-arms cost at N=40 is ~$3-4,
+   verify from pilot per-task costs). MediQ port (arbitration arm, native baselines) is
+   authorized AFTER the scale-up read, conditional on Claim B holding: if it holds,
+   MediQ is the generality experiment; if it collapses at scale, stop-and-discuss.
+7. Paper reframe per playbook: the paper is now Claims A+B(+C), i.e. "beliefs select,
+   they don't generate: EIG arbitration over native LLM proposals" with the transfer
+   negative honestly reported as motivation. Lookahead remains closed this cycle.
+
+Scale-up pre-launch status: **READY AND FROZEN, NOT YET LAUNCHED.** The prompt-matched
+belief-free `NaivePrimaryCandidate0` control is implemented and registered only for
+Paprika. Tests prove it always executes candidate 0, writes full selection artifacts,
+and shares the exact ordered proposal set with arbitration whenever public histories
+match. `PATH_E_ARBITRATION_RUNBOOK.md` freezes N=50, eval offsets 10--59, method order,
+pairing checks, endpoints, claim reads, mechanism analysis, manual audit, canonical
+recovery, budget, and concurrency. The pilot power calculation is tracked at
+`results/path_e/arbitration_headline/POWER.json`; N=50 gives approximately 78.2% normal
+power at half the pilot effect (53 would give 80%). The generic combiner now supports
+both 50 one-task thinking shards and five 10-task non-thinking blocks. The frozen
+headline analyzer and configs are implemented. Pre-launch verification: 143 focused
+tests pass; ledger and existing paper validators pass. Commit and push this complete
+design before launching, then record every launch in `EXPERIMENTS.md`.
+
+
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
 authorized.** Do NOT stop Path E on the invalid measurement. Conditions, all mandatory:
 

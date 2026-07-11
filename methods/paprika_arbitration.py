@@ -151,3 +151,71 @@ class PaprikaNaivePrimaryArbitration(Method[H, A, O, S]):
             results.append(self._score(proposals, belief_state, matrices[cursor : cursor + 3]))
             cursor += 3
         return results
+
+
+@dataclass
+class PaprikaNaivePrimaryCandidate0(Method[H, A, O, S]):
+    """Prompt-matched control that always executes the native default proposal."""
+
+    skip_candidate_generation: bool = True
+
+    @property
+    def name(self) -> str:
+        return "NaivePrimaryCandidate0"
+
+    def requires_belief_state(
+        self,
+        environment: Environment[S, H, A, O],
+        config: Any,
+    ) -> bool:
+        del environment, config
+        return False
+
+    @staticmethod
+    def _choose(proposals: Sequence[A]) -> ActionScore[A]:
+        if len(proposals) != 3:
+            raise ValueError("NaivePrimaryCandidate0 requires exactly three candidates")
+        return ActionScore(
+            action=proposals[0],
+            score=0.0,
+            extras={
+                "metric_name": "selected_eig",
+                "candidate_queries": [
+                    str(getattr(candidate, "query", candidate)) for candidate in proposals
+                ],
+                "native_default_index": 0,
+                "selected_index": 0,
+                "native_overridden": False,
+                "selection_rule": "prompt_matched_candidate_0",
+            },
+        )
+
+    def select_action(
+        self,
+        candidates: Sequence[A],
+        belief_state: BeliefState[H],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        history: Sequence[tuple[A, O]],
+        config: Any,
+    ) -> ActionScore[A]:
+        del candidates
+        proposals = environment.generate_arbitration_actions(
+            belief_state, history, model, config
+        )
+        return self._choose(proposals)
+
+    def select_actions(
+        self,
+        candidates_many: Sequence[Sequence[A]],
+        belief_states: Sequence[BeliefState[H]],
+        environment: Environment[S, H, A, O],
+        model: Any,
+        histories: Sequence[Sequence[tuple[A, O]]],
+        config: Any,
+    ) -> list[ActionScore[A]]:
+        del candidates_many
+        proposals_many = environment.generate_arbitration_actions_many(
+            belief_states, histories, model, config
+        )
+        return [self._choose(proposals) for proposals in proposals_many]
