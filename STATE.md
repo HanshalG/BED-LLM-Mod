@@ -322,6 +322,10 @@ covers the external benchmark, native-primary EIG arbitration, candidate-0 causa
 control, answer-space and endpoint audit, frozen analysis, outcome blindness, and
 limitations. Its Path E validator passes. The results section explicitly remains sealed
 until the canonical 50-task analyzer and manual audit.
+Wave-3 original offset 38 failed closed during candidate 0 after arbitration completed.
+The whole invocation is noncanonical. Exact full-triplet recovery 1 launched unchanged
+at `20260711T202641`; exception-only triage confirmed the same bounded simulator
+faithfulness failure without exposing another metric line.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
