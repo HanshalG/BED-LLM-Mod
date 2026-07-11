@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import http.client
 import multiprocessing
 import urllib.error
 from pathlib import Path
@@ -150,6 +151,30 @@ def test_openrouter_retries_429(monkeypatch, tmp_path: Path) -> None:
         if calls == 1:
             raise urllib.error.HTTPError("url", 429, "rate", {}, None)
         return _Response(_completion())
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    monkeypatch.setattr("time.sleep", lambda _delay: None)
+    adapter = OpenRouterAdapter(
+        ModelSpec(model="google/gemma-4-26b-a4b-it", backend="openrouter"),
+        _config(tmp_path),
+    )
+    assert adapter.chat_complete([{"role": "user", "content": "hello"}], 0.0) == ["ok"]
+    assert calls == 2
+
+
+def test_openrouter_retries_incomplete_chunked_response(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
+    calls = 0
+
+    class IncompleteResponse(_Response):
+        def read(self):
+            raise http.client.IncompleteRead(b"partial")
+
+    def fake_urlopen(request, timeout):
+        nonlocal calls
+        del request, timeout
+        calls += 1
+        return IncompleteResponse({}) if calls == 1 else _Response(_completion())
 
     monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
     monkeypatch.setattr("time.sleep", lambda _delay: None)

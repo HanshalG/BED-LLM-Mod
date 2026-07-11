@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 import fcntl
+import http.client
 
 from helpers import Config, ModelSpec, _probability_results_from_messages, write_to_log
 
@@ -197,7 +198,12 @@ class OpenRouterAdapter:
                     raise RuntimeError(f"OpenRouter HTTP {exc.code}: {detail}") from exc
                 retry_after = exc.headers.get("Retry-After")
                 delay = float(retry_after) if retry_after else self.backoff_seconds * (2**attempt)
-            except (urllib.error.URLError, TimeoutError) as exc:
+            except (
+                urllib.error.URLError,
+                TimeoutError,
+                http.client.HTTPException,
+                ConnectionError,
+            ) as exc:
                 if attempt >= self.max_retries:
                     raise RuntimeError(f"OpenRouter request failed after retries: {exc}") from exc
                 delay = self.backoff_seconds * (2**attempt)
