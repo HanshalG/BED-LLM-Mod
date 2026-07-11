@@ -257,6 +257,9 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    ONE rescue: EIG with thinking on hypothesis/refinement/candidate generation only;
    likelihood/filter/mapper/judge/customer remain non-thinking. If that matched read
    does not pass, STOP and discuss with Hanshal; do not implement Step 2 or pivot.
+   The sole rescue is active as run `20260711T052319` from commit `04d8963`, using
+   `configs/config_paprika_step1_eig_generation_thinking_rescue_openrouter.yaml`.
+   Projected spend is $2; cumulative project spend before launch was $7.80964415.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
