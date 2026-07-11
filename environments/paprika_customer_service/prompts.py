@@ -34,6 +34,33 @@ def candidate_messages(scenario: str, beliefs: Sequence[str], history: Sequence[
     return [{"role": "system", "content": "Propose concise customer-service diagnostic questions or corrective solution attempts and a discrete answer space. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nConversation:\n{transcript_text(history)}\nReturn exactly {count} candidates as {{\"candidates\":[{{\"query\":\"...\",\"kind\":\"diagnostic\" or \"solution\",\"outcomes\":[\"...\",\"...\",\"...\"]}}]}}. Every candidate must contain one atomic question or corrective action, never multiple checks joined by 'and' or 'or'. Every candidate needs 3-5 mutually exclusive customer-observable replies to that exact query/action. Outcomes must describe what the customer reports or observes, never a recommended next action or an unobserved diagnosis. For a diagnostic query, outcomes directly answer the requested observation. For a solution attempt, outcomes describe the result AFTER trying it and must cover at least: problem resolved, action completed but problem unchanged, and unable to perform or determine. Do not substitute pre-action conditions (for example, whether a part was dirty) for post-action results (whether cleaning fixed the problem). Always include a 'not attempted / cannot determine' outcome. Use kind=solution only when the query explicitly proposes a diagnosis or corrective action that could solve the issue; inspection and information-gathering are diagnostic."}]
 
 
+def arbitration_candidate_messages(
+    scenario: str,
+    history: Sequence[tuple[PaprikaAction, object]],
+) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "system",
+            "content": (
+                "Act as the native customer-service troubleshooting policy. Propose your natural "
+                "next action and two credible alternatives. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Scenario: {scenario}\nConversation:\n{transcript_text(history)}\n"
+                "Return exactly 3 candidates as {\"candidates\":[{\"query\":\"...\","
+                "\"kind\":\"diagnostic\" or \"solution\",\"outcomes\":[\"...\",\"...\","
+                "\"...\"]}]}. Candidate 0 must be the single action you would naturally take "
+                "next. Candidates 1 and 2 must be distinct credible alternatives. Each candidate "
+                "must be atomic and have 3-5 mutually exclusive customer-observable outcomes, "
+                "including not attempted / cannot determine."
+            ),
+        },
+    ]
+
+
 def likelihood_messages(hypothesis: str, action: PaprikaAction) -> list[dict[str, str]]:
     outcomes = "\n".join(f"- {outcome}" for outcome in action.outcomes)
     return [{"role": "system", "content": "Estimate a categorical answer likelihood for troubleshooting. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {action.scenario}\nAssumed hidden cause and remedy: {hypothesis}\nConversation so far:\n" + "\n".join(f"Agent: {q}\nCustomer: {a}" for q, a in action.transcript) + f"\nNext agent query/action: {action.query}\nPossible customer outcomes:\n{outcomes}\nReturn {{\"probabilities\":{{outcome: probability, ...}}}} using exactly those outcome strings. Values must sum to 1."}]

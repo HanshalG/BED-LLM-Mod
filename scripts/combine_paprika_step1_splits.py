@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Sequence
 
 
-METHODS = ("naive", "EIG", "Full2StepEIG")
+METHODS = ("naive", "EIG", "Full2StepEIG", "NaivePrimaryArbitration")
 SUM_METRICS = (
     "backend_cost_usd",
     "backend_requests",

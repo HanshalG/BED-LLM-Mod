@@ -52,6 +52,11 @@ def register_defaults(force: bool = False) -> None:
         "Full2StepEIG",
         _build_paprika_full_two_step,
     )
+    register_method(
+        "paprika_customer_service",
+        "NaivePrimaryArbitration",
+        _build_paprika_naive_primary_arbitration,
+    )
 
     _REGISTERED = True
 
@@ -78,6 +83,15 @@ def _build_paprika_full_two_step(config: Any, environment: Any | None = None) ->
     if environment is None:
         raise ValueError("Full2StepEIG requires a Paprika environment")
     return environment.build_full_two_step_eig_method(config)
+
+
+def _build_paprika_naive_primary_arbitration(
+    config: Any, environment: Any | None = None
+) -> Any:
+    del config, environment
+    from methods import PaprikaNaivePrimaryArbitration
+
+    return PaprikaNaivePrimaryArbitration()
 
 
 def _build_global_method(method_name: str):

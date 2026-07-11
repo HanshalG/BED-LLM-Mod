@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply the frozen Claim 1 gate to the sole generation-thinking rescue."""
+"""Apply the frozen final gate to naive-primary Paprika arbitration."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ try:
         _task_values,
         load_arm,
     )
-except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+except ModuleNotFoundError:
     from analyze_paprika_step1 import (
         _arm_summary,
         _comparison,
@@ -27,64 +27,63 @@ except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
 
 
 def analyze(
-    rescue_run: Path,
+    arbitration_run: Path,
     naive_nonthinking_run: Path,
     naive_thinking_run: Path,
     *,
     round_budget: int = 5,
 ) -> dict[str, Any]:
     arms = {
-        "rescue_eig": load_arm(rescue_run, "EIG"),
+        "arbitration": load_arm(arbitration_run, "NaivePrimaryArbitration"),
         "naive_nonthinking": load_arm(naive_nonthinking_run, "naive"),
         "naive_thinking": load_arm(naive_thinking_run, "naive"),
     }
     values = {name: _task_values(arm, round_budget) for name, arm in arms.items()}
     task_sets = {tuple(sorted(rows)) for rows in values.values()}
     if len(task_sets) != 1 or len(next(iter(task_sets))) != 10:
-        raise ValueError("Step 1 rescue requires exactly ten identical paired task IDs")
+        raise ValueError("Paprika arbitration requires ten identical paired task IDs")
     summaries = {
         name: _arm_summary(arm, values[name], round_budget) for name, arm in arms.items()
     }
-    matched = _gate_outcome(
-        _comparison("rescue_eig", "naive_nonthinking", values),
+    primary = _gate_outcome(
+        _comparison("arbitration", "naive_thinking", values),
         summaries,
-        better="rescue_eig",
-        baseline="naive_nonthinking",
+        better="arbitration",
+        baseline="naive_thinking",
         require_six_wins=False,
     )
-    adversarial = _comparison("rescue_eig", "naive_thinking", values)
+    context = _comparison("arbitration", "naive_nonthinking", values)
     endpoint_valid = all(summary["endpoint_valid"] for summary in summaries.values())
-    status = (
-        "invalid_endpoint_stop"
-        if not endpoint_valid
-        else {
-            "pass": "rescue_pass_continue_claim1_transfer",
-            "insufficient_signal": "claim1_insufficient_launch_preregistered_arbitration",
-            "fail": "claim1_fail_launch_preregistered_arbitration",
-        }[matched["gate_status"]]
-    )
+    if not endpoint_valid:
+        status = "invalid_endpoint_stop_and_discuss"
+    else:
+        status = {
+            "pass": "arbitration_pass_stop_and_discuss",
+            "insufficient_signal": "arbitration_insufficient_stop_and_discuss",
+            "fail": "arbitration_fail_stop_and_discuss",
+        }[primary["gate_status"]]
     return {
         "status": status,
         "round_budget": round_budget,
         "censoring_rule": "unresolved tasks score round_budget + 1 censored turns",
-        "gate_rule": "directional wins unless >=6 ties; or >=0.2 resolution / -0.2 mean-turn clear edge",
+        "gate_rule": "arbitration must directionally beat thinking naive unless >=6 ties; clear edge is >=0.2 resolution or <=-0.2 mean-turn delta",
         "endpoint_valid": endpoint_valid,
         "arms": summaries,
-        "claim1_matched_rescue_vs_naive_nonthinking": matched,
-        "claim1_adversarial_rescue_vs_naive_thinking": adversarial,
+        "primary_arbitration_vs_naive_thinking": primary,
+        "context_arbitration_vs_naive_nonthinking": context,
     }
 
 
 def _markdown(result: dict[str, Any]) -> str:
     lines = [
-        "# Paprika Step 1 Generation-Thinking Rescue",
+        "# Paprika Naive-Primary Arbitration",
         "",
         f"Status: **{result['status']}**",
         "",
         f"| arm | resolution@{result['round_budget']} | mean censored turns | coverage | final inconsistency | cost (USD) | requests |",
         "|---|---:|---:|---:|---:|---:|---:|",
     ]
-    for name in ("naive_nonthinking", "naive_thinking", "rescue_eig"):
+    for name in ("naive_nonthinking", "naive_thinking", "arbitration"):
         arm = result["arms"][name]
         lines.append(
             f"| {name} | {arm['resolution_at_budget']:.3f} | {arm['mean_censored_turns']:.3f} | "
@@ -93,8 +92,8 @@ def _markdown(result: dict[str, Any]) -> str:
             f"{arm['backend_cost_usd']:.4f} | {arm['backend_requests']} |"
         )
     for title, key in (
-        ("Matched rescue vs naive non-thinking", "claim1_matched_rescue_vs_naive_nonthinking"),
-        ("Adversarial rescue vs naive thinking", "claim1_adversarial_rescue_vs_naive_thinking"),
+        ("Primary: arbitration vs thinking naive", "primary_arbitration_vs_naive_thinking"),
+        ("Context: arbitration vs non-thinking naive", "context_arbitration_vs_naive_nonthinking"),
     ):
         value = result[key]
         lines.extend(
@@ -112,22 +111,21 @@ def _markdown(result: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--rescue-run", type=Path, required=True)
+    parser.add_argument("--arbitration-run", type=Path, required=True)
     parser.add_argument("--naive-nonthinking-run", type=Path, required=True)
     parser.add_argument("--naive-thinking-run", type=Path, required=True)
     parser.add_argument("--round-budget", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     result = analyze(
-        args.rescue_run,
+        args.arbitration_run,
         args.naive_nonthinking_run,
         args.naive_thinking_run,
         round_budget=args.round_budget,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n")
-    markdown = args.output.with_suffix(".md")
-    markdown.write_text(_markdown(result))
+    args.output.with_suffix(".md").write_text(_markdown(result))
     print(args.output)
     print(result["status"])
 

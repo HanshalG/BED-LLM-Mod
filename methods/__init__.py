@@ -6,6 +6,7 @@ from .eig import EIG, build_eig_method
 from .eig_binary import EIGBinary
 from .naive import Naive
 from .strategy import StrategyEIG
+from .paprika_arbitration import PaprikaNaivePrimaryArbitration
 
 __all__ = [
     "ContinuousEIG",
@@ -15,6 +16,7 @@ __all__ = [
     "EIGBinary",
     "Naive",
     "StrategyEIG",
+    "PaprikaNaivePrimaryArbitration",
     "build_eig_method",
     "categorical_eig",
 ]

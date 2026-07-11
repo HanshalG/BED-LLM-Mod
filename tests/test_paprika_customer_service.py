@@ -377,6 +377,36 @@ def test_goal_reached_stops_without_categorical_mapping(tmp_path: Path) -> None:
     assert summary.metrics["resolved"] == [1.0]
 
 
+def test_naive_primary_arbitration_runs_three_proposals_and_logs_selection(
+    tmp_path: Path,
+) -> None:
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["NaivePrimaryArbitration"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+    )
+    run_result, _summary = run_from_config(
+        config,
+        RoutingQuestioner(),
+        RoutingCustomer(),
+        method_name="NaivePrimaryArbitration",
+        output_dir=tmp_path,
+    )
+    chosen = run_result.trials[0].rounds[0].chosen
+    assert chosen.extras is not None
+    assert len(chosen.extras["candidate_queries"]) == 3
+    assert len(chosen.extras["candidate_scores"]) == 3
+    assert len(chosen.extras["candidate_standard_errors"]) == 3
+    assert chosen.extras["native_default_index"] == 0
+    artifact = json.loads((tmp_path / "paprika_smoke.json").read_text())
+    assert artifact[0]["turns"][0]["selection_extras"]["selected_index"] in {0, 1, 2}
+
+
 def test_embedded_goal_reached_phrase_is_terminal(tmp_path: Path) -> None:
     config = Config(
         task="paprika_customer_service",

@@ -204,7 +204,20 @@ under the terminal-repaired endpoint; no artifact from the invalid attempt can b
 The fully fresh three-arm Step 1 launched as timestamp `20260711T133046` from commit
 `2c290dc`: one batched naive non-thinking process, ten isolated naive-thinking tasks,
 and ten isolated generation-thinking EIG tasks. Effective aggregate concurrency is near
-250. Results and mandatory manual review are pending.
+250. All 21 processes completed with zero failures, and manual review passed all 30
+transcripts. This is the first valid Step 1 result. Resolution@5 was 0.30 naive
+non-thinking, 0.40 naive thinking, and 0.30 generation-thinking EIG. EIG versus matched
+naive non-thinking was 2 wins / 3 losses / 5 ties with +0.5 mean censored-turn delta,
+so Claim 1 failed. Evidence is tracked under `results/path_e/step1_terminal/`.
+
+Per the unchanged pre-registration, exactly one final variant is now authorized:
+`NaivePrimaryArbitration`. One thinking-native prompt proposes exactly three ordered
+actions; candidate 0 is the native default. Beliefs score only those three with
+categorical one-step EIG, and an alternative overrides candidate 0 only when its score
+gap exceeds one combined standard error. The SE is deterministic from weighted
+per-hypothesis expected information contributions and adds no LLM calls. The frozen
+analyzer compares arbitration primarily against thinking naive and requires endpoint
+validity. After this run, stop-and-discuss regardless of outcome.
 The initial batched thinking-naive process was terminated after 39 minutes because one
 provider response held the entire ten-task batch after nine first-round completions.
 It produced no artifact and is not used. The exact same arm is being recovered as ten

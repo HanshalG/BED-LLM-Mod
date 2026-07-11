@@ -16,6 +16,7 @@ from .data import load_paprika_tasks
 from .parsing import parse_distribution, parse_json_object, parse_string_list
 from .prompts import (
     candidate_messages,
+    arbitration_candidate_messages,
     customer_messages,
     faithfulness_messages,
     faithfulness_repair_messages,
@@ -791,6 +792,70 @@ class PaprikaCustomerServiceEnvironment(
         del config
         return FullTwoStepCategoricalEIG()
 
+    def generate_arbitration_actions(
+        self,
+        belief_state: BeliefState[str],
+        history: Sequence[tuple[PaprikaAction, PaprikaObservation]],
+        model: Any,
+        config: Any,
+    ) -> list[PaprikaAction]:
+        scenario = history[0][0].scenario if history else self._scenario_by_support.get(
+            belief_state.hypotheses
+        )
+        if not scenario and self._active_task is not None:
+            scenario = self._active_task.scenario
+        if not scenario:
+            raise RuntimeError("Could not determine Paprika scenario")
+        messages = arbitration_candidate_messages(scenario, history)
+        return self._complete_parsed(
+            model,
+            messages,
+            float(getattr(config, "generation_temperature_diverse", 0.7)),
+            namespace="questioner:naive_primary_arbitration",
+            parser=lambda text: self._parse_candidates(text, scenario, history, 3),
+        )
+
+    def generate_arbitration_actions_many(
+        self,
+        belief_states: Sequence[BeliefState[str]],
+        histories: Sequence[Sequence[tuple[PaprikaAction, PaprikaObservation]]],
+        model: Any,
+        config: Any,
+    ) -> list[list[PaprikaAction]]:
+        del belief_states
+        if len(histories) != len(self._active_batch_scenarios):
+            raise ValueError("Paprika arbitration batch context does not match active histories")
+        scenarios = [
+            history[0][0].scenario if history else scenario
+            for history, scenario in zip(histories, self._active_batch_scenarios)
+        ]
+        messages = [
+            arbitration_candidate_messages(scenario, history)
+            for scenario, history in zip(scenarios, histories)
+        ]
+        temperature = float(getattr(config, "generation_temperature_diverse", 0.7))
+        responses = self._cached_complete_many(
+            model,
+            messages,
+            temperature,
+            namespace="questioner:naive_primary_arbitration",
+        )
+        return self._parse_many_with_retries(
+            model,
+            messages,
+            responses,
+            temperature,
+            namespace="questioner:naive_primary_arbitration",
+            parsers=[
+                (
+                    lambda text, scenario=scenario, history=history: self._parse_candidates(
+                        text, scenario, history, 3
+                    )
+                )
+                for scenario, history in zip(scenarios, histories)
+            ],
+        )
+
     def branch_observation(self, action: PaprikaAction, outcome_index: int) -> PaprikaObservation:
         outcome = action.outcomes[outcome_index]
         return PaprikaObservation(
@@ -925,6 +990,6 @@ class PaprikaCustomerServiceEnvironment(
         path = output_dir / "paprika_smoke.json"
         records = []
         for trial in run_result.trials:
-            records.append({"task_id": trial.hidden_state.task_id, "scenario": trial.hidden_state.scenario, "solution": trial.hidden_state.solution, "turns": [{"query": round_result.chosen.action.query, "kind": round_result.chosen.action.kind, "outcomes": list(round_result.chosen.action.outcomes), "reply": round_result.observation.reply, "mapped_outcome": round_result.observation.mapped_outcome, "mapped_cleanly": round_result.observation.mapped_cleanly, "goal_reached": round_result.observation.goal_reached} for round_result in trial.rounds], "final_metrics": trial.final_metrics})
+            records.append({"task_id": trial.hidden_state.task_id, "scenario": trial.hidden_state.scenario, "solution": trial.hidden_state.solution, "turns": [{"query": round_result.chosen.action.query, "kind": round_result.chosen.action.kind, "outcomes": list(round_result.chosen.action.outcomes), "reply": round_result.observation.reply, "mapped_outcome": round_result.observation.mapped_outcome, "mapped_cleanly": round_result.observation.mapped_cleanly, "goal_reached": round_result.observation.goal_reached, "selection_extras": round_result.chosen.extras} for round_result in trial.rounds], "final_metrics": trial.final_metrics})
         path.write_text(json.dumps(records, indent=2) + "\n")
         return {"paprika_smoke": path}

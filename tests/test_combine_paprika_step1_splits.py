@@ -87,3 +87,14 @@ def test_combine_paprika_splits_supports_naive_only_recovery(tmp_path: Path) -> 
     assert item["metrics"]["simulator_faithfulness_observations"] == [10.0]
     assert item["metrics"]["simulator_faithfulness_final_inconsistency_rate"] == [0.0]
     assert item["metrics"]["simulator_terminal_rejections"] == [0.0]
+
+
+def test_combine_paprika_splits_supports_arbitration_only(tmp_path: Path) -> None:
+    runs = [_write_shard(tmp_path, index) for index in range(10)]
+    output = combine(
+        runs,
+        tmp_path / "combined",
+        methods=("NaivePrimaryArbitration",),
+    )
+    item = json.loads((output / "metrics.json").read_text())["items"][0]
+    assert item["method"] == "NaivePrimaryArbitration"
