@@ -247,6 +247,12 @@ Hanshal added $10 during wave 1, so the authorized OpenRouter total is now $30 a
 remaining authorization from the pre-wave spend is $19.61803. Wave 1 retains its
 already-instantiated $20 tracker cap; future frozen configs change only the operational
 budget cap to $30. No scientific or concurrency parameter changes.
+Wave-1 original offset 12 failed after its arbitration item because the candidate-0
+customer simulator contradicted the private solution after bounded repairs. The whole
+invocation is noncanonical; do not reuse its arbitration artifact. Exact full-triplet
+recovery 1 launched at `20260711T164811`, using the unchanged scientific design and the
+documented $30 administrative cap. With nine original shards still active, aggregate
+triplet concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
