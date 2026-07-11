@@ -321,6 +321,13 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    4,221 requests, 627,158 reasoning tokens, 13/122 generation forced exits (10.7%),
    and $0.49992433. Authoritative artifacts are
    `results/path_e/step1/PAPRIKA_STEP1_RESCUE.{json,md}`.
+   A post-gate endpoint audit identified a deeper validity problem: the adapter
+   does not implement Paprika's released complete-conversation success protocol.
+   It can label a prospective `I'll try that` reply as solved, miss explicit
+   `that fixed it` replies, and accept simulator replies that contradict the
+   released private remedy. See `results/path_e/step1/PAPRIKA_ENDPOINT_AUDIT.md`.
+   Therefore these Step 1 numbers are endpoint-integration diagnostics plus an
+   insufficient policy comparison, not valid evidence that EIG loses on Paprika.
    **NEXT ACTION REQUIRES HANSHAL:** choose whether to (a) stop Path E and write the
    honest negative/insufficient external-benchmark result, or (b) explicitly authorize
    a new pre-registered path. Do not implement selective Step 2, scale Paprika, add
