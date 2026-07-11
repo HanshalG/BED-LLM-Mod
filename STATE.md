@@ -239,6 +239,10 @@ both 50 one-task thinking shards and five 10-task non-thinking blocks. The froze
 headline analyzer and configs are implemented. Pre-launch verification: 143 focused
 tests pass; ledger and existing paper validators pass. Commit and push this complete
 design before launching, then record every launch in `EXPERIMENTS.md`.
+Headline launch status: wave 1 is running from frozen commit `7bc2263`, timestamp
+`20260711T163517`, offsets 10--19, as ten isolated thinking-triplet shards at aggregate
+configured concurrency 250. Do not overlap the non-thinking wave. Monitor only health,
+spend, and completion; apply the frozen whole-triplet recovery rule on failures.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
