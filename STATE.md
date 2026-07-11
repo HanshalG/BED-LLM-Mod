@@ -296,6 +296,9 @@ aggregate configured concurrency 250. Health-only monitoring remains in force.
 Wave-3 original offset 30 failed closed during arbitration on the strict bounded
 simulator-faithfulness check and banked no item. Exact full-triplet recovery 1 launched
 at `20260711T195708`; the failed invocation is noncanonical.
+Wave-3 original offset 35 also failed closed during arbitration on the strict bounded
+simulator-faithfulness check and banked no item. Exact full-triplet recovery 1 launched
+at `20260711T200209`; both wave-3 recoveries preserve aggregate concurrency 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
