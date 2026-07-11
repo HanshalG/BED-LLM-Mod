@@ -508,7 +508,7 @@ class PaprikaCustomerServiceEnvironment(
             hypotheses = _dedupe(hypotheses + refined)
             filter_messages = filtering_messages(scenario, hypotheses, history)
             filter_response = self._complete_parsed(
-                model,
+                self._evaluation_model(),
                 filter_messages,
                 float(getattr(config, "generation_temperature_simple", 0.0)),
                 namespace="questioner:hypothesis_filter",

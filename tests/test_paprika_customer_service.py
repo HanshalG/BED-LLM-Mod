@@ -471,6 +471,50 @@ def test_thinking_naive_routes_mapping_to_nonthinking_evaluator() -> None:
     assert any('"outcome"' in prompt and '"clean"' in prompt for prompt in evaluator.prompt_texts)
 
 
+def test_thinking_scaffold_routes_only_generation_to_thinking_model() -> None:
+    class ThinkingQuestioner(RoutingQuestioner):
+        thinking = True
+
+    class NonthinkingEvaluator(RoutingQuestioner):
+        thinking = False
+
+        def chat_complete(self, messages, temperature, num_responses=1):
+            text = "\n".join(message["content"] for message in messages)
+            if "You are the customer in this scenario" in text:
+                self.calls += 1
+                self.prompt_texts.append(text)
+                return ["The diagnostic result is positive."]
+            return super().chat_complete(messages, temperature, num_responses)
+
+    questioner = ThinkingQuestioner()
+    evaluator = NonthinkingEvaluator()
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["EIG"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+        paprika_num_hypotheses=3,
+        paprika_num_candidates=2,
+        paprika_num_refresh_hypotheses=2,
+    )
+
+    run_from_config(config, questioner, evaluator)
+
+    thinking_prompts = "\n".join(questioner.prompt_texts)
+    evaluator_prompts = "\n".join(evaluator.prompt_texts)
+    assert '"hypotheses"' in thinking_prompts
+    assert '"candidates"' in thinking_prompts
+    assert '"refined_hypotheses"' in thinking_prompts
+    assert '"probabilities"' not in thinking_prompts
+    assert '"keep_indices"' not in thinking_prompts
+    assert '"outcome"' not in thinking_prompts
+    assert '"probabilities"' in evaluator_prompts
+    assert '"keep_indices"' in evaluator_prompts
+    assert '"outcome"' in evaluator_prompts
+
+
 def test_diagnostic_query_cannot_be_falsely_resolved_by_success_judge() -> None:
     questioner = AlwaysValidJudgeQuestioner()
     config = Config(
