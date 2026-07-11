@@ -213,6 +213,10 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
    attempt lost its tenth long response to `http.client.IncompleteRead`; bounded
    transport retries now include `HTTPException`/connection errors. Relaunch only the
    thinking arm from that transport fix; scaffolded remains valid and active.
+   Audit of the retry revealed mapper/judge calls also inherited questioner thinking.
+   Thinking is now isolated to naive policy generation: likelihood, mapping, and success
+   evaluation route through the common non-thinking answerer adapter. The scaffolded
+   run is unaffected (both adapters are non-thinking); relaunch thinking naive only.
    Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
    claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
 2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +

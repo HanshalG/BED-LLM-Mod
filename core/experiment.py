@@ -27,6 +27,15 @@ def run_from_config(
     env_name = getattr(config, "task")
     selected_method = method_name or _first_method_name(config)
 
+    if (
+        env_name == "paprika_customer_service"
+        and questioner is not None
+        and answerer is not None
+        and bool(getattr(questioner, "thinking", False))
+        and not bool(getattr(answerer, "thinking", False))
+    ):
+        setattr(questioner, "_paprika_evaluation_model", answerer)
+
     env = build_environment(env_name, config, questioner, answerer)
     env.validate_config(config)
     env = env.configure_for_run(config)

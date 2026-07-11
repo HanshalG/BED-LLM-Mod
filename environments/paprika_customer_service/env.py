@@ -190,6 +190,10 @@ class PaprikaCustomerServiceEnvironment(
             raise RuntimeError("Paprika environment has no attached questioner")
         return self.questioner
 
+    def _evaluation_model(self) -> Any:
+        questioner = self._questioner()
+        return getattr(questioner, "_paprika_evaluation_model", questioner)
+
     def _cached_complete(
         self,
         model: Any,
@@ -421,13 +425,13 @@ class PaprikaCustomerServiceEnvironment(
                 getattr(self.config, "generation_temperature_simple", 0.0)
             )
             responses = self._cached_complete_many(
-                self._questioner(),
+                self._evaluation_model(),
                 missing_messages,
                 temperature,
                 namespace="questioner:likelihood",
             )
             parsed = self._parse_many_with_retries(
-                self._questioner(),
+                self._evaluation_model(),
                 missing_messages,
                 responses,
                 temperature,
@@ -621,7 +625,7 @@ class PaprikaCustomerServiceEnvironment(
             and not _reply_reports_failed_attempt(reply)
         ):
             judge = self._cached_complete(
-                self._questioner(),
+                self._evaluation_model(),
                 judge_messages(hidden_state.scenario, hidden_state.solution, action.query, reply),
                 0.0,
                 namespace="questioner:success_judge",
@@ -631,7 +635,7 @@ class PaprikaCustomerServiceEnvironment(
             return PaprikaObservation(reply=reply, mapped_outcome=None, mapped_cleanly=True, goal_reached=True)
         map_messages = mapping_messages(reply, action.outcomes)
         mapping = self._complete_parsed(
-            self._questioner(),
+            self._evaluation_model(),
             map_messages,
             0.0,
             namespace="questioner:outcome_mapper",
@@ -646,7 +650,7 @@ class PaprikaCustomerServiceEnvironment(
         ):
             alternatives = tuple(outcome for outcome in action.outcomes if not _is_uncertainty_outcome(outcome))
             repaired = self._complete_parsed(
-                self._questioner(),
+                self._evaluation_model(),
                 mapping_messages(reply, alternatives, uncertainty_forbidden=True),
                 0.0,
                 namespace="questioner:outcome_mapper_repair",

@@ -431,6 +431,46 @@ def test_naive_policy_actions_batch_across_trials_without_private_solutions(tmp_
     )
 
 
+def test_thinking_naive_routes_mapping_to_nonthinking_evaluator() -> None:
+    class ThinkingQuestioner(RoutingQuestioner):
+        thinking = True
+
+    class NonthinkingEvaluator(RoutingCustomer):
+        thinking = False
+
+        def __init__(self) -> None:
+            super().__init__()
+            self.prompt_texts = []
+
+        def chat_complete(self, messages, temperature, num_responses=1):
+            del temperature, num_responses
+            text = "\n".join(message["content"] for message in messages)
+            self.prompt_texts.append(text)
+            if '"outcome"' in text and '"clean"' in text:
+                return [json.dumps({"outcome": "positive", "clean": True})]
+            if "Reply with <VALID>" in text:
+                return ["<NOTVALID>"]
+            self.calls += 1
+            return ["The diagnostic result is positive."]
+
+    questioner = ThinkingQuestioner()
+    evaluator = NonthinkingEvaluator()
+    config = Config(
+        task="paprika_customer_service",
+        method_names=["naive"],
+        paprika_data_path=str(FIXTURE),
+        paprika_verify_official_hash=False,
+        paprika_num_trials=1,
+        paprika_num_rounds=1,
+    )
+
+    run_from_config(config, questioner, evaluator)
+
+    assert any('"candidates"' in prompt for prompt in questioner.prompt_texts)
+    assert not any('"outcome"' in prompt and '"clean"' in prompt for prompt in questioner.prompt_texts)
+    assert any('"outcome"' in prompt and '"clean"' in prompt for prompt in evaluator.prompt_texts)
+
+
 def test_diagnostic_query_cannot_be_falsely_resolved_by_success_judge() -> None:
     questioner = AlwaysValidJudgeQuestioner()
     config = Config(
