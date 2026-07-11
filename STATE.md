@@ -267,6 +267,10 @@ next under the same frozen scientific design and aggregate concurrency 250.
 Wave 2 launched at `20260711T180556`, offsets 20--29, as ten isolated full-triplet
 shards at aggregate configured concurrency 250. Same canonical and health-only
 monitoring rules apply.
+Wave-2 original offset 25 failed after arbitration because candidate 0 hit the strict
+bounded simulator-faithfulness failure. The complete invocation is noncanonical. Exact
+full-triplet recovery 1 launched at `20260711T185350`; no artifact from the failed
+attempt may enter the headline.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
