@@ -326,6 +326,23 @@ Wave-3 original offset 38 failed closed during candidate 0 after arbitration com
 The whole invocation is noncanonical. Exact full-triplet recovery 1 launched unchanged
 at `20260711T202641`; exception-only triage confirmed the same bounded simulator
 faithfulness failure without exposing another metric line.
+Wave 3 is complete and canonical for offsets 30--39. Recoveries 1 are the accepted
+sources for offsets 30, 32, 35, and 38; all other offsets use their original invocation.
+The health-only combination has exact task/method coverage and 19/19 matching ordered
+proposal sets at eligible identical-history turns. Accepted canonical cost was
+$0.483515 over 3,368 requests; operational wave cost including four failed attempts was
+$0.585700 over 4,238 requests. Actual cumulative spend, including the concurrently
+running best-N probe, was $12.304248/$30 at banking time. No canonical policy outcome
+was inspected. Wave 4 offsets 40--49 is next; while the 25-concurrency probe remains
+active, launch at most nine 25-concurrency shards and fill the tenth slot only after one
+process completes, keeping aggregate configured concurrency at or below 250.
+While closing completed managed tool sessions after Wave 3 had already been fixed, the
+session flush printed terminal metric lines for the naive arm of canonical offsets 32
+and 38. This was an additional outcome-blindness protocol deviation: two single-arm
+canonical task outcomes were inadvertently visible, but no arbitration/candidate-0
+outcome or cross-arm comparison was inspected, and the sample, design, analyzer,
+recovery sources, and launch decisions were already frozen and remain unchanged. Do not
+flush completed run sessions again; use metadata-only polling.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
