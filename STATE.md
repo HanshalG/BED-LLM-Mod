@@ -205,6 +205,10 @@ Original EIG offset 5 also exhausted its bounded structured-repair budget on mal
 hypothesis-refresh JSON and produced no artifact. The identical isolated offset-5 shard
 was relaunched as timestamp `20260711T110229` from commit `882c93f`; only the successful
 recovery artifact will enter the paired result.
+Original EIG offset 8 likewise exhausted the bounded structured-repair budget because
+refresh responses lacked six unique hypotheses. The identical isolated offset-8 shard
+was relaunched as timestamp `20260711T111009` from commit `654a7c6`; only its successful
+recovery artifact can enter the paired result.
 
 
 **DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
