@@ -531,6 +531,9 @@ to 37/50 tasks. Their three slots were filled by offsets 54--56 at
 `20260712T034447`, `20260712T034449`, and `20260712T034451`. Ten one-task shards are
 again live at aggregate configured concurrency 250. The new shards use the $40 cap;
 the seven older live shards retain their instantiated $30 cap.
+Best-N offset 50 completed and passed the sealed one-item structural check, becoming
+canonical task 38/50. Its slot was filled by offset 57 at `20260712T034827`; ten shards
+remain live at aggregate configured concurrency 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
