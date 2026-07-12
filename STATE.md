@@ -525,6 +525,12 @@ The authorized total is now $40; at the amendment point tracked spend was $16.32
 leaving $23.674373. This changes only the administrative budget cap. Active shards keep
 their instantiated cap, while future launches use $40; no scientific or concurrency
 parameter changes.
+Best-N offset-31 recovery 1 and original offsets 47--48 completed and passed the sealed
+structural check (one metrics item each). They are canonical, bringing the held-out arm
+to 37/50 tasks. Their three slots were filled by offsets 54--56 at
+`20260712T034447`, `20260712T034449`, and `20260712T034451`. Ten one-task shards are
+again live at aggregate configured concurrency 250. The new shards use the $40 cap;
+the seven older live shards retain their instantiated $30 cap.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
