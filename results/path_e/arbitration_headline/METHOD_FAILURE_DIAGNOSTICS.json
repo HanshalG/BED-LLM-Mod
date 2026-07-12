@@ -1,0 +1,1104 @@
+{
+  "validity": "INVALID-ENDPOINT_DIAGNOSTIC_ONLY",
+  "source_policy": "Accepted combined artifacts only; no model calls; frozen headline analyzer was not rerun",
+  "round_budget": 5,
+  "arms": {
+    "arbitration": {
+      "num_tasks": 50,
+      "resolved": 16,
+      "resolution_curve": [
+        0.02,
+        0.1,
+        0.18,
+        0.26,
+        0.32
+      ],
+      "num_turns": 222,
+      "action_kinds": {
+        "diagnostic": 185,
+        "solution": 37
+      },
+      "solution_action_fraction": 0.16666666666666666,
+      "unclean_mappings": 26,
+      "mapping_coverage": 0.8828828828828829,
+      "outcome_cardinality": {
+        "3": 61,
+        "4": 101,
+        "5": 60
+      },
+      "true_solution_exact_mass": {
+        "logged_tasks": 50,
+        "nonzero_tasks": 0
+      },
+      "selected_score_descriptives": {
+        "immediate_resolution": {
+          "count": 16,
+          "mean": 0.1289343094719887
+        },
+        "no_immediate_resolution": {
+          "count": 206,
+          "mean": 0.10995676010481338
+        },
+        "eventually_resolved_task": {
+          "count": 52,
+          "mean": 0.10580263269944913
+        },
+        "unresolved_task": {
+          "count": 170,
+          "mean": 0.11301355666336484
+        }
+      },
+      "backend_requests": 15707,
+      "backend_cost_usd": 2.0286993799999995
+    },
+    "candidate0": {
+      "num_tasks": 50,
+      "resolved": 20,
+      "resolution_curve": [
+        0.02,
+        0.1,
+        0.22,
+        0.3,
+        0.4
+      ],
+      "num_turns": 218,
+      "action_kinds": {
+        "diagnostic": 187,
+        "solution": 31
+      },
+      "solution_action_fraction": 0.14220183486238533,
+      "unclean_mappings": 18,
+      "mapping_coverage": 0.9174311926605505,
+      "outcome_cardinality": {
+        "3": 77,
+        "4": 91,
+        "5": 50
+      },
+      "true_solution_exact_mass": {
+        "logged_tasks": 0,
+        "nonzero_tasks": 0
+      },
+      "selected_score_descriptives": {
+        "immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "no_immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "eventually_resolved_task": {
+          "count": 0,
+          "mean": null
+        },
+        "unresolved_task": {
+          "count": 0,
+          "mean": null
+        }
+      },
+      "backend_requests": 849,
+      "backend_cost_usd": 0.19327444999999993
+    },
+    "naive_thinking": {
+      "num_tasks": 50,
+      "resolved": 20,
+      "resolution_curve": [
+        0.06,
+        0.2,
+        0.28,
+        0.38,
+        0.4
+      ],
+      "num_turns": 204,
+      "action_kinds": {
+        "diagnostic": 125,
+        "solution": 79
+      },
+      "solution_action_fraction": 0.3872549019607843,
+      "unclean_mappings": 5,
+      "mapping_coverage": 0.9754901960784313,
+      "outcome_cardinality": {
+        "3": 19,
+        "4": 128,
+        "5": 57
+      },
+      "true_solution_exact_mass": {
+        "logged_tasks": 0,
+        "nonzero_tasks": 0
+      },
+      "selected_score_descriptives": {
+        "immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "no_immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "eventually_resolved_task": {
+          "count": 0,
+          "mean": null
+        },
+        "unresolved_task": {
+          "count": 0,
+          "mean": null
+        }
+      },
+      "backend_requests": 1039,
+      "backend_cost_usd": 0.50589359
+    },
+    "naive_nonthinking": {
+      "num_tasks": 50,
+      "resolved": 19,
+      "resolution_curve": [
+        0.02,
+        0.1,
+        0.26,
+        0.34,
+        0.38
+      ],
+      "num_turns": 214,
+      "action_kinds": {
+        "diagnostic": 181,
+        "solution": 33
+      },
+      "solution_action_fraction": 0.1542056074766355,
+      "unclean_mappings": 7,
+      "mapping_coverage": 0.9672897196261683,
+      "outcome_cardinality": {
+        "3": 5,
+        "4": 92,
+        "5": 117
+      },
+      "true_solution_exact_mass": {
+        "logged_tasks": 0,
+        "nonzero_tasks": 0
+      },
+      "selected_score_descriptives": {
+        "immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "no_immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "eventually_resolved_task": {
+          "count": 0,
+          "mean": null
+        },
+        "unresolved_task": {
+          "count": 0,
+          "mean": null
+        }
+      },
+      "backend_requests": 1070,
+      "backend_cost_usd": 0.046747659999999996
+    },
+    "best_n_eig": {
+      "num_tasks": 50,
+      "resolved": 16,
+      "resolution_curve": [
+        0.08,
+        0.16,
+        0.22,
+        0.26,
+        0.32
+      ],
+      "num_turns": 214,
+      "action_kinds": {
+        "diagnostic": 124,
+        "solution": 90
+      },
+      "solution_action_fraction": 0.4205607476635514,
+      "unclean_mappings": 15,
+      "mapping_coverage": 0.9299065420560748,
+      "outcome_cardinality": {
+        "3": 7,
+        "4": 174,
+        "5": 33
+      },
+      "true_solution_exact_mass": {
+        "logged_tasks": 50,
+        "nonzero_tasks": 0
+      },
+      "selected_score_descriptives": {
+        "immediate_resolution": {
+          "count": 16,
+          "mean": 0.17950503464594114
+        },
+        "no_immediate_resolution": {
+          "count": 198,
+          "mean": 0.1375569569962334
+        },
+        "eventually_resolved_task": {
+          "count": 44,
+          "mean": 0.15149295180333555
+        },
+        "unresolved_task": {
+          "count": 170,
+          "mean": 0.13789804800142652
+        }
+      },
+      "backend_requests": 23570,
+      "backend_cost_usd": 2.6723651399999997
+    },
+    "step1_eig": {
+      "num_tasks": 10,
+      "resolved": 3,
+      "resolution_curve": [
+        0.0,
+        0.1,
+        0.2,
+        0.2,
+        0.3
+      ],
+      "num_turns": 45,
+      "action_kinds": {
+        "diagnostic": 20,
+        "solution": 25
+      },
+      "solution_action_fraction": 0.5555555555555556,
+      "unclean_mappings": 7,
+      "mapping_coverage": 0.8444444444444444,
+      "outcome_cardinality": {
+        "3": 0,
+        "4": 17,
+        "5": 28
+      },
+      "true_solution_exact_mass": {
+        "logged_tasks": 10,
+        "nonzero_tasks": 0
+      },
+      "selected_score_descriptives": {
+        "immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "no_immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "eventually_resolved_task": {
+          "count": 0,
+          "mean": null
+        },
+        "unresolved_task": {
+          "count": 0,
+          "mean": null
+        }
+      }
+    },
+    "step1_full2": {
+      "num_tasks": 10,
+      "resolved": 2,
+      "resolution_curve": [
+        0.0,
+        0.0,
+        0.1,
+        0.1,
+        0.2
+      ],
+      "num_turns": 48,
+      "action_kinds": {
+        "diagnostic": 21,
+        "solution": 27
+      },
+      "solution_action_fraction": 0.5625,
+      "unclean_mappings": 4,
+      "mapping_coverage": 0.9166666666666666,
+      "outcome_cardinality": {
+        "3": 1,
+        "4": 24,
+        "5": 23
+      },
+      "true_solution_exact_mass": {
+        "logged_tasks": 10,
+        "nonzero_tasks": 0
+      },
+      "selected_score_descriptives": {
+        "immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "no_immediate_resolution": {
+          "count": 0,
+          "mean": null
+        },
+        "eventually_resolved_task": {
+          "count": 0,
+          "mean": null
+        },
+        "unresolved_task": {
+          "count": 0,
+          "mean": null
+        }
+      }
+    }
+  },
+  "arbitration": {
+    "total_turns": 222,
+    "override_count": 113,
+    "override_rate": 0.509009009009009,
+    "overrides_by_turn": {
+      "1": 29,
+      "2": 24,
+      "3": 23,
+      "4": 20,
+      "5": 17
+    },
+    "overrides_immediately_after_unclean_mapping": 11,
+    "native_default_eig_rank": {
+      "1": 61,
+      "2": 80,
+      "3": 81
+    },
+    "selected_candidate_index": {
+      "0": 109,
+      "1": 57,
+      "2": 56
+    },
+    "override_margin_by_task_outcome": {
+      "win": {
+        "count": 7,
+        "immediate_resolutions": 4,
+        "mean_score_gap": 0.09490117677027261,
+        "mean_margin_excess": 0.06516815210626364
+      },
+      "loss": {
+        "count": 24,
+        "immediate_resolutions": 3,
+        "mean_score_gap": 0.08661310238777885,
+        "mean_margin_excess": 0.04584262311537849
+      },
+      "tie": {
+        "count": 82,
+        "immediate_resolutions": 0,
+        "mean_score_gap": 0.09498911055683935,
+        "mean_margin_excess": 0.05559670414885648
+      }
+    },
+    "first_divergence": {
+      "count": 47,
+      "immediate_resolution_pair": {
+        "default_only": 4,
+        "neither": 39,
+        "selected_only": 4
+      },
+      "eventual_censored_turn_outcome": {
+        "loss": 12,
+        "tie": 29,
+        "win": 6
+      },
+      "rows": [
+        {
+          "task_id": "customer_service:eval:0010",
+          "turn": 3,
+          "outcome": "loss",
+          "selected_censored_turns": 5,
+          "default_censored_turns": 3,
+          "selected_query": "Please run a test cycle using only water to see if the heating element is capable of reaching a boiling temperature.",
+          "default_query": "Please thoroughly clean the heating plate with a damp cloth to remove all burnt rice bits and debris, then attempt to cook a new batch.",
+          "selected_reply": "I tried running it with just water, but it's still not getting hot enough to boil.",
+          "default_reply": "Goal reached",
+          "immediate_pair": "default_only"
+        },
+        {
+          "task_id": "customer_service:eval:0011",
+          "turn": 2,
+          "outcome": "tie",
+          "selected_censored_turns": 4,
+          "default_censored_turns": 4,
+          "selected_query": "Please inspect the door gaskets around the perimeter of the unit for any visible gaps, tears, or debris that might prevent a tight seal.",
+          "default_query": "Please check if any food items are blocking the air vents inside the refrigerator and freezer compartments to ensure proper air circulation.",
+          "selected_reply": "I checked the seals and they look fine to me. There are no gaps or tears anywhere.",
+          "default_reply": "I checked the vents and there is plenty of space around them, but nothing seems to be helping.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0012",
+          "turn": 3,
+          "outcome": "loss",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 3,
+          "selected_query": "Guide the customer to perform a power cycle by unplugging the TV from the power source for 60 seconds.",
+          "default_query": "Instruct the customer to select 'TV Speakers' from the audio output menu to change the setting from 'External Audio System'.",
+          "selected_reply": "I tried unplugging it and plugging it back in, but it didn't change anything. The sound is still not working.",
+          "default_reply": "Goal reached",
+          "immediate_pair": "default_only"
+        },
+        {
+          "task_id": "customer_service:eval:0013",
+          "turn": 2,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Check the POS software print queue to see if there are stuck print jobs or if the printer status is set to 'Offline'.",
+          "default_query": "Verify the physical connection between the printer and the POS terminal by checking the data cable (USB, Serial, or Ethernet).",
+          "selected_reply": "I checked the software, and everything looks normal. The printer shows as 'Online' and there aren't any jobs stuck in the queue.",
+          "default_reply": "I checked the cables and everything seems to be plugged in tightly, but it's still not printing.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0014",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 5,
+          "selected_query": "Verify the status of the network switch or router responsible for telephony traffic.",
+          "default_query": "Check the central PBX or VoIP server for active error logs or service outages.",
+          "selected_reply": "I'm not sure what a network switch or router is. I just know the phones aren't working for the guests.",
+          "default_reply": "I'm not sure how to do that. I'm just a guest, and I don't have access to any servers. I just know that the phone in my room won't let me call the front desk.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0015",
+          "turn": 2,
+          "outcome": "loss",
+          "selected_censored_turns": 4,
+          "default_censored_turns": 3,
+          "selected_query": "Escalate the ticket to technical support for a hardware replacement or on-site repair.",
+          "default_query": "Perform a hard restart of the payment terminal to reset the touch interface drivers.",
+          "selected_reply": "Wait, before you do that, can we try one more thing? I noticed that when I press one spot, the cursor jumps to a completely different area on the screen. It's like it's misaligned.",
+          "default_reply": "I tried turning it off and back on again, but the screen is still acting weird. When I tap one spot, it selects something else entirely.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0016",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please inspect the heating element for any visible cracks, breaks, or signs of physical damage.",
+          "default_query": "Are the other burners on your cooktop heating up normally?",
+          "selected_reply": "I've looked at it, and the element looks completely fine. There are no cracks or anything broken.",
+          "default_reply": "Yes, the other burners are working fine. It's just that one specific burner that won't heat up.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0017",
+          "turn": 5,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Check if there is a thermostatic mixing valve installed near your water heater, as a malfunctioning valve can cause temperature swings.",
+          "default_query": "To narrow this down, could you check if the temperature fluctuations happen at every faucet in your home, or if they are only happening at one specific sink or shower?",
+          "selected_reply": "I don't see any extra valves or anything like that near the heater. It just looks like the standard setup. What else can we try?",
+          "default_reply": "It seems to be happening everywhere\u2014in the kitchen, the bathroom, and even the shower. It's not just one sink.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0018",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Restart the tablet device.",
+          "default_query": "Ask the guest to refresh the menu page.",
+          "selected_reply": "I tried turning it off and back on again, but the menu still isn't loading. It just stays on a blank screen.",
+          "default_reply": "I tried tapping the refresh button, but it's still just showing a blank screen or a loading icon. It won't work.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0019",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Inspect the printer's physical state, including power cables, data connections, and label/ink supplies.",
+          "default_query": "Ask the staff to check the computer screen or the printer's display for any specific error messages or status lights.",
+          "selected_reply": "Everything seems to be plugged in and the power is on, but it's still not working.",
+          "default_reply": "I checked the screen and the little display on the printer, but there aren't any error messages showing up. It just doesn't seem to be doing anything when we try to print.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0020",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Can you check if the heating element at the bottom of the oven glows red when the oven is turned on?",
+          "default_query": "Could you please confirm which rack position you are using and if there are any large items blocking the airflow inside the oven?",
+          "selected_reply": "Yes, I checked it and the bottom part definitely glows red when it's on.",
+          "default_reply": "I'm using the middle rack, and there's nothing big in there blocking the air. It's just a single tray of cookies.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0021",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please verify the Wi-Fi signal strength and stability within the device settings app.",
+          "default_query": "Please check if the microphone is muted or if there is any physical obstruction near the device's microphones.",
+          "selected_reply": "The Wi-Fi signal looks fine in the app; it says it's connected and strong.",
+          "default_reply": "I've checked, and the mute button isn't on. I don't see anything blocking it, but it's still acting up.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0022",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Check if the water is draining completely from the drum before the spin cycle starts.",
+          "default_query": "Check the machine's display for any error codes or blinking lights that appear when the spin cycle fails.",
+          "selected_reply": "I checked, and there's no water left in the drum. It seems to be empty when it stops.",
+          "default_reply": "I've looked at the display, but there aren't any error codes or blinking lights showing up. It just seems to stop spinning without saying anything.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0023",
+          "turn": 4,
+          "outcome": "loss",
+          "selected_censored_turns": 5,
+          "default_censored_turns": 4,
+          "selected_query": "Clear the application cache and local data within the KDS application settings.",
+          "default_query": "Perform a full hardware reboot of the KDS device.",
+          "selected_reply": "I tried clearing the cache and the local data like you said, but it didn't help at all. The screen is still frozen on the same old orders.",
+          "default_reply": "Goal reached",
+          "immediate_pair": "default_only"
+        },
+        {
+          "task_id": "customer_service:eval:0024",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please inspect the main AC and DC breakers for the battery system to ensure they are all in the 'ON' position.",
+          "default_query": "Please check the inverter or battery control panel for any visible error codes or status indicator lights.",
+          "selected_reply": "I checked them and they are all in the 'ON' position.",
+          "default_reply": "I don't see any error codes on the screen, but there is a small red light blinking next to a symbol that looks like a wave.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0025",
+          "turn": 2,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Ask the customer to listen for any humming, clicking, or grinding noises coming from the unit while it is operating.",
+          "default_query": "Ask the customer to run a brief heating cycle with a cup of water to determine if the microwave still functions despite the rotation issue.",
+          "selected_reply": "I don't hear any weird noises, it's just completely silent when it's supposed to be turning.",
+          "default_reply": "I just ran it for a minute with a cup of water. The water got hot and the microwave seems to be working fine, but the tray still won't spin.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0026",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please inspect the air filter in your indoor unit to see if it is heavily clogged with dust or debris.",
+          "default_query": "Please confirm that your thermostat is set to 'Cool' mode and that the set temperature is lower than the current room temperature.",
+          "selected_reply": "I checked the filter and it looks pretty clean. It doesn't seem to be the problem.",
+          "default_reply": "Yes, I've checked that. It's set to 'Cool' at 70 degrees, but the room is still 78.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0027",
+          "turn": 1,
+          "outcome": "win",
+          "selected_censored_turns": 1,
+          "default_censored_turns": 2,
+          "selected_query": "Please attempt to right-click the installer file and select 'Run as administrator' to bypass local permission restrictions.",
+          "default_query": "Could you please provide the exact error message or error code displayed during the failed installation?",
+          "selected_reply": "Goal reached",
+          "default_reply": "It says \"Installation failed: Access is denied. You do not have the required permissions to perform this action.\"",
+          "immediate_pair": "selected_only"
+        },
+        {
+          "task_id": "customer_service:eval:0029",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Update the password manager extension to the latest version available in the browser's web store.",
+          "default_query": "Check if the password manager extension is enabled in your browser and that you are currently signed into your account.",
+          "selected_reply": "I already checked that, and it says it's up to date. It still won't fill in my passwords.",
+          "default_reply": "Yes, the extension is enabled and I am signed in.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0030",
+          "turn": 4,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Escalate telemetry findings to the structural engineering department for review.",
+          "default_query": "Perform remote SCADA data extraction and analysis of telemetry and error logs.",
+          "selected_reply": "They're looking into it, but they haven't gotten back to me with a specific plan yet. What's the next step?",
+          "default_reply": "Customer: I'm waiting. What did the logs show?",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0031",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Can you check your monitoring system to see if the solar panels are currently reporting any energy production from sunlight?",
+          "default_query": "Could you please check your inverter or battery monitoring app and let me know if there are any specific error codes or flashing status lights?",
+          "selected_reply": "Yes, I checked the app and it says the panels are producing plenty of energy from the sun.",
+          "default_reply": "I checked the app, but I don't see any error codes. The lights on the unit are all solid, nothing is flashing.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0032",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Perform a remote telemetry sweep of the electrical subsystem to check real-time voltage, current, and temperature levels.",
+          "default_query": "Request the specific error code or fault log entry associated with the electrical safety flag from the SCADA interface.",
+          "selected_reply": "The readings look normal to me, I don't see anything unusual on my screen.",
+          "default_reply": "I'm not sure how to find that. All I see on my screen is a red warning that says \"Electrical Safety Violation - Immediate Inspection Required.\"",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0033",
+          "turn": 2,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Instruct the customer to perform a power cycle by unplugging the gateway's power supply for 60 seconds before plugging it back in.",
+          "default_query": "Cross-reference the blinking red light pattern with the gateway's technical manual to identify the specific error code.",
+          "selected_reply": "I tried unplugging it like you said, waited a minute, and plugged it back in, but that red blinking light is still there.",
+          "default_reply": "I don't have the manual here, but I looked it up on my phone. It says a blinking red light means there is a network connection error.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0035",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 3,
+          "default_censored_turns": 1,
+          "selected_query": "Inspect the Device Manager to see if the Wi-Fi and Bluetooth adapters are recognized by the system.",
+          "default_query": "Check if Airplane Mode is enabled or if the physical wireless switch is toggled off.",
+          "selected_reply": "I'm not really sure how to do that, but I checked and they seem to be listed there.",
+          "default_reply": "Goal reached",
+          "immediate_pair": "default_only"
+        },
+        {
+          "task_id": "customer_service:eval:0037",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Check communication connectivity between the HMI and the turbine controller.",
+          "default_query": "Verify operator permission levels and current system operational mode.",
+          "selected_reply": "The connection seems fine; I can see the data on the screen, I just can't change any of the settings.",
+          "default_reply": "I checked the permissions and everything looks normal, and the system is set to standard operational mode. It's just not letting me change any of the settings.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0038",
+          "turn": 1,
+          "outcome": "win",
+          "selected_censored_turns": 2,
+          "default_censored_turns": 6,
+          "selected_query": "Try accessing the website using a different web browser to see if the certificate error persists.",
+          "default_query": "Please verify that your device's system date and time are currently correct and set to update automatically.",
+          "selected_reply": "I tried using Chrome and then Firefox, but I'm still getting the same error on both of them.",
+          "default_reply": "I just checked, and the date and time look fine to me. I'm still getting that error when I try to go to my bank's website.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0039",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 3,
+          "selected_query": "Please perform a sensor recalibration through the headset's system settings.",
+          "default_query": "Please check your play area for any mirrors, bright sunlight, or highly reflective surfaces that might interfere with the sensors.",
+          "selected_reply": "I tried doing that, but the calibration finished and it's still acting all glitchy and jumpy.",
+          "default_reply": "I've checked, and there aren't any mirrors or bright sunlight in the room. It's still acting up.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0040",
+          "turn": 3,
+          "outcome": "win",
+          "selected_censored_turns": 3,
+          "default_censored_turns": 5,
+          "selected_query": "Please select the 'Forget Network' option in your device's Wi-Fi settings and then attempt to reconnect by re-entering your Wi-Fi password.",
+          "default_query": "Are other devices in your home, such as a smartphone or tablet, currently able to connect to your Wi-Fi network?",
+          "selected_reply": "Okay, I just did that and put my password in again. It says connected now! Let me try Netflix... it's working!",
+          "default_reply": "Yes, my phone and laptop are working fine on the Wi-Fi.",
+          "immediate_pair": "selected_only"
+        },
+        {
+          "task_id": "customer_service:eval:0041",
+          "turn": 2,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please try plugging the console into a different wall outlet or using a different power cable to rule out power supply issues.",
+          "default_query": "Does the console display a specific error code or message on the screen immediately before it shuts down?",
+          "selected_reply": "I tried a different outlet and a different cable, but it's still doing the same thing. It just cuts out after a while.",
+          "default_reply": "No, there isn't any error message. It just goes completely black like someone pulled the plug.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0042",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 5,
+          "selected_query": "Can you try connecting the controller directly to your console or PC using a USB cable to see if it powers on?",
+          "default_query": "Could you please check if the controller has sufficient charge or if the batteries are properly inserted?",
+          "selected_reply": "I tried that, but it still won't turn on. Nothing happens when I plug it in.",
+          "default_reply": "I checked the batteries and they seem to be in right, but nothing happens when I try to turn it on.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0043",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please try restarting your device and relaunching the app to see if the issue persists.",
+          "default_query": "To help me narrow this down, could you please tell me which device you are using and whether you are connected via Wi-Fi or mobile data?",
+          "selected_reply": "I already tried restarting everything, but it's still crashing and buffering constantly.",
+          "default_reply": "I'm using a Samsung Smart TV and I'm connected to my home Wi-Fi.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0044",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 3,
+          "default_censored_turns": 2,
+          "selected_query": "Please check the printer's control panel to ensure it is powered on and that no error lights or messages are being displayed.",
+          "default_query": "Please unplug the USB cable from both the printer and the computer, then plug it back in and try using a different USB port on your computer.",
+          "selected_reply": "The printer is turned on and there aren't any error lights showing on the screen.",
+          "default_reply": "I tried that, but it's still not working. My computer doesn't even realize anything is plugged in.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0045",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Verify that your TV is set to the correct HDMI input source corresponding to the port used by the console.",
+          "default_query": "Please ensure the HDMI cable is securely plugged into both the gaming console and the TV, and try unplugging and reconnecting it.",
+          "selected_reply": "I already checked that. It's definitely on the right HDMI input, but the screen is still just black.",
+          "default_reply": "I already checked the cables and made sure they are pushed all the way in, but I still don't see anything on the screen.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0046",
+          "turn": 2,
+          "outcome": "win",
+          "selected_censored_turns": 2,
+          "default_censored_turns": 5,
+          "selected_query": "Test the physical connection by swapping the Ethernet cable or moving the desktop closer to the Wi-Fi router.",
+          "default_query": "Check the network adapter driver status in Device Manager and update it if an update is available.",
+          "selected_reply": "I tried swapping the Ethernet cable with a new one like you suggested, and the connection hasn't dropped once since I plugged it in. It seems to be working perfectly now.",
+          "default_reply": "I checked the drivers and they seem to be up to date, but the connection still keeps cutting out.",
+          "immediate_pair": "selected_only"
+        },
+        {
+          "task_id": "customer_service:eval:0047",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Perform a power cycle by restarting the gaming console and the network router/modem.",
+          "default_query": "Verify the current status of the platform's online services via the official service status dashboard to check for known outages.",
+          "selected_reply": "I already tried restarting everything, but I'm still getting the same error when I try to join a game.",
+          "default_reply": "I checked the status page, and everything seems to be up and running fine on your end. It's just me.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0048",
+          "turn": 3,
+          "outcome": "tie",
+          "selected_censored_turns": 5,
+          "default_censored_turns": 5,
+          "selected_query": "Inquire if the user is wearing prescription glasses or using lens inserts that may be affecting the focal distance.",
+          "default_query": "Ask the user to test a different application or a built-in system demo to determine if the blurriness is software-specific.",
+          "selected_reply": "No, I'm not wearing glasses, and I don't have any inserts in the headset. It's just blurry.",
+          "default_reply": "I tried a few different games and the system demo, but everything looks exactly the same. It's still really blurry.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0049",
+          "turn": 1,
+          "outcome": "win",
+          "selected_censored_turns": 4,
+          "default_censored_turns": 6,
+          "selected_query": "Instruct the user to power cycle their streaming device and router.",
+          "default_query": "Request the user to perform an internet speed test and report the download speed.",
+          "selected_reply": "I already tried restarting everything, but it didn't help. The videos are still pausing to buffer every few minutes.",
+          "default_reply": "Okay, I just ran the test. It says my download speed is only 3 Mbps.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0050",
+          "turn": 2,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Instruct the customer to manually add the printer in Windows settings using the 'Add a printer using an IP address or hostname' option.",
+          "default_query": "Provide step-by-step instructions to open the Command Prompt and execute the 'ping' command using the printer's IP address.",
+          "selected_reply": "I tried to add it using the IP address like you said, but it says it can't find the printer on the network.",
+          "default_reply": "Okay, I opened that black box thing and typed it in like you said. It says \"Request timed out\" for every single one. It's not responding at all.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0051",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 4,
+          "selected_query": "Please try 'forgetting' the Wi-Fi network on one of the affected devices and then reconnecting to it.",
+          "default_query": "Could you please identify which specific devices are experiencing the drops and if they are all using the same Wi-Fi band (2.4GHz or 5GHz)?",
+          "selected_reply": "I already tried that, but it didn't help. It still keeps disconnecting every few minutes.",
+          "default_reply": "It's mostly my laptop and my tablet. I'm not really sure which bands they are using, I just know they keep disconnecting.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0052",
+          "turn": 5,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please perform a Network Reset in your system settings to reinstall all network adapters and set other networking components back to their original settings.",
+          "default_query": "Please restart your laptop and attempt to connect to the Wi-Fi again once the system has fully rebooted.",
+          "selected_reply": "I just did the network reset and restarted my laptop, but it's still doing the same thing. It still won't connect to the network.",
+          "default_reply": "I restarted my laptop, but it's still doing the same thing. I still can't connect.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0053",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please ensure your play area has adequate lighting and is free from large reflective surfaces, then test the tracking again.",
+          "default_query": "To help me narrow this down, is the lag affecting the visual frame rate (stuttering video) or the physical tracking of your controllers and headset?",
+          "selected_reply": "I already checked that. The room is well-lit and there aren't any mirrors or glass around. It's still acting up.",
+          "default_reply": "It feels like my controllers are drifting or not where they should be, even though the video seems okay.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0054",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Inspect the system storage settings to confirm all connected drives, including external storage, are recognized and mounted.",
+          "default_query": "Verify if the user is currently signed into the specific account used to purchase or download the missing games.",
+          "selected_reply": "I'm not sure how to do that. Can you walk me through it? I just looked at my games and they're just gone.",
+          "default_reply": "Yes, I'm signed into the correct account. I checked my purchase history and the games are definitely there.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0055",
+          "turn": 2,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Let's log into your router's admin panel to verify if the Wi-Fi SSID or security settings were reset during the update.",
+          "default_query": "Please perform a power cycle on your router by unplugging the power cable for 30 seconds and then plugging it back in.",
+          "selected_reply": "I'm not really sure how to do that. I've never logged into the router before. Can you walk me through it?",
+          "default_reply": "I tried that, but it didn't help. They're still not connecting.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0056",
+          "turn": 1,
+          "outcome": "tie",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 6,
+          "selected_query": "Please check the LED status indicator on the camera and let me know its current color and blinking pattern.",
+          "default_query": "Can you check if you are able to view the live camera feed while your mobile device is connected to the same home Wi-Fi network as the cameras?",
+          "selected_reply": "The light is solid green, so it looks like it's powered on and working fine.",
+          "default_reply": "Yes, I can see the cameras perfectly fine when I'm on my home Wi-Fi. It only stops working when I'm out using my cellular data.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0057",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 3,
+          "selected_query": "Please verify that the blade is securely tightened and correctly seated on the arbor according to the manual.",
+          "default_query": "To help me troubleshoot, could you please specify the type of tile you are cutting and the model of the blade you are currently using?",
+          "selected_reply": "I checked it, and everything seems to be tight and in the right place. It's still getting really hot and the tiles are still chipping.",
+          "default_reply": "I'm using standard ceramic tiles and a diamond blade that came with the machine.",
+          "immediate_pair": "neither"
+        },
+        {
+          "task_id": "customer_service:eval:0058",
+          "turn": 2,
+          "outcome": "win",
+          "selected_censored_turns": 2,
+          "default_censored_turns": 6,
+          "selected_query": "Replace the existing headlight bulb with a new, compatible bulb.",
+          "default_query": "Check the vehicle's fuse box to see if the fuse for the headlight is blown.",
+          "selected_reply": "Goal reached",
+          "default_reply": "I checked the fuse box like you said, but all the fuses look okay to me. None of them seem to be popped or blown.",
+          "immediate_pair": "selected_only"
+        },
+        {
+          "task_id": "customer_service:eval:0059",
+          "turn": 1,
+          "outcome": "loss",
+          "selected_censored_turns": 6,
+          "default_censored_turns": 2,
+          "selected_query": "When you attempt to start the generator, do you hear any clicking, cranking, or engine noise?",
+          "default_query": "Could you please check if the fuel tank has a sufficient amount of fuel and ensure that the fuel valve is set to the 'ON' position?",
+          "selected_reply": "No, it doesn't make any noise at all. It's just completely silent.",
+          "default_reply": "I just checked, and the fuel valve is definitely in the 'ON' position, but it still won't start.",
+          "immediate_pair": "neither"
+        }
+      ]
+    }
+  },
+  "heldout_endpoint": {
+    "arbitration_vs_thinking": {
+      "better_arm": "arbitration",
+      "baseline_arm": "naive_thinking",
+      "wins": 6,
+      "losses": 16,
+      "ties": 28,
+      "mean_censored_turn_delta": 0.44,
+      "bootstrap_ci95": [
+        0.0,
+        0.9
+      ],
+      "wilcoxon_signed_rank_p": null,
+      "resolution_rate_delta": -0.08000000000000002,
+      "resolution_discordant_wins": 3,
+      "resolution_discordant_losses": 7,
+      "paired_binary_exact_p": 0.34375
+    },
+    "arbitration_vs_candidate0": {
+      "better_arm": "arbitration",
+      "baseline_arm": "candidate0",
+      "wins": 6,
+      "losses": 12,
+      "ties": 32,
+      "mean_censored_turn_delta": 0.16,
+      "bootstrap_ci95": [
+        -0.24049999999999983,
+        0.56
+      ],
+      "wilcoxon_signed_rank_p": null,
+      "resolution_rate_delta": -0.08000000000000002,
+      "resolution_discordant_wins": 3,
+      "resolution_discordant_losses": 7,
+      "paired_binary_exact_p": 0.34375
+    },
+    "best_n_vs_thinking": {
+      "better_arm": "best_n_eig",
+      "baseline_arm": "naive_thinking",
+      "wins": 11,
+      "losses": 12,
+      "ties": 27,
+      "mean_censored_turn_delta": 0.28,
+      "bootstrap_ci95": [
+        -0.14,
+        0.74
+      ],
+      "wilcoxon_signed_rank_p": null,
+      "resolution_rate_delta": -0.08000000000000002,
+      "resolution_discordant_wins": 5,
+      "resolution_discordant_losses": 9,
+      "paired_binary_exact_p": 0.4239501953125
+    }
+  },
+  "development_to_heldout": {
+    "arbitration_pilot_vs_thinking": {
+      "better_arm": "arbitration",
+      "baseline_arm": "naive_thinking",
+      "wins": 6,
+      "losses": 0,
+      "ties": 4,
+      "mean_censored_turn_delta": -1.2,
+      "bootstrap_ci95": [
+        -2.2,
+        -0.4
+      ],
+      "wilcoxon_signed_rank_p": null,
+      "gate_status": "pass",
+      "gate_pass": true,
+      "mostly_ties": false,
+      "resolution_rate_advantage": 0.19999999999999996,
+      "clear_edge": true
+    },
+    "best_n_pilot_vs_thinking": {
+      "wins": 4,
+      "losses": 1,
+      "ties": 5,
+      "mean_censored_turn_delta": -0.9,
+      "bootstrap_ci95": [
+        -2.2,
+        0.4
+      ]
+    },
+    "heldout_arbitration_vs_thinking": {
+      "better_arm": "arbitration",
+      "baseline_arm": "naive_thinking",
+      "wins": 6,
+      "losses": 16,
+      "ties": 28,
+      "mean_censored_turn_delta": 0.44,
+      "bootstrap_ci95": [
+        0.0,
+        0.9
+      ],
+      "wilcoxon_signed_rank_p": null,
+      "resolution_rate_delta": -0.08000000000000002,
+      "resolution_discordant_wins": 3,
+      "resolution_discordant_losses": 7,
+      "paired_binary_exact_p": 0.34375
+    },
+    "heldout_best_n_vs_thinking": {
+      "better_arm": "best_n_eig",
+      "baseline_arm": "naive_thinking",
+      "wins": 11,
+      "losses": 12,
+      "ties": 27,
+      "mean_censored_turn_delta": 0.28,
+      "bootstrap_ci95": [
+        -0.14,
+        0.74
+      ],
+      "wilcoxon_signed_rank_p": null,
+      "resolution_rate_delta": -0.08000000000000002,
+      "resolution_discordant_wins": 5,
+      "resolution_discordant_losses": 9,
+      "paired_binary_exact_p": 0.4239501953125
+    }
+  },
+  "two_step": {
+    "endpoint_comparison": {
+      "better_arm": "Full2StepEIG",
+      "baseline_arm": "EIG",
+      "wins": 0,
+      "losses": 1,
+      "ties": 9,
+      "mean_censored_turn_delta": 0.4,
+      "bootstrap_ci95": [
+        0.0,
+        1.2
+      ],
+      "wilcoxon_signed_rank_p": null,
+      "gate_status": "insufficient_signal",
+      "gate_pass": false,
+      "mostly_ties": true,
+      "resolution_rate_advantage": -0.09999999999999998,
+      "clear_edge": false
+    },
+    "one_step_requests": 3365,
+    "full_two_step_requests": 70004,
+    "request_ratio": 20.803566121842497,
+    "one_step_cost_usd": 0.25289459,
+    "full_two_step_cost_usd": 5.15708182,
+    "cost_ratio": 20.392218829196782
+  }
+}
