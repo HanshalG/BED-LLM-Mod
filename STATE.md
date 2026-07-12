@@ -549,6 +549,9 @@ canonical task 45/50. Five shards remain live at aggregate configured concurrenc
 Best-N offsets 52, 53, and 57 completed and passed sealed one-item structural checks,
 bringing the arm to 48/50 canonical tasks. Only offsets 54 and 56 remain live, at
 aggregate configured concurrency 50.
+Best-N offset 56 completed and passed the sealed one-item structural check, bringing
+the arm to 49/50 canonical tasks. Offset 54 is the sole remaining live shard at
+configured concurrency 25.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
