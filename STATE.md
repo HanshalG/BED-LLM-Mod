@@ -537,6 +537,10 @@ remain live at aggregate configured concurrency 250.
 Best-N offset-25 recovery 1 completed and passed the sealed one-item structural check,
 becoming canonical task 39/50. Its slot was filled by offset 58 at
 `20260712T035044`; ten shards remain live at aggregate configured concurrency 250.
+Best-N offsets 42, 45, 51, and 58 completed and passed sealed one-item structural
+checks, bringing the held-out arm to 43/50 canonical tasks. Offset 59, the final
+regular shard, launched at `20260712T035514`. Seven shards remain live at aggregate
+configured concurrency 175; no additional tasks are queued.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
