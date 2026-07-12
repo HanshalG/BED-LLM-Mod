@@ -505,6 +505,9 @@ concurrency remains 250.
 Best-N offsets 35 and 41 completed and are canonical while both recoveries remain live.
 Their released slots were filled by offsets 47 and 48 at `20260712T031446`; aggregate
 configured concurrency remains 250.
+Best-N offset 44 completed and is canonical while both recoveries remain live. Its
+released slot was filled by offset 49 at `20260712T031549`; aggregate configured
+concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
