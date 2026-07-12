@@ -496,6 +496,9 @@ configured concurrency remains 250.
 Local DNS resolution recovered and provider spend resumed. Best-N offset 32 completed
 and is canonical while both recoveries remain live. Its released slot was filled by
 offset 44 at `20260712T030346`; aggregate configured concurrency remains 250.
+Best-N offset 37 completed and is canonical while both recoveries remain live. Its
+released slot was filled by offset 45 at `20260712T030648`; aggregate configured
+concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
