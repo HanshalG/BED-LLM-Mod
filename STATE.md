@@ -142,6 +142,29 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**STOP-AND-DISCUSS BOUNDARY REACHED (2026-07-12): do not execute the historical
+mid-headline reminders below.** The frozen 50-task analyzer ran exactly once and did
+not confirm Claim B. Arbitration resolved 16/50 (32%) with mean censored turns 5.12,
+versus thinking naive 20/50 (40%) and 4.68 turns, and candidate 0 20/50 (40%) and 4.96
+turns. Arbitration-vs-thinking-naive was 6/16/28 wins/losses/ties with mean paired
+delta +0.44 turns and 95% bootstrap CI [0.0, 0.9]; arbitration-vs-candidate0 was
+6/12/32 with delta +0.16 and CI [-0.2405, 0.56]. Positive deltas mean arbitration was
+slower, so neither preregistered comparison supports Claim B. Best-N EIG also resolved
+16/50 (32%), with 4.96 mean censored turns; versus thinking naive it was 11/12/27,
+delta +0.28, CI [-0.14, 0.74].
+
+The mandatory manual audit then found a fatal endpoint contradiction on task 13:
+the private remedy says the receipt printer is out of paper and replacing/refilling the
+roll restores printing, but best-N instructed replacement of the current paper roll and
+the simulator replied that changing it did not help. This is exactly the frozen
+"correct performed remedy claimed to fail" invalidation case. Tasks 10 and 12 passed;
+review stopped at the first fatal contradiction as required. The complete five-arm
+headline is endpoint-invalid and cannot be used as policy evidence. Do not drop the
+task/arm, rerun the analyzer, launch MediQ, or launch another rescue autonomously.
+Discuss with Hanshal whether to end Path E as an endpoint-validity/negative diagnostic
+paper, redesign the simulator/evaluation under a new preregistration, or stop the paper.
+The current `paper/` draft predates this read and is not submission-ready.
+
 **MID-HEADLINE REMINDERS (2026-07-11, per Hanshal):**
 1. The pre-registered BEST-N ELICITATION PROBE (10 canonical tasks 0-9, disjoint from
    the held-out 10-59, ~$0.6) has not run — launch it IN PARALLEL with the remaining
@@ -563,6 +586,13 @@ item, 50 unique sources, exact task IDs 10--59, and 50 records. Canonical best-N
 is $2.672365, 23,570 requests, 3,488,175 reasoning tokens, and 55 forced exits. No
 endpoint outcome was inspected. All five arms are now fixed; next run the frozen joint
 headline analyzer exactly once, then perform the preregistered manual endpoint audit.
+The frozen analyzer then ran exactly once and returned
+`claim_b_not_confirmed_requires_manual_review`. Automated endpoint and candidate
+pairing checks passed, but both preregistered policy comparisons failed to favor
+arbitration. The manual audit found the fatal task-13 paper-roll false failure described
+in NEXT ACTIONS and marked the complete headline INVALID. Authoritative artifacts are
+`results/path_e/arbitration_headline/PAPRIKA_HEADLINE.{json,md}` and
+`results/path_e/arbitration_headline/MANUAL_REVIEW.md`. No MediQ run was launched.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is

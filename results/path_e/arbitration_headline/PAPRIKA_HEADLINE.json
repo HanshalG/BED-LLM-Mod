@@ -1,0 +1,6266 @@
+{
+  "status": "claim_b_not_confirmed_requires_manual_review",
+  "claim_read_before_manual_review": "claim_b_not_confirmed",
+  "manual_review_required": true,
+  "round_budget": 5,
+  "expected_start": 10,
+  "expected_count": 50,
+  "censoring_rule": "unresolved tasks score round_budget + 1 censored turns",
+  "claim_rule": "Claim B confirmed only when endpoint and candidate pairing are valid and both arbitration-vs-thinking-naive and arbitration-vs-candidate0 paired censored-turn bootstrap CIs exclude zero in arbitration's favor",
+  "endpoint_valid_automated": true,
+  "candidate_pairing": {
+    "eligible_identical_history_turns": 88,
+    "matched_proposal_turns": 88,
+    "pairing_rate": 1.0,
+    "mismatches": [],
+    "valid": true
+  },
+  "arms": {
+    "arbitration": {
+      "num_tasks": 50,
+      "resolution_curve": [
+        0.02,
+        0.1,
+        0.18,
+        0.26,
+        0.32
+      ],
+      "resolution_at_budget": 0.32,
+      "mean_censored_turns": 5.12,
+      "answer_set_coverage": 0.8828828828828829,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 222.0,
+      "simulator_faithfulness_checks": 222.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 11.0,
+      "simulator_terminal_checks": 11.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 2.0286993799999995,
+      "backend_requests": 15707,
+      "backend_prompt_tokens": 4629704,
+      "backend_completion_tokens": 4014425,
+      "backend_reasoning_tokens": 2897719,
+      "backend_forced_exits": 50,
+      "cost_per_resolution_usd": 0.12679371124999997
+    },
+    "candidate0": {
+      "num_tasks": 50,
+      "resolution_curve": [
+        0.02,
+        0.1,
+        0.22,
+        0.3,
+        0.4
+      ],
+      "resolution_at_budget": 0.4,
+      "mean_censored_turns": 4.96,
+      "answer_set_coverage": 0.9174311926605505,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 0.0,
+      "simulator_faithfulness_checks": 0.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 0.0,
+      "simulator_terminal_checks": 0.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 0.19327444999999993,
+      "backend_requests": 849,
+      "backend_prompt_tokens": 262495,
+      "backend_completion_tokens": 440776,
+      "backend_reasoning_tokens": 406886,
+      "backend_forced_exits": 0,
+      "cost_per_resolution_usd": 0.009663722499999996
+    },
+    "naive_thinking": {
+      "num_tasks": 50,
+      "resolution_curve": [
+        0.06,
+        0.2,
+        0.28,
+        0.38,
+        0.4
+      ],
+      "resolution_at_budget": 0.4,
+      "mean_censored_turns": 4.68,
+      "answer_set_coverage": 0.9754901960784313,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 204.0,
+      "simulator_faithfulness_checks": 204.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 15.0,
+      "simulator_terminal_checks": 15.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 0.50589359,
+      "backend_requests": 1039,
+      "backend_prompt_tokens": 296371,
+      "backend_completion_tokens": 1257402,
+      "backend_reasoning_tokens": 1220845,
+      "backend_forced_exits": 14,
+      "cost_per_resolution_usd": 0.0252946795
+    },
+    "naive_nonthinking": {
+      "num_tasks": 50,
+      "resolution_curve": [
+        0.02,
+        0.1,
+        0.26,
+        0.34,
+        0.38
+      ],
+      "resolution_at_budget": 0.38,
+      "mean_censored_turns": 4.9,
+      "answer_set_coverage": 0.9672897196261683,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 214.0,
+      "simulator_faithfulness_checks": 214.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 13.0,
+      "simulator_terminal_checks": 13.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 0.046747659999999996,
+      "backend_requests": 1070,
+      "backend_prompt_tokens": 326986,
+      "backend_completion_tokens": 34325,
+      "backend_reasoning_tokens": 0,
+      "backend_forced_exits": 0,
+      "cost_per_resolution_usd": 0.0024604031578947367
+    },
+    "best_n_eig": {
+      "num_tasks": 50,
+      "resolution_curve": [
+        0.08,
+        0.16,
+        0.22,
+        0.26,
+        0.32
+      ],
+      "resolution_at_budget": 0.32,
+      "mean_censored_turns": 4.96,
+      "answer_set_coverage": 0.9299065420560748,
+      "structured_parse_failures": 0.0,
+      "simulator_faithfulness_metrics_present": true,
+      "simulator_faithfulness_observations": 214.0,
+      "simulator_faithfulness_checks": 214.0,
+      "simulator_faithfulness_raw_contradictions": 0.0,
+      "simulator_faithfulness_repairs": 0.0,
+      "simulator_faithfulness_failures": 0.0,
+      "simulator_faithfulness_final_inconsistency_rate": 0.0,
+      "simulator_terminal_claims": 13.0,
+      "simulator_terminal_checks": 13.0,
+      "simulator_terminal_rejections": 0.0,
+      "endpoint_valid": true,
+      "backend_cost_usd": 2.6723651399999997,
+      "backend_requests": 23570,
+      "backend_prompt_tokens": 6603059,
+      "backend_completion_tokens": 5335610,
+      "backend_reasoning_tokens": 3488175,
+      "backend_forced_exits": 55,
+      "cost_per_resolution_usd": 0.16702282124999998
+    }
+  },
+  "primary_arbitration_vs_naive_thinking": {
+    "better_arm": "arbitration",
+    "baseline_arm": "naive_thinking",
+    "wins": 6,
+    "losses": 16,
+    "ties": 28,
+    "mean_censored_turn_delta": 0.44,
+    "bootstrap_ci95": [
+      0.0,
+      0.9
+    ],
+    "wilcoxon_signed_rank_p": null,
+    "per_task": [
+      {
+        "task_id": "customer_service:eval:0010",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0011",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0012",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0013",
+        "outcome": "loss",
+        "censored_turn_delta": 5.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0014",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0017",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0020",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0023",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0026",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0027",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0028",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0029",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0030",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0034",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0035",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0036",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0038",
+        "outcome": "win",
+        "censored_turn_delta": -4.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0039",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0040",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0042",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0044",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0046",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0048",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0049",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0051",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0052",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0053",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0054",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0058",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0059",
+        "outcome": "loss",
+        "censored_turn_delta": 5.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      }
+    ],
+    "resolution_rate_delta": -0.08000000000000002,
+    "resolution_discordant_wins": 3,
+    "resolution_discordant_losses": 7,
+    "paired_binary_exact_p": 0.34375
+  },
+  "coprimary_arbitration_vs_candidate0": {
+    "better_arm": "arbitration",
+    "baseline_arm": "candidate0",
+    "wins": 6,
+    "losses": 12,
+    "ties": 32,
+    "mean_censored_turn_delta": 0.16,
+    "bootstrap_ci95": [
+      -0.24049999999999983,
+      0.56
+    ],
+    "wilcoxon_signed_rank_p": null,
+    "per_task": [
+      {
+        "task_id": "customer_service:eval:0010",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0011",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0012",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0013",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0014",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0017",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0020",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0023",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0026",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0027",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0028",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 1
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0029",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0030",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0034",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0035",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0036",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0038",
+        "outcome": "win",
+        "censored_turn_delta": -4.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0039",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0040",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0042",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0044",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0046",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0048",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0049",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0051",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0052",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0053",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0054",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0058",
+        "outcome": "win",
+        "censored_turn_delta": -4.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "candidate0": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0059",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "candidate0": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      }
+    ],
+    "resolution_rate_delta": -0.08000000000000002,
+    "resolution_discordant_wins": 3,
+    "resolution_discordant_losses": 7,
+    "paired_binary_exact_p": 0.34375
+  },
+  "context_arbitration_vs_naive_nonthinking": {
+    "better_arm": "arbitration",
+    "baseline_arm": "naive_nonthinking",
+    "wins": 8,
+    "losses": 12,
+    "ties": 30,
+    "mean_censored_turn_delta": 0.22,
+    "bootstrap_ci95": [
+      -0.26,
+      0.7004999999999927
+    ],
+    "wilcoxon_signed_rank_p": null,
+    "per_task": [
+      {
+        "task_id": "customer_service:eval:0010",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0011",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0012",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0013",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0014",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0017",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0020",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0023",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0026",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0027",
+        "outcome": "win",
+        "censored_turn_delta": -5.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0028",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 1
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0029",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0030",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0034",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0035",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0036",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0038",
+        "outcome": "win",
+        "censored_turn_delta": -4.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0039",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0040",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0042",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0044",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0046",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0048",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0049",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0051",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0052",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0053",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0054",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0058",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0059",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_nonthinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      }
+    ],
+    "resolution_rate_delta": -0.06,
+    "resolution_discordant_wins": 5,
+    "resolution_discordant_losses": 8,
+    "paired_binary_exact_p": 0.5810546875
+  },
+  "mechanism": {
+    "total_turns": 222,
+    "override_count": 113,
+    "override_rate": 0.509009009009009,
+    "immediate_resolution_count": 7,
+    "by_task_outcome_vs_candidate0": {
+      "win": {
+        "count": 7,
+        "immediate_resolutions": 4,
+        "mean_score_gap": 0.09490117677027261,
+        "mean_margin_excess": 0.06516815210626363
+      },
+      "loss": {
+        "count": 24,
+        "immediate_resolutions": 3,
+        "mean_score_gap": 0.08661310238777886,
+        "mean_margin_excess": 0.04584262311537849
+      },
+      "tie": {
+        "count": 82,
+        "immediate_resolutions": 0,
+        "mean_score_gap": 0.09498911055683935,
+        "mean_margin_excess": 0.05559670414885648
+      }
+    },
+    "overrides": [
+      {
+        "task_id": "customer_service:eval:0010",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.043965129232387753,
+        "one_se_threshold": 0.04366299808059809,
+        "margin_excess": 0.0003021311517896613,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0010",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.016081996138729526,
+        "one_se_threshold": 0.006890017443701208,
+        "margin_excess": 0.009191978695028318,
+        "immediate_resolution": true,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0011",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.046800977260768546,
+        "one_se_threshold": 0.021295088060574653,
+        "margin_excess": 0.025505889200193893,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0011",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.02246128328086685,
+        "one_se_threshold": 0.020605730800324008,
+        "margin_excess": 0.0018555524805428415,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0012",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.055280066123610486,
+        "one_se_threshold": 0.018576957587491325,
+        "margin_excess": 0.03670310853611916,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0012",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.038952114653550675,
+        "one_se_threshold": 0.029559371591979276,
+        "margin_excess": 0.0093927430615714,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0013",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.08303977894988057,
+        "one_se_threshold": 0.024269330889229293,
+        "margin_excess": 0.05877044806065128,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0013",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.11007244304067038,
+        "one_se_threshold": 0.09040340058624435,
+        "margin_excess": 0.019669042454426022,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0014",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.10058575676157869,
+        "one_se_threshold": 0.07250659402292534,
+        "margin_excess": 0.02807916273865335,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0014",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.016273660422887887,
+        "one_se_threshold": 0.00928090453416718,
+        "margin_excess": 0.006992755888720706,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.06994036567868323,
+        "one_se_threshold": 0.03329479974750626,
+        "margin_excess": 0.03664556593117697,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.09655607017938245,
+        "one_se_threshold": 0.036839412247874126,
+        "margin_excess": 0.05971665793150832,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.13637385331571417,
+        "one_se_threshold": 0.04882970355489887,
+        "margin_excess": 0.08754414976081529,
+        "immediate_resolution": true,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.01256617011749948,
+        "one_se_threshold": 0.008844329148458273,
+        "margin_excess": 0.0037218409690412072,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.024519325641632554,
+        "one_se_threshold": 0.008225044750609143,
+        "margin_excess": 0.01629428089102341,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.11396510337052268,
+        "one_se_threshold": 0.029966298441556325,
+        "margin_excess": 0.08399880492896636,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0017",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.06301652124729226,
+        "one_se_threshold": 0.01412707471980448,
+        "margin_excess": 0.04888944652748778,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.1468303362305503,
+        "one_se_threshold": 0.03514416056465693,
+        "margin_excess": 0.11168617566589337,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.05611459368774925,
+        "one_se_threshold": 0.015748429964612815,
+        "margin_excess": 0.040366163723136436,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.08125466197328729,
+        "one_se_threshold": 0.07833680398045308,
+        "margin_excess": 0.0029178579928342135,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.2985591895923384,
+        "one_se_threshold": 0.07027064359456903,
+        "margin_excess": 0.22828854599776938,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.11335021626225283,
+        "one_se_threshold": 0.07322272745332568,
+        "margin_excess": 0.04012748880892715,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.07872919833463948,
+        "one_se_threshold": 0.027777519470017206,
+        "margin_excess": 0.05095167886462228,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0020",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.06413880537122586,
+        "one_se_threshold": 0.04626800610370185,
+        "margin_excess": 0.01787079926752401,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.04694596025342125,
+        "one_se_threshold": 0.02415702123675135,
+        "margin_excess": 0.022788939016669903,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.062344849488738016,
+        "one_se_threshold": 0.020388765655537166,
+        "margin_excess": 0.04195608383320085,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.03107206828833361,
+        "one_se_threshold": 0.012801927497298731,
+        "margin_excess": 0.018270140791034877,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.08670810929558043,
+        "one_se_threshold": 0.022384479581070413,
+        "margin_excess": 0.06432362971451001,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.12362861102114153,
+        "one_se_threshold": 0.07849303545099358,
+        "margin_excess": 0.045135575570147954,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.05187808312698358,
+        "one_se_threshold": 0.021543217754795636,
+        "margin_excess": 0.030334865372187946,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.11137434291906614,
+        "one_se_threshold": 0.02300715317326948,
+        "margin_excess": 0.08836718974579666,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.012189757429190741,
+        "one_se_threshold": 0.007014739544777405,
+        "margin_excess": 0.005175017884413336,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.10415056198298167,
+        "one_se_threshold": 0.04081679197172656,
+        "margin_excess": 0.06333377001125512,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0023",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.06495781745673382,
+        "one_se_threshold": 0.05832120640417424,
+        "margin_excess": 0.006636611052559575,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.08430722658754788,
+        "one_se_threshold": 0.052379044798363465,
+        "margin_excess": 0.03192818178918442,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.08245489295256873,
+        "one_se_threshold": 0.058464032172065805,
+        "margin_excess": 0.02399086078050293,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.1484232448198572,
+        "one_se_threshold": 0.05524114594326582,
+        "margin_excess": 0.09318209887659137,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.07098724075496882,
+        "one_se_threshold": 0.053826442341043446,
+        "margin_excess": 0.01716079841392537,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.16907469850742582,
+        "one_se_threshold": 0.027891712779966774,
+        "margin_excess": 0.14118298572745905,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.017431158901770345,
+        "one_se_threshold": 0.005681221656358383,
+        "margin_excess": 0.011749937245411962,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.05031302354164095,
+        "one_se_threshold": 0.028688269248941863,
+        "margin_excess": 0.02162475429269909,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.1427922999628407,
+        "one_se_threshold": 0.06049617732994872,
+        "margin_excess": 0.08229612263289199,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.15073351221071002,
+        "one_se_threshold": 0.04843160963424237,
+        "margin_excess": 0.10230190257646765,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0026",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.04714482264641001,
+        "one_se_threshold": 0.01872864152078173,
+        "margin_excess": 0.02841618112562828,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0026",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.10156935417646182,
+        "one_se_threshold": 0.02963390817499737,
+        "margin_excess": 0.07193544600146445,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0027",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.12258288083448157,
+        "one_se_threshold": 0.035159841256201974,
+        "margin_excess": 0.0874230395782796,
+        "immediate_resolution": true,
+        "task_outcome_vs_candidate0": "win"
+      },
+      {
+        "task_id": "customer_service:eval:0029",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.05500857727368788,
+        "one_se_threshold": 0.034420698040998315,
+        "margin_excess": 0.020587879232689565,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0029",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.07727430922452386,
+        "one_se_threshold": 0.06598534326434122,
+        "margin_excess": 0.01128896596018264,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0030",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.01947478182270282,
+        "one_se_threshold": 0.01885715925042007,
+        "margin_excess": 0.0006176225722827507,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.05144502191307074,
+        "one_se_threshold": 0.03686492306784867,
+        "margin_excess": 0.014580098845222066,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.03298284300466547,
+        "one_se_threshold": 0.03117103778871986,
+        "margin_excess": 0.0018118052159456083,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.032615623917128515,
+        "one_se_threshold": 0.006108790553808846,
+        "margin_excess": 0.02650683336331967,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.06216942976657169,
+        "one_se_threshold": 0.04111134490266454,
+        "margin_excess": 0.021058084863907152,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.13879033004706331,
+        "one_se_threshold": 0.03823791426039725,
+        "margin_excess": 0.10055241578666607,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.22332447059877855,
+        "one_se_threshold": 0.04159765779777992,
+        "margin_excess": 0.18172681280099862,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.25059945280264206,
+        "one_se_threshold": 0.0740910668415115,
+        "margin_excess": 0.17650838596113055,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.39915812718145327,
+        "one_se_threshold": 0.07335040603521786,
+        "margin_excess": 0.3258077211462354,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.10506584359529932,
+        "one_se_threshold": 0.025789560746377196,
+        "margin_excess": 0.07927628284892212,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.020919179265575672,
+        "one_se_threshold": 0.011363504054077586,
+        "margin_excess": 0.009555675211498086,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.02093539246603456,
+        "one_se_threshold": 0.005879250414608527,
+        "margin_excess": 0.015056142051426032,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.0873936518777868,
+        "one_se_threshold": 0.023221503681825052,
+        "margin_excess": 0.06417214819596176,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0035",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.3054581168218129,
+        "one_se_threshold": 0.0661761419514962,
+        "margin_excess": 0.23928197487031672,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.10314177748382283,
+        "one_se_threshold": 0.07098102860483074,
+        "margin_excess": 0.03216074887899209,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.10598772703125317,
+        "one_se_threshold": 0.03514622864065036,
+        "margin_excess": 0.0708414983906028,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.15292080089234975,
+        "one_se_threshold": 0.08584691708240119,
+        "margin_excess": 0.06707388380994855,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.137979634127507,
+        "one_se_threshold": 0.12369582469270754,
+        "margin_excess": 0.014283809434799455,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0038",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.04447141714494884,
+        "one_se_threshold": 0.03307002706010544,
+        "margin_excess": 0.011401390084843394,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "win"
+      },
+      {
+        "task_id": "customer_service:eval:0039",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.07728509453199986,
+        "one_se_threshold": 0.05286069694037613,
+        "margin_excess": 0.02442439759162373,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0039",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.11082234187754168,
+        "one_se_threshold": 0.05778082644390495,
+        "margin_excess": 0.053041515433636735,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0040",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.1742205808972863,
+        "one_se_threshold": 0.030846404365101707,
+        "margin_excess": 0.1433741765321846,
+        "immediate_resolution": true,
+        "task_outcome_vs_candidate0": "win"
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.03259226055451557,
+        "one_se_threshold": 0.02463900186552856,
+        "margin_excess": 0.007953258688987011,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "turn": 3,
+        "selected_index": 2,
+        "score_gap": 0.07457990159938921,
+        "one_se_threshold": 0.056545597000818945,
+        "margin_excess": 0.018034304598570264,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.013463223199864493,
+        "one_se_threshold": 0.00825065639411344,
+        "margin_excess": 0.005212566805751053,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0042",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.07328540772991703,
+        "one_se_threshold": 0.060157357161280574,
+        "margin_excess": 0.013128050568636453,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0042",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.03577361004892016,
+        "one_se_threshold": 0.02693247331376601,
+        "margin_excess": 0.008841136735154145,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.033270369047301115,
+        "one_se_threshold": 0.008561289166398804,
+        "margin_excess": 0.02470907988090231,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.05573136104163319,
+        "one_se_threshold": 0.03078902961484745,
+        "margin_excess": 0.02494233142678574,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.07590952044020394,
+        "one_se_threshold": 0.05987698710955246,
+        "margin_excess": 0.01603253333065148,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0044",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.023228550391614998,
+        "one_se_threshold": 0.017518961101009985,
+        "margin_excess": 0.005709589290605013,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0044",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.07229147312567882,
+        "one_se_threshold": 0.03492112314195451,
+        "margin_excess": 0.037370349983724314,
+        "immediate_resolution": true,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.018547724441592597,
+        "one_se_threshold": 0.01594902951961475,
+        "margin_excess": 0.002598694921977847,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.0638151642808751,
+        "one_se_threshold": 0.05331926166585321,
+        "margin_excess": 0.010495902615021882,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.11708561059006985,
+        "one_se_threshold": 0.051771734383675515,
+        "margin_excess": 0.06531387620639434,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0046",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.053705943074261346,
+        "one_se_threshold": 0.0255398021906819,
+        "margin_excess": 0.028166140883579445,
+        "immediate_resolution": true,
+        "task_outcome_vs_candidate0": "win"
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.036673843657568775,
+        "one_se_threshold": 0.025847413122407056,
+        "margin_excess": 0.010826430535161718,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.05844081422528734,
+        "one_se_threshold": 0.026958818280051058,
+        "margin_excess": 0.03148199594523628,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.061906839230324966,
+        "one_se_threshold": 0.026915296157424388,
+        "margin_excess": 0.034991543072900574,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.12952970031219863,
+        "one_se_threshold": 0.075041521866093,
+        "margin_excess": 0.05448817844610562,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0048",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.0759014996023768,
+        "one_se_threshold": 0.04113617414483921,
+        "margin_excess": 0.03476532545753759,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0049",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.024294134081483558,
+        "one_se_threshold": 0.01589527118171738,
+        "margin_excess": 0.008398862899766178,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "win"
+      },
+      {
+        "task_id": "customer_service:eval:0049",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.04727965219077636,
+        "one_se_threshold": 0.022439576268180553,
+        "margin_excess": 0.024840075922595805,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "win"
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.11039916841343132,
+        "one_se_threshold": 0.019420466411195225,
+        "margin_excess": 0.0909787020022361,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.07173047272917735,
+        "one_se_threshold": 0.02466294227413889,
+        "margin_excess": 0.04706753045503846,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "turn": 5,
+        "selected_index": 1,
+        "score_gap": 0.16729046135614706,
+        "one_se_threshold": 0.07320382429327608,
+        "margin_excess": 0.09408663706287097,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0051",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.05657172420002927,
+        "one_se_threshold": 0.040566165175913355,
+        "margin_excess": 0.016005559024115913,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0052",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.1138658648326889,
+        "one_se_threshold": 0.025232470953405767,
+        "margin_excess": 0.08863339387928314,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0053",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.09238464864231112,
+        "one_se_threshold": 0.059424526561071035,
+        "margin_excess": 0.032960122081240086,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0053",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.33406821704813655,
+        "one_se_threshold": 0.04589974166003982,
+        "margin_excess": 0.28816847538809676,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0054",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.11939468033753844,
+        "one_se_threshold": 0.030653235398482512,
+        "margin_excess": 0.08874144493905593,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0054",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.08175878755312829,
+        "one_se_threshold": 0.02526579729202935,
+        "margin_excess": 0.05649299026109894,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "turn": 2,
+        "selected_index": 2,
+        "score_gap": 0.10010024069052095,
+        "one_se_threshold": 0.0645355691774502,
+        "margin_excess": 0.03556467151307076,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "turn": 3,
+        "selected_index": 1,
+        "score_gap": 0.10049008877289196,
+        "one_se_threshold": 0.07202663785264189,
+        "margin_excess": 0.028463450920250072,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "turn": 4,
+        "selected_index": 2,
+        "score_gap": 0.16475310181599087,
+        "one_se_threshold": 0.0544433859623616,
+        "margin_excess": 0.11030971585362928,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.1027240701742794,
+        "one_se_threshold": 0.04694148331513975,
+        "margin_excess": 0.05578258685913965,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.019285799081141607,
+        "one_se_threshold": 0.01394192714294588,
+        "margin_excess": 0.005343871938195726,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.27528423446950884,
+        "one_se_threshold": 0.0706294211536807,
+        "margin_excess": 0.20465481331582813,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "tie"
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "turn": 1,
+        "selected_index": 2,
+        "score_gap": 0.01646984521480107,
+        "one_se_threshold": 0.013008229087734701,
+        "margin_excess": 0.0034616161270663685,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.04541652555661109,
+        "one_se_threshold": 0.02571615708799489,
+        "margin_excess": 0.0197003684686162,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "turn": 4,
+        "selected_index": 1,
+        "score_gap": 0.24579624995698895,
+        "one_se_threshold": 0.06339013946568989,
+        "margin_excess": 0.18240611049129907,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "turn": 5,
+        "selected_index": 2,
+        "score_gap": 0.16514087024885737,
+        "one_se_threshold": 0.059629465247020196,
+        "margin_excess": 0.10551140500183717,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0058",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.19775362916867034,
+        "one_se_threshold": 0.04518025032607384,
+        "margin_excess": 0.1525733788425965,
+        "immediate_resolution": true,
+        "task_outcome_vs_candidate0": "win"
+      },
+      {
+        "task_id": "customer_service:eval:0059",
+        "turn": 1,
+        "selected_index": 1,
+        "score_gap": 0.09312956360116192,
+        "one_se_threshold": 0.06547546566606954,
+        "margin_excess": 0.02765409793509238,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      },
+      {
+        "task_id": "customer_service:eval:0059",
+        "turn": 2,
+        "selected_index": 1,
+        "score_gap": 0.11907825403749864,
+        "one_se_threshold": 0.03659633553808174,
+        "margin_excess": 0.0824819184994169,
+        "immediate_resolution": false,
+        "task_outcome_vs_candidate0": "loss"
+      }
+    ]
+  },
+  "manual_review_plan": {
+    "rule": "review every success-disagreement task and ten seeded random remaining tasks",
+    "seed": 1304,
+    "success_disagreement_task_ids": [
+      "customer_service:eval:0012",
+      "customer_service:eval:0013",
+      "customer_service:eval:0014",
+      "customer_service:eval:0015",
+      "customer_service:eval:0017",
+      "customer_service:eval:0018",
+      "customer_service:eval:0019",
+      "customer_service:eval:0021",
+      "customer_service:eval:0023",
+      "customer_service:eval:0027",
+      "customer_service:eval:0030",
+      "customer_service:eval:0033",
+      "customer_service:eval:0034",
+      "customer_service:eval:0035",
+      "customer_service:eval:0038",
+      "customer_service:eval:0039",
+      "customer_service:eval:0040",
+      "customer_service:eval:0042",
+      "customer_service:eval:0043",
+      "customer_service:eval:0048",
+      "customer_service:eval:0049",
+      "customer_service:eval:0051",
+      "customer_service:eval:0055",
+      "customer_service:eval:0057",
+      "customer_service:eval:0058",
+      "customer_service:eval:0059"
+    ],
+    "random_spot_check_task_ids": [
+      "customer_service:eval:0010",
+      "customer_service:eval:0020",
+      "customer_service:eval:0028",
+      "customer_service:eval:0036",
+      "customer_service:eval:0041",
+      "customer_service:eval:0044",
+      "customer_service:eval:0045",
+      "customer_service:eval:0047",
+      "customer_service:eval:0052",
+      "customer_service:eval:0056"
+    ],
+    "all_review_task_ids": [
+      "customer_service:eval:0010",
+      "customer_service:eval:0012",
+      "customer_service:eval:0013",
+      "customer_service:eval:0014",
+      "customer_service:eval:0015",
+      "customer_service:eval:0017",
+      "customer_service:eval:0018",
+      "customer_service:eval:0019",
+      "customer_service:eval:0020",
+      "customer_service:eval:0021",
+      "customer_service:eval:0023",
+      "customer_service:eval:0027",
+      "customer_service:eval:0028",
+      "customer_service:eval:0030",
+      "customer_service:eval:0033",
+      "customer_service:eval:0034",
+      "customer_service:eval:0035",
+      "customer_service:eval:0036",
+      "customer_service:eval:0038",
+      "customer_service:eval:0039",
+      "customer_service:eval:0040",
+      "customer_service:eval:0041",
+      "customer_service:eval:0042",
+      "customer_service:eval:0043",
+      "customer_service:eval:0044",
+      "customer_service:eval:0045",
+      "customer_service:eval:0047",
+      "customer_service:eval:0048",
+      "customer_service:eval:0049",
+      "customer_service:eval:0051",
+      "customer_service:eval:0052",
+      "customer_service:eval:0055",
+      "customer_service:eval:0056",
+      "customer_service:eval:0057",
+      "customer_service:eval:0058",
+      "customer_service:eval:0059"
+    ]
+  },
+  "best_n_endpoint_valid_automated": true,
+  "context_best_n_vs_naive_thinking": {
+    "better_arm": "best_n_eig",
+    "baseline_arm": "naive_thinking",
+    "wins": 11,
+    "losses": 12,
+    "ties": 27,
+    "mean_censored_turn_delta": 0.28,
+    "bootstrap_ci95": [
+      -0.14,
+      0.74
+    ],
+    "wilcoxon_signed_rank_p": null,
+    "per_task": [
+      {
+        "task_id": "customer_service:eval:0010",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0011",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0012",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0013",
+        "outcome": "loss",
+        "censored_turn_delta": 5.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0014",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0017",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0020",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0023",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0026",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0027",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0028",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0029",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0030",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0034",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0035",
+        "outcome": "loss",
+        "censored_turn_delta": 4.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0036",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0038",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0039",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0040",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0042",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0044",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0046",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0048",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0049",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0051",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0052",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0053",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0054",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "naive_thinking": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0058",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0059",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "naive_thinking": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      }
+    ],
+    "resolution_rate_delta": -0.08000000000000002,
+    "resolution_discordant_wins": 5,
+    "resolution_discordant_losses": 9,
+    "paired_binary_exact_p": 0.4239501953125
+  },
+  "context_best_n_vs_arbitration": {
+    "better_arm": "best_n_eig",
+    "baseline_arm": "arbitration",
+    "wins": 10,
+    "losses": 7,
+    "ties": 33,
+    "mean_censored_turn_delta": -0.16,
+    "bootstrap_ci95": [
+      -0.62,
+      0.3
+    ],
+    "wilcoxon_signed_rank_p": null,
+    "per_task": [
+      {
+        "task_id": "customer_service:eval:0010",
+        "outcome": "win",
+        "censored_turn_delta": -4.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0011",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0012",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0013",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0014",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0015",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0016",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0017",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0018",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0019",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0020",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0021",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0022",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0023",
+        "outcome": "loss",
+        "censored_turn_delta": 1.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0024",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0025",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0026",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0027",
+        "outcome": "loss",
+        "censored_turn_delta": 5.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0028",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 1
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0029",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0030",
+        "outcome": "win",
+        "censored_turn_delta": -4.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0031",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0032",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0033",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0034",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0035",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0036",
+        "outcome": "win",
+        "censored_turn_delta": -2.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0037",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0038",
+        "outcome": "loss",
+        "censored_turn_delta": 2.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 3
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0039",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0040",
+        "outcome": "loss",
+        "censored_turn_delta": 3.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0041",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0042",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0043",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0044",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0045",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0046",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0047",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0048",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 5,
+          "censored_turns": 5,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0049",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 4,
+          "censored_turns": 4,
+          "num_turns": 4,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0050",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0051",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 3
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0052",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0053",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0054",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0055",
+        "outcome": "win",
+        "censored_turn_delta": -3.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 3,
+          "censored_turns": 3,
+          "num_turns": 3,
+          "clean_turns": 3
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0056",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0057",
+        "outcome": "tie",
+        "censored_turn_delta": 0.0,
+        "best_n_eig": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 4
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0058",
+        "outcome": "win",
+        "censored_turn_delta": -1.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "arbitration": {
+          "resolved": true,
+          "resolution_turn": 2,
+          "censored_turns": 2,
+          "num_turns": 2,
+          "clean_turns": 2
+        }
+      },
+      {
+        "task_id": "customer_service:eval:0059",
+        "outcome": "win",
+        "censored_turn_delta": -5.0,
+        "best_n_eig": {
+          "resolved": true,
+          "resolution_turn": 1,
+          "censored_turns": 1,
+          "num_turns": 1,
+          "clean_turns": 1
+        },
+        "arbitration": {
+          "resolved": false,
+          "resolution_turn": null,
+          "censored_turns": 6,
+          "num_turns": 5,
+          "clean_turns": 5
+        }
+      }
+    ],
+    "resolution_rate_delta": 0.0,
+    "resolution_discordant_wins": 5,
+    "resolution_discordant_losses": 5,
+    "paired_binary_exact_p": 1.0
+  }
+}
