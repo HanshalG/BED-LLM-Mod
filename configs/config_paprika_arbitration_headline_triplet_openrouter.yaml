@@ -22,7 +22,7 @@ generation_temperature_diverse: 0.7
 generation_temperature_simple: 0.0
 answer_temperature: 0.7
 probability_parse_fallback_to_uniform: false
-openrouter_budget_usd: 30.0
+openrouter_budget_usd: 40.0
 openrouter_projected_cost_usd: 0.12
 openrouter_concurrency: 25
 openrouter_max_retries: 5

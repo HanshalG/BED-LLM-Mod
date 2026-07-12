@@ -240,6 +240,21 @@ def test_spend_tracker_serializes_concurrent_processes(tmp_path: Path) -> None:
     assert not list(tmp_path.glob(".spend.json.*.tmp"))
 
 
+def test_spend_tracker_does_not_downgrade_top_up_from_older_worker(tmp_path: Path) -> None:
+    path = tmp_path / "spend.json"
+    old = OpenRouterBudgetTracker(
+        _config(tmp_path, openrouter_spend_path=str(path), openrouter_budget_usd=30.0),
+        "test-model",
+    )
+    path.write_text(json.dumps({"budget_usd": 40.0, "total_spent_usd": 31.0, "runs": {}}))
+
+    old.add(0.01, _completion()["usage"])
+
+    payload = json.loads(path.read_text())
+    assert payload["budget_usd"] == pytest.approx(40.0)
+    assert old.snapshot()["remaining_usd"] == pytest.approx(8.99)
+
+
 def test_lazy_factory_builds_openrouter_without_gpu_import(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
     adapter = build_model_adapter(

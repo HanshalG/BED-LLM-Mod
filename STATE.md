@@ -520,6 +520,11 @@ concurrency remains 250.
 Best-N offset 40 completed and is canonical while both recoveries remain live. Its
 released slot was filled by offset 53 at `20260712T033111`; aggregate configured
 concurrency remains 250.
+Hanshal added another $10 of OpenRouter authorization during the held-out best-N run.
+The authorized total is now $40; at the amendment point tracked spend was $16.325627,
+leaving $23.674373. This changes only the administrative budget cap. Active shards keep
+their instantiated cap, while future launches use $40; no scientific or concurrency
+parameter changes.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
@@ -852,7 +857,7 @@ GOAL.md for the six environment requirements (R1-R6) and the full validation cha
 ## OPERATIONAL KNOWLEDGE
 
 - **OpenRouter (while cluster is down)**: base_url https://openrouter.ai/api/v1,
-  key in `OPENROUTER_API_KEY` (never commit). $30 total budget, FULLY authorized;
+  key in `OPENROUTER_API_KEY` (never commit). $40 total budget, FULLY authorized;
   refuse runs projected past remaining budget; flag Hanshal before the remaining
   authorization becomes tight; track
   spend per run in `EXPERIMENTS.md`. Cost-project every run from

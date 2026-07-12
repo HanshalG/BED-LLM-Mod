@@ -156,11 +156,12 @@ tasks or arms. Quarantine the complete headline and stop-and-discuss.
 
 ## Budget And Concurrency
 
-Cumulative spend before launch is $10.38197. Hanshal added $10 during wave 1, raising
-the authorized total from $20 to $30. Pilot rates project about $2.67 nominal for all
+Cumulative spend before launch is $10.38197. Hanshal added $10 during wave 1 and another
+$10 during the held-out best-N run, raising the authorized total from $20 to $40. Pilot
+rates project about $2.67 nominal for all
 50 tasks/four arms; the conservative 2x envelope is $5.34. Pause for a budget top-up,
-without inspecting policy results, if projected remaining work would cross $30. Notify
-Hanshal if cumulative spend approaches $28.
+without inspecting policy results, if projected remaining work would cross $40. Notify
+Hanshal if cumulative spend approaches $38.
 
 - Thinking triplet: ten isolated task shards per wave, concurrency 25 each, aggregate
   ceiling 250. Five waves cover offsets 10--59.
@@ -177,7 +178,7 @@ Hanshal if cumulative spend approaches $28.
 Launch only from the pushed commit containing this runbook, configs, analyzer, control,
 and passing focused tests. Record that commit and every launch in `EXPERIMENTS.md`.
 Wave 1 was launched from the original frozen commit `7bc2263` with a $20 tracker cap.
-The subsequent administrative amendment raises only the tracker cap to $30; it does not
+Subsequent administrative amendments raise only the tracker cap to $40; they do not
 change model, prompts, methods, tasks, seed, endpoint, analysis, or concurrency.
 
 ## Launch Pattern

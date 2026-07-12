@@ -39,10 +39,11 @@ class OpenRouterBudgetTracker:
         with self._locked_transaction():
             payload = self._read()
             spent = float(payload.get("total_spent_usd", 0.0))
-            if spent + self.projected > self.budget + 1e-12:
+            budget = self._effective_budget(payload)
+            if spent + self.projected > budget + 1e-12:
                 raise OpenRouterBudgetError(
                     f"Projected OpenRouter spend ${self.projected:.4f} plus existing "
-                    f"${spent:.4f} exceeds ${self.budget:.2f} budget"
+                    f"${spent:.4f} exceeds ${budget:.2f} budget"
                 )
 
     def _read(self) -> dict[str, Any]:
@@ -86,15 +87,20 @@ class OpenRouterBudgetTracker:
             if temporary_path is not None:
                 temporary_path.unlink(missing_ok=True)
 
+    def _effective_budget(self, payload: dict[str, Any]) -> float:
+        """Keep an authorized top-up from being reverted by older live workers."""
+        return max(self.budget, float(payload.get("budget_usd", self.budget)))
+
     def add(self, cost: float, usage: dict[str, Any]) -> float:
         if cost < 0.0:
             raise OpenRouterBudgetError("OpenRouter reported negative cost")
         with self._locked_transaction():
             payload = self._read()
+            budget = self._effective_budget(payload)
             total = float(payload.get("total_spent_usd", 0.0)) + cost
-            if total > self.budget + 1e-9:
+            if total > budget + 1e-9:
                 raise OpenRouterBudgetError(
-                    f"OpenRouter charge would exceed ${self.budget:.2f} budget: ${total:.6f}"
+                    f"OpenRouter charge would exceed ${budget:.2f} budget: ${total:.6f}"
                 )
             runs = payload.setdefault("runs", {})
             run = runs.setdefault(
@@ -107,7 +113,7 @@ class OpenRouterBudgetTracker:
             run["completion_tokens"] = int(run.get("completion_tokens", 0)) + int(usage.get("completion_tokens", 0) or 0)
             details = usage.get("completion_tokens_details") or {}
             run["reasoning_tokens"] = int(run.get("reasoning_tokens", 0)) + int(details.get("reasoning_tokens", 0) or 0)
-            payload["budget_usd"] = self.budget
+            payload["budget_usd"] = budget
             payload["total_spent_usd"] = total
             self._atomic_write(payload)
             return total
@@ -115,6 +121,7 @@ class OpenRouterBudgetTracker:
     def snapshot(self) -> dict[str, Any]:
         with self._locked_transaction():
             payload = self._read()
+            budget = self._effective_budget(payload)
             run = (payload.get("runs") or {}).get(self.run_id, {})
             return {
                 "backend": "openrouter",
@@ -125,8 +132,8 @@ class OpenRouterBudgetTracker:
                 "completion_tokens": int(run.get("completion_tokens", 0)),
                 "reasoning_tokens": int(run.get("reasoning_tokens", 0)),
                 "total_spent_usd": float(payload.get("total_spent_usd", 0.0)),
-                "budget_usd": self.budget,
-                "remaining_usd": self.budget - float(payload.get("total_spent_usd", 0.0)),
+                "budget_usd": budget,
+                "remaining_usd": budget - float(payload.get("total_spent_usd", 0.0)),
             }
 
 
