@@ -164,6 +164,12 @@ task/arm, rerun the analyzer, launch MediQ, or launch another rescue autonomousl
 Discuss with Hanshal whether to end Path E as an endpoint-validity/negative diagnostic
 paper, redesign the simulator/evaluation under a new preregistration, or stop the paper.
 The current `paper/` draft predates this read and is not submission-ready.
+A cost/scope decision memo is tracked at
+`results/path_e/arbitration_headline/STOP_DECISION_MEMO.md`. It recommends closing Path
+E as a method-claims project because the frozen effect points against the method even
+before endpoint invalidation. The two alternatives requiring explicit authorization
+are a no-new-LLM endpoint-validity paper (complete the remaining manual audit) or a
+fresh preregistered simulator/evaluation study. No option has been selected yet.
 
 **MID-HEADLINE REMINDERS (2026-07-11, per Hanshal):**
 1. The pre-registered BEST-N ELICITATION PROBE (10 canonical tasks 0-9, disjoint from
