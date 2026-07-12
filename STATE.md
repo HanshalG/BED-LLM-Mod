@@ -557,6 +557,12 @@ best-N arm is now 50/50 canonical across exact offsets 10--59, with no live Open
 processes. Operational cumulative spend is $16.710100/$40. Next: combine the 50
 canonical shards and structurally validate the combined arm before running the frozen
 headline analyzer exactly once.
+The 50 canonical best-N shards are combined at
+`runs/paprika-headline-best-n-combined-seed1304`. Structural validation found one EIG
+item, 50 unique sources, exact task IDs 10--59, and 50 records. Canonical best-N usage
+is $2.672365, 23,570 requests, 3,488,175 reasoning tokens, and 55 forced exits. No
+endpoint outcome was inspected. All five arms are now fixed; next run the frozen joint
+headline analyzer exactly once, then perform the preregistered manual endpoint audit.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is

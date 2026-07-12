@@ -221,6 +221,15 @@ python scripts/combine_paprika_step1_splits.py <5 canonical block run dirs> \
   --output-dir runs/paprika-headline-nonthinking-combined-seed1304
 ```
 
+Combine the 50 successful best-N EIG shards selected in `CANONICAL_RUNS.json`:
+
+```bash
+python scripts/combine_paprika_step1_splits.py <50 canonical best-N run dirs> \
+  --methods EIG \
+  --expected-start 10 --expected-count 50 \
+  --output-dir runs/paprika-headline-best-n-combined-seed1304
+```
+
 Analyze exactly once after all canonical artifacts are fixed:
 
 ```bash
