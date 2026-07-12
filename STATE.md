@@ -486,6 +486,10 @@ configured concurrency remains 250.
 Best-N offset 33 completed and is canonical while offset-25 recovery 1 remains live.
 Its independent released slot was filled by offset 42 at `20260712T001947`; aggregate
 configured concurrency remains 250.
+Best-N offset 31 failed after transport retries on a transient DNS resolution error;
+the whole shard is noncanonical. Exact unchanged recovery 1 launched in its released
+slot at `20260712T022747`. Offset-25 recovery 1 remains live, and aggregate configured
+concurrency remains 250.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
