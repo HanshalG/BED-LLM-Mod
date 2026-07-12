@@ -552,6 +552,11 @@ aggregate configured concurrency 50.
 Best-N offset 56 completed and passed the sealed one-item structural check, bringing
 the arm to 49/50 canonical tasks. Offset 54 is the sole remaining live shard at
 configured concurrency 25.
+Best-N offset 54 completed and passed the sealed one-item structural check. The held-out
+best-N arm is now 50/50 canonical across exact offsets 10--59, with no live OpenRouter
+processes. Operational cumulative spend is $16.710100/$40. Next: combine the 50
+canonical shards and structurally validate the combined arm before running the frozen
+headline analyzer exactly once.
 
 
 **AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
