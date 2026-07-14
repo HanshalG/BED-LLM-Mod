@@ -190,6 +190,23 @@ call or experiment launch was made for this audit.
 OpenRouter ledger: $16.81168851 spent of the user-authorized $40 cap, leaving
 $23.18831149.
 
+iCRAFT profile-gate implementation status (2026-07-14): **READY, locally
+validated, and committed as `dc3baa8`**. The new `profile_support` MediQ
+likelihood mode creates three fixed, audited concrete patient profiles per
+diagnosis label; it distributes the judged diagnosis prior exactly across
+those profiles, scores canonical Yes/No likelihoods conditional on profile,
+and keeps record availability label-independent. Diagnosis-level metrics and
+artifacts are preserved, while source-ID selection and a shared-ledger,
+per-run OpenRouter hard cap are now enforced. The standalone preregistered
+gate runner is `scripts/run_icraft_profile_gates.py`; it supports only the
+one-case smoke, calibration/FactSelect/branch-equivalence gate, and exact
+structural value gate, not a policy comparison. The complete local suite is
+`608 passed, 1 skipped`. The first smoke invocation was attempted with the
+registered `$0.50` cap but failed closed before any request or spend because
+this desktop shell has no `OPENROUTER_API_KEY`; a non-mutating remote check
+also could not authenticate to `oat0`. No gate result exists yet, and no
+policy/depth run is authorized.
+
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
 (GOAL.md): Paprika customer-service troubleshooting exposed the boundary failure;
