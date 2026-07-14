@@ -129,6 +129,13 @@ world conditional is therefore rejected. Per the frozen decision rule, do not tu
 these cases or launch Claim 1; preregister the BED-LLM data-estimation fallback and test
 it on fresh held-out naive-policy interactions. Canonical failure evidence is in
 `results/path_e/mediq_likelihood_calibration/FACTORED_RECORD_REPORT.{json,md}`.
+The separately registered `data_estimation` fallback is now implemented and locally
+tested. It elicits a label-independent response marginal and hypothetical A-D posteriors
+for Yes/No, pins unavailable to the current prior, and uses iterative proportional
+fitting to recover an exactly coherent joint before deriving likelihoods. Raw elicited
+components and projection residuals are logged. Its held-out protocol is frozen in
+`DATA_ESTIMATION_PREREGISTRATION.md`: naive non-thinking creates 30 interactions on
+usable cases 5-14 before the scorer is evaluated once; cases 0-4 cannot be reused.
 OpenRouter ledger: $16.79126737 spent of the user-authorized $40 cap, leaving
 $23.20873263.
 
@@ -301,13 +308,12 @@ the MediQ claim-2 pilot.
 
 Track 2 (main line): MediQ per the registered design requirements. Step 0 now passes its
 final environment gate; all earlier smokes remain diagnostic-only. The registered
-`factored_record` replay failed, so Claim 1 is blocked. Freeze a data-estimation joint
-model before new outcomes are generated: use a label-independent marginal response
-model, elicit A-D posteriors for hypothetical Yes/No replies, enforce unavailable as
-posterior-neutral, and project the elicited table to a coherent joint with the current
-prior. Generate a fresh policy-independent calibration bank using non-thinking naive on
-held-out usable cases 5-14, then analyze the data-estimation likelihood once under frozen
-directional gates. Do not reuse cases 0-4 or tune against their outcomes. Note the endpoint is
+`factored_record` replay failed, so Claim 1 is blocked. The data-estimation joint model,
+held-out protocol, bank validator, and scorer gate are now frozen locally. Commit/push,
+then generate the policy-independent calibration bank using non-thinking naive on held-
+out usable cases 5-14. Run the frozen bank validator and mandatory full transcript review;
+only a valid bank with at least 15 Yes/No outcomes may be replayed once under the frozen
+data-estimation gate. Do not reuse cases 0-4 or tune against outcomes. Note the endpoint is
 exact-match on the MC label — no success judge, no remedy adjudication; the remaining
 validity gate is likelihood calibration. Calibration -> pre-register ->
 claim-1 study (naive asking, native Expert baseline(s), 1-step EIG; ~$2-4) ->

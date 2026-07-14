@@ -35,6 +35,8 @@ from .prompts import (
     candidate_messages,
     candidate_set_validation_messages,
     candidate_validation_messages,
+    data_estimation_outcome_messages,
+    data_estimation_posterior_messages,
     factored_likelihood_messages,
     likelihood_messages,
     mapping_messages,
@@ -62,6 +64,41 @@ def _entropy(probabilities: Sequence[float]) -> float:
         for probability in probabilities
         if probability > 0.0
     )
+
+
+def _project_joint_to_marginals(
+    matrix: np.ndarray,
+    row_marginals: np.ndarray,
+    column_marginals: np.ndarray,
+    *,
+    tolerance: float = 1e-12,
+    max_iterations: int = 10_000,
+) -> np.ndarray:
+    values = np.asarray(matrix, dtype=float).copy()
+    rows = np.asarray(row_marginals, dtype=float)
+    columns = np.asarray(column_marginals, dtype=float)
+    if values.shape != (len(rows), len(columns)):
+        raise ValueError("joint matrix shape does not match requested marginals")
+    if np.any(values <= 0.0) or np.any(rows <= 0.0) or np.any(columns <= 0.0):
+        raise ValueError("joint projection requires strictly positive values")
+    if not math.isclose(
+        float(np.sum(rows)),
+        float(np.sum(columns)),
+        rel_tol=0.0,
+        abs_tol=tolerance,
+    ):
+        raise ValueError("joint row and column marginals must have equal mass")
+
+    for _iteration in range(max_iterations):
+        values *= (rows / np.sum(values, axis=1))[:, None]
+        values *= (columns / np.sum(values, axis=0))[None, :]
+        residual = max(
+            float(np.max(np.abs(np.sum(values, axis=1) - rows))),
+            float(np.max(np.abs(np.sum(values, axis=0) - columns))),
+        )
+        if residual <= tolerance:
+            return values
+    raise RuntimeError("joint marginal projection did not converge")
 
 
 def _is_unavailable(value: str) -> bool:
@@ -217,6 +254,13 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self._binary_likelihood_cache: dict[
             tuple[str, MediQAction], tuple[float, float]
         ] = {}
+        self._data_estimation_marginal_cache: dict[
+            MediQAction, tuple[float, ...]
+        ] = {}
+        self._data_estimation_posterior_cache: dict[
+            tuple[str, MediQAction], tuple[float, ...]
+        ] = {}
+        self._data_estimation_projection_residuals: dict[MediQAction, float] = {}
         self._shared_cache_hits = 0
         self._shared_cache_misses = 0
         self._structured_parse_retries = 0
@@ -259,9 +303,11 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         if getattr(config, "mediq_likelihood_mode", "joint_option") not in {
             "joint_option",
             "factored_record",
+            "data_estimation",
         }:
             raise ValueError(
-                "mediq_likelihood_mode must be one of: joint_option, factored_record"
+                "mediq_likelihood_mode must be one of: joint_option, "
+                "factored_record, data_estimation"
             )
         if not isinstance(getattr(config, "mediq_verify_official_hash", True), bool):
             raise ValueError("mediq_verify_official_hash must be a boolean")
@@ -554,10 +600,13 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self,
         requests: Sequence[tuple[Sequence[str], MediQAction]],
     ) -> list[np.ndarray]:
-        if getattr(self.config, "mediq_likelihood_mode", "joint_option") == (
-            "factored_record"
-        ):
+        likelihood_mode = getattr(
+            self.config, "mediq_likelihood_mode", "joint_option"
+        )
+        if likelihood_mode == "factored_record":
             return self._factored_outcome_likelihoods_many(requests)
+        if likelihood_mode == "data_estimation":
+            return self._data_estimation_outcome_likelihoods_many(requests)
         missing_keys: list[tuple[str, MediQAction]] = []
         missing_messages: list[list[dict[str, str]]] = []
         seen: set[tuple[str, MediQAction]] = set()
@@ -671,6 +720,135 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     answerable * yes,
                     answerable * no,
                     unavailable,
+                )
+
+        return [
+            np.asarray(
+                [self._likelihood_cache[(hypothesis, action)] for hypothesis in hypotheses],
+                dtype=float,
+            )
+            for hypotheses, action in requests
+        ]
+
+    def _data_estimation_outcome_likelihoods_many(
+        self,
+        requests: Sequence[tuple[Sequence[str], MediQAction]],
+    ) -> list[np.ndarray]:
+        actions: list[MediQAction] = []
+        seen_actions: set[MediQAction] = set()
+        for hypotheses, action in requests:
+            if tuple(hypotheses) != action.task.option_labels:
+                raise ValueError(
+                    "data_estimation likelihoods require the complete ordered A-D support"
+                )
+            if action.outcomes != (YES_OUTCOME, NO_OUTCOME, UNAVAILABLE_OUTCOME):
+                raise ValueError(
+                    "data_estimation likelihoods require canonical Yes, No, and "
+                    "unavailable outcomes"
+                )
+            if len(action.prior_probabilities) != len(hypotheses):
+                raise ValueError(
+                    "data_estimation likelihoods require the current prior on the action"
+                )
+            if action not in self._data_estimation_marginal_cache and action not in seen_actions:
+                seen_actions.add(action)
+                actions.append(action)
+
+        if actions:
+            parsed = self._complete_parsed_many(
+                self._evaluation_model(),
+                [data_estimation_outcome_messages(action) for action in actions],
+                0.0,
+                namespace="questioner:data_estimation_marginal",
+                parsers=[
+                    (
+                        lambda text, outcomes=action.outcomes: parse_distribution(
+                            text, outcomes
+                        )
+                    )
+                    for action in actions
+                ],
+            )
+            for action, probabilities in zip(actions, parsed):
+                marginal = self._smoothed(probabilities)
+                self._data_estimation_marginal_cache[action] = marginal
+                self._record_availability_cache[action] = (
+                    1.0 - marginal[2],
+                    marginal[2],
+                )
+
+        missing_posterior_keys: list[tuple[str, MediQAction]] = []
+        seen_posterior_keys: set[tuple[str, MediQAction]] = set()
+        for _hypotheses, action in requests:
+            for outcome in (YES_OUTCOME, NO_OUTCOME):
+                key = (outcome, action)
+                if (
+                    key not in self._data_estimation_posterior_cache
+                    and key not in seen_posterior_keys
+                ):
+                    seen_posterior_keys.add(key)
+                    missing_posterior_keys.append(key)
+        if missing_posterior_keys:
+            parsed = self._complete_parsed_many(
+                self._evaluation_model(),
+                [
+                    data_estimation_posterior_messages(action, outcome)
+                    for outcome, action in missing_posterior_keys
+                ],
+                0.0,
+                namespace="questioner:data_estimation_posterior",
+                parsers=[
+                    (
+                        lambda text, labels=action.task.option_labels: parse_distribution(
+                            text, labels
+                        )
+                    )
+                    for _outcome, action in missing_posterior_keys
+                ],
+            )
+            for key, probabilities in zip(missing_posterior_keys, parsed):
+                self._data_estimation_posterior_cache[key] = self._smoothed(
+                    probabilities
+                )
+
+        for hypotheses, action in requests:
+            if all((hypothesis, action) in self._likelihood_cache for hypothesis in hypotheses):
+                continue
+            prior = np.asarray(action.prior_probabilities, dtype=float)
+            prior /= float(np.sum(prior))
+            marginal = np.asarray(
+                self._data_estimation_marginal_cache[action], dtype=float
+            )
+            available_mass = float(marginal[0] + marginal[1])
+            raw_available_joint = np.column_stack(
+                [
+                    marginal[outcome_index]
+                    * np.asarray(
+                        self._data_estimation_posterior_cache[(outcome, action)],
+                        dtype=float,
+                    )
+                    for outcome_index, outcome in enumerate(
+                        (YES_OUTCOME, NO_OUTCOME)
+                    )
+                ]
+            )
+            available_joint = _project_joint_to_marginals(
+                raw_available_joint,
+                available_mass * prior,
+                marginal[:2],
+            )
+            joint = np.column_stack(
+                [available_joint, marginal[2] * prior]
+            )
+            residual = max(
+                float(np.max(np.abs(np.sum(joint, axis=1) - prior))),
+                float(np.max(np.abs(np.sum(joint, axis=0) - marginal))),
+            )
+            self._data_estimation_projection_residuals[action] = residual
+            likelihoods = joint / prior[:, None]
+            for index, hypothesis in enumerate(hypotheses):
+                self._likelihood_cache[(hypothesis, action)] = tuple(
+                    float(value) for value in likelihoods[index]
                 )
 
         return [
@@ -1346,6 +1524,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 metrics["selected_record_answerability_probability"] = float(
                     1.0 - prior @ unavailable_likelihoods
                 )
+                if action in self._data_estimation_projection_residuals:
+                    metrics["selected_joint_projection_residual"] = float(
+                        self._data_estimation_projection_residuals[action]
+                    )
         return metrics
 
     def round_metrics(
@@ -1372,6 +1554,35 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 self._candidate_set_validation_rejections
             ),
         }
+
+    def _candidate_validation_for(
+        self, action: MediQAction
+    ) -> tuple[bool, str] | None:
+        direct = self._candidate_validation_cache.get(action)
+        if direct is not None:
+            return direct
+        matches = [
+            judgment
+            for candidate, judgment in self._candidate_validation_cache.items()
+            if candidate.query == action.query
+            and candidate.task == action.task
+            and candidate.transcript == action.transcript
+        ]
+        return matches[-1] if matches else None
+
+    def _candidate_set_validation_for(
+        self, actions: Sequence[MediQAction]
+    ) -> tuple[bool, str] | None:
+        direct = self._candidate_set_validation_cache.get(tuple(actions))
+        if direct is not None:
+            return direct
+        queries = tuple(action.query for action in actions)
+        matches = [
+            judgment
+            for candidates, judgment in self._candidate_set_validation_cache.items()
+            if tuple(candidate.query for candidate in candidates) == queries
+        ]
+        return matches[-1] if matches else None
 
     def _patient_metrics(self) -> dict[str, float]:
         observations = self._patient_observations
@@ -1542,9 +1753,13 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 candidate_scores = list(
                     (round_result.chosen.extras or {}).get("candidate_scores", [])
                 )
+                candidate_actions = list(round_result.candidates) or [
+                    round_result.chosen.action
+                ]
                 candidate_details: list[dict[str, Any]] = []
-                for candidate_index, candidate in enumerate(round_result.candidates):
+                for candidate_index, candidate in enumerate(candidate_actions):
                     prior = np.asarray(candidate.prior_probabilities, dtype=float)
+                    semantic_validation = self._candidate_validation_for(candidate)
                     cached = all(
                         (label, candidate) in self._likelihood_cache for label in labels
                     )
@@ -1570,14 +1785,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                             "outcomes": list(candidate.outcomes),
                             "semantic_validation": (
                                 {
-                                    "valid": self._candidate_validation_cache[
-                                        candidate
-                                    ][0],
-                                    "reason": self._candidate_validation_cache[
-                                        candidate
-                                    ][1],
+                                    "valid": semantic_validation[0],
+                                    "reason": semantic_validation[1],
                                 }
-                                if candidate in self._candidate_validation_cache
+                                if semantic_validation is not None
                                 else None
                             ),
                             "score": (
@@ -1603,6 +1814,43 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                                 if candidate in self._record_availability_cache
                                 else None
                             ),
+                            "data_estimation_marginal": (
+                                dict(
+                                    zip(
+                                        candidate.outcomes,
+                                        self._data_estimation_marginal_cache[candidate],
+                                        strict=True,
+                                    )
+                                )
+                                if candidate in self._data_estimation_marginal_cache
+                                else None
+                            ),
+                            "data_estimation_elicited_posteriors": (
+                                {
+                                    outcome: dict(
+                                        zip(
+                                            labels,
+                                            self._data_estimation_posterior_cache[
+                                                (outcome, candidate)
+                                            ],
+                                            strict=True,
+                                        )
+                                    )
+                                    for outcome in (YES_OUTCOME, NO_OUTCOME)
+                                }
+                                if all(
+                                    (outcome, candidate)
+                                    in self._data_estimation_posterior_cache
+                                    for outcome in (YES_OUTCOME, NO_OUTCOME)
+                                )
+                                else None
+                            ),
+                            "joint_projection_residual": (
+                                self._data_estimation_projection_residuals[candidate]
+                                if candidate
+                                in self._data_estimation_projection_residuals
+                                else None
+                            ),
                             "unavailable_likelihood_span": (
                                 float(
                                     np.max(likelihoods[:, -1])
@@ -1624,16 +1872,13 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                             ),
                         }
                     )
-                candidate_set = tuple(round_result.candidates)
-                set_validation = self._candidate_set_validation_cache.get(
-                    candidate_set
-                )
+                set_validation = self._candidate_set_validation_for(candidate_actions)
                 turn_records.append(
                     {
                         "query": round_result.chosen.action.query,
                         "outcomes": list(round_result.chosen.action.outcomes),
                         "candidate_queries": [
-                            candidate.query for candidate in round_result.candidates
+                            candidate.query for candidate in candidate_actions
                         ],
                         "candidate_details": candidate_details,
                         "candidate_set_semantic_validation": (

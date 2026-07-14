@@ -30,7 +30,9 @@ LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled
 LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_step_support_sum"]
 LocationStrategyRolloutQueryMode = Literal["llm_strategy", "analytic_eig"]
 LocationCandidateGenerationMode = Literal["llm", "support_grid"]
-MediQLikelihoodMode = Literal["joint_option", "factored_record"]
+MediQLikelihoodMode = Literal[
+    "joint_option", "factored_record", "data_estimation"
+]
 
 
 @dataclass(frozen=True)
@@ -287,9 +289,14 @@ class Config:
             raise ValueError("paprika_structured_max_retries must be a non-negative integer")
         if self.mediq_dataset not in {"imedqa", "icraft_md"}:
             raise ValueError("mediq_dataset must be one of: imedqa, icraft_md")
-        if self.mediq_likelihood_mode not in {"joint_option", "factored_record"}:
+        if self.mediq_likelihood_mode not in {
+            "joint_option",
+            "factored_record",
+            "data_estimation",
+        }:
             raise ValueError(
-                "mediq_likelihood_mode must be one of: joint_option, factored_record"
+                "mediq_likelihood_mode must be one of: joint_option, "
+                "factored_record, data_estimation"
             )
         if not isinstance(self.mediq_verify_official_hash, bool):
             raise ValueError("mediq_verify_official_hash must be a boolean")

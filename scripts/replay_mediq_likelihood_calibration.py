@@ -62,6 +62,11 @@ def _selected_candidate(turn: dict[str, Any]) -> dict[str, Any]:
 def replay_records(
     records: Sequence[dict[str, Any]],
     environment: MediQEnvironment,
+    *,
+    expected_tasks: int = 5,
+    expected_turns: int = 10,
+    minimum_available_turns: int = 0,
+    minimum_true_favored_rate: float = MIN_AVAILABLE_TRUE_FAVORED_RATE,
 ) -> dict[str, Any]:
     task_by_id = {task.task_id: task for task in environment.tasks}
     if {record["task_id"] for record in records} != set(task_by_id):
@@ -168,6 +173,11 @@ def replay_records(
                     "record_answerability_probability": float(
                         1.0 - likelihoods[0, unavailable_index]
                     ),
+                    "joint_projection_residual": float(
+                        environment._data_estimation_projection_residuals.get(
+                            action, 0.0
+                        )
+                    ),
                 }
             )
             state["prior"] = posterior
@@ -206,10 +216,16 @@ def replay_records(
             (turn["posterior_linf_change"] for turn in unavailable),
             default=0.0,
         ),
+        "maximum_joint_projection_residual": max(
+            (turn["joint_projection_residual"] for turn in turn_records),
+            default=0.0,
+        ),
     }
     checks = {
-        "frozen_replay_shape": summary["num_tasks"] == 5
-        and summary["num_turns"] == 10,
+        "frozen_replay_shape": summary["num_tasks"] == expected_tasks
+        and summary["num_turns"] == expected_turns,
+        "minimum_available_turn_count": summary["num_available_turns"]
+        >= minimum_available_turns,
         "unavailable_is_label_independent": summary[
             "maximum_unavailable_likelihood_span"
         ]
@@ -218,8 +234,8 @@ def replay_records(
             "maximum_unavailable_posterior_linf_change"
         ]
         <= 1e-12,
-        "available_true_label_favored_rate_at_least_60_percent": favored_rate
-        >= MIN_AVAILABLE_TRUE_FAVORED_RATE,
+        "available_true_label_favored_rate_passes_threshold": favored_rate
+        >= minimum_true_favored_rate,
         "available_mean_truth_log_gain_positive": summary[
             "available_mean_truth_log_probability_gain"
         ]
@@ -228,6 +244,10 @@ def replay_records(
             "mean_truth_log_probability_gain"
         ]
         >= 0.0,
+        "coherent_joint_projection": summary[
+            "maximum_joint_projection_residual"
+        ]
+        <= 1e-10,
     }
     return {
         "status": "pass" if all(checks.values()) else "fail",
@@ -237,8 +257,11 @@ def replay_records(
         ),
         "gate_definition": {
             "available_true_label_favored_rate_minimum": (
-                MIN_AVAILABLE_TRUE_FAVORED_RATE
+                minimum_true_favored_rate
             ),
+            "expected_tasks": expected_tasks,
+            "expected_turns": expected_turns,
+            "minimum_available_turns": minimum_available_turns,
             "available_mean_truth_log_gain_must_be_positive": True,
             "overall_mean_truth_log_gain_must_be_nonnegative": True,
             "unavailable_likelihood_and_posterior_tolerance": 1e-12,
@@ -307,23 +330,37 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", "-c", type=Path, required=True)
     parser.add_argument("--source-run", type=Path, required=True)
+    parser.add_argument("--source-item", default="000_EIG")
     parser.add_argument("--run-name", default="mediq-likelihood-calibration-replay")
     parser.add_argument("--output-root", type=Path, default=Path("runs"))
+    parser.add_argument("--expected-tasks", type=int, default=5)
+    parser.add_argument("--expected-turns", type=int, default=10)
+    parser.add_argument("--minimum-available-turns", type=int, default=0)
+    parser.add_argument(
+        "--minimum-true-favored-rate",
+        type=float,
+        default=MIN_AVAILABLE_TRUE_FAVORED_RATE,
+    )
     args = parser.parse_args()
 
     config_path = args.config.resolve()
     config = load_config(str(config_path))
     if config.task != "mediq":
         parser.error("calibration replay requires task: mediq")
-    if config.mediq_likelihood_mode != "factored_record":
-        parser.error("calibration replay requires likelihood_mode: factored_record")
+    if config.mediq_likelihood_mode not in {
+        "factored_record",
+        "data_estimation",
+    }:
+        parser.error(
+            "calibration replay requires factored_record or data_estimation likelihoods"
+        )
     if len(config.model_pairs) != 1:
         parser.error("calibration replay requires exactly one model pair")
 
     source_path = (
         args.source_run
         / "items"
-        / "000_EIG"
+        / args.source_item
         / "mediq_interactions.json"
     )
     records = json.loads(source_path.read_text())
@@ -352,7 +389,14 @@ def main() -> None:
         environment.configure_for_run(config)
         environment.set_questioner(model)
 
-        report = replay_records(records, environment)
+        report = replay_records(
+            records,
+            environment,
+            expected_tasks=args.expected_tasks,
+            expected_turns=args.expected_turns,
+            minimum_available_turns=args.minimum_available_turns,
+            minimum_true_favored_rate=args.minimum_true_favored_rate,
+        )
         report["source_run"] = str(args.source_run.resolve())
         report["source_artifact"] = str(source_path.resolve())
         report["likelihood_mode"] = config.mediq_likelihood_mode

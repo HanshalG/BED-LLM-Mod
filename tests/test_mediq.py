@@ -19,6 +19,7 @@ from environments.mediq.env import (
     UNAVAILABLE_OUTCOME,
     MediQEnvironment,
     _ensure_unavailable,
+    _project_joint_to_marginals,
 )
 from helpers import Config, load_config
 
@@ -124,6 +125,30 @@ class FactoredLikelihoodModel(RoutingMediQModel):
             return json.dumps(
                 {"probabilities": {"Yes": values[0], "No": values[1]}}
             )
+        return RoutingMediQModel._route(messages)
+
+
+class DataEstimationModel(RoutingMediQModel):
+    @staticmethod
+    def _route(messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "predictive model for the MediQ patient interface" in system:
+            return json.dumps(
+                {
+                    "probabilities": {
+                        "Yes": 0.4,
+                        "No": 0.4,
+                        UNAVAILABLE_OUTCOME: 0.2,
+                    }
+                }
+            )
+        if "hypothetical-evidence clinical judge" in system:
+            if "Patient response category: Yes" in user:
+                values = {"A": 0.7, "B": 0.1, "C": 0.1, "D": 0.1}
+            else:
+                values = {"A": 0.1, "B": 0.5, "C": 0.2, "D": 0.2}
+            return json.dumps({"probabilities": values})
         return RoutingMediQModel._route(messages)
 
 
@@ -383,6 +408,9 @@ def test_mediq_nested_config_aliases_and_validation(tmp_path: Path) -> None:
     assert config.mediq_likelihood_mode == "factored_record"
     assert config.mediq_config.num_candidates == 4
     assert config.mediq_config.likelihood_mode == "factored_record"
+    assert Config(
+        task="mediq", mediq_likelihood_mode="data_estimation"
+    ).mediq_config.likelihood_mode == "data_estimation"
     with pytest.raises(ValueError, match="mediq_probability_floor"):
         Config(task="mediq", mediq_probability_floor=0.25)
     with pytest.raises(ValueError, match="mediq_num_candidates"):
@@ -485,6 +513,76 @@ def test_mediq_factored_likelihood_makes_missingness_label_independent() -> None
     )
     assert "findings associated with other options may coexist" in (
         binary_prompts[0][-1]["content"]
+    )
+
+
+def test_joint_projection_matches_both_requested_marginals() -> None:
+    matrix = np.asarray([[0.8, 0.2], [0.3, 0.7], [0.6, 0.4]])
+    rows = np.asarray([0.2, 0.3, 0.5])
+    columns = np.asarray([0.45, 0.55])
+    projected = _project_joint_to_marginals(matrix, rows, columns)
+    assert np.allclose(projected.sum(axis=1), rows, atol=1e-12)
+    assert np.allclose(projected.sum(axis=0), columns, atol=1e-12)
+
+
+def test_mediq_data_estimation_builds_a_coherent_joint() -> None:
+    model = DataEstimationModel()
+    config = _config(
+        mediq_num_trials=1,
+        mediq_likelihood_mode="data_estimation",
+    )
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.tasks[0]
+    prior_values = (0.4, 0.3, 0.2, 0.1)
+    action = MediQAction(
+        query="Is a ring form present on the blood smear?",
+        outcomes=("Yes", "No", UNAVAILABLE_OUTCOME),
+        task=task,
+        prior_probabilities=prior_values,
+    )
+    likelihoods = env.outcome_likelihoods(task.option_labels, action)
+    prior = np.asarray(prior_values)
+    assert np.allclose(likelihoods.sum(axis=1), 1.0, atol=1e-12)
+    assert np.allclose(prior @ likelihoods, [0.4, 0.4, 0.2], atol=1e-12)
+    assert np.allclose(likelihoods[:, 2], 0.2, atol=1e-12)
+    assert env._data_estimation_projection_residuals[action] <= 1e-12
+
+    unavailable = MediQObservation(
+        reply="The patient cannot answer this question from the supplied record.",
+        mapped_outcome=UNAVAILABLE_OUTCOME,
+        mapped_cleanly=True,
+        selected_fact_indices=(),
+        grounded=True,
+        relevant=True,
+        cannot_answer=True,
+    )
+    belief = BeliefState(task.option_labels, prior_values)
+    updated = env.update_belief_state(
+        belief, [(action, unavailable)], model, config
+    )
+    assert updated.probabilities == pytest.approx(prior_values)
+
+    marginal_prompts = [
+        messages
+        for batch in model.batches
+        for messages in batch
+        if "predictive model for the MediQ patient interface"
+        in messages[0]["content"]
+    ]
+    posterior_prompts = [
+        messages
+        for batch in model.batches
+        for messages in batch
+        if "hypothetical-evidence clinical judge" in messages[0]["content"]
+    ]
+    assert len(marginal_prompts) == 1
+    assert len(posterior_prompts) == 2
+    assert "Do not condition this prediction on any answer option" in (
+        marginal_prompts[0][-1]["content"]
+    )
+    assert "findings associated with different options can coexist" in (
+        posterior_prompts[0][-1]["content"]
     )
 
 
@@ -745,6 +843,30 @@ def test_mediq_eig_integration_uses_grounded_patient_and_writes_artifact(
             "realized_truth_log_probability_gain"
         ]
     )
+
+
+def test_mediq_data_estimation_integration_logs_joint_components(
+    tmp_path: Path,
+) -> None:
+    questioner = DataEstimationModel()
+    answerer = RoutingMediQModel()
+    _run_result, summary = run_from_config(
+        _config(mediq_likelihood_mode="data_estimation"),
+        questioner,
+        answerer,
+        output_dir=tmp_path,
+    )
+    assert summary.metrics["selected_joint_projection_residual"][0] <= 1e-10
+    records = json.loads((tmp_path / "mediq_interactions.json").read_text())
+    candidate = records[0]["turns"][0]["candidate_details"][0]
+    assert candidate["data_estimation_marginal"] == pytest.approx(
+        {"Yes": 0.4, "No": 0.4, UNAVAILABLE_OUTCOME: 0.2}
+    )
+    assert set(candidate["data_estimation_elicited_posteriors"]) == {
+        "Yes",
+        "No",
+    }
+    assert candidate["joint_projection_residual"] <= 1e-10
 
 
 def test_mediq_naive_is_belief_free_but_decodes_each_round(tmp_path: Path) -> None:

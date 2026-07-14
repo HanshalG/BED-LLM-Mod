@@ -1,0 +1,43 @@
+version: 0
+task: mediq
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: false
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: false
+      max_model_len: 32768
+method_names:
+  - "EIG"
+batched_block_size: 256
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.0
+answer_temperature: 0.0
+probability_parse_fallback_to_uniform: false
+openrouter_budget_usd: 40.0
+openrouter_projected_cost_usd: 0.08
+openrouter_concurrency: 128
+openrouter_max_retries: 5
+openrouter_backoff_seconds: 1.0
+openrouter_max_output_tokens: 1024
+openrouter_spend_path: results/path_e/openrouter_spend.json
+environment:
+  data_path: external/MediQ/data/all_dev_good.jsonl
+  dataset: imedqa
+  verify_official_hash: true
+  skip_unusable_tasks: true
+  num_trials: 10
+  num_rounds: 3
+  trial_batch_size: 10
+  task_offset: 5
+  seed: 1304
+  num_candidates: 1
+  max_patient_facts: 2
+  probability_floor: 0.01
+  likelihood_mode: data_estimation
+  shared_call_cache_enabled: true
+  structured_max_retries: 2

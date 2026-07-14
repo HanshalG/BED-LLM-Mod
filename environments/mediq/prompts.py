@@ -345,6 +345,98 @@ def factored_likelihood_messages(
     ]
 
 
+def data_estimation_outcome_messages(
+    action: MediQAction,
+) -> list[dict[str, str]]:
+    task = action.task
+    outcomes = list(action.outcomes)
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a calibrated predictive model for the MediQ patient interface. "
+                "Predict the next response category without assuming which exam option is "
+                "correct. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Conversation so far:\n"
+                + (
+                    "\n".join(
+                        f"Doctor: {query}\nPatient: {reply}"
+                        for query, reply in action.transcript
+                    )
+                    or "None"
+                )
+                + f"\n\nClinical question:\n{task.question}\n\n"
+                f"Next doctor query: {action.query}\n"
+                f"Response categories: {json.dumps(outcomes)}\n\n"
+                "Predict how the official-style Fact-Select patient will categorize its "
+                "reply using only the information currently available to the doctor. "
+                "Unavailable means the hidden original record contains no explicit fact "
+                "that establishes Yes or No for the exact predicate. Do not condition this "
+                "prediction on any answer option being correct. Return "
+                + json.dumps(
+                    {"probabilities": {outcome: 0.0 for outcome in outcomes}}
+                )
+                + ". Values must sum to 1."
+            ),
+        },
+    ]
+
+
+def data_estimation_posterior_messages(
+    action: MediQAction,
+    hypothetical_outcome: str,
+) -> list[dict[str, str]]:
+    task = action.task
+    labels = list(task.option_labels)
+    current = dict(zip(labels, action.prior_probabilities, strict=True))
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a calibrated hypothetical-evidence clinical judge. Update a "
+                "distribution over the finite exam-answer labels after one specified "
+                "patient reply. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Conversation so far:\n"
+                + (
+                    "\n".join(
+                        f"Doctor: {query}\nPatient: {reply}"
+                        for query, reply in action.transcript
+                    )
+                    or "None"
+                )
+                + f"\n\nClinical question:\n{task.question}\n\n"
+                f"Options:\n{_options_text(task)}\n\n"
+                f"Current answer distribution: {json.dumps(current)}\n\n"
+                f"Hypothetical next interaction:\nDoctor: {action.query}\n"
+                f"Patient response category: {hypothetical_outcome}\n\n"
+                "Update the probability that each option is the exam's correct answer. "
+                "Interpret Yes or No as direct evidence about the doctor's predicate and "
+                "do not invent any additional hidden facts. Options may be diagnoses, "
+                "mechanisms, next steps, or treatment priorities; findings associated with "
+                "different options can coexist, so reason about which option is correct "
+                "rather than treating option text as mutually exclusive patient states. "
+                "Return "
+                + json.dumps(
+                    {"probabilities": {label: 0.0 for label in labels}}
+                )
+                + ". Values must sum to 1."
+            ),
+        },
+    ]
+
+
 def patient_fact_messages(task: MediQTask, query: str, max_facts: int) -> list[dict[str, str]]:
     facts = "\n".join(f"{index}: {fact}" for index, fact in enumerate(task.facts))
     return [
