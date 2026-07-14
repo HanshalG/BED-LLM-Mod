@@ -86,7 +86,9 @@ def run_smoke(config: Config, questioner: Any, answerer: Any) -> dict[str, Any]:
     env.set_questioner(questioner)
     task = env.tasks[0]
     prior = env._prior_states_many([task], questioner)[0]
-    candidates = env.generate_candidate_actions(prior, [], questioner, config)
+    candidates = env.generate_candidate_actions_many(
+        [prior], [[]], questioner, config
+    )[0]
     likelihoods = env.outcome_likelihoods_many(
         [(prior.hypotheses, action) for action in candidates]
     )

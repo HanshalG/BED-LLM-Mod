@@ -22,6 +22,11 @@ from environments.mediq.env import (
     _project_joint_to_marginals,
 )
 from helpers import Config, load_config
+from scripts.run_icraft_profile_gates import (
+    run_calibration as run_profile_calibration_gate,
+    run_smoke as run_profile_smoke_gate,
+    run_structural as run_profile_structural_gate,
+)
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "mediq_tiny.jsonl"
@@ -572,6 +577,43 @@ def test_mediq_profile_support_integration_reports_diagnosis_level_artifacts(
     assert set(candidate["likelihoods"]) == {"A", "B", "C", "D"}
     assert len(candidate["profile_support"]) == 12
     assert set(records[0]["final_belief"]) == {"A", "B", "C", "D"}
+
+
+def test_icraft_profile_gate_runner_exercises_all_preregistered_paths() -> None:
+    smoke_config = _config(
+        mediq_dataset="icraft_md",
+        mediq_likelihood_mode="profile_support",
+        mediq_num_trials=1,
+        mediq_trial_batch_size=1,
+        mediq_num_candidates=2,
+        mediq_source_ids=["0"],
+    )
+    smoke = run_profile_smoke_gate(
+        smoke_config, ProfileSupportModel(), RoutingMediQModel()
+    )
+    assert smoke["passed"] is True
+    assert smoke["likelihood_shapes"] == [[12, 3], [12, 3]]
+
+    gate_config = _config(
+        mediq_dataset="icraft_md",
+        mediq_likelihood_mode="profile_support",
+        mediq_num_trials=2,
+        mediq_trial_batch_size=2,
+        mediq_num_candidates=4,
+        mediq_source_ids=["0", "1"],
+    )
+    calibration = run_profile_calibration_gate(
+        gate_config, ProfileSupportModel(), RoutingMediQModel()
+    )
+    assert len(calibration["rows"]) == 8
+    assert calibration["max_unavailable_posterior_move"] == pytest.approx(0.0)
+    assert calibration["max_branch_update_error"] == pytest.approx(0.0)
+
+    structural = run_profile_structural_gate(
+        gate_config, ProfileSupportModel(), RoutingMediQModel()
+    )
+    assert len(structural["rows"]) == 2
+    assert all(row["two_step_best_value"] >= row["one_step_best_value"] for row in structural["rows"])
 
 
 def test_mediq_update_applies_latest_likelihood_once() -> None:
