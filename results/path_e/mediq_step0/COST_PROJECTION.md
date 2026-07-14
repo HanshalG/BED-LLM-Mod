@@ -1,6 +1,6 @@
 # MediQ Step 0 OpenRouter Cost Projection
 
-Date: 2026-07-13
+Date: 2026-07-14
 
 Frozen config: `configs/config_mediq_step0_smoke_openrouter.yaml`
 
@@ -17,29 +17,31 @@ Frozen config: `configs/config_mediq_step0_smoke_openrouter.yaml`
 
 ## Logical requests
 
-The zero-cost routing-model dry run over the same five official records made exactly
-235 logical requests:
+After the answer-space/relevance repair, the zero-cost routing-model dry run over the
+same five official records made exactly 295 logical requests:
 
 | Stage | Requests |
 |---|---:|
 | Initial finite-label prior | 5 |
 | Root candidate generation | 10 |
+| Temperature-zero semantic candidate validation | 50 |
 | Option-conditioned outcome likelihoods | 200 |
 | Fact-Select patient | 10 |
-| Relevance/outcome mapping | 10 |
-| **Total before structured retries** | **235** |
+| Category-blind explicit-relevance judgment | 10 |
+| Outcome mapping | 10 |
+| **Total before bounded repairs** | **295** |
 
 The largest concurrent stage contains 100 likelihood requests, so concurrency 128
 already covers the stage; 256 would not shorten the critical path for this run.
 
 ## Dollar reservation
 
-- Previous canonical Paprika smoke: 210,536 tokens, 669 requests, $0.04443824.
-- Expected MediQ volume: approximately 180k-260k tokens plus bounded structured retries.
-- Expected cost: approximately $0.04-$0.08.
+- Initial MediQ smoke: 88,243 tokens, 235 requests, $0.01416921.
+- Expected repaired volume: approximately 105k-150k tokens plus bounded repairs.
+- Expected repaired cost: approximately $0.02-$0.05.
 - Conservative config reservation: **$0.12**.
-- Ledger before launch: $16.71009983 spent of the user-authorized $40 cap;
-  $23.28990017 remains.
+- Ledger before the repeated smoke: $16.72426904 spent of the user-authorized $40 cap;
+  $23.27573096 remains.
 
 The smoke is an environment and probabilistic-mechanics gate, not endpoint evidence.
 Its five-case accuracy is diagnostic only. Automated passage still requires a separate

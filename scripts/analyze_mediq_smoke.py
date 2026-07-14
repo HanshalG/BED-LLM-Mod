@@ -18,13 +18,16 @@ ERROR_RE = re.compile(
     r"Traceback|RuntimeError|ValueError|CUDA out of memory|Killed", re.I
 )
 TARGET_LEAK_RE = re.compile(r"\b(?:answer|option|choice)\s*[A-Z]\b", re.I)
+COMPOUND_QUERY_RE = re.compile(r"\b(?:and|or)\b", re.I)
 UNAVAILABLE_MARKERS = (
     "unavailable",
     "not in record",
     "cannot answer",
     "unknown",
     "not provided",
+    "not recorded",
 )
+UNAVAILABLE_OUTCOME = "Information unavailable / not in record"
 PATIENT_CANNOT_ANSWER = (
     "The patient cannot answer this question from the supplied record."
 )
@@ -86,12 +89,20 @@ def _candidate_diagnostics(
                 raise ValueError("requires 3-5 outcomes")
             if len({str(value).casefold() for value in outcomes}) != len(outcomes):
                 raise ValueError("outcomes are duplicated")
-            if not any(
-                marker in str(outcome).casefold()
+            unavailable_count = sum(
+                any(marker in str(outcome).casefold() for marker in UNAVAILABLE_MARKERS)
                 for outcome in outcomes
-                for marker in UNAVAILABLE_MARKERS
+            )
+            if unavailable_count != 1 or outcomes.count(UNAVAILABLE_OUTCOME) != 1:
+                raise ValueError("requires exactly one canonical unavailable outcome")
+            validation = candidate.get("semantic_validation")
+            if (
+                not isinstance(validation, dict)
+                or validation.get("valid") is not True
+                or not isinstance(validation.get("reason"), str)
+                or not validation["reason"].strip()
             ):
-                raise ValueError("has no unavailable outcome")
+                raise ValueError("missing successful semantic candidate validation")
             if not isinstance(prior_raw, dict) or list(prior_raw) != option_labels:
                 raise ValueError("prior labels do not match task options")
             if not isinstance(likelihood_raw, dict) or list(likelihood_raw) != option_labels:
@@ -188,8 +199,11 @@ def analyze(
 
     grounding_errors: list[str] = []
     mapping_errors: list[str] = []
+    relevance_errors: list[str] = []
+    unmapped_turns: list[str] = []
     candidate_errors: list[str] = []
     target_leaking_queries: list[str] = []
+    compound_queries: list[str] = []
     task_summaries: list[dict[str, Any]] = []
     all_candidate_summaries: list[dict[str, Any]] = []
     for trial in trials:
@@ -201,6 +215,8 @@ def analyze(
             query = str(turn.get("query", ""))
             if TARGET_LEAK_RE.search(query):
                 target_leaking_queries.append(f"{prefix}: {query}")
+            if COMPOUND_QUERY_RE.search(query):
+                compound_queries.append(f"{prefix}: {query}")
             indices = turn.get("selected_fact_indices")
             reply = turn.get("reply")
             cannot_answer = turn.get("cannot_answer") is True
@@ -224,12 +240,16 @@ def analyze(
                 grounding_errors.append(f"{prefix}: {exc}")
 
             outcomes = turn.get("outcomes", [])
-            if (
-                turn.get("mapped_cleanly") is not True
-                or turn.get("mapped_outcome") not in outcomes
-                or turn.get("relevant") is not True
-            ):
-                mapping_errors.append(f"{prefix}: unclean, invalid, or irrelevant mapping")
+            mapped_cleanly = turn.get("mapped_cleanly") is True
+            mapped_outcome = turn.get("mapped_outcome")
+            if turn.get("relevant") is not True:
+                relevance_errors.append(f"{prefix}: patient reply was judged irrelevant")
+            if mapped_cleanly and mapped_outcome not in outcomes:
+                mapping_errors.append(f"{prefix}: clean mapping is not a supplied outcome")
+            elif not mapped_cleanly and mapped_outcome is not None:
+                mapping_errors.append(f"{prefix}: unclean mapping retained an outcome")
+            elif not mapped_cleanly:
+                unmapped_turns.append(prefix)
             errors, candidate_summaries = _candidate_diagnostics(trial, turn)
             candidate_errors.extend(f"{prefix}: {error}" for error in errors)
             all_candidate_summaries.extend(candidate_summaries)
@@ -276,6 +296,9 @@ def analyze(
         len(trial.get("turns", [])) == expected_rounds for trial in trials
     )
     structured_failures = _metric_max(metrics, "structured_parse_failures")
+    candidate_validation_failures = _metric_max(
+        metrics, "candidate_validation_failures"
+    )
     relevance_failures = _metric_max(metrics, "patient_relevance_failures")
 
     log_path = run_dir / "run.log"
@@ -308,11 +331,15 @@ def analyze(
         "exact_round_count": exact_rounds,
         "answer_set_coverage": coverage >= coverage_threshold,
         "verbatim_patient_grounding": grounding_rate == 1.0 and not grounding_errors,
-        "patient_relevance": relevance_rate >= relevance_threshold and not mapping_errors,
+        "patient_relevance": relevance_rate >= relevance_threshold
+        and not relevance_errors,
+        "valid_mapping_contract": not mapping_errors,
         "zero_structured_parse_failures": structured_failures == 0.0,
+        "zero_candidate_validation_failures": candidate_validation_failures == 0.0,
         "zero_patient_relevance_failures": relevance_failures == 0.0,
         "valid_finite_target_eig_tables": not candidate_errors,
         "no_target_leaking_queries": not target_leaking_queries,
+        "no_compound_queries": not compound_queries,
         "no_runtime_errors": not error_lines,
     }
     automated_pass = all(checks.values())
@@ -345,11 +372,21 @@ def analyze(
         "relevance_threshold": relevance_threshold,
         "structured_parse_failures": structured_failures,
         "structured_parse_retries": _metric_max(metrics, "structured_parse_retries"),
+        "candidate_validation_checks": _metric_max(
+            metrics, "candidate_validation_checks"
+        ),
+        "candidate_validation_retries": _metric_max(
+            metrics, "candidate_validation_retries"
+        ),
+        "candidate_validation_failures": candidate_validation_failures,
         "patient_relevance_failures": relevance_failures,
         "grounding_errors": grounding_errors,
         "mapping_errors": mapping_errors,
+        "relevance_errors": relevance_errors,
+        "unmapped_turns": unmapped_turns,
         "candidate_diagnostic_errors": candidate_errors,
         "target_leaking_queries": target_leaking_queries,
+        "compound_queries": compound_queries,
         "num_candidate_scores": len(all_candidate_summaries),
         "positive_candidate_eig_rate": (
             positive_eig / len(all_candidate_summaries)

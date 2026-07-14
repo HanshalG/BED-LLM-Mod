@@ -1,0 +1,887 @@
+{
+  "status": "automated_pass_manual_review_pending",
+  "automated_pass": true,
+  "manual_transcript_review_required": true,
+  "manual_review_focus": [
+    "Are generated questions atomic, clinically sensible, and non-redundant?",
+    "Are each question's response categories mutually exclusive and collectively useful?",
+    "Do selected facts directly answer the question rather than merely concern the case?"
+  ],
+  "checks": {
+    "expected_task_count": true,
+    "pinned_official_data_manifest": true,
+    "unique_official_task_ids": true,
+    "exact_round_count": true,
+    "answer_set_coverage": true,
+    "verbatim_patient_grounding": true,
+    "patient_relevance": true,
+    "valid_mapping_contract": true,
+    "zero_structured_parse_failures": true,
+    "zero_patient_relevance_failures": true,
+    "valid_finite_target_eig_tables": true,
+    "no_target_leaking_queries": true,
+    "no_runtime_errors": true
+  },
+  "run_dir": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T033819_mediq-step0-eig-nonthinking-26b-seed1304",
+  "interaction_artifact": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T033819_mediq-step0-eig-nonthinking-26b-seed1304/items/000_EIG/mediq_interactions.json",
+  "data_manifest": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T033819_mediq-step0-eig-nonthinking-26b-seed1304/items/000_EIG/mediq_data_manifest.json",
+  "num_tasks": 5,
+  "num_turns": 10,
+  "expected_tasks": 5,
+  "expected_rounds": 2,
+  "answer_set_coverage": 0.9,
+  "coverage_threshold": 0.85,
+  "patient_grounding_rate": 1.0,
+  "patient_relevance_rate": 1.0,
+  "relevance_threshold": 0.85,
+  "structured_parse_failures": 0.0,
+  "structured_parse_retries": 1.0,
+  "patient_relevance_failures": 0.0,
+  "grounding_errors": [],
+  "mapping_errors": [],
+  "relevance_errors": [],
+  "unmapped_turns": [
+    "mediq:imedqa:4 turn 1"
+  ],
+  "candidate_diagnostic_errors": [],
+  "target_leaking_queries": [],
+  "num_candidate_scores": 50,
+  "positive_candidate_eig_rate": 0.92,
+  "backend_requests": 235,
+  "backend_prompt_tokens": 70115,
+  "backend_completion_tokens": 18128,
+  "backend_reasoning_tokens": 0,
+  "backend_cost_usd": 0.014169210000000003,
+  "forced_thinking_exits": 0,
+  "forced_exit_rate": 0.0,
+  "runtime_error_lines": [],
+  "endpoint_accuracy": 1.0,
+  "endpoint_accuracy_is_diagnostic_only": true,
+  "task_summaries": [
+    {
+      "task_id": "mediq:imedqa:0",
+      "source_id": "0",
+      "initial_info": "A 21-year-old sexually active male complains of fever, pain during urination, and inflammation and pain in the right knee.",
+      "question": "The mechanism of action of the medication given blocks cell wall synthesis, which of the following was given?",
+      "options": {
+        "A": "Gentamicin",
+        "B": "Ciprofloxacin",
+        "C": "Ceftriaxone",
+        "D": "Trimethoprim"
+      },
+      "answer_idx": "C",
+      "turns": [
+        {
+          "query": "Have you recently traveled abroad or had unprotected sexual encounters with new partners?",
+          "outcomes": [
+            "Yes, recent travel",
+            "Yes, new sexual partners",
+            "Both travel and new partners",
+            "Neither",
+            "Unknown"
+          ],
+          "reply": "Patient is sexually active.",
+          "selected_fact_indices": [
+            1
+          ],
+          "mapped_outcome": "Yes, new sexual partners",
+          "selected_eig": 0.0014395914422912748,
+          "realized_entropy_drop": -0.008381028424507303,
+          "realized_truth_log_probability_gain": -0.0018914140317030023,
+          "observed_outcome_predictive_probability": 0.5990291262135923,
+          "candidate_summaries": [
+            {
+              "query": "Have you noticed any unusual discharge from your penis?",
+              "outcomes": [
+                "Yes, clear discharge",
+                "Yes, yellow/green discharge",
+                "No discharge",
+                "Unknown"
+              ],
+              "eig": 0.0,
+              "max_label_likelihood_l1_span": 0.0
+            },
+            {
+              "query": "Do you have any known allergies to medications, specifically penicillin or cephalosporins?",
+              "outcomes": [
+                "Allergic to penicillin/cephalosporins",
+                "Allergic to aminoglycosides",
+                "Allergic to fluoroquinolones",
+                "No known allergies",
+                "Unknown"
+              ],
+              "eig": 0.0013389987916271758,
+              "max_label_likelihood_l1_span": 0.21999999999999997
+            },
+            {
+              "query": "In the last few days, have you experienced any skin rashes or redness elsewhere on your body?",
+              "outcomes": [
+                "Yes, widespread rash",
+                "Yes, localized rash",
+                "No rash",
+                "Unknown"
+              ],
+              "eig": 8.266292191199515e-05,
+              "max_label_likelihood_l1_span": 0.10000000000000006
+            },
+            {
+              "query": "Have you recently traveled abroad or had unprotected sexual encounters with new partners?",
+              "outcomes": [
+                "Yes, recent travel",
+                "Yes, new sexual partners",
+                "Both travel and new partners",
+                "Neither",
+                "Unknown"
+              ],
+              "eig": 0.0014395914422912748,
+              "max_label_likelihood_l1_span": 0.5
+            },
+            {
+              "query": "Is the pain in your right knee accompanied by any swelling or redness of the joint?",
+              "outcomes": [
+                "Yes, swelling and redness",
+                "Swelling only",
+                "Redness only",
+                "Neither",
+                "Unknown"
+              ],
+              "eig": 0.0010532036102673665,
+              "max_label_likelihood_l1_span": 0.20000000000000007
+            }
+          ]
+        },
+        {
+          "query": "Do you have any known allergies to penicillin or cephalosporins?",
+          "outcomes": [
+            "Yes, allergic to penicillin/cephalosporins",
+            "No known allergies",
+            "Not applicable/Unknown"
+          ],
+          "reply": "The patient cannot answer this question from the supplied record.",
+          "selected_fact_indices": [],
+          "mapped_outcome": "Not applicable/Unknown",
+          "selected_eig": 0.0020961410219347168,
+          "realized_entropy_drop": -0.00015542311528504715,
+          "realized_truth_log_probability_gain": -3.504630351888749e-05,
+          "observed_outcome_predictive_probability": 0.10000000000000002,
+          "candidate_summaries": [
+            {
+              "query": "Have you noticed any unusual discharge from your penis?",
+              "outcomes": [
+                "Yes, thick yellow/green discharge",
+                "No discharge",
+                "Not applicable/Unknown"
+              ],
+              "eig": 0.00035705254773016934,
+              "max_label_likelihood_l1_span": 0.19999999999999996
+            },
+            {
+              "query": "Have you had any recent skin infections or sores in your genital area?",
+              "outcomes": [
+                "Yes, sores/ulcers present",
+                "No sores/ulcers",
+                "Not applicable/Unknown"
+              ],
+              "eig": -4.9960036108132046e-17,
+              "max_label_likelihood_l1_span": 0.0
+            },
+            {
+              "query": "Have you experienced any recent joint swelling or redness in other joints besides the right knee?",
+              "outcomes": [
+                "Yes, multiple joints involved",
+                "No, only the right knee",
+                "Not applicable/Unknown"
+              ],
+              "eig": -1.2767564783189302e-16,
+              "max_label_likelihood_l1_span": 0.0
+            },
+            {
+              "query": "Have you recently taken any antibiotics for these symptoms?",
+              "outcomes": [
+                "Yes, I have",
+                "No, I haven't",
+                "Not applicable/Unknown"
+              ],
+              "eig": -1.2767564783189302e-16,
+              "max_label_likelihood_l1_span": 0.0
+            },
+            {
+              "query": "Do you have any known allergies to penicillin or cephalosporins?",
+              "outcomes": [
+                "Yes, allergic to penicillin/cephalosporins",
+                "No known allergies",
+                "Not applicable/Unknown"
+              ],
+              "eig": 0.0020961410219347168,
+              "max_label_likelihood_l1_span": 0.19999999999999996
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:1",
+      "source_id": "1",
+      "initial_info": "A 5-year-old girl is brought to the emergency department by her mother because of multiple episodes of nausea and vomiting that last about 2 hours.",
+      "question": "Which of the following is the most likely diagnosis?",
+      "options": {
+        "A": "Cyclic vomiting syndrome",
+        "B": "Gastroenteritis",
+        "C": "Hypertrophic pyloric stenosis",
+        "D": "Gastroesophageal reflux disease"
+      },
+      "answer_idx": "A",
+      "turns": [
+        {
+          "query": "What is the character and timing of the vomiting episodes?",
+          "outcomes": [
+            "Periodic, intense episodes lasting hours with intervening normal health",
+            "Continuous vomiting following meals",
+            "Projectile vomiting after every feed",
+            "Information not provided"
+          ],
+          "reply": "She has had multiple episodes of nausea and vomiting that last about 2 hours.\nDuring this period, she has had 6\u20138 episodes of bilious vomiting and abdominal pain.",
+          "selected_fact_indices": [
+            1,
+            2
+          ],
+          "mapped_outcome": "Periodic, intense episodes lasting hours with intervening normal health",
+          "selected_eig": 0.5532450063706904,
+          "realized_entropy_drop": 0.7395153853596684,
+          "realized_truth_log_probability_gain": 0.4648799357050355,
+          "observed_outcome_predictive_probability": 0.5899999999999999,
+          "candidate_summaries": [
+            {
+              "query": "How long have these episodes of vomiting been occurring in total?",
+              "outcomes": [
+                "Weeks to months",
+                "Days",
+                "Hours",
+                "Information not provided"
+              ],
+              "eig": 0.15126255079259254,
+              "max_label_likelihood_l1_span": 1.1
+            },
+            {
+              "query": "What is the character and timing of the vomiting episodes?",
+              "outcomes": [
+                "Periodic, intense episodes lasting hours with intervening normal health",
+                "Continuous vomiting following meals",
+                "Projectile vomiting after every feed",
+                "Information not provided"
+              ],
+              "eig": 0.5532450063706904,
+              "max_label_likelihood_l1_span": 1.7999999999999998
+            },
+            {
+              "query": "Has the child experienced any fever or diarrhea accompanying the vomiting?",
+              "outcomes": [
+                "Yes, fever and diarrhea present",
+                "No, only vomiting and nausea",
+                "Only fever, no diarrhea",
+                "Information not provided"
+              ],
+              "eig": 0.23751596036904957,
+              "max_label_likelihood_l1_span": 1.3
+            },
+            {
+              "query": "Does the child have a palpable mass in the upper abdomen?",
+              "outcomes": [
+                "Palpable olive-shaped mass",
+                "No abdominal mass felt",
+                "Distended abdomen but no mass",
+                "Information not provided"
+              ],
+              "eig": 0.09947143639353886,
+              "max_label_likelihood_l1_span": 1.5999999999999999
+            },
+            {
+              "query": "Does the vomiting typically occur immediately after eating or during sleep?",
+              "outcomes": [
+                "Occurs primarily during sleep or at night",
+                "Occurs immediately after every meal",
+                "Occurs randomly throughout the day",
+                "Information not provided"
+              ],
+              "eig": 0.10802585510669759,
+              "max_label_likelihood_l1_span": 1.6
+            }
+          ]
+        },
+        {
+          "query": "Is there a history of similar episodes occurring at regular intervals over months or years?",
+          "outcomes": [
+            "Yes, recurrent and periodic",
+            "No, this is the first time",
+            "Episodes are unpredictable",
+            "Information not provided"
+          ],
+          "reply": "She has missed several days of school and has been hospitalized 2 times during the past 6 months for dehydration due to similar episodes of vomiting and nausea.",
+          "selected_fact_indices": [
+            5
+          ],
+          "mapped_outcome": "Yes, recurrent and periodic",
+          "selected_eig": 0.08497502402143586,
+          "realized_entropy_drop": 0.06353662155257453,
+          "realized_truth_log_probability_gain": 0.016270868623488376,
+          "observed_outcome_predictive_probability": 0.815063672922252,
+          "candidate_summaries": [
+            {
+              "query": "Does the child have a fever or diarrhea?",
+              "outcomes": [
+                "Yes, both",
+                "Only fever",
+                "Only diarrhea",
+                "No fever or diarrhea",
+                "Information not provided"
+              ],
+              "eig": 0.02255812995415825,
+              "max_label_likelihood_l1_span": 1.2999999999999998
+            },
+            {
+              "query": "Is there a history of similar episodes occurring at regular intervals over months or years?",
+              "outcomes": [
+                "Yes, recurrent and periodic",
+                "No, this is the first time",
+                "Episodes are unpredictable",
+                "Information not provided"
+              ],
+              "eig": 0.08497502402143586,
+              "max_label_likelihood_l1_span": 1.5999999999999999
+            },
+            {
+              "query": "Are there any specific triggers, such as stress or certain foods, before the episodes start?",
+              "outcomes": [
+                "Stress/emotional triggers",
+                "Food-related triggers",
+                "No identifiable triggers",
+                "Information not provided"
+              ],
+              "eig": 0.01755764489747795,
+              "max_label_likelihood_l1_span": 1.0
+            },
+            {
+              "query": "Does the child appear well and active between the vomiting episodes?",
+              "outcomes": [
+                "Completely well and active",
+                "Lethargic/fatigued between episodes",
+                "Ill-appearing between episodes",
+                "Information not provided"
+              ],
+              "eig": 0.0207834895881557,
+              "max_label_likelihood_l1_span": 1.5999999999999996
+            },
+            {
+              "query": "Has there been any recent travel or exposure to sick contacts?",
+              "outcomes": [
+                "Yes, recent travel",
+                "Yes, sick contacts",
+                "No recent travel or sick contacts",
+                "Information not provided"
+              ],
+              "eig": 0.004202246272608969,
+              "max_label_likelihood_l1_span": 0.4000000000000001
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:2",
+      "source_id": "2",
+      "initial_info": "A 40-year-old woman presents with difficulty falling asleep, diminished appetite, and tiredness for the past 6 weeks.",
+      "question": "Which of the following is the best course of treatment in this patient?",
+      "options": {
+        "A": "Diazepam",
+        "B": "Paroxetine",
+        "C": "Zolpidem",
+        "D": "Trazodone"
+      },
+      "answer_idx": "D",
+      "turns": [
+        {
+          "query": "Have you ever been diagnosed with a mood disorder or been prescribed medication for mental health in the past?",
+          "outcomes": [
+            "Yes, previously diagnosed/treated",
+            "No, never diagnosed",
+            "I don't know",
+            "Information unavailable"
+          ],
+          "reply": "Patient has no significant past medical history.\nPatient is not on any medications.",
+          "selected_fact_indices": [
+            10,
+            11
+          ],
+          "mapped_outcome": "No, never diagnosed",
+          "selected_eig": 0.06308011942174958,
+          "realized_entropy_drop": -0.06859691381133914,
+          "realized_truth_log_probability_gain": 0.057158413839948685,
+          "observed_outcome_predictive_probability": 0.425,
+          "candidate_summaries": [
+            {
+              "query": "In addition to your sleep and appetite changes, have you experienced persistent low mood, feelings of worthlessness, or loss of interest in activities you used to enjoy?",
+              "outcomes": [
+                "Yes, these symptoms are present",
+                "No, my mood remains stable",
+                "Not applicable/I am unsure",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.006093599624316267,
+              "max_label_likelihood_l1_span": 0.19999999999999996
+            },
+            {
+              "query": "Have you noticed any changes in your energy levels or physical movements, such as feeling restless or unusually slowed down?",
+              "outcomes": [
+                "I feel restless or agitated",
+                "I feel physically slowed down",
+                "No change in movement/energy",
+                "Information unavailable"
+              ],
+              "eig": 0.03070273777085894,
+              "max_label_likelihood_l1_span": 0.5
+            },
+            {
+              "query": "Have you experienced any significant changes in your weight or any physical pain during this 6-week period?",
+              "outcomes": [
+                "Significant weight loss/gain",
+                "Increased physical pain",
+                "No significant changes",
+                "Information unavailable"
+              ],
+              "eig": 0.03250393968904971,
+              "max_label_likelihood_l1_span": 0.39999999999999997
+            },
+            {
+              "query": "Do you have a history of anxiety, panic attacks, or excessive worrying that predates these current symptoms?",
+              "outcomes": [
+                "Yes, a long-standing history of anxiety",
+                "Yes, recent onset of anxiety",
+                "No history of anxiety",
+                "Information unavailable"
+              ],
+              "eig": 0.038810145157992554,
+              "max_label_likelihood_l1_span": 0.8
+            },
+            {
+              "query": "Have you ever been diagnosed with a mood disorder or been prescribed medication for mental health in the past?",
+              "outcomes": [
+                "Yes, previously diagnosed/treated",
+                "No, never diagnosed",
+                "I don't know",
+                "Information unavailable"
+              ],
+              "eig": 0.06308011942174958,
+              "max_label_likelihood_l1_span": 0.6000000000000001
+            }
+          ]
+        },
+        {
+          "query": "Have you experienced persistent feelings of sadness, hopelessness, or loss of interest in activities you used to enjoy during this period?",
+          "outcomes": [
+            "Yes, daily for most of the day",
+            "Yes, occasionally",
+            "No, not at all",
+            "Unknown"
+          ],
+          "reply": "Patient has grown increasingly irritable and feels increasingly hopeless.\nPatient's concentration and interest at work have diminished.",
+          "selected_fact_indices": [
+            5,
+            6
+          ],
+          "mapped_outcome": "Yes, occasionally",
+          "selected_eig": 0.1063704030381512,
+          "realized_entropy_drop": 0.01838644912293308,
+          "realized_truth_log_probability_gain": 0.2379586370993505,
+          "observed_outcome_predictive_probability": 0.27588235294117647,
+          "candidate_summaries": [
+            {
+              "query": "Have you experienced persistent feelings of sadness, hopelessness, or loss of interest in activities you used to enjoy during this period?",
+              "outcomes": [
+                "Yes, daily for most of the day",
+                "Yes, occasionally",
+                "No, not at all",
+                "Unknown"
+              ],
+              "eig": 0.1063704030381512,
+              "max_label_likelihood_l1_span": 1.2
+            },
+            {
+              "query": "Have you experienced significant weight loss or a noticeable change in your eating patterns?",
+              "outcomes": [
+                "Significant weight loss",
+                "Decreased appetite without weight loss",
+                "Increased appetite",
+                "Unknown"
+              ],
+              "eig": 0.004199836275861837,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Do you find that your difficulty sleeping is primarily due to racing thoughts or an inability to quiet your mind at night?",
+              "outcomes": [
+                "Yes, racing thoughts are the main cause",
+                "No, it is physical restlessness",
+                "No, it is not related to thoughts",
+                "Unknown"
+              ],
+              "eig": 0.022746754095059073,
+              "max_label_likelihood_l1_span": 0.4
+            },
+            {
+              "query": "In the past 6 weeks, have you experienced any physical symptoms like excessive sweating, tremors, or a racing heart?",
+              "outcomes": [
+                "Yes, frequent physical symptoms",
+                "No, only psychological symptoms",
+                "Only during sleep attempts",
+                "Unknown"
+              ],
+              "eig": 0.058710775083564856,
+              "max_label_likelihood_l1_span": 0.6000000000000001
+            },
+            {
+              "query": "Have you noticed any difficulty concentrating or making decisions during your daily activities?",
+              "outcomes": [
+                "Yes, significant difficulty",
+                "Mild difficulty",
+                "No difficulty",
+                "Unknown"
+              ],
+              "eig": 0.005847620434571443,
+              "max_label_likelihood_l1_span": 0.20000000000000007
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:3",
+      "source_id": "3",
+      "initial_info": "A 37-year-old female with a history of type II diabetes mellitus presents to the emergency department complaining of blood in her urine, left-sided flank pain, nausea, and fever.",
+      "question": "Which of the following is the next best step in management?",
+      "options": {
+        "A": "Obtain an abdominal CT scan",
+        "B": "Obtain a urine analysis and urine culture",
+        "C": "Begin intravenous treatment with ceftazidime",
+        "D": "No treatment is necessary"
+      },
+      "answer_idx": "B",
+      "turns": [
+        {
+          "query": "What is the patient's temperature?",
+          "outcomes": [
+            "Fever (\u226538.0\u00b0C)",
+            "Afebrile (<38.0\u00b0C)",
+            "Information not provided"
+          ],
+          "reply": "Her temperature is 102 deg F (39.4 deg C).",
+          "selected_fact_indices": [
+            4
+          ],
+          "mapped_outcome": "Fever (\u226538.0\u00b0C)",
+          "selected_eig": 0.1166333944356154,
+          "realized_entropy_drop": 0.12056105612368517,
+          "realized_truth_log_probability_gain": 0.043402074451774075,
+          "observed_outcome_predictive_probability": 0.903118811881188,
+          "candidate_summaries": [
+            {
+              "query": "What is the patient's temperature?",
+              "outcomes": [
+                "Fever (\u226538.0\u00b0C)",
+                "Afebrile (<38.0\u00b0C)",
+                "Information not provided"
+              ],
+              "eig": 0.1166333944356154,
+              "max_label_likelihood_l1_span": 1.7999999999999998
+            },
+            {
+              "query": "What is the appearance of the urine during physical inspection?",
+              "outcomes": [
+                "Grossly bloody (hematuria)",
+                "Clear/Straw-colored",
+                "Cloudy/Turbid",
+                "Information not provided"
+              ],
+              "eig": 0.0695746218655761,
+              "max_label_likelihood_l1_span": 0.9999999999999999
+            },
+            {
+              "query": "How would you describe the character of the flank pain?",
+              "outcomes": [
+                "Colicky/intermittent",
+                "Constant/dull ache",
+                "Radiating to the groin",
+                "Information not provided"
+              ],
+              "eig": 0.04076930176582656,
+              "max_label_likelihood_l1_span": 1.2000000000000002
+            },
+            {
+              "query": "What is the patient's current blood glucose level?",
+              "outcomes": [
+                "Hyperglycemic (>250 mg/dL)",
+                "Euglycemic (70-140 mg/dL)",
+                "Hypoglycemic (<70 mg/dL)",
+                "Information not provided"
+              ],
+              "eig": 0.003922628542046069,
+              "max_label_likelihood_l1_span": 0.24174757281553405
+            },
+            {
+              "query": "Are there any findings of costovertebral angle (CVA) tenderness on physical exam?",
+              "outcomes": [
+                "Positive CVA tenderness",
+                "Negative CVA tenderness",
+                "Information not provided"
+              ],
+              "eig": 0.08372966196550045,
+              "max_label_likelihood_l1_span": 1.6
+            }
+          ]
+        },
+        {
+          "query": "What is the patient's current blood pressure?",
+          "outcomes": [
+            "Hypotensive",
+            "Normal",
+            "Hypertensive",
+            "Unknown"
+          ],
+          "reply": "Her blood pressure is 114/82 mmHg.",
+          "selected_fact_indices": [
+            5
+          ],
+          "mapped_outcome": "Normal",
+          "selected_eig": 0.06213723798162697,
+          "realized_entropy_drop": -0.294272805134018,
+          "realized_truth_log_probability_gain": -0.3115916963282431,
+          "observed_outcome_predictive_probability": 0.20428592108922322,
+          "candidate_summaries": [
+            {
+              "query": "Has the patient experienced any recent trauma to the flank area?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Unknown"
+              ],
+              "eig": 0.004135750776097073,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Is there any history of kidney stones or renal calculi?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Unknown"
+              ],
+              "eig": 0.00036118171742456607,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "What is the patient's current blood pressure?",
+              "outcomes": [
+                "Hypotensive",
+                "Normal",
+                "Hypertensive",
+                "Unknown"
+              ],
+              "eig": 0.06213723798162697,
+              "max_label_likelihood_l1_span": 1.1
+            },
+            {
+              "query": "Does the patient have any known allergies to antibiotics?",
+              "outcomes": [
+                "Penicillins",
+                "Cephalosporins",
+                "Fluoroquinolones",
+                "No known allergies",
+                "Unknown"
+              ],
+              "eig": 0.0005086810803900905,
+              "max_label_likelihood_l1_span": 0.2
+            },
+            {
+              "query": "Are there any findings of costovertebral angle tenderness on physical examination?",
+              "outcomes": [
+                "Present",
+                "Absent",
+                "Unknown"
+              ],
+              "eig": 0.023362423969403433,
+              "max_label_likelihood_l1_span": 1.7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:4",
+      "source_id": "4",
+      "initial_info": "A 19-year-old boy presents with confusion and the inability to speak properly.",
+      "question": "Which of the following should be treated first in this patient?",
+      "options": {
+        "A": "Hypoperfusion",
+        "B": "Hyperglycemia",
+        "C": "Metabolic acidosis",
+        "D": "Hypokalemia"
+      },
+      "answer_idx": "A",
+      "turns": [
+        {
+          "query": "What is the patient's most recent blood glucose level?",
+          "outcomes": [
+            "Extremely high (e.g., >500 mg/dL)",
+            "Low (e.g., <50 mg/dL)",
+            "Normal range",
+            "Not recorded",
+            "Information unavailable / not in record"
+          ],
+          "reply": "Patient's glucose level is 450 mg/dL.",
+          "selected_fact_indices": [
+            17
+          ],
+          "mapped_outcome": null,
+          "selected_eig": 0.3608415999773399,
+          "realized_entropy_drop": 0.0,
+          "realized_truth_log_probability_gain": 0.0,
+          "observed_outcome_predictive_probability": null,
+          "candidate_summaries": [
+            {
+              "query": "What is the patient's blood pressure and heart rate?",
+              "outcomes": [
+                "Hypotensive and tachycardic",
+                "Normotensive and normocardic",
+                "Hypertensive and tachycardic",
+                "Not recorded",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.29199555144629186,
+              "max_label_likelihood_l1_span": 1.6
+            },
+            {
+              "query": "What is the patient's most recent blood glucose level?",
+              "outcomes": [
+                "Extremely high (e.g., >500 mg/dL)",
+                "Low (e.g., <50 mg/dL)",
+                "Normal range",
+                "Not recorded",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.3608415999773399,
+              "max_label_likelihood_l1_span": 1.6
+            },
+            {
+              "query": "What are the results of the arterial blood gas (ABG) analysis?",
+              "outcomes": [
+                "Severe metabolic acidosis",
+                "Respiratory alkalosis",
+                "Normal pH and bicarbonate",
+                "Not recorded",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.12593164705654228,
+              "max_label_likelihood_l1_span": 1.4831683168316832
+            },
+            {
+              "query": "What is the patient's serum potassium level?",
+              "outcomes": [
+                "Low (hypokalemia)",
+                "High (hyperkalemia)",
+                "Normal range",
+                "Not recorded",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.208617180732707,
+              "max_label_likelihood_l1_span": 1.7446601941747573
+            },
+            {
+              "query": "Does the patient have a history of diabetes mellitus or ketoacidosis?",
+              "outcomes": [
+                "Yes, type 1 diabetes",
+                "No known medical history",
+                "History of other metabolic disorders",
+                "Information unavailable"
+              ],
+              "eig": 0.1313828320390264,
+              "max_label_likelihood_l1_span": 1.2000000000000002
+            }
+          ]
+        },
+        {
+          "query": "What is the patient's serum potassium level?",
+          "outcomes": [
+            "Low potassium (<3.5 mEq/L)",
+            "Normal potassium (3.5-5.0 mEq/L)",
+            "High potassium (>5.0 mEq/L)",
+            "Information not provided"
+          ],
+          "reply": "Patient's potassium level is 4.1 mEq/L.",
+          "selected_fact_indices": [
+            18
+          ],
+          "mapped_outcome": "Normal potassium (3.5-5.0 mEq/L)",
+          "selected_eig": 0.22844648654841235,
+          "realized_entropy_drop": 0.15915869154193585,
+          "realized_truth_log_probability_gain": 0.09282482202136244,
+          "observed_outcome_predictive_probability": 0.1367029702970297,
+          "candidate_summaries": [
+            {
+              "query": "What is the patient's current blood pressure and heart rate?",
+              "outcomes": [
+                "Hypotensive and tachycardic",
+                "Normotensive and normocardic",
+                "Hypertensive and tachycardic",
+                "Information not provided"
+              ],
+              "eig": 0.0757069076355037,
+              "max_label_likelihood_l1_span": 0.7999999999999999
+            },
+            {
+              "query": "What are the results of the arterial blood gas (ABG) analysis?",
+              "outcomes": [
+                "Low pH, low bicarbonate, and high anion gap",
+                "Normal pH and bicarbonate",
+                "High pH and low bicarbonate",
+                "Information not provided"
+              ],
+              "eig": 0.01376763495903331,
+              "max_label_likelihood_l1_span": 0.23702970297029702
+            },
+            {
+              "query": "What is the patient's serum potassium level?",
+              "outcomes": [
+                "Low potassium (<3.5 mEq/L)",
+                "Normal potassium (3.5-5.0 mEq/L)",
+                "High potassium (>5.0 mEq/L)",
+                "Information not provided"
+              ],
+              "eig": 0.22844648654841235,
+              "max_label_likelihood_l1_span": 1.603168316831683
+            },
+            {
+              "query": "Does the patient have signs of dehydration or decreased skin turgor?",
+              "outcomes": [
+                "Significant signs of dehydration",
+                "No signs of dehydration",
+                "Ambiguous signs",
+                "Information not provided"
+              ],
+              "eig": 0.12694390605930805,
+              "max_label_likelihood_l1_span": 1.4
+            },
+            {
+              "query": "What is the patient's serum bicarbonate (HCO3-) level?",
+              "outcomes": [
+                "Significantly decreased",
+                "Normal",
+                "Significantly increased",
+                "Information not provided"
+              ],
+              "eig": 0.014793947552155476,
+              "max_label_likelihood_l1_span": 0.21702970297029706
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

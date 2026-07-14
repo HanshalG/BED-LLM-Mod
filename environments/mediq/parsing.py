@@ -78,18 +78,37 @@ def parse_fact_selection(
     return tuple(parsed), cannot_answer
 
 
+def parse_candidate_validation(text: str) -> tuple[bool, str]:
+    raw = parse_json_object(text)
+    valid = raw.get("valid")
+    reason = raw.get("reason")
+    if not isinstance(valid, bool) or not isinstance(reason, str) or not reason.strip():
+        raise ValueError("candidate validation requires valid boolean and non-empty reason")
+    return valid, reason.strip()
+
+
+def parse_relevance(text: str) -> tuple[bool, str]:
+    raw = parse_json_object(text)
+    relevant = raw.get("relevant")
+    reason = raw.get("reason")
+    if not isinstance(relevant, bool) or not isinstance(reason, str) or not reason.strip():
+        raise ValueError("relevance judgment requires relevant boolean and non-empty reason")
+    return relevant, reason.strip()
+
+
 def parse_mapping(
     text: str,
     outcomes: Sequence[str],
-) -> tuple[bool, str | None, bool]:
+) -> tuple[str | None, bool]:
     raw = parse_json_object(text)
-    relevant = raw.get("relevant")
     clean = raw.get("clean")
     selected = raw.get("outcome")
-    if not isinstance(relevant, bool) or not isinstance(clean, bool):
-        raise ValueError("mapping requires relevant and clean booleans")
+    if not isinstance(clean, bool):
+        raise ValueError("mapping requires a clean boolean")
     if selected is not None and not isinstance(selected, str):
         raise ValueError("mapping outcome must be a string or null")
+    if not clean and selected is not None:
+        raise ValueError("unclean mapping requires outcome=null")
     canonical = None
     if clean and isinstance(selected, str):
         canonical = next(
@@ -104,4 +123,4 @@ def parse_mapping(
             raise ValueError("clean mapping outcome is not one of the supplied outcomes")
     if clean and canonical is None:
         raise ValueError("clean mapping requires a canonical outcome")
-    return relevant, canonical, clean
+    return canonical, clean

@@ -15,7 +15,11 @@ from environments.mediq import (
     load_mediq_tasks,
     load_mediq_tasks_with_report,
 )
-from environments.mediq.env import MediQEnvironment
+from environments.mediq.env import (
+    UNAVAILABLE_OUTCOME,
+    MediQEnvironment,
+    _ensure_unavailable,
+)
 from helpers import Config, load_config
 
 
@@ -66,6 +70,8 @@ class RoutingMediQModel:
                     }
                 )
             return json.dumps({"candidates": candidates})
+        if "strict MediQ candidate-space auditor" in system:
+            return json.dumps({"valid": True, "reason": "valid atomic partition"})
         if "calibrated clinical generative model" in system:
             outcomes = json.loads(
                 re.search(r"Response categories: (\[[^\n]+\])", user).group(1)
@@ -80,14 +86,87 @@ class RoutingMediQModel:
             )
         if "official-style MediQ Fact-Select patient" in system:
             return json.dumps({"fact_indices": [1], "cannot_answer": False})
-        if "map it to one supplied response category" in system:
+        if "strict MediQ explicit-entailment auditor" in system:
+            return json.dumps(
+                {"relevant": True, "reason": "the selected fact explicitly answers it"}
+            )
+        if "Map an already-validated" in system:
             outcomes = json.loads(
                 re.search(r"Response categories: (\[[^\n]+\])", user).group(1)
             )
-            return json.dumps(
-                {"relevant": True, "clean": True, "outcome": outcomes[0]}
-            )
+            return json.dumps({"clean": True, "outcome": outcomes[0]})
         raise AssertionError(f"Unexpected MediQ prompt: {system}")
+
+
+class CandidateRepairModel(RoutingMediQModel):
+    def _route(self, messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "generate atomic patient questions" in system:
+            if "failed structural validation" in user:
+                return json.dumps(
+                    {
+                        "candidates": [
+                            {
+                                "query": "What is the body temperature?",
+                                "outcomes": [
+                                    "Below 38 C",
+                                    "At least 38 C",
+                                    UNAVAILABLE_OUTCOME,
+                                ],
+                            }
+                        ]
+                    }
+                )
+            return json.dumps(
+                {
+                    "candidates": [
+                        {
+                            "query": "What is the blood glucose value?",
+                            "outcomes": [
+                                "Below 50 mg/dL",
+                                "Above 500 mg/dL",
+                                UNAVAILABLE_OUTCOME,
+                            ],
+                        }
+                    ]
+                }
+            )
+        if "strict MediQ candidate-space auditor" in system:
+            if "blood glucose" in user:
+                return json.dumps(
+                    {
+                        "valid": False,
+                        "reason": "numeric outcomes leave a gap from 50 to 500 mg/dL",
+                    }
+                )
+            return json.dumps({"valid": True, "reason": "complete numeric partition"})
+        return super()._route(messages)
+
+
+class RejectingRelevanceModel(RoutingMediQModel):
+    def _route(self, messages: list[dict[str, str]]) -> str:
+        if "strict MediQ explicit-entailment auditor" in messages[0]["content"]:
+            return json.dumps(
+                {
+                    "relevant": False,
+                    "reason": "age and sex do not answer the requested diagnostic finding",
+                }
+            )
+        return super()._route(messages)
+
+
+class IrrelevantThenUnavailablePatient(RoutingMediQModel):
+    def _route(self, messages: list[dict[str, str]]) -> str:
+        if "official-style MediQ Fact-Select patient" in messages[0]["content"]:
+            repaired = any(
+                "selected facts did not directly answer" in message["content"].casefold()
+                for message in messages
+            )
+            if repaired:
+                return json.dumps({"fact_indices": [], "cannot_answer": True})
+            return json.dumps({"fact_indices": [0], "cannot_answer": False})
+        return super()._route(messages)
 
 
 def _config(**overrides: object) -> Config:
@@ -210,6 +289,103 @@ def test_mediq_update_applies_latest_likelihood_once() -> None:
     assert updated_twice.probabilities[0] > updated.probabilities[0]
 
 
+def test_mediq_outcomes_have_one_canonical_unavailable_category() -> None:
+    outcomes = _ensure_unavailable(
+        [
+            "Low",
+            "Normal",
+            "High",
+            "Not recorded",
+            "Unknown",
+            "Information unavailable / not in record",
+        ]
+    )
+    assert outcomes == ("Low", "Normal", "High", UNAVAILABLE_OUTCOME)
+    assert sum(outcome == UNAVAILABLE_OUTCOME for outcome in outcomes) == 1
+
+
+def test_mediq_compound_candidate_is_rejected() -> None:
+    model = RoutingMediQModel()
+    config = _config(mediq_num_trials=1, mediq_num_candidates=1)
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    belief = BeliefState.uniform(task.option_labels)
+    response = json.dumps(
+        {
+            "candidates": [
+                {
+                    "query": "Do you have fever or productive cough?",
+                    "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
+                }
+            ]
+        }
+    )
+    with pytest.raises(ValueError, match="Expected 1 valid MediQ candidates"):
+        env._parse_candidates(response, task, belief, [], 1)
+
+
+def test_mediq_semantic_candidate_validation_regenerates_invalid_set() -> None:
+    model = CandidateRepairModel()
+    config = _config(mediq_num_trials=1, mediq_num_candidates=1)
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    actions = env.generate_candidate_actions(
+        BeliefState.uniform(task.option_labels), [], model, config
+    )
+    assert [action.query for action in actions] == ["What is the body temperature?"]
+    assert env._candidate_metrics() == {
+        "candidate_validation_checks": 2.0,
+        "candidate_validation_retries": 1.0,
+        "candidate_validation_failures": 0.0,
+    }
+
+
+def test_mediq_relevance_is_category_blind_and_repairs_fact_selection() -> None:
+    questioner = RejectingRelevanceModel()
+    answerer = IrrelevantThenUnavailablePatient()
+    config = _config(mediq_num_trials=1, mediq_num_candidates=1)
+    env = MediQEnvironment(config, answerer).configure_for_run(config)
+    env.set_questioner(questioner)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    action = MediQAction(
+        query="What diagnostic finding confirms the infection?",
+        outcomes=("Ring forms present", "Ring forms absent", UNAVAILABLE_OUTCOME),
+        task=task,
+    )
+    observation = env.observe(action, task, np.random.default_rng(0))
+    assert observation.cannot_answer is True
+    assert observation.mapped_outcome == UNAVAILABLE_OUTCOME
+    assert observation.selected_fact_indices == ()
+    relevance_prompts = [
+        messages
+        for batch in questioner.batches
+        for messages in batch
+        if "strict MediQ explicit-entailment auditor" in messages[0]["content"]
+    ]
+    assert len(relevance_prompts) == 1
+    assert "Response categories" not in relevance_prompts[0][-1]["content"]
+    patient_metrics = env._patient_metrics()
+    assert patient_metrics["patient_raw_irrelevant_selections"] == 1.0
+    assert patient_metrics["patient_relevance_repairs"] == 1.0
+    assert patient_metrics["patient_relevance_failures"] == 0.0
+
+
+def test_mediq_relevant_fact_cannot_map_to_unavailable() -> None:
+    model = RoutingMediQModel()
+    config = _config(mediq_num_trials=1)
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    task = env.tasks[0]
+    action = MediQAction(
+        query="What is the blood smear result?",
+        outcomes=("Ring forms present", "Ring forms absent", UNAVAILABLE_OUTCOME),
+        task=task,
+    )
+    response = json.dumps({"clean": True, "outcome": UNAVAILABLE_OUTCOME})
+    with pytest.raises(ValueError, match="cannot map to unavailable"):
+        env._parse_patient_mapping(response, action)
+
+
 def test_mediq_eig_integration_uses_grounded_patient_and_writes_artifact(
     tmp_path: Path,
 ) -> None:
@@ -236,7 +412,7 @@ def test_mediq_eig_integration_uses_grounded_patient_and_writes_artifact(
     assert summary.metrics["patient_grounding_rate"] == [1.0]
     assert summary.metrics["patient_relevance_rate"] == [1.0]
     assert summary.metrics["answer_set_coverage"] == [1.0]
-    assert sum(len(batch) for batch in questioner.batches) == 22
+    assert sum(len(batch) for batch in questioner.batches) == 28
     assert sum(len(batch) for batch in answerer.batches) == 2
     records = json.loads((tmp_path / "mediq_interactions.json").read_text())
     assert len(records) == 2

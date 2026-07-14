@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from pathlib import Path
 from typing import Any, Callable, Sequence
 
@@ -20,18 +21,22 @@ from .data import (
     load_mediq_tasks_with_report,
 )
 from .parsing import (
+    parse_candidate_validation,
     parse_distribution,
     parse_fact_selection,
     parse_json_object,
     parse_mapping,
+    parse_relevance,
 )
 from .prompts import (
     candidate_messages,
+    candidate_validation_messages,
     likelihood_messages,
     mapping_messages,
     patient_fact_messages,
     posterior_messages,
     prior_messages,
+    relevance_messages,
     repair_messages,
 )
 from .types import MediQAction, MediQObservation, MediQTask
@@ -61,6 +66,7 @@ def _is_unavailable(value: str) -> bool:
             "cannot answer",
             "unknown",
             "not provided",
+            "not recorded",
         )
     )
 
@@ -72,16 +78,16 @@ def _ensure_unavailable(values: Sequence[Any]) -> tuple[str, ...]:
         if not isinstance(value, str):
             continue
         clean = value.strip()
-        if clean and clean.casefold() not in seen:
+        if clean and not _is_unavailable(clean) and clean.casefold() not in seen:
             outcomes.append(clean)
             seen.add(clean.casefold())
-    if any(_is_unavailable(outcome) for outcome in outcomes):
-        return tuple(outcomes)
-    if len(outcomes) < 5:
-        outcomes.append(UNAVAILABLE_OUTCOME)
-    elif outcomes:
-        outcomes[-1] = UNAVAILABLE_OUTCOME
+    outcomes = outcomes[:4]
+    outcomes.append(UNAVAILABLE_OUTCOME)
     return tuple(outcomes)
+
+
+def _is_compound_query(query: str) -> bool:
+    return re.search(r"\b(?:and|or)\b", query.casefold()) is not None
 
 
 class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation]):
@@ -102,6 +108,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self._shared_cache_misses = 0
         self._structured_parse_retries = 0
         self._structured_parse_failures = 0
+        self._candidate_validation_checks = 0
+        self._candidate_validation_retries = 0
+        self._candidate_validation_failures = 0
+        self._candidate_validation_cache: dict[MediQAction, tuple[bool, str]] = {}
         self._patient_observations = 0
         self._patient_relevance_checks = 0
         self._patient_raw_irrelevant = 0
@@ -525,12 +535,15 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             outcomes = item.get("outcomes")
             if not isinstance(query, str) or not isinstance(outcomes, list):
                 continue
-            normalized = query.strip().casefold()
+            clean_query = query.strip()
+            normalized = clean_query.casefold()
             if normalized in prior_queries or normalized in seen_queries:
+                continue
+            if _is_compound_query(clean_query):
                 continue
             try:
                 action = MediQAction(
-                    query=query,
+                    query=clean_query,
                     outcomes=_ensure_unavailable(outcomes),
                     task=task,
                     transcript=transcript,
@@ -546,6 +559,116 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             )
         return actions
 
+    def _validated_candidate_actions_many(
+        self,
+        tasks: Sequence[MediQTask],
+        belief_states: Sequence[BeliefState[str]],
+        histories: Sequence[Sequence[tuple[MediQAction, MediQObservation]]],
+        model: Any,
+        *,
+        count: int,
+        temperature: float,
+        namespace: str,
+        naive: bool = False,
+    ) -> list[list[MediQAction]]:
+        if not (len(tasks) == len(belief_states) == len(histories)):
+            raise ValueError("MediQ candidate inputs must have the same length")
+        base_messages = [
+            candidate_messages(task, belief, history, count, naive=naive)
+            for task, belief, history in zip(tasks, belief_states, histories)
+        ]
+        current_messages = [list(messages) for messages in base_messages]
+        results: list[list[MediQAction] | None] = [None] * len(tasks)
+        pending = list(range(len(tasks)))
+        maximum = int(getattr(self.config, "mediq_structured_max_retries", 2))
+
+        for semantic_attempt in range(maximum + 1):
+            generated = self._complete_parsed_many(
+                model,
+                [current_messages[index] for index in pending],
+                temperature,
+                namespace=f"{namespace}:semantic_attempt:{semantic_attempt}",
+                parsers=[
+                    (
+                        lambda text, index=index: self._parse_candidates(
+                            text,
+                            tasks[index],
+                            belief_states[index],
+                            histories[index],
+                            count,
+                        )
+                    )
+                    for index in pending
+                ],
+            )
+            validation_entries = [
+                (index, action)
+                for index, actions in zip(pending, generated)
+                for action in actions
+            ]
+            judgments = self._complete_parsed_many(
+                self._evaluation_model(),
+                [
+                    candidate_validation_messages(
+                        tasks[index], action, histories[index]
+                    )
+                    for index, action in validation_entries
+                ],
+                0.0,
+                namespace=(
+                    f"questioner:candidate_validation:{namespace}:"
+                    f"semantic_attempt:{semantic_attempt}"
+                ),
+                parsers=[parse_candidate_validation for _entry in validation_entries],
+            )
+            self._candidate_validation_checks += len(validation_entries)
+
+            failures: dict[int, list[tuple[MediQAction, str]]] = {}
+            generated_by_index = dict(zip(pending, generated))
+            for (index, action), (valid, reason) in zip(
+                validation_entries, judgments
+            ):
+                self._candidate_validation_cache[action] = (valid, reason)
+                if not valid:
+                    failures.setdefault(index, []).append((action, reason))
+
+            retry_indices: list[int] = []
+            for index in pending:
+                invalid = failures.get(index, [])
+                if not invalid:
+                    results[index] = generated_by_index[index]
+                    continue
+                if semantic_attempt >= maximum:
+                    self._candidate_validation_failures += 1
+                    details = "; ".join(
+                        f"{action.query!r}: {reason}" for action, reason in invalid
+                    )
+                    raise ValueError(
+                        "MediQ candidate semantic validation failed after bounded "
+                        f"repairs: {details}"
+                    )
+                self._candidate_validation_retries += 1
+                feedback = "\n".join(
+                    f"- {action.query}: {reason}" for action, reason in invalid
+                )
+                current_messages[index] = list(base_messages[index]) + [
+                    {
+                        "role": "user",
+                        "content": (
+                            "The previous candidate set failed structural validation:\n"
+                            f"{feedback}\nRegenerate the complete candidate set. Correct "
+                            "every listed issue and return only the requested strict JSON."
+                        ),
+                    }
+                ]
+                retry_indices.append(index)
+            if not retry_indices:
+                if any(result is None for result in results):
+                    raise RuntimeError("MediQ candidate validation left a result unset")
+                return [result for result in results if result is not None]
+            pending = retry_indices
+        raise AssertionError("unreachable")
+
     def generate_candidate_actions(
         self,
         belief_state: BeliefState[str],
@@ -555,17 +678,16 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
     ) -> list[MediQAction]:
         task = self._task_for(history, self._active_task)
         count = int(getattr(config, "mediq_num_candidates", 5))
-        messages = candidate_messages(task, belief_state, history, count)
-        return self._complete_parsed_many(
+        return self._validated_candidate_actions_many(
+            [task],
+            [belief_state],
+            [history],
             model,
-            [messages],
-            float(getattr(config, "generation_temperature_diverse", 0.7)),
+            count=count,
+            temperature=float(
+                getattr(config, "generation_temperature_diverse", 0.7)
+            ),
             namespace="questioner:candidates",
-            parsers=[
-                lambda text: self._parse_candidates(
-                    text, task, belief_state, history, count
-                )
-            ],
         )[0]
 
     def generate_candidate_actions_many(
@@ -586,23 +708,16 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             for history, fallback in zip(histories, fallbacks)
         ]
         count = int(getattr(config, "mediq_num_candidates", 5))
-        messages = [
-            candidate_messages(task, belief, history, count)
-            for task, belief, history in zip(tasks, belief_states, histories)
-        ]
-        return self._complete_parsed_many(
+        return self._validated_candidate_actions_many(
+            tasks,
+            belief_states,
+            histories,
             model,
-            messages,
-            float(getattr(config, "generation_temperature_diverse", 0.7)),
+            count=count,
+            temperature=float(
+                getattr(config, "generation_temperature_diverse", 0.7)
+            ),
             namespace="questioner:candidates",
-            parsers=[
-                (
-                    lambda text, task=task, belief=belief, history=history: self._parse_candidates(
-                        text, task, belief, history, count
-                    )
-                )
-                for task, belief, history in zip(tasks, belief_states, histories)
-            ],
         )
 
     def _unavailable_outcome(self, action: MediQAction) -> str:
@@ -610,6 +725,16 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             if _is_unavailable(outcome):
                 return outcome
         raise ValueError("MediQ action has no unavailable outcome")
+
+    def _parse_patient_mapping(
+        self, text: str, action: MediQAction
+    ) -> tuple[str | None, bool]:
+        canonical, clean = parse_mapping(text, action.outcomes)
+        if clean and canonical is not None and _is_unavailable(canonical):
+            raise ValueError(
+                "an explicitly relevant patient fact cannot map to unavailable"
+            )
+        return canonical, clean
 
     def _patient_observations_many(
         self,
@@ -652,8 +777,8 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             replies: dict[int, str] = {}
             selected_by_index: dict[int, tuple[int, ...]] = {}
             cannot_by_index: dict[int, bool] = {}
-            mapping_indices: list[int] = []
-            mapping_prompts: list[list[dict[str, str]]] = []
+            relevance_indices: list[int] = []
+            relevance_prompts: list[list[dict[str, str]]] = []
             for index, (selected, cannot_answer) in zip(pending, selections):
                 selected_by_index[index] = selected
                 cannot_by_index[index] = cannot_answer
@@ -671,32 +796,58 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     continue
                 reply = "\n".join(tasks[index].facts[item] for item in selected)
                 replies[index] = reply
+                relevance_indices.append(index)
+                relevance_prompts.append(
+                    relevance_messages(actions[index].query, reply)
+                )
+
+            relevance_judgments = self._complete_parsed_many(
+                self._evaluation_model(),
+                relevance_prompts,
+                0.0,
+                namespace=(
+                    "questioner:patient_relevance:"
+                    f"relevance_attempt:{relevance_attempt}"
+                ),
+                parsers=[parse_relevance for _index in relevance_indices],
+            )
+            self._patient_relevance_checks += len(relevance_indices)
+
+            retry_indices: list[int] = []
+            relevance_reasons: dict[int, str] = {}
+            mapping_indices: list[int] = []
+            for index, (relevant, reason) in zip(
+                relevance_indices, relevance_judgments
+            ):
+                if not relevant:
+                    if relevance_attempt == 0:
+                        self._patient_raw_irrelevant += 1
+                    relevance_reasons[index] = reason
+                    retry_indices.append(index)
+                    continue
                 mapping_indices.append(index)
-                mapping_prompts.append(mapping_messages(reply, actions[index]))
 
             mappings = self._complete_parsed_many(
                 self._evaluation_model(),
-                mapping_prompts,
+                [
+                    mapping_messages(replies[index], actions[index])
+                    for index in mapping_indices
+                ],
                 0.0,
-                namespace=f"questioner:patient_mapping:relevance_attempt:{relevance_attempt}",
+                namespace=(
+                    "questioner:patient_mapping:"
+                    f"relevance_attempt:{relevance_attempt}"
+                ),
                 parsers=[
                     (
-                        lambda text, action=actions[index]: parse_mapping(
-                            text, action.outcomes
+                        lambda text, action=actions[index]: self._parse_patient_mapping(
+                            text, action
                         )
                     )
                     for index in mapping_indices
                 ],
             )
-            self._patient_relevance_checks += len(mapping_indices)
-
-            retry_indices: list[int] = []
-            for index, (relevant, canonical, clean) in zip(mapping_indices, mappings):
-                if not relevant:
-                    if relevance_attempt == 0:
-                        self._patient_raw_irrelevant += 1
-                    retry_indices.append(index)
-                    continue
+            for index, (canonical, clean) in zip(mapping_indices, mappings):
                 observations[index] = MediQObservation(
                     reply=replies[index],
                     mapped_outcome=canonical,
@@ -723,6 +874,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                         "role": "user",
                         "content": (
                             "The selected facts did not directly answer the doctor question. "
+                            f"The entailment audit said: {relevance_reasons[index]} "
                             "Select a different directly relevant fact, or set cannot_answer=true. "
                             "Return strict JSON only."
                         ),
@@ -819,6 +971,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             "shared_call_cache_misses": float(self._shared_cache_misses),
             "structured_parse_retries": float(self._structured_parse_retries),
             "structured_parse_failures": float(self._structured_parse_failures),
+            **self._candidate_metrics(),
             **self._patient_metrics(),
         }
         if history and history[-1][0].prior_probabilities:
@@ -860,6 +1013,17 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
     ) -> dict[str, float]:
         return self._belief_metrics(belief_state, history, hidden_state)
 
+    def _candidate_metrics(self) -> dict[str, float]:
+        return {
+            "candidate_validation_checks": float(self._candidate_validation_checks),
+            "candidate_validation_retries": float(
+                self._candidate_validation_retries
+            ),
+            "candidate_validation_failures": float(
+                self._candidate_validation_failures
+            ),
+        }
+
     def _patient_metrics(self) -> dict[str, float]:
         observations = self._patient_observations
         return {
@@ -888,16 +1052,18 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         del belief_state, method_name
         task = self._task_for(history, self._active_task)
         uniform = BeliefState.uniform(task.option_labels)
-        messages = candidate_messages(task, uniform, history, 1, naive=True)
-        action = self._complete_parsed_many(
+        action = self._validated_candidate_actions_many(
+            [task],
+            [uniform],
+            [history],
             model,
-            [messages],
-            float(getattr(config, "generation_temperature_simple", 0.0)),
+            count=1,
+            temperature=float(
+                getattr(config, "generation_temperature_simple", 0.0)
+            ),
             namespace="questioner:naive_question",
-            parsers=[
-                lambda text: self._parse_candidates(text, task, uniform, history, 1)[0]
-            ],
-        )[0]
+            naive=True,
+        )[0][0]
         return MediQAction(
             query=action.query,
             outcomes=action.outcomes,
@@ -925,23 +1091,17 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             for history, fallback in zip(histories, fallbacks)
         ]
         uniforms = [BeliefState.uniform(task.option_labels) for task in tasks]
-        messages = [
-            candidate_messages(task, belief, history, 1, naive=True)
-            for task, belief, history in zip(tasks, uniforms, histories)
-        ]
-        parsed = self._complete_parsed_many(
+        parsed_sets = self._validated_candidate_actions_many(
+            tasks,
+            uniforms,
+            histories,
             model,
-            messages,
-            float(getattr(config, "generation_temperature_simple", 0.0)),
+            count=1,
+            temperature=float(
+                getattr(config, "generation_temperature_simple", 0.0)
+            ),
             namespace="questioner:naive_question",
-            parsers=[
-                (
-                    lambda text, task=task, belief=belief, history=history: self._parse_candidates(
-                        text, task, belief, history, 1
-                    )[0]
-                )
-                for task, belief, history in zip(tasks, uniforms, histories)
-            ],
+            naive=True,
         )
         return [
             MediQAction(
@@ -951,7 +1111,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 transcript=action.transcript,
                 prior_probabilities=(),
             )
-            for action in parsed
+            for action in (actions[0] for actions in parsed_sets)
         ]
 
     def naive_requires_belief_state(self, method_name: str | None = None) -> bool:
@@ -1059,6 +1219,18 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                         {
                             "query": candidate.query,
                             "outcomes": list(candidate.outcomes),
+                            "semantic_validation": (
+                                {
+                                    "valid": self._candidate_validation_cache[
+                                        candidate
+                                    ][0],
+                                    "reason": self._candidate_validation_cache[
+                                        candidate
+                                    ][1],
+                                }
+                                if candidate in self._candidate_validation_cache
+                                else None
+                            ),
                             "score": (
                                 candidate_scores[candidate_index]
                                 if candidate_index < len(candidate_scores)

@@ -114,13 +114,53 @@ def candidate_messages(
                 f"Conversation so far:\n{_history_text(history)}\n\n"
                 f"Clinical question:\n{task.question}\n\nOptions:\n{_options_text(task)}\n"
                 f"{belief_section}\n{purpose} Return exactly {count} candidate(s). Each "
-                "query must ask for one patient fact, symptom, history item, examination, "
-                "or test result. Do not ask the patient to solve the multiple-choice "
-                "question or name an option. Do not repeat an earlier query. For each query, "
-                "give 3-5 mutually exclusive and collectively useful response categories. "
-                "One category must represent information unavailable from the record. "
+                "query must ask about exactly one observable variable: one patient fact, "
+                "symptom, history item, examination, or test result. Never join distinct "
+                "variables or qualifiers with 'and', 'or', or 'and/or'. Do not ask the "
+                "patient to solve the multiple-choice question or name an option. Do not "
+                "repeat an earlier query or ask for information already explicit in the "
+                "initial information or conversation. For each query, give 3-5 response "
+                "categories that form a mutually exclusive and collectively exhaustive "
+                "partition of every possible record-grounded answer. For a numeric variable, "
+                "use contiguous non-overlapping intervals covering the full plausible range; "
+                "do not leave gaps. Include exactly one unavailable category, written exactly "
+                "as 'Information unavailable / not in record', and no synonym such as 'not "
+                "recorded' or 'unknown'. "
                 "Return {\"candidates\":[{\"query\":\"...\",\"outcomes\":[\"...\"]}]} "
                 "and nothing else."
+            ),
+        },
+    ]
+
+
+def candidate_validation_messages(
+    task: MediQTask,
+    action: MediQAction,
+    history: Sequence[tuple[MediQAction, MediQObservation]],
+) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a strict MediQ candidate-space auditor. Check structural validity, "
+                "not whether you personally prefer the clinical question. Return strict "
+                "JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Conversation so far:\n{_history_text(history)}\n\n"
+                f"Clinical question:\n{task.question}\n\nOptions:\n{_options_text(task)}\n\n"
+                f"Proposed doctor query: {action.query}\n"
+                f"Proposed response categories: {json.dumps(list(action.outcomes))}\n\n"
+                "Mark valid=true only when all conditions hold: the query asks exactly one "
+                "observable variable; it contains no answer-option leakage; it is not already "
+                "answered above; its non-unavailable categories are mutually exclusive and "
+                "collectively exhaustive; numeric ranges have no gaps or overlaps; and there "
+                "is exactly one unavailable category. Do not infer missing categories from "
+                "intent. Return {\"valid\":true,\"reason\":\"brief structural reason\"}."
             ),
         },
     ]
@@ -178,9 +218,37 @@ def patient_fact_messages(task: MediQTask, query: str, max_facts: int) -> list[d
             "content": (
                 f"Atomic patient facts:\n{facts}\n\nDoctor question: {query}\n\n"
                 f"Select at most {max_facts} fact indices that directly answer the question. "
-                "Do not infer or add information. If no supplied fact answers it, select no "
-                "indices and set cannot_answer to true. Return "
+                "Every requested qualifier must be explicit in the selected facts. Do not "
+                "infer or add information: for example, being sexually active does not "
+                "establish new partners or unprotected sex, and symptom presence does not "
+                "establish its frequency or severity. If the facts only partially or "
+                "implicitly address the question, select no indices and set cannot_answer "
+                "to true. Return "
                 '{"fact_indices":[0],"cannot_answer":false} and nothing else.'
+            ),
+        },
+    ]
+
+
+def relevance_messages(query: str, reply: str) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a strict MediQ explicit-entailment auditor. Judge only whether the "
+                "supplied record facts explicitly answer the doctor query. You are not shown "
+                "response categories. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Doctor query: {query}\nSelected patient-record facts: {reply}\n\n"
+                "Set relevant=true only if the selected text explicitly answers the single "
+                "requested variable and every qualifier. Do not use clinical, commonsense, "
+                "or demographic inference. A generic fact does not establish a more specific "
+                "qualifier, frequency, severity, timing, or numeric range. Return "
+                '{"relevant":true,"reason":"brief entailment reason"}.'
             ),
         },
     ]
@@ -191,8 +259,8 @@ def mapping_messages(reply: str, action: MediQAction) -> list[dict[str, str]]:
         {
             "role": "system",
             "content": (
-                "Judge whether a grounded MediQ patient response answers the doctor query "
-                "and map it to one supplied response category. Return strict JSON only."
+                "Map an already-validated, explicitly relevant MediQ patient response to one "
+                "supplied response category. Return strict JSON only."
             ),
         },
         {
@@ -200,10 +268,11 @@ def mapping_messages(reply: str, action: MediQAction) -> list[dict[str, str]]:
             "content": (
                 f"Doctor query: {action.query}\nPatient response: {reply}\n"
                 f"Response categories: {json.dumps(list(action.outcomes))}\n\n"
-                "Set relevant=true only if the response directly addresses the query. Set "
-                "clean=true only if exactly one category is a defensible semantic match; "
-                "otherwise outcome must be null. Return "
-                '{"relevant":true,"clean":true,"outcome":"exact supplied category"}.'
+                "Set clean=true only if the literal response explicitly entails exactly one "
+                "category. Do not infer an unstated qualifier, frequency, severity, timing, "
+                "or range. If no category or multiple categories fit, set clean=false and "
+                "outcome=null. Return "
+                '{"clean":true,"outcome":"exact supplied category"}.'
             ),
         },
     ]

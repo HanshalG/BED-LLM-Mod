@@ -23,8 +23,10 @@ the logs also lack Git-commit provenance and the depth-3 recursive implementatio
 postdates the depth-1/2 runs. Animals can support one-step BED transfer, not the
 non-myopic claim. MediQ must carry that claim.
 
-MediQ Step 0 implementation status (2026-07-13): **locally launch-ready; paid smoke
-not yet launched.** The adapter uses the exact released multiple-choice labels as the
+MediQ Step 0 implementation status (2026-07-14): **initial paid smoke automated-pass,
+manual-fail; the answer-space/relevance repair is locally complete and the identical
+repeated smoke is pending.**
+The adapter uses the exact released multiple-choice labels as the
 finite BED target, a temperature-zero judged initial distribution, option-conditioned
 categorical response likelihoods, recursive one-likelihood-at-a-time Bayes updates,
 grounded Fact-Select patient replies assembled verbatim from released atomic facts,
@@ -46,9 +48,30 @@ five-case/two-round smoke shape passed every automated analyzer gate and made ex
 145/145 green. The full suite is 583 passed, 1 skipped, with one unrelated stale Path A
 assertion that expects the old phrase "pending Phase 4 checks" although the validated
 preflight now correctly reports "complete package validates." Cost projection is in
-`results/path_e/mediq_step0/COST_PROJECTION.md`: expected $0.04-$0.08, conservatively
-reserved at $0.12. OpenRouter ledger: $16.71009983 spent of the user-authorized $40 cap,
-leaving $23.28990017.
+`results/path_e/mediq_step0/COST_PROJECTION.md`: expected $0.02-$0.05 after repair,
+conservatively reserved at $0.12. The initial paid run
+`20260714T033819_mediq-step0-eig-nonthinking-26b-seed1304` completed at commit
+`7825898` in 208.93 seconds: 235 requests, 70,115 prompt tokens, 18,128 completion
+tokens, no reasoning or forced exits, and $0.01416921. It passed every frozen automated
+check (90% mapping coverage, 100% verbatim grounding and automatic relevance, zero
+terminal/runtime failures, all 50 EIG tables valid), but the mandatory manual review
+failed. Case 0 inferred new sexual partners from only "sexually active" after a compound
+query; case 2 inferred an unsupported symptom frequency; case 4 exposed a numeric
+outcome gap at glucose 450 mg/dL; and some candidates duplicated unavailable categories.
+This localizes the remaining validity issue to atomic query/outcome partition generation
+and explicit-entailment relevance mapping, not the finite-target EIG arithmetic. The run
+is diagnostic only; see `results/path_e/mediq_step0/INITIAL_SMOKE_MANUAL_REVIEW.md`.
+The repair now canonicalizes exactly one unavailable category, rejects compound queries,
+uses a temperature-zero structural critic with bounded whole-set regeneration, checks
+selected facts for explicit entailment without exposing response categories, and only
+then maps relevant facts. It also forbids a relevant fact from being mapped to the
+unavailable bucket. The analyzer requires logged successful candidate validation and
+independently rejects compound queries and noncanonical unavailable categories. The exact
+official-data zero-cost dry run passes at 295 requests (50 candidate audits, 10 separate
+relevance audits); 16 focused tests pass and the full suite is 590 passed, 1 skipped,
+with only the same unrelated stale Path A wording assertion failing.
+OpenRouter ledger: $16.72426904 spent of the user-authorized $40 cap, leaving
+$23.27573096.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -217,10 +240,12 @@ the only paired block reverses, and paired depth 3 is worse than depth 2. Delive
 animals for the one-step BED-transfer claim; the non-myopic claim rides entirely on
 the MediQ claim-2 pilot.
 
-Track 2 (main line): MediQ per the registered design requirements. Step 0 adapter,
-analyzer, frozen config, and zero-cost official-data dry run are complete; commit and
-push, then launch the five-case OpenRouter EIG smoke and perform the mandatory manual
-transcript/category review. Note the endpoint is
+Track 2 (main line): MediQ per the registered design requirements. The initial Step 0
+smoke is diagnostic-only after its mandatory manual review failed despite automated
+pass. The atomicity, canonical-unavailable, semantic-partition, and category-blind
+relevance repair is locally complete and passes the exact-shape zero-cost gate. Commit
+and push it, then repeat only the same five-case smoke. Do not
+pre-register or launch Claim 1 until that repeated manual review passes. Note the endpoint is
 exact-match on the MC label — no success judge, no remedy adjudication; the remaining
 validity gate is patient-simulator faithfulness (answers consistent with the case
 record) + answer-mapping coverage. Integration smoke (~$0.1) -> pre-register ->
@@ -282,7 +307,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.28990017 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
+7. Budget: $23.27573096 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

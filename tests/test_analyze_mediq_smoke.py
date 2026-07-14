@@ -45,6 +45,10 @@ def _write_run(tmp_path: Path) -> Path:
                         {
                             "query": query,
                             "outcomes": outcomes,
+                            "semantic_validation": {
+                                "valid": True,
+                                "reason": "valid atomic partition",
+                            },
                             "score": score,
                             "prior": prior,
                             "likelihoods": likelihoods,
@@ -100,6 +104,9 @@ def _write_run(tmp_path: Path) -> Path:
         "accuracy": [0.4, 0.6],
         "structured_parse_retries": [0.0, 1.0],
         "structured_parse_failures": [0.0, 0.0],
+        "candidate_validation_checks": [5.0, 10.0],
+        "candidate_validation_retries": [0.0, 0.0],
+        "candidate_validation_failures": [0.0, 0.0],
         "patient_relevance_failures": [0.0, 0.0],
         "backend_requests": [235],
         "backend_prompt_tokens": [1000],
@@ -149,5 +156,20 @@ def test_mediq_smoke_analyzer_rejects_bad_mapping_or_eig_table(tmp_path: Path) -
     path.write_text(json.dumps(trials))
     report = analyze(run_dir)
     assert report["automated_pass"] is False
-    assert report["checks"]["patient_relevance"] is False
+    assert report["checks"]["valid_mapping_contract"] is False
     assert report["checks"]["valid_finite_target_eig_tables"] is False
+
+
+def test_mediq_smoke_analyzer_allows_clean_mapping_abstention_above_threshold(
+    tmp_path: Path,
+) -> None:
+    run_dir = _write_run(tmp_path)
+    path = next(run_dir.rglob("mediq_interactions.json"))
+    trials = json.loads(path.read_text())
+    trials[0]["turns"][0]["mapped_cleanly"] = False
+    trials[0]["turns"][0]["mapped_outcome"] = None
+    path.write_text(json.dumps(trials))
+    report = analyze(run_dir)
+    assert report["automated_pass"] is True
+    assert report["answer_set_coverage"] == 0.9
+    assert len(report["unmapped_turns"]) == 1
