@@ -393,6 +393,16 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**CURRENT PAPER STATUS (2026-07-14):** Track 1 is audited and collapsed for the
+non-myopic claim; Track 2 is permanently closed after the one stronger-author retry;
+the five-page validation-first package is frozen at commit `ec66dce`. Do not launch
+another experiment. The only open project action is venue selection: the official
+NeurIPS 2026 workshop pages report organizer notification on July 11 and a suggested
+contribution date of August 29, but no individual workshop calls/programs are listed
+there yet. When relevant calls appear, select 2--3 targets and tune the abstract for
+each venue; until then the project is **awaiting venue calls**, not awaiting another
+method or simulator repair.
+
 **DECISION (2026-07-12, per Hanshal, on the iCRAFT profile-gate failure):**
 
 1. **BLOCKING — Track 1 animals re-analysis lands FIRST.** Third consecutive update
