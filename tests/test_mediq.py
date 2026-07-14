@@ -144,6 +144,29 @@ class CandidateRepairModel(RoutingMediQModel):
         return super()._route(messages)
 
 
+class CompoundQuestionRepairModel(RoutingMediQModel):
+    def _route(self, messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "generate atomic patient questions" in system:
+            query = (
+                "What is the blood smear result?"
+                if "contains 'and' or 'or'" in user
+                else "Do you have fever or productive cough?"
+            )
+            return json.dumps(
+                {
+                    "candidates": [
+                        {
+                            "query": query,
+                            "outcomes": ["Present", "Absent", UNAVAILABLE_OUTCOME],
+                        }
+                    ]
+                }
+            )
+        return super()._route(messages)
+
+
 class RejectingRelevanceModel(RoutingMediQModel):
     def _route(self, messages: list[dict[str, str]]) -> str:
         if "strict MediQ explicit-entailment auditor" in messages[0]["content"]:
@@ -320,8 +343,9 @@ def test_mediq_compound_candidate_is_rejected() -> None:
             ]
         }
     )
-    with pytest.raises(ValueError, match="Expected 1 valid MediQ candidates"):
+    with pytest.raises(ValueError, match="Expected 1 valid MediQ candidates") as exc_info:
         env._parse_candidates(response, task, belief, [], 1)
+    assert "contains 'and' or 'or'; ask one variable only" in str(exc_info.value)
 
 
 def test_mediq_semantic_candidate_validation_regenerates_invalid_set() -> None:
@@ -339,6 +363,19 @@ def test_mediq_semantic_candidate_validation_regenerates_invalid_set() -> None:
         "candidate_validation_retries": 1.0,
         "candidate_validation_failures": 0.0,
     }
+
+
+def test_mediq_compound_candidate_repair_receives_specific_feedback() -> None:
+    model = CompoundQuestionRepairModel()
+    config = _config(mediq_num_trials=1, mediq_num_candidates=1)
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    actions = env.generate_candidate_actions(
+        BeliefState.uniform(task.option_labels), [], model, config
+    )
+    assert [action.query for action in actions] == ["What is the blood smear result?"]
+    assert env._structured_parse_retries == 1
 
 
 def test_mediq_relevance_is_category_blind_and_repairs_fact_selection() -> None:

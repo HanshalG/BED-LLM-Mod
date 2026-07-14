@@ -528,18 +528,32 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         )
         actions: list[MediQAction] = []
         seen_queries: set[str] = set()
-        for item in raw:
+        rejected: list[str] = []
+        if len(raw) != expected:
+            rejected.append(f"response returned {len(raw)} candidates instead of {expected}")
+        for item_index, item in enumerate(raw):
             if not isinstance(item, dict):
+                rejected.append(f"candidate {item_index} is not an object")
                 continue
             query = item.get("query")
             outcomes = item.get("outcomes")
             if not isinstance(query, str) or not isinstance(outcomes, list):
+                rejected.append(
+                    f"candidate {item_index} requires string query and list outcomes"
+                )
                 continue
             clean_query = query.strip()
             normalized = clean_query.casefold()
-            if normalized in prior_queries or normalized in seen_queries:
+            if normalized in prior_queries:
+                rejected.append(f"{clean_query!r} repeats an earlier query")
+                continue
+            if normalized in seen_queries:
+                rejected.append(f"{clean_query!r} duplicates another candidate")
                 continue
             if _is_compound_query(clean_query):
+                rejected.append(
+                    f"{clean_query!r} contains 'and' or 'or'; ask one variable only"
+                )
                 continue
             try:
                 action = MediQAction(
@@ -549,13 +563,16 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     transcript=transcript,
                     prior_probabilities=belief_state.probabilities,
                 )
-            except ValueError:
+            except ValueError as exc:
+                rejected.append(f"{clean_query!r} has invalid outcomes: {exc}")
                 continue
             actions.append(action)
             seen_queries.add(normalized)
-        if len(actions) != expected:
+        if len(actions) != expected or len(raw) != expected:
+            details = "; ".join(rejected) or "candidate count did not match"
             raise ValueError(
-                f"Expected {expected} valid MediQ candidates, parsed {len(actions)}"
+                f"Expected {expected} valid MediQ candidates, parsed {len(actions)}. "
+                f"Rejected: {details}"
             )
         return actions
 

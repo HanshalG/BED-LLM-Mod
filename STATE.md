@@ -68,10 +68,14 @@ then maps relevant facts. It also forbids a relevant fact from being mapped to t
 unavailable bucket. The analyzer requires logged successful candidate validation and
 independently rejects compound queries and noncanonical unavailable categories. The exact
 official-data zero-cost dry run passes at 295 requests (50 candidate audits, 10 separate
-relevance audits); 16 focused tests pass and the full suite is 590 passed, 1 skipped,
+relevance audits); 17 focused tests pass and the full suite is 590 passed, 1 skipped,
 with only the same unrelated stale Path A wording assertion failing.
-OpenRouter ledger: $16.72426904 spent of the user-authorized $40 cap, leaving
-$23.27573096.
+The first paid repeat attempt `20260714T035736` failed closed before likelihood or
+patient calls because only 3/5 compound-filtered candidates survived two opaque count-only
+repairs. It produced no result and cost $0.00117655 over 13 requests. Rejection feedback
+now names every failed query and reason, with a regression test covering the repair.
+OpenRouter ledger: $16.72544559 spent of the user-authorized $40 cap, leaving
+$23.27455441.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -307,7 +311,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.27573096 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
+7. Budget: $23.27455441 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika
