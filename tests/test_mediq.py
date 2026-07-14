@@ -386,6 +386,58 @@ def test_mediq_compound_candidate_is_rejected() -> None:
     assert "contains 'and' or 'or'; ask one variable only" in str(exc_info.value)
 
 
+def test_mediq_candidate_parser_rejects_decode_repeat_and_derived_query() -> None:
+    model = RoutingMediQModel()
+    config = _config(mediq_num_trials=1, mediq_num_candidates=3)
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    belief = BeliefState.uniform(task.option_labels)
+    previous_action = MediQAction(
+        query="Does the patient report excessive worry?",
+        outcomes=("Yes", "No", UNAVAILABLE_OUTCOME),
+        task=task,
+    )
+    previous_observation = MediQObservation(
+        reply="The patient cannot answer this question from the supplied record.",
+        mapped_outcome=UNAVAILABLE_OUTCOME,
+        mapped_cleanly=True,
+        selected_fact_indices=(),
+        grounded=True,
+        relevant=True,
+        cannot_answer=True,
+    )
+    response = json.dumps(
+        {
+            "candidates": [
+                {
+                    "query": "Does the patient experience excessive worry?",
+                    "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
+                },
+                {
+                    "query": "Was the patient treated with an antibiotic?",
+                    "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
+                },
+                {
+                    "query": "Is the patient hemodynamically stable?",
+                    "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
+                },
+            ]
+        }
+    )
+    with pytest.raises(ValueError) as exc_info:
+        env._parse_candidates(
+            response,
+            task,
+            belief,
+            [(previous_action, previous_observation)],
+            3,
+        )
+    error = str(exc_info.value)
+    assert "semantically repeats an earlier query" in error
+    assert "management decision rather than patient evidence" in error
+    assert "derived clinical judgment" in error
+
+
 def test_mediq_semantic_candidate_validation_regenerates_invalid_set() -> None:
     model = CandidateRepairModel()
     config = _config(mediq_num_trials=1, mediq_num_candidates=1)

@@ -40,6 +40,102 @@ MEDIQ_IMEDQA_SHA256 = (
 MEDIQ_IMEDQA_RAW_ROWS = 1272
 MEDIQ_IMEDQA_EXCLUDED_IDS = ["224", "298", "779"]
 
+QUERY_STOPWORDS = {
+    "a",
+    "an",
+    "any",
+    "are",
+    "at",
+    "can",
+    "child",
+    "could",
+    "current",
+    "currently",
+    "did",
+    "do",
+    "does",
+    "experience",
+    "experienced",
+    "experiences",
+    "for",
+    "from",
+    "had",
+    "has",
+    "have",
+    "history",
+    "in",
+    "is",
+    "of",
+    "on",
+    "patient",
+    "recent",
+    "report",
+    "reported",
+    "reports",
+    "the",
+    "there",
+    "to",
+    "was",
+    "were",
+    "will",
+    "with",
+    "would",
+}
+
+
+def _query_content_tokens(query: str) -> set[str]:
+    return {
+        token
+        for token in re.findall(r"[a-z0-9]+", query.casefold())
+        if token not in QUERY_STOPWORDS
+    }
+
+
+def _queries_semantically_equivalent(left: str, right: str) -> bool:
+    left_tokens = _query_content_tokens(left)
+    right_tokens = _query_content_tokens(right)
+    if not left_tokens or not right_tokens:
+        return left.strip().casefold() == right.strip().casefold()
+    if left_tokens == right_tokens:
+        return True
+    overlap = len(left_tokens & right_tokens)
+    return overlap >= 2 and overlap / len(left_tokens | right_tokens) >= 0.8
+
+
+def _candidate_contract_error(trial: dict[str, Any], query: str) -> str | None:
+    if COMPOUND_QUERY_RE.search(query):
+        return "compound query"
+    if not re.match(
+        r"^(?:is|are|was|were|has|have|had|do|does|did|can|could|would|will)\b",
+        query.strip(),
+        flags=re.IGNORECASE,
+    ):
+        return "not a binary predicate"
+    normalized = " ".join(re.findall(r"[a-z0-9]+", query.casefold()))
+    options = trial.get("options", {})
+    if isinstance(options, dict):
+        for option in options.values():
+            option_normalized = " ".join(
+                re.findall(r"[a-z0-9]+", str(option).casefold())
+            )
+            if len(option_normalized) >= 4 and option_normalized in normalized:
+                return f"directly asks about answer option {option!r}"
+    if re.search(
+        r"\b(?:treated|treatment|given|administered|prescribed|prescription|"
+        r"received|therapy|medication|drug|antibiotic|managed|management|"
+        r"ordered|performed|obtained|diagnosed|diagnosis)\b",
+        query,
+        flags=re.IGNORECASE,
+    ):
+        return "asks about diagnosis or management rather than patient evidence"
+    if re.search(
+        r"\b(?:hemodynamically stable|clinically stable|critically ill|toxic appearing)\b",
+        query,
+        flags=re.IGNORECASE,
+    ):
+        return "asks for a derived clinical judgment"
+    return None
+
 
 def _load_one(run_dir: Path, name: str) -> tuple[Path, Any]:
     matches = sorted(run_dir.rglob(name))
@@ -69,6 +165,7 @@ def _categorical_eig(prior: np.ndarray, likelihoods: np.ndarray) -> float:
 def _candidate_diagnostics(
     trial: dict[str, Any],
     turn: dict[str, Any],
+    prior_queries: list[str],
 ) -> tuple[list[str], list[dict[str, Any]]]:
     errors: list[str] = []
     summaries: list[dict[str, Any]] = []
@@ -78,6 +175,7 @@ def _candidate_diagnostics(
         return ["missing candidate likelihood diagnostics"], summaries
 
     scores: list[float] = []
+    current_queries: list[str] = []
     for candidate_index, candidate in enumerate(details):
         prefix = f"candidate {candidate_index}"
         outcomes = candidate.get("outcomes")
@@ -86,6 +184,21 @@ def _candidate_diagnostics(
         predictive_raw = candidate.get("predictive_outcome_probabilities")
         score = candidate.get("score")
         try:
+            query = str(candidate.get("query", ""))
+            contract_error = _candidate_contract_error(trial, query)
+            if contract_error is not None:
+                raise ValueError(contract_error)
+            if any(
+                _queries_semantically_equivalent(query, previous)
+                for previous in prior_queries
+            ):
+                raise ValueError("semantically repeats an earlier query")
+            if any(
+                _queries_semantically_equivalent(query, previous)
+                for previous in current_queries
+            ):
+                raise ValueError("semantically duplicates another candidate")
+            current_queries.append(query)
             if not isinstance(outcomes, list) or not 3 <= len(outcomes) <= 5:
                 raise ValueError("requires 3-5 outcomes")
             if len({str(value).casefold() for value in outcomes}) != len(outcomes):
@@ -152,7 +265,7 @@ def _candidate_diagnostics(
             )
             summaries.append(
                 {
-                    "query": candidate.get("query"),
+                    "query": query,
                     "outcomes": outcomes,
                     "eig": score_value,
                     "max_label_likelihood_l1_span": row_span,
@@ -213,6 +326,7 @@ def analyze(
         task_id = str(trial.get("task_id"))
         facts = trial.get("facts", [])
         turn_summaries: list[dict[str, Any]] = []
+        prior_queries: list[str] = []
         for turn_index, turn in enumerate(trial.get("turns", [])):
             prefix = f"{task_id} turn {turn_index + 1}"
             query = str(turn.get("query", ""))
@@ -253,7 +367,9 @@ def analyze(
                 mapping_errors.append(f"{prefix}: unclean mapping retained an outcome")
             elif not mapped_cleanly:
                 unmapped_turns.append(prefix)
-            errors, candidate_summaries = _candidate_diagnostics(trial, turn)
+            errors, candidate_summaries = _candidate_diagnostics(
+                trial, turn, prior_queries
+            )
             candidate_errors.extend(f"{prefix}: {error}" for error in errors)
             all_candidate_summaries.extend(candidate_summaries)
             turn_summaries.append(
@@ -276,6 +392,7 @@ def analyze(
                     "candidate_summaries": candidate_summaries,
                 }
             )
+            prior_queries.append(query)
         task_summaries.append(
             {
                 "task_id": task_id,

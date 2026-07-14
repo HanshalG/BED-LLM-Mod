@@ -173,3 +173,23 @@ def test_mediq_smoke_analyzer_allows_clean_mapping_abstention_above_threshold(
     assert report["automated_pass"] is True
     assert report["answer_set_coverage"] == 0.9
     assert len(report["unmapped_turns"]) == 1
+
+
+def test_mediq_smoke_analyzer_rejects_decode_and_semantic_repeat_candidates(
+    tmp_path: Path,
+) -> None:
+    run_dir = _write_run(tmp_path)
+    path = next(run_dir.rglob("mediq_interactions.json"))
+    trials = json.loads(path.read_text())
+    trials[0]["turns"][0]["candidate_details"][0]["query"] = (
+        "Was the patient treated with an antibiotic?"
+    )
+    trials[1]["turns"][1]["candidate_details"][0]["query"] = (
+        "Does the patient report relevant finding number 1?"
+    )
+    path.write_text(json.dumps(trials))
+    report = analyze(run_dir)
+    assert report["automated_pass"] is False
+    errors = "\n".join(report["candidate_diagnostic_errors"])
+    assert "diagnosis or management" in errors
+    assert "semantically repeats an earlier query" in errors

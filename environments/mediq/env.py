@@ -103,6 +103,92 @@ def _is_binary_query(query: str) -> bool:
     )
 
 
+_QUERY_STOPWORDS = {
+    "a",
+    "an",
+    "any",
+    "are",
+    "at",
+    "can",
+    "child",
+    "could",
+    "current",
+    "currently",
+    "did",
+    "do",
+    "does",
+    "experience",
+    "experienced",
+    "experiences",
+    "for",
+    "from",
+    "had",
+    "has",
+    "have",
+    "history",
+    "in",
+    "is",
+    "of",
+    "on",
+    "patient",
+    "recent",
+    "report",
+    "reported",
+    "reports",
+    "the",
+    "there",
+    "to",
+    "was",
+    "were",
+    "will",
+    "with",
+    "would",
+}
+
+
+def _query_content_tokens(query: str) -> set[str]:
+    tokens = re.findall(r"[a-z0-9]+", query.casefold())
+    return {token for token in tokens if token not in _QUERY_STOPWORDS}
+
+
+def _queries_semantically_equivalent(left: str, right: str) -> bool:
+    left_tokens = _query_content_tokens(left)
+    right_tokens = _query_content_tokens(right)
+    if not left_tokens or not right_tokens:
+        return left.strip().casefold() == right.strip().casefold()
+    if left_tokens == right_tokens:
+        return True
+    overlap = len(left_tokens & right_tokens)
+    return overlap >= 2 and overlap / len(left_tokens | right_tokens) >= 0.8
+
+
+def _query_contract_error(task: MediQTask, query: str) -> str | None:
+    if _is_compound_query(query):
+        return "contains 'and' or 'or'; ask one variable only"
+    if not _is_binary_query(query):
+        return "is not a yes/no predicate; use a binary question"
+    normalized = " ".join(re.findall(r"[a-z0-9]+", query.casefold()))
+    for _label, option in task.options:
+        option_normalized = " ".join(re.findall(r"[a-z0-9]+", option.casefold()))
+        if len(option_normalized) >= 4 and option_normalized in normalized:
+            return f"contains or directly asks about answer option {option!r}"
+    if re.search(
+        r"\b(?:treated|treatment|given|administered|prescribed|prescription|"
+        r"received|therapy|medication|drug|antibiotic|managed|management|"
+        r"ordered|performed|obtained|diagnosed|diagnosis)\b",
+        query,
+        flags=re.IGNORECASE,
+    ):
+        return "asks about a diagnosis or management decision rather than patient evidence"
+    if re.search(
+        r"\b(?:hemodynamically stable|clinically stable|critically ill|toxic appearing)\b",
+        query,
+        flags=re.IGNORECASE,
+    ):
+        return "asks for a derived clinical judgment rather than an explicit observation"
+    return None
+
+
 class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation]):
     """MediQ with beliefs over the released multiple-choice answer labels."""
 
@@ -535,12 +621,12 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         raw = parse_json_object(text).get("candidates")
         if not isinstance(raw, list):
             raise ValueError("candidate response requires a candidates list")
-        prior_queries = {action.query.casefold() for action, _observation in history}
+        prior_queries = [action.query for action, _observation in history]
         transcript = tuple(
             (action.query, observation.reply) for action, observation in history
         )
         actions: list[MediQAction] = []
-        seen_queries: set[str] = set()
+        seen_queries: list[str] = []
         rejected: list[str] = []
         if len(raw) != expected:
             rejected.append(f"response returned {len(raw)} candidates instead of {expected}")
@@ -556,22 +642,25 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 )
                 continue
             clean_query = query.strip()
-            normalized = clean_query.casefold()
-            if normalized in prior_queries:
-                rejected.append(f"{clean_query!r} repeats an earlier query")
-                continue
-            if normalized in seen_queries:
-                rejected.append(f"{clean_query!r} duplicates another candidate")
-                continue
-            if _is_compound_query(clean_query):
+            if any(
+                _queries_semantically_equivalent(clean_query, prior)
+                for prior in prior_queries
+            ):
                 rejected.append(
-                    f"{clean_query!r} contains 'and' or 'or'; ask one variable only"
+                    f"{clean_query!r} semantically repeats an earlier query"
                 )
                 continue
-            if not _is_binary_query(clean_query):
+            if any(
+                _queries_semantically_equivalent(clean_query, seen)
+                for seen in seen_queries
+            ):
                 rejected.append(
-                    f"{clean_query!r} is not a yes/no predicate; use a binary question"
+                    f"{clean_query!r} semantically duplicates another candidate"
                 )
+                continue
+            contract_error = _query_contract_error(task, clean_query)
+            if contract_error is not None:
+                rejected.append(f"{clean_query!r} {contract_error}")
                 continue
             normalized_outcomes = _ensure_unavailable(outcomes)
             if (
@@ -597,7 +686,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 rejected.append(f"{clean_query!r} has invalid outcomes: {exc}")
                 continue
             actions.append(action)
-            seen_queries.add(normalized)
+            seen_queries.append(clean_query)
         if len(actions) != expected or len(raw) != expected:
             details = "; ".join(rejected) or "candidate count did not match"
             raise ValueError(
@@ -705,7 +794,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             ):
                 self._candidate_validation_cache[action] = (valid, reason)
                 if any(
-                    existing.query.casefold() == action.query.casefold()
+                    _queries_semantically_equivalent(existing.query, action.query)
                     for existing in accepted[index]
                 ):
                     failures.setdefault(index, []).append(
