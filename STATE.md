@@ -8,8 +8,8 @@ history, this file wins.
 ## CURRENT STATE (updated 2026-07-14)
 
 Status: **Track 1 is complete and collapses as a credible non-myopic paper spine;
-Track 2 has reached a frozen MediQ STOP-and-discuss boundary; Track 3 should now use
-the cross-environment diagnosis while the next valid method path is decided.** The free
+Track 2 has one explicitly authorized stronger-profile-generator retry ready to run;
+Track 3 remains current for the evidence available before that retry.** The free
 banked animals audit made no model calls and is tracked in
 `results/path_e/ANIMALS_REANALYSIS.md`, with reproducible trial-level data in
 `results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json`. One-step EIG remains a
@@ -222,9 +222,18 @@ forced exits) exhausted bounded repairs before it could construct three valid fi
 profiles per diagnosis. This is an upstream model-validity failure, not a partial
 likelihood result. Per preregistration there will be no tuning/retry and no likelihood,
 FactSelect, branch-equivalence, structural, ranking-fidelity, policy, or depth run.
-The canonical closure record is `results/path_e/icraft_profile_gates/FINAL_REPORT.md`;
-total iCRAFT gate spend was $0.05380642 and the OpenRouter ledger is $16.86549493 of
-$40. The external non-myopic empirical claim is now closed under the stated protocol.
+The canonical 26B closure record is
+`results/path_e/icraft_profile_gates/FINAL_REPORT.md`; total iCRAFT gate spend was
+$0.05380642 and the OpenRouter ledger is $16.86549493 of $40. After the Track-1 audit,
+Hanshal authorized one distinct apparatus retry with a stronger OpenRouter model for
+profile narrative generation only, while every questioner, validator, likelihood,
+patient, and policy role remains 26B. That retry is preregistered in the addendum to
+`results/path_e/icraft_profile_gates/PREREGISTRATION.md`: `openai/gpt-5.4`, reasoning
+off, unchanged prompts/partitions/thresholds, one calibration attempt, and a hard $2
+run cap. Role-isolation and mixed-model ledger tests pass as part of the complete local
+suite (`613 passed, 1 skipped`). This retry is now the sole experimental next action;
+failure closes the external claim permanently, while a pass unlocks only the unchanged
+structural gate and still does not authorize a policy run.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -378,6 +387,28 @@ Latest cluster state:
   changes this again. Do not use GH200 unless explicitly requested again.
 
 ## NEXT ACTIONS (in order)
+
+**DECISION (2026-07-12, per Hanshal, on the iCRAFT profile-gate failure):**
+
+1. **BLOCKING — Track 1 animals re-analysis lands FIRST.** Third consecutive update
+   without it. It is free, takes hours, and is now plausibly the paper's only
+   non-myopic evidence; its outcome also weights the iCRAFT retry decision. No further
+   iCRAFT or policy work until `results/path_e/ANIMALS_REANALYSIS.md` exists with the
+   comparability check and Q@80% / accuracy-AUC CIs.
+2. **One bounded apparatus retry authorized (after Track 1):** the profile-gate failure
+   is infrastructure (26B cannot author 3 valid profiles/diagnosis), not science.
+   Retry profile generation ONLY with a stronger OpenRouter model (agent selects,
+   ledgers model + rationale); the questioner/policy model remains 26B A4B — simulator
+   fidelity and agent capability are separate roles by established project principle.
+   Cap $2, ONE attempt. Pass -> the pre-registered gate chain continues unchanged
+   (calibration -> likelihood -> ranking -> oracle gap -> only then policy approval).
+   Fail -> CLOSE EXTERNAL CLAIM permanently; the finding ("calibrated patient
+   simulation is the binding constraint, upstream of any policy question") goes in the
+   paper as part of the boundary/infrastructure section. No third attempt, no
+   model-shopping beyond this one retry.
+3. Paper (Track 3) continues in parallel; the closure records just written are kept
+   accurate either way.
+
 
 **AUTHORIZATION (2026-07-12, per Hanshal): ICRAFT GATES authorized** — pre-registration
 + validation implementation only, $0.50 initial cap, no policy/depth runs without

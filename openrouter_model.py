@@ -129,6 +129,28 @@ class OpenRouterBudgetTracker:
             run["completion_tokens"] = int(run.get("completion_tokens", 0)) + int(usage.get("completion_tokens", 0) or 0)
             details = usage.get("completion_tokens_details") or {}
             run["reasoning_tokens"] = int(run.get("reasoning_tokens", 0)) + int(details.get("reasoning_tokens", 0) or 0)
+            model_usage = run.setdefault("model_usage", {})
+            model_run = model_usage.setdefault(
+                self.model,
+                {
+                    "cost_usd": 0.0,
+                    "requests": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "reasoning_tokens": 0,
+                },
+            )
+            model_run["cost_usd"] = float(model_run["cost_usd"]) + cost
+            model_run["requests"] = int(model_run["requests"]) + 1
+            model_run["prompt_tokens"] = int(model_run["prompt_tokens"]) + int(
+                usage.get("prompt_tokens", 0) or 0
+            )
+            model_run["completion_tokens"] = int(model_run["completion_tokens"]) + int(
+                usage.get("completion_tokens", 0) or 0
+            )
+            model_run["reasoning_tokens"] = int(model_run["reasoning_tokens"]) + int(
+                details.get("reasoning_tokens", 0) or 0
+            )
             payload["budget_usd"] = budget
             payload["total_spent_usd"] = total
             self._atomic_write(payload)
@@ -147,6 +169,7 @@ class OpenRouterBudgetTracker:
                 "prompt_tokens": int(run.get("prompt_tokens", 0)),
                 "completion_tokens": int(run.get("completion_tokens", 0)),
                 "reasoning_tokens": int(run.get("reasoning_tokens", 0)),
+                "model_usage": run.get("model_usage", {}),
                 "total_spent_usd": float(payload.get("total_spent_usd", 0.0)),
                 "budget_usd": budget,
                 "remaining_usd": budget - float(payload.get("total_spent_usd", 0.0)),
@@ -201,7 +224,12 @@ class OpenRouterAdapter:
             "max_tokens": int(max_tokens or self.max_tokens),
             "n": int(n),
         }
-        if self.thinking:
+        if self.spec.reasoning_effort is not None:
+            payload["reasoning"] = {
+                "effort": self.spec.reasoning_effort,
+                "exclude": False,
+            }
+        elif self.thinking:
             payload["reasoning"] = {"enabled": True, "exclude": False}
         if self.seed is not None:
             payload["seed"] = int(self.seed)

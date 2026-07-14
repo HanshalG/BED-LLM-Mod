@@ -541,6 +541,32 @@ def test_mediq_profile_support_uses_fixed_profiles_and_neutral_missingness() -> 
     assert updated.probabilities == pytest.approx(prior.probabilities)
 
 
+def test_mediq_profile_support_can_separate_generation_from_validation() -> None:
+    questioner = ProfileSupportModel()
+    profile_generator = ProfileSupportModel()
+    config = _config(
+        mediq_dataset="icraft_md",
+        mediq_likelihood_mode="profile_support",
+        mediq_profiles_per_option=3,
+        mediq_num_trials=1,
+    )
+    env = MediQEnvironment(config, questioner).configure_for_run(config)
+    env.set_questioner(questioner)
+    env.set_profile_generator(profile_generator)
+    env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    env.initial_belief_state(questioner, config)
+
+    generator_systems = [
+        messages[0][0]["content"] for messages in profile_generator.batches
+    ]
+    questioner_systems = [messages[0][0]["content"] for messages in questioner.batches]
+    assert generator_systems
+    assert all("counterfactual patient profiles" in system for system in generator_systems)
+    assert any("multiple-choice judge" in system for system in questioner_systems)
+    assert any("patient-profile auditor" in system for system in questioner_systems)
+    assert not any("counterfactual patient profiles" in system for system in questioner_systems)
+
+
 def test_mediq_profile_support_config_aliases_and_source_selection(tmp_path: Path) -> None:
     path = tmp_path / "profile.yaml"
     path.write_text(

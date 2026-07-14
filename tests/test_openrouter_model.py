@@ -163,6 +163,41 @@ def test_openrouter_thinking_payload_and_forced_exit_are_measured(monkeypatch, t
     assert "Forced thinking exit" in (tmp_path / "run.log").read_text()
 
 
+def test_openrouter_explicit_reasoning_effort_overrides_model_default(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
+    captured = {}
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        captured.update(json.loads(request.data))
+        return _Response(_completion())
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="openai/gpt-5.4",
+            backend="openrouter",
+            reasoning_effort="none",  # type: ignore[arg-type]
+        ),
+        _config(tmp_path),
+    )
+    adapter.chat_complete([{"role": "user", "content": "return json"}], 0.0)
+    assert captured["reasoning"] == {"effort": "none", "exclude": False}
+
+
+def test_openrouter_ledger_attributes_cost_by_model(tmp_path: Path) -> None:
+    config = _config(tmp_path, openrouter_projected_cost_usd=0.0)
+    usage = _completion()["usage"]
+    OpenRouterBudgetTracker(config, "model-a").add(0.01, usage)
+    OpenRouterBudgetTracker(config, "model-b").add(0.02, usage)
+    run = json.loads((tmp_path / "spend.json").read_text())["runs"]["smoke-run"]
+    assert run["cost_usd"] == pytest.approx(0.03)
+    assert run["model_usage"]["model-a"]["cost_usd"] == pytest.approx(0.01)
+    assert run["model_usage"]["model-b"]["cost_usd"] == pytest.approx(0.02)
+
+
 def test_openrouter_retries_429(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
     calls = 0

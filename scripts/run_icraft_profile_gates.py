@@ -12,6 +12,7 @@ import json
 import math
 import sys
 import traceback
+from dataclasses import replace
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -68,12 +69,40 @@ def _configure(config: Config, stage: str) -> Config:
     return config
 
 
-def _models(config: Config) -> tuple[Any, Any]:
+def _models(
+    config: Config,
+    profile_generator_model: str | None = None,
+    profile_generator_reasoning_effort: str = "none",
+) -> tuple[Any, Any, Any | None]:
     pair = config.model_pairs[0]
-    return (
-        build_model_adapter(pair.questioner, config),
-        build_model_adapter(pair.answerer, config),
-    )
+    questioner = build_model_adapter(pair.questioner, config)
+    answerer = build_model_adapter(pair.answerer, config)
+    profile_generator = None
+    if profile_generator_model:
+        if pair.questioner.backend != "openrouter":
+            raise ValueError("a dedicated profile generator currently requires backend=openrouter")
+        profile_spec = replace(
+            pair.questioner,
+            model=profile_generator_model,
+            thinking=None,
+            reasoning_effort=profile_generator_reasoning_effort,
+            thinking_max_new_tokens=None,
+            thinking_final_max_new_tokens=None,
+        )
+        profile_generator = build_model_adapter(profile_spec, config)
+    return questioner, answerer, profile_generator
+
+
+def _environment(
+    config: Config,
+    questioner: Any,
+    answerer: Any,
+    profile_generator: Any | None,
+) -> MediQEnvironment:
+    env = MediQEnvironment(config, answerer).configure_for_run(config)
+    env.set_questioner(questioner)
+    env.set_profile_generator(profile_generator)
+    return env
 
 
 def _diagnosis_probability(
@@ -82,9 +111,13 @@ def _diagnosis_probability(
     return env._diagnosis_probabilities(state.hypotheses, state.probabilities, task)
 
 
-def run_smoke(config: Config, questioner: Any, answerer: Any) -> dict[str, Any]:
-    env = MediQEnvironment(config, answerer).configure_for_run(config)
-    env.set_questioner(questioner)
+def run_smoke(
+    config: Config,
+    questioner: Any,
+    answerer: Any,
+    profile_generator: Any | None = None,
+) -> dict[str, Any]:
+    env = _environment(config, questioner, answerer, profile_generator)
     task = env.tasks[0]
     prior = env._prior_states_many([task], questioner)[0]
     candidates = env.generate_candidate_actions_many(
@@ -103,9 +136,13 @@ def run_smoke(config: Config, questioner: Any, answerer: Any) -> dict[str, Any]:
     }
 
 
-def run_calibration(config: Config, questioner: Any, answerer: Any) -> dict[str, Any]:
-    env = MediQEnvironment(config, answerer).configure_for_run(config)
-    env.set_questioner(questioner)
+def run_calibration(
+    config: Config,
+    questioner: Any,
+    answerer: Any,
+    profile_generator: Any | None = None,
+) -> dict[str, Any]:
+    env = _environment(config, questioner, answerer, profile_generator)
     tasks = env.tasks
     priors = env._prior_states_many(tasks, questioner)
     candidates_many = env.generate_candidate_actions_many(
@@ -191,10 +228,14 @@ def run_calibration(config: Config, questioner: Any, answerer: Any) -> dict[str,
     return result
 
 
-def run_structural(config: Config, questioner: Any, answerer: Any) -> dict[str, Any]:
+def run_structural(
+    config: Config,
+    questioner: Any,
+    answerer: Any,
+    profile_generator: Any | None = None,
+) -> dict[str, Any]:
     del answerer
-    env = MediQEnvironment(config, None).configure_for_run(config)
-    env.set_questioner(questioner)
+    env = _environment(config, questioner, None, profile_generator)
     tasks = env.tasks
     priors = env._prior_states_many(tasks, questioner)
     candidates_many = env.generate_candidate_actions_many(
@@ -242,22 +283,48 @@ def main() -> None:
         "--run-id",
         help="Operational run identifier; does not change a preregistered gate setting.",
     )
+    parser.add_argument(
+        "--profile-generator-model",
+        help="Optional OpenRouter model used only for fixed profile narrative generation.",
+    )
+    parser.add_argument(
+        "--profile-generator-reasoning-effort",
+        choices=("none", "minimal", "low", "medium", "high", "xhigh", "max"),
+        default="none",
+    )
     args = parser.parse_args()
     config = _configure(load_config(args.config), args.stage)
     if args.run_id:
         config.run_id = args.run_id
-    questioner, answerer = _models(config)
+    questioner, answerer, profile_generator = _models(
+        config,
+        args.profile_generator_model,
+        args.profile_generator_reasoning_effort,
+    )
     output = Path(args.output)
     try:
         if args.stage == "smoke":
-            result = run_smoke(config, questioner, answerer)
+            result = run_smoke(config, questioner, answerer, profile_generator)
         elif args.stage == "calibration":
-            result = run_calibration(config, questioner, answerer)
+            result = run_calibration(config, questioner, answerer, profile_generator)
         else:
-            result = run_structural(config, questioner, answerer)
+            result = run_structural(config, questioner, answerer, profile_generator)
+        result["model_roles"] = {
+            "questioner": config.model_pairs[0].questioner.model,
+            "answerer": config.model_pairs[0].answerer.model,
+            "profile_generator": args.profile_generator_model,
+            "profile_generator_reasoning_effort": (
+                args.profile_generator_reasoning_effort
+                if args.profile_generator_model
+                else None
+            ),
+        }
         result["usage"] = {
             "questioner": questioner.usage_snapshot(),
             "answerer": answerer.usage_snapshot(),
+            "profile_generator": (
+                profile_generator.usage_snapshot() if profile_generator is not None else None
+            ),
         }
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
@@ -275,6 +342,21 @@ def main() -> None:
             "usage": {
                 "questioner": questioner.usage_snapshot(),
                 "answerer": answerer.usage_snapshot(),
+                "profile_generator": (
+                    profile_generator.usage_snapshot()
+                    if profile_generator is not None
+                    else None
+                ),
+            },
+            "model_roles": {
+                "questioner": config.model_pairs[0].questioner.model,
+                "answerer": config.model_pairs[0].answerer.model,
+                "profile_generator": args.profile_generator_model,
+                "profile_generator_reasoning_effort": (
+                    args.profile_generator_reasoning_effort
+                    if args.profile_generator_model
+                    else None
+                ),
             },
         }
         failure_path = output.with_name(f"{output.stem}_FAILURE.json")

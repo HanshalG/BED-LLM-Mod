@@ -248,6 +248,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self.config = config
         self.answerer = answerer
         self.questioner: Any | None = None
+        self.profile_generator: Any | None = None
         self.tasks: list[MediQTask] = []
         self._raw_row_count = 0
         self._excluded_source_ids: tuple[str, ...] = ()
@@ -404,6 +405,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
     def set_questioner(self, model: Any) -> None:
         self.questioner = model
 
+    def set_profile_generator(self, model: Any | None) -> None:
+        """Attach an optional model used only to author fixed latent profiles."""
+        self.profile_generator = model
+
     def _questioner(self) -> Any:
         if self.questioner is None:
             raise RuntimeError("MediQ environment has no attached questioner")
@@ -412,6 +417,9 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
     def _evaluation_model(self) -> Any:
         questioner = self._questioner()
         return getattr(questioner, "_mediq_evaluation_model", questioner)
+
+    def _profile_generation_model(self) -> Any:
+        return self.profile_generator or self._evaluation_model()
 
     def _cache_for(self, model: Any) -> dict[tuple[str, float, str], str]:
         cache = getattr(model, "_mediq_shared_call_cache", None)
@@ -617,7 +625,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         for attempt in range(maximum + 1):
             generation_keys = [key for key in pending if len(accepted[key]) < count]
             generated = self._complete_parsed_many(
-                self._evaluation_model(),
+                self._profile_generation_model(),
                 [
                     profile_generation_messages(
                         task_by_id[task_id],

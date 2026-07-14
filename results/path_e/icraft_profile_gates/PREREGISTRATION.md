@@ -68,3 +68,41 @@ Any failed gate stops this path. A structural failure does not permit a FactSele
 attempt. A structural pass still requires a second authorization before a policy run.
 The banked animals audit is one-step evidence and a negative paired depth result, never
 positive non-myopic evidence.
+
+## Authorized Stronger-Generator Retry Addendum
+
+Registered before execution on 2026-07-14, after the Track-1 animals audit collapsed.
+Hanshal authorized exactly one apparatus retry, capped at `$2`, in which a stronger
+OpenRouter model may replace the 26B model for **profile narrative generation only**.
+All partitions, prompts, support size, bounded repairs, seeds, likelihoods, thresholds,
+and stopping rules above remain frozen.
+
+The selected profile generator is `openai/gpt-5.4` with reasoning effort `none`.
+OpenRouter's live model registry identifies it as a frontier model with structured-output
+support; its listed input/output prices project the complete retry below `$1.00` from the
+failed run's token shape, leaving margin below the hard `$2` run cap. Disabling its
+default reasoning preserves output space for the strict JSON profile list and makes this
+a capability substitution rather than a reasoning-budget intervention.
+
+Role separation is strict:
+
+- `openai/gpt-5.4`: author the fixed profile narratives only;
+- `google/gemma-4-26b-a4b-it`, non-thinking: validate profiles, judge priors, generate
+  and validate questions, score likelihoods, map/answer FactSelect interactions, and
+  perform every questioner or policy role.
+
+The one registered attempt is the calibration execution below. There is no extra paid
+smoke and no prompt repair. If profile construction or any calibration criterion fails,
+the external claim closes permanently. If calibration passes, the unchanged structural
+gate runs next; a policy comparison still requires separate authorization.
+
+```bash
+set -a; source .env; set +a
+python scripts/run_icraft_profile_gates.py \
+  --config configs/config_mediq_icraft_profile_retry_openrouter.yaml \
+  --stage calibration \
+  --run-id icraft-profile-gate-stronger-generator-retry \
+  --profile-generator-model openai/gpt-5.4 \
+  --profile-generator-reasoning-effort none \
+  --output results/path_e/icraft_profile_gates/STRONGER_GENERATOR_RETRY_CALIBRATION.json
+```
