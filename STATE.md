@@ -208,7 +208,12 @@ expansion. The smoke-path task-association defect found by that test was fixed i
 registered `$0.50` cap but failed closed before any request or spend because
 this desktop shell has no `OPENROUTER_API_KEY`; a non-mutating remote check
 also could not authenticate to `oat0`. No gate result exists yet, and no
-policy/depth run is authorized.
+policy/depth run is authorized. On 2026-07-14 this was rechecked across three
+consecutive goal turns: the local environment still has no credential and the
+cluster remains unreachable from this session. The active validation chain is
+therefore externally blocked pending an execution environment with the existing
+environment-only OpenRouter credential or restored `oat0` authentication; no
+credential should be added to the repository.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
