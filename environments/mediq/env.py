@@ -43,6 +43,8 @@ from .types import MediQAction, MediQObservation, MediQTask
 
 
 UNAVAILABLE_OUTCOME = "Information unavailable / not in record"
+YES_OUTCOME = "Yes"
+NO_OUTCOME = "No"
 PATIENT_CANNOT_ANSWER = (
     "The patient cannot answer this question from the supplied record."
 )
@@ -88,6 +90,17 @@ def _ensure_unavailable(values: Sequence[Any]) -> tuple[str, ...]:
 
 def _is_compound_query(query: str) -> bool:
     return re.search(r"\b(?:and|or)\b", query.casefold()) is not None
+
+
+def _is_binary_query(query: str) -> bool:
+    return (
+        re.match(
+            r"^(?:is|are|was|were|has|have|had|do|does|did|can|could|would|will)\b",
+            query.strip(),
+            flags=re.IGNORECASE,
+        )
+        is not None
+    )
 
 
 class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation]):
@@ -555,10 +568,27 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     f"{clean_query!r} contains 'and' or 'or'; ask one variable only"
                 )
                 continue
+            if not _is_binary_query(clean_query):
+                rejected.append(
+                    f"{clean_query!r} is not a yes/no predicate; use a binary question"
+                )
+                continue
+            normalized_outcomes = _ensure_unavailable(outcomes)
+            if (
+                len(normalized_outcomes) != 3
+                or {value.casefold() for value in normalized_outcomes[:-1]}
+                != {YES_OUTCOME.casefold(), NO_OUTCOME.casefold()}
+                or normalized_outcomes[-1] != UNAVAILABLE_OUTCOME
+            ):
+                rejected.append(
+                    f"{clean_query!r} must use exactly Yes, No, and "
+                    f"{UNAVAILABLE_OUTCOME!r} outcomes"
+                )
+                continue
             try:
                 action = MediQAction(
                     query=clean_query,
-                    outcomes=_ensure_unavailable(outcomes),
+                    outcomes=(YES_OUTCOME, NO_OUTCOME, UNAVAILABLE_OUTCOME),
                     task=task,
                     transcript=transcript,
                     prior_probabilities=belief_state.probabilities,
@@ -590,19 +620,48 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
     ) -> list[list[MediQAction]]:
         if not (len(tasks) == len(belief_states) == len(histories)):
             raise ValueError("MediQ candidate inputs must have the same length")
-        base_messages = [
-            candidate_messages(task, belief, history, count, naive=naive)
-            for task, belief, history in zip(tasks, belief_states, histories)
+        accepted: list[list[MediQAction]] = [[] for _task in tasks]
+        prior_failures: list[list[tuple[MediQAction, str]]] = [
+            [] for _task in tasks
         ]
-        current_messages = [list(messages) for messages in base_messages]
-        results: list[list[MediQAction] | None] = [None] * len(tasks)
         pending = list(range(len(tasks)))
         maximum = int(getattr(self.config, "mediq_structured_max_retries", 2))
 
         for semantic_attempt in range(maximum + 1):
+            needed = {index: count - len(accepted[index]) for index in pending}
+            generation_messages: list[list[dict[str, str]]] = []
+            for index in pending:
+                messages = candidate_messages(
+                    tasks[index],
+                    belief_states[index],
+                    histories[index],
+                    needed[index],
+                    naive=naive,
+                )
+                if accepted[index] or prior_failures[index]:
+                    accepted_text = "\n".join(
+                        f"- {action.query}" for action in accepted[index]
+                    ) or "None"
+                    failure_text = "\n".join(
+                        f"- {action.query}: {reason}"
+                        for action, reason in prior_failures[index]
+                    ) or "None"
+                    messages = list(messages) + [
+                        {
+                            "role": "user",
+                            "content": (
+                                f"Already accepted queries:\n{accepted_text}\n\n"
+                                f"Rejected queries:\n{failure_text}\n\n"
+                                f"Generate exactly {needed[index]} replacement candidate(s). "
+                                "Do not repeat accepted queries. Correct every rejection and "
+                                "return only the requested strict JSON."
+                            ),
+                        }
+                    ]
+                generation_messages.append(messages)
             generated = self._complete_parsed_many(
                 model,
-                [current_messages[index] for index in pending],
+                generation_messages,
                 temperature,
                 namespace=f"{namespace}:semantic_attempt:{semantic_attempt}",
                 parsers=[
@@ -612,7 +671,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                             tasks[index],
                             belief_states[index],
                             histories[index],
-                            count,
+                            needed[index],
                         )
                     )
                     for index in pending
@@ -641,48 +700,41 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             self._candidate_validation_checks += len(validation_entries)
 
             failures: dict[int, list[tuple[MediQAction, str]]] = {}
-            generated_by_index = dict(zip(pending, generated))
             for (index, action), (valid, reason) in zip(
                 validation_entries, judgments
             ):
                 self._candidate_validation_cache[action] = (valid, reason)
-                if not valid:
+                if any(
+                    existing.query.casefold() == action.query.casefold()
+                    for existing in accepted[index]
+                ):
+                    failures.setdefault(index, []).append(
+                        (action, "duplicates an already accepted query")
+                    )
+                elif valid:
+                    accepted[index].append(action)
+                else:
                     failures.setdefault(index, []).append((action, reason))
 
             retry_indices: list[int] = []
             for index in pending:
                 invalid = failures.get(index, [])
-                if not invalid:
-                    results[index] = generated_by_index[index]
+                prior_failures[index] = invalid
+                if len(accepted[index]) == count:
                     continue
                 if semantic_attempt >= maximum:
                     self._candidate_validation_failures += 1
                     details = "; ".join(
                         f"{action.query!r}: {reason}" for action, reason in invalid
-                    )
+                    ) or "no valid replacement candidates were returned"
                     raise ValueError(
                         "MediQ candidate semantic validation failed after bounded "
-                        f"repairs: {details}"
+                        f"repairs with {len(accepted[index])}/{count} accepted: {details}"
                     )
                 self._candidate_validation_retries += 1
-                feedback = "\n".join(
-                    f"- {action.query}: {reason}" for action, reason in invalid
-                )
-                current_messages[index] = list(base_messages[index]) + [
-                    {
-                        "role": "user",
-                        "content": (
-                            "The previous candidate set failed structural validation:\n"
-                            f"{feedback}\nRegenerate the complete candidate set. Correct "
-                            "every listed issue and return only the requested strict JSON."
-                        ),
-                    }
-                ]
                 retry_indices.append(index)
             if not retry_indices:
-                if any(result is None for result in results):
-                    raise RuntimeError("MediQ candidate validation left a result unset")
-                return [result for result in results if result is not None]
+                return accepted
             pending = retry_indices
         raise AssertionError("unreachable")
 

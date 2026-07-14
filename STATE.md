@@ -43,11 +43,8 @@ have both empty context and empty atomic facts and are static knowledge question
 they violate MediQ's interactive patient-task definition. They are explicitly excluded,
 leaving 1,269 usable rows; every run writes a manifest with the raw hash, commit,
 excluded IDs, and selected source IDs. A zero-cost routing-model dry run over the exact
-five-case/two-round smoke shape passed every automated analyzer gate and made exactly
-235 logical requests (225 questioner/judge, 10 patient). Focused shared regressions are
-145/145 green. The full suite is 583 passed, 1 skipped, with one unrelated stale Path A
-assertion that expects the old phrase "pending Phase 4 checks" although the validated
-preflight now correctly reports "complete package validates." Cost projection is in
+five-case/two-round smoke shape initially passed every automated analyzer gate at 235
+logical requests. Cost projection is in
 `results/path_e/mediq_step0/COST_PROJECTION.md`: expected $0.02-$0.05 after repair,
 conservatively reserved at $0.12. The initial paid run
 `20260714T033819_mediq-step0-eig-nonthinking-26b-seed1304` completed at commit
@@ -61,21 +58,27 @@ outcome gap at glucose 450 mg/dL; and some candidates duplicated unavailable cat
 This localizes the remaining validity issue to atomic query/outcome partition generation
 and explicit-entailment relevance mapping, not the finite-target EIG arithmetic. The run
 is diagnostic only; see `results/path_e/mediq_step0/INITIAL_SMOKE_MANUAL_REVIEW.md`.
-The repair now canonicalizes exactly one unavailable category, rejects compound queries,
-uses a temperature-zero structural critic with bounded whole-set regeneration, checks
+The repair now uses canonical atomic yes/no predicates with exactly one unavailable
+outcome, rejects compound/open-ended queries, retains validated candidates while
+regenerating only the deficit through a temperature-zero structural critic, checks
 selected facts for explicit entailment without exposing response categories, and only
 then maps relevant facts. It also forbids a relevant fact from being mapped to the
 unavailable bucket. The analyzer requires logged successful candidate validation and
-independently rejects compound queries and noncanonical unavailable categories. The exact
+independently requires the canonical yes/no/unavailable support. The exact
 official-data zero-cost dry run passes at 295 requests (50 candidate audits, 10 separate
-relevance audits); 17 focused tests pass and the full suite is 590 passed, 1 skipped,
+relevance audits); 18 focused tests pass and the full suite is 592 passed, 1 skipped,
 with only the same unrelated stale Path A wording assertion failing.
 The first paid repeat attempt `20260714T035736` failed closed before likelihood or
 patient calls because only 3/5 compound-filtered candidates survived two opaque count-only
 repairs. It produced no result and cost $0.00117655 over 13 requests. Rejection feedback
 now names every failed query and reason, with a regression test covering the repair.
-OpenRouter ledger: $16.72544559 spent of the user-authorized $40 cap, leaving
-$23.27455441.
+The second attempt `20260714T040005` reached likelihood scoring but failed closed when
+the critic rejected a non-exhaustive synovial-fluid category set and a hallucinated
+`serum protein A` variable after bounded whole-set regeneration. It produced no complete
+item and cost $0.01065559 over 192 requests. This directly motivated the canonical
+binary observation support and deficit-only replenishment now under test.
+OpenRouter ledger: $16.73610118 spent of the user-authorized $40 cap, leaving
+$23.26389882.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -311,7 +314,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.27455441 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
+7. Budget: $23.26389882 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

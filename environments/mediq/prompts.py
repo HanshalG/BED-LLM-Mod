@@ -114,18 +114,18 @@ def candidate_messages(
                 f"Conversation so far:\n{_history_text(history)}\n\n"
                 f"Clinical question:\n{task.question}\n\nOptions:\n{_options_text(task)}\n"
                 f"{belief_section}\n{purpose} Return exactly {count} candidate(s). Each "
-                "query must ask about exactly one observable variable: one patient fact, "
-                "symptom, history item, examination, or test result. Never join distinct "
-                "variables or qualifiers with 'and', 'or', or 'and/or'. Do not ask the "
+                "query must be one medically meaningful yes/no predicate about exactly one "
+                "observable patient fact, symptom, history item, examination, or test result. "
+                "Start it with Is/Are/Was/Were/Has/Have/Had/Do/Does/Did/Can/Could/Would/Will. "
+                "Never join distinct variables or qualifiers with 'and', 'or', or 'and/or'. "
+                "Do not ask an open-ended 'what' question. Do not ask the "
                 "patient to solve the multiple-choice question or name an option. Do not "
                 "repeat an earlier query or ask for information already explicit in the "
-                "initial information or conversation. For each query, give 3-5 response "
-                "categories that form a mutually exclusive and collectively exhaustive "
-                "partition of every possible record-grounded answer. For a numeric variable, "
-                "use contiguous non-overlapping intervals covering the full plausible range; "
-                "do not leave gaps. Include exactly one unavailable category, written exactly "
-                "as 'Information unavailable / not in record', and no synonym such as 'not "
-                "recorded' or 'unknown'. "
+                "initial information or conversation. Phrase numeric questions as explicit "
+                "threshold predicates, such as 'Was the glucose above 250 mg/dL?', rather "
+                "than asking for an open-ended value. Every candidate must use exactly these "
+                "three response categories: 'Yes', 'No', and 'Information unavailable / not "
+                "in record'. "
                 "Return {\"candidates\":[{\"query\":\"...\",\"outcomes\":[\"...\"]}]} "
                 "and nothing else."
             ),
@@ -155,12 +155,13 @@ def candidate_validation_messages(
                 f"Clinical question:\n{task.question}\n\nOptions:\n{_options_text(task)}\n\n"
                 f"Proposed doctor query: {action.query}\n"
                 f"Proposed response categories: {json.dumps(list(action.outcomes))}\n\n"
-                "Mark valid=true only when all conditions hold: the query asks exactly one "
-                "observable variable; it contains no answer-option leakage; it is not already "
-                "answered above; its non-unavailable categories are mutually exclusive and "
-                "collectively exhaustive; numeric ranges have no gaps or overlaps; and there "
-                "is exactly one unavailable category. Do not infer missing categories from "
-                "intent. Return {\"valid\":true,\"reason\":\"brief structural reason\"}."
+                "Mark valid=true only when all conditions hold: the query is a medically "
+                "meaningful yes/no predicate about exactly one observable variable; it "
+                "contains no answer-option leakage; it is not already answered above; a "
+                "patient-record fact could explicitly establish Yes or No without guessing; "
+                "and the categories are exactly Yes, No, and one unavailable outcome. Reject "
+                "invented or clinically nonsensical variables. Return "
+                "{\"valid\":true,\"reason\":\"brief structural reason\"}."
             ),
         },
     ]
@@ -217,7 +218,8 @@ def patient_fact_messages(task: MediQTask, query: str, max_facts: int) -> list[d
             "role": "user",
             "content": (
                 f"Atomic patient facts:\n{facts}\n\nDoctor question: {query}\n\n"
-                f"Select at most {max_facts} fact indices that directly answer the question. "
+                f"Select at most {max_facts} fact indices that explicitly establish either "
+                "Yes or No for the question. "
                 "Every requested qualifier must be explicit in the selected facts. Do not "
                 "infer or add information: for example, being sexually active does not "
                 "establish new partners or unprotected sex, and symptom presence does not "
@@ -247,7 +249,8 @@ def relevance_messages(query: str, reply: str) -> list[dict[str, str]]:
                 "Set relevant=true only if the selected text explicitly answers the single "
                 "requested variable and every qualifier. Do not use clinical, commonsense, "
                 "or demographic inference. A generic fact does not establish a more specific "
-                "qualifier, frequency, severity, timing, or numeric range. Return "
+                "qualifier, frequency, severity, or timing. Direct arithmetic comparison of "
+                "an explicit recorded value with an explicit query threshold is allowed. Return "
                 '{"relevant":true,"reason":"brief entailment reason"}.'
             ),
         },
@@ -269,8 +272,9 @@ def mapping_messages(reply: str, action: MediQAction) -> list[dict[str, str]]:
                 f"Doctor query: {action.query}\nPatient response: {reply}\n"
                 f"Response categories: {json.dumps(list(action.outcomes))}\n\n"
                 "Set clean=true only if the literal response explicitly entails exactly one "
-                "category. Do not infer an unstated qualifier, frequency, severity, timing, "
-                "or range. If no category or multiple categories fit, set clean=false and "
+                "category. Do not infer an unstated qualifier, frequency, severity, or timing. "
+                "Directly comparing an explicit value with an explicit threshold is allowed. "
+                "If neither Yes nor No is explicitly entailed, set clean=false and "
                 "outcome=null. Return "
                 '{"clean":true,"outcome":"exact supplied category"}.'
             ),

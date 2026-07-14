@@ -23,7 +23,7 @@ def _write_run(tmp_path: Path) -> Path:
     ]
     predictive = dict(
         zip(
-            ["Finding present", "Finding absent", "Information unavailable / not in record"],
+            ["Yes", "No", "Information unavailable / not in record"],
             predictive_values,
             strict=True,
         )
@@ -34,7 +34,7 @@ def _write_run(tmp_path: Path) -> Path:
         facts = ["Initial fact.", "A directly relevant hidden fact."]
         turns = []
         for round_index in range(2):
-            query = f"What relevant finding number {round_index + 1} is present?"
+            query = f"Is relevant finding number {round_index + 1} present?"
             outcomes = list(predictive)
             turns.append(
                 {

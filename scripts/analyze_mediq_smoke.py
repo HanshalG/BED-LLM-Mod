@@ -28,6 +28,7 @@ UNAVAILABLE_MARKERS = (
     "not recorded",
 )
 UNAVAILABLE_OUTCOME = "Information unavailable / not in record"
+CANONICAL_OUTCOMES = ["Yes", "No", UNAVAILABLE_OUTCOME]
 PATIENT_CANNOT_ANSWER = (
     "The patient cannot answer this question from the supplied record."
 )
@@ -95,6 +96,8 @@ def _candidate_diagnostics(
             )
             if unavailable_count != 1 or outcomes.count(UNAVAILABLE_OUTCOME) != 1:
                 raise ValueError("requires exactly one canonical unavailable outcome")
+            if outcomes != CANONICAL_OUTCOMES:
+                raise ValueError("requires canonical Yes/No/unavailable outcomes")
             validation = candidate.get("semantic_validation")
             if (
                 not isinstance(validation, dict)
@@ -353,8 +356,8 @@ def analyze(
         "automated_pass": automated_pass,
         "manual_transcript_review_required": True,
         "manual_review_focus": [
-            "Are generated questions atomic, clinically sensible, and non-redundant?",
-            "Are each question's response categories mutually exclusive and collectively useful?",
+            "Are generated yes/no predicates atomic, clinically sensible, and non-redundant?",
+            "Can the selected patient facts explicitly establish Yes or No for each predicate?",
             "Do selected facts directly answer the question rather than merely concern the case?",
         ],
         "checks": checks,

@@ -59,12 +59,12 @@ class RoutingMediQModel:
                 candidates.append(
                     {
                         "query": (
-                            "What relevant diagnostic finding number "
-                            f"{branch_offset + index + 1} is present?"
+                            "Is relevant diagnostic finding number "
+                            f"{branch_offset + index + 1} present?"
                         ),
                         "outcomes": [
-                            "Finding present",
-                            "Finding absent",
+                            "Yes",
+                            "No",
                             "Information unavailable / not in record",
                         ],
                     }
@@ -103,15 +103,15 @@ class CandidateRepairModel(RoutingMediQModel):
         system = messages[0]["content"]
         user = messages[-1]["content"]
         if "generate atomic patient questions" in system:
-            if "failed structural validation" in user:
+            if "Rejected queries:" in user:
                 return json.dumps(
                     {
                         "candidates": [
                             {
-                                "query": "What is the body temperature?",
+                                "query": "Is the body temperature at least 38 C?",
                                 "outcomes": [
-                                    "Below 38 C",
-                                    "At least 38 C",
+                                    "Yes",
+                                    "No",
                                     UNAVAILABLE_OUTCOME,
                                 ],
                             }
@@ -122,10 +122,10 @@ class CandidateRepairModel(RoutingMediQModel):
                 {
                     "candidates": [
                         {
-                            "query": "What is the blood glucose value?",
+                            "query": "Is the fictitious serum protein A elevated?",
                             "outcomes": [
-                                "Below 50 mg/dL",
-                                "Above 500 mg/dL",
+                                "Yes",
+                                "No",
                                 UNAVAILABLE_OUTCOME,
                             ],
                         }
@@ -133,14 +133,14 @@ class CandidateRepairModel(RoutingMediQModel):
                 }
             )
         if "strict MediQ candidate-space auditor" in system:
-            if "blood glucose" in user:
+            if "fictitious serum protein A" in user:
                 return json.dumps(
                     {
                         "valid": False,
-                        "reason": "numeric outcomes leave a gap from 50 to 500 mg/dL",
+                        "reason": "the query invents a clinically nonsensical variable",
                     }
                 )
-            return json.dumps({"valid": True, "reason": "complete numeric partition"})
+            return json.dumps({"valid": True, "reason": "valid binary predicate"})
         return super()._route(messages)
 
 
@@ -150,7 +150,7 @@ class CompoundQuestionRepairModel(RoutingMediQModel):
         user = messages[-1]["content"]
         if "generate atomic patient questions" in system:
             query = (
-                "What is the blood smear result?"
+                "Is a ring form present on the blood smear?"
                 if "contains 'and' or 'or'" in user
                 else "Do you have fever or productive cough?"
             )
@@ -159,9 +159,47 @@ class CompoundQuestionRepairModel(RoutingMediQModel):
                     "candidates": [
                         {
                             "query": query,
-                            "outcomes": ["Present", "Absent", UNAVAILABLE_OUTCOME],
+                            "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
                         }
                     ]
+                }
+            )
+        return super()._route(messages)
+
+
+class PartialCandidateRepairModel(RoutingMediQModel):
+    def _route(self, messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "generate atomic patient questions" in system:
+            if "Generate exactly 1 replacement" in user:
+                queries = ["Is the blood smear positive for ring forms?"]
+            else:
+                queries = [
+                    "Is recent endemic travel documented?",
+                    "Is the fictitious serum protein A elevated?",
+                ]
+            return json.dumps(
+                {
+                    "candidates": [
+                        {
+                            "query": query,
+                            "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
+                        }
+                        for query in queries
+                    ]
+                }
+            )
+        if "strict MediQ candidate-space auditor" in system:
+            valid = "fictitious serum protein A" not in user
+            return json.dumps(
+                {
+                    "valid": valid,
+                    "reason": (
+                        "valid binary predicate"
+                        if valid
+                        else "the query invents a clinically nonsensical variable"
+                    ),
                 }
             )
         return super()._route(messages)
@@ -357,7 +395,9 @@ def test_mediq_semantic_candidate_validation_regenerates_invalid_set() -> None:
     actions = env.generate_candidate_actions(
         BeliefState.uniform(task.option_labels), [], model, config
     )
-    assert [action.query for action in actions] == ["What is the body temperature?"]
+    assert [action.query for action in actions] == [
+        "Is the body temperature at least 38 C?"
+    ]
     assert env._candidate_metrics() == {
         "candidate_validation_checks": 2.0,
         "candidate_validation_retries": 1.0,
@@ -374,8 +414,30 @@ def test_mediq_compound_candidate_repair_receives_specific_feedback() -> None:
     actions = env.generate_candidate_actions(
         BeliefState.uniform(task.option_labels), [], model, config
     )
-    assert [action.query for action in actions] == ["What is the blood smear result?"]
+    assert [action.query for action in actions] == [
+        "Is a ring form present on the blood smear?"
+    ]
     assert env._structured_parse_retries == 1
+
+
+def test_mediq_candidate_repair_retains_valid_queries_and_fills_deficit() -> None:
+    model = PartialCandidateRepairModel()
+    config = _config(mediq_num_trials=1, mediq_num_candidates=2)
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    actions = env.generate_candidate_actions(
+        BeliefState.uniform(task.option_labels), [], model, config
+    )
+    assert [action.query for action in actions] == [
+        "Is recent endemic travel documented?",
+        "Is the blood smear positive for ring forms?",
+    ]
+    assert env._candidate_metrics() == {
+        "candidate_validation_checks": 3.0,
+        "candidate_validation_retries": 1.0,
+        "candidate_validation_failures": 0.0,
+    }
 
 
 def test_mediq_relevance_is_category_blind_and_repairs_fact_selection() -> None:

@@ -9,6 +9,9 @@ Frozen config: `configs/config_mediq_step0_smoke_openrouter.yaml`
 - Official iMEDQA release at commit `faa2ce62fef0423e35af4c31d7537aad973173eb`.
 - Raw-file SHA-256: `3bfc7090d060dd8d11e4237344ed78846707faab433a84d078191627ad3c9526`.
 - Five usable cases at offset 0, two rounds, five candidates per round.
+- Candidate actions are atomic yes/no predicates with the fixed outcome support
+  `Yes`, `No`, and `Information unavailable / not in record`; validated candidates are
+  retained while only rejected deficits are regenerated.
 - One-step EIG only; Gemma 4 26B A4B without thinking for both roles.
 - Trial batch size 5, OpenRouter concurrency 128, maximum output 1024 tokens.
 - Three official rows without context or atomic facts (source IDs 224, 298, and 779)
@@ -40,8 +43,9 @@ already covers the stage; 256 would not shorten the critical path for this run.
 - Expected repaired volume: approximately 105k-150k tokens plus bounded repairs.
 - Expected repaired cost: approximately $0.02-$0.05.
 - Conservative config reservation: **$0.12**.
-- Ledger before the repeated smoke: $16.72426904 spent of the user-authorized $40 cap;
-  $23.27573096 remains.
+- Ledger before the canonical-binary repeat: $16.73610118 spent of the user-authorized
+  $40 cap; $23.26389882 remains. Two failed-closed repair attempts spent $0.01183214
+  without producing a complete item; both are recorded in `EXPERIMENTS.md`.
 
 The smoke is an environment and probabilistic-mechanics gate, not endpoint evidence.
 Its five-case accuracy is diagnostic only. Automated passage still requires a separate
