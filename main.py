@@ -54,6 +54,11 @@ def main():
         help="Override the first Paprika task index for an isolated paired shard",
     )
     parser.add_argument(
+        "--mediq-task-offset",
+        type=int,
+        help="Override the first MediQ task index for an isolated paired shard",
+    )
+    parser.add_argument(
         "--output-root",
         type=Path,
         default=Path("runs"),
@@ -71,6 +76,14 @@ def main():
         config.paprika_task_offset = args.paprika_task_offset
         if isinstance(config.environment, dict):
             config.environment["task_offset"] = args.paprika_task_offset
+    if args.mediq_task_offset is not None:
+        if config.task != "mediq":
+            parser.error("--mediq-task-offset is only valid for mediq")
+        if args.mediq_task_offset < 0:
+            parser.error("--mediq-task-offset must be non-negative")
+        config.mediq_task_offset = args.mediq_task_offset
+        if isinstance(config.environment, dict):
+            config.environment["task_offset"] = args.mediq_task_offset
     config.run_id = resolve_run_id()
     print(
         f"[main] Loaded config with {len(config.model_pairs)} model pair(s), "

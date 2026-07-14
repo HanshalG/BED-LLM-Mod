@@ -13,6 +13,7 @@ fields relevant to one slice of the system:
 - :class:`AnimalsConfig` — animals-game-specific fields
 - :class:`LocationConfig` — location-finding-specific fields
 - :class:`PaprikaConfig` — Paprika customer-service-specific fields
+- :class:`MediQConfig` — MediQ interactive-clinical-reasoning fields
 
 New environments and new code paths should consume these typed views via
 :func:`base_view`, :func:`animals_view`, and :func:`location_view` — that way
@@ -173,6 +174,24 @@ class PaprikaConfig:
     belief_refresh_enabled: bool = True
     num_refresh_hypotheses: int = 6
     max_hypotheses: int = 24
+    structured_max_retries: int = 2
+
+
+@dataclass(frozen=True)
+class MediQConfig:
+    data_path: str | None = None
+    dataset: str = "imedqa"
+    verify_official_hash: bool = True
+    skip_unusable_tasks: bool = True
+    num_trials: int = 5
+    num_rounds: int = 5
+    trial_batch_size: int = 1
+    task_offset: int = 0
+    seed: int | None = None
+    num_candidates: int = 5
+    max_patient_facts: int = 2
+    probability_floor: float = 0.01
+    shared_call_cache_enabled: bool = True
     structured_max_retries: int = 2
 
 
@@ -342,5 +361,33 @@ def paprika_view(config: Any) -> PaprikaConfig:
         max_hypotheses=int(getattr(config, "paprika_max_hypotheses", 24)),
         structured_max_retries=int(
             getattr(config, "paprika_structured_max_retries", 2)
+        ),
+    )
+
+
+def mediq_view(config: Any) -> MediQConfig:
+    """Project MediQ fields out of the flat config."""
+    return MediQConfig(
+        data_path=getattr(config, "mediq_data_path", None),
+        dataset=getattr(config, "mediq_dataset", "imedqa"),
+        verify_official_hash=bool(
+            getattr(config, "mediq_verify_official_hash", True)
+        ),
+        skip_unusable_tasks=bool(
+            getattr(config, "mediq_skip_unusable_tasks", True)
+        ),
+        num_trials=int(getattr(config, "mediq_num_trials", 5)),
+        num_rounds=int(getattr(config, "mediq_num_rounds", 5)),
+        trial_batch_size=int(getattr(config, "mediq_trial_batch_size", 1)),
+        task_offset=int(getattr(config, "mediq_task_offset", 0)),
+        seed=getattr(config, "mediq_seed", None),
+        num_candidates=int(getattr(config, "mediq_num_candidates", 5)),
+        max_patient_facts=int(getattr(config, "mediq_max_patient_facts", 2)),
+        probability_floor=float(getattr(config, "mediq_probability_floor", 0.01)),
+        shared_call_cache_enabled=bool(
+            getattr(config, "mediq_shared_call_cache_enabled", True)
+        ),
+        structured_max_retries=int(
+            getattr(config, "mediq_structured_max_retries", 2)
         ),
     )

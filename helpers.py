@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 
 ReasoningEffort = Literal["low", "medium", "high"]
 ModelBackend = Literal["vllm", "openrouter"]
-TaskMode = Literal["animals", "location_finding", "paprika_customer_service"]
+TaskMode = Literal["animals", "location_finding", "paprika_customer_service", "mediq"]
 BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
@@ -161,6 +161,20 @@ class Config:
     paprika_num_refresh_hypotheses: int = 6
     paprika_max_hypotheses: int = 24
     paprika_structured_max_retries: int = 2
+    mediq_data_path: str | None = None
+    mediq_dataset: str = "imedqa"
+    mediq_verify_official_hash: bool = True
+    mediq_skip_unusable_tasks: bool = True
+    mediq_num_trials: int = 5
+    mediq_num_rounds: int = 5
+    mediq_trial_batch_size: int = 1
+    mediq_task_offset: int = 0
+    mediq_seed: int | None = None
+    mediq_num_candidates: int = 5
+    mediq_max_patient_facts: int = 2
+    mediq_probability_floor: float = 0.01
+    mediq_shared_call_cache_enabled: bool = True
+    mediq_structured_max_retries: int = 2
     openrouter_budget_usd: float = 20.0
     openrouter_projected_cost_usd: float = 0.0
     openrouter_concurrency: int = 128
@@ -269,6 +283,37 @@ class Config:
             raise ValueError("paprika_task_offset must be a non-negative integer")
         if not isinstance(self.paprika_structured_max_retries, int) or isinstance(self.paprika_structured_max_retries, bool) or self.paprika_structured_max_retries < 0:
             raise ValueError("paprika_structured_max_retries must be a non-negative integer")
+        if self.mediq_dataset not in {"imedqa", "icraft_md"}:
+            raise ValueError("mediq_dataset must be one of: imedqa, icraft_md")
+        if not isinstance(self.mediq_verify_official_hash, bool):
+            raise ValueError("mediq_verify_official_hash must be a boolean")
+        if not isinstance(self.mediq_skip_unusable_tasks, bool):
+            raise ValueError("mediq_skip_unusable_tasks must be a boolean")
+        if not isinstance(self.mediq_shared_call_cache_enabled, bool):
+            raise ValueError("mediq_shared_call_cache_enabled must be a boolean")
+        for name in (
+            "mediq_num_trials",
+            "mediq_num_rounds",
+            "mediq_trial_batch_size",
+            "mediq_num_candidates",
+            "mediq_max_patient_facts",
+        ):
+            value = getattr(self, name)
+            if not isinstance(value, int) or isinstance(value, bool) or value <= 0:
+                raise ValueError(f"{name} must be a positive integer")
+        if not isinstance(self.mediq_task_offset, int) or isinstance(self.mediq_task_offset, bool) or self.mediq_task_offset < 0:
+            raise ValueError("mediq_task_offset must be a non-negative integer")
+        if self.mediq_seed is not None and (
+            not isinstance(self.mediq_seed, int) or isinstance(self.mediq_seed, bool)
+        ):
+            raise ValueError("mediq_seed must be an integer or null")
+        if not isinstance(self.mediq_structured_max_retries, int) or isinstance(self.mediq_structured_max_retries, bool) or self.mediq_structured_max_retries < 0:
+            raise ValueError("mediq_structured_max_retries must be a non-negative integer")
+        if isinstance(self.mediq_probability_floor, bool):
+            raise ValueError("mediq_probability_floor must be a number in [0, 0.2)")
+        self.mediq_probability_floor = float(self.mediq_probability_floor)
+        if not math.isfinite(self.mediq_probability_floor) or not 0.0 <= self.mediq_probability_floor < 0.2:
+            raise ValueError("mediq_probability_floor must be a number in [0, 0.2)")
         if self.openrouter_budget_usd <= 0.0:
             raise ValueError("openrouter_budget_usd must be positive")
         if self.openrouter_projected_cost_usd < 0.0:
@@ -336,6 +381,12 @@ class Config:
         from core.config import paprika_view
 
         return paprika_view(self)
+
+    @property
+    def mediq_config(self):
+        from core.config import mediq_view
+
+        return mediq_view(self)
 
 
 def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
@@ -598,12 +649,30 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "max_hypotheses": "paprika_max_hypotheses",
         "structured_max_retries": "paprika_structured_max_retries",
     }
+    common_mediq = {
+        "data_path": "mediq_data_path",
+        "dataset": "mediq_dataset",
+        "verify_official_hash": "mediq_verify_official_hash",
+        "skip_unusable_tasks": "mediq_skip_unusable_tasks",
+        "num_trials": "mediq_num_trials",
+        "num_rounds": "mediq_num_rounds",
+        "trial_batch_size": "mediq_trial_batch_size",
+        "task_offset": "mediq_task_offset",
+        "seed": "mediq_seed",
+        "num_candidates": "mediq_num_candidates",
+        "max_patient_facts": "mediq_max_patient_facts",
+        "probability_floor": "mediq_probability_floor",
+        "shared_call_cache_enabled": "mediq_shared_call_cache_enabled",
+        "structured_max_retries": "mediq_structured_max_retries",
+    }
     if task == "animals":
         return common_animals
     if task == "location_finding":
         return common_location
     if task == "paprika_customer_service":
         return common_paprika
+    if task == "mediq":
+        return common_mediq
     return {}
 
 
@@ -1000,6 +1069,20 @@ def load_config(path: str) -> Config:
         paprika_num_refresh_hypotheses = raw.get("paprika_num_refresh_hypotheses", 6),
         paprika_max_hypotheses = raw.get("paprika_max_hypotheses", 24),
         paprika_structured_max_retries = raw.get("paprika_structured_max_retries", 2),
+        mediq_data_path = raw.get("mediq_data_path"),
+        mediq_dataset = raw.get("mediq_dataset", "imedqa"),
+        mediq_verify_official_hash = raw.get("mediq_verify_official_hash", True),
+        mediq_skip_unusable_tasks = raw.get("mediq_skip_unusable_tasks", True),
+        mediq_num_trials = raw.get("mediq_num_trials", 5),
+        mediq_num_rounds = raw.get("mediq_num_rounds", 5),
+        mediq_trial_batch_size = raw.get("mediq_trial_batch_size", 1),
+        mediq_task_offset = raw.get("mediq_task_offset", 0),
+        mediq_seed = raw.get("mediq_seed"),
+        mediq_num_candidates = raw.get("mediq_num_candidates", 5),
+        mediq_max_patient_facts = raw.get("mediq_max_patient_facts", 2),
+        mediq_probability_floor = raw.get("mediq_probability_floor", 0.01),
+        mediq_shared_call_cache_enabled = raw.get("mediq_shared_call_cache_enabled", True),
+        mediq_structured_max_retries = raw.get("mediq_structured_max_retries", 2),
         openrouter_budget_usd = float(raw.get("openrouter_budget_usd", 20.0)),
         openrouter_projected_cost_usd = float(raw.get("openrouter_projected_cost_usd", 0.0)),
         openrouter_concurrency = _read_positive_int(raw, "openrouter_concurrency", 128),

@@ -39,6 +39,7 @@ def register_defaults(force: bool = False) -> None:
     register_environment("animals", _build_animals_environment)
     register_environment("location_finding", _build_location_environment)
     register_environment("paprika_customer_service", _build_paprika_environment)
+    register_environment("mediq", _build_mediq_environment)
 
     for env_name in ("animals", "location_finding", "paprika_customer_service"):
         for method_name in _GLOBAL_METHODS:
@@ -63,6 +64,10 @@ def register_defaults(force: bool = False) -> None:
         _build_paprika_naive_primary_candidate0,
     )
 
+    for method_name in ("EIG", "naive", "Naive"):
+        register_method("mediq", method_name, _build_global_method(method_name))
+    register_method("mediq", "Full2StepEIG", _build_mediq_full_two_step)
+
     _REGISTERED = True
 
 
@@ -84,9 +89,22 @@ def _build_paprika_environment(config: Any, questioner: Any, answerer: Any) -> A
     return PaprikaCustomerServiceEnvironment(config=config, answerer=answerer)
 
 
+def _build_mediq_environment(config: Any, questioner: Any, answerer: Any) -> Any:
+    del questioner
+    from environments.mediq import MediQEnvironment
+
+    return MediQEnvironment(config=config, answerer=answerer)
+
+
 def _build_paprika_full_two_step(config: Any, environment: Any | None = None) -> Any:
     if environment is None:
         raise ValueError("Full2StepEIG requires a Paprika environment")
+    return environment.build_full_two_step_eig_method(config)
+
+
+def _build_mediq_full_two_step(config: Any, environment: Any | None = None) -> Any:
+    if environment is None:
+        raise ValueError("Full2StepEIG requires a MediQ environment")
     return environment.build_full_two_step_eig_method(config)
 
 

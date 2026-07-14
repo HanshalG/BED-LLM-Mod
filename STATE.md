@@ -23,6 +23,33 @@ the logs also lack Git-commit provenance and the depth-3 recursive implementatio
 postdates the depth-1/2 runs. Animals can support one-step BED transfer, not the
 non-myopic claim. MediQ must carry that claim.
 
+MediQ Step 0 implementation status (2026-07-13): **locally launch-ready; paid smoke
+not yet launched.** The adapter uses the exact released multiple-choice labels as the
+finite BED target, a temperature-zero judged initial distribution, option-conditioned
+categorical response likelihoods, recursive one-likelihood-at-a-time Bayes updates,
+grounded Fact-Select patient replies assembled verbatim from released atomic facts,
+and exact categorical depth-two branch expansion. The naive arm is belief-free and
+directly decodes from the complete observed conversation. Per-query artifacts now log
+all root likelihood tables plus predicted EIG, realized entropy drop, realized truth
+log-probability gain, predictive outcome probability, and true-label likelihood. The
+frozen analyzer independently reconstructs every EIG table and verifies data provenance,
+verbatim grounding, relevance, mapping coverage, parse failures, and runtime failures;
+manual semantic review remains mandatory.
+
+The hash-pinned official iMEDQA file has 1,272 rows. Three source rows (224, 298, 779)
+have both empty context and empty atomic facts and are static knowledge questions, so
+they violate MediQ's interactive patient-task definition. They are explicitly excluded,
+leaving 1,269 usable rows; every run writes a manifest with the raw hash, commit,
+excluded IDs, and selected source IDs. A zero-cost routing-model dry run over the exact
+five-case/two-round smoke shape passed every automated analyzer gate and made exactly
+235 logical requests (225 questioner/judge, 10 patient). Focused shared regressions are
+145/145 green. The full suite is 583 passed, 1 skipped, with one unrelated stale Path A
+assertion that expects the old phrase "pending Phase 4 checks" although the validated
+preflight now correctly reports "complete package validates." Cost projection is in
+`results/path_e/mediq_step0/COST_PROJECTION.md`: expected $0.04-$0.08, conservatively
+reserved at $0.12. OpenRouter ledger: $16.71009983 spent of the user-authorized $40 cap,
+leaving $23.28990017.
+
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
 (GOAL.md): Paprika customer-service troubleshooting exposed the boundary failure;
@@ -190,7 +217,10 @@ the only paired block reverses, and paired depth 3 is worse than depth 2. Delive
 animals for the one-step BED-transfer claim; the non-myopic claim rides entirely on
 the MediQ claim-2 pilot.
 
-Track 2 (main line): MediQ per the registered design requirements. Note the endpoint is
+Track 2 (main line): MediQ per the registered design requirements. Step 0 adapter,
+analyzer, frozen config, and zero-cost official-data dry run are complete; commit and
+push, then launch the five-case OpenRouter EIG smoke and perform the mandatory manual
+transcript/category review. Note the endpoint is
 exact-match on the MC label — no success judge, no remedy adjudication; the remaining
 validity gate is patient-simulator faithfulness (answers consistent with the case
 record) + answer-mapping coverage. Integration smoke (~$0.1) -> pre-register ->
@@ -252,7 +282,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: ~$18 remains of $30. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
+7. Budget: $23.28990017 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

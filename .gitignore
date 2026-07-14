@@ -31,6 +31,7 @@ configs/*
 !configs/config_paprika_arbitration_terminal_split_openrouter.yaml
 !configs/config_paprika_arbitration_headline_triplet_openrouter.yaml
 !configs/config_paprika_arbitration_headline_nonthinking_openrouter.yaml
+!configs/config_mediq_step0_smoke_openrouter.yaml
 !configs/archive/
 !configs/archive/**
 !configs/config_strategy_ranking_fidelity_smoke.yaml
@@ -56,6 +57,8 @@ condaenv.ph6m_vev.requirements.txt
 external/
 !results/path_e/
 results/path_e/*
+!results/path_e/mediq_step0/
+!results/path_e/mediq_step0/**
 !results/path_e/step0a_adapter_smoke/
 !results/path_e/step0a_adapter_smoke/REPORT.json
 !results/path_e/step0a_adapter_smoke/paprika_smoke.json
