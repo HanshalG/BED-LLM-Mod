@@ -1,0 +1,564 @@
+{
+  "checks": {
+    "available_mean_truth_log_gain_positive": false,
+    "available_true_label_favored_rate_at_least_60_percent": true,
+    "frozen_replay_shape": true,
+    "overall_mean_truth_log_gain_nonnegative": false,
+    "unavailable_does_not_move_posterior": true,
+    "unavailable_is_label_independent": true
+  },
+  "gate_definition": {
+    "available_mean_truth_log_gain_must_be_positive": true,
+    "available_true_label_favored_rate_minimum": 0.6,
+    "overall_mean_truth_log_gain_must_be_nonnegative": true,
+    "unavailable_likelihood_and_posterior_tolerance": 1e-12
+  },
+  "likelihood_mode": "factored_record",
+  "purpose": "Likelihood-calibration diagnostic on frozen Step 0 actions/outcomes; not a policy-efficacy result",
+  "source_artifact": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T043855_mediq-step0-set-dedup-v2-eig-nonthinking-26b-seed1304/items/000_EIG/mediq_interactions.json",
+  "source_run": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T043855_mediq-step0-set-dedup-v2-eig-nonthinking-26b-seed1304",
+  "status": "fail",
+  "summary": {
+    "available_mean_truth_log_probability_gain": -0.1181233443216919,
+    "available_true_label_favored_rate": 0.6666666666666666,
+    "maximum_unavailable_likelihood_span": 0.0,
+    "maximum_unavailable_posterior_linf_change": 1.734723475976807e-18,
+    "mean_eig": 0.006898628600567047,
+    "mean_realized_entropy_drop": 0.12636985585559843,
+    "mean_truth_log_probability_gain": -0.07087400659301514,
+    "num_available_turns": 6,
+    "num_tasks": 5,
+    "num_turns": 10,
+    "num_unavailable_turns": 4
+  },
+  "turns": [
+    {
+      "eig": 0.0,
+      "likelihoods": {
+        "A": [
+          0.095,
+          0.005000000000000001,
+          0.9
+        ],
+        "B": [
+          0.095,
+          0.005000000000000001,
+          0.9
+        ],
+        "C": [
+          0.095,
+          0.005000000000000001,
+          0.9
+        ],
+        "D": [
+          0.095,
+          0.005000000000000001,
+          0.9
+        ]
+      },
+      "observed_outcome": "Information unavailable / not in record",
+      "observed_outcome_predictive_probability": 0.9,
+      "observed_outcome_true_label_probability": 0.9,
+      "posterior": {
+        "A": 0.00970873786407767,
+        "B": 0.00970873786407767,
+        "C": 0.970873786407767,
+        "D": 0.00970873786407767
+      },
+      "posterior_linf_change": 1.734723475976807e-18,
+      "prior": {
+        "A": 0.009708737864077669,
+        "B": 0.009708737864077669,
+        "C": 0.970873786407767,
+        "D": 0.009708737864077669
+      },
+      "query": "Is the joint swelling limited to a single joint?",
+      "realized_entropy_drop": -2.7755575615628914e-17,
+      "realized_truth_log_probability_gain": 0.0,
+      "record_answerability_probability": 0.09999999999999998,
+      "round": 1,
+      "source_id": "0",
+      "task_id": "mediq:imedqa:0",
+      "true_label": "C",
+      "true_label_favored": false,
+      "unavailable": true,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 0.036405238897423975,
+      "likelihoods": {
+        "A": [
+          0.095,
+          0.005000000000000001,
+          0.9
+        ],
+        "B": [
+          0.015,
+          0.085,
+          0.9
+        ],
+        "C": [
+          0.005000000000000001,
+          0.095,
+          0.9
+        ],
+        "D": [
+          0.085,
+          0.015,
+          0.9
+        ]
+      },
+      "observed_outcome": "Yes",
+      "observed_outcome_predictive_probability": 0.06599999999999999,
+      "observed_outcome_true_label_probability": 0.095,
+      "posterior": {
+        "A": 0.8636363636363638,
+        "B": 0.06818181818181819,
+        "C": 0.0037878787878787893,
+        "D": 0.0643939393939394
+      },
+      "posterior_linf_change": 0.2636363636363638,
+      "prior": {
+        "A": 0.6,
+        "B": 0.3,
+        "C": 0.05,
+        "D": 0.05
+      },
+      "query": "Has the child had similar episodes in the past?",
+      "realized_entropy_drop": 0.45980422572365187,
+      "realized_truth_log_probability_gain": 0.3642221495741155,
+      "record_answerability_probability": 0.09999999999999998,
+      "round": 1,
+      "source_id": "1",
+      "task_id": "mediq:imedqa:1",
+      "true_label": "A",
+      "true_label_favored": true,
+      "unavailable": false,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 0.000935617887131715,
+      "likelihoods": {
+        "A": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "B": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "C": [
+          0.0014851485148514852,
+          0.008415841584158416,
+          0.9900990099009901
+        ],
+        "D": [
+          0.007425742574257425,
+          0.0024752475247524753,
+          0.9900990099009901
+        ]
+      },
+      "observed_outcome": "Information unavailable / not in record",
+      "observed_outcome_predictive_probability": 0.9900990099009901,
+      "observed_outcome_true_label_probability": 0.9900990099009901,
+      "posterior": {
+        "A": 0.05,
+        "B": 0.45,
+        "C": 0.1,
+        "D": 0.4
+      },
+      "posterior_linf_change": 0.0,
+      "prior": {
+        "A": 0.05,
+        "B": 0.45,
+        "C": 0.1,
+        "D": 0.4
+      },
+      "query": "Has the patient experienced excessive worry?",
+      "realized_entropy_drop": 0.0,
+      "realized_truth_log_probability_gain": 0.0,
+      "record_answerability_probability": 0.00990099009900991,
+      "round": 1,
+      "source_id": "2",
+      "task_id": "mediq:imedqa:2",
+      "true_label": "D",
+      "true_label_favored": false,
+      "unavailable": true,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 0.0008392693188231798,
+      "likelihoods": {
+        "A": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "B": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "C": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "D": [
+          9.80296049406921e-05,
+          0.009802960494069209,
+          0.9900990099009901
+        ]
+      },
+      "observed_outcome": "Yes",
+      "observed_outcome_predictive_probability": 0.00799995098519753,
+      "observed_outcome_true_label_probability": 0.008415841584158416,
+      "posterior": {
+        "A": 0.2103973286768986,
+        "B": 0.6311919860306957,
+        "C": 0.15779799650767393,
+        "D": 0.0006126887847317955
+      },
+      "posterior_linf_change": 0.04938731121526821,
+      "prior": {
+        "A": 0.2,
+        "B": 0.6,
+        "C": 0.15,
+        "D": 0.05
+      },
+      "query": "Is the patient's temperature above 38.0 degrees Celsius?",
+      "realized_entropy_drop": 0.14844226519048664,
+      "realized_truth_log_probability_gain": 0.05068041783234484,
+      "record_answerability_probability": 0.00990099009900991,
+      "round": 1,
+      "source_id": "3",
+      "task_id": "mediq:imedqa:3",
+      "true_label": "B",
+      "true_label_favored": true,
+      "unavailable": false,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 0.0035575783868119493,
+      "likelihoods": {
+        "A": [
+          0.0014851485148514852,
+          0.008415841584158416,
+          0.9900990099009901
+        ],
+        "B": [
+          0.009405940594059406,
+          0.0004950495049504951,
+          0.9900990099009901
+        ],
+        "C": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "D": [
+          0.0004950495049504951,
+          0.009405940594059406,
+          0.9900990099009901
+        ]
+      },
+      "observed_outcome": "Yes",
+      "observed_outcome_predictive_probability": 0.00514851485148515,
+      "observed_outcome_true_label_probability": 0.0014851485148514852,
+      "posterior": {
+        "A": 0.11538461538461538,
+        "B": 0.548076923076923,
+        "C": 0.3269230769230769,
+        "D": 0.009615384615384616
+      },
+      "posterior_linf_change": 0.2846153846153847,
+      "prior": {
+        "A": 0.4000000000000001,
+        "B": 0.30000000000000004,
+        "C": 0.20000000000000004,
+        "D": 0.10000000000000002
+      },
+      "query": "Was the patient's blood glucose level above 250 mg/dL?",
+      "realized_entropy_drop": 0.2909350565093608,
+      "realized_truth_log_probability_gain": -1.2431935174792177,
+      "record_answerability_probability": 0.00990099009900991,
+      "round": 1,
+      "source_id": "4",
+      "task_id": "mediq:imedqa:4",
+      "true_label": "A",
+      "true_label_favored": false,
+      "unavailable": false,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": -1.1102230246251565e-16,
+      "likelihoods": {
+        "A": [
+          0.33249999999999996,
+          0.017499999999999998,
+          0.65
+        ],
+        "B": [
+          0.33249999999999996,
+          0.017499999999999998,
+          0.65
+        ],
+        "C": [
+          0.33249999999999996,
+          0.017499999999999998,
+          0.65
+        ],
+        "D": [
+          0.33249999999999996,
+          0.017499999999999998,
+          0.65
+        ]
+      },
+      "observed_outcome": "Information unavailable / not in record",
+      "observed_outcome_predictive_probability": 0.65,
+      "observed_outcome_true_label_probability": 0.65,
+      "posterior": {
+        "A": 0.00970873786407767,
+        "B": 0.00970873786407767,
+        "C": 0.970873786407767,
+        "D": 0.00970873786407767
+      },
+      "posterior_linf_change": 0.0,
+      "prior": {
+        "A": 0.00970873786407767,
+        "B": 0.00970873786407767,
+        "C": 0.970873786407767,
+        "D": 0.00970873786407767
+      },
+      "query": "Has the patient had a recent history of sexually transmitted infections?",
+      "realized_entropy_drop": 0.0,
+      "realized_truth_log_probability_gain": 0.0,
+      "record_answerability_probability": 0.35,
+      "round": 2,
+      "source_id": "0",
+      "task_id": "mediq:imedqa:0",
+      "true_label": "C",
+      "true_label_favored": false,
+      "unavailable": true,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 0.027170251054134065,
+      "likelihoods": {
+        "A": [
+          0.17,
+          0.03,
+          0.8
+        ],
+        "B": [
+          0.03,
+          0.17,
+          0.8
+        ],
+        "C": [
+          0.010000000000000002,
+          0.19,
+          0.8
+        ],
+        "D": [
+          0.03,
+          0.17,
+          0.8
+        ]
+      },
+      "observed_outcome": "Yes",
+      "observed_outcome_predictive_probability": 0.15083333333333335,
+      "observed_outcome_true_label_probability": 0.17,
+      "posterior": {
+        "A": 0.9733802109492719,
+        "B": 0.013561024610748368,
+        "C": 0.00025113008538422916,
+        "D": 0.012807634354595681
+      },
+      "posterior_linf_change": 0.1097438473129081,
+      "prior": {
+        "A": 0.8636363636363638,
+        "B": 0.06818181818181819,
+        "C": 0.0037878787878787893,
+        "D": 0.0643939393939394
+      },
+      "query": "Has the child had abdominal pain during these episodes?",
+      "realized_entropy_drop": 0.3649802245721927,
+      "realized_truth_log_probability_gain": 0.11962296257839063,
+      "record_answerability_probability": 0.19999999999999996,
+      "round": 2,
+      "source_id": "1",
+      "task_id": "mediq:imedqa:1",
+      "true_label": "A",
+      "true_label_favored": true,
+      "unavailable": false,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 7.80228448097886e-05,
+      "likelihoods": {
+        "A": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "B": [
+          0.008415841584158416,
+          0.0014851485148514852,
+          0.9900990099009901
+        ],
+        "C": [
+          0.007425742574257425,
+          0.0024752475247524753,
+          0.9900990099009901
+        ],
+        "D": [
+          0.007425742574257425,
+          0.0024752475247524753,
+          0.9900990099009901
+        ]
+      },
+      "observed_outcome": "Information unavailable / not in record",
+      "observed_outcome_predictive_probability": 0.9900990099009901,
+      "observed_outcome_true_label_probability": 0.9900990099009901,
+      "posterior": {
+        "A": 0.05,
+        "B": 0.45,
+        "C": 0.1,
+        "D": 0.4
+      },
+      "posterior_linf_change": 0.0,
+      "prior": {
+        "A": 0.05,
+        "B": 0.45,
+        "C": 0.1,
+        "D": 0.4
+      },
+      "query": "Does the patient experience muscle tension?",
+      "realized_entropy_drop": 0.0,
+      "realized_truth_log_probability_gain": 0.0,
+      "record_answerability_probability": 0.00990099009900991,
+      "round": 2,
+      "source_id": "2",
+      "task_id": "mediq:imedqa:2",
+      "true_label": "D",
+      "true_label_favored": false,
+      "unavailable": true,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 3.0761653579264303e-07,
+      "likelihoods": {
+        "A": [
+          0.0014851485148514852,
+          0.008415841584158416,
+          0.9900990099009901
+        ],
+        "B": [
+          0.0014851485148514852,
+          0.008415841584158416,
+          0.9900990099009901
+        ],
+        "C": [
+          0.0014851485148514852,
+          0.008415841584158416,
+          0.9900990099009901
+        ],
+        "D": [
+          0.0004950495049504951,
+          0.009405940594059406,
+          0.9900990099009901
+        ]
+      },
+      "observed_outcome": "No",
+      "observed_outcome_predictive_probability": 0.008416448206717558,
+      "observed_outcome_true_label_probability": 0.008415841584158416,
+      "posterior": {
+        "A": 0.21038216411307978,
+        "B": 0.6311464923392393,
+        "C": 0.1577866230848098,
+        "D": 0.0006847204628710327
+      },
+      "posterior_linf_change": 7.203167813923722e-05,
+      "prior": {
+        "A": 0.2103973286768986,
+        "B": 0.6311919860306957,
+        "C": 0.15779799650767393,
+        "D": 0.0006126887847317955
+      },
+      "query": "Is the patient's blood pressure below 90 mmHg systolic?",
+      "realized_entropy_drop": -0.000463213439707566,
+      "realized_truth_log_probability_gain": -7.207843578516115e-05,
+      "record_answerability_probability": 0.00990099009900991,
+      "round": 2,
+      "source_id": "3",
+      "task_id": "mediq:imedqa:3",
+      "true_label": "B",
+      "true_label_favored": false,
+      "unavailable": false,
+      "unavailable_likelihood_span": 0.0
+    },
+    {
+      "eig": 1.0408340855860843e-16,
+      "likelihoods": {
+        "A": [
+          0.009405940594059406,
+          0.0004950495049504951,
+          0.9900990099009901
+        ],
+        "B": [
+          0.009405940594059406,
+          0.0004950495049504951,
+          0.9900990099009901
+        ],
+        "C": [
+          0.009405940594059406,
+          0.0004950495049504951,
+          0.9900990099009901
+        ],
+        "D": [
+          0.009405940594059406,
+          0.0004950495049504951,
+          0.9900990099009901
+        ]
+      },
+      "observed_outcome": "Yes",
+      "observed_outcome_predictive_probability": 0.009405940594059404,
+      "observed_outcome_true_label_probability": 0.009405940594059406,
+      "posterior": {
+        "A": 0.1153846153846154,
+        "B": 0.5480769230769231,
+        "C": 0.326923076923077,
+        "D": 0.009615384615384618
+      },
+      "posterior_linf_change": 1.1102230246251565e-16,
+      "prior": {
+        "A": 0.11538461538461538,
+        "B": 0.548076923076923,
+        "C": 0.3269230769230769,
+        "D": 0.009615384615384616
+      },
+      "query": "Is the patient's arterial pH below 7.35?",
+      "realized_entropy_drop": 0.0,
+      "realized_truth_log_probability_gain": 4.440892098500626e-16,
+      "record_answerability_probability": 0.00990099009900991,
+      "round": 2,
+      "source_id": "4",
+      "task_id": "mediq:imedqa:4",
+      "true_label": "A",
+      "true_label_favored": true,
+      "unavailable": false,
+      "unavailable_likelihood_span": 0.0
+    }
+  ],
+  "usage": {
+    "backend_completion_tokens": 1424,
+    "backend_cost_usd": 0.0021771300000000006,
+    "backend_prompt_tokens": 15775,
+    "backend_reasoning_tokens": 0,
+    "backend_requests": 50,
+    "forced_exits": 0
+  }
+}

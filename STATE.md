@@ -5,7 +5,7 @@ ACTIONS below to reflect reality, and append a row to `EXPERIMENTS.md` for anyth
 launched. A stale STATE.md is a bug. If this file conflicts with GOAL.md's design
 history, this file wins.
 
-## CURRENT STATE (updated 2026-07-13)
+## CURRENT STATE (updated 2026-07-14)
 
 Status: **Track 1 is complete and collapses as a credible non-myopic paper spine;
 Track 2 (MediQ) is now the main experimental line and Track 3 (paper) proceeds in
@@ -120,9 +120,17 @@ priority decisions. Missingness is therefore exactly posterior-neutral. The froz
 ten-turn replay and no-tuning decision rule are registered in
 `results/path_e/mediq_likelihood_calibration/PREREGISTRATION.md`; code/tests are complete,
 and the paid replay is the next action. OpenRouter now also receives `mediq_seed`, fixing
-an API reproducibility omission.
-OpenRouter ledger: $16.78909024 spent of the user-authorized $40 cap, leaving
-$23.21090976.
+an API reproducibility omission. The preregistered replay `20260714T050102` then failed:
+missingness was exactly label-independent/posterior-neutral and true-label favoring rose
+to 4/6 available turns, but available mean truth-log gain remained -0.118 nats (overall
+-0.071). One treatment-priority case dominated: observing glucose >250 mg/dL still
+penalized the true “treat hypoperfusion first” option by 1.243 nats. The coarse option-as-
+world conditional is therefore rejected. Per the frozen decision rule, do not tune it on
+these cases or launch Claim 1; preregister the BED-LLM data-estimation fallback and test
+it on fresh held-out naive-policy interactions. Canonical failure evidence is in
+`results/path_e/mediq_likelihood_calibration/FACTORED_RECORD_REPORT.{json,md}`.
+OpenRouter ledger: $16.79126737 spent of the user-authorized $40 cap, leaving
+$23.20873263.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -292,10 +300,14 @@ animals for the one-step BED-transfer claim; the non-myopic claim rides entirely
 the MediQ claim-2 pilot.
 
 Track 2 (main line): MediQ per the registered design requirements. Step 0 now passes its
-final environment gate; all earlier smokes remain diagnostic-only. Commit and push the
-registered `factored_record` likelihood replay, then run it once on the frozen ten turns.
-If it passes, run one held-out calibration smoke before freezing Claim 1; if it fails,
-stop the efficacy path and implement only the preregistered richer-world fallback. Note the endpoint is
+final environment gate; all earlier smokes remain diagnostic-only. The registered
+`factored_record` replay failed, so Claim 1 is blocked. Freeze a data-estimation joint
+model before new outcomes are generated: use a label-independent marginal response
+model, elicit A-D posteriors for hypothetical Yes/No replies, enforce unavailable as
+posterior-neutral, and project the elicited table to a coherent joint with the current
+prior. Generate a fresh policy-independent calibration bank using non-thinking naive on
+held-out usable cases 5-14, then analyze the data-estimation likelihood once under frozen
+directional gates. Do not reuse cases 0-4 or tune against their outcomes. Note the endpoint is
 exact-match on the MC label — no success judge, no remedy adjudication; the remaining
 validity gate is likelihood calibration. Calibration -> pre-register ->
 claim-1 study (naive asking, native Expert baseline(s), 1-step EIG; ~$2-4) ->
@@ -356,7 +368,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.21090976 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
+7. Budget: $23.20873263 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika
