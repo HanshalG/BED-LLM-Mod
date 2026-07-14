@@ -201,7 +201,10 @@ per-run OpenRouter hard cap are now enforced. The standalone preregistered
 gate runner is `scripts/run_icraft_profile_gates.py`; it supports only the
 one-case smoke, calibration/FactSelect/branch-equivalence gate, and exact
 structural value gate, not a policy comparison. The complete local suite is
-`608 passed, 1 skipped`. The first smoke invocation was attempted with the
+`609 passed, 1 skipped`; deterministic routing-model tests now execute all three
+gate-runner paths, including actual FactSelect branch-equivalence and exact depth-two
+expansion. The smoke-path task-association defect found by that test was fixed in
+`614e9cb`. The first smoke invocation was attempted with the
 registered `$0.50` cap but failed closed before any request or spend because
 this desktop shell has no `OPENROUTER_API_KEY`; a non-mutating remote check
 also could not authenticate to `oat0`. No gate result exists yet, and no
