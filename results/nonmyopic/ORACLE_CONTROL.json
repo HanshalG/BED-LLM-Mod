@@ -1,0 +1,1786 @@
+{
+  "config": {
+    "bootstrap_replicates": 10000,
+    "num_rounds": 8,
+    "num_trials": 2000,
+    "primary_width": 3,
+    "restricted_widths": [
+      2,
+      3,
+      4,
+      6,
+      8
+    ],
+    "score_noise_sds": [
+      0.0,
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.4
+    ],
+    "seed": 1304
+  },
+  "data": {
+    "num_entities": 101,
+    "num_traits": 21,
+    "source_sha256": "cddc71c26ab9bc82795b8f4ff114cade41885d92720c6af29ffb69bcf73f0315",
+    "traits": [
+      "hair",
+      "feathers",
+      "eggs",
+      "milk",
+      "airborne",
+      "aquatic",
+      "predator",
+      "toothed",
+      "backbone",
+      "breathes",
+      "venomous",
+      "fins",
+      "tail",
+      "domestic",
+      "catsize",
+      "legs_eq_0",
+      "legs_eq_2",
+      "legs_eq_4",
+      "legs_eq_5",
+      "legs_eq_6",
+      "legs_eq_8"
+    ]
+  },
+  "decision": {
+    "high_noise_primary_gap": 0.0054375,
+    "noise_is_headwind": true,
+    "planning_viability_boundary_noise_sd": 0.2,
+    "restricted_gap_with_ci_excluding_zero": true,
+    "verdict": "proceed_to_llm_exploration",
+    "zero_noise_primary_gap": 0.0158125
+  },
+  "exhaustive": {
+    "candidate_width": 21,
+    "depth_two_minus_one": {
+      "accuracy_auc_delta_ci95": [
+        -0.05525,
+        -0.0429375
+      ],
+      "accuracy_auc_delta_mean": -0.049,
+      "final_accuracy_delta_mean": 0.0,
+      "final_entropy_delta_mean": 0.0,
+      "round_accuracy_delta_mean": [
+        0.0,
+        0.0,
+        0.0,
+        -0.001,
+        -0.0175,
+        -0.1575,
+        -0.216,
+        0.0
+      ],
+      "wins_ties_losses": [
+        245,
+        1195,
+        560
+      ]
+    },
+    "first_decision_disagreement_rate": 0.0,
+    "mean_q2_regret_of_one_step_first_action": 0.0,
+    "one_step": {
+      "accuracy_auc_mean": 0.283375,
+      "final_accuracy_mean": 0.5915,
+      "final_entropy_mean": 0.7644663528673771,
+      "round_accuracy_mean": [
+        0.017,
+        0.043,
+        0.084,
+        0.159,
+        0.3015,
+        0.489,
+        0.582,
+        0.5915
+      ],
+      "round_entropy_mean": [
+        3.927816307104745,
+        3.2348701382261202,
+        2.541532390432397,
+        1.9031301523718054,
+        1.3263550359480323,
+        0.9143966960052465,
+        0.7793690172494114,
+        0.7644663528673733
+      ]
+    },
+    "score_noise_sd": 0.0,
+    "two_step": {
+      "accuracy_auc_mean": 0.234375,
+      "final_accuracy_mean": 0.5915,
+      "final_entropy_mean": 0.7644663528673771,
+      "round_accuracy_mean": [
+        0.017,
+        0.043,
+        0.084,
+        0.158,
+        0.284,
+        0.3315,
+        0.366,
+        0.5915
+      ],
+      "round_entropy_mean": [
+        3.927816307104745,
+        3.2348701382261202,
+        2.5402458045371863,
+        1.9150062866205046,
+        1.417532347906097,
+        1.313078186898047,
+        1.2616336349175088,
+        0.7644663528673733
+      ]
+    }
+  },
+  "no_llm_calls": true,
+  "noise_frontier": [
+    {
+      "candidate_width": 3,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          0.0078125,
+          0.023875
+        ],
+        "accuracy_auc_delta_mean": 0.0158125,
+        "final_accuracy_delta_mean": 0.0755,
+        "final_entropy_delta_mean": -0.20778005323743218,
+        "round_accuracy_delta_mean": [
+          0.0,
+          0.0,
+          0.004,
+          0.0045,
+          0.008,
+          0.0155,
+          0.019,
+          0.0755
+        ],
+        "wins_ties_losses": [
+          403,
+          1275,
+          322
+        ]
+      },
+      "first_decision_disagreement_rate": 0.2355,
+      "mean_q2_regret_of_one_step_first_action": 0.01677968819674881,
+      "one_step": {
+        "accuracy_auc_mean": 0.186625,
+        "final_accuracy_mean": 0.4075,
+        "final_entropy_mean": 1.2346887235265274,
+        "round_accuracy_mean": [
+          0.0145,
+          0.0355,
+          0.0725,
+          0.127,
+          0.2045,
+          0.2785,
+          0.353,
+          0.4075
+        ],
+        "round_entropy_mean": [
+          3.9720842901510918,
+          3.3664957023453486,
+          2.806736697707411,
+          2.3340302553189436,
+          1.9466925639495118,
+          1.6381995884809557,
+          1.3942520872504385,
+          1.2346887235265258
+        ]
+      },
+      "score_noise_sd": 0.0,
+      "two_step": {
+        "accuracy_auc_mean": 0.2024375,
+        "final_accuracy_mean": 0.483,
+        "final_entropy_mean": 1.0269086702890953,
+        "round_accuracy_mean": [
+          0.0145,
+          0.0355,
+          0.0765,
+          0.1315,
+          0.2125,
+          0.294,
+          0.372,
+          0.483
+        ],
+        "round_entropy_mean": [
+          3.9810872431900055,
+          3.3525945593182174,
+          2.7790279353750718,
+          2.271208732938132,
+          1.8606272307001692,
+          1.5210692902447982,
+          1.2758756587584839,
+          1.0269086702890895
+        ]
+      }
+    },
+    {
+      "candidate_width": 3,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          0.005060937500000001,
+          0.021875
+        ],
+        "accuracy_auc_delta_mean": 0.0135,
+        "final_accuracy_delta_mean": 0.0645,
+        "final_entropy_delta_mean": -0.22055234744286373,
+        "round_accuracy_delta_mean": [
+          0.002,
+          0.002,
+          0.007,
+          0.007,
+          -0.005,
+          0.013,
+          0.0175,
+          0.0645
+        ],
+        "wins_ties_losses": [
+          423,
+          1226,
+          351
+        ]
+      },
+      "first_decision_disagreement_rate": 0.2925,
+      "mean_q2_regret_of_one_step_first_action": 0.023541151926177777,
+      "one_step": {
+        "accuracy_auc_mean": 0.190125,
+        "final_accuracy_mean": 0.423,
+        "final_entropy_mean": 1.2380676121040652,
+        "round_accuracy_mean": [
+          0.0135,
+          0.0345,
+          0.07,
+          0.1225,
+          0.2095,
+          0.2825,
+          0.3655,
+          0.423
+        ],
+        "round_entropy_mean": [
+          3.9773472877002383,
+          3.3684142710422385,
+          2.8151145559223263,
+          2.342723503189296,
+          1.9435769384155661,
+          1.6435387341063445,
+          1.399361413271376,
+          1.2380676121040621
+        ]
+      },
+      "score_noise_sd": 0.025,
+      "two_step": {
+        "accuracy_auc_mean": 0.203625,
+        "final_accuracy_mean": 0.4875,
+        "final_entropy_mean": 1.0175152646612016,
+        "round_accuracy_mean": [
+          0.0155,
+          0.0365,
+          0.077,
+          0.1295,
+          0.2045,
+          0.2955,
+          0.383,
+          0.4875
+        ],
+        "round_entropy_mean": [
+          3.986241281826003,
+          3.360889859075212,
+          2.7884486221479574,
+          2.285557579773852,
+          1.8814393715966624,
+          1.532870178450242,
+          1.2656343395179754,
+          1.0175152646611956
+        ]
+      }
+    },
+    {
+      "candidate_width": 3,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          0.0103125,
+          0.0273125
+        ],
+        "accuracy_auc_delta_mean": 0.0188125,
+        "final_accuracy_delta_mean": 0.0655,
+        "final_entropy_delta_mean": -0.22120497896750993,
+        "round_accuracy_delta_mean": [
+          0.0015,
+          0.0045,
+          0.007,
+          0.0105,
+          0.013,
+          0.0255,
+          0.023,
+          0.0655
+        ],
+        "wins_ties_losses": [
+          445,
+          1211,
+          344
+        ]
+      },
+      "first_decision_disagreement_rate": 0.3445,
+      "mean_q2_regret_of_one_step_first_action": 0.03523242243609114,
+      "one_step": {
+        "accuracy_auc_mean": 0.185625,
+        "final_accuracy_mean": 0.4195,
+        "final_entropy_mean": 1.2433368693273805,
+        "round_accuracy_mean": [
+          0.014,
+          0.033,
+          0.068,
+          0.1175,
+          0.197,
+          0.2755,
+          0.3605,
+          0.4195
+        ],
+        "round_entropy_mean": [
+          3.9814826267862653,
+          3.3729252892908423,
+          2.827080364694529,
+          2.354836882850019,
+          1.9585680416804,
+          1.6517526360165526,
+          1.4017353526121477,
+          1.2433368693273774
+        ]
+      },
+      "score_noise_sd": 0.05,
+      "two_step": {
+        "accuracy_auc_mean": 0.2044375,
+        "final_accuracy_mean": 0.485,
+        "final_entropy_mean": 1.0221318903598706,
+        "round_accuracy_mean": [
+          0.0155,
+          0.0375,
+          0.075,
+          0.128,
+          0.21,
+          0.301,
+          0.3835,
+          0.485
+        ],
+        "round_entropy_mean": [
+          3.991476560101885,
+          3.3706796340433836,
+          2.79903623555023,
+          2.29644202826225,
+          1.8786883522740696,
+          1.5316960515890028,
+          1.2698883769097977,
+          1.0221318903598648
+        ]
+      }
+    },
+    {
+      "candidate_width": 3,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          0.003375,
+          0.020875
+        ],
+        "accuracy_auc_delta_mean": 0.0120625,
+        "final_accuracy_delta_mean": 0.0595,
+        "final_entropy_delta_mean": -0.2019080732987887,
+        "round_accuracy_delta_mean": [
+          0.0,
+          -0.0005,
+          0.001,
+          0.0035,
+          -0.003,
+          0.017,
+          0.019,
+          0.0595
+        ],
+        "wins_ties_losses": [
+          436,
+          1206,
+          358
+        ]
+      },
+      "first_decision_disagreement_rate": 0.44,
+      "mean_q2_regret_of_one_step_first_action": 0.07314542496875569,
+      "one_step": {
+        "accuracy_auc_mean": 0.181875,
+        "final_accuracy_mean": 0.406,
+        "final_entropy_mean": 1.2615868449305931,
+        "round_accuracy_mean": [
+          0.014,
+          0.032,
+          0.067,
+          0.119,
+          0.1985,
+          0.2685,
+          0.35,
+          0.406
+        ],
+        "round_entropy_mean": [
+          3.991851107526565,
+          3.3929557096467198,
+          2.861226787578367,
+          2.3859578568402493,
+          1.9886389954289734,
+          1.6710767934582313,
+          1.422128560860787,
+          1.2615868449305914
+        ]
+      },
+      "score_noise_sd": 0.1,
+      "two_step": {
+        "accuracy_auc_mean": 0.1939375,
+        "final_accuracy_mean": 0.4655,
+        "final_entropy_mean": 1.0596787716318046,
+        "round_accuracy_mean": [
+          0.014,
+          0.0315,
+          0.068,
+          0.1225,
+          0.1955,
+          0.2855,
+          0.369,
+          0.4655
+        ],
+        "round_entropy_mean": [
+          4.0085667533738985,
+          3.4103677654995734,
+          2.8537298927253247,
+          2.3649494148789905,
+          1.9479646026155124,
+          1.5927440726722197,
+          1.3241698528812607,
+          1.0596787716318001
+        ]
+      }
+    },
+    {
+      "candidate_width": 3,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          -0.001,
+          0.018375
+        ],
+        "accuracy_auc_delta_mean": 0.00875,
+        "final_accuracy_delta_mean": 0.0415,
+        "final_entropy_delta_mean": -0.11331759748343782,
+        "round_accuracy_delta_mean": [
+          0.001,
+          0.0005,
+          0.0015,
+          0.013,
+          -0.0045,
+          0.009,
+          0.008,
+          0.0415
+        ],
+        "wins_ties_losses": [
+          448,
+          1174,
+          378
+        ]
+      },
+      "first_decision_disagreement_rate": 0.5595,
+      "mean_q2_regret_of_one_step_first_action": 0.1677674521748185,
+      "one_step": {
+        "accuracy_auc_mean": 0.169625,
+        "final_accuracy_mean": 0.38,
+        "final_entropy_mean": 1.324793171753816,
+        "round_accuracy_mean": [
+          0.014,
+          0.029,
+          0.0615,
+          0.106,
+          0.183,
+          0.253,
+          0.3305,
+          0.38
+        ],
+        "round_entropy_mean": [
+          4.017378006866119,
+          3.444128996381479,
+          2.9245226576958276,
+          2.4757181412103777,
+          2.076432176151604,
+          1.751975176744052,
+          1.4954178755276228,
+          1.3247931717538153
+        ]
+      },
+      "score_noise_sd": 0.2,
+      "two_step": {
+        "accuracy_auc_mean": 0.178375,
+        "final_accuracy_mean": 0.4215,
+        "final_entropy_mean": 1.211475574270378,
+        "round_accuracy_mean": [
+          0.015,
+          0.0295,
+          0.063,
+          0.119,
+          0.1785,
+          0.262,
+          0.3385,
+          0.4215
+        ],
+        "round_entropy_mean": [
+          4.040024002010007,
+          3.476274999176683,
+          2.9592742420838314,
+          2.503187284639854,
+          2.098956966117926,
+          1.748419263205351,
+          1.475806407194421,
+          1.2114755742703749
+        ]
+      }
+    },
+    {
+      "candidate_width": 3,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          -0.005,
+          0.016
+        ],
+        "accuracy_auc_delta_mean": 0.0054375,
+        "final_accuracy_delta_mean": 0.017,
+        "final_entropy_delta_mean": -0.019377027573290035,
+        "round_accuracy_delta_mean": [
+          0.0005,
+          0.0025,
+          -0.001,
+          0.006,
+          0.0025,
+          0.012,
+          0.004,
+          0.017
+        ],
+        "wins_ties_losses": [
+          410,
+          1208,
+          382
+        ]
+      },
+      "first_decision_disagreement_rate": 0.627,
+      "mean_q2_regret_of_one_step_first_action": 0.3687257173494507,
+      "one_step": {
+        "accuracy_auc_mean": 0.15075,
+        "final_accuracy_mean": 0.3345,
+        "final_entropy_mean": 1.492836885087407,
+        "round_accuracy_mean": [
+          0.014,
+          0.026,
+          0.0595,
+          0.103,
+          0.164,
+          0.22,
+          0.285,
+          0.3345
+        ],
+        "round_entropy_mean": [
+          4.050749548378829,
+          3.5135057551689273,
+          3.021945197394035,
+          2.599997083434093,
+          2.2340177660880025,
+          1.935034784939863,
+          1.683495442719485,
+          1.4928368850874099
+        ]
+      },
+      "score_noise_sd": 0.4,
+      "two_step": {
+        "accuracy_auc_mean": 0.1561875,
+        "final_accuracy_mean": 0.3515,
+        "final_entropy_mean": 1.473459857514117,
+        "round_accuracy_mean": [
+          0.0145,
+          0.0285,
+          0.0585,
+          0.109,
+          0.1665,
+          0.232,
+          0.289,
+          0.3515
+        ],
+        "round_entropy_mean": [
+          4.080082326170364,
+          3.562758734726795,
+          3.103084056764982,
+          2.657720664097898,
+          2.289214709124531,
+          1.9692772952920947,
+          1.7151718177116655,
+          1.473459857514114
+        ]
+      }
+    }
+  ],
+  "restriction": [
+    {
+      "candidate_width": 2,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          0.007,
+          0.0221875
+        ],
+        "accuracy_auc_delta_mean": 0.01475,
+        "final_accuracy_delta_mean": 0.051,
+        "final_entropy_delta_mean": -0.205838398109464,
+        "round_accuracy_delta_mean": [
+          -0.001,
+          -0.0015,
+          0.0025,
+          0.001,
+          0.0135,
+          0.0165,
+          0.036,
+          0.051
+        ],
+        "wins_ties_losses": [
+          324,
+          1450,
+          226
+        ]
+      },
+      "first_decision_disagreement_rate": 0.1865,
+      "mean_q2_regret_of_one_step_first_action": 0.017700105590769333,
+      "one_step": {
+        "accuracy_auc_mean": 0.1536875,
+        "final_accuracy_mean": 0.3405,
+        "final_entropy_mean": 1.4851840490930248,
+        "round_accuracy_mean": [
+          0.014,
+          0.035,
+          0.0615,
+          0.1065,
+          0.163,
+          0.2275,
+          0.2815,
+          0.3405
+        ],
+        "round_entropy_mean": [
+          4.001044373229534,
+          3.442080145598632,
+          2.9492560152832223,
+          2.5351821056754624,
+          2.1681940354741895,
+          1.8916758606757127,
+          1.6663201197863806,
+          1.4851840490930244
+        ]
+      },
+      "score_noise_sd": 0.0,
+      "two_step": {
+        "accuracy_auc_mean": 0.1684375,
+        "final_accuracy_mean": 0.3915,
+        "final_entropy_mean": 1.279345650983561,
+        "round_accuracy_mean": [
+          0.013,
+          0.0335,
+          0.064,
+          0.1075,
+          0.1765,
+          0.244,
+          0.3175,
+          0.3915
+        ],
+        "round_entropy_mean": [
+          4.015016531833398,
+          3.4436848526693193,
+          2.9329019127613063,
+          2.4828675020468034,
+          2.091121700809025,
+          1.7726255893635918,
+          1.517534249936549,
+          1.2793456509835597
+        ]
+      },
+      "wider_one_step_controls": {
+        "4": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.0505,
+              -0.030875
+            ],
+            "accuracy_auc_delta_mean": -0.0405625,
+            "final_accuracy_delta_mean": -0.0705,
+            "final_entropy_delta_mean": 0.19114573962802267,
+            "round_accuracy_delta_mean": [
+              -0.0015,
+              -0.004,
+              -0.0105,
+              -0.0345,
+              -0.0485,
+              -0.0725,
+              -0.0825,
+              -0.0705
+            ],
+            "wins_ties_losses": [
+              329,
+              1126,
+              545
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.209,
+            "final_accuracy_mean": 0.462,
+            "final_entropy_mean": 1.0881999113555385,
+            "round_accuracy_mean": [
+              0.0145,
+              0.0375,
+              0.0745,
+              0.142,
+              0.225,
+              0.3165,
+              0.4,
+              0.462
+            ],
+            "round_entropy_mean": [
+              3.9546696433040798,
+              3.325262403248896,
+              2.735168038818751,
+              2.220232228600214,
+              1.8006767722276977,
+              1.4819365192345009,
+              1.2455670041152047,
+              1.0881999113555338
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.045375,
+              0.0655625
+            ],
+            "accuracy_auc_delta_mean": 0.0553125,
+            "final_accuracy_delta_mean": 0.1215,
+            "final_entropy_delta_mean": -0.3969841377374867,
+            "round_accuracy_delta_mean": [
+              0.0005,
+              0.0025,
+              0.013,
+              0.0355,
+              0.062,
+              0.089,
+              0.1185,
+              0.1215
+            ],
+            "wins_ties_losses": [
+              581,
+              1132,
+              287
+            ]
+          }
+        },
+        "8": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.099625,
+              -0.0804375
+            ],
+            "accuracy_auc_delta_mean": -0.09,
+            "final_accuracy_delta_mean": -0.1725,
+            "final_entropy_delta_mean": 0.4541648960208641,
+            "round_accuracy_delta_mean": [
+              -0.005,
+              0.0,
+              -0.0165,
+              -0.049,
+              -0.1,
+              -0.174,
+              -0.203,
+              -0.1725
+            ],
+            "wins_ties_losses": [
+              230,
+              1033,
+              737
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.2584375,
+            "final_accuracy_mean": 0.564,
+            "final_entropy_mean": 0.8251807549626969,
+            "round_accuracy_mean": [
+              0.018,
+              0.0335,
+              0.0805,
+              0.1565,
+              0.2765,
+              0.418,
+              0.5205,
+              0.564
+            ],
+            "round_entropy_mean": [
+              3.9337037558685064,
+              3.2637862239977204,
+              2.593038294893882,
+              1.9904470684777815,
+              1.472482431542337,
+              1.119454290688247,
+              0.9176477501613115,
+              0.8251807549626912
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.0949375,
+              0.1145625
+            ],
+            "accuracy_auc_delta_mean": 0.10475,
+            "final_accuracy_delta_mean": 0.2235,
+            "final_entropy_delta_mean": -0.660003294130328,
+            "round_accuracy_delta_mean": [
+              0.004,
+              -0.0015,
+              0.019,
+              0.05,
+              0.1135,
+              0.1905,
+              0.239,
+              0.2235
+            ],
+            "wins_ties_losses": [
+              781,
+              1009,
+              210
+            ]
+          }
+        }
+      }
+    },
+    {
+      "candidate_width": 3,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          0.0078125,
+          0.023875
+        ],
+        "accuracy_auc_delta_mean": 0.0158125,
+        "final_accuracy_delta_mean": 0.0755,
+        "final_entropy_delta_mean": -0.20778005323743218,
+        "round_accuracy_delta_mean": [
+          0.0,
+          0.0,
+          0.004,
+          0.0045,
+          0.008,
+          0.0155,
+          0.019,
+          0.0755
+        ],
+        "wins_ties_losses": [
+          403,
+          1275,
+          322
+        ]
+      },
+      "first_decision_disagreement_rate": 0.2355,
+      "mean_q2_regret_of_one_step_first_action": 0.01677968819674881,
+      "one_step": {
+        "accuracy_auc_mean": 0.186625,
+        "final_accuracy_mean": 0.4075,
+        "final_entropy_mean": 1.2346887235265274,
+        "round_accuracy_mean": [
+          0.0145,
+          0.0355,
+          0.0725,
+          0.127,
+          0.2045,
+          0.2785,
+          0.353,
+          0.4075
+        ],
+        "round_entropy_mean": [
+          3.9720842901510918,
+          3.3664957023453486,
+          2.806736697707411,
+          2.3340302553189436,
+          1.9466925639495118,
+          1.6381995884809557,
+          1.3942520872504385,
+          1.2346887235265258
+        ]
+      },
+      "score_noise_sd": 0.0,
+      "two_step": {
+        "accuracy_auc_mean": 0.2024375,
+        "final_accuracy_mean": 0.483,
+        "final_entropy_mean": 1.0269086702890953,
+        "round_accuracy_mean": [
+          0.0145,
+          0.0355,
+          0.0765,
+          0.1315,
+          0.2125,
+          0.294,
+          0.372,
+          0.483
+        ],
+        "round_entropy_mean": [
+          3.9810872431900055,
+          3.3525945593182174,
+          2.7790279353750718,
+          2.271208732938132,
+          1.8606272307001692,
+          1.5210692902447982,
+          1.2758756587584839,
+          1.0269086702890895
+        ]
+      },
+      "wider_one_step_controls": {
+        "12": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.081125,
+              -0.0646875
+            ],
+            "accuracy_auc_delta_mean": -0.073,
+            "final_accuracy_delta_mean": -0.1035,
+            "final_entropy_delta_mean": 0.2547111518278285,
+            "round_accuracy_delta_mean": [
+              -0.0015,
+              -0.0015,
+              0.0005,
+              -0.0255,
+              -0.084,
+              -0.176,
+              -0.1925,
+              -0.1035
+            ],
+            "wins_ties_losses": [
+              273,
+              1036,
+              691
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.2754375,
+            "final_accuracy_mean": 0.5865,
+            "final_entropy_mean": 0.7721975184612668,
+            "round_accuracy_mean": [
+              0.016,
+              0.037,
+              0.076,
+              0.157,
+              0.2965,
+              0.47,
+              0.5645,
+              0.5865
+            ],
+            "round_entropy_mean": [
+              3.9303492532831723,
+              3.242701261717716,
+              2.5662841767572875,
+              1.9358602573877606,
+              1.366446675056361,
+              0.9764268058794741,
+              0.8091525186343581,
+              0.7721975184612628
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.07975,
+              0.0976875
+            ],
+            "accuracy_auc_delta_mean": 0.0888125,
+            "final_accuracy_delta_mean": 0.179,
+            "final_entropy_delta_mean": -0.4624912050652606,
+            "round_accuracy_delta_mean": [
+              0.0015,
+              0.0015,
+              0.0035,
+              0.03,
+              0.092,
+              0.1915,
+              0.2115,
+              0.179
+            ],
+            "wins_ties_losses": [
+              725,
+              1029,
+              246
+            ]
+          }
+        },
+        "6": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.0475,
+              -0.029810937500000023
+            ],
+            "accuracy_auc_delta_mean": -0.038625,
+            "final_accuracy_delta_mean": -0.042,
+            "final_entropy_delta_mean": 0.10777384861367756,
+            "round_accuracy_delta_mean": [
+              -0.0025,
+              0.002,
+              -0.001,
+              -0.0265,
+              -0.053,
+              -0.085,
+              -0.101,
+              -0.042
+            ],
+            "wins_ties_losses": [
+              341,
+              1079,
+              580
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.2410625,
+            "final_accuracy_mean": 0.525,
+            "final_entropy_mean": 0.9191348216754177,
+            "round_accuracy_mean": [
+              0.017,
+              0.0335,
+              0.0775,
+              0.158,
+              0.2655,
+              0.379,
+              0.473,
+              0.525
+            ],
+            "round_entropy_mean": [
+              3.9379294035123915,
+              3.279249403601497,
+              2.6407454068204013,
+              2.0836392206261736,
+              1.6108314938390407,
+              1.2572856104072216,
+              1.0309662676538147,
+              0.9191348216754117
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.0454375,
+              0.0635
+            ],
+            "accuracy_auc_delta_mean": 0.0544375,
+            "final_accuracy_delta_mean": 0.1175,
+            "final_entropy_delta_mean": -0.3155539018511097,
+            "round_accuracy_delta_mean": [
+              0.0025,
+              -0.002,
+              0.005,
+              0.031,
+              0.061,
+              0.1005,
+              0.12,
+              0.1175
+            ],
+            "wins_ties_losses": [
+              605,
+              1104,
+              291
+            ]
+          }
+        }
+      }
+    },
+    {
+      "candidate_width": 4,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          -0.0005,
+          0.0155
+        ],
+        "accuracy_auc_delta_mean": 0.0075,
+        "final_accuracy_delta_mean": 0.061,
+        "final_entropy_delta_mean": -0.18408773991086835,
+        "round_accuracy_delta_mean": [
+          0.0015,
+          -0.0005,
+          0.006,
+          0.0,
+          -0.0065,
+          -0.006,
+          0.0045,
+          0.061
+        ],
+        "wins_ties_losses": [
+          407,
+          1225,
+          368
+        ]
+      },
+      "first_decision_disagreement_rate": 0.2715,
+      "mean_q2_regret_of_one_step_first_action": 0.01465439372945728,
+      "one_step": {
+        "accuracy_auc_mean": 0.209,
+        "final_accuracy_mean": 0.462,
+        "final_entropy_mean": 1.0881999113555385,
+        "round_accuracy_mean": [
+          0.0145,
+          0.0375,
+          0.0745,
+          0.142,
+          0.225,
+          0.3165,
+          0.4,
+          0.462
+        ],
+        "round_entropy_mean": [
+          3.9546696433040798,
+          3.325262403248896,
+          2.735168038818751,
+          2.220232228600214,
+          1.8006767722276977,
+          1.4819365192345009,
+          1.2455670041152047,
+          1.0881999113555338
+        ]
+      },
+      "score_noise_sd": 0.0,
+      "two_step": {
+        "accuracy_auc_mean": 0.2165,
+        "final_accuracy_mean": 0.523,
+        "final_entropy_mean": 0.90411217144467,
+        "round_accuracy_mean": [
+          0.016,
+          0.037,
+          0.0805,
+          0.142,
+          0.2185,
+          0.3105,
+          0.4045,
+          0.523
+        ],
+        "round_entropy_mean": [
+          3.9623516437240593,
+          3.3127193185507346,
+          2.7031674867981197,
+          2.1845123318083393,
+          1.7357330195026786,
+          1.4120258332296312,
+          1.1616649719486982,
+          0.9041121714446642
+        ]
+      },
+      "wider_one_step_controls": {
+        "16": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.0748125,
+              -0.05975
+            ],
+            "accuracy_auc_delta_mean": -0.06725,
+            "final_accuracy_delta_mean": -0.0685,
+            "final_entropy_delta_mean": 0.1396458185772929,
+            "round_accuracy_delta_mean": [
+              0.001,
+              -0.004,
+              0.002,
+              -0.019,
+              -0.088,
+              -0.1825,
+              -0.179,
+              -0.0685
+            ],
+            "wins_ties_losses": [
+              244,
+              1064,
+              692
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.28375,
+            "final_accuracy_mean": 0.5915,
+            "final_entropy_mean": 0.7644663528673771,
+            "round_accuracy_mean": [
+              0.015,
+              0.041,
+              0.0785,
+              0.161,
+              0.3065,
+              0.493,
+              0.5835,
+              0.5915
+            ],
+            "round_entropy_mean": [
+              3.9316895542331167,
+              3.2412495347110655,
+              2.5526335939318683,
+              1.9116507623023917,
+              1.3249494913139843,
+              0.9146419678238397,
+              0.7785524400298857,
+              0.7644663528673733
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.066625,
+              0.0831875
+            ],
+            "accuracy_auc_delta_mean": 0.07475,
+            "final_accuracy_delta_mean": 0.1295,
+            "final_entropy_delta_mean": -0.32373355848816127,
+            "round_accuracy_delta_mean": [
+              0.0005,
+              0.0035,
+              0.004,
+              0.019,
+              0.0815,
+              0.1765,
+              0.1835,
+              0.1295
+            ],
+            "wins_ties_losses": [
+              665,
+              1078,
+              257
+            ]
+          }
+        },
+        "8": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.0497515625,
+              -0.0341875
+            ],
+            "accuracy_auc_delta_mean": -0.0419375,
+            "final_accuracy_delta_mean": -0.041,
+            "final_entropy_delta_mean": 0.07893141648197302,
+            "round_accuracy_delta_mean": [
+              -0.002,
+              0.0035,
+              0.0,
+              -0.0145,
+              -0.058,
+              -0.1075,
+              -0.116,
+              -0.041
+            ],
+            "wins_ties_losses": [
+              307,
+              1097,
+              596
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.2584375,
+            "final_accuracy_mean": 0.564,
+            "final_entropy_mean": 0.8251807549626969,
+            "round_accuracy_mean": [
+              0.018,
+              0.0335,
+              0.0805,
+              0.1565,
+              0.2765,
+              0.418,
+              0.5205,
+              0.564
+            ],
+            "round_entropy_mean": [
+              3.9337037558685064,
+              3.2637862239977204,
+              2.593038294893882,
+              1.9904470684777815,
+              1.472482431542337,
+              1.119454290688247,
+              0.9176477501613115,
+              0.8251807549626912
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.0411875,
+              0.05775
+            ],
+            "accuracy_auc_delta_mean": 0.0494375,
+            "final_accuracy_delta_mean": 0.102,
+            "final_entropy_delta_mean": -0.2630191563928414,
+            "round_accuracy_delta_mean": [
+              0.0035,
+              -0.004,
+              0.006,
+              0.0145,
+              0.0515,
+              0.1015,
+              0.1205,
+              0.102
+            ],
+            "wins_ties_losses": [
+              584,
+              1124,
+              292
+            ]
+          }
+        }
+      }
+    },
+    {
+      "candidate_width": 6,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          -0.0171875,
+          -0.002125
+        ],
+        "accuracy_auc_delta_mean": -0.0096875,
+        "final_accuracy_delta_mean": 0.04,
+        "final_entropy_delta_mean": -0.1029252020491175,
+        "round_accuracy_delta_mean": [
+          -0.0015,
+          -0.0005,
+          0.0015,
+          -0.0075,
+          -0.02,
+          -0.036,
+          -0.0535,
+          0.04
+        ],
+        "wins_ties_losses": [
+          362,
+          1201,
+          437
+        ]
+      },
+      "first_decision_disagreement_rate": 0.33,
+      "mean_q2_regret_of_one_step_first_action": 0.013412398177465043,
+      "one_step": {
+        "accuracy_auc_mean": 0.2410625,
+        "final_accuracy_mean": 0.525,
+        "final_entropy_mean": 0.9191348216754177,
+        "round_accuracy_mean": [
+          0.017,
+          0.0335,
+          0.0775,
+          0.158,
+          0.2655,
+          0.379,
+          0.473,
+          0.525
+        ],
+        "round_entropy_mean": [
+          3.9379294035123915,
+          3.279249403601497,
+          2.6407454068204013,
+          2.0836392206261736,
+          1.6108314938390407,
+          1.2572856104072216,
+          1.0309662676538147,
+          0.9191348216754117
+        ]
+      },
+      "score_noise_sd": 0.0,
+      "two_step": {
+        "accuracy_auc_mean": 0.231375,
+        "final_accuracy_mean": 0.565,
+        "final_entropy_mean": 0.8162096196263002,
+        "round_accuracy_mean": [
+          0.0155,
+          0.033,
+          0.079,
+          0.1505,
+          0.2455,
+          0.343,
+          0.4195,
+          0.565
+        ],
+        "round_entropy_mean": [
+          3.9501726037693206,
+          3.2843412146827484,
+          2.6390480758516923,
+          2.077649401046017,
+          1.6069847922639915,
+          1.3107497961160302,
+          1.1270635237307314,
+          0.816209619626295
+        ]
+      },
+      "wider_one_step_controls": {
+        "12": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.0509375,
+              -0.0370625
+            ],
+            "accuracy_auc_delta_mean": -0.0440625,
+            "final_accuracy_delta_mean": -0.0215,
+            "final_entropy_delta_mean": 0.04401210116503339,
+            "round_accuracy_delta_mean": [
+              -0.0005,
+              -0.004,
+              0.003,
+              -0.0065,
+              -0.051,
+              -0.127,
+              -0.145,
+              -0.0215
+            ],
+            "wins_ties_losses": [
+              266,
+              1131,
+              603
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.2754375,
+            "final_accuracy_mean": 0.5865,
+            "final_entropy_mean": 0.7721975184612668,
+            "round_accuracy_mean": [
+              0.016,
+              0.037,
+              0.076,
+              0.157,
+              0.2965,
+              0.47,
+              0.5645,
+              0.5865
+            ],
+            "round_entropy_mean": [
+              3.9303492532831723,
+              3.242701261717716,
+              2.5662841767572875,
+              1.9358602573877606,
+              1.366446675056361,
+              0.9764268058794741,
+              0.8091525186343581,
+              0.7721975184612628
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.027375,
+              0.04125
+            ],
+            "accuracy_auc_delta_mean": 0.034375,
+            "final_accuracy_delta_mean": 0.0615,
+            "final_entropy_delta_mean": -0.1469373032141509,
+            "round_accuracy_delta_mean": [
+              -0.001,
+              0.0035,
+              -0.0015,
+              -0.001,
+              0.031,
+              0.091,
+              0.0915,
+              0.0615
+            ],
+            "wins_ties_losses": [
+              514,
+              1182,
+              304
+            ]
+          }
+        },
+        "21": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.0586875,
+              -0.0451875
+            ],
+            "accuracy_auc_delta_mean": -0.052,
+            "final_accuracy_delta_mean": -0.0265,
+            "final_entropy_delta_mean": 0.05174326675892314,
+            "round_accuracy_delta_mean": [
+              -0.0015,
+              -0.01,
+              -0.005,
+              -0.0085,
+              -0.056,
+              -0.146,
+              -0.1625,
+              -0.0265
+            ],
+            "wins_ties_losses": [
+              265,
+              1105,
+              630
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.283375,
+            "final_accuracy_mean": 0.5915,
+            "final_entropy_mean": 0.7644663528673771,
+            "round_accuracy_mean": [
+              0.017,
+              0.043,
+              0.084,
+              0.159,
+              0.3015,
+              0.489,
+              0.582,
+              0.5915
+            ],
+            "round_entropy_mean": [
+              3.927816307104745,
+              3.2348701382261202,
+              2.541532390432397,
+              1.9031301523718054,
+              1.3263550359480323,
+              0.9143966960052465,
+              0.7793690172494114,
+              0.7644663528673733
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.0355,
+              0.049125
+            ],
+            "accuracy_auc_delta_mean": 0.0423125,
+            "final_accuracy_delta_mean": 0.0665,
+            "final_entropy_delta_mean": -0.15466846880804064,
+            "round_accuracy_delta_mean": [
+              0.0,
+              0.0095,
+              0.0065,
+              0.001,
+              0.036,
+              0.11,
+              0.109,
+              0.0665
+            ],
+            "wins_ties_losses": [
+              565,
+              1127,
+              308
+            ]
+          }
+        }
+      }
+    },
+    {
+      "candidate_width": 8,
+      "depth_two_minus_one": {
+        "accuracy_auc_delta_ci95": [
+          -0.0281875,
+          -0.015
+        ],
+        "accuracy_auc_delta_mean": -0.0215625,
+        "final_accuracy_delta_mean": 0.0205,
+        "final_entropy_delta_mean": -0.047065402966154,
+        "round_accuracy_delta_mean": [
+          -0.0015,
+          0.0005,
+          -0.004,
+          -0.0025,
+          -0.017,
+          -0.0645,
+          -0.104,
+          0.0205
+        ],
+        "wins_ties_losses": [
+          304,
+          1230,
+          466
+        ]
+      },
+      "first_decision_disagreement_rate": 0.3265,
+      "mean_q2_regret_of_one_step_first_action": 0.009965365710165123,
+      "one_step": {
+        "accuracy_auc_mean": 0.2584375,
+        "final_accuracy_mean": 0.564,
+        "final_entropy_mean": 0.8251807549626969,
+        "round_accuracy_mean": [
+          0.018,
+          0.0335,
+          0.0805,
+          0.1565,
+          0.2765,
+          0.418,
+          0.5205,
+          0.564
+        ],
+        "round_entropy_mean": [
+          3.9337037558685064,
+          3.2637862239977204,
+          2.593038294893882,
+          1.9904470684777815,
+          1.472482431542337,
+          1.119454290688247,
+          0.9176477501613115,
+          0.8251807549626912
+        ]
+      },
+      "score_noise_sd": 0.0,
+      "two_step": {
+        "accuracy_auc_mean": 0.236875,
+        "final_accuracy_mean": 0.5845,
+        "final_entropy_mean": 0.778115351996543,
+        "round_accuracy_mean": [
+          0.0165,
+          0.034,
+          0.0765,
+          0.154,
+          0.2595,
+          0.3535,
+          0.4165,
+          0.5845
+        ],
+        "round_entropy_mean": [
+          3.9359423002196663,
+          3.259057394579465,
+          2.5969274485115212,
+          1.993977279849059,
+          1.5282909541896927,
+          1.2559115087976729,
+          1.1318517321997874,
+          0.7781153519965387
+        ]
+      },
+      "wider_one_step_controls": {
+        "16": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.053375,
+              -0.0405
+            ],
+            "accuracy_auc_delta_mean": -0.046875,
+            "final_accuracy_delta_mean": -0.007,
+            "final_entropy_delta_mean": 0.013648999129165899,
+            "round_accuracy_delta_mean": [
+              0.0015,
+              -0.007,
+              -0.002,
+              -0.007,
+              -0.047,
+              -0.1395,
+              -0.167,
+              -0.007
+            ],
+            "wins_ties_losses": [
+              266,
+              1139,
+              595
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.28375,
+            "final_accuracy_mean": 0.5915,
+            "final_entropy_mean": 0.7644663528673771,
+            "round_accuracy_mean": [
+              0.015,
+              0.041,
+              0.0785,
+              0.161,
+              0.3065,
+              0.493,
+              0.5835,
+              0.5915
+            ],
+            "round_entropy_mean": [
+              3.9316895542331167,
+              3.2412495347110655,
+              2.5526335939318683,
+              1.9116507623023917,
+              1.3249494913139843,
+              0.9146419678238397,
+              0.7785524400298857,
+              0.7644663528673733
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.0195,
+              0.03125
+            ],
+            "accuracy_auc_delta_mean": 0.0253125,
+            "final_accuracy_delta_mean": 0.0275,
+            "final_entropy_delta_mean": -0.06071440209531991,
+            "round_accuracy_delta_mean": [
+              -0.003,
+              0.0075,
+              -0.002,
+              0.0045,
+              0.03,
+              0.075,
+              0.063,
+              0.0275
+            ],
+            "wins_ties_losses": [
+              488,
+              1204,
+              308
+            ]
+          }
+        },
+        "21": {
+          "depth_two_minus_width": {
+            "accuracy_auc_delta_ci95": [
+              -0.052875,
+              -0.039875
+            ],
+            "accuracy_auc_delta_mean": -0.0465,
+            "final_accuracy_delta_mean": -0.007,
+            "final_entropy_delta_mean": 0.013648999129165899,
+            "round_accuracy_delta_mean": [
+              -0.0005,
+              -0.009,
+              -0.0075,
+              -0.005,
+              -0.042,
+              -0.1355,
+              -0.1655,
+              -0.007
+            ],
+            "wins_ties_losses": [
+              278,
+              1114,
+              608
+            ]
+          },
+          "summary": {
+            "accuracy_auc_mean": 0.283375,
+            "final_accuracy_mean": 0.5915,
+            "final_entropy_mean": 0.7644663528673771,
+            "round_accuracy_mean": [
+              0.017,
+              0.043,
+              0.084,
+              0.159,
+              0.3015,
+              0.489,
+              0.582,
+              0.5915
+            ],
+            "round_entropy_mean": [
+              3.927816307104745,
+              3.2348701382261202,
+              2.541532390432397,
+              1.9031301523718054,
+              1.3263550359480323,
+              0.9143966960052465,
+              0.7793690172494114,
+              0.7644663528673733
+            ]
+          },
+          "width_minus_base_one_step": {
+            "accuracy_auc_delta_ci95": [
+              0.0191875,
+              0.0308125
+            ],
+            "accuracy_auc_delta_mean": 0.0249375,
+            "final_accuracy_delta_mean": 0.0275,
+            "final_entropy_delta_mean": -0.06071440209531991,
+            "round_accuracy_delta_mean": [
+              -0.001,
+              0.0095,
+              0.0035,
+              0.0025,
+              0.025,
+              0.071,
+              0.0615,
+              0.0275
+            ],
+            "wins_ties_losses": [
+              490,
+              1200,
+              310
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,4 +1,6 @@
 results/*
+!results/nonmyopic/
+!results/nonmyopic/**
 !results/constrained_oracle/
 results/constrained_oracle/*
 !results/constrained_oracle/REPORT.md
@@ -48,6 +50,7 @@ configs/*
 !configs/config_location_branch_decoy_local_unconstrained_micro_norefresh_26b_a4b.yaml
 !configs/config_location_branch_decoy_local_micro_analytic_26b_a4b.yaml
 !configs/config_location_branch_decoy_local_unconstrained_micro_analytic_26b_a4b.yaml
+!configs/config_nonmyopic_ucizoo_llm_pilot_openrouter.yaml
 .DS_Store
 .env
 *.png
