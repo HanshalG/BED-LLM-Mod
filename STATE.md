@@ -136,8 +136,14 @@ fitting to recover an exactly coherent joint before deriving likelihoods. Raw el
 components and projection residuals are logged. Its held-out protocol is frozen in
 `DATA_ESTIMATION_PREREGISTRATION.md`: naive non-thinking creates 30 interactions on
 usable cases 5-14 before the scorer is evaluated once; cases 0-4 cannot be reused.
-OpenRouter ledger: $16.79126737 spent of the user-authorized $40 cap, leaving
-$23.20873263.
+The first bank invocation `20260714T051116` failed closed without metrics after 85
+requests when the critic rejected a paraphrase of an earlier unavailable sexual-advance
+query and one-concept replacement exhausted bounded retries. It cost $0.00518174; the
+scorer was never called and partial outcomes are unused. Naive repair now asks for two
+distinct alternatives after the first semantic rejection, with a focused regression
+test. Relaunch the exact registered bank after commit/push.
+OpenRouter ledger: $16.79644911 spent of the user-authorized $40 cap, leaving
+$23.20355089.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -374,7 +380,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.20873263 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
+7. Budget: $23.20355089 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

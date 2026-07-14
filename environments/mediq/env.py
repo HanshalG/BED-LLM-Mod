@@ -1015,7 +1015,12 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         for semantic_attempt in range(maximum + 1):
             needed = {index: count - len(accepted[index]) for index in pending}
             requested = {
-                index: max(needed[index], 2) if accepted[index] else needed[index]
+                index: (
+                    max(needed[index], 2)
+                    if accepted[index]
+                    or (naive and prior_failures[index] and needed[index] == 1)
+                    else needed[index]
+                )
                 for index in pending
             }
             generation_messages: list[list[dict[str, str]]] = []

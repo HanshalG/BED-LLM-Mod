@@ -198,6 +198,47 @@ class CandidateRepairModel(RoutingMediQModel):
         return super()._route(messages)
 
 
+class NaiveRetryDiversityModel(RoutingMediQModel):
+    def _route(self, messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "generate atomic patient questions" in system:
+            if "Rejected queries:" in user:
+                queries = [
+                    "Has the patient made physical contact with the clinician?",
+                    "Is the patient currently experiencing a fever?",
+                ]
+            else:
+                queries = ["Has the patient made sexual advances toward the clinician?"]
+            return json.dumps(
+                {
+                    "candidates": [
+                        {
+                            "query": query,
+                            "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
+                        }
+                        for query in queries
+                    ]
+                }
+            )
+        if "strict MediQ candidate-space auditor" in system:
+            valid = not any(
+                phrase in user
+                for phrase in ("sexual advances", "physical contact")
+            )
+            return json.dumps(
+                {
+                    "valid": valid,
+                    "reason": (
+                        "valid new patient finding"
+                        if valid
+                        else "semantic paraphrase of a prior unavailable variable"
+                    ),
+                }
+            )
+        return super()._route(messages)
+
+
 class CompoundQuestionRepairModel(RoutingMediQModel):
     def _route(self, messages: list[dict[str, str]]) -> str:
         system = messages[0]["content"]
@@ -693,6 +734,29 @@ def test_mediq_semantic_candidate_validation_regenerates_invalid_set() -> None:
         "candidate_set_validation_checks": 0.0,
         "candidate_set_validation_rejections": 0.0,
     }
+
+
+def test_mediq_naive_retry_requests_multiple_replacement_concepts() -> None:
+    model = NaiveRetryDiversityModel()
+    config = _config(
+        method_names=["naive"],
+        mediq_num_trials=1,
+        mediq_num_candidates=1,
+    )
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    action = env.generate_naive_action(
+        BeliefState.uniform(task.option_labels), [], model, config
+    )
+    assert action.query == "Is the patient currently experiencing a fever?"
+    generation_prompts = [
+        messages[-1]["content"]
+        for batch in model.batches
+        for messages in batch
+        if "generate atomic patient questions" in messages[0]["content"]
+    ]
+    assert "Generate exactly 2 replacement candidate(s)" in generation_prompts[-1]
 
 
 def test_mediq_compound_candidate_repair_receives_specific_feedback() -> None:
