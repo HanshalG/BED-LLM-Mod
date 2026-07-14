@@ -214,11 +214,17 @@ strings, uses the released index as target, and records the disagreements in man
 This is parser transparency, not outcome tuning. Gate 2/3 calibration remains the next
 authorized action under the existing $0.50 hard cap; no policy/depth run is authorized.
 The first calibration process was interrupted by the local interactive execution wrapper
-after 288 requests and $0.02535745, before it could write a report. It is not a gate
-result and its partial outputs are unused. A single exact operational recovery is
-permitted solely to obtain the frozen gate's report; it uses a distinct ledger run ID,
-the same source IDs/settings/seed, and a durable log/failure artifact. No result-based
-retry or scientific setting change is permitted.
+after 288 requests and $0.02535745, and a detached recovery was reaped after 3 requests
+and $0.00012947; neither wrote a report and neither is used. The exact persistent
+foreground recovery then completed and **FAILED the profile-support gate**: its 296
+requests ($0.02559221; 100,904 prompt and 41,936 completion tokens; zero reasoning or
+forced exits) exhausted bounded repairs before it could construct three valid fixed
+profiles per diagnosis. This is an upstream model-validity failure, not a partial
+likelihood result. Per preregistration there will be no tuning/retry and no likelihood,
+FactSelect, branch-equivalence, structural, ranking-fidelity, policy, or depth run.
+The canonical closure record is `results/path_e/icraft_profile_gates/FINAL_REPORT.md`;
+total iCRAFT gate spend was $0.05380642 and the OpenRouter ledger is $16.86549493 of
+$40. The external non-myopic empirical claim is now closed under the stated protocol.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks

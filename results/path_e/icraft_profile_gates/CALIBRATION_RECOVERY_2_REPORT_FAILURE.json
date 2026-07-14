@@ -1,0 +1,48 @@
+{
+  "error": "MediQ profile generation failed after bounded repairs",
+  "run_id": "icraft-profile-gate-calibration-recovery-2",
+  "stage": "calibration",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/hanshalgoyal/BED-LLM-Mod/scripts/run_icraft_profile_gates.py\", line 255, in main\n    result = run_calibration(config, questioner, answerer)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/hanshalgoyal/BED-LLM-Mod/scripts/run_icraft_profile_gates.py\", line 110, in run_calibration\n    priors = env._prior_states_many(tasks, questioner)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/hanshalgoyal/BED-LLM-Mod/environments/mediq/env.py\", line 573, in _prior_states_many\n    return self._profile_prior_states_many(tasks, model)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/hanshalgoyal/BED-LLM-Mod/environments/mediq/env.py\", line 699, in _profile_prior_states_many\n    supports = self._profile_supports_many(tasks)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/hanshalgoyal/BED-LLM-Mod/environments/mediq/env.py\", line 670, in _profile_supports_many\n    raise ValueError(\"MediQ profile generation failed after bounded repairs\")\nValueError: MediQ profile generation failed after bounded repairs\n",
+  "usage": {
+    "answerer": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 41936,
+      "forced_exits": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "prompt_tokens": 100904,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.134505070000117,
+      "requests": 296,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.025592209999999976,
+      "run_remaining_usd": 0.47440779,
+      "total_spent_usd": 16.865494929999883
+    },
+    "questioner": {
+      "adapter_completion_tokens": 41936,
+      "adapter_cost_usd": 0.025592209999999976,
+      "adapter_prompt_tokens": 100904,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 296,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 41936,
+      "forced_exits": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "prompt_tokens": 100904,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.134505070000117,
+      "requests": 296,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.025592209999999976,
+      "run_remaining_usd": 0.47440779,
+      "total_spent_usd": 16.865494929999883
+    }
+  }
+}

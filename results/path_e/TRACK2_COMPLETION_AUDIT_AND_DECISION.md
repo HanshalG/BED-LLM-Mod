@@ -2,6 +2,17 @@
 
 Date: 2026-07-14
 
+## Post-Authorization Addendum: iCRAFT Gate Closed
+
+The authorized iCRAFT-MD diagnosis-profile gate was implemented and run after this
+memo. Gate 1 passed at $0.00272729, but the held-out calibration execution failed
+before likelihood evaluation because the 26B non-thinking scaffold could not generate
+the preregistered three valid fixed profiles per diagnosis within bounded repairs.
+The frozen rule stops the path at that point: no likelihood, branch-equivalence,
+structural, ranking-fidelity, policy, or depth run is authorized. The canonical record
+is `results/path_e/icraft_profile_gates/FINAL_REPORT.md`. The prospective sections
+below are historical decision context, not an open implementation plan.
+
 Status: **STOP-and-discuss. No iCRAFT implementation, model call, or policy run is
 authorized by this memo.**
 

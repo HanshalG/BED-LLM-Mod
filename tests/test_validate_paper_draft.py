@@ -9,8 +9,8 @@ This is not a positive external-benchmark claim. The exact location gap is a
 correctness control. Animals streams are only partially paired. Paprika policy
 counts are endpoint-invalid. MediQ stops before a calibrated policy comparison.
 We do not claim that non-myopic BED cannot work. The study uses one model
-family, and OpenRouter introduces provider nondeterminism. The proposed iCRAFT
-profile model may not pass its gates.
+family, and OpenRouter introduces provider nondeterminism. The iCRAFT
+profile-support gate failed before likelihood evaluation.
 """
 
 VALID_FIGURE_LABELS = "\\label{fig:validation-chain}"

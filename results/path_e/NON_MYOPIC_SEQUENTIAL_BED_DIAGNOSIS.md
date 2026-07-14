@@ -199,6 +199,13 @@ the word "sequential."
 
 ## A Viable Path To A Real Non-Myopic Test
 
+**Result addendum (2026-07-14).** This proposed iCRAFT-MD path was subsequently
+authorized, preregistered, and tested. Its micro-smoke passed, but the held-out
+calibration gate failed during bounded construction of the required fixed profile
+support. Per the frozen stop rule, no likelihood, structural, ranking, policy, or
+depth gate followed. See `results/path_e/icraft_profile_gates/FINAL_REPORT.md`.
+The proposal below remains a record of the pre-result rationale, not a future plan.
+
 The recommended next path stays inside the already authorized MediQ benchmark but
 retires iMEDQA for method claims. The official iCRAFT-MD split is much better aligned:
 

@@ -21,7 +21,11 @@ REQUIRED_LIMITATION_PATTERNS = {
     "no_impossibility_claim": (r"do not claim that non-myopic BED\s+cannot work",),
     "single_model_scope": (r"one model\s+family",),
     "provider_nondeterminism": (r"OpenRouter", r"nondeterminism"),
-    "icraft_unverified": (r"iCRAFT\s+profile\s+model", r"pass its gates"),
+    "icraft_profile_gate_failure": (
+        r"iCRAFT",
+        r"profile-support gate",
+        r"before likelihood",
+    ),
 }
 
 REQUIRED_FIGURE_LABELS: dict[str, str] = {
