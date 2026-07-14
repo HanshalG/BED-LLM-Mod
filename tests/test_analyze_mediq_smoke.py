@@ -55,6 +55,10 @@ def _write_run(tmp_path: Path) -> Path:
                             "predictive_outcome_probabilities": predictive,
                         }
                     ],
+                    "candidate_set_semantic_validation": {
+                        "valid": True,
+                        "reason": "all candidate queries are distinct",
+                    },
                     "selected_score": score,
                     "reply": facts[1],
                     "selected_fact_indices": [1],
@@ -107,6 +111,8 @@ def _write_run(tmp_path: Path) -> Path:
         "candidate_validation_checks": [5.0, 10.0],
         "candidate_validation_retries": [0.0, 0.0],
         "candidate_validation_failures": [0.0, 0.0],
+        "candidate_set_validation_checks": [5.0, 10.0],
+        "candidate_set_validation_rejections": [0.0, 0.0],
         "patient_relevance_failures": [0.0, 0.0],
         "backend_requests": [235],
         "backend_prompt_tokens": [1000],

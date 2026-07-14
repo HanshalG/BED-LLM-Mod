@@ -173,6 +173,14 @@ def _candidate_diagnostics(
     details = turn.get("candidate_details")
     if not isinstance(details, list) or not details:
         return ["missing candidate likelihood diagnostics"], summaries
+    set_validation = turn.get("candidate_set_semantic_validation")
+    if (
+        not isinstance(set_validation, dict)
+        or set_validation.get("valid") is not True
+        or not isinstance(set_validation.get("reason"), str)
+        or not set_validation["reason"].strip()
+    ):
+        errors.append("missing successful candidate-set semantic validation")
 
     scores: list[float] = []
     current_queries: list[str] = []
@@ -419,6 +427,9 @@ def analyze(
     candidate_validation_failures = _metric_max(
         metrics, "candidate_validation_failures"
     )
+    candidate_set_validation_checks = _metric_max(
+        metrics, "candidate_set_validation_checks"
+    )
     relevance_failures = _metric_max(metrics, "patient_relevance_failures")
 
     log_path = run_dir / "run.log"
@@ -456,6 +467,9 @@ def analyze(
         "valid_mapping_contract": not mapping_errors,
         "zero_structured_parse_failures": structured_failures == 0.0,
         "zero_candidate_validation_failures": candidate_validation_failures == 0.0,
+        "candidate_sets_semantically_validated": (
+            candidate_set_validation_checks >= denominator
+        ),
         "zero_patient_relevance_failures": relevance_failures == 0.0,
         "valid_finite_target_eig_tables": not candidate_errors,
         "no_target_leaking_queries": not target_leaking_queries,
@@ -499,6 +513,10 @@ def analyze(
             metrics, "candidate_validation_retries"
         ),
         "candidate_validation_failures": candidate_validation_failures,
+        "candidate_set_validation_checks": candidate_set_validation_checks,
+        "candidate_set_validation_rejections": _metric_max(
+            metrics, "candidate_set_validation_rejections"
+        ),
         "patient_relevance_failures": relevance_failures,
         "grounding_errors": grounding_errors,
         "mapping_errors": mapping_errors,

@@ -23,9 +23,10 @@ the logs also lack Git-commit provenance and the depth-3 recursive implementatio
 postdates the depth-1/2 runs. Animals can support one-step BED transfer, not the
 non-myopic claim. MediQ must carry that claim.
 
-MediQ Step 0 implementation status (2026-07-14): **canonical binary observations now
-pass, but the latest manual audit exposed action-support violations; the final
-target-decode/dedup repair is locally complete and the identical gate repeat is pending.**
+MediQ Step 0 implementation status (2026-07-14): **observation and individual-action
+contracts now pass; the latest manual audit found one synonym pair in a candidate set,
+and the final set-level dedup repair is locally complete with the identical gate repeat
+pending.**
 The adapter uses the exact released multiple-choice labels as the
 finite BED target, a temperature-zero judged initial distribution, option-conditioned
 categorical response likelihoods, recursive one-likelihood-at-a-time Bayes updates,
@@ -65,8 +66,9 @@ selected facts for explicit entailment without exposing response categories, and
 then maps relevant facts. It also forbids a relevant fact from being mapped to the
 unavailable bucket. The analyzer requires logged successful candidate validation and
 independently requires the canonical yes/no/unavailable support. The exact
-official-data zero-cost dry run passes at 295 requests (50 candidate audits, 10 separate
-relevance audits); 20 focused tests pass and the full suite is 594 passed, 1 skipped,
+official-data zero-cost dry run passes at 305 requests (50 individual candidate audits,
+10 set-level dedup audits, and 10 separate relevance audits); 21 focused tests pass and
+the full suite is 595 passed, 1 skipped,
 with only the same unrelated stale Path A wording assertion failing.
 The first paid repeat attempt `20260714T035736` failed closed before likelihood or
 patient calls because only 3/5 compound-filtered candidates survived two opaque count-only
@@ -86,7 +88,13 @@ derived stability and management-status predicates. The hardened analyzer now ca
 all of these retrospectively. Generation and parsing now require pre-decision patient
 evidence, reject diagnosis/management/test-status queries and derived clinical summaries,
 and use content-token semantic deduplication against history and the accepted pool. The
-exact-shape zero-cost run passes these final action-contract checks.
+next complete run `20260714T042154` passed the hardened analyzer and every realized turn
+passed manual review, but its case-3 round-1 candidate pool contained both `renal calculi`
+and `nephrolithiasis`. This is a narrow proposal-diversity failure: both actions are valid
+alone, but per-candidate checks cannot see medical synonyms across a set. A new
+temperature-zero set-level auditor now retains one representative per duplicate group,
+replenishes only the deficit, logs its decision, and is required by the analyzer. The
+305-request exact-shape dry run passes this final set contract.
 OpenRouter ledger: $16.75018985 spent of the user-authorized $40 cap, leaving
 $23.24981015.
 
@@ -261,8 +269,9 @@ Track 2 (main line): MediQ per the registered design requirements. All earlier S
 smokes remain diagnostic-only. Canonical binary observations fixed answer-space and
 mapping validity; the latest manual audit then localized the remaining issue to the
 admissible action set. The target-decode, management-status, derived-predicate, and
-semantic-repeat filters are locally complete and pass the exact-shape zero-cost gate.
-Commit and push them, then repeat only the same five-case smoke. Do not
+semantic-repeat filters now pass; one cross-candidate medical-synonym pair motivated
+the final set-level dedup auditor. It is locally complete and passes the exact-shape
+zero-cost gate. Commit and push it, then repeat only the same five-case smoke. Do not
 pre-register or launch Claim 1 until that repeated manual review passes. Note the endpoint is
 exact-match on the MC label — no success judge, no remedy adjudication; the remaining
 validity gate is patient-simulator faithfulness (answers consistent with the case

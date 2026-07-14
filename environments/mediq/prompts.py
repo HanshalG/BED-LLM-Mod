@@ -178,6 +178,42 @@ def candidate_validation_messages(
     ]
 
 
+def candidate_set_validation_messages(
+    task: MediQTask,
+    actions: Sequence[MediQAction],
+    history: Sequence[tuple[MediQAction, MediQObservation]],
+) -> list[dict[str, str]]:
+    candidates = [
+        {"index": index, "query": action.query}
+        for index, action in enumerate(actions)
+    ]
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a strict MediQ candidate-set deduplication auditor. Identify only "
+                "queries that ask the same clinical fact or logically equivalent predicate, "
+                "including medical synonyms. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Conversation so far:\n{_history_text(history)}\n\n"
+                f"Clinical question:\n{task.question}\n\n"
+                f"Candidate queries:\n{json.dumps(candidates)}\n\n"
+                "Group indices only when the queries are semantic duplicates, such as "
+                "'renal calculi', 'kidney stones', and 'nephrolithiasis'. Different symptoms, "
+                "different tests, or meaningfully different numeric thresholds are not "
+                "duplicates. Each index may appear in at most one group. Return "
+                '{"duplicate_groups":[[0,1]],"reason":"brief set-level reason"}. '
+                "Use an empty duplicate_groups list when every query is distinct."
+            ),
+        },
+    ]
+
+
 def likelihood_messages(hypothesis: str, action: MediQAction) -> list[dict[str, str]]:
     task = action.task
     outcomes = list(action.outcomes)

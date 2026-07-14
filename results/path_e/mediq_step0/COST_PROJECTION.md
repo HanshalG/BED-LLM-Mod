@@ -22,19 +22,21 @@ Frozen config: `configs/config_mediq_step0_smoke_openrouter.yaml`
 
 ## Logical requests
 
-After the answer-space/relevance repair, the zero-cost routing-model dry run over the
-same five official records made exactly 295 logical requests:
+After the complete answer-space, action-contract, and set-dedup repair, the zero-cost
+routing-model dry run over the same five official records made exactly 305 logical
+requests:
 
 | Stage | Requests |
 |---|---:|
 | Initial finite-label prior | 5 |
 | Root candidate generation | 10 |
 | Temperature-zero semantic candidate validation | 50 |
+| Temperature-zero candidate-set deduplication | 10 |
 | Option-conditioned outcome likelihoods | 200 |
 | Fact-Select patient | 10 |
 | Category-blind explicit-relevance judgment | 10 |
 | Outcome mapping | 10 |
-| **Total before bounded repairs** | **295** |
+| **Total before bounded repairs** | **305** |
 
 The largest concurrent stage contains 100 likelihood requests, so concurrency 128
 already covers the stage; 256 would not shorten the critical path for this run.

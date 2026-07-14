@@ -87,6 +87,35 @@ def parse_candidate_validation(text: str) -> tuple[bool, str]:
     return valid, reason.strip()
 
 
+def parse_candidate_set_validation(
+    text: str, num_candidates: int
+) -> tuple[tuple[tuple[int, ...], ...], str]:
+    raw = parse_json_object(text)
+    duplicate_groups = raw.get("duplicate_groups")
+    reason = raw.get("reason")
+    if not isinstance(duplicate_groups, list):
+        raise ValueError("candidate-set validation requires duplicate_groups list")
+    if not isinstance(reason, str) or not reason.strip():
+        raise ValueError("candidate-set validation requires a non-empty reason")
+    parsed: list[tuple[int, ...]] = []
+    used: set[int] = set()
+    for group in duplicate_groups:
+        if not isinstance(group, list) or len(group) < 2:
+            raise ValueError("each duplicate group requires at least two indices")
+        indices: list[int] = []
+        for value in group:
+            if isinstance(value, bool) or not isinstance(value, int):
+                raise ValueError("duplicate-group indices must be integers")
+            if not 0 <= value < num_candidates:
+                raise ValueError("duplicate-group index is outside the candidate set")
+            if value in indices or value in used:
+                raise ValueError("duplicate-group indices must be unique")
+            indices.append(value)
+            used.add(value)
+        parsed.append(tuple(indices))
+    return tuple(parsed), reason.strip()
+
+
 def parse_relevance(text: str) -> tuple[bool, str]:
     raw = parse_json_object(text)
     relevant = raw.get("relevant")

@@ -21,6 +21,7 @@ from .data import (
     load_mediq_tasks_with_report,
 )
 from .parsing import (
+    parse_candidate_set_validation,
     parse_candidate_validation,
     parse_distribution,
     parse_fact_selection,
@@ -30,6 +31,7 @@ from .parsing import (
 )
 from .prompts import (
     candidate_messages,
+    candidate_set_validation_messages,
     candidate_validation_messages,
     likelihood_messages,
     mapping_messages,
@@ -211,6 +213,11 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self._candidate_validation_retries = 0
         self._candidate_validation_failures = 0
         self._candidate_validation_cache: dict[MediQAction, tuple[bool, str]] = {}
+        self._candidate_set_validation_checks = 0
+        self._candidate_set_validation_rejections = 0
+        self._candidate_set_validation_cache: dict[
+            tuple[MediQAction, ...], tuple[bool, str]
+        ] = {}
         self._patient_observations = 0
         self._patient_relevance_checks = 0
         self._patient_raw_irrelevant = 0
@@ -805,6 +812,55 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 else:
                     failures.setdefault(index, []).append((action, reason))
 
+            set_indices = [index for index in pending if len(accepted[index]) >= 2]
+            set_judgments = self._complete_parsed_many(
+                self._evaluation_model(),
+                [
+                    candidate_set_validation_messages(
+                        tasks[index], accepted[index], histories[index]
+                    )
+                    for index in set_indices
+                ],
+                0.0,
+                namespace=(
+                    f"questioner:candidate_set_validation:{namespace}:"
+                    f"semantic_attempt:{semantic_attempt}"
+                ),
+                parsers=[
+                    (
+                        lambda text, index=index: parse_candidate_set_validation(
+                            text, len(accepted[index])
+                        )
+                    )
+                    for index in set_indices
+                ],
+            )
+            self._candidate_set_validation_checks += len(set_indices)
+            for index, (duplicate_groups, reason) in zip(
+                set_indices, set_judgments
+            ):
+                snapshot = tuple(accepted[index])
+                if not duplicate_groups:
+                    self._candidate_set_validation_cache[snapshot] = (True, reason)
+                    continue
+                self._candidate_set_validation_cache[snapshot] = (False, reason)
+                removed_indices = {
+                    duplicate_index
+                    for group in duplicate_groups
+                    for duplicate_index in group[1:]
+                }
+                self._candidate_set_validation_rejections += len(removed_indices)
+                for duplicate_index in sorted(removed_indices):
+                    action = snapshot[duplicate_index]
+                    failures.setdefault(index, []).append(
+                        (action, f"set-level semantic duplicate: {reason}")
+                    )
+                accepted[index] = [
+                    action
+                    for action_index, action in enumerate(snapshot)
+                    if action_index not in removed_indices
+                ]
+
             retry_indices: list[int] = []
             for index in pending:
                 invalid = failures.get(index, [])
@@ -823,6 +879,11 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 self._candidate_validation_retries += 1
                 retry_indices.append(index)
             if not retry_indices:
+                for actions in accepted:
+                    self._candidate_set_validation_cache.setdefault(
+                        tuple(actions),
+                        (True, "single candidate requires no set-level deduplication"),
+                    )
                 return accepted
             pending = retry_indices
         raise AssertionError("unreachable")
@@ -1180,6 +1241,12 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             "candidate_validation_failures": float(
                 self._candidate_validation_failures
             ),
+            "candidate_set_validation_checks": float(
+                self._candidate_set_validation_checks
+            ),
+            "candidate_set_validation_rejections": float(
+                self._candidate_set_validation_rejections
+            ),
         }
 
     def _patient_metrics(self) -> dict[str, float]:
@@ -1420,6 +1487,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                             ),
                         }
                     )
+                candidate_set = tuple(round_result.candidates)
+                set_validation = self._candidate_set_validation_cache.get(
+                    candidate_set
+                )
                 turn_records.append(
                     {
                         "query": round_result.chosen.action.query,
@@ -1428,6 +1499,14 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                             candidate.query for candidate in round_result.candidates
                         ],
                         "candidate_details": candidate_details,
+                        "candidate_set_semantic_validation": (
+                            {
+                                "valid": set_validation[0],
+                                "reason": set_validation[1],
+                            }
+                            if set_validation is not None
+                            else None
+                        ),
                         "selected_score": round_result.chosen.score,
                         "selection_extras": round_result.chosen.extras,
                         "reply": round_result.observation.reply,

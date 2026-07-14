@@ -72,6 +72,10 @@ class RoutingMediQModel:
             return json.dumps({"candidates": candidates})
         if "strict MediQ candidate-space auditor" in system:
             return json.dumps({"valid": True, "reason": "valid atomic partition"})
+        if "strict MediQ candidate-set deduplication auditor" in system:
+            return json.dumps(
+                {"duplicate_groups": [], "reason": "all candidate queries are distinct"}
+            )
         if "calibrated clinical generative model" in system:
             outcomes = json.loads(
                 re.search(r"Response categories: (\[[^\n]+\])", user).group(1)
@@ -201,6 +205,44 @@ class PartialCandidateRepairModel(RoutingMediQModel):
                         else "the query invents a clinically nonsensical variable"
                     ),
                 }
+            )
+        return super()._route(messages)
+
+
+class SynonymCandidateRepairModel(RoutingMediQModel):
+    def _route(self, messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "generate atomic patient questions" in system:
+            queries = (
+                ["Does the patient have a history of urinary tract obstruction?"]
+                if "Generate exactly 1 replacement" in user
+                else [
+                    "Does the patient have a history of renal calculi?",
+                    "Does the patient have a history of nephrolithiasis?",
+                ]
+            )
+            return json.dumps(
+                {
+                    "candidates": [
+                        {
+                            "query": query,
+                            "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
+                        }
+                        for query in queries
+                    ]
+                }
+            )
+        if "strict MediQ candidate-set deduplication auditor" in system:
+            if '"query": "Does the patient have a history of nephrolithiasis?' in user:
+                return json.dumps(
+                    {
+                        "duplicate_groups": [[0, 1]],
+                        "reason": "renal calculi and nephrolithiasis are synonyms",
+                    }
+                )
+            return json.dumps(
+                {"duplicate_groups": [], "reason": "the remaining queries are distinct"}
             )
         return super()._route(messages)
 
@@ -454,6 +496,8 @@ def test_mediq_semantic_candidate_validation_regenerates_invalid_set() -> None:
         "candidate_validation_checks": 2.0,
         "candidate_validation_retries": 1.0,
         "candidate_validation_failures": 0.0,
+        "candidate_set_validation_checks": 0.0,
+        "candidate_set_validation_rejections": 0.0,
     }
 
 
@@ -489,6 +533,30 @@ def test_mediq_candidate_repair_retains_valid_queries_and_fills_deficit() -> Non
         "candidate_validation_checks": 3.0,
         "candidate_validation_retries": 1.0,
         "candidate_validation_failures": 0.0,
+        "candidate_set_validation_checks": 1.0,
+        "candidate_set_validation_rejections": 0.0,
+    }
+
+
+def test_mediq_candidate_set_audit_replaces_medical_synonym() -> None:
+    model = SynonymCandidateRepairModel()
+    config = _config(mediq_num_trials=1, mediq_num_candidates=2)
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    actions = env.generate_candidate_actions(
+        BeliefState.uniform(task.option_labels), [], model, config
+    )
+    assert [action.query for action in actions] == [
+        "Does the patient have a history of renal calculi?",
+        "Does the patient have a history of urinary tract obstruction?",
+    ]
+    assert env._candidate_metrics() == {
+        "candidate_validation_checks": 3.0,
+        "candidate_validation_retries": 1.0,
+        "candidate_validation_failures": 0.0,
+        "candidate_set_validation_checks": 2.0,
+        "candidate_set_validation_rejections": 1.0,
     }
 
 
@@ -563,7 +631,7 @@ def test_mediq_eig_integration_uses_grounded_patient_and_writes_artifact(
     assert summary.metrics["patient_grounding_rate"] == [1.0]
     assert summary.metrics["patient_relevance_rate"] == [1.0]
     assert summary.metrics["answer_set_coverage"] == [1.0]
-    assert sum(len(batch) for batch in questioner.batches) == 28
+    assert sum(len(batch) for batch in questioner.batches) == 30
     assert sum(len(batch) for batch in answerer.batches) == 2
     records = json.loads((tmp_path / "mediq_interactions.json").read_text())
     assert len(records) == 2
