@@ -5,17 +5,33 @@ ACTIONS below to reflect reality, and append a row to `EXPERIMENTS.md` for anyth
 launched. A stale STATE.md is a bug. If this file conflicts with GOAL.md's design
 history, this file wins.
 
-## CURRENT STATE (updated 2026-07-12)
+## CURRENT STATE (updated 2026-07-13)
 
-Status: **Path E stopped at the invalid-endpoint/method-claim gate, pending an explicit
-new-path decision.** Its research target was non-myopic LLM experimental design on
-external interactive benchmarks (GOAL.md): primary env = Paprika customer-service
-troubleshooting tasks (arXiv:2502.17543, released), second env = MediQ
-(arXiv:2406.00922; AgentClinic was the fallback). The attempted method was BED-LLM-style
-beliefs plus lookahead/arbitration, and it needed to beat naive and one-step EIG on
-paired external-benchmark endpoints. 20Q/Wordle/Mastermind are harness/unit-test only
-(greedy near-optimal there); location finding is closed. All Path A/B/C/D location and
-20Q material is banked history below.
+Status: **Track 1 is complete and collapses as a credible non-myopic paper spine;
+Track 2 (MediQ) is now the main experimental line and Track 3 (paper) proceeds in
+parallel.** The free banked animals audit made no model calls and is tracked in
+`results/path_e/ANIMALS_REANALYSIS.md`, with reproducible trial-level data in
+`results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json`. One-step EIG remains a
+strong paired result against both naive baselines, but the old apparent two-step gain
+does not survive the comparability audit: the full depth-2 versus depth-1 AUC delta is
++0.027 with an unpaired 95% bootstrap CI [-0.076, 0.132], while the only exactly paired
+seed block reverses to -0.040 [-0.105, 0.025] (3/1/6 wins/ties/losses). Depth 3 is
+materially worse than depth 2 on 40 paired trials, -0.126 [-0.224, -0.035]. Q@80 is 9,
+8, and 12 for depths 1, 2, and 3 respectively. The EIG configurations are scientifically
+matched, but depth 1 shares only ten exact target/prior conditions with depths 2/3;
+the logs also lack Git-commit provenance and the depth-3 recursive implementation
+postdates the depth-1/2 runs. Animals can support one-step BED transfer, not the
+non-myopic claim. MediQ must carry that claim.
+
+Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
+target was non-myopic LLM experimental design on external interactive benchmarks
+(GOAL.md): Paprika customer-service troubleshooting exposed the boundary failure;
+MediQ (arXiv:2406.00922) is the aligned primary environment now. The attempted Paprika
+method was BED-LLM-style beliefs plus lookahead/arbitration, and it failed to beat naive
+and one-step EIG on paired external-benchmark endpoints. Wordle/Mastermind are
+harness/unit-test only; location finding is closed. The animals/20Q result is banked
+corroboration under the target-decode contract, not the non-myopic headline. All Path
+A/B/C/D location and 20Q material is banked history below.
 
 The explicitly authorized post-stop method investigation is complete. The tracked
 report is
@@ -159,6 +175,91 @@ Latest cluster state:
   changes this again. Do not use GH200 unless explicitly requested again.
 
 ## NEXT ACTIONS (in order)
+
+**EXECUTION PLAN (2026-07-12, per Hanshal — three tracks, this order):**
+
+Track 1 (COMPLETE, FREE): the banked animals depth re-analysis. Result: **COLLAPSES**.
+The analyzer reconstructed all 200 trial-level 20-round traces, verified their aggregate
+curves exactly against the banked metrics, audited scientific configs and target/prior
+pairing, and computed deterministic 20,000-replicate bootstrap intervals. The old
+depth-2 advantage was an unpaired point estimate driven by easier restarted seed blocks;
+the only paired block reverses, and paired depth 3 is worse than depth 2. Deliverables:
+`scripts/analyze_animals_depth_reanalysis.py`,
+`results/path_e/ANIMALS_REANALYSIS.md`, and
+`results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json`. Consequence: retain
+animals for the one-step BED-transfer claim; the non-myopic claim rides entirely on
+the MediQ claim-2 pilot.
+
+Track 2 (main line): MediQ per the registered design requirements. Note the endpoint is
+exact-match on the MC label — no success judge, no remedy adjudication; the remaining
+validity gate is patient-simulator faithfulness (answers consistent with the case
+record) + answer-mapping coverage. Integration smoke (~$0.1) -> pre-register ->
+claim-1 study (naive asking, native Expert baseline(s), 1-step EIG; ~$2-4) ->
+claim-2 pilot (2-step vs 1-step, 10 cases, gated) only if claim 1 holds.
+
+Track 3 (parallel, starts NOW): the paper. Stable arc independent of pending results:
+(i) the target-decode contract as problem setting; (ii) in-contract evidence (banked
+20Q + MediQ claim 1); (iii) the non-myopic question (Track 1 + MediQ claim-2 pilot);
+(iv) boundary of applicability (the Paprika autopsy, quantified mechanisms). Salvage
+motivation material from the Path B draft. Target: full draft minus MediQ numbers
+before the MediQ headline runs.
+
+NON-MOVES (fences): no Paprika reruns (guess-rule variant = future work), no
+Bayes-adaptive build, no new environments beyond MediQ, no further endpoint-repair
+campaigns on Paprika. Timeline anchor: NeurIPS 2026 workshop author notifications are
+mandated by Sept 29; expect paper deadlines late Aug - early Sep; watch for the
+accepted-workshop list and pick 2-3 targets when it drops.
+
+
+**DIRECTION (2026-07-12, per Hanshal — supersedes the task-value probe and the
+Bayes-adaptive proposal): the project's identity is non-myopic sequential BED with
+LLMs; EIG is the acquisition objective.** Refined contract (per Hanshal): EIG need not
+be the literal benchmark reward — the task must expose a latent target with ground
+truth, and success must be a monotone readout of posterior quality via an explicit
+DECODE rule (BED-LLM's guess protocol: acquisition maximizes EIG about the target; a
+separate belief->action rule — argmax guess at confidence threshold or at budget —
+produces the scored output; winning stats proxy information gain).
+
+**MediQ is the primary environment** (in-contract by construction): target = the
+answer variable, decode = argmax option at budget (or MediQ's native answer/abstain
+decision), acquisition = EIG over patient questions.
+
+**Paprika architectural note (from the autopsy, via the refined contract):** the
+deployed agent conflated experiments and decodes — remedies competed inside EIG
+scoring, where a cure is correctly a poor experiment. In-contract design: remedies are
+DECODES (execute argmax remedy when top-hypothesis mass > tau, tau pre-registered),
+never EIG candidates; acquisition ranks diagnostic questions only. This is recorded as
+an optional boundary experiment ONLY IF the (third) endpoint invalidity is resolved
+and time permits after MediQ — it is not the primary path. The autopsy remains the
+paper's boundary-of-applicability evidence either way.
+
+MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
+1. EIG TARGETS THE FINITE ANSWER VARIABLE (the MedQA option set), never free-form
+   hypothesis prose. Intermediate finding-hypotheses, if used, support likelihoods only.
+2. Calibrated likelihoods over the small categorical target: temperature-0 judged
+   distributions (or logprobs if available); no single-shot JSON probability guesses
+   over open text. Log a calibration check (reliability of P(answer|findings) against
+   outcomes) as a pre-registered diagnostic.
+3. No history double-use in updates; semantic dedup of any generated finding
+   hypotheses; acquisition and update must use the same model of the answer.
+4. Patient simulator faithfulness gate + answer-mapping coverage gate as on Paprika;
+   manual transcript review before any claims run (the endpoint discipline carries
+   over unchanged).
+5. Arms and ladder (pre-register before launch): naive asking, MediQ native Expert
+   baseline(s), 1-step EIG (claim 1: EIG > naive AND >= native baselines — MediQ's own
+   naive-asking-hurts result implies headroom), then 2-step vs 1-step pilot (claim 2 —
+   the non-myopic bet, gated: 10-case pilot, >=6/10 or clear accuracy@budget edge
+   before scaling; full 2-step cost cap learned from Paprika applies).
+6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
+   analyzer finalized before results are viewed; outcome blindness until complete.
+7. Budget: ~$18 remains of $30. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
+   pilot ~$1-2. Project before each launch as usual.
+8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
+   cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika
+   autopsy as the misalignment boundary, 20Q/animals banked data as corroboration of
+   the aligned regime. The Bayes-adaptive goal-oriented planner is parked as the
+   documented conference follow-up for goal-directed tasks.
+
 
 **STOP-AND-DISCUSS BOUNDARY REACHED (2026-07-12): do not execute the historical
 mid-headline reminders below.** The frozen 50-task analyzer ran exactly once and did

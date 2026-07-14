@@ -94,3 +94,7 @@ results/path_e/*
 !results/path_e/arbitration_headline/PAPRIKA_HEADLINE.md
 !results/path_e/arbitration_headline/MANUAL_REVIEW.md
 !results/path_e/arbitration_headline/CANONICAL_RUNS.json
+!results/path_e/ANIMALS_REANALYSIS.md
+!results/path_e/animals_reanalysis/
+results/path_e/animals_reanalysis/*
+!results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json
