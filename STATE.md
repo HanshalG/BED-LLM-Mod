@@ -8,8 +8,9 @@ history, this file wins.
 ## CURRENT STATE (updated 2026-07-14)
 
 Status: **Track 1 is complete and collapses as a credible non-myopic paper spine;
-Track 2 (MediQ) is now the main experimental line and Track 3 (paper) proceeds in
-parallel.** The free banked animals audit made no model calls and is tracked in
+Track 2 has reached a frozen MediQ STOP-and-discuss boundary; Track 3 should now use
+the cross-environment diagnosis while the next valid method path is decided.** The free
+banked animals audit made no model calls and is tracked in
 `results/path_e/ANIMALS_REANALYSIS.md`, with reproducible trial-level data in
 `results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json`. One-step EIG remains a
 strong paired result against both naive baselines, but the old apparent two-step gain
@@ -147,10 +148,27 @@ collapsed onto diagnosis synonyms (`gastrinoma` and `Zollinger-Ellison syndrome`
 were correctly rejected. It used 89 requests and cost $0.00510815; again no scorer calls
 or usable bank. Repair now requests four alternatives and explicitly requires distinct
 observable variables rather than diagnosis names. Partial outcomes remain unused.
-Relaunch the exact registered bank as v3 only after this operational repair is tested,
-committed, and pushed; do not alter the frozen scorer or calibration thresholds.
-OpenRouter ledger: $16.80155726 spent of the user-authorized $40 cap, leaving
-$23.19844274.
+The v3 bank `20260714T051844` completed cleanly after that operational repair: 10 held-
+out cases, 30 canonical non-duplicate interactions, 30/30 clean mappings, 30/30 grounded
+and relevant final observations, zero runtime failures, and no scorer calls. It is
+nevertheless **INADEQUATE** under the frozen gate because only 8/30 outcomes were
+available Yes/No versus the preregistered minimum of 15; 22/30 were unavailable from
+the sparse static records. The run used 189 requests, 79,629 tokens, no reasoning, and
+cost $0.01013125. Per preregistration, do not run the data-estimation scorer, tune the
+bank, or launch Claim 1/depth 2. Canonical evidence is in
+`DATA_ESTIMATION_BANK_REPORT.{json,md}` and
+`DATA_ESTIMATION_BANK_MANUAL_AUDIT.md`.
+The cross-environment/code/literature synthesis is now recorded in
+`results/path_e/NON_MYOPIC_SEQUENTIAL_BED_DIAGNOSIS.md`. Its main conclusion is that
+depth works in the exact constrained oracle but compounds model error elsewhere. The
+iMEDQA A-D option is often not a sufficient patient state, the official FactSelect
+channel is too sparse, and the data-estimation projection repairs local algebra rather
+than the missing generative latent. The recommended discussion option is a fresh,
+explicitly authorized iCRAFT-MD diagnosis-only preregistration with concrete latent
+patient profiles, followed by prior, likelihood, branch-equivalence, oracle-gap, and
+ranking-fidelity gates before any policy/depth run. No such pivot is authorized yet.
+OpenRouter ledger: $16.81168851 spent of the user-authorized $40 cap, leaving
+$23.18831149.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -319,18 +337,14 @@ the only paired block reverses, and paired depth 3 is worse than depth 2. Delive
 animals for the one-step BED-transfer claim; the non-myopic claim rides entirely on
 the MediQ claim-2 pilot.
 
-Track 2 (main line): MediQ per the registered design requirements. Step 0 now passes its
-final environment gate; all earlier smokes remain diagnostic-only. The registered
-`factored_record` replay failed, so Claim 1 is blocked. The data-estimation joint model,
-held-out protocol, bank validator, and scorer gate are now frozen locally. Commit/push,
-then generate the policy-independent calibration bank using non-thinking naive on held-
-out usable cases 5-14. Run the frozen bank validator and mandatory full transcript review;
-only a valid bank with at least 15 Yes/No outcomes may be replayed once under the frozen
-data-estimation gate. Do not reuse cases 0-4 or tune against outcomes. Note the endpoint is
-exact-match on the MC label — no success judge, no remedy adjudication; the remaining
-validity gate is likelihood calibration. Calibration -> pre-register ->
-claim-1 study (naive asking, native Expert baseline(s), 1-step EIG; ~$2-4) ->
-claim-2 pilot (2-step vs 1-step, 10 cases, gated) only if claim 1 holds.
+Track 2 (STOP; requires Hanshal): MediQ iMEDQA Step 0 passes, but the model-validation
+ladder does not. `factored_record` failed on available-outcome truth gain, and the fresh
+data-estimation bank is inadequate at 8/30 available outcomes versus the frozen minimum
+of 15. The scorer was not run. Do not tune/reuse the bank, launch Claim 1, launch depth
+2, or increase rollouts/thinking. Discuss one explicit decision: (a) authorize a fresh
+iCRAFT-MD diagnosis-only preregistration inside MediQ using a concrete patient-profile
+latent and the gates in `results/path_e/NON_MYOPIC_SEQUENTIAL_BED_DIAGNOSIS.md`, or (b)
+close the non-myopic empirical claim and write the cross-environment boundary result.
 
 Track 3 (parallel, starts NOW): the paper. Stable arc independent of pending results:
 (i) the target-decode contract as problem setting; (ii) in-contract evidence (banked
@@ -387,7 +401,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.19844274 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
+7. Budget: $23.18831149 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

@@ -1,0 +1,29 @@
+{
+  "action_errors": [],
+  "automated_pass": false,
+  "available_turns": 8,
+  "checks": {
+    "canonical_valid_actions": true,
+    "clean_grounded_relevant_observations": true,
+    "expected_round_count": true,
+    "expected_task_ids": true,
+    "logged_validation_contract": true,
+    "minimum_available_turns": false,
+    "no_history_duplicates": true,
+    "pinned_data_manifest": true
+  },
+  "duplicate_errors": [],
+  "endpoint_accuracy_is_ignored": true,
+  "grounding_errors": [],
+  "interactions_path": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T051844_mediq-data-estimation-bank-naive-nonthinking-26b-seed1304-v3/items/000_naive/mediq_interactions.json",
+  "item_dir": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T051844_mediq-data-estimation-bank-naive-nonthinking-26b-seed1304-v3/items/000_naive",
+  "manifest_path": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T051844_mediq-data-estimation-bank-naive-nonthinking-26b-seed1304-v3/items/000_naive/mediq_data_manifest.json",
+  "manual_review_required": true,
+  "minimum_available_turns": 15,
+  "num_tasks": 10,
+  "num_turns": 30,
+  "status": "fail",
+  "task_offset": 5,
+  "unavailable_turns": 22,
+  "validation_errors": []
+}
