@@ -141,9 +141,16 @@ requests when the critic rejected a paraphrase of an earlier unavailable sexual-
 query and one-concept replacement exhausted bounded retries. It cost $0.00518174; the
 scorer was never called and partial outcomes are unused. Naive repair now asks for two
 distinct alternatives after the first semantic rejection, with a focused regression
-test. Relaunch the exact registered bank after commit/push.
-OpenRouter ledger: $16.79644911 spent of the user-authorized $40 cap, leaving
-$23.20355089.
+test. That first repair was exercised by the v2 attempt below and was insufficient.
+The v2 bank `20260714T051431` also failed closed without metrics: two alternatives
+collapsed onto diagnosis synonyms (`gastrinoma` and `Zollinger-Ellison syndrome`) and
+were correctly rejected. It used 89 requests and cost $0.00510815; again no scorer calls
+or usable bank. Repair now requests four alternatives and explicitly requires distinct
+observable variables rather than diagnosis names. Partial outcomes remain unused.
+Relaunch the exact registered bank as v3 only after this operational repair is tested,
+committed, and pushed; do not alter the frozen scorer or calibration thresholds.
+OpenRouter ledger: $16.80155726 spent of the user-authorized $40 cap, leaving
+$23.19844274.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -380,7 +387,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.20355089 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
+7. Budget: $23.19844274 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

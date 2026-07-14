@@ -207,6 +207,8 @@ class NaiveRetryDiversityModel(RoutingMediQModel):
                 queries = [
                     "Has the patient made physical contact with the clinician?",
                     "Is the patient currently experiencing a fever?",
+                    "Has the patient recently traveled to an endemic region?",
+                    "Is a new skin rash present?",
                 ]
             else:
                 queries = ["Has the patient made sexual advances toward the clinician?"]
@@ -756,7 +758,8 @@ def test_mediq_naive_retry_requests_multiple_replacement_concepts() -> None:
         for messages in batch
         if "generate atomic patient questions" in messages[0]["content"]
     ]
-    assert "Generate exactly 2 replacement candidate(s)" in generation_prompts[-1]
+    assert "Generate exactly 4 replacement candidate(s)" in generation_prompts[-1]
+    assert "Each replacement must test a different observable" in generation_prompts[-1]
 
 
 def test_mediq_compound_candidate_repair_receives_specific_feedback() -> None:

@@ -1016,9 +1016,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             needed = {index: count - len(accepted[index]) for index in pending}
             requested = {
                 index: (
-                    max(needed[index], 2)
+                    max(needed[index], 4)
+                    if naive and prior_failures[index] and needed[index] == 1
+                    else max(needed[index], 2)
                     if accepted[index]
-                    or (naive and prior_failures[index] and needed[index] == 1)
                     else needed[index]
                 )
                 for index in pending
@@ -1047,7 +1048,11 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                                 f"Already accepted queries:\n{accepted_text}\n\n"
                                 f"Rejected queries:\n{failure_text}\n\n"
                                 f"Generate exactly {requested[index]} replacement candidate(s). "
-                                "Do not repeat accepted queries. Correct every rejection and "
+                                "Each replacement must test a different observable symptom, "
+                                "history item, examination finding, or numeric test result from "
+                                "every other replacement and rejected concept. Do not use a "
+                                "diagnosis name as patient history. Do not repeat accepted queries. "
+                                "Correct every rejection and "
                                 "return only the requested strict JSON."
                             ),
                         }
