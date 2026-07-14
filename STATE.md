@@ -95,8 +95,15 @@ alone, but per-candidate checks cannot see medical synonyms across a set. A new
 temperature-zero set-level auditor now retains one representative per duplicate group,
 replenishes only the deficit, logs its decision, and is required by the analyzer. The
 305-request exact-shape dry run passes this final set contract.
-OpenRouter ledger: $16.75018985 spent of the user-authorized $40 cap, leaving
-$23.24981015.
+The first paid set-dedup attempt `20260714T043240` failed closed during round-2
+replacement after correctly rejecting `feeling excessive worry` as a paraphrase of the
+deployed `feelings of excessive worry`; deterministic token matching missed the
+singular/plural form and one-at-a-time replacement then exhausted bounded retries. It
+produced no complete item and cost $0.01076385 over 212 requests. Content tokens now use
+light singular normalization, and deficit-one replenishment requests two alternatives
+so a repeated concept need not consume the only slot. Focused tests cover both paths.
+OpenRouter ledger: $16.77506738 spent of the user-authorized $40 cap, leaving
+$23.22493262.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -334,7 +341,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.24981015 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
+7. Budget: $23.22493262 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

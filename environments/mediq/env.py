@@ -150,7 +150,11 @@ _QUERY_STOPWORDS = {
 
 def _query_content_tokens(query: str) -> set[str]:
     tokens = re.findall(r"[a-z0-9]+", query.casefold())
-    return {token for token in tokens if token not in _QUERY_STOPWORDS}
+    return {
+        token[:-1] if len(token) > 4 and token.endswith("s") else token
+        for token in tokens
+        if token not in _QUERY_STOPWORDS
+    }
 
 
 def _queries_semantically_equivalent(left: str, right: str) -> bool:
@@ -725,13 +729,17 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
 
         for semantic_attempt in range(maximum + 1):
             needed = {index: count - len(accepted[index]) for index in pending}
+            requested = {
+                index: max(needed[index], 2) if accepted[index] else needed[index]
+                for index in pending
+            }
             generation_messages: list[list[dict[str, str]]] = []
             for index in pending:
                 messages = candidate_messages(
                     tasks[index],
                     belief_states[index],
                     histories[index],
-                    needed[index],
+                    requested[index],
                     naive=naive,
                 )
                 if accepted[index] or prior_failures[index]:
@@ -748,7 +756,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                             "content": (
                                 f"Already accepted queries:\n{accepted_text}\n\n"
                                 f"Rejected queries:\n{failure_text}\n\n"
-                                f"Generate exactly {needed[index]} replacement candidate(s). "
+                                f"Generate exactly {requested[index]} replacement candidate(s). "
                                 "Do not repeat accepted queries. Correct every rejection and "
                                 "return only the requested strict JSON."
                             ),
@@ -767,7 +775,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                             tasks[index],
                             belief_states[index],
                             histories[index],
-                            needed[index],
+                            requested[index],
                         )
                     )
                     for index in pending
@@ -807,7 +815,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     failures.setdefault(index, []).append(
                         (action, "duplicates an already accepted query")
                     )
-                elif valid:
+                elif valid and len(accepted[index]) < count:
                     accepted[index].append(action)
                 else:
                     failures.setdefault(index, []).append((action, reason))

@@ -47,9 +47,9 @@ already covers the stage; 256 would not shorten the critical path for this run.
 - Expected repaired volume: approximately 105k-150k tokens plus bounded repairs.
 - Expected repaired cost: approximately $0.02-$0.05.
 - Conservative config reservation: **$0.12**.
-- Ledger before the final action-contract repeat: $16.75018985 spent of the
-  user-authorized $40 cap; $23.24981015 remains. Two failed-closed repair attempts and
-  two complete diagnostic/manual-fail smokes are recorded in `EXPERIMENTS.md`.
+- Ledger before the next exact repeat: $16.77506738 spent of the user-authorized $40
+  cap; $23.22493262 remains. Three failed-closed repair attempts and three complete
+  diagnostic/manual-fail smokes are recorded in `EXPERIMENTS.md`.
 
 The smoke is an environment and probabilistic-mechanics gate, not endpoint evidence.
 Its five-case accuracy is diagnostic only. Automated passage still requires a separate

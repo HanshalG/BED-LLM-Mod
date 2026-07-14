@@ -85,7 +85,7 @@ QUERY_STOPWORDS = {
 
 def _query_content_tokens(query: str) -> set[str]:
     return {
-        token
+        token[:-1] if len(token) > 4 and token.endswith("s") else token
         for token in re.findall(r"[a-z0-9]+", query.casefold())
         if token not in QUERY_STOPWORDS
     }

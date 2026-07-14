@@ -176,8 +176,11 @@ class PartialCandidateRepairModel(RoutingMediQModel):
         system = messages[0]["content"]
         user = messages[-1]["content"]
         if "generate atomic patient questions" in system:
-            if "Generate exactly 1 replacement" in user:
-                queries = ["Is the blood smear positive for ring forms?"]
+            if "Already accepted queries:" in user:
+                queries = [
+                    "Is the blood smear positive for ring forms?",
+                    "Is the body temperature above 38 C?",
+                ]
             else:
                 queries = [
                     "Is recent endemic travel documented?",
@@ -215,8 +218,11 @@ class SynonymCandidateRepairModel(RoutingMediQModel):
         user = messages[-1]["content"]
         if "generate atomic patient questions" in system:
             queries = (
-                ["Does the patient have a history of urinary tract obstruction?"]
-                if "Generate exactly 1 replacement" in user
+                [
+                    "Does the patient have a history of urinary tract obstruction?",
+                    "Does the patient currently have a fever?",
+                ]
+                if "Already accepted queries:" in user
                 else [
                     "Does the patient have a history of renal calculi?",
                     "Does the patient have a history of nephrolithiasis?",
@@ -435,7 +441,7 @@ def test_mediq_candidate_parser_rejects_decode_repeat_and_derived_query() -> Non
     task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
     belief = BeliefState.uniform(task.option_labels)
     previous_action = MediQAction(
-        query="Does the patient report excessive worry?",
+        query="Does the patient report feelings of excessive worry?",
         outcomes=("Yes", "No", UNAVAILABLE_OUTCOME),
         task=task,
     )
@@ -452,7 +458,7 @@ def test_mediq_candidate_parser_rejects_decode_repeat_and_derived_query() -> Non
         {
             "candidates": [
                 {
-                    "query": "Does the patient experience excessive worry?",
+                    "query": "Does the patient report feeling excessive worry?",
                     "outcomes": ["Yes", "No", UNAVAILABLE_OUTCOME],
                 },
                 {
@@ -530,7 +536,7 @@ def test_mediq_candidate_repair_retains_valid_queries_and_fills_deficit() -> Non
         "Is the blood smear positive for ring forms?",
     ]
     assert env._candidate_metrics() == {
-        "candidate_validation_checks": 3.0,
+        "candidate_validation_checks": 4.0,
         "candidate_validation_retries": 1.0,
         "candidate_validation_failures": 0.0,
         "candidate_set_validation_checks": 1.0,
@@ -552,7 +558,7 @@ def test_mediq_candidate_set_audit_replaces_medical_synonym() -> None:
         "Does the patient have a history of urinary tract obstruction?",
     ]
     assert env._candidate_metrics() == {
-        "candidate_validation_checks": 3.0,
+        "candidate_validation_checks": 4.0,
         "candidate_validation_retries": 1.0,
         "candidate_validation_failures": 0.0,
         "candidate_set_validation_checks": 2.0,
