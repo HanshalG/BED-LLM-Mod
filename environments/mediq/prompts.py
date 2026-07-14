@@ -10,6 +10,10 @@ from core import BeliefState
 from .types import MediQAction, MediQObservation, MediQTask
 
 
+ANSWERABLE_RECORD_OUTCOME = "Answerable from record"
+UNANSWERABLE_RECORD_OUTCOME = "Not answerable from record"
+
+
 def _options_text(task: MediQTask) -> str:
     return "\n".join(f"{label}: {text}" for label, text in task.options)
 
@@ -245,6 +249,96 @@ def likelihood_messages(hypothesis: str, action: MediQAction) -> list[dict[str, 
                 "query). Keep uncertainty soft rather than assigning unjustified zeroes. "
                 "Return "
                 + json.dumps({"probabilities": {outcome: 0.0 for outcome in outcomes}})
+                + ". Values must sum to 1."
+            ),
+        },
+    ]
+
+
+def record_availability_messages(action: MediQAction) -> list[dict[str, str]]:
+    task = action.task
+    outcomes = [ANSWERABLE_RECORD_OUTCOME, UNANSWERABLE_RECORD_OUTCOME]
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You estimate record coverage for the MediQ benchmark. This is a "
+                "label-independent missingness model: do not assume any answer option is "
+                "correct. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Conversation so far:\n"
+                + (
+                    "\n".join(
+                        f"Doctor: {query}\nPatient: {reply}"
+                        for query, reply in action.transcript
+                    )
+                    or "None"
+                )
+                + f"\n\nClinical question:\n{task.question}\n\n"
+                f"Doctor's next yes/no query: {action.query}\n\n"
+                "Estimate whether the hidden original exam-case record is likely to contain "
+                "an explicit fact that directly establishes Yes or No for this exact query. "
+                "Do not estimate whether the medical answer is knowable in general. A fact "
+                "that would merely be clinically useful, plausible, or inferable does not "
+                "make the query answerable from the record. This distribution must not depend "
+                "on which multiple-choice option is correct. Return "
+                + json.dumps(
+                    {"probabilities": {outcome: 0.0 for outcome in outcomes}}
+                )
+                + ". Values must sum to 1."
+            ),
+        },
+    ]
+
+
+def factored_likelihood_messages(
+    hypothesis: str, action: MediQAction
+) -> list[dict[str, str]]:
+    task = action.task
+    outcomes = ["Yes", "No"]
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a calibrated counterfactual clinical-record model. Estimate a "
+                "binary patient finding conditional on an exam answer being correct. Return "
+                "strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Conversation so far:\n"
+                + (
+                    "\n".join(
+                        f"Doctor: {query}\nPatient: {reply}"
+                        for query, reply in action.transcript
+                    )
+                    or "None"
+                )
+                + f"\n\nClinical question:\n{task.question}\n\n"
+                f"Options:\n{_options_text(task)}\n\n"
+                f"Assume the exam's correct answer is {hypothesis}: "
+                f"{task.option_text(hypothesis)}.\n"
+                f"Next doctor query: {action.query}\n\n"
+                "Also assume the hidden original record explicitly answers this query, so "
+                "the only possible categories here are Yes and No. Infer the likely finding "
+                "in counterfactual complete patient records consistent with the initial "
+                "information, conversation, and correct exam answer. The answer option may "
+                "be a diagnosis, mechanism, next step, or treatment priority. It is not a "
+                "mutually exclusive description of the patient: findings associated with "
+                "other options may coexist, and a priority answer does not imply that other "
+                "abnormalities are absent. Do not choose Yes merely because the query repeats "
+                "words or concepts from the assumed option. Return "
+                + json.dumps(
+                    {"probabilities": {outcome: 0.0 for outcome in outcomes}}
+                )
                 + ". Values must sum to 1."
             ),
         },

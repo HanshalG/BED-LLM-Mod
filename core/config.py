@@ -191,6 +191,7 @@ class MediQConfig:
     num_candidates: int = 5
     max_patient_facts: int = 2
     probability_floor: float = 0.01
+    likelihood_mode: str = "joint_option"
     shared_call_cache_enabled: bool = True
     structured_max_retries: int = 2
 
@@ -384,6 +385,9 @@ def mediq_view(config: Any) -> MediQConfig:
         num_candidates=int(getattr(config, "mediq_num_candidates", 5)),
         max_patient_facts=int(getattr(config, "mediq_max_patient_facts", 2)),
         probability_floor=float(getattr(config, "mediq_probability_floor", 0.01)),
+        likelihood_mode=str(
+            getattr(config, "mediq_likelihood_mode", "joint_option")
+        ),
         shared_call_cache_enabled=bool(
             getattr(config, "mediq_shared_call_cache_enabled", True)
         ),

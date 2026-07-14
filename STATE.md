@@ -23,8 +23,8 @@ the logs also lack Git-commit provenance and the depth-3 recursive implementatio
 postdates the depth-1/2 runs. Animals can support one-step BED transfer, not the
 non-myopic claim. MediQ must carry that claim.
 
-MediQ Step 0 implementation status (2026-07-14): **PASS, automated and manual. Claim 1
-must now be preregistered before any paired efficacy run.**
+MediQ Step 0 environment status (2026-07-14): **PASS, automated and manual. A newly
+registered likelihood-calibration gate must pass before Claim 1 is preregistered.**
 The adapter uses the exact released multiple-choice labels as the
 finite BED target, a temperature-zero judged initial distribution, option-conditioned
 categorical response likelihoods, recursive one-likelihood-at-a-time Bayes updates,
@@ -106,6 +106,21 @@ sets; zero terminal/runtime failures; and every selected interaction and final c
 passed manual review. It used 300 requests, 103,785 tokens, no reasoning, and $0.01402286.
 Its 3/5 endpoint is ignored as smoke-only. Canonical evidence is in
 `results/path_e/mediq_step0/FINAL_REPORT.json` and `FINAL_MANUAL_REVIEW.md`.
+Post-gate analysis found a separate model-specification failure in the legacy
+`joint_option` scorer. Across the ten selected turns, predicted EIG averaged 0.140 nats
+but realized true-label log-probability gain averaged -0.290 nats; the realized outcome
+was less likely under the true label than under the prior mixture on 6/10 turns. The
+failure is structural: an MCQ answer such as “treat hypoperfusion first” is a decision,
+not a mutually exclusive patient state, yet the scorer treated high glucose and acidosis
+as evidence against that true answer. It also let record unavailability vary by label,
+so four missing-record replies spuriously changed diagnosis beliefs. The registered
+repair, `factored_record`, predicts record answerability once without a label and then
+predicts Yes/No conditional on each option, explicitly allowing coexisting findings and
+priority decisions. Missingness is therefore exactly posterior-neutral. The frozen
+ten-turn replay and no-tuning decision rule are registered in
+`results/path_e/mediq_likelihood_calibration/PREREGISTRATION.md`; code/tests are complete,
+and the paid replay is the next action. OpenRouter now also receives `mediq_seed`, fixing
+an API reproducibility omission.
 OpenRouter ledger: $16.78909024 spent of the user-authorized $40 cap, leaving
 $23.21090976.
 
@@ -277,11 +292,12 @@ animals for the one-step BED-transfer claim; the non-myopic claim rides entirely
 the MediQ claim-2 pilot.
 
 Track 2 (main line): MediQ per the registered design requirements. Step 0 now passes its
-final automated and manual gate; all earlier smokes remain diagnostic-only. Freeze and
-commit the Claim 1 preregistration and analyzer before launching any comparison. Note the endpoint is
+final environment gate; all earlier smokes remain diagnostic-only. Commit and push the
+registered `factored_record` likelihood replay, then run it once on the frozen ten turns.
+If it passes, run one held-out calibration smoke before freezing Claim 1; if it fails,
+stop the efficacy path and implement only the preregistered richer-world fallback. Note the endpoint is
 exact-match on the MC label — no success judge, no remedy adjudication; the remaining
-validity gate is patient-simulator faithfulness (answers consistent with the case
-record) + answer-mapping coverage. Integration smoke (~$0.1) -> pre-register ->
+validity gate is likelihood calibration. Calibration -> pre-register ->
 claim-1 study (naive asking, native Expert baseline(s), 1-step EIG; ~$2-4) ->
 claim-2 pilot (2-step vs 1-step, 10 cases, gated) only if claim 1 holds.
 

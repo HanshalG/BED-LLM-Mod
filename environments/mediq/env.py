@@ -30,14 +30,18 @@ from .parsing import (
     parse_relevance,
 )
 from .prompts import (
+    ANSWERABLE_RECORD_OUTCOME,
+    UNANSWERABLE_RECORD_OUTCOME,
     candidate_messages,
     candidate_set_validation_messages,
     candidate_validation_messages,
+    factored_likelihood_messages,
     likelihood_messages,
     mapping_messages,
     patient_fact_messages,
     posterior_messages,
     prior_messages,
+    record_availability_messages,
     relevance_messages,
     repair_messages,
 )
@@ -209,6 +213,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self._active_batch_tasks: tuple[MediQTask, ...] = ()
         self._task_by_belief_identity: dict[int, MediQTask] = {}
         self._likelihood_cache: dict[tuple[str, MediQAction], tuple[float, ...]] = {}
+        self._record_availability_cache: dict[MediQAction, tuple[float, float]] = {}
+        self._binary_likelihood_cache: dict[
+            tuple[str, MediQAction], tuple[float, float]
+        ] = {}
         self._shared_cache_hits = 0
         self._shared_cache_misses = 0
         self._structured_parse_retries = 0
@@ -248,6 +256,13 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             "icraft_md",
         }:
             raise ValueError("mediq_dataset must be one of: imedqa, icraft_md")
+        if getattr(config, "mediq_likelihood_mode", "joint_option") not in {
+            "joint_option",
+            "factored_record",
+        }:
+            raise ValueError(
+                "mediq_likelihood_mode must be one of: joint_option, factored_record"
+            )
         if not isinstance(getattr(config, "mediq_verify_official_hash", True), bool):
             raise ValueError("mediq_verify_official_hash must be a boolean")
         if not isinstance(getattr(config, "mediq_skip_unusable_tasks", True), bool):
@@ -539,6 +554,10 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self,
         requests: Sequence[tuple[Sequence[str], MediQAction]],
     ) -> list[np.ndarray]:
+        if getattr(self.config, "mediq_likelihood_mode", "joint_option") == (
+            "factored_record"
+        ):
+            return self._factored_outcome_likelihoods_many(requests)
         missing_keys: list[tuple[str, MediQAction]] = []
         missing_messages: list[list[dict[str, str]]] = []
         seen: set[tuple[str, MediQAction]] = set()
@@ -566,6 +585,94 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             )
             for key, probabilities in zip(missing_keys, parsed):
                 self._likelihood_cache[key] = self._smoothed(probabilities)
+        return [
+            np.asarray(
+                [self._likelihood_cache[(hypothesis, action)] for hypothesis in hypotheses],
+                dtype=float,
+            )
+            for hypotheses, action in requests
+        ]
+
+    def _factored_outcome_likelihoods_many(
+        self,
+        requests: Sequence[tuple[Sequence[str], MediQAction]],
+    ) -> list[np.ndarray]:
+        actions: list[MediQAction] = []
+        seen_actions: set[MediQAction] = set()
+        missing_keys: list[tuple[str, MediQAction]] = []
+        seen_keys: set[tuple[str, MediQAction]] = set()
+        for hypotheses, action in requests:
+            if action.outcomes != (YES_OUTCOME, NO_OUTCOME, UNAVAILABLE_OUTCOME):
+                raise ValueError(
+                    "factored_record likelihoods require canonical Yes, No, and "
+                    "unavailable outcomes"
+                )
+            if action not in self._record_availability_cache and action not in seen_actions:
+                seen_actions.add(action)
+                actions.append(action)
+            for hypothesis in hypotheses:
+                key = (hypothesis, action)
+                if key not in self._binary_likelihood_cache and key not in seen_keys:
+                    seen_keys.add(key)
+                    missing_keys.append(key)
+
+        if actions:
+            availability_labels = (
+                ANSWERABLE_RECORD_OUTCOME,
+                UNANSWERABLE_RECORD_OUTCOME,
+            )
+            parsed = self._complete_parsed_many(
+                self._evaluation_model(),
+                [record_availability_messages(action) for action in actions],
+                0.0,
+                namespace="questioner:record_availability",
+                parsers=[
+                    (
+                        lambda text, labels=availability_labels: parse_distribution(
+                            text, labels
+                        )
+                    )
+                    for _action in actions
+                ],
+            )
+            for action, probabilities in zip(actions, parsed):
+                self._record_availability_cache[action] = self._smoothed(probabilities)
+
+        if missing_keys:
+            binary_labels = (YES_OUTCOME, NO_OUTCOME)
+            parsed = self._complete_parsed_many(
+                self._evaluation_model(),
+                [
+                    factored_likelihood_messages(hypothesis, action)
+                    for hypothesis, action in missing_keys
+                ],
+                0.0,
+                namespace="questioner:factored_likelihood",
+                parsers=[
+                    (
+                        lambda text, labels=binary_labels: parse_distribution(
+                            text, labels
+                        )
+                    )
+                    for _key in missing_keys
+                ],
+            )
+            for key, probabilities in zip(missing_keys, parsed):
+                self._binary_likelihood_cache[key] = self._smoothed(probabilities)
+
+        for hypotheses, action in requests:
+            answerable, unavailable = self._record_availability_cache[action]
+            for hypothesis in hypotheses:
+                key = (hypothesis, action)
+                if key in self._likelihood_cache:
+                    continue
+                yes, no = self._binary_likelihood_cache[key]
+                self._likelihood_cache[key] = (
+                    answerable * yes,
+                    answerable * no,
+                    unavailable,
+                )
+
         return [
             np.asarray(
                 [self._likelihood_cache[(hypothesis, action)] for hypothesis in hypotheses],
@@ -1218,6 +1325,8 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 outcome_index = action.outcomes.index(observation.mapped_outcome)
                 predictive = prior @ likelihoods
                 observed_probability = float(predictive[outcome_index])
+                unavailable_index = action.outcomes.index(UNAVAILABLE_OUTCOME)
+                unavailable_likelihoods = likelihoods[:, unavailable_index]
                 one_hot = np.zeros(len(action.outcomes), dtype=float)
                 one_hot[outcome_index] = 1.0
                 metrics["observed_outcome_predictive_probability"] = observed_probability
@@ -1229,6 +1338,13 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 )
                 metrics["observed_outcome_brier_score"] = float(
                     np.sum((predictive - one_hot) ** 2)
+                )
+                metrics["selected_unavailable_likelihood_span"] = float(
+                    np.max(unavailable_likelihoods)
+                    - np.min(unavailable_likelihoods)
+                )
+                metrics["selected_record_answerability_probability"] = float(
+                    1.0 - prior @ unavailable_likelihoods
                 )
         return metrics
 
@@ -1482,6 +1598,19 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                                 if likelihoods is not None
                                 else None
                             ),
+                            "record_answerability_probability": (
+                                self._record_availability_cache[candidate][0]
+                                if candidate in self._record_availability_cache
+                                else None
+                            ),
+                            "unavailable_likelihood_span": (
+                                float(
+                                    np.max(likelihoods[:, -1])
+                                    - np.min(likelihoods[:, -1])
+                                )
+                                if likelihoods is not None
+                                else None
+                            ),
                             "predictive_outcome_probabilities": (
                                 dict(
                                     zip(
@@ -1565,6 +1694,9 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     "repository": MEDIQ_REPOSITORY,
                     "commit": MEDIQ_COMMIT,
                     "dataset": dataset,
+                    "likelihood_mode": str(
+                        getattr(self.config, "mediq_likelihood_mode", "joint_option")
+                    ),
                     "expected_sha256": (
                         MEDIQ_IMEDQA_DEV_SHA256
                         if dataset == "imedqa"

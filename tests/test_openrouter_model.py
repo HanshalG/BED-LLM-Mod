@@ -113,6 +113,29 @@ def test_openrouter_adapter_tracks_native_cost_without_reasoning(monkeypatch, tm
     assert "secret-test-key" not in (tmp_path / "run.log").read_text()
 
 
+def test_openrouter_adapter_uses_mediq_seed(monkeypatch, tmp_path: Path) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    captured = {}
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        captured["payload"] = json.loads(request.data)
+        return _Response(_completion())
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="google/gemma-4-26b-a4b-it",
+            backend="openrouter",
+            thinking=False,
+            max_model_len=32768,
+        ),
+        _config(tmp_path, task="mediq", mediq_seed=1304),
+    )
+    assert adapter.chat_complete([{"role": "user", "content": "hello"}], 0.0) == ["ok"]
+    assert captured["payload"]["seed"] == 1304
+
+
 def test_openrouter_thinking_payload_and_forced_exit_are_measured(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
     captured = {}

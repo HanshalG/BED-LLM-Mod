@@ -156,7 +156,11 @@ class OpenRouterAdapter:
         self.concurrency = int(config.openrouter_concurrency)
         self.max_retries = int(config.openrouter_max_retries)
         self.backoff_seconds = float(config.openrouter_backoff_seconds)
-        self.seed = config.paprika_seed if config.task == "paprika_customer_service" else None
+        task_seeds = {
+            "paprika_customer_service": config.paprika_seed,
+            "mediq": config.mediq_seed,
+        }
+        self.seed = task_seeds.get(config.task)
         self.tracker = OpenRouterBudgetTracker(config, self.model_name)
         self.forced_exits = 0
         self.local_cost_usd = 0.0

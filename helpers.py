@@ -30,6 +30,7 @@ LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled
 LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_step_support_sum"]
 LocationStrategyRolloutQueryMode = Literal["llm_strategy", "analytic_eig"]
 LocationCandidateGenerationMode = Literal["llm", "support_grid"]
+MediQLikelihoodMode = Literal["joint_option", "factored_record"]
 
 
 @dataclass(frozen=True)
@@ -173,6 +174,7 @@ class Config:
     mediq_num_candidates: int = 5
     mediq_max_patient_facts: int = 2
     mediq_probability_floor: float = 0.01
+    mediq_likelihood_mode: MediQLikelihoodMode = "joint_option"
     mediq_shared_call_cache_enabled: bool = True
     mediq_structured_max_retries: int = 2
     openrouter_budget_usd: float = 20.0
@@ -285,6 +287,10 @@ class Config:
             raise ValueError("paprika_structured_max_retries must be a non-negative integer")
         if self.mediq_dataset not in {"imedqa", "icraft_md"}:
             raise ValueError("mediq_dataset must be one of: imedqa, icraft_md")
+        if self.mediq_likelihood_mode not in {"joint_option", "factored_record"}:
+            raise ValueError(
+                "mediq_likelihood_mode must be one of: joint_option, factored_record"
+            )
         if not isinstance(self.mediq_verify_official_hash, bool):
             raise ValueError("mediq_verify_official_hash must be a boolean")
         if not isinstance(self.mediq_skip_unusable_tasks, bool):
@@ -662,6 +668,7 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "num_candidates": "mediq_num_candidates",
         "max_patient_facts": "mediq_max_patient_facts",
         "probability_floor": "mediq_probability_floor",
+        "likelihood_mode": "mediq_likelihood_mode",
         "shared_call_cache_enabled": "mediq_shared_call_cache_enabled",
         "structured_max_retries": "mediq_structured_max_retries",
     }
@@ -1081,6 +1088,7 @@ def load_config(path: str) -> Config:
         mediq_num_candidates = raw.get("mediq_num_candidates", 5),
         mediq_max_patient_facts = raw.get("mediq_max_patient_facts", 2),
         mediq_probability_floor = raw.get("mediq_probability_floor", 0.01),
+        mediq_likelihood_mode = raw.get("mediq_likelihood_mode", "joint_option"),
         mediq_shared_call_cache_enabled = raw.get("mediq_shared_call_cache_enabled", True),
         mediq_structured_max_retries = raw.get("mediq_structured_max_retries", 2),
         openrouter_budget_usd = float(raw.get("openrouter_budget_usd", 20.0)),

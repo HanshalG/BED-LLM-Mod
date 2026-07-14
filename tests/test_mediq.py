@@ -102,6 +102,31 @@ class RoutingMediQModel:
         raise AssertionError(f"Unexpected MediQ prompt: {system}")
 
 
+class FactoredLikelihoodModel(RoutingMediQModel):
+    @staticmethod
+    def _route(messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "estimate record coverage for the MediQ benchmark" in system:
+            return json.dumps(
+                {
+                    "probabilities": {
+                        "Answerable from record": 0.75,
+                        "Not answerable from record": 0.25,
+                    }
+                }
+            )
+        if "counterfactual clinical-record model" in system:
+            hypothesis = re.search(
+                r"correct answer is ([A-Z]):", user
+            ).group(1)
+            values = [0.8, 0.2] if hypothesis == "A" else [0.2, 0.8]
+            return json.dumps(
+                {"probabilities": {"Yes": values[0], "No": values[1]}}
+            )
+        return RoutingMediQModel._route(messages)
+
+
 class CandidateRepairModel(RoutingMediQModel):
     def _route(self, messages: list[dict[str, str]]) -> str:
         system = messages[0]["content"]
@@ -340,6 +365,7 @@ def test_mediq_nested_config_aliases_and_validation(tmp_path: Path) -> None:
                 "  num_candidates: 4",
                 "  max_patient_facts: 2",
                 "  probability_floor: 0.02",
+                "  likelihood_mode: factored_record",
                 "  shared_call_cache_enabled: true",
                 "  structured_max_retries: 1",
             ]
@@ -354,13 +380,17 @@ def test_mediq_nested_config_aliases_and_validation(tmp_path: Path) -> None:
     assert config.mediq_seed == 1304
     assert config.mediq_num_candidates == 4
     assert config.mediq_probability_floor == 0.02
+    assert config.mediq_likelihood_mode == "factored_record"
     assert config.mediq_config.num_candidates == 4
+    assert config.mediq_config.likelihood_mode == "factored_record"
     with pytest.raises(ValueError, match="mediq_probability_floor"):
         Config(task="mediq", mediq_probability_floor=0.25)
     with pytest.raises(ValueError, match="mediq_num_candidates"):
         Config(task="mediq", mediq_num_candidates=0)
     with pytest.raises(ValueError, match="mediq_skip_unusable_tasks"):
         Config(task="mediq", mediq_skip_unusable_tasks="yes")
+    with pytest.raises(ValueError, match="mediq_likelihood_mode"):
+        Config(task="mediq", mediq_likelihood_mode="option_words_are_diagnoses")
 
 
 def test_mediq_update_applies_latest_likelihood_once() -> None:
@@ -396,6 +426,66 @@ def test_mediq_update_applies_latest_likelihood_once() -> None:
         updated, [(action, observation)], model, config
     )
     assert updated_twice.probabilities[0] > updated.probabilities[0]
+
+
+def test_mediq_factored_likelihood_makes_missingness_label_independent() -> None:
+    model = FactoredLikelihoodModel()
+    config = _config(
+        mediq_num_trials=1,
+        mediq_likelihood_mode="factored_record",
+    )
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.tasks[0]
+    action = MediQAction(
+        query="Is a ring form present on the blood smear?",
+        outcomes=("Yes", "No", UNAVAILABLE_OUTCOME),
+        task=task,
+        prior_probabilities=(0.25, 0.25, 0.25, 0.25),
+    )
+    likelihoods = env.outcome_likelihoods(task.option_labels, action)
+    assert likelihoods.shape == (4, 3)
+    assert np.allclose(likelihoods[:, 2], likelihoods[0, 2])
+    assert np.allclose(likelihoods.sum(axis=1), 1.0)
+    assert likelihoods[0, 0] > likelihoods[1, 0]
+    assert env._record_availability_cache[action] == pytest.approx((0.75, 0.25))
+
+    prior = BeliefState(task.option_labels, (0.4, 0.3, 0.2, 0.1))
+    unavailable = MediQObservation(
+        reply="The patient cannot answer this question from the supplied record.",
+        mapped_outcome=UNAVAILABLE_OUTCOME,
+        mapped_cleanly=True,
+        selected_fact_indices=(),
+        grounded=True,
+        relevant=True,
+        cannot_answer=True,
+    )
+    updated = env.update_belief_state(
+        prior, [(action, unavailable)], model, config
+    )
+    assert updated.probabilities == pytest.approx(prior.probabilities)
+
+    coverage_prompts = [
+        messages
+        for batch in model.batches
+        for messages in batch
+        if "estimate record coverage for the MediQ benchmark"
+        in messages[0]["content"]
+    ]
+    binary_prompts = [
+        messages
+        for batch in model.batches
+        for messages in batch
+        if "counterfactual clinical-record model" in messages[0]["content"]
+    ]
+    assert len(coverage_prompts) == 1
+    assert len(binary_prompts) == 4
+    assert "must not depend on which multiple-choice option is correct" in (
+        coverage_prompts[0][-1]["content"]
+    )
+    assert "findings associated with other options may coexist" in (
+        binary_prompts[0][-1]["content"]
+    )
 
 
 def test_mediq_outcomes_have_one_canonical_unavailable_category() -> None:
