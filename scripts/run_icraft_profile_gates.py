@@ -11,6 +11,7 @@ import argparse
 import json
 import math
 import sys
+import traceback
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -237,23 +238,49 @@ def main() -> None:
     parser.add_argument("--config", default="configs/config_mediq_icraft_profile_gates_openrouter.yaml")
     parser.add_argument("--stage", choices=tuple(PARTITIONS), required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument(
+        "--run-id",
+        help="Operational run identifier; does not change a preregistered gate setting.",
+    )
     args = parser.parse_args()
     config = _configure(load_config(args.config), args.stage)
+    if args.run_id:
+        config.run_id = args.run_id
     questioner, answerer = _models(config)
-    if args.stage == "smoke":
-        result = run_smoke(config, questioner, answerer)
-    elif args.stage == "calibration":
-        result = run_calibration(config, questioner, answerer)
-    else:
-        result = run_structural(config, questioner, answerer)
-    result["usage"] = {
-        "questioner": questioner.usage_snapshot(),
-        "answerer": answerer.usage_snapshot(),
-    }
     output = Path(args.output)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({"stage": args.stage, "passed": result["passed"], "output": str(output)}))
+    try:
+        if args.stage == "smoke":
+            result = run_smoke(config, questioner, answerer)
+        elif args.stage == "calibration":
+            result = run_calibration(config, questioner, answerer)
+        else:
+            result = run_structural(config, questioner, answerer)
+        result["usage"] = {
+            "questioner": questioner.usage_snapshot(),
+            "answerer": answerer.usage_snapshot(),
+        }
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+        print(
+            json.dumps(
+                {"stage": args.stage, "passed": result["passed"], "output": str(output)}
+            )
+        )
+    except Exception as exc:
+        failure = {
+            "stage": args.stage,
+            "run_id": config.run_id,
+            "error": str(exc),
+            "traceback": traceback.format_exc(),
+            "usage": {
+                "questioner": questioner.usage_snapshot(),
+                "answerer": answerer.usage_snapshot(),
+            },
+        }
+        failure_path = output.with_name(f"{output.stem}_FAILURE.json")
+        failure_path.parent.mkdir(parents=True, exist_ok=True)
+        failure_path.write_text(json.dumps(failure, indent=2, sort_keys=True) + "\n")
+        raise
 
 
 if __name__ == "__main__":

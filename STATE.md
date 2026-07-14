@@ -213,6 +213,12 @@ hash-pinned iCRAFT release has two raw answer-text/index disagreements (IDs 112 
 strings, uses the released index as target, and records the disagreements in manifests.
 This is parser transparency, not outcome tuning. Gate 2/3 calibration remains the next
 authorized action under the existing $0.50 hard cap; no policy/depth run is authorized.
+The first calibration process was interrupted by the local interactive execution wrapper
+after 288 requests and $0.02535745, before it could write a report. It is not a gate
+result and its partial outputs are unused. A single exact operational recovery is
+permitted solely to obtain the frozen gate's report; it uses a distinct ledger run ID,
+the same source IDs/settings/seed, and a durable log/failure artifact. No result-based
+retry or scientific setting change is permitted.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
