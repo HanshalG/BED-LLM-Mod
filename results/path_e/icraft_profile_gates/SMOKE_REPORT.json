@@ -1,0 +1,61 @@
+{
+  "candidate_count": 2,
+  "likelihood_shapes": [
+    [
+      12,
+      3
+    ],
+    [
+      12,
+      3
+    ]
+  ],
+  "passed": true,
+  "profiles": 12,
+  "source_ids": [
+    "125"
+  ],
+  "stage": "smoke",
+  "usage": {
+    "answerer": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 3297,
+      "forced_exits": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "prompt_tokens": 13927,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.18558420000011,
+      "requests": 50,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.0027272899999999994,
+      "run_remaining_usd": 0.49727271,
+      "total_spent_usd": 16.81441579999989
+    },
+    "questioner": {
+      "adapter_completion_tokens": 3297,
+      "adapter_cost_usd": 0.0027272899999999994,
+      "adapter_prompt_tokens": 13927,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 50,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 3297,
+      "forced_exits": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "prompt_tokens": 13927,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.18558420000011,
+      "requests": 50,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.0027272899999999994,
+      "run_remaining_usd": 0.49727271,
+      "total_spent_usd": 16.81441579999989
+    }
+  }
+}

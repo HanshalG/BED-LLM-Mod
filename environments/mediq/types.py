@@ -17,6 +17,8 @@ class MediQTask:
     initial_info: str
     context: tuple[str, ...]
     facts: tuple[str, ...]
+    answer_option_text: str = ""
+    answer_text_matches_option: bool = True
 
     @property
     def option_labels(self) -> tuple[str, ...]:

@@ -204,16 +204,15 @@ structural value gate, not a policy comparison. The complete local suite is
 `609 passed, 1 skipped`; deterministic routing-model tests now execute all three
 gate-runner paths, including actual FactSelect branch-equivalence and exact depth-two
 expansion. The smoke-path task-association defect found by that test was fixed in
-`614e9cb`. The first smoke invocation was attempted with the
-registered `$0.50` cap but failed closed before any request or spend because
-this desktop shell has no `OPENROUTER_API_KEY`; a non-mutating remote check
-also could not authenticate to `oat0`. No gate result exists yet, and no
-policy/depth run is authorized. On 2026-07-14 this was rechecked across three
-consecutive goal turns: the local environment still has no credential and the
-cluster remains unreachable from this session. The active validation chain is
-therefore externally blocked pending an execution environment with the existing
-environment-only OpenRouter credential or restored `oat0` authentication; no
-credential should be added to the repository.
+`614e9cb`. Gate 1 then **PASSED** using the repository `.env` credential: source
+125 produced 12 fixed profiles, two candidates, and two 12x3 likelihood tables with
+no parse/runtime failure. It spent $0.00272729 (50 requests; 13,927 prompt and 3,297
+completion tokens; zero reasoning/forced exits), below the $0.05 smoke ceiling. The
+hash-pinned iCRAFT release has two raw answer-text/index disagreements (IDs 112 and
+129); the official benchmark scores `answer_idx`, so the loader now preserves both
+strings, uses the released index as target, and records the disagreements in manifests.
+This is parser transparency, not outcome tuning. Gate 2/3 calibration remains the next
+authorized action under the existing $0.50 hard cap; no policy/depth run is authorized.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks

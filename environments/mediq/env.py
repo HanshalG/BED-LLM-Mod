@@ -251,6 +251,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         self.tasks: list[MediQTask] = []
         self._raw_row_count = 0
         self._excluded_source_ids: tuple[str, ...] = ()
+        self._answer_text_mismatches: tuple[dict[str, str], ...] = ()
         self._active_task: MediQTask | None = None
         self._active_batch_tasks: tuple[MediQTask, ...] = ()
         self._task_by_belief_identity: dict[int, MediQTask] = {}
@@ -372,6 +373,16 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     getattr(config, "mediq_skip_unusable_tasks", True)
                 ),
             )
+        )
+        self._answer_text_mismatches = tuple(
+            {
+                "source_id": task.source_id,
+                "answer_idx": task.answer_idx,
+                "indexed_option_text": task.answer_option_text,
+                "raw_answer_text": task.answer,
+            }
+            for task in all_tasks
+            if not task.answer_text_matches_option
         )
         count = int(getattr(config, "mediq_num_trials", 5))
         source_ids = getattr(config, "mediq_source_ids", None)
@@ -2221,6 +2232,8 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     "options": dict(task.options),
                     "answer_idx": task.answer_idx,
                     "answer": task.answer,
+                    "answer_option_text": task.answer_option_text,
+                    "answer_text_matches_option": task.answer_text_matches_option,
                     "initial_info": task.initial_info,
                     "full_context": list(task.context),
                     "facts": list(task.facts),
@@ -2257,6 +2270,15 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                         getattr(self.config, "mediq_task_offset", 0)
                     ),
                     "selected_source_ids": [task.source_id for task in self.tasks],
+                    "answer_text_mismatches_in_loaded_dataset": list(
+                        self._answer_text_mismatches
+                    ),
+                    "selected_answer_text_mismatches": [
+                        mismatch
+                        for mismatch in self._answer_text_mismatches
+                        if mismatch["source_id"]
+                        in {task.source_id for task in self.tasks}
+                    ],
                 },
                 indent=2,
             )

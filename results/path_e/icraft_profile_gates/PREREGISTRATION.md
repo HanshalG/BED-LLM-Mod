@@ -20,6 +20,12 @@ OpenRouter cap is `$0.50` per run. The 26B A4B scaffold is non-thinking.
 - Patient channel: official Fact-Select only.
 - Outcome support: `Yes`, `No`, and `Information unavailable / not in record`.
 
+The release contains two raw `answer` text disagreements with the indexed option
+(source IDs 112 and 129). The official `mediQ_benchmark.py` scores `answer_idx`, so
+this work uses that released index as the target, preserves the raw text in artifacts,
+and reports both disagreements in every data manifest. This parser transparency change
+does not affect any preregistered partition or threshold.
+
 The fixed source-ID partition comes from `random.Random(1304).shuffle(range(140))`.
 
 | Partition | Count | Source IDs |

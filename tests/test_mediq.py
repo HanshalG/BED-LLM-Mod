@@ -438,6 +438,22 @@ def test_load_mediq_tasks_explicitly_reports_unusable_rows(tmp_path: Path) -> No
         load_mediq_tasks(path, skip_unusable_tasks=False)
 
 
+def test_icraft_preserves_answer_text_disagreements_but_uses_indexed_target(
+    tmp_path: Path,
+) -> None:
+    row = json.loads(FIXTURE.read_text().splitlines()[0])
+    row["answer"] = "An alternate raw diagnosis string"
+    path = tmp_path / "icraft-mismatch.jsonl"
+    path.write_text(json.dumps(row) + "\n")
+    task = load_mediq_tasks(path, dataset="icraft_md")[0]
+    assert task.answer_idx == "A"
+    assert task.answer == "An alternate raw diagnosis string"
+    assert task.answer_option_text == task.option_text("A")
+    assert task.answer_text_matches_option is False
+    with pytest.raises(ValueError, match="answer text does not match"):
+        load_mediq_tasks(path, dataset="imedqa")
+
+
 def test_mediq_nested_config_aliases_and_validation(tmp_path: Path) -> None:
     path = tmp_path / "mediq.yaml"
     path.write_text(

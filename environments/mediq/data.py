@@ -114,7 +114,8 @@ def load_mediq_tasks_with_report(
         option_map = dict(options)
         if answer_idx not in option_map:
             raise ValueError(f"MediQ row {index} answer_idx is not an option")
-        if option_map[answer_idx].casefold() != answer.casefold():
+        answer_text_matches_option = option_map[answer_idx].casefold() == answer.casefold()
+        if dataset != "icraft_md" and not answer_text_matches_option:
             raise ValueError(f"MediQ row {index} answer text does not match answer_idx")
 
         raw_context = row.get("context")
@@ -158,6 +159,8 @@ def load_mediq_tasks_with_report(
                 initial_info=initial_value.strip(),
                 context=context,
                 facts=facts,
+                answer_option_text=option_map[answer_idx],
+                answer_text_matches_option=answer_text_matches_option,
             )
         )
     if not tasks:
