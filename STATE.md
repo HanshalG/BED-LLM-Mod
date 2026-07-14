@@ -396,12 +396,14 @@ Latest cluster state:
 **CURRENT PAPER STATUS (2026-07-14):** Track 1 is audited and collapsed for the
 non-myopic claim; Track 2 is permanently closed after the one stronger-author retry;
 the five-page validation-first package is frozen at commit `ec66dce`. Do not launch
-another experiment. The only open project action is venue selection: the official
-NeurIPS 2026 workshop pages report organizer notification on July 11 and a suggested
-contribution date of August 29, but no individual workshop calls/programs are listed
-there yet. When relevant calls appear, select 2--3 targets and tune the abstract for
-each venue; until then the project is **awaiting venue calls**, not awaiting another
-method or simulator repair.
+another experiment. Individual workshop calls are now live, and the ranked targets,
+format constraints, and venue-specific abstracts are in
+`paper/VENUE_SUBMISSION_PLAN.md`: (1) Verification in the Age of AI Scientists
+(abstract Aug. 22; paper Aug. 25), (2) Scaling Environments for Agents (Aug. 29), and
+(3) Science for Artificial Intelligence (Aug. 29). The remaining work is submission
+mechanics only: recheck each OpenReview policy, anonymize the relevant source tree,
+and make the Sci-fAI variant four pages excluding references. The project is
+**submission-ready in substance**, not awaiting another method or simulator repair.
 
 **DECISION (2026-07-12, per Hanshal, on the iCRAFT profile-gate failure):**
 
