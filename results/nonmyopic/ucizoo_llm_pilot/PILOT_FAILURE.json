@@ -1,0 +1,1536 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "history": [],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"backbone\",\"eggs\",\"aquatic\"]}",
+      "support_size": 101,
+      "trait_ids": [
+        "backbone",
+        "eggs",
+        "aquatic"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"predator\",\"backbone\"]}",
+      "support_size": 42,
+      "trait_ids": [
+        "milk",
+        "predator",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"toothed\",\"backbone\"]}",
+      "support_size": 23,
+      "trait_ids": [
+        "milk",
+        "toothed",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"backbone\",\"legs_eq_4\"]}",
+      "support_size": 21,
+      "trait_ids": [
+        "hair",
+        "backbone",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "legs_eq_4"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"toothed\",\"tail\",\"backbone\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "toothed",
+        "tail",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "legs_eq_4"
+        },
+        {
+          "answer": true,
+          "trait_id": "tail"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"toothed\",\"backbone\",\"catsize\"]}",
+      "support_size": 14,
+      "trait_ids": [
+        "toothed",
+        "backbone",
+        "catsize"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"eggs\",\"aquatic\",\"legs_eq_0\"]}",
+      "support_size": 18,
+      "trait_ids": [
+        "eggs",
+        "aquatic",
+        "legs_eq_0"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"eggs\",\"aquatic\"]}",
+      "support_size": 83,
+      "trait_ids": [
+        "milk",
+        "eggs",
+        "aquatic"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "eggs"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"feathers\",\"aquatic\",\"backbone\"]}",
+      "support_size": 59,
+      "trait_ids": [
+        "feathers",
+        "aquatic",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"eggs\",\"backbone\"]}",
+      "support_size": 65,
+      "trait_ids": [
+        "hair",
+        "eggs",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"eggs\",\"backbone\",\"fins\"]}",
+      "support_size": 36,
+      "trait_ids": [
+        "eggs",
+        "backbone",
+        "fins"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": false,
+          "trait_id": "milk"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"venomous\",\"aquatic\",\"backbone\"]}",
+      "support_size": 2,
+      "trait_ids": [
+        "venomous",
+        "aquatic",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"predator\",\"toothed\",\"legs_eq_4\"]}",
+      "support_size": 40,
+      "trait_ids": [
+        "predator",
+        "toothed",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": false,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"backbone\",\"legs_eq_4\"]}",
+      "support_size": 19,
+      "trait_ids": [
+        "milk",
+        "backbone",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": false,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"venomous\",\"legs_eq_8\",\"predator\"]}",
+      "support_size": 1,
+      "trait_ids": [
+        "venomous",
+        "legs_eq_8",
+        "predator"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"milk\",\"legs_eq_4\"]}",
+      "support_size": 41,
+      "trait_ids": [
+        "hair",
+        "milk",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "milk"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"aquatic\",\"venomous\",\"backbone\"]}",
+      "support_size": 2,
+      "trait_ids": [
+        "aquatic",
+        "venomous",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "toothed"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"venomous\",\"legs_eq_8\",\"tail\"]}",
+      "support_size": 1,
+      "trait_ids": [
+        "venomous",
+        "legs_eq_8",
+        "tail"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "toothed"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"legs_eq_4\",\"aquatic\"]}",
+      "support_size": 22,
+      "trait_ids": [
+        "milk",
+        "legs_eq_4",
+        "aquatic"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"venomous\",\"legs_eq_8\",\"tail\"]}",
+      "support_size": 1,
+      "trait_ids": [
+        "venomous",
+        "legs_eq_8",
+        "tail"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"toothed\",\"legs_eq_4\"]}",
+      "support_size": 22,
+      "trait_ids": [
+        "milk",
+        "toothed",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": false,
+          "trait_id": "hair"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"aquatic\",\"toothed\",\"fins\"]}",
+      "support_size": 2,
+      "trait_ids": [
+        "aquatic",
+        "toothed",
+        "fins"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"toothed\",\"backbone\",\"legs_eq_4\"]}",
+      "support_size": 19,
+      "trait_ids": [
+        "toothed",
+        "backbone",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"toothed\",\"legs_eq_4\"]}",
+      "support_size": 21,
+      "trait_ids": [
+        "hair",
+        "toothed",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": false,
+          "trait_id": "legs_eq_4"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"aquatic\",\"toothed\",\"fins\"]}",
+      "support_size": 5,
+      "trait_ids": [
+        "aquatic",
+        "toothed",
+        "fins"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "legs_eq_4"
+        },
+        {
+          "answer": true,
+          "trait_id": "toothed"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"backbone\",\"tail\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "hair",
+        "backbone",
+        "tail"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "legs_eq_4"
+        },
+        {
+          "answer": false,
+          "trait_id": "tail"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"toothed\",\"backbone\"]}",
+      "support_size": 2,
+      "trait_ids": [
+        "hair",
+        "toothed",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "legs_eq_4"
+        },
+        {
+          "answer": true,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"toothed\",\"tail\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "hair",
+        "toothed",
+        "tail"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "label": "width:1",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"feathers\",\"predator\"]}",
+      "support_size": 101,
+      "trait_ids": [
+        "hair",
+        "feathers",
+        "predator"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "label": "width:2",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"venomous\",\"legs_eq_4\"]}",
+      "support_size": 101,
+      "trait_ids": [
+        "milk",
+        "venomous",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "label": "width:3",
+      "raw_response": "{\"trait_ids\":[\"airborne\",\"toothed\",\"breathes\"]}",
+      "support_size": 101,
+      "trait_ids": [
+        "airborne",
+        "toothed",
+        "breathes"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [],
+      "label": "width:4",
+      "raw_response": "{\"trait_ids\":[\"fins\",\"tail\",\"domestic\"]}",
+      "support_size": 101,
+      "trait_ids": [
+        "fins",
+        "tail",
+        "domestic"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "label": "width:5",
+      "raw_response": "{\"trait_ids\":[\"legs_eq_2\",\"legs_eq_4\",\"legs_eq_0\"]}",
+      "support_size": 101,
+      "trait_ids": [
+        "legs_eq_2",
+        "legs_eq_4",
+        "legs_eq_0"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "label": "width:6",
+      "raw_response": "{\"trait_ids\":[\"catsize\",\"legs_eq_4\",\"venomous\"]}",
+      "support_size": 101,
+      "trait_ids": [
+        "catsize",
+        "legs_eq_4",
+        "venomous"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"aquatic\",\"eggs\",\"backbone\"]}",
+      "support_size": 56,
+      "trait_ids": [
+        "aquatic",
+        "eggs",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:1",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"feathers\",\"venomous\"]}",
+      "support_size": 56,
+      "trait_ids": [
+        "hair",
+        "feathers",
+        "venomous"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:2",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"toothed\",\"breathes\"]}",
+      "support_size": 56,
+      "trait_ids": [
+        "milk",
+        "toothed",
+        "breathes"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:3",
+      "raw_response": "{\"trait_ids\":[\"airborne\",\"fins\",\"tail\"]}",
+      "support_size": 56,
+      "trait_ids": [
+        "airborne",
+        "fins",
+        "tail"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:4",
+      "raw_response": "{\"trait_ids\":[\"legs_eq_0\",\"legs_eq_2\",\"legs_eq_4\"]}",
+      "support_size": 56,
+      "trait_ids": [
+        "legs_eq_0",
+        "legs_eq_2",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:5",
+      "raw_response": "{\"trait_ids\":[\"backbone\",\"venomous\",\"domestic\"]}",
+      "support_size": 56,
+      "trait_ids": [
+        "backbone",
+        "venomous",
+        "domestic"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:6",
+      "raw_response": "{\"trait_ids\":[\"backbone\",\"breathes\",\"venomous\"]}",
+      "support_size": 56,
+      "trait_ids": [
+        "backbone",
+        "breathes",
+        "venomous"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"hair\",\"feathers\",\"eggs\"]}",
+      "support_size": 27,
+      "trait_ids": [
+        "hair",
+        "feathers",
+        "eggs"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "width:1",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"toothed\",\"backbone\"]}",
+      "support_size": 27,
+      "trait_ids": [
+        "milk",
+        "toothed",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "width:2",
+      "raw_response": "{\"trait_ids\":[\"airborne\",\"venomous\",\"tail\"]}",
+      "support_size": 27,
+      "trait_ids": [
+        "airborne",
+        "venomous",
+        "tail"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "width:3",
+      "raw_response": "{\"trait_ids\":[\"breathes\",\"domestic\",\"catsize\"]}",
+      "support_size": 27,
+      "trait_ids": [
+        "breathes",
+        "domestic",
+        "catsize"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "width:4",
+      "raw_response": "{\"trait_ids\":[\"legs_eq_2\",\"legs_eq_4\",\"legs_eq_0\"]}",
+      "support_size": 27,
+      "trait_ids": [
+        "legs_eq_2",
+        "legs_eq_4",
+        "legs_eq_0"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "width:5",
+      "raw_response": "{\"trait_ids\":[\"legs_eq_4\",\"backbone\",\"venomous\"]}",
+      "support_size": 27,
+      "trait_ids": [
+        "legs_eq_4",
+        "backbone",
+        "venomous"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        }
+      ],
+      "label": "width:6",
+      "raw_response": "{\"trait_ids\":[\"legs_eq_4\",\"backbone\",\"venomous\"]}",
+      "support_size": 27,
+      "trait_ids": [
+        "legs_eq_4",
+        "backbone",
+        "venomous"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"toothed\",\"legs_eq_4\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "milk",
+        "toothed",
+        "legs_eq_4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        }
+      ],
+      "label": "width:1",
+      "raw_response": "{\"trait_ids\":[\"backbone\",\"breathes\",\"tail\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "backbone",
+        "breathes",
+        "tail"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        }
+      ],
+      "label": "width:2",
+      "raw_response": "{\"trait_ids\":[\"feathers\",\"eggs\",\"airborne\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "feathers",
+        "eggs",
+        "airborne"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        }
+      ],
+      "label": "width:3",
+      "raw_response": "{\"trait_ids\":[\"venomous\",\"fins\",\"domestic\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "venomous",
+        "fins",
+        "domestic"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        }
+      ],
+      "label": "width:4",
+      "raw_response": "{\"trait_ids\":[\"catsize\",\"legs_eq_4\",\"backbone\"]}",
+      "support_size": 16,
+      "trait_ids": [
+        "catsize",
+        "legs_eq_4",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        },
+        {
+          "answer": true,
+          "trait_id": "tail"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"toothed\",\"backbone\",\"breathes\"]}",
+      "support_size": 13,
+      "trait_ids": [
+        "toothed",
+        "backbone",
+        "breathes"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        },
+        {
+          "answer": true,
+          "trait_id": "tail"
+        }
+      ],
+      "label": "width:1",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"toothed\",\"backbone\"]}",
+      "support_size": 13,
+      "trait_ids": [
+        "milk",
+        "toothed",
+        "backbone"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        },
+        {
+          "answer": true,
+          "trait_id": "tail"
+        }
+      ],
+      "label": "width:2",
+      "raw_response": "{\"trait_ids\":[\"eggs\",\"venomous\",\"domestic\"]}",
+      "support_size": 13,
+      "trait_ids": [
+        "eggs",
+        "venomous",
+        "domestic"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        },
+        {
+          "answer": true,
+          "trait_id": "tail"
+        }
+      ],
+      "label": "width:3",
+      "raw_response": "{\"trait_ids\":[\"feathers\",\"airborne\",\"catsize\"]}",
+      "support_size": 13,
+      "trait_ids": [
+        "feathers",
+        "airborne",
+        "catsize"
+      ],
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        },
+        {
+          "answer": true,
+          "trait_id": "tail"
+        },
+        {
+          "answer": true,
+          "trait_id": "catsize"
+        }
+      ],
+      "label": "root",
+      "raw_response": "{\"trait_ids\":[\"milk\",\"toothed\",\"backbone\"]}",
+      "support_size": 11,
+      "trait_ids": [
+        "milk",
+        "toothed",
+        "backbone"
+      ],
+      "trial_index": 0
+    }
+  ],
+  "error": "candidate cell trial=1, label=root failed after 2 attempt(s): response is not a JSON object",
+  "exploratory_only": true,
+  "invalid_candidate_responses": [
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "```json\n{\"trait_ids\":[\"aquatic\",\"venomous\",\"legs_eq_6\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": false,
+          "trait_id": "milk"
+        }
+      ],
+      "label": "root",
+      "raw_response": "```json\n{\"trait_ids\":[\"venomous\",\"aquatic\",\"backbone\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "toothed"
+        }
+      ],
+      "label": "root",
+      "raw_response": "```json\n{\"trait_ids\":[\"milk\",\"legs_eq_4\",\"backbone\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [
+        {
+          "answer": false,
+          "trait_id": "eggs"
+        },
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": true,
+          "trait_id": "milk"
+        },
+        {
+          "answer": true,
+          "trait_id": "backbone"
+        }
+      ],
+      "label": "root",
+      "raw_response": "```json\n{\"trait_ids\":[\"hair\",\"toothed\",\"legs_eq_4\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [],
+      "label": "width:4",
+      "raw_response": "```json\n{\"trait_ids\":[\"fins\",\"tail\",\"domestic\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:4",
+      "raw_response": "```json\n{\"trait_ids\":[\"legs_eq_0\",\"legs_eq_2\",\"legs_eq_4\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        }
+      ],
+      "label": "width:5",
+      "raw_response": "```json\n{\"trait_ids\":[\"domestic\",\"catsize\",\"legs_eq_4\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [
+        {
+          "answer": true,
+          "trait_id": "predator"
+        },
+        {
+          "answer": false,
+          "trait_id": "aquatic"
+        },
+        {
+          "answer": true,
+          "trait_id": "hair"
+        },
+        {
+          "answer": true,
+          "trait_id": "tail"
+        }
+      ],
+      "label": "root",
+      "raw_response": "```json\n{\"trait_ids\":[\"milk\",\"toothed\",\"legs_eq_4\"]}\n```",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "error": "response is not a JSON object",
+      "history": [],
+      "label": "root",
+      "raw_response": "```json\n{\"trait_ids\":[\"backbone\",\"milk\",\"eggs\"]}\n```",
+      "trial_index": 1
+    },
+    {
+      "attempt": 1,
+      "error": "response is not a JSON object",
+      "history": [],
+      "label": "root",
+      "raw_response": "```json\n{\"trait_ids\": [\"backbone\", \"eggs\", \"hair\"]}\n```",
+      "trial_index": 1
+    }
+  ],
+  "pilot_config": {
+    "bootstrap_replicates": 10000,
+    "candidate_retries": 1,
+    "candidate_width": 3,
+    "num_rounds": 6,
+    "num_trials": 8,
+    "seed": 1304,
+    "temperature": 0.7
+  },
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 1138,
+    "adapter_cost_usd": 0.00271641,
+    "adapter_prompt_tokens": 21080,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 68,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 1138,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 1138,
+        "cost_usd": 0.00271641,
+        "prompt_tokens": 21080,
+        "reasoning_tokens": 0,
+        "requests": 68
+      }
+    },
+    "prompt_tokens": 21080,
+    "reasoning_tokens": 0,
+    "remaining_usd": 22.691466410000118,
+    "requests": 68,
+    "run_budget_usd": 0.5,
+    "run_cost_usd": 0.00271641,
+    "run_remaining_usd": 0.49728359,
+    "total_spent_usd": 17.308533589999882
+  }
+}
