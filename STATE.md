@@ -343,6 +343,26 @@ Latest cluster state:
 
 ## NEXT ACTIONS (in order)
 
+**AUTHORIZATION (2026-07-12, per Hanshal): ICRAFT GATES authorized** — pre-registration
++ validation implementation only, $0.50 initial cap, no policy/depth runs without
+subsequent approval. Conditions:
+1. Pre-register gate consequences BEFORE running them: oracle greedy-vs-depth-2 gap
+   present (pre-registered margin) -> policy runs authorized (claim 1 then gated
+   claim 2, with cost caps). Gap absent -> NOT a failure: claim 1 still runs on iCRAFT
+   (1-step EIG vs naive asking vs native baseline); the non-myopic claim then rests on
+   the animals re-analysis; no rescue attempts on FactSelect structure.
+2. Fence: patient profiles may repair likelihood semantics only — they must NOT be
+   tuned to create lookahead structure (no branch-decoy-in-scrubs).
+3. **Track 1 (banked animals re-analysis) is OVERDUE and must land before or alongside
+   the gate work** — it is free, and if the iCRAFT oracle is gap-less it becomes the
+   paper's only non-myopic evidence. Deliverable unchanged:
+   `results/path_e/ANIMALS_REANALYSIS.md`.
+4. Track 3 (paper) continues in parallel regardless; the gates do not block writing.
+CLOSE EXTERNAL CLAIM is rejected for now — one bounded, gated attempt at the external
+result is worth more than immediate closure, precisely because the gates make its cost
+knowable in advance.
+
+
 **EXECUTION PLAN (2026-07-12, per Hanshal — three tracks, this order):**
 
 Track 1 (COMPLETE, FREE): the banked animals depth re-analysis. Result: **COLLAPSES**.
