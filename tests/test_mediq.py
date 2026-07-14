@@ -177,6 +177,16 @@ class ProfileSupportModel(RoutingMediQModel):
         return RoutingMediQModel._route(messages)
 
 
+class SkewedProfileSupportModel(ProfileSupportModel):
+    @staticmethod
+    def _route(messages: list[dict[str, str]]) -> str:
+        if "calibrated clinical multiple-choice judge" in messages[0]["content"]:
+            return json.dumps(
+                {"probabilities": {"A": 0.97, "B": 0.01, "C": 0.01, "D": 0.01}}
+            )
+        return ProfileSupportModel._route(messages)
+
+
 class CandidateRepairModel(RoutingMediQModel):
     def _route(self, messages: list[dict[str, str]]) -> str:
         system = messages[0]["content"]
@@ -565,6 +575,34 @@ def test_mediq_profile_support_can_separate_generation_from_validation() -> None
     assert any("multiple-choice judge" in system for system in questioner_systems)
     assert any("patient-profile auditor" in system for system in questioner_systems)
     assert not any("counterfactual patient profiles" in system for system in questioner_systems)
+
+
+def test_mediq_profile_support_unavailable_is_exactly_neutral_for_skewed_prior() -> None:
+    model = SkewedProfileSupportModel()
+    config = _config(
+        mediq_dataset="icraft_md",
+        mediq_likelihood_mode="profile_support",
+        mediq_profiles_per_option=3,
+        mediq_num_trials=1,
+    )
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    prior = env.initial_belief_state(model, config)
+    assert min(prior.probabilities) < config.mediq_probability_floor
+    action = env.generate_candidate_actions(prior, [], model, config)[0]
+    env.outcome_likelihoods(prior.hypotheses, action)
+    unavailable = MediQObservation(
+        reply="The patient cannot answer this question from the supplied record.",
+        mapped_outcome=UNAVAILABLE_OUTCOME,
+        mapped_cleanly=True,
+        selected_fact_indices=(),
+        grounded=True,
+        relevant=True,
+        cannot_answer=True,
+    )
+    updated = env.update_belief_state(prior, [(action, unavailable)], model, config)
+    assert updated.probabilities == pytest.approx(prior.probabilities)
 
 
 def test_mediq_profile_support_config_aliases_and_source_selection(tmp_path: Path) -> None:

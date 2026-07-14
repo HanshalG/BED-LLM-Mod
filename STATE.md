@@ -8,8 +8,9 @@ history, this file wins.
 ## CURRENT STATE (updated 2026-07-14)
 
 Status: **Track 1 is complete and collapses as a credible non-myopic paper spine;
-Track 2 has one explicitly authorized stronger-profile-generator retry ready to run;
-Track 3 remains current for the evidence available before that retry.** The free
+Track 2 is permanently closed after its one authorized stronger-profile-generator
+retry failed the held-out availability gate; Track 3 is the final validation-first
+paper package.** The free
 banked animals audit made no model calls and is tracked in
 `results/path_e/ANIMALS_REANALYSIS.md`, with reproducible trial-level data in
 `results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json`. One-step EIG remains a
@@ -227,13 +228,17 @@ The canonical 26B closure record is
 $0.05380642 and the OpenRouter ledger is $16.86549493 of $40. After the Track-1 audit,
 Hanshal authorized one distinct apparatus retry with a stronger OpenRouter model for
 profile narrative generation only, while every questioner, validator, likelihood,
-patient, and policy role remains 26B. That retry is preregistered in the addendum to
-`results/path_e/icraft_profile_gates/PREREGISTRATION.md`: `openai/gpt-5.4`, reasoning
-off, unchanged prompts/partitions/thresholds, one calibration attempt, and a hard $2
-run cap. Role-isolation and mixed-model ledger tests pass as part of the complete local
-suite (`613 passed, 1 skipped`). This retry is now the sole experimental next action;
-failure closes the external claim permanently, while a pass unlocks only the unchanged
-structural gate and still does not authorize a policy run.
+patient, and policy role remained 26B. That retry used `openai/gpt-5.4`, reasoning
+off, unchanged prompts/partitions/thresholds, and a hard $2 cap. It successfully
+constructed fixed profiles and reached calibration, but failed the terminal FactSelect
+availability criterion at 14/48 outcomes versus the frozen minimum of 24. It spent
+$0.44032225 (55 GPT-5.4 authoring calls and 945 26B calls; zero reasoning/forced
+exits). A post-run numerical audit fixed profile-posterior smoothing after neutral
+unavailable replies; the availability failure is independent and sufficient, so no
+rerun is valid or authorized. The external non-myopic empirical claim is permanently
+closed. Canonical evidence is
+`results/path_e/icraft_profile_gates/STRONGER_GENERATOR_RETRY_FINAL_REPORT.md`; total
+iCRAFT spend is $0.49412867 and the OpenRouter ledger is $17.30581718 of $40.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -395,17 +400,12 @@ Latest cluster state:
    non-myopic evidence; its outcome also weights the iCRAFT retry decision. No further
    iCRAFT or policy work until `results/path_e/ANIMALS_REANALYSIS.md` exists with the
    comparability check and Q@80% / accuracy-AUC CIs.
-2. **One bounded apparatus retry authorized (after Track 1):** the profile-gate failure
-   is infrastructure (26B cannot author 3 valid profiles/diagnosis), not science.
-   Retry profile generation ONLY with a stronger OpenRouter model (agent selects,
-   ledgers model + rationale); the questioner/policy model remains 26B A4B — simulator
-   fidelity and agent capability are separate roles by established project principle.
-   Cap $2, ONE attempt. Pass -> the pre-registered gate chain continues unchanged
-   (calibration -> likelihood -> ranking -> oracle gap -> only then policy approval).
-   Fail -> CLOSE EXTERNAL CLAIM permanently; the finding ("calibrated patient
-   simulation is the binding constraint, upstream of any policy question") goes in the
-   paper as part of the boundary/infrastructure section. No third attempt, no
-   model-shopping beyond this one retry.
+2. **One bounded apparatus retry completed (after Track 1):** profile generation only
+   used `openai/gpt-5.4`; questioner/policy and every other simulator role remained 26B
+   A4B. It constructed fixed supports but failed the preregistered availability gate at
+   14/48 observed outcomes versus the required 24, using $0.44032225 of the $2 cap.
+   This closes the external claim permanently. No third attempt, model-shopping,
+   likelihood retry, policy run, or depth run is authorized.
 3. Paper (Track 3) continues in parallel; the closure records just written are kept
    accurate either way.
 

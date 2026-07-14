@@ -106,3 +106,26 @@ python scripts/run_icraft_profile_gates.py \
   --profile-generator-reasoning-effort none \
   --output results/path_e/icraft_profile_gates/STRONGER_GENERATOR_RETRY_CALIBRATION.json
 ```
+
+## Retry Outcome
+
+The single registered retry completed on 2026-07-14. It used 1,000 requests and
+`$0.44032225`, below the `$2` cap: 55 `openai/gpt-5.4` profile-authoring calls
+(`$0.39681000`) and 945 non-thinking 26B calls for every other role
+(`$0.04351225`). It used zero reasoning tokens and no forced exits.
+
+The stronger author completed the fixed support and the run reached all calibration
+metrics. The prior passed its two registered quality thresholds (mean log loss
+`0.56755 < log(4)`; mean Brier `0.28125 < 0.75`), but the terminal availability
+criterion failed: only 14 of 48 realized candidate outcomes were answerable, below
+the required 24. This failure alone closes the gate. The raw, pre-fix rank telemetry
+was also negative (EIG versus entropy `-0.04131`; EIG versus truth-log gain
+`-0.06777`), but it is not used as a separate conclusion because a later offline
+audit found that posterior-floor smoothing perturbed low-mass profiles after an
+otherwise neutral unavailable outcome. The code now regression-tests exact neutrality;
+the frozen availability failure requires no rerun to establish closure.
+
+The canonical outcome artifact is `STRONGER_GENERATOR_RETRY_CALIBRATION.json` and the
+closure report is `STRONGER_GENERATOR_RETRY_FINAL_REPORT.md`. No further iCRAFT model
+calls, calibration reruns, structural gates, ranking tests, policy runs, or depth runs
+are authorized.

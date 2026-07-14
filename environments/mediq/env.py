@@ -1118,6 +1118,24 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         action, observation = history[-1]
         if not observation.mapped_cleanly or observation.mapped_outcome is None:
             return belief_state
+        if (
+            getattr(self.config, "mediq_likelihood_mode", "joint_option")
+            == "profile_support"
+            and observation.mapped_outcome == UNAVAILABLE_OUTCOME
+        ):
+            # Profile-mode record availability is constructed once per action, not per
+            # profile. Avoiding the probability floor here preserves that exact
+            # posterior-neutrality invariant for low-mass profile particles.
+            likelihoods = self.outcome_likelihoods(belief_state.hypotheses, action)
+            unavailable_index = action.outcomes.index(UNAVAILABLE_OUTCOME)
+            if not np.allclose(
+                likelihoods[:, unavailable_index],
+                likelihoods[0, unavailable_index],
+                atol=1e-12,
+                rtol=0.0,
+            ):
+                raise ValueError("profile-support unavailable likelihood must be neutral")
+            return belief_state
         log_scores = np.log(
             np.maximum(np.asarray(belief_state.probabilities, dtype=float), 1e-300)
         )

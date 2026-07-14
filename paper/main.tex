@@ -256,11 +256,13 @@ official scorer uses a four-way diagnosis index and the records are denser, so
 we assigned three concrete counterfactual patient profiles to each diagnosis,
 held record availability label-independent, and froze support before any branch.
 The one-case micro-smoke passed: it produced all 12 profiles, two candidates,
-and canonical profile likelihood tables for \$0.0027. On the held-out calibration
-partition, however, the non-thinking 26B scaffold could not produce the required
-three valid profiles per diagnosis within the bounded repair budget. This fails
-the upstream profile-support gate before likelihood, branch-equivalence, greedy-gap,
-or policy evaluation. We made no prompt repair or rerun under the frozen protocol.
+and canonical profile likelihood tables for \$0.0027. The original iCRAFT profile-support gate
+failed before likelihood when the 26B scaffold exhausted bounded profile construction on
+calibration. One separately authorized retry used a
+frontier model to author profiles only, with 26B retaining every other role. It reached
+calibration but only 14 of 48 grounded FactSelect outcomes were available, below the
+preregistered minimum of 24. This terminal channel-sparsity failure closes the path
+before structural, ranking, or policy evaluation; we made no prompt repair or rerun.
 
 \section{Why Horizon Magnifies Model Error}
 
@@ -324,8 +326,9 @@ all 140 targets are diagnoses and records have a mean 14.82 atomic facts (median
 14, minimum 9), compared with 11.20 (median 10, minimum 2) in usable iMEDQA. We
 preregistered and tested the natural repair---several concrete counterfactual
 patient profiles $z$ per diagnosis, profile-conditioned replies, label-independent
-availability, and EIG about $\theta=g(z)$---but the model did not reliably construct
-the fixed support on held-out cases. This is an upstream model-validity failure, not
+availability, and EIG about $\theta=g(z)$. A stronger author could construct the fixed
+support, but only 14/48 held-out FactSelect outcomes were answerable, short of the
+frozen 24-outcome requirement. This is an upstream channel/model-validity failure, not
 evidence that a later policy would fail. It nevertheless closes this un-tuned path:
 we do not promote iCRAFT as an unevaluated escape hatch.
 
@@ -338,8 +341,8 @@ full depth-one and depth-two streams are only partially paired and have weaker
 code provenance than the newer audits. Natural location results use one model
 family and environment. Paprika policy counts are endpoint-invalid, and MediQ
 stops before a calibrated policy comparison. We do not claim that non-myopic BED
-cannot work; we report that the preregistered iCRAFT profile construction did not
-pass its first held-out support gate.
+cannot work; we report that the preregistered iCRAFT profile construction and its one
+stronger-author retry did not pass the held-out calibration gate.
 
 The audits also cannot cleanly separate model capacity from representation: a
 larger model may estimate a better likelihood, but cannot make an exam-treatment

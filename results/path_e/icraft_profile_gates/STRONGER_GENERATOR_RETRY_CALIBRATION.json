@@ -1,0 +1,625 @@
+{
+  "available_count": 14,
+  "available_true_label_favoring_fraction": 0.6428571428571429,
+  "diagnosis_prior_mean_brier": 0.28125,
+  "diagnosis_prior_mean_log_loss": 0.5675479192220511,
+  "max_branch_update_error": 0.0,
+  "max_unavailable_posterior_move": 0.009708737864077669,
+  "mean_available_truth_log_gain": 0.0521365669130082,
+  "model_roles": {
+    "answerer": "google/gemma-4-26b-a4b-it",
+    "profile_generator": "openai/gpt-5.4",
+    "profile_generator_reasoning_effort": "none",
+    "questioner": "google/gemma-4-26b-a4b-it"
+  },
+  "passed": false,
+  "rows": [
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0024744798489535853,
+      "entropy_drop": -0.11384098995585623,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have any systemic symptoms like fever?",
+      "source_id": "2",
+      "truth_log_gain": -0.029558802241544613
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0021304277910367026,
+      "entropy_drop": -0.11384098995585623,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are there any mucosal membrane lesions present?",
+      "source_id": "2",
+      "truth_log_gain": -0.029558802241544613
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0426389339447947,
+      "entropy_drop": -0.11384098995585601,
+      "outcome": "Information unavailable / not in record",
+      "query": "Has the patient experienced any bone pain?",
+      "source_id": "2",
+      "truth_log_gain": -0.029558802241544613
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0393055910645983,
+      "entropy_drop": -0.11384098995585601,
+      "outcome": "Information unavailable / not in record",
+      "query": "Is there any evidence of lymphadenopathy on examination?",
+      "source_id": "2",
+      "truth_log_gain": -0.029558802241544613
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0009920377332323178,
+      "entropy_drop": -0.054320349892211794,
+      "outcome": "Yes",
+      "query": "Are the nails rough to the touch?",
+      "source_id": "99",
+      "truth_log_gain": 0.0034481147917183874
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0020951345687525297,
+      "entropy_drop": -0.11307897809600487,
+      "outcome": "Information unavailable / not in record",
+      "query": "Is there visible fungal discoloration of the nail plate?",
+      "source_id": "99",
+      "truth_log_gain": -0.029558802241544613
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0,
+      "entropy_drop": -0.11307897809600476,
+      "outcome": "No",
+      "query": "Is the patient over the age of 50?",
+      "source_id": "99",
+      "truth_log_gain": -0.029558802241544613
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.002730942161963533,
+      "entropy_drop": -0.11307897809600487,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have a history of frequent nail splitting?",
+      "source_id": "99",
+      "truth_log_gain": -0.029558802241544613
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0004851038202982682,
+      "entropy_drop": 0.022745200058571502,
+      "outcome": "Yes",
+      "query": "Does the rash involve the nasolabial folds?",
+      "source_id": "132",
+      "truth_log_gain": 0.011339560692359085
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0028476881654780216,
+      "entropy_drop": -3.3306690738754696e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are silvery scales present on the skin?",
+      "source_id": "132",
+      "truth_log_gain": -3.3306690738754696e-16
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.029672427910555473,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are papules present on the face?",
+      "source_id": "132",
+      "truth_log_gain": -3.3306690738754696e-16
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.000988594507929703,
+      "entropy_drop": -3.3306690738754696e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient experience facial flushing?",
+      "source_id": "132",
+      "truth_log_gain": -3.3306690738754696e-16
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.012356660273493117,
+      "entropy_drop": -0.13428302145961002,
+      "outcome": "No",
+      "query": "Does the rash consist of small, fluid-filled blisters?",
+      "source_id": "60",
+      "truth_log_gain": 0.15349029187078678
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.004399618520713721,
+      "entropy_drop": 0.1155066318470015,
+      "outcome": "Yes",
+      "query": "Has the patient used new footwear recently?",
+      "source_id": "60",
+      "truth_log_gain": 0.40117022064413543
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.00011135462581305347,
+      "entropy_drop": -0.10676858564147584,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have lymphadenopathy?",
+      "source_id": "60",
+      "truth_log_gain": -0.02955880224154439
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.004440887936617769,
+      "entropy_drop": 0.21802259434704874,
+      "outcome": "No",
+      "query": "Is the rash localized strictly to the plantar surface of the feet?",
+      "source_id": "60",
+      "truth_log_gain": 0.5034406790187679
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.001940484373395069,
+      "entropy_drop": 0.0,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the growth have irregular borders?",
+      "source_id": "62",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0023313414409786917,
+      "entropy_drop": 0.11625156096913969,
+      "outcome": "Yes",
+      "query": "Is the growth pigmented?",
+      "source_id": "62",
+      "truth_log_gain": 0.04644883090182722
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0017776805895956462,
+      "entropy_drop": 0.0,
+      "outcome": "Information unavailable / not in record",
+      "query": "Has the growth bled?",
+      "source_id": "62",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.012102566834998975,
+      "entropy_drop": -0.40811197006102895,
+      "outcome": "Yes",
+      "query": "Is the growth painful?",
+      "source_id": "62",
+      "truth_log_gain": -0.40128973669768386
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0011959351892984265,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are the lesions characterized by fluid-filled blisters?",
+      "source_id": "64",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0029906269601608464,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Is there silvery scaling on the affected areas?",
+      "source_id": "64",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.002217062542680447,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Is there a fungal element visible on a KOH preparation?",
+      "source_id": "64",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0022771527998039246,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are the lesions coin-shaped?",
+      "source_id": "64",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.03231620023475191,
+      "entropy_drop": 0.18670138903237254,
+      "outcome": "Yes",
+      "query": "Are there longitudinal bands on the nail plates?",
+      "source_id": "23",
+      "truth_log_gain": 0.10897816256974494
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0017507861583299334,
+      "entropy_drop": -2.220446049250313e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Is there scaling on the skin surface?",
+      "source_id": "23",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.002806284136090222,
+      "entropy_drop": -2.220446049250313e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are the nail plates characterized by a sandpaper-like texture?",
+      "source_id": "23",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.004796244385087045,
+      "entropy_drop": 0.10815240921909908,
+      "outcome": "Yes",
+      "query": "Is there presence of pitting on the nail plates?",
+      "source_id": "23",
+      "truth_log_gain": -0.03686787264253755
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.006954423174224288,
+      "entropy_drop": 0.000922102364037225,
+      "outcome": "Yes",
+      "query": "Do the yellow spots appear on the eyelids?",
+      "source_id": "137",
+      "truth_log_gain": -0.0013675388967439028
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.027404627284152248,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are the lesions associated with diabetes mellitus?",
+      "source_id": "137",
+      "truth_log_gain": -1.6653345369377348e-16
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.001389582628285809,
+      "entropy_drop": -4.440892098500626e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are the lesions characterized by yellowish-orange plaques?",
+      "source_id": "137",
+      "truth_log_gain": -1.6653345369377348e-16
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.03089713235706295,
+      "entropy_drop": -3.3306690738754696e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have a history of hyperlipidemia?",
+      "source_id": "137",
+      "truth_log_gain": -1.6653345369377348e-16
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.004617556248327637,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have a history of travel to endemic areas for sandflies?",
+      "source_id": "96",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0120463198680782,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Has the patient had contact with infected rabbits?",
+      "source_id": "96",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0046151164548071475,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Has the patient had contact with animal hides?",
+      "source_id": "96",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.004338304452219737,
+      "entropy_drop": -1.1102230246251565e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have a history of skin numbness in the affected areas?",
+      "source_id": "96",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.001226064122971667,
+      "entropy_drop": 0.05817971466841809,
+      "outcome": "No",
+      "query": "Is there evidence of scarring on the scalp during examination?",
+      "source_id": "100",
+      "truth_log_gain": 0.021702219853917376
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.00034378941549763787,
+      "entropy_drop": 0.025757353288275664,
+      "outcome": "No",
+      "query": "Did the hair loss occur suddenly?",
+      "source_id": "100",
+      "truth_log_gain": 0.010404820082665273
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.007567508081038435,
+      "entropy_drop": -3.3306690738754696e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are there well-defined circular patches of complete hair loss?",
+      "source_id": "100",
+      "truth_log_gain": -1.3877787807814457e-16
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0017696971836510666,
+      "entropy_drop": -3.3306690738754696e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Is the hair thinning localized to the vertex?",
+      "source_id": "100",
+      "truth_log_gain": -1.3877787807814457e-16
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0026641724006692406,
+      "entropy_drop": 0.0,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have photosensitivity?",
+      "source_id": "117",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": true,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0012568368198793392,
+      "entropy_drop": 0.054712120473005,
+      "outcome": "No",
+      "query": "Does the patient have muscle weakness?",
+      "source_id": "117",
+      "truth_log_gain": -0.06142701316529764
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.004760733149875379,
+      "entropy_drop": 0.0,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have flushing triggered by spicy food?",
+      "source_id": "117",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0027788687571375817,
+      "entropy_drop": 0.0,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have scaling in the nasolabial folds?",
+      "source_id": "117",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.01685099496723213,
+      "entropy_drop": -2.220446049250313e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Does the patient have a fever?",
+      "source_id": "40",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.004132761624523546,
+      "entropy_drop": -2.220446049250313e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Are there punched-out erosions on the skin lesions?",
+      "source_id": "40",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.0020701051295531478,
+      "entropy_drop": -2.220446049250313e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Is there honey-colored crusting present?",
+      "source_id": "40",
+      "truth_log_gain": 0.0
+    },
+    {
+      "available": false,
+      "branch_update_max_abs_error": 0.0,
+      "eig": 0.009723220976300575,
+      "entropy_drop": -2.220446049250313e-16,
+      "outcome": "Information unavailable / not in record",
+      "query": "Has the patient been in contact with anyone having chickenpox?",
+      "source_id": "40",
+      "truth_log_gain": 0.0
+    }
+  ],
+  "source_ids": [
+    "2",
+    "99",
+    "132",
+    "60",
+    "62",
+    "64",
+    "23",
+    "137",
+    "96",
+    "100",
+    "117",
+    "40"
+  ],
+  "spearman_eig_entropy_drop": -0.04130674271690618,
+  "spearman_eig_truth_log_gain": -0.06776592091352049,
+  "stage": "calibration",
+  "usage": {
+    "answerer": {
+      "adapter_completion_tokens": 996,
+      "adapter_cost_usd": 0.0025506099999999996,
+      "adapter_prompt_tokens": 21251,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 54,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 57925,
+      "forced_exits": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 33891,
+          "cost_usd": 0.043512249999999995,
+          "prompt_tokens": 306878,
+          "reasoning_tokens": 0,
+          "requests": 945
+        },
+        "openai/gpt-5.4": {
+          "completion_tokens": 24034,
+          "cost_usd": 0.39681,
+          "prompt_tokens": 14520,
+          "reasoning_tokens": 0,
+          "requests": 55
+        }
+      },
+      "prompt_tokens": 321398,
+      "reasoning_tokens": 0,
+      "remaining_usd": 22.694182820000123,
+      "requests": 1000,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.4403222499999997,
+      "run_remaining_usd": 1.5596777500000003,
+      "total_spent_usd": 17.305817179999877
+    },
+    "profile_generator": {
+      "adapter_completion_tokens": 24034,
+      "adapter_cost_usd": 0.39681,
+      "adapter_prompt_tokens": 14520,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 55,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 57925,
+      "forced_exits": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 33891,
+          "cost_usd": 0.043512249999999995,
+          "prompt_tokens": 306878,
+          "reasoning_tokens": 0,
+          "requests": 945
+        },
+        "openai/gpt-5.4": {
+          "completion_tokens": 24034,
+          "cost_usd": 0.39681,
+          "prompt_tokens": 14520,
+          "reasoning_tokens": 0,
+          "requests": 55
+        }
+      },
+      "prompt_tokens": 321398,
+      "reasoning_tokens": 0,
+      "remaining_usd": 22.694182820000123,
+      "requests": 1000,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.4403222499999997,
+      "run_remaining_usd": 1.5596777500000003,
+      "total_spent_usd": 17.305817179999877
+    },
+    "questioner": {
+      "adapter_completion_tokens": 32895,
+      "adapter_cost_usd": 0.04096164,
+      "adapter_prompt_tokens": 285627,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 891,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 57925,
+      "forced_exits": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 33891,
+          "cost_usd": 0.043512249999999995,
+          "prompt_tokens": 306878,
+          "reasoning_tokens": 0,
+          "requests": 945
+        },
+        "openai/gpt-5.4": {
+          "completion_tokens": 24034,
+          "cost_usd": 0.39681,
+          "prompt_tokens": 14520,
+          "reasoning_tokens": 0,
+          "requests": 55
+        }
+      },
+      "prompt_tokens": 321398,
+      "reasoning_tokens": 0,
+      "remaining_usd": 22.694182820000123,
+      "requests": 1000,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.4403222499999997,
+      "run_remaining_usd": 1.5596777500000003,
+      "total_spent_usd": 17.305817179999877
+    }
+  }
+}
