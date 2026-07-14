@@ -5,16 +5,15 @@ from scripts import validate_paper_draft as vpd
 
 
 VALID_LIMITATIONS_TEXT = """
-This study uses one model family and a 50-task sample. Its finite generated
-hypothesis supports are not calibrated. Simulator and judges share a model
-family, which can create correlated errors. OpenRouter introduces provider
-nondeterminism. Candidate 0 is retained for causal proposal pairing. MediQ
-transfer has not yet been run. Full two-step lookahead is not rehabilitated.
-The held-out outcomes remain sealed. Manual review quarantines the complete
-headline if the endpoint is invalid.
+This is not a positive external-benchmark claim. The exact location gap is a
+correctness control. Animals streams are only partially paired. Paprika policy
+counts are endpoint-invalid. MediQ stops before a calibrated policy comparison.
+We do not claim that non-myopic BED cannot work. The study uses one model
+family, and OpenRouter introduces provider nondeterminism. The proposed iCRAFT
+profile model may not pass its gates.
 """
 
-VALID_FIGURE_LABELS = ""
+VALID_FIGURE_LABELS = "\\label{fig:validation-chain}"
 
 VALID_TEXT_CHECKS = VALID_LIMITATIONS_TEXT + VALID_FIGURE_LABELS
 
@@ -97,10 +96,10 @@ def test_validate_paper_draft_rejects_missing_required_limitations(tmp_path, mon
         check for check in payload["checks"] if check["name"] == "paper_limitations_coverage"
     )
     assert limitations_check["ok"] is False
-    assert "single_model_sample_scope" in limitations_check["detail"]
+    assert "not_external_positive" in limitations_check["detail"]
 
 
-def test_validate_paper_draft_allows_figures_to_remain_sealed(tmp_path, monkeypatch):
+def test_validate_paper_draft_requires_validation_chain_figure(tmp_path, monkeypatch):
     paper_dir = tmp_path / "paper"
     paper_dir.mkdir()
     (paper_dir / "main.tex").write_text(
@@ -109,27 +108,19 @@ def test_validate_paper_draft_allows_figures_to_remain_sealed(tmp_path, monkeypa
         + "\\end{document}\n"
     )
 
-    commands = []
+    def fail_if_called(command, *, cwd: Path, timeout: int):
+        raise AssertionError("compile should not run after text validation fails")
 
-    def fake_run(command, *, cwd: Path, timeout: int):
-        commands.append(command)
-        if command[0] == "pdflatex":
-            output_dir = Path(command[command.index("-output-directory") + 1])
-            output_dir.mkdir(parents=True, exist_ok=True)
-            (output_dir / "main.pdf").write_bytes(b"%PDF-1.4 fake")
-        return subprocess.CompletedProcess(command, 0, stdout="Output written on main.pdf (5 pages, 1 bytes).\n")
-
-    monkeypatch.setattr(vpd, "_run", fake_run)
-    monkeypatch.setattr(vpd, "_pdf_page_count", lambda pdf_path, latex_output="": 5)
+    monkeypatch.setattr(vpd, "_run", fail_if_called)
 
     payload = vpd.summary_payload(vpd.validate_paper_draft(paper_dir))
 
-    assert payload["ok"] is True
+    assert payload["ok"] is False
     figure_check = next(check for check in payload["checks"] if check["name"] == "paper_required_figures")
     assert figure_check == {
         "name": "paper_required_figures",
-        "ok": True,
-        "detail": "0 required figure label(s)",
+        "ok": False,
+        "detail": "missing: validation_chain",
     }
 
 

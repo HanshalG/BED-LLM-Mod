@@ -167,6 +167,16 @@ than the missing generative latent. The recommended discussion option is a fresh
 explicitly authorized iCRAFT-MD diagnosis-only preregistration with concrete latent
 patient profiles, followed by prior, likelihood, branch-equivalence, oracle-gap, and
 ranking-fidelity gates before any policy/depth run. No such pivot is authorized yet.
+Track 3 has been revised to match this evidence. `paper/main.tex` is now a complete
+five-page validation-first workshop draft titled "When Does Non-Myopic Bayesian
+Experimental Design Work with Language Models?" It reports the exact constrained
+oracle as a correctness control, animals as one-step BED evidence, and Paprika/MediQ as
+explicitly diagnostic gate failures. It contains no stale sealed-outcome or arbitration
+claim. `scripts/validate_paper_draft.py` now enforces the new validity limitations and
+validation-chain figure, uses `pdfinfo` as a page-count fallback, and passes its focused
+tests. The compiled, visually inspected artifact is
+`output/pdf/non_myopic_bed_validation_draft.pdf` (5 pages, no undefined citations or
+overfull boxes). Further paper/result changes depend on the Track-2 decision.
 OpenRouter ledger: $16.81168851 spent of the user-authorized $40 cap, leaving
 $23.18831149.
 
@@ -346,12 +356,11 @@ iCRAFT-MD diagnosis-only preregistration inside MediQ using a concrete patient-p
 latent and the gates in `results/path_e/NON_MYOPIC_SEQUENTIAL_BED_DIAGNOSIS.md`, or (b)
 close the non-myopic empirical claim and write the cross-environment boundary result.
 
-Track 3 (parallel, starts NOW): the paper. Stable arc independent of pending results:
-(i) the target-decode contract as problem setting; (ii) in-contract evidence (banked
-20Q + MediQ claim 1); (iii) the non-myopic question (Track 1 + MediQ claim-2 pilot);
-(iv) boundary of applicability (the Paprika autopsy, quantified mechanisms). Salvage
-motivation material from the Path B draft. Target: full draft minus MediQ numbers
-before the MediQ headline runs.
+Track 3 (COMPLETE FOR CURRENT EVIDENCE): the rewritten five-page paper and stable PDF
+are in `paper/` and `output/pdf/non_myopic_bed_validation_draft.pdf`. The validator and
+focused tests pass, and all five rendered pages have been visually inspected. Do not
+restore the stale arbitration/sealed-outcome framing. Revise the results and positioning
+only after Hanshal chooses the Track-2 path and any newly preregistered gate is resolved.
 
 NON-MOVES (fences): no Paprika reruns (guess-rule variant = future work), no
 Bayes-adaptive build, no new environments beyond MediQ, no further endpoint-repair

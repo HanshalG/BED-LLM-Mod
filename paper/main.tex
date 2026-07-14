@@ -1,13 +1,19 @@
 \documentclass[10pt]{article}
 
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.72in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{float}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{natbib}
 
-\title{Belief-Guided Arbitration for Interactive Troubleshooting}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.15em}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+
+\title{When Does Non-Myopic Bayesian Experimental Design Work with Language Models?}
 \author{Hanshal Goyal}
 \date{}
 
@@ -15,323 +21,327 @@
 \maketitle
 
 \begin{abstract}
-Large language model agents often need to gather information before acting, but
-directly transferring Bayesian experimental design (BED) to open-ended
-interaction creates a proposal problem: a statistically informative action can
-be a poor task action. We study this failure on the externally released Paprika
-customer-service benchmark. A faithful BED-LLM transfer and full two-step
-lookahead fail to improve over a thinking agent in a terminal-audited
-development study. We therefore separate proposal from selection. A native
-thinking policy generates three credible next actions; a belief model estimates
-their one-step expected information gain (EIG); and a calibrated arbiter
-overrides the native default only when an alternative clears a one-standard-error
-margin. A ten-task development pilot motivates a preregistered 50-task held-out
-evaluation against thinking and non-thinking agents and a prompt-matched
-candidate-0 control. This draft fixes the method, benchmark adaptation,
-measurement audit, and analysis protocol before held-out outcomes are opened.
-The study tests whether explicit beliefs are more useful for selecting among
-good native proposals than for generating actions from scratch.
+Sequential Bayesian experimental design (BED) offers a principled way for
+language-model agents to ask questions, update beliefs, and plan future
+information gathering. Yet deeper planning can optimize errors in an LLM-derived
+probabilistic model rather than useful information. We audit this failure across
+an exact constrained-location test, semantic 20 Questions, and two external
+interactive benchmarks: Paprika troubleshooting and MediQ clinical reasoning.
+Depth-two planning succeeds in the exact test (final RMSE $0.153$ versus $0.561$
+for greedy EIG), while one-step EIG substantially beats prompting in 20 Questions.
+The incremental depth effect does not survive paired evaluation, and depth three
+is worse. Paprika then exposes an objective and endpoint mismatch; MediQ passes a
+strict simulator audit but fails likelihood calibration, with only 8 of 30
+held-out questions answerable from its static records. These results identify two
+independent prerequisites for non-myopic LLM BED: a deployment-matched generative
+model whose latent state is sufficient for responses, and a task with a verified
+non-greedy information structure. We formulate a validation ladder that tests
+these prerequisites before scaling horizon or rollouts. The main lesson is not
+that lookahead is ineffective, but that planning depth is downstream of model
+validity and a measurable greedy gap.
 \end{abstract}
 
 \section{Introduction}
 
-Interactive agents rarely receive all information needed for a correct action.
-A support agent must identify a fault before recommending a remedy; a clinical
-agent must elicit missing symptoms before diagnosing. Language models can ask
-fluent questions, yet fluency does not guarantee useful information gathering.
-MediQ, for example, finds that directly prompting models to ask questions can
-reduce diagnostic performance \citep{li2024mediq}. The design problem is not
-only what to say, but which uncertainty an action should resolve and whether
-that information is worth a scarce interaction turn.
+Interactive agents must often acquire information before committing to an
+answer or action. A clinical agent asks about symptoms; a support agent diagnoses
+a fault; a guessing agent narrows a large semantic space. Direct prompting is an
+unreliable solution: MediQ reports that asking models to interact can reduce
+accuracy relative to answering from the initial context \citep{li2024mediq}.
+Bayesian experimental design instead selects a query by its expected information
+gain (EIG) about a target variable. BED-LLM makes this practical in semantic
+spaces by using an LLM to propose hypotheses and provide response likelihoods
+\citep{choudhury2025bedllm}.
 
-Bayesian experimental design gives a principled answer. Given hypotheses
-$h\in\mathcal H$, posterior $p_t(h)$, and possible outcomes $y$, one-step EIG
-selects the action expected to reduce posterior uncertainty. BED-LLM extends
-this idea to semantic hypothesis spaces by using language models to propose
-hypotheses and score likelihoods \citep{choudhury2025bedllm}. The appeal is
-strong: a training-free scaffold can impose explicit information-seeking
-structure on a general-purpose model.
+The natural next step is non-myopic BED: score a query by both its immediate EIG
+and the information available to a future adaptive query. Recent methods simulate
+conversation trees for this purpose \citep{hu2024uot,arnould2026cabed}. In
+principle this can value a prerequisite question with little immediate gain. In
+practice every additional branch invokes the same uncertain model, changes the
+belief on which later calls condition, and maximizes over more noisy continuation
+scores. A larger tree can therefore make a confidently worse decision.
 
-Our first result in Paprika is a design diagnosis rather than a positive
-transfer claim. A faithful EIG policy generated schema-valid diagnostic and
-corrective actions but did not beat a thinking native policy in a terminal-valid
-ten-task development study. Full two-step lookahead also failed. Inspecting the
-interface exposed an uncontrolled distinction: the native policy was prompted
-to solve the customer's issue, whereas the generic EIG generator was prompted
-to produce valid candidates. EIG then ranked a weaker proposal set. More
-lookahead could not repair missing task intent.
+We investigate this distinction using a validation-first sequence of experiments.
+An exact constrained-location environment verifies that our depth-two recursion
+can beat greedy EIG when both the model and delayed-information trap are exact.
+Semantic 20 Questions verifies one-step transfer but does not establish an
+incremental horizon benefit. Natural location experiments show non-monotonic depth
+under LLM-generated strategies. Finally, Paprika and MediQ expose different
+failures on external benchmarks: task utility and endpoint attribution in Paprika,
+and latent-state sufficiency plus record sparsity in MediQ.
 
-We respond by assigning the language model and BED scaffold different jobs. The
-native policy proposes its natural next action and two credible alternatives.
-The belief scaffold evaluates those same actions. Candidate 0 is the native
-default; the arbiter selects an alternative only when its EIG advantage exceeds
-a combined one-standard-error threshold. This rule treats score differences
-inside estimated noise as a reason to retain the native action, not as evidence
-for an arbitrary argmax.
-
-The resulting study asks a narrow causal question: can explicit beliefs improve
-selection among already-good native proposals? It includes a mandatory
-candidate-0 control that receives the identical three-proposal prompt but always
-executes the default. This distinguishes value from proposal elicitation from
-value from EIG selection. Our contributions are:
-
+Our contributions are:
 \begin{enumerate}
-  \item an external Paprika adaptation with explicit semantic beliefs,
-  categorical answer spaces, likelihood-based EIG, and strict endpoint audits;
-  \item a calibrated native-primary arbitration rule that combines a thinking
-  policy's proposal quality with BED selection;
-  \item a prompt-matched candidate-0 control and shared-candidate protocol that
-  isolate the causal effect of EIG-based overrides; and
-  \item a preregistered paired evaluation with whole-task recovery, outcome
-  blindness, bootstrap uncertainty, and transcript-level endpoint review.
+  \item a cross-environment audit that separates correctness of the planning
+  recursion from validity of the probabilistic interaction model;
+  \item paired evidence that one-step semantic BED can help while increasing
+  horizon need not, alongside an exact positive control where lookahead does help;
+  \item two external-benchmark autopsies with invalid outcomes quarantined rather
+  than repurposed as method evidence; and
+  \item a concrete validation contract for future non-myopic LLM BED: target and
+  latent sufficiency, calibrated likelihoods, branch/deployment equivalence, a
+  verified greedy gap, and ranking fidelity before policy evaluation.
 \end{enumerate}
 
-\section{Related Work}
+\section{The Probabilistic Contract}
 
-\paragraph{Bayesian experimental design.}
-BED chooses actions by expected utility under a probabilistic model. Deep
-adaptive design amortizes sequential policies and evaluates total information
-gain with contrastive bounds \citep{foster2021deep}. BED-LLM uses language
-models to extend hypothesis generation and likelihood elicitation to semantic
-domains \citep{choudhury2025bedllm}. Our method keeps its one-step categorical
-EIG foundation but changes the proposal-selection interface after faithful
-end-to-end transfer failed in development.
-
-\paragraph{Curiosity and interactive agents.}
-Paprika trains a generally curious agent with reinforcement learning across
-interactive environments \citep{tajwar2025curious}. We instead ask whether an
-inference-time Bayesian scaffold can improve a fixed model without policy
-training. MediQ turns medical question answering into an adaptive interaction
-and shows that naive question asking is not reliably beneficial
-\citep{li2024mediq}. These benchmarks motivate evaluating information gathering
-through task endpoints rather than through question quality alone.
-
-\paragraph{Planning and selective computation.}
-Multi-step BED can value prerequisite questions whose benefit appears only in
-future decisions, but branching over semantic outcomes is expensive and noisy.
-Our development study tested full two-step lookahead and found no advantage, so
-the held-out method deliberately returns to one-step EIG. The selectivity here
-is statistical rather than temporal: the method selectively trusts an EIG
-override only when the estimated score gap clears a fixed uncertainty margin.
-
-\section{Paprika Troubleshooting Environment}
-
-\subsection{External Task Definition}
-
-We use the hash-verified official Paprika customer-service release. Each task
-contains a public customer scenario and a private cause/remedy used by the
-released customer simulator and success protocol. The private solution is never
-available to proposal generation, belief construction, likelihood scoring, or
-selection. It enters only the simulator and endpoint checks. This preserves the
-benchmark's task structure instead of inventing a synthetic hidden state.
-
-An interaction consists of up to five atomic diagnostic questions or corrective
-actions. The customer replies in free text. A task resolves when the complete
-conversation establishes or performs the specific private remedy and the
-customer confirms success. Unresolved tasks are censored at six turns for the
-primary turns-to-resolution endpoint.
-
-\subsection{Beliefs, Outcomes, and Likelihoods}
-
-For each public scenario, the questioner proposes a finite support of plausible
-cause-and-remedy hypotheses. After every observation it proposes refinements,
-filters only hypotheses contradicted by the public history, and recomputes the
-posterior over the retained support. The implementation caps support size but
-does not give the model access to the benchmark solution.
-
-Free-text customer replies require an explicit answer-space interface. For each
-candidate action $a$, the model proposes three to five mutually exclusive,
-customer-observable outcomes. Every corrective action includes resolution,
-attempted-but-unchanged, and unable-to-perform outcomes. For hypothesis $h$, an
-LLM likelihood call estimates $p(y\mid h,a)$. A separate non-thinking mapper
-maps the realized reply to one proposed outcome or marks the map unclean.
-Answer-space coverage is the fraction of realized replies mapped cleanly.
-
-The one-step action score is
+Let $h_t=((x_1,y_1),\ldots,(x_t,y_t))$ be the interaction history and
+$\theta$ the finite target decoded at the endpoint. A generative state $z$ may
+contain additional information needed to predict responses, with
+$\theta=g(z)$. The relevant model is
 \[
-  I_t(a)=\sum_h p_t(h)\sum_y p(y\mid h,a)
-  \log\frac{p(y\mid h,a)}{\sum_{h'}p_t(h')p(y\mid h',a)}.
+ p_t(\theta,z)\,p(y\mid z,x,h_t), \qquad
+ p(y\mid\theta,x,h_t)=\sum_z p(y\mid z,x,h_t)p_t(z\mid\theta).
 \]
-All candidate actions at a decision share the same posterior support.
+When $\theta$ itself is sufficient, as for a hidden animal answering a property
+question, $z$ can be omitted. When $\theta$ is merely a decision label, such as
+``treat hypoperfusion first,'' it does not determine a patient's glucose or
+history and cannot serve as the response-generating state.
 
-\subsection{Endpoint Validation}
-
-Open-ended simulators can invalidate an otherwise careful policy comparison. A
-simulator may claim that a plausible but incorrect remedy succeeded, or claim
-that the private remedy failed. We therefore use a two-layer check. First, each
-reply is audited against the private solution and regenerated within a bounded
-repair budget if inconsistent. Second, every terminal ``Goal reached'' claim is
-checked against the latest action and private remedy. Surviving contradictions
-fail the complete task invocation closed.
-
-The adapter also runs Paprika's complete-conversation success judge after every
-turn. Before policy evaluation, a five-task smoke required at least 85\% clean
-answer-space coverage, zero surviving simulator contradictions, zero structured
-failures, and manual transcript review. An earlier endpoint implementation was
-quarantined when manual audit found false successes; none of those outcomes are
-used as policy evidence. Endpoint auditing is therefore part of the method, not
-post-hoc cleanup.
-
-\section{Belief-Guided Native Arbitration}
-
-At each turn, the thinking questioner sees the public scenario and conversation
-and returns exactly three ordered, atomic actions. Candidate 0 is the action it
-would naturally take next. Candidates 1 and 2 are distinct credible
-alternatives. The same prompt also supplies a discrete observable outcome set
-for each action. The arbiter scores all three actions under the current belief.
-
-To quantify score uncertainty, let
+For a coherent model, one-step EIG is
 \[
-  c_h(a)=\sum_y p(y\mid h,a)
-  \log\frac{p(y\mid h,a)}{p(y\mid a)}
+ I_t(x)=\sum_{\theta,y}p_t(\theta)p(y\mid\theta,x,h_t)
+ \log\frac{p(y\mid\theta,x,h_t)}{\sum_{\theta'}p_t(\theta')
+ p(y\mid\theta',x,h_t)}.
 \]
-be the expected information contribution under hypothesis $h$. We compute a
-weighted variance of $c_h(a)$ under $p_t(h)$ and divide by the posterior
-effective sample size $n_{\mathrm{eff}}=1/\sum_h p_t(h)^2$. Its square root is
-the action's standard error $s(a)$.
-
-Let $a_0$ be the native default and $a_*=\arg\max_a I_t(a)$. The deployed rule is
+Our exact depth-two score is
 \[
-  a_t=\begin{cases}
-  a_*, & I_t(a_*)-I_t(a_0)>
-  \sqrt{s(a_*)^2+s(a_0)^2},\\
-  a_0, & \text{otherwise.}
-  \end{cases}
+ Q_2(x)=I_t(x)+\mathbb E_{y\mid x,h_t}
+ \left[\max_{x'\in\mathcal X(h_t,x,y)} I_{t+1}(x')\right].
 \]
-The strict inequality and one-SE threshold were frozen after the development
-pilot. The method logs all candidates, scores, standard errors, margins, and
-override decisions.
+It branches over every positive-mass response, performs a Bayesian update on the
+fixed target support, generates branch-specific follow-ups, and adds the best
+second-step EIG. This is mathematically appropriate for the model supplied to it.
+It cannot determine whether that model describes deployment.
 
-\paragraph{Candidate-0 control.}
-The causal control receives the identical ordered three-proposal prompt and
-always executes $a_0$. It constructs no beliefs and performs no EIG scoring.
-Whenever its public history matches arbitration, a shared prompt cache makes
-the ordered proposal set byte-for-byte identical after parsing. The held-out
-analyzer rejects any mismatch. This control separates the effect of eliciting
-three goal-directed actions from the effect of selecting among them with EIG.
+\begin{figure}[H]
+\centering
+\fbox{\begin{minipage}{0.94\linewidth}\small
+\centering
+Endpoint target $\theta$ $\rightarrow$ sufficient state $z$ $\rightarrow$
+calibrated $p(y\mid z,x,h)$ $\rightarrow$ matched simulated/deployed update
+$\rightarrow$ verified greedy gap $\rightarrow$ rankable depth increment
+$\rightarrow$ endpoint comparison
+\end{minipage}}
+\caption{The validation chain for non-myopic LLM BED. Failure of any upstream
+link invalidates evidence from downstream policy performance.}
+\label{fig:validation-chain}
+\end{figure}
 
-\paragraph{Best-$N$ elicitation probe.}
-A preregistered development-only probe tests a second explanation for faithful
-EIG's failure. It changes only the generic candidate instruction to request the
-five best next actions for resolving the issue quickly, then applies ordinary
-EIG argmax. Tasks and outcomes are disjoint from the held-out evaluation. If
-this variant matches arbitration, the simpler interpretation is goal-anchored
-generation plus EIG selection; if it remains weaker, calibrated native-primary
-selection is load-bearing.
+Two requirements are therefore distinct. \emph{Model validity} asks whether the
+target, latent state, likelihood, update, and simulated branches form one process
+that matches deployment. \emph{Planning value} asks whether the task contains
+complementarity or gating such that a lower-immediate-EIG query enables a more
+informative continuation. If information has adaptive diminishing returns,
+greedy policies can already be competitive \citep{golovin2011adaptive}. Depth
+needs a demonstrated gap, not merely a multi-turn interface.
 
-\section{Evaluation Protocol}
+\section{Audit Design and Evidence Rules}
 
-The held-out Paprika study contains the next 50 unseen official evaluation
-tasks, offsets 10--59 in released order, with seed 1304 and a five-turn budget.
-The thinking comparison jointly evaluates arbitration, candidate 0, and a
-native thinking agent. A separate non-thinking native agent provides context.
-All arms use the same 26B A4B model route; thinking is enabled only for policy
-generation in the designated arms. Simulator, mapping, likelihood, filtering,
-and endpoint calls are non-thinking.
+We aggregate only preregistered or reconstructable paired evidence. Exact
+location tests use the known source prior and signal likelihood. The animals
+audit reconstructs every 20-round binary trial and reports deterministic
+bootstrap intervals. Paprika and MediQ use hash-pinned official releases and
+strict transcript audits. Failed parsing, unsupported simulator facts, and
+endpoint contradictions fail closed.
 
-The primary endpoint is paired censored turns to resolution for arbitration
-minus thinking naive. The co-primary causal endpoint compares arbitration with
-candidate 0. We report mean paired differences with 5,000-resample bootstrap
-95\% intervals, win/loss/tie counts, and Wilcoxon signed-rank tests. Resolution
-at five turns uses paired discordance counts and an exact two-sided binary test.
-The method claim requires both co-primary bootstrap intervals to exclude zero
-in arbitration's favor.
+Most importantly, we distinguish \emph{policy evidence} from \emph{diagnostic
+evidence}. A Paprika run whose customer reports the private correct remedy as
+failing cannot compare policies, even if aggregate resolution numbers exist.
+A MediQ run with an invalid likelihood cannot establish EIG value, even if its
+queries are fluent. Such runs may localize a broken link in
+Figure~\ref{fig:validation-chain}; they do not support an accuracy claim.
 
-The mechanism analysis reports override rate, immediate resolution after an
-override, and score-margin distributions for arbitration wins, losses, and ties
-against candidate 0. These analyses are descriptive; the threshold cannot be
-retuned. Cost reporting includes requests, tokens, model cost, and cost per
-resolution. Candidate-0 cost is labeled cache-amortized because shared proposals
-can be reused while histories match.
+\begin{table}[H]
+\centering
+\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+Setting & Generative model & Greedy gap & Key result & Evidence status \\
+\midrule
+Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
+Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
+Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
+Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
+MediQ iMEDQA & A--D often not generative & Channel too sparse & 8/30 replies available & Gate failure \\
+\bottomrule
+\end{tabular}}
+\caption{The same recursion behaves differently as the probabilistic and task
+contracts weaken. ``d1'' and ``d2'' denote scoring horizon.}
+\label{tab:environments}
+\end{table}
 
-Outcome blindness is enforced during execution. Monitoring can inspect process
-health, structured failures, candidate pairing, and cost, but not resolution or
-turn outcomes. A failed thinking unit discards all three methods for that task
-and replays the complete unchanged triplet; partial methods are never combined.
-The final analyzer runs once after all 50 canonical tasks and the non-thinking
-blocks are fixed.
+\section{Results Across Environments}
 
-After automated analysis, manual review covers every task where arms disagree
-on success plus ten seed-selected remaining tasks. Reviewers compare each
-terminal claim and near-remedy against the private benchmark remedy. Any
-surviving false success or false failure quarantines the complete headline
-result rather than dropping a convenient task.
+\paragraph{Exact lookahead can work.}
+We first constructed a branch-decoy source prior with a local-bump observation
+model and movement-constrained queries. The first query can reveal which region
+to enter, while movement limits make that choice affect later measurements. Over
+120 paired trials, exact depth two reduced final RMSE from $0.5606$ for greedy
+EIG to $0.1529$, a mean paired difference of $-0.4077$. This is a harness result,
+not an external-benchmark claim. It shows that the implementation and objective
+can exploit a genuine delayed-information structure when model error is absent.
 
-\section{Results Status}
+\paragraph{One-step semantic BED transfers; depth does not yet.}
+On animals 20 Questions, depth-one EIG achieved accuracy AUC $0.743$ versus
+$0.465$ for a thinking naive policy and $0.458$ for non-thinking naive over 40
+paired trials. The AUC gain over thinking naive was $0.278$ with 95\% bootstrap
+interval $[0.191,0.365]$. This is the stable positive BED result.
 
-The terminal-valid ten-task development pilot selected the arbitration rule for
-held-out testing: arbitration resolved 60\% of tasks versus 40\% for thinking
-naive, with six paired turn wins, no losses, four ties, and a mean censored-turn
-difference of $-1.2$ (development bootstrap interval $[-2.2,-0.4]$). It
-overrode the native default on 12 of 33 decisions. These values are explicitly
-development evidence and do not establish the paper's method claim.
+The apparent aggregate depth-two AUC was $0.770$, but the full depth-one and
+depth-two streams were not paired. On the only exact ten-trial seed block,
+depth two minus depth one was $-0.040$ with interval $[-0.105,0.025]$ and
+3/1/6 wins/ties/losses. Depth three was worse than depth two across 40 paired
+trials: $-0.126$ $[-0.224,-0.035]$. Thus these data support semantic EIG, not
+non-myopic improvement.
 
-The 50-task held-out outcomes remain sealed while this methods draft is written.
-No result-dependent wording, subgroup, threshold, endpoint, or task is selected
-from partial runs. The final paper will populate this section only from the
-frozen analyzer and mandatory manual endpoint audit.
+Natural location experiments reinforce this distinction. In a 30-trial
+movement-constrained study using exact physical likelihoods but LLM-generated
+strategies, final RMSE was $0.412$ for greedy EIG and $0.929$, $1.127$, and
+$0.542$ for strategy horizons 1, 3, and 5. Without the movement constraint all
+horizons were effectively flat. More planning did not yield monotonic behavior,
+and the naive policy remained competitive.
 
-\section{Discussion}
+\paragraph{Paprika fails before a horizon claim.}
+Paprika troubleshooting mixes information-gathering questions with corrective
+actions that change and may terminate the world \citep{tajwar2025curious}. Pure
+EIG values discrimination among cause/remedy strings, not the probability of
+resolution minus action cost. A remedy that resolves under every hypothesis can
+have zero EIG, while a diagnostic that identifies the cause but cannot resolve
+the task can score highly.
 
-The central hypothesis is an interface claim. In open semantic tasks, native
-LLM competence may be most valuable for constructing a small set of actions
-that are actually useful, while explicit Bayesian structure may be most
-valuable for discriminating among them. This differs from asking EIG to both
-invent and select actions. The candidate-0 control makes that distinction
-testable rather than rhetorical.
+The implementation also used fixed support and synthetic outcome labels in
+lookahead while deployment refreshed support, observed free text, and could
+terminate. A ten-task full-depth diagnostic used 70,004 requests versus 3,365
+for one-step EIG and resolved 2 versus 3 tasks. Those counts are not policy
+evidence: later manual audit found a customer response claiming that the exact
+private remedy had failed. A separate 50-task arbitration evaluation was also
+quarantined by endpoint review. The defensible result is the failure mechanism,
+not which arm won an invalid simulator contest.
 
-The calibrated margin also changes what an EIG score means operationally. An
-argmax always returns a winner, even when candidate differences are negligible
-relative to support variability. Native-primary arbitration instead treats
-small score gaps as insufficient evidence to override a capable policy. This
-does not prove the standard-error estimate is calibrated in a frequentist
-sense; the held-out mechanism analysis only asks whether the frozen rule yields
-useful overrides.
+\paragraph{MediQ validates the interface but rejects the joint model.}
+MediQ's official FactSelect patient returns only atomic record facts that answer
+the question and otherwise abstains \citep{li2024mediq}. After several failed
+closed repairs, the final five-case environment gate achieved clean canonical
+Yes/No/unavailable questions, verbatim grounding, relevance, and semantic
+deduplication on every selected interaction. This isolates the remaining issue
+to probability modeling.
 
-The broader target is transfer to MediQ, where hypothesis tracking corresponds
-to differential diagnosis and questions elicit missing clinical facts. That
-experiment is conditional on Paprika's held-out and manual gates. It is not part
-of the present evidence and will not be launched to rescue a null Paprika
-result.
+The first scorer treated each A--D option as a complete patient world. Across
+ten selected turns, predicted EIG averaged $0.140$ nats but realized true-label
+log-probability gain averaged $-0.290$ nats; the realized outcome was less likely
+under the true label than under the predictive mixture on 6/10 turns. A repair
+made record missingness label-independent and scored only Yes versus No under
+each option. Missingness became exactly posterior-neutral, yet available
+outcomes still had mean true-label log gain $-0.118$ nats.
 
-\section{Limitations}
+A final data-estimation construction elicited the response marginal and
+hypothetical A--D posteriors, then projected their joint table to exact local
+marginals. Before scoring it, a frozen held-out bank required at least 15
+available responses. All 30 questions were canonical, unique, grounded, and
+relevant, but only 8 were answerable; 22 facts were absent from the static
+records. The scorer was therefore not run. At observed answerability $a=8/30$,
+an unavailable-neutral binary channel has the loose ceiling
+\[
+ I(\theta;Y\mid x)\leq a\log 2=0.1848\ \text{nats per query},
+\]
+before accounting for diagnostic ambiguity. There is little signal on which a
+depth-two advantage could operate.
 
-The study uses one model family and one externally released troubleshooting
-benchmark. The 50-task sample is workshop scale and has approximately 78\%
-planned power for half the development effect, slightly below the conventional
-80\% target. LLM likelihoods and finite generated hypothesis supports are not
-calibrated probabilistic models; the one-SE margin measures variation across
-that support, not all epistemic uncertainty.
+\section{Why Horizon Magnifies Model Error}
 
-The customer simulator, mapper, likelihood model, and endpoint judges share a
-model family, which can induce correlated errors despite role separation and
-private-solution audits. The strict terminal protocol reduces false endpoint
-claims but may fail closed on otherwise usable interactions, requiring exact
-whole-task replay. Manual review is therefore essential. OpenRouter execution
-also introduces provider nondeterminism despite fixed prompts and seeds.
+Let an estimated continuation score be $\widehat V_j=V_j+\epsilon_j$ for branch
+candidate $j$. Depth two uses $\max_j\widehat V_j$, so even zero-mean errors
+produce positive selection bias. Increasing branch width or horizon adds more
+opportunities for an optimistic likelihood, posterior, or proposal to win. Root
+likelihood error also changes branch mass and the posterior context passed to
+every downstream call. More Monte Carlo rollouts reduce variance conditional on
+this model; they do not reduce its bias. Bayesian design is particularly exposed
+to misspecification because the same model both predicts data and decides which
+data to collect \citep{catanach2023misspecification}.
 
-Candidate 0 is a prompt-matched native default, not an independently sampled
-copy of the plain naive policy. This is intentional for causal proposal pairing,
-but the two baselines answer different questions. The candidate-0 comparison
-isolates EIG selection within a three-proposal interface; the thinking-naive
-comparison estimates end-to-end policy value.
+BED-LLM reaches strong one-step results under cleaner conditions: a concrete
+entity or user profile, a small response space, a prior-likelihood construction,
+and diverse hypotheses retained with uniform mass after history filtering
+\citep{choudhury2025bedllm}. It explicitly reports raw in-context beliefs as
+overconfident and finds its data-estimation ablation weaker than prior-likelihood
+BED. Our MediQ belief similarly reached mean top probability $0.867$ after round
+one at only 50\% accuracy.
 
-Finally, the method is one-step. Full two-step lookahead failed in the small
-development study and is not rehabilitated here. MediQ transfer has not yet been
-run, so no medical or cross-domain generality claim is made. A positive Paprika
-result would support troubleshooting performance at a fixed turn budget, not a
-universal claim that Bayesian arbitration improves every interactive agent.
+UoT reports improvements with simulation depth, but operates on explicit
+possibility sets and repeatedly partitions the same support; its diagnosis tasks
+contain only 5 or 15 diseases \citep{hu2024uot}. CA-BED uses finite mutually
+exclusive hypotheses, soft LLM likelihoods, binary questions, and depth two on
+structured entity deduction \citep{arnould2026cabed}. It improves over direct
+prompting, but does not report a causal depth-one versus depth-two ablation; its
+categorical-answer extension hurts the harder Detective benchmark. These papers
+show that structured planning can help, not that horizon is robust to an
+insufficient latent or incompatible answer categories.
 
-\section{Conclusion}
+Deep adaptive design and RL-BED optimize total sequential utility through
+amortized policies or reinforcement learning \citep{foster2021deep,blau2022rlbed}.
+Both require trajectories from a meaningful simulator. Training on the current
+MediQ surrogate would amortize its annotation and calibration artifacts rather
+than recover a missing patient state.
 
-Faithful BED transfer can fail when the proposal interface is detached from the
-task objective. We test a narrower use of beliefs: let a thinking model propose
-good actions, then use one-step EIG only to select among them when the estimated
-advantage is large enough. Paprika provides an external sequential benchmark,
-and a prompt-matched candidate-0 control isolates selection from elicitation.
-The method and analysis are frozen before held-out outcomes are opened. Whether
-beliefs improve troubleshooting selection is therefore an empirical question,
-not a conclusion imported from the development pilot.
+\section{A Validation-First Path Forward}
+
+Future depth studies should cross the following gates in order:
+\begin{enumerate}
+  \item \textbf{Target and state:} the endpoint must decode $\theta$, while a
+  latent $z$ must contain everything required to generate responses.
+  \item \textbf{Prior:} held-out log loss and Brier score must beat uniform, with
+  no high-confidence wrong collapse.
+  \item \textbf{Likelihood:} available observations must improve mean true-target
+  log probability; missingness must be neutral unless its semantics are genuinely
+  target-dependent.
+  \item \textbf{Branch equivalence:} simulated and deployed histories must yield
+  the same support, probabilities, and stopping behavior.
+  \item \textbf{Structural gap:} an exact or high-fidelity oracle must show depth
+  two beating greedy under the benchmark's native action and budget rules.
+  \item \textbf{Ranking fidelity:} estimated incremental lookahead value must rank
+  oracle incremental value under shared candidates and common random numbers.
+  \item \textbf{Policy test:} only then compare depth one and two on paired cases,
+  with identical root candidates, simulator seeds, and stopping rules.
+\end{enumerate}
+
+Within MediQ, the official iCRAFT-MD split is a plausible fresh test rather than
+a repair on exposed iMEDQA cases. All 140 targets are diagnoses, and records have
+a mean 14.82 atomic facts (median 14, minimum 9), compared with 11.20 (median 10,
+minimum 2) in usable iMEDQA. A defensible model would generate several concrete
+counterfactual patient profiles $z$ per diagnosis, filter profiles against the
+history, predict replies from profiles, and compute EIG about the grouped diagnosis
+$\theta=g(z)$. Simulated and deployed updates would share one canonical history
+representation. The scaffold should initially remain non-thinking; a thinking LLM
+is the naive baseline, not an unmeasured component of the probability model. This
+proposal requires a fresh preregistration and has not been evaluated.
+
+\section{Limitations and Conclusion}
+
+This is a validation study, not a positive external-benchmark claim for
+non-myopic LLM BED. The exact location gap is deliberately constructed and serves
+only as a correctness control. Animals establishes one-step transfer, but its
+full depth-one and depth-two streams are only partially paired and have weaker
+code provenance than the newer audits. Natural location results use one model
+family and environment. Paprika policy counts are endpoint-invalid, and MediQ
+stops before a calibrated policy comparison. We do not claim that non-myopic BED
+cannot work, nor that the proposed iCRAFT profile model will pass its gates.
+
+The audits also cannot cleanly separate model capacity from representation: a
+larger model may estimate a better likelihood, but cannot make an exam-treatment
+label a sufficient patient state or reveal facts absent from a static record.
+OpenRouter provider nondeterminism, shared model-family errors, finite generated
+supports, and post-hoc synthesis across heterogeneous experiments remain
+limitations.
+
+The evidence supports a narrower conclusion. Non-myopic recursion works when a
+coherent simulator and delayed-information gap are present. One-step semantic EIG
+can improve information gathering. But depth is not a substitute for a valid
+joint model, deployment-matched branches, or a task in which greedy information
+gain is genuinely suboptimal. These are empirical gates, not implementation
+details. Testing them before scaling horizon is both cheaper and scientifically
+stronger than explaining another non-monotonic depth sweep after the fact.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

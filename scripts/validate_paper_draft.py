@@ -13,19 +13,20 @@ from typing import Any
 ALLOWED_TODO_KEYWORDS: tuple[tuple[str, ...], ...] = ()
 
 REQUIRED_LIMITATION_PATTERNS = {
-    "single_model_sample_scope": (r"one model family", r"50-task sample"),
-    "finite_support_calibration": (r"finite generated\s+hypothesis supports", r"not\s+calibrated"),
-    "shared_model_errors": (r"share a\s+model\s+family", r"correlated errors"),
+    "not_external_positive": (r"not a positive external-benchmark claim",),
+    "exact_control_scope": (r"exact location gap", r"correctness control"),
+    "animals_pairing_scope": (r"Animals", r"only partially paired"),
+    "paprika_endpoint_invalid": (r"Paprika\s+policy\s+counts", r"endpoint-invalid"),
+    "mediq_no_policy_comparison": (r"MediQ", r"stops before a calibrated\s+policy comparison"),
+    "no_impossibility_claim": (r"do not claim that non-myopic BED\s+cannot work",),
+    "single_model_scope": (r"one model\s+family",),
     "provider_nondeterminism": (r"OpenRouter", r"nondeterminism"),
-    "candidate0_scope": (r"Candidate 0", r"causal proposal pairing"),
-    "no_mediq_claim": (r"MediQ\s+transfer", r"has not yet been\s+run"),
-    "two_step_closed": (r"Full two-step lookahead", r"not rehabilitated"),
-    "sealed_headline": (r"held-out outcomes remain sealed",),
-    "endpoint_audit": (r"manual review", r"quarantines the complete\s+headline"),
+    "icraft_unverified": (r"iCRAFT\s+profile\s+model", r"pass its gates"),
 }
 
-# Outcome-dependent figures are added only after the frozen analyzer and manual audit.
-REQUIRED_FIGURE_LABELS: dict[str, str] = {}
+REQUIRED_FIGURE_LABELS: dict[str, str] = {
+    "validation_chain": "fig:validation-chain",
+}
 
 
 @dataclass(frozen=True)
@@ -59,6 +60,21 @@ def _pdf_page_count(pdf_path: Path, *, latex_output: str = "") -> int | None:
 
             return len(PdfReader(str(pdf_path)).pages)
         except Exception:
+            pass
+        try:
+            result = subprocess.run(
+                ["pdfinfo", str(pdf_path)],
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                timeout=10,
+                check=False,
+            )
+            if result.returncode == 0:
+                match = re.search(r"^Pages:\s+(\d+)\s*$", result.stdout, flags=re.MULTILINE)
+                if match:
+                    return int(match.group(1))
+        except (FileNotFoundError, subprocess.TimeoutExpired):
             pass
     return _latex_pages_from_output(latex_output)
 
@@ -232,7 +248,9 @@ def summary_payload(results: list[CheckResult]) -> dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Compile and validate the Path E workshop paper draft.")
+    parser = argparse.ArgumentParser(
+        description="Compile and validate the non-myopic BED workshop paper draft."
+    )
     parser.add_argument("--paper-dir", type=Path, default=Path("paper"))
     parser.add_argument("--main-tex", default="main.tex")
     parser.add_argument("--min-pages", type=int, default=4)
