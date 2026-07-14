@@ -177,6 +177,16 @@ validation-chain figure, uses `pdfinfo` as a page-count fallback, and passes its
 tests. The compiled, visually inspected artifact is
 `output/pdf/non_myopic_bed_validation_draft.pdf` (5 pages, no undefined citations or
 overfull boxes). Further paper/result changes depend on the Track-2 decision.
+The requirement-by-requirement audit and decision contract are now in
+`results/path_e/TRACK2_COMPLETION_AUDIT_AND_DECISION.md`. A no-model-call inspection of
+the pinned iCRAFT-MD release verifies 140/140 usable four-option diagnosis cases and
+denser records (mean 14.82 facts, median 14, minimum 9), while also identifying the
+remaining structural risk: its static open question channel does not itself guarantee a
+non-myopic greedy gap. The memo therefore separates authorization to preregister and
+implement validation gates from authorization to run a policy comparison. The complete
+repository suite now passes at 604 passed, 1 skipped; the Path A preflight, package,
+paper, and ledger validators all pass under the project Python environment. No model
+call or experiment launch was made for this audit.
 OpenRouter ledger: $16.81168851 spent of the user-authorized $40 cap, leaving
 $23.18831149.
 
@@ -354,7 +364,13 @@ of 15. The scorer was not run. Do not tune/reuse the bank, launch Claim 1, launc
 2, or increase rollouts/thinking. Discuss one explicit decision: (a) authorize a fresh
 iCRAFT-MD diagnosis-only preregistration inside MediQ using a concrete patient-profile
 latent and the gates in `results/path_e/NON_MYOPIC_SEQUENTIAL_BED_DIAGNOSIS.md`, or (b)
-close the non-myopic empirical claim and write the cross-environment boundary result.
+close the non-myopic empirical claim and retain the cross-environment boundary result.
+The exact evidence audit, implementation delta, structural-gap risk, recommended $0.50
+gate-only cap, and consequences of each choice are in
+`results/path_e/TRACK2_COMPLETION_AUDIT_AND_DECISION.md`. The two unambiguous responses
+are `AUTHORIZE ICRAFT GATES` and `CLOSE EXTERNAL CLAIM`. The first authorizes only a
+fresh preregistration and validation implementation; it does not authorize a policy or
+depth run.
 
 Track 3 (COMPLETE FOR CURRENT EVIDENCE): the rewritten five-page paper and stable PDF
 are in `paper/` and `output/pdf/non_myopic_bed_validation_draft.pdf`. The validator and

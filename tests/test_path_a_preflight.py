@@ -20,10 +20,10 @@ def test_path_a_preflight_passes_local_launch_readiness_checks():
     assert "oat12 excluded" in checks["launch_commands"]["detail"]
     assert "package artifacts listed" in checks["launch_commands"]["detail"]
     assert checks["package_banked_evidence"]["ok"] is True
-    assert "pending Phase 4 checks" in checks["package_banked_evidence"]["detail"]
+    assert checks["package_banked_evidence"]["detail"] == "complete package validates"
     assert payload["paper_validation"]["ok"] is True
     assert any(
-        check["name"] == "paper_page_count" and check["detail"] == "6 pages"
+        check["name"] == "paper_page_count" and check["detail"] == "5 pages"
         for check in payload["paper_validation"]["checks"]
     )
     assert payload["ledger_validation"]["ok"] is True
@@ -31,7 +31,7 @@ def test_path_a_preflight_passes_local_launch_readiness_checks():
         check["name"] == "required_cost_vs_depth" and check["ok"] is True
         for check in payload["ledger_validation"]["checks"]
     )
-    assert payload["package_validation"]["ok"] is False
+    assert payload["package_validation"]["ok"] is True
 
 
 def test_path_a_preflight_rejects_unexpected_package_validation_failures():
