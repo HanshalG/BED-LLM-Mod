@@ -30,12 +30,22 @@ class MediQTask:
 
 
 @dataclass(frozen=True)
+class MediQProfile:
+    """A concrete counterfactual patient state beneath one diagnosis label."""
+
+    profile_id: str
+    diagnosis_label: str
+    narrative: str
+
+
+@dataclass(frozen=True)
 class MediQAction:
     query: str
     outcomes: tuple[str, ...]
     task: MediQTask
     transcript: tuple[tuple[str, str], ...] = ()
     prior_probabilities: tuple[float, ...] = ()
+    support_hypotheses: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         query = self.query.strip()
@@ -46,10 +56,11 @@ class MediQAction:
             raise ValueError("MediQ actions require 3-5 answer outcomes")
         if len({outcome.casefold() for outcome in outcomes}) != len(outcomes):
             raise ValueError("MediQ action outcomes must be unique")
-        if self.prior_probabilities and len(self.prior_probabilities) != len(
-            self.task.options
-        ):
-            raise ValueError("MediQ action prior must match the option count")
+        support_size = len(self.support_hypotheses) or len(self.task.options)
+        if self.prior_probabilities and len(self.prior_probabilities) != support_size:
+            raise ValueError("MediQ action prior must match its hypothesis support")
+        if self.support_hypotheses and len(set(self.support_hypotheses)) != len(self.support_hypotheses):
+            raise ValueError("MediQ action hypothesis support must be unique")
         object.__setattr__(self, "query", query)
         object.__setattr__(self, "outcomes", outcomes)
 

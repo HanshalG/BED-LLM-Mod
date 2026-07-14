@@ -34,16 +34,27 @@ class OpenRouterBudgetTracker:
         self.path = Path(config.openrouter_spend_path)
         self.budget = float(config.openrouter_budget_usd)
         self.projected = float(config.openrouter_projected_cost_usd)
+        self.run_budget = (
+            float(config.openrouter_run_budget_usd)
+            if config.openrouter_run_budget_usd is not None
+            else None
+        )
         self.run_id = config.run_id or "unassigned"
         self.model = model
         with self._locked_transaction():
             payload = self._read()
             spent = float(payload.get("total_spent_usd", 0.0))
             budget = self._effective_budget(payload)
+            run_cost = float(((payload.get("runs") or {}).get(self.run_id) or {}).get("cost_usd", 0.0))
             if spent + self.projected > budget + 1e-12:
                 raise OpenRouterBudgetError(
                     f"Projected OpenRouter spend ${self.projected:.4f} plus existing "
                     f"${spent:.4f} exceeds ${budget:.2f} budget"
+                )
+            if self.run_budget is not None and run_cost + self.projected > self.run_budget + 1e-12:
+                raise OpenRouterBudgetError(
+                    f"Projected OpenRouter run spend ${self.projected:.4f} plus existing "
+                    f"${run_cost:.4f} exceeds ${self.run_budget:.2f} run budget"
                 )
 
     def _read(self) -> dict[str, Any]:
@@ -107,7 +118,12 @@ class OpenRouterBudgetTracker:
                 self.run_id,
                 {"backend": "openrouter", "model": self.model, "cost_usd": 0.0, "requests": 0},
             )
-            run["cost_usd"] = float(run.get("cost_usd", 0.0)) + cost
+            run_cost = float(run.get("cost_usd", 0.0)) + cost
+            if self.run_budget is not None and run_cost > self.run_budget + 1e-9:
+                raise OpenRouterBudgetError(
+                    f"OpenRouter charge would exceed ${self.run_budget:.2f} run budget: ${run_cost:.6f}"
+                )
+            run["cost_usd"] = run_cost
             run["requests"] = int(run.get("requests", 0)) + 1
             run["prompt_tokens"] = int(run.get("prompt_tokens", 0)) + int(usage.get("prompt_tokens", 0) or 0)
             run["completion_tokens"] = int(run.get("completion_tokens", 0)) + int(usage.get("completion_tokens", 0) or 0)
@@ -134,6 +150,12 @@ class OpenRouterBudgetTracker:
                 "total_spent_usd": float(payload.get("total_spent_usd", 0.0)),
                 "budget_usd": budget,
                 "remaining_usd": budget - float(payload.get("total_spent_usd", 0.0)),
+                "run_budget_usd": self.run_budget,
+                "run_remaining_usd": (
+                    self.run_budget - float(run.get("cost_usd", 0.0))
+                    if self.run_budget is not None
+                    else None
+                ),
             }
 
 

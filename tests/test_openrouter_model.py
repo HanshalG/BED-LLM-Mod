@@ -244,6 +244,19 @@ def test_openrouter_refuses_projected_overspend(monkeypatch, tmp_path: Path) -> 
         )
 
 
+def test_openrouter_run_budget_is_enforced_under_the_ledger_lock(tmp_path: Path) -> None:
+    tracker = OpenRouterBudgetTracker(
+        _config(tmp_path, openrouter_projected_cost_usd=0.0, openrouter_run_budget_usd=0.02),
+        "test-model",
+    )
+    tracker.add(0.015, _completion()["usage"])
+    with pytest.raises(OpenRouterBudgetError, match="run budget"):
+        tracker.add(0.006, _completion()["usage"])
+    snapshot = tracker.snapshot()
+    assert snapshot["run_budget_usd"] == pytest.approx(0.02)
+    assert snapshot["run_remaining_usd"] == pytest.approx(0.005)
+
+
 def test_spend_tracker_serializes_concurrent_processes(tmp_path: Path) -> None:
     path = tmp_path / "spend.json"
     context = multiprocessing.get_context("fork")

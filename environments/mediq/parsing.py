@@ -87,6 +87,25 @@ def parse_candidate_validation(text: str) -> tuple[bool, str]:
     return valid, reason.strip()
 
 
+def parse_profile_narratives(text: str, expected: int) -> tuple[str, ...]:
+    profiles = parse_json_object(text).get("profiles")
+    if not isinstance(profiles, list) or len(profiles) != expected:
+        raise ValueError(f"profile generation requires exactly {expected} profiles")
+    parsed: list[str] = []
+    for value in profiles:
+        if not isinstance(value, str) or not value.strip():
+            raise ValueError("each profile must be a non-empty string")
+        narrative = value.strip()
+        if narrative.casefold() in {item.casefold() for item in parsed}:
+            raise ValueError("profile narratives must be distinct")
+        parsed.append(narrative)
+    return tuple(parsed)
+
+
+def parse_profile_validation(text: str) -> tuple[bool, str]:
+    return parse_candidate_validation(text)
+
+
 def parse_candidate_set_validation(
     text: str, num_candidates: int
 ) -> tuple[tuple[tuple[int, ...], ...], str]:

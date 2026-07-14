@@ -27,6 +27,8 @@ from .parsing import (
     parse_fact_selection,
     parse_json_object,
     parse_mapping,
+    parse_profile_narratives,
+    parse_profile_validation,
     parse_relevance,
 )
 from .prompts import (
@@ -42,12 +44,15 @@ from .prompts import (
     mapping_messages,
     patient_fact_messages,
     posterior_messages,
+    profile_generation_messages,
+    profile_likelihood_messages,
+    profile_validation_messages,
     prior_messages,
     record_availability_messages,
     relevance_messages,
     repair_messages,
 )
-from .types import MediQAction, MediQObservation, MediQTask
+from .types import MediQAction, MediQObservation, MediQProfile, MediQTask
 
 
 UNAVAILABLE_OUTCOME = "Information unavailable / not in record"
@@ -261,6 +266,11 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             tuple[str, MediQAction], tuple[float, ...]
         ] = {}
         self._data_estimation_projection_residuals: dict[MediQAction, float] = {}
+        self._profiles_by_task: dict[str, tuple[MediQProfile, ...]] = {}
+        self._profile_by_id: dict[str, MediQProfile] = {}
+        self._profile_generation_calls = 0
+        self._profile_validation_checks = 0
+        self._profile_validation_rejections = 0
         self._shared_cache_hits = 0
         self._shared_cache_misses = 0
         self._structured_parse_retries = 0
@@ -304,11 +314,29 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             "joint_option",
             "factored_record",
             "data_estimation",
+            "profile_support",
         }:
             raise ValueError(
                 "mediq_likelihood_mode must be one of: joint_option, "
-                "factored_record, data_estimation"
+                "factored_record, data_estimation, profile_support"
             )
+        profile_mode = getattr(config, "mediq_likelihood_mode", "joint_option") == "profile_support"
+        if profile_mode and getattr(config, "mediq_dataset", "imedqa") != "icraft_md":
+            raise ValueError("mediq profile_support likelihoods require mediq_dataset=icraft_md")
+        profiles = getattr(config, "mediq_profiles_per_option", 3)
+        if not isinstance(profiles, int) or isinstance(profiles, bool) or profiles < 2:
+            raise ValueError("mediq_profiles_per_option must be an integer of at least 2")
+        source_ids = getattr(config, "mediq_source_ids", None)
+        if source_ids is not None:
+            if not isinstance(source_ids, list) or not source_ids or any(
+                not isinstance(source_id, str) or not source_id.strip()
+                for source_id in source_ids
+            ):
+                raise ValueError("mediq_source_ids must be a non-empty list of strings")
+            if len(set(source_ids)) != len(source_ids):
+                raise ValueError("mediq_source_ids must not contain duplicates")
+            if len(source_ids) != getattr(config, "mediq_num_trials", 5):
+                raise ValueError("mediq_num_trials must equal len(mediq_source_ids)")
         if not isinstance(getattr(config, "mediq_verify_official_hash", True), bool):
             raise ValueError("mediq_verify_official_hash must be a boolean")
         if not isinstance(getattr(config, "mediq_skip_unusable_tasks", True), bool):
@@ -345,12 +373,20 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 ),
             )
         )
-        offset = int(getattr(config, "mediq_task_offset", 0))
         count = int(getattr(config, "mediq_num_trials", 5))
-        self.tasks = all_tasks[offset : offset + count]
+        source_ids = getattr(config, "mediq_source_ids", None)
+        if source_ids is not None:
+            by_source_id = {task.source_id: task for task in all_tasks}
+            missing = [source_id for source_id in source_ids if source_id not in by_source_id]
+            if missing:
+                raise ValueError(f"Requested unavailable MediQ source IDs: {missing}")
+            self.tasks = [by_source_id[source_id] for source_id in source_ids]
+        else:
+            offset = int(getattr(config, "mediq_task_offset", 0))
+            self.tasks = all_tasks[offset : offset + count]
         if len(self.tasks) != count:
             raise ValueError(
-                f"Requested {count} MediQ tasks at offset {offset}, found {len(self.tasks)}"
+                f"Requested {count} MediQ tasks, found {len(self.tasks)}"
             )
         return self
 
@@ -522,6 +558,8 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
     def _prior_states_many(
         self, tasks: Sequence[MediQTask], model: Any
     ) -> list[BeliefState[str]]:
+        if getattr(self.config, "mediq_likelihood_mode", "joint_option") == "profile_support":
+            return self._profile_prior_states_many(tasks, model)
         messages = [prior_messages(task) for task in tasks]
         parsed = self._complete_parsed_many(
             self._evaluation_model(),
@@ -544,6 +582,138 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         for task, state in zip(tasks, states):
             self._task_by_belief_identity[id(state)] = task
         return states
+
+    def _profile_supports_many(
+        self, tasks: Sequence[MediQTask]
+    ) -> list[tuple[MediQProfile, ...]]:
+        """Generate fixed, validated latent patient states for each answer option."""
+        missing_tasks = [task for task in tasks if task.task_id not in self._profiles_by_task]
+        if not missing_tasks:
+            return [self._profiles_by_task[task.task_id] for task in tasks]
+
+        count = int(getattr(self.config, "mediq_profiles_per_option", 3))
+        accepted: dict[tuple[str, str], list[str]] = {
+            (task.task_id, label): []
+            for task in missing_tasks
+            for label in task.option_labels
+        }
+        rejected: dict[tuple[str, str], list[str]] = {
+            key: [] for key in accepted
+        }
+        maximum = int(getattr(self.config, "mediq_structured_max_retries", 2))
+        pending = list(accepted)
+        task_by_id = {task.task_id: task for task in missing_tasks}
+        for attempt in range(maximum + 1):
+            generation_keys = [key for key in pending if len(accepted[key]) < count]
+            generated = self._complete_parsed_many(
+                self._evaluation_model(),
+                [
+                    profile_generation_messages(
+                        task_by_id[task_id],
+                        label,
+                        count - len(accepted[(task_id, label)]),
+                        rejected_profiles=rejected[(task_id, label)],
+                    )
+                    for task_id, label in generation_keys
+                ],
+                0.0,
+                namespace=f"questioner:profile_generation:{attempt}",
+                parsers=[
+                    (
+                        lambda text, needed=count - len(accepted[key]): parse_profile_narratives(
+                            text, needed
+                        )
+                    )
+                    for key in generation_keys
+                ],
+            )
+            self._profile_generation_calls += len(generation_keys)
+            candidates = [
+                (key, narrative)
+                for key, narratives in zip(generation_keys, generated)
+                for narrative in narratives
+            ]
+            judgments = self._complete_parsed_many(
+                self._evaluation_model(),
+                [
+                    profile_validation_messages(task_by_id[key[0]], key[1], narrative)
+                    for key, narrative in candidates
+                ],
+                0.0,
+                namespace=f"questioner:profile_validation:{attempt}",
+                parsers=[parse_profile_validation for _candidate in candidates],
+            )
+            self._profile_validation_checks += len(candidates)
+            for (key, narrative), (valid, reason) in zip(candidates, judgments):
+                if valid and narrative.casefold() not in {
+                    value.casefold() for value in accepted[key]
+                }:
+                    accepted[key].append(narrative)
+                else:
+                    self._profile_validation_rejections += 1
+                    rejected[key].append(f"{narrative} ({reason})")
+            pending = [key for key in accepted if len(accepted[key]) < count]
+            if not pending:
+                break
+            if attempt >= maximum:
+                raise ValueError("MediQ profile generation failed after bounded repairs")
+
+        for task in missing_tasks:
+            profiles = tuple(
+                MediQProfile(
+                    profile_id=f"{task.task_id}:{label}:{index}",
+                    diagnosis_label=label,
+                    narrative=narrative,
+                )
+                for label in task.option_labels
+                for index, narrative in enumerate(accepted[(task.task_id, label)])
+            )
+            self._profiles_by_task[task.task_id] = profiles
+            self._profile_by_id.update({profile.profile_id: profile for profile in profiles})
+        return [self._profiles_by_task[task.task_id] for task in tasks]
+
+    def _profile_prior_states_many(
+        self, tasks: Sequence[MediQTask], model: Any
+    ) -> list[BeliefState[str]]:
+        direct_priors = self._complete_parsed_many(
+            self._evaluation_model(),
+            [prior_messages(task) for task in tasks],
+            0.0,
+            namespace="questioner:profile_prior",
+            parsers=[
+                lambda text, labels=task.option_labels: parse_distribution(text, labels)
+                for task in tasks
+            ],
+        )
+        supports = self._profile_supports_many(tasks)
+        states: list[BeliefState[str]] = []
+        for task, direct_prior, profiles in zip(tasks, direct_priors, supports):
+            by_label = {
+                label: [profile for profile in profiles if profile.diagnosis_label == label]
+                for label in task.option_labels
+            }
+            values = [
+                probability / len(by_label[profile.diagnosis_label])
+                for profile in profiles
+                for probability in [direct_prior[task.option_labels.index(profile.diagnosis_label)]]
+            ]
+            state = BeliefState(
+                tuple(profile.profile_id for profile in profiles), tuple(values)
+            )
+            self._task_by_belief_identity[id(state)] = task
+            states.append(state)
+        return states
+
+    def _diagnosis_belief_state(
+        self, belief_state: BeliefState[str], task: MediQTask
+    ) -> BeliefState[str]:
+        if getattr(self.config, "mediq_likelihood_mode", "joint_option") != "profile_support":
+            return belief_state
+        probabilities = np.zeros(len(task.option_labels), dtype=float)
+        for profile_id, probability in zip(belief_state.hypotheses, belief_state.probabilities):
+            profile = self._profile_by_id[profile_id]
+            probabilities[task.option_labels.index(profile.diagnosis_label)] += probability
+        return BeliefState(task.option_labels, tuple(float(value) for value in probabilities))
 
     def initial_belief_state(self, model: Any, config: Any) -> BeliefState[str]:
         del config
@@ -607,6 +777,8 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             return self._factored_outcome_likelihoods_many(requests)
         if likelihood_mode == "data_estimation":
             return self._data_estimation_outcome_likelihoods_many(requests)
+        if likelihood_mode == "profile_support":
+            return self._profile_outcome_likelihoods_many(requests)
         missing_keys: list[tuple[str, MediQAction]] = []
         missing_messages: list[list[dict[str, str]]] = []
         seen: set[tuple[str, MediQAction]] = set()
@@ -639,6 +811,61 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 [self._likelihood_cache[(hypothesis, action)] for hypothesis in hypotheses],
                 dtype=float,
             )
+            for hypotheses, action in requests
+        ]
+
+    def _profile_outcome_likelihoods_many(
+        self,
+        requests: Sequence[tuple[Sequence[str], MediQAction]],
+    ) -> list[np.ndarray]:
+        actions: list[MediQAction] = []
+        seen_actions: set[MediQAction] = set()
+        missing_keys: list[tuple[str, MediQAction]] = []
+        seen_keys: set[tuple[str, MediQAction]] = set()
+        for hypotheses, action in requests:
+            if action.outcomes != (YES_OUTCOME, NO_OUTCOME, UNAVAILABLE_OUTCOME):
+                raise ValueError("profile_support likelihoods require canonical Yes, No, and unavailable outcomes")
+            for hypothesis in hypotheses:
+                if hypothesis not in self._profile_by_id:
+                    raise ValueError(f"Unknown MediQ profile hypothesis: {hypothesis}")
+                key = (hypothesis, action)
+                if key not in self._binary_likelihood_cache and key not in seen_keys:
+                    seen_keys.add(key)
+                    missing_keys.append(key)
+            if action not in self._record_availability_cache and action not in seen_actions:
+                seen_actions.add(action)
+                actions.append(action)
+        if actions:
+            labels = (ANSWERABLE_RECORD_OUTCOME, UNANSWERABLE_RECORD_OUTCOME)
+            parsed = self._complete_parsed_many(
+                self._evaluation_model(),
+                [record_availability_messages(action) for action in actions],
+                0.0,
+                namespace="questioner:profile_record_availability",
+                parsers=[lambda text, labels=labels: parse_distribution(text, labels) for _action in actions],
+            )
+            for action, probabilities in zip(actions, parsed):
+                self._record_availability_cache[action] = self._smoothed(probabilities)
+        if missing_keys:
+            labels = (YES_OUTCOME, NO_OUTCOME)
+            parsed = self._complete_parsed_many(
+                self._evaluation_model(),
+                [profile_likelihood_messages(self._profile_by_id[hypothesis], action) for hypothesis, action in missing_keys],
+                0.0,
+                namespace="questioner:profile_likelihood",
+                parsers=[lambda text, labels=labels: parse_distribution(text, labels) for _key in missing_keys],
+            )
+            for key, probabilities in zip(missing_keys, parsed):
+                self._binary_likelihood_cache[key] = self._smoothed(probabilities)
+        for hypotheses, action in requests:
+            answerable, unavailable = self._record_availability_cache[action]
+            for hypothesis in hypotheses:
+                key = (hypothesis, action)
+                if key not in self._likelihood_cache:
+                    yes, no = self._binary_likelihood_cache[key]
+                    self._likelihood_cache[key] = (answerable * yes, answerable * no, unavailable)
+        return [
+            np.asarray([self._likelihood_cache[(hypothesis, action)] for hypothesis in hypotheses], dtype=float)
             for hypotheses, action in requests
         ]
 
@@ -977,6 +1204,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     task=task,
                     transcript=transcript,
                     prior_probabilities=belief_state.probabilities,
+                    support_hypotheses=belief_state.hypotheses,
                 )
             except ValueError as exc:
                 rejected.append(f"{clean_query!r} has invalid outcomes: {exc}")
@@ -1028,7 +1256,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             for index in pending:
                 messages = candidate_messages(
                     tasks[index],
-                    belief_states[index],
+                    self._diagnosis_belief_state(belief_states[index], tasks[index]),
                     histories[index],
                     requested[index],
                     naive=naive,
@@ -1453,8 +1681,9 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
         history: Sequence[tuple[MediQAction, MediQObservation]],
         task: MediQTask,
     ) -> dict[str, float]:
-        probabilities = np.asarray(belief_state.probabilities, dtype=float)
-        labels = belief_state.hypotheses
+        probabilities, labels = self._diagnosis_probabilities(
+            belief_state.hypotheses, belief_state.probabilities, task
+        )
         true_index = labels.index(task.answer_idx)
         prediction_index = int(np.argmax(probabilities))
         target = np.zeros(len(labels), dtype=float)
@@ -1494,11 +1723,18 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             "structured_parse_retries": float(self._structured_parse_retries),
             "structured_parse_failures": float(self._structured_parse_failures),
             **self._candidate_metrics(),
+            **self._profile_metrics(),
             **self._patient_metrics(),
         }
         if history and history[-1][0].prior_probabilities:
             action, observation = history[-1]
-            prior = np.asarray(action.prior_probabilities, dtype=float)
+            prior, prior_labels = self._diagnosis_probabilities(
+                action.support_hypotheses or task.option_labels,
+                action.prior_probabilities,
+                task,
+            )
+            if tuple(prior_labels) != tuple(labels):
+                raise RuntimeError("MediQ action and belief label supports disagree")
             metrics["realized_entropy_drop"] = _entropy(prior) - _entropy(
                 probabilities
             )
@@ -1509,7 +1745,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 max(float(probabilities[true_index]), 1e-300)
             ) - math.log(max(float(prior[true_index]), 1e-300))
             if observation.mapped_cleanly and observation.mapped_outcome is not None:
-                likelihoods = self.outcome_likelihoods(labels, action)
+                likelihoods = self._diagnosis_likelihoods(action, task)
                 outcome_index = action.outcomes.index(observation.mapped_outcome)
                 predictive = prior @ likelihoods
                 observed_probability = float(predictive[outcome_index])
@@ -1540,6 +1776,43 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     )
         return metrics
 
+    def _diagnosis_probabilities(
+        self,
+        hypotheses: Sequence[str],
+        values: Sequence[float],
+        task: MediQTask,
+    ) -> tuple[np.ndarray, tuple[str, ...]]:
+        labels = task.option_labels
+        probabilities = np.asarray(values, dtype=float)
+        if getattr(self.config, "mediq_likelihood_mode", "joint_option") != "profile_support":
+            return probabilities, tuple(hypotheses)
+        grouped = np.zeros(len(labels), dtype=float)
+        for profile_id, probability in zip(hypotheses, probabilities):
+            profile = self._profile_by_id[profile_id]
+            grouped[labels.index(profile.diagnosis_label)] += probability
+        return grouped, labels
+
+    def _diagnosis_likelihoods(
+        self, action: MediQAction, task: MediQTask
+    ) -> np.ndarray:
+        support = action.support_hypotheses or task.option_labels
+        raw = self.outcome_likelihoods(support, action)
+        if getattr(self.config, "mediq_likelihood_mode", "joint_option") != "profile_support":
+            return raw
+        weights = np.asarray(action.prior_probabilities, dtype=float)
+        if weights.size != len(support):
+            raise ValueError("profile action requires prior weights on its support")
+        result = np.zeros((len(task.option_labels), len(action.outcomes)), dtype=float)
+        for index, label in enumerate(task.option_labels):
+            indices = [
+                profile_index
+                for profile_index, profile_id in enumerate(support)
+                if self._profile_by_id[profile_id].diagnosis_label == label
+            ]
+            label_weights = weights[indices]
+            result[index] = np.average(raw[indices], axis=0, weights=label_weights)
+        return result
+
     def round_metrics(
         self,
         belief_state: BeliefState[str],
@@ -1563,6 +1836,13 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             "candidate_set_validation_rejections": float(
                 self._candidate_set_validation_rejections
             ),
+        }
+
+    def _profile_metrics(self) -> dict[str, float]:
+        return {
+            "profile_generation_calls": float(self._profile_generation_calls),
+            "profile_validation_checks": float(self._profile_validation_checks),
+            "profile_validation_rejections": float(self._profile_validation_rejections),
         }
 
     def _candidate_validation_for(
@@ -1758,6 +2038,14 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
             task = trial.hidden_state
             final_belief = trial.final_belief_state
             labels = task.option_labels
+            final_belief_values: dict[str, float] | None = None
+            if final_belief is not None and final_belief.hypotheses:
+                values, final_labels = self._diagnosis_probabilities(
+                    final_belief.hypotheses,
+                    final_belief.probabilities,
+                    task,
+                )
+                final_belief_values = dict(zip(final_labels, values.tolist(), strict=True))
             turn_records: list[dict[str, Any]] = []
             for round_result in trial.rounds:
                 candidate_scores = list(
@@ -1768,25 +2056,24 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                 ]
                 candidate_details: list[dict[str, Any]] = []
                 for candidate_index, candidate in enumerate(candidate_actions):
-                    prior = np.asarray(candidate.prior_probabilities, dtype=float)
+                    support = candidate.support_hypotheses or labels
+                    raw_prior = np.asarray(candidate.prior_probabilities, dtype=float)
+                    prior, prior_labels = self._diagnosis_probabilities(
+                        support, raw_prior, task
+                    )
                     semantic_validation = self._candidate_validation_for(candidate)
                     cached = all(
-                        (label, candidate) in self._likelihood_cache for label in labels
+                        (hypothesis, candidate) in self._likelihood_cache
+                        for hypothesis in support
                     )
                     likelihoods = (
-                        np.asarray(
-                            [
-                                self._likelihood_cache[(label, candidate)]
-                                for label in labels
-                            ],
-                            dtype=float,
-                        )
+                        self._diagnosis_likelihoods(candidate, task)
                         if cached
                         else None
                     )
                     predictive = (
                         prior @ likelihoods
-                        if likelihoods is not None and prior.size == len(labels)
+                        if likelihoods is not None and prior.size == len(prior_labels)
                         else None
                     )
                     candidate_details.append(
@@ -1807,14 +2094,14 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                                 else None
                             ),
                             "prior": (
-                                dict(zip(labels, prior.tolist(), strict=True))
-                                if prior.size == len(labels)
+                                dict(zip(prior_labels, prior.tolist(), strict=True))
+                                if prior.size == len(prior_labels)
                                 else None
                             ),
                             "likelihoods": (
                                 {
                                     label: likelihoods[index].tolist()
-                                    for index, label in enumerate(labels)
+                                    for index, label in enumerate(prior_labels)
                                 }
                                 if likelihoods is not None
                                 else None
@@ -1880,6 +2167,18 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                                 if predictive is not None
                                 else None
                             ),
+                            "profile_support": (
+                                [
+                                    {
+                                        "profile_id": profile_id,
+                                        "diagnosis_label": self._profile_by_id[profile_id].diagnosis_label,
+                                        "narrative": self._profile_by_id[profile_id].narrative,
+                                    }
+                                    for profile_id in support
+                                ]
+                                if getattr(self.config, "mediq_likelihood_mode", "joint_option") == "profile_support"
+                                else None
+                            ),
                         }
                     )
                 set_validation = self._candidate_set_validation_for(candidate_actions)
@@ -1926,17 +2225,7 @@ class MediQEnvironment(Environment[MediQTask, str, MediQAction, MediQObservation
                     "full_context": list(task.context),
                     "facts": list(task.facts),
                     "turns": turn_records,
-                    "final_belief": (
-                        {
-                            label: probability
-                            for label, probability in zip(
-                                final_belief.hypotheses,
-                                final_belief.probabilities,
-                            )
-                        }
-                        if final_belief is not None and final_belief.hypotheses
-                        else None
-                    ),
+                    "final_belief": final_belief_values,
                     "final_metrics": trial.final_metrics,
                 }
             )

@@ -7,7 +7,7 @@ from typing import Sequence
 
 from core import BeliefState
 
-from .types import MediQAction, MediQObservation, MediQTask
+from .types import MediQAction, MediQObservation, MediQProfile, MediQTask
 
 
 ANSWERABLE_RECORD_OUTCOME = "Answerable from record"
@@ -339,6 +339,106 @@ def factored_likelihood_messages(
                 + json.dumps(
                     {"probabilities": {outcome: 0.0 for outcome in outcomes}}
                 )
+                + ". Values must sum to 1."
+            ),
+        },
+    ]
+
+
+def profile_generation_messages(
+    task: MediQTask,
+    diagnosis_label: str,
+    count: int,
+    *,
+    rejected_profiles: Sequence[str] = (),
+) -> list[dict[str, str]]:
+    rejected = (
+        "\nPreviously rejected profiles (do not repeat them):\n"
+        + "\n".join(f"- {item}" for item in rejected_profiles)
+        if rejected_profiles
+        else ""
+    )
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You generate calibrated counterfactual patient profiles for a clinical "
+                "diagnosis label. Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Clinical question:\n{task.question}\n\nOptions:\n{_options_text(task)}\n\n"
+                f"Construct exactly {count} distinct, concrete possible complete patient "
+                f"states under answer label {diagnosis_label}: {task.option_text(diagnosis_label)}. "
+                "Each profile must describe latent clinical findings, history, or test results "
+                "that could make this answer correct while remaining compatible with the shown "
+                "initial information. It must not quote, reveal, or claim access to the hidden "
+                "benchmark record, and must not describe a treatment decision as a patient fact. "
+                "Vary only plausible unobserved patient details."
+                f"{rejected}\n\nReturn {{\"profiles\":[\"...\"]}}."
+            ),
+        },
+    ]
+
+
+def profile_validation_messages(
+    task: MediQTask,
+    diagnosis_label: str,
+    narrative: str,
+) -> list[dict[str, str]]:
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a strict counterfactual patient-profile auditor. Return strict "
+                "JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Clinical question:\n{task.question}\n\nOptions:\n{_options_text(task)}\n\n"
+                f"Diagnosis label: {diagnosis_label}: {task.option_text(diagnosis_label)}\n"
+                f"Proposed latent profile: {narrative}\n\n"
+                "Mark valid=true only if this is a concrete, medically plausible latent patient "
+                "state compatible with the initial information and the stated diagnosis label. "
+                "Reject any claim to know or quote hidden record facts, any unsupported direct "
+                "assertion that an option is correct, and any treatment/management decision used "
+                "as patient evidence. Return {\"valid\":true,\"reason\":\"brief reason\"}."
+            ),
+        },
+    ]
+
+
+def profile_likelihood_messages(
+    profile: MediQProfile,
+    action: MediQAction,
+) -> list[dict[str, str]]:
+    task = action.task
+    return [
+        {
+            "role": "system",
+            "content": (
+                "You are a calibrated profile-conditioned clinical model. Estimate a binary "
+                "patient finding conditional on one concrete latent patient profile. Return "
+                "strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial patient information:\n{task.initial_info}\n\n"
+                f"Clinical question:\n{task.question}\n\n"
+                f"Counterfactual patient profile for answer label {profile.diagnosis_label}:\n"
+                f"{profile.narrative}\n\n"
+                f"Doctor's next yes/no query: {action.query}\n\n"
+                "Assume the hidden record explicitly answers this query. Estimate whether the "
+                "profile would yield Yes or No. Keep uncertainty soft. Return "
+                + json.dumps({"probabilities": {"Yes": 0.0, "No": 0.0}})
                 + ". Values must sum to 1."
             ),
         },

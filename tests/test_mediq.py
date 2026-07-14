@@ -152,6 +152,26 @@ class DataEstimationModel(RoutingMediQModel):
         return RoutingMediQModel._route(messages)
 
 
+class ProfileSupportModel(RoutingMediQModel):
+    @staticmethod
+    def _route(messages: list[dict[str, str]]) -> str:
+        system = messages[0]["content"]
+        user = messages[-1]["content"]
+        if "counterfactual patient profiles" in system:
+            count = int(re.search(r"exactly (\d+) distinct", user).group(1))
+            label = re.search(r"answer label ([A-Z]):", user).group(1)
+            return json.dumps({"profiles": [f"Profile {index} for label {label}" for index in range(count)]})
+        if "counterfactual patient-profile auditor" in system:
+            return json.dumps({"valid": True, "reason": "concrete compatible profile"})
+        if "profile-conditioned clinical model" in system:
+            label = re.search(r"answer label ([A-Z]):", user).group(1)
+            yes = 0.8 if label == "A" else 0.2
+            return json.dumps({"probabilities": {"Yes": yes, "No": 1.0 - yes}})
+        if "estimate record coverage for the MediQ benchmark" in system:
+            return json.dumps({"probabilities": {"Answerable from record": 0.75, "Not answerable from record": 0.25}})
+        return RoutingMediQModel._route(messages)
+
+
 class CandidateRepairModel(RoutingMediQModel):
     def _route(self, messages: list[dict[str, str]]) -> str:
         system = messages[0]["content"]
@@ -462,6 +482,96 @@ def test_mediq_nested_config_aliases_and_validation(tmp_path: Path) -> None:
         Config(task="mediq", mediq_skip_unusable_tasks="yes")
     with pytest.raises(ValueError, match="mediq_likelihood_mode"):
         Config(task="mediq", mediq_likelihood_mode="option_words_are_diagnoses")
+
+
+def test_mediq_profile_support_uses_fixed_profiles_and_neutral_missingness() -> None:
+    model = ProfileSupportModel()
+    config = _config(
+        mediq_dataset="icraft_md",
+        mediq_likelihood_mode="profile_support",
+        mediq_profiles_per_option=3,
+        mediq_num_trials=1,
+    )
+    env = MediQEnvironment(config, model).configure_for_run(config)
+    env.set_questioner(model)
+    task = env.sample_hidden_state_for_trial(0, np.random.default_rng(0))
+    prior = env.initial_belief_state(model, config)
+    assert len(prior.hypotheses) == 12
+    diagnosis_prior, labels = env._diagnosis_probabilities(
+        prior.hypotheses, prior.probabilities, task
+    )
+    assert labels == task.option_labels
+    assert diagnosis_prior == pytest.approx((0.4, 0.3, 0.2, 0.1))
+    action = env.generate_candidate_actions(prior, [], model, config)[0]
+    assert action.support_hypotheses == prior.hypotheses
+    likelihoods = env.outcome_likelihoods(prior.hypotheses, action)
+    assert likelihoods.shape == (12, 3)
+    assert np.allclose(likelihoods[:, 2], likelihoods[0, 2])
+    unavailable = MediQObservation(
+        reply="The patient cannot answer this question from the supplied record.",
+        mapped_outcome=UNAVAILABLE_OUTCOME,
+        mapped_cleanly=True,
+        selected_fact_indices=(),
+        grounded=True,
+        relevant=True,
+        cannot_answer=True,
+    )
+    updated = env.update_belief_state(prior, [(action, unavailable)], model, config)
+    assert updated.probabilities == pytest.approx(prior.probabilities)
+
+
+def test_mediq_profile_support_config_aliases_and_source_selection(tmp_path: Path) -> None:
+    path = tmp_path / "profile.yaml"
+    path.write_text(
+        "\n".join(
+            [
+                "task: mediq",
+                "method_names: [EIG]",
+                "environment:",
+                f"  data_path: {FIXTURE}",
+                "  dataset: icraft_md",
+                "  verify_official_hash: false",
+                "  likelihood_mode: profile_support",
+                "  profiles_per_option: 4",
+                "  source_ids: ['1']",
+                "  num_trials: 1",
+            ]
+        )
+    )
+    config = load_config(str(path))
+    assert config.mediq_source_ids == ["1"]
+    assert config.mediq_profiles_per_option == 4
+    assert config.mediq_config.source_ids == ["1"]
+    env = MediQEnvironment(config, ProfileSupportModel()).configure_for_run(config)
+    assert [task.source_id for task in env.tasks] == ["1"]
+    with pytest.raises(ValueError, match="profiles_per_option"):
+        Config(task="mediq", mediq_dataset="icraft_md", mediq_likelihood_mode="profile_support", mediq_profiles_per_option=1)
+    with pytest.raises(ValueError, match="require mediq_dataset=icraft_md"):
+        Config(task="mediq", mediq_likelihood_mode="profile_support")
+
+
+def test_mediq_profile_support_integration_reports_diagnosis_level_artifacts(
+    tmp_path: Path,
+) -> None:
+    questioner = ProfileSupportModel()
+    _result, summary = run_from_config(
+        _config(
+            mediq_dataset="icraft_md",
+            mediq_likelihood_mode="profile_support",
+            mediq_num_trials=1,
+            mediq_trial_batch_size=1,
+        ),
+        questioner,
+        RoutingMediQModel(),
+        output_dir=tmp_path,
+    )
+    assert np.isfinite(summary.metrics["correct_option_mass"][0])
+    records = json.loads((tmp_path / "mediq_interactions.json").read_text())
+    candidate = records[0]["turns"][0]["candidate_details"][0]
+    assert set(candidate["prior"]) == {"A", "B", "C", "D"}
+    assert set(candidate["likelihoods"]) == {"A", "B", "C", "D"}
+    assert len(candidate["profile_support"]) == 12
+    assert set(records[0]["final_belief"]) == {"A", "B", "C", "D"}
 
 
 def test_mediq_update_applies_latest_likelihood_once() -> None:

@@ -31,7 +31,7 @@ LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_s
 LocationStrategyRolloutQueryMode = Literal["llm_strategy", "analytic_eig"]
 LocationCandidateGenerationMode = Literal["llm", "support_grid"]
 MediQLikelihoodMode = Literal[
-    "joint_option", "factored_record", "data_estimation"
+    "joint_option", "factored_record", "data_estimation", "profile_support"
 ]
 
 
@@ -177,10 +177,13 @@ class Config:
     mediq_max_patient_facts: int = 2
     mediq_probability_floor: float = 0.01
     mediq_likelihood_mode: MediQLikelihoodMode = "joint_option"
+    mediq_source_ids: list[str] | None = None
+    mediq_profiles_per_option: int = 3
     mediq_shared_call_cache_enabled: bool = True
     mediq_structured_max_retries: int = 2
     openrouter_budget_usd: float = 20.0
     openrouter_projected_cost_usd: float = 0.0
+    openrouter_run_budget_usd: float | None = None
     openrouter_concurrency: int = 128
     openrouter_max_retries: int = 5
     openrouter_backoff_seconds: float = 1.0
@@ -293,11 +296,25 @@ class Config:
             "joint_option",
             "factored_record",
             "data_estimation",
+            "profile_support",
         }:
             raise ValueError(
                 "mediq_likelihood_mode must be one of: joint_option, "
-                "factored_record, data_estimation"
+                "factored_record, data_estimation, profile_support"
             )
+        if self.mediq_likelihood_mode == "profile_support" and self.mediq_dataset != "icraft_md":
+            raise ValueError("mediq profile_support likelihoods require mediq_dataset=icraft_md")
+        if not isinstance(self.mediq_profiles_per_option, int) or isinstance(self.mediq_profiles_per_option, bool) or self.mediq_profiles_per_option < 2:
+            raise ValueError("mediq_profiles_per_option must be an integer of at least 2")
+        if self.mediq_source_ids is not None:
+            if not isinstance(self.mediq_source_ids, list) or not self.mediq_source_ids:
+                raise ValueError("mediq_source_ids must be a non-empty list when provided")
+            if any(not isinstance(value, str) or not value.strip() for value in self.mediq_source_ids):
+                raise ValueError("mediq_source_ids must contain non-empty strings")
+            if len(set(self.mediq_source_ids)) != len(self.mediq_source_ids):
+                raise ValueError("mediq_source_ids must not contain duplicates")
+            if self.mediq_num_trials != len(self.mediq_source_ids):
+                raise ValueError("mediq_num_trials must equal len(mediq_source_ids)")
         if not isinstance(self.mediq_verify_official_hash, bool):
             raise ValueError("mediq_verify_official_hash must be a boolean")
         if not isinstance(self.mediq_skip_unusable_tasks, bool):
@@ -331,6 +348,8 @@ class Config:
             raise ValueError("openrouter_budget_usd must be positive")
         if self.openrouter_projected_cost_usd < 0.0:
             raise ValueError("openrouter_projected_cost_usd must be non-negative")
+        if self.openrouter_run_budget_usd is not None and self.openrouter_run_budget_usd <= 0.0:
+            raise ValueError("openrouter_run_budget_usd must be positive or null")
         if self.openrouter_concurrency <= 0:
             raise ValueError("openrouter_concurrency must be positive")
         if self.openrouter_max_retries < 0:
@@ -676,6 +695,8 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "max_patient_facts": "mediq_max_patient_facts",
         "probability_floor": "mediq_probability_floor",
         "likelihood_mode": "mediq_likelihood_mode",
+        "source_ids": "mediq_source_ids",
+        "profiles_per_option": "mediq_profiles_per_option",
         "shared_call_cache_enabled": "mediq_shared_call_cache_enabled",
         "structured_max_retries": "mediq_structured_max_retries",
     }
@@ -1096,10 +1117,17 @@ def load_config(path: str) -> Config:
         mediq_max_patient_facts = raw.get("mediq_max_patient_facts", 2),
         mediq_probability_floor = raw.get("mediq_probability_floor", 0.01),
         mediq_likelihood_mode = raw.get("mediq_likelihood_mode", "joint_option"),
+        mediq_source_ids = raw.get("mediq_source_ids"),
+        mediq_profiles_per_option = raw.get("mediq_profiles_per_option", 3),
         mediq_shared_call_cache_enabled = raw.get("mediq_shared_call_cache_enabled", True),
         mediq_structured_max_retries = raw.get("mediq_structured_max_retries", 2),
         openrouter_budget_usd = float(raw.get("openrouter_budget_usd", 20.0)),
         openrouter_projected_cost_usd = float(raw.get("openrouter_projected_cost_usd", 0.0)),
+        openrouter_run_budget_usd = (
+            float(raw["openrouter_run_budget_usd"])
+            if raw.get("openrouter_run_budget_usd") is not None
+            else None
+        ),
         openrouter_concurrency = _read_positive_int(raw, "openrouter_concurrency", 128),
         openrouter_max_retries = _read_nonneg_int(raw, "openrouter_max_retries", 5),
         openrouter_backoff_seconds = _read_positive_float(raw, "openrouter_backoff_seconds", 1.0),

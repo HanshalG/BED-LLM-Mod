@@ -34,7 +34,7 @@ environment:
   num_trials: 1
   num_rounds: 1
   trial_batch_size: 1
-  source_ids: [125]
+  source_ids: ["125"]
   seed: 1304
   num_candidates: 2
   max_patient_facts: 2
