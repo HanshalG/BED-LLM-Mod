@@ -23,10 +23,8 @@ the logs also lack Git-commit provenance and the depth-3 recursive implementatio
 postdates the depth-1/2 runs. Animals can support one-step BED transfer, not the
 non-myopic claim. MediQ must carry that claim.
 
-MediQ Step 0 implementation status (2026-07-14): **observation and individual-action
-contracts now pass; the latest manual audit found one synonym pair in a candidate set,
-and the final set-level dedup repair is locally complete with the identical gate repeat
-pending.**
+MediQ Step 0 implementation status (2026-07-14): **PASS, automated and manual. Claim 1
+must now be preregistered before any paired efficacy run.**
 The adapter uses the exact released multiple-choice labels as the
 finite BED target, a temperature-zero judged initial distribution, option-conditioned
 categorical response likelihoods, recursive one-likelihood-at-a-time Bayes updates,
@@ -102,8 +100,14 @@ singular/plural form and one-at-a-time replacement then exhausted bounded retrie
 produced no complete item and cost $0.01076385 over 212 requests. Content tokens now use
 light singular normalization, and deficit-one replenishment requests two alternatives
 so a repeated concept need not consume the only slot. Focused tests cover both paths.
-OpenRouter ledger: $16.77506738 spent of the user-authorized $40 cap, leaving
-$23.22493262.
+The exact replay `20260714T043855` then passed: 10/10 clean mappings, grounding, and
+relevance; 50/50 individually valid candidates; 10/10 semantically distinct candidate
+sets; zero terminal/runtime failures; and every selected interaction and final candidate
+passed manual review. It used 300 requests, 103,785 tokens, no reasoning, and $0.01402286.
+Its 3/5 endpoint is ignored as smoke-only. Canonical evidence is in
+`results/path_e/mediq_step0/FINAL_REPORT.json` and `FINAL_MANUAL_REVIEW.md`.
+OpenRouter ledger: $16.78909024 spent of the user-authorized $40 cap, leaving
+$23.21090976.
 
 Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
 target was non-myopic LLM experimental design on external interactive benchmarks
@@ -272,14 +276,9 @@ the only paired block reverses, and paired depth 3 is worse than depth 2. Delive
 animals for the one-step BED-transfer claim; the non-myopic claim rides entirely on
 the MediQ claim-2 pilot.
 
-Track 2 (main line): MediQ per the registered design requirements. All earlier Step 0
-smokes remain diagnostic-only. Canonical binary observations fixed answer-space and
-mapping validity; the latest manual audit then localized the remaining issue to the
-admissible action set. The target-decode, management-status, derived-predicate, and
-semantic-repeat filters now pass; one cross-candidate medical-synonym pair motivated
-the final set-level dedup auditor. It is locally complete and passes the exact-shape
-zero-cost gate. Commit and push it, then repeat only the same five-case smoke. Do not
-pre-register or launch Claim 1 until that repeated manual review passes. Note the endpoint is
+Track 2 (main line): MediQ per the registered design requirements. Step 0 now passes its
+final automated and manual gate; all earlier smokes remain diagnostic-only. Freeze and
+commit the Claim 1 preregistration and analyzer before launching any comparison. Note the endpoint is
 exact-match on the MC label — no success judge, no remedy adjudication; the remaining
 validity gate is patient-simulator faithfulness (answers consistent with the case
 record) + answer-mapping coverage. Integration smoke (~$0.1) -> pre-register ->
@@ -341,7 +340,7 @@ MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
    before scaling; full 2-step cost cap learned from Paprika applies).
 6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
    analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.22493262 remains of $40. Integration smoke ~$0.1, claim-1 study ~$2-4, claim-2
+7. Budget: $23.21090976 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
    pilot ~$1-2. Project before each launch as usual.
 8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
    cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika

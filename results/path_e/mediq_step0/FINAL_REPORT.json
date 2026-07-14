@@ -1,0 +1,829 @@
+{
+    "status": "pass",
+    "automated_status": "pass",
+    "automated_pass": true,
+    "manual_transcript_review_required": true,
+    "manual_review_status": "pass",
+    "manual_review_artifact": "results/path_e/mediq_step0/FINAL_MANUAL_REVIEW.md",
+  "manual_review_focus": [
+    "Are generated yes/no predicates atomic, clinically sensible, and non-redundant?",
+    "Can the selected patient facts explicitly establish Yes or No for each predicate?",
+    "Do selected facts directly answer the question rather than merely concern the case?"
+  ],
+  "checks": {
+    "expected_task_count": true,
+    "pinned_official_data_manifest": true,
+    "unique_official_task_ids": true,
+    "exact_round_count": true,
+    "answer_set_coverage": true,
+    "verbatim_patient_grounding": true,
+    "patient_relevance": true,
+    "valid_mapping_contract": true,
+    "zero_structured_parse_failures": true,
+    "zero_candidate_validation_failures": true,
+    "candidate_sets_semantically_validated": true,
+    "zero_patient_relevance_failures": true,
+    "valid_finite_target_eig_tables": true,
+    "no_target_leaking_queries": true,
+    "no_compound_queries": true,
+    "no_runtime_errors": true
+  },
+  "run_dir": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T043855_mediq-step0-set-dedup-v2-eig-nonthinking-26b-seed1304",
+  "interaction_artifact": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T043855_mediq-step0-set-dedup-v2-eig-nonthinking-26b-seed1304/items/000_EIG/mediq_interactions.json",
+  "data_manifest": "/Users/hanshalgoyal/BED-LLM-Mod/runs/20260714T043855_mediq-step0-set-dedup-v2-eig-nonthinking-26b-seed1304/items/000_EIG/mediq_data_manifest.json",
+  "num_tasks": 5,
+  "num_turns": 10,
+  "expected_tasks": 5,
+  "expected_rounds": 2,
+  "answer_set_coverage": 1.0,
+  "coverage_threshold": 0.85,
+  "patient_grounding_rate": 1.0,
+  "patient_relevance_rate": 1.0,
+  "relevance_threshold": 0.85,
+  "structured_parse_failures": 0.0,
+  "structured_parse_retries": 1.0,
+  "candidate_validation_checks": 50.0,
+  "candidate_validation_retries": 0.0,
+  "candidate_validation_failures": 0.0,
+  "candidate_set_validation_checks": 10.0,
+  "candidate_set_validation_rejections": 0.0,
+  "patient_relevance_failures": 0.0,
+  "grounding_errors": [],
+  "mapping_errors": [],
+  "relevance_errors": [],
+  "unmapped_turns": [],
+  "candidate_diagnostic_errors": [],
+  "target_leaking_queries": [],
+  "compound_queries": [],
+  "num_candidate_scores": 50,
+  "positive_candidate_eig_rate": 0.92,
+  "backend_requests": 300,
+  "backend_prompt_tokens": 87563,
+  "backend_completion_tokens": 16222,
+  "backend_reasoning_tokens": 0,
+  "backend_cost_usd": 0.01402286,
+  "forced_thinking_exits": 0,
+  "forced_exit_rate": 0.0,
+  "runtime_error_lines": [],
+  "endpoint_accuracy": 0.6,
+  "endpoint_accuracy_is_diagnostic_only": true,
+  "task_summaries": [
+    {
+      "task_id": "mediq:imedqa:0",
+      "source_id": "0",
+      "initial_info": "A 21-year-old sexually active male complains of fever, pain during urination, and inflammation and pain in the right knee.",
+      "question": "The mechanism of action of the medication given blocks cell wall synthesis, which of the following was given?",
+      "options": {
+        "A": "Gentamicin",
+        "B": "Ciprofloxacin",
+        "C": "Ceftriaxone",
+        "D": "Trimethoprim"
+      },
+      "answer_idx": "C",
+      "turns": [
+        {
+          "query": "Is the joint swelling limited to a single joint?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "The patient cannot answer this question from the supplied record.",
+          "selected_fact_indices": [],
+          "mapped_outcome": "Information unavailable / not in record",
+          "selected_eig": 0.050623361605864,
+          "realized_entropy_drop": -0.5872523721223424,
+          "realized_truth_log_probability_gain": -0.20945809822895545,
+          "observed_outcome_predictive_probability": 0.12330097087378641,
+          "candidate_summaries": [
+            {
+              "query": "Was the urethral discharge purulent?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.02143479025781344,
+              "max_label_likelihood_l1_span": 1.2999999999999998
+            },
+            {
+              "query": "Is the patient's temperature above 38.0 degrees Celsius?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.00039263617111308917,
+              "max_label_likelihood_l1_span": 0.10000000000000005
+            },
+            {
+              "query": "Was a Gram stain of the urethral discharge positive for Gram-negative diplococci?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.03633256270494255,
+              "max_label_likelihood_l1_span": 1.4
+            },
+            {
+              "query": "Is the joint swelling limited to a single joint?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.050623361605864,
+              "max_label_likelihood_l1_span": 1.6
+            },
+            {
+              "query": "Has the patient had a history of sexually transmitted infections?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.0008413670861479024,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            }
+          ]
+        },
+        {
+          "query": "Has the patient had a recent history of sexually transmitted infections?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "The patient cannot answer this question from the supplied record.",
+          "selected_fact_indices": [],
+          "mapped_outcome": "Information unavailable / not in record",
+          "selected_eig": 0.163651148585374,
+          "realized_entropy_drop": -0.5218787835627767,
+          "realized_truth_log_probability_gain": -0.5147549019058804,
+          "observed_outcome_predictive_probability": 0.33464566929133865,
+          "candidate_summaries": [
+            {
+              "query": "Has the patient had a recent history of sexually transmitted infections?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.163651148585374,
+              "max_label_likelihood_l1_span": 1.3000000000000003
+            },
+            {
+              "query": "Does the patient have a history of penicillin allergy?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.005314942239167653,
+              "max_label_likelihood_l1_span": 0.16078431372549012
+            },
+            {
+              "query": "Was the patient's temperature above 100.4 degrees Fahrenheit?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.0024417244718719236,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Is the patient experiencing any discharge from the urethra?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.01026823961200939,
+              "max_label_likelihood_l1_span": 0.4000000000000001
+            },
+            {
+              "query": "Has the patient experienced any skin rashes?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": -1.1102230246251568e-16,
+              "max_label_likelihood_l1_span": 0.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:1",
+      "source_id": "1",
+      "initial_info": "A 5-year-old girl is brought to the emergency department by her mother because of multiple episodes of nausea and vomiting that last about 2 hours.",
+      "question": "Which of the following is the most likely diagnosis?",
+      "options": {
+        "A": "Cyclic vomiting syndrome",
+        "B": "Gastroenteritis",
+        "C": "Hypertrophic pyloric stenosis",
+        "D": "Gastroesophageal reflux disease"
+      },
+      "answer_idx": "A",
+      "turns": [
+        {
+          "query": "Has the child had similar episodes in the past?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "She has missed several days of school and has been hospitalized 2 times during the past 6 months for dehydration due to similar episodes of vomiting and nausea.",
+          "selected_fact_indices": [
+            5
+          ],
+          "mapped_outcome": "Yes",
+          "selected_eig": 0.40774205976350114,
+          "realized_entropy_drop": 0.4682808510354445,
+          "realized_truth_log_probability_gain": 0.3733546331373878,
+          "observed_outcome_predictive_probability": 0.6499999999999999,
+          "candidate_summaries": [
+            {
+              "query": "Does the child have a fever?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.09237421153147878,
+              "max_label_likelihood_l1_span": 0.8
+            },
+            {
+              "query": "Has the child had similar episodes in the past?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.40774205976350114,
+              "max_label_likelihood_l1_span": 1.8
+            },
+            {
+              "query": "Is there abdominal pain reported?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.02919071992607563,
+              "max_label_likelihood_l1_span": 0.7
+            },
+            {
+              "query": "Was the onset of vomiting sudden?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.04779504797515682,
+              "max_label_likelihood_l1_span": 0.6000000000000001
+            },
+            {
+              "query": "Has the child had diarrhea?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.10869106706551009,
+              "max_label_likelihood_l1_span": 1.5
+            }
+          ]
+        },
+        {
+          "query": "Has the child had abdominal pain during these episodes?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "During this period, she has had 6\u20138 episodes of bilious vomiting and abdominal pain.",
+          "selected_fact_indices": [
+            2
+          ],
+          "mapped_outcome": "Yes",
+          "selected_eig": 0.06929858849318822,
+          "realized_entropy_drop": 0.18865222835628453,
+          "realized_truth_log_probability_gain": 0.06863926043518594,
+          "observed_outcome_predictive_probability": 0.7872324159021407,
+          "candidate_summaries": [
+            {
+              "query": "Does the vomiting occur at a predictable time of day?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.0029476020265790936,
+              "max_label_likelihood_l1_span": 0.09999999999999999
+            },
+            {
+              "query": "Has the child had abdominal pain during these episodes?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.06929858849318822,
+              "max_label_likelihood_l1_span": 1.4
+            },
+            {
+              "query": "Is there a history of excessive crying after feeding?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.02081913856734656,
+              "max_label_likelihood_l1_span": 0.6000000000000001
+            },
+            {
+              "query": "Does the child have a fever during the episodes?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.01624084274914545,
+              "max_label_likelihood_l1_span": 0.6000000000000001
+            },
+            {
+              "query": "Has the child experienced weight loss?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.012522812956594716,
+              "max_label_likelihood_l1_span": 1.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:2",
+      "source_id": "2",
+      "initial_info": "A 40-year-old woman presents with difficulty falling asleep, diminished appetite, and tiredness for the past 6 weeks.",
+      "question": "Which of the following is the best course of treatment in this patient?",
+      "options": {
+        "A": "Diazepam",
+        "B": "Paroxetine",
+        "C": "Zolpidem",
+        "D": "Trazodone"
+      },
+      "answer_idx": "D",
+      "turns": [
+        {
+          "query": "Has the patient experienced excessive worry?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "The patient cannot answer this question from the supplied record.",
+          "selected_fact_indices": [],
+          "mapped_outcome": "Information unavailable / not in record",
+          "selected_eig": 0.1464524491520347,
+          "realized_entropy_drop": -0.061605646939666414,
+          "realized_truth_log_probability_gain": 0.26136476413440735,
+          "observed_outcome_predictive_probability": 0.385,
+          "candidate_summaries": [
+            {
+              "query": "Has the patient experienced feelings of hopelessness?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.010667148258925488,
+              "max_label_likelihood_l1_span": 0.4
+            },
+            {
+              "query": "Has the patient experienced a loss of interest in activities?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.04515411022483641,
+              "max_label_likelihood_l1_span": 0.7
+            },
+            {
+              "query": "Has the patient experienced excessive worry?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.1464524491520347,
+              "max_label_likelihood_l1_span": 1.2
+            },
+            {
+              "query": "Has the patient experienced palpitations?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.009960404432742638,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Has the patient experienced sudden panic attacks?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.012978510305106028,
+              "max_label_likelihood_l1_span": 0.4
+            }
+          ]
+        },
+        {
+          "query": "Does the patient experience muscle tension?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "The patient cannot answer this question from the supplied record.",
+          "selected_fact_indices": [],
+          "mapped_outcome": "Information unavailable / not in record",
+          "selected_eig": 0.03893105320024268,
+          "realized_entropy_drop": 0.05401390141226314,
+          "realized_truth_log_probability_gain": 0.0292846695451755,
+          "observed_outcome_predictive_probability": 0.874025974025974,
+          "candidate_summaries": [
+            {
+              "query": "Has the patient experienced significant weight loss?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.009915339056875128,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Has the patient experienced palpitations?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.002653422909338319,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Does the patient have a history of panic attacks?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.009074993608267488,
+              "max_label_likelihood_l1_span": 0.4
+            },
+            {
+              "query": "Does the patient experience muscle tension?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.03893105320024268,
+              "max_label_likelihood_l1_span": 0.8
+            },
+            {
+              "query": "Has the patient experienced feelings of hopelessness?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.01563272465006978,
+              "max_label_likelihood_l1_span": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:3",
+      "source_id": "3",
+      "initial_info": "A 37-year-old female with a history of type II diabetes mellitus presents to the emergency department complaining of blood in her urine, left-sided flank pain, nausea, and fever.",
+      "question": "Which of the following is the next best step in management?",
+      "options": {
+        "A": "Obtain an abdominal CT scan",
+        "B": "Obtain a urine analysis and urine culture",
+        "C": "Begin intravenous treatment with ceftazidime",
+        "D": "No treatment is necessary"
+      },
+      "answer_idx": "B",
+      "turns": [
+        {
+          "query": "Is the patient's temperature above 38.0 degrees Celsius?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "Her temperature is 102 deg F (39.4 deg C).",
+          "selected_fact_indices": [
+            4
+          ],
+          "mapped_outcome": "Yes",
+          "selected_eig": 0.1055241907103464,
+          "realized_entropy_drop": 0.06090101109712953,
+          "realized_truth_log_probability_gain": -0.5877866649021191,
+          "observed_outcome_predictive_probability": 0.18,
+          "candidate_summaries": [
+            {
+              "query": "Is the patient's temperature above 38.0 degrees Celsius?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.1055241907103464,
+              "max_label_likelihood_l1_span": 1.2000000000000002
+            },
+            {
+              "query": "Does the patient have a history of renal stones?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.0,
+              "max_label_likelihood_l1_span": 0.0
+            },
+            {
+              "query": "Is the patient's blood glucose above 200 mg/dL?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.01574032444768989,
+              "max_label_likelihood_l1_span": 0.16078431372549012
+            },
+            {
+              "query": "Is the patient's blood pressure below 90 mmHg systolic?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.00546212747488645,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Has the patient experienced vomiting in the last 24 hours?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.03174750043653807,
+              "max_label_likelihood_l1_span": 0.6000000000000001
+            }
+          ]
+        },
+        {
+          "query": "Is the patient's blood pressure below 90 mmHg systolic?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "Her blood pressure is 114/82 mmHg.",
+          "selected_fact_indices": [
+            5
+          ],
+          "mapped_outcome": "No",
+          "selected_eig": 0.03185888033326159,
+          "realized_entropy_drop": 0.31140418579644513,
+          "realized_truth_log_probability_gain": -0.7372969651728745,
+          "observed_outcome_predictive_probability": 0.10416666666666667,
+          "candidate_summaries": [
+            {
+              "query": "Does the patient have a history of kidney stones?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": -1.1102230246251566e-17,
+              "max_label_likelihood_l1_span": 0.0
+            },
+            {
+              "query": "Is the patient's blood pressure below 90 mmHg systolic?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.03185888033326159,
+              "max_label_likelihood_l1_span": 0.4
+            },
+            {
+              "query": "Does the patient have a history of renal transplantation?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.005751177482769706,
+              "max_label_likelihood_l1_span": 0.19999999999999996
+            },
+            {
+              "query": "Is the patient's heart rate above 100 beats per minute?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.004011235445988521,
+              "max_label_likelihood_l1_span": 0.4
+            },
+            {
+              "query": "Has the patient experienced similar flank pain in the past?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.008791304028514661,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "task_id": "mediq:imedqa:4",
+      "source_id": "4",
+      "initial_info": "A 19-year-old boy presents with confusion and the inability to speak properly.",
+      "question": "Which of the following should be treated first in this patient?",
+      "options": {
+        "A": "Hypoperfusion",
+        "B": "Hyperglycemia",
+        "C": "Metabolic acidosis",
+        "D": "Hypokalemia"
+      },
+      "answer_idx": "A",
+      "turns": [
+        {
+          "query": "Was the patient's blood glucose level above 250 mg/dL?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "Patient's glucose level is 450 mg/dL.",
+          "selected_fact_indices": [
+            17
+          ],
+          "mapped_outcome": "Yes",
+          "selected_eig": 0.2842454644625154,
+          "realized_entropy_drop": 0.5433691265003878,
+          "realized_truth_log_probability_gain": -1.1939224684724346,
+          "observed_outcome_predictive_probability": 0.33000000000000007,
+          "candidate_summaries": [
+            {
+              "query": "Is the patient's blood pressure below 90/60 mmHg?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.007730685992906794,
+              "max_label_likelihood_l1_span": 0.19999999999999998
+            },
+            {
+              "query": "Was the patient's blood glucose level above 250 mg/dL?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.2842454644625154,
+              "max_label_likelihood_l1_span": 1.6
+            },
+            {
+              "query": "Was the patient's serum potassium level below 3.5 mEq/L?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.2090995055017596,
+              "max_label_likelihood_l1_span": 1.7999999999999998
+            },
+            {
+              "query": "Was the patient's arterial pH below 7.35?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.162726368431102,
+              "max_label_likelihood_l1_span": 1.2
+            },
+            {
+              "query": "Has the patient had a history of diabetes mellitus?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.25539622515369464,
+              "max_label_likelihood_l1_span": 1.4
+            }
+          ]
+        },
+        {
+          "query": "Is the patient's arterial pH below 7.35?",
+          "outcomes": [
+            "Yes",
+            "No",
+            "Information unavailable / not in record"
+          ],
+          "reply": "Patient's pH is 7.1.",
+          "selected_fact_indices": [
+            16
+          ],
+          "mapped_outcome": "Yes",
+          "selected_eig": 0.10329832920230204,
+          "realized_entropy_drop": -0.31348150258093044,
+          "realized_truth_log_probability_gain": -0.3884867715737461,
+          "observed_outcome_predictive_probability": 0.22121212121212117,
+          "candidate_summaries": [
+            {
+              "query": "Is the patient's blood pressure below 90/60 mmHg?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.09075830089586286,
+              "max_label_likelihood_l1_span": 1.2
+            },
+            {
+              "query": "Is the patient's arterial pH below 7.35?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.10329832920230204,
+              "max_label_likelihood_l1_span": 1.4
+            },
+            {
+              "query": "Is the patient's serum potassium level below 3.5 mEq/L?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.04186086164967448,
+              "max_label_likelihood_l1_span": 1.6
+            },
+            {
+              "query": "Is the patient's respiratory rate above 20 breaths per minute?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 0.09200434242520025,
+              "max_label_likelihood_l1_span": 1.3000000000000003
+            },
+            {
+              "query": "Does the patient have a fever?",
+              "outcomes": [
+                "Yes",
+                "No",
+                "Information unavailable / not in record"
+              ],
+              "eig": 2.220446049250312e-16,
+              "max_label_likelihood_l1_span": 0.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
