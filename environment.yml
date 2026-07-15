@@ -6,7 +6,9 @@ dependencies:
   - python=3.11
   - pip
   - numpy
+  - scipy
   - matplotlib
   - pip:
     - openai-harmony
+    - pomdp-py==1.3.5.1
     - wandb>=0.22.3
