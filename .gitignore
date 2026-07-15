@@ -51,6 +51,7 @@ configs/*
 !configs/config_location_branch_decoy_local_micro_analytic_26b_a4b.yaml
 !configs/config_location_branch_decoy_local_unconstrained_micro_analytic_26b_a4b.yaml
 !configs/config_nonmyopic_ucizoo_llm_pilot_openrouter.yaml
+!configs/config_nonmyopic_dynamic_location_pilot_openrouter.yaml
 .DS_Store
 .env
 *.png
