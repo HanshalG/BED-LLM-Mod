@@ -69,6 +69,38 @@ def test_candidate_parser_rejects_unknown_duplicate_and_previously_asked_ids() -
         )
 
 
+def test_candidate_parser_accepts_only_an_exact_json_fence_wrapper() -> None:
+    allowed = ("hair", "feathers", "eggs")
+
+    assert parse_candidate_trait_ids(
+        '```json\n{"trait_ids":["hair","feathers"]}\n```',
+        allowed_traits=allowed,
+        asked_actions=set(),
+        expected_count=2,
+    ) == (0, 1)
+    with pytest.raises(CandidateProposalError, match="response is not a JSON object"):
+        parse_candidate_trait_ids(
+            'Proposed traits:\n```json\n{"trait_ids":["hair","feathers"]}\n```',
+            allowed_traits=allowed,
+            asked_actions=set(),
+            expected_count=2,
+        )
+    with pytest.raises(CandidateProposalError, match="response is not a JSON object"):
+        parse_candidate_trait_ids(
+            '```\n{"trait_ids":["hair","feathers"]}\n```',
+            allowed_traits=allowed,
+            asked_actions=set(),
+            expected_count=2,
+        )
+    with pytest.raises(CandidateProposalError, match="incomplete JSON fence"):
+        parse_candidate_trait_ids(
+            '```json\n{"trait_ids":["hair","feathers"]}',
+            allowed_traits=allowed,
+            asked_actions=set(),
+            expected_count=2,
+        )
+
+
 def test_provider_caches_shared_candidate_cell_without_any_fallback() -> None:
     config = PilotConfig(num_trials=2, num_rounds=2, bootstrap_replicates=20)
     provider, model = _provider(config)

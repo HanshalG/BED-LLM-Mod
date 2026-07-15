@@ -148,8 +148,15 @@ def parse_candidate_trait_ids(
     constrained environment, so all of those conditions are terminal for a proposal.
     """
 
+    normalized = response.strip()
+    fence_start = "```json\n"
+    fence_end = "\n```"
+    if normalized.startswith(fence_start):
+        if not normalized.endswith(fence_end):
+            raise CandidateProposalError("response has an incomplete JSON fence")
+        normalized = normalized[len(fence_start) : -len(fence_end)]
     try:
-        payload = json.loads(response.strip())
+        payload = json.loads(normalized)
     except json.JSONDecodeError as exc:
         raise CandidateProposalError("response is not a JSON object") from exc
     if not isinstance(payload, dict) or set(payload) != {"trait_ids"}:

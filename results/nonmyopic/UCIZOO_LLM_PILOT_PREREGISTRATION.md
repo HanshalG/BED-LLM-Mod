@@ -20,8 +20,10 @@ pool at each decision?
   decoding are all programmatic. The LLM cannot answer an action, set a likelihood,
   or decode the target.
 - The LLM's sole output is a JSON object containing exactly `K=3` distinct, unasked,
-  legal trait IDs. Invalid output is retried once then fails closed; it is never
-  padded or replaced by an analytic/deterministic candidate pool.
+  legal trait IDs. A bare object or one exact ` ```json ... ``` ` wrapper around that
+  object is accepted; every other surrounding text or fence form is invalid. Invalid
+  output is retried once then fails closed; it is never padded or replaced by an
+  analytic/deterministic candidate pool.
 
 ## Fixed Pilot
 
@@ -62,11 +64,27 @@ accuracy-AUC difference versus both `d1_shared` and `d1_matched_width`. Otherwis
 is logged as an exploratory non-promotion. Any conclusion remains descriptive until
 a single, powered, outcome-blind confirmatory run is preregistered.
 
+## Interface Amendment (2026-07-15, approved by Hanshal before fresh launch)
+
+The original `nonmyopic-ucizoo-llm-pilot-20260714` failed closed before metrics after
+the bare-JSON parser rejected Markdown-fenced JSON. Its interface audit found that all
+10 rejected responses were exactly one ` ```json ... ``` ` wrapper around a schema-valid
+cell of three distinct, legal, unasked IDs, with no prose or extra field. The failed
+attempt remains permanently logged and is not an outcome.
+
+The approved amendment accepts only that exact wrapper in addition to a bare JSON
+object. It does not alter the candidate width, model, prompts, targets, answerer,
+posterior, score, policy arms, call allocation, budget, or promotion criterion. Other
+fence languages, incomplete/multiple fences, prose, malformed inner JSON, and every
+schema/legality/cardinality violation remain fail-closed. A new run ID and output
+directory make the fresh exploratory launch distinct from the quarantined attempt.
+
 ## Command
 
 ```bash
 set -a; source .env; set +a
 PYTHONPATH=. python scripts/nonmyopic_ucizoo_llm_pilot.py \
   --config configs/config_nonmyopic_ucizoo_llm_pilot_openrouter.yaml \
-  --run-id nonmyopic-ucizoo-llm-pilot-20260714
+  --run-id nonmyopic-ucizoo-llm-pilot-fenced-json-20260715 \
+  --output-dir results/nonmyopic/ucizoo_llm_pilot_fenced_json
 ```
