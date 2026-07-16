@@ -171,9 +171,9 @@ post-hoc repairs to this result.
 
 ## Cost and Reproduction
 
-Total live strategy-prior phase spend was `$0.78649365`, including interface smokes
-and failed-closed invocations. The final cumulative OpenRouter tracker is
-`$18.57112984` of `$40` authorized.
+Total live strategy-prior phase spend was `$0.900598325`, including interface smokes,
+the failed-closed invocations, and the `$0.114104675` Gemma 31B scale probe. The final
+cumulative OpenRouter tracker is `$18.685234515` of `$40` authorized.
 
 Primary artifacts:
 
