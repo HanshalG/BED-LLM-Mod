@@ -1,0 +1,1559 @@
+{
+  "config": {
+    "bootstrap_replicates": 100,
+    "grid_resolution": 4,
+    "max_step": 0.1,
+    "noise_sd": 0.5,
+    "num_particles": 16,
+    "num_rounds": 4,
+    "num_strategies": 4,
+    "num_trials": 2,
+    "planning_horizon": 4,
+    "rollout_samples": 16,
+    "seed": 31000,
+    "temperature": 0.0,
+    "trial_concurrency": 2,
+    "validation_retries": 1
+  },
+  "dry_run": true,
+  "gate_passed": false,
+  "invalid_responses": [],
+  "mechanics": {
+    "accepted_llm_cells": 18,
+    "all_actions_legal": true,
+    "cache_hits": 6,
+    "grid_d2_scorer_units_match_strategy_eig": true,
+    "initial_strategy_cells_shared_with_d1": true,
+    "logical_strategy_calls": 16,
+    "logical_width_calls": 8,
+    "physical_llm_requests": 18,
+    "raw_rejected_responses": 0,
+    "rollout_scoring_llm_calls": 0,
+    "terminal_cell_failures": 0,
+    "width_scorer_units_match_strategy_eig": true
+  },
+  "paired": {
+    "strategy_eig_minus_grid_d2": {
+      "final_entropy_gain_ci95": [
+        0.09423582390918717,
+        0.21597920927508463
+      ],
+      "final_entropy_gain_mean": 0.1551075165921359,
+      "paired_values": [
+        0.09423582390918717,
+        0.21597920927508463
+      ],
+      "wins_ties_losses": [
+        2,
+        0,
+        0
+      ]
+    },
+    "strategy_eig_minus_random_strategy": {
+      "final_entropy_gain_ci95": [
+        -0.1406359717768767,
+        5.815359217385366e-24
+      ],
+      "final_entropy_gain_mean": -0.07031798588843835,
+      "paired_values": [
+        5.815359217385366e-24,
+        -0.1406359717768767
+      ],
+      "wins_ties_losses": [
+        1,
+        0,
+        1
+      ]
+    },
+    "strategy_eig_minus_shared_d1": {
+      "final_entropy_gain_ci95": [
+        -0.016046550482669897,
+        0.0
+      ],
+      "final_entropy_gain_mean": -0.008023275241334948,
+      "paired_values": [
+        0.0,
+        -0.016046550482669897
+      ],
+      "wins_ties_losses": [
+        0,
+        1,
+        1
+      ]
+    },
+    "strategy_eig_minus_width": {
+      "final_entropy_gain_ci95": [
+        2.74184432047757e-16,
+        0.15494776332900184
+      ],
+      "final_entropy_gain_mean": 0.07747388166450106,
+      "paired_values": [
+        2.74184432047757e-16,
+        0.15494776332900184
+      ],
+      "wins_ties_losses": [
+        2,
+        0,
+        0
+      ]
+    }
+  },
+  "requests": [
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 1}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}, {\"kind\": \"midpoint_ranks\", \"ranks\": [2, 3]}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}, {\"kind\": \"toward_mean\"}]}]}",
+      "state_key": "046cef4fcae5c6914d6b9bc8",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 1}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}, {\"kind\": \"midpoint_ranks\", \"ranks\": [2, 3]}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}, {\"kind\": \"toward_mean\"}]}]}",
+      "state_key": "aa7ba429ab640de43fa422dc",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.041421356237309505}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 0.04142135623730951, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.0414213562373095, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.04142135623730952}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.04142135623730949}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -0.04142135623730958, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.04142135623730954, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.04142135623730958}]}",
+      "state_key": "ba0683b967cf46ab894a04b6",
+      "trial_index": 1,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 3,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}]}]}",
+      "state_key": "4796e77d61985a29a979d76e",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.05773502691896257}, {\"dx\": 0.057735026918962595, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.057735026918962554, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.05773502691896257}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.05773502691896254}, {\"dx\": -0.057735026918962644, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.057735026918962595, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.057735026918962644}]}",
+      "state_key": "aa75bc1aa425d1dab2a8e1f2",
+      "trial_index": 1,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 2,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}]}]}",
+      "state_key": "18528c968554d7e042153218",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 2,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}]}]}",
+      "state_key": "4bf219b9924fa8b549980f81",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}]}",
+      "state_key": "325161c938d6e93199e38f02",
+      "trial_index": 1,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}]}",
+      "state_key": "acd785d193810cd824f9df6b",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}]}",
+      "state_key": "503fcd8ae25cb9ad89daa97e",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}]}",
+      "state_key": "2e5133716f410a2133c87b3d",
+      "trial_index": 1,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.041421356237309505}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 0.04142135623730951, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.0414213562373095, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.04142135623730952}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.04142135623730949}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -0.04142135623730958, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.04142135623730954, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.04142135623730958}]}",
+      "state_key": "716373c81115aebc8f115f9e",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 3,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}]}]}",
+      "state_key": "8dbff262d3b8da6be97eaa04",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.05773502691896257}, {\"dx\": 0.057735026918962595, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.057735026918962554, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.05773502691896257}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.05773502691896254}, {\"dx\": -0.057735026918962644, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.057735026918962595, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.057735026918962644}]}",
+      "state_key": "0412960a77ec879dfdd13f66",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 2,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}]}]}",
+      "state_key": "5ed96589aaa6218515542ba7",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}]}",
+      "state_key": "5bd8b52d4c5f7751b655e5d1",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}]}",
+      "state_key": "3c7ad19264f33b291afe27db",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}]}",
+      "state_key": "9d85f2c021edc8ba304f7393",
+      "trial_index": 0,
+      "type": "width"
+    }
+  ],
+  "run_id": "nonmyopic-copex-strategy-l3-dry-smoke-20260716",
+  "schema_version": 1,
+  "stage": "L3",
+  "summary": {
+    "grid_d2": {
+      "entropy_mean_trace": [
+        1.5969080321545217,
+        1.2632497326216205,
+        1.0014992705571144,
+        0.6366271517337906
+      ],
+      "final_entropy_mean": 0.6366271517337906,
+      "final_rmse_mean": 0.06937640921872223,
+      "mean_scorer_units": 160.0,
+      "rmse_mean_trace": [
+        0.27206961994187356,
+        0.2472348998735949,
+        0.12529674442807873,
+        0.06937640921872223
+      ]
+    },
+    "random_strategy": {
+      "entropy_mean_trace": [
+        1.4246487862925106,
+        0.910477367704219,
+        0.7881301661305361,
+        0.41120164925321634
+      ],
+      "final_entropy_mean": 0.41120164925321634,
+      "final_rmse_mean": 0.19080872180132505,
+      "mean_scorer_units": 160.0,
+      "rmse_mean_trace": [
+        0.20581450331128048,
+        0.11401155856987757,
+        0.07722440157244324,
+        0.19080872180132505
+      ]
+    },
+    "shared_d1": {
+      "entropy_mean_trace": [
+        0.8498878479782209,
+        0.7885038489148795,
+        0.784670620361085,
+        0.47349635990031974
+      ],
+      "final_entropy_mean": 0.47349635990031974,
+      "final_rmse_mean": 0.14451320080698332,
+      "mean_scorer_units": 64.0,
+      "rmse_mean_trace": [
+        0.12175658665691387,
+        0.10148476555436742,
+        0.09391554723764822,
+        0.14451320080698332
+      ]
+    },
+    "strategy_eig": {
+      "entropy_mean_trace": [
+        0.8498878479782209,
+        0.8242187193647279,
+        0.8329379436323644,
+        0.4815196351416547
+      ],
+      "final_entropy_mean": 0.4815196351416547,
+      "final_rmse_mean": 0.20370072593868851,
+      "mean_scorer_units": 160.0,
+      "rmse_mean_trace": [
+        0.12175658665691387,
+        0.1146770021117288,
+        0.0825649745234022,
+        0.20370072593868851
+      ]
+    },
+    "width": {
+      "entropy_mean_trace": [
+        1.8893184352738546,
+        1.085469920694564,
+        0.7913282762353502,
+        0.5589935168061557
+      ],
+      "final_entropy_mean": 0.5589935168061557,
+      "final_rmse_mean": 0.08115851738021922,
+      "mean_scorer_units": 160.0,
+      "rmse_mean_trace": [
+        0.14002175758551294,
+        0.2207476653579502,
+        0.10467672658065229,
+        0.08115851738021922
+      ]
+    }
+  },
+  "task_provenance": "COPEx Location_budgeted equations; independent implementation",
+  "trials": [
+    {
+      "all_actions_legal": true,
+      "grid_units_match": true,
+      "initial_cells_shared": true,
+      "initial_position": [
+        0.6234963615938488,
+        0.5648603908411881
+      ],
+      "traces": {
+        "grid_d2": [
+          {
+            "action": [
+              0.6234963615938488,
+              0.6648603908411881
+            ],
+            "candidate_scores": [
+              0.8435840037315256,
+              0.8377873969189465,
+              0.9074957106334107,
+              0.8534422076977657,
+              0.7292011706609132,
+              0.6496908266010772,
+              0.7807476822261263,
+              0.8191988513683153
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:0:2",
+              "grid-pair:1:0",
+              "grid-pair:1:2",
+              "grid-pair:2:0",
+              "grid-pair:2:2",
+              "grid-pair:3:0",
+              "grid-pair:3:3"
+            ],
+            "entropy": 1.273762680604458,
+            "logical_llm_calls": 0,
+            "observation": 3.5846581493378475,
+            "planning_score": 0.9074957106334107,
+            "rmse": 0.21250439271404153,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "grid-pair:1:0"
+          },
+          {
+            "action": [
+              0.7234963615938488,
+              0.6648603908411881
+            ],
+            "candidate_scores": [
+              0.823545327937695,
+              0.8897551970839572,
+              0.5593973251017469,
+              0.6970266331793357,
+              0.8235330650017465,
+              0.6051585426127688
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:0:3",
+              "grid-pair:1:2",
+              "grid-pair:2:1",
+              "grid-pair:3:0",
+              "grid-pair:3:3"
+            ],
+            "entropy": 0.6958856409200683,
+            "logical_llm_calls": 0,
+            "observation": 3.4277498907163784,
+            "planning_score": 0.8897551970839572,
+            "rmse": 0.21881952329348403,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "grid-pair:0:3"
+          },
+          {
+            "action": [
+              0.7234963615938488,
+              0.7648603908411881
+            ],
+            "candidate_scores": [
+              0.39624592733381303,
+              0.647985957033065,
+              0.6129491160944159,
+              0.16472936760090795
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:1:1",
+              "grid-pair:2:2",
+              "grid-pair:3:3"
+            ],
+            "entropy": 0.30715715897488355,
+            "logical_llm_calls": 0,
+            "observation": 2.6255766405787586,
+            "planning_score": 0.647985957033065,
+            "rmse": 0.0258714917201501,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "grid-pair:1:1"
+          },
+          {
+            "action": [
+              0.7234963615938488,
+              0.864860390841188
+            ],
+            "candidate_scores": [
+              0.025769035044785525,
+              0.17334592846102576,
+              0.005222045429126607,
+              -0.026650770049491304
+            ],
+            "candidates": [
+              "grid-root:0",
+              "grid-root:1",
+              "grid-root:2",
+              "grid-root:3"
+            ],
+            "entropy": 0.09423582390918717,
+            "logical_llm_calls": 0,
+            "observation": 2.725780795762572,
+            "planning_score": 0.17334592846102576,
+            "rmse": 0.005331902342097925,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "grid-root:1"
+          }
+        ],
+        "random_strategy": [
+          {
+            "action": [
+              0.5234963615938488,
+              0.5222729119561306
+            ],
+            "candidate_scores": [
+              1.3764441715053157,
+              1.251153583338207,
+              1.3317847934506317,
+              1.2193339887175845
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"dx\":-0.1,\"dy\":-0.04258747888505751,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,3]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,0]},{\"dx\":0.008703578774055044,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,3]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"toward_mean\"},{\"dx\":0.019523084119340513,\"dy\":-0.1,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 1.228822008709634,
+            "logical_llm_calls": 0,
+            "observation": 3.4413016623148924,
+            "planning_score": 1.3764441715053157,
+            "rmse": 0.19487871171168883,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"dx\":-0.1,\"dy\":-0.04258747888505751,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}"
+          },
+          {
+            "action": [
+              0.6234963615938488,
+              0.6222729119561305
+            ],
+            "candidate_scores": [
+              0.9738443648364652,
+              0.8766509715359667,
+              1.0073386739657006,
+              1.155879298788364
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"dx\":0.1,\"dy\":-0.04545691455466966,\"kind\":\"vector\"},{\"kind\":\"toward_mean\"},{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"dx\":0.1,\"dy\":0.04316334962831721,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,0]},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,2]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":3},{\"dx\":-0.08016864974582115,\"dy\":0.1,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,3]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"kind\":\"toward_rank\",\"rank\":0}]}"
+            ],
+            "entropy": 0.2642556802737158,
+            "logical_llm_calls": 0,
+            "observation": 4.689542483163639,
+            "planning_score": 1.155879298788364,
+            "rmse": 0.02000915941542819,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          },
+          {
+            "action": [
+              0.5334638121684269,
+              0.6424586673673659
+            ],
+            "candidate_scores": [
+              0.2197222126881272,
+              0.26402482367694413,
+              0.26397775955126057,
+              0.26398465014086203
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"dx\":-0.03875054123339951,\"dy\":0.1,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,1]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"dx\":-0.1,\"dy\":0.04002060914196398,\"kind\":\"vector\"},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 1.0879007623036122e-18,
+            "logical_llm_calls": 0,
+            "observation": 7.392664156182827,
+            "planning_score": 0.26402482367694413,
+            "rmse": 0.0,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}"
+          },
+          {
+            "action": [
+              0.45495376663290477,
+              0.7424586673673659
+            ],
+            "candidate_scores": [
+              1.0844670649138426e-18,
+              8.640084039178329e-19,
+              3.5858164085631675e-19,
+              2.341026825451809e-19
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"dx\":-0.07851004553552213,\"dy\":0.1,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"dx\":0.05311479742402078,\"dy\":-0.1,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"dx\":0.1,\"dy\":0.008820151303299262,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[3,1]}]}"
+            ],
+            "entropy": 5.815359217385366e-24,
+            "logical_llm_calls": 0,
+            "observation": 4.654299979169677,
+            "planning_score": 1.0844670649138426e-18,
+            "rmse": 0.0,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"dx\":-0.07851004553552213,\"dy\":0.1,\"kind\":\"vector\"}]}"
+          }
+        ],
+        "shared_d1": [
+          {
+            "action": [
+              0.5527856834751941,
+              0.6355710689598428
+            ],
+            "candidate_scores": [
+              0.5171178355292188,
+              0.5171178355292188,
+              0.47130140500168854,
+              0.5379444705194554
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":1}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,3]}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 3.307565867526087e-05,
+            "logical_llm_calls": 1,
+            "observation": 5.597614219402244,
+            "planning_score": 0.5379444705194554,
+            "rmse": 6.18751087366989e-07,
+            "round": 1,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5134548771069559,
+              0.642553420825653
+            ],
+            "candidate_scores": [
+              3.307565867526087e-05,
+              6.210554857179397e-07,
+              3.307565867526087e-05,
+              3.303934628344712e-05
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}"
+            ],
+            "entropy": 1.0478752212371657e-45,
+            "logical_llm_calls": 1,
+            "observation": 9.52619304838347,
+            "planning_score": 3.307565867526087e-05,
+            "rmse": 0.0,
+            "round": 2,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5134548771069559,
+              0.642553420825653
+            ],
+            "candidate_scores": [
+              1.0478752212371657e-45,
+              1.0473460454213522e-45,
+              1.0478752212371657e-45,
+              1.0444786512697105e-45
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3}]}"
+            ],
+            "entropy": 7.871065225697582e-81,
+            "logical_llm_calls": 1,
+            "observation": 9.002794685741252,
+            "planning_score": 1.0478752212371657e-45,
+            "rmse": 0.0,
+            "round": 3,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}"
+          },
+          {
+            "action": [
+              0.5134548771069559,
+              0.642553420825653
+            ],
+            "candidate_scores": [
+              7.871065225697582e-81,
+              7.870915846346724e-81,
+              7.871065225697582e-81,
+              7.860611841837195e-81
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 2.2139953819173329e-122,
+            "logical_llm_calls": 1,
+            "observation": 9.558489974668527,
+            "planning_score": 7.871065225697582e-81,
+            "rmse": 0.0,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          }
+        ],
+        "strategy_eig": [
+          {
+            "action": [
+              0.5527856834751941,
+              0.6355710689598428
+            ],
+            "candidate_scores": [
+              1.3294929304340934,
+              1.459863428667188,
+              1.2945641171875262,
+              1.4843910273719534
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":1}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,3]}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 3.307565867526087e-05,
+            "logical_llm_calls": 1,
+            "observation": 5.597614219402244,
+            "planning_score": 1.4843910273719534,
+            "rmse": 6.18751087366989e-07,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5134548771069559,
+              0.642553420825653
+            ],
+            "candidate_scores": [
+              3.307565867526087e-05,
+              3.307565867525413e-05,
+              3.307565867526087e-05,
+              3.306844904296411e-05
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}"
+            ],
+            "entropy": 1.0478752212371657e-45,
+            "logical_llm_calls": 1,
+            "observation": 9.52619304838347,
+            "planning_score": 3.307565867526087e-05,
+            "rmse": 0.0,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5134548771069559,
+              0.642553420825653
+            ],
+            "candidate_scores": [
+              1.0478752212371657e-45,
+              1.0478752212371657e-45,
+              1.0478752212371657e-45,
+              1.0300762776273214e-45
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3}]}"
+            ],
+            "entropy": 7.871065225697582e-81,
+            "logical_llm_calls": 1,
+            "observation": 9.002794685741252,
+            "planning_score": 1.0478752212371657e-45,
+            "rmse": 0.0,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}"
+          },
+          {
+            "action": [
+              0.5134548771069559,
+              0.642553420825653
+            ],
+            "candidate_scores": [
+              7.871065225697582e-81,
+              7.870915846346724e-81,
+              7.871065225697582e-81,
+              7.860611841837195e-81
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 2.2139953819173329e-122,
+            "logical_llm_calls": 1,
+            "observation": 9.558489974668527,
+            "planning_score": 7.871065225697582e-81,
+            "rmse": 0.0,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          }
+        ],
+        "width": [
+          {
+            "action": [
+              0.7234963615938488,
+              0.6648603908411881
+            ],
+            "candidate_scores": [
+              0.6606744085889216,
+              0.6796622618384789,
+              0.734993335147785,
+              0.6927741519784285,
+              0.6633573362275687,
+              0.6030121095179088,
+              0.5374528002208374,
+              0.4673357330096617,
+              0.4695742587647026,
+              0.4695235550543222,
+              0.5171178355292188,
+              0.5634657487908322,
+              0.5776425179867829,
+              0.5910363148327814,
+              0.6459420545910981,
+              0.6606120304881271
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7",
+              "width:8",
+              "width:9",
+              "width:10",
+              "width:11",
+              "width:12",
+              "width:13",
+              "width:14",
+              "width:15"
+            ],
+            "entropy": 2.008292830566751,
+            "logical_llm_calls": 1,
+            "observation": 2.329671931244467,
+            "planning_score": 0.734993335147785,
+            "rmse": 0.013277472502545188,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "width:2"
+          },
+          {
+            "action": [
+              0.6657613346748862,
+              0.7648603908411881
+            ],
+            "candidate_scores": [
+              0.2895082135843965,
+              0.4131685092016572,
+              0.6049191251364575,
+              0.6900350984677759,
+              0.7351068535126353,
+              0.7156024073666227,
+              0.5253221960444237,
+              0.3846739948068168,
+              0.3308491630604138,
+              0.26358975861931744,
+              0.22807926016197988,
+              0.219317034702254
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7",
+              "width:8",
+              "width:9",
+              "width:10",
+              "width:11"
+            ],
+            "entropy": 0.5507129903078409,
+            "logical_llm_calls": 1,
+            "observation": 3.5831092854385194,
+            "planning_score": 0.7351068535126353,
+            "rmse": 0.22407367079498938,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "width:4"
+          },
+          {
+            "action": [
+              0.5657613346748862,
+              0.6648603908411881
+            ],
+            "candidate_scores": [
+              0.022018911765318935,
+              0.15149958005918543,
+              0.45132505723299515,
+              0.5080962974654126,
+              0.0466146925899603,
+              0.5151437200339541,
+              0.2596818140271988,
+              0.08924412914893413
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7"
+            ],
+            "entropy": 1.865536885860539e-05,
+            "logical_llm_calls": 1,
+            "observation": 5.496490167632444,
+            "planning_score": 0.5151437200339541,
+            "rmse": 3.566571882475232e-07,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "width:5"
+          },
+          {
+            "action": [
+              0.46576133467488623,
+              0.6648603908411881
+            ],
+            "candidate_scores": [
+              1.3191775261616293e-05,
+              2.7221740563071713e-06,
+              1.8655335054919983e-05,
+              1.864796151131343e-05
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3"
+            ],
+            "entropy": 2.74184432047757e-16,
+            "logical_llm_calls": 1,
+            "observation": 6.201077703751164,
+            "planning_score": 1.8655335054919983e-05,
+            "rmse": 0.0,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "width:2"
+          }
+        ]
+      },
+      "trial_index": 0,
+      "truth": [
+        0.5134548771069559,
+        0.642553420825653
+      ],
+      "width_units_match": true
+    },
+    {
+      "all_actions_legal": true,
+      "grid_units_match": true,
+      "initial_cells_shared": true,
+      "initial_position": [
+        0.6453032551066202,
+        0.6950902094899423
+      ],
+      "traces": {
+        "grid_d2": [
+          {
+            "action": [
+              0.6453032551066202,
+              0.7950902094899422
+            ],
+            "candidate_scores": [
+              0.9414728386587315,
+              1.022810871201425,
+              1.136708663654884,
+              1.300953273940011,
+              1.1078350324800028,
+              1.0466230863645274,
+              0.8603810759061727,
+              0.9396484753778649
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:0:2",
+              "grid-pair:1:0",
+              "grid-pair:1:2",
+              "grid-pair:2:0",
+              "grid-pair:2:2",
+              "grid-pair:3:0",
+              "grid-pair:3:3"
+            ],
+            "entropy": 1.9200533837045852,
+            "logical_llm_calls": 0,
+            "observation": 0.25353652679373173,
+            "planning_score": 1.300953273940011,
+            "rmse": 0.3316348471697056,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "grid-pair:1:2"
+          },
+          {
+            "action": [
+              0.5453032551066203,
+              0.7950902094899422
+            ],
+            "candidate_scores": [
+              0.37242203262341644,
+              0.3847672596968139,
+              0.4924824551967364,
+              0.49948007574682785,
+              0.38841579313965047,
+              0.3910660646155388
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:0:3",
+              "grid-pair:1:2",
+              "grid-pair:2:1",
+              "grid-pair:3:0",
+              "grid-pair:3:3"
+            ],
+            "entropy": 1.8306138243231729,
+            "logical_llm_calls": 0,
+            "observation": 0.9559098413688808,
+            "planning_score": 0.49948007574682785,
+            "rmse": 0.27565027645370577,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "grid-pair:2:1"
+          },
+          {
+            "action": [
+              0.4453032551066203,
+              0.7950902094899422
+            ],
+            "candidate_scores": [
+              0.1616383455301074,
+              0.1855514770638248,
+              0.433636128287668,
+              0.2072225898777853
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:1:1",
+              "grid-pair:2:2",
+              "grid-pair:3:3"
+            ],
+            "entropy": 1.6958413821393452,
+            "logical_llm_calls": 0,
+            "observation": 0.9959721112315725,
+            "planning_score": 0.433636128287668,
+            "rmse": 0.22472199713600735,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "grid-pair:2:2"
+          },
+          {
+            "action": [
+              0.3453032551066203,
+              0.7950902094899422
+            ],
+            "candidate_scores": [
+              0.1211229279930593,
+              0.12764439619456408,
+              0.15812879228026655,
+              0.14026771872101407
+            ],
+            "candidates": [
+              "grid-root:0",
+              "grid-root:1",
+              "grid-root:2",
+              "grid-root:3"
+            ],
+            "entropy": 1.179018479558394,
+            "logical_llm_calls": 0,
+            "observation": -0.9313096713462329,
+            "planning_score": 0.15812879228026655,
+            "rmse": 0.13342091609534654,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "grid-root:2"
+          }
+        ],
+        "random_strategy": [
+          {
+            "action": [
+              0.5453032551066203,
+              0.7430761284360651
+            ],
+            "candidate_scores": [
+              1.5334836517218955,
+              1.8438984069478106,
+              1.5598110385421564,
+              1.8296747171928907
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,1]},{\"kind\":\"toward_mean\"},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,2]},{\"dx\":-0.03893209476659029,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"dx\":-0.03451934367820105,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,3]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"dx\":-0.1,\"dy\":0.027953299109623703,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,3]},{\"dx\":-0.08727598155381229,\"dy\":0.1,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 1.6204755638753874,
+            "logical_llm_calls": 0,
+            "observation": 0.23982563728835793,
+            "planning_score": 1.8438984069478106,
+            "rmse": 0.21675029491087214,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,2]},{\"dx\":-0.03893209476659029,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          },
+          {
+            "action": [
+              0.4949156381009821,
+              0.6430761284360651
+            ],
+            "candidate_scores": [
+              0.4792366458338788,
+              0.5357794929235065,
+              0.5380066367182936,
+              0.554028817693258
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,2]},{\"dx\":0.07340907259818746,\"dy\":0.1,\"kind\":\"vector\"},{\"dx\":0.1,\"dy\":-0.07046261280960245,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,1]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":0.040658612837273504,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"dx\":-0.05038761700563817,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"toward_mean\"},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 1.5566990551347224,
+            "logical_llm_calls": 0,
+            "observation": 1.2303126520480445,
+            "planning_score": 0.554028817693258,
+            "rmse": 0.20801395772432696,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"dx\":-0.05038761700563817,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"toward_mean\"},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5949156381009821,
+              0.5430761284360651
+            ],
+            "candidate_scores": [
+              0.42645682983737054,
+              0.2299617103647954,
+              0.3142825578670147,
+              0.30950909286287354
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"dx\":-0.0721384070181992,\"dy\":0.1,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,3]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,1]}]}"
+            ],
+            "entropy": 1.5762603322610722,
+            "logical_llm_calls": 0,
+            "observation": 1.9836396115085655,
+            "planning_score": 0.42645682983737054,
+            "rmse": 0.1544488031448865,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.6949156381009821,
+              0.44307612843606514
+            ],
+            "candidate_scores": [
+              0.34394963213567575,
+              0.34394963213567575,
+              0.34394963213567575,
+              0.29220695390706036
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":3}]}"
+            ],
+            "entropy": 0.8224032985064327,
+            "logical_llm_calls": 0,
+            "observation": 1.0054584730839735,
+            "planning_score": 0.34394963213567575,
+            "rmse": 0.3816174436026501,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          }
+        ],
+        "shared_d1": [
+          {
+            "action": [
+              0.5745925769879655,
+              0.765800887608597
+            ],
+            "candidate_scores": [
+              0.9624697504280628,
+              0.45903256290015343,
+              0.501988497355297,
+              0.9931669140129983
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":1}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,3]}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 1.6997426202977666,
+            "logical_llm_calls": 1,
+            "observation": 0.23064915659555618,
+            "planning_score": 0.9931669140129983,
+            "rmse": 0.24351255456274037,
+            "round": 1,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5038818988693108,
+              0.8365115657272517
+            ],
+            "candidate_scores": [
+              0.19180126620197913,
+              0.22380657279562338,
+              0.21368375926980557,
+              0.2639884112463588
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}"
+            ],
+            "entropy": 1.577007697829759,
+            "logical_llm_calls": 1,
+            "observation": 0.7975109077256156,
+            "planning_score": 0.2639884112463588,
+            "rmse": 0.20296953110873484,
+            "round": 2,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}"
+          },
+          {
+            "action": [
+              0.43317122075065606,
+              0.9072222438459064
+            ],
+            "candidate_scores": [
+              0.06424104577384745,
+              0.042479113912447686,
+              0.042479113912447686,
+              0.08271022807401435
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3}]}"
+            ],
+            "entropy": 1.56934124072217,
+            "logical_llm_calls": 1,
+            "observation": 0.7575018882198721,
+            "planning_score": 0.08271022807401435,
+            "rmse": 0.18783109447529645,
+            "round": 3,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3}]}"
+          },
+          {
+            "action": [
+              0.533171220750656,
+              0.8072222438459065
+            ],
+            "candidate_scores": [
+              0.05730430501351018,
+              0.06177775915587129,
+              0.06177775915587129,
+              0.026313606329639347
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 0.9469927198006395,
+            "logical_llm_calls": 1,
+            "observation": -0.6494694645657885,
+            "planning_score": 0.06177775915587129,
+            "rmse": 0.28902640161396664,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}"
+          }
+        ],
+        "strategy_eig": [
+          {
+            "action": [
+              0.5745925769879655,
+              0.765800887608597
+            ],
+            "candidate_scores": [
+              1.819371152737528,
+              1.587913325361645,
+              1.725403207438526,
+              1.8956807985916129
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":1}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,3]}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 1.6997426202977666,
+            "logical_llm_calls": 1,
+            "observation": 0.23064915659555618,
+            "planning_score": 1.8956807985916129,
+            "rmse": 0.24351255456274037,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5075546498387317,
+              0.665800887608597
+            ],
+            "candidate_scores": [
+              0.6177076072862449,
+              0.4849377004477642,
+              0.5005365263434237,
+              0.46552162233638256
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,0]}]}"
+            ],
+            "entropy": 1.6484374387294558,
+            "logical_llm_calls": 1,
+            "observation": 1.2043940760658591,
+            "planning_score": 0.6177076072862449,
+            "rmse": 0.2293540042234576,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.6075546498387316,
+              0.565800887608597
+            ],
+            "candidate_scores": [
+              0.3650052014967258,
+              0.44597985759961034,
+              0.21640254096634198,
+              0.24140856776524994
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3}]}"
+            ],
+            "entropy": 1.6658758872647288,
+            "logical_llm_calls": 1,
+            "observation": 1.947975907944645,
+            "planning_score": 0.44597985759961034,
+            "rmse": 0.1651299490468044,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.7075546498387316,
+              0.46580088760859706
+            ],
+            "candidate_scores": [
+              0.28745270919188565,
+              0.28745270919188565,
+              0.28745270919188565,
+              -0.0016007406448249883
+            ],
+            "candidates": [
+              "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Diverse plan 1.\",\"name\":\"plan-1\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}",
+              "{\"description\":\"Diverse plan 2.\",\"name\":\"plan-2\",\"steps\":[{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Diverse plan 3.\",\"name\":\"plan-3\",\"steps\":[{\"dx\":-0.07071067811865475,\"dy\":0.07071067811865477,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 0.9630392702833094,
+            "logical_llm_calls": 1,
+            "observation": 0.9496789190958272,
+            "planning_score": 0.28745270919188565,
+            "rmse": 0.40740145187737703,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Diverse plan 0.\",\"name\":\"plan-0\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          }
+        ],
+        "width": [
+          {
+            "action": [
+              0.6038818988693108,
+              0.7950902094899422
+            ],
+            "candidate_scores": [
+              0.6734131188356869,
+              0.7407799056333548,
+              0.7844490114268226,
+              0.9101644597836518,
+              0.9924976276538549,
+              1.0298017377216495,
+              0.9624697504280628,
+              0.9265855764044412,
+              0.7895592321965998,
+              0.6249249292900888,
+              0.45903256290015343,
+              0.49952513496319817,
+              0.5131536127884415,
+              0.5266981643969021,
+              0.5460991873916178,
+              0.605227010026097
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7",
+              "width:8",
+              "width:9",
+              "width:10",
+              "width:11",
+              "width:12",
+              "width:13",
+              "width:14",
+              "width:15"
+            ],
+            "entropy": 1.7703440399809585,
+            "logical_llm_calls": 1,
+            "observation": 0.1971013017674753,
+            "planning_score": 1.0298017377216495,
+            "rmse": 0.2667660426684807,
+            "round": 1,
+            "scorer_units": 256,
+            "selected_strategy": "width:5"
+          },
+          {
+            "action": [
+              0.5038818988693108,
+              0.8528252364089048
+            ],
+            "candidate_scores": [
+              0.09567054923114515,
+              0.06309615277350977,
+              0.031706481029411024,
+              0.05207819302922756,
+              0.12326469218613029,
+              0.16392110164356874,
+              0.12449428132415774,
+              0.08454395454511868,
+              0.06005666239679067,
+              0.07985203666512757,
+              0.13112898221786418,
+              0.14009876214659137
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7",
+              "width:8",
+              "width:9",
+              "width:10",
+              "width:11"
+            ],
+            "entropy": 1.6202268510812867,
+            "logical_llm_calls": 1,
+            "observation": 0.7617260503438837,
+            "planning_score": 0.16392110164356874,
+            "rmse": 0.217421659920911,
+            "round": 2,
+            "scorer_units": 192,
+            "selected_strategy": "width:5"
+          },
+          {
+            "action": [
+              0.4038818988693108,
+              0.8528252364089048
+            ],
+            "candidate_scores": [
+              0.09165980261728565,
+              0.08137740512559098,
+              0.09906231950784201,
+              0.16174246951902607,
+              0.1664701384014985,
+              0.15256170401622396,
+              0.09629425200006753,
+              0.10462651791612085
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7"
+            ],
+            "entropy": 1.5826378971018418,
+            "logical_llm_calls": 1,
+            "observation": 0.8183004966900369,
+            "planning_score": 0.1664701384014985,
+            "rmse": 0.20935309650411632,
+            "round": 3,
+            "scorer_units": 128,
+            "selected_strategy": "width:4"
+          },
+          {
+            "action": [
+              0.4038818988693108,
+              0.7528252364089049
+            ],
+            "candidate_scores": [
+              0.07438519256922349,
+              0.057887549200447,
+              0.08110019223411279,
+              0.10805442667160887
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3"
+            ],
+            "entropy": 1.1179870336123112,
+            "logical_llm_calls": 1,
+            "observation": -0.7519968321983204,
+            "planning_score": 0.10805442667160887,
+            "rmse": 0.16231703476043843,
+            "round": 4,
+            "scorer_units": 64,
+            "selected_strategy": "width:3"
+          }
+        ]
+      },
+      "trial_index": 1,
+      "truth": [
+        0.899609557329512,
+        0.23602723689678973
+      ],
+      "width_units_match": true
+    }
+  ],
+  "usage": {
+    "backend": "dry_run",
+    "cost_usd": 0.0,
+    "requests": 0
+  }
+}
