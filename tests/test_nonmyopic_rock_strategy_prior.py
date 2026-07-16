@@ -219,3 +219,15 @@ def test_l1_openrouter_config_is_nonthinking_and_bounded() -> None:
     assert config.openrouter_concurrency == 128
     assert config.openrouter_projected_cost_usd == 0.8
     assert config.openrouter_run_budget_usd == 1.0
+
+
+def test_l1_model_scale_probe_config_has_a_bounded_reasoning_generator() -> None:
+    config = load_config("configs/config_nonmyopic_rock_strategy_l1_gemma31b_thinking_openrouter.yaml")
+    questioner = config.model_pairs[0].questioner
+
+    assert questioner.model == "google/gemma-4-31b-it"
+    assert questioner.thinking is True
+    assert questioner.thinking_max_new_tokens == 1024
+    assert questioner.thinking_final_max_new_tokens == 256
+    assert config.openrouter_projected_cost_usd == 1.5
+    assert config.openrouter_run_budget_usd == 2.0
