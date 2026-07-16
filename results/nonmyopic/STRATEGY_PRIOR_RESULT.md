@@ -202,6 +202,7 @@ Primary artifacts:
 - `results/nonmyopic/COPEX_STRATEGY_L3_RANKING_FIDELITY_PREREGISTRATION.md`
 - `results/nonmyopic/copex_strategy_l3_ranking_fidelity/20260716/REPORT.json`
 - `results/nonmyopic/copex_strategy_l3_ranking_fidelity/20260716/REPORT.md`
+- `results/nonmyopic/STRATEGY_PRIOR_PROTOCOL_AUDIT.md`
 
 Final repository verification: `665 passed, 1 skipped`; experiments-ledger validation
 passes with no active rows and all complete artifacts present.
