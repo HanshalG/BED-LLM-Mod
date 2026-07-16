@@ -55,6 +55,7 @@ configs/*
 !configs/config_nonmyopic_rock_diagnosis_pilot_openrouter.yaml
 !configs/config_nonmyopic_rock_diagnosis_confirmation_openrouter.yaml
 !configs/config_nonmyopic_rock_diagnosis_5_7_pilot_openrouter.yaml
+!configs/config_nonmyopic_rock_diagnosis_5_7_confirmation_openrouter.yaml
 .DS_Store
 .env
 *.png

@@ -121,3 +121,6 @@ def test_config_is_nonthinking_and_has_a_bounded_cost_projection() -> None:
     second_map = load_config("configs/config_nonmyopic_rock_diagnosis_5_7_pilot_openrouter.yaml")
     assert second_map.openrouter_projected_cost_usd == 0.20
     assert second_map.model_pairs[0].questioner.thinking is False
+    second_map_confirmation = load_config("configs/config_nonmyopic_rock_diagnosis_5_7_confirmation_openrouter.yaml")
+    assert second_map_confirmation.openrouter_projected_cost_usd == 0.30
+    assert second_map_confirmation.openrouter_run_budget_usd == 0.45
