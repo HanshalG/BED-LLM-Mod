@@ -1,0 +1,1408 @@
+{
+  "config": {
+    "map_names": [
+      "3-6",
+      "5-7"
+    ],
+    "num_rounds": 4,
+    "num_strategies": 4,
+    "num_trials_per_map": 5,
+    "planning_horizon": 3,
+    "seed": 10031
+  },
+  "gate_passed": true,
+  "mechanics": {
+    "all_candidate_sets_complete": true,
+    "all_exact_scores_finite_nonnegative": true,
+    "all_selected_actions_legal": true,
+    "execution_failures": 0,
+    "parse_failures": 0,
+    "scored_root_matches_executed_root": true,
+    "zero_llm_calls": true
+  },
+  "num_trajectories": 10,
+  "schema_version": 1,
+  "stage": "L0",
+  "traces": [
+    {
+      "final_entropy": 1.3859251443542349,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -1.4138428204629294,
+      "map_name": "3-6",
+      "steps": [
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.0017906930788882391,
+            0.0,
+            0.0,
+            0.6931471805599452
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-EAST",
+            "move-NORTH",
+            "move-EAST"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            4,
+            3,
+            3,
+            3
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.581}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[{\"distance\":2,\"kind\":\"distance_at_most\",\"rock_id\":0}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        },
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            0.0,
+            0.0011068329741603655,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-SOUTH",
+            "check-0",
+            "move-NORTH",
+            "move-NORTH"
+          ],
+          "entropy_after": 2.07907232491418,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            3,
+            7,
+            3,
+            3
+          ],
+          "observation": "good",
+          "position": [
+            1,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.0011068329741603655,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":0},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":1,\"threshold\":0.75}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "move-SOUTH",
+          "candidate_exact_eig": [
+            0.12938025133681186,
+            0.6931471805599452,
+            0.0,
+            0.0012398886143705212
+          ],
+          "candidate_root_actions": [
+            "check-1",
+            "move-SOUTH",
+            "move-SOUTH",
+            "move-SOUTH"
+          ],
+          "entropy_after": 2.07907232491418,
+          "entropy_before": 2.07907232491418,
+          "expanded_nodes": [
+            3,
+            2,
+            2,
+            2
+          ],
+          "observation": null,
+          "position": [
+            1,
+            3
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.708}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":2,\"threshold\":0.678}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            0.6931471805599452,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "check-1",
+            "move-EAST",
+            "move-EAST",
+            "move-EAST"
+          ],
+          "entropy_after": 1.3859251443542349,
+          "entropy_before": 2.07907232491418,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "bad",
+          "position": [
+            1,
+            4
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        }
+      ],
+      "trial_index": 0,
+      "truth_index": 1
+    },
+    {
+      "final_entropy": 2.0794415416798357,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -2.0794415416798357,
+      "map_name": "3-6",
+      "steps": [
+        {
+          "action": "move-SOUTH",
+          "candidate_exact_eig": [
+            0.08450014602330391,
+            0.0,
+            0.6931471805599452,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "check-1",
+            "move-EAST",
+            "move-SOUTH",
+            "move-SOUTH"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            7,
+            3,
+            3,
+            3
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-2\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"bad\",\"rock_id\":0}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"bad\",\"rock_id\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 2
+        },
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.18237460240437509,
+            6.809731830470511e-05,
+            0.6931471805599452,
+            6.809731830470511e-05
+          ],
+          "candidate_root_actions": [
+            "check-1",
+            "check-0",
+            "move-EAST",
+            "check-0"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            7,
+            7,
+            4,
+            7
+          ],
+          "observation": null,
+          "position": [
+            0,
+            4
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-2\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"bad\",\"rock_id\":0}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 2
+        },
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-EAST",
+            "move-NORTH",
+            "move-EAST"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "observation": null,
+          "position": [
+            1,
+            4
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.0,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":1,\"threshold\":0.677}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        },
+        {
+          "action": "move-NORTH",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-NORTH",
+            "move-WEST",
+            "move-NORTH",
+            "move-EAST"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": null,
+          "position": [
+            2,
+            4
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.0,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.812}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"distance\":2,\"kind\":\"distance_at_most\",\"rock_id\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        }
+      ],
+      "trial_index": 1,
+      "truth_index": 4
+    },
+    {
+      "final_entropy": 2.0088930593507945,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -2.6089163595348372,
+      "map_name": "3-6",
+      "steps": [
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.0008961491433865376,
+            0.0,
+            0.6931471805599452,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-NORTH",
+            "move-EAST",
+            "move-EAST",
+            "move-SOUTH"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-2\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"bad\",\"rock_id\":2}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":0}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 2
+        },
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            0.0,
+            0.0011068329741603655,
+            0.0011068329741603655,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-NORTH",
+            "check-0",
+            "check-0",
+            "move-NORTH"
+          ],
+          "entropy_after": 2.07907232491418,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            3,
+            7,
+            7,
+            3
+          ],
+          "observation": "bad",
+          "position": [
+            1,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.0011068329741603655,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[{\"kind\":\"step_at_least\",\"value\":3}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":1,\"threshold\":0.759}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0007376162085046545,
+            0.12938025133681186
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-SOUTH",
+            "check-0",
+            "check-1"
+          ],
+          "entropy_after": 2.0097892084941815,
+          "entropy_before": 2.07907232491418,
+          "expanded_nodes": [
+            2,
+            2,
+            3,
+            3
+          ],
+          "observation": "good",
+          "position": [
+            1,
+            3
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.12938025133681186,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":1,\"threshold\":0.743}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        },
+        {
+          "action": "check-2",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.0008961491433869817
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-NORTH",
+            "move-SOUTH",
+            "check-2"
+          ],
+          "entropy_after": 2.0088930593507945,
+          "entropy_before": 2.0097892084941815,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "good",
+          "position": [
+            1,
+            3
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.0008961491433869817,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":0},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.761}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[{\"kind\":\"step_at_least\",\"value\":3}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        }
+      ],
+      "trial_index": 2,
+      "truth_index": 4
+    },
+    {
+      "final_entropy": 2.0101584252598372,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -2.5381166870669176,
+      "map_name": "3-6",
+      "steps": [
+        {
+          "action": "move-SOUTH",
+          "candidate_exact_eig": [
+            0.0,
+            0.6931471805599452,
+            0.6931471805599452,
+            0.030080406951370264
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-SOUTH",
+            "move-EAST",
+            "check-1"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            3,
+            3,
+            3,
+            7
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[{\"distance\":2,\"kind\":\"distance_at_most\",\"rock_id\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":1,\"threshold\":0.772}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            0.0,
+            0.06928311641999851,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "check-1",
+            "move-NORTH",
+            "move-NORTH"
+          ],
+          "entropy_after": 2.0101584252598372,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            3,
+            5,
+            3,
+            3
+          ],
+          "observation": "good",
+          "position": [
+            0,
+            4
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.06928311641999851,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            4.53992427176253e-05,
+            0.060097134916813566,
+            0.08313815286648518,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "check-0",
+            "check-1",
+            "check-1",
+            "move-EAST"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0101584252598372,
+          "expanded_nodes": [
+            3,
+            3,
+            3,
+            2
+          ],
+          "observation": "bad",
+          "position": [
+            0,
+            4
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.08313815286648518,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-2\",\"rules\":[{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"good\",\"rock_id\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":1,\"threshold\":0.756}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 2
+        },
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            0.0,
+            0.06928311641999851,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "check-1",
+            "move-NORTH",
+            "move-EAST"
+          ],
+          "entropy_after": 2.0101584252598372,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "bad",
+          "position": [
+            0,
+            4
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.06928311641999851,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":0}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[{\"distance\":1,\"kind\":\"distance_at_most\",\"rock_id\":0}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        }
+      ],
+      "trial_index": 3,
+      "truth_index": 2
+    },
+    {
+      "final_entropy": 1.3859251443542349,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -1.4138428204629294,
+      "map_name": "3-6",
+      "steps": [
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            4.53992427176253e-05,
+            0.6931471805599452
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-EAST",
+            "move-SOUTH",
+            "move-EAST"
+          ],
+          "entropy_after": 2.0794415416798357,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            3,
+            3,
+            4,
+            3
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.679}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":0},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"good\",\"rock_id\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        },
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            0.14154255201965227,
+            0.6935163973256009,
+            0.0002064710803306724,
+            0.06928311641999851
+          ],
+          "candidate_root_actions": [
+            "check-1",
+            "check-0",
+            "move-SOUTH",
+            "check-1"
+          ],
+          "entropy_after": 2.07907232491418,
+          "entropy_before": 2.0794415416798357,
+          "expanded_nodes": [
+            7,
+            5,
+            4,
+            5
+          ],
+          "observation": "good",
+          "position": [
+            1,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.6935163973256009,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"distance\":1,\"kind\":\"distance_at_most\",\"rock_id\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "move-SOUTH",
+          "candidate_exact_eig": [
+            0.6931471805599452,
+            0.0015278932064872741,
+            0.0,
+            0.009185981503185836
+          ],
+          "candidate_root_actions": [
+            "move-SOUTH",
+            "check-2",
+            "move-SOUTH",
+            "move-NORTH"
+          ],
+          "entropy_after": 2.07907232491418,
+          "entropy_before": 2.07907232491418,
+          "expanded_nodes": [
+            2,
+            3,
+            2,
+            2
+          ],
+          "observation": null,
+          "position": [
+            1,
+            3
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.827}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"good\",\"rock_id\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        },
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            0.6931471805599452,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "check-1",
+            "move-EAST",
+            "move-EAST",
+            "move-NORTH"
+          ],
+          "entropy_after": 1.3859251443542349,
+          "entropy_before": 2.07907232491418,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "good",
+          "position": [
+            1,
+            4
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.6931471805599452,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":2,\"threshold\":0.701}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":3}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        }
+      ],
+      "trial_index": 4,
+      "truth_index": 2
+    },
+    {
+      "final_entropy": 3.3964527863797276,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -3.1524742152815035,
+      "map_name": "5-7",
+      "steps": [
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.6931471805599454,
+            4.556028282642899e-06,
+            2.1013685985948882e-05,
+            0.0007381609563550384
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "check-1",
+            "check-4",
+            "check-3"
+          ],
+          "entropy_after": 3.4657359027997265,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            3,
+            6,
+            7,
+            7
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 0.6931471805599454,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":4},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"bad\",\"rock_id\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"good\",\"rock_id\":3}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        },
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.0030509797129432137,
+            0.0,
+            0.6935163973256011,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "check-3",
+            "move-SOUTH",
+            "move-EAST",
+            "move-SOUTH"
+          ],
+          "entropy_after": 3.4657359027997265,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            6,
+            3,
+            4,
+            3
+          ],
+          "observation": null,
+          "position": [
+            1,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.6935163973256011,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-2\",\"rules\":[{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[{\"distance\":1,\"kind\":\"distance_at_most\",\"rock_id\":4}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 2
+        },
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.0,
+            0.0692831164199994,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-SOUTH",
+            "move-EAST",
+            "move-EAST",
+            "move-SOUTH"
+          ],
+          "entropy_after": 3.4657359027997265,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "observation": null,
+          "position": [
+            2,
+            3
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.0692831164199994,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":4},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"good\",\"rock_id\":4}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":4},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "check-2",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.0692831164199994
+          ],
+          "candidate_root_actions": [
+            "move-SOUTH",
+            "move-NORTH",
+            "move-EAST",
+            "check-2"
+          ],
+          "entropy_after": 3.3964527863797276,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "good",
+          "position": [
+            3,
+            3
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.0692831164199994,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":4,\"threshold\":0.716}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":0},\"when\":[{\"kind\":\"step_at_least\",\"value\":3}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        }
+      ],
+      "trial_index": 0,
+      "truth_index": 5
+    },
+    {
+      "final_entropy": 3.465713202663079,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -3.472496652249215,
+      "map_name": "5-7",
+      "steps": [
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            4.53992427176253e-05
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-EAST",
+            "move-EAST",
+            "check-0"
+          ],
+          "entropy_after": 3.4657132026630793,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            3,
+            3,
+            3,
+            7
+          ],
+          "observation": "good",
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 4.53992427176253e-05,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        },
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-NORTH",
+            "move-EAST",
+            "move-SOUTH"
+          ],
+          "entropy_after": 3.4657132026630793,
+          "entropy_before": 3.4657132026630793,
+          "expanded_nodes": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.0,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":3,\"threshold\":0.558}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"distance\":2,\"kind\":\"distance_at_most\",\"rock_id\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":3},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        },
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.00010324151199947451,
+            3.7242817832350283e-05
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-EAST",
+            "check-0",
+            "check-1"
+          ],
+          "entropy_after": 3.4657067758430977,
+          "entropy_before": 3.4657132026630793,
+          "expanded_nodes": [
+            2,
+            2,
+            3,
+            3
+          ],
+          "observation": "bad",
+          "position": [
+            1,
+            3
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.00010324151199947451,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-2\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":4},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":3},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":4,\"threshold\":0.632}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 2
+        },
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.00010324018497964715
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-EAST",
+            "move-NORTH",
+            "check-0"
+          ],
+          "entropy_after": 3.465713202663079,
+          "entropy_before": 3.4657067758430977,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "good",
+          "position": [
+            1,
+            3
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.00010324018497964715,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":3},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":4},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        }
+      ],
+      "trial_index": 1,
+      "truth_index": 14
+    },
+    {
+      "final_entropy": 3.4564565234787477,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -3.62700073010496,
+      "map_name": "5-7",
+      "steps": [
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            2.5303584284763758e-05,
+            0.0,
+            0.0,
+            7.810322579793194e-06
+          ],
+          "candidate_root_actions": [
+            "check-0",
+            "move-EAST",
+            "move-EAST",
+            "check-1"
+          ],
+          "entropy_after": 3.4657132026630793,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            6,
+            3,
+            3,
+            7
+          ],
+          "observation": "bad",
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 2.5303584284763758e-05,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":0},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"bad\",\"rock_id\":0}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        },
+        {
+          "action": "check-0",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.00041461394731268086,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-SOUTH",
+            "check-0",
+            "move-NORTH"
+          ],
+          "entropy_after": 3.465645108436349,
+          "entropy_before": 3.4657132026630793,
+          "expanded_nodes": [
+            3,
+            3,
+            7,
+            3
+          ],
+          "observation": "bad",
+          "position": [
+            0,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.00041461394731268086,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-2\",\"rules\":[{\"action\":{\"kind\":\"check_rock\",\"rock_id\":3},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.698}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":0},\"when\":[]}]}",
+          "selected_strategy_index": 2
+        },
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            0.0,
+            5.206895274945111e-06,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "check-1",
+            "move-NORTH",
+            "move-SOUTH"
+          ],
+          "entropy_after": 3.465642504981934,
+          "entropy_before": 3.465645108436349,
+          "expanded_nodes": [
+            2,
+            3,
+            2,
+            2
+          ],
+          "observation": "good",
+          "position": [
+            0,
+            3
+          ],
+          "round": 2,
+          "selected_exact_eig": 5.206895274945111e-06,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":3}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":4},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"good\",\"rock_id\":4}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "check-2",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            1.050695338777885e-05,
+            0.009185981503185836
+          ],
+          "candidate_root_actions": [
+            "move-SOUTH",
+            "move-EAST",
+            "check-4",
+            "check-2"
+          ],
+          "entropy_after": 3.4564565234787477,
+          "entropy_before": 3.465642504981934,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "bad",
+          "position": [
+            0,
+            3
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.009185981503185836,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":3}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":0,\"threshold\":0.793}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        }
+      ],
+      "trial_index": 2,
+      "truth_index": 21
+    },
+    {
+      "final_entropy": 3.465343985897423,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -3.4456868082615077,
+      "map_name": "5-7",
+      "steps": [
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            0.6931471805599454,
+            7.810322579793194e-06,
+            0.0,
+            0.009206995189172229
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "check-1",
+            "move-NORTH",
+            "check-4"
+          ],
+          "entropy_after": 3.4657359027997265,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            3,
+            7,
+            3,
+            7
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 0.6931471805599454,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":3}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        },
+        {
+          "action": "move-NORTH",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-NORTH",
+            "move-EAST",
+            "move-EAST",
+            "move-EAST"
+          ],
+          "entropy_after": 3.4657359027997265,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "observation": null,
+          "position": [
+            1,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.0,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":4},\"when\":[{\"kind\":\"step_at_least\",\"value\":2}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        },
+        {
+          "action": "check-4",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            3.404968968245825e-05
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-SOUTH",
+            "move-EAST",
+            "check-4"
+          ],
+          "entropy_after": 3.4657132026630793,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            2,
+            2,
+            2,
+            3
+          ],
+          "observation": "good",
+          "position": [
+            1,
+            2
+          ],
+          "round": 2,
+          "selected_exact_eig": 3.404968968245825e-05,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":0},\"when\":[{\"kind\":\"last_observation\",\"outcome\":\"bad\",\"rock_id\":4}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[{\"kind\":\"step_at_least\",\"value\":3}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":4},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        },
+        {
+          "action": "check-3",
+          "candidate_exact_eig": [
+            0.00036921676565615513,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "check-3",
+            "move-SOUTH",
+            "move-EAST",
+            "move-EAST"
+          ],
+          "entropy_after": 3.465343985897423,
+          "entropy_before": 3.4657132026630793,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": "bad",
+          "position": [
+            1,
+            2
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.00036921676565615513,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":3},\"when\":[{\"distance\":2,\"kind\":\"distance_at_most\",\"rock_id\":3}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":2},\"when\":[{\"distance\":0,\"kind\":\"distance_at_most\",\"rock_id\":2}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":3},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        }
+      ],
+      "trial_index": 3,
+      "truth_index": 24
+    },
+    {
+      "final_entropy": 3.396450182925312,
+      "final_map_accuracy": 0.0,
+      "final_truth_log_probability": -3.154758686919684,
+      "map_name": "5-7",
+      "steps": [
+        {
+          "action": "check-1",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            2.3617140401999137e-05
+          ],
+          "candidate_root_actions": [
+            "move-EAST",
+            "move-SOUTH",
+            "move-SOUTH",
+            "check-1"
+          ],
+          "entropy_after": 3.4657332993453105,
+          "entropy_before": 3.4657359027997265,
+          "expanded_nodes": [
+            3,
+            3,
+            3,
+            7
+          ],
+          "observation": "good",
+          "position": [
+            0,
+            3
+          ],
+          "round": 0,
+          "selected_exact_eig": 2.3617140401999137e-05,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":2,\"threshold\":0.629}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":4},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":1},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        },
+        {
+          "action": "move-EAST",
+          "candidate_exact_eig": [
+            3.152019780294779e-05,
+            0.693147180559945,
+            2.101368598639297e-05,
+            0.027060703805311448
+          ],
+          "candidate_root_actions": [
+            "check-4",
+            "move-EAST",
+            "check-4",
+            "check-2"
+          ],
+          "entropy_after": 3.4657332993453105,
+          "entropy_before": 3.4657332993453105,
+          "expanded_nodes": [
+            7,
+            3,
+            7,
+            7
+          ],
+          "observation": null,
+          "position": [
+            0,
+            3
+          ],
+          "round": 1,
+          "selected_exact_eig": 0.693147180559945,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-1\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":4},\"when\":[{\"distance\":2,\"kind\":\"distance_at_most\",\"rock_id\":3}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":4},\"when\":[{\"distance\":2,\"kind\":\"distance_at_most\",\"rock_id\":0}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 1
+        },
+        {
+          "action": "check-2",
+          "candidate_exact_eig": [
+            0.0,
+            0.09933168387840485,
+            0.0,
+            0.12938025133681164
+          ],
+          "candidate_root_actions": [
+            "move-SOUTH",
+            "check-2",
+            "move-EAST",
+            "check-2"
+          ],
+          "entropy_after": 3.396450182925312,
+          "entropy_before": 3.4657332993453105,
+          "expanded_nodes": [
+            2,
+            3,
+            2,
+            3
+          ],
+          "observation": "bad",
+          "position": [
+            1,
+            3
+          ],
+          "round": 2,
+          "selected_exact_eig": 0.12938025133681164,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-3\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":3},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":4,\"threshold\":0.826}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[{\"distance\":1,\"kind\":\"distance_at_most\",\"rock_id\":1}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":2},\"when\":[]}]}",
+          "selected_strategy_index": 3
+        },
+        {
+          "action": "move-SOUTH",
+          "candidate_exact_eig": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "candidate_root_actions": [
+            "move-SOUTH",
+            "move-EAST",
+            "move-EAST",
+            "move-NORTH"
+          ],
+          "entropy_after": 3.396450182925312,
+          "entropy_before": 3.396450182925312,
+          "expanded_nodes": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "observation": null,
+          "position": [
+            1,
+            3
+          ],
+          "round": 3,
+          "selected_exact_eig": 0.0,
+          "selected_strategy": "{\"description\":\"A policy sampled independently from the registered Rock strategy grammar.\",\"name\":\"random-strategy-0\",\"rules\":[{\"action\":{\"kind\":\"target_rock\",\"path\":\"x_first\",\"rock_id\":1},\"when\":[{\"kind\":\"good_probability_at_least\",\"rock_id\":1,\"threshold\":0.734}]},{\"action\":{\"kind\":\"check_rock\",\"rock_id\":4},\"when\":[{\"kind\":\"step_at_least\",\"value\":1}]},{\"action\":{\"kind\":\"target_rock\",\"path\":\"y_first\",\"rock_id\":4},\"when\":[]}]}",
+          "selected_strategy_index": 0
+        }
+      ],
+      "trial_index": 4,
+      "truth_index": 3
+    }
+  ]
+}
