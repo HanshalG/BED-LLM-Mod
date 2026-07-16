@@ -133,6 +133,28 @@ def test_small_dry_anchor_preserves_pairing_and_compute_controls() -> None:
         assert math.isfinite(summary["maps"]["3-6"]["summary"][arm]["final_entropy_mean"])
 
 
+def test_trial_concurrency_preserves_paired_traces() -> None:
+    common = {
+        "map_names": ("3-6",),
+        "num_trials_per_map": 2,
+        "num_rounds": 2,
+        "num_strategies": 3,
+        "bootstrap_replicates": 30,
+    }
+    serial_config = L1Config(**common, trial_concurrency=1)
+    parallel_config = L1Config(**common, trial_concurrency=2)
+
+    serial = run_l1_anchor(
+        LLMRockStrategyProvider(DeterministicStrategyModel(), serial_config), serial_config
+    )
+    parallel = run_l1_anchor(
+        LLMRockStrategyProvider(DeterministicStrategyModel(), parallel_config), parallel_config
+    )
+
+    assert serial["traces"] == parallel["traces"]
+    assert serial["maps"] == parallel["maps"]
+
+
 def test_l1_openrouter_config_is_nonthinking_and_bounded() -> None:
     config = load_config("configs/config_nonmyopic_rock_strategy_l1_openrouter.yaml")
 

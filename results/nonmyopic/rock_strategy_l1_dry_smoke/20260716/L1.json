@@ -16,213 +16,6 @@
     {
       "attempt": 0,
       "history": [],
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
-      "request_type": "width",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-SOUTH",
-          "observation": null
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        0,
-        4
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-0",
-          "observation": "good"
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-1",
-          "observation": "good"
-        }
-      ],
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
-      "request_type": "width",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-SOUTH",
-          "observation": null
-        },
-        {
-          "action": "move-EAST",
-          "observation": null
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        1,
-        4
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-0",
-          "observation": "good"
-        },
-        {
-          "action": "check-0",
-          "observation": "bad"
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-1",
-          "observation": "good"
-        },
-        {
-          "action": "check-1",
-          "observation": "good"
-        }
-      ],
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
-      "request_type": "width",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-SOUTH",
-          "observation": null
-        },
-        {
-          "action": "move-EAST",
-          "observation": null
-        },
-        {
-          "action": "check-1",
-          "observation": "good"
-        }
-      ],
-      "horizon": 1,
-      "map_name": "3-6",
-      "position": [
-        1,
-        4
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-0",
-          "observation": "good"
-        },
-        {
-          "action": "check-0",
-          "observation": "bad"
-        },
-        {
-          "action": "check-0",
-          "observation": "bad"
-        }
-      ],
-      "horizon": 1,
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-1",
-          "observation": "good"
-        },
-        {
-          "action": "check-1",
-          "observation": "good"
-        },
-        {
-          "action": "check-1",
-          "observation": "good"
-        }
-      ],
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
-      "request_type": "width",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [],
       "horizon": 2,
       "map_name": "3-6",
       "position": [
@@ -243,202 +36,7 @@
       ],
       "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
       "request_type": "width",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-SOUTH",
-          "observation": null
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        0,
-        4
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-0",
-          "observation": "bad"
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-1",
-          "observation": "good"
-        }
-      ],
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
-      "request_type": "width",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-SOUTH",
-          "observation": null
-        },
-        {
-          "action": "move-EAST",
-          "observation": null
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        1,
-        4
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-0",
-          "observation": "bad"
-        },
-        {
-          "action": "check-0",
-          "observation": "good"
-        }
-      ],
-      "horizon": 2,
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-1",
-          "observation": "good"
-        },
-        {
-          "action": "check-1",
-          "observation": "bad"
-        }
-      ],
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
-      "request_type": "width",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-SOUTH",
-          "observation": null
-        },
-        {
-          "action": "move-EAST",
-          "observation": null
-        },
-        {
-          "action": "check-1",
-          "observation": "good"
-        }
-      ],
-      "horizon": 1,
-      "map_name": "3-6",
-      "position": [
-        1,
-        4
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-0",
-          "observation": "bad"
-        },
-        {
-          "action": "check-0",
-          "observation": "good"
-        },
-        {
-          "action": "check-0",
-          "observation": "bad"
-        }
-      ],
-      "horizon": 1,
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-1",
-          "observation": "good"
-        },
-        {
-          "action": "check-1",
-          "observation": "bad"
-        },
-        {
-          "action": "check-1",
-          "observation": "bad"
-        }
-      ],
-      "map_name": "3-6",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
-      "request_type": "width",
-      "trial_index": 1
+      "trial_index": 0
     },
     {
       "attempt": 0,
@@ -452,6 +50,103 @@
       "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
       "request_type": "strategy",
       "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
+      "request_type": "width",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        4
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        4
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
     },
     {
       "attempt": 0,
@@ -469,6 +164,158 @@
       "attempt": 0,
       "history": [
         {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
+      "request_type": "width",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
+      "request_type": "width",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        },
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        1,
+        4
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        },
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        1,
+        4
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        1,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "good"
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "bad"
+        },
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
           "action": "move-EAST",
           "observation": null
         }
@@ -482,6 +329,220 @@
       "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
       "request_type": "strategy",
       "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        },
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        },
+        {
+          "action": "check-1",
+          "observation": "bad"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
+      "request_type": "width",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        },
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "3-6",
+      "position": [
+        1,
+        4
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "good"
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        },
+        {
+          "action": "check-1",
+          "observation": "good"
+        },
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        },
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "3-6",
+      "position": [
+        1,
+        4
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "bad"
+        },
+        {
+          "action": "check-0",
+          "observation": "good"
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-0\", \"description\": \"Check rock 0 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-3",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        },
+        {
+          "action": "check-1",
+          "observation": "bad"
+        },
+        {
+          "action": "check-1",
+          "observation": "bad"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\"]}",
+      "request_type": "width",
+      "trial_index": 1
     },
     {
       "attempt": 0,
@@ -517,6 +578,23 @@
       "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
       "request_type": "width",
       "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-2",
+          "observation": "good"
+        }
+      ],
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
+      "request_type": "width",
+      "trial_index": 1
     },
     {
       "attempt": 0,
@@ -561,182 +639,6 @@
       "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
       "request_type": "strategy",
       "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-2",
-          "observation": "bad"
-        },
-        {
-          "action": "check-2",
-          "observation": "bad"
-        }
-      ],
-      "map_name": "5-7",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
-      "request_type": "width",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-EAST",
-          "observation": null
-        },
-        {
-          "action": "move-EAST",
-          "observation": null
-        },
-        {
-          "action": "check-2",
-          "observation": "bad"
-        }
-      ],
-      "horizon": 1,
-      "map_name": "5-7",
-      "position": [
-        2,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-3",
-          "observation": "bad"
-        },
-        {
-          "action": "check-3",
-          "observation": "bad"
-        },
-        {
-          "action": "check-3",
-          "observation": "bad"
-        }
-      ],
-      "horizon": 1,
-      "map_name": "5-7",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-2",
-          "observation": "bad"
-        },
-        {
-          "action": "check-2",
-          "observation": "bad"
-        },
-        {
-          "action": "check-2",
-          "observation": "good"
-        }
-      ],
-      "map_name": "5-7",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
-      "request_type": "width",
-      "trial_index": 0
-    },
-    {
-      "attempt": 0,
-      "history": [],
-      "horizon": 2,
-      "map_name": "5-7",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [],
-      "map_name": "5-7",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
-      "request_type": "width",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "move-EAST",
-          "observation": null
-        }
-      ],
-      "horizon": 2,
-      "map_name": "5-7",
-      "position": [
-        1,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-3",
-          "observation": "good"
-        }
-      ],
-      "horizon": 2,
-      "map_name": "5-7",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
-      "request_type": "strategy",
-      "trial_index": 1
-    },
-    {
-      "attempt": 0,
-      "history": [
-        {
-          "action": "check-2",
-          "observation": "good"
-        }
-      ],
-      "map_name": "5-7",
-      "position": [
-        0,
-        3
-      ],
-      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
-      "request_type": "width",
-      "trial_index": 1
     },
     {
       "attempt": 0,
@@ -781,6 +683,104 @@
       "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
       "request_type": "strategy",
       "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-2",
+          "observation": "bad"
+        },
+        {
+          "action": "check-2",
+          "observation": "bad"
+        }
+      ],
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-2",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "5-7",
+      "position": [
+        2,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-3",
+          "observation": "bad"
+        },
+        {
+          "action": "check-3",
+          "observation": "bad"
+        },
+        {
+          "action": "check-3",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"strategies\": [{\"name\": \"approach-then-check-0-x_first\", \"description\": \"Approach rock 0 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 0, \"path\": \"x_first\"}}]}, {\"name\": \"approach-then-check-1-y_first\", \"description\": \"Approach rock 1 along a y_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 1, \"path\": \"y_first\"}}]}, {\"name\": \"approach-then-check-2-x_first\", \"description\": \"Approach rock 2 along a x_first path, then check it on the next step.\", \"rules\": [{\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}, {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}]}, {\"name\": \"immediate-check-3\", \"description\": \"Check rock 3 immediately and continue checking it.\", \"rules\": [{\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}}]}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-2",
+          "observation": "bad"
+        },
+        {
+          "action": "check-2",
+          "observation": "bad"
+        },
+        {
+          "action": "check-2",
+          "observation": "good"
+        }
+      ],
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-EAST\", \"check-1\", \"check-2\", \"check-0\", \"move-NORTH\", \"move-SOUTH\", \"check-3\", \"check-4\"]}",
+      "request_type": "width",
+      "trial_index": 0
     },
     {
       "attempt": 0,
@@ -893,6 +893,7 @@
     "planning_horizon": 2,
     "seed": 12031,
     "temperature": 0.0,
+    "trial_concurrency": 4,
     "validation_retries": 1
   },
   "dry_run": true,
@@ -1339,6 +1340,7 @@
     }
   },
   "mechanics": {
+    "accepted_llm_cells": 44,
     "all_selected_actions_legal": true,
     "initial_strategy_cells_shared_with_d1": true,
     "logical_strategy_requests": 32,

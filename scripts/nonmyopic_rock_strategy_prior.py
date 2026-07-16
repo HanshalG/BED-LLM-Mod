@@ -7,12 +7,14 @@ strategy rollout EIG, policy selection, observations, and decoding are exact.
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, field
 import hashlib
 import json
 import math
 from pathlib import Path
 import sys
+import threading
 from typing import Any, Literal, Protocol
 
 import numpy as np
@@ -69,6 +71,7 @@ class L1Config:
     bootstrap_replicates: int = 10_000
     temperature: float = 0.0
     validation_retries: int = 1
+    trial_concurrency: int = 32
 
     def validate(self) -> None:
         if not self.map_names:
@@ -80,6 +83,7 @@ class L1Config:
             self.num_rounds,
             self.planning_horizon,
             self.bootstrap_replicates,
+            self.trial_concurrency,
         ) <= 0:
             raise ValueError("trial, round, strategy, horizon, and bootstrap counts must be positive")
         if self.num_strategies < 2:
@@ -232,6 +236,7 @@ class LLMRockStrategyProvider:
         self.config = config
         self._strategy_cache: dict[tuple[Any, ...], StrategyCell] = {}
         self._width_cache: dict[tuple[Any, ...], WidthCell] = {}
+        self._lock = threading.Lock()
         self.physical_requests: list[dict[str, Any]] = []
         self.invalid_responses: list[dict[str, Any]] = []
         self.logical_strategy_calls = 0
@@ -265,6 +270,11 @@ class LLMRockStrategyProvider:
             "distance_at_most/rock_id/distance, at_rock/rock_id. Each rule's when is an AND-list. "
             "Rules are first-match and only the final fallback has when:[]."
         )
+        syntax_warning = (
+            'Predicate objects always put the predicate name in kind, for example '
+            '{"kind":"at_rock","rock_id":0}; never use {"at_rock":{...}}. '
+            'Observation outcomes are exactly the lowercase strings "good" and "bad"; never use G/B.'
+        )
         action_help = (
             "Allowed actions: target_rock/rock_id/path (x_first or y_first), check_rock/rock_id, "
             "or move/direction (NORTH, EAST, SOUTH, WEST). target_rock moves one legal step toward "
@@ -281,6 +291,7 @@ class LLMRockStrategyProvider:
             f"Return exactly {self.config.num_strategies} distinct strategies using this schema:",
             schema,
             predicate_help,
+            syntax_warning,
             action_help,
             f"Planning horizon: {horizon} action(s).",
             f"Grid side length: {model.map_spec.grid_size}.",
@@ -344,9 +355,10 @@ class LLMRockStrategyProvider:
                 value = parser(response)
             except (StrategyProposalError, RockStrategyExecutionError) as exc:
                 last_error = exc
-                self.invalid_responses.append(
-                    {**context, "request_type": request_type, "attempt": attempt, "error": str(exc), "raw_response": response}
-                )
+                with self._lock:
+                    self.invalid_responses.append(
+                        {**context, "request_type": request_type, "attempt": attempt, "error": str(exc), "raw_response": response}
+                    )
                 if attempt < self.config.validation_retries:
                     messages = [
                         *messages,
@@ -360,9 +372,10 @@ class LLMRockStrategyProvider:
                         },
                     ]
                 continue
-            self.physical_requests.append(
-                {**context, "request_type": request_type, "attempt": attempt, "raw_response": response}
-            )
+            with self._lock:
+                self.physical_requests.append(
+                    {**context, "request_type": request_type, "attempt": attempt, "raw_response": response}
+                )
             return value, response
         raise StrategyProposalError(
             f"{request_type} cell failed after {self.config.validation_retries + 1} attempts: {last_error}"
@@ -379,11 +392,13 @@ class LLMRockStrategyProvider:
         history: History,
         horizon: int,
     ) -> StrategyCell:
-        self.logical_strategy_calls += 1
         key = (map_name, trial_index, position, history, horizon)
-        cached = self._strategy_cache.get(key)
+        with self._lock:
+            self.logical_strategy_calls += 1
+            cached = self._strategy_cache.get(key)
+            if cached is not None:
+                self.cache_hits += 1
         if cached is not None:
-            self.cache_hits += 1
             return StrategyCell(cached.strategies, cached.exact_scores, cached.raw_response, True)
 
         def parse_and_validate(
@@ -428,7 +443,8 @@ class LLMRockStrategyProvider:
         )
         strategies, exact_scores = validated
         cell = StrategyCell(strategies, exact_scores, raw_response, False)
-        self._strategy_cache[key] = cell
+        with self._lock:
+            self._strategy_cache[key] = cell
         return cell
 
     def propose_width_order(
@@ -441,11 +457,13 @@ class LLMRockStrategyProvider:
         belief: np.ndarray,
         history: History,
     ) -> WidthCell:
-        self.logical_width_calls += 1
         key = (map_name, trial_index, position, history)
-        cached = self._width_cache.get(key)
+        with self._lock:
+            self.logical_width_calls += 1
+            cached = self._width_cache.get(key)
+            if cached is not None:
+                self.cache_hits += 1
         if cached is not None:
-            self.cache_hits += 1
             return WidthCell(cached.action_ids, cached.raw_response, True)
         legal = model.legal_actions(position)
         context = {
@@ -461,7 +479,8 @@ class LLMRockStrategyProvider:
             parser=lambda response: parse_width_cell(response, allowed_actions=legal),
         )
         cell = WidthCell(action_ids, raw_response, False)
-        self._width_cache[key] = cell
+        with self._lock:
+            self._width_cache[key] = cell
         return cell
 
 
@@ -944,6 +963,118 @@ def _trace_payload(
     }
 
 
+def _run_l1_trial(
+    provider: LLMRockStrategyProvider,
+    config: L1Config,
+    *,
+    map_name: str,
+    trial_index: int,
+) -> dict[str, Any]:
+    model = RockDiagnosisModel(get_paper_map(map_name))
+    truth_rng = np.random.default_rng(_stable_seed(config.seed, map_name, "truth", trial_index))
+    truth_index = int(truth_rng.integers(len(model.hidden_states)))
+    states = {
+        arm: PolicyState(model.initial_belief.copy(), model.map_spec.start_position) for arm in ARMS
+    }
+    initial_strategy_texts: dict[ArmName, tuple[str, ...]] = {}
+    all_actions_legal = True
+    width_calls_match = True
+    width_scorer_units_match = True
+    random_cells_complete = True
+
+    for round_index in range(config.num_rounds):
+        horizon = min(config.planning_horizon, config.num_rounds - round_index)
+        strategy_selection = _strategy_selection(
+            model,
+            provider,
+            states["strategy_eig"],
+            map_name=map_name,
+            trial_index=trial_index,
+            horizon=horizon,
+        )
+        selections: dict[ArmName, Selection] = {
+            "strategy_eig": strategy_selection,
+            "exhaustive_d2": _exhaustive_selection(
+                model, states["exhaustive_d2"], horizon=horizon
+            ),
+            "shared_d1": _shared_d1_selection(
+                model,
+                provider,
+                states["shared_d1"],
+                map_name=map_name,
+                trial_index=trial_index,
+                horizon=horizon,
+            ),
+            "width": _width_selection(
+                model,
+                provider,
+                states["width"],
+                map_name=map_name,
+                trial_index=trial_index,
+                horizon=horizon,
+                scorer_budget=strategy_selection.scorer_units,
+            ),
+            "random_strategy": _random_strategy_selection(
+                model,
+                states["random_strategy"],
+                config,
+                map_name=map_name,
+                trial_index=trial_index,
+                round_index=round_index,
+                horizon=horizon,
+            ),
+        }
+        if round_index == 0:
+            initial_strategy_texts["strategy_eig"] = strategy_selection.candidate_strategies
+            initial_strategy_texts["shared_d1"] = selections["shared_d1"].candidate_strategies
+        width_calls_match = width_calls_match and (
+            selections["width"].logical_llm_calls == strategy_selection.logical_llm_calls
+        )
+        width_scorer_units_match = width_scorer_units_match and (
+            selections["width"].scorer_units == strategy_selection.scorer_units
+        )
+        random_cells_complete = random_cells_complete and (
+            len(selections["random_strategy"].candidate_strategies) == config.num_strategies
+        )
+        for arm, selection in selections.items():
+            all_actions_legal = all_actions_legal and selection.action in model.legal_actions(
+                states[arm].position
+            )
+            _apply_selection(
+                model,
+                states[arm],
+                selection,
+                arm=arm,
+                truth_index=truth_index,
+                config=config,
+                map_name=map_name,
+                trial_index=trial_index,
+                round_index=round_index,
+            )
+
+    return {
+        "map_name": map_name,
+        "trial_index": trial_index,
+        "traces": {
+            arm: _trace_payload(
+                map_name=map_name,
+                trial_index=trial_index,
+                truth_index=truth_index,
+                arm=arm,
+                state=states[arm],
+            )
+            for arm in ARMS
+        },
+        "all_actions_legal": all_actions_legal,
+        "initial_strategy_cells_shared": (
+            initial_strategy_texts["strategy_eig"] == initial_strategy_texts["shared_d1"]
+        ),
+        "width_calls_match": width_calls_match,
+        "width_scorer_units_match": width_scorer_units_match,
+        "random_cells_complete": random_cells_complete,
+    }
+
+
 def run_l1_anchor(provider: LLMRockStrategyProvider, config: L1Config) -> dict[str, Any]:
     config.validate()
     traces: dict[str, dict[ArmName, list[dict[str, Any]]]] = {
@@ -955,97 +1086,48 @@ def run_l1_anchor(provider: LLMRockStrategyProvider, config: L1Config) -> dict[s
     width_scorer_units_match = True
     random_cells_complete = True
 
-    for map_name in config.map_names:
-        model = RockDiagnosisModel(get_paper_map(map_name))
-        for trial_index in range(config.num_trials_per_map):
-            truth_rng = np.random.default_rng(_stable_seed(config.seed, map_name, "truth", trial_index))
-            truth_index = int(truth_rng.integers(len(model.hidden_states)))
-            states = {
-                arm: PolicyState(model.initial_belief.copy(), model.map_spec.start_position) for arm in ARMS
-            }
-            initial_strategy_texts: dict[ArmName, tuple[str, ...]] = {}
-            for round_index in range(config.num_rounds):
-                horizon = min(config.planning_horizon, config.num_rounds - round_index)
-                strategy_selection = _strategy_selection(
-                    model,
+    jobs = [
+        (map_name, trial_index)
+        for map_name in config.map_names
+        for trial_index in range(config.num_trials_per_map)
+    ]
+    worker_count = min(config.trial_concurrency, len(jobs))
+    if worker_count == 1:
+        trial_results = [
+            _run_l1_trial(
+                provider, config, map_name=map_name, trial_index=trial_index
+            )
+            for map_name, trial_index in jobs
+        ]
+    else:
+        with ThreadPoolExecutor(max_workers=worker_count) as executor:
+            futures = [
+                executor.submit(
+                    _run_l1_trial,
                     provider,
-                    states["strategy_eig"],
+                    config,
                     map_name=map_name,
                     trial_index=trial_index,
-                    horizon=horizon,
                 )
-                selections: dict[ArmName, Selection] = {
-                    "strategy_eig": strategy_selection,
-                    "exhaustive_d2": _exhaustive_selection(
-                        model, states["exhaustive_d2"], horizon=horizon
-                    ),
-                    "shared_d1": _shared_d1_selection(
-                        model,
-                        provider,
-                        states["shared_d1"],
-                        map_name=map_name,
-                        trial_index=trial_index,
-                        horizon=horizon,
-                    ),
-                    "width": _width_selection(
-                        model,
-                        provider,
-                        states["width"],
-                        map_name=map_name,
-                        trial_index=trial_index,
-                        horizon=horizon,
-                        scorer_budget=strategy_selection.scorer_units,
-                    ),
-                    "random_strategy": _random_strategy_selection(
-                        model,
-                        states["random_strategy"],
-                        config,
-                        map_name=map_name,
-                        trial_index=trial_index,
-                        round_index=round_index,
-                        horizon=horizon,
-                    ),
-                }
-                if round_index == 0:
-                    initial_strategy_texts["strategy_eig"] = strategy_selection.candidate_strategies
-                    initial_strategy_texts["shared_d1"] = selections["shared_d1"].candidate_strategies
-                width_calls_match = width_calls_match and (
-                    selections["width"].logical_llm_calls == strategy_selection.logical_llm_calls
-                )
-                width_scorer_units_match = width_scorer_units_match and (
-                    selections["width"].scorer_units == strategy_selection.scorer_units
-                )
-                random_cells_complete = random_cells_complete and (
-                    len(selections["random_strategy"].candidate_strategies) == config.num_strategies
-                )
-                for arm, selection in selections.items():
-                    all_actions_legal = all_actions_legal and selection.action in model.legal_actions(
-                        states[arm].position
-                    )
-                    _apply_selection(
-                        model,
-                        states[arm],
-                        selection,
-                        arm=arm,
-                        truth_index=truth_index,
-                        config=config,
-                        map_name=map_name,
-                        trial_index=trial_index,
-                        round_index=round_index,
-                    )
-            initial_strategy_cells_shared = initial_strategy_cells_shared and (
-                initial_strategy_texts["strategy_eig"] == initial_strategy_texts["shared_d1"]
-            )
-            for arm in ARMS:
-                traces[map_name][arm].append(
-                    _trace_payload(
-                        map_name=map_name,
-                        trial_index=trial_index,
-                        truth_index=truth_index,
-                        arm=arm,
-                        state=states[arm],
-                    )
-                )
+                for map_name, trial_index in jobs
+            ]
+            trial_results = [future.result() for future in futures]
+
+    for trial_result in trial_results:
+        map_name = str(trial_result["map_name"])
+        for arm in ARMS:
+            traces[map_name][arm].append(trial_result["traces"][arm])
+        all_actions_legal = all_actions_legal and bool(trial_result["all_actions_legal"])
+        initial_strategy_cells_shared = initial_strategy_cells_shared and bool(
+            trial_result["initial_strategy_cells_shared"]
+        )
+        width_calls_match = width_calls_match and bool(trial_result["width_calls_match"])
+        width_scorer_units_match = width_scorer_units_match and bool(
+            trial_result["width_scorer_units_match"]
+        )
+        random_cells_complete = random_cells_complete and bool(
+            trial_result["random_cells_complete"]
+        )
 
     map_results: dict[str, Any] = {}
     required_baselines: tuple[ArmName, ...] = ("shared_d1", "width", "random_strategy")
@@ -1077,7 +1159,8 @@ def run_l1_anchor(provider: LLMRockStrategyProvider, config: L1Config) -> dict[s
         "width_exact_scorer_units_match_strategy_eig": width_scorer_units_match,
         "random_strategy_cells_have_k_candidates": random_cells_complete,
         "rollout_scoring_llm_calls": 0,
-        "physical_llm_requests": len(provider.physical_requests),
+        "physical_llm_requests": len(provider.physical_requests) + len(provider.invalid_responses),
+        "accepted_llm_cells": len(provider.physical_requests),
         "logical_strategy_requests": provider.logical_strategy_calls,
         "logical_width_requests": provider.logical_width_calls,
         "provider_cache_hits": provider.cache_hits,
@@ -1178,6 +1261,7 @@ def main() -> None:
     parser.add_argument("--num-strategies", type=int, default=4)
     parser.add_argument("--seed", type=int, default=12_032)
     parser.add_argument("--bootstrap-replicates", type=int, default=10_000)
+    parser.add_argument("--trial-concurrency", type=int, default=32)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = L1Config(
@@ -1186,6 +1270,7 @@ def main() -> None:
         num_strategies=args.num_strategies,
         seed=args.seed,
         bootstrap_replicates=args.bootstrap_replicates,
+        trial_concurrency=args.trial_concurrency,
     )
     config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)

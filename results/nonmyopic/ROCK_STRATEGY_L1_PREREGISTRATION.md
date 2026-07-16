@@ -27,6 +27,8 @@ outcomes. No reward, exact scorer, arm, endpoint, or pass-rule change is permitt
 - Maps: Rock Diagnosis Figure 4 `3-6` and `5-7`.
 - Fresh formal seed: `12032`.
 - 30 paired trajectories per map, 8 rounds per trajectory.
+- Trial concurrency 32; trials retain independent keyed seeds and policy states, so
+  concurrency affects throughput only.
 - Strategy count K=4; planning horizon 2; receding-horizon regeneration.
 - Generator: `google/gemma-4-26b-a4b-it`, non-thinking, temperature 0.
 - Strategy grammar: the strict compact reactive grammar frozen in commit `774c67d`,
@@ -77,6 +79,11 @@ Pre-smoke conservative formal projection: `$0.80`; hard per-run cap: `$1.00`; pr
 budget remains `$40`. Replace the projection with the measured interface-smoke
 extrapolation before launch if it is larger. Do not launch if the projected formal cost
 exceeds the hard cap or remaining authorization.
+
+The interface-only smoke cost `$0.00206105` for one trajectory per map and two rounds.
+Its linear formal projection is approximately `$0.25`, below the frozen conservative
+projection. The two schema-only repairs and the pre-formal throughput/accounting
+changes are recorded in `ROCK_STRATEGY_L1_INTERFACE_AMENDMENT.md`.
 
 Pass or partial (beats controls but captures little exhaustive value) proceeds to L2.
 Failure versus random triggers exactly one prompt/grammar quality diagnosis and one
