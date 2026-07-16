@@ -1,0 +1,714 @@
+{
+  "config": {
+    "bootstrap_replicates": 100,
+    "grid_resolution": 8,
+    "max_step": 0.1,
+    "noise_sd": 0.5,
+    "num_particles": 64,
+    "num_rounds": 3,
+    "num_strategies": 4,
+    "num_trials": 1,
+    "planning_horizon": 4,
+    "rollout_samples": 16,
+    "seed": 31001,
+    "temperature": 0.0,
+    "trial_concurrency": 1,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "gate_passed": false,
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "error": "rank must be in [0, 3]",
+      "horizon": 3,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"local_refinement_cluster\",\n      \"description\": \"Exploit local density near the current position to resolve immediate uncertainty before moving to global modes.\",\n      \"steps\": [\n        { \"kind\": \"vector\", \"dx\": 0.05, \"dy\": 0.05 },\n        { \"kind\": \"toward_rank\", \"rank\": 4 },\n        { \"kind\": \"midpoint_ranks\", \"ranks\": [4, 5] }\n      ]\n    },\n    {\n      \"name\": \"global_mode_search\",\n      \"description\": \"Rapidly traverse towards the highest probability density regions to identify the primary source peak.\",\n      \"steps\": [\n        { \"kind\": \"toward_rank\", \"rank\": 0 },\n        { \"kind\": \"toward_rank\", \"rank\": 1 },\n        { \"kind\": \"toward_mean\" }\n      ]\n    },\n    {\n      \"name\": \"inter_mode_bridge\",\n      \"description\": \"Sample the space between high-rank particles to determine if the posterior is unimodal or multimodal.\",\n      \"steps\": [\n        { \"kind\": \"midpoint_ranks\", \"ranks\": [0, 2] },\n        { \"kind\": \"midpoint_ranks\", \"ranks\": [1, 3] },\n        { \"kind\": \"vector\", \"dx\": -0.1, \"dy\": 0.1 }\n      ]\n    },\n    {\n      \"name\": \"centroid_convergence\",\n      \"description\": \"Systematically move towards the center of mass of the current particle distribution.\",\n      \"steps\": [\n        { \"kind\": \"vector\", \"dx\": 0.1, \"dy\": -0.1 },\n        { \"kind\": \"toward_rank\", \"rank\": 3 },\n        { \"kind\": \"toward_mean\" }\n      ]\n    }\n  ]\n}\n```",
+      "state_key": "b7aafbb24de6d3bc7dd28350",
+      "trial_index": 0,
+      "type": "strategy"
+    }
+  ],
+  "mechanics": {
+    "accepted_llm_cells": 6,
+    "all_actions_legal": true,
+    "cache_hits": 3,
+    "grid_d2_scorer_units_match_strategy_eig": true,
+    "initial_strategy_cells_shared_with_d1": true,
+    "logical_strategy_calls": 6,
+    "logical_width_calls": 3,
+    "physical_llm_requests": 7,
+    "raw_rejected_responses": 1,
+    "rollout_scoring_llm_calls": 0,
+    "terminal_cell_failures": 0,
+    "width_scorer_units_match_strategy_eig": true
+  },
+  "paired": {
+    "strategy_eig_minus_grid_d2": {
+      "final_entropy_gain_ci95": [
+        0.11987933991271493,
+        0.11987933991271493
+      ],
+      "final_entropy_gain_mean": 0.11987933991271493,
+      "paired_values": [
+        0.11987933991271493
+      ],
+      "wins_ties_losses": [
+        1,
+        0,
+        0
+      ]
+    },
+    "strategy_eig_minus_random_strategy": {
+      "final_entropy_gain_ci95": [
+        0.3736070566774785,
+        0.3736070566774785
+      ],
+      "final_entropy_gain_mean": 0.3736070566774785,
+      "paired_values": [
+        0.3736070566774785
+      ],
+      "wins_ties_losses": [
+        1,
+        0,
+        0
+      ]
+    },
+    "strategy_eig_minus_shared_d1": {
+      "final_entropy_gain_ci95": [
+        0.0,
+        0.0
+      ],
+      "final_entropy_gain_mean": 0.0,
+      "paired_values": [
+        0.0
+      ],
+      "wins_ties_losses": [
+        0,
+        1,
+        0
+      ]
+    },
+    "strategy_eig_minus_width": {
+      "final_entropy_gain_ci95": [
+        0.1682674743590895,
+        0.1682674743590895
+      ],
+      "final_entropy_gain_mean": 0.1682674743590895,
+      "paired_values": [
+        0.1682674743590895
+      ],
+      "wins_ties_losses": [
+        1,
+        0,
+        0
+      ]
+    }
+  },
+  "requests": [
+    {
+      "attempt": 1,
+      "horizon": 3,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"local_refinement_cluster\",\n      \"description\": \"Exploit local density near the current position to resolve immediate uncertainty before moving to global modes.\",\n      \"steps\": [\n        { \"kind\": \"vector\", \"dx\": 0.05, \"dy\": 0.05 },\n        { \"kind\": \"toward_rank\", \"rank\": 1 },\n        { \"kind\": \"midpoint_ranks\", \"ranks\": [1, 2] }\n      ]\n    },\n    {\n      \"name\": \"global_mode_search\",\n      \"description\": \"Rapidly traverse towards the highest probability density regions to identify the primary source peak.\",\n      \"steps\": [\n        { \"kind\": \"toward_rank\", \"rank\": 0 },\n        { \"kind\": \"toward_rank\", \"rank\": 1 },\n        { \"kind\": \"toward_mean\" }\n      ]\n    },\n    {\n      \"name\": \"inter_mode_bridge\",\n      \"description\": \"Sample the space between high-rank particles to determine if the posterior is unimodal or multimodal.\",\n      \"steps\": [\n        { \"kind\": \"midpoint_ranks\", \"ranks\": [0, 2] },\n        { \"kind\": \"midpoint_ranks\", \"ranks\": [1, 3] },\n        { \"kind\": \"vector\", \"dx\": -0.1, \"dy\": 0.1 }\n      ]\n    },\n    {\n      \"name\": \"centroid_convergence\",\n      \"description\": \"Systematically move towards the center of mass of the current particle distribution.\",\n      \"steps\": [\n        { \"kind\": \"vector\", \"dx\": 0.1, \"dy\": -0.1 },\n        { \"kind\": \"toward_rank\", \"rank\": 3 },\n        { \"kind\": \"toward_mean\" }\n      ]\n    }\n  ]\n}\n```",
+      "state_key": "b7aafbb24de6d3bc7dd28350",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "```json\n{\"vectors\":[{\"dx\":0.1,\"dy\":0.0},{\"dx\":-0.1,\"dy\":0.0},{\"dx\":0.0,\"dy\":0.1},{\"dx\":0.0,\"dy\":-0.1},{\"dx\":0.1,\"dy\":0.1},{\"dx\":-0.1,\"dy\":-0.1},{\"dx\":0.1,\"dy\":-0.1},{\"dx\":-0.1,\"dy\":0.1},{\"dx\":0.05,\"dy\":0.05},{\"dx\":-0.05,\"dy\":-0.05},{\"dx\":0.05,\"dy\":-0.05},{\"dx\":-0.05,\"dy\":0.05}]}\n```",
+      "state_key": "a895afd635c08bc53d9ddb7d",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"gradient descent exploration\",\n      \"description\": \"Move toward the highest density mass to refine the peak location.\",\n      \"steps\": [\n        {\n          \"kind\": \"toward_rank\",\n          \"rank\": 0\n        },\n        {\n          \"kind\": \"toward_rank\",\n          \"rank\": 0\n        }\n      ]\n    },\n    {\n      \"name\": \"bimodal boundary search\",\n      \"description\": \"Target the gap between the two most probable clusters to resolve spatial ambiguity.\",\n      \"steps\": [\n        {\n          \"kind\": \"midpoint_ranks\",\n          \"ranks\": [\n            0,\n            1\n          ]\n        },\n        {\n          \"kind\": \"vector\",\n          \"dx\": -0.05,\n          \"dy\": 0.08\n        }\n      ]\n    },\n    {\n      \"name\": \"global uncertainty reduction\",\n      \"description\": \"Shift toward the center of mass to stabilize the global posterior mean.\",\n      \"steps\": [\n        {\n          \"kind\": \"toward_mean\"\n        },\n        {\n          \"kind\": \"toward_rank\",\n          \"rank\": 2\n        }\n      ]\n    },\n    {\n      \"name\": \"local jitter refinement\",\n      \"description\": \"Small vector steps to probe the local likelihood surface near the current estimate.\",\n      \"steps\": [\n        {\n          \"kind\": \"vector\",\n          \"dx\": 0.03,\n          \"dy\": 0.03\n        },\n        {\n          \"kind\": \"vector\",\n          \"dx\": -0.02,\n          \"dy\": 0.05\n        }\n      ]\n    }\n  ]\n}\n```",
+      "state_key": "3206ee7600f170933e04fe20",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "```json\n{\"vectors\":[{\"dx\":0.1,\"dy\":0.0},{\"dx\":-0.1,\"dy\":0.0},{\"dx\":0.0,\"dy\":0.1},{\"dx\":0.0,\"dy\":-0.1},{\"dx\":0.1,\"dy\":0.1},{\"dx\":-0.1,\"dy\":-0.1},{\"dx\":0.1,\"dy\":-0.1},{\"dx\":-0.1,\"dy\":0.1}]}\n```",
+      "state_key": "09543dc4401978812e986f15",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Exploit High Density\",\n      \"description\": \"Directly target the highest probability density region to maximize likelihood gradient.\",\n      \"steps\": [\n        {\n          \"kind\": \"toward_rank\",\n          \"rank\": 0\n        }\n      ]\n    },\n    {\n      \"name\": \"Inter-Rank Refinement\",\n      \"description\": \"Move toward the midpoint of the two most probable clusters to resolve uncertainty between peaks.\",\n      \"steps\": [\n        {\n          \"kind\": \"midpoint_ranks\",\n          \"ranks\": [\n            0,\n            1\n          ]\n        }\n      ]\n    },\n    {\n      \"name\": \"Local Perturbation\",\n      \"description\": \"Execute a small controlled shift to test local smoothness of the log-inverse distance field.\",\n      \"steps\": [\n        {\n          \"kind\": \"vector\",\n          \"dx\": 0.05,\n          \"dy\": 0.05\n        }\n      ]\n    },\n    {\n      \"name\": \"Centroid Convergence\",\n      \"description\": \"Move toward the global posterior mean to stabilize the estimate of the source location.\",\n      \"steps\": [\n        {\n          \"kind\": \"toward_mean\"\n        }\n      ]\n    }\n  ]\n}\n```",
+      "state_key": "6a4204955dd85b62c5391d52",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "```json\n{\"vectors\":[{\"dx\":0.1,\"dy\":0.1},{\"dx\":0.1,\"dy\":0.0},{\"dx\":0.0,\"dy\":0.1},{\"dx\":0.05,\"dy\":0.05}]}\n```",
+      "state_key": "173805530b5722d330d6896f",
+      "trial_index": 0,
+      "type": "width"
+    }
+  ],
+  "run_id": "nonmyopic-copex-strategy-l3-interface-smoke-20260716",
+  "schema_version": 1,
+  "stage": "L3",
+  "summary": {
+    "grid_d2": {
+      "entropy_mean_trace": [
+        2.857760704458269,
+        2.714804133421188,
+        2.5519295993168045
+      ],
+      "final_entropy_mean": 2.5519295993168045,
+      "final_rmse_mean": 0.5282430507690252,
+      "mean_scorer_units": 128.0,
+      "rmse_mean_trace": [
+        0.40871771327772083,
+        0.4004728409885517,
+        0.5282430507690252
+      ]
+    },
+    "random_strategy": {
+      "entropy_mean_trace": [
+        2.8611048010866793,
+        2.7849273993253743,
+        2.805657316081568
+      ],
+      "final_entropy_mean": 2.805657316081568,
+      "final_rmse_mean": 0.0823154209738043,
+      "mean_scorer_units": 128.0,
+      "rmse_mean_trace": [
+        0.18476944680007484,
+        0.17539481811323598,
+        0.0823154209738043
+      ]
+    },
+    "shared_d1": {
+      "entropy_mean_trace": [
+        2.676965659767116,
+        2.63809601804267,
+        2.4320502594040896
+      ],
+      "final_entropy_mean": 2.4320502594040896,
+      "final_rmse_mean": 0.04834455702446778,
+      "mean_scorer_units": 64.0,
+      "rmse_mean_trace": [
+        0.17648648043582055,
+        0.16562540262084058,
+        0.04834455702446778
+      ]
+    },
+    "strategy_eig": {
+      "entropy_mean_trace": [
+        2.676965659767116,
+        2.63809601804267,
+        2.4320502594040896
+      ],
+      "final_entropy_mean": 2.4320502594040896,
+      "final_rmse_mean": 0.04834455702446778,
+      "mean_scorer_units": 128.0,
+      "rmse_mean_trace": [
+        0.17648648043582055,
+        0.16562540262084058,
+        0.04834455702446778
+      ]
+    },
+    "width": {
+      "entropy_mean_trace": [
+        2.857760704458269,
+        2.915751603357946,
+        2.600317733763179
+      ],
+      "final_entropy_mean": 2.600317733763179,
+      "final_rmse_mean": 0.07618290294456549,
+      "mean_scorer_units": 128.0,
+      "rmse_mean_trace": [
+        0.40871771327772083,
+        0.2996003066674875,
+        0.07618290294456549
+      ]
+    }
+  },
+  "task_provenance": "COPEx Location_budgeted equations; independent implementation",
+  "trials": [
+    {
+      "all_actions_legal": true,
+      "grid_units_match": true,
+      "initial_cells_shared": true,
+      "initial_position": [
+        0.31900642996723183,
+        0.3569428594289682
+      ],
+      "traces": {
+        "grid_d2": [
+          {
+            "action": [
+              0.21900642996723185,
+              0.4569428594289682
+            ],
+            "candidate_scores": [
+              1.3730037907868593,
+              1.2146354947821532,
+              1.5888268642216565,
+              1.496245793575591,
+              1.3861967734671967,
+              1.5300291656783047
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:1:4",
+              "grid-pair:3:1",
+              "grid-pair:4:5",
+              "grid-pair:6:2",
+              "grid-pair:7:7"
+            ],
+            "entropy": 2.857760704458269,
+            "logical_llm_calls": 0,
+            "observation": 0.08300367596621316,
+            "planning_score": 1.5888268642216565,
+            "rmse": 0.40871771327772083,
+            "round": 1,
+            "scorer_units": 192,
+            "selected_strategy": "grid-pair:3:1"
+          },
+          {
+            "action": [
+              0.31900642996723183,
+              0.3569428594289682
+            ],
+            "candidate_scores": [
+              0.3810347378250344,
+              0.39200771532268563,
+              0.34643175419535266,
+              0.4993432346251132
+            ],
+            "candidates": [
+              "grid-pair:0:0",
+              "grid-pair:2:5",
+              "grid-pair:5:2",
+              "grid-pair:7:7"
+            ],
+            "entropy": 2.714804133421188,
+            "logical_llm_calls": 0,
+            "observation": 0.8413208935606853,
+            "planning_score": 0.4993432346251132,
+            "rmse": 0.4004728409885517,
+            "round": 2,
+            "scorer_units": 128,
+            "selected_strategy": "grid-pair:7:7"
+          },
+          {
+            "action": [
+              0.4190064299672318,
+              0.2569428594289682
+            ],
+            "candidate_scores": [
+              0.1813821770964853,
+              0.11396835294251792,
+              0.09967861939761855,
+              0.2744107714488982
+            ],
+            "candidates": [
+              "grid-root:0",
+              "grid-root:2",
+              "grid-root:4",
+              "grid-root:7"
+            ],
+            "entropy": 2.5519295993168045,
+            "logical_llm_calls": 0,
+            "observation": 1.4229785184714243,
+            "planning_score": 0.2744107714488982,
+            "rmse": 0.5282430507690252,
+            "round": 3,
+            "scorer_units": 64,
+            "selected_strategy": "grid-root:7"
+          }
+        ],
+        "random_strategy": [
+          {
+            "action": [
+              0.21900642996723182,
+              0.3068166443456861
+            ],
+            "candidate_scores": [
+              1.7367412747767894,
+              1.7367980269195575,
+              1.5568888923619966,
+              2.103247310385548
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"dx\":0.1,\"dy\":-0.0023765833883087777,\"kind\":\"vector\"},{\"kind\":\"toward_mean\"},{\"kind\":\"toward_rank\",\"rank\":1}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,1]},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,0]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"toward_mean\"},{\"dx\":-0.1,\"dy\":-0.04630986413116547,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"dx\":-0.1,\"dy\":-0.05012621508328205,\"kind\":\"vector\"},{\"dx\":-0.03326373440277596,\"dy\":0.1,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2}]}"
+            ],
+            "entropy": 2.8611048010866793,
+            "logical_llm_calls": 0,
+            "observation": -0.1829696589005676,
+            "planning_score": 2.103247310385548,
+            "rmse": 0.18476944680007484,
+            "round": 1,
+            "scorer_units": 192,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"dx\":-0.1,\"dy\":-0.05012621508328205,\"kind\":\"vector\"},{\"dx\":-0.03326373440277596,\"dy\":0.1,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":2}]}"
+          },
+          {
+            "action": [
+              0.31900642996723183,
+              0.4068166443456861
+            ],
+            "candidate_scores": [
+              0.3458635341461368,
+              0.30069989031113686,
+              0.3797120210006629,
+              0.19570726538224403
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_mean\"},{\"dx\":-0.056391910860202475,\"dy\":0.1,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"dx\":0.017578011543141536,\"dy\":0.1,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[3,1]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"dx\":-0.1,\"dy\":-0.06001797918492572,\"kind\":\"vector\"},{\"kind\":\"midpoint_ranks\",\"ranks\":[2,0]}]}"
+            ],
+            "entropy": 2.7849273993253743,
+            "logical_llm_calls": 0,
+            "observation": 0.9530319783802617,
+            "planning_score": 0.3797120210006629,
+            "rmse": 0.17539481811323598,
+            "round": 2,
+            "scorer_units": 128,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.4190064299672318,
+              0.5068166443456861
+            ],
+            "candidate_scores": [
+              0.10840812825591933,
+              0.03905746576717922,
+              0.10840812825591933,
+              0.10575448809034882
+            ],
+            "candidates": [
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-1\",\"steps\":[{\"dx\":0.1,\"dy\":-0.00903295349023281,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-2\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[2,3]}]}",
+              "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-3\",\"steps\":[{\"dx\":0.08785179260034538,\"dy\":0.1,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 2.805657316081568,
+            "logical_llm_calls": 0,
+            "observation": 2.1187745182268234,
+            "planning_score": 0.10840812825591933,
+            "rmse": 0.0823154209738043,
+            "round": 3,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Grammar-matched random continuous strategy.\",\"name\":\"random-plan-0\",\"steps\":[{\"kind\":\"toward_mean\"}]}"
+          }
+        ],
+        "shared_d1": [
+          {
+            "action": [
+              0.4190064299672318,
+              0.2569428594289682
+            ],
+            "candidate_scores": [
+              0.9132320926833974,
+              0.9197194799153213,
+              0.8179721826713302,
+              0.9197194799153213
+            ],
+            "candidates": [
+              "{\"description\":\"Exploit local density near the current position to resolve immediate uncertainty before moving to global modes.\",\"name\":\"local_refinement_cluster\",\"steps\":[{\"dx\":0.05,\"dy\":0.05,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}",
+              "{\"description\":\"Rapidly traverse towards the highest probability density regions to identify the primary source peak.\",\"name\":\"global_mode_search\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Sample the space between high-rank particles to determine if the posterior is unimodal or multimodal.\",\"name\":\"inter_mode_bridge\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,2]},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,3]},{\"dx\":-0.1,\"dy\":0.1,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Systematically move towards the center of mass of the current particle distribution.\",\"name\":\"centroid_convergence\",\"steps\":[{\"dx\":0.1,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 2.676965659767116,
+            "logical_llm_calls": 1,
+            "observation": 0.040323016253288935,
+            "planning_score": 0.9197194799153213,
+            "rmse": 0.17648648043582055,
+            "round": 1,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Rapidly traverse towards the highest probability density regions to identify the primary source peak.\",\"name\":\"global_mode_search\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5190064299672318,
+              0.3569428594289682
+            ],
+            "candidate_scores": [
+              0.15007516231340554,
+              0.15007516231340554,
+              0.15007516231340554,
+              0.1186901168750672
+            ],
+            "candidates": [
+              "{\"description\":\"Move toward the highest density mass to refine the peak location.\",\"name\":\"gradient descent exploration\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Target the gap between the two most probable clusters to resolve spatial ambiguity.\",\"name\":\"bimodal boundary search\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"dx\":-0.05,\"dy\":0.08,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Shift toward the center of mass to stabilize the global posterior mean.\",\"name\":\"global uncertainty reduction\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"toward_rank\",\"rank\":2}]}",
+              "{\"description\":\"Small vector steps to probe the local likelihood surface near the current estimate.\",\"name\":\"local jitter refinement\",\"steps\":[{\"dx\":0.03,\"dy\":0.03,\"kind\":\"vector\"},{\"dx\":-0.02,\"dy\":0.05,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 2.63809601804267,
+            "logical_llm_calls": 1,
+            "observation": 1.2138698402933046,
+            "planning_score": 0.15007516231340554,
+            "rmse": 0.16562540262084058,
+            "round": 2,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Move toward the highest density mass to refine the peak location.\",\"name\":\"gradient descent exploration\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          },
+          {
+            "action": [
+              0.6190064299672318,
+              0.4569428594289682
+            ],
+            "candidate_scores": [
+              0.20490641968173287,
+              0.20490641968173287,
+              0.13731235830602911,
+              0.17831956552136718
+            ],
+            "candidates": [
+              "{\"description\":\"Directly target the highest probability density region to maximize likelihood gradient.\",\"name\":\"Exploit High Density\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Move toward the midpoint of the two most probable clusters to resolve uncertainty between peaks.\",\"name\":\"Inter-Rank Refinement\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}",
+              "{\"description\":\"Execute a small controlled shift to test local smoothness of the log-inverse distance field.\",\"name\":\"Local Perturbation\",\"steps\":[{\"dx\":0.05,\"dy\":0.05,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Move toward the global posterior mean to stabilize the estimate of the source location.\",\"name\":\"Centroid Convergence\",\"steps\":[{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 2.4320502594040896,
+            "logical_llm_calls": 1,
+            "observation": 2.417446510764965,
+            "planning_score": 0.20490641968173287,
+            "rmse": 0.04834455702446778,
+            "round": 3,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Directly target the highest probability density region to maximize likelihood gradient.\",\"name\":\"Exploit High Density\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          }
+        ],
+        "strategy_eig": [
+          {
+            "action": [
+              0.4190064299672318,
+              0.2569428594289682
+            ],
+            "candidate_scores": [
+              1.7633025762673948,
+              1.957610246614479,
+              1.6440720646232538,
+              1.7536887120117197
+            ],
+            "candidates": [
+              "{\"description\":\"Exploit local density near the current position to resolve immediate uncertainty before moving to global modes.\",\"name\":\"local_refinement_cluster\",\"steps\":[{\"dx\":0.05,\"dy\":0.05,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,2]}]}",
+              "{\"description\":\"Rapidly traverse towards the highest probability density regions to identify the primary source peak.\",\"name\":\"global_mode_search\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"toward_mean\"}]}",
+              "{\"description\":\"Sample the space between high-rank particles to determine if the posterior is unimodal or multimodal.\",\"name\":\"inter_mode_bridge\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,2]},{\"kind\":\"midpoint_ranks\",\"ranks\":[1,3]},{\"dx\":-0.1,\"dy\":0.1,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Systematically move towards the center of mass of the current particle distribution.\",\"name\":\"centroid_convergence\",\"steps\":[{\"dx\":0.1,\"dy\":-0.1,\"kind\":\"vector\"},{\"kind\":\"toward_rank\",\"rank\":3},{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 2.676965659767116,
+            "logical_llm_calls": 1,
+            "observation": 0.040323016253288935,
+            "planning_score": 1.957610246614479,
+            "rmse": 0.17648648043582055,
+            "round": 1,
+            "scorer_units": 192,
+            "selected_strategy": "{\"description\":\"Rapidly traverse towards the highest probability density regions to identify the primary source peak.\",\"name\":\"global_mode_search\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":1},{\"kind\":\"toward_mean\"}]}"
+          },
+          {
+            "action": [
+              0.5190064299672318,
+              0.3569428594289682
+            ],
+            "candidate_scores": [
+              0.4248867629111955,
+              0.27582766478674947,
+              0.3590999449460529,
+              0.24624180210652807
+            ],
+            "candidates": [
+              "{\"description\":\"Move toward the highest density mass to refine the peak location.\",\"name\":\"gradient descent exploration\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Target the gap between the two most probable clusters to resolve spatial ambiguity.\",\"name\":\"bimodal boundary search\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]},{\"dx\":-0.05,\"dy\":0.08,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Shift toward the center of mass to stabilize the global posterior mean.\",\"name\":\"global uncertainty reduction\",\"steps\":[{\"kind\":\"toward_mean\"},{\"kind\":\"toward_rank\",\"rank\":2}]}",
+              "{\"description\":\"Small vector steps to probe the local likelihood surface near the current estimate.\",\"name\":\"local jitter refinement\",\"steps\":[{\"dx\":0.03,\"dy\":0.03,\"kind\":\"vector\"},{\"dx\":-0.02,\"dy\":0.05,\"kind\":\"vector\"}]}"
+            ],
+            "entropy": 2.63809601804267,
+            "logical_llm_calls": 1,
+            "observation": 1.2138698402933046,
+            "planning_score": 0.4248867629111955,
+            "rmse": 0.16562540262084058,
+            "round": 2,
+            "scorer_units": 128,
+            "selected_strategy": "{\"description\":\"Move toward the highest density mass to refine the peak location.\",\"name\":\"gradient descent exploration\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0},{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          },
+          {
+            "action": [
+              0.6190064299672318,
+              0.4569428594289682
+            ],
+            "candidate_scores": [
+              0.20490641968173287,
+              0.20490641968173287,
+              0.13731235830602911,
+              0.17831956552136718
+            ],
+            "candidates": [
+              "{\"description\":\"Directly target the highest probability density region to maximize likelihood gradient.\",\"name\":\"Exploit High Density\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}",
+              "{\"description\":\"Move toward the midpoint of the two most probable clusters to resolve uncertainty between peaks.\",\"name\":\"Inter-Rank Refinement\",\"steps\":[{\"kind\":\"midpoint_ranks\",\"ranks\":[0,1]}]}",
+              "{\"description\":\"Execute a small controlled shift to test local smoothness of the log-inverse distance field.\",\"name\":\"Local Perturbation\",\"steps\":[{\"dx\":0.05,\"dy\":0.05,\"kind\":\"vector\"}]}",
+              "{\"description\":\"Move toward the global posterior mean to stabilize the estimate of the source location.\",\"name\":\"Centroid Convergence\",\"steps\":[{\"kind\":\"toward_mean\"}]}"
+            ],
+            "entropy": 2.4320502594040896,
+            "logical_llm_calls": 1,
+            "observation": 2.417446510764965,
+            "planning_score": 0.20490641968173287,
+            "rmse": 0.04834455702446778,
+            "round": 3,
+            "scorer_units": 64,
+            "selected_strategy": "{\"description\":\"Directly target the highest probability density region to maximize likelihood gradient.\",\"name\":\"Exploit High Density\",\"steps\":[{\"kind\":\"toward_rank\",\"rank\":0}]}"
+          }
+        ],
+        "width": [
+          {
+            "action": [
+              0.21900642996723182,
+              0.4569428594289682
+            ],
+            "candidate_scores": [
+              0.8840395812696701,
+              1.2521186992590798,
+              1.007904568407271,
+              1.0748224850600696,
+              0.8160031161057852,
+              1.024495836004919,
+              0.9197194799153213,
+              1.3066912891333975,
+              0.9132320926833974,
+              1.1170264019544978,
+              0.9919807651752017,
+              1.1572943746178168
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7",
+              "width:8",
+              "width:9",
+              "width:10",
+              "width:11"
+            ],
+            "entropy": 2.857760704458269,
+            "logical_llm_calls": 1,
+            "observation": 0.08300367596621316,
+            "planning_score": 1.3066912891333975,
+            "rmse": 0.40871771327772083,
+            "round": 1,
+            "scorer_units": 192,
+            "selected_strategy": "width:7"
+          },
+          {
+            "action": [
+              0.31900642996723183,
+              0.5569428594289682
+            ],
+            "candidate_scores": [
+              0.26079194629831504,
+              0.20641802440270135,
+              0.3287891706906042,
+              0.21418519492653332,
+              0.37281898539268754,
+              0.2739103784302919,
+              0.23334044739554108,
+              0.30807823981514004
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3",
+              "width:4",
+              "width:5",
+              "width:6",
+              "width:7"
+            ],
+            "entropy": 2.915751603357946,
+            "logical_llm_calls": 1,
+            "observation": 1.2830848011033178,
+            "planning_score": 0.37281898539268754,
+            "rmse": 0.2996003066674875,
+            "round": 2,
+            "scorer_units": 128,
+            "selected_strategy": "width:4"
+          },
+          {
+            "action": [
+              0.4190064299672318,
+              0.6569428594289681
+            ],
+            "candidate_scores": [
+              0.41837443794326845,
+              0.2143777007457401,
+              0.35979549876672123,
+              0.2681444466058954
+            ],
+            "candidates": [
+              "width:0",
+              "width:1",
+              "width:2",
+              "width:3"
+            ],
+            "entropy": 2.600317733763179,
+            "logical_llm_calls": 1,
+            "observation": 2.5445086754765907,
+            "planning_score": 0.41837443794326845,
+            "rmse": 0.07618290294456549,
+            "round": 3,
+            "scorer_units": 64,
+            "selected_strategy": "width:0"
+          }
+        ]
+      },
+      "trial_index": 0,
+      "truth": [
+        0.7478613142216788,
+        0.8338083379259924
+      ],
+      "width_units_match": true
+    }
+  ],
+  "usage": {
+    "adapter_completion_tokens": 1993,
+    "adapter_cost_usd": 0.00115052,
+    "adapter_prompt_tokens": 3404,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 7,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 1993,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 1993,
+        "cost_usd": 0.00115052,
+        "prompt_tokens": 3404,
+        "reasoning_tokens": 0,
+        "requests": 7
+      }
+    },
+    "prompt_tokens": 3404,
+    "reasoning_tokens": 0,
+    "remaining_usd": 21.88401261000018,
+    "requests": 7,
+    "run_budget_usd": 1.5,
+    "run_cost_usd": 0.00115052,
+    "run_remaining_usd": 1.49884948,
+    "total_spent_usd": 18.11598738999982
+  }
+}

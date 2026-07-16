@@ -1,5 +1,7 @@
 import math
 
+import numpy as np
+
 from helpers import load_config
 from scripts.nonmyopic_copex_strategy_prior import (
     ContinuousStrategyProvider,
@@ -40,3 +42,14 @@ def test_l3_openrouter_config_is_bounded_and_nonthinking() -> None:
     assert config.model_pairs[0].questioner.thinking is False
     assert config.openrouter_run_budget_usd == 1.5
     assert config.openrouter_concurrency == 128
+
+
+def test_strategy_prompt_displays_only_addressable_particle_ranks() -> None:
+    config = L3Config()
+    provider = ContinuousStrategyProvider(DeterministicContinuousModel(), config)
+    lines = provider._belief_lines(
+        particles=np.zeros((6, 2)),
+        probabilities=np.asarray([0.3, 0.25, 0.2, 0.15, 0.06, 0.04]),
+    )
+    assert len(lines) == 4
+    assert lines[-1].startswith("rank 3:")

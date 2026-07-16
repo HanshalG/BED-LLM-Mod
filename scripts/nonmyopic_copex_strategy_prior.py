@@ -202,7 +202,7 @@ class ContinuousStrategyProvider:
         self.cache_hits = 0
 
     def _belief_lines(self, particles: np.ndarray, probabilities: np.ndarray) -> list[str]:
-        ranking = np.argsort(-probabilities, kind="stable")[:6]
+        ranking = np.argsort(-probabilities, kind="stable")[:4]
         return [
             f"rank {rank}: ({particles[index, 0]:.4f}, {particles[index, 1]:.4f}), p={probabilities[index]:.5f}"
             for rank, index in enumerate(ranking)
