@@ -169,6 +169,19 @@ root selection before scaling trials, and use a plan grammar that exposes meanin
 exploratory waypoints without brittle branch rules. Those are new experiments, not
 post-hoc repairs to this result.
 
+## Positioning
+
+This is an inference-time plan-prior study with an exact analytic scorer, not a
+comparison to amortized policy methods such as ASIG (arXiv:2607.03426) or to the
+MCTS-style LLM information-seeking line, including MISQ-HF (arXiv:2501.15056). ASIG's
+learned policy and action-tree search methods answer different algorithmic questions;
+we neither executed them nor infer anything about their relative performance here. The
+portable lesson is methodological: an apparent non-myopic gain needs matched legal
+random-plan and shared-root/myopic controls, because an LLM's useful proposal prior or
+an accurate fixed-plan score alone does not establish that deeper scoring improves the
+deployed receding-horizon action. The continuous L3 result supplies that control
+evidence, while the exact Rock endpoint was unavailable under strict legality.
+
 ## Cost and Reproduction
 
 Total live strategy-prior phase spend was `$0.900598325`, including interface smokes,
