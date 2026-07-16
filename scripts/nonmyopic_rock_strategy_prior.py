@@ -278,8 +278,10 @@ class LLMRockStrategyProvider:
         action_help = (
             "Allowed actions: target_rock/rock_id/path (x_first or y_first), check_rock/rock_id, "
             "or move/direction (NORTH, EAST, SOUTH, WEST). target_rock moves one legal step toward "
-            "the rock and checks it when reached. Direct moves that become illegal on any rollout branch "
-            "invalidate the whole response."
+            "the rock and checks it when reached. check_rock is legal from EVERY grid position: it is a "
+            "remote sensor whose accuracy decreases with distance, so an immediate check must use "
+            "check_rock directly rather than first requiring at_rock. Direct moves that become illegal "
+            "on any rollout branch invalidate the whole response."
         )
         posterior_lines = [
             f"- {_state_label(state)}: {float(probability):.8f}"
@@ -306,7 +308,11 @@ class LLMRockStrategyProvider:
             ", ".join(model.legal_actions(position)),
             "Make the strategies behaviorally diverse. Include movement when it can improve the next check, "
             "and encode the future check explicitly with a step or observation rule. At horizon 2, the cell "
-            "must include at least one strategy whose root is a move and at least one whose root is a check.",
+            "must include at least one strategy whose action AT THE CURRENT STATE is a move and at least one "
+            "whose action AT THE CURRENT STATE is a direct check. Guarantee the check root by giving one "
+            "strategy an unconditional final fallback like "
+            '{"when":[],"action":{"kind":"check_rock","rock_id":1}}. Its name or an at_rock rule does '
+            "not make it a check root if that rule does not currently match.",
         ]
         return [{"role": "system", "content": system}, {"role": "user", "content": "\n".join(user_lines)}]
 
@@ -422,7 +428,10 @@ class LLMRockStrategyProvider:
                     model.check_id(action) is not None for action in roots
                 ):
                     raise StrategyProposalError(
-                        "horizon-2 strategy cells need at least one move root and at least one check root"
+                        "horizon-2 strategy cells need at least one move root and at least one check root; "
+                        f"compiled root actions were {roots}. Make one strategy's currently matching action "
+                        "a direct check_rock (an unconditional check fallback guarantees this) and keep "
+                        "another strategy's current root as movement"
                     )
             return strategies, scores
 

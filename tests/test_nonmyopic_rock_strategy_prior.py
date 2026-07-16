@@ -108,6 +108,61 @@ def test_provider_uses_one_feedback_retry_for_rollout_illegality() -> None:
     assert chat_model.messages[1][-2]["role"] == "assistant"
 
 
+def test_provider_feedback_explains_current_root_mix() -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    valid_response = _deterministic_strategy_response(model, 2)
+
+    class AllMovesThenValidModel:
+        def __init__(self) -> None:
+            self.messages: list[list[dict[str, str]]] = []
+
+        def chat_complete(
+            self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1
+        ) -> list[str]:
+            del temperature, num_responses
+            self.messages.append(messages)
+            if len(self.messages) > 1:
+                return [valid_response]
+            cell = {
+                "strategies": [
+                    {
+                        "name": f"move-{rock_id}",
+                        "description": "Move first and check after reaching the target.",
+                        "rules": [
+                            {
+                                "when": [],
+                                "action": {
+                                    "kind": "target_rock",
+                                    "rock_id": rock_id,
+                                    "path": "x_first",
+                                },
+                            }
+                        ],
+                    }
+                    for rock_id in range(2)
+                ]
+            }
+            return [json.dumps(cell)]
+
+    chat_model = AllMovesThenValidModel()
+    provider = LLMRockStrategyProvider(chat_model, L1Config(num_strategies=2))
+
+    provider.propose_strategies(
+        model,
+        map_name="3-6",
+        trial_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+        horizon=2,
+    )
+
+    assert len(provider.invalid_responses) == 1
+    feedback = chat_model.messages[1][-1]["content"]
+    assert "compiled root actions were" in feedback
+    assert "unconditional check fallback" in feedback
+
+
 def test_small_dry_anchor_preserves_pairing_and_compute_controls() -> None:
     config = L1Config(
         map_names=("3-6",),
