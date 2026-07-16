@@ -7,8 +7,17 @@ from scripts.nonmyopic_copex_strategy_prior import (
     ContinuousStrategyProvider,
     DeterministicContinuousModel,
     L3Config,
+    _parse_width_cell,
     run_l3,
 )
+
+
+def test_width_angle_cell_compiles_distinct_legal_vectors() -> None:
+    steps = _parse_width_cell(
+        '{"angles_deg":[0,90,180,270]}', expected_count=4, max_step=0.1
+    )
+    assert len(steps) == 4
+    assert len({(round(step.dx or 0.0, 8), round(step.dy or 0.0, 8)) for step in steps}) == 4
 
 
 def test_small_dry_l3_preserves_controls_and_constraints() -> None:

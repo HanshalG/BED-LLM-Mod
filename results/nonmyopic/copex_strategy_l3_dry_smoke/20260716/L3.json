@@ -103,14 +103,6 @@
       "attempt": 0,
       "horizon": 4,
       "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 1}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}, {\"kind\": \"midpoint_ranks\", \"ranks\": [2, 3]}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}, {\"kind\": \"toward_mean\"}]}]}",
-      "state_key": "046cef4fcae5c6914d6b9bc8",
-      "trial_index": 1,
-      "type": "strategy"
-    },
-    {
-      "attempt": 0,
-      "horizon": 4,
-      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 1}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}, {\"kind\": \"midpoint_ranks\", \"ranks\": [2, 3]}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}, {\"kind\": \"toward_mean\"}]}]}",
       "state_key": "aa7ba429ab640de43fa422dc",
       "trial_index": 0,
       "type": "strategy"
@@ -118,7 +110,71 @@
     {
       "attempt": 0,
       "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.041421356237309505}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 0.04142135623730951, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.0414213562373095, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.04142135623730952}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.04142135623730949}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -0.04142135623730958, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.04142135623730954, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.04142135623730958}]}",
+      "raw_response": "{\"angles_deg\": [0.0, 22.5, 45.0, 67.5, 90.0, 112.5, 135.0, 157.5, 180.0, 202.5, 225.0, 247.5, 270.0, 292.5, 315.0, 337.5]}",
+      "state_key": "716373c81115aebc8f115f9e",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 3,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}]}]}",
+      "state_key": "8dbff262d3b8da6be97eaa04",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"angles_deg\": [0.0, 30.0, 60.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0, 300.0, 330.0]}",
+      "state_key": "0412960a77ec879dfdd13f66",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 2,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}]}]}",
+      "state_key": "5ed96589aaa6218515542ba7",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"angles_deg\": [0.0, 45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0]}",
+      "state_key": "5bd8b52d4c5f7751b655e5d1",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}]}",
+      "state_key": "3c7ad19264f33b291afe27db",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"angles_deg\": [0.0, 90.0, 180.0, 270.0]}",
+      "state_key": "9d85f2c021edc8ba304f7393",
+      "trial_index": 0,
+      "type": "width"
+    },
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 1}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}, {\"kind\": \"midpoint_ranks\", \"ranks\": [2, 3]}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}, {\"kind\": \"toward_mean\"}]}]}",
+      "state_key": "046cef4fcae5c6914d6b9bc8",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 1,
+      "raw_response": "{\"angles_deg\": [0.0, 22.5, 45.0, 67.5, 90.0, 112.5, 135.0, 157.5, 180.0, 202.5, 225.0, 247.5, 270.0, 292.5, 315.0, 337.5]}",
       "state_key": "ba0683b967cf46ab894a04b6",
       "trial_index": 1,
       "type": "width"
@@ -134,7 +190,7 @@
     {
       "attempt": 0,
       "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.05773502691896257}, {\"dx\": 0.057735026918962595, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.057735026918962554, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.05773502691896257}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.05773502691896254}, {\"dx\": -0.057735026918962644, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.057735026918962595, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.057735026918962644}]}",
+      "raw_response": "{\"angles_deg\": [0.0, 30.0, 60.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0, 300.0, 330.0]}",
       "state_key": "aa75bc1aa425d1dab2a8e1f2",
       "trial_index": 1,
       "type": "width"
@@ -158,7 +214,7 @@
     {
       "attempt": 0,
       "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}]}",
+      "raw_response": "{\"angles_deg\": [0.0, 45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0]}",
       "state_key": "325161c938d6e93199e38f02",
       "trial_index": 1,
       "type": "width"
@@ -182,65 +238,9 @@
     {
       "attempt": 0,
       "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}]}",
+      "raw_response": "{\"angles_deg\": [0.0, 90.0, 180.0, 270.0]}",
       "state_key": "2e5133716f410a2133c87b3d",
       "trial_index": 1,
-      "type": "width"
-    },
-    {
-      "attempt": 0,
-      "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.041421356237309505}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 0.04142135623730951, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.0414213562373095, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.04142135623730952}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.04142135623730949}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -0.04142135623730958, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.04142135623730954, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.04142135623730958}]}",
-      "state_key": "716373c81115aebc8f115f9e",
-      "trial_index": 0,
-      "type": "width"
-    },
-    {
-      "attempt": 0,
-      "horizon": 3,
-      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 2}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}, {\"kind\": \"midpoint_ranks\", \"ranks\": [3, 0]}]}]}",
-      "state_key": "8dbff262d3b8da6be97eaa04",
-      "trial_index": 0,
-      "type": "strategy"
-    },
-    {
-      "attempt": 0,
-      "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.05773502691896257}, {\"dx\": 0.057735026918962595, \"dy\": 0.1}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.057735026918962554, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 0.05773502691896257}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.05773502691896254}, {\"dx\": -0.057735026918962644, \"dy\": -0.1}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.057735026918962595, \"dy\": -0.1}, {\"dx\": 0.1, \"dy\": -0.057735026918962644}]}",
-      "state_key": "0412960a77ec879dfdd13f66",
-      "trial_index": 0,
-      "type": "width"
-    },
-    {
-      "attempt": 0,
-      "horizon": 2,
-      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}, {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}, {\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}, {\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}, {\"kind\": \"toward_rank\", \"rank\": 3}]}]}",
-      "state_key": "5ed96589aaa6218515542ba7",
-      "trial_index": 0,
-      "type": "strategy"
-    },
-    {
-      "attempt": 0,
-      "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 0.1, \"dy\": 0.09999999999999999}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.09999999999999999, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -0.1, \"dy\": -0.09999999999999996}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}, {\"dx\": 0.09999999999999995, \"dy\": -0.1}]}",
-      "state_key": "5bd8b52d4c5f7751b655e5d1",
-      "trial_index": 0,
-      "type": "width"
-    },
-    {
-      "attempt": 0,
-      "horizon": 1,
-      "raw_response": "{\"strategies\": [{\"name\": \"plan-0\", \"description\": \"Diverse plan 0.\", \"steps\": [{\"kind\": \"toward_rank\", \"rank\": 0}]}, {\"name\": \"plan-1\", \"description\": \"Diverse plan 1.\", \"steps\": [{\"kind\": \"midpoint_ranks\", \"ranks\": [1, 2]}]}, {\"name\": \"plan-2\", \"description\": \"Diverse plan 2.\", \"steps\": [{\"kind\": \"toward_mean\"}]}, {\"name\": \"plan-3\", \"description\": \"Diverse plan 3.\", \"steps\": [{\"kind\": \"vector\", \"dx\": -0.07071067811865475, \"dy\": 0.07071067811865477}]}]}",
-      "state_key": "3c7ad19264f33b291afe27db",
-      "trial_index": 0,
-      "type": "strategy"
-    },
-    {
-      "attempt": 0,
-      "horizon": 1,
-      "raw_response": "{\"vectors\": [{\"dx\": 0.1, \"dy\": 0.0}, {\"dx\": 6.123233995736766e-18, \"dy\": 0.1}, {\"dx\": -0.1, \"dy\": 1.2246467991473533e-17}, {\"dx\": -1.8369701987210297e-17, \"dy\": -0.1}]}",
-      "state_key": "9d85f2c021edc8ba304f7393",
-      "trial_index": 0,
       "type": "width"
     }
   ],
@@ -803,7 +803,7 @@
               0.5776425179867829,
               0.5910363148327814,
               0.6459420545910981,
-              0.6606120304881271
+              0.6606120304881272
             ],
             "candidates": [
               "width:0",
@@ -845,7 +845,7 @@
               0.7351068535126353,
               0.7156024073666227,
               0.5253221960444237,
-              0.3846739948068168,
+              0.38467399480681663,
               0.3308491630604138,
               0.26358975861931744,
               0.22807926016197988,
@@ -1406,11 +1406,11 @@
               0.7895592321965998,
               0.6249249292900888,
               0.45903256290015343,
-              0.49952513496319817,
+              0.4995251349631981,
               0.5131536127884415,
               0.5266981643969021,
               0.5460991873916178,
-              0.605227010026097
+              0.6052270100260971
             ],
             "candidates": [
               "width:0",

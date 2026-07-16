@@ -164,27 +164,26 @@ def _parse_width_cell(response: str, *, expected_count: int, max_step: float) ->
         payload = json.loads(normalized)
     except json.JSONDecodeError as exc:
         raise ContinuousProposalError("width response is not valid JSON") from exc
-    if not isinstance(payload, dict) or set(payload) != {"vectors"}:
-        raise ContinuousProposalError("width response must contain exactly the vectors key")
-    vectors = payload["vectors"]
-    if not isinstance(vectors, list) or len(vectors) != expected_count:
-        raise ContinuousProposalError(f"expected exactly {expected_count} width vectors")
+    if not isinstance(payload, dict) or set(payload) != {"angles_deg"}:
+        raise ContinuousProposalError("width response must contain exactly the angles_deg key")
+    angles = payload["angles_deg"]
+    if not isinstance(angles, list) or len(angles) != expected_count:
+        raise ContinuousProposalError(f"expected exactly {expected_count} width angles")
     steps: list[ContinuousStrategyStep] = []
-    seen: set[tuple[float, float]] = set()
-    for vector in vectors:
-        if not isinstance(vector, dict) or set(vector) != {"dx", "dy"}:
-            raise ContinuousProposalError("each width vector requires exactly dx and dy")
-        dx, dy = vector["dx"], vector["dy"]
-        if not isinstance(dx, (int, float)) or not isinstance(dy, (int, float)):
-            raise ContinuousProposalError("width vector coordinates must be numeric")
-        pair = (float(dx), float(dy))
-        if max(abs(pair[0]), abs(pair[1])) > max_step + 1e-12 or max(abs(pair[0]), abs(pair[1])) <= 1e-12:
-            raise ContinuousProposalError("width vectors must be nonzero and satisfy the max step")
-        rounded = (round(pair[0], 8), round(pair[1], 8))
+    seen: set[float] = set()
+    for angle in angles:
+        if not isinstance(angle, (int, float)) or not math.isfinite(float(angle)):
+            raise ContinuousProposalError("width angles must be finite numbers")
+        angle = float(angle)
+        if not 0.0 <= angle < 360.0:
+            raise ContinuousProposalError("width angles must be in [0, 360)")
+        rounded = round(angle, 8)
         if rounded in seen:
-            raise ContinuousProposalError("width vectors must be distinct")
+            raise ContinuousProposalError("width angles must be distinct")
         seen.add(rounded)
-        steps.append(_vector_step(*pair))
+        radians = math.radians(angle)
+        scale = max_step / max(abs(math.cos(radians)), abs(math.sin(radians)))
+        steps.append(_vector_step(scale * math.cos(radians), scale * math.sin(radians)))
     return tuple(steps)
 
 
@@ -256,10 +255,11 @@ class ContinuousStrategyProvider:
         user = "\n".join(
             [
                 f"Current query position: ({position[0]:.4f}, {position[1]:.4f}).",
-                f"Return exactly {expected_count} distinct nonzero relative vectors as "
-                '{"vectors":[{"dx":0.1,"dy":0.0},...]}.',
-                "Each vector must have max(|dx|,|dy|) <= 0.1. Return JSON only. A program scores "
-                "their exact-model immediate information gain.",
+                f"Return exactly {expected_count} distinct direction angles in degrees as "
+                '{"angles_deg":[0,22.5,45,...]}.',
+                "Every angle must be a finite number in [0,360), with no duplicates. Return JSON only. "
+                "The executor converts each chosen angle to its unique maximum legal L-infinity step, "
+                "and a program scores exact-model immediate information gain.",
                 "Leading posterior particles:",
                 *self._belief_lines(particles, probabilities),
             ]
@@ -361,14 +361,9 @@ class DeterministicContinuousModel:
     ) -> list[str]:
         del temperature, num_responses
         content = messages[-1]["content"]
-        if '"vectors"' in content:
+        if '"angles_deg"' in content:
             count = int(content.split("Return exactly ", 1)[1].split(" distinct", 1)[0])
-            vectors = []
-            for index in range(count):
-                angle = 2.0 * math.pi * index / count
-                scale = 0.1 / max(abs(math.cos(angle)), abs(math.sin(angle)))
-                vectors.append({"dx": scale * math.cos(angle), "dy": scale * math.sin(angle)})
-            return [json.dumps({"vectors": vectors})]
+            return [json.dumps({"angles_deg": [360.0 * index / count for index in range(count)]})]
         count = int(content.split("Return exactly ", 1)[1].split(" distinct strategies", 1)[0])
         horizon = int(content.split("each with exactly ", 1)[1].split(" steps", 1)[0])
         kinds = ["toward_rank", "midpoint_ranks", "toward_mean", "vector"]
