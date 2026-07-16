@@ -51,6 +51,16 @@ This is itself a boundary result: Gemma 4 26B can generate many sensible compact
 plans, but the flexible ordered-rule language was not reliable enough for a
 30-trial confirmatory run under strict all-branch legality.
 
+The single subsequently authorized model-scale probe used Gemma 4 31B with reasoning
+enabled on the same anchor, fresh seed 12034, and an aggregate `$2.00` cap. It also
+produced no policy endpoint: all 60 initial strategy cells and their 60 registered
+feedback retries exhausted the configured reasoning/output budget and returned no final
+JSON content. The runner failed closed with zero accepted cells; the ledger's final
+aggregate cost was `$0.114104675` over 185 requests after stopping concurrent work that
+was already in flight. This is an interface/response-budget failure, not evidence that
+the stronger model loses to a control. The one permitted scale probe is therefore
+unavailable rather than favorable evidence for the strategy-prior claim.
+
 ## Continuous L3
 
 Formal clean run: seed 31003; 30 paired trials; 30 rounds; 64 particles plus truth;
@@ -170,6 +180,8 @@ Primary artifacts:
 - `results/nonmyopic/rock_strategy_l0_smoke/20260716/REPORT.json`
 - `results/nonmyopic/rock_strategy_l1_confirmation/20260716/L1_FAILURE.json`
 - `results/nonmyopic/rock_strategy_l1_confirmation_retry1/20260716/L1_FAILURE.json`
+- `results/nonmyopic/rock_strategy_l1_gemma31b_thinking_probe/20260716/L1_FAILURE.json`
+- `results/nonmyopic/ROCK_STRATEGY_L1_MODEL_SCALE_PROBE_FAILURE.md`
 - `results/nonmyopic/copex_strategy_l3_confirmation_recovery1/20260716/L3.json`
 - `results/nonmyopic/copex_strategy_l3_confirmation_recovery1/20260716/L3.md`
 - `results/nonmyopic/copex_strategy_l3_grid_sensitivity/20260716/GRID_SENSITIVITY.json`
@@ -178,5 +190,5 @@ Primary artifacts:
 - `results/nonmyopic/copex_strategy_l3_ranking_fidelity/20260716/REPORT.json`
 - `results/nonmyopic/copex_strategy_l3_ranking_fidelity/20260716/REPORT.md`
 
-Final repository verification: `664 passed, 1 skipped`; experiments-ledger validation
+Final repository verification: `665 passed, 1 skipped`; experiments-ledger validation
 passes with no active rows and all complete artifacts present.
