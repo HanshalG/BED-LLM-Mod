@@ -15,6 +15,13 @@ final advantage over random plans is too unstable for the registered interval, a
 shared d1 wins 24 of 30 final pairs. Thus the evidence supports **LLM proposal quality
 in this plan grammar**, not a robust benefit from non-myopic plan scoring.
 
+A subsequent zero-cost, explicitly posthoc ranking-fidelity replay narrows the
+mechanistic diagnosis. The analytic scorer ranks the four candidates strongly by
+their realized **fixed-plan** entropy drops, but that score fidelity does not turn
+into a confirmed advantage for the live root-only receding-horizon policy. This is
+useful evidence about where the method fails; it does not revise the failed primary
+gate.
+
 ## What Was Built
 
 - A strict compact natural-language strategy grammar with programmatic executors for
@@ -107,14 +114,39 @@ covers useful continuous geometry better than a resolution-dependent grid subset
 It remains a proposal-prior result because shared d1 shows that horizon-4 scoring is
 not robustly load-bearing.
 
+## Posthoc Ranking Fidelity
+
+The registered posthoc diagnostic replays only the completed L3 histories: 900
+StrategyEIG decision cells and 3,600 already-generated candidate plans. It makes zero
+LLM calls and zero policy reruns. From every logged pre-decision posterior, it executes
+each candidate's complete macro plan under the completed trial's true source and same
+future Gaussian innovations. This is a fixed-plan score-fidelity test, not a claim
+about deployed receding-horizon policy regret.
+
+The score is meaningfully aligned with the simulator's realized fixed-plan information
+gain: the mean trial-level within-cell Spearman score/entropy-drop correlation is
+`0.653551` (trial-bootstrap 95% CI `[0.601831, 0.694439]`), and the score's top candidate
+is the realized entropy-drop top candidate in `0.626667` of cells. The analogous
+score/truth-log-posterior correlation is weaker, `0.333448` (`[0.253719, 0.411750]`),
+with many late-round tied truth-posterior outcomes. Candidate score margins are small
+(mean `0.021904`, versus within-cell score sd `0.032332`), and top-score selection still
+leaves mean fixed-plan entropy regret `0.061404` nats.
+
+This rules out a gross simulator-versus-realized-ranking mismatch as the dominant
+explanation. The remaining gap is controller-level: a faithful fixed-plan score is
+used only to choose the first action, after which the policy regenerates and replans;
+the resulting roots are not consistently better than shared-d1 roots or grammar-matched
+random-plan roots on the preregistered paired endpoint.
+
 ## Interpretation
 
-The intended first link, `better non-myopic score -> better selected query`, remains
-the bottleneck. The simulator and realized environment share the same analytic model,
-so this is not an LLM likelihood mismatch. Instead:
+The simple simulator-ranking mismatch is not the dominant bottleneck: the posthoc
+fixed-plan replay finds strong score/entropy ordering under the same analytic model.
+Instead, the unresolved controller-level links are:
 
-1. Sixty-four rollout samples are sufficient to rank grossly different plans but can
-   be noisy among nearly equivalent local refinements.
+1. The low score margins and nonzero counterfactual top-one regret show that the
+   candidate choice still has material local uncertainty, even though the average
+   rank signal is positive.
 2. Receding regeneration plus posterior-relative macros makes strong plans locally
    adaptive even under d1; much of the LLM prior's value is already present in the root.
 3. The 30-round task saturates, weakening final-entropy discrimination.
@@ -122,9 +154,10 @@ so this is not an LLM likelihood mismatch. Instead:
    of genuinely delayed-information strategies for horizon scoring to exploit.
 
 A future project should preregister an earlier/AUC endpoint on a deliberately delayed-
-information continuous task, increase rollout ranking fidelity before scaling trials,
-and use a plan grammar that exposes meaningful exploratory waypoints without brittle
-branch rules. Those are new experiments, not post-hoc repairs to this result.
+information continuous task, test whether fixed-plan value differences improve deployed
+root selection before scaling trials, and use a plan grammar that exposes meaningful
+exploratory waypoints without brittle branch rules. Those are new experiments, not
+post-hoc repairs to this result.
 
 ## Cost and Reproduction
 
@@ -141,6 +174,9 @@ Primary artifacts:
 - `results/nonmyopic/copex_strategy_l3_confirmation_recovery1/20260716/L3.md`
 - `results/nonmyopic/copex_strategy_l3_grid_sensitivity/20260716/GRID_SENSITIVITY.json`
 - `results/nonmyopic/copex_strategy_l3_grid_sensitivity/20260716/GRID_SENSITIVITY.md`
+- `results/nonmyopic/COPEX_STRATEGY_L3_RANKING_FIDELITY_PREREGISTRATION.md`
+- `results/nonmyopic/copex_strategy_l3_ranking_fidelity/20260716/REPORT.json`
+- `results/nonmyopic/copex_strategy_l3_ranking_fidelity/20260716/REPORT.md`
 
-Final repository verification: `661 passed, 1 skipped`; experiments-ledger validation
+Final repository verification: `664 passed, 1 skipped`; experiments-ledger validation
 passes with no active rows and all complete artifacts present.

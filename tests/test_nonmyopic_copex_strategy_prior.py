@@ -1,6 +1,7 @@
 import math
 
 import numpy as np
+import pytest
 
 from helpers import load_config
 from scripts.nonmyopic_copex_strategy_prior import (
@@ -10,6 +11,7 @@ from scripts.nonmyopic_copex_strategy_prior import (
     _parse_width_cell,
     run_l3,
 )
+from scripts.copex_strategy_ranking_fidelity import analyze_l3_ranking_fidelity, spearman_correlation
 
 
 def test_width_angle_cell_compiles_distinct_legal_vectors() -> None:
@@ -62,3 +64,52 @@ def test_strategy_prompt_displays_only_addressable_particle_ranks() -> None:
     )
     assert len(lines) == 4
     assert lines[-1].startswith("rank 3:")
+
+
+def test_l3_ranking_fidelity_replays_completed_history_without_a_model() -> None:
+    config = L3Config(
+        num_trials=2,
+        num_rounds=3,
+        num_particles=12,
+        num_strategies=3,
+        planning_horizon=3,
+        rollout_samples=8,
+        grid_resolution=4,
+        bootstrap_replicates=30,
+        trial_concurrency=1,
+    )
+    summary = run_l3(
+        ContinuousStrategyProvider(DeterministicContinuousModel(), config), config
+    )
+
+    diagnostic = analyze_l3_ranking_fidelity(summary, bootstrap_replicates=30)
+
+    assert diagnostic["replay_checks"]["llm_calls"] == 0
+    assert diagnostic["replay_checks"]["policy_reruns"] == 0
+    assert diagnostic["replay_checks"]["replayed_steps"] == 6
+    assert diagnostic["counts"]["decision_cells"] == 6
+    assert diagnostic["counts"]["candidate_evaluations"] == 18
+    assert diagnostic["aggregate"]["score_margin"]["mean"] is not None
+
+
+def test_spearman_correlation_uses_average_ranks_for_ties() -> None:
+    assert spearman_correlation([1.0, 2.0, 2.0], [3.0, 4.0, 4.0]) == 1.0
+    assert spearman_correlation([1.0, 1.0], [2.0, 2.0]) is None
+
+
+def test_l3_ranking_fidelity_rejects_nonpositive_bootstrap_count() -> None:
+    config = L3Config(
+        num_trials=1,
+        num_rounds=2,
+        num_particles=8,
+        num_strategies=2,
+        planning_horizon=2,
+        rollout_samples=4,
+        grid_resolution=2,
+        bootstrap_replicates=4,
+        trial_concurrency=1,
+    )
+    summary = run_l3(ContinuousStrategyProvider(DeterministicContinuousModel(), config), config)
+
+    with pytest.raises(ValueError, match="bootstrap_replicates"):
+        analyze_l3_ranking_fidelity(summary, bootstrap_replicates=0)
