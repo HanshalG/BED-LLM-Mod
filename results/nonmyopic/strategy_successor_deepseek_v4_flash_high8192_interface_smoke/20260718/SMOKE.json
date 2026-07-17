@@ -1,0 +1,161 @@
+{
+  "checks": {
+    "l1_successful_cells": 5,
+    "l3_successful_cells": 5,
+    "successful_generation_cells": 10,
+    "zero_forced_exits": true,
+    "zero_invalid_or_repaired_cells": true
+  },
+  "config": {
+    "l1_cells": 5,
+    "l1_horizon": 2,
+    "l3_cells": 5,
+    "l3_horizon": 4,
+    "num_particles": 64,
+    "num_strategies": 4,
+    "seed": 31003
+  },
+  "dry_run": false,
+  "l1_requests": [
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Move East then check Rock1\",\n      \"description\": \"First move east to get closer to rock1 and rock2, then check rock1. The eastward move reduces distance to rock1, potentially improving check accuracy, but the check is performed immediately as second action.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"EAST\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"Check Rock1 then adapt\",\n      \"description\": \"First check rock1 directly. Then, if rock1 is good, check rock2 because it may be good; if rock1 is bad, move south to prepare for a future check of rock0. The outcome of rock1 guides the second action.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 1, \"outcome\": \"good\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        },\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 1, \"outcome\": \"bad\"}\n          ],\n          \"action\": {\"kind\": \"move\", \"direction\": \"SOUTH\"}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        }\n      ]\n    },\n    {\n      \"name\": \"Move North then check Rock1\",\n      \"description\": \"First move north to get closer to rock1, then check rock1. The north move reduces distance to rock1, aiming for a more accurate check.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"NORTH\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"Check Rock0 then adapt\",\n      \"description\": \"First check rock0 directly. Then, if rock0 is good, check rock1; if bad, move east toward rock1 and rock2. The observation of rock0 informs the next decision.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 0, \"outcome\": \"good\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        },\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 0, \"outcome\": \"bad\"}\n          ],\n          \"action\": {\"kind\": \"move\", \"direction\": \"EAST\"}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}\n        }\n      ]\n    }\n  ]\n}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Move East Check Rock2\",\n      \"description\": \"Move east to reduce distance to rock2, then check it for better accuracy.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"EAST\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"Check Rock1 Then Branch\",\n      \"description\": \"First check rock1 from current position. If it is good, then check rock2; if bad, check rock3. This adapts based on observation.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 1, \"outcome\": \"good\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        },\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 1, \"outcome\": \"bad\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        }\n      ]\n    },\n    {\n      \"name\": \"Target Rock2 Twice\",\n      \"description\": \"Use target_rock on rock2 twice to move closer and then check it upon arrival. The first action moves east, the second reaches and checks.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"Move North Check Rock3\",\n      \"description\": \"Move north to reduce distance to rock3, then check it for better accuracy.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"NORTH\"}\n        }\n      ]\n    }\n  ]\n}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Move East Check Rock2\",\n      \"description\": \"First move east to (1,3), then check rock 2 from there.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"EAST\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"Check Rock1 Then Move South\",\n      \"description\": \"First check rock 1 from current position, then move south to (0,2).\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"move\", \"direction\": \"SOUTH\"}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        }\n      ]\n    },\n    {\n      \"name\": \"Move North Check Rock0\",\n      \"description\": \"First move north to (0,4), then check rock 0 from there.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"NORTH\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"Check Rock2 Then Check Rock0\",\n      \"description\": \"First check rock 2, then check rock 0, both from current position.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        }\n      ]\n    }\n  ]\n}",
+      "request_type": "strategy",
+      "trial_index": 2
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Closest then check\",\n      \"description\": \"First move toward the nearest rock (rock2) using target_rock, then check it on the second step.\",\n      \"rules\": [\n        {\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}},\n        {\"when\": [], \"action\": {\"kind\": \"target_rock\", \"rock_id\": 2, \"path\": \"x_first\"}}\n      ]\n    },\n    {\n      \"name\": \"Check then decide\",\n      \"description\": \"First check rock2. If it is good, check rock1; if bad, check rock3. Uses observation to adapt.\",\n      \"rules\": [\n        {\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}, {\"kind\": \"last_observation\", \"rock_id\": 2, \"outcome\": \"good\"}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}},\n        {\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}, {\"kind\": \"last_observation\", \"rock_id\": 2, \"outcome\": \"bad\"}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 3}},\n        {\"when\": [], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}}\n      ]\n    },\n    {\n      \"name\": \"East then check\",\n      \"description\": \"Move east one step to get closer to rock2, then check rock2 from (1,3).\",\n      \"rules\": [\n        {\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}},\n        {\"when\": [], \"action\": {\"kind\": \"move\", \"direction\": \"EAST\"}}\n      ]\n    },\n    {\n      \"name\": \"South then check rock4\",\n      \"description\": \"Move south to (0,4) to be closer to rock4 (reducing y-distance), then check rock4.\",\n      \"rules\": [\n        {\"when\": [{\"kind\": \"step_at_least\", \"value\": 1}], \"action\": {\"kind\": \"check_rock\", \"rock_id\": 4}},\n        {\"when\": [], \"action\": {\"kind\": \"move\", \"direction\": \"SOUTH\"}}\n      ]\n    }\n  ]\n}",
+      "request_type": "strategy",
+      "trial_index": 3
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Check2ThenCond\",\n      \"description\": \"First check rock2 (highest marginal). If good, check rock1; if bad, check rock0. This uses the outcome to decide next check.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 2, \"outcome\": \"good\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        },\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 2, \"outcome\": \"bad\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        }\n      ]\n    },\n    {\n      \"name\": \"MoveEastCheck1\",\n      \"description\": \"Move east to (1,3) to get closer to rock1, then check rock1.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"EAST\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"MoveNorthCheck2\",\n      \"description\": \"Move north to (0,4) to get closer to rock2, then check rock2.\",\n      \"rules\": [\n        {\n          \"when\": [{\"kind\": \"step_at_least\", \"value\": 1}],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"move\", \"direction\": \"NORTH\"}\n        }\n      ]\n    },\n    {\n      \"name\": \"Check1ThenCond\",\n      \"description\": \"First check rock1. If good, check rock2; if bad, check rock0. This uses the outcome to decide next check.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 1, \"outcome\": \"good\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 2}\n        },\n        {\n          \"when\": [\n            {\"kind\": \"step_at_least\", \"value\": 1},\n            {\"kind\": \"last_observation\", \"rock_id\": 1, \"outcome\": \"bad\"}\n          ],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 0}\n        },\n        {\n          \"when\": [],\n          \"action\": {\"kind\": \"check_rock\", \"rock_id\": 1}\n        }\n      ]\n    }\n  ]\n}",
+      "request_type": "strategy",
+      "trial_index": 4
+    }
+  ],
+  "l3_requests": [
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Top Particle Pursuit\",\n      \"description\": \"Move toward the current highest-weight particle each step to intensively sample around the most likely source location.\",\n      \"steps\": [\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_rank\", \"rank\": 0}\n      ]\n    },\n    {\n      \"name\": \"Top-Midpoint Sweep\",\n      \"description\": \"First three steps aim at the midpoint of the two highest-weight particles to explore the region between them, then final step homes in on the top particle.\",\n      \"steps\": [\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]},\n        {\"kind\": \"toward_rank\", \"rank\": 0}\n      ]\n    },\n    {\n      \"name\": \"Exploratory Grid\",\n      \"description\": \"Execute a small square path around the current position to gather observations from a diverse set of locations, helping to disambiguate the source.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": 0.1, \"dy\": 0},\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": 0.1},\n        {\"kind\": \"vector\", \"dx\": -0.1, \"dy\": 0},\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": -0.1}\n      ]\n    },\n    {\n      \"name\": \"Mean Convergence\",\n      \"description\": \"Progressively move toward the weighted mean of the posterior particles to approximate the expected location of the source.\",\n      \"steps\": [\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"}\n      ]\n    }\n  ]\n}",
+      "state_key": "fe7a7616c69592f53e31128c",
+      "trial_index": 0,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Southern Push\",\n      \"description\": \"Move towards the dense lower cluster, then refine on highest weight and the mean.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": 0.05, \"dy\": -0.1},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [1, 3]}\n      ]\n    },\n    {\n      \"name\": \"Northern Arc\",\n      \"description\": \"Head up to the outlier, then sweep down through the others.\",\n      \"steps\": [\n        {\"kind\": \"toward_rank\", \"rank\": 2},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_rank\", \"rank\": 1},\n        {\"kind\": \"vector\", \"dx\": 0.1, \"dy\": 0.0}\n      ]\n    },\n    {\n      \"name\": \"Mean Seeker\",\n      \"description\": \"Directly approach the posterior mean, then hone in on the highest weight.\",\n      \"steps\": [\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"vector\", \"dx\": -0.05, \"dy\": -0.05},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 2]}\n      ]\n    },\n    {\n      \"name\": \"Zigzag\",\n      \"description\": \"Alternate between extremes to probe different regions.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": -0.1, \"dy\": 0.1},\n        {\"kind\": \"toward_rank\", \"rank\": 2},\n        {\"kind\": \"toward_rank\", \"rank\": 1},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [1, 3]}\n      ]\n    }\n  ]\n}",
+      "state_key": "84c148b975cf27c58492f0ef",
+      "trial_index": 1,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Top particle approach\",\n      \"description\": \"Move towards the highest probability particle, then step to its midpoint with the second highest, then towards the posterior mean.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": 0.05, \"dy\": -0.05},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]},\n        {\"kind\": \"toward_mean\"}\n      ]\n    },\n    {\n      \"name\": \"Vertical sweep\",\n      \"description\": \"Climb upward twice to explore the upper region, then move towards the posterior mean, then descend.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": 0.1},\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": 0.1},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": -0.1}\n      ]\n    },\n    {\n      \"name\": \"Midpoint of top two\",\n      \"description\": \"Step directly to the midpoint of the two highest probability particles, then approach the top particle, then go to the mean, then step right.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": -0.0084, \"dy\": -0.0290},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"vector\", \"dx\": 0.1, \"dy\": 0}\n      ]\n    },\n    {\n      \"name\": \"Low-right exploration\",\n      \"description\": \"Move right, then down, then towards the far right particle, then towards the posterior mean.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": 0.1, \"dy\": 0},\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": -0.1},\n        {\"kind\": \"toward_rank\", \"rank\": 3},\n        {\"kind\": \"toward_mean\"}\n      ]\n    }\n  ]\n}",
+      "state_key": "cc282020c614aebe55dde1f0",
+      "trial_index": 2,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Particle Tour\",\n      \"description\": \"Sequentially approach the current highest-probability particles, adapting to posterior updates.\",\n      \"steps\": [\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_rank\", \"rank\": 1},\n        {\"kind\": \"toward_rank\", \"rank\": 2},\n        {\"kind\": \"toward_rank\", \"rank\": 3}\n      ]\n    },\n    {\n      \"name\": \"Local Grid\",\n      \"description\": \"Explore a small square around the current position using fixed vector steps.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": 0.1, \"dy\": 0},\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": 0.1},\n        {\"kind\": \"vector\", \"dx\": -0.1, \"dy\": 0},\n        {\"kind\": \"vector\", \"dx\": 0, \"dy\": -0.1}\n      ]\n    },\n    {\n      \"name\": \"Midpoint Focus\",\n      \"description\": \"Move toward midpoints of particle pairs, emphasizing high-probability regions.\",\n      \"steps\": [\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 2]},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [1, 3]},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [2, 3]}\n      ]\n    },\n    {\n      \"name\": \"Adaptive Mean\",\n      \"description\": \"Repeatedly move toward the posterior mean, which updates after each observation.\",\n      \"steps\": [\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"}\n      ]\n    }\n  ]\n}",
+      "state_key": "5059733463ddd34705341b9e",
+      "trial_index": 3,
+      "type": "strategy"
+    },
+    {
+      "attempt": 0,
+      "horizon": 4,
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"Mean Pursuit\",\n      \"description\": \"Sequentially move toward the posterior mean to reduce uncertainty in the highest-density region.\",\n      \"steps\": [\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"},\n        {\"kind\": \"toward_mean\"}\n      ]\n    },\n    {\n      \"name\": \"Rank Chase\",\n      \"description\": \"Target the highest-weight particle (rank 0) initially, then adapt with a vector offset and final mean approach.\",\n      \"steps\": [\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"vector\", \"dx\": 0.05, \"dy\": -0.05},\n        {\"kind\": \"toward_rank\", \"rank\": 0},\n        {\"kind\": \"toward_mean\"}\n      ]\n    },\n    {\n      \"name\": \"Midpoint Sweep\",\n      \"description\": \"Alternate between midpoints of top and bottom particle pairs to balance exploration, then refine with a vector and mean step.\",\n      \"steps\": [\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [0, 1]},\n        {\"kind\": \"midpoint_ranks\", \"ranks\": [2, 3]},\n        {\"kind\": \"vector\", \"dx\": 0.1, \"dy\": 0.0},\n        {\"kind\": \"toward_mean\"}\n      ]\n    },\n    {\n      \"name\": \"Vector Loop\",\n      \"description\": \"Execute a small square path to cover local area, then finish with a mean step for refinement.\",\n      \"steps\": [\n        {\"kind\": \"vector\", \"dx\": 0.1, \"dy\": 0.0},\n        {\"kind\": \"vector\", \"dx\": 0.0, \"dy\": 0.1},\n        {\"kind\": \"vector\", \"dx\": -0.1, \"dy\": 0.0},\n        {\"kind\": \"toward_mean\"}\n      ]\n    }\n  ]\n}",
+      "state_key": "8330aa33db3f33bd900a6cc2",
+      "trial_index": 4,
+      "type": "strategy"
+    }
+  ],
+  "run_id": "nonmyopic-strategy-successor-deepseek-v4-flash-high8192-interface-smoke-20260718",
+  "schema_version": 1,
+  "stage": "strategy_successor_interface_smoke",
+  "status": "passed",
+  "usage": {
+    "adapter_completion_tokens": 41220,
+    "adapter_cost_usd": 0.0103924051,
+    "adapter_prompt_tokens": 6495,
+    "adapter_reasoning_tokens": 35182,
+    "adapter_requests": 10,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 41220,
+    "forced_exits": 0,
+    "model": "deepseek/deepseek-v4-flash",
+    "model_usage": {
+      "deepseek/deepseek-v4-flash": {
+        "completion_tokens": 41220,
+        "cost_usd": 0.0103924051,
+        "prompt_tokens": 6495,
+        "reasoning_tokens": 35182,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 6495,
+    "reasoning_tokens": 35182,
+    "remaining_usd": 21.287383615140275,
+    "requests": 10,
+    "run_budget_usd": 0.05,
+    "run_cost_usd": 0.0103924051,
+    "run_remaining_usd": 0.0396075949,
+    "total_spent_usd": 18.712616384859725
+  }
+}
