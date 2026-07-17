@@ -192,6 +192,7 @@ class OpenRouterAdapter:
         self.config = config
         self.model_name = spec.model
         self.thinking = bool(spec.thinking)
+        self.reasoning_enabled = bool(spec.thinking or spec.reasoning_effort or spec.reasoning_max_tokens)
         requested_output = (
             int((spec.thinking_max_new_tokens or 4096) + (spec.thinking_final_max_new_tokens or 512))
             if self.thinking
@@ -224,7 +225,12 @@ class OpenRouterAdapter:
             "max_tokens": int(max_tokens or self.max_tokens),
             "n": int(n),
         }
-        if self.spec.reasoning_effort is not None:
+        if self.spec.reasoning_max_tokens is not None:
+            payload["reasoning"] = {
+                "max_tokens": self.spec.reasoning_max_tokens,
+                "exclude": False,
+            }
+        elif self.spec.reasoning_effort is not None:
             payload["reasoning"] = {
                 "effort": self.spec.reasoning_effort,
                 "exclude": False,
@@ -313,7 +319,7 @@ class OpenRouterAdapter:
             "cumulative_cost_usd": cumulative,
             "temperature": temperature,
             "finish_reasons": [choice.get("finish_reason") for choice in choices],
-            "reasoning_enabled": self.thinking,
+            "reasoning_enabled": self.reasoning_enabled,
         }
         if self.config.log_path is not None:
             write_to_log(json.dumps(payload, sort_keys=True) + "\n", self.config)

@@ -1,0 +1,63 @@
+{
+  "config": {
+    "l1_cells": 5,
+    "l1_horizon": 2,
+    "l3_cells": 5,
+    "l3_horizon": 4,
+    "num_particles": 64,
+    "num_strategies": 4,
+    "seed": 31003
+  },
+  "error": "strategy cell failed after 1 attempts: strategy 0 failed grammar validation: the final rule must be an unconditional fallback with when: []",
+  "l1_invalid_responses": [
+    {
+      "attempt": 0,
+      "error": "strategy 0 failed grammar validation: the final rule must be an unconditional fallback with when: []",
+      "history": [],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\n  \"strategies\": [\n    {\n      \"name\": \"EastThenCheck1\",\n      \"description\": \"Move east toward rock 1 then check it; moving reduces distance and improves sensor accuracy.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\n              \"kind\": \"step_at_most\",\n              \"value\": 0\n            }\n          ],\n          \"action\": {\n            \"kind\": \"move\",\n            \"direction\": \"EAST\"\n          }\n        },\n        {\n          \"when\": [\n            {\n              \"kind\": \"step_at_least\",\n              \"value\": 1\n            }\n          ],\n          \"action\": {\n            \"kind\": \"check_rock\",\n            \"rock_id\": 1\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"Check1Now\",\n      \"description\": \"Immediately check rock 1 to obtain information now.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\n              \"kind\": \"step_at_most\",\n              \"value\": 0\n            }\n          ],\n          \"action\": {\n            \"kind\": \"check_rock\",\n            \"rock_id\": 1\n          }\n        },\n        {\n          \"when\": [],\n          \"action\": {\n            \"kind\": \"check_rock\",\n            \"rock_id\": 1\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"NorthThenCheck0\",\n      \"description\": \"Move north to get closer to rock 0 then check it; shorter distance yields better observation.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\n              \"kind\": \"step_at_most\",\n              \"value\": 0\n            }\n          ],\n          \"action\": {\n            \"kind\": \"move\",\n            \"direction\": \"NORTH\"\n          }\n        },\n        {\n          \"when\": [\n            {\n              \"kind\": \"step_at_least\",\n              \"value\": 1\n            }\n          ],\n          \"action\": {\n            \"kind\": \"check_rock\",\n            \"rock_id\": 0\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"Target2ThenCheck\",\n      \"description\": \"Take a step toward rock 2 (x direction) then check it; the step improves the observation quality.\",\n      \"rules\": [\n        {\n          \"when\": [\n            {\n              \"kind\": \"step_at_most\",\n              \"value\": 0\n            }\n          ],\n          \"action\": {\n            \"kind\": \"target_rock\",\n            \"rock_id\": 2,\n            \"path\": \"x_first\"\n          }\n        },\n        {\n          \"when\": [\n            {\n              \"kind\": \"step_at_least\",\n              \"value\": 1\n            }\n          ],\n          \"action\": {\n            \"kind\": \"check_rock\",\n            \"rock_id\": 2\n          }\n        }\n      ]\n    }\n  ]\n}",
+      "request_type": "strategy",
+      "trial_index": 0
+    }
+  ],
+  "l1_requests": [],
+  "l3_invalid_responses": [],
+  "l3_requests": [],
+  "schema_version": 1,
+  "stage": "strategy_successor_interface_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 1918,
+    "adapter_cost_usd": 0.00036933,
+    "adapter_prompt_tokens": 803,
+    "adapter_reasoning_tokens": 1267,
+    "adapter_requests": 1,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 1918,
+    "forced_exits": 0,
+    "model": "openai/gpt-oss-120b",
+    "model_usage": {
+      "openai/gpt-oss-120b": {
+        "completion_tokens": 1918,
+        "cost_usd": 0.00036933,
+        "prompt_tokens": 803,
+        "reasoning_tokens": 1267,
+        "requests": 1
+      }
+    },
+    "prompt_tokens": 803,
+    "reasoning_tokens": 1267,
+    "remaining_usd": 21.306003670240276,
+    "requests": 1,
+    "run_budget_usd": 0.05,
+    "run_cost_usd": 0.00036933,
+    "run_remaining_usd": 0.04963067,
+    "total_spent_usd": 18.693996329759724
+  }
+}

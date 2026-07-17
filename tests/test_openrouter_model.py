@@ -187,6 +187,31 @@ def test_openrouter_explicit_reasoning_effort_overrides_model_default(
     assert captured["reasoning"] == {"effort": "none", "exclude": False}
 
 
+def test_openrouter_explicit_reasoning_token_budget_reserves_the_final_response(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
+    captured = {}
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        captured.update(json.loads(request.data))
+        return _Response(_completion())
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="qwen/qwen3.5-397b-a17b",
+            backend="openrouter",
+            reasoning_max_tokens=512,
+        ),
+        _config(tmp_path, openrouter_max_output_tokens=768),
+    )
+    adapter.chat_complete([{"role": "user", "content": "return json"}], 0.0)
+    assert captured["reasoning"] == {"max_tokens": 512, "exclude": False}
+    assert captured["max_tokens"] == 768
+
+
 def test_openrouter_ledger_attributes_cost_by_model(tmp_path: Path) -> None:
     config = _config(tmp_path, openrouter_projected_cost_usd=0.0)
     usage = _completion()["usage"]

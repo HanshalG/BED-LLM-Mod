@@ -66,6 +66,16 @@ def test_successor_gptoss_amendment_reserves_final_output_space() -> None:
     assert formal.openrouter_projected_cost_usd == 2.1
 
 
+def test_successor_qwen_budgeted_config_reserves_final_output_space() -> None:
+    smoke = load_config("configs/config_nonmyopic_strategy_successor_smoke_qwen397_budgeted_openrouter.yaml")
+    formal = load_config("configs/config_nonmyopic_copex_strategy_l3_successor_qwen397_budgeted_openrouter.yaml")
+
+    assert smoke.model_pairs[0].questioner.reasoning_max_tokens == 512
+    assert smoke.model_pairs[0].questioner.thinking is False
+    assert smoke.openrouter_max_output_tokens == 768
+    assert formal.openrouter_run_budget_usd == 3.0
+
+
 def test_successor_smoke_exposes_partial_invalid_cells_on_failure() -> None:
     class InvalidModel:
         def chat_complete(self, messages, temperature, num_responses=1):

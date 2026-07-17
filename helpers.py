@@ -41,6 +41,7 @@ class ModelSpec:
     backend: ModelBackend = "vllm"
     thinking: bool | None = None
     reasoning_effort: ReasoningEffort | None = None
+    reasoning_max_tokens: int | None = None
     thinking_max_new_tokens: int | None = None
     thinking_final_max_new_tokens: int | None = None
     use_logprobs: bool = False
@@ -441,6 +442,16 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if reasoning_effort is not None and reasoning_effort not in {"low", "medium", "high"}:
         raise ValueError(f"{side_name}.reasoning_effort must be one of: low, medium, high")
 
+    reasoning_max_tokens = raw_spec.get("reasoning_max_tokens")
+    if reasoning_max_tokens is not None and (
+        not isinstance(reasoning_max_tokens, int)
+        or isinstance(reasoning_max_tokens, bool)
+        or reasoning_max_tokens < 1
+    ):
+        raise ValueError(f"{side_name}.reasoning_max_tokens must be a positive integer or null")
+    if reasoning_effort is not None and reasoning_max_tokens is not None:
+        raise ValueError(f"{side_name} may set reasoning_effort or reasoning_max_tokens, not both")
+
     thinking_max_new_tokens = raw_spec.get("thinking_max_new_tokens")
     if thinking_max_new_tokens is not None and (
         not isinstance(thinking_max_new_tokens, int)
@@ -512,12 +523,15 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
             raise ValueError(f"{side_name}.thinking is not supported for {model_name}")
         if thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None:
             raise ValueError(f"{side_name}.thinking budgets are not supported for {model_name}")
+        if reasoning_max_tokens is not None and backend != "openrouter":
+            raise ValueError(f"{side_name}.reasoning_max_tokens is only supported for OpenRouter models")
         if use_logprobs:
             raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
         return ModelSpec(
             model=model_name,
             backend=backend,
             reasoning_effort=reasoning_effort or "low",
+            reasoning_max_tokens=reasoning_max_tokens,
             **vllm_kwargs,
         )
 
@@ -531,10 +545,15 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
             thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None
         ):
             raise ValueError(f"{side_name}.thinking budgets require thinking: true")
+        if reasoning_max_tokens is not None and backend != "openrouter":
+            raise ValueError(f"{side_name}.reasoning_max_tokens is only supported for OpenRouter models")
+        if reasoning_max_tokens is not None and normalized_thinking:
+            raise ValueError(f"{side_name}.reasoning_max_tokens cannot be combined with thinking: true")
         return ModelSpec(
             model=model_name,
             backend=backend,
             thinking=normalized_thinking,
+            reasoning_max_tokens=reasoning_max_tokens,
             thinking_max_new_tokens=(
                 thinking_max_new_tokens if thinking_max_new_tokens is not None
                 else 4096 if normalized_thinking else None
@@ -553,12 +572,20 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
         raise ValueError(
             f"{side_name}.reasoning_effort is only supported for gpt-oss models or OpenRouter models"
         )
+    if reasoning_max_tokens is not None and backend != "openrouter":
+        raise ValueError(f"{side_name}.reasoning_max_tokens is only supported for OpenRouter models")
     if thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None:
         raise ValueError(f"{side_name}.thinking budgets are only supported for Qwen and Gemma 4 models")
     if use_logprobs:
         raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
 
-    return ModelSpec(model=model_name, backend=backend, reasoning_effort=reasoning_effort, **vllm_kwargs)
+    return ModelSpec(
+        model=model_name,
+        backend=backend,
+        reasoning_effort=reasoning_effort,
+        reasoning_max_tokens=reasoning_max_tokens,
+        **vllm_kwargs,
+    )
 
 
 def _normalize_model_pair(raw_pair: object, index: int) -> ModelPair:
