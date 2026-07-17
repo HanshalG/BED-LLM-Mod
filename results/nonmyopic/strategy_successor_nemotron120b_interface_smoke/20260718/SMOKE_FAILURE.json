@@ -1,0 +1,63 @@
+{
+  "config": {
+    "l1_cells": 5,
+    "l1_horizon": 2,
+    "l3_cells": 5,
+    "l3_horizon": 4,
+    "num_particles": 64,
+    "num_strategies": 4,
+    "seed": 31003
+  },
+  "error": "strategy cell failed after 1 attempts: strategy response is not valid JSON",
+  "l1_invalid_responses": [
+    {
+      "attempt": 0,
+      "error": "strategy response is not valid JSON",
+      "history": [],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "None",
+      "request_type": "strategy",
+      "trial_index": 0
+    }
+  ],
+  "l1_requests": [],
+  "l3_invalid_responses": [],
+  "l3_requests": [],
+  "schema_version": 1,
+  "stage": "strategy_successor_interface_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 1536,
+    "adapter_cost_usd": 0.0016296,
+    "adapter_prompt_tokens": 824,
+    "adapter_reasoning_tokens": 1541,
+    "adapter_requests": 1,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 1536,
+    "forced_exits": 1,
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "model_usage": {
+      "nvidia/nemotron-3-super-120b-a12b": {
+        "completion_tokens": 1536,
+        "cost_usd": 0.0016296,
+        "prompt_tokens": 824,
+        "reasoning_tokens": 1541,
+        "requests": 1
+      }
+    },
+    "prompt_tokens": 824,
+    "reasoning_tokens": 1541,
+    "remaining_usd": 21.301709620240274,
+    "requests": 1,
+    "run_budget_usd": 0.05,
+    "run_cost_usd": 0.0016296,
+    "run_remaining_usd": 0.0483704,
+    "total_spent_usd": 18.698290379759726
+  }
+}
