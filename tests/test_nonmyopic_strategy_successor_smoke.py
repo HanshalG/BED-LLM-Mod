@@ -1,4 +1,7 @@
+import pytest
+
 from helpers import load_config
+from scripts.nonmyopic_rock_strategy_prior import StrategyProposalError
 from scripts.nonmyopic_strategy_successor_smoke import (
     SuccessorSmokeConfig,
     _RoutingDeterministicModel,
@@ -32,3 +35,29 @@ def test_successor_qwen_configs_preserve_thinking_and_hard_caps() -> None:
     assert smoke.openrouter_run_budget_usd == 0.05
     assert formal.openrouter_run_budget_usd == 3.0
     assert formal.openrouter_projected_cost_usd == 2.75
+
+
+def test_successor_deepseek_config_uses_openrouter_reasoning_effort() -> None:
+    smoke = load_config("configs/config_nonmyopic_strategy_successor_smoke_deepseek_v4_pro_openrouter.yaml")
+    formal = load_config("configs/config_nonmyopic_copex_strategy_l3_successor_deepseek_v4_pro_openrouter.yaml")
+
+    assert smoke.model_pairs[0].questioner.reasoning_effort == "medium"
+    assert smoke.openrouter_max_output_tokens == 2048
+    assert formal.model_pairs[0].questioner.model == "deepseek/deepseek-v4-pro"
+    assert formal.openrouter_run_budget_usd == 3.0
+
+
+def test_successor_smoke_exposes_partial_invalid_cells_on_failure() -> None:
+    class InvalidModel:
+        def chat_complete(self, messages, temperature, num_responses=1):
+            del messages, temperature, num_responses
+            return ["not json"]
+
+        def usage_snapshot(self):
+            return {"forced_exits": 0}
+
+    with pytest.raises(StrategyProposalError) as raised:
+        run_successor_smoke(InvalidModel(), SuccessorSmokeConfig())
+
+    assert len(raised.value.l1_invalid_responses) == 1
+    assert raised.value.l1_invalid_responses[0]["raw_response"] == "not json"

@@ -1,0 +1,44 @@
+{
+  "config": {
+    "l1_cells": 5,
+    "l1_horizon": 2,
+    "l3_cells": 5,
+    "l3_horizon": 4,
+    "num_particles": 64,
+    "num_strategies": 4,
+    "seed": 31003
+  },
+  "error": "strategy cell failed after 1 attempts: strategy response is not valid JSON",
+  "schema_version": 1,
+  "stage": "strategy_successor_interface_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 768,
+    "adapter_cost_usd": 0.00405675,
+    "adapter_prompt_tokens": 801,
+    "adapter_reasoning_tokens": 738,
+    "adapter_requests": 1,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 768,
+    "forced_exits": 1,
+    "model": "qwen/qwen3.5-397b-a17b",
+    "model_usage": {
+      "qwen/qwen3.5-397b-a17b": {
+        "completion_tokens": 768,
+        "cost_usd": 0.00405675,
+        "prompt_tokens": 801,
+        "reasoning_tokens": 738,
+        "requests": 1
+      }
+    },
+    "prompt_tokens": 801,
+    "reasoning_tokens": 738,
+    "remaining_usd": 21.310708735000276,
+    "requests": 1,
+    "run_budget_usd": 0.05,
+    "run_cost_usd": 0.00405675,
+    "run_remaining_usd": 0.045943250000000005,
+    "total_spent_usd": 18.689291264999724
+  }
+}

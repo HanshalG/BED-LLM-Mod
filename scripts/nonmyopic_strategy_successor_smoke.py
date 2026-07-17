@@ -74,19 +74,7 @@ class _RoutingDeterministicModel:
         return {"backend": "dry_run", "requests": 0, "cost_usd": 0.0, "forced_exits": 0}
 
 
-def _l1_cells(chat_model: ChatModel, config: SuccessorSmokeConfig) -> LLMRockStrategyProvider:
-    provider = LLMRockStrategyProvider(
-        chat_model,
-        L1Config(
-            num_trials_per_map=1,
-            num_rounds=1,
-            num_strategies=config.num_strategies,
-            planning_horizon=config.l1_horizon,
-            bootstrap_replicates=1,
-            validation_retries=0,
-            trial_concurrency=1,
-        ),
-    )
+def _run_l1_cells(provider: LLMRockStrategyProvider, config: SuccessorSmokeConfig) -> None:
     for cell_index in range(config.l1_cells):
         map_name = ("3-6", "5-7")[cell_index % 2]
         model = RockDiagnosisModel(get_paper_map(map_name))
@@ -101,11 +89,44 @@ def _l1_cells(chat_model: ChatModel, config: SuccessorSmokeConfig) -> LLMRockStr
             history=(),
             horizon=config.l1_horizon,
         )
-    return provider
 
 
-def _l3_cells(chat_model: ChatModel, config: SuccessorSmokeConfig) -> ContinuousStrategyProvider:
-    provider = ContinuousStrategyProvider(
+def _run_l3_cells(provider: ContinuousStrategyProvider, config: SuccessorSmokeConfig) -> None:
+    for cell_index in range(config.l3_cells):
+        rng = np.random.default_rng(config.seed + 100 + cell_index)
+        particles = rng.random((config.num_particles, 2))
+        probabilities = rng.dirichlet(np.ones(config.num_particles))
+        provider.strategies(
+            cell_index,
+            np.asarray((0.1 + 0.15 * cell_index, 0.8 - 0.1 * cell_index), dtype=float),
+            particles,
+            probabilities,
+            config.l3_horizon,
+        )
+
+
+def _usage(chat_model: Any) -> dict[str, Any]:
+    snapshot = getattr(chat_model, "usage_snapshot", None)
+    return snapshot() if callable(snapshot) else {"backend": "unknown"}
+
+
+def run_successor_smoke(chat_model: ChatModel, config: SuccessorSmokeConfig) -> dict[str, Any]:
+    """Run ten strict, no-repair strategy cells across the original L1 and L3 prompts."""
+
+    config.validate()
+    l1_provider = LLMRockStrategyProvider(
+        chat_model,
+        L1Config(
+            num_trials_per_map=1,
+            num_rounds=1,
+            num_strategies=config.num_strategies,
+            planning_horizon=config.l1_horizon,
+            bootstrap_replicates=1,
+            validation_retries=0,
+            trial_concurrency=1,
+        ),
+    )
+    l3_provider = ContinuousStrategyProvider(
         chat_model,
         L3Config(
             num_trials=1,
@@ -120,40 +141,24 @@ def _l3_cells(chat_model: ChatModel, config: SuccessorSmokeConfig) -> Continuous
             trial_concurrency=1,
         ),
     )
-    for cell_index in range(config.l3_cells):
-        rng = np.random.default_rng(config.seed + 100 + cell_index)
-        particles = rng.random((config.num_particles, 2))
-        probabilities = rng.dirichlet(np.ones(config.num_particles))
-        provider.strategies(
-            cell_index,
-            np.asarray((0.1 + 0.15 * cell_index, 0.8 - 0.1 * cell_index), dtype=float),
-            particles,
-            probabilities,
-            config.l3_horizon,
-        )
-    return provider
-
-
-def _usage(chat_model: Any) -> dict[str, Any]:
-    snapshot = getattr(chat_model, "usage_snapshot", None)
-    return snapshot() if callable(snapshot) else {"backend": "unknown"}
-
-
-def run_successor_smoke(chat_model: ChatModel, config: SuccessorSmokeConfig) -> dict[str, Any]:
-    """Run ten strict, no-repair strategy cells across the original L1 and L3 prompts."""
-
-    config.validate()
-    l1_provider = _l1_cells(chat_model, config)
-    l3_provider = _l3_cells(chat_model, config)
-    usage = _usage(chat_model)
-    requests = len(l1_provider.physical_requests) + len(l3_provider.accepted_requests)
-    forced_exits = int(usage.get("forced_exits", 0) or 0)
-    if requests != 10:
-        raise RuntimeError(f"serving gate expected ten successful generation cells, got {requests}")
-    if l1_provider.invalid_responses or l3_provider.invalid_responses:
-        raise RuntimeError("serving gate accepted a repaired or invalid generation cell")
-    if forced_exits:
-        raise RuntimeError(f"serving gate observed {forced_exits} forced reasoning/output exits")
+    try:
+        _run_l1_cells(l1_provider, config)
+        _run_l3_cells(l3_provider, config)
+        usage = _usage(chat_model)
+        requests = len(l1_provider.physical_requests) + len(l3_provider.accepted_requests)
+        forced_exits = int(usage.get("forced_exits", 0) or 0)
+        if requests != 10:
+            raise RuntimeError(f"serving gate expected ten successful generation cells, got {requests}")
+        if l1_provider.invalid_responses or l3_provider.invalid_responses:
+            raise RuntimeError("serving gate accepted a repaired or invalid generation cell")
+        if forced_exits:
+            raise RuntimeError(f"serving gate observed {forced_exits} forced reasoning/output exits")
+    except (ContinuousProposalError, StrategyProposalError, RuntimeError) as exc:
+        setattr(exc, "l1_requests", l1_provider.physical_requests)
+        setattr(exc, "l1_invalid_responses", l1_provider.invalid_responses)
+        setattr(exc, "l3_requests", l3_provider.accepted_requests)
+        setattr(exc, "l3_invalid_responses", l3_provider.invalid_responses)
+        raise
     return {
         "schema_version": 1,
         "stage": "strategy_successor_interface_smoke",
@@ -204,6 +209,10 @@ def main() -> None:
             "status": "failed_closed",
             "error": str(exc),
             "config": asdict(config),
+            "l1_requests": getattr(exc, "l1_requests", []),
+            "l1_invalid_responses": getattr(exc, "l1_invalid_responses", []),
+            "l3_requests": getattr(exc, "l3_requests", []),
+            "l3_invalid_responses": getattr(exc, "l3_invalid_responses", []),
             "usage": _usage(chat_model),
         }
         (args.output_dir / "SMOKE_FAILURE.json").write_text(json.dumps(failure, indent=2, sort_keys=True) + "\n")

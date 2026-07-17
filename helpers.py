@@ -549,14 +549,16 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
 
     if thinking is not None:
         raise ValueError(f"{side_name}.thinking is only supported for Qwen and Gemma 4 models")
-    if reasoning_effort is not None:
-        raise ValueError(f"{side_name}.reasoning_effort is only supported for gpt-oss models")
+    if reasoning_effort is not None and backend != "openrouter":
+        raise ValueError(
+            f"{side_name}.reasoning_effort is only supported for gpt-oss models or OpenRouter models"
+        )
     if thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None:
         raise ValueError(f"{side_name}.thinking budgets are only supported for Qwen and Gemma 4 models")
     if use_logprobs:
         raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
 
-    return ModelSpec(model=model_name, backend=backend, **vllm_kwargs)
+    return ModelSpec(model=model_name, backend=backend, reasoning_effort=reasoning_effort, **vllm_kwargs)
 
 
 def _normalize_model_pair(raw_pair: object, index: int) -> ModelPair:
