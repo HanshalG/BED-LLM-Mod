@@ -503,7 +503,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
         "cuda_visible_devices": cuda_visible_devices,
     }
 
-    is_qwen = model_name.startswith("Qwen/")
+    is_qwen = model_name.lower().startswith("qwen/")
     is_qwen25 = model_name.startswith("Qwen/Qwen2.5")
     is_gemma = model_name.startswith("google/gemma-4")
     is_harmony = model_name.startswith("openai/gpt-oss")
