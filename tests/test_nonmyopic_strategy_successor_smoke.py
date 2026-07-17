@@ -76,6 +76,16 @@ def test_successor_qwen_budgeted_config_reserves_final_output_space() -> None:
     assert formal.openrouter_run_budget_usd == 3.0
 
 
+def test_successor_nemotron_config_uses_catalog_supported_reasoning_budget() -> None:
+    smoke = load_config("configs/config_nonmyopic_strategy_successor_smoke_nemotron120b_openrouter.yaml")
+    formal = load_config("configs/config_nonmyopic_copex_strategy_l3_successor_nemotron120b_openrouter.yaml")
+
+    assert smoke.model_pairs[0].questioner.reasoning_max_tokens == 768
+    assert smoke.openrouter_max_output_tokens == 1536
+    assert formal.model_pairs[0].questioner.model == "nvidia/nemotron-3-super-120b-a12b"
+    assert formal.openrouter_projected_cost_usd == 1.1
+
+
 def test_successor_smoke_exposes_partial_invalid_cells_on_failure() -> None:
     class InvalidModel:
         def chat_complete(self, messages, temperature, num_responses=1):
