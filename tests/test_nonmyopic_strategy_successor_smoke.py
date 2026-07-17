@@ -57,6 +57,15 @@ def test_successor_gptoss_config_uses_native_reasoning_and_conservative_cap() ->
     assert formal.openrouter_projected_cost_usd == 1.1
 
 
+def test_successor_gptoss_amendment_reserves_final_output_space() -> None:
+    smoke = load_config("configs/config_nonmyopic_strategy_successor_smoke_gptoss120b_medium8192_openrouter.yaml")
+    formal = load_config("configs/config_nonmyopic_copex_strategy_l3_successor_gptoss120b_medium8192_openrouter.yaml")
+
+    assert smoke.model_pairs[0].questioner.reasoning_effort == "medium"
+    assert smoke.openrouter_max_output_tokens == 8192
+    assert formal.openrouter_projected_cost_usd == 2.1
+
+
 def test_successor_smoke_exposes_partial_invalid_cells_on_failure() -> None:
     class InvalidModel:
         def chat_complete(self, messages, temperature, num_responses=1):
