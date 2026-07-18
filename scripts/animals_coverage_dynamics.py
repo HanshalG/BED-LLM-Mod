@@ -92,6 +92,8 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
     """Summarize candidate-level coverage variation without using it as a policy."""
     immediate_eigs: list[float] = []
     expected_coverages: list[float] = []
+    support_retentions: list[float] = []
+    surviving_map_masses: list[float] = []
     state_spreads: list[float] = []
     immediate_eig_coverage_regrets: list[float] = []
 
@@ -106,8 +108,28 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
         immediate_eig_coverage_regrets.append(max(coverage_values) - coverage_values[selected_index])
         immediate_eigs.extend(eig_values)
         expected_coverages.extend(coverage_values)
+        support_retentions.extend(
+            float(entry["expected_current_support_retention"])
+            for entry in dynamics
+            if "expected_current_support_retention" in entry
+        )
+        surviving_map_masses.extend(
+            float(entry["expected_surviving_map_mass"])
+            for entry in dynamics
+            if "expected_surviving_map_mass" in entry
+        )
 
     spearman = _pearson_correlation(_average_ranks(immediate_eigs), _average_ranks(expected_coverages))
+    retention_spearman = (
+        _pearson_correlation(_average_ranks(support_retentions), _average_ranks(expected_coverages))
+        if len(support_retentions) == len(expected_coverages)
+        else None
+    )
+    map_mass_spearman = (
+        _pearson_correlation(_average_ranks(surviving_map_masses), _average_ranks(expected_coverages))
+        if len(surviving_map_masses) == len(expected_coverages)
+        else None
+    )
     return {
         "num_states": len(records),
         "num_candidate_rows": len(immediate_eigs),
@@ -122,6 +144,8 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
             regret >= 0.20 for regret in immediate_eig_coverage_regrets
         ),
         "spearman_immediate_eig_vs_expected_truth_coverage": spearman,
+        "spearman_support_retention_vs_expected_truth_coverage": retention_spearman,
+        "spearman_surviving_map_mass_vs_expected_truth_coverage": map_mass_spearman,
     }
 
 
@@ -198,6 +222,10 @@ def run_probe(
                     "bootstrap_answer": bootstrap_answer,
                     "history": [{"question": question, "answer": answer} for question, answer in history],
                     "belief_support_size": beliefs.support_size,
+                    "truth_covered_before_counterfactuals": any(
+                        hypothesis.strip().casefold() == target.strip().casefold()
+                        for hypothesis in beliefs.hypotheses
+                    ),
                     "candidate_dynamics": [_serialize_dynamics(entry) for entry in dynamics],
                 }
             )
@@ -236,6 +264,8 @@ def render_report(payload: dict[str, Any]) -> str:
         f"- Max within-state coverage spread: `{summary['max_within_state_coverage_spread']}`",
         f"- Mean immediate-EIG coverage regret: `{summary['mean_immediate_eig_coverage_regret']}`",
         f"- Spearman(immediate EIG, expected truth coverage): `{summary['spearman_immediate_eig_vs_expected_truth_coverage']}`",
+        f"- Spearman(support retention, expected truth coverage): `{summary['spearman_support_retention_vs_expected_truth_coverage']}`",
+        f"- Spearman(surviving MAP mass, expected truth coverage): `{summary['spearman_surviving_map_mass_vs_expected_truth_coverage']}`",
         "",
         "Per-state candidate/branch values are in `COVERAGE_PROBE.json`.",
         "",

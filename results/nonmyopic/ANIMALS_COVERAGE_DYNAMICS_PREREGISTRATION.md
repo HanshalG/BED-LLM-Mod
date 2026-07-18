@@ -95,3 +95,30 @@ requests, no reasoning tokens, one length finish, and `$0.09905632` cost. Its
 raw result and interpretation are recorded in
 `results/nonmyopic/ANIMALS_COVERAGE_DYNAMICS_RESULT.md`. The mechanism screen
 is positive, but it makes no policy-effect claim.
+
+## Target-Free Proxy Validation (2026-07-18, before execution)
+
+The next independent ten-state trace uses seed `1305` and logs two quantities
+available to a policy from the current belief, likelihood rows, and returned
+branch supports, without the hidden target:
+
+1. **Expected current-support retention:** the current belief mass that remains
+   represented after the likely answer and production branch update.
+2. **Expected surviving MAP mass:** for each answer, the largest current
+   hypothesis mass that both predicts that answer and survives the branch
+   update, summed across answers.
+
+The target remains measurement-only and is used only to calculate the already
+defined expected truth coverage. The read is descriptive: report each proxy's
+candidate-level Spearman correlation with expected truth coverage. This does
+not select a policy or change the completed seed-1304 result. A useful positive
+signal is a materially higher rank association than immediate EIG; a null or
+negative association rejects this particular model-aware policy route.
+
+```bash
+set -a; source .env; set +a
+PYTHONPATH=. python scripts/animals_coverage_dynamics.py \
+  --run-id animals-coverage-dynamics-proxy-validation-20260718 \
+  --output-dir results/nonmyopic/animals_coverage_dynamics/20260718_proxy_validation \
+  --seed 1305
+```

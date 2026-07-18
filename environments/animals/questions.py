@@ -35,6 +35,8 @@ class CandidateCoverageDynamics:
     immediate_eig: float
     p_yes: float
     p_no: float
+    expected_current_support_retention: float
+    expected_surviving_map_mass: float
     truth_covered_if_yes: bool
     truth_covered_if_no: bool
     support_size_if_yes: int
@@ -151,24 +153,39 @@ def _score_questions_from_samples(samples: list[str] | np.ndarray, sample_probab
     if len(cand_questions) == 0 or len(samples) == 0:
         return [0.0] * len(cand_questions), [0.0] * len(cand_questions), [0.0] * len(cand_questions)
 
-    conversations = []
-    for question in cand_questions:
-        for sample in samples:
-            conversations.append(answer_likelihood_messages(sample, question, ["Yes", "No"]))
-
-    probabilities = questioner.chat_probabilities_messages_batched(
-        conversations,
-        ["Yes", "No"],
-        temperature=answer_temperature,
-        block_size=block_size,
+    probabilities = _answer_probability_rows(
+        samples,
+        cand_questions,
+        questioner,
+        answer_temperature,
+        block_size,
     )
-
     return _score_questions_from_probability_rows(
         probabilities,
         len(samples),
         sample_probabilities,
         len(cand_questions),
         eig,
+    )
+
+
+def _answer_probability_rows(
+    samples: list[str] | np.ndarray,
+    cand_questions: list[str],
+    questioner: Model,
+    answer_temperature: float,
+    block_size: int,
+) -> list[dict[str, float]]:
+    conversations = []
+    for question in cand_questions:
+        for sample in samples:
+            conversations.append(answer_likelihood_messages(sample, question, ["Yes", "No"]))
+
+    return questioner.chat_probabilities_messages_batched(
+        conversations,
+        ["Yes", "No"],
+        temperature=answer_temperature,
+        block_size=block_size,
     )
 
 
@@ -275,14 +292,19 @@ def evaluate_candidate_coverage_dynamics(
         deterministic,
         config.num_mc_samples,
     )
-    immediate_eigs, p_yes_values, p_no_values = _score_questions_from_samples(
+    probability_rows = _answer_probability_rows(
         samples,
-        sample_probabilities,
         cand_questions,
+        questioner,
+        config.answer_temperature,
+        config.batched_block_size,
+    )
+    immediate_eigs, p_yes_values, p_no_values = _score_questions_from_probability_rows(
+        probability_rows,
+        len(samples),
+        sample_probabilities,
+        len(cand_questions),
         eig=True,
-        questioner=questioner,
-        answer_temperature=config.answer_temperature,
-        block_size=config.batched_block_size,
     )
     truth_key = truth.strip().casefold()
 
@@ -313,14 +335,42 @@ def evaluate_candidate_coverage_dynamics(
     )):
         future_yes = ensure_animals_belief_state(future_beliefs[2 * question_index])
         future_no = ensure_animals_belief_state(future_beliefs[2 * question_index + 1])
+        yes_support = {hypothesis.strip().casefold() for hypothesis in future_yes.hypotheses}
+        no_support = {hypothesis.strip().casefold() for hypothesis in future_no.hypotheses}
         yes_covered = any(hypothesis.strip().casefold() == truth_key for hypothesis in future_yes.hypotheses)
         no_covered = any(hypothesis.strip().casefold() == truth_key for hypothesis in future_no.hypotheses)
+        if sample_probabilities is None:
+            sample_weights = [1.0 / len(samples)] * len(samples)
+        else:
+            sample_weights = sample_probabilities
+        question_rows = probability_rows[
+            question_index * len(samples):(question_index + 1) * len(samples)
+        ]
+        expected_current_support_retention = 0.0
+        yes_surviving_masses: list[float] = []
+        no_surviving_masses: list[float] = []
+        for hypothesis, weight, answer_probabilities in zip(samples, sample_weights, question_rows):
+            hypothesis_key = str(hypothesis).strip().casefold()
+            yes_mass = float(weight) * answer_probabilities["Yes"]
+            no_mass = float(weight) * answer_probabilities["No"]
+            if hypothesis_key in yes_support:
+                expected_current_support_retention += yes_mass
+                yes_surviving_masses.append(yes_mass)
+            if hypothesis_key in no_support:
+                expected_current_support_retention += no_mass
+                no_surviving_masses.append(no_mass)
+        expected_surviving_map_mass = (
+            max(yes_surviving_masses, default=0.0)
+            + max(no_surviving_masses, default=0.0)
+        )
         dynamics.append(
             CandidateCoverageDynamics(
                 question=question,
                 immediate_eig=float(immediate_eig),
                 p_yes=float(p_yes),
                 p_no=float(p_no),
+                expected_current_support_retention=expected_current_support_retention,
+                expected_surviving_map_mass=expected_surviving_map_mass,
                 truth_covered_if_yes=yes_covered,
                 truth_covered_if_no=no_covered,
                 support_size_if_yes=future_yes.support_size,

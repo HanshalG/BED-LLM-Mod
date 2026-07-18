@@ -569,6 +569,8 @@ def test_candidate_coverage_dynamics_uses_production_branch_updates_without_targ
     assert [entry.question for entry in dynamics] == questions
     assert [entry.immediate_eig for entry in dynamics] == pytest.approx([0.0, 0.0])
     assert [entry.expected_truth_coverage for entry in dynamics] == pytest.approx([0.5, 0.5])
+    assert [entry.expected_current_support_retention for entry in dynamics] == pytest.approx([0.25, 0.25])
+    assert [entry.expected_surviving_map_mass for entry in dynamics] == pytest.approx([0.25, 0.25])
     assert [(entry.truth_covered_if_yes, entry.truth_covered_if_no) for entry in dynamics] == [
         (True, False),
         (False, True),
