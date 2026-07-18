@@ -557,7 +557,7 @@ def _width_selection(
     trial_index: int,
     round_index: int,
 ) -> Selection:
-    virtual = 1 + config.candidate_width * config.outer_rollouts
+    virtual = 1 if round_index == config.num_rounds - 1 else 1 + config.candidate_width * config.outer_rollouts
     seen: list[tuple[float, float]] = []
     for cell_index in range(virtual):
         cell = provider.propose(
@@ -596,10 +596,35 @@ def _select(
     round_index: int,
 ) -> Selection:
     if arm == "llm_d2":
+        if round_index == config.num_rounds - 1:
+            root = provider.propose(
+                trial_index=trial_index,
+                position=state.position,
+                particles=particles,
+                probabilities=state.probabilities,
+                label="root",
+            )
+            uniforms, noise_zs = _draws(
+                config, trial_index=trial_index, round_index=round_index, state=state,
+                label="outer", count=config.outer_rollouts,
+            )
+            return _d1_selection(
+                root.actions, state=state, particles=particles, uniforms=uniforms, noise_zs=noise_zs,
+                config=config, calls=1, virtual=1,
+            )
         return _d2_llm_selection(
             provider, state=state, particles=particles, config=config, trial_index=trial_index, round_index=round_index
         )
     if arm == "grid_d2":
+        if round_index == config.num_rounds - 1:
+            uniforms, noise_zs = _draws(
+                config, trial_index=trial_index, round_index=round_index, state=state,
+                label="outer", count=config.outer_rollouts,
+            )
+            return _d1_selection(
+                _grid_actions(state.position, config), state=state, particles=particles,
+                uniforms=uniforms, noise_zs=noise_zs, config=config, calls=0, virtual=0,
+            )
         return _d2_grid_selection(
             state=state, particles=particles, config=config, trial_index=trial_index, round_index=round_index
         )

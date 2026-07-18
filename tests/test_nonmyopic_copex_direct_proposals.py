@@ -53,6 +53,9 @@ def test_small_dry_factorial_has_paired_controls() -> None:
     assert mechanics["inner_llm_calls_used_only_for_action_proposals"]
     assert all(math.isfinite(row["entropy_auc_mean"]) for row in summary["summary"].values())
     assert len(summary["comparisons"]["llm_d2_minus_llm_d1"]["paired_values"]) == 2
+    for trial in summary["trials"]:
+        assert trial["traces"]["llm_d2"][-1]["logical_llm_calls"] == 1
+        assert trial["traces"]["llm_width"][-1]["logical_llm_calls"] == 1
 
 
 def test_direct_proposal_openrouter_config_is_bounded_and_nonthinking() -> None:
