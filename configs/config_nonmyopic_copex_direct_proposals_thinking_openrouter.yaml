@@ -5,8 +5,8 @@ model_pairs:
       model: "google/gemma-4-26b-a4b-it"
       backend: openrouter
       thinking: true
-      thinking_max_new_tokens: 2048
-      thinking_final_max_new_tokens: 512
+      thinking_max_new_tokens: 4096
+      thinking_final_max_new_tokens: 1024
       max_model_len: 32768
     answerer:
       model: "google/gemma-4-26b-a4b-it"

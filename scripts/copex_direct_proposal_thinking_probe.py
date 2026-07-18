@@ -69,14 +69,17 @@ def _angles(raw_response: str) -> list[float]:
     return [float(item) for item in json.loads(normalized)["angles_deg"]]
 
 
-def run_probe(provider: DirectProposalProvider, completed: dict[str, Any]) -> dict[str, Any]:
+def run_probe(
+    provider: DirectProposalProvider, completed: dict[str, Any], *, num_states: int | None = None
+) -> dict[str, Any]:
     source_config = DirectProposalConfig(**completed["config"])
     source_config.validate()
     if source_config.one_step_scoring != "quadrature":
         raise ValueError("thinking probe requires quadrature-scored input")
     rows: list[dict[str, Any]] = []
     all_angles: list[float] = []
-    for trial in completed["trials"]:
+    trials = completed["trials"] if num_states is None else completed["trials"][:num_states]
+    for trial in trials:
         trial_index = int(trial["trial_index"])
         particles, probabilities, position, truth = _initial_state(source_config, trial_index)
         if not np.allclose(truth, np.asarray(trial["truth"], dtype=float), rtol=0.0, atol=1e-14):
@@ -184,8 +187,11 @@ def main() -> None:
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--run-id", default="copex-direct-proposals-thinking-quality-probe-20260718")
+    parser.add_argument("--num-states", type=int, default=None)
     args = parser.parse_args()
     completed = json.loads(args.input.read_text())
+    if args.num_states is not None and args.num_states <= 0:
+        raise ValueError("num_states must be positive when provided")
     runtime: Config = load_config(args.config)
     runtime.run_id = args.run_id
     model = build_model_adapter(runtime.model_pairs[0].questioner, config=runtime)
@@ -193,7 +199,7 @@ def main() -> None:
     provider = DirectProposalProvider(model, source_config)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     try:
-        result = run_probe(provider, completed)
+        result = run_probe(provider, completed, num_states=args.num_states)
     except DirectProposalError as exc:
         failure = {
             "schema_version": 1,

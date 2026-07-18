@@ -1,0 +1,54 @@
+{
+  "error": "cell failed after two attempts: response is not valid JSON",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "error": "response is not valid JSON",
+      "label": "thinking-root",
+      "raw_response": "None",
+      "state_key": "86fb5475e79bcf37c73ebef2",
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "error": "response is not valid JSON",
+      "label": "thinking-root",
+      "raw_response": "None",
+      "state_key": "86fb5475e79bcf37c73ebef2",
+      "trial_index": 0
+    }
+  ],
+  "requests": [],
+  "schema_version": 1,
+  "stage": "COPEx_direct_proposal_thinking_quality_probe",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 5120,
+    "adapter_cost_usd": 0.00196951,
+    "adapter_prompt_tokens": 743,
+    "adapter_reasoning_tokens": 2580,
+    "adapter_requests": 2,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 5120,
+    "forced_exits": 2,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 5120,
+        "cost_usd": 0.00196951,
+        "prompt_tokens": 743,
+        "reasoning_tokens": 2580,
+        "requests": 2
+      }
+    },
+    "prompt_tokens": 743,
+    "reasoning_tokens": 2580,
+    "remaining_usd": 20.00186460653996,
+    "requests": 2,
+    "run_budget_usd": 2.5,
+    "run_cost_usd": 0.00196951,
+    "run_remaining_usd": 2.49803049,
+    "total_spent_usd": 19.99813539346004
+  }
+}
