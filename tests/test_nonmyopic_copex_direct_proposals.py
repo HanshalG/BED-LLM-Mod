@@ -10,6 +10,7 @@ from scripts.nonmyopic_copex_direct_proposals import (
     DirectProposalError,
     DirectProposalProvider,
     _parse_angles,
+    _grid_actions,
     _immediate_eig,
     run_factorial,
 )
@@ -24,11 +25,11 @@ def test_direct_angle_parser_deduplicates_boundary_endpoints_without_padding() -
     )
     assert np.allclose(parsed, ((0.6, 0.5), (0.5, 0.4)))
     parsed_boundary = _parse_angles(
-            '{"angles_deg":[90.0,135.0,225.0]}',
-            expected_count=3,
-            position=np.asarray([0.0, 0.0]),
-            max_step=0.1,
-        )
+        '{"angles_deg":[90.0,135.0,225.0]}',
+        expected_count=3,
+        position=np.asarray([0.0, 0.0]),
+        max_step=0.1,
+    )
     assert len(parsed_boundary) == 1
     with pytest.raises(DirectProposalError, match="distinct"):
         _parse_angles(
@@ -37,6 +38,25 @@ def test_direct_angle_parser_deduplicates_boundary_endpoints_without_padding() -
             position=np.asarray([0.5, 0.5]),
             max_step=0.1,
         )
+
+
+def test_grid_candidates_cover_the_circle_before_filling_boundary_gaps() -> None:
+    config = DirectProposalConfig(
+        num_trials=1,
+        num_rounds=2,
+        num_particles=2,
+        candidate_width=3,
+        outer_rollouts=2,
+        child_rollouts=2,
+        grid_resolution=12,
+        bootstrap_replicates=2,
+        trial_concurrency=1,
+    )
+    position = np.asarray([0.5, 0.5])
+    deltas = np.asarray(_grid_actions(position, config)) - position
+    assert np.any(deltas[:, 0] > 0.0)
+    assert np.any(deltas[:, 0] < 0.0)
+    assert np.any(deltas[:, 1] < 0.0)
 
 
 def test_small_dry_factorial_has_paired_controls() -> None:

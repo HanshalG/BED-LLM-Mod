@@ -419,7 +419,11 @@ def _immediate_eig(
 def _grid_actions(position: np.ndarray, config: DirectProposalConfig) -> tuple[tuple[float, float], ...]:
     actions: list[tuple[float, float]] = []
     seen: set[tuple[float, float]] = set()
-    for angle in np.linspace(0.0, 2.0 * math.pi, num=config.grid_resolution, endpoint=False):
+    angles = np.linspace(0.0, 2.0 * math.pi, num=config.grid_resolution, endpoint=False)
+    spaced = np.linspace(0, config.grid_resolution - 1, num=config.candidate_width, dtype=int)
+    order = tuple(dict.fromkeys([*(int(index) for index in spaced), *range(config.grid_resolution)]))
+    for index in order:
+        angle = angles[index]
         delta = np.asarray([math.cos(angle), math.sin(angle)], dtype=float)
         delta *= config.max_step / max(abs(float(delta[0])), abs(float(delta[1])))
         action = np.clip(position + delta, 0.0, 1.0)
