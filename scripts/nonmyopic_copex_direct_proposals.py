@@ -174,12 +174,14 @@ def _parse_angles(
         delta = direction * (max_step / max(abs(float(direction[0])), abs(float(direction[1]))))
         action = np.clip(position + delta, 0.0, 1.0)
         if float(np.max(np.abs(action - position))) <= 1e-12:
-            raise DirectProposalError(f"angle {index} produces no legal movement")
+            continue
         canonical = _action_key(action)
         if canonical in seen:
-            raise DirectProposalError("angles must induce distinct next locations")
+            continue
         seen.add(canonical)
         actions.append(_canonical_action(action))
+    if not actions:
+        raise DirectProposalError("no proposed angle produces legal movement")
     return tuple(actions)
 
 
@@ -218,7 +220,7 @@ class DirectProposalProvider:
             f"Current sensor location: ({position[0]:.5f}, {position[1]:.5f}).",
             f"Return exactly {self.config.candidate_width} distinct direction angles in degrees as JSON only:",
             '{"angles_deg":[0.0,133.5,271.0]}.',
-            f"Every angle must be a finite number in [0,360). The executor moves {self.config.max_step} in L-infinity norm in that direction and clips only at the [0,1]^2 boundary.",
+            f"Every angle must be a finite number in [0,360). The executor moves {self.config.max_step} in L-infinity norm in that direction and clips only at the [0,1]^2 boundary. Choose directions that give distinct nonzero endpoints after clipping whenever possible.",
             "A separate exact program scores these moves. Propose geometrically diverse locations that distinguish the leading posterior hypotheses.",
             "Leading exact posterior particles:",
             *self._belief_lines(particles, probabilities),
@@ -504,7 +506,7 @@ def _d2_llm_selection(
             )
             total += start_entropy - particle_entropy(branch_probabilities) + max(child_scores)
         scores.append(total / config.outer_rollouts)
-    virtual = 1 + config.candidate_width * config.outer_rollouts
+    virtual = 1 + len(root.actions) * config.outer_rollouts
     return _choose(root.actions, tuple(scores), virtual, virtual)
 
 
@@ -567,15 +569,22 @@ def _width_selection(
     trial_index: int,
     round_index: int,
 ) -> Selection:
-    virtual = 1 if round_index == config.num_rounds - 1 else 1 + config.candidate_width * config.outer_rollouts
-    seen: list[tuple[float, float]] = []
-    for cell_index in range(virtual):
+    root = provider.propose(
+        trial_index=trial_index,
+        position=state.position,
+        particles=particles,
+        probabilities=state.probabilities,
+        label="root",
+    )
+    virtual = 1 if round_index == config.num_rounds - 1 else 1 + len(root.actions) * config.outer_rollouts
+    seen = list(root.actions)
+    for cell_index in range(1, virtual):
         cell = provider.propose(
             trial_index=trial_index,
             position=state.position,
             particles=particles,
             probabilities=state.probabilities,
-            label="root" if cell_index == 0 else f"width:{round_index}:{cell_index}",
+            label=f"width:{round_index}:{cell_index}",
             avoid_actions=tuple(seen),
         )
         seen.extend(action for action in cell.actions if action not in seen)
@@ -655,7 +664,9 @@ def _select(
         )
         return _d1_selection(
             root.actions, state=state, particles=particles, uniforms=uniforms, noise_zs=noise_zs,
-            config=config, calls=1, virtual=1 + config.candidate_width * config.outer_rollouts,
+            config=config,
+            calls=1,
+            virtual=(1 if round_index == config.num_rounds - 1 else 1 + len(root.actions) * config.outer_rollouts),
         )
     return _d1_selection(
         _grid_actions(state.position, config), state=state, particles=particles, uniforms=uniforms, noise_zs=noise_zs,
@@ -683,7 +694,7 @@ def _run_trial(provider: DirectProposalProvider, config: DirectProposalConfig, t
         if round_index == 0:
             initial_root_shared = selections["llm_d1"].candidate_actions == selections["llm_d2"].candidate_actions
         width_calls_match = width_calls_match and (
-            selections["llm_width"].logical_llm_calls == selections["llm_d2"].virtual_depth_two_calls
+            selections["llm_width"].logical_llm_calls == selections["llm_width"].virtual_depth_two_calls
         )
         actual_z = float(np.random.default_rng(_stable_seed(config.seed, trial_index, round_index, "actual-z")).normal())
         for arm, selection in selections.items():

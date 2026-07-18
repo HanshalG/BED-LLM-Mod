@@ -19,12 +19,14 @@ particle posterior includes the realized source exactly.  Signal evaluations,
 Gaussian likelihood updates, counterfactual observations, entropy, and posterior
 mean decoding are programmatic.
 
-The LLM emits only JSON direction-angle cells of exactly three continuous next moves.
-The executor deterministically converts each angle into the maximum legal L-infinity
-step, clipping only at the box boundary. The LLM does not receive outcome likelihoods,
-score candidates, execute actions, update beliefs, or write strategies. In d2, the
-same interface is used at simulated one-observation child belief states; these are
-counted as inner proposal calls and saved verbatim.
+The LLM emits only JSON cells of exactly three continuous direction angles. The
+executor deterministically converts each angle into the maximum legal L-infinity step,
+clipping only at the box boundary. At a boundary, distinct angles can map to the same
+endpoint or a no-op; such endpoints are deduplicated without replacement and never
+padded. The LLM does not receive outcome likelihoods, score candidates, execute
+actions, update beliefs, or write strategies. In d2, the same interface is used at
+simulated one-observation child belief states; these are counted as inner proposal
+calls and saved verbatim.
 
 Depth-two root values use four common-random-number outer source/noise draws. Each
 branch's child actions are ranked with eight CRN immediate-EIG draws. These are Monte
@@ -49,9 +51,10 @@ scores. All candidates inside a decision receive the same relevant random draws.
 1. `llm_d1`: immediate exact EIG over the root LLM move cell.
 2. `llm_d2`: depth-two EIG over that same root cell and LLM cells generated at each
    sampled child belief state.
-3. `llm_width`: immediate EIG over one root cell plus 12 additional current-state
-   LLM cells. It therefore receives exactly the `1 + K * outer_rollouts = 13`
-   proposal calls allocated virtually by `llm_d2` at each nonterminal decision.
+3. `llm_width`: immediate EIG over one root cell plus additional current-state LLM
+   cells. It receives exactly the `1 + K_realized * outer_rollouts` proposal calls
+   allocated virtually by `llm_d2` at each nonterminal decision, where `K_realized`
+   is the number of distinct physical root endpoints after boundary projection.
 4. `grid_d1`: immediate EIG over three fixed angular-grid legal actions.
 5. `grid_d2`: depth-two EIG using the same three-action angular-grid interface at
    roots and child states.

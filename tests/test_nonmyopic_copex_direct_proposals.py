@@ -14,7 +14,7 @@ from scripts.nonmyopic_copex_direct_proposals import (
 )
 
 
-def test_direct_angle_parser_requires_distinct_legal_endpoints() -> None:
+def test_direct_angle_parser_deduplicates_boundary_endpoints_without_padding() -> None:
     parsed = _parse_angles(
         '{"angles_deg":[0.0,270.0]}',
         expected_count=2,
@@ -22,6 +22,13 @@ def test_direct_angle_parser_requires_distinct_legal_endpoints() -> None:
         max_step=0.1,
     )
     assert np.allclose(parsed, ((0.6, 0.5), (0.5, 0.4)))
+    parsed_boundary = _parse_angles(
+            '{"angles_deg":[90.0,135.0,225.0]}',
+            expected_count=3,
+            position=np.asarray([0.0, 0.0]),
+            max_step=0.1,
+        )
+    assert len(parsed_boundary) == 1
     with pytest.raises(DirectProposalError, match="distinct"):
         _parse_angles(
             '{"angles_deg":[0.0,0.0]}',
