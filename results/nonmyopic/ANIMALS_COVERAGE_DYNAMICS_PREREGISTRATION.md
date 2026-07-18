@@ -22,8 +22,10 @@ the current one-step EIG score?
   questions. Compute their immediate EIG and predictive `p(Yes), p(No)` with
   the production likelihood scorer.
 - For every candidate and each binary branch, call the production
-  `_future_beliefs_for_answer` path. It runs normal generated-hypothesis
-  regeneration, animal-name validation, and history-consistency filtering.
+  batched belief-update path. It runs the same generated-hypothesis
+  regeneration, animal-name validation, and history-consistency filtering as
+  `_future_beliefs_for_answer`, while batching independent branches from one
+  state to remove avoidable API latency.
 - The target animal is compared with the returned branch support only. It is
   never added to a belief support, prompt, likelihood score, candidate score,
   or belief-generation call. The answerer necessarily receives the target to
@@ -36,7 +38,7 @@ the current one-step EIG score?
 ## Budget and Failure Rules
 
 - Config: `configs/config_animals_coverage_dynamics_openrouter.yaml`.
-- Command: `set -a; source .env; set +a; PYTHONPATH=. python
+- Original command: `set -a; source .env; set +a; PYTHONPATH=. python
   scripts/animals_coverage_dynamics.py --output-dir
   results/nonmyopic/animals_coverage_dynamics/20260718`.
 - The run-level OpenRouter accounting cap is `$0.50`, with `$0.35` projected.
@@ -52,3 +54,25 @@ support survival is large enough to justify a matched-compute `d2` policy that
 models epistemic dynamics. A near-zero spread is evidence against this route;
 nonzero spread with substantial regret or weak rank agreement motivates the
 next policy implementation and a separately preregistered paired endpoint run.
+
+## Execution Amendment (2026-07-18, before recovery results)
+
+The first live invocation was stopped after 85 healthy OpenRouter requests and
+`$0.0046152799`, before it produced a state record or any outcome value. Its
+serial invocation of otherwise-normal branch updates made the ten-state screen
+far slower than its bounded purpose warrants. The recovery batches the same
+independent branch histories through the repository's existing
+`_update_beliefs_many` implementation. It changes API scheduling only: belief
+generation, name validation, history filtering, candidate pool, target order,
+scoring, endpoint, budget, and read remain fixed. The interrupted invocation
+is not an outcome and is reported in the ledger.
+
+The fresh recovery uses a distinct run ID and output directory for separate
+accounting:
+
+```bash
+set -a; source .env; set +a
+PYTHONPATH=. python scripts/animals_coverage_dynamics.py \
+  --run-id animals-coverage-dynamics-batched-recovery-20260718 \
+  --output-dir results/nonmyopic/animals_coverage_dynamics/20260718_batched_recovery
+```

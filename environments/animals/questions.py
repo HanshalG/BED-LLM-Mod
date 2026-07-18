@@ -17,7 +17,7 @@ from environments.animals.prompts import candidate_generation_system_message, co
     weighted_unconditional_question_generation_prompt, \
     candidate_generation_system_message_naive, \
     question_generation_prompt_naive, weighted_question_generation_prompt_naive, answer_likelihood_messages
-from environments.animals.beliefs import ensure_animals_belief_state, update_beliefs_batched
+from environments.animals.beliefs import _update_beliefs_many, ensure_animals_belief_state, update_beliefs_batched
 
 from helpers import write_to_log
 
@@ -229,6 +229,27 @@ def _future_beliefs_for_answer(beliefs: BeliefState | list[str], history_questio
     return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, config)
 
 
+def _future_beliefs_for_answers_batched(
+    beliefs: BeliefState | list[str],
+    history_questioner: list[dict[str, str]],
+    question_answers: list[tuple[str, str]],
+    questioner: Model,
+    deterministic: bool,
+    config: Config,
+) -> list[BeliefState]:
+    """Run independent counterfactual branches through the production batch path."""
+    belief_state = ensure_animals_belief_state(beliefs)
+    histories = [
+        _history_with_answer(history_questioner, question, answer)
+        for question, answer in question_answers
+    ]
+    if not config.forward_search_verbose:
+        quiet_config = replace(config, log_path=None)
+        with contextlib.redirect_stdout(io.StringIO()):
+            return _update_beliefs_many(histories, belief_state, questioner, deterministic, quiet_config)
+    return _update_beliefs_many(histories, belief_state, questioner, deterministic, config)
+
+
 def evaluate_candidate_coverage_dynamics(
     beliefs: BeliefState | list[str],
     history_questioner: list[dict[str, str]],
@@ -265,35 +286,33 @@ def evaluate_candidate_coverage_dynamics(
     )
     truth_key = truth.strip().casefold()
 
+    branch_questions_answers = [
+        (question, answer)
+        for question in cand_questions
+        for answer in ("Yes", "No")
+    ]
+    future_beliefs = _future_beliefs_for_answers_batched(
+        belief_state,
+        history_questioner,
+        branch_questions_answers,
+        questioner,
+        deterministic,
+        config,
+    )
+    if len(future_beliefs) != len(branch_questions_answers):
+        raise ValueError(
+            "Counterfactual batch update returned the wrong number of belief states"
+        )
+
     dynamics: list[CandidateCoverageDynamics] = []
-    for question, immediate_eig, p_yes, p_no in zip(
+    for question_index, (question, immediate_eig, p_yes, p_no) in enumerate(zip(
         cand_questions,
         immediate_eigs,
         p_yes_values,
         p_no_values,
-    ):
-        future_yes = ensure_animals_belief_state(
-            _future_beliefs_for_answer(
-                belief_state,
-                history_questioner,
-                question,
-                "Yes",
-                questioner,
-                deterministic,
-                config,
-            )
-        )
-        future_no = ensure_animals_belief_state(
-            _future_beliefs_for_answer(
-                belief_state,
-                history_questioner,
-                question,
-                "No",
-                questioner,
-                deterministic,
-                config,
-            )
-        )
+    )):
+        future_yes = ensure_animals_belief_state(future_beliefs[2 * question_index])
+        future_no = ensure_animals_belief_state(future_beliefs[2 * question_index + 1])
         yes_covered = any(hypothesis.strip().casefold() == truth_key for hypothesis in future_yes.hypotheses)
         no_covered = any(hypothesis.strip().casefold() == truth_key for hypothesis in future_no.hypotheses)
         dynamics.append(

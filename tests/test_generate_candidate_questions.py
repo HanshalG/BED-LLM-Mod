@@ -541,16 +541,20 @@ def test_candidate_coverage_dynamics_uses_production_branch_updates_without_targ
     seen_histories = []
     seen_beliefs = []
 
-    def fake_update_beliefs_batched(history, branch_beliefs, questioner, deterministic, config):
-        seen_histories.append(history)
+    def fake_update_beliefs_many(histories, branch_beliefs, questioner, deterministic, config):
+        seen_histories.extend(histories)
         seen_beliefs.append(_belief_names(branch_beliefs))
-        question = history[-2]["content"]
-        answer = history[-1]["content"]
-        if question == "Question A?":
-            return [truth] if answer == "Yes" else ["dog"]
-        return [truth] if answer == "No" else ["cat"]
+        updated = []
+        for history in histories:
+            question = history[-2]["content"]
+            answer = history[-1]["content"]
+            if question == "Question A?":
+                updated.append([truth] if answer == "Yes" else ["dog"])
+            else:
+                updated.append([truth] if answer == "No" else ["cat"])
+        return updated
 
-    monkeypatch.setattr(gcq, "update_beliefs_batched", fake_update_beliefs_batched)
+    monkeypatch.setattr(gcq, "_update_beliefs_many", fake_update_beliefs_many)
 
     dynamics = gcq.evaluate_candidate_coverage_dynamics(
         beliefs,
@@ -576,6 +580,7 @@ def test_candidate_coverage_dynamics_uses_production_branch_updates_without_targ
         [{"role": "assistant", "content": "Question B?"}, {"role": "user", "content": "No"}],
     ]
     assert all(truth not in message["content"] for history in seen_histories for message in history)
+    assert seen_beliefs == [beliefs]
     assert all(truth not in branch_beliefs for branch_beliefs in seen_beliefs)
 
 
