@@ -57,6 +57,8 @@ def test_grid_candidates_cover_the_circle_before_filling_boundary_gaps() -> None
     assert np.any(deltas[:, 0] > 0.0)
     assert np.any(deltas[:, 0] < 0.0)
     assert np.any(deltas[:, 1] < 0.0)
+    assert len(_grid_actions(position, config, count=12)) == 12
+    assert len(_grid_actions(np.asarray([0.0, 0.0]), config, count=72)) == 72
 
 
 def test_small_dry_factorial_has_paired_controls() -> None:
@@ -79,6 +81,7 @@ def test_small_dry_factorial_has_paired_controls() -> None:
     assert mechanics["initial_root_cell_shared"]
     assert mechanics["width_call_allocation_matches_virtual_depth_two"]
     assert mechanics["inner_llm_calls_used_only_for_action_proposals"]
+    assert mechanics["grid_score_width_candidates_per_nonterminal_decision"] == 8
     assert all(math.isfinite(row["entropy_auc_mean"]) for row in summary["summary"].values())
     assert len(summary["comparisons"]["llm_d2_minus_llm_d1"]["paired_values"]) == 2
     for trial in summary["trials"]:

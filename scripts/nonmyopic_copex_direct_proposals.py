@@ -34,8 +34,8 @@ from helpers import Config, load_config
 from model_factory import build_model_adapter
 
 
-ArmName = Literal["llm_d1", "llm_d2", "llm_width", "grid_d1", "grid_d2"]
-ARMS: tuple[ArmName, ...] = ("llm_d1", "llm_d2", "llm_width", "grid_d1", "grid_d2")
+ArmName = Literal["llm_d1", "llm_d2", "llm_width", "grid_d1", "grid_d2", "grid_score_width"]
+ARMS: tuple[ArmName, ...] = ("llm_d1", "llm_d2", "llm_width", "grid_d1", "grid_d2", "grid_score_width")
 OneStepScoring = Literal["monte_carlo", "quadrature"]
 OuterSampling = Literal["random", "stratified"]
 _NORMAL = NormalDist()
@@ -98,6 +98,10 @@ class DirectProposalConfig:
             raise ValueError("one_step_scoring must be monte_carlo or quadrature")
         if self.outer_sampling not in {"random", "stratified"}:
             raise ValueError("outer_sampling must be random or stratified")
+
+    @property
+    def grid_score_width_count(self) -> int:
+        return self.candidate_width * self.candidate_width * self.outer_rollouts
 
 
 @dataclass(frozen=True)
@@ -416,26 +420,34 @@ def _immediate_eig(
     return float(np.mean(drops))
 
 
-def _grid_actions(position: np.ndarray, config: DirectProposalConfig) -> tuple[tuple[float, float], ...]:
+def _grid_actions(
+    position: np.ndarray, config: DirectProposalConfig, *, count: int | None = None
+) -> tuple[tuple[float, float], ...]:
+    count = config.candidate_width if count is None else count
     actions: list[tuple[float, float]] = []
     seen: set[tuple[float, float]] = set()
-    angles = np.linspace(0.0, 2.0 * math.pi, num=config.grid_resolution, endpoint=False)
-    spaced = np.linspace(0, config.grid_resolution - 1, num=config.candidate_width, dtype=int)
-    order = tuple(dict.fromkeys([*(int(index) for index in spaced), *range(config.grid_resolution)]))
-    for index in order:
-        angle = angles[index]
-        delta = np.asarray([math.cos(angle), math.sin(angle)], dtype=float)
-        delta *= config.max_step / max(abs(float(delta[0])), abs(float(delta[1])))
-        action = np.clip(position + delta, 0.0, 1.0)
-        if float(np.max(np.abs(action - position))) <= 1e-12:
-            continue
-        key = _action_key(action)
-        if key not in seen:
-            seen.add(key)
-            actions.append(_canonical_action(action))
-        if len(actions) == config.candidate_width:
+    resolution = max(config.grid_resolution, count)
+    angles = np.linspace(0.0, 2.0 * math.pi, num=resolution, endpoint=False)
+    spaced = np.linspace(0, resolution - 1, num=count, dtype=int)
+    order = tuple(dict.fromkeys([*(int(index) for index in spaced), *range(resolution)]))
+    radii = (1.0,) if count <= config.candidate_width else tuple(np.linspace(1.0, 0.125, num=8))
+    for radius in radii:
+        for index in order:
+            angle = angles[index]
+            delta = np.asarray([math.cos(angle), math.sin(angle)], dtype=float)
+            delta *= radius * config.max_step / max(abs(float(delta[0])), abs(float(delta[1])))
+            action = np.clip(position + delta, 0.0, 1.0)
+            if float(np.max(np.abs(action - position))) <= 1e-12:
+                continue
+            key = _action_key(action)
+            if key not in seen:
+                seen.add(key)
+                actions.append(_canonical_action(action))
+            if len(actions) == count:
+                break
+        if len(actions) == count:
             break
-    if len(actions) != config.candidate_width:
+    if len(actions) != count:
         raise AssertionError("grid could not provide the required number of legal actions")
     return tuple(actions)
 
@@ -684,6 +696,21 @@ def _select(
         return _width_selection(
             provider, state=state, particles=particles, config=config, trial_index=trial_index, round_index=round_index
         )
+    if arm == "grid_score_width":
+        uniforms, noise_zs = _draws(
+            config, trial_index=trial_index, round_index=round_index, state=state,
+            label="grid-score-width", count=config.outer_rollouts,
+        )
+        return _d1_selection(
+            _grid_actions(state.position, config, count=config.grid_score_width_count),
+            state=state,
+            particles=particles,
+            uniforms=uniforms,
+            noise_zs=noise_zs,
+            config=config,
+            calls=0,
+            virtual=0,
+        )
     uniforms, noise_zs = _draws(
         config, trial_index=trial_index, round_index=round_index, state=state, label="outer", count=config.outer_rollouts
     )
@@ -828,6 +855,7 @@ def run_factorial(provider: DirectProposalProvider, config: DirectProposalConfig
         "llm_d2_minus_llm_d1": _paired_metric(trials, first="llm_d2", second="llm_d1", key="entropy", config=config, label="llm-d2-d1"),
         "llm_d2_minus_llm_width": _paired_metric(trials, first="llm_d2", second="llm_width", key="entropy", config=config, label="llm-d2-width"),
         "grid_d2_minus_grid_d1": _paired_metric(trials, first="grid_d2", second="grid_d1", key="entropy", config=config, label="grid-d2-d1"),
+        "grid_d2_minus_grid_score_width": _paired_metric(trials, first="grid_d2", second="grid_score_width", key="entropy", config=config, label="grid-d2-width"),
         "llm_d2_minus_grid_d2": _paired_metric(trials, first="llm_d2", second="grid_d2", key="entropy", config=config, label="llm-d2-grid-d2"),
         "llm_d2_minus_llm_d1_truth_log_probability": _paired_metric(trials, first="llm_d2", second="llm_d1", key="truth_log_probability", config=config, label="llm-d2-d1-truth"),
     }
@@ -850,6 +878,7 @@ def run_factorial(provider: DirectProposalProvider, config: DirectProposalConfig
         "logical_llm_calls": provider.logical_calls,
         "cache_hits": provider.cache_hits,
         "inner_llm_calls_used_only_for_action_proposals": True,
+        "grid_score_width_candidates_per_nonterminal_decision": config.grid_score_width_count,
     }
     return {
         "schema_version": 1,
