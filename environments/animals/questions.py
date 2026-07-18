@@ -1,6 +1,6 @@
 import contextlib
 import io
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
@@ -20,6 +20,32 @@ from environments.animals.prompts import candidate_generation_system_message, co
 from environments.animals.beliefs import ensure_animals_belief_state, update_beliefs_batched
 
 from helpers import write_to_log
+
+
+@dataclass(frozen=True)
+class CandidateCoverageDynamics:
+    """One-step support-survival diagnostic for a candidate question.
+
+    ``truth`` is deliberately not stored here.  It is used only after the
+    production branch update returns to measure whether the target survived
+    hypothesis regeneration and filtering.
+    """
+
+    question: str
+    immediate_eig: float
+    p_yes: float
+    p_no: float
+    truth_covered_if_yes: bool
+    truth_covered_if_no: bool
+    support_size_if_yes: int
+    support_size_if_no: int
+
+    @property
+    def expected_truth_coverage(self) -> float:
+        return (
+            self.p_yes * float(self.truth_covered_if_yes)
+            + self.p_no * float(self.truth_covered_if_no)
+        )
 
 
 def _format_question_preview(questions: list[str]) -> str:
@@ -201,6 +227,88 @@ def _future_beliefs_for_answer(beliefs: BeliefState | list[str], history_questio
         with contextlib.redirect_stdout(io.StringIO()):
             return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, quiet_config)
     return update_beliefs_batched(hypothetical_history, belief_state, questioner, deterministic, config)
+
+
+def evaluate_candidate_coverage_dynamics(
+    beliefs: BeliefState | list[str],
+    history_questioner: list[dict[str, str]],
+    cand_questions: list[str],
+    truth: str,
+    deterministic: bool,
+    questioner: Model,
+    config: Config,
+) -> list[CandidateCoverageDynamics]:
+    """Measure branch-dependent truth coverage using the live update pipeline.
+
+    This is an observational diagnostic, not a policy score.  Candidate EIG
+    and branch probabilities use exactly the existing likelihood scorer.  The
+    target is compared with returned supports only; it is never included in
+    prompt construction, likelihood scoring, or belief regeneration.
+    """
+    belief_state = ensure_animals_belief_state(beliefs)
+    if not cand_questions or not belief_state.hypotheses:
+        return []
+
+    samples, sample_probabilities = _draw_belief_samples(
+        belief_state,
+        deterministic,
+        config.num_mc_samples,
+    )
+    immediate_eigs, p_yes_values, p_no_values = _score_questions_from_samples(
+        samples,
+        sample_probabilities,
+        cand_questions,
+        eig=True,
+        questioner=questioner,
+        answer_temperature=config.answer_temperature,
+        block_size=config.batched_block_size,
+    )
+    truth_key = truth.strip().casefold()
+
+    dynamics: list[CandidateCoverageDynamics] = []
+    for question, immediate_eig, p_yes, p_no in zip(
+        cand_questions,
+        immediate_eigs,
+        p_yes_values,
+        p_no_values,
+    ):
+        future_yes = ensure_animals_belief_state(
+            _future_beliefs_for_answer(
+                belief_state,
+                history_questioner,
+                question,
+                "Yes",
+                questioner,
+                deterministic,
+                config,
+            )
+        )
+        future_no = ensure_animals_belief_state(
+            _future_beliefs_for_answer(
+                belief_state,
+                history_questioner,
+                question,
+                "No",
+                questioner,
+                deterministic,
+                config,
+            )
+        )
+        yes_covered = any(hypothesis.strip().casefold() == truth_key for hypothesis in future_yes.hypotheses)
+        no_covered = any(hypothesis.strip().casefold() == truth_key for hypothesis in future_no.hypotheses)
+        dynamics.append(
+            CandidateCoverageDynamics(
+                question=question,
+                immediate_eig=float(immediate_eig),
+                p_yes=float(p_yes),
+                p_no=float(p_no),
+                truth_covered_if_yes=yes_covered,
+                truth_covered_if_no=no_covered,
+                support_size_if_yes=future_yes.support_size,
+                support_size_if_no=future_no.support_size,
+            )
+        )
+    return dynamics
 
 
 def _history_with_answer(history_questioner: list[dict[str, str]], question: str, answer: str) -> list[dict[str, str]]:

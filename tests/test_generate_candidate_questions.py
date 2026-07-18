@@ -525,6 +525,60 @@ def test_evaluate_questions_forward_search_uses_full_update_for_stochastic_branc
     ]
 
 
+def test_candidate_coverage_dynamics_uses_production_branch_updates_without_target_leakage(monkeypatch):
+    beliefs = ["cat", "dog"]
+    truth = "Secret Animal"
+    questions = ["Question A?", "Question B?"]
+    config = _make_config()
+    model = FakeModel(
+        {
+            ("cat", "Question A?"): {"Yes": 0.5, "No": 0.5},
+            ("dog", "Question A?"): {"Yes": 0.5, "No": 0.5},
+            ("cat", "Question B?"): {"Yes": 0.5, "No": 0.5},
+            ("dog", "Question B?"): {"Yes": 0.5, "No": 0.5},
+        }
+    )
+    seen_histories = []
+    seen_beliefs = []
+
+    def fake_update_beliefs_batched(history, branch_beliefs, questioner, deterministic, config):
+        seen_histories.append(history)
+        seen_beliefs.append(_belief_names(branch_beliefs))
+        question = history[-2]["content"]
+        answer = history[-1]["content"]
+        if question == "Question A?":
+            return [truth] if answer == "Yes" else ["dog"]
+        return [truth] if answer == "No" else ["cat"]
+
+    monkeypatch.setattr(gcq, "update_beliefs_batched", fake_update_beliefs_batched)
+
+    dynamics = gcq.evaluate_candidate_coverage_dynamics(
+        beliefs,
+        [],
+        questions,
+        truth,
+        deterministic=False,
+        questioner=model,
+        config=config,
+    )
+
+    assert [entry.question for entry in dynamics] == questions
+    assert [entry.immediate_eig for entry in dynamics] == pytest.approx([0.0, 0.0])
+    assert [entry.expected_truth_coverage for entry in dynamics] == pytest.approx([0.5, 0.5])
+    assert [(entry.truth_covered_if_yes, entry.truth_covered_if_no) for entry in dynamics] == [
+        (True, False),
+        (False, True),
+    ]
+    assert seen_histories == [
+        [{"role": "assistant", "content": "Question A?"}, {"role": "user", "content": "Yes"}],
+        [{"role": "assistant", "content": "Question A?"}, {"role": "user", "content": "No"}],
+        [{"role": "assistant", "content": "Question B?"}, {"role": "user", "content": "Yes"}],
+        [{"role": "assistant", "content": "Question B?"}, {"role": "user", "content": "No"}],
+    ]
+    assert all(truth not in message["content"] for history in seen_histories for message in history)
+    assert all(truth not in branch_beliefs for branch_beliefs in seen_beliefs)
+
+
 def test_evaluate_questions_forward_search_uses_full_update_for_deterministic_branches(monkeypatch):
     beliefs = ["cat", "dog"]
     config = _make_config()
