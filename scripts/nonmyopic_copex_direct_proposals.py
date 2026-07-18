@@ -908,7 +908,7 @@ def render_report(summary: dict[str, Any]) -> str:
             f"| {arm} | {row['entropy_auc_mean']:.4f} | {row['final_entropy_mean']:.4f} | "
             f"{row['truth_log_probability_auc_mean']:.4f} | {row['final_rmse_mean']:.4f} | {row['mean_logical_llm_calls']:.1f} |"
         )
-    lines.extend(["", "| Comparison (positive favors LLM d2 / depth) | Entropy-AUC gain | 95% paired bootstrap CI | W / T / L |", "| --- | ---: | --- | --- |"])
+    lines.extend(["", "| Comparison (positive favors first-named arm) | Entropy-AUC gain | 95% paired bootstrap CI | W / T / L |", "| --- | ---: | --- | --- |"])
     for label, row in summary["comparisons"].items():
         if "wins_ties_losses" not in row:
             continue
