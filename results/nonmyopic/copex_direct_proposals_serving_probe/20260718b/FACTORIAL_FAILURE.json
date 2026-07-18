@@ -1,0 +1,70 @@
+{
+  "config": {
+    "bootstrap_replicates": 100,
+    "candidate_width": 3,
+    "child_rollouts": 8,
+    "grid_resolution": 12,
+    "max_step": 0.1,
+    "noise_sd": 0.5,
+    "num_particles": 48,
+    "num_rounds": 2,
+    "num_trials": 1,
+    "outer_rollouts": 4,
+    "seed": 46021,
+    "temperature": 0.0,
+    "trial_concurrency": 1,
+    "validation_retries": 1
+  },
+  "error": "cell failed after two attempts: move 0 must be nonzero with L-infinity step <= 0.1",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "error": "response is not valid JSON",
+      "label": "root",
+      "raw_response": "```json\n{\"moves\":[{\"dx\":0.06383,\"dy\":0.16357},{\"dx\":0.68503,\"dy}{-0.09853},{\"dx\":0.26533,\"dy\":{-0.07953}]}}\n```",
+      "state_key": "385fe52b988d7d539c593b70",
+      "trial_index": 0
+    },
+    {
+      "attempt": 1,
+      "error": "move 0 must be nonzero with L-infinity step <= 0.1",
+      "label": "root",
+      "raw_response": "```json\n{\"moves\":[{\"dx\":0.06383,\"dy\":0.16357},{\"dx\":0.68503,\"dy\":-0.09853},{\"dx\":0.26533,\"dy\":-0.07953}]}\n```",
+      "state_key": "385fe52b988d7d539c593b70",
+      "trial_index": 0
+    }
+  ],
+  "requests": [],
+  "schema_version": 1,
+  "stage": "COPEx_direct_proposal_factorial",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 142,
+    "adapter_cost_usd": 0.00016375,
+    "adapter_prompt_tokens": 888,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 2,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 142,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 142,
+        "cost_usd": 0.00016375,
+        "prompt_tokens": 888,
+        "reasoning_tokens": 0,
+        "requests": 2
+      }
+    },
+    "prompt_tokens": 888,
+    "reasoning_tokens": 0,
+    "remaining_usd": 20.24595551653991,
+    "requests": 2,
+    "run_budget_usd": 2.5,
+    "run_cost_usd": 0.00016375,
+    "run_remaining_usd": 2.49983625,
+    "total_spent_usd": 19.75404448346009
+  }
+}

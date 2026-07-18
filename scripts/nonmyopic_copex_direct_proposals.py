@@ -133,7 +133,7 @@ def _action_key(action: np.ndarray | tuple[float, float]) -> tuple[float, float]
     return (round(float(vector[0]), 10), round(float(vector[1]), 10))
 
 
-def _parse_moves(
+def _parse_angles(
     response: str,
     *,
     expected_count: int,
@@ -149,32 +149,35 @@ def _parse_moves(
         payload = json.loads(normalized)
     except json.JSONDecodeError as exc:
         raise DirectProposalError("response is not valid JSON") from exc
-    if not isinstance(payload, dict) or set(payload) != {"moves"}:
-        raise DirectProposalError("response must contain exactly the moves key")
-    moves = payload["moves"]
-    if not isinstance(moves, list) or len(moves) != expected_count:
-        raise DirectProposalError(f"expected exactly {expected_count} moves")
+    if not isinstance(payload, dict) or set(payload) != {"angles_deg"}:
+        raise DirectProposalError("response must contain exactly the angles_deg key")
+    angles = payload["angles_deg"]
+    if not isinstance(angles, list) or len(angles) != expected_count:
+        raise DirectProposalError(f"expected exactly {expected_count} angles")
 
     actions: list[tuple[float, float]] = []
     seen: set[tuple[float, float]] = set()
+    seen_angles: set[float] = set()
     position = np.asarray(position, dtype=float)
-    for index, item in enumerate(moves):
-        if not isinstance(item, dict) or set(item) != {"dx", "dy"}:
-            raise DirectProposalError(f"move {index} requires exactly dx and dy")
-        dx, dy = item["dx"], item["dy"]
-        if not isinstance(dx, (int, float)) or not isinstance(dy, (int, float)):
-            raise DirectProposalError(f"move {index} coordinates must be numeric")
-        delta = np.asarray([float(dx), float(dy)], dtype=float)
-        if not np.all(np.isfinite(delta)):
-            raise DirectProposalError(f"move {index} coordinates must be finite")
-        if float(np.max(np.abs(delta))) > max_step + 1e-12 or float(np.max(np.abs(delta))) <= 1e-12:
-            raise DirectProposalError(f"move {index} must be nonzero with L-infinity step <= {max_step}")
-        action = position + delta
-        if not bool(np.all(action >= -1e-12) and np.all(action <= 1.0 + 1e-12)):
-            raise DirectProposalError(f"move {index} exits the [0,1]^2 box")
+    for index, angle in enumerate(angles):
+        if not isinstance(angle, (int, float)) or not math.isfinite(float(angle)):
+            raise DirectProposalError(f"angle {index} must be finite")
+        angle = float(angle)
+        if not 0.0 <= angle < 360.0:
+            raise DirectProposalError(f"angle {index} must be in [0, 360)")
+        rounded_angle = round(angle, 8)
+        if rounded_angle in seen_angles:
+            raise DirectProposalError("angles must be distinct")
+        seen_angles.add(rounded_angle)
+        radians = math.radians(angle)
+        direction = np.asarray([math.cos(radians), math.sin(radians)], dtype=float)
+        delta = direction * (max_step / max(abs(float(direction[0])), abs(float(direction[1]))))
+        action = np.clip(position + delta, 0.0, 1.0)
+        if float(np.max(np.abs(action - position))) <= 1e-12:
+            raise DirectProposalError(f"angle {index} produces no legal movement")
         canonical = _action_key(action)
         if canonical in seen:
-            raise DirectProposalError("moves must induce distinct next locations")
+            raise DirectProposalError("angles must induce distinct next locations")
         seen.add(canonical)
         actions.append(_canonical_action(action))
     return tuple(actions)
@@ -209,16 +212,13 @@ class DirectProposalProvider:
         probabilities: np.ndarray,
         avoid_actions: tuple[tuple[float, float], ...],
     ) -> list[dict[str, str]]:
-        x_lo, y_lo = -float(position[0]), -float(position[1])
-        x_hi, y_hi = 1.0 - float(position[0]), 1.0 - float(position[1])
         lines = [
             "Task: propose legal next sensor moves for an exact Bayesian location experiment.",
             "A source lies in [0,1]^2. A query at x observes log(0.1 + (1e-4 + ||x-theta||^2)^-1) plus Gaussian noise sd 0.5.",
             f"Current sensor location: ({position[0]:.5f}, {position[1]:.5f}).",
-            f"Return exactly {self.config.candidate_width} distinct moves as JSON only:",
-            '{"moves":[{"dx":0.04,"dy":-0.10},{"dx":-0.10,"dy":0.02},...]}.',
-            f"Every move must be nonzero, satisfy max(abs(dx), abs(dy)) <= {self.config.max_step}, and end inside [0,1]^2.",
-            f"Therefore dx must be in [{x_lo:.5f}, {x_hi:.5f}] and dy in [{y_lo:.5f}, {y_hi:.5f}].",
+            f"Return exactly {self.config.candidate_width} distinct direction angles in degrees as JSON only:",
+            '{"angles_deg":[0.0,133.5,271.0]}.',
+            f"Every angle must be a finite number in [0,360). The executor moves {self.config.max_step} in L-infinity norm in that direction and clips only at the [0,1]^2 boundary.",
             "A separate exact program scores these moves. Propose geometrically diverse locations that distinguish the leading posterior hypotheses.",
             "Leading exact posterior particles:",
             *self._belief_lines(particles, probabilities),
@@ -229,7 +229,7 @@ class DirectProposalProvider:
         return [
             {
                 "role": "system",
-                "content": "Return one valid JSON move cell and no prose. Do not estimate information scores.",
+                "content": "Return one valid JSON angle cell and no prose. Do not estimate information scores.",
             },
             {"role": "user", "content": "\n".join(lines)},
         ]
@@ -264,7 +264,7 @@ class DirectProposalProvider:
                 raise DirectProposalError("model did not return exactly one response")
             response = responses[0]
             try:
-                actions = _parse_moves(
+                actions = _parse_angles(
                     response,
                     expected_count=self.config.candidate_width,
                     position=position,
@@ -313,23 +313,33 @@ class DeterministicDirectProposalModel:
         self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1
     ) -> list[str]:
         del temperature, num_responses
-        content = messages[-1]["content"]
+        content = next(
+            message["content"]
+            for message in messages
+            if "Current sensor location:" in message["content"]
+        )
         marker = "Return exactly "
-        count = int(content.split(marker, 1)[1].split(" distinct moves", 1)[0])
+        count = int(content.split(marker, 1)[1].split(" distinct direction angles", 1)[0])
         position_line = next(line for line in content.splitlines() if line.startswith("Current sensor location:"))
         coordinates = position_line.split("(", 1)[1].split(")", 1)[0].split(",")
         position = np.asarray([float(coordinates[0]), float(coordinates[1])])
-        actions: list[tuple[float, float]] = []
-        for angle in np.linspace(0.0, 2.0 * math.pi, num=16, endpoint=False):
-            delta = np.asarray([0.1 * math.cos(angle), 0.1 * math.sin(angle)])
-            candidate = position + delta
-            if np.all(candidate >= 0.0) and np.all(candidate <= 1.0):
-                actions.append((float(delta[0]), float(delta[1])))
-            if len(actions) == count:
+        angles: list[float] = []
+        endpoints: set[tuple[float, float]] = set()
+        for angle in np.linspace(0.0, 360.0, num=32, endpoint=False):
+            radians = math.radians(float(angle))
+            direction = np.asarray([math.cos(radians), math.sin(radians)])
+            delta = direction * (0.1 / max(abs(float(direction[0])), abs(float(direction[1]))))
+            endpoint = np.clip(position + delta, 0.0, 1.0)
+            key = _action_key(endpoint)
+            if float(np.max(np.abs(endpoint - position))) <= 1e-12 or key in endpoints:
+                continue
+            endpoints.add(key)
+            angles.append(float(angle))
+            if len(angles) == count:
                 break
-        if len(actions) != count:
-            raise AssertionError("dry model could not find enough legal moves")
-        return [json.dumps({"moves": [{"dx": x, "dy": y} for x, y in actions]})]
+        if len(angles) != count:
+            raise AssertionError("dry model could not find enough legal angle moves")
+        return [json.dumps({"angles_deg": angles})]
 
     def usage_snapshot(self) -> dict[str, Any]:
         return {"backend": "dry_run", "requests": 0, "cost_usd": 0.0}

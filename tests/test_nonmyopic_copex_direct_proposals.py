@@ -9,24 +9,24 @@ from scripts.nonmyopic_copex_direct_proposals import (
     DirectProposalConfig,
     DirectProposalError,
     DirectProposalProvider,
-    _parse_moves,
+    _parse_angles,
     run_factorial,
 )
 
 
-def test_direct_move_parser_requires_distinct_legal_endpoints() -> None:
-    parsed = _parse_moves(
-        '{"moves":[{"dx":0.1,"dy":0.0},{"dx":0.0,"dy":-0.1}]}',
+def test_direct_angle_parser_requires_distinct_legal_endpoints() -> None:
+    parsed = _parse_angles(
+        '{"angles_deg":[0.0,270.0]}',
         expected_count=2,
         position=np.asarray([0.5, 0.5]),
         max_step=0.1,
     )
-    assert parsed == ((0.6, 0.5), (0.5, 0.4))
-    with pytest.raises(DirectProposalError, match="exits"):
-        _parse_moves(
-            '{"moves":[{"dx":0.1,"dy":0.0},{"dx":0.0,"dy":-0.1}]}',
+    assert np.allclose(parsed, ((0.6, 0.5), (0.5, 0.4)))
+    with pytest.raises(DirectProposalError, match="distinct"):
+        _parse_angles(
+            '{"angles_deg":[0.0,0.0]}',
             expected_count=2,
-            position=np.asarray([0.95, 0.5]),
+            position=np.asarray([0.5, 0.5]),
             max_step=0.1,
         )
 

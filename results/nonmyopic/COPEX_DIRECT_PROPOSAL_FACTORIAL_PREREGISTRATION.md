@@ -19,10 +19,12 @@ particle posterior includes the realized source exactly.  Signal evaluations,
 Gaussian likelihood updates, counterfactual observations, entropy, and posterior
 mean decoding are programmatic.
 
-The LLM emits only JSON move cells of exactly three legal next endpoints.  It does
-not receive outcome likelihoods, score candidates, execute actions, update beliefs,
-or write strategies.  In d2, the same interface is used at simulated one-observation
-child belief states; these are counted as inner proposal calls and saved verbatim.
+The LLM emits only JSON direction-angle cells of exactly three continuous next moves.
+The executor deterministically converts each angle into the maximum legal L-infinity
+step, clipping only at the box boundary. The LLM does not receive outcome likelihoods,
+score candidates, execute actions, update beliefs, or write strategies. In d2, the
+same interface is used at simulated one-observation child belief states; these are
+counted as inner proposal calls and saved verbatim.
 
 Depth-two root values use four common-random-number outer source/noise draws. Each
 branch's child actions are ranked with eight CRN immediate-EIG draws. These are Monte
