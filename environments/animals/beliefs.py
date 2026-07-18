@@ -758,7 +758,10 @@ def _update_beliefs_many(histories_questioner: list[list[dict[str, str]]], belie
 def update_beliefs_batched(history: list[(str, str)], beliefs: BeliefState | list[str], questioner: Model,
                            deterministic: bool, config: Config) -> BeliefState:
     belief_state = ensure_animals_belief_state(beliefs)
-    prior_beliefs = belief_state.hypotheses
+    # BeliefState exposes an immutable tuple, while generated hypotheses are
+    # lists.  Keep this update path list-backed even when filtering removes
+    # every prior belief.
+    prior_beliefs = list(belief_state.hypotheses)
     prior_summary = format_categorical_belief_summary(belief_state)
     generation_temperature, max_num_samples, min_num_samples = config.generation_temperature_diverse, config.max_num_samples, config.min_num_samples
     answer_temperature, block_size, threshold_rejection_probability = config.answer_temperature, config.batched_block_size, config.threshold_rejection_probability

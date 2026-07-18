@@ -1,0 +1,66 @@
+{
+  "error": "CoverageProbeError: can only concatenate list (not \"tuple\") to list",
+  "run_id": "animals-coverage-dynamics-batched-recovery-20260718",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "answerer": {
+      "adapter_completion_tokens": 4,
+      "adapter_cost_usd": 3.5336e-05,
+      "adapter_prompt_tokens": 175,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 56785,
+      "forced_exits": 0,
+      "model": "deepseek/deepseek-v4-flash",
+      "model_usage": {
+        "deepseek/deepseek-v4-flash": {
+          "completion_tokens": 56785,
+          "cost_usd": 0.02142432329999999,
+          "prompt_tokens": 63300,
+          "reasoning_tokens": 50561,
+          "requests": 477
+        }
+      },
+      "prompt_tokens": 63300,
+      "reasoning_tokens": 50561,
+      "remaining_usd": 20.446547096540183,
+      "requests": 477,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.02142432329999999,
+      "run_remaining_usd": 0.4785756767,
+      "total_spent_usd": 19.553452903459817
+    },
+    "questioner": {
+      "adapter_completion_tokens": 56781,
+      "adapter_cost_usd": 0.02138898729999999,
+      "adapter_prompt_tokens": 63125,
+      "adapter_reasoning_tokens": 50561,
+      "adapter_requests": 475,
+      "backend": "openrouter",
+      "budget_usd": 40.0,
+      "completion_tokens": 56785,
+      "forced_exits": 54,
+      "model": "deepseek/deepseek-v4-flash",
+      "model_usage": {
+        "deepseek/deepseek-v4-flash": {
+          "completion_tokens": 56785,
+          "cost_usd": 0.02142432329999999,
+          "prompt_tokens": 63300,
+          "reasoning_tokens": 50561,
+          "requests": 477
+        }
+      },
+      "prompt_tokens": 63300,
+      "reasoning_tokens": 50561,
+      "remaining_usd": 20.446547096540183,
+      "requests": 477,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.02142432329999999,
+      "run_remaining_usd": 0.4785756767,
+      "total_spent_usd": 19.553452903459817
+    }
+  }
+}

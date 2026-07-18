@@ -11,7 +11,7 @@ the current one-step EIG score?
 
 ## Fixed Procedure
 
-- Model: non-thinking `deepseek/deepseek-v4-flash` through OpenRouter for both
+- Model: non-thinking `google/gemma-4-26b-a4b-it` through OpenRouter for both
   questioner and answerer, temperature `0`.
 - Ten target-conditioned, one-observation histories drawn in fixed config order
   from the ten listed animal targets; seed `1304`. Each state starts with a
@@ -67,12 +67,23 @@ generation, name validation, history filtering, candidate pool, target order,
 scoring, endpoint, budget, and read remain fixed. The interrupted invocation
 is not an outcome and is reported in the ledger.
 
-The fresh recovery uses a distinct run ID and output directory for separate
-accounting:
+The first batched recovery also failed closed without a metric after 477
+healthy DeepSeek requests and `$0.0214243233`: an empty initial support exposed
+an unrelated list/tuple merge bug in the ordinary update path. In addition,
+DeepSeek emitted 50,561 reasoning tokens and 54 length exits despite this being
+a non-reasoning likelihood workload. Its failure artifact is
+`results/nonmyopic/animals_coverage_dynamics/20260718_batched_recovery/COVERAGE_PROBE_FAILURE.json`.
+The empty-support bug is repaired and regression-tested. The next recovery
+switches only serving to non-thinking Gemma 4 26B A4B, the established
+non-reasoning adapter path used by the existing UCI Zoo pilot; all probe data,
+scoring, endpoint, and read remain fixed.
+
+The fresh Gemma recovery uses a distinct run ID and output directory for
+separate accounting:
 
 ```bash
 set -a; source .env; set +a
 PYTHONPATH=. python scripts/animals_coverage_dynamics.py \
-  --run-id animals-coverage-dynamics-batched-recovery-20260718 \
-  --output-dir results/nonmyopic/animals_coverage_dynamics/20260718_batched_recovery
+  --run-id animals-coverage-dynamics-gemma26b-recovery-20260718 \
+  --output-dir results/nonmyopic/animals_coverage_dynamics/20260718_gemma26b_recovery
 ```

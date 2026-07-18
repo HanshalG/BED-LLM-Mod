@@ -4,12 +4,14 @@ animals:
   - ["Coyote", "Wolverine", "Dolphin", "Elephant", "Octopus", "Penguin", "Bat", "Giraffe", "Tiger", "Frog"]
 model_pairs:
   - questioner:
-      model: "deepseek/deepseek-v4-flash"
+      model: "google/gemma-4-26b-a4b-it"
       backend: openrouter
+      thinking: false
       max_model_len: 32768
     answerer:
-      model: "deepseek/deepseek-v4-flash"
+      model: "google/gemma-4-26b-a4b-it"
       backend: openrouter
+      thinking: false
       max_model_len: 32768
 method_names:
   - "EIG"

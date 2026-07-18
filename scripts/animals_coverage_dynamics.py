@@ -29,9 +29,15 @@ from model_factory import build_model_adapter
 
 
 class CoverageProbeError(RuntimeError):
-    def __init__(self, message: str, usage: dict[str, Any]) -> None:
+    def __init__(
+        self,
+        message: str,
+        usage: dict[str, Any],
+        records: list[dict[str, Any]] | None = None,
+    ) -> None:
         super().__init__(message)
         self.usage = usage
+        self.records = list(records or [])
 
 
 def _history_messages(history: list[tuple[str, str]]) -> list[dict[str, str]]:
@@ -154,6 +160,8 @@ def run_probe(
                 break
             target = targets[attempt_index % len(targets)]
             beliefs = env.initial_belief_state(questioner, runtime_config)
+            if beliefs.support_size == 0:
+                continue
             bootstrap_candidates = env.generate_candidate_actions(beliefs, [], questioner, runtime_config)
             bootstrap_candidates = list(dict.fromkeys(bootstrap_candidates))
             if not bootstrap_candidates:
@@ -165,6 +173,8 @@ def run_probe(
 
             history = [(bootstrap_question, bootstrap_answer)]
             beliefs = env.update_belief_state(beliefs, history, questioner, runtime_config)
+            if beliefs.support_size == 0:
+                continue
             candidate_questions = env.generate_candidate_actions(beliefs, history, questioner, runtime_config)
             candidate_questions = list(dict.fromkeys(candidate_questions))[:candidate_width]
             if len(candidate_questions) < 2:
@@ -196,7 +206,7 @@ def run_probe(
             "questioner": questioner.usage_snapshot(),
             "answerer": answerer.usage_snapshot(),
         }
-        raise CoverageProbeError(str(exc), usage) from exc
+        raise CoverageProbeError(str(exc), usage, records) from exc
 
     usage = {
         "questioner": questioner.usage_snapshot(),
@@ -207,6 +217,7 @@ def run_probe(
         raise CoverageProbeError(
             f"Collected {len(records)}/{num_states} usable states after {max_attempts} attempts",
             usage,
+            records,
         )
     return records, summarize_probe(records), usage
 
@@ -266,6 +277,8 @@ def main() -> None:
             "run_id": args.run_id,
             "error": f"{type(exc).__name__}: {exc}",
             "usage": getattr(exc, "usage", None),
+            "partial_records": getattr(exc, "records", []),
+            "partial_summary": summarize_probe(getattr(exc, "records", [])),
         }
         (args.output_dir / "COVERAGE_PROBE_FAILURE.json").write_text(
             json.dumps(failure, indent=2, sort_keys=True) + "\n",

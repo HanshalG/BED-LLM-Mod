@@ -4,6 +4,7 @@ import types
 import pytest
 
 import helpers as helpers_module
+import environments.animals.beliefs as beliefs_module
 
 
 fake_model_module = types.ModuleType("model")
@@ -593,3 +594,23 @@ def test_update_beliefs_generation_disabled_can_skip_filtering():
     assert belief_state.hypotheses == ("dog", "cat",)
     assert belief_state.probabilities == pytest.approx([0.9, 0.1])
     assert len(model.probability_calls) == 1
+
+
+def test_update_beliefs_handles_empty_prior_support_after_filtering(monkeypatch):
+    config = Config(
+        belief_state_mode="uniform",
+        belief_generation_enabled=True,
+        belief_filtering_enabled=True,
+        min_num_samples=1,
+    )
+    history = [
+        {"role": "assistant", "content": "Does it bark?"},
+        {"role": "user", "content": "Yes"},
+    ]
+    monkeypatch.setattr(beliefs_module, "generate_new_beliefs", lambda *args, **kwargs: ["cat"])
+    monkeypatch.setattr(beliefs_module, "filter_valid_animal_names_batched", lambda beliefs, *args, **kwargs: beliefs)
+    monkeypatch.setattr(beliefs_module, "check_beliefs_batched", lambda beliefs, *args, **kwargs: beliefs)
+
+    belief_state = update_beliefs_batched(history, [], object(), deterministic=False, config=config)
+
+    assert belief_state.hypotheses == ("cat",)
