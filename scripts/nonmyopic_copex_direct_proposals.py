@@ -15,6 +15,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from statistics import NormalDist
 import sys
 import threading
 from typing import Any, Literal, Protocol
@@ -35,6 +36,11 @@ from model_factory import build_model_adapter
 
 ArmName = Literal["llm_d1", "llm_d2", "llm_width", "grid_d1", "grid_d2"]
 ARMS: tuple[ArmName, ...] = ("llm_d1", "llm_d2", "llm_width", "grid_d1", "grid_d2")
+OneStepScoring = Literal["monte_carlo", "quadrature"]
+OuterSampling = Literal["random", "stratified"]
+_NORMAL = NormalDist()
+_GAUSS_ZS = np.asarray([-math.sqrt(3.0), 0.0, math.sqrt(3.0)])
+_GAUSS_WEIGHTS = np.asarray([1.0 / 6.0, 2.0 / 3.0, 1.0 / 6.0])
 
 
 class DirectProposalError(RuntimeError):
@@ -63,6 +69,8 @@ class DirectProposalConfig:
     temperature: float = 0.0
     validation_retries: int = 1
     trial_concurrency: int = 16
+    one_step_scoring: OneStepScoring = "monte_carlo"
+    outer_sampling: OuterSampling = "random"
 
     def validate(self) -> None:
         counts = (
@@ -86,6 +94,10 @@ class DirectProposalConfig:
             raise ValueError("max_step and noise_sd must be positive")
         if self.validation_retries != 1:
             raise ValueError("the registered interface permits one validation retry")
+        if self.one_step_scoring not in {"monte_carlo", "quadrature"}:
+            raise ValueError("one_step_scoring must be monte_carlo or quadrature")
+        if self.outer_sampling not in {"random", "stratified"}:
+            raise ValueError("outer_sampling must be random or stratified")
 
 
 @dataclass(frozen=True)
@@ -359,7 +371,11 @@ def _draws(
     rng = np.random.default_rng(
         _stable_seed(config.seed, trial_index, round_index, _state_key(state.position, state.probabilities), label)
     )
-    return rng.random(count), rng.normal(size=count)
+    if config.outer_sampling == "random":
+        return rng.random(count), rng.normal(size=count)
+    uniforms = (np.arange(count, dtype=float) + 0.5) / count
+    noise_zs = np.asarray([_NORMAL.inv_cdf(float(item)) for item in uniforms])
+    return uniforms, rng.permutation(noise_zs)
 
 
 def _immediate_eig(
@@ -372,14 +388,27 @@ def _immediate_eig(
     noise_zs: np.ndarray,
     config: DirectProposalConfig,
 ) -> float:
+    start_entropy = particle_entropy(probabilities)
+    query = np.asarray(action, dtype=float)
+    if config.one_step_scoring == "quadrature":
+        expected = 0.0
+        for truth_index, truth_probability in enumerate(probabilities):
+            if truth_probability <= 0.0:
+                continue
+            mean = copex_signal(particles[truth_index], query)
+            for noise_z, weight in zip(_GAUSS_ZS, _GAUSS_WEIGHTS, strict=True):
+                observation = mean + config.noise_sd * float(noise_z)
+                posterior = update_copex_belief(
+                    particles, probabilities, query, observation, noise_sd=config.noise_sd
+                )
+                expected += float(truth_probability) * float(weight) * (start_entropy - particle_entropy(posterior))
+        return float(expected)
     del position
     if len(uniforms) != len(noise_zs):
         raise ValueError("uniforms and noise_zs must share a length")
-    start_entropy = particle_entropy(probabilities)
     cumulative = np.cumsum(probabilities)
     truth_indices = np.minimum(np.searchsorted(cumulative, uniforms, side="right"), len(probabilities) - 1)
     drops = []
-    query = np.asarray(action, dtype=float)
     for truth_index, noise_z in zip(truth_indices, noise_zs, strict=True):
         observation = copex_signal(particles[int(truth_index)], query) + config.noise_sd * float(noise_z)
         posterior = update_copex_belief(particles, probabilities, query, observation, noise_sd=config.noise_sd)
@@ -885,6 +914,8 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=46_021)
     parser.add_argument("--bootstrap-replicates", type=int, default=10_000)
     parser.add_argument("--trial-concurrency", type=int, default=16)
+    parser.add_argument("--one-step-scoring", choices=("monte_carlo", "quadrature"), default="monte_carlo")
+    parser.add_argument("--outer-sampling", choices=("random", "stratified"), default="random")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = DirectProposalConfig(
@@ -897,6 +928,8 @@ def main() -> None:
         seed=args.seed,
         bootstrap_replicates=args.bootstrap_replicates,
         trial_concurrency=args.trial_concurrency,
+        one_step_scoring=args.one_step_scoring,
+        outer_sampling=args.outer_sampling,
     )
     config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
