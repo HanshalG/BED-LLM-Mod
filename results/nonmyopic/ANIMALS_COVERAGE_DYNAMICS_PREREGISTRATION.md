@@ -122,3 +122,11 @@ PYTHONPATH=. python scripts/animals_coverage_dynamics.py \
   --output-dir results/nonmyopic/animals_coverage_dynamics/20260718_proxy_validation \
   --seed 1305
 ```
+
+## Proxy Validation Result
+
+The seed-1305 run completed with 10 states and 30 candidate rows at
+`$0.10137151`. Both target-free scores were negative/near-zero rank predictors
+of hidden coverage (`-0.0810` retention; `-0.1283` surviving MAP mass), and the
+target was missing from the current support in 7/10 states. The route is
+rejected; see `results/nonmyopic/ANIMALS_COVERAGE_DYNAMICS_PROXY_RESULT.md`.
