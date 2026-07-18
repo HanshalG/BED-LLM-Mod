@@ -87,3 +87,11 @@ PYTHONPATH=. python scripts/animals_coverage_dynamics.py \
   --run-id animals-coverage-dynamics-gemma26b-recovery-20260718 \
   --output-dir results/nonmyopic/animals_coverage_dynamics/20260718_gemma26b_recovery
 ```
+
+## Gemma Execution Result
+
+The Gemma recovery completed all ten states with 30 candidate rows, 5,252
+requests, no reasoning tokens, one length finish, and `$0.09905632` cost. Its
+raw result and interpretation are recorded in
+`results/nonmyopic/ANIMALS_COVERAGE_DYNAMICS_RESULT.md`. The mechanism screen
+is positive, but it makes no policy-effect claim.
