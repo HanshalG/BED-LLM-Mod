@@ -3,7 +3,7 @@ import math
 
 import pytest
 
-from environments.rock_diagnosis import RockDiagnosisModel, get_paper_map
+from environments.rock_diagnosis import RockDiagnosisModel, RockStrategyExecutor, get_paper_map
 from helpers import load_config
 from scripts.nonmyopic_rock_strategy_prior import (
     ARMS,
@@ -11,6 +11,7 @@ from scripts.nonmyopic_rock_strategy_prior import (
     L1Config,
     LLMRockStrategyProvider,
     StrategyProposalError,
+    parse_branch_strategy_cell,
     parse_strategy_cell,
     parse_width_cell,
     run_l1_anchor,
@@ -46,6 +47,91 @@ def test_parse_strategy_cell_requires_a_complete_distinct_cell() -> None:
         parse_strategy_cell(json.dumps(payload), model=model, expected_count=3)
     with pytest.raises(StrategyProposalError, match="exactly 3"):
         parse_strategy_cell('{"strategies":[]}', model=model, expected_count=3)
+
+
+def test_branch_policy_schema_compiles_explicit_outcome_actions() -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    position = model.map_spec.start_position
+    response = json.dumps(
+        {
+            "strategies": [
+                {
+                    "name": "move then sense",
+                    "description": "Move east to improve a subsequent check.",
+                    "root_action": "move-EAST",
+                    "followups": {"none": "check-0"},
+                },
+                {
+                    "name": "adaptive remote check",
+                    "description": "Use the first outcome to choose the second action.",
+                    "root_action": "check-0",
+                    "followups": {"good": "move-EAST", "bad": "check-1"},
+                },
+            ]
+        }
+    )
+
+    move_strategy, check_strategy = parse_branch_strategy_cell(
+        response,
+        model=model,
+        position=position,
+        horizon=2,
+        expected_count=2,
+    )
+    executor = RockStrategyExecutor(model)
+    assert executor.choose_action(
+        move_strategy,
+        position=position,
+        belief=model.initial_belief,
+        history=(),
+        strategy_step=0,
+    ) == "move-EAST"
+    assert executor.choose_action(
+        move_strategy,
+        position=model.next_position(position, "move-EAST"),
+        belief=model.initial_belief,
+        history=(("move-EAST", None),),
+        strategy_step=1,
+    ) == "check-0"
+    for outcome, expected in (("good", "move-EAST"), ("bad", "check-1")):
+        posterior = model.posterior(position, model.initial_belief, "check-0", outcome)
+        assert executor.choose_action(
+            check_strategy,
+            position=position,
+            belief=posterior,
+            history=(("check-0", outcome),),
+            strategy_step=1,
+        ) == expected
+
+
+def test_branch_policy_schema_rejects_missing_branches_and_illegal_child_actions() -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    position = model.map_spec.start_position
+    base = {
+        "name": "invalid branch",
+        "description": "A deliberately invalid branch-policy test fixture.",
+        "root_action": "check-0",
+        "followups": {"good": "check-0"},
+    }
+    with pytest.raises(StrategyProposalError, match="followups must contain exactly"):
+        parse_branch_strategy_cell(
+            json.dumps({"strategies": [base]}),
+            model=model,
+            position=position,
+            horizon=2,
+            expected_count=1,
+        )
+
+    base["root_action"] = "move-NORTH"
+    base["followups"] = {"none": "move-WEST"}
+    with pytest.raises(StrategyProposalError, match="must be legal"):
+        parse_branch_strategy_cell(
+            json.dumps({"strategies": [base]}),
+            model=model,
+            position=position,
+            horizon=2,
+            expected_count=1,
+        )
 
 
 def test_parse_width_cell_requires_every_legal_action_once() -> None:
@@ -186,6 +272,26 @@ def test_small_dry_anchor_preserves_pairing_and_compute_controls() -> None:
     assert mechanics["rollout_scoring_llm_calls"] == 0
     for arm in ARMS:
         assert math.isfinite(summary["maps"]["3-6"]["summary"][arm]["final_entropy_mean"])
+
+
+def test_small_branch_policy_anchor_preserves_pairing_and_compute_controls() -> None:
+    config = L1Config(
+        map_names=("3-6",),
+        num_trials_per_map=2,
+        num_rounds=3,
+        num_strategies=4,
+        bootstrap_replicates=30,
+        strategy_schema="branch_policy_v2",
+    )
+    provider = LLMRockStrategyProvider(DeterministicStrategyModel(), config)
+
+    summary = run_l1_anchor(provider, config)
+
+    assert summary["mechanics"]["terminal_cell_failures"] == 0
+    assert summary["mechanics"]["all_selected_actions_legal"]
+    assert summary["mechanics"]["initial_strategy_cells_shared_with_d1"]
+    assert summary["mechanics"]["width_exact_scorer_units_match_strategy_eig"]
+    assert summary["mechanics"]["random_strategy_cells_have_k_candidates"]
 
 
 def test_trial_concurrency_preserves_paired_traces() -> None:

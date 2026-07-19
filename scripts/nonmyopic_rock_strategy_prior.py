@@ -41,6 +41,7 @@ from model_factory import build_model_adapter
 
 History = tuple[tuple[str, str | None], ...]
 ArmName = Literal["strategy_eig", "exhaustive_d2", "shared_d1", "width", "random_strategy"]
+StrategySchema = Literal["reactive_rules_v1", "branch_policy_v2"]
 ARMS: tuple[ArmName, ...] = (
     "strategy_eig",
     "exhaustive_d2",
@@ -72,6 +73,7 @@ class L1Config:
     temperature: float = 0.0
     validation_retries: int = 1
     trial_concurrency: int = 32
+    strategy_schema: StrategySchema = "reactive_rules_v1"
 
     def validate(self) -> None:
         if not self.map_names:
@@ -94,6 +96,8 @@ class L1Config:
             raise ValueError("temperature must be in [0, 2]")
         if self.validation_retries != 1:
             raise ValueError("the registered interface permits exactly one validation-feedback retry")
+        if self.strategy_schema not in {"reactive_rules_v1", "branch_policy_v2"}:
+            raise ValueError("strategy_schema must be reactive_rules_v1 or branch_policy_v2")
 
 
 @dataclass(frozen=True)
@@ -186,6 +190,142 @@ def parse_strategy_cell(
     return tuple(strategies)
 
 
+def _action_payload(model: RockDiagnosisModel, action_id: str) -> dict[str, Any]:
+    if model.is_move(action_id):
+        return {"kind": "move", "direction": action_id.removeprefix("move-")}
+    rock_id = model.check_id(action_id)
+    if rock_id is None:
+        raise StrategyProposalError(f"unknown Rock action ID: {action_id}")
+    return {"kind": "check_rock", "rock_id": rock_id}
+
+
+def _branch_outcome_keys(model: RockDiagnosisModel, root_action: str, horizon: int) -> tuple[str, ...]:
+    if horizon <= 1:
+        return ()
+    return tuple("none" if outcome is None else str(outcome) for outcome in model.outcomes(root_action))
+
+
+def _compile_branch_policy(
+    item: Any,
+    *,
+    model: RockDiagnosisModel,
+    position: tuple[int, int],
+    horizon: int,
+    index: int,
+) -> tuple[RockStrategy, tuple[Any, ...]]:
+    if not isinstance(item, dict) or set(item) != {"name", "description", "root_action", "followups"}:
+        raise StrategyProposalError(
+            f"strategy {index} must contain exactly name, description, root_action, and followups"
+        )
+    name = item["name"]
+    description = item["description"]
+    root_action = item["root_action"]
+    followups = item["followups"]
+    if not isinstance(name, str) or not name.strip() or len(name) > 80:
+        raise StrategyProposalError(f"strategy {index} name must be a non-empty string of at most 80 characters")
+    if not isinstance(description, str) or not description.strip() or len(description) > 800:
+        raise StrategyProposalError(
+            f"strategy {index} description must be a non-empty string of at most 800 characters"
+        )
+    if not isinstance(root_action, str) or root_action not in model.legal_actions(position):
+        raise StrategyProposalError(f"strategy {index} root_action must be legal at {position}")
+    if not isinstance(followups, dict):
+        raise StrategyProposalError(f"strategy {index} followups must be a JSON object")
+    expected_keys = _branch_outcome_keys(model, root_action, horizon)
+    if set(followups) != set(expected_keys):
+        raise StrategyProposalError(
+            f"strategy {index} followups must contain exactly {list(expected_keys)} for root {root_action}"
+        )
+    child_position = model.next_position(position, root_action)
+    child_legal = model.legal_actions(child_position)
+    for outcome_key in expected_keys:
+        action = followups[outcome_key]
+        if not isinstance(action, str) or action not in child_legal:
+            raise StrategyProposalError(
+                f"strategy {index} followup {outcome_key!r} must be legal at {child_position}"
+            )
+
+    rules: list[dict[str, Any]] = []
+    if expected_keys == ("good", "bad"):
+        check_id = model.check_id(root_action)
+        assert check_id is not None
+        rules.extend(
+            [
+                {
+                    "when": [
+                        {"kind": "step_at_least", "value": 1},
+                        {"kind": "last_observation", "rock_id": check_id, "outcome": "good"},
+                    ],
+                    "action": _action_payload(model, followups["good"]),
+                },
+                {
+                    "when": [{"kind": "step_at_least", "value": 1}],
+                    "action": _action_payload(model, followups["bad"]),
+                },
+            ]
+        )
+    elif expected_keys == ("none",):
+        rules.append(
+            {
+                "when": [{"kind": "step_at_least", "value": 1}],
+                "action": _action_payload(model, followups["none"]),
+            }
+        )
+    rules.append({"when": [], "action": _action_payload(model, root_action)})
+    compiled = {
+        "name": name.strip(),
+        "description": description.strip(),
+        "rules": rules,
+    }
+    raw_text = json.dumps(item, sort_keys=True, separators=(",", ":"))
+    try:
+        parsed = parse_rock_strategy(json.dumps(compiled, separators=(",", ":")), model)
+    except RockStrategyParseError as exc:
+        raise StrategyProposalError(f"strategy {index} could not compile: {exc}") from exc
+    strategy = RockStrategy(
+        name=parsed.name,
+        description=parsed.description,
+        rules=parsed.rules,
+        raw_text=raw_text,
+    )
+    signature = (root_action, *(followups[key] for key in expected_keys))
+    return strategy, signature
+
+
+def parse_branch_strategy_cell(
+    response: str,
+    *,
+    model: RockDiagnosisModel,
+    position: tuple[int, int],
+    horizon: int,
+    expected_count: int,
+) -> tuple[RockStrategy, ...]:
+    try:
+        payload = json.loads(_normalize_json_response(response))
+    except json.JSONDecodeError as exc:
+        raise StrategyProposalError("strategy response is not valid JSON") from exc
+    if not isinstance(payload, dict) or set(payload) != {"strategies"}:
+        raise StrategyProposalError("strategy response must contain exactly the strategies key")
+    items = payload["strategies"]
+    if not isinstance(items, list) or len(items) != expected_count:
+        raise StrategyProposalError(f"expected exactly {expected_count} strategies")
+    strategies: list[RockStrategy] = []
+    signatures: set[tuple[Any, ...]] = set()
+    for index, item in enumerate(items):
+        strategy, signature = _compile_branch_policy(
+            item,
+            model=model,
+            position=position,
+            horizon=horizon,
+            index=index,
+        )
+        if signature in signatures:
+            raise StrategyProposalError("strategies must be behaviorally distinct")
+        signatures.add(signature)
+        strategies.append(strategy)
+    return tuple(strategies)
+
+
 def parse_width_cell(response: str, *, allowed_actions: tuple[str, ...]) -> tuple[str, ...]:
     try:
         payload = json.loads(_normalize_json_response(response))
@@ -252,6 +392,14 @@ class LLMRockStrategyProvider:
         history: History,
         horizon: int,
     ) -> list[dict[str, str]]:
+        if self.config.strategy_schema == "branch_policy_v2":
+            return self._branch_strategy_messages(
+                model,
+                position=position,
+                belief=belief,
+                history=history,
+                horizon=horizon,
+            )
         system = (
             "You generate compact contingent policies for an exact Rock Diagnosis information task. "
             "Return exactly one JSON object and no prose. A separate program compiles every rule, "
@@ -315,6 +463,65 @@ class LLMRockStrategyProvider:
             "not make it a check root if that rule does not currently match.",
         ]
         return [{"role": "system", "content": system}, {"role": "user", "content": "\n".join(user_lines)}]
+
+    def _branch_strategy_messages(
+        self,
+        model: RockDiagnosisModel,
+        *,
+        position: tuple[int, int],
+        belief: np.ndarray,
+        history: History,
+        horizon: int,
+    ) -> list[dict[str, str]]:
+        legal_roots = model.legal_actions(position)
+        menus: dict[str, dict[str, list[str]]] = {}
+        for root_action in legal_roots:
+            child_legal = list(model.legal_actions(model.next_position(position, root_action)))
+            menus[root_action] = {
+                outcome: child_legal
+                for outcome in _branch_outcome_keys(model, root_action, horizon)
+            }
+        system = (
+            "You design short contingent policies for an exact Rock Diagnosis information task. "
+            "A separate program validates every action, enumerates every observation branch, and "
+            "selects the policy with the highest exact total information gain. Return JSON only."
+        )
+        schema = (
+            '{"strategies":[{"name":"short name","description":"why this root enables useful '
+            'next sensing","root_action":"move-EAST","followups":{"none":"check-2"}}]}'
+        )
+        posterior_lines = [
+            f"- {_state_label(state)}: {float(probability):.8f}"
+            for state, probability in sorted(
+                zip(model.hidden_states, belief), key=lambda item: -float(item[1])
+            )
+        ]
+        instructions = [
+            "STRATEGY_SCHEMA=branch_policy_v2",
+            f"Return exactly {self.config.num_strategies} behaviorally distinct strategies.",
+            f"Schema: {schema}",
+            f"Planning horizon: {horizon} action(s).",
+            "root_action must be one listed root action ID.",
+            (
+                "For horizon 2, followups must contain exactly the outcome keys shown for that root "
+                "and each value must be chosen from that branch's legal-action menu. For horizon 1, "
+                "followups must be {}."
+            ),
+            (
+                "At horizon 2 include at least one movement root and at least one direct check root. "
+                "Use the description to explain the information-seeking logic, but do not add fields."
+            ),
+            f"Grid side length: {model.map_spec.grid_size}.",
+            f"Current rover position: {position}.",
+            f"Rock coordinates by ID: {list(enumerate(model.map_spec.rock_positions))}.",
+            f"Current marginal P(good) by rock ID: {[round(value, 8) for value in _rock_marginals(model, belief)]}.",
+            "Exact full posterior over rock vectors:",
+            *posterior_lines,
+            "History:",
+            _history_text(history),
+            "MACHINE_READABLE_MENUS=" + json.dumps(menus, sort_keys=True, separators=(",", ":")),
+        ]
+        return [{"role": "system", "content": system}, {"role": "user", "content": "\n".join(instructions)}]
 
     def _width_messages(
         self,
@@ -410,7 +617,18 @@ class LLMRockStrategyProvider:
         def parse_and_validate(
             response: str,
         ) -> tuple[tuple[RockStrategy, ...], tuple[ExactRockStrategyScore, ...]]:
-            strategies = parse_strategy_cell(response, model=model, expected_count=self.config.num_strategies)
+            if self.config.strategy_schema == "branch_policy_v2":
+                strategies = parse_branch_strategy_cell(
+                    response,
+                    model=model,
+                    position=position,
+                    horizon=horizon,
+                    expected_count=self.config.num_strategies,
+                )
+            else:
+                strategies = parse_strategy_cell(
+                    response, model=model, expected_count=self.config.num_strategies
+                )
             scores = tuple(
                 score_rock_strategy_exact(
                     model,
@@ -509,6 +727,42 @@ class DeterministicStrategyModel:
             ordered = [action for action in preferred if action in legal]
             ordered.extend(action for action in legal if action not in ordered)
             return [json.dumps({"action_ids": ordered})]
+        if "STRATEGY_SCHEMA=branch_policy_v2" in content:
+            count = int(content.split("Return exactly ", maxsplit=1)[1].split(" behaviorally", maxsplit=1)[0])
+            horizon = int(content.split("Planning horizon: ", maxsplit=1)[1].split(" action", maxsplit=1)[0])
+            menus = json.loads(content.split("MACHINE_READABLE_MENUS=", maxsplit=1)[1].split("\n", maxsplit=1)[0])
+            roots = list(menus)
+            moves = [action for action in roots if action.startswith("move-")]
+            checks = [action for action in roots if action.startswith("check-")]
+            ordered_roots = [*moves[:1], *checks[:1], *roots]
+            strategies: list[dict[str, Any]] = []
+            signatures: set[tuple[Any, ...]] = set()
+            for offset in range(1000):
+                root = ordered_roots[offset % len(ordered_roots)]
+                outcomes = list(menus[root])
+                followups: dict[str, str] = {}
+                for branch_index, outcome in enumerate(outcomes):
+                    choices = menus[root][outcome]
+                    if root.startswith("move-"):
+                        checks = [action for action in choices if action.startswith("check-")]
+                        followups[outcome] = checks[offset % len(checks)] if checks else choices[0]
+                    else:
+                        followups[outcome] = choices[(offset + branch_index) % len(choices)]
+                signature = (root, *(followups[outcome] for outcome in outcomes))
+                if signature in signatures:
+                    continue
+                signatures.add(signature)
+                strategies.append(
+                    {
+                        "name": f"deterministic-branch-{len(strategies)}",
+                        "description": "A complete legal branch policy for deterministic mechanics testing.",
+                        "root_action": root,
+                        "followups": followups if horizon > 1 else {},
+                    }
+                )
+                if len(strategies) == count:
+                    return [json.dumps({"strategies": strategies})]
+            raise AssertionError("deterministic branch generator could not fill the requested cell")
         count = int(content.split("Return exactly ", maxsplit=1)[1].split(" distinct strategies", maxsplit=1)[0])
         coordinates_text = content.split("Rock coordinates by ID: ", maxsplit=1)[1].split(".\n", maxsplit=1)[0]
         num_rocks = coordinates_text.count("),") + 1
@@ -680,6 +934,63 @@ def _shared_d1_selection(
     )
 
 
+def _random_branch_strategies(
+    model: RockDiagnosisModel,
+    rng: np.random.Generator,
+    *,
+    position: tuple[int, int],
+    horizon: int,
+    count: int,
+) -> tuple[RockStrategy, ...]:
+    legal_roots = model.legal_actions(position)
+    move_roots = tuple(action for action in legal_roots if model.is_move(action))
+    check_roots = tuple(action for action in legal_roots if model.check_id(action) is not None)
+    if horizon > 1 and (not move_roots or not check_roots):
+        raise AssertionError("branch-strategy root-mix control requires legal move and check actions")
+    required_roots: list[str] = []
+    if horizon > 1:
+        required_roots.extend(
+            [
+                move_roots[int(rng.integers(len(move_roots)))],
+                check_roots[int(rng.integers(len(check_roots)))],
+            ]
+        )
+    policies: list[dict[str, Any]] = []
+    signatures: set[tuple[Any, ...]] = set()
+    for attempt in range(10_000):
+        if len(policies) < len(required_roots):
+            root_action = required_roots[len(policies)]
+        else:
+            root_action = legal_roots[int(rng.integers(len(legal_roots)))]
+        outcome_keys = _branch_outcome_keys(model, root_action, horizon)
+        child_legal = model.legal_actions(model.next_position(position, root_action))
+        followups = {
+            outcome: child_legal[int(rng.integers(len(child_legal)))] for outcome in outcome_keys
+        }
+        signature = (root_action, *(followups[outcome] for outcome in outcome_keys))
+        if signature in signatures:
+            continue
+        signatures.add(signature)
+        policies.append(
+            {
+                "name": f"random-branch-{len(policies)}",
+                "description": "A policy sampled uniformly from the legal branch-policy grammar.",
+                "root_action": root_action,
+                "followups": followups,
+            }
+        )
+        if len(policies) == count:
+            response = json.dumps({"strategies": policies}, separators=(",", ":"))
+            return parse_branch_strategy_cell(
+                response,
+                model=model,
+                position=position,
+                horizon=horizon,
+                expected_count=count,
+            )
+    raise AssertionError("random branch-strategy sampler could not fill a distinct cell")
+
+
 def _random_strategy_selection(
     model: RockDiagnosisModel,
     state: PolicyState,
@@ -691,13 +1002,16 @@ def _random_strategy_selection(
     horizon: int,
 ) -> Selection:
     rng = np.random.default_rng(_stable_seed(config.seed, map_name, "random-strategy", trial_index, round_index))
-    strategies: list[RockStrategy] = []
-    scores: list[ExactRockStrategyScore] = []
-    for _cell_attempt in range(100):
-        strategies = [
-            parse_rock_strategy(random_rock_strategy_text(model, rng, index=index), model)
-            for index in range(config.num_strategies)
-        ]
+    if config.strategy_schema == "branch_policy_v2":
+        strategies = list(
+            _random_branch_strategies(
+                model,
+                rng,
+                position=state.position,
+                horizon=horizon,
+                count=config.num_strategies,
+            )
+        )
         scores = [
             score_rock_strategy_exact(
                 model,
@@ -709,15 +1023,34 @@ def _random_strategy_selection(
             )
             for strategy in strategies
         ]
-        if horizon <= 1:
-            break
-        roots = [str(score.root_action) for score in scores]
-        if any(model.is_move(action) for action in roots) and any(
-            model.check_id(action) is not None for action in roots
-        ):
-            break
     else:
-        raise AssertionError("random-strategy rejection sampler could not produce a mixed root cell")
+        strategies = []
+        scores = []
+        for _cell_attempt in range(100):
+            strategies = [
+                parse_rock_strategy(random_rock_strategy_text(model, rng, index=index), model)
+                for index in range(config.num_strategies)
+            ]
+            scores = [
+                score_rock_strategy_exact(
+                    model,
+                    strategy,
+                    position=state.position,
+                    belief=state.belief,
+                    history=state.history,
+                    horizon=horizon,
+                )
+                for strategy in strategies
+            ]
+            if horizon <= 1:
+                break
+            roots = [str(score.root_action) for score in scores]
+            if any(model.is_move(action) for action in roots) and any(
+                model.check_id(action) is not None for action in roots
+            ):
+                break
+        else:
+            raise AssertionError("random-strategy rejection sampler could not produce a mixed root cell")
     index = _choose_index([score.eig for score in scores])
     selected = scores[index]
     exhaustive_value = _anchor_value(model, state, horizon)
@@ -1271,6 +1604,11 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=12_032)
     parser.add_argument("--bootstrap-replicates", type=int, default=10_000)
     parser.add_argument("--trial-concurrency", type=int, default=32)
+    parser.add_argument(
+        "--strategy-schema",
+        choices=("reactive_rules_v1", "branch_policy_v2"),
+        default="reactive_rules_v1",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = L1Config(
@@ -1280,6 +1618,7 @@ def main() -> None:
         seed=args.seed,
         bootstrap_replicates=args.bootstrap_replicates,
         trial_concurrency=args.trial_concurrency,
+        strategy_schema=args.strategy_schema,
     )
     config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
