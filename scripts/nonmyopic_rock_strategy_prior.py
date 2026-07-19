@@ -487,8 +487,8 @@ class LLMRockStrategyProvider:
             "selects the policy with the highest exact total information gain. Return JSON only."
         )
         schema = (
-            '{"strategies":[{"name":"short name","description":"why this root enables useful '
-            'next sensing","root_action":"move-EAST","followups":{"none":"check-2"}}]}'
+            '{"strategies":[{"name":"short name","description":"why this policy is useful",'
+            '"root_action":"ACTION_ID","followups":{"OUTCOME_KEY":"ACTION_ID"}}]}'
         )
         posterior_lines = [
             f"- {_state_label(state)}: {float(probability):.8f}"
@@ -503,6 +503,11 @@ class LLMRockStrategyProvider:
             f"Planning horizon: {horizon} action(s).",
             "root_action must be one listed root action ID.",
             (
+                'At horizon 2 a movement root uses exactly {"none":"FOLLOWUP_ID"}; a check root '
+                'uses exactly {"good":"FOLLOWUP_ID","bad":"FOLLOWUP_ID"}. Never use "none" '
+                "for a check root and never omit either good or bad."
+            ),
+            (
                 "For horizon 2, followups must contain exactly the outcome keys shown for that root "
                 "and each value must be chosen from that branch's legal-action menu. For horizon 1, "
                 "followups must be {}."
@@ -510,6 +515,10 @@ class LLMRockStrategyProvider:
             (
                 "At horizon 2 include at least one movement root and at least one direct check root. "
                 "Use the description to explain the information-seeking logic, but do not add fields."
+            ),
+            (
+                "Behaviorally distinct means no two strategies may repeat the same root_action plus "
+                "the same followup action(s), even if their names or descriptions differ."
             ),
             f"Grid side length: {model.map_spec.grid_size}.",
             f"Current rover position: {position}.",
