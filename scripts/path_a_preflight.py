@@ -189,7 +189,7 @@ def run_preflight(root: Path) -> dict[str, Any]:
         _check_commands(),
         _check_package_validation_state(package_payload),
     ]
-    paper_payload = paper_summary_payload(validate_paper_draft(root / "paper"))
+    paper_payload = paper_summary_payload(validate_paper_draft(root / "paper", max_pages=7))
     ledger_payload = ledger_summary_payload(validate_experiments_ledger(root / "EXPERIMENTS.md", root=root))
     return {
         "ok": all(check.ok for check in checks) and bool(paper_payload["ok"]) and bool(ledger_payload["ok"]),

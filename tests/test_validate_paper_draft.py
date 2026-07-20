@@ -5,15 +5,16 @@ from scripts import validate_paper_draft as vpd
 
 
 VALID_LIMITATIONS_TEXT = """
-This is not a positive external-benchmark claim. The exact location gap is a
-correctness control. Animals streams are only partially paired. Paprika policy
-counts are endpoint-invalid. MediQ stops before a calibrated policy comparison.
-We do not claim that non-myopic BED cannot work. The study uses one model
-family, and OpenRouter introduces provider nondeterminism. The iCRAFT
+This is a positive structured-benchmark result, not yet a positive
+external-benchmark claim. Rock Diagnosis has an exact finite simulator and does
+not test robustness to learned likelihoods. Animals streams are only partially
+paired. Paprika policy counts are endpoint-invalid. MediQ stops before a calibrated
+policy comparison. We do not claim that non-myopic BED cannot work. The study uses
+one model family, and OpenRouter introduces provider nondeterminism. The iCRAFT
 profile-support gate failed before likelihood evaluation.
 """
 
-VALID_FIGURE_LABELS = "\\label{fig:validation-chain}"
+VALID_FIGURE_LABELS = "\\label{fig:validation-chain}\\label{fig:rock-entropy}"
 
 VALID_TEXT_CHECKS = VALID_LIMITATIONS_TEXT + VALID_FIGURE_LABELS
 
@@ -96,7 +97,7 @@ def test_validate_paper_draft_rejects_missing_required_limitations(tmp_path, mon
         check for check in payload["checks"] if check["name"] == "paper_limitations_coverage"
     )
     assert limitations_check["ok"] is False
-    assert "not_external_positive" in limitations_check["detail"]
+    assert "structured_positive_scope" in limitations_check["detail"]
 
 
 def test_validate_paper_draft_requires_validation_chain_figure(tmp_path, monkeypatch):
@@ -120,7 +121,7 @@ def test_validate_paper_draft_requires_validation_chain_figure(tmp_path, monkeyp
     assert figure_check == {
         "name": "paper_required_figures",
         "ok": False,
-        "detail": "missing: validation_chain",
+        "detail": "missing: validation_chain, rock_entropy",
     }
 
 

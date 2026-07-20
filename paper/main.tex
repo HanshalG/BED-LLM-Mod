@@ -27,20 +27,19 @@ information gathering. Yet deeper planning can optimize errors in an LLM-derived
 probabilistic model rather than useful information. We audit this failure across
 an exact constrained-location test, semantic 20 Questions, and two external
 interactive benchmarks: Paprika troubleshooting and MediQ clinical reasoning.
-Depth-two planning succeeds in the exact test (final RMSE $0.153$ versus $0.561$
-for greedy EIG), while one-step EIG substantially beats prompting in 20 Questions.
-The incremental depth effect does not survive paired evaluation, and depth three
-is worse. Paprika then exposes an objective and endpoint mismatch; MediQ passes a
-strict simulator audit but fails likelihood calibration, with only 8 of 30
-held-out questions answerable from its static records. A preregistered iCRAFT-MD
-diagnosis-profile repair then fails at bounded latent-support construction. These
-results identify two
-independent prerequisites for non-myopic LLM BED: a deployment-matched generative
-model whose latent state is sufficient for responses, and a task with a verified
-non-greedy information structure. We formulate a validation ladder that tests
-these prerequisites before scaling horizon or rollouts. The main lesson is not
-that lookahead is ineffective, but that planning depth is downstream of model
-validity and a measurable greedy gap.
+Depth-two planning succeeds in the exact test, while one-step EIG substantially
+beats prompting in 20 Questions. We then test StrategyEIG: an LLM proposes short
+contingent policies and an exact Bayesian verifier selects their root. On two
+preregistered Rock Diagnosis maps, StrategyEIG improves entropy AUC over the same
+LLM roots scored myopically by $0.520$ and $0.475$, exhaustive one-step width by
+$0.520$ and $0.452$, and matched random strategies by $0.375$ and $0.362$; every
+paired 95\% interval excludes zero, and truth-log-posterior AUC agrees. The selected
+policies move to enable accurate future checks, whereas both myopic controls never
+move. Negative location, Paprika, and MediQ audits identify the boundary: depth
+needs both a deployment-matched generative model and verified non-greedy structure.
+The result supports an LLM-Modulo architecture for sequential BED---semantic policy
+generation coupled to exact external verification---rather than unverified LLM
+simulation alone.
 \end{abstract}
 
 \section{Introduction}
@@ -64,20 +63,24 @@ belief on which later calls condition, and maximizes over more noisy continuatio
 scores. A larger tree can therefore make a confidently worse decision.
 
 We investigate this distinction using a validation-first sequence of experiments.
-An exact constrained-location environment verifies that our depth-two recursion
-can beat greedy EIG when both the model and delayed-information trap are exact.
-Semantic 20 Questions verifies one-step transfer but does not establish an
-incremental horizon benefit. Natural location experiments show non-monotonic depth
-under LLM-generated strategies. Finally, Paprika and MediQ expose different
-failures on external benchmarks: task utility and endpoint attribution in Paprika,
-and latent-state sufficiency plus record sparsity in MediQ.
+An exact constrained-location environment verifies the recursion. Rock Diagnosis
+then supplies the missing combination of an exact simulator, enabling movement,
+LLM-generated branch policies, and external exact verification. Semantic 20
+Questions verifies one-step transfer but does not establish an incremental horizon
+benefit. Natural location experiments show non-monotonic depth under LLM-generated
+strategies. Finally, Paprika and MediQ expose different failures on external
+benchmarks: task utility and endpoint attribution in Paprika, and latent-state
+sufficiency plus record sparsity in MediQ.
 
 Our contributions are:
 \begin{enumerate}
+  \item StrategyEIG, an LLM-Modulo sequential BED architecture in which an LLM
+  proposes explicit contingent policies and an exact Bayesian component verifies
+  their total information gain \citep{kambhampati2024llmmodulo};
+  \item preregistered paired evidence that both the LLM proposal prior and
+  non-myopic verification are load-bearing in a depth-favorable Rock geometry;
   \item a cross-environment audit that separates correctness of the planning
   recursion from validity of the probabilistic interaction model;
-  \item paired evidence that one-step semantic BED can help while increasing
-  horizon need not, alongside an exact positive control where lookahead does help;
   \item two external-benchmark autopsies with invalid outcomes quarantined rather
   than repurposed as method evidence; and
   \item a concrete validation contract for future non-myopic LLM BED: target and
@@ -163,6 +166,7 @@ Figure~\ref{fig:validation-chain}; they do not support an accuracy claim.
 Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
+Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -204,6 +208,61 @@ strategies, final RMSE was $0.412$ for greedy EIG and $0.929$, $1.127$, and
 $0.542$ for strategy horizons 1, 3, and 5. Without the movement constraint all
 horizons were effectively flat. More planning did not yield monotonic behavior,
 and the naive policy remained competitive.
+
+\paragraph{LLM proposals plus exact lookahead work in enabling geometry.}
+The negative natural-location sweep did not test the architecture where depth
+itself was useful: a later exact width gate showed that its smooth sensing geometry
+favored one-step action coverage. We therefore moved to finite Rock Diagnosis.
+Movement has exactly zero immediate EIG, but changes distance-dependent sensor
+accuracy. The LLM returned six explicit two-action branch policies per decision:
+three distinct movement roots followed by checks, and three direct-check roots.
+A finite exact posterior and exhaustive observation branching scored every policy;
+the LLM was never called inside rollout scoring.
+
+We preregistered 30 paired eight-round trajectories on each of two paper maps.
+Controls remove one component at a time: shared d1 scores the identical LLM roots
+myopically; width uses exhaustive d1 over all legal actions with matched exact-scorer
+units and one LLM ordering call; random strategy uses the same branch grammar and
+exact d2 verifier with random legal policies. Table~\ref{tab:rock-strategy} reports
+paired gains in mean posterior-entropy AUC; positive is better for StrategyEIG.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{llrrr}
+\toprule
+Map & Control & Entropy-AUC gain & 95\% CI & W/T/L \\
+\midrule
+3--6 & Shared-roots d1 & .5205 & [.4857, .5531] & 30/0/0 \\
+3--6 & Exhaustive d1 width & .5205 & [.4855, .5537] & 30/0/0 \\
+3--6 & Random strategies & .3748 & [.3229, .4267] & 30/0/0 \\
+5--7 & Shared-roots d1 & .4751 & [.3929, .5544] & 30/0/0 \\
+5--7 & Exhaustive d1 width & .4517 & [.3677, .5310] & 29/0/1 \\
+5--7 & Random strategies & .3622 & [.2714, .4482] & 29/0/1 \\
+\bottomrule
+\end{tabular}
+\caption{Preregistered StrategyEIG confirmation. All six primary paired bootstrap
+intervals exclude zero. Truth-log-posterior AUC also favors StrategyEIG in all six
+comparisons, with all six intervals excluding zero.}
+\label{tab:rock-strategy}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../plots/nonmyopic/rock_branch_strategy_v2_confirmation_entropy.png}
+\caption{Mean posterior entropy over 30 paired trajectories per map. StrategyEIG
+and exhaustive d2 first spend zero-information actions on movement, then obtain
+large entropy drops from more accurate checks.}
+\label{fig:rock-entropy}
+\end{figure}
+
+The mechanism is direct. StrategyEIG selects movement on 140/240 and 128/240
+decisions, while shared d1 and exhaustive d1 width select movement on 0/240 for
+both maps. Its proposals capture 90.6\% and 86.1\% of exhaustive d2 value over
+depth-two rounds. Beating shared d1 shows that non-myopic scoring is load-bearing;
+beating matched random strategies shows that the LLM prior is load-bearing. The
+exhaustive d2 oracle is better on map 5--7 and has better final entropy on both
+maps, leaving clear proposal headroom.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
@@ -284,6 +343,14 @@ overconfident and finds its data-estimation ablation weaker than prior-likelihoo
 BED. Our MediQ belief similarly reached mean top probability $0.867$ after round
 one at only 50\% accuracy.
 
+The Rock result instead follows the LLM-Modulo pattern: the model supplies a small,
+semantically informed policy set, while a sound external component checks grammar,
+legality, Bayesian updates, and total information gain
+\citep{kambhampati2024llmmodulo}. The comparison to random policies shows that the
+generator contributes useful search bias; the comparison to the same roots under
+d1 shows that external lookahead contributes the decision rule. Neither component
+alone explains the gain.
+
 UoT reports improvements with simulation depth, but operates on explicit
 possibility sets and repeatedly partitions the same support; its diagnosis tasks
 contain only 5 or 15 diseases \citep{hu2024uot}. CA-BED uses finite mutually
@@ -334,9 +401,11 @@ we do not promote iCRAFT as an unevaluated escape hatch.
 
 \section{Limitations and Conclusion}
 
-This is a validation study, not a positive external-benchmark claim for
-non-myopic LLM BED. The exact location gap is deliberately constructed and serves
-only as a correctness control. Animals establishes one-step transfer, but its
+This is a validation study and a positive structured-benchmark result, not yet a
+positive external-benchmark claim for non-myopic LLM BED. Rock Diagnosis has an
+exact finite simulator and deliberately visible enabling structure; it does not
+test robustness to learned likelihoods or open-ended responses. Animals establishes
+one-step transfer, but its
 full depth-one and depth-two streams are only partially paired and have weaker
 code provenance than the newer audits. Natural location results use one model
 family and environment. Paprika policy counts are endpoint-invalid, and MediQ
@@ -351,15 +420,19 @@ OpenRouter provider nondeterminism, shared model-family errors, finite generated
 supports, and post-hoc synthesis across heterogeneous experiments remain
 limitations.
 
-The evidence supports a narrower conclusion. Non-myopic recursion works when a
-coherent simulator and delayed-information gap are present. One-step semantic EIG
-can improve information gathering. But depth is not a substitute for a valid
-joint model, deployment-matched branches, or a task in which greedy information
-gain is genuinely suboptimal. These are empirical gates, not implementation
-details. Testing them before scaling horizon is both cheaper and scientifically
-stronger than explaining another non-monotonic depth sweep after the fact.
+The evidence supports a constructive conclusion. With a coherent simulator and
+an enabling-information gap, LLM proposals plus exact rollout-EIG verification
+produce a large, paired, non-myopic gain; both generation and verification matter.
+One-step semantic EIG can also improve information gathering. But depth is not a
+substitute for a valid joint model, deployment-matched branches, or a task in which
+greedy information gain is genuinely suboptimal. These are empirical gates, not
+implementation details. Testing them before scaling horizon is both cheaper and
+scientifically stronger than explaining another non-monotonic depth sweep after
+the fact.
 
+{\small
 \bibliographystyle{plainnat}
 \bibliography{references}
+}
 
 \end{document}

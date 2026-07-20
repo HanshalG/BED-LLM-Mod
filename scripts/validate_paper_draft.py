@@ -13,9 +13,16 @@ from typing import Any
 ALLOWED_TODO_KEYWORDS: tuple[tuple[str, ...], ...] = ()
 
 REQUIRED_LIMITATION_PATTERNS = {
-    "not_external_positive": (r"not a positive external-benchmark claim",),
-    "exact_control_scope": (r"exact location gap", r"correctness control"),
-    "animals_pairing_scope": (r"Animals", r"only partially paired"),
+    "structured_positive_scope": (
+        r"positive structured-benchmark result",
+        r"not yet a\s+positive\s+external-benchmark claim",
+    ),
+    "rock_exact_scope": (
+        r"Rock Diagnosis",
+        r"exact finite simulator",
+        r"does\s+not\s+test robustness to learned likelihoods",
+    ),
+    "animals_pairing_scope": (r"Animals", r"only partially\s+paired"),
     "paprika_endpoint_invalid": (r"Paprika\s+policy\s+counts", r"endpoint-invalid"),
     "mediq_no_policy_comparison": (r"MediQ", r"stops before a calibrated\s+policy comparison"),
     "no_impossibility_claim": (r"do not claim that non-myopic BED\s+cannot work",),
@@ -30,6 +37,7 @@ REQUIRED_LIMITATION_PATTERNS = {
 
 REQUIRED_FIGURE_LABELS: dict[str, str] = {
     "validation_chain": "fig:validation-chain",
+    "rock_entropy": "fig:rock-entropy",
 }
 
 
