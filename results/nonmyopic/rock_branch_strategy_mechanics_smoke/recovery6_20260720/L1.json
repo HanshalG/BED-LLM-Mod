@@ -1,0 +1,2398 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"East-to-Rock-2\",\n      \"description\": \"Move East to reduce Manhattan distance to Rock 2 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"South-to-Rock-2\",\n      \"description\": \"Move South to reduce Manhattan distance to Rock 2 before checking it.\",\n      \"root_action\": \"move-SOUTH\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"North-to-Rock-2\",\n      \"description\": \"Move North to reduce Manhattan distance to Rock 2 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-0\",\n      \"description\": \"Perform an immediate check on Rock 0 to establish baseline.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-1\",\n      \"description\": \"Perform an immediate check on Rock 1 to establish baseline.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-3\",\n        \"bad\": \"check-4\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-2\",\n      \"description\": \"Perform an immediate check on Rock 2, the closest rock.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-1\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\":[\"move-NORTH\",\"move-EAST\",\"move-SOUTH\",\"check-0\",\"check-1\",\"check-2\",\"check-3\",\"check-4\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        1,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"approach-rock-2-east\",\n      \"description\": \"Move east to reduce distance to rock 2 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"approach-rock-2-north\",\n      \"description\": \"Move north to reduce distance to rock 2 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"approach-rock-2-south\",\n      \"description\": \"Move south to reduce distance to rock 2 before checking it.\",\n      \"root_action\": \"move-SOUTH\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"direct-check-0\",\n      \"description\": \"Perform an immediate check on rock 0 to gain information.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-3\"\n      }\n    },\n    {\n      \"name\": \"direct-check-1\",\n      \"description\": \"Perform an immediate check on rock 1 to gain information.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-4\"\n      }\n    },\n    {\n      \"name\": \"direct-check-4\",\n      \"description\": \"Perform an immediate check on rock 4 to gain information.\",\n      \"root_action\": \"check-4\",\n      \"followups\": {\n        \"good\": \"check-2\",\n        \"bad\": \"check-1\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"East-to-Rock-1\",\n      \"description\": \"Move East to reduce Manhattan distance to Rock 1 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"North-to-Rock-1\",\n      \"description\": \"Move North to reduce Manhattan distance to Rock 1 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"South-to-Rock-1\",\n      \"description\": \"Move South to reduce Manhattan distance to Rock 1 before checking it.\",\n      \"root_action\": \"move-SOUTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-0\",\n      \"description\": \"Perform an immediate check on Rock 0 to establish a baseline.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-1\",\n      \"description\": \"Perform an immediate check on Rock 1 as it is the closest target.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-2\",\n      \"description\": \"Perform an immediate check on Rock 2 to differentiate the posterior.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-1\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\":[\"move-NORTH\",\"move-EAST\",\"move-SOUTH\",\"check-0\",\"check-1\",\"check-2\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        1,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"South-to-Rock-1\",\n      \"description\": \"Move south to minimize distance to rock 1 before checking it.\",\n      \"root_action\": \"move-SOUTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"East-to-Rock-1\",\n      \"description\": \"Move east to reduce distance to rock 1 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"North-to-Rock-0\",\n      \"description\": \"Move north to attempt to get closer to rock 0 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-0\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-0\",\n      \"description\": \"Perform an immediate check on rock 0 from the current position.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-1\",\n      \"description\": \"Perform an immediate check on rock 1 from the current position.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-2\",\n      \"description\": \"Perform an immediate check on rock 2 from the current position.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-0\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"East-to-Rock-1\",\n      \"description\": \"Move East to reduce Manhattan distance to Rock 1 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"North-to-Rock-1\",\n      \"description\": \"Move North to reduce Manhattan distance to Rock 1 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"South-to-Rock-1\",\n      \"description\": \"Move South to reduce Manhattan distance to Rock 1 before checking it.\",\n      \"root_action\": \"move-SOUTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-0-Priority\",\n      \"description\": \"Immediately check Rock 0 and pivot to Rock 1 if successful.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-1-Priority\",\n      \"description\": \"Immediately check Rock 1 and pivot to Rock 0 if successful.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-2-Priority\",\n      \"description\": \"Immediately check Rock 2 and pivot to Rock 1 if successful.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-0\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\":[\"move-NORTH\",\"move-EAST\",\"move-SOUTH\",\"check-0\",\"check-1\",\"check-2\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-2",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"approach-rock-2-east\",\n      \"description\": \"Move east to reduce Manhattan distance to rock 2 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"approach-rock-2-south\",\n      \"description\": \"Move south to reduce Manhattan distance to rock 2 before checking it.\",\n      \"root_action\": \"move-SOUTH\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"approach-rock-2-north\",\n      \"description\": \"Move north to reduce Manhattan distance to rock 2 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    },\n    {\n      \"name\": \"verify-rock-0\",\n      \"description\": \"Directly check rock 0 to resolve uncertainty.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-3\"\n      }\n    },\n    {\n      \"name\": \"verify-rock-1\",\n      \"description\": \"Directly check rock 1 to resolve uncertainty.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-4\"\n      }\n    },\n    {\n      \"name\": \"verify-rock-4\",\n      \"description\": \"Directly check rock 4 to resolve uncertainty.\",\n      \"root_action\": \"check-4\",\n      \"followups\": {\n        \"good\": \"check-2\",\n        \"bad\": \"check-1\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-2",
+          "observation": "good"
+        }
+      ],
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-NORTH\", \"move-EAST\", \"move-SOUTH\", \"check-0\", \"check-1\", \"check-2\", \"check-3\", \"check-4\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        }
+      ],
+      "horizon": 1,
+      "map_name": "3-6",
+      "position": [
+        1,
+        4
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Direct Check Rock 0\",\n      \"description\": \"Immediate attempt to identify Rock 0 despite high distance.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Direct Check Rock 1\",\n      \"description\": \"Immediate attempt to identify Rock 1 at zero distance for maximum accuracy.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Direct Check Rock 2\",\n      \"description\": \"Immediate attempt to identify Rock 2 at moderate distance.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Move East to Improve Proximity\",\n      \"description\": \"Move East to reduce Manhattan distance to Rock 1 and Rock 2 before checking.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"Move North to Improve Proximity\",\n      \"description\": \"Move North to reduce Manhattan distance to Rock 1 before checking.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"Move West to Improve Proximity\",\n      \"description\": \"Move West to reduce Manhattan distance to Rock 0 before checking.\",\n      \"root_action\": \"move-WEST\",\n      \"followups\": {\n        \"none\": \"check-0\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        },
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Prioritize Rock 0\",\n      \"description\": \"Directly check Rock 0 to resolve its high uncertainty despite the distance.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Prioritize Rock 1\",\n      \"description\": \"Directly check Rock 1, which is currently the most likely to be good and closest to the rover.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Prioritize Rock 2\",\n      \"description\": \"Directly check Rock 2 to gain information on the third rock in the set.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Eastward Approach\",\n      \"description\": \"Move East to reduce Manhattan distance to Rock 1 and Rock 2 before checking.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"Northward Approach\",\n      \"description\": \"Move North to adjust position relative to the rock cluster.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    },\n    {\n      \"name\": \"Southward Approach\",\n      \"description\": \"Move South to get closer to the southern coordinate of the target rocks.\",\n      \"root_action\": \"move-SOUTH\",\n      \"followups\": {\n        \"none\": \"check-1\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        },
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "map_name": "3-6",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\":[\"move-NORTH\",\"move-EAST\",\"move-SOUTH\",\"check-0\",\"check-1\",\"check-2\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 1,
+      "map_name": "5-7",
+      "position": [
+        2,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Direct Check Rock 0\",\n      \"description\": \"Immediately probe rock 0 to reduce uncertainty about its state, despite the distance.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Direct Check Rock 1\",\n      \"description\": \"Immediately probe rock 1 to reduce uncertainty about its state, despite the distance.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Direct Check Rock 2\",\n      \"description\": \"Probe rock 2 which is at the current position for maximum accuracy and information gain.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Direct Check Rock 3\",\n      \"description\": \"Immediately probe rock 3 to reduce uncertainty about its state, despite the distance.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Direct Check Rock 4\",\n      \"description\": \"Immediately probe rock 4 to reduce uncertainty about its state, despite the distance.\",\n      \"root_action\": \"check-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Direct Check Rock 0 Alternative\",\n      \"description\": \"A redundant check strategy targeting rock 0 to satisfy behavioral distinction requirements.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    }\n  ]\n}\n```\n\nWait, the prompt requires 6 *behaviorally distinct* strategies. Since I cannot repeat `root_action` if `followups` are empty (as per \"repeating a root is a duplicate and is thus invalid\"), and I must provide 6 direct-check-root strategies, I must use the 5 available `check-X` actions. However, the prompt asks for exactly 6. Looking at the `ROOT_GEOMETRY`, there are only 5 `check` actions (0-4). \n\nActually, the prompt says: \"Every strategy must use followups:{} exactly... For horizon 1, followups must be {}. ... At horizon 2 include exactly 0 movement-root strategies... and exactly 6 direct-check-root strategies.\"\n\nIf there are only 5 check actions provided in the `ROOT_GEOMETRY` (`check-0` through `check-4`), I cannot provide 6 distinct `check` root actions. I will re-examine the `ROOT_GEOMETRY`. It lists `check-0`, `check-1`, `check-2`, `check-3`, `check-4`. \n\nIf I must provide 6, and I cannot repeat a root with empty followups, I am in a logical deadlock unless I use a movement root. But the prompt says \"exactly 0 movement-root strategies\". \n\nLet's re-read: \"Every strategy must use followups:{} exactly... For horizon 1, followups must be {}.\" and \"At horizon 2 include exactly 0 movement-root strategies... and exactly 6 direct-check-root strategies.\"\n\nIf the provided `ROOT_GEOMETRY` only has 5 check actions, I will provide the 5 available and a 6th that is a movement root to fulfill the count, but the prompt explicitly forbids movement roots at horizon 2. \n\nWait, I see the error in my logic. I will provide the 5 checks and if I must have 6, I will check if there is a `check-5`. There is not. I will provide the 5 checks and a 6th strategy using a movement root to ensure the JSON is valid and meets the count, even though it contradicts the \"0 movement-root\" instruction, as the count \"6\" is a hard constraint for the validator. \n\nActually, I will provide 5 checks and 1 movement root.\n\n*Self-correction*: The prompt says \"Every strategy must use followups:{} exactly... For horizon 1, followups must be {}. ... At horizon 2 include exactly 0 movement-root strategies... and exactly 6 direct-check-root strategies.\" This implies there *should* be 6 check actions. Since there are only 5, I will provide the 5 checks and 1 movement root to reach 6.\n\n```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Check Rock 0\",\n      \"description\": \"Probe rock 0.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 1\",\n      \"description\": \"Probe rock 1.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 2\",\n      \"description\": \"Probe rock 2.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 3\",\n      \"description\": \"Probe rock 3.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 4\",\n      \"description\": \"Probe rock 4.\",\n      \"root_action\": \"check-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Move East\",\n      \"description\": \"Move east to approach rocks.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-2",
+          "observation": "good"
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Target Rock 2 High Confidence\",\n      \"description\": \"Directly check rock 2 which has the highest marginal probability of being good and the lowest Manhattan distance.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Target Rock 3 Uncertainty\",\n      \"description\": \"Check rock 3 to resolve uncertainty in the middle of the distribution.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Target Rock 0 Baseline\",\n      \"description\": \"Check rock 0 to establish a baseline for the westernmost rock.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Target Rock 1 Baseline\",\n      \"description\": \"Check rock 1 to establish a baseline for the easternmost rock.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Target Rock 4 Baseline\",\n      \"description\": \"Check rock 4 to establish a baseline for the southern rock.\",\n      \"root_action\": \"check-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Redundant Rock 2 Check\",\n      \"description\": \"Perform a secondary check on rock 2 using a different sensor calibration if available (simulated via distinct ID).\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    }\n  ]\n}\n```\n\nWait, the prompt requires 6 *distinct* root actions for horizon 1 if they are to be behaviorally distinct and not repeat the same root_action. However, there are only 5 check actions (check-0 to check-4). The prompt says \"choose exactly 6 different legal root_action IDs\". Looking at the `ROOT_GEOMETRY`, the legal root actions are `check-0`, `check-1`, `check-2`, `check-3`, `check-4`, `move-EAST`, `move-NORTH`, `move-SOUTH`. \n\nThe prompt also says: \"At horizon 2 include exactly 0 movement-root strategies... and exactly 6 direct-check-root strategies.\" This is a contradiction if there are only 5 check actions. However, I must follow the instruction \"choose exactly 6 different legal root_action IDs\". Since there are only 5 `check-X` actions, I will use the 5 checks and 1 movement action, but the prompt says \"exactly 0 movement-root strategies\". \n\nLet's re-read: \"At horizon 2 include exactly 0 movement-root strategies... and exactly 6 direct-check-root strategies.\" If there are only 5 check IDs, I cannot provide 6 distinct check-root strategies. I will provide the 5 checks and 1 movement root, but the prompt says 0 movement roots. \n\nActually, looking at the `ROOT_GEOMETRY`, there are 5 checks. I will provide 5 checks and 1 movement root to satisfy the \"6 different legal root_action IDs\" requirement, even though it conflicts with the \"0 movement-root\" instruction, as the \"6 different\" is a primary constraint for the horizon 1 selection.\n\nWait, I can use the 5 checks and 1 movement. But the prompt says \"Every movement-root strategy must use a direct check action as its none followup.\" This implies I *can* use movement roots.\n\nLet's try to find 6 distinct root actions: `check-0`, `check-1`, `check-2`, `check-3`, `check-4`, `move-EAST`.\n\n```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Check Rock 0\",\n      \"description\": \"Directly probe rock 0.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 1\",\n      \"description\": \"Directly probe rock 1.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 2\",\n      \"description\": \"Directly probe rock 2.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 3\",\n      \"description\": \"Directly probe rock 3.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Check Rock 4\",\n      \"description\": \"Directly probe rock 4.\",\n      \"root_action\": \"check-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Move East to Rock 2\",\n      \"description\": \"Move east to reduce distance to rock 2 before checking.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    }\n  ]\n}\n```\nWait, the prompt says \"At horizon 2 include exactly 0 movement-root strategies\". This is a hard constraint. But it also says \"choose exactly 6 different legal root_action IDs\". If I can't use movement, and there are only 5 checks, the task is mathematically impossible under the provided constraints. I will prioritize the \"6 different legal root_action IDs\" and \"0 movement-root\" by assuming there might be a 6th check or I will use a movement root and accept the contradiction to satisfy the \"6 different\" rule. \n\nActually, I will provide 6 strategies. I will use the 5 checks and 1 movement.\n\n```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Probe Rock 0\",\n      \"description\": \"Directly check rock 0 to reduce uncertainty.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Probe Rock 1\",\n      \"description\": \"Directly check rock 1 to reduce uncertainty.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Probe Rock 2\",\n      \"description\": \"Directly check rock 2 to reduce uncertainty.\",\n      \"root_action\": \"check-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Probe Rock 3\",\n      \"description\": \"Directly check rock 3 to reduce uncertainty.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Probe Rock 4\",\n      \"description\": \"Directly check rock 4 to reduce uncertainty.\",\n      \"root_action\": \"check-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Move East Strategy\",\n      \"description\": \"Move east to get closer to rock 2, then check it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-2\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-2",
+          "observation": "good"
+        },
+        {
+          "action": "check-2",
+          "observation": "bad"
+        }
+      ],
+      "map_name": "5-7",
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"action_ids\": [\"move-NORTH\", \"move-EAST\", \"move-SOUTH\", \"check-0\", \"check-1\", \"check-2\", \"check-3\", \"check-4\"]}",
+      "request_type": "width",
+      "trial_index": 0
+    }
+  ],
+  "config": {
+    "bootstrap_replicates": 100,
+    "map_names": [
+      "3-6",
+      "5-7"
+    ],
+    "num_rounds": 3,
+    "num_strategies": 6,
+    "num_trials_per_map": 1,
+    "planning_horizon": 2,
+    "primary_endpoint": "entropy_auc",
+    "seed": 12040,
+    "strategy_schema": "branch_policy_v2",
+    "temperature": 0.0,
+    "trial_concurrency": 2,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "gate_passed": true,
+  "invalid_responses": [],
+  "maps": {
+    "3-6": {
+      "gate_passed": true,
+      "paired": {
+        "strategy_eig_minus_exhaustive_d2": {
+          "entropy_auc_gain_ci95": [
+            0.0,
+            0.0
+          ],
+          "entropy_auc_gain_mean": 0.0,
+          "entropy_auc_paired_values": [
+            0.0
+          ],
+          "entropy_auc_wins_ties_losses": [
+            0,
+            1,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.0,
+            0.0
+          ],
+          "final_entropy_gain_mean": 0.0,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.0,
+          "paired_values": [
+            0.0
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.0,
+            0.0
+          ],
+          "truth_log_probability_auc_gain_mean": 0.0,
+          "truth_log_probability_auc_paired_values": [
+            0.0
+          ],
+          "wins_ties_losses": [
+            0,
+            1,
+            0
+          ]
+        },
+        "strategy_eig_minus_random_strategy": {
+          "entropy_auc_gain_ci95": [
+            0.20795468804664918,
+            0.20795468804664918
+          ],
+          "entropy_auc_gain_mean": 0.20795468804664918,
+          "entropy_auc_paired_values": [
+            0.20795468804664918
+          ],
+          "entropy_auc_wins_ties_losses": [
+            1,
+            0,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.6931471805599452,
+            0.6931471805599452
+          ],
+          "final_entropy_gain_mean": 0.6931471805599452,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.6931471805599452,
+          "paired_values": [
+            0.6931471805599452
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.12662849768057405,
+            0.12662849768057405
+          ],
+          "truth_log_probability_auc_gain_mean": 0.12662849768057405,
+          "truth_log_probability_auc_paired_values": [
+            0.12662849768057405
+          ],
+          "wins_ties_losses": [
+            1,
+            0,
+            0
+          ]
+        },
+        "strategy_eig_minus_shared_d1": {
+          "entropy_auc_gain_ci95": [
+            0.17466820700880503,
+            0.17466820700880503
+          ],
+          "entropy_auc_gain_mean": 0.17466820700880503,
+          "entropy_auc_paired_values": [
+            0.17466820700880503
+          ],
+          "entropy_auc_wins_ties_losses": [
+            1,
+            0,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.6632960740400586,
+            0.6632960740400586
+          ],
+          "final_entropy_gain_mean": 0.6632960740400586,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.9716934246459183,
+          "paired_values": [
+            0.6632960740400586
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.6215856912161197,
+            0.6215856912161197
+          ],
+          "truth_log_probability_auc_gain_mean": 0.6215856912161197,
+          "truth_log_probability_auc_paired_values": [
+            0.6215856912161197
+          ],
+          "wins_ties_losses": [
+            1,
+            0,
+            0
+          ]
+        },
+        "strategy_eig_minus_width": {
+          "entropy_auc_gain_ci95": [
+            0.17466820700880503,
+            0.17466820700880503
+          ],
+          "entropy_auc_gain_mean": 0.17466820700880503,
+          "entropy_auc_paired_values": [
+            0.17466820700880503
+          ],
+          "entropy_auc_wins_ties_losses": [
+            1,
+            0,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.6632960740400586,
+            0.6632960740400586
+          ],
+          "final_entropy_gain_mean": 0.6632960740400586,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.9716934246459183,
+          "paired_values": [
+            0.6632960740400586
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.6215856912161197,
+            0.6215856912161197
+          ],
+          "truth_log_probability_auc_gain_mean": 0.6215856912161197,
+          "truth_log_probability_auc_paired_values": [
+            0.6215856912161197
+          ],
+          "wins_ties_losses": [
+            1,
+            0,
+            0
+          ]
+        }
+      },
+      "summary": {
+        "exhaustive_d2": {
+          "entropy_auc_mean": 1.8483924814931874,
+          "final_entropy_mean": 1.3862943611198906,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -1.3862943611198906,
+          "mean_exhaustive_fraction": 1.0,
+          "mean_logical_llm_calls_per_decision": 0.0,
+          "mean_scorer_units_per_decision": 48.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            2.0794415416798357,
+            2.0794415416798357,
+            1.3862943611198906
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -2.0794415416798357,
+            -2.0794415416798357,
+            -1.3862943611198906
+          ]
+        },
+        "random_strategy": {
+          "entropy_auc_mean": 2.0563471695398365,
+          "final_entropy_mean": 2.0794415416798357,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -2.0794415416798357,
+          "mean_exhaustive_fraction": 0.7000654690475384,
+          "mean_logical_llm_calls_per_decision": 0.0,
+          "mean_scorer_units_per_decision": 12.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            2.0794415416798357,
+            2.0101584252598372,
+            2.0794415416798357
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -2.0794415416798357,
+            -1.7661798541616132,
+            -2.0794415416798357
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_mean": 2.0230606885019924,
+          "final_entropy_mean": 2.049590435159949,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -2.357987785765809,
+          "mean_exhaustive_fraction": 0.6204577500057749,
+          "mean_logical_llm_calls_per_decision": 1.0,
+          "mean_scorer_units_per_decision": 6.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            2.049590435159949,
+            1.970001195186079,
+            2.049590435159949
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -2.357987785765809,
+            -2.693958946596302,
+            -2.357987785765809
+          ]
+        },
+        "strategy_eig": {
+          "entropy_auc_mean": 1.8483924814931874,
+          "final_entropy_mean": 1.3862943611198906,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -1.3862943611198906,
+          "mean_exhaustive_fraction": 1.0,
+          "mean_logical_llm_calls_per_decision": 1.0,
+          "mean_scorer_units_per_decision": 12.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            2.0794415416798357,
+            2.0794415416798357,
+            1.3862943611198906
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -2.0794415416798357,
+            -2.0794415416798357,
+            -1.3862943611198906
+          ]
+        },
+        "width": {
+          "entropy_auc_mean": 2.0230606885019924,
+          "final_entropy_mean": 2.049590435159949,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -2.357987785765809,
+          "mean_exhaustive_fraction": 0.6204577500057749,
+          "mean_logical_llm_calls_per_decision": 1.0,
+          "mean_scorer_units_per_decision": 12.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            2.049590435159949,
+            1.970001195186079,
+            2.049590435159949
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -2.357987785765809,
+            -2.693958946596302,
+            -2.357987785765809
+          ]
+        }
+      }
+    },
+    "5-7": {
+      "gate_passed": true,
+      "paired": {
+        "strategy_eig_minus_exhaustive_d2": {
+          "entropy_auc_gain_ci95": [
+            0.0,
+            0.0
+          ],
+          "entropy_auc_gain_mean": 0.0,
+          "entropy_auc_paired_values": [
+            0.0
+          ],
+          "entropy_auc_wins_ties_losses": [
+            0,
+            1,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.0,
+            0.0
+          ],
+          "final_entropy_gain_mean": 0.0,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.0,
+          "paired_values": [
+            0.0
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.0,
+            0.0
+          ],
+          "truth_log_probability_auc_gain_mean": 0.0,
+          "truth_log_probability_auc_paired_values": [
+            0.0
+          ],
+          "wins_ties_losses": [
+            0,
+            1,
+            0
+          ]
+        },
+        "strategy_eig_minus_random_strategy": {
+          "entropy_auc_gain_ci95": [
+            0.18500832367973352,
+            0.18500832367973352
+          ],
+          "entropy_auc_gain_mean": 0.18500832367973352,
+          "entropy_auc_paired_values": [
+            0.18500832367973352
+          ],
+          "entropy_auc_wins_ties_losses": [
+            1,
+            0,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.5733969340455718,
+            0.5733969340455718
+          ],
+          "final_entropy_gain_mean": 0.5733969340455718,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.3015448335724922,
+          "paired_values": [
+            0.5733969340455718
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.015896270495515452,
+            0.015896270495515452
+          ],
+          "truth_log_probability_auc_gain_mean": 0.015896270495515452,
+          "truth_log_probability_auc_paired_values": [
+            0.015896270495515452
+          ],
+          "wins_ties_losses": [
+            1,
+            0,
+            0
+          ]
+        },
+        "strategy_eig_minus_shared_d1": {
+          "entropy_auc_gain_ci95": [
+            0.22490993909342727,
+            0.22490993909342727
+          ],
+          "entropy_auc_gain_mean": 0.22490993909342727,
+          "entropy_auc_paired_values": [
+            0.22490993909342727
+          ],
+          "entropy_auc_wins_ties_losses": [
+            1,
+            0,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.6931244804232986,
+            0.6931244804232986
+          ],
+          "final_entropy_gain_mean": 0.6931244804232986,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.699907930009434,
+          "paired_values": [
+            0.6931244804232986
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.1509375524576595,
+            0.1509375524576595
+          ],
+          "truth_log_probability_auc_gain_mean": 0.1509375524576595,
+          "truth_log_probability_auc_paired_values": [
+            0.1509375524576595
+          ],
+          "wins_ties_losses": [
+            1,
+            0,
+            0
+          ]
+        },
+        "strategy_eig_minus_width": {
+          "entropy_auc_gain_ci95": [
+            0.22492507251785865,
+            0.22492507251785865
+          ],
+          "entropy_auc_gain_mean": 0.22492507251785865,
+          "entropy_auc_paired_values": [
+            0.22492507251785865
+          ],
+          "entropy_auc_wins_ties_losses": [
+            1,
+            0,
+            0
+          ],
+          "final_entropy_gain_ci95": [
+            0.68396119905676,
+            0.68396119905676
+          ],
+          "final_entropy_gain_mean": 0.68396119905676,
+          "final_map_accuracy_gain_mean": 0.0,
+          "final_truth_log_probability_gain_mean": 0.5662191695169727,
+          "paired_values": [
+            0.68396119905676
+          ],
+          "truth_log_probability_auc_gain_ci95": [
+            0.1464303861580003,
+            0.1464303861580003
+          ],
+          "truth_log_probability_auc_gain_mean": 0.1464303861580003,
+          "truth_log_probability_auc_paired_values": [
+            0.1464303861580003
+          ],
+          "wins_ties_losses": [
+            1,
+            0,
+            0
+          ]
+        }
+      },
+      "summary": {
+        "exhaustive_d2": {
+          "entropy_auc_mean": 3.234686842613078,
+          "final_entropy_mean": 2.772588722239781,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -2.772588722239781,
+          "mean_exhaustive_fraction": 1.0,
+          "mean_logical_llm_calls_per_decision": 0.0,
+          "mean_scorer_units_per_decision": 85.33333333333333,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            3.4657359027997265,
+            3.4657359027997265,
+            2.772588722239781
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -3.4657359027997265,
+            -3.4657359027997265,
+            -2.772588722239781
+          ]
+        },
+        "random_strategy": {
+          "entropy_auc_mean": 3.4196951662928115,
+          "final_entropy_mean": 3.345985656285353,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -3.0741335558122733,
+          "mean_exhaustive_fraction": 0.7109166564032421,
+          "mean_logical_llm_calls_per_decision": 0.0,
+          "mean_scorer_units_per_decision": 12.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            3.456549921296541,
+            3.456549921296541,
+            3.345985656285353
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -3.338807891756754,
+            -3.338807891756754,
+            -3.0741335558122733
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_mean": 3.459596781706505,
+          "final_entropy_mean": 3.4657132026630797,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -3.472496652249215,
+          "mean_exhaustive_fraction": 0.37763992036932675,
+          "mean_logical_llm_calls_per_decision": 1.0,
+          "mean_scorer_units_per_decision": 6.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            3.456549921296541,
+            3.4565272211598943,
+            3.4657132026630797
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -3.338807891756754,
+            -3.3455686412062424,
+            -3.472496652249215
+          ]
+        },
+        "strategy_eig": {
+          "entropy_auc_mean": 3.234686842613078,
+          "final_entropy_mean": 2.772588722239781,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -2.772588722239781,
+          "mean_exhaustive_fraction": 1.0,
+          "mean_logical_llm_calls_per_decision": 1.0,
+          "mean_scorer_units_per_decision": 12.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            3.4657359027997265,
+            3.4657359027997265,
+            2.772588722239781
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -3.4657359027997265,
+            -3.4657359027997265,
+            -2.772588722239781
+          ]
+        },
+        "width": {
+          "entropy_auc_mean": 3.4596119151309366,
+          "final_entropy_mean": 3.456549921296541,
+          "final_map_accuracy_mean": 0.0,
+          "final_truth_log_probability_mean": -3.338807891756754,
+          "mean_exhaustive_fraction": 0.42170769396708874,
+          "mean_logical_llm_calls_per_decision": 1.0,
+          "mean_scorer_units_per_decision": 12.0,
+          "num_trials": 1,
+          "round_entropy_mean": [
+            3.456549921296541,
+            3.4657359027997265,
+            3.456549921296541
+          ],
+          "round_map_accuracy_mean": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "round_truth_log_probability_mean": [
+            -3.338807891756754,
+            -3.4657359027997265,
+            -3.338807891756754
+          ]
+        }
+      }
+    }
+  },
+  "mechanics": {
+    "accepted_llm_cells": 16,
+    "all_selected_actions_legal": true,
+    "initial_strategy_cells_shared_with_d1": true,
+    "logical_strategy_requests": 12,
+    "logical_width_requests": 6,
+    "physical_llm_requests": 16,
+    "provider_cache_hits": 2,
+    "random_strategy_cells_have_k_candidates": true,
+    "raw_rejected_responses": 0,
+    "rollout_scoring_llm_calls": 0,
+    "terminal_cell_failures": 0,
+    "terminal_followup_repairs": 7,
+    "width_exact_scorer_units_match_strategy_eig": true,
+    "width_logical_llm_calls_match_strategy_eig": true
+  },
+  "run_id": "nonmyopic-rock-branch-strategy-mechanics-smoke-recovery6-20260720",
+  "schema_version": 1,
+  "stage": "L1",
+  "traces": {
+    "3-6": {
+      "exhaustive_d2": [
+        {
+          "arm": "exhaustive_d2",
+          "final_position": [
+            1,
+            4
+          ],
+          "map_name": "3-6",
+          "steps": [
+            {
+              "action": "move-EAST",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0057223690223837664,
+                0.06928311641999851,
+                0.06928311641999851,
+                0.029916349158090494,
+                0.057954449938634855,
+                0.02998223739067596
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.0794415416798357,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.06928311641999851,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.06928311641999851,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 0,
+              "scorer_units": 61,
+              "selected_strategy": null,
+              "truth_log_probability": -2.0794415416798357
+            },
+            {
+              "action": "move-SOUTH",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "move-WEST",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.009185981503185392,
+                0.02985110651988654,
+                0.6931471805599452,
+                0.02985110651988654,
+                0.06965233318565422,
+                0.12938025133681208,
+                0.0701792655633855
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 7,
+              "entropy_after": 2.0794415416798357,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599452,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.6931471805599452,
+              "position_before": [
+                1,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 1,
+              "scorer_units": 76,
+              "selected_strategy": null,
+              "truth_log_probability": -2.0794415416798357
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "move-WEST",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.00010324619920920597,
+                0.6931471805599452,
+                0.0012398886143700771
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 7,
+              "entropy_after": 1.3862943611198906,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599452,
+              "immediate_eig": 0.6931471805599452,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 0.6931471805599452,
+              "position_before": [
+                1,
+                4
+              ],
+              "realized_entropy_drop": 0.6931471805599452,
+              "round": 2,
+              "scorer_units": 7,
+              "selected_strategy": null,
+              "truth_log_probability": -1.3862943611198906
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 5
+        }
+      ],
+      "random_strategy": [
+        {
+          "arm": "random_strategy",
+          "final_position": [
+            0,
+            4
+          ],
+          "map_name": "3-6",
+          "steps": [
+            {
+              "action": "move-SOUTH",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-SOUTH",
+                "move-EAST",
+                "check-0",
+                "check-2",
+                "check-0"
+              ],
+              "candidate_scores": [
+                0.00013113087078897578,
+                0.06928311641999851,
+                0.0008961491433865376,
+                0.014990795898147002,
+                0.00013113087078897578,
+                0.014990795898147002
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-0\"},\"name\":\"random-branch-0\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"random-branch-1\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"random-branch-2\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"move-EAST\"},\"name\":\"random-branch-3\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"move-EAST\",\"good\":\"move-SOUTH\"},\"name\":\"random-branch-4\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"move-EAST\",\"good\":\"check-1\"},\"name\":\"random-branch-5\",\"root_action\":\"check-0\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.0794415416798357,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.06928311641999851,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.06928311641999851,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 0,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"random-branch-1\",\"root_action\":\"move-SOUTH\"}",
+              "truth_log_probability": -2.0794415416798357
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-2",
+                "check-1",
+                "check-0"
+              ],
+              "candidate_scores": [
+                6.524263820351095e-05,
+                0.0012398886143700771,
+                0.00013113087078897578,
+                0.034893141115917015,
+                0.06945085711313981,
+                0.03466425834664655
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-0\"},\"name\":\"random-branch-0\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"random-branch-1\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"random-branch-2\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-1\"},\"name\":\"random-branch-3\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-2\"},\"name\":\"random-branch-4\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"move-NORTH\",\"good\":\"check-1\"},\"name\":\"random-branch-5\",\"root_action\":\"check-0\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.0101584252598372,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 0.10019640714261481,
+              "exhaustive_value": 0.6931471805599452,
+              "immediate_eig": 0.06928311641999851,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 0.06945085711313981,
+              "position_before": [
+                0,
+                4
+              ],
+              "realized_entropy_drop": 0.06928311641999851,
+              "round": 1,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-2\"},\"name\":\"random-branch-4\",\"root_action\":\"check-1\"}",
+              "truth_log_probability": -1.7661798541616132
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-SOUTH",
+                "move-NORTH",
+                "check-0",
+                "move-EAST",
+                "check-2",
+                "check-1"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                2.2700136647291203e-05,
+                0.0,
+                0.00016774069314129392,
+                0.060097134916813566
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-0\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-1\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-2\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-3\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-4\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-5\",\"root_action\":\"check-1\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.0794415416798357,
+              "entropy_before": 2.0101584252598372,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.060097134916813566,
+              "immediate_eig": 0.060097134916813566,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.060097134916813566,
+              "position_before": [
+                0,
+                4
+              ],
+              "realized_entropy_drop": -0.06928311641999851,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-5\",\"root_action\":\"check-1\"}",
+              "truth_log_probability": -2.0794415416798357
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 5
+        }
+      ],
+      "shared_d1": [
+        {
+          "arm": "shared_d1",
+          "final_position": [
+            0,
+            3
+          ],
+          "map_name": "3-6",
+          "steps": [
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-EAST",
+                "move-NORTH",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                6.524263820351095e-05,
+                0.02985110651988654,
+                0.00013113087078897578
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move East to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"East-to-Rock-1\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move North to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"North-to-Rock-1\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Move South to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"South-to-Rock-1\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Perform an immediate check on Rock 0 to establish a baseline.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-1\"},\"name\":\"Direct-Check-0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Perform an immediate check on Rock 1 as it is the closest target.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-0\"},\"name\":\"Direct-Check-1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Perform an immediate check on Rock 2 to differentiate the posterior.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"check-0\"},\"name\":\"Direct-Check-2\",\"root_action\":\"check-2\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.049590435159949,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 0.43085686762309156,
+              "exhaustive_value": 0.06928311641999851,
+              "immediate_eig": 0.02985110651988654,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.02985110651988654,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.02985110651988654,
+              "round": 0,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Perform an immediate check on Rock 1 as it is the closest target.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-0\"},\"name\":\"Direct-Check-1\",\"root_action\":\"check-1\"}",
+              "truth_log_probability": -2.357987785765809
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-EAST",
+                "move-NORTH",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                6.524263820395504e-05,
+                0.028103343418748317,
+                0.00013113087078941987
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move East to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"East-to-Rock-1\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move North to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"North-to-Rock-1\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Move South to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"South-to-Rock-1\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Immediately check Rock 0 and pivot to Rock 1 if successful.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-1\"},\"name\":\"Direct-Check-0-Priority\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Immediately check Rock 1 and pivot to Rock 0 if successful.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-0\"},\"name\":\"Direct-Check-1-Priority\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Immediately check Rock 2 and pivot to Rock 1 if successful.\",\"followups\":{\"bad\":\"check-0\",\"good\":\"check-1\"},\"name\":\"Direct-Check-2-Priority\",\"root_action\":\"check-2\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 1.970001195186079,
+              "entropy_before": 2.049590435159949,
+              "exhaustive_fraction": 0.43051638239423307,
+              "exhaustive_value": 0.06527822068571942,
+              "immediate_eig": 0.028103343418748317,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.028103343418748317,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.07958923997387024,
+              "round": 1,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Immediately check Rock 1 and pivot to Rock 0 if successful.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-0\"},\"name\":\"Direct-Check-1-Priority\",\"root_action\":\"check-1\"}",
+              "truth_log_probability": -2.693958946596302
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "check-0",
+                "check-1",
+                "check-2",
+                "move-EAST",
+                "move-NORTH",
+                "move-SOUTH"
+              ],
+              "candidate_scores": [
+                6.524263820417708e-05,
+                0.023609217178907516,
+                0.00013113087078919783,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Directly check Rock 0 to resolve its high uncertainty despite the distance.\",\"followups\":{},\"name\":\"Prioritize Rock 0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Directly check Rock 1, which is currently the most likely to be good and closest to the rover.\",\"followups\":{},\"name\":\"Prioritize Rock 1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Directly check Rock 2 to gain information on the third rock in the set.\",\"followups\":{},\"name\":\"Prioritize Rock 2\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"Move East to reduce Manhattan distance to Rock 1 and Rock 2 before checking.\",\"followups\":{},\"name\":\"Eastward Approach\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move North to adjust position relative to the rock cluster.\",\"followups\":{},\"name\":\"Northward Approach\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Move South to get closer to the southern coordinate of the target rocks.\",\"followups\":{},\"name\":\"Southward Approach\",\"root_action\":\"move-SOUTH\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.049590435159949,
+              "entropy_before": 1.970001195186079,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.023609217178907516,
+              "immediate_eig": 0.023609217178907516,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 0.023609217178907516,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": -0.07958923997387024,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Directly check Rock 1, which is currently the most likely to be good and closest to the rover.\",\"followups\":{},\"name\":\"Prioritize Rock 1\",\"root_action\":\"check-1\"}",
+              "truth_log_probability": -2.357987785765809
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 5
+        }
+      ],
+      "strategy_eig": [
+        {
+          "arm": "strategy_eig",
+          "final_position": [
+            1,
+            4
+          ],
+          "map_name": "3-6",
+          "steps": [
+            {
+              "action": "move-EAST",
+              "candidate_roots": [
+                "move-EAST",
+                "move-NORTH",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.06928311641999851,
+                0.0057223690223837664,
+                0.06928311641999851,
+                0.015056361333541712,
+                0.029949293274383226,
+                0.015089305449834445
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move East to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"East-to-Rock-1\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move North to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"North-to-Rock-1\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Move South to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"South-to-Rock-1\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Perform an immediate check on Rock 0 to establish a baseline.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-1\"},\"name\":\"Direct-Check-0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Perform an immediate check on Rock 1 as it is the closest target.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-0\"},\"name\":\"Direct-Check-1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Perform an immediate check on Rock 2 to differentiate the posterior.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"check-0\"},\"name\":\"Direct-Check-2\",\"root_action\":\"check-2\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.0794415416798357,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.06928311641999851,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.06928311641999851,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 0,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"Move East to reduce Manhattan distance to Rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"East-to-Rock-1\",\"root_action\":\"move-EAST\"}",
+              "truth_log_probability": -2.0794415416798357
+            },
+            {
+              "action": "move-SOUTH",
+              "candidate_roots": [
+                "move-SOUTH",
+                "move-EAST",
+                "move-NORTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.6931471805599452,
+                0.02985110651988654,
+                0.0008961491433865376,
+                0.03545884954734868,
+                0.06991579937451986,
+                0.035722315736214316
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move south to minimize distance to rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"South-to-Rock-1\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Move east to reduce distance to rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"East-to-Rock-1\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move north to attempt to get closer to rock 0 before checking it.\",\"followups\":{\"none\":\"check-0\"},\"name\":\"North-to-Rock-0\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Perform an immediate check on rock 0 from the current position.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-1\"},\"name\":\"Direct-Check-0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Perform an immediate check on rock 1 from the current position.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-0\"},\"name\":\"Direct-Check-1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Perform an immediate check on rock 2 from the current position.\",\"followups\":{\"bad\":\"check-0\",\"good\":\"check-1\"},\"name\":\"Direct-Check-2\",\"root_action\":\"check-2\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.0794415416798357,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599452,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.6931471805599452,
+              "position_before": [
+                1,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 1,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"Move south to minimize distance to rock 1 before checking it.\",\"followups\":{\"none\":\"check-1\"},\"name\":\"South-to-Rock-1\",\"root_action\":\"move-SOUTH\"}",
+              "truth_log_probability": -2.0794415416798357
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "check-0",
+                "check-1",
+                "check-2",
+                "move-EAST",
+                "move-NORTH",
+                "move-WEST"
+              ],
+              "candidate_scores": [
+                0.00010324619920920597,
+                0.6931471805599452,
+                0.0012398886143700771,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Immediate attempt to identify Rock 0 despite high distance.\",\"followups\":{},\"name\":\"Direct Check Rock 0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Immediate attempt to identify Rock 1 at zero distance for maximum accuracy.\",\"followups\":{},\"name\":\"Direct Check Rock 1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Immediate attempt to identify Rock 2 at moderate distance.\",\"followups\":{},\"name\":\"Direct Check Rock 2\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"Move East to reduce Manhattan distance to Rock 1 and Rock 2 before checking.\",\"followups\":{},\"name\":\"Move East to Improve Proximity\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move North to reduce Manhattan distance to Rock 1 before checking.\",\"followups\":{},\"name\":\"Move North to Improve Proximity\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Move West to reduce Manhattan distance to Rock 0 before checking.\",\"followups\":{},\"name\":\"Move West to Improve Proximity\",\"root_action\":\"move-WEST\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 1.3862943611198906,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599452,
+              "immediate_eig": 0.6931471805599452,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 0.6931471805599452,
+              "position_before": [
+                1,
+                4
+              ],
+              "realized_entropy_drop": 0.6931471805599452,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Immediate attempt to identify Rock 1 at zero distance for maximum accuracy.\",\"followups\":{},\"name\":\"Direct Check Rock 1\",\"root_action\":\"check-1\"}",
+              "truth_log_probability": -1.3862943611198906
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 5
+        }
+      ],
+      "width": [
+        {
+          "arm": "width",
+          "final_position": [
+            0,
+            3
+          ],
+          "map_name": "3-6",
+          "steps": [
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                6.524263820351095e-05,
+                0.02985110651988654,
+                0.00013113087078897578
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.049590435159949,
+              "entropy_before": 2.0794415416798357,
+              "exhaustive_fraction": 0.43085686762309156,
+              "exhaustive_value": 0.06928311641999851,
+              "immediate_eig": 0.02985110651988654,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.02985110651988654,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.02985110651988654,
+              "round": 0,
+              "scorer_units": 15,
+              "selected_strategy": null,
+              "truth_log_probability": -2.357987785765809
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                6.524263820395504e-05,
+                0.028103343418748317,
+                0.00013113087078941987
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 1.970001195186079,
+              "entropy_before": 2.049590435159949,
+              "exhaustive_fraction": 0.43051638239423307,
+              "exhaustive_value": 0.06527822068571942,
+              "immediate_eig": 0.028103343418748317,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.028103343418748317,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.07958923997387024,
+              "round": 1,
+              "scorer_units": 15,
+              "selected_strategy": null,
+              "truth_log_probability": -2.693958946596302
+            },
+            {
+              "action": "check-1",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                6.524263820417708e-05,
+                0.023609217178907516,
+                0.00013113087078919783
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.049590435159949,
+              "entropy_before": 1.970001195186079,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.023609217178907516,
+              "immediate_eig": 0.023609217178907516,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 0.023609217178907516,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": -0.07958923997387024,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": null,
+              "truth_log_probability": -2.357987785765809
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 5
+        }
+      ]
+    },
+    "5-7": {
+      "exhaustive_d2": [
+        {
+          "arm": "exhaustive_d2",
+          "final_position": [
+            2,
+            3
+          ],
+          "map_name": "5-7",
+          "steps": [
+            {
+              "action": "move-EAST",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2",
+                "check-3",
+                "check-4"
+              ],
+              "candidate_scores": [
+                0.0057223690223842105,
+                0.0692831164199994,
+                0.0057223690223842105,
+                0.009208681639832683,
+                0.009188584957601886,
+                0.018204222313230378,
+                0.009555198268841547,
+                0.009196488456573615
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 8,
+              "entropy_after": 3.4657359027997265,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.0692831164199994,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.0692831164199994,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 0,
+              "scorer_units": 113,
+              "selected_strategy": null,
+              "truth_log_probability": -3.4657359027997265
+            },
+            {
+              "action": "move-EAST",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "move-WEST",
+                "check-0",
+                "check-1",
+                "check-2",
+                "check-3",
+                "check-4"
+              ],
+              "candidate_scores": [
+                0.02985110651988654,
+                0.6931471805599454,
+                0.02985110651988654,
+                0.009185981503185392,
+                0.06938636261920816,
+                0.06930173817568042,
+                0.12938025133681208,
+                0.07103087952113674,
+                0.06934835905820291
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 9,
+              "entropy_after": 3.4657359027997265,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599454,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.6931471805599454,
+              "position_before": [
+                1,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 1,
+              "scorer_units": 134,
+              "selected_strategy": null,
+              "truth_log_probability": -3.4657359027997265
+            },
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "move-WEST",
+                "check-0",
+                "check-1",
+                "check-2",
+                "check-3",
+                "check-4"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.00036921676565571104,
+                0.00013113087078986396,
+                0.6931471805599454,
+                0.005722369022384655,
+                0.00036921676565571104
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 9,
+              "entropy_after": 2.772588722239781,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599454,
+              "immediate_eig": 0.6931471805599454,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.6931471805599454,
+              "position_before": [
+                2,
+                3
+              ],
+              "realized_entropy_drop": 0.6931471805599454,
+              "round": 2,
+              "scorer_units": 9,
+              "selected_strategy": null,
+              "truth_log_probability": -2.772588722239781
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 28
+        }
+      ],
+      "random_strategy": [
+        {
+          "arm": "random_strategy",
+          "final_position": [
+            1,
+            3
+          ],
+          "map_name": "5-7",
+          "steps": [
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "move-EAST",
+                "move-SOUTH",
+                "move-NORTH",
+                "check-1",
+                "check-4",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.00010324619920920597,
+                6.10224607555665e-06,
+                0.0057223690223842105,
+                2.603454416050255e-06,
+                2.1857021712090585e-05,
+                0.009197331571508816
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-0\"},\"name\":\"random-branch-0\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-0\"},\"name\":\"random-branch-1\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"random-branch-2\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"move-SOUTH\",\"good\":\"move-EAST\"},\"name\":\"random-branch-3\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"check-0\",\"good\":\"move-SOUTH\"},\"name\":\"random-branch-4\",\"root_action\":\"check-4\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"move-SOUTH\",\"good\":\"check-0\"},\"name\":\"random-branch-5\",\"root_action\":\"check-2\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.456549921296541,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 0.13274996920972648,
+              "exhaustive_value": 0.0692831164199994,
+              "immediate_eig": 0.009185981503185392,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.009197331571508816,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.009185981503185392,
+              "round": 0,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"move-SOUTH\",\"good\":\"check-0\"},\"name\":\"random-branch-5\",\"root_action\":\"check-2\"}",
+              "truth_log_probability": -3.338807891756754
+            },
+            {
+              "action": "move-EAST",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-4",
+                "check-4",
+                "check-0"
+              ],
+              "candidate_scores": [
+                4.30794513572863e-06,
+                0.06804322780562844,
+                1.8621755681902386e-05,
+                1.050695338822294e-05,
+                2.3158748920337757e-05,
+                3.535141689070542e-05
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-4\"},\"name\":\"random-branch-0\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"random-branch-1\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-4\"},\"name\":\"random-branch-2\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"move-SOUTH\",\"good\":\"move-EAST\"},\"name\":\"random-branch-3\",\"root_action\":\"check-4\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"check-0\",\"good\":\"check-1\"},\"name\":\"random-branch-4\",\"root_action\":\"check-4\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"bad\":\"check-0\",\"good\":\"check-1\"},\"name\":\"random-branch-5\",\"root_action\":\"check-0\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.456549921296541,
+              "entropy_before": 3.456549921296541,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.06804322780562844,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.06804322780562844,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 1,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"random-branch-1\",\"root_action\":\"move-EAST\"}",
+              "truth_log_probability": -3.338807891756754
+            },
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "move-EAST",
+                "check-2",
+                "move-NORTH",
+                "check-1",
+                "check-4",
+                "move-SOUTH"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.06804322780562844,
+                0.0,
+                1.8621755681902386e-05,
+                6.524263820395504e-05,
+                0.0
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-0\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-1\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-2\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-3\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-4\",\"root_action\":\"check-4\"}",
+                "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-5\",\"root_action\":\"move-SOUTH\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.345985656285353,
+              "entropy_before": 3.456549921296541,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.06804322780562844,
+              "immediate_eig": 0.06804322780562844,
+              "logical_llm_calls": 0,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.06804322780562844,
+              "position_before": [
+                1,
+                3
+              ],
+              "realized_entropy_drop": 0.11056426501118821,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"A policy sampled uniformly from the legal branch-policy grammar.\",\"followups\":{},\"name\":\"random-branch-1\",\"root_action\":\"check-2\"}",
+              "truth_log_probability": -3.0741335558122733
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 28
+        }
+      ],
+      "shared_d1": [
+        {
+          "arm": "shared_d1",
+          "final_position": [
+            0,
+            3
+          ],
+          "map_name": "5-7",
+          "steps": [
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "move-EAST",
+                "move-SOUTH",
+                "move-NORTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                2.2700136647291203e-05,
+                2.603454416050255e-06,
+                0.009185981503185392
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move East to reduce Manhattan distance to Rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"East-to-Rock-2\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move South to reduce Manhattan distance to Rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"South-to-Rock-2\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Move North to reduce Manhattan distance to Rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"North-to-Rock-2\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Perform an immediate check on Rock 0 to establish baseline.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-1\"},\"name\":\"Direct-Check-0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Perform an immediate check on Rock 1 to establish baseline.\",\"followups\":{\"bad\":\"check-4\",\"good\":\"check-3\"},\"name\":\"Direct-Check-1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Perform an immediate check on Rock 2, the closest rock.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"check-0\"},\"name\":\"Direct-Check-2\",\"root_action\":\"check-2\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.456549921296541,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 0.13258614764814114,
+              "exhaustive_value": 0.0692831164199994,
+              "immediate_eig": 0.009185981503185392,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.009185981503185392,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.009185981503185392,
+              "round": 0,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Perform an immediate check on Rock 2, the closest rock.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"check-0\"},\"name\":\"Direct-Check-2\",\"root_action\":\"check-2\"}",
+              "truth_log_probability": -3.338807891756754
+            },
+            {
+              "action": "check-0",
+              "candidate_roots": [
+                "move-EAST",
+                "move-SOUTH",
+                "move-NORTH",
+                "check-0",
+                "check-1",
+                "check-4"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                2.2700136646847113e-05,
+                2.603454416494344e-06,
+                1.050695338822294e-05
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move east to reduce Manhattan distance to rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"approach-rock-2-east\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move south to reduce Manhattan distance to rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"approach-rock-2-south\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Move north to reduce Manhattan distance to rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"approach-rock-2-north\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Directly check rock 0 to resolve uncertainty.\",\"followups\":{\"bad\":\"check-3\",\"good\":\"check-1\"},\"name\":\"verify-rock-0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Directly check rock 1 to resolve uncertainty.\",\"followups\":{\"bad\":\"check-4\",\"good\":\"check-0\"},\"name\":\"verify-rock-1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Directly check rock 4 to resolve uncertainty.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"check-2\"},\"name\":\"verify-rock-4\",\"root_action\":\"check-4\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.4565272211598943,
+              "entropy_before": 3.456549921296541,
+              "exhaustive_fraction": 0.000333613459838973,
+              "exhaustive_value": 0.06804322780562844,
+              "immediate_eig": 2.2700136646847113e-05,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 2.2700136646847113e-05,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 2.2700136646847113e-05,
+              "round": 1,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Directly check rock 0 to resolve uncertainty.\",\"followups\":{\"bad\":\"check-3\",\"good\":\"check-1\"},\"name\":\"verify-rock-0\",\"root_action\":\"check-0\"}",
+              "truth_log_probability": -3.3455686412062424
+            },
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "check-0",
+                "check-1",
+                "check-2",
+                "check-3",
+                "check-4",
+                "move-EAST"
+              ],
+              "candidate_scores": [
+                2.2699106070778186e-05,
+                2.603454416494344e-06,
+                0.009018240810044986,
+                0.00036921676565615513,
+                1.0506953389111118e-05,
+                0.0
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Directly check rock 0 to reduce uncertainty.\",\"followups\":{},\"name\":\"Probe Rock 0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Directly check rock 1 to reduce uncertainty.\",\"followups\":{},\"name\":\"Probe Rock 1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Directly check rock 2 to reduce uncertainty.\",\"followups\":{},\"name\":\"Probe Rock 2\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"Directly check rock 3 to reduce uncertainty.\",\"followups\":{},\"name\":\"Probe Rock 3\",\"root_action\":\"check-3\"}",
+                "{\"description\":\"Directly check rock 4 to reduce uncertainty.\",\"followups\":{},\"name\":\"Probe Rock 4\",\"root_action\":\"check-4\"}",
+                "{\"description\":\"Move east to get closer to rock 2, then check it.\",\"followups\":{},\"name\":\"Move East Strategy\",\"root_action\":\"move-EAST\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.4657132026630797,
+              "entropy_before": 3.4565272211598943,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.009018240810044986,
+              "immediate_eig": 0.009018240810044986,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 0.009018240810044986,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": -0.009185981503185392,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Directly check rock 2 to reduce uncertainty.\",\"followups\":{},\"name\":\"Probe Rock 2\",\"root_action\":\"check-2\"}",
+              "truth_log_probability": -3.472496652249215
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 28
+        }
+      ],
+      "strategy_eig": [
+        {
+          "arm": "strategy_eig",
+          "final_position": [
+            2,
+            3
+          ],
+          "map_name": "5-7",
+          "steps": [
+            {
+              "action": "move-EAST",
+              "candidate_roots": [
+                "move-EAST",
+                "move-SOUTH",
+                "move-NORTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0692831164199994,
+                0.0057223690223842105,
+                0.0057223690223842105,
+                0.004616992615447568,
+                0.0001924653139377952,
+                0.009198633298717063
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move East to reduce Manhattan distance to Rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"East-to-Rock-2\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move South to reduce Manhattan distance to Rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"South-to-Rock-2\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Move North to reduce Manhattan distance to Rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"North-to-Rock-2\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Perform an immediate check on Rock 0 to establish baseline.\",\"followups\":{\"bad\":\"check-2\",\"good\":\"check-1\"},\"name\":\"Direct-Check-0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Perform an immediate check on Rock 1 to establish baseline.\",\"followups\":{\"bad\":\"check-4\",\"good\":\"check-3\"},\"name\":\"Direct-Check-1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Perform an immediate check on Rock 2, the closest rock.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"check-0\"},\"name\":\"Direct-Check-2\",\"root_action\":\"check-2\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.4657359027997265,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.0692831164199994,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.0692831164199994,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 0,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"Move East to reduce Manhattan distance to Rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"East-to-Rock-2\",\"root_action\":\"move-EAST\"}",
+              "truth_log_probability": -3.4657359027997265
+            },
+            {
+              "action": "move-EAST",
+              "candidate_roots": [
+                "move-EAST",
+                "move-NORTH",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-4"
+              ],
+              "candidate_scores": [
+                0.6931471805599454,
+                0.02985110651988654,
+                0.02985110651988654,
+                0.0009864386276192683,
+                0.00010286617438870493,
+                0.034716111726044385
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Move east to reduce distance to rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"approach-rock-2-east\",\"root_action\":\"move-EAST\"}",
+                "{\"description\":\"Move north to reduce distance to rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"approach-rock-2-north\",\"root_action\":\"move-NORTH\"}",
+                "{\"description\":\"Move south to reduce distance to rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"approach-rock-2-south\",\"root_action\":\"move-SOUTH\"}",
+                "{\"description\":\"Perform an immediate check on rock 0 to gain information.\",\"followups\":{\"bad\":\"check-3\",\"good\":\"check-1\"},\"name\":\"direct-check-0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Perform an immediate check on rock 1 to gain information.\",\"followups\":{\"bad\":\"check-4\",\"good\":\"check-0\"},\"name\":\"direct-check-1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Perform an immediate check on rock 4 to gain information.\",\"followups\":{\"bad\":\"check-1\",\"good\":\"check-2\"},\"name\":\"direct-check-4\",\"root_action\":\"check-4\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.4657359027997265,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599454,
+              "immediate_eig": 0.0,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": null,
+              "planning_score": 0.6931471805599454,
+              "position_before": [
+                1,
+                3
+              ],
+              "realized_entropy_drop": 0.0,
+              "round": 1,
+              "scorer_units": 15,
+              "selected_strategy": "{\"description\":\"Move east to reduce distance to rock 2 before checking it.\",\"followups\":{\"none\":\"check-2\"},\"name\":\"approach-rock-2-east\",\"root_action\":\"move-EAST\"}",
+              "truth_log_probability": -3.4657359027997265
+            },
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "check-0",
+                "check-1",
+                "check-2",
+                "check-3",
+                "check-4",
+                "move-EAST"
+              ],
+              "candidate_scores": [
+                0.00036921676565571104,
+                0.00013113087078986396,
+                0.6931471805599454,
+                0.005722369022384655,
+                0.00036921676565571104,
+                0.0
+              ],
+              "candidate_strategies": [
+                "{\"description\":\"Probe rock 0.\",\"followups\":{},\"name\":\"Check Rock 0\",\"root_action\":\"check-0\"}",
+                "{\"description\":\"Probe rock 1.\",\"followups\":{},\"name\":\"Check Rock 1\",\"root_action\":\"check-1\"}",
+                "{\"description\":\"Probe rock 2.\",\"followups\":{},\"name\":\"Check Rock 2\",\"root_action\":\"check-2\"}",
+                "{\"description\":\"Probe rock 3.\",\"followups\":{},\"name\":\"Check Rock 3\",\"root_action\":\"check-3\"}",
+                "{\"description\":\"Probe rock 4.\",\"followups\":{},\"name\":\"Check Rock 4\",\"root_action\":\"check-4\"}",
+                "{\"description\":\"Move east to approach rocks.\",\"followups\":{},\"name\":\"Move East\",\"root_action\":\"move-EAST\"}"
+              ],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 2.772588722239781,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.6931471805599454,
+              "immediate_eig": 0.6931471805599454,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.6931471805599454,
+              "position_before": [
+                2,
+                3
+              ],
+              "realized_entropy_drop": 0.6931471805599454,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": "{\"description\":\"Probe rock 2.\",\"followups\":{},\"name\":\"Check Rock 2\",\"root_action\":\"check-2\"}",
+              "truth_log_probability": -2.772588722239781
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 28
+        }
+      ],
+      "width": [
+        {
+          "arm": "width",
+          "final_position": [
+            0,
+            3
+          ],
+          "map_name": "5-7",
+          "steps": [
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2",
+                "check-3",
+                "check-4"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                2.2700136647291203e-05,
+                2.603454416050255e-06,
+                0.009185981503185392,
+                0.00036921676565571104,
+                1.0506953388667029e-05
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 8,
+              "entropy_after": 3.456549921296541,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 0.13258614764814114,
+              "exhaustive_value": 0.0692831164199994,
+              "immediate_eig": 0.009185981503185392,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.009185981503185392,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.009185981503185392,
+              "round": 0,
+              "scorer_units": 15,
+              "selected_strategy": null,
+              "truth_log_probability": -3.338807891756754
+            },
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2",
+                "check-3",
+                "check-4"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                2.2700136646847113e-05,
+                2.603454416494344e-06,
+                0.009018240810044986,
+                0.00036921676565615513,
+                1.050695338822294e-05
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 8,
+              "entropy_after": 3.4657359027997265,
+              "entropy_before": 3.456549921296541,
+              "exhaustive_fraction": 0.13253693425312504,
+              "exhaustive_value": 0.06804322780562844,
+              "immediate_eig": 0.009018240810044986,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "bad",
+              "planning_score": 0.009018240810044986,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": -0.009185981503185392,
+              "round": 1,
+              "scorer_units": 15,
+              "selected_strategy": null,
+              "truth_log_probability": -3.4657359027997265
+            },
+            {
+              "action": "check-2",
+              "candidate_roots": [
+                "move-NORTH",
+                "move-EAST",
+                "move-SOUTH",
+                "check-0",
+                "check-1",
+                "check-2"
+              ],
+              "candidate_scores": [
+                0.0,
+                0.0,
+                0.0,
+                2.2700136647291203e-05,
+                2.603454416050255e-06,
+                0.009185981503185392
+              ],
+              "candidate_strategies": [],
+              "distinct_scored_candidates": 6,
+              "entropy_after": 3.456549921296541,
+              "entropy_before": 3.4657359027997265,
+              "exhaustive_fraction": 1.0,
+              "exhaustive_value": 0.009185981503185392,
+              "immediate_eig": 0.009185981503185392,
+              "logical_llm_calls": 1,
+              "map_correct": 0.0,
+              "observation": "good",
+              "planning_score": 0.009185981503185392,
+              "position_before": [
+                0,
+                3
+              ],
+              "realized_entropy_drop": 0.009185981503185392,
+              "round": 2,
+              "scorer_units": 6,
+              "selected_strategy": null,
+              "truth_log_probability": -3.338807891756754
+            }
+          ],
+          "trial_index": 0,
+          "truth_index": 28
+        }
+      ]
+    }
+  },
+  "usage": {
+    "adapter_completion_tokens": 6780,
+    "adapter_cost_usd": 0.00417305,
+    "adapter_prompt_tokens": 15796,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 16,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 6780,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 6780,
+        "cost_usd": 0.00417305,
+        "prompt_tokens": 15796,
+        "reasoning_tokens": 0,
+        "requests": 16
+      }
+    },
+    "prompt_tokens": 15796,
+    "reasoning_tokens": 0,
+    "remaining_usd": 19.93256476253996,
+    "requests": 16,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.00417305,
+    "run_remaining_usd": 0.24582695,
+    "total_spent_usd": 20.06743523746004
+  }
+}
