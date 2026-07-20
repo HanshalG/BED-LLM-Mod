@@ -499,11 +499,21 @@ class LLMRockStrategyProvider:
         )
         required_check_count = self.config.num_strategies - required_move_count
         menus: dict[str, dict[str, list[str]]] = {}
+        root_geometry: dict[str, dict[str, Any]] = {}
         for root_action in legal_roots:
-            child_legal = list(model.legal_actions(model.next_position(position, root_action)))
+            child_position = model.next_position(position, root_action)
+            child_legal = list(model.legal_actions(child_position))
             menus[root_action] = {
                 outcome: child_legal
                 for outcome in _branch_outcome_keys(model, root_action, horizon)
+            }
+            root_geometry[root_action] = {
+                "child_position": list(child_position),
+                "child_manhattan_distance_by_rock_id": [
+                    abs(child_position[0] - rock_position[0])
+                    + abs(child_position[1] - rock_position[1])
+                    for rock_position in model.map_spec.rock_positions
+                ],
             }
         system = (
             "You design short contingent policies for an exact Rock Diagnosis information task. "
@@ -553,11 +563,19 @@ class LLMRockStrategyProvider:
             f"Grid side length: {model.map_spec.grid_size}.",
             f"Current rover position: {position}.",
             f"Rock coordinates by ID: {list(enumerate(model.map_spec.rock_positions))}.",
+            (
+                "Coordinate convention: EAST increases the first coordinate, WEST decreases it, "
+                "SOUTH increases the second coordinate, and NORTH decreases it. Movement produces "
+                "no information immediately. A check is legal remotely from every position, but its "
+                "accuracy decreases exponentially with Manhattan distance to that rock. A useful "
+                "movement policy should therefore follow with a check whose distance the move reduced."
+            ),
             f"Current marginal P(good) by rock ID: {[round(value, 8) for value in _rock_marginals(model, belief)]}.",
             "Exact full posterior over rock vectors:",
             *posterior_lines,
             "History:",
             _history_text(history),
+            "ROOT_GEOMETRY=" + json.dumps(root_geometry, sort_keys=True, separators=(",", ":")),
             "MACHINE_READABLE_MENUS=" + json.dumps(menus, sort_keys=True, separators=(",", ":")),
         ]
         return [{"role": "system", "content": system}, {"role": "user", "content": "\n".join(instructions)}]
