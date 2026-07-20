@@ -202,6 +202,7 @@ class OpenRouterAdapter:
         self.concurrency = int(config.openrouter_concurrency)
         self.max_retries = int(config.openrouter_max_retries)
         self.backoff_seconds = float(config.openrouter_backoff_seconds)
+        self.request_timeout_seconds = float(config.openrouter_request_timeout_seconds)
         task_seeds = {
             "paprika_customer_service": config.paprika_seed,
             "mediq": config.mediq_seed,
@@ -256,7 +257,7 @@ class OpenRouterAdapter:
         )
         for attempt in range(self.max_retries + 1):
             try:
-                with urllib.request.urlopen(request, timeout=300) as response:
+                with urllib.request.urlopen(request, timeout=self.request_timeout_seconds) as response:
                     return json.loads(response.read())
             except urllib.error.HTTPError as exc:
                 retryable = exc.code == 429 or 500 <= exc.code < 600

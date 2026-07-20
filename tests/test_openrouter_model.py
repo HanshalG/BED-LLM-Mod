@@ -85,9 +85,9 @@ def test_openrouter_adapter_tracks_native_cost_without_reasoning(monkeypatch, tm
     captured = {}
 
     def fake_urlopen(request, timeout):
-        del timeout
         captured["payload"] = json.loads(request.data)
         captured["authorization"] = request.headers["Authorization"]
+        captured["timeout"] = timeout
         return _Response(_completion())
 
     monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
@@ -98,13 +98,19 @@ def test_openrouter_adapter_tracks_native_cost_without_reasoning(monkeypatch, tm
             thinking=False,
             max_model_len=32768,
         ),
-        _config(tmp_path, task="paprika_customer_service", paprika_seed=1304),
+        _config(
+            tmp_path,
+            task="paprika_customer_service",
+            paprika_seed=1304,
+            openrouter_request_timeout_seconds=42.0,
+        ),
     )
     assert adapter.chat_complete([{"role": "user", "content": "hello"}], 0.0) == ["ok"]
     assert "reasoning" not in captured["payload"]
     assert captured["payload"]["max_tokens"] == 2048
     assert captured["payload"]["seed"] == 1304
     assert captured["authorization"] == "Bearer secret-test-key"
+    assert captured["timeout"] == 42.0
     snapshot = adapter.usage_snapshot()
     assert snapshot["adapter_cost_usd"] == pytest.approx(0.01)
     assert snapshot["adapter_requests"] == 1

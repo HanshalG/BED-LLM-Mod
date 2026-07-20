@@ -188,6 +188,7 @@ class Config:
     openrouter_concurrency: int = 128
     openrouter_max_retries: int = 5
     openrouter_backoff_seconds: float = 1.0
+    openrouter_request_timeout_seconds: float = 300.0
     openrouter_spend_path: str = "results/path_e/openrouter_spend.json"
     openrouter_max_output_tokens: int = 2048
 
@@ -357,6 +358,11 @@ class Config:
             raise ValueError("openrouter_max_retries must be non-negative")
         if self.openrouter_backoff_seconds <= 0.0:
             raise ValueError("openrouter_backoff_seconds must be positive")
+        if (
+            not math.isfinite(self.openrouter_request_timeout_seconds)
+            or self.openrouter_request_timeout_seconds <= 0.0
+        ):
+            raise ValueError("openrouter_request_timeout_seconds must be positive")
         if self.openrouter_max_output_tokens <= 0:
             raise ValueError("openrouter_max_output_tokens must be positive")
 
@@ -1160,6 +1166,9 @@ def load_config(path: str) -> Config:
         openrouter_concurrency = _read_positive_int(raw, "openrouter_concurrency", 128),
         openrouter_max_retries = _read_nonneg_int(raw, "openrouter_max_retries", 5),
         openrouter_backoff_seconds = _read_positive_float(raw, "openrouter_backoff_seconds", 1.0),
+        openrouter_request_timeout_seconds = _read_positive_float(
+            raw, "openrouter_request_timeout_seconds", 300.0
+        ),
         openrouter_spend_path = raw.get("openrouter_spend_path", "results/path_e/openrouter_spend.json"),
         openrouter_max_output_tokens = _read_positive_int(raw, "openrouter_max_output_tokens", 2048),
     )
