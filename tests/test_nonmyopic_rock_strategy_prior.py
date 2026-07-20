@@ -122,6 +122,16 @@ def test_branch_policy_schema_rejects_missing_branches_and_illegal_child_actions
             expected_count=1,
         )
 
+    base["followups"] = {"good": {"check-0": "none"}, "bad": "check-1"}
+    with pytest.raises(StrategyProposalError, match="must be a string action ID"):
+        parse_branch_strategy_cell(
+            json.dumps({"strategies": [base]}),
+            model=model,
+            position=position,
+            horizon=2,
+            expected_count=1,
+        )
+
     base["root_action"] = "move-NORTH"
     base["followups"] = {"none": "move-WEST"}
     with pytest.raises(StrategyProposalError, match="must be legal"):

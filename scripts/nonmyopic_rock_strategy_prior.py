@@ -240,7 +240,11 @@ def _compile_branch_policy(
     child_legal = model.legal_actions(child_position)
     for outcome_key in expected_keys:
         action = followups[outcome_key]
-        if not isinstance(action, str) or action not in child_legal:
+        if not isinstance(action, str):
+            raise StrategyProposalError(
+                f"strategy {index} followup {outcome_key!r} must be a string action ID, not an object"
+            )
+        if action not in child_legal:
             raise StrategyProposalError(
                 f"strategy {index} followup {outcome_key!r} must be legal at {child_position}"
             )
@@ -506,6 +510,10 @@ class LLMRockStrategyProvider:
                 'At horizon 2 a movement root uses exactly {"none":"FOLLOWUP_ID"}; a check root '
                 'uses exactly {"good":"FOLLOWUP_ID","bad":"FOLLOWUP_ID"}. Never use "none" '
                 "for a check root and never omit either good or bad."
+            ),
+            (
+                'Every followup value is a JSON string action ID, for example "good":"check-2". '
+                'Never nest an object such as "good":{"check-2":"none"}.'
             ),
             (
                 "For horizon 2, followups must contain exactly the outcome keys shown for that root "
