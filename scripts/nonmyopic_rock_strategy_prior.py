@@ -545,7 +545,10 @@ class LLMRockStrategyProvider:
             f"Schema: {schema}",
             f"Planning horizon: {horizon} action(s).",
             (
-                "CURRENT HORIZON IS 1: every strategy must use followups:{} exactly, with no outcome keys."
+                f"CURRENT HORIZON IS 1: choose exactly {self.config.num_strategies} different legal "
+                "root_action IDs. Because followups are empty, repeating a root is a duplicate and is "
+                "invalid. Every strategy must use followups:{} exactly, with no outcome keys or future "
+                "actions, even for movement roots."
                 if horizon <= 1
                 else "CURRENT HORIZON IS 2: every strategy must provide the exact branch followups below."
             ),

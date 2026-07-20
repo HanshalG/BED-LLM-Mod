@@ -144,6 +144,25 @@ def test_branch_policy_schema_rejects_missing_branches_and_illegal_child_actions
         )
 
 
+def test_branch_policy_horizon_one_prompt_requires_unique_roots_and_empty_followups() -> None:
+    model = RockDiagnosisModel(get_paper_map("5-7"))
+    config = L1Config(num_strategies=6, strategy_schema="branch_policy_v2")
+    provider = LLMRockStrategyProvider(DeterministicStrategyModel(), config)
+
+    messages = provider._branch_strategy_messages(
+        model,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+        horizon=1,
+    )
+
+    prompt = messages[-1]["content"]
+    assert "choose exactly 6 different legal root_action IDs" in prompt
+    assert "Every strategy must use followups:{} exactly" in prompt
+    assert "even for movement roots" in prompt
+
+
 def test_parse_width_cell_requires_every_legal_action_once() -> None:
     allowed = ("move-EAST", "check-0", "check-1")
     assert parse_width_cell(
