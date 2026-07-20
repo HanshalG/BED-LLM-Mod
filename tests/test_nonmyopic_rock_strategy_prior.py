@@ -302,6 +302,17 @@ def test_small_branch_policy_anchor_preserves_pairing_and_compute_controls() -> 
     assert summary["mechanics"]["initial_strategy_cells_shared_with_d1"]
     assert summary["mechanics"]["width_exact_scorer_units_match_strategy_eig"]
     assert summary["mechanics"]["random_strategy_cells_have_k_candidates"]
+    for trace in summary["traces"]["3-6"]["random_strategy"]:
+        for step in trace["steps"][:-1]:
+            move_roots = [root for root in step["candidate_roots"] if root.startswith("move-")]
+            assert len(move_roots) == 2
+            assert len(set(move_roots)) == 2
+            policies = [json.loads(text) for text in step["candidate_strategies"]]
+            assert all(
+                policy["followups"]["none"].startswith("check-")
+                for policy in policies
+                if policy["root_action"].startswith("move-")
+            )
 
 
 def test_trial_concurrency_preserves_paired_traces() -> None:

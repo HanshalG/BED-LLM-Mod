@@ -205,6 +205,19 @@ def _branch_outcome_keys(model: RockDiagnosisModel, root_action: str, horizon: i
     return tuple("none" if outcome is None else str(outcome) for outcome in model.outcomes(root_action))
 
 
+def _required_move_policy_count(
+    model: RockDiagnosisModel,
+    position: tuple[int, int],
+    *,
+    horizon: int,
+    total_count: int,
+) -> int:
+    if horizon <= 1:
+        return 0
+    legal_move_count = sum(model.is_move(action) for action in model.legal_actions(position))
+    return min(legal_move_count, max(1, total_count // 2))
+
+
 def _compile_branch_policy(
     item: Any,
     *,
@@ -478,6 +491,13 @@ class LLMRockStrategyProvider:
         horizon: int,
     ) -> list[dict[str, str]]:
         legal_roots = model.legal_actions(position)
+        required_move_count = _required_move_policy_count(
+            model,
+            position,
+            horizon=horizon,
+            total_count=self.config.num_strategies,
+        )
+        required_check_count = self.config.num_strategies - required_move_count
         menus: dict[str, dict[str, list[str]]] = {}
         for root_action in legal_roots:
             child_legal = list(model.legal_actions(model.next_position(position, root_action)))
@@ -521,8 +541,10 @@ class LLMRockStrategyProvider:
                 "followups must be {}."
             ),
             (
-                "At horizon 2 include at least one movement root and at least one direct check root. "
-                "Use the description to explain the information-seeking logic, but do not add fields."
+                f"At horizon 2 include exactly {required_move_count} movement-root strategies with "
+                f"distinct root_action values and exactly {required_check_count} direct-check-root "
+                "strategies. Every movement-root strategy must use a direct check action as its none "
+                "followup. Use the description to explain the information-seeking logic, but do not add fields."
             ),
             (
                 "Behaviorally distinct means no two strategies may repeat the same root_action plus "
@@ -657,7 +679,36 @@ class LLMRockStrategyProvider:
                 )
                 for strategy in strategies
             )
-            if horizon > 1:
+            if horizon > 1 and self.config.strategy_schema == "branch_policy_v2":
+                roots = [str(score.root_action) for score in scores]
+                required_moves = _required_move_policy_count(
+                    model,
+                    position,
+                    horizon=horizon,
+                    total_count=self.config.num_strategies,
+                )
+                move_indices = [index for index, action in enumerate(roots) if model.is_move(action)]
+                check_indices = [
+                    index for index, action in enumerate(roots) if model.check_id(action) is not None
+                ]
+                branch_payloads = [json.loads(strategy.raw_text) for strategy in strategies]
+                move_roots = {roots[index] for index in move_indices}
+                move_then_check = all(
+                    str(branch_payloads[index]["followups"]["none"]).startswith("check-")
+                    for index in move_indices
+                )
+                if (
+                    len(move_indices) != required_moves
+                    or len(move_roots) != required_moves
+                    or len(check_indices) != self.config.num_strategies - required_moves
+                    or not move_then_check
+                ):
+                    raise StrategyProposalError(
+                        f"horizon-2 branch cells need exactly {required_moves} distinct movement roots "
+                        f"whose none followup is a check and {self.config.num_strategies - required_moves} "
+                        f"check roots; compiled root actions were {roots}"
+                    )
+            elif horizon > 1:
                 roots = [str(score.root_action) for score in scores]
                 if not any(model.is_move(action) for action in roots) or not any(
                     model.check_id(action) is not None for action in roots
@@ -751,11 +802,20 @@ class DeterministicStrategyModel:
             roots = list(menus)
             moves = [action for action in roots if action.startswith("move-")]
             checks = [action for action in roots if action.startswith("check-")]
-            ordered_roots = [*moves[:1], *checks[:1], *roots]
+            move_count = min(len(moves), max(1, count // 2)) if horizon > 1 else 0
+            if horizon > 1:
+                ordered_roots = [
+                    *moves[:move_count],
+                    *(checks[index % len(checks)] for index in range(count - move_count)),
+                ]
+            else:
+                ordered_roots = roots[:count]
             strategies: list[dict[str, Any]] = []
             signatures: set[tuple[Any, ...]] = set()
             for offset in range(1000):
-                root = ordered_roots[offset % len(ordered_roots)]
+                if len(strategies) >= len(ordered_roots):
+                    break
+                root = ordered_roots[len(strategies)]
                 outcomes = list(menus[root])
                 followups: dict[str, str] = {}
                 for branch_index, outcome in enumerate(outcomes):
@@ -767,6 +827,7 @@ class DeterministicStrategyModel:
                         followups[outcome] = choices[(offset + branch_index) % len(choices)]
                 signature = (root, *(followups[outcome] for outcome in outcomes))
                 if signature in signatures:
+                    ordered_roots.append(root)
                     continue
                 signatures.add(signature)
                 strategies.append(
@@ -966,11 +1027,16 @@ def _random_branch_strategies(
         raise AssertionError("branch-strategy root-mix control requires legal move and check actions")
     required_roots: list[str] = []
     if horizon > 1:
+        move_count = _required_move_policy_count(
+            model,
+            position,
+            horizon=horizon,
+            total_count=count,
+        )
+        selected_move_indices = rng.choice(len(move_roots), size=move_count, replace=False)
+        required_roots.extend(move_roots[int(index)] for index in selected_move_indices)
         required_roots.extend(
-            [
-                move_roots[int(rng.integers(len(move_roots)))],
-                check_roots[int(rng.integers(len(check_roots)))],
-            ]
+            check_roots[int(rng.integers(len(check_roots)))] for _ in range(count - move_count)
         )
     policies: list[dict[str, Any]] = []
     signatures: set[tuple[Any, ...]] = set()
@@ -981,8 +1047,12 @@ def _random_branch_strategies(
             root_action = legal_roots[int(rng.integers(len(legal_roots)))]
         outcome_keys = _branch_outcome_keys(model, root_action, horizon)
         child_legal = model.legal_actions(model.next_position(position, root_action))
+        if model.is_move(root_action):
+            child_choices = tuple(action for action in child_legal if model.check_id(action) is not None)
+        else:
+            child_choices = child_legal
         followups = {
-            outcome: child_legal[int(rng.integers(len(child_legal)))] for outcome in outcome_keys
+            outcome: child_choices[int(rng.integers(len(child_choices)))] for outcome in outcome_keys
         }
         signature = (root_action, *(followups[outcome] for outcome in outcome_keys))
         if signature in signatures:

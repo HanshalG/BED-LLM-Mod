@@ -15,3 +15,5 @@ def test_dry_branch_strategy_serving_smoke_passes_all_ten_cells() -> None:
         "all_cells_have_move_and_check_roots": True,
         "all_move_cells_include_move_then_check": True,
     }
+    assert all(row["move_policy_count"] == 2 for row in summary["cells"])
+    assert all(row["check_policy_count"] == 2 for row in summary["cells"])
