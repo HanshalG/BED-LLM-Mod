@@ -165,6 +165,24 @@ def _normalize_json_response(response: str) -> str:
     return normalized
 
 
+def _repair_terminal_branch_followups(response: str) -> tuple[str, int]:
+    """Drop branch actions that lie outside a one-step planning horizon."""
+    try:
+        payload = json.loads(_normalize_json_response(response))
+    except (json.JSONDecodeError, StrategyProposalError):
+        return response, 0
+    if not isinstance(payload, dict) or not isinstance(payload.get("strategies"), list):
+        return response, 0
+    repairs = 0
+    for item in payload["strategies"]:
+        if isinstance(item, dict) and isinstance(item.get("followups"), dict) and item["followups"]:
+            item["followups"] = {}
+            repairs += 1
+    if repairs == 0:
+        return response, 0
+    return json.dumps(payload, sort_keys=True, separators=(",", ":")), repairs
+
+
 def parse_strategy_cell(
     response: str,
     *,
@@ -406,6 +424,7 @@ class LLMRockStrategyProvider:
         self.logical_strategy_calls = 0
         self.logical_width_calls = 0
         self.cache_hits = 0
+        self.terminal_followup_repairs = 0
 
     def _strategy_messages(
         self,
@@ -694,8 +713,11 @@ class LLMRockStrategyProvider:
 
         def parse_and_validate(
             response: str,
-        ) -> tuple[tuple[RockStrategy, ...], tuple[ExactRockStrategyScore, ...]]:
+        ) -> tuple[tuple[RockStrategy, ...], tuple[ExactRockStrategyScore, ...], int]:
+            terminal_repairs = 0
             if self.config.strategy_schema == "branch_policy_v2":
+                if horizon <= 1:
+                    response, terminal_repairs = _repair_terminal_branch_followups(response)
                 strategies = parse_branch_strategy_cell(
                     response,
                     model=model,
@@ -758,7 +780,7 @@ class LLMRockStrategyProvider:
                         "a direct check_rock (an unconditional check fallback guarantees this) and keep "
                         "another strategy's current root as movement"
                     )
-            return strategies, scores
+            return strategies, scores, terminal_repairs
 
         context = {
             "map_name": map_name,
@@ -775,9 +797,10 @@ class LLMRockStrategyProvider:
             context=context,
             parser=parse_and_validate,
         )
-        strategies, exact_scores = validated
+        strategies, exact_scores, terminal_repairs = validated
         cell = StrategyCell(strategies, exact_scores, raw_response, False)
         with self._lock:
+            self.terminal_followup_repairs += terminal_repairs
             self._strategy_cache[key] = cell
         return cell
 
@@ -1665,6 +1688,7 @@ def run_l1_anchor(provider: LLMRockStrategyProvider, config: L1Config) -> dict[s
     mechanics = {
         "terminal_cell_failures": 0,
         "raw_rejected_responses": len(provider.invalid_responses),
+        "terminal_followup_repairs": provider.terminal_followup_repairs,
         "all_selected_actions_legal": all_actions_legal,
         "initial_strategy_cells_shared_with_d1": initial_strategy_cells_shared,
         "width_logical_llm_calls_match_strategy_eig": width_calls_match,

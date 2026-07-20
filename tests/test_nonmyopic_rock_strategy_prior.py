@@ -213,6 +213,52 @@ def test_branch_policy_horizon_one_prompt_requires_unique_roots_and_empty_follow
     assert "even for movement roots" in prompt
 
 
+def test_branch_policy_horizon_one_repairs_only_out_of_horizon_followups() -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    response = json.dumps(
+        {
+            "strategies": [
+                {
+                    "name": "move now",
+                    "description": "Move east as the current action.",
+                    "root_action": "move-EAST",
+                    "followups": {"none": "check-0"},
+                },
+                {
+                    "name": "check now",
+                    "description": "Check the first rock as the current action.",
+                    "root_action": "check-0",
+                    "followups": {"good": "check-1", "bad": "move-EAST"},
+                },
+            ]
+        }
+    )
+
+    class TerminalBranchModel:
+        def chat_complete(
+            self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1
+        ) -> list[str]:
+            del messages, temperature, num_responses
+            return [response]
+
+    config = L1Config(num_strategies=2, strategy_schema="branch_policy_v2")
+    provider = LLMRockStrategyProvider(TerminalBranchModel(), config)
+    cell = provider.propose_strategies(
+        model,
+        map_name="3-6",
+        trial_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+        horizon=1,
+    )
+
+    assert len(cell.strategies) == 2
+    assert provider.invalid_responses == []
+    assert provider.terminal_followup_repairs == 2
+    assert all(json.loads(strategy.raw_text)["followups"] == {} for strategy in cell.strategies)
+
+
 def test_parse_width_cell_requires_every_legal_action_once() -> None:
     allowed = ("move-EAST", "check-0", "check-1")
     assert parse_width_cell(
