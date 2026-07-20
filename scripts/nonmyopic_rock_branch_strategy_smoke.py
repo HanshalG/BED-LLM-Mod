@@ -28,6 +28,29 @@ from scripts.nonmyopic_rock_strategy_prior import (
 )
 
 
+def _exhaustive_d2_value(
+    model: RockDiagnosisModel,
+    position: tuple[int, int],
+    belief: np.ndarray,
+) -> float:
+    values: list[float] = []
+    for root_action in model.legal_actions(position):
+        value = model.expected_information_gain(position, belief, root_action)
+        child_position = model.next_position(position, root_action)
+        continuation = 0.0
+        for outcome in model.outcomes(root_action):
+            probability = model.outcome_probability(position, belief, root_action, outcome)
+            if probability <= 0.0:
+                continue
+            posterior = model.posterior(position, belief, root_action, outcome)
+            continuation += probability * max(
+                model.expected_information_gain(child_position, posterior, action)
+                for action in model.legal_actions(child_position)
+            )
+        values.append(value + continuation)
+    return max(values)
+
+
 def _advance(
     model: RockDiagnosisModel,
     position: tuple[int, int],
@@ -105,6 +128,7 @@ def run_smoke(
         move_policies = [item for item in parsed if item["root_action"].startswith("move-")]
         check_policies = [item for item in parsed if item["root_action"].startswith("check-")]
         best_index = max(range(len(cell.exact_scores)), key=lambda index: cell.exact_scores[index].eig)
+        exhaustive_value = _exhaustive_d2_value(model, position, belief)
         return {
             "map_name": map_name,
             "state_index": state_index,
@@ -115,6 +139,11 @@ def run_smoke(
             "root_actions": [str(score.root_action) for score in cell.exact_scores],
             "best_index": best_index,
             "best_root_action": str(cell.exact_scores[best_index].root_action),
+            "best_exhaustive_fraction": (
+                float(cell.exact_scores[best_index].eig / exhaustive_value)
+                if exhaustive_value > 0.0
+                else 1.0
+            ),
             "move_policy_count": len(move_policies),
             "check_policy_count": len(check_policies),
             "move_then_check_count": sum(
@@ -181,18 +210,19 @@ def render_report(summary: dict[str, Any]) -> str:
         f"- Every cell has move and check roots: `{mechanics['all_cells_have_move_and_check_roots']}`.",
         f"- Every cell includes a move-then-check policy: `{mechanics['all_move_cells_include_move_then_check']}`.",
         "",
-        "| Map | State | Position | Best root | Move / check policies | Move then check |",
-        "| --- | ---: | --- | --- | --- | ---: |",
+        "| Map | State | Position | Best root | Exhaustive fraction | Move / check policies | Move then check |",
+        "| --- | ---: | --- | --- | ---: | --- | ---: |",
     ]
     for row in summary["cells"]:
         if row["status"] != "passed":
             lines.append(
-                f"| {row['map_name']} | {row['state_index']} | {row['position']} | FAILED | - | - |"
+                f"| {row['map_name']} | {row['state_index']} | {row['position']} | FAILED | - | - | - |"
             )
             continue
         lines.append(
             f"| {row['map_name']} | {row['state_index']} | {row['position']} | "
-            f"{row['best_root_action']} | {row['move_policy_count']} / {row['check_policy_count']} | "
+            f"{row['best_root_action']} | {row['best_exhaustive_fraction']:.3f} | "
+            f"{row['move_policy_count']} / {row['check_policy_count']} | "
             f"{row['move_then_check_count']} |"
         )
     lines.extend(["", f"Usage: `{json.dumps(summary.get('usage', {}), sort_keys=True)}`.", ""])
