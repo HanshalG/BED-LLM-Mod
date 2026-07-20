@@ -32,22 +32,25 @@ def _exhaustive_d2_value(
     model: RockDiagnosisModel,
     position: tuple[int, int],
     belief: np.ndarray,
+    horizon: int,
 ) -> float:
     values: list[float] = []
     for root_action in model.legal_actions(position):
         value = model.expected_information_gain(position, belief, root_action)
-        child_position = model.next_position(position, root_action)
-        continuation = 0.0
-        for outcome in model.outcomes(root_action):
-            probability = model.outcome_probability(position, belief, root_action, outcome)
-            if probability <= 0.0:
-                continue
-            posterior = model.posterior(position, belief, root_action, outcome)
-            continuation += probability * max(
-                model.expected_information_gain(child_position, posterior, action)
-                for action in model.legal_actions(child_position)
-            )
-        values.append(value + continuation)
+        if horizon > 1:
+            child_position = model.next_position(position, root_action)
+            continuation = 0.0
+            for outcome in model.outcomes(root_action):
+                probability = model.outcome_probability(position, belief, root_action, outcome)
+                if probability <= 0.0:
+                    continue
+                posterior = model.posterior(position, belief, root_action, outcome)
+                continuation += probability * max(
+                    model.expected_information_gain(child_position, posterior, action)
+                    for action in model.legal_actions(child_position)
+                )
+            value += continuation
+        values.append(value)
     return max(values)
 
 
@@ -98,13 +101,13 @@ def run_smoke(
         strategy_schema="branch_policy_v2",
     )
     provider = LLMRockStrategyProvider(model_adapter, config)
-    jobs: list[tuple[str, int, tuple[int, int], np.ndarray, History]] = []
+    jobs: list[tuple[str, int, tuple[int, int], np.ndarray, History, int]] = []
     for map_name in config.map_names:
         for state_index, (position, belief, history) in enumerate(_probe_states(map_name)):
-            jobs.append((map_name, state_index, position, belief, history))
+            jobs.append((map_name, state_index, position, belief, history, 1 if state_index == 4 else 2))
 
-    def execute(job: tuple[str, int, tuple[int, int], np.ndarray, History]) -> dict[str, Any]:
-        map_name, state_index, position, belief, history = job
+    def execute(job: tuple[str, int, tuple[int, int], np.ndarray, History, int]) -> dict[str, Any]:
+        map_name, state_index, position, belief, history, horizon = job
         model = RockDiagnosisModel(get_paper_map(map_name))
         try:
             cell = provider.propose_strategies(
@@ -114,13 +117,14 @@ def run_smoke(
                 position=position,
                 belief=belief,
                 history=history,
-                horizon=2,
+                horizon=horizon,
             )
         except StrategyProposalError as exc:
             return {
                 "map_name": map_name,
                 "state_index": state_index,
                 "position": list(position),
+                "horizon": horizon,
                 "status": "failed",
                 "error": str(exc),
             }
@@ -128,11 +132,12 @@ def run_smoke(
         move_policies = [item for item in parsed if item["root_action"].startswith("move-")]
         check_policies = [item for item in parsed if item["root_action"].startswith("check-")]
         best_index = max(range(len(cell.exact_scores)), key=lambda index: cell.exact_scores[index].eig)
-        exhaustive_value = _exhaustive_d2_value(model, position, belief)
+        exhaustive_value = _exhaustive_d2_value(model, position, belief, horizon)
         return {
             "map_name": map_name,
             "state_index": state_index,
             "position": list(position),
+            "horizon": horizon,
             "status": "passed",
             "strategies": parsed,
             "exact_eig": [float(score.eig) for score in cell.exact_scores],
@@ -147,10 +152,12 @@ def run_smoke(
             "move_policy_count": len(move_policies),
             "check_policy_count": len(check_policies),
             "move_then_check_count": sum(
-                item["followups"]["none"].startswith("check-") for item in move_policies
+                item["followups"].get("none", "").startswith("check-") for item in move_policies
             ),
             "contingent_check_count": sum(
-                item["followups"]["good"] != item["followups"]["bad"] for item in check_policies
+                item["followups"].get("good") != item["followups"].get("bad")
+                and set(item["followups"]) == {"good", "bad"}
+                for item in check_policies
             ),
         }
 
@@ -169,9 +176,11 @@ def run_smoke(
         "parse_rate": len(passed) / len(rows),
         "all_cells_have_move_and_check_roots": all(
             row["move_policy_count"] > 0 and row["check_policy_count"] > 0 for row in passed
+            if row["horizon"] > 1
         ) and len(passed) == len(rows),
         "all_move_cells_include_move_then_check": all(
             row["move_then_check_count"] > 0 for row in passed
+            if row["horizon"] > 1
         ) and len(passed) == len(rows),
     }
     return {
@@ -210,17 +219,17 @@ def render_report(summary: dict[str, Any]) -> str:
         f"- Every cell has move and check roots: `{mechanics['all_cells_have_move_and_check_roots']}`.",
         f"- Every cell includes a move-then-check policy: `{mechanics['all_move_cells_include_move_then_check']}`.",
         "",
-        "| Map | State | Position | Best root | Exhaustive fraction | Move / check policies | Move then check |",
-        "| --- | ---: | --- | --- | ---: | --- | ---: |",
+        "| Map | State | Horizon | Position | Best root | Exhaustive fraction | Move / check policies | Move then check |",
+        "| --- | ---: | ---: | --- | --- | ---: | --- | ---: |",
     ]
     for row in summary["cells"]:
         if row["status"] != "passed":
             lines.append(
-                f"| {row['map_name']} | {row['state_index']} | {row['position']} | FAILED | - | - | - |"
+                f"| {row['map_name']} | {row['state_index']} | {row['horizon']} | {row['position']} | FAILED | - | - | - |"
             )
             continue
         lines.append(
-            f"| {row['map_name']} | {row['state_index']} | {row['position']} | "
+            f"| {row['map_name']} | {row['state_index']} | {row['horizon']} | {row['position']} | "
             f"{row['best_root_action']} | {row['best_exhaustive_fraction']:.3f} | "
             f"{row['move_policy_count']} / {row['check_policy_count']} | "
             f"{row['move_then_check_count']} |"

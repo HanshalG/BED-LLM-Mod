@@ -15,5 +15,14 @@ def test_dry_branch_strategy_serving_smoke_passes_all_ten_cells() -> None:
         "all_cells_have_move_and_check_roots": True,
         "all_move_cells_include_move_then_check": True,
     }
-    assert all(row["move_policy_count"] == 2 for row in summary["cells"])
-    assert all(row["check_policy_count"] == 2 for row in summary["cells"])
+    horizon_two = [row for row in summary["cells"] if row["horizon"] == 2]
+    horizon_one = [row for row in summary["cells"] if row["horizon"] == 1]
+    assert len(horizon_two) == 8
+    assert len(horizon_one) == 2
+    assert all(row["move_policy_count"] == 2 for row in horizon_two)
+    assert all(row["check_policy_count"] == 2 for row in horizon_two)
+    assert all(
+        strategy["followups"] == {}
+        for row in horizon_one
+        for strategy in row["strategies"]
+    )

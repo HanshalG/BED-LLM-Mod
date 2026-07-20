@@ -526,7 +526,12 @@ class LLMRockStrategyProvider:
         )
         schema = (
             '{"strategies":[{"name":"short name","description":"why this policy is useful",'
-            '"root_action":"ACTION_ID","followups":{"OUTCOME_KEY":"ACTION_ID"}}]}'
+            '"root_action":"ACTION_ID","followups":{}}]}'
+            if horizon <= 1
+            else (
+                '{"strategies":[{"name":"short name","description":"why this policy is useful",'
+                '"root_action":"ACTION_ID","followups":{"OUTCOME_KEY":"ACTION_ID"}}]}'
+            )
         )
         posterior_lines = [
             f"- {_state_label(state)}: {float(probability):.8f}"
@@ -539,6 +544,11 @@ class LLMRockStrategyProvider:
             f"Return exactly {self.config.num_strategies} behaviorally distinct strategies.",
             f"Schema: {schema}",
             f"Planning horizon: {horizon} action(s).",
+            (
+                "CURRENT HORIZON IS 1: every strategy must use followups:{} exactly, with no outcome keys."
+                if horizon <= 1
+                else "CURRENT HORIZON IS 2: every strategy must provide the exact branch followups below."
+            ),
             "root_action must be one listed root action ID.",
             (
                 'At horizon 2 a movement root uses exactly {"none":"FOLLOWUP_ID"}; a check root '
