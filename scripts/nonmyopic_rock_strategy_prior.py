@@ -42,6 +42,7 @@ from model_factory import build_model_adapter
 History = tuple[tuple[str, str | None], ...]
 ArmName = Literal["strategy_eig", "exhaustive_d2", "shared_d1", "width", "random_strategy"]
 StrategySchema = Literal["reactive_rules_v1", "branch_policy_v2"]
+PrimaryEndpoint = Literal["final_entropy", "entropy_auc"]
 ARMS: tuple[ArmName, ...] = (
     "strategy_eig",
     "exhaustive_d2",
@@ -74,6 +75,7 @@ class L1Config:
     validation_retries: int = 1
     trial_concurrency: int = 32
     strategy_schema: StrategySchema = "reactive_rules_v1"
+    primary_endpoint: PrimaryEndpoint = "final_entropy"
 
     def validate(self) -> None:
         if not self.map_names:
@@ -98,6 +100,8 @@ class L1Config:
             raise ValueError("the registered interface permits exactly one validation-feedback retry")
         if self.strategy_schema not in {"reactive_rules_v1", "branch_policy_v2"}:
             raise ValueError("strategy_schema must be reactive_rules_v1 or branch_policy_v2")
+        if self.primary_endpoint not in {"final_entropy", "entropy_auc"}:
+            raise ValueError("primary_endpoint must be final_entropy or entropy_auc")
 
 
 @dataclass(frozen=True)
@@ -1366,11 +1370,29 @@ def _paired_comparison(
     config: L1Config,
     label: str,
 ) -> dict[str, Any]:
-    strategy_entropy = np.asarray([trace["steps"][-1]["entropy_after"] for trace in strategy_traces])
-    baseline_entropy = np.asarray([trace["steps"][-1]["entropy_after"] for trace in baseline_traces])
+    strategy_entropy_traces = np.asarray(
+        [[step["entropy_after"] for step in trace["steps"]] for trace in strategy_traces]
+    )
+    baseline_entropy_traces = np.asarray(
+        [[step["entropy_after"] for step in trace["steps"]] for trace in baseline_traces]
+    )
+    strategy_entropy = strategy_entropy_traces[:, -1]
+    baseline_entropy = baseline_entropy_traces[:, -1]
     entropy_gain = baseline_entropy - strategy_entropy
-    strategy_truth = np.asarray([trace["steps"][-1]["truth_log_probability"] for trace in strategy_traces])
-    baseline_truth = np.asarray([trace["steps"][-1]["truth_log_probability"] for trace in baseline_traces])
+    entropy_auc_gain = np.mean(baseline_entropy_traces, axis=1) - np.mean(
+        strategy_entropy_traces, axis=1
+    )
+    strategy_truth_traces = np.asarray(
+        [[step["truth_log_probability"] for step in trace["steps"]] for trace in strategy_traces]
+    )
+    baseline_truth_traces = np.asarray(
+        [[step["truth_log_probability"] for step in trace["steps"]] for trace in baseline_traces]
+    )
+    strategy_truth = strategy_truth_traces[:, -1]
+    baseline_truth = baseline_truth_traces[:, -1]
+    truth_auc_gain = np.mean(strategy_truth_traces, axis=1) - np.mean(
+        baseline_truth_traces, axis=1
+    )
     strategy_map = np.asarray([trace["steps"][-1]["map_correct"] for trace in strategy_traces])
     baseline_map = np.asarray([trace["steps"][-1]["map_correct"] for trace in baseline_traces])
     ci = _bootstrap_mean_ci(
@@ -1378,7 +1400,21 @@ def _paired_comparison(
         seed=_stable_seed(config.seed, "l1-bootstrap", label),
         replicates=config.bootstrap_replicates,
     )
+    entropy_auc_ci = _bootstrap_mean_ci(
+        entropy_auc_gain,
+        seed=_stable_seed(config.seed, "l1-bootstrap", label, "entropy-auc"),
+        replicates=config.bootstrap_replicates,
+    )
+    truth_auc_ci = _bootstrap_mean_ci(
+        truth_auc_gain,
+        seed=_stable_seed(config.seed, "l1-bootstrap", label, "truth-log-auc"),
+        replicates=config.bootstrap_replicates,
+    )
     return {
+        "entropy_auc_gain_mean": float(np.mean(entropy_auc_gain)),
+        "entropy_auc_gain_ci95": [entropy_auc_ci[0], entropy_auc_ci[1]],
+        "truth_log_probability_auc_gain_mean": float(np.mean(truth_auc_gain)),
+        "truth_log_probability_auc_gain_ci95": [truth_auc_ci[0], truth_auc_ci[1]],
         "final_entropy_gain_mean": float(np.mean(entropy_gain)),
         "final_entropy_gain_ci95": [ci[0], ci[1]],
         "final_truth_log_probability_gain_mean": float(np.mean(strategy_truth - baseline_truth)),
@@ -1388,7 +1424,14 @@ def _paired_comparison(
             int(np.count_nonzero(entropy_gain == 0.0)),
             int(np.count_nonzero(entropy_gain < 0.0)),
         ],
+        "entropy_auc_wins_ties_losses": [
+            int(np.count_nonzero(entropy_auc_gain > 0.0)),
+            int(np.count_nonzero(entropy_auc_gain == 0.0)),
+            int(np.count_nonzero(entropy_auc_gain < 0.0)),
+        ],
         "paired_values": [float(value) for value in entropy_gain],
+        "entropy_auc_paired_values": [float(value) for value in entropy_auc_gain],
+        "truth_log_probability_auc_paired_values": [float(value) for value in truth_auc_gain],
     }
 
 
@@ -1592,7 +1635,12 @@ def run_l1_anchor(provider: LLMRockStrategyProvider, config: L1Config) -> dict[s
             "summary": {arm: _arm_summary(traces[map_name][arm]) for arm in ARMS},
             "paired": comparisons,
             "gate_passed": all(
-                comparisons[f"strategy_eig_minus_{baseline}"]["final_entropy_gain_ci95"][0] > 0.0
+                comparisons[f"strategy_eig_minus_{baseline}"][
+                    "entropy_auc_gain_ci95"
+                    if config.primary_endpoint == "entropy_auc"
+                    else "final_entropy_gain_ci95"
+                ][0]
+                > 0.0
                 for baseline in required_baselines
             ),
         }
@@ -1664,18 +1712,25 @@ def render_report(summary: dict[str, Any]) -> str:
         lines.extend(
             [
                 "",
-                "Positive paired entropy gain favors StrategyEIG.",
+                f"Positive paired gains favor StrategyEIG. Registered primary endpoint: `{summary['config']['primary_endpoint']}`.",
                 "",
-                "| Comparison | Mean gain | 95% paired bootstrap CI | W / T / L |",
-                "| --- | ---: | --- | --- |",
+                "| Comparison | Entropy-AUC gain [95% CI] | Truth-log-AUC gain [95% CI] | Final entropy gain [95% CI] | AUC W / T / L |",
+                "| --- | --- | --- | --- | --- |",
             ]
         )
         for label, comparison in result["paired"].items():
-            ci = comparison["final_entropy_gain_ci95"]
-            wtl = comparison["wins_ties_losses"]
+            auc_ci = comparison["entropy_auc_gain_ci95"]
+            truth_ci = comparison["truth_log_probability_auc_gain_ci95"]
+            final_ci = comparison["final_entropy_gain_ci95"]
+            wtl = comparison["entropy_auc_wins_ties_losses"]
             lines.append(
-                f"| {label} | {comparison['final_entropy_gain_mean']:+.4f} | "
-                f"[{ci[0]:+.4f}, {ci[1]:+.4f}] | {wtl[0]} / {wtl[1]} / {wtl[2]} |"
+                f"| {label} | {comparison['entropy_auc_gain_mean']:+.4f} "
+                f"[{auc_ci[0]:+.4f}, {auc_ci[1]:+.4f}] | "
+                f"{comparison['truth_log_probability_auc_gain_mean']:+.4f} "
+                f"[{truth_ci[0]:+.4f}, {truth_ci[1]:+.4f}] | "
+                f"{comparison['final_entropy_gain_mean']:+.4f} "
+                f"[{final_ci[0]:+.4f}, {final_ci[1]:+.4f}] | "
+                f"{wtl[0]} / {wtl[1]} / {wtl[2]} |"
             )
         lines.extend(["", f"Map gate passed: `{result['gate_passed']}`.", ""])
     lines.extend(["## Mechanics", ""])
@@ -1714,6 +1769,11 @@ def main() -> None:
         choices=("reactive_rules_v1", "branch_policy_v2"),
         default="reactive_rules_v1",
     )
+    parser.add_argument(
+        "--primary-endpoint",
+        choices=("final_entropy", "entropy_auc"),
+        default="final_entropy",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = L1Config(
@@ -1724,6 +1784,7 @@ def main() -> None:
         bootstrap_replicates=args.bootstrap_replicates,
         trial_concurrency=args.trial_concurrency,
         strategy_schema=args.strategy_schema,
+        primary_endpoint=args.primary_endpoint,
     )
     config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)

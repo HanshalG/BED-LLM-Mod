@@ -292,6 +292,7 @@ def test_small_branch_policy_anchor_preserves_pairing_and_compute_controls() -> 
         num_strategies=4,
         bootstrap_replicates=30,
         strategy_schema="branch_policy_v2",
+        primary_endpoint="entropy_auc",
     )
     provider = LLMRockStrategyProvider(DeterministicStrategyModel(), config)
 
@@ -302,6 +303,11 @@ def test_small_branch_policy_anchor_preserves_pairing_and_compute_controls() -> 
     assert summary["mechanics"]["initial_strategy_cells_shared_with_d1"]
     assert summary["mechanics"]["width_exact_scorer_units_match_strategy_eig"]
     assert summary["mechanics"]["random_strategy_cells_have_k_candidates"]
+    comparison = summary["maps"]["3-6"]["paired"]["strategy_eig_minus_shared_d1"]
+    assert math.isfinite(comparison["entropy_auc_gain_mean"])
+    assert len(comparison["entropy_auc_gain_ci95"]) == 2
+    assert math.isfinite(comparison["truth_log_probability_auc_gain_mean"])
+    assert len(comparison["truth_log_probability_auc_gain_ci95"]) == 2
     for trace in summary["traces"]["3-6"]["random_strategy"]:
         for step in trace["steps"][:-1]:
             move_roots = [root for root in step["candidate_roots"] if root.startswith("move-")]
