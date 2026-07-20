@@ -155,10 +155,13 @@ def _uniform(*parts: Any) -> float:
 
 def _normalize_json_response(response: str) -> str:
     normalized = response.strip()
-    if normalized.startswith("```json\n"):
-        if not normalized.endswith("\n```"):
+    fence = "```json\n"
+    if fence in normalized:
+        start = normalized.rfind(fence) + len(fence)
+        end = normalized.find("\n```", start)
+        if end < 0:
             raise StrategyProposalError("response has an incomplete JSON fence")
-        normalized = normalized[len("```json\n") : -len("\n```")]
+        normalized = normalized[start:end]
     return normalized
 
 
@@ -548,7 +551,8 @@ class LLMRockStrategyProvider:
                 f"CURRENT HORIZON IS 1: choose exactly {self.config.num_strategies} different legal "
                 "root_action IDs. Because followups are empty, repeating a root is a duplicate and is "
                 "invalid. Every strategy must use followups:{} exactly, with no outcome keys or future "
-                "actions, even for movement roots."
+                "actions, even for movement roots. Copy the literal fragment \"followups\":{} for every "
+                "item; never emit a none branch at horizon 1."
                 if horizon <= 1
                 else "CURRENT HORIZON IS 2: every strategy must provide the exact branch followups below."
             ),

@@ -104,6 +104,56 @@ def test_branch_policy_schema_compiles_explicit_outcome_actions() -> None:
         ) == expected
 
 
+def test_branch_policy_uses_the_last_complete_json_fence_after_self_correction() -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    position = model.map_spec.start_position
+    duplicate = {
+        "strategies": [
+            {
+                "name": f"duplicate-{index}",
+                "description": "An invalid first draft with duplicate behavior.",
+                "root_action": "check-0",
+                "followups": {},
+            }
+            for index in range(2)
+        ]
+    }
+    corrected = {
+        "strategies": [
+            {
+                "name": "check zero",
+                "description": "Check the first rock now.",
+                "root_action": "check-0",
+                "followups": {},
+            },
+            {
+                "name": "check one",
+                "description": "Check the second rock now.",
+                "root_action": "check-1",
+                "followups": {},
+            },
+        ]
+    }
+    response = (
+        f"```json\n{json.dumps(duplicate)}\n```\n"
+        "I noticed the duplicate and corrected the complete response.\n"
+        f"```json\n{json.dumps(corrected)}\n```"
+    )
+
+    strategies = parse_branch_strategy_cell(
+        response,
+        model=model,
+        position=position,
+        horizon=1,
+        expected_count=2,
+    )
+
+    assert [json.loads(strategy.raw_text)["root_action"] for strategy in strategies] == [
+        "check-0",
+        "check-1",
+    ]
+
+
 def test_branch_policy_schema_rejects_missing_branches_and_illegal_child_actions() -> None:
     model = RockDiagnosisModel(get_paper_map("3-6"))
     position = model.map_spec.start_position

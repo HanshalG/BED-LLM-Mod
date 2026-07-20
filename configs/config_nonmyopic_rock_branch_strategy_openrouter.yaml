@@ -22,7 +22,7 @@ openrouter_budget_usd: 40.0
 openrouter_run_budget_usd: 0.25
 openrouter_projected_cost_usd: 0.05
 openrouter_concurrency: 10
-openrouter_max_retries: 2
+openrouter_max_retries: 5
 openrouter_backoff_seconds: 1.0
 openrouter_request_timeout_seconds: 60.0
 openrouter_max_output_tokens: 2048
