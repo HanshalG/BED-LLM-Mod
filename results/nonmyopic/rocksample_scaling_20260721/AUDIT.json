@@ -1,0 +1,71 @@
+{
+  "claim": "bounded_k6_action_tree_work_grows_slower_than_exhaustive_d2_width",
+  "rollout_scoring_llm_calls": 0,
+  "rows": [
+    {
+      "exhaustive_d2_units_per_decision": 64.25,
+      "exhaustive_to_strategy_unit_ratio": 4.69978665041146,
+      "hidden_states": 8,
+      "map_name": "3-6",
+      "num_rocks": 3,
+      "strategy_exact_units_per_decision": 13.670833333333333,
+      "strategy_logical_llm_calls_per_decision": 1.0
+    },
+    {
+      "exhaustive_d2_units_per_decision": 115.125,
+      "exhaustive_to_strategy_unit_ratio": 8.299789726644638,
+      "hidden_states": 32,
+      "map_name": "5-7",
+      "num_rocks": 5,
+      "strategy_exact_units_per_decision": 13.870833333333334,
+      "strategy_logical_llm_calls_per_decision": 1.0
+    },
+    {
+      "exhaustive_d2_units_per_decision": 209.4,
+      "exhaustive_to_strategy_unit_ratio": 14.851063829787234,
+      "hidden_states": 128,
+      "map_name": "7-8",
+      "num_rocks": 7,
+      "strategy_exact_units_per_decision": 14.1,
+      "strategy_logical_llm_calls_per_decision": 1.0
+    },
+    {
+      "exhaustive_d2_units_per_decision": 354.1666666666667,
+      "exhaustive_to_strategy_unit_ratio": 24.878048780487806,
+      "hidden_states": 2048,
+      "map_name": "11-11",
+      "num_rocks": 11,
+      "strategy_exact_units_per_decision": 14.23611111111111,
+      "strategy_logical_llm_calls_per_decision": 1.0
+    }
+  ],
+  "run_usage": [
+    {
+      "maps": [
+        "3-6",
+        "5-7"
+      ],
+      "physical_requests": 1406,
+      "run_cost_usd": 0.3291233300000001,
+      "run_id": "nonmyopic-rock-branch-strategy-v2-confirmation-20260720"
+    },
+    {
+      "maps": [
+        "7-8"
+      ],
+      "physical_requests": 904,
+      "run_cost_usd": 0.21575537000000036,
+      "run_id": "nonmyopic-rocksample-7-8-scale-20260721"
+    },
+    {
+      "maps": [
+        "11-11"
+      ],
+      "physical_requests": 1051,
+      "run_cost_usd": 0.3007825099999996,
+      "run_id": "nonmyopic-rocksample-11-11-gemma-slot-confirmation-20260721"
+    }
+  ],
+  "schema_version": 1,
+  "unit_definition": "One exact scorer unit is one evaluated action node in the depth-two policy tree; it is not a wall-clock or hidden-state likelihood operation."
+}

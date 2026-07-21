@@ -307,17 +307,14 @@ remain descriptive because the runs use different seeds; they are not causal
 interface or model-superiority tests.
 
 Finally, a 500-pair exact gate on RockSample[11,11] found that exhaustive d2 beat
-exhaustive d1 by 1.1042 entropy-AUC nats [1.1015, 1.1068]. Under the frozen Gemma
-root-slot interface, StrategyEIG then beat shared d1, exhaustive d1 width, and
-matched random policies by .9412 [.8968, .9807], .9387 [.8952, .9773], and .8867
-[.8305, .9385], respectively, with 30/0/0 wins/ties/losses for each. All
-truth-log-AUC intervals excluded zero. The remaining gap to exhaustive d2 was .1629
-nats. This extends the positive result to 2,048 latent states while retaining exact
-verification and zero rollout LLM calls.
-An exact zero-call closure screen then raised the LLM roots from 73.9\% to 96.9\%
-of exhaustive d2 value, but closed random roots also reached 96.7\%. At this scale,
-the LLM prior's advantage is therefore chiefly its continuation choices rather than
-exclusive coverage of valuable roots; the frozen paid-closure gate failed.
+exhaustive d1 by 1.1042 entropy-AUC nats [1.1015, 1.1068]. Frozen Gemma then passed
+all three paired gates in Table~\ref{tab:rock-strategy} with 30/0/0 each; all
+truth-log intervals were positive and the exhaustive-d2 gap was .1629. This extends
+the result to 2,048 latent states with zero rollout LLM calls. Exact closure raised
+LLM roots from 73.9\% to 96.9\% of oracle value, but random roots reached 96.7\%,
+localizing the LLM advantage to continuation choice; the paid gate failed. Across
+maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.2
+(4.7$\times$--24.9$\times$); these are tree-width, not wall-clock, ratios.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
