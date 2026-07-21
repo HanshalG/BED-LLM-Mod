@@ -58,3 +58,21 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --seed 24079 --bootstrap-replicates 10000 --trial-concurrency 32 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Registered Outcomes
+
+The fresh serving smoke passed 10/10 cells on the first attempt with zero rejects,
+reasoning tokens, forced exits, or terminal failures. It cost `$0.00379291`.
+
+The formal run passed all preregistered gates. StrategyEIG's entropy-AUC gains were
+`+0.9412` against shared d1 (95% CI `[+0.8968,+0.9807]`), `+0.9387` against
+exhaustive d1 width (`[+0.8952,+0.9773]`), and `+0.8867` against matched random
+strategies (`[+0.8305,+0.9385]`), with 30/0/0 wins/ties/losses in every comparison.
+All three truth-log-AUC intervals also exclude zero. StrategyEIG moved on 195/360
+decisions and had mean h2 exhaustive fraction `0.739`; its remaining entropy-AUC gap
+to exhaustive d2 was `-0.1629` (`[-0.2009,-0.1295]`).
+
+All mechanics passed. The run accepted 1,050 cells, retained one bounded rejected
+response, and had zero terminal failures, resumes, reasoning tokens, forced exits, or
+rollout-scoring LLM calls. Its 1,051 physical requests cost `$0.30078251`. The result
+and all paired values were independently reconstructed from raw traces.
