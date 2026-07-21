@@ -520,6 +520,7 @@ class LLMRockStrategyProvider:
             legal_move_roots = [
                 action for action in model.legal_actions(position) if model.is_move(action)
             ]
+            required_move_roots = legal_move_roots[:required_moves]
             missing_move_roots = [
                 action for action in legal_move_roots if action not in move_roots
             ]
@@ -530,6 +531,7 @@ class LLMRockStrategyProvider:
             if (
                 len(move_indices) != required_moves
                 or len(move_roots) != required_moves
+                or roots[:required_moves] != required_move_roots
                 or len(check_indices) != self.config.num_strategies - required_moves
                 or not move_then_check
             ):
@@ -537,8 +539,10 @@ class LLMRockStrategyProvider:
                     f"horizon-2 branch cells need exactly {required_moves} distinct movement roots "
                     f"whose none followup is a check and {self.config.num_strategies - required_moves} "
                     f"check roots; compiled root actions were {roots}. Legal movement root IDs are "
-                    f"{legal_move_roots}; omitted movement root IDs are {missing_move_roots}. Root IDs "
-                    "name physical actions, so different target intentions may not repeat one root ID"
+                    f"{legal_move_roots}; omitted movement root IDs are {missing_move_roots}. The first "
+                    f"{required_moves} root_action values must be {required_move_roots} in exactly this "
+                    "order. Root IDs name physical actions, so different target intentions may not "
+                    "repeat one root ID"
                 )
         elif horizon > 1:
             roots = [str(score.root_action) for score in scores]
@@ -735,6 +739,9 @@ class LLMRockStrategyProvider:
             total_count=self.config.num_strategies,
         )
         required_check_count = self.config.num_strategies - required_move_count
+        required_move_roots = [
+            action for action in legal_roots if model.is_move(action)
+        ][:required_move_count]
         menus: dict[str, dict[str, list[str]]] = {}
         root_geometry: dict[str, dict[str, Any]] = {}
         for root_action in legal_roots:
@@ -796,10 +803,12 @@ class LLMRockStrategyProvider:
                 "followups must be {}."
             ),
             (
-                f"At horizon 2 include exactly {required_move_count} movement-root strategies with "
-                f"distinct root_action values and exactly {required_check_count} direct-check-root "
-                "strategies. Every movement-root strategy must use a direct check action as its none "
-                "followup. Use the description to explain the information-seeking logic, but do not add fields."
+                f"At horizon 2 the first {required_move_count} strategies are machine-assigned movement "
+                f"slots: their root_action values must be {required_move_roots} in exactly this order, "
+                f"one literal ID per item. The remaining {required_check_count} strategies must have "
+                "direct-check roots. Every movement-root strategy must use a direct check action as its "
+                "none followup. Use the description to explain the information-seeking logic, but do not "
+                "add fields."
             ),
             (
                 "Behaviorally distinct means no two strategies may repeat the same root_action plus "
@@ -820,6 +829,7 @@ class LLMRockStrategyProvider:
             "History:",
             _history_text(history),
             "ROOT_GEOMETRY=" + json.dumps(root_geometry, sort_keys=True, separators=(",", ":")),
+            "MOVEMENT_ROOT_SLOTS=" + json.dumps(required_move_roots, separators=(",", ":")),
             "MACHINE_READABLE_MENUS=" + json.dumps(menus, sort_keys=True, separators=(",", ":")),
         ]
         return [{"role": "system", "content": system}, {"role": "user", "content": "\n".join(instructions)}]
@@ -1002,13 +1012,14 @@ class DeterministicStrategyModel:
             horizon = int(content.split("Planning horizon: ", maxsplit=1)[1].split(" action", maxsplit=1)[0])
             menus = json.loads(content.split("MACHINE_READABLE_MENUS=", maxsplit=1)[1].split("\n", maxsplit=1)[0])
             roots = list(menus)
-            moves = [action for action in roots if action.startswith("move-")]
             checks = [action for action in roots if action.startswith("check-")]
-            move_count = min(len(moves), max(1, count // 2)) if horizon > 1 else 0
             if horizon > 1:
+                move_slots = json.loads(
+                    content.split("MOVEMENT_ROOT_SLOTS=", maxsplit=1)[1].split("\n", maxsplit=1)[0]
+                )
                 ordered_roots = [
-                    *moves[:move_count],
-                    *(checks[index % len(checks)] for index in range(count - move_count)),
+                    *move_slots,
+                    *(checks[index % len(checks)] for index in range(count - len(move_slots))),
                 ]
             else:
                 ordered_roots = roots[:count]

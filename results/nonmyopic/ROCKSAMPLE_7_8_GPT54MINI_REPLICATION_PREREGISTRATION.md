@@ -70,3 +70,46 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --seed 24073 --bootstrap-replicates 10000 --trial-concurrency 32 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Pre-Endpoint Root-Slot Amendment
+
+Added 2026-07-21 after the first formal process failed closed and before any policy
+endpoint or trace was produced. The ten-cell serving screen passed, but over the full
+state distribution GPT-5.4 Mini repeatedly generated semantically different target
+plans whose physical first actions all compiled to `move-EAST`. After 741 accepted
+cells and 78 rejected attempts, one such cell remained invalid after feedback. The
+process wrote only `L1_FAILURE.json`; its `$1.65009645` spend and all responses are
+interface diagnostics and are not policy evidence.
+
+This replicated the same failure previously seen with Gemma and localizes it to the
+global distinct-root instruction, not one model's spatial reasoning. The replacement
+interface machine-assigns the first three policy items to the first three legal
+movement root IDs in canonical action order. The LLM still chooses each movement
+policy's follow-up rock check, all direct-check roots and observation-contingent
+followups, names, and rationales. The parser enforces the slots; exact scoring and all
+arms, budgets, endpoints, and gates are unchanged. At the left-edge start state this
+enumerates all three legal movement roots. At four-move interior states it exposes the
+same fixed three-slot width to every trial and model.
+
+The old accepted cells are not reused because their prompts predate the slot
+interface. A second ten-cell serving screen is required. Only a pass authorizes one
+fresh formal replacement with seed `24074`; the failed seed `24073` is never reused or
+reported as an endpoint.
+
+```bash
+set -a; source .env; set +a
+python scripts/nonmyopic_rock_branch_strategy_smoke.py \
+  --config configs/config_nonmyopic_rocksample_7_8_gpt54mini_openrouter.yaml \
+  --maps 7-8 --probe-states-per-map 10 \
+  --output-dir results/nonmyopic/rocksample_7_8_gpt54mini_slot_smoke_20260721 \
+  --run-id nonmyopic-rocksample-7-8-gpt54mini-slot-smoke-20260721 \
+  --num-strategies 6 --concurrency 10
+
+python scripts/nonmyopic_rock_strategy_prior.py \
+  --config configs/config_nonmyopic_rocksample_7_8_gpt54mini_openrouter.yaml \
+  --maps 7-8 --run-id nonmyopic-rocksample-7-8-gpt54mini-slot-replication-20260721 \
+  --output-dir results/nonmyopic/rocksample_7_8_gpt54mini_slot_replication_20260721 \
+  --num-trials-per-map 30 --num-rounds 10 --num-strategies 6 \
+  --seed 24074 --bootstrap-replicates 10000 --trial-concurrency 32 \
+  --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
+```
