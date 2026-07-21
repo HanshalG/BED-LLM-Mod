@@ -410,6 +410,22 @@ def _rock_marginals(model: RockDiagnosisModel, belief: np.ndarray) -> list[float
     ]
 
 
+def _posterior_prompt_lines(model: RockDiagnosisModel, belief: np.ndarray) -> list[str]:
+    if len(model.hidden_states) <= 64:
+        posterior_lines = [
+            f"- {_state_label(state)}: {float(probability):.8f}"
+            for state, probability in sorted(
+                zip(model.hidden_states, belief), key=lambda item: -float(item[1])
+            )
+        ]
+        return ["Exact full posterior over rock vectors:", *posterior_lines]
+    return [
+        "The exact posterior factorizes over rocks: the independent prior and every check "
+        "likelihood each involve only one rock. The marginal P(good) values above therefore "
+        "specify the complete posterior exactly; no joint-state rows are omitted from the decision state."
+    ]
+
+
 class LLMRockStrategyProvider:
     """Generate strict strategy cells and width orderings with bounded repair."""
 
@@ -474,12 +490,6 @@ class LLMRockStrategyProvider:
             "check_rock directly rather than first requiring at_rock. Direct moves that become illegal "
             "on any rollout branch invalidate the whole response."
         )
-        posterior_lines = [
-            f"- {_state_label(state)}: {float(probability):.8f}"
-            for state, probability in sorted(
-                zip(model.hidden_states, belief), key=lambda item: -float(item[1])
-            )
-        ]
         user_lines = [
             f"Return exactly {self.config.num_strategies} distinct strategies using this schema:",
             schema,
@@ -491,8 +501,7 @@ class LLMRockStrategyProvider:
             f"Current rover position: {position}.",
             f"Rock coordinates by ID: {list(enumerate(model.map_spec.rock_positions))}.",
             f"Current marginal P(good) by rock ID: {[round(value, 8) for value in _rock_marginals(model, belief)]}.",
-            "Exact full posterior over rock vectors:",
-            *posterior_lines,
+            *_posterior_prompt_lines(model, belief),
             "History:",
             _history_text(history),
             "Legal root actions:",
@@ -555,12 +564,6 @@ class LLMRockStrategyProvider:
                 '"root_action":"ACTION_ID","followups":{"OUTCOME_KEY":"ACTION_ID"}}]}'
             )
         )
-        posterior_lines = [
-            f"- {_state_label(state)}: {float(probability):.8f}"
-            for state, probability in sorted(
-                zip(model.hidden_states, belief), key=lambda item: -float(item[1])
-            )
-        ]
         instructions = [
             "STRATEGY_SCHEMA=branch_policy_v2",
             f"Return exactly {self.config.num_strategies} behaviorally distinct strategies.",
@@ -611,8 +614,7 @@ class LLMRockStrategyProvider:
                 "movement policy should therefore follow with a check whose distance the move reduced."
             ),
             f"Current marginal P(good) by rock ID: {[round(value, 8) for value in _rock_marginals(model, belief)]}.",
-            "Exact full posterior over rock vectors:",
-            *posterior_lines,
+            *_posterior_prompt_lines(model, belief),
             "History:",
             _history_text(history),
             "ROOT_GEOMETRY=" + json.dumps(root_geometry, sort_keys=True, separators=(",", ":")),
@@ -1799,6 +1801,12 @@ def main() -> None:
         default=Path("results/nonmyopic/rock_strategy_l1/20260716"),
     )
     parser.add_argument("--run-id", default="nonmyopic-rock-strategy-l1-20260716")
+    parser.add_argument(
+        "--maps",
+        type=lambda value: tuple(part.strip() for part in value.split(",") if part.strip()),
+        default=("3-6", "5-7"),
+        help="Comma-separated registered Rock map names.",
+    )
     parser.add_argument("--num-trials-per-map", type=int, default=30)
     parser.add_argument("--num-rounds", type=int, default=8)
     parser.add_argument("--num-strategies", type=int, default=4)
@@ -1818,6 +1826,7 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = L1Config(
+        map_names=args.maps,
         num_trials_per_map=args.num_trials_per_map,
         num_rounds=args.num_rounds,
         num_strategies=args.num_strategies,

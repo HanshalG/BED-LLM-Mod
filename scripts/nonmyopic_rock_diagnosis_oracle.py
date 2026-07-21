@@ -567,8 +567,9 @@ def run_oracle(config: OracleConfig) -> dict[str, Any]:
         "schema_version": 1,
         "no_llm_calls": True,
         "source": {
-            "paper": "Araya-Lopez, Buffet, and Thomas (2013)",
-            "url": "https://members.loria.fr/olivier.buffet/papiers/jfpda13-b.pdf",
+            "paper": model.map_spec.source_citation,
+            "url": model.map_spec.source_url,
+            "page": model.map_spec.source_page,
             "map": config.map_name,
             "map_spec": asdict(model.map_spec),
             "pomdp_py_version": "1.3.5.1",
@@ -594,8 +595,8 @@ def render_report(summary: dict[str, Any]) -> str:
         "",
         "## Scope",
         "",
-        "This is a zero-LLM-call exact mechanism confirmation. The static target is the full rock-type vector; motion, likelihoods, exact Bayesian updates, and MAP decodes are deterministic/auditable. The held-out map is Figure 4's "
-        f"`{source['map']}` layout from Araya-Lopez, Buffet, and Thomas (2013).",
+        "This is a zero-LLM-call exact mechanism confirmation. The static target is the full rock-type vector; motion, likelihoods, exact Bayesian updates, and MAP decodes are deterministic/auditable. The held-out map is "
+        f"`{source['map']}` from {source['paper']}, page {source['page']}.",
         "",
         "## Final Entropy",
         "",
@@ -660,7 +661,7 @@ def _parse_widths(value: str) -> tuple[int, ...]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--map", dest="map_name", default="3-6", choices=("3-6", "5-7"))
+    parser.add_argument("--map", dest="map_name", default="3-6", choices=("3-6", "5-7", "7-8"))
     parser.add_argument("--num-trials", type=int, default=2_000)
     parser.add_argument("--num-rounds", type=int, default=8)
     parser.add_argument("--candidate-widths", type=_parse_widths, default=(2, 3, 4))

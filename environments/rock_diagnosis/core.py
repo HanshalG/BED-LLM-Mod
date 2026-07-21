@@ -39,6 +39,9 @@ from pomdp_py.problems.rocksample.rocksample_problem import (
 
 EPSILON: Final = 1e-15
 PAPER_URL: Final = "https://members.loria.fr/olivier.buffet/papiers/jfpda13-b.pdf"
+ROCKSAMPLE_7_8_URL: Final = (
+    "https://www.ri.cmu.edu/pub_files/pub4/smith_trey_2004_1/smith_trey_2004_1.pdf"
+)
 MOVES: Final = (MoveNorth, MoveEast, MoveSouth, MoveWest)
 
 
@@ -51,6 +54,8 @@ class RockDiagnosisMap:
     rock_positions: tuple[tuple[int, int], ...]
     start_position: tuple[int, int]
     source_page: int = 10
+    source_citation: str = "Araya-Lopez, Buffet, and Thomas (2013)"
+    source_url: str = PAPER_URL
 
     def __post_init__(self) -> None:
         if self.grid_size < 2:
@@ -79,11 +84,21 @@ PAPER_MAPS: Final[dict[str, RockDiagnosisMap]] = {
         rock_positions=((4, 0), (6, 2), (2, 3), (3, 5), (5, 5)),
         start_position=(0, 3),
     ),
+    # Smith and Simmons (2004), Figure 4, transcribed with zero-based coordinates.
+    "7-8": RockDiagnosisMap(
+        name="7-8",
+        grid_size=7,
+        rock_positions=((1, 0), (5, 1), (2, 2), (3, 2), (6, 3), (0, 5), (3, 5), (2, 6)),
+        start_position=(0, 3),
+        source_page=5,
+        source_citation="Smith and Simmons (2004)",
+        source_url=ROCKSAMPLE_7_8_URL,
+    ),
 }
 
 
 def get_paper_map(name: str) -> RockDiagnosisMap:
-    """Return one of the Figure 4 layouts by its paper identifier."""
+    """Return one of the registered literature benchmark layouts."""
 
     try:
         return PAPER_MAPS[name]

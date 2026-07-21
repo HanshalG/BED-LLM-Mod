@@ -23,6 +23,27 @@ def test_paper_maps_and_exact_immediate_eig_are_well_formed() -> None:
     assert model.expected_information_gain(paper_map.start_position, belief, "check-2") > 0.0
 
 
+def test_canonical_rocksample_7_8_map_is_transcribed_with_exact_belief() -> None:
+    benchmark_map = get_paper_map("7-8")
+    assert benchmark_map.grid_size == 7
+    assert benchmark_map.rock_positions == (
+        (1, 0),
+        (5, 1),
+        (2, 2),
+        (3, 2),
+        (6, 3),
+        (0, 5),
+        (3, 5),
+        (2, 6),
+    )
+    assert benchmark_map.start_position == (0, 3)
+    assert benchmark_map.source_citation == "Smith and Simmons (2004)"
+
+    model = RockDiagnosisModel(benchmark_map)
+    assert len(model.hidden_states) == 256
+    assert math.isclose(float(model.initial_belief.sum()), 1.0)
+
+
 def test_full_candidate_root_exposes_the_dynamic_lookahead_mechanism() -> None:
     config = OracleConfig(map_name="5-7", candidate_widths=(8,))
     model = RockDiagnosisModel(get_paper_map(config.map_name))

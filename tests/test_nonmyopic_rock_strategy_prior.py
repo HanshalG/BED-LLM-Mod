@@ -11,11 +11,22 @@ from scripts.nonmyopic_rock_strategy_prior import (
     L1Config,
     LLMRockStrategyProvider,
     StrategyProposalError,
+    _posterior_prompt_lines,
     parse_branch_strategy_cell,
     parse_strategy_cell,
     parse_width_cell,
     run_l1_anchor,
 )
+
+
+def test_large_factorized_belief_uses_exact_compact_prompt_summary() -> None:
+    model = RockDiagnosisModel(get_paper_map("7-8"))
+
+    lines = _posterior_prompt_lines(model, model.initial_belief)
+
+    assert len(lines) == 1
+    assert "factorizes over rocks" in lines[0]
+    assert "specify the complete posterior exactly" in lines[0]
 
 
 def _deterministic_strategy_response(model: RockDiagnosisModel, count: int) -> str:
