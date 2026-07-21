@@ -113,3 +113,12 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --seed 24074 --bootstrap-replicates 10000 --trial-concurrency 32 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+The replacement full pass failed closed after 863 accepted cells because one
+direct-check branch twice named a movement action that was illegal at its current
+position. This did not recur at the root slots. The accepted-cell resume described
+above therefore remained valid. Before the resume made any request, the operational
+cost projection was reduced from `$3.00` to `$2.00`: the completed 887-request pass
+had cost `$1.7506743`, only 37 cells remained, and the unchanged cumulative run cap
+was `$4.00`. This accounting estimate does not affect prompts, responses, policies,
+simulation, seed, endpoints, or gates.

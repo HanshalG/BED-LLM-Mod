@@ -274,6 +274,18 @@ Beating shared d1 shows that non-myopic scoring is load-bearing;
 beating matched random strategies shows that the LLM prior is load-bearing. The
 exhaustive d2 oracle remains better, leaving clear proposal headroom.
 
+We then preregistered a fresh-seed cross-family replication with GPT-5.4 Mini.
+After a pre-endpoint interface amendment machine-assigned the three physical
+movement-root slots (the LLM still selected their checks, all direct-check roots,
+and observation-contingent followups), StrategyEIG again beat shared d1, exhaustive
+d1 width, and matched random policies in entropy AUC: .5104 [.4312, .5863], .4928
+[.4115, .5734], and .4130 [.3225, .4988], respectively, with 28/0/2 wins/ties/losses
+in each comparison. All three truth-log-AUC intervals also excluded zero. Thus the
+positive architecture result is not unique to the Gemma proposal model, although
+GPT's smaller gains and 66.3\% exhaustive-fraction leave substantial proposal
+headroom. Because the root-slot amendment differs from Gemma's original prompt,
+this is structured-interface robustness, not a model-superiority comparison.
+
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
 actions that change and may terminate the world \citep{tajwar2025curious}. Pure
@@ -428,9 +440,9 @@ stronger-author retry did not pass the held-out calibration gate.
 The audits also cannot cleanly separate model capacity from representation: a
 larger model may estimate a better likelihood, but cannot make an exam-treatment
 label a sufficient patient state or reveal facts absent from a static record.
-OpenRouter provider nondeterminism, shared model-family errors, finite generated
-supports, and post-hoc synthesis across heterogeneous experiments remain
-limitations.
+OpenRouter provider nondeterminism, finite generated supports, interface differences
+between the Gemma and GPT Rock runs, and post-hoc synthesis across heterogeneous
+experiments remain limitations.
 
 The evidence supports a constructive conclusion. With a coherent simulator and
 an enabling-information gap, LLM proposals plus exact rollout-EIG verification

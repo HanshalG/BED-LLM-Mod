@@ -18,7 +18,7 @@ answer_temperature: 0.0
 probability_parse_fallback_to_uniform: false
 openrouter_budget_usd: 40.0
 openrouter_run_budget_usd: 4.0
-openrouter_projected_cost_usd: 3.0
+openrouter_projected_cost_usd: 2.0
 openrouter_concurrency: 64
 openrouter_max_retries: 5
 openrouter_backoff_seconds: 1.0

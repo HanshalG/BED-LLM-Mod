@@ -1,0 +1,517 @@
+{
+  "all_primary_gates_passed": true,
+  "all_truth_log_corroboration_passed": true,
+  "claim": "positive_nonmyopic_gain_replicates_across_model_families",
+  "descriptive_gpt_minus_gemma_entropy_auc_gain": {
+    "random_strategy": -0.2605509906003752,
+    "shared_d1": -0.23977120788400086,
+    "width": -0.23686519950114565
+  },
+  "runs": {
+    "gemma_26b": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 210,
+          "move_rate": 0.7,
+          "round_entropy_mean": [
+            5.54517744447956,
+            5.54517744447956,
+            4.852030263919618,
+            4.852030263919618,
+            4.852030263919618,
+            4.852030263919618,
+            4.15888308335967,
+            4.15888308335967,
+            4.15888308335967,
+            3.4657359027997248
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.2690326395880245,
+          "move_count": 104,
+          "move_rate": 0.3466666666666667,
+          "round_entropy_mean": [
+            5.543253873452658,
+            5.540518997111987,
+            5.530182899413373,
+            5.513211848910033,
+            5.506867873353959,
+            5.473534573369975,
+            5.410626984607969,
+            5.366739441909939,
+            5.3319363002450375,
+            5.262742589691843
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.06356633528943996,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            5.539031068174969,
+            5.5369102252291595,
+            5.533825070337102,
+            5.532442949788927,
+            5.530913955342663,
+            5.524712346927612,
+            5.522034726340209,
+            5.5147197358534585,
+            5.508640032613623,
+            5.5028690418212785
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.8576111039090281,
+          "move_count": 193,
+          "move_rate": 0.6433333333333333,
+          "round_entropy_mean": [
+            5.54517744447956,
+            5.54517744447956,
+            4.921325791670143,
+            4.8751159261258845,
+            4.852011020107219,
+            4.8497015828932195,
+            4.549072095090893,
+            4.364222591541078,
+            4.317982151194414,
+            3.9245224266049124
+          ]
+        },
+        "width": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.1328065511460895,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            5.535991462976378,
+            5.530876006600754,
+            5.526954813760011,
+            5.523003613475097,
+            5.511981038140499,
+            5.501121375402318,
+            5.4882748120658835,
+            5.47866816869741,
+            5.474846676855208,
+            5.4691501426753435
+          ]
+        }
+      },
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.6251141433396195,
+            0.7212097290566404
+          ],
+          "entropy_auc_gain": 0.6735306907879907,
+          "final_entropy_ci95": [
+            1.1645130860435169,
+            1.5047527249296062
+          ],
+          "final_entropy_gain": 1.3382201630869308,
+          "truth_log_auc_ci95": [
+            0.5157807233851227,
+            0.6553664642693056
+          ],
+          "truth_log_auc_gain": 0.5840797413618797,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.705014491259579,
+            0.7937632292643915
+          ],
+          "entropy_auc_gain": 0.7501790678242124,
+          "final_entropy_ci95": [
+            1.4418608062644913,
+            1.7145609218905309
+          ],
+          "final_entropy_gain": 1.5783466152163652,
+          "truth_log_auc_ci95": [
+            0.6029212389111558,
+            0.7205650976474358
+          ],
+          "truth_log_auc_gain": 0.6622446698608496,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.6873543959248534,
+            0.7724206155995653
+          ],
+          "entropy_auc_gain": 0.7296559636462026,
+          "final_entropy_ci95": [
+            1.408455425244508,
+            1.679829923712534
+          ],
+          "final_entropy_gain": 1.544627716070432,
+          "truth_log_auc_ci95": [
+            0.5813192515883613,
+            0.7303095145586984
+          ],
+          "truth_log_auc_gain": 0.6510887470204199,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.1303447376670558,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.1773611939783386,
+        -0.08631826633762152
+      ],
+      "label": "Gemma 4 26B A4B",
+      "mechanics": {
+        "accepted_llm_cells": 870,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 600,
+        "logical_width_requests": 300,
+        "physical_llm_requests": 904,
+        "provider_cache_hits": 886,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 34,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 0,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "primary_gate_passed": true,
+      "resume": {
+        "accepted_cells_reused": 856,
+        "failure_artifact": "results/nonmyopic/rocksample_7_8_scale_20260721/L1_FAILURE.json",
+        "prior_error": "strategy cell failed after 2 attempts: horizon-2 branch cells need exactly 3 distinct movement roots whose none followup is a check and 3 check roots; compiled root actions were ['move-EAST', 'move-EAST', 'move-SOUTH', 'check-5', 'check-6', 'check-1']",
+        "prior_usage": {
+          "adapter_completion_tokens": 957,
+          "adapter_cost_usd": 0.00080624,
+          "adapter_prompt_tokens": 4872,
+          "adapter_reasoning_tokens": 0,
+          "adapter_requests": 2,
+          "backend": "openrouter",
+          "budget_usd": 40.0,
+          "completion_tokens": 285731,
+          "forced_exits": 0,
+          "model": "google/gemma-4-26b-a4b-it",
+          "model_usage": {
+            "google/gemma-4-26b-a4b-it": {
+              "completion_tokens": 285731,
+              "cost_usd": 0.21147329000000037,
+              "prompt_tokens": 1332877,
+              "reasoning_tokens": 0,
+              "requests": 889
+            }
+          },
+          "prompt_tokens": 1332877,
+          "reasoning_tokens": 0,
+          "remaining_usd": 19.38840066253998,
+          "requests": 889,
+          "run_budget_usd": 2.0,
+          "run_cost_usd": 0.21147329000000037,
+          "run_remaining_usd": 1.7885267099999997,
+          "total_spent_usd": 20.61159933746002
+        },
+        "rejected_responses_preserved": 33,
+        "strategy_cells_reused": 561,
+        "width_cells_reused": 295
+      },
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "adapter_completion_tokens": 4711,
+        "adapter_cost_usd": 0.00428208,
+        "adapter_prompt_tokens": 22307,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 15,
+        "backend": "openrouter",
+        "budget_usd": 40.0,
+        "completion_tokens": 290442,
+        "forced_exits": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 290442,
+            "cost_usd": 0.21575537000000036,
+            "prompt_tokens": 1355184,
+            "reasoning_tokens": 0,
+            "requests": 904
+          }
+        },
+        "prompt_tokens": 1355184,
+        "reasoning_tokens": 0,
+        "remaining_usd": 19.384118582539973,
+        "requests": 904,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 0.21575537000000036,
+        "run_remaining_usd": 1.7842446299999997,
+        "total_spent_usd": 20.615881417460027
+      }
+    },
+    "gpt54_mini": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 210,
+          "move_rate": 0.7,
+          "round_entropy_mean": [
+            5.54517744447956,
+            5.54517744447956,
+            4.852030263919618,
+            4.852030263919618,
+            4.852030263919618,
+            4.852030263919618,
+            4.15888308335967,
+            4.15888308335967,
+            4.15888308335967,
+            3.4657359027997248
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.3212807847461378,
+          "move_count": 108,
+          "move_rate": 0.36,
+          "round_entropy_mean": [
+            5.541556044888868,
+            5.535463381436497,
+            5.519250488931598,
+            5.509564366442065,
+            5.502938573921614,
+            5.47326098738604,
+            5.366678744577755,
+            5.328902478982304,
+            5.272014652499385,
+            5.1934945950204
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.05082521120113454,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            5.539884664667095,
+            5.535672473025372,
+            5.532364658481575,
+            5.528326623805215,
+            5.5234574418910825,
+            5.515938773222579,
+            5.513050804111457,
+            5.509352249479563,
+            5.510192887931737,
+            5.509165334996809
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.6629883619349589,
+          "move_count": 191,
+          "move_rate": 0.6366666666666667,
+          "round_entropy_mean": [
+            5.54487124509612,
+            5.539946171284681,
+            5.213537500630169,
+            5.120736385287352,
+            5.00660269425771,
+            4.955744136154268,
+            4.7687257053176175,
+            4.741124571529597,
+            4.668514583561363,
+            4.553524319091506
+          ]
+        },
+        "width": {
+          "decision_count": 300,
+          "mean_h2_exhaustive_fraction": 0.13267274581875124,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            5.535991462976378,
+            5.529684220110854,
+            5.520177326847736,
+            5.514879658466817,
+            5.508303074041447,
+            5.5042266225683765,
+            5.499308704363039,
+            5.486613027222762,
+            5.479280442387475,
+            5.46277041467605
+          ]
+        }
+      },
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.3224786767143544,
+            0.49884474805193524
+          ],
+          "entropy_auc_gain": 0.4129797001876155,
+          "final_entropy_ci95": [
+            0.4354907998433791,
+            0.8378412324588509
+          ],
+          "final_entropy_gain": 0.6399702759288961,
+          "truth_log_auc_ci95": [
+            0.26155295835131653,
+            0.5340742447250695
+          ],
+          "truth_log_auc_gain": 0.3987428587549701,
+          "wins_ties_losses": [
+            28,
+            0,
+            2
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.4312084803656782,
+            0.5862872013537308
+          ],
+          "entropy_auc_gain": 0.5104078599402115,
+          "final_entropy_ci95": [
+            0.7966538407551453,
+            1.1212359968651917
+          ],
+          "final_entropy_gain": 0.9556410159053037,
+          "truth_log_auc_ci95": [
+            0.37455440160158965,
+            0.5956063146637692
+          ],
+          "truth_log_auc_gain": 0.48556757184703,
+          "wins_ties_losses": [
+            28,
+            0,
+            2
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.4114755264446168,
+            0.5734282336128939
+          ],
+          "entropy_auc_gain": 0.4927907641450569,
+          "final_entropy_ci95": [
+            0.7384410388566216,
+            1.080021055935663
+          ],
+          "final_entropy_gain": 0.9092460955845467,
+          "truth_log_auc_ci95": [
+            0.35033052568059764,
+            0.58050346697309
+          ],
+          "truth_log_auc_gain": 0.46594953854631155,
+          "wins_ties_losses": [
+            28,
+            0,
+            2
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.36724662146940495,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.4486400209891133,
+        -0.28884699910383177
+      ],
+      "label": "GPT-5.4 Mini",
+      "mechanics": {
+        "accepted_llm_cells": 869,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 600,
+        "logical_width_requests": 300,
+        "physical_llm_requests": 893,
+        "provider_cache_hits": 894,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 24,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 5,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "primary_gate_passed": true,
+      "resume": {
+        "accepted_cells_reused": 863,
+        "failure_artifact": "results/nonmyopic/rocksample_7_8_gpt54mini_slot_replication_20260721/L1_FAILURE.json",
+        "prior_error": "strategy cell failed after 2 attempts: strategy 4 followup 'bad' must be legal at (3, 6)",
+        "prior_usage": {
+          "adapter_completion_tokens": 218749,
+          "adapter_cost_usd": 1.7506743,
+          "adapter_prompt_tokens": 1242692,
+          "adapter_reasoning_tokens": 0,
+          "adapter_requests": 887,
+          "backend": "openrouter",
+          "budget_usd": 40.0,
+          "completion_tokens": 218749,
+          "forced_exits": 0,
+          "model": "openai/gpt-5.4-mini",
+          "model_usage": {
+            "openai/gpt-5.4-mini": {
+              "completion_tokens": 218749,
+              "cost_usd": 1.7506743,
+              "prompt_tokens": 1242692,
+              "reasoning_tokens": 0,
+              "requests": 887
+            }
+          },
+          "prompt_tokens": 1242692,
+          "reasoning_tokens": 0,
+          "remaining_usd": 15.92434383253989,
+          "requests": 887,
+          "run_budget_usd": 4.0,
+          "run_cost_usd": 1.7506743,
+          "run_remaining_usd": 2.2493257,
+          "total_spent_usd": 24.07565616746011
+        },
+        "rejected_responses_preserved": 24,
+        "strategy_cells_reused": 565,
+        "width_cells_reused": 298
+      },
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "adapter_completion_tokens": 1421,
+        "adapter_cost_usd": 0.01191375,
+        "adapter_prompt_tokens": 7359,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 40.0,
+        "completion_tokens": 220170,
+        "forced_exits": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 220170,
+            "cost_usd": 1.7625880499999997,
+            "prompt_tokens": 1250051,
+            "reasoning_tokens": 0,
+            "requests": 893
+          }
+        },
+        "prompt_tokens": 1250051,
+        "reasoning_tokens": 0,
+        "remaining_usd": 15.912430082539892,
+        "requests": 893,
+        "run_budget_usd": 4.0,
+        "run_cost_usd": 1.7625880499999997,
+        "run_remaining_usd": 2.2374119500000003,
+        "total_spent_usd": 24.087569917460108
+      }
+    }
+  },
+  "schema_version": 1
+}
