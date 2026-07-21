@@ -98,6 +98,14 @@ record the failure path, prior error, reused-cell count, preserved invalid-respo
 count, and cumulative run usage. A resumed run is valid when it has no unresolved
 terminal cell and all original mechanics checks pass.
 
+Before any endpoint existed, a resumed process reached the unresolved cell but the
+generic feedback again elicited duplicate physical movement roots. The retry feedback
+is therefore clarified to enumerate legal and omitted movement root IDs and to state
+that different target intentions cannot share a physical root ID. This changes no
+schema, candidate count, accepted response, exact score, trial, or endpoint; it only
+makes the already-frozen distinct-root validity condition explicit on malformed-cell
+feedback.
+
 ```bash
 set -a; source .env; set +a
 python scripts/nonmyopic_rock_strategy_prior.py \

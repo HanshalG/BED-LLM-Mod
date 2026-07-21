@@ -517,6 +517,12 @@ class LLMRockStrategyProvider:
             ]
             branch_payloads = [json.loads(strategy.raw_text) for strategy in strategies]
             move_roots = {roots[index] for index in move_indices}
+            legal_move_roots = [
+                action for action in model.legal_actions(position) if model.is_move(action)
+            ]
+            missing_move_roots = [
+                action for action in legal_move_roots if action not in move_roots
+            ]
             move_then_check = all(
                 str(branch_payloads[index]["followups"]["none"]).startswith("check-")
                 for index in move_indices
@@ -530,7 +536,9 @@ class LLMRockStrategyProvider:
                 raise StrategyProposalError(
                     f"horizon-2 branch cells need exactly {required_moves} distinct movement roots "
                     f"whose none followup is a check and {self.config.num_strategies - required_moves} "
-                    f"check roots; compiled root actions were {roots}"
+                    f"check roots; compiled root actions were {roots}. Legal movement root IDs are "
+                    f"{legal_move_roots}; omitted movement root IDs are {missing_move_roots}. Root IDs "
+                    "name physical actions, so different target intentions may not repeat one root ID"
                 )
         elif horizon > 1:
             roots = [str(score.root_action) for score in scores]

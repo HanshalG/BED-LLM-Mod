@@ -386,6 +386,81 @@ def test_provider_feedback_explains_current_root_mix() -> None:
     assert "unconditional check fallback" in feedback
 
 
+def test_branch_feedback_names_omitted_physical_movement_roots() -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    valid_response = DeterministicStrategyModel().chat_complete(
+        LLMRockStrategyProvider(
+            DeterministicStrategyModel(),
+            L1Config(num_strategies=4, strategy_schema="branch_policy_v2"),
+        )._strategy_messages(
+            model,
+            position=model.map_spec.start_position,
+            belief=model.initial_belief,
+            history=(),
+            horizon=2,
+        ),
+        0.0,
+    )[0]
+    duplicate_response = json.dumps(
+        {
+            "strategies": [
+                {
+                    "name": "east zero",
+                    "description": "Move east, then check rock zero.",
+                    "root_action": "move-EAST",
+                    "followups": {"none": "check-0"},
+                },
+                {
+                    "name": "east one",
+                    "description": "Move east, then check rock one.",
+                    "root_action": "move-EAST",
+                    "followups": {"none": "check-1"},
+                },
+                {
+                    "name": "check zero",
+                    "description": "Check rock zero now.",
+                    "root_action": "check-0",
+                    "followups": {"good": "check-0", "bad": "check-1"},
+                },
+                {
+                    "name": "check one",
+                    "description": "Check rock one now.",
+                    "root_action": "check-1",
+                    "followups": {"good": "check-1", "bad": "check-2"},
+                },
+            ]
+        }
+    )
+
+    class DuplicateThenValidModel:
+        def __init__(self) -> None:
+            self.messages = []
+
+        def chat_complete(self, messages, temperature, num_responses=1):
+            del temperature, num_responses
+            self.messages.append(messages)
+            return [duplicate_response if len(self.messages) == 1 else valid_response]
+
+    chat_model = DuplicateThenValidModel()
+    provider = LLMRockStrategyProvider(
+        chat_model, L1Config(num_strategies=4, strategy_schema="branch_policy_v2")
+    )
+    provider.propose_strategies(
+        model,
+        map_name="3-6",
+        trial_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+        horizon=2,
+    )
+
+    feedback = chat_model.messages[1][-1]["content"]
+    assert "Legal movement root IDs are" in feedback
+    assert "omitted movement root IDs are ['move-NORTH', 'move-SOUTH']" in feedback
+    assert "different target intentions may not repeat one root ID" in feedback
+
+
 def test_provider_resumes_revalidated_cells_without_model_calls(tmp_path) -> None:
     model = RockDiagnosisModel(get_paper_map("3-6"))
     config = L1Config(
