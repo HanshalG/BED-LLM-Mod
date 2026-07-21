@@ -223,6 +223,9 @@ def test_branch_policy_horizon_one_prompt_requires_unique_roots_and_empty_follow
     assert "choose exactly 6 different legal root_action IDs" in prompt
     assert "Every strategy must use followups:{} exactly" in prompt
     assert "even for movement roots" in prompt
+    assert "MOVEMENT_ROOT_SLOTS=" not in prompt
+    assert "machine-assigned movement slots" not in prompt
+    assert "At horizon 2" not in prompt
 
 
 def test_branch_policy_horizon_one_repairs_only_out_of_horizon_followups() -> None:

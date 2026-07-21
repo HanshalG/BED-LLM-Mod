@@ -55,3 +55,19 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --seed 24077 --bootstrap-replicates 10000 --trial-concurrency 32 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Pre-Endpoint Terminal-Horizon Amendment
+
+The first slot-interface smoke failed closed at 9/10 cells before any policy endpoint.
+Both rejected responses came from one h1 cell. Although movement slots apply only at
+h2, its prompt still contained `MOVEMENT_ROOT_SLOTS=[]` and described "the first 0"
+machine-assigned slots. Gemma emitted six empty slot placeholders plus six real root
+strategies on both bounded attempts, violating the exact-six schema. The other nine
+cells passed; the attempt used 11 requests and `$0.00501294`.
+
+The repair removes every movement-slot and h2-followup instruction from h1 prompts.
+H1 continues to require exactly six distinct legal roots with empty followups. H2
+prompts, parser constraints, model, budgets, controls, seed, endpoints, and gates are
+unchanged. The failed smoke remains diagnostic only. A fresh ten-cell smoke in
+`rocksample_7_8_gemma_slot_smoke_v2_20260721` must pass before the formal command above
+is authorized.

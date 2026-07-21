@@ -788,27 +788,32 @@ class LLMRockStrategyProvider:
                 else "CURRENT HORIZON IS 2: every strategy must provide the exact branch followups below."
             ),
             "root_action must be one listed root action ID.",
-            (
-                'At horizon 2 a movement root uses exactly {"none":"FOLLOWUP_ID"}; a check root '
-                'uses exactly {"good":"FOLLOWUP_ID","bad":"FOLLOWUP_ID"}. Never use "none" '
-                "for a check root and never omit either good or bad."
-            ),
-            (
-                'Every followup value is a JSON string action ID, for example "good":"check-2". '
-                'Never nest an object such as "good":{"check-2":"none"}.'
-            ),
-            (
-                "For horizon 2, followups must contain exactly the outcome keys shown for that root "
-                "and each value must be chosen from that branch's legal-action menu. For horizon 1, "
-                "followups must be {}."
-            ),
-            (
-                f"At horizon 2 the first {required_move_count} strategies are machine-assigned movement "
-                f"slots: their root_action values must be {required_move_roots} in exactly this order, "
-                f"one literal ID per item. The remaining {required_check_count} strategies must have "
-                "direct-check roots. Every movement-root strategy must use a direct check action as its "
-                "none followup. Use the description to explain the information-seeking logic, but do not "
-                "add fields."
+            *(
+                [
+                    (
+                        'At horizon 2 a movement root uses exactly {"none":"FOLLOWUP_ID"}; a check root '
+                        'uses exactly {"good":"FOLLOWUP_ID","bad":"FOLLOWUP_ID"}. Never use "none" '
+                        "for a check root and never omit either good or bad."
+                    ),
+                    (
+                        'Every followup value is a JSON string action ID, for example "good":"check-2". '
+                        'Never nest an object such as "good":{"check-2":"none"}.'
+                    ),
+                    (
+                        "Followups must contain exactly the outcome keys shown for that root, and each "
+                        "value must be chosen from that branch's legal-action menu."
+                    ),
+                    (
+                        f"The first {required_move_count} strategies are machine-assigned movement slots: "
+                        f"their root_action values must be {required_move_roots} in exactly this order, "
+                        f"one literal ID per item. The remaining {required_check_count} strategies must "
+                        "have direct-check roots. Every movement-root strategy must use a direct check "
+                        "action as its none followup. Use the description to explain the information-seeking "
+                        "logic, but do not add fields."
+                    ),
+                ]
+                if horizon > 1
+                else []
             ),
             (
                 "Behaviorally distinct means no two strategies may repeat the same root_action plus "
@@ -829,7 +834,11 @@ class LLMRockStrategyProvider:
             "History:",
             _history_text(history),
             "ROOT_GEOMETRY=" + json.dumps(root_geometry, sort_keys=True, separators=(",", ":")),
-            "MOVEMENT_ROOT_SLOTS=" + json.dumps(required_move_roots, separators=(",", ":")),
+            *(
+                ["MOVEMENT_ROOT_SLOTS=" + json.dumps(required_move_roots, separators=(",", ":"))]
+                if horizon > 1
+                else []
+            ),
             "MACHINE_READABLE_MENUS=" + json.dumps(menus, sort_keys=True, separators=(",", ":")),
         ]
         return [{"role": "system", "content": system}, {"role": "user", "content": "\n".join(instructions)}]
