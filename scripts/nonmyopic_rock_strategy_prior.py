@@ -397,6 +397,31 @@ def _history_text(history: History) -> str:
     )
 
 
+def _state_from_serialized_history(
+    model: RockDiagnosisModel, payload: Any
+) -> tuple[tuple[int, int], np.ndarray, History]:
+    if not isinstance(payload, list):
+        raise ValueError("cached request history must be a list")
+    position = model.map_spec.start_position
+    belief = model.initial_belief.copy()
+    history: list[tuple[str, str | None]] = []
+    for index, item in enumerate(payload):
+        if not isinstance(item, dict) or set(item) != {"action", "observation"}:
+            raise ValueError(f"cached history item {index} has an invalid schema")
+        action = item["action"]
+        observation = item["observation"]
+        if not isinstance(action, str) or action not in model.legal_actions(position):
+            raise ValueError(f"cached history item {index} has illegal action {action!r}")
+        if observation not in model.outcomes(action):
+            raise ValueError(
+                f"cached history item {index} has invalid observation {observation!r} for {action}"
+            )
+        belief = model.posterior(position, belief, action, observation)
+        history.append((action, observation))
+        position = model.next_position(position, action)
+    return position, belief, tuple(history)
+
+
 def _rock_marginals(model: RockDiagnosisModel, belief: np.ndarray) -> list[float]:
     return [
         float(
@@ -441,6 +466,175 @@ class LLMRockStrategyProvider:
         self.logical_width_calls = 0
         self.cache_hits = 0
         self.terminal_followup_repairs = 0
+
+    def _parse_and_score_strategy_response(
+        self,
+        response: str,
+        *,
+        model: RockDiagnosisModel,
+        position: tuple[int, int],
+        belief: np.ndarray,
+        history: History,
+        horizon: int,
+    ) -> tuple[tuple[RockStrategy, ...], tuple[ExactRockStrategyScore, ...], int]:
+        terminal_repairs = 0
+        if self.config.strategy_schema == "branch_policy_v2":
+            if horizon <= 1:
+                response, terminal_repairs = _repair_terminal_branch_followups(response)
+            strategies = parse_branch_strategy_cell(
+                response,
+                model=model,
+                position=position,
+                horizon=horizon,
+                expected_count=self.config.num_strategies,
+            )
+        else:
+            strategies = parse_strategy_cell(
+                response, model=model, expected_count=self.config.num_strategies
+            )
+        scores = tuple(
+            score_rock_strategy_exact(
+                model,
+                strategy,
+                position=position,
+                belief=belief,
+                history=history,
+                horizon=horizon,
+            )
+            for strategy in strategies
+        )
+        if horizon > 1 and self.config.strategy_schema == "branch_policy_v2":
+            roots = [str(score.root_action) for score in scores]
+            required_moves = _required_move_policy_count(
+                model,
+                position,
+                horizon=horizon,
+                total_count=self.config.num_strategies,
+            )
+            move_indices = [index for index, action in enumerate(roots) if model.is_move(action)]
+            check_indices = [
+                index for index, action in enumerate(roots) if model.check_id(action) is not None
+            ]
+            branch_payloads = [json.loads(strategy.raw_text) for strategy in strategies]
+            move_roots = {roots[index] for index in move_indices}
+            move_then_check = all(
+                str(branch_payloads[index]["followups"]["none"]).startswith("check-")
+                for index in move_indices
+            )
+            if (
+                len(move_indices) != required_moves
+                or len(move_roots) != required_moves
+                or len(check_indices) != self.config.num_strategies - required_moves
+                or not move_then_check
+            ):
+                raise StrategyProposalError(
+                    f"horizon-2 branch cells need exactly {required_moves} distinct movement roots "
+                    f"whose none followup is a check and {self.config.num_strategies - required_moves} "
+                    f"check roots; compiled root actions were {roots}"
+                )
+        elif horizon > 1:
+            roots = [str(score.root_action) for score in scores]
+            if not any(model.is_move(action) for action in roots) or not any(
+                model.check_id(action) is not None for action in roots
+            ):
+                raise StrategyProposalError(
+                    "horizon-2 strategy cells need at least one move root and at least one check root; "
+                    f"compiled root actions were {roots}. Make one strategy's currently matching action "
+                    "a direct check_rock (an unconditional check fallback guarantees this) and keep "
+                    "another strategy's current root as movement"
+                )
+        return strategies, scores, terminal_repairs
+
+    def load_failure_cache(self, path: Path) -> dict[str, Any]:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if (
+            payload.get("schema_version") != 1
+            or payload.get("stage") != "L1"
+            or payload.get("status") != "failed_closed"
+        ):
+            raise ValueError("resume artifact is not a failed-closed L1 result")
+        expected_config = json.loads(json.dumps(asdict(self.config)))
+        if payload.get("config") != expected_config:
+            raise ValueError("resume artifact config does not exactly match the requested run")
+        requests = payload.get("candidate_requests")
+        invalid_responses = payload.get("invalid_responses")
+        if not isinstance(requests, list) or not isinstance(invalid_responses, list):
+            raise ValueError("resume artifact has invalid request logs")
+
+        strategy_cache: dict[tuple[Any, ...], StrategyCell] = {}
+        width_cache: dict[tuple[Any, ...], WidthCell] = {}
+        terminal_repairs = 0
+        for index, request in enumerate(requests):
+            if not isinstance(request, dict):
+                raise ValueError(f"cached request {index} is not an object")
+            try:
+                map_name = str(request["map_name"])
+                trial_index = int(request["trial_index"])
+                recorded_position = tuple(request["position"])
+                raw_response = str(request["raw_response"])
+                request_type = request["request_type"]
+                model = RockDiagnosisModel(get_paper_map(map_name))
+                position, belief, history = _state_from_serialized_history(
+                    model, request["history"]
+                )
+            except (KeyError, TypeError, ValueError) as exc:
+                raise ValueError(f"cached request {index} has invalid context: {exc}") from exc
+            if map_name not in self.config.map_names or not 0 <= trial_index < self.config.num_trials_per_map:
+                raise ValueError(f"cached request {index} is outside the configured trial grid")
+            if recorded_position != position:
+                raise ValueError(f"cached request {index} position does not match its history")
+
+            if request_type == "strategy":
+                try:
+                    horizon = int(request["horizon"])
+                    strategies, scores, repairs = self._parse_and_score_strategy_response(
+                        raw_response,
+                        model=model,
+                        position=position,
+                        belief=belief,
+                        history=history,
+                        horizon=horizon,
+                    )
+                except (KeyError, TypeError, ValueError, StrategyProposalError) as exc:
+                    raise ValueError(f"cached strategy request {index} cannot be revalidated: {exc}") from exc
+                key = (map_name, trial_index, position, history, horizon)
+                cell = StrategyCell(strategies, scores, raw_response, False)
+                existing = strategy_cache.get(key)
+                if existing is not None and existing.raw_response != raw_response:
+                    raise ValueError(f"cached strategy request {index} conflicts with an earlier cell")
+                strategy_cache[key] = cell
+                terminal_repairs += repairs
+            elif request_type == "width":
+                try:
+                    action_ids = parse_width_cell(
+                        raw_response, allowed_actions=model.legal_actions(position)
+                    )
+                except StrategyProposalError as exc:
+                    raise ValueError(f"cached width request {index} cannot be revalidated: {exc}") from exc
+                key = (map_name, trial_index, position, history)
+                cell = WidthCell(action_ids, raw_response, False)
+                existing = width_cache.get(key)
+                if existing is not None and existing.raw_response != raw_response:
+                    raise ValueError(f"cached width request {index} conflicts with an earlier cell")
+                width_cache[key] = cell
+            else:
+                raise ValueError(f"cached request {index} has unknown type {request_type!r}")
+
+        with self._lock:
+            self._strategy_cache.update(strategy_cache)
+            self._width_cache.update(width_cache)
+            self.physical_requests.extend(requests)
+            self.invalid_responses.extend(invalid_responses)
+            self.terminal_followup_repairs += terminal_repairs
+        return {
+            "failure_artifact": str(path),
+            "accepted_cells_reused": len(requests),
+            "strategy_cells_reused": len(strategy_cache),
+            "width_cells_reused": len(width_cache),
+            "rejected_responses_preserved": len(invalid_responses),
+            "prior_error": payload.get("error"),
+            "prior_usage": payload.get("usage", {}),
+        }
 
     def _strategy_messages(
         self,
@@ -713,77 +907,6 @@ class LLMRockStrategyProvider:
         if cached is not None:
             return StrategyCell(cached.strategies, cached.exact_scores, cached.raw_response, True)
 
-        def parse_and_validate(
-            response: str,
-        ) -> tuple[tuple[RockStrategy, ...], tuple[ExactRockStrategyScore, ...], int]:
-            terminal_repairs = 0
-            if self.config.strategy_schema == "branch_policy_v2":
-                if horizon <= 1:
-                    response, terminal_repairs = _repair_terminal_branch_followups(response)
-                strategies = parse_branch_strategy_cell(
-                    response,
-                    model=model,
-                    position=position,
-                    horizon=horizon,
-                    expected_count=self.config.num_strategies,
-                )
-            else:
-                strategies = parse_strategy_cell(
-                    response, model=model, expected_count=self.config.num_strategies
-                )
-            scores = tuple(
-                score_rock_strategy_exact(
-                    model,
-                    strategy,
-                    position=position,
-                    belief=belief,
-                    history=history,
-                    horizon=horizon,
-                )
-                for strategy in strategies
-            )
-            if horizon > 1 and self.config.strategy_schema == "branch_policy_v2":
-                roots = [str(score.root_action) for score in scores]
-                required_moves = _required_move_policy_count(
-                    model,
-                    position,
-                    horizon=horizon,
-                    total_count=self.config.num_strategies,
-                )
-                move_indices = [index for index, action in enumerate(roots) if model.is_move(action)]
-                check_indices = [
-                    index for index, action in enumerate(roots) if model.check_id(action) is not None
-                ]
-                branch_payloads = [json.loads(strategy.raw_text) for strategy in strategies]
-                move_roots = {roots[index] for index in move_indices}
-                move_then_check = all(
-                    str(branch_payloads[index]["followups"]["none"]).startswith("check-")
-                    for index in move_indices
-                )
-                if (
-                    len(move_indices) != required_moves
-                    or len(move_roots) != required_moves
-                    or len(check_indices) != self.config.num_strategies - required_moves
-                    or not move_then_check
-                ):
-                    raise StrategyProposalError(
-                        f"horizon-2 branch cells need exactly {required_moves} distinct movement roots "
-                        f"whose none followup is a check and {self.config.num_strategies - required_moves} "
-                        f"check roots; compiled root actions were {roots}"
-                    )
-            elif horizon > 1:
-                roots = [str(score.root_action) for score in scores]
-                if not any(model.is_move(action) for action in roots) or not any(
-                    model.check_id(action) is not None for action in roots
-                ):
-                    raise StrategyProposalError(
-                        "horizon-2 strategy cells need at least one move root and at least one check root; "
-                        f"compiled root actions were {roots}. Make one strategy's currently matching action "
-                        "a direct check_rock (an unconditional check fallback guarantees this) and keep "
-                        "another strategy's current root as movement"
-                    )
-            return strategies, scores, terminal_repairs
-
         context = {
             "map_name": map_name,
             "trial_index": trial_index,
@@ -797,7 +920,14 @@ class LLMRockStrategyProvider:
             ),
             request_type="strategy",
             context=context,
-            parser=parse_and_validate,
+            parser=lambda response: self._parse_and_score_strategy_response(
+                response,
+                model=model,
+                position=position,
+                belief=belief,
+                history=history,
+                horizon=horizon,
+            ),
         )
         strategies, exact_scores, terminal_repairs = validated
         cell = StrategyCell(strategies, exact_scores, raw_response, False)
@@ -1824,6 +1954,11 @@ def main() -> None:
         default="final_entropy",
     )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--resume-failure",
+        type=Path,
+        help="Revalidate and reuse accepted cells from a matching failed-closed L1 artifact.",
+    )
     args = parser.parse_args()
     config = L1Config(
         map_names=args.maps,
@@ -1847,6 +1982,9 @@ def main() -> None:
             raise ValueError("L1 config requires a questioner model pair")
         chat_model = build_model_adapter(runtime_config.model_pairs[0].questioner, config=runtime_config)
     provider = LLMRockStrategyProvider(chat_model, config)
+    resume_info = None
+    if args.resume_failure is not None:
+        resume_info = provider.load_failure_cache(args.resume_failure)
     try:
         summary = run_l1_anchor(provider, config)
     except StrategyProposalError as exc:
@@ -1859,6 +1997,7 @@ def main() -> None:
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
             "usage": _usage_snapshot(chat_model),
+            "resume": resume_info,
         }
         (args.output_dir / "L1_FAILURE.json").write_text(
             json.dumps(failure, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -1867,6 +2006,7 @@ def main() -> None:
     summary["usage"] = _usage_snapshot(chat_model)
     summary["run_id"] = args.run_id
     summary["dry_run"] = args.dry_run
+    summary["resume"] = resume_info
     (args.output_dir / "L1.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )

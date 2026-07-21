@@ -80,3 +80,32 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --seed 24072 --bootstrap-replicates 10000 --trial-concurrency 32 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Serving-Recovery Amendment
+
+Added 2026-07-21 after the first Stage B process failed closed and before any Stage B
+endpoint was produced or inspected. The process accepted 803 cells, then one later
+horizon-two cell repeated a movement root on both its initial response and its single
+semantic retry. It wrote only `L1_FAILURE.json`; no trial traces, paired estimates, or
+gate result existed.
+
+The continuation may revalidate and cache every accepted cell from that failure
+artifact, replay the deterministic exact trajectories, and request only cells that
+were not accepted. The failed cell is generated afresh under the same one-feedback-
+retry validator. Accepted cells are never regenerated, the map, trials, seed, arms,
+scoring, endpoints, and bootstrap remain frozen, and the completed artifact must
+record the failure path, prior error, reused-cell count, preserved invalid-response
+count, and cumulative run usage. A resumed run is valid when it has no unresolved
+terminal cell and all original mechanics checks pass.
+
+```bash
+set -a; source .env; set +a
+python scripts/nonmyopic_rock_strategy_prior.py \
+  --config configs/config_nonmyopic_rocksample_7_8_scale_openrouter.yaml \
+  --maps 7-8 --run-id nonmyopic-rocksample-7-8-scale-20260721 \
+  --output-dir results/nonmyopic/rocksample_7_8_scale_20260721 \
+  --resume-failure results/nonmyopic/rocksample_7_8_scale_20260721/L1_FAILURE.json \
+  --num-trials-per-map 30 --num-rounds 10 --num-strategies 6 \
+  --seed 24072 --bootstrap-replicates 10000 --trial-concurrency 32 \
+  --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
+```

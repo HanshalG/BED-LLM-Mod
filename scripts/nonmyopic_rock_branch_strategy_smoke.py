@@ -83,6 +83,23 @@ def _probe_states(map_name: str) -> list[tuple[tuple[int, int], np.ndarray, Hist
     states.append(
         _advance(model, east_position, east_belief, east_history, "check-0", "good")
     )
+    states.append(
+        _advance(model, east_position, east_belief, east_history, "check-0", "bad")
+    )
+    states.append(_advance(model, start, belief, empty, "check-1", "good"))
+    states.append(_advance(model, start, belief, empty, "check-1", "bad"))
+    states.append(_advance(model, start, belief, empty, "move-SOUTH", None))
+    south_position, south_belief, south_history = states[8]
+    states.append(
+        _advance(
+            model,
+            south_position,
+            south_belief,
+            south_history,
+            f"check-{min(5, model.num_rocks - 1)}",
+            "good",
+        )
+    )
     return states
 
 
@@ -91,8 +108,13 @@ def run_smoke(
     *,
     num_strategies: int = 4,
     concurrency: int = 10,
+    map_names: tuple[str, ...] = ("3-6", "5-7"),
+    probe_states_per_map: int = 5,
 ) -> dict[str, Any]:
+    if not 1 <= probe_states_per_map <= 10:
+        raise ValueError("probe_states_per_map must be in [1, 10]")
     config = L1Config(
+        map_names=map_names,
         num_trials_per_map=1,
         num_rounds=2,
         num_strategies=num_strategies,
@@ -103,8 +125,19 @@ def run_smoke(
     provider = LLMRockStrategyProvider(model_adapter, config)
     jobs: list[tuple[str, int, tuple[int, int], np.ndarray, History, int]] = []
     for map_name in config.map_names:
-        for state_index, (position, belief, history) in enumerate(_probe_states(map_name)):
-            jobs.append((map_name, state_index, position, belief, history, 1 if state_index == 4 else 2))
+        for state_index, (position, belief, history) in enumerate(
+            _probe_states(map_name)[:probe_states_per_map]
+        ):
+            jobs.append(
+                (
+                    map_name,
+                    state_index,
+                    position,
+                    belief,
+                    history,
+                    1 if (state_index + 1) % 5 == 0 else 2,
+                )
+            )
 
     def execute(job: tuple[str, int, tuple[int, int], np.ndarray, History, int]) -> dict[str, Any]:
         map_name, state_index, position, belief, history, horizon = job
@@ -253,6 +286,12 @@ def main() -> None:
     parser.add_argument("--run-id", default="nonmyopic-rock-branch-strategy-smoke-20260720")
     parser.add_argument("--num-strategies", type=int, default=4)
     parser.add_argument("--concurrency", type=int, default=10)
+    parser.add_argument(
+        "--maps",
+        type=lambda value: tuple(part.strip() for part in value.split(",") if part.strip()),
+        default=("3-6", "5-7"),
+    )
+    parser.add_argument("--probe-states-per-map", type=int, default=5)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -266,6 +305,8 @@ def main() -> None:
         model_adapter,
         num_strategies=args.num_strategies,
         concurrency=args.concurrency,
+        map_names=args.maps,
+        probe_states_per_map=args.probe_states_per_map,
     )
     summary["run_id"] = args.run_id
     summary["dry_run"] = args.dry_run

@@ -26,3 +26,18 @@ def test_dry_branch_strategy_serving_smoke_passes_all_ten_cells() -> None:
         for row in horizon_one
         for strategy in row["strategies"]
     )
+
+
+def test_single_large_map_smoke_uses_ten_distinct_probe_states() -> None:
+    summary = run_smoke(
+        DeterministicStrategyModel(),
+        concurrency=2,
+        map_names=("7-8",),
+        probe_states_per_map=10,
+    )
+
+    assert summary["passed"]
+    assert summary["mechanics"]["requested_cells"] == 10
+    assert {row["map_name"] for row in summary["cells"]} == {"7-8"}
+    assert len({row["state_index"] for row in summary["cells"]}) == 10
+    assert sum(row["horizon"] == 1 for row in summary["cells"]) == 2

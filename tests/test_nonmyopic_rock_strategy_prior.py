@@ -1,5 +1,6 @@
 import json
 import math
+from dataclasses import asdict
 
 import pytest
 
@@ -383,6 +384,100 @@ def test_provider_feedback_explains_current_root_mix() -> None:
     feedback = chat_model.messages[1][-1]["content"]
     assert "compiled root actions were" in feedback
     assert "unconditional check fallback" in feedback
+
+
+def test_provider_resumes_revalidated_cells_without_model_calls(tmp_path) -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    config = L1Config(
+        map_names=("3-6",),
+        num_trials_per_map=1,
+        num_rounds=2,
+        num_strategies=4,
+        strategy_schema="branch_policy_v2",
+    )
+    original = LLMRockStrategyProvider(DeterministicStrategyModel(), config)
+    original.propose_strategies(
+        model,
+        map_name="3-6",
+        trial_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+        horizon=2,
+    )
+    original.propose_width_order(
+        model,
+        map_name="3-6",
+        trial_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+    )
+    failure_path = tmp_path / "L1_FAILURE.json"
+    failure_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "stage": "L1",
+                "status": "failed_closed",
+                "error": "later cell failed",
+                "config": asdict(config),
+                "candidate_requests": original.physical_requests,
+                "invalid_responses": [{"error": "preserved"}],
+                "usage": {"run_cost_usd": 0.1},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    class NoCallModel:
+        def chat_complete(self, *args, **kwargs):
+            raise AssertionError("a resumed cell must not call the model")
+
+    resumed = LLMRockStrategyProvider(NoCallModel(), config)
+    resume = resumed.load_failure_cache(failure_path)
+    strategy = resumed.propose_strategies(
+        model,
+        map_name="3-6",
+        trial_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+        horizon=2,
+    )
+    width = resumed.propose_width_order(
+        model,
+        map_name="3-6",
+        trial_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+    )
+
+    assert strategy.cache_hit and width.cache_hit
+    assert resume["accepted_cells_reused"] == 2
+    assert resume["rejected_responses_preserved"] == 1
+    assert resumed.cache_hits == 2
+    assert len(resumed.physical_requests) == 2
+    assert resumed.invalid_responses == [{"error": "preserved"}]
+
+
+def test_provider_resume_requires_an_exact_config_match(tmp_path) -> None:
+    config = L1Config(map_names=("3-6",), num_trials_per_map=1)
+    payload = {
+        "schema_version": 1,
+        "stage": "L1",
+        "status": "failed_closed",
+        "config": {**asdict(config), "seed": config.seed + 1},
+        "candidate_requests": [],
+        "invalid_responses": [],
+    }
+    failure_path = tmp_path / "L1_FAILURE.json"
+    failure_path.write_text(json.dumps(payload), encoding="utf-8")
+    provider = LLMRockStrategyProvider(DeterministicStrategyModel(), config)
+
+    with pytest.raises(ValueError, match="config does not exactly match"):
+        provider.load_failure_cache(failure_path)
 
 
 def test_small_dry_anchor_preserves_pairing_and_compute_controls() -> None:
