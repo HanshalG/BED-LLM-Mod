@@ -10,7 +10,7 @@ import json
 import math
 from pathlib import Path
 import sys
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 
@@ -69,11 +69,14 @@ def exhaustive_action_values(
     position: tuple[int, int],
     belief: np.ndarray,
     depth: int,
+    planning_utility: Literal["terminal_eig", "entropy_auc"] = "terminal_eig",
 ) -> tuple[dict[str, float], int]:
     """Return exact total-EIG values and expanded action evaluations."""
 
     if depth <= 0:
         raise ValueError("depth must be positive")
+    if planning_utility not in {"terminal_eig", "entropy_auc"}:
+        raise ValueError("planning_utility must be terminal_eig or entropy_auc")
     memo: dict[tuple[tuple[int, int], int, bytes], tuple[float, int]] = {}
 
     def best_value(current_position: tuple[int, int], current_belief: np.ndarray, horizon: int) -> tuple[float, int]:
@@ -93,7 +96,10 @@ def exhaustive_action_values(
         values: dict[str, float] = {}
         units = len(legal)
         for action in legal:
-            value = model.expected_information_gain(current_position, current_belief, action)
+            immediate_weight = horizon if planning_utility == "entropy_auc" else 1
+            value = immediate_weight * model.expected_information_gain(
+                current_position, current_belief, action
+            )
             if horizon > 1:
                 next_position = model.next_position(current_position, action)
                 for outcome in model.outcomes(action):
