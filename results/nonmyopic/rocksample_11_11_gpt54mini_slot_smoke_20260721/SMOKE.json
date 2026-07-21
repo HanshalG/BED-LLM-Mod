@@ -1,0 +1,1083 @@
+{
+  "accepted_requests": [
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "position": [
+        1,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"recheck nearby target\",\"description\":\"Use the immediate high-value local check again to refine belief about the already-adjacent rock with the best current evidence.\",\"root_action\":\"check-0\",\"followups\":{}},{\"name\":\"probe northern rock\",\"description\":\"Check the rock whose distance is minimized by moving north or staying put, focusing on a different nearby candidate.\",\"root_action\":\"check-3\",\"followups\":{}},{\"name\":\"probe eastern cluster\",\"description\":\"Check a farther but still moderately accessible rock to diversify information across a separate location.\",\"root_action\":\"check-2\",\"followups\":{}},{\"name\":\"probe south-east option\",\"description\":\"Check a rock in the southeast direction to gather information about a distinct spatial cluster.\",\"root_action\":\"check-5\",\"followups\":{}},{\"name\":\"probe western flank\",\"description\":\"Check a left-side rock to sample a different region of the map and avoid redundant nearby targets.\",\"root_action\":\"check-4\",\"followups\":{}},{\"name\":\"probe distant southern rock\",\"description\":\"Check a more distant rock to diversify posterior reduction across a high-variance target.\",\"root_action\":\"check-8\",\"followups\":{}}]}",
+      "request_type": "strategy",
+      "trial_index": 4
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        1,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north-probe\",\"description\":\"Move north first to reduce distance to rocks near the upper part of the map, then use the follow-up check to exploit the improved geometry.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"east-probe\",\"description\":\"Move east first to shift toward the denser central-right region, then check a nearby candidate from the improved position.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"south-probe\",\"description\":\"Move south first to get closer to the lower-right/lower-center rocks, then perform a check that benefits from the changed distance profile.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-1\"}},{\"name\":\"check-0-focus\",\"description\":\"Directly check rock 0 to capitalize on its relatively moderate distance and gather immediate evidence without spending the action on movement.\",\"root_action\":\"check-0\",\"followups\":{\"good\":\"check-1\",\"bad\":\"check-2\"}},{\"name\":\"check-4-focus\",\"description\":\"Directly check rock 4 as a distinct local hypothesis; its geometry is comparatively favorable and the result can branch into a second informative check.\",\"root_action\":\"check-4\",\"followups\":{\"good\":\"check-5\",\"bad\":\"check-6\"}},{\"name\":\"check-9-focus\",\"description\":\"Directly check the far-right lower rock 9 to test a distant but high-value candidate, with branch-specific follow-ups keeping the horizon informative.\",\"root_action\":\"check-9\",\"followups\":{\"good\":\"check-10\",\"bad\":\"check-8\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north-to-0\",\"description\":\"Move north to reduce distance to rock 0, then check that rock from a closer position for higher diagnostic value.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-0\"}},{\"name\":\"east-to-3\",\"description\":\"Move east to improve proximity to the cluster around rocks 3 and 4, then inspect rock 3 from the new position.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"south-to-1\",\"description\":\"Move south to get closer to rock 1, which is directly south of the start, then check it with better likelihood sensitivity.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-1\"}},{\"name\":\"check-rock-2\",\"description\":\"Directly check rock 2 without movement; useful when preserving position matters more than relocation.\",\"root_action\":\"check-2\",\"followups\":{\"good\":\"move-NORTH\",\"bad\":\"move-SOUTH\"}},{\"name\":\"check-rock-4\",\"description\":\"Directly check rock 4 from the current location; the two outcomes branch to distinct movements for continuation.\",\"root_action\":\"check-4\",\"followups\":{\"good\":\"move-EAST\",\"bad\":\"move-NORTH\"}},{\"name\":\"check-rock-10\",\"description\":\"Directly check the far southeast rock 10; even at distance, it can distinguish a different posterior branch than the other checks.\",\"root_action\":\"check-10\",\"followups\":{\"good\":\"move-SOUTH\",\"bad\":\"move-EAST\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 7
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north-then-0\",\"description\":\"Move north to reduce distance to rock 0, then inspect that nearer rock; this is efficient because the move improves check fidelity for the same target.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-0\"}},{\"name\":\"east-then-3\",\"description\":\"Move east to reposition toward the central cluster, then check rock 3 from a slightly better vantage for improved evidence.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"south-then-1\",\"description\":\"Move south to get closer to rock 1, then perform a more informative check on that rock after the distance reduction.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-1\"}},{\"name\":\"check-4-direct\",\"description\":\"Check a moderately central rock immediately; this is useful when movement is not worth the delay and we want direct evidence now.\",\"root_action\":\"check-4\",\"followups\":{\"good\":\"move-NORTH\",\"bad\":\"move-EAST\"}},{\"name\":\"check-5-direct\",\"description\":\"Directly test another central rock with a wide follow-up split, preserving flexibility after either outcome.\",\"root_action\":\"check-5\",\"followups\":{\"good\":\"move-SOUTH\",\"bad\":\"check-2\"}},{\"name\":\"check-6-direct\",\"description\":\"Inspect a nearby-central rock without moving first; this can be valuable when immediate posterior refinement matters more than travel.\",\"root_action\":\"check-6\",\"followups\":{\"good\":\"check-8\",\"bad\":\"move-EAST\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        },
+        {
+          "action": "check-5",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "position": [
+        0,
+        6
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"inspect-nearby-1\",\"description\":\"Check the adjacent rock directly south to exploit zero distance after the prior move and maximize immediate diagnostic value.\",\"root_action\":\"check-1\",\"followups\":{}},{\"name\":\"inspect-nearby-0\",\"description\":\"Check the nearby northwestern rock from the current position; it is still relatively close and yields a distinct root probe.\",\"root_action\":\"check-0\",\"followups\":{}},{\"name\":\"inspect-nearby-2\",\"description\":\"Check the nearby northeastern rock to gather a different single-rock signal without moving.\",\"root_action\":\"check-2\",\"followups\":{}},{\"name\":\"inspect-mid-3\",\"description\":\"Check a moderately close central rock to diversify information across the local cluster.\",\"root_action\":\"check-3\",\"followups\":{}},{\"name\":\"inspect-mid-4\",\"description\":\"Check another mid-range rock in the same neighborhood to obtain complementary evidence about the central formation.\",\"root_action\":\"check-4\",\"followups\":{}},{\"name\":\"inspect-bonus-5\",\"description\":\"Repeat the historically promising target rock 5 as a direct root check for the strongest known posterior asymmetry.\",\"root_action\":\"check-5\",\"followups\":{}}]}",
+      "request_type": "strategy",
+      "trial_index": 9
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north then closest check\",\"description\":\"Move north to reduce distance to the nearby rock at (0,3), then use a direct check that is now more informative at shorter range.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-0\"}},{\"name\":\"east then midline check\",\"description\":\"Move east to reposition toward rocks in the x>0 column, then check a nearby candidate from the new vantage point to improve local discrimination.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"south then upper check\",\"description\":\"Move south to shorten distance to the rock at (0,7) and nearby eastern rocks, then follow with a check that benefits from the reduced separation.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-1\"}},{\"name\":\"direct check on rock 4\",\"description\":\"Stay put and directly check a moderately likely rock whose distance is already manageable, preserving flexibility for the second step after the observation.\",\"root_action\":\"check-4\",\"followups\":{\"good\":\"move-NORTH\",\"bad\":\"move-EAST\"}},{\"name\":\"direct check on rock 7\",\"description\":\"Use a check-first policy on a farther eastern rock to exploit its high prior uncertainty before deciding the next move based on the result.\",\"root_action\":\"check-7\",\"followups\":{\"good\":\"move-SOUTH\",\"bad\":\"move-NORTH\"}},{\"name\":\"direct check on rock 10\",\"description\":\"Check a distant corner rock to gather information that can separate sparse high-index candidates, then branch to a move that continues toward promising regions.\",\"root_action\":\"check-10\",\"followups\":{\"good\":\"move-EAST\",\"bad\":\"move-SOUTH\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 3
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north_then_target1\",\"description\":\"Move north to reduce distance to the nearby high-value rocks on the upper side, then use the follow-up check to extract immediate information from the improved vantage point.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-1\"}},{\"name\":\"east_then_target0\",\"description\":\"Move east to reposition toward the denser eastern cluster while preserving a legal direct check follow-up from the new location.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-0\"}},{\"name\":\"south_then_target3\",\"description\":\"Move south to improve proximity to the lower rock band, then check a nearby candidate to capitalize on the reduced Manhattan distance.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"check_far_goal_10\",\"description\":\"Directly check a far eastern-lower rock when movement is not worth the cost, using the remaining horizon for an immediate Bayesian update.\",\"root_action\":\"check-10\",\"followups\":{\"good\":\"move-NORTH\",\"bad\":\"move-SOUTH\"}},{\"name\":\"check_mid_goal_5\",\"description\":\"Directly inspect a moderately distant rock to gather information without committing to a move, then branch into opposite corrective motion depending on the result.\",\"root_action\":\"check-5\",\"followups\":{\"good\":\"move-EAST\",\"bad\":\"move-NORTH\"}},{\"name\":\"check_near_goal_8\",\"description\":\"Direct check on a far western-lower target to exploit its prior uncertainty and then choose a directional adjustment based on the observation.\",\"root_action\":\"check-8\",\"followups\":{\"good\":\"move-SOUTH\",\"bad\":\"move-EAST\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 6
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north_then_center\",\"description\":\"Move north to shorten distance to the nearby high-prior rock at (0,3), then check that same rock from the new position to maximize the value of the follow-up observation.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-0\"}},{\"name\":\"east_then_far_pair\",\"description\":\"Move east to improve access to the eastern cluster, then check the nearer of the two central-east targets to gain a better-distance signal than from the start.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"south_then_southwest\",\"description\":\"Move south to reduce distance toward the lower-side rocks, then check the left-lower candidate where the move provides the clearest geometric improvement.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-8\"}},{\"name\":\"direct_high_prior_probe\",\"description\":\"Stay put and immediately re-check the rock with the strongest prior, exploiting its already elevated probability without spending the horizon on repositioning.\",\"root_action\":\"check-0\",\"followups\":{\"good\":\"move-NORTH\",\"bad\":\"move-EAST\"}},{\"name\":\"direct_midfield_probe\",\"description\":\"Use a direct check on a central rock with moderate prior to gather information without committing to a movement that may not help enough at horizon 2.\",\"root_action\":\"check-5\",\"followups\":{\"good\":\"move-SOUTH\",\"bad\":\"check-1\"}},{\"name\":\"direct_eastern_probe\",\"description\":\"Check a far eastern target directly when a movement first step would not reduce distance enough within the remaining horizon; branch differently based on the signal.\",\"root_action\":\"check-10\",\"followups\":{\"good\":\"move-EAST\",\"bad\":\"move-NORTH\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 2
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        1,
+        5
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north-then-center-check\",\"description\":\"Move north to reduce distance to the closer northern candidate cluster, then use a direct check to exploit the shorter range for the most informative follow-up.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"east-then-center-check\",\"description\":\"Move east to get closer to the nearby eastern-middle rocks, then immediately check a target that benefits from the reduced distance.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-5\"}},{\"name\":\"south-then-lower-check\",\"description\":\"Move south to improve access to the lower band of rocks, then use a direct check that is sharper from the new position.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-8\"}},{\"name\":\"check-nearby-right-cluster\",\"description\":\"Directly check a relatively nearby rock from the current position, prioritizing immediate Bayesian update without spending the move budget.\",\"root_action\":\"check-2\",\"followups\":{\"good\":\"move-EAST\",\"bad\":\"move-NORTH\"}},{\"name\":\"check-central-lower\",\"description\":\"Check a central-lower candidate now; if good, shift toward the denser east side, and if bad, move north to diversify the next observation geometry.\",\"root_action\":\"check-4\",\"followups\":{\"good\":\"move-SOUTH\",\"bad\":\"move-WEST\"}},{\"name\":\"check-far-right-anchor\",\"description\":\"Use a direct check on a farther right-side anchor to gain information about a distinct region; the follow-up branches separate by moving toward or away from that cluster.\",\"root_action\":\"check-10\",\"followups\":{\"good\":\"move-EAST\",\"bad\":\"move-SOUTH\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 5
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        6
+      ],
+      "raw_response": "{\"strategies\":[{\"name\":\"north-then-nearby-check\",\"description\":\"Move north to reduce distance to rocks at y=3 and y=4, then use the follow-up check to inspect the closest informative target from the new position.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-1\"}},{\"name\":\"east-then-center-check\",\"description\":\"Move east to start closing on the cluster near x=3 to x=6, then check a rock that remains meaningfully closer after the move.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"south-then-closer-check\",\"description\":\"Move south to reduce distance to the rock directly below and keep the next action as a check that benefits from the new position.\",\"root_action\":\"move-SOUTH\",\"followups\":{\"none\":\"check-8\"}},{\"name\":\"direct-check-low-index\",\"description\":\"Skip movement and immediately check a high-prior rock; useful when the current position already gives acceptable remote accuracy and no move is needed first.\",\"root_action\":\"check-0\",\"followups\":{\"good\":\"move-NORTH\",\"bad\":\"move-EAST\"}},{\"name\":\"direct-check-mid-index\",\"description\":\"Probe a different rock directly to diversify information across independent marginals, then branch to a different move depending on the outcome.\",\"root_action\":\"check-5\",\"followups\":{\"good\":\"move-SOUTH\",\"bad\":\"check-10\"}},{\"name\":\"direct-check-high-index\",\"description\":\"Use a third direct check to cover a far rock with distinct geometry, then branch to either reposition or continue sensing based on the result.\",\"root_action\":\"check-9\",\"followups\":{\"good\":\"move-EAST\",\"bad\":\"move-NORTH\"}}]}",
+      "request_type": "strategy",
+      "trial_index": 8
+    }
+  ],
+  "cells": [
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.0692831164199994,
+        0.029851106519886983,
+        0.06928311641999763,
+        0.00036921676565171424,
+        0.0005513207709011425,
+        6.537892567948234e-05
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-4",
+        "check-5",
+        "check-6"
+      ],
+      "state_index": 0,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 0, then inspect that nearer rock; this is efficient because the move improves check fidelity for the same target.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "north-then-0",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to reposition toward the central cluster, then check rock 3 from a slightly better vantage for improved evidence.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east-then-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south to get closer to rock 1, then perform a more informative check on that rock after the distance reduction.",
+          "followups": {
+            "none": "check-1"
+          },
+          "name": "south-then-1",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Check a moderately central rock immediately; this is useful when movement is not worth the delay and we want direct evidence now.",
+          "followups": {
+            "bad": "move-EAST",
+            "good": "move-NORTH"
+          },
+          "name": "check-4-direct",
+          "root_action": "check-4"
+        },
+        {
+          "description": "Directly test another central rock with a wide follow-up split, preserving flexibility after either outcome.",
+          "followups": {
+            "bad": "check-2",
+            "good": "move-SOUTH"
+          },
+          "name": "check-5-direct",
+          "root_action": "check-5"
+        },
+        {
+          "description": "Inspect a nearby-central rock without moving first; this can be valuable when immediate posterior refinement matters more than travel.",
+          "followups": {
+            "bad": "move-EAST",
+            "good": "check-8"
+          },
+          "name": "check-6-direct",
+          "root_action": "check-6"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.06928311641999763,
+        0.06928311641999763,
+        0.02985110651988787,
+        0.009203497840760022,
+        0.0021169798667903805,
+        7.245382676046574e-07
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        1,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-0",
+        "check-4",
+        "check-9"
+      ],
+      "state_index": 1,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north first to reduce distance to rocks near the upper part of the map, then use the follow-up check to exploit the improved geometry.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "north-probe",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east first to shift toward the denser central-right region, then check a nearby candidate from the improved position.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east-probe",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south first to get closer to the lower-right/lower-center rocks, then perform a check that benefits from the changed distance profile.",
+          "followups": {
+            "none": "check-1"
+          },
+          "name": "south-probe",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Directly check rock 0 to capitalize on its relatively moderate distance and gather immediate evidence without spending the action on movement.",
+          "followups": {
+            "bad": "check-2",
+            "good": "check-1"
+          },
+          "name": "check-0-focus",
+          "root_action": "check-0"
+        },
+        {
+          "description": "Directly check rock 4 as a distinct local hypothesis; its geometry is comparatively favorable and the result can branch into a second informative check.",
+          "followups": {
+            "bad": "check-6",
+            "good": "check-5"
+          },
+          "name": "check-4-focus",
+          "root_action": "check-4"
+        },
+        {
+          "description": "Directly check the far-right lower rock 9 to test a distant but high-value candidate, with branch-specific follow-ups keeping the horizon informative.",
+          "followups": {
+            "bad": "check-8",
+            "good": "check-10"
+          },
+          "name": "check-9-focus",
+          "root_action": "check-9"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.9821040294022441,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.0680432278056271,
+        0.029851106519882542,
+        8.223814607077884e-08,
+        0.009018240810046763,
+        0.00469623695079413,
+        1.3943157739504386e-09
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-0",
+        "check-5",
+        "check-10"
+      ],
+      "state_index": 2,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to shorten distance to the nearby high-prior rock at (0,3), then check that same rock from the new position to maximize the value of the follow-up observation.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "north_then_center",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to improve access to the eastern cluster, then check the nearer of the two central-east targets to gain a better-distance signal than from the start.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east_then_far_pair",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south to reduce distance toward the lower-side rocks, then check the left-lower candidate where the move provides the clearest geometric improvement.",
+          "followups": {
+            "none": "check-8"
+          },
+          "name": "south_then_southwest",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Stay put and immediately re-check the rock with the strongest prior, exploiting its already elevated probability without spending the horizon on repositioning.",
+          "followups": {
+            "bad": "move-EAST",
+            "good": "move-NORTH"
+          },
+          "name": "direct_high_prior_probe",
+          "root_action": "check-0"
+        },
+        {
+          "description": "Use a direct check on a central rock with moderate prior to gather information without committing to a movement that may not help enough at horizon 2.",
+          "followups": {
+            "bad": "check-1",
+            "good": "move-SOUTH"
+          },
+          "name": "direct_midfield_probe",
+          "root_action": "check-5"
+        },
+        {
+          "description": "Check a far eastern target directly when a movement first step would not reduce distance enough within the remaining horizon; branch differently based on the signal.",
+          "followups": {
+            "bad": "move-NORTH",
+            "good": "move-EAST"
+          },
+          "name": "direct_eastern_probe",
+          "root_action": "check-10"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0000000000000906,
+      "best_index": 2,
+      "best_root_action": "move-SOUTH",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.06804322780563332,
+        0.029851106519896753,
+        0.06928311642000118,
+        0.00036921676565526695,
+        4.307945142834058e-06,
+        1.3943068921662416e-09
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-4",
+        "check-7",
+        "check-10"
+      ],
+      "state_index": 3,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to the nearby rock at (0,3), then use a direct check that is now more informative at shorter range.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "north then closest check",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to reposition toward rocks in the x>0 column, then check a nearby candidate from the new vantage point to improve local discrimination.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east then midline check",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south to shorten distance to the rock at (0,7) and nearby eastern rocks, then follow with a check that benefits from the reduced separation.",
+          "followups": {
+            "none": "check-1"
+          },
+          "name": "south then upper check",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Stay put and directly check a moderately likely rock whose distance is already manageable, preserving flexibility for the second step after the observation.",
+          "followups": {
+            "bad": "move-EAST",
+            "good": "move-NORTH"
+          },
+          "name": "direct check on rock 4",
+          "root_action": "check-4"
+        },
+        {
+          "description": "Use a check-first policy on a farther eastern rock to exploit its high prior uncertainty before deciding the next move based on the result.",
+          "followups": {
+            "bad": "move-NORTH",
+            "good": "move-SOUTH"
+          },
+          "name": "direct check on rock 7",
+          "root_action": "check-7"
+        },
+        {
+          "description": "Check a distant corner rock to gather information that can separate sparse high-index candidates, then branch to a move that continues toward promising regions.",
+          "followups": {
+            "bad": "move-SOUTH",
+            "good": "move-EAST"
+          },
+          "name": "direct check on rock 10",
+          "root_action": "check-10"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 1,
+      "best_root_action": "check-3",
+      "check_policy_count": 6,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.005657126384183364,
+        0.02985110651988432,
+        0.0012398886143776267,
+        0.000369216765660596,
+        0.0017477631011439954,
+        1.3717885032349386e-06
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "move_policy_count": 0,
+      "move_then_check_count": 0,
+      "position": [
+        1,
+        5
+      ],
+      "root_actions": [
+        "check-0",
+        "check-3",
+        "check-2",
+        "check-5",
+        "check-4",
+        "check-8"
+      ],
+      "state_index": 4,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Use the immediate high-value local check again to refine belief about the already-adjacent rock with the best current evidence.",
+          "followups": {},
+          "name": "recheck nearby target",
+          "root_action": "check-0"
+        },
+        {
+          "description": "Check the rock whose distance is minimized by moving north or staying put, focusing on a different nearby candidate.",
+          "followups": {},
+          "name": "probe northern rock",
+          "root_action": "check-3"
+        },
+        {
+          "description": "Check a farther but still moderately accessible rock to diversify information across a separate location.",
+          "followups": {},
+          "name": "probe eastern cluster",
+          "root_action": "check-2"
+        },
+        {
+          "description": "Check a rock in the southeast direction to gather information about a distinct spatial cluster.",
+          "followups": {},
+          "name": "probe south-east option",
+          "root_action": "check-5"
+        },
+        {
+          "description": "Check a left-side rock to sample a different region of the map and avoid redundant nearby targets.",
+          "followups": {},
+          "name": "probe western flank",
+          "root_action": "check-4"
+        },
+        {
+          "description": "Check a more distant rock to diversify posterior reduction across a high-variance target.",
+          "followups": {},
+          "name": "probe distant southern rock",
+          "root_action": "check-8"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.9999999999999225,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.06928311641998963,
+        0.0008961491433803204,
+        3.6067711839393723e-07,
+        0.0012398886143802912,
+        0.0017477631011431072,
+        8.512840210528339e-09
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        1,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-2",
+        "check-4",
+        "check-10"
+      ],
+      "state_index": 5,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to the closer northern candidate cluster, then use a direct check to exploit the shorter range for the most informative follow-up.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "north-then-center-check",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to get closer to the nearby eastern-middle rocks, then immediately check a target that benefits from the reduced distance.",
+          "followups": {
+            "none": "check-5"
+          },
+          "name": "east-then-center-check",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south to improve access to the lower band of rocks, then use a direct check that is sharper from the new position.",
+          "followups": {
+            "none": "check-8"
+          },
+          "name": "south-then-lower-check",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Directly check a relatively nearby rock from the current position, prioritizing immediate Bayesian update without spending the move budget.",
+          "followups": {
+            "bad": "move-NORTH",
+            "good": "move-EAST"
+          },
+          "name": "check-nearby-right-cluster",
+          "root_action": "check-2"
+        },
+        {
+          "description": "Check a central-lower candidate now; if good, shift toward the denser east side, and if bad, move north to diversify the next observation geometry.",
+          "followups": {
+            "bad": "move-WEST",
+            "good": "move-SOUTH"
+          },
+          "name": "check-central-lower",
+          "root_action": "check-4"
+        },
+        {
+          "description": "Use a direct check on a farther right-side anchor to gain information about a distinct region; the follow-up branches separate by moving toward or away from that cluster.",
+          "followups": {
+            "bad": "move-SOUTH",
+            "good": "move-EAST"
+          },
+          "name": "check-far-right-anchor",
+          "root_action": "check-10"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.08259398996565914,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.0012171884777236741,
+        0.005722369022382878,
+        0.0017477631011386663,
+        1.39431133305834e-09,
+        0.00010324619920432099,
+        2.725749617127349e-07
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-10",
+        "check-5",
+        "check-8"
+      ],
+      "state_index": 6,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to the nearby high-value rocks on the upper side, then use the follow-up check to extract immediate information from the improved vantage point.",
+          "followups": {
+            "none": "check-1"
+          },
+          "name": "north_then_target1",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to reposition toward the denser eastern cluster while preserving a legal direct check follow-up from the new location.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "east_then_target0",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south to improve proximity to the lower rock band, then check a nearby candidate to capitalize on the reduced Manhattan distance.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "south_then_target3",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Directly check a far eastern-lower rock when movement is not worth the cost, using the remaining horizon for an immediate Bayesian update.",
+          "followups": {
+            "bad": "move-SOUTH",
+            "good": "move-NORTH"
+          },
+          "name": "check_far_goal_10",
+          "root_action": "check-10"
+        },
+        {
+          "description": "Directly inspect a moderately distant rock to gather information without committing to a move, then branch into opposite corrective motion depending on the result.",
+          "followups": {
+            "bad": "move-NORTH",
+            "good": "move-EAST"
+          },
+          "name": "check_mid_goal_5",
+          "root_action": "check-5"
+        },
+        {
+          "description": "Direct check on a far western-lower target to exploit its prior uncertainty and then choose a directional adjustment based on the observation.",
+          "followups": {
+            "bad": "move-EAST",
+            "good": "move-SOUTH"
+          },
+          "name": "check_near_goal_8",
+          "root_action": "check-8"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.06928311641999763,
+        0.029851106519886983,
+        0.06804322780562799,
+        0.0008961491433829849,
+        0.00036921676565526695,
+        1.3943104448799204e-09
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-2",
+        "check-4",
+        "check-10"
+      ],
+      "state_index": 7,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 0, then check that rock from a closer position for higher diagnostic value.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "north-to-0",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to improve proximity to the cluster around rocks 3 and 4, then inspect rock 3 from the new position.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east-to-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south to get closer to rock 1, which is directly south of the start, then check it with better likelihood sensitivity.",
+          "followups": {
+            "none": "check-1"
+          },
+          "name": "south-to-1",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Directly check rock 2 without movement; useful when preserving position matters more than relocation.",
+          "followups": {
+            "bad": "move-SOUTH",
+            "good": "move-NORTH"
+          },
+          "name": "check-rock-2",
+          "root_action": "check-2"
+        },
+        {
+          "description": "Directly check rock 4 from the current location; the two outcomes branch to distinct movements for continuation.",
+          "followups": {
+            "bad": "move-NORTH",
+            "good": "move-EAST"
+          },
+          "name": "check-rock-4",
+          "root_action": "check-4"
+        },
+        {
+          "description": "Directly check the far southeast rock 10; even at distance, it can distinguish a different posterior branch than the other checks.",
+          "followups": {
+            "bad": "move-EAST",
+            "good": "move-SOUTH"
+          },
+          "name": "check-rock-10",
+          "root_action": "check-10"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.013252569960341454,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 3,
+      "contingent_check_count": 3,
+      "exact_eig": [
+        0.00918598150318406,
+        0.005722369022376661,
+        2.1318081522281318e-08,
+        0.0012398886143687449,
+        0.0003692182037298153,
+        2.876150873021288e-09
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 3,
+      "move_then_check_count": 3,
+      "position": [
+        0,
+        6
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "move-SOUTH",
+        "check-0",
+        "check-5",
+        "check-9"
+      ],
+      "state_index": 8,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rocks at y=3 and y=4, then use the follow-up check to inspect the closest informative target from the new position.",
+          "followups": {
+            "none": "check-1"
+          },
+          "name": "north-then-nearby-check",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to start closing on the cluster near x=3 to x=6, then check a rock that remains meaningfully closer after the move.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east-then-center-check",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move south to reduce distance to the rock directly below and keep the next action as a check that benefits from the new position.",
+          "followups": {
+            "none": "check-8"
+          },
+          "name": "south-then-closer-check",
+          "root_action": "move-SOUTH"
+        },
+        {
+          "description": "Skip movement and immediately check a high-prior rock; useful when the current position already gives acceptable remote accuracy and no move is needed first.",
+          "followups": {
+            "bad": "move-EAST",
+            "good": "move-NORTH"
+          },
+          "name": "direct-check-low-index",
+          "root_action": "check-0"
+        },
+        {
+          "description": "Probe a different rock directly to diversify information across independent marginals, then branch to a different move depending on the outcome.",
+          "followups": {
+            "bad": "check-10",
+            "good": "move-SOUTH"
+          },
+          "name": "direct-check-mid-index",
+          "root_action": "check-5"
+        },
+        {
+          "description": "Use a third direct check to cover a far rock with distinct geometry, then branch to either reposition or continue sensing based on the result.",
+          "followups": {
+            "bad": "move-NORTH",
+            "good": "move-EAST"
+          },
+          "name": "direct-check-high-index",
+          "root_action": "check-9"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "check-1",
+      "check_policy_count": 6,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.06928311641999763,
+        0.0012398886143714094,
+        0.005722369022384655,
+        0.0017477631011360018,
+        0.00010324619921142641,
+        0.0003689441906988833
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "move_policy_count": 0,
+      "move_then_check_count": 0,
+      "position": [
+        0,
+        6
+      ],
+      "root_actions": [
+        "check-1",
+        "check-0",
+        "check-2",
+        "check-3",
+        "check-4",
+        "check-5"
+      ],
+      "state_index": 9,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Check the adjacent rock directly south to exploit zero distance after the prior move and maximize immediate diagnostic value.",
+          "followups": {},
+          "name": "inspect-nearby-1",
+          "root_action": "check-1"
+        },
+        {
+          "description": "Check the nearby northwestern rock from the current position; it is still relatively close and yields a distinct root probe.",
+          "followups": {},
+          "name": "inspect-nearby-0",
+          "root_action": "check-0"
+        },
+        {
+          "description": "Check the nearby northeastern rock to gather a different single-rock signal without moving.",
+          "followups": {},
+          "name": "inspect-nearby-2",
+          "root_action": "check-2"
+        },
+        {
+          "description": "Check a moderately close central rock to diversify information across the local cluster.",
+          "followups": {},
+          "name": "inspect-mid-3",
+          "root_action": "check-3"
+        },
+        {
+          "description": "Check another mid-range rock in the same neighborhood to obtain complementary evidence about the central formation.",
+          "followups": {},
+          "name": "inspect-mid-4",
+          "root_action": "check-4"
+        },
+        {
+          "description": "Repeat the historically promising target rock 5 as a direct root check for the strongest known posterior asymmetry.",
+          "followups": {},
+          "name": "inspect-bonus-5",
+          "root_action": "check-5"
+        }
+      ]
+    }
+  ],
+  "config": {
+    "bootstrap_replicates": 10,
+    "map_names": [
+      "11-11"
+    ],
+    "num_rounds": 2,
+    "num_strategies": 6,
+    "num_trials_per_map": 1,
+    "planning_horizon": 2,
+    "primary_endpoint": "final_entropy",
+    "seed": 12032,
+    "strategy_schema": "branch_policy_v2",
+    "temperature": 0.0,
+    "trial_concurrency": 1,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "invalid_responses": [],
+  "mechanics": {
+    "all_cells_have_move_and_check_roots": true,
+    "all_move_cells_include_move_then_check": true,
+    "parse_rate": 1.0,
+    "passed_cells": 10,
+    "raw_rejected_attempts": 0,
+    "requested_cells": 10,
+    "terminal_failures": 0
+  },
+  "passed": true,
+  "run_id": "nonmyopic-rocksample-11-11-gpt54mini-slot-smoke-20260721",
+  "schema_version": 1,
+  "stage": "rock_branch_strategy_serving_smoke",
+  "usage": {
+    "adapter_completion_tokens": 3265,
+    "adapter_cost_usd": 0.034161750000000005,
+    "adapter_prompt_tokens": 25959,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 3265,
+    "forced_exits": 0,
+    "model": "openai/gpt-5.4-mini",
+    "model_usage": {
+      "openai/gpt-5.4-mini": {
+        "completion_tokens": 3265,
+        "cost_usd": 0.034161750000000005,
+        "prompt_tokens": 25959,
+        "reasoning_tokens": 0,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 25959,
+    "reasoning_tokens": 0,
+    "remaining_usd": 15.340297732539984,
+    "requests": 10,
+    "run_budget_usd": 4.0,
+    "run_cost_usd": 0.034161750000000005,
+    "run_remaining_usd": 3.96583825,
+    "total_spent_usd": 24.659702267460016
+  }
+}

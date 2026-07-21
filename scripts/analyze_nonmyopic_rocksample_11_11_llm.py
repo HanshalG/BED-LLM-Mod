@@ -24,22 +24,45 @@ from scripts.analyze_nonmyopic_rock_branch_result import (
 
 
 EXPECTED_MAP = "11-11"
-EXPECTED_RUN_ID = "nonmyopic-rocksample-11-11-gemma-slot-confirmation-20260721"
-EXPECTED_MODEL = "google/gemma-4-26b-a4b-it"
-EXPECTED_CONFIG = {
-    "map_names": [EXPECTED_MAP],
-    "num_trials_per_map": 30,
-    "num_rounds": 12,
-    "num_strategies": 6,
-    "planning_horizon": 2,
-    "seed": 24079,
-    "bootstrap_replicates": 10_000,
-    "temperature": 0.0,
-    "validation_retries": 1,
-    "trial_concurrency": 32,
-    "strategy_schema": "branch_policy_v2",
-    "primary_endpoint": "entropy_auc",
+EXPECTED_RUNS = {
+    "gemma": {
+        "run_id": "nonmyopic-rocksample-11-11-gemma-slot-confirmation-20260721",
+        "seed": 24079,
+        "model": "google/gemma-4-26b-a4b-it",
+        "label": "Gemma 4 26B A4B",
+        "resumed": False,
+    },
+    "gpt54_mini": {
+        "run_id": "nonmyopic-rocksample-11-11-gpt54mini-slot-replication-20260721",
+        "seed": 24080,
+        "model": "openai/gpt-5.4-mini",
+        "label": "GPT-5.4 Mini",
+        "resumed": True,
+        "accepted_cells_reused": 1038,
+    },
 }
+
+
+def _expected_config(seed: int) -> dict[str, Any]:
+    return {
+        "map_names": [EXPECTED_MAP],
+        "num_trials_per_map": 30,
+        "num_rounds": 12,
+        "num_strategies": 6,
+        "planning_horizon": 2,
+        "seed": seed,
+        "bootstrap_replicates": 10_000,
+        "temperature": 0.0,
+        "validation_retries": 1,
+        "trial_concurrency": 32,
+        "strategy_schema": "branch_policy_v2",
+        "primary_endpoint": "entropy_auc",
+    }
+
+
+EXPECTED_RUN_ID = EXPECTED_RUNS["gemma"]["run_id"]
+EXPECTED_MODEL = EXPECTED_RUNS["gemma"]["model"]
+EXPECTED_CONFIG = _expected_config(EXPECTED_RUNS["gemma"]["seed"])
 
 
 def _mean_step_field(trace: dict[str, Any], field: str) -> float:
@@ -54,13 +77,22 @@ def _assert_float_lists_match(actual: list[float], expected: list[float]) -> Non
     )
 
 
-def analyze(payload: dict[str, Any]) -> dict[str, Any]:
+def _analyze_expected(
+    payload: dict[str, Any], *, expected: dict[str, Any]
+) -> dict[str, Any]:
     assert payload["schema_version"] == 1
     assert payload["stage"] == "L1"
     assert payload["dry_run"] is False
-    assert payload["run_id"] == EXPECTED_RUN_ID
-    assert payload["config"] == EXPECTED_CONFIG
-    assert payload["resume"] is None
+    assert payload["run_id"] == expected["run_id"]
+    assert payload["config"] == _expected_config(expected["seed"])
+    if expected["resumed"]:
+        resume = payload["resume"]
+        assert resume is not None
+        assert resume["accepted_cells_reused"] == expected["accepted_cells_reused"]
+        assert resume["prior_error"]
+        assert resume["failure_artifact"].endswith("L1_FAILURE.json")
+    else:
+        assert payload["resume"] is None
 
     mechanics = payload["mechanics"]
     required_mechanics = (
@@ -81,11 +113,11 @@ def analyze(payload: dict[str, Any]) -> dict[str, Any]:
 
     usage = payload["usage"]
     assert usage["backend"] == "openrouter"
-    assert usage["model"] == EXPECTED_MODEL
+    assert usage["model"] == expected["model"]
     assert usage["requests"] == mechanics["physical_llm_requests"]
     assert usage["reasoning_tokens"] == 0
     assert usage["forced_exits"] == 0
-    assert set(usage["model_usage"]) == {EXPECTED_MODEL}
+    assert set(usage["model_usage"]) == {expected["model"]}
 
     traces = payload["traces"][EXPECTED_MAP]
     reference_pairs = [
@@ -185,6 +217,8 @@ def analyze(payload: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": 1,
         "claim": "positive_nonmyopic_gain_scales_to_standard_11_rock_geometry",
+        "label": expected["label"],
+        "model": expected["model"],
         "primary_gate_passed": primary_passed,
         "truth_log_corroboration_passed": truth_log_passed,
         "comparisons": comparisons,
@@ -195,6 +229,14 @@ def analyze(payload: dict[str, Any]) -> dict[str, Any]:
         "resume": payload["resume"],
         "usage": usage,
     }
+
+
+def analyze_run(payload: dict[str, Any], run_key: str) -> dict[str, Any]:
+    return _analyze_expected(payload, expected=EXPECTED_RUNS[run_key])
+
+
+def analyze(payload: dict[str, Any]) -> dict[str, Any]:
+    return analyze_run(payload, "gemma")
 
 
 def render_summary(audit: dict[str, Any]) -> str:

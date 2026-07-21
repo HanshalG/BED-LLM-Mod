@@ -7,7 +7,9 @@ from scripts.analyze_nonmyopic_rocksample_11_11_llm import (
     EXPECTED_CONFIG,
     EXPECTED_MODEL,
     EXPECTED_RUN_ID,
+    EXPECTED_RUNS,
     analyze,
+    analyze_run,
 )
 
 
@@ -30,7 +32,8 @@ def _trace(arm: str, trial_index: int) -> dict:
     }
 
 
-def _result(*, gain: float = 0.5) -> dict:
+def _result(*, gain: float = 0.5, run_key: str = "gemma") -> dict:
+    expected = EXPECTED_RUNS[run_key]
     traces = {
         arm: [_trace(arm, trial_index) for trial_index in range(30)] for arm in ARMS
     }
@@ -71,20 +74,28 @@ def _result(*, gain: float = 0.5) -> dict:
         "schema_version": 1,
         "stage": "L1",
         "dry_run": False,
-        "run_id": EXPECTED_RUN_ID,
-        "config": EXPECTED_CONFIG,
+        "run_id": expected["run_id"],
+        "config": {**EXPECTED_CONFIG, "seed": expected["seed"]},
         "mechanics": mechanics,
         "candidate_requests": [{}],
         "invalid_responses": [{}],
-        "resume": None,
+        "resume": (
+            {
+                "accepted_cells_reused": expected["accepted_cells_reused"],
+                "prior_error": "failed cell",
+                "failure_artifact": "results/L1_FAILURE.json",
+            }
+            if expected["resumed"]
+            else None
+        ),
         "usage": {
             "backend": "openrouter",
-            "model": EXPECTED_MODEL,
+            "model": expected["model"],
             "requests": 2,
             "reasoning_tokens": 0,
             "forced_exits": 0,
             "run_cost_usd": 0.1,
-            "model_usage": {EXPECTED_MODEL: {}},
+            "model_usage": {expected["model"]: {}},
         },
         "traces": {"11-11": traces},
         "maps": {
@@ -128,3 +139,10 @@ def test_auditor_rejects_resume() -> None:
 
     with pytest.raises(AssertionError):
         analyze(result)
+
+
+def test_auditor_accepts_registered_gpt_resume() -> None:
+    audit = analyze_run(_result(run_key="gpt54_mini"), "gpt54_mini")
+
+    assert audit["model"] == "openai/gpt-5.4-mini"
+    assert audit["resume"]["accepted_cells_reused"] == 1038

@@ -102,3 +102,25 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --resume-failure \
   results/nonmyopic/rocksample_11_11_gpt54mini_slot_replication_20260721/L1_FAILURE.json
 ```
+
+## Outcome
+
+The fresh serving smoke passed 10/10 cells on the first response with zero rejects,
+reasoning tokens, forced exits, or terminal failures, costing `$0.03416175`.
+
+The resumed formal run completed all 1,050 logical policy cells. It reused 1,038
+accepted cells from the fail-closed artifact, made 11 additional requests, and
+retained all 20 rejected responses. Cumulatively it made 1,069 physical requests,
+used 2,100,085 prompt and 267,488 completion tokens, had zero reasoning tokens,
+forced exits, terminal failures, or rollout-scoring LLM calls, and cost
+`$2.54133255` within the frozen `$4.00` cap.
+
+All preregistered gates passed. StrategyEIG's entropy-AUC gains were +0.5811 (95%
+CI [0.4672, 0.6909]) against shared-roots d1, +0.5528 [0.4374, 0.6613] against
+exhaustive d1 width, and +0.4688 [0.3364, 0.5919] against matched random
+strategies, with wins/ties/losses of 29/0/1, 27/0/3, and 27/0/3. The corresponding
+truth-log-AUC gains were +0.6053 [0.4244, 0.7750], +0.6066 [0.4033, 0.7988], and
++0.5183 [0.3255, 0.7011]. StrategyEIG moved on 231/360 decisions, captured 62.6%
+of exhaustive d2 value over eligible h2 rounds, and remained 0.5459 entropy-AUC
+nats below exhaustive d2. The positive sign therefore replicates across model
+families on the hardest map, while proposal quality remains model-dependent.

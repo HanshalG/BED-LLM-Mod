@@ -34,8 +34,8 @@ preregistered Rock Diagnosis maps with three to eleven rocks, StrategyEIG improv
 entropy AUC over the same LLM roots scored myopically by $0.475$--$0.941$,
 exhaustive one-step width by $0.452$--$0.939$, and matched random strategies by
 $0.362$--$0.887$; all twelve paired 95\% intervals exclude zero, and
-truth-log-posterior AUC agrees. The canonical result also replicates under a
-shared root-slot interface with Gemma 4 26B A4B and GPT-5.4 Mini. The selected
+truth-log-posterior AUC agrees. Both the eight- and eleven-rock results replicate
+across Gemma 4 26B A4B and GPT-5.4 Mini under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
 move. Negative location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
@@ -283,16 +283,11 @@ Gemma root over exact legal followups, raising mean exhaustive fraction from 85.
 99.6\% and localizing most headroom to continuation choice. Optimal-root coverage was
 242/270 (89.6\%), one state below the frozen 90\% paid-run gate, so we did not tune or run it.
 
-We then preregistered a fresh-seed cross-family replication with GPT-5.4 Mini.
-After a pre-endpoint interface amendment machine-assigned the three physical
-movement-root slots (the LLM still selected their checks, all direct-check roots,
-and observation-contingent followups), StrategyEIG again beat shared d1, exhaustive
-d1 width, and matched random policies in entropy AUC: .5104 [.4312, .5863], .4928
-[.4115, .5734], and .4130 [.3225, .4988], respectively, with 28/0/2 wins/ties/losses
-in each comparison. All three truth-log-AUC intervals also excluded zero. Thus the
-positive architecture result is not unique to the Gemma proposal model, although
-GPT's smaller gains and 66.3\% exhaustive-fraction leave substantial proposal
-headroom.
+Under fresh seed and machine-assigned movement-root slots, GPT-5.4 Mini also beat
+shared d1, exhaustive d1 width, and random policies: .5104 [.4312, .5863], .4928
+[.4115, .5734], and .4130 [.3225, .4988], with 28/0/2 each; all truth-log intervals
+excluded zero. The sign is not Gemma-specific, although GPT's smaller gains and
+66.3\% exhaustive fraction leave proposal headroom.
 
 To remove the remaining interface difference, we preregistered a second fresh-seed
 Gemma run under the identical movement-root slots. Its entropy-AUC gains were .7846
@@ -310,7 +305,10 @@ Finally, a 500-pair exact gate on RockSample[11,11] found that exhaustive d2 bea
 exhaustive d1 by 1.1042 entropy-AUC nats [1.1015, 1.1068]. Frozen Gemma then passed
 all three paired gates in Table~\ref{tab:rock-strategy} with 30/0/0 each; all
 truth-log intervals were positive and the exhaustive-d2 gap was .1629. This extends
-the result to 2,048 latent states with zero rollout LLM calls. Exact closure raised
+the result to 2,048 latent states with zero rollout LLM calls. GPT-5.4 Mini also
+passed all six gates, with entropy-AUC gains .5811 [.4672, .6909], .5528
+[.4374, .6613], and .4688 [.3364, .5919]; its .5459 oracle gap shows weaker
+proposal quality but the same positive sign. Exact closure raised
 LLM roots from 73.9\% to 96.9\% of oracle value, but random roots reached 96.7\%,
 localizing the LLM advantage to continuation choice; the paid gate failed. Across
 maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.2
