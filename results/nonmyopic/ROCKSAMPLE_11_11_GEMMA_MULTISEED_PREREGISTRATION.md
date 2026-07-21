@@ -77,3 +77,37 @@ for seed in 24081 24082 24083; do
     --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 done
 ```
+
+## Outcome
+
+The fresh serving smoke passed 10/10 cells on the first response with zero rejects,
+reasoning tokens, forced exits, or terminal failures, costing `$0.00415249`.
+
+All 18 preregistered per-seed intervals passed. Entropy-AUC gains against shared d1,
+exhaustive d1 width, and matched random strategies were respectively:
+
+- seed 24081: `+0.9467` (95% CI `[+0.9213,+0.9728]`), `+0.9498`
+  (`[+0.9257,+0.9737]`), and `+0.8607` (`[+0.7928,+0.9204]`);
+- seed 24082: `+0.9371` (`[+0.8916,+0.9782]`), `+0.9260`
+  (`[+0.8791,+0.9672]`), and `+0.8835` (`[+0.8278,+0.9365]`);
+- seed 24083: `+0.9573` (`[+0.9208,+0.9907]`), `+0.9561`
+  (`[+0.9199,+0.9891]`), and `+0.8739` (`[+0.8007,+0.9350]`).
+
+Every truth-log-AUC lower bound was also positive. Every fresh paired trial favored
+StrategyEIG against every control (`90/0/0` pooled wins/ties/losses per control).
+Secondary equal-seed-weight pooled entropy-AUC gains were `+0.9470`
+(`[+0.9253,+0.9671]`), `+0.9440` (`[+0.9228,+0.9637]`), and `+0.8727`
+(`[+0.8359,+0.9073]`); pooled truth-log-AUC gains were `+0.9543`, `+0.9515`, and
+`+0.8706`, with all intervals positive.
+
+The three formal runs made 3,158 physical requests, retained 8 bounded rejected
+responses, used zero reasoning tokens or rollout-scoring LLM calls, and cost
+`$0.92354428`, below projection. Their movement counts were 199, 205, and 205 of 360;
+mean h2 exhaustive fractions ranged from 0.686 to 0.751, and exact-d2 entropy-AUC gaps
+ranged from -0.186 to -0.146.
+
+After the seed-24081 paid process had started, a local diagnostic command mistakenly
+used `--dry-run` with the same output directory. It made zero requests and wrote a
+temporary artifact marked `dry_run: true`; it did not interact with or alter the paid
+process. The completed paid process overwrote it with the retained `dry_run: false`
+artifact. No endpoint was inspected before the paid process finished.

@@ -302,13 +302,12 @@ remain descriptive because the runs use different seeds; they are not causal
 interface or model-superiority tests.
 
 Finally, a 500-pair exact gate on RockSample[11,11] found that exhaustive d2 beat
-exhaustive d1 by 1.1042 entropy-AUC nats [1.1015, 1.1068]. Frozen Gemma then passed
-all three paired gates in Table~\ref{tab:rock-strategy} with 30/0/0 each; all
-truth-log intervals were positive and the exhaustive-d2 gap was .1629. This extends
-the result to 2,048 latent states with zero rollout LLM calls. GPT-5.4 Mini also
-passed all six gates, with entropy-AUC gains .5811 [.4672, .6909], .5528
-[.4374, .6613], and .4688 [.3364, .5919]; its .5459 oracle gap shows weaker
-proposal quality but the same positive sign. Exact closure raised
+exhaustive d1 by 1.1042 entropy-AUC nats [1.1015, 1.1068]. Four independent Gemma
+seeds each passed all six entropy/truth gates. Across the three fresh robustness
+seeds, pooled entropy-AUC gains were .9470 [.9253, .9671], .9440 [.9228, .9637],
+and .8727 [.8359, .9073], with 90/0/0 each. GPT-5.4 Mini also passed all six,
+although its .5459 oracle gap shows model-dependent proposal quality. This extends
+the result to 2,048 latent states with zero rollout LLM calls. Exact closure raised
 LLM roots from 73.9\% to 96.9\% of oracle value, but random roots reached 96.7\%,
 localizing the LLM advantage to continuation choice; the paid gate failed. Across
 maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.2

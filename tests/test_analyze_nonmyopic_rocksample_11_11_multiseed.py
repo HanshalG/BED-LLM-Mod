@@ -11,6 +11,11 @@ REFERENCE = (
     ROOT
     / "results/nonmyopic/rocksample_11_11_gemma_slot_confirmation_20260721/L1.json"
 )
+RESULTS = tuple(
+    ROOT
+    / f"results/nonmyopic/rocksample_11_11_gemma_seed_{seed}_20260721/L1.json"
+    for seed in (24081, 24082, 24083)
+)
 
 
 def _payloads() -> list[dict]:
@@ -46,3 +51,13 @@ def test_multiseed_auditor_reports_a_failed_interval() -> None:
 
     assert not audit["all_per_seed_primary_gates_passed"]
     assert not audit["all_18_intervals_passed"]
+
+
+def test_multiseed_auditor_reconstructs_registered_artifacts() -> None:
+    audit = analyze([json.loads(path.read_text()) for path in RESULTS])
+
+    assert audit["all_18_intervals_passed"]
+    assert audit["total_requests"] == 3158
+    assert audit["pooled_fresh_90_pair_comparisons"]["shared_d1"][
+        "entropy_auc_gain"
+    ] == 0.9470096750665129
