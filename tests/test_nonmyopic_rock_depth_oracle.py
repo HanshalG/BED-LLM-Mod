@@ -47,3 +47,22 @@ def test_small_depth_oracle_is_paired_legal_finite_and_llm_free() -> None:
         assert int(depth) in (1, 2, 3)
         assert len(traces) == 4
         assert all(len(trace["steps"]) == 3 for trace in traces)
+
+
+def test_depth_two_qualification_mode_uses_d2_minus_d1_primary() -> None:
+    summary = run_depth_oracle(
+        DepthOracleConfig(
+            map_name="11-11",
+            num_trials=1,
+            num_rounds=2,
+            max_depth=2,
+            bootstrap_replicates=10,
+            trial_concurrency=1,
+        )
+    )
+
+    assert summary["stage"] == "depth2_exact_qualification"
+    assert summary["primary_comparison"] == "d2_minus_d1"
+    assert set(summary["comparisons"]) == {"d2_minus_d1"}
+    assert set(summary["traces"]) == {"1", "2"}
+    assert all(summary["mechanics"].values())

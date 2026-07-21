@@ -42,8 +42,8 @@ class DepthOracleConfig:
             self.trial_concurrency,
         ) <= 0:
             raise ValueError("trial, round, depth, bootstrap, and concurrency counts must be positive")
-        if self.max_depth != 3:
-            raise ValueError("the registered qualification requires max_depth=3")
+        if self.max_depth not in (2, 3):
+            raise ValueError("the exact depth qualification supports max_depth=2 or 3")
         if self.num_rounds < self.max_depth:
             raise ValueError("num_rounds must be at least max_depth")
         if self.half_efficiency_distance <= 0.0:
@@ -304,11 +304,20 @@ def run_depth_oracle(config: DepthOracleConfig) -> dict[str, Any]:
         for depth in range(1, config.max_depth + 1)
     )
     comparisons = {
-        "d2_minus_d1": _comparison(traces["2"], traces["1"], config=config, label="d2-minus-d1"),
-        "d3_minus_d2": _comparison(traces["3"], traces["2"], config=config, label="d3-minus-d2"),
-        "d3_minus_d1": _comparison(traces["3"], traces["1"], config=config, label="d3-minus-d1"),
+        f"d{depth}_minus_d{depth - 1}": _comparison(
+            traces[str(depth)],
+            traces[str(depth - 1)],
+            config=config,
+            label=f"d{depth}-minus-d{depth - 1}",
+        )
+        for depth in range(2, config.max_depth + 1)
     }
-    primary = comparisons["d3_minus_d2"]
+    if config.max_depth == 3:
+        comparisons["d3_minus_d1"] = _comparison(
+            traces["3"], traces["1"], config=config, label="d3-minus-d1"
+        )
+    primary_label = f"d{config.max_depth}_minus_d{config.max_depth - 1}"
+    primary = comparisons[primary_label]
     initial_model = RockDiagnosisModel(
         get_paper_map(config.map_name),
         half_efficiency_distance=config.half_efficiency_distance,
@@ -347,7 +356,7 @@ def run_depth_oracle(config: DepthOracleConfig) -> dict[str, Any]:
     corroboration_passed = primary["truth_log_probability_auc_gain_ci95"][0] > 0.0
     return {
         "schema_version": 1,
-        "stage": "depth3_exact_qualification",
+        "stage": f"depth{config.max_depth}_exact_qualification",
         "config": asdict(config),
         "source": {
             "paper": initial_model.map_spec.source_citation,
@@ -359,6 +368,7 @@ def run_depth_oracle(config: DepthOracleConfig) -> dict[str, Any]:
         },
         "initial_exact_values": initial_values,
         "comparisons": comparisons,
+        "primary_comparison": primary_label,
         "mechanics": mechanics,
         "primary_gate_passed": gate_passed,
         "truth_log_corroboration_passed": corroboration_passed,
@@ -367,16 +377,17 @@ def run_depth_oracle(config: DepthOracleConfig) -> dict[str, Any]:
 
 
 def render_report(summary: dict[str, Any]) -> str:
+    map_name = summary["source"]["map"]
+    max_depth = summary["config"]["max_depth"]
     lines = [
-        "# RockSample[7,8] Exact Depth-Three Qualification",
+        f"# RockSample[{map_name.replace('-', ',')}] Exact Depth-{max_depth} Qualification",
         "",
         "Positive paired gains favor the deeper exact policy.",
         "",
         "| Comparison | Entropy-AUC gain [95% CI] | Truth-log-AUC gain [95% CI] | AUC W/T/L |",
         "| --- | --- | --- | --- |",
     ]
-    for label in ("d2_minus_d1", "d3_minus_d2", "d3_minus_d1"):
-        comparison = summary["comparisons"][label]
+    for label, comparison in summary["comparisons"].items():
         entropy_ci = comparison["entropy_auc_gain_ci95"]
         truth_ci = comparison["truth_log_probability_auc_gain_ci95"]
         wtl = comparison["entropy_auc_wins_ties_losses"]
@@ -389,7 +400,8 @@ def render_report(summary: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            f"- Primary d3-over-d2 gate: **{summary['primary_gate_passed']}**.",
+            f"- Primary {summary['primary_comparison'].replace('_minus_', '-over-')} gate: "
+            f"**{summary['primary_gate_passed']}**.",
             f"- Truth-log corroboration: **{summary['truth_log_corroboration_passed']}**.",
             f"- Initial exact values: `{summary['initial_exact_values']}`.",
             f"- Mechanics: `{summary['mechanics']}`.",
@@ -401,7 +413,12 @@ def render_report(summary: dict[str, Any]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--map", dest="map_name", default="7-8", choices=("3-6", "5-7", "7-8"))
+    parser.add_argument(
+        "--map",
+        dest="map_name",
+        default="7-8",
+        choices=("3-6", "5-7", "7-8", "11-11"),
+    )
     parser.add_argument("--num-trials", type=int, default=500)
     parser.add_argument("--num-rounds", type=int, default=10)
     parser.add_argument("--max-depth", type=int, default=3)

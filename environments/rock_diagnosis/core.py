@@ -43,6 +43,11 @@ PAPER_URL: Final = "https://members.loria.fr/olivier.buffet/papiers/jfpda13-b.pd
 ROCKSAMPLE_7_8_URL: Final = (
     "https://www.ri.cmu.edu/pub_files/pub4/smith_trey_2004_1/smith_trey_2004_1.pdf"
 )
+ROCKSAMPLE_11_11_URL: Final = (
+    "https://github.com/AdaCompNUS/sarsop/blob/"
+    "d9141104392fd0a7b35327fdf7d40ef4b71a13ca/examples/POMDPX/"
+    "RockSample_11_11.pomdpx"
+)
 MOVES: Final = (MoveNorth, MoveEast, MoveSouth, MoveWest)
 
 
@@ -94,6 +99,28 @@ PAPER_MAPS: Final[dict[str, RockDiagnosisMap]] = {
         source_page=5,
         source_citation="Smith and Simmons (2004)",
         source_url=ROCKSAMPLE_7_8_URL,
+    ),
+    # Standard SARSOP POMDPX benchmark instance, using its zero-based coordinates.
+    "11-11": RockDiagnosisMap(
+        name="11-11",
+        grid_size=11,
+        rock_positions=(
+            (0, 3),
+            (0, 7),
+            (1, 8),
+            (2, 4),
+            (3, 3),
+            (3, 8),
+            (4, 3),
+            (5, 8),
+            (6, 1),
+            (9, 3),
+            (9, 9),
+        ),
+        start_position=(0, 5),
+        source_page=1,
+        source_citation="SARSOP benchmark repository",
+        source_url=ROCKSAMPLE_11_11_URL,
     ),
 }
 

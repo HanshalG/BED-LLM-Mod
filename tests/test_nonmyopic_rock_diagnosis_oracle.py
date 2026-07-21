@@ -44,6 +44,31 @@ def test_canonical_rocksample_7_8_map_is_transcribed_with_exact_belief() -> None
     assert math.isclose(float(model.initial_belief.sum()), 1.0)
 
 
+def test_canonical_rocksample_11_11_map_matches_sarsop_benchmark() -> None:
+    benchmark_map = get_paper_map("11-11")
+    assert benchmark_map.grid_size == 11
+    assert benchmark_map.rock_positions == (
+        (0, 3),
+        (0, 7),
+        (1, 8),
+        (2, 4),
+        (3, 3),
+        (3, 8),
+        (4, 3),
+        (5, 8),
+        (6, 1),
+        (9, 3),
+        (9, 9),
+    )
+    assert benchmark_map.start_position == (0, 5)
+    assert benchmark_map.source_citation == "SARSOP benchmark repository"
+
+    model = RockDiagnosisModel(benchmark_map)
+    assert len(model.hidden_states) == 2_048
+    assert len(model.legal_actions(benchmark_map.start_position)) == 14
+    assert math.isclose(float(model.initial_belief.sum()), 1.0)
+
+
 def test_full_candidate_root_exposes_the_dynamic_lookahead_mechanism() -> None:
     config = OracleConfig(map_name="5-7", candidate_widths=(8,))
     model = RockDiagnosisModel(get_paper_map(config.map_name))
