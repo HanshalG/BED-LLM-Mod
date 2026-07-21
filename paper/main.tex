@@ -287,15 +287,16 @@ headroom. Because the root-slot amendment differs from Gemma's original prompt,
 this is structured-interface robustness, not a model-superiority comparison.
 
 More receding-horizon depth is not automatically better, even with the exact
-simulator. In a separate preregistered 500-pair gate, exhaustive d3 lost to exhaustive
-d2 by .2044 entropy-AUC nats, with 95\% interval [.1998, .2090] in favor of d2 and
-0/0/500 d3 wins/ties/losses; truth-log AUC agreed. Both policies coincide through
-round five. At round six, d2 moves toward a perfect check, while d3 takes a noisy
-check because its three-step value includes a promised later move and perfect check.
-Replanning restores the three-step window, so d3 repeats the noisy check and postpones
-that continuation. The d3 LLM gate therefore stopped before paid generation. This
-deterministic commitment failure explains why a larger rolling horizon need not yield
-a monotonic policy curve, separately from likelihood or proposal error.
+simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
+entropy-AUC nats, with 95\% interval [.1998, .2090] in favor of d2 and 0/0/500 d3
+wins/ties/losses; truth-log AUC agreed. At the first divergence, d3 takes a noisy
+check because its local value includes a promised later move and perfect check.
+Replanning restores the three-step window, so it repeats the check and postpones the
+continuation. A fresh endpoint-aligned repair weighted earlier gains by their remaining
+AUC exposure. It made d3 beat same-utility d2 by .2744 [.2689, .2799], 500/0/0, but
+exactly reproduced the prior best terminal-EIG d2 trajectory and score. Alignment
+therefore removes the rolling-horizon reversal without establishing a strict deeper
+oracle gain; we did not spend on an h3 LLM run.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective

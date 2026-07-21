@@ -1,0 +1,183 @@
+{
+  "aligned_summaries": {
+    "1": {
+      "entropy_auc_mean": 5.495336880489105,
+      "final_entropy_mean": 5.454526456760202,
+      "round_entropy_mean": [
+        5.535991462976378,
+        5.525226938638629,
+        5.5172855990985,
+        5.509281312514241,
+        5.500902406396176,
+        5.489942149664151,
+        5.480988926852107,
+        5.473505921494489,
+        5.465717630496185,
+        5.454526456760202
+      ],
+      "truth_log_auc_mean": -5.492651012732022,
+      "unique_action_sequences": 3
+    },
+    "2": {
+      "entropy_auc_mean": 4.918508302515574,
+      "final_entropy_mean": 4.521370613776207,
+      "round_entropy_mean": [
+        5.545177444479561,
+        5.545177444479561,
+        4.852030263919617,
+        4.852030263919617,
+        4.822179157399731,
+        4.796215687207799,
+        4.770933377946208,
+        4.748769440469102,
+        4.731199331558331,
+        4.521370613776207
+      ],
+      "truth_log_auc_mean": -4.923792085800595,
+      "unique_action_sequences": 2
+    },
+    "3": {
+      "entropy_auc_mean": 4.6440861097516315,
+      "final_entropy_mean": 3.465735902799727,
+      "round_entropy_mean": [
+        5.545177444479561,
+        5.545177444479561,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.1588830833596715,
+        4.1588830833596715,
+        4.1588830833596715,
+        3.465735902799727
+      ],
+      "truth_log_auc_mean": -4.644086109751633,
+      "unique_action_sequences": 1
+    }
+  },
+  "audit_passed": true,
+  "comparisons": {
+    "d2_minus_d1": {
+      "entropy_auc_gain_ci95": [
+        0.5697455471143784,
+        0.5837643593193911
+      ],
+      "entropy_auc_gain_mean": 0.5768285779735319,
+      "truth_log_auc_gain_ci95": [
+        0.5399481619087086,
+        0.597413647209661
+      ],
+      "truth_log_auc_gain_mean": 0.5688589269314261,
+      "wins_ties_losses": [
+        500,
+        0,
+        0
+      ]
+    },
+    "d3_minus_d1": {
+      "entropy_auc_gain_ci95": [
+        0.847194793883143,
+        0.8550896835416578
+      ],
+      "entropy_auc_gain_mean": 0.8512507707374732,
+      "truth_log_auc_gain_ci95": [
+        0.8267507608036622,
+        0.870673449662847
+      ],
+      "truth_log_auc_gain_mean": 0.8485649029803883,
+      "wins_ties_losses": [
+        500,
+        0,
+        0
+      ]
+    },
+    "d3_minus_d2": {
+      "entropy_auc_gain_ci95": [
+        0.26888718694288627,
+        0.27994716423489874
+      ],
+      "entropy_auc_gain_mean": 0.27442219276394114,
+      "truth_log_auc_gain_ci95": [
+        0.2613286114447,
+        0.2977490404067588
+      ],
+      "truth_log_auc_gain_mean": 0.27970597604896225,
+      "wins_ties_losses": [
+        500,
+        0,
+        0
+      ]
+    }
+  },
+  "mechanism": {
+    "aligned_d3_action_sequence": [
+      "move-SOUTH",
+      "move-SOUTH",
+      "check-5",
+      "move-EAST",
+      "move-EAST",
+      "move-EAST",
+      "check-6",
+      "move-SOUTH",
+      "move-WEST",
+      "check-7"
+    ],
+    "aligned_d3_matches_external_d2_curve": true,
+    "aligned_d3_matches_terminal_d2_sequence": true,
+    "interpretation": "AUC weighting removes d3 procrastination but recovers, rather than surpasses, the prior best exact d2 policy"
+  },
+  "same_utility_depth_monotonicity_passed": true,
+  "schema_version": 1,
+  "strict_gain_over_prior_best_d2": false,
+  "terminal_summaries": {
+    "1": {
+      "entropy_auc_mean": 5.494946418340025,
+      "final_entropy_mean": 5.455203677532585,
+      "round_entropy_mean": [
+        5.535991462976378,
+        5.52772969026742,
+        5.5171500493602545,
+        5.508379925790337,
+        5.499070846844685,
+        5.4873595815465945,
+        5.48045180144368,
+        5.473416987982509,
+        5.464710159655811,
+        5.455203677532585
+      ]
+    },
+    "2": {
+      "entropy_auc_mean": 4.6440861097516315,
+      "final_entropy_mean": 3.465735902799727,
+      "round_entropy_mean": [
+        5.545177444479561,
+        5.545177444479561,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.1588830833596715,
+        4.1588830833596715,
+        4.1588830833596715,
+        3.465735902799727
+      ]
+    },
+    "3": {
+      "entropy_auc_mean": 4.848482829301344,
+      "final_entropy_mean": 3.981495895257204,
+      "round_entropy_mean": [
+        5.545177444479561,
+        5.545177444479561,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.782747147499619,
+        4.724853417904351,
+        4.6746430758171496,
+        4.6746430758171496,
+        3.981495895257204
+      ]
+    }
+  },
+  "truth_log_corroboration_passed": true
+}
