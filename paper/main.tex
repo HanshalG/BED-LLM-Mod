@@ -272,7 +272,10 @@ a 1,000-pair exact qualification found that exhaustive d2 reduced final entropy 
 1.6775 nats relative to exhaustive d1, with 95\% interval [1.6568, 1.6980].
 Beating shared d1 shows that non-myopic scoring is load-bearing;
 beating matched random strategies shows that the LLM prior is load-bearing. The
-exhaustive d2 oracle remains better, leaving clear proposal headroom.
+exhaustive d2 oracle remains better. A preregistered zero-call diagnostic closed each
+Gemma root over exact legal followups, raising mean exhaustive fraction from 85.8\% to
+99.6\% and localizing most headroom to continuation choice. Optimal-root coverage was
+242/270 (89.6\%), one state below the frozen 90\% paid-run gate, so we did not tune or run it.
 
 We then preregistered a fresh-seed cross-family replication with GPT-5.4 Mini.
 After a pre-endpoint interface amendment machine-assigned the three physical
