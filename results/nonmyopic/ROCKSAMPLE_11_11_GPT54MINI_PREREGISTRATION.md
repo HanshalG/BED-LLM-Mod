@@ -71,3 +71,34 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --seed 24080 --bootstrap-replicates 10000 --trial-concurrency 32 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Pre-Endpoint Resume Accounting Amendment
+
+Added after the first formal process failed closed and before any policy endpoint was
+produced. One direct-check policy twice selected a branch move illegal at `(0,5)`.
+The failure artifact contains 1,038 accepted cells and 20 rejected responses from
+1,058 physical requests; it cost `$2.51745885`. No trace or metric exists.
+
+The accepted-cell resume is authorized unchanged, but the original reusable config's
+`$2.00` startup reservation plus the banked spend exceeds the frozen `$4.00` run cap.
+A startup attempt therefore stopped locally before constructing an adapter or making
+a request. For the 12 remaining logical cells only, the resume command substitutes
+`configs/config_nonmyopic_rocksample_11_11_gpt54mini_resume_openrouter.yaml`, whose
+sole experimental difference is `openrouter_projected_cost_usd: 0.10`. The project
+budget, cumulative `$4.00` hard run cap, model, prompts, concurrency, retries, token
+limit, seed, L1 config, endpoints, and gates are unchanged. The loader revalidates all
+banked accepted cells against that frozen L1 config.
+
+```bash
+set -a; source .env; set +a
+python scripts/nonmyopic_rock_strategy_prior.py \
+  --config configs/config_nonmyopic_rocksample_11_11_gpt54mini_resume_openrouter.yaml \
+  --maps 11-11 \
+  --run-id nonmyopic-rocksample-11-11-gpt54mini-slot-replication-20260721 \
+  --output-dir results/nonmyopic/rocksample_11_11_gpt54mini_slot_replication_20260721 \
+  --num-trials-per-map 30 --num-rounds 12 --num-strategies 6 \
+  --seed 24080 --bootstrap-replicates 10000 --trial-concurrency 32 \
+  --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc \
+  --resume-failure \
+  results/nonmyopic/rocksample_11_11_gpt54mini_slot_replication_20260721/L1_FAILURE.json
+```
