@@ -314,6 +314,10 @@ matched random policies by .9412 [.8968, .9807], .9387 [.8952, .9773], and .8867
 truth-log-AUC intervals excluded zero. The remaining gap to exhaustive d2 was .1629
 nats. This extends the positive result to 2,048 latent states while retaining exact
 verification and zero rollout LLM calls.
+An exact zero-call closure screen then raised the LLM roots from 73.9\% to 96.9\%
+of exhaustive d2 value, but closed random roots also reached 96.7\%. At this scale,
+the LLM prior's advantage is therefore chiefly its continuation choices rather than
+exclusive coverage of valuable roots; the frozen paid-closure gate failed.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044

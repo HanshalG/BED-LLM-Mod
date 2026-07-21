@@ -44,3 +44,15 @@ python scripts/analyze_nonmyopic_rock_followup_closure.py \
   --output results/nonmyopic/rocksample_11_11_followup_closure_20260721/REPORT.json \
   --summary-output results/nonmyopic/rocksample_11_11_followup_closure_20260721/REPORT.md
 ```
+
+## Registered Outcome
+
+The gate failed. Exact continuation closure raised Gemma's mean exhaustive fraction
+from `0.7390` to `0.9686` (`+0.2296`) and found an exhaustive-optimal root in
+`317/330 = 0.9606` states. It never worsened a state. Matched random roots rose from
+`0.2304` to `0.9669`, leaving an LLM-minus-random closed gap of only `+0.0017`.
+
+Thus continuation quality explains most of both the original LLM/random difference
+and Gemma's scale-dependent gap. The `0.97` closed-fraction condition narrowly failed,
+and the required `+0.03` closed LLM/random separation failed decisively. The screen
+made zero LLM calls and, as frozen, no paid closed-root policy follows.

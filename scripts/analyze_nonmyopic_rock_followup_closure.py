@@ -19,31 +19,53 @@ from environments.rock_diagnosis.core import EPSILON
 from scripts.nonmyopic_rock_strategy_prior import _exhaustive_action_values
 
 
-EXPECTED_CONFIG = {
-    "map_names": ["7-8"],
-    "num_trials_per_map": 30,
-    "num_rounds": 10,
-    "num_strategies": 6,
-    "planning_horizon": 2,
-    "seed": 24072,
-    "bootstrap_replicates": 10_000,
-    "temperature": 0.0,
-    "validation_retries": 1,
-    "trial_concurrency": 32,
-    "strategy_schema": "branch_policy_v2",
-    "primary_endpoint": "entropy_auc",
+EXPECTED_RUNS = {
+    "nonmyopic-rocksample-7-8-scale-20260721": {
+        "map_names": ["7-8"],
+        "num_trials_per_map": 30,
+        "num_rounds": 10,
+        "num_strategies": 6,
+        "planning_horizon": 2,
+        "seed": 24072,
+        "bootstrap_replicates": 10_000,
+        "temperature": 0.0,
+        "validation_retries": 1,
+        "trial_concurrency": 32,
+        "strategy_schema": "branch_policy_v2",
+        "primary_endpoint": "entropy_auc",
+    },
+    "nonmyopic-rocksample-11-11-gemma-slot-confirmation-20260721": {
+        "map_names": ["11-11"],
+        "num_trials_per_map": 30,
+        "num_rounds": 12,
+        "num_strategies": 6,
+        "planning_horizon": 2,
+        "seed": 24079,
+        "bootstrap_replicates": 10_000,
+        "temperature": 0.0,
+        "validation_retries": 1,
+        "trial_concurrency": 32,
+        "strategy_schema": "branch_policy_v2",
+        "primary_endpoint": "entropy_auc",
+    },
 }
 
 
-def _rows_for_arm(payload: dict[str, Any], arm: str) -> list[dict[str, Any]]:
-    model = RockDiagnosisModel(get_paper_map("7-8"))
+def _rows_for_arm(
+    payload: dict[str, Any],
+    arm: str,
+    *,
+    map_name: str,
+    num_rounds: int,
+) -> list[dict[str, Any]]:
+    model = RockDiagnosisModel(get_paper_map(map_name))
     rows: list[dict[str, Any]] = []
-    for trace in payload["traces"]["7-8"][arm]:
+    for trace in payload["traces"][map_name][arm]:
         belief = model.initial_belief.copy()
         position = model.map_spec.start_position
         for round_index, step in enumerate(trace["steps"]):
             assert tuple(step["position_before"]) == position
-            if round_index < EXPECTED_CONFIG["num_rounds"] - 1:
+            if round_index < num_rounds - 1:
                 values, _units = _exhaustive_action_values(
                     model, position=position, belief=belief, horizon=2
                 )
@@ -81,7 +103,7 @@ def _rows_for_arm(payload: dict[str, Any], arm: str) -> list[dict[str, Any]]:
     return rows
 
 
-def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _summary(rows: list[dict[str, Any]], *, num_rounds: int) -> dict[str, Any]:
     original = np.asarray([row["original_fraction"] for row in rows], dtype=float)
     closed = np.asarray([row["closed_fraction"] for row in rows], dtype=float)
     return {
@@ -98,7 +120,7 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "closed_worsens_states": int(np.count_nonzero(closed < original - 1e-12)),
         "round_closed_fraction_mean": [
             float(np.mean([row["closed_fraction"] for row in rows if row["round"] == round_index]))
-            for round_index in range(1, 10)
+            for round_index in range(1, num_rounds)
         ],
     }
 
@@ -106,17 +128,26 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
 def analyze(payload: dict[str, Any]) -> dict[str, Any]:
     assert payload["schema_version"] == 1
     assert payload["stage"] == "L1"
-    assert payload["run_id"] == "nonmyopic-rocksample-7-8-scale-20260721"
-    assert payload["config"] == EXPECTED_CONFIG
+    run_id = payload["run_id"]
+    assert run_id in EXPECTED_RUNS
+    expected_config = EXPECTED_RUNS[run_id]
+    assert payload["config"] == expected_config
     assert payload["gate_passed"] is True
     assert payload["mechanics"]["rollout_scoring_llm_calls"] == 0
 
-    strategy_rows = _rows_for_arm(payload, "strategy_eig")
-    random_rows = _rows_for_arm(payload, "random_strategy")
-    strategy = _summary(strategy_rows)
-    random = _summary(random_rows)
-    assert strategy["num_states"] == 270
-    assert random["num_states"] == 270
+    map_name = expected_config["map_names"][0]
+    num_rounds = expected_config["num_rounds"]
+    strategy_rows = _rows_for_arm(
+        payload, "strategy_eig", map_name=map_name, num_rounds=num_rounds
+    )
+    random_rows = _rows_for_arm(
+        payload, "random_strategy", map_name=map_name, num_rounds=num_rounds
+    )
+    strategy = _summary(strategy_rows, num_rounds=num_rounds)
+    random = _summary(random_rows, num_rounds=num_rounds)
+    expected_states = expected_config["num_trials_per_map"] * (num_rounds - 1)
+    assert strategy["num_states"] == expected_states
+    assert random["num_states"] == expected_states
     llm_random_gap = (
         strategy["mean_closed_exhaustive_fraction"]
         - random["mean_closed_exhaustive_fraction"]
@@ -133,7 +164,8 @@ def analyze(payload: dict[str, Any]) -> dict[str, Any]:
     return {
         "schema_version": 1,
         "stage": "followup_closure_screen",
-        "source_run_id": payload["run_id"],
+        "source_run_id": run_id,
+        "map_name": map_name,
         "no_llm_calls": True,
         "strategy_eig": strategy,
         "random_strategy": random,
@@ -150,8 +182,9 @@ def analyze(payload: dict[str, Any]) -> dict[str, Any]:
 def render_report(summary: dict[str, Any]) -> str:
     strategy = summary["strategy_eig"]
     random = summary["random_strategy"]
+    display_map = summary["map_name"].replace("-", ",")
     lines = [
-        "# RockSample[7,8] Exact Follow-Up Closure Screen",
+        f"# RockSample[{display_map}] Exact Follow-Up Closure Screen",
         "",
         "This is a zero-LLM-call proposal-fidelity diagnostic, not a policy endpoint.",
         "",
