@@ -71,3 +71,16 @@ prompts, parser constraints, model, budgets, controls, seed, endpoints, and gate
 unchanged. The failed smoke remains diagnostic only. A fresh ten-cell smoke in
 `rocksample_7_8_gemma_slot_smoke_v2_20260721` must pass before the formal command above
 is authorized.
+
+## Execution Outcome
+
+The amended smoke passed 10/10 cells on first attempt with zero rejects, reasoning
+tokens, forced exits, or terminal failures. It used ten requests and `$0.00350405`.
+
+The authorized formal run then passed all three primary entropy-AUC gates and all
+three truth-log-AUC corroboration gates. Entropy-AUC gains were `+0.7846` versus
+shared d1 (95% CI `[+0.7370,+0.8296]`), `+0.7729` versus exhaustive d1 width
+(`[+0.7252,+0.8167]`), and `+0.7334` versus matched random strategies
+(`[+0.6813,+0.7835]`), with 30/0/0 wins/ties/losses in every comparison. All 870
+proposal cells were accepted without retry or resume; exact rollout scoring made
+zero LLM calls. The run cost `$0.22487819` and used zero reasoning tokens.

@@ -34,7 +34,8 @@ preregistered Rock Diagnosis maps with three to eight rocks, StrategyEIG improve
 entropy AUC over the same LLM roots scored myopically by $0.475$--$0.750$,
 exhaustive one-step width by $0.452$--$0.730$, and matched random strategies by
 $0.362$--$0.674$; all nine paired 95\% intervals exclude zero, and
-truth-log-posterior AUC agrees. The selected
+truth-log-posterior AUC agrees. The canonical result also replicates under a
+shared root-slot interface with Gemma 4 26B A4B and GPT-5.4 Mini. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
 move. Negative location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
@@ -286,8 +287,19 @@ d1 width, and matched random policies in entropy AUC: .5104 [.4312, .5863], .492
 in each comparison. All three truth-log-AUC intervals also excluded zero. Thus the
 positive architecture result is not unique to the Gemma proposal model, although
 GPT's smaller gains and 66.3\% exhaustive-fraction leave substantial proposal
-headroom. Because the root-slot amendment differs from Gemma's original prompt,
-this is structured-interface robustness, not a model-superiority comparison.
+headroom.
+
+To remove the remaining interface difference, we preregistered a second fresh-seed
+Gemma run under the identical movement-root slots. Its entropy-AUC gains were .7846
+[.7370, .8296] against shared d1, .7729 [.7252, .8167] against exhaustive d1 width,
+and .7334 [.6813, .7835] against random strategies, with 30/0/0 wins/ties/losses
+in every comparison. All truth-log-AUC intervals again excluded zero. The run
+completed all 870 proposal cells without a rejection or resume and narrowed the
+gap to exhaustive d2 from .1303 in the semantic-prompt Gemma run to .0814. This
+same-interface replication removes prompt format as an explanation for the
+cross-family positive result. Effect-size differences across prompts and models
+remain descriptive because the runs use different seeds; they are not causal
+interface or model-superiority tests.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
@@ -455,9 +467,9 @@ stronger-author retry did not pass the held-out calibration gate.
 The audits also cannot cleanly separate model capacity from representation: a
 larger model may estimate a better likelihood, but cannot make an exam-treatment
 label a sufficient patient state or reveal facts absent from a static record.
-OpenRouter provider nondeterminism, finite generated supports, interface differences
-between the Gemma and GPT Rock runs, and post-hoc synthesis across heterogeneous
-experiments remain limitations.
+OpenRouter provider nondeterminism, finite generated supports, different fresh seeds
+across the Rock replications, and post-hoc synthesis across heterogeneous experiments
+remain limitations.
 
 The evidence supports a constructive conclusion. With a coherent simulator and
 an enabling-information gap, LLM proposals plus exact rollout-EIG verification
