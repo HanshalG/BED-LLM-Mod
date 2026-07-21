@@ -286,6 +286,17 @@ GPT's smaller gains and 66.3\% exhaustive-fraction leave substantial proposal
 headroom. Because the root-slot amendment differs from Gemma's original prompt,
 this is structured-interface robustness, not a model-superiority comparison.
 
+More receding-horizon depth is not automatically better, even with the exact
+simulator. In a separate preregistered 500-pair gate, exhaustive d3 lost to exhaustive
+d2 by .2044 entropy-AUC nats, with 95\% interval [.1998, .2090] in favor of d2 and
+0/0/500 d3 wins/ties/losses; truth-log AUC agreed. Both policies coincide through
+round five. At round six, d2 moves toward a perfect check, while d3 takes a noisy
+check because its three-step value includes a promised later move and perfect check.
+Replanning restores the three-step window, so d3 repeats the noisy check and postpones
+that continuation. The d3 LLM gate therefore stopped before paid generation. This
+deterministic commitment failure explains why a larger rolling horizon need not yield
+a monotonic policy curve, separately from likelihood or proposal error.
+
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
 actions that change and may terminate the world \citep{tajwar2025curious}. Pure

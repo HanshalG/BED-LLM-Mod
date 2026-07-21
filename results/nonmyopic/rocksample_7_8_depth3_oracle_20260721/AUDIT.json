@@ -1,0 +1,181 @@
+{
+  "audit_passed": true,
+  "comparisons": {
+    "d2_minus_d1": {
+      "entropy_auc_gain_ci95": [
+        0.8468130995769728,
+        0.8547790444901037
+      ],
+      "entropy_auc_gain_mean": 0.8508603085883928,
+      "truth_log_auc_gain_ci95": [
+        0.8278497622586684,
+        0.872636441025216
+      ],
+      "truth_log_auc_gain_mean": 0.8499151822159368,
+      "wins_ties_losses": [
+        500,
+        0,
+        0
+      ]
+    },
+    "d3_minus_d1": {
+      "entropy_auc_gain_ci95": [
+        0.6404287340640952,
+        0.6525802966674783
+      ],
+      "entropy_auc_gain_mean": 0.6464635890386802,
+      "truth_log_auc_gain_ci95": [
+        0.6014531606402173,
+        0.6587510996388217
+      ],
+      "truth_log_auc_gain_mean": 0.6303622346615594,
+      "wins_ties_losses": [
+        500,
+        0,
+        0
+      ]
+    },
+    "d3_minus_d2": {
+      "entropy_auc_gain_ci95": [
+        -0.20898704587260233,
+        -0.19983069218396127
+      ],
+      "entropy_auc_gain_mean": -0.20439671954971253,
+      "truth_log_auc_gain_ci95": [
+        -0.23958355950392538,
+        -0.19985973485298736
+      ],
+      "truth_log_auc_gain_mean": -0.2195529475543773,
+      "wins_ties_losses": [
+        0,
+        0,
+        500
+      ]
+    }
+  },
+  "depth_summaries": {
+    "1": {
+      "entropy_auc_mean": 5.494946418340025,
+      "final_entropy_mean": 5.455203677532585,
+      "round_entropy_mean": [
+        5.535991462976378,
+        5.52772969026742,
+        5.5171500493602545,
+        5.508379925790337,
+        5.499070846844685,
+        5.4873595815465945,
+        5.48045180144368,
+        5.473416987982509,
+        5.464710159655811,
+        5.455203677532585
+      ],
+      "truth_log_auc_mean": -5.49400129196757
+    },
+    "2": {
+      "entropy_auc_mean": 4.6440861097516315,
+      "final_entropy_mean": 3.465735902799727,
+      "round_entropy_mean": [
+        5.545177444479561,
+        5.545177444479561,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.1588830833596715,
+        4.1588830833596715,
+        4.1588830833596715,
+        3.465735902799727
+      ],
+      "truth_log_auc_mean": -4.644086109751633
+    },
+    "3": {
+      "entropy_auc_mean": 4.848482829301344,
+      "final_entropy_mean": 3.981495895257204,
+      "round_entropy_mean": [
+        5.545177444479561,
+        5.545177444479561,
+        4.852030263919617,
+        4.852030263919617,
+        4.852030263919617,
+        4.782747147499619,
+        4.724853417904351,
+        4.6746430758171496,
+        4.6746430758171496,
+        3.981495895257204
+      ],
+      "truth_log_auc_mean": -4.863639057306011
+    }
+  },
+  "mechanism": {
+    "d2_action_sequence": [
+      "move-SOUTH",
+      "move-SOUTH",
+      "check-5",
+      "move-EAST",
+      "move-EAST",
+      "move-EAST",
+      "check-6",
+      "move-SOUTH",
+      "move-WEST",
+      "check-7"
+    ],
+    "d2_top_values": [
+      [
+        "move-EAST",
+        0.6931471805599463
+      ],
+      [
+        "move-SOUTH",
+        0.6931471805599463
+      ],
+      [
+        "check-6",
+        0.13856623284000055
+      ],
+      [
+        "check-7",
+        0.13856623284000055
+      ]
+    ],
+    "d3_action_sequence": [
+      "move-SOUTH",
+      "move-SOUTH",
+      "check-5",
+      "move-EAST",
+      "move-EAST",
+      "check-6",
+      "check-6",
+      "check-6",
+      "move-SOUTH",
+      "check-7"
+    ],
+    "d3_top_values": [
+      [
+        "check-6",
+        0.7624302969799477
+      ],
+      [
+        "check-7",
+        0.7624302969799477
+      ],
+      [
+        "move-EAST",
+        0.7229982870798324
+      ],
+      [
+        "move-SOUTH",
+        0.7229982870798324
+      ]
+    ],
+    "first_divergence_round": 6,
+    "interpretation": "constant-horizon replanning repeats an immediate noisy check and postpones its promised movement continuation",
+    "shared_position_before_divergence": [
+      2,
+      5
+    ]
+  },
+  "primary_gate_passed": false,
+  "prior_d2_reference_matched": true,
+  "schema_version": 1,
+  "truth_log_corroboration_passed": false
+}

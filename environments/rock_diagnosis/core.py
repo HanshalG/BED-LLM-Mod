@@ -18,10 +18,11 @@ from typing import Final
 
 import numpy as np
 
-# Some test runners inject a minimal ``torch`` module.  SciPy's optional torch
-# detection assumes any loaded module has Tensor; remove only that malformed stub.
+# Some test runners inject a minimal ``torch`` module. SciPy's optional torch
+# detection assumes any loaded module has Tensor, while adapter tests still need
+# the same stub later in collection. Complete only that missing type surface.
 if (torch_module := sys.modules.get("torch")) is not None and not hasattr(torch_module, "Tensor"):
-    del sys.modules["torch"]
+    torch_module.Tensor = type("Tensor", (), {})
 
 from pomdp_py.problems.rocksample.rocksample_problem import (
     CheckAction,
