@@ -1,0 +1,108 @@
+{
+  "audit_passed": true,
+  "comparison": {
+    "entropy_auc_gain_ci95": [
+      1.1015463340017602,
+      1.1068452940584133
+    ],
+    "entropy_auc_gain_mean": 1.1042309747584809,
+    "final_entropy_gain_ci95": [
+      2.040855413848873,
+      2.053065631632646
+    ],
+    "final_entropy_gain_mean": 2.0471090946796213,
+    "truth_log_auc_gain_ci95": [
+      1.0885355912486214,
+      1.1377243453388362
+    ],
+    "truth_log_auc_gain_mean": 1.1128830361148347,
+    "wins_ties_losses": [
+      500,
+      0,
+      0
+    ]
+  },
+  "depth_summaries": {
+    "1": {
+      "decision_count": 6000,
+      "entropy_auc_mean": 7.567831066949639,
+      "final_entropy_mean": 7.523003422739186,
+      "most_common_sequence": [
+        "check-0",
+        "check-1",
+        "check-1",
+        "check-0",
+        "check-0",
+        "check-0",
+        "check-0",
+        "check-0",
+        "check-0",
+        "check-0",
+        "check-0",
+        "check-0"
+      ],
+      "most_common_sequence_count": 38,
+      "move_count": 0,
+      "round_entropy_mean": [
+        7.615433004656211,
+        7.6062470231530295,
+        7.597413192928915,
+        7.588905818053659,
+        7.580420781789868,
+        7.571661452420693,
+        7.564050042234588,
+        7.5550335561038375,
+        7.5451632724917115,
+        7.536227408075724,
+        7.530413828748238,
+        7.523003422739186
+      ],
+      "truth_log_auc_mean": -7.574420752426564,
+      "unique_action_sequences": 137
+    },
+    "2": {
+      "decision_count": 6000,
+      "entropy_auc_mean": 6.463600092191157,
+      "final_entropy_mean": 5.4758943280595656,
+      "most_common_sequence": [
+        "move-NORTH",
+        "move-NORTH",
+        "check-0",
+        "move-EAST",
+        "move-EAST",
+        "move-EAST",
+        "check-4",
+        "move-EAST",
+        "check-6",
+        "move-WEST",
+        "move-SOUTH",
+        "check-3"
+      ],
+      "most_common_sequence_count": 500,
+      "move_count": 4000,
+      "round_entropy_mean": [
+        7.624618986159395,
+        7.624618986159395,
+        6.931471805599457,
+        6.931471805599457,
+        6.931471805599457,
+        6.931471805599457,
+        6.23832462503951,
+        6.23832462503951,
+        5.545177444479561,
+        5.545177444479561,
+        5.545177444479561,
+        5.4758943280595656
+      ],
+      "truth_log_auc_mean": -6.461537716311728,
+      "unique_action_sequences": 1
+    }
+  },
+  "initial_exact_values": {
+    "1": 0.009185981503184948,
+    "2": 0.0692831164199994
+  },
+  "primary_gate_passed": true,
+  "schema_version": 1,
+  "truth_log_corroboration_passed": true
+}

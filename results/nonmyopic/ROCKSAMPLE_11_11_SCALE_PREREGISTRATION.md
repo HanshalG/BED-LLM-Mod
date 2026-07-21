@@ -52,3 +52,15 @@ python scripts/nonmyopic_rock_depth_oracle.py \
   --seed 24078 --bootstrap-replicates 10000 --trial-concurrency 16 \
   --output-dir results/nonmyopic/rocksample_11_11_exact_qualification_20260721
 ```
+
+## Exact Qualification Outcome
+
+The frozen gate passed. Exact d2 improved entropy AUC by `+1.1042` nats relative
+to exact d1 (95% CI `[+1.1015,+1.1068]`; 500/0/0 wins/ties/losses) and improved
+truth-log-posterior AUC by `+1.1129` (`[+1.0885,+1.1377]`). Final entropy improved
+by `+2.0471` nats (`[+2.0409,+2.0531]`). All mechanics passed and no LLM was called.
+
+Greedy d1 made zero movement decisions. Exact d2 made 4,000/6,000 movement decisions
+and used the same enabling route across all 500 hidden truths. The independent auditor
+reconstructed every paired AUC value from the raw traces. This outcome authorizes only
+the separately registered serving smoke described by the decision rule above.
