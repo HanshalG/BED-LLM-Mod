@@ -100,6 +100,15 @@ EXPECTED_RUNS = {
         "trial_concurrency": 1,
         "resumed": False,
     },
+    "gpt54mini": {
+        "run_id": "nonmyopic-rocksample-15-15-gpt54mini-replication-20260722",
+        "seed": 24114,
+        "model": "openai/gpt-5.4-mini",
+        "label": "GPT-5.4 Mini OpenRouter seed 24114",
+        "backend": "openrouter",
+        "trial_concurrency": 4,
+        "resumed": False,
+    },
 }
 
 

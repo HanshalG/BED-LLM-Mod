@@ -181,6 +181,14 @@ def test_auditor_accepts_registered_vllm_runs(run_key: str) -> None:
     assert audit["primary_gate_passed"]
 
 
+def test_auditor_accepts_registered_gpt54mini_replication() -> None:
+    audit = analyze_run(_result(run_key="gpt54mini"), "gpt54mini")
+
+    assert audit["model"] == "openai/gpt-5.4-mini"
+    assert audit["usage"]["backend"] == "openrouter"
+    assert audit["primary_gate_passed"]
+
+
 def test_summary_reports_failed_gate_without_positive_claim() -> None:
     audit = analyze(_result())
     audit["primary_gate_passed"] = False
