@@ -1,11 +1,13 @@
 import json
 import math
 from dataclasses import asdict
+import sys
 
 import pytest
 
 from environments.rock_diagnosis import RockDiagnosisModel, RockStrategyExecutor, get_paper_map
 from helpers import load_config
+import scripts.nonmyopic_rock_strategy_prior as rock_strategy_prior
 from scripts.nonmyopic_rock_strategy_prior import (
     ARMS,
     DeterministicStrategyModel,
@@ -556,6 +558,39 @@ def test_provider_resume_requires_an_exact_config_match(tmp_path) -> None:
 
     with pytest.raises(ValueError, match="config does not exactly match"):
         provider.load_failure_cache(failure_path)
+
+
+def test_main_checkpoints_cache_for_non_proposal_exception(
+    tmp_path, monkeypatch
+) -> None:
+    def fail_after_provider_creation(*_args, **_kwargs):
+        raise ValueError("rare exact posterior failure")
+
+    monkeypatch.setattr(rock_strategy_prior, "run_l1_anchor", fail_after_provider_creation)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "nonmyopic_rock_strategy_prior.py",
+            "--dry-run",
+            "--output-dir",
+            str(tmp_path),
+            "--num-trials-per-map",
+            "1",
+            "--num-rounds",
+            "1",
+        ],
+    )
+
+    with pytest.raises(ValueError, match="rare exact posterior failure"):
+        rock_strategy_prior.main()
+
+    payload = json.loads((tmp_path / "L1_FAILURE.json").read_text(encoding="utf-8"))
+    assert payload["status"] == "failed_closed"
+    assert payload["error_type"] == "ValueError"
+    assert "rare exact posterior failure" in payload["traceback"]
+    assert payload["candidate_requests"] == []
+    assert payload["usage"]["backend"] == "dry_run"
 
 
 def test_small_dry_anchor_preserves_pairing_and_compute_controls() -> None:

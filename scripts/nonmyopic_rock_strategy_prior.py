@@ -15,6 +15,7 @@ import math
 from pathlib import Path
 import sys
 import threading
+import traceback
 from typing import Any, Literal, Protocol
 
 import numpy as np
@@ -2009,16 +2010,25 @@ def main() -> None:
         resume_info = provider.load_failure_cache(args.resume_failure)
     try:
         summary = run_l1_anchor(provider, config)
-    except StrategyProposalError as exc:
+    except Exception as exc:
+        try:
+            usage = _usage_snapshot(chat_model)
+        except Exception as usage_exc:
+            usage = {
+                "backend": "unavailable",
+                "snapshot_error": f"{type(usage_exc).__name__}: {usage_exc}",
+            }
         failure = {
             "schema_version": 1,
             "stage": "L1",
             "status": "failed_closed",
             "error": str(exc),
+            "error_type": type(exc).__name__,
+            "traceback": traceback.format_exc(),
             "config": asdict(config),
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
-            "usage": _usage_snapshot(chat_model),
+            "usage": usage,
             "resume": resume_info,
         }
         (args.output_dir / "L1_FAILURE.json").write_text(

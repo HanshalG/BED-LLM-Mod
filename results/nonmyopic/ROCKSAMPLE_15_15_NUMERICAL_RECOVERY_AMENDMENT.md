@@ -37,6 +37,13 @@ mass (or a non-finite computation), not small positive mass.
 This amendment repairs only the mathematical definition of possible evidence; it
 does not inspect or optimize a StrategyEIG endpoint.
 
+The runner is also hardened so every future `Exception`, rather than only a
+strategy-grammar exception, writes the same failed-closed artifact with the exact
+config, accepted cells, rejected attempts, usage snapshot, exception type, and
+traceback. This does not alter a successful policy execution; it makes the
+registered accepted-cell resume protocol effective for numerical, serving, and
+other unexpected failures.
+
 ## Replay Status
 
 The first replacement attempt reached OpenRouter but was rejected immediately
