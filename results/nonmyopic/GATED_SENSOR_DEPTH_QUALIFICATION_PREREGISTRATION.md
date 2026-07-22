@@ -40,6 +40,10 @@ The primary sign convention is positive when depth two is better: lower entropy 
 
 Before registration, a 100-pair run with the frozen environment parameters produced an entropy-AUC gain of `+1.2511` nats and a truth-log-AUC gain of `+1.3071`; all 100 paired entropy differences favored depth two. This run was used only to verify that the constructed environment contains the intended non-myopic mechanism. The confirmation seed, sample size, gate, and implementation above are frozen before the formal run.
 
+## Registered Outcome
+
+The frozen 500-pair confirmation passed. Exact d2 improved entropy AUC by `+1.2459` nats (paired 95% CI `[+1.2401, +1.2516]`; 500/0/0 wins/ties/losses) and truth-log AUC by `+1.2806` (`[+1.1943, +1.3630]`). Every mechanics check passed. These outcomes were appended after execution and are reported in full in `GATED_SENSOR_DEPTH_QUALIFICATION_RESULT.md`.
+
 ## Reproduction
 
 ```bash

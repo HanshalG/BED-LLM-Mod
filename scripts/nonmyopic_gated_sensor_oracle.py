@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 from dataclasses import asdict, dataclass
+import gzip
 import hashlib
 import json
 import math
@@ -274,6 +276,42 @@ def run_oracle(config: OracleConfig) -> dict[str, Any]:
     }
 
 
+def compact_summary(summary: dict[str, Any]) -> dict[str, Any]:
+    """Remove the full trace tree while retaining paired inferential inputs."""
+
+    compact = {key: value for key, value in summary.items() if key != "traces"}
+    compact["arm_summaries"] = {
+        depth: {
+            "entropy_auc_mean": float(np.mean([trace["entropy_auc"] for trace in traces])),
+            "truth_log_probability_auc_mean": float(
+                np.mean([trace["truth_log_probability_auc"] for trace in traces])
+            ),
+            "final_entropy_mean": float(np.mean([trace["final_entropy"] for trace in traces])),
+            "final_truth_log_probability_mean": float(
+                np.mean([trace["final_truth_log_probability"] for trace in traces])
+            ),
+            "final_map_accuracy_mean": float(
+                np.mean([trace["final_map_accuracy"] for trace in traces])
+            ),
+            "initial_action_counts": dict(
+                sorted(Counter(trace["steps"][0]["action"] for trace in traces).items())
+            ),
+        }
+        for depth, traces in summary["traces"].items()
+    }
+    return compact
+
+
+def write_full_traces(summary: dict[str, Any], output_path: Path) -> None:
+    """Write one compressed record per policy trajectory."""
+
+    with gzip.open(output_path, "wt", encoding="utf-8") as handle:
+        for depth, traces in summary["traces"].items():
+            for trace in traces:
+                handle.write(json.dumps({"depth": int(depth), **trace}, sort_keys=True))
+                handle.write("\n")
+
+
 def render_report(summary: dict[str, Any]) -> str:
     comparison = summary["comparison"]
     entropy_ci = comparison["entropy_auc_gain_ci95"]
@@ -320,10 +358,11 @@ def main() -> None:
     summary = run_oracle(config)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     (args.output_dir / "REPORT.json").write_text(
-        json.dumps(summary, indent=2, sort_keys=True) + "\n",
+        json.dumps(compact_summary(summary), indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
     (args.output_dir / "REPORT.md").write_text(render_report(summary), encoding="utf-8")
+    write_full_traces(summary, args.output_dir / "TRACES.jsonl.gz")
     print(json.dumps(summary["gate"], indent=2, sort_keys=True))
 
 

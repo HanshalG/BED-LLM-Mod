@@ -4,7 +4,12 @@ import numpy as np
 import pytest
 
 from environments.gated_sensor import GatedSensorModel, SensorState
-from scripts.nonmyopic_gated_sensor_oracle import OracleConfig, exact_action_values, run_oracle
+from scripts.nonmyopic_gated_sensor_oracle import (
+    OracleConfig,
+    compact_summary,
+    exact_action_values,
+    run_oracle,
+)
 
 
 def test_activation_is_zero_information_and_unlocks_precise_tests() -> None:
@@ -53,3 +58,7 @@ def test_small_oracle_is_paired_finite_llm_free_and_passes_mechanics() -> None:
     assert math.isfinite(summary["comparison"]["entropy_auc_gain_mean"])
     assert summary["comparison"]["entropy_auc_gain_mean"] > 0.0
     assert summary["gate"]["passed"]
+
+    compact = compact_summary(summary)
+    assert "traces" not in compact
+    assert compact["arm_summaries"]["1"]["initial_action_counts"] == {"screen:bit-0": 12}
