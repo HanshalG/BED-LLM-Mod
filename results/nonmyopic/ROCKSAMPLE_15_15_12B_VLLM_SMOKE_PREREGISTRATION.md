@@ -65,3 +65,10 @@ missing vLLM architecture. Per the frozen serving-repair allowance, the identica
 smoke will rerun through the repository's established Singularity pattern using the
 official `vllm/vllm-openai:gemma4` image, which contains Gemma 4 Unified support.
 The checkpoint, prompts, K, probes, thresholds, and one-repair policy are unchanged.
+
+Job `106187` also failed before model initialization or any response because the
+node's cached mutable `gemma4` image resolved to vLLM 0.19, while Unified support was
+added in vLLM 0.23.0. The next serving-only repair pins
+`vllm/vllm-openai:v0.23.0` and uses a fresh dependency directory containing only
+PyYAML, pomdp-py, and openai-harmony without overriding the container's numerical,
+Transformers, or pydantic stack. The scientific protocol remains unchanged.

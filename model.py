@@ -8,9 +8,20 @@ import math
 import os
 import threading
 import time
+from typing import Any
 
 import torch
-import wandb
+try:
+    import wandb
+except ModuleNotFoundError:
+    class _DisabledWandb:
+        run = None
+
+        @staticmethod
+        def log(_payload: dict[str, Any]) -> None:
+            return None
+
+    wandb = _DisabledWandb()
 from helpers import ModelSpec, _probability_results_from_messages, write_to_log, Config
 from openai_harmony import (
     Conversation as HarmonyConversation,
