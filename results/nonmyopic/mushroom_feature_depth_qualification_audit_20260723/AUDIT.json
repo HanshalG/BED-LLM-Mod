@@ -1,0 +1,34 @@
+{
+  "entropy_auc_gain": {
+    "independent_ci95": [
+      0.1053977455178554,
+      0.12533639443212935
+    ],
+    "mean": 0.11534751690515721
+  },
+  "mechanics": {
+    "all_actions_legal": true,
+    "deterministic_outcomes_match": true,
+    "no_llm_calls": true,
+    "paired_truths_match": true,
+    "posterior_metrics_match": true,
+    "stored_comparison_matches_replay": true,
+    "truths_sampled_without_replacement": true
+  },
+  "passed": true,
+  "schema_version": 1,
+  "source_config": {
+    "bootstrap_replicates": 10000,
+    "num_rounds": 8,
+    "num_trials": 1000,
+    "seed": 24123
+  },
+  "stage": "mushroom_feature_acquisition_depth_qualification_audit",
+  "truth_log_probability_auc_gain": {
+    "independent_ci95": [
+      0.10260183398608755,
+      0.13205571600745186
+    ],
+    "mean": 0.11719142437999298
+  }
+}

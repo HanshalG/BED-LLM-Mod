@@ -61,3 +61,13 @@ the endpoint-aligned objective produced `+0.1138` (`[+0.0992,+0.1283]`) on 500 s
 rows. A fixed-root K4 proxy with an odor-aware continuation beat matched random by
 `+0.0626` (`[+0.0534,+0.0724]`). These exploratory rows, seeds `24119`-`24122`, and
 threshold observations cannot enter the fresh qualification or any later endpoint.
+
+## Registered Outcome
+
+The fresh 1,000-row qualification passed both frozen gates. Exact aligned d2 improved
+entropy AUC by `+0.115348` nats (paired 95% CI `[+0.105676,+0.125362]`) and truth-log
+AUC by `+0.117191` (`[+0.102234,+0.132444]`). All mechanics passed. D2 collected the
+specimen on every first round and queried odor on every second round; d1 started with
+population on every trial. Both methods reached zero final class entropy, so the
+registered AUC endpoints, rather than the saturated final endpoint, carry the result.
+The task qualifies for a separately preregistered 10-cell serving smoke.
