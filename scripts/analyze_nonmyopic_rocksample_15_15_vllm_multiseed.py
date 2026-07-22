@@ -75,11 +75,18 @@ def _stratified_bootstrap(
     ]
 
 
-def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
-    assert len(payloads) == len(RUN_KEYS)
+def analyze_run_set(
+    payloads: list[dict[str, Any]],
+    *,
+    run_keys: tuple[str, ...],
+    fresh_run_keys: tuple[str, ...],
+    bootstrap_seed: int,
+    claim: str,
+) -> dict[str, Any]:
+    assert len(payloads) == len(run_keys)
     runs = {
         run_key: analyze_run(payload, run_key)
-        for run_key, payload in zip(RUN_KEYS, payloads)
+        for run_key, payload in zip(run_keys, payloads)
     }
     pooled: dict[str, Any] = {}
     for baseline in BASELINES:
@@ -91,11 +98,11 @@ def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
             truth_by_seed.append(truth)
         entropy_mean, entropy_ci = _stratified_bootstrap(
             entropy_by_seed,
-            seed=_stable_seed(BOOTSTRAP_SEED, baseline, "entropy-auc"),
+            seed=_stable_seed(bootstrap_seed, baseline, "entropy-auc"),
         )
         truth_mean, truth_ci = _stratified_bootstrap(
             truth_by_seed,
-            seed=_stable_seed(BOOTSTRAP_SEED, baseline, "truth-log-auc"),
+            seed=_stable_seed(bootstrap_seed, baseline, "truth-log-auc"),
         )
         entropy_values = [value for values in entropy_by_seed for value in values]
         wins = sum(value > 1e-12 for value in entropy_values)
@@ -112,12 +119,12 @@ def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
             ],
         }
 
-    fresh_runs = [runs[run_key] for run_key in FRESH_RUN_KEYS]
+    fresh_runs = [runs[run_key] for run_key in fresh_run_keys]
     fresh_primary = all(run["primary_gate_passed"] for run in fresh_runs)
     fresh_truth = all(run["truth_log_corroboration_passed"] for run in fresh_runs)
     return {
         "schema_version": 1,
-        "claim": "direct_vllm_15_rock_gain_replicates_across_two_fresh_seeds",
+        "claim": claim,
         "all_fresh_seed_primary_gates_passed": fresh_primary,
         "all_fresh_seed_truth_log_gates_passed": fresh_truth,
         "all_12_fresh_seed_intervals_passed": fresh_primary and fresh_truth,
@@ -129,7 +136,7 @@ def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
         "pooled_90_pair_comparisons": pooled,
         "bootstrap": {
             "method": "equal_seed_weight_stratified_paired_trial_bootstrap",
-            "base_seed": BOOTSTRAP_SEED,
+            "base_seed": bootstrap_seed,
             "replicates": BOOTSTRAP_REPLICATES,
         },
         "total_cost_usd": sum(run["usage"]["run_cost_usd"] for run in runs.values()),
@@ -137,9 +144,23 @@ def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def render_summary(audit: dict[str, Any]) -> str:
+def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
+    return analyze_run_set(
+        payloads,
+        run_keys=RUN_KEYS,
+        fresh_run_keys=FRESH_RUN_KEYS,
+        bootstrap_seed=BOOTSTRAP_SEED,
+        claim="direct_vllm_15_rock_gain_replicates_across_two_fresh_seeds",
+    )
+
+
+def render_summary(
+    audit: dict[str, Any],
+    *,
+    title: str = "RockSample[15,15] Direct-vLLM Multi-Seed Robustness",
+) -> str:
     lines = [
-        "# RockSample[15,15] Direct-vLLM Multi-Seed Robustness",
+        f"# {title}",
         "",
         (
             "The preregistered two-fresh-seed robustness gate "
@@ -197,7 +218,12 @@ def render_summary(audit: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def plot_entropy(audit: dict[str, Any], output_path: Path) -> None:
+def plot_entropy(
+    audit: dict[str, Any],
+    output_path: Path,
+    *,
+    title: str = "RockSample[15,15]: direct-vLLM seed robustness",
+) -> None:
     fig, axes = plt.subplots(1, 3, figsize=(12.4, 3.8), sharex=True, sharey=True)
     rounds = range(1, 16)
     for axis, run in zip(axes, audit["runs"].values()):
@@ -217,7 +243,7 @@ def plot_entropy(audit: dict[str, Any], output_path: Path) -> None:
     axes[0].set_ylabel("Mean posterior entropy (nats)")
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="lower center", ncol=5, frameon=False, fontsize=8.0)
-    fig.suptitle("RockSample[15,15]: direct-vLLM seed robustness")
+    fig.suptitle(title)
     fig.tight_layout(rect=(0, 0.13, 1, 0.95))
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=240, bbox_inches="tight")

@@ -82,6 +82,24 @@ EXPECTED_RUNS = {
         "resumed": True,
         "accepted_cells_reused": 372,
     },
+    "12b_vllm_seed_24107": {
+        "run_id": "nonmyopic-rocksample-15-15-12b-vllm-seed-24107-20260722",
+        "seed": 24107,
+        "model": "google/gemma-4-12B-it",
+        "label": "Gemma 4 12B direct vLLM seed 24107",
+        "backend": "vllm",
+        "trial_concurrency": 1,
+        "resumed": False,
+    },
+    "12b_vllm_seed_24108": {
+        "run_id": "nonmyopic-rocksample-15-15-12b-vllm-seed-24108-20260722",
+        "seed": 24108,
+        "model": "google/gemma-4-12B-it",
+        "label": "Gemma 4 12B direct vLLM seed 24108",
+        "backend": "vllm",
+        "trial_concurrency": 1,
+        "resumed": False,
+    },
 }
 
 
