@@ -45,4 +45,16 @@ sbatch --job-name=r15-e4b-smoke scripts/run_nonmyopic_rock_strategy_a100.sh \
 
 ## Execution Status
 
-Pending.
+Job `106127` completed on `msc` node `oat16` and passed the registered gate:
+10/10 cells parsed, zero terminal failures, two rejected first attempts were repaired
+within the one-repair bound, every h2 cell contained two movement and two check roots,
+and every h2 cell contained a move-then-check branch. The twelve physical requests
+used 52,060 prompt and 3,896 completion tokens, zero reasoning tokens, zero forced
+exits, and zero API dollars.
+
+The preregistered descriptive exact-score diagnostic was weak: across the eight h2
+cells, the best proposed strategy captured mean `0.0962` (minimum `0.00015`) of the
+exhaustive d2 value, whereas the earlier 26B serving smoke was effectively `1.0` on
+the same cells. This does not retroactively change the mechanics decision. It makes
+the separately registered formal run a capability-boundary test rather than an
+assumed replication.
