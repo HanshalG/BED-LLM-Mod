@@ -13,6 +13,7 @@ SOURCES = (
     ROOT / "results/nonmyopic/rocksample_7_8_scale_20260721/L1.json",
     ROOT
     / "results/nonmyopic/rocksample_11_11_gemma_slot_confirmation_20260721/L1.json",
+    ROOT / "results/nonmyopic/rocksample_15_15_vllm_replication_20260722/L1.json",
 )
 
 
@@ -28,10 +29,12 @@ def test_scaling_audit_uses_all_confirmed_maps() -> None:
         "5-7",
         "7-8",
         "11-11",
+        "15-15",
     ]
-    assert audit["rows"][-1]["hidden_states"] == 2048
+    assert audit["rows"][-1]["hidden_states"] == 32768
+    assert audit["rows"][-1]["num_strategies"] == 4
     assert audit["rows"][-1]["exhaustive_to_strategy_unit_ratio"] == pytest.approx(
-        24.8780487805
+        64.2645833333
     )
     assert audit["rollout_scoring_llm_calls"] == 0
 

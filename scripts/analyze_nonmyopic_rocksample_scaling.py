@@ -32,6 +32,13 @@ EXPECTED_RUNS = (
         "num_rounds": 12,
         "num_strategies": 6,
     },
+    {
+        "run_id": "nonmyopic-rocksample-15-15-vllm-replication-20260722",
+        "maps": ("15-15",),
+        "num_trials_per_map": 30,
+        "num_rounds": 15,
+        "num_strategies": 4,
+    },
 )
 
 
@@ -61,6 +68,7 @@ def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
                     "map_name": map_name,
                     "num_rocks": num_rocks,
                     "hidden_states": 2**num_rocks,
+                    "num_strategies": expected["num_strategies"],
                     "strategy_exact_units_per_decision": strategy_units,
                     "exhaustive_d2_units_per_decision": exhaustive_units,
                     "exhaustive_to_strategy_unit_ratio": exhaustive_units
@@ -92,7 +100,7 @@ def analyze(payloads: list[dict[str, Any]]) -> dict[str, Any]:
     assert ratios == sorted(ratios)
     return {
         "schema_version": 1,
-        "claim": "bounded_k6_action_tree_work_grows_slower_than_exhaustive_d2_width",
+        "claim": "registered_bounded_k_action_tree_work_grows_slower_than_exhaustive_d2_width",
         "unit_definition": (
             "One exact scorer unit is one evaluated action node in the depth-two "
             "policy tree; it is not a wall-clock or hidden-state likelihood operation."
@@ -109,12 +117,13 @@ def render_report(audit: dict[str, Any]) -> str:
         "",
         audit["unit_definition"],
         "",
-        "| Map | Hidden states | StrategyEIG units / decision | Exhaustive d2 units / decision | Exhaustive / StrategyEIG | LLM calls / decision |",
-        "| --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Map | Hidden states | K | StrategyEIG units / decision | Exhaustive d2 units / decision | Exhaustive / StrategyEIG | LLM calls / decision |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for row in audit["rows"]:
         lines.append(
             f"| {row['map_name']} | {row['hidden_states']:,} | "
+            f"{row['num_strategies']} | "
             f"{row['strategy_exact_units_per_decision']:.2f} | "
             f"{row['exhaustive_d2_units_per_decision']:.2f} | "
             f"{row['exhaustive_to_strategy_unit_ratio']:.2f}x | "
@@ -123,11 +132,15 @@ def render_report(audit: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "K6 StrategyEIG keeps exact action-tree width nearly constant while exhaustive "
-            "d2 expands every legal root and continuation. The relative node reduction "
-            "therefore grows monotonically from 4.70x to 24.88x across the confirmed maps. "
+            "Registered bounded-K StrategyEIG keeps exact action-tree width small while "
+            "exhaustive d2 expands every legal root and continuation. The relative node "
+            "reduction grows monotonically from 4.70x to 64.26x across the confirmed maps. "
             "Every StrategyEIG decision uses one proposal call and exact rollout scoring "
             "uses no LLM calls.",
+            "",
+            "The first four runs use K6; the preregistered 15-rock run uses K4 after K4 "
+            "matched K6 endpoint quality in the 11-rock width study. This is observed "
+            "registered-budget scaling, not a fixed-K causal comparison.",
             "",
             "These ratios isolate action-tree work. Both methods still evaluate likelihoods "
             "over the full hidden-state vector, so they are not wall-clock speedups.",
@@ -143,7 +156,14 @@ def plot_scaling(audit: dict[str, Any], output_path: Path) -> None:
     exhaustive = [row["exhaustive_d2_units_per_decision"] for row in audit["rows"]]
     labels = [row["map_name"] for row in audit["rows"]]
     fig, axis = plt.subplots(figsize=(7.0, 4.1))
-    axis.plot(states, strategy, color="#c83b36", marker="o", linewidth=2.2, label="StrategyEIG K6")
+    axis.plot(
+        states,
+        strategy,
+        color="#c83b36",
+        marker="o",
+        linewidth=2.2,
+        label="StrategyEIG (registered K)",
+    )
     axis.plot(states, exhaustive, color="#222222", marker="s", linewidth=2.2, label="Exhaustive d2")
     axis.set_xscale("log", base=2)
     axis.set_yscale("log")
@@ -162,7 +182,7 @@ def plot_scaling(audit: dict[str, Any], output_path: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("results", nargs=3, type=Path)
+    parser.add_argument("results", nargs=4, type=Path)
     parser.add_argument("--audit-output", type=Path, required=True)
     parser.add_argument("--summary-output", type=Path, required=True)
     parser.add_argument("--plot-output", type=Path, required=True)

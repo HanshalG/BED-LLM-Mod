@@ -1,5 +1,5 @@
 {
-  "claim": "bounded_k6_action_tree_work_grows_slower_than_exhaustive_d2_width",
+  "claim": "registered_bounded_k_action_tree_work_grows_slower_than_exhaustive_d2_width",
   "rollout_scoring_llm_calls": 0,
   "rows": [
     {
@@ -8,6 +8,7 @@
       "hidden_states": 8,
       "map_name": "3-6",
       "num_rocks": 3,
+      "num_strategies": 6,
       "strategy_exact_units_per_decision": 13.670833333333333,
       "strategy_logical_llm_calls_per_decision": 1.0
     },
@@ -17,6 +18,7 @@
       "hidden_states": 32,
       "map_name": "5-7",
       "num_rocks": 5,
+      "num_strategies": 6,
       "strategy_exact_units_per_decision": 13.870833333333334,
       "strategy_logical_llm_calls_per_decision": 1.0
     },
@@ -26,6 +28,7 @@
       "hidden_states": 128,
       "map_name": "7-8",
       "num_rocks": 7,
+      "num_strategies": 6,
       "strategy_exact_units_per_decision": 14.1,
       "strategy_logical_llm_calls_per_decision": 1.0
     },
@@ -35,7 +38,18 @@
       "hidden_states": 2048,
       "map_name": "11-11",
       "num_rocks": 11,
+      "num_strategies": 6,
       "strategy_exact_units_per_decision": 14.23611111111111,
+      "strategy_logical_llm_calls_per_decision": 1.0
+    },
+    {
+      "exhaustive_d2_units_per_decision": 616.94,
+      "exhaustive_to_strategy_unit_ratio": 64.26458333333335,
+      "hidden_states": 32768,
+      "map_name": "15-15",
+      "num_rocks": 15,
+      "num_strategies": 4,
+      "strategy_exact_units_per_decision": 9.6,
       "strategy_logical_llm_calls_per_decision": 1.0
     }
   ],
@@ -64,6 +78,14 @@
       "physical_requests": 1051,
       "run_cost_usd": 0.3007825099999996,
       "run_id": "nonmyopic-rocksample-11-11-gemma-slot-confirmation-20260721"
+    },
+    {
+      "maps": [
+        "15-15"
+      ],
+      "physical_requests": 1321,
+      "run_cost_usd": 0.0,
+      "run_id": "nonmyopic-rocksample-15-15-vllm-replication-20260722"
     }
   ],
   "schema_version": 1,

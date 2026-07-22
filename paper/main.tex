@@ -338,8 +338,10 @@ although its .5459 oracle gap shows model-dependent proposal quality. This exten
 the result to 2,048 latent states with zero rollout LLM calls. Exact closure raised
 LLM roots from 73.9\% to 96.9\% of oracle value, but random roots reached 96.7\%,
 localizing the LLM advantage to continuation choice; the paid gate failed. Across
-maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.2
-(4.7$\times$--24.9$\times$); these are tree-width, not wall-clock, ratios. A fresh
+the first four maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive
+d2's 64.3--354.2 (4.7$\times$--24.9$\times$). At 15 rocks, preregistered K4 uses
+9.60 versus 616.94 nodes (64.3$\times$). These are registered-budget tree-width,
+not wall-clock, ratios; K4 follows the 11-rock saturation result. A fresh
 11-rock width sweep passed all 18 gates: K4 beat K2 by .5655 entropy-AUC nats
 [.4974, .6418], while K6 minus K4 was .0102 [-.0156, .0337]. K4 therefore matched
 K6 endpoint quality with 9.49 instead of 14.24 scorer nodes/decision.
