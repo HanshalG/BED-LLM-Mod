@@ -58,5 +58,10 @@ sbatch --job-name=r15-vllm-formal scripts/run_nonmyopic_rock_strategy_a100.sh \
 The first smoke allocation, job `106098`, failed before model load or any LLM
 response because the fresh checkout's `.env` symlink pointed to a retired workspace.
 The symlink was corrected to the existing cluster secret file without reading or
-changing its contents. The identical smoke was resubmitted as job `106101`; it is
-pending for an A100. No interface or policy endpoint has yet been observed.
+changing its contents. The identical job `106101` then reached A100 node `oat10`
+but failed before model initialization because the existing user conda environment
+lacked the repo-pinned `pomdp-py==1.3.5.1`. That exact package and its SciPy
+dependency were installed into the user environment, and an import preflight
+constructed the 32,768-state model successfully under vLLM `0.19.1rc1.dev367`.
+The unchanged smoke is resubmitted as job `106106`. No interface or policy endpoint
+has yet been observed.

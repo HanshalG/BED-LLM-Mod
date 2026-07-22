@@ -76,7 +76,11 @@ def _result(*, gain: float = 0.5, run_key: str = "gemma") -> dict:
         "stage": "L1",
         "dry_run": False,
         "run_id": expected["run_id"],
-        "config": {**EXPECTED_CONFIG, "seed": expected["seed"]},
+        "config": {
+            **EXPECTED_CONFIG,
+            "seed": expected["seed"],
+            "trial_concurrency": expected["trial_concurrency"],
+        },
         "mechanics": mechanics,
         "candidate_requests": [{}],
         "invalid_responses": [{}],
@@ -90,7 +94,7 @@ def _result(*, gain: float = 0.5, run_key: str = "gemma") -> dict:
             else None
         ),
         "usage": {
-            "backend": "openrouter",
+            "backend": expected["backend"],
             "model": expected["model"],
             "requests": 2,
             "reasoning_tokens": 0,
@@ -145,3 +149,11 @@ def test_auditor_rejects_resume() -> None:
 def test_auditor_rejects_unregistered_run_key() -> None:
     with pytest.raises(KeyError):
         analyze_run(_result(), "unregistered")
+
+
+def test_auditor_accepts_registered_vllm_replication() -> None:
+    audit = analyze_run(_result(run_key="vllm"), "vllm")
+
+    assert audit["model"] == "google/gemma-4-26B-A4B-it"
+    assert audit["usage"]["backend"] == "vllm"
+    assert audit["primary_gate_passed"]

@@ -32,12 +32,25 @@ EXPECTED_RUNS = {
         "seed": 24100,
         "model": "google/gemma-4-26b-a4b-it",
         "label": "Gemma 4 26B A4B",
+        "backend": "openrouter",
+        "trial_concurrency": 4,
+        "resumed": False,
+    },
+    "vllm": {
+        "run_id": "nonmyopic-rocksample-15-15-vllm-replication-20260722",
+        "seed": 24101,
+        "model": "google/gemma-4-26B-A4B-it",
+        "label": "Gemma 4 26B A4B direct vLLM",
+        "backend": "vllm",
+        "trial_concurrency": 1,
         "resumed": False,
     },
 }
 
 
-def _expected_config(seed: int, num_strategies: int = 4) -> dict[str, Any]:
+def _expected_config(
+    seed: int, num_strategies: int = 4, trial_concurrency: int = 4
+) -> dict[str, Any]:
     return {
         "map_names": [EXPECTED_MAP],
         "num_trials_per_map": 30,
@@ -48,7 +61,7 @@ def _expected_config(seed: int, num_strategies: int = 4) -> dict[str, Any]:
         "bootstrap_replicates": 10_000,
         "temperature": 0.0,
         "validation_retries": 1,
-        "trial_concurrency": 4,
+        "trial_concurrency": trial_concurrency,
         "strategy_schema": "branch_policy_v2",
         "primary_endpoint": "entropy_auc",
     }
@@ -90,7 +103,9 @@ def _analyze_expected(
     assert payload["dry_run"] is False
     assert payload["run_id"] == expected["run_id"]
     num_strategies = expected.get("num_strategies", 4)
-    assert payload["config"] == _expected_config(expected["seed"], num_strategies)
+    assert payload["config"] == _expected_config(
+        expected["seed"], num_strategies, expected["trial_concurrency"]
+    )
     if expected["resumed"]:
         resume = payload["resume"]
         assert resume is not None
@@ -118,7 +133,7 @@ def _analyze_expected(
     )
 
     usage = payload["usage"]
-    assert usage["backend"] == "openrouter"
+    assert usage["backend"] == expected["backend"]
     assert usage["model"] == expected["model"]
     assert usage["requests"] == mechanics["physical_llm_requests"]
     assert usage["reasoning_tokens"] == 0
@@ -359,8 +374,11 @@ def main() -> None:
     parser.add_argument("--audit-output", type=Path, required=True)
     parser.add_argument("--summary-output", type=Path, required=True)
     parser.add_argument("--plot-output", type=Path, required=True)
+    parser.add_argument("--run-key", choices=tuple(EXPECTED_RUNS), default="gemma")
     args = parser.parse_args()
-    audit = analyze(json.loads(args.result.read_text(encoding="utf-8")))
+    audit = analyze_run(
+        json.loads(args.result.read_text(encoding="utf-8")), args.run_key
+    )
     args.audit_output.write_text(
         json.dumps(audit, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
