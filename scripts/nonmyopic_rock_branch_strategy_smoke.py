@@ -110,9 +110,24 @@ def run_smoke(
     concurrency: int = 10,
     map_names: tuple[str, ...] = ("3-6", "5-7"),
     probe_states_per_map: int = 5,
+    min_mean_best_exhaustive_fraction: float | None = None,
+    min_cell_best_exhaustive_fraction: float | None = None,
+    min_cells_at_or_above: int | None = None,
 ) -> dict[str, Any]:
     if not 1 <= probe_states_per_map <= 10:
         raise ValueError("probe_states_per_map must be in [1, 10]")
+    for name, value in (
+        ("min_mean_best_exhaustive_fraction", min_mean_best_exhaustive_fraction),
+        ("min_cell_best_exhaustive_fraction", min_cell_best_exhaustive_fraction),
+    ):
+        if value is not None and not 0.0 <= value <= 1.0:
+            raise ValueError(f"{name} must be in [0, 1]")
+    if (min_cell_best_exhaustive_fraction is None) != (min_cells_at_or_above is None):
+        raise ValueError(
+            "min_cell_best_exhaustive_fraction and min_cells_at_or_above must be set together"
+        )
+    if min_cells_at_or_above is not None and min_cells_at_or_above <= 0:
+        raise ValueError("min_cells_at_or_above must be positive")
     config = L1Config(
         map_names=map_names,
         num_trials_per_map=1,
@@ -216,16 +231,62 @@ def run_smoke(
             if row["horizon"] > 1
         ) and len(passed) == len(rows),
     }
+    h2_rows = [row for row in rows if row["horizon"] > 1]
+    h2_values = [
+        float(row["best_exhaustive_fraction"])
+        for row in h2_rows
+        if row["status"] == "passed"
+    ]
+    quality_enabled = any(
+        value is not None
+        for value in (
+            min_mean_best_exhaustive_fraction,
+            min_cell_best_exhaustive_fraction,
+            min_cells_at_or_above,
+        )
+    )
+    h2_mean = float(np.mean(h2_values)) if h2_values else None
+    cells_at_or_above = (
+        sum(
+            value >= min_cell_best_exhaustive_fraction
+            for value in h2_values
+        )
+        if min_cell_best_exhaustive_fraction is not None
+        else None
+    )
+    quality = {
+        "enabled": quality_enabled,
+        "h2_requested_cells": len(h2_rows),
+        "h2_scored_cells": len(h2_values),
+        "mean_best_exhaustive_fraction": h2_mean,
+        "min_mean_best_exhaustive_fraction": min_mean_best_exhaustive_fraction,
+        "cell_best_exhaustive_fraction_threshold": min_cell_best_exhaustive_fraction,
+        "cells_at_or_above_threshold": cells_at_or_above,
+        "min_cells_at_or_above": min_cells_at_or_above,
+    }
+    quality["passed"] = (
+        len(h2_values) == len(h2_rows)
+        and (
+            min_mean_best_exhaustive_fraction is None
+            or (h2_mean is not None and h2_mean >= min_mean_best_exhaustive_fraction)
+        )
+        and (
+            min_cells_at_or_above is None
+            or (cells_at_or_above is not None and cells_at_or_above >= min_cells_at_or_above)
+        )
+    )
     return {
         "schema_version": 1,
         "stage": "rock_branch_strategy_serving_smoke",
         "config": asdict(config),
         "mechanics": mechanics,
+        "quality": quality,
         "passed": all(
             [
                 mechanics["parse_rate"] == 1.0,
                 mechanics["all_cells_have_move_and_check_roots"],
                 mechanics["all_move_cells_include_move_then_check"],
+                quality["passed"],
             ]
         ),
         "cells": rows,
@@ -241,6 +302,7 @@ def _usage(model_adapter: Any) -> dict[str, Any]:
 
 def render_report(summary: dict[str, Any]) -> str:
     mechanics = summary["mechanics"]
+    quality = summary["quality"]
     lines = [
         "# Rock Branch-Strategy Serving Smoke",
         "",
@@ -251,6 +313,9 @@ def render_report(summary: dict[str, Any]) -> str:
         f"- Raw rejected attempts: `{mechanics['raw_rejected_attempts']}`.",
         f"- Every cell has move and check roots: `{mechanics['all_cells_have_move_and_check_roots']}`.",
         f"- Every cell includes a move-then-check policy: `{mechanics['all_move_cells_include_move_then_check']}`.",
+        f"- Proposal-quality gate enabled: `{quality['enabled']}`; passed: `{quality['passed']}`.",
+        f"- Mean h2 best/exhaustive fraction: `{quality['mean_best_exhaustive_fraction']}`.",
+        f"- H2 cells at threshold: `{quality['cells_at_or_above_threshold']}`.",
         "",
         "| Map | State | Horizon | Position | Best root | Exhaustive fraction | Move / check policies | Move then check |",
         "| --- | ---: | ---: | --- | --- | ---: | --- | ---: |",
@@ -292,6 +357,9 @@ def main() -> None:
         default=("3-6", "5-7"),
     )
     parser.add_argument("--probe-states-per-map", type=int, default=5)
+    parser.add_argument("--min-mean-best-exhaustive-fraction", type=float)
+    parser.add_argument("--min-cell-best-exhaustive-fraction", type=float)
+    parser.add_argument("--min-cells-at-or-above", type=int)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -307,6 +375,9 @@ def main() -> None:
         concurrency=args.concurrency,
         map_names=args.maps,
         probe_states_per_map=args.probe_states_per_map,
+        min_mean_best_exhaustive_fraction=args.min_mean_best_exhaustive_fraction,
+        min_cell_best_exhaustive_fraction=args.min_cell_best_exhaustive_fraction,
+        min_cells_at_or_above=args.min_cells_at_or_above,
     )
     summary["run_id"] = args.run_id
     summary["dry_run"] = args.dry_run

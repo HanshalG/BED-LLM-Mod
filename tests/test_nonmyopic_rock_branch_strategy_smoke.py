@@ -6,6 +6,8 @@ def test_dry_branch_strategy_serving_smoke_passes_all_ten_cells() -> None:
     summary = run_smoke(DeterministicStrategyModel(), concurrency=2)
 
     assert summary["passed"]
+    assert summary["quality"]["enabled"] is False
+    assert summary["quality"]["passed"]
     assert summary["mechanics"] == {
         "requested_cells": 10,
         "passed_cells": 10,
@@ -41,3 +43,20 @@ def test_single_large_map_smoke_uses_ten_distinct_probe_states() -> None:
     assert {row["map_name"] for row in summary["cells"]} == {"7-8"}
     assert len({row["state_index"] for row in summary["cells"]}) == 10
     assert sum(row["horizon"] == 1 for row in summary["cells"]) == 2
+
+
+def test_proposal_quality_threshold_can_fail_clean_mechanics() -> None:
+    summary = run_smoke(
+        DeterministicStrategyModel(),
+        concurrency=2,
+        min_mean_best_exhaustive_fraction=0.40,
+        min_cell_best_exhaustive_fraction=0.20,
+        min_cells_at_or_above=6,
+    )
+
+    assert summary["mechanics"]["parse_rate"] == 1.0
+    assert summary["quality"]["enabled"]
+    assert summary["quality"]["mean_best_exhaustive_fraction"] < 0.40
+    assert summary["quality"]["cells_at_or_above_threshold"] == 3
+    assert summary["quality"]["passed"] is False
+    assert summary["passed"] is False
