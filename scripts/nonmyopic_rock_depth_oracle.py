@@ -417,7 +417,7 @@ def main() -> None:
         "--map",
         dest="map_name",
         default="7-8",
-        choices=("3-6", "5-7", "7-8", "11-11"),
+        choices=("3-6", "5-7", "7-8", "11-11", "15-15"),
     )
     parser.add_argument("--num-trials", type=int, default=500)
     parser.add_argument("--num-rounds", type=int, default=10)

@@ -30,7 +30,6 @@ from pomdp_py.problems.rocksample.rocksample_problem import (
     MoveNorth,
     MoveSouth,
     MoveWest,
-    Observation,
     RSObservationModel,
     RSTransitionModel,
     RockType,
@@ -48,7 +47,27 @@ ROCKSAMPLE_11_11_URL: Final = (
     "d9141104392fd0a7b35327fdf7d40ef4b71a13ca/examples/POMDPX/"
     "RockSample_11_11.pomdpx"
 )
+ROCKSAMPLE_15_15_URL: Final = (
+    "https://github.com/taodav/pobax/blob/"
+    "a5e1d62d14e4efe783885b9d4f19cffa2a568eec/pobax/envs/jax/rocksample.py"
+)
 MOVES: Final = (MoveNorth, MoveEast, MoveSouth, MoveWest)
+
+
+class _FactorizedRockBelief(np.ndarray):
+    """Joint vector carrying exact independent per-rock marginals."""
+
+    rock_good_probabilities: np.ndarray | None
+
+    def __new__(
+        cls, values: np.ndarray, rock_good_probabilities: np.ndarray
+    ) -> "_FactorizedRockBelief":
+        belief = np.asarray(values, dtype=float).view(cls)
+        belief.rock_good_probabilities = np.asarray(rock_good_probabilities, dtype=float)
+        return belief
+
+    def __array_finalize__(self, source: np.ndarray | None) -> None:
+        self.rock_good_probabilities = getattr(source, "rock_good_probabilities", None)
 
 
 @dataclass(frozen=True)
@@ -122,6 +141,33 @@ PAPER_MAPS: Final[dict[str, RockDiagnosisMap]] = {
         source_citation="SARSOP benchmark repository",
         source_url=ROCKSAMPLE_11_11_URL,
     ),
+    # POBAX samples RockSample coordinates from a JAX key. This instance is
+    # frozen from PRNG key 24098 before any BED endpoint was evaluated.
+    "15-15": RockDiagnosisMap(
+        name="15-15",
+        grid_size=15,
+        rock_positions=(
+            (13, 9),
+            (4, 2),
+            (13, 8),
+            (2, 6),
+            (2, 10),
+            (10, 1),
+            (14, 10),
+            (9, 5),
+            (5, 12),
+            (13, 7),
+            (4, 5),
+            (3, 9),
+            (0, 0),
+            (14, 2),
+            (3, 7),
+        ),
+        start_position=(0, 7),
+        source_page=1,
+        source_citation="POBAX RockSample generator (JAX key 24098)",
+        source_url=ROCKSAMPLE_15_15_URL,
+    ),
 }
 
 
@@ -161,11 +207,35 @@ class RockDiagnosisModel:
 
     @cached_property
     def initial_belief(self) -> np.ndarray:
-        return np.full(len(self.hidden_states), 1.0 / len(self.hidden_states), dtype=float)
+        state_count = 2**self.num_rocks
+        return _FactorizedRockBelief(
+            np.full(state_count, 1.0 / state_count, dtype=float),
+            np.full(self.num_rocks, 0.5, dtype=float),
+        )
+
+    @cached_property
+    def _good_state_masks(self) -> tuple[np.ndarray, ...]:
+        return tuple(
+            np.asarray([types[rock_id] == RockType.GOOD for types in self.hidden_states])
+            for rock_id in range(self.num_rocks)
+        )
 
     @property
     def num_rocks(self) -> int:
         return len(self.map_spec.rock_positions)
+
+    def rock_good_probability(self, belief: np.ndarray, rock_id: int) -> float:
+        if not 0 <= rock_id < self.num_rocks:
+            raise ValueError(f"rock_id out of range: {rock_id}")
+        if isinstance(belief, _FactorizedRockBelief) and belief.rock_good_probabilities is not None:
+            return float(belief.rock_good_probabilities[rock_id])
+        return float(np.dot(belief, self._good_state_masks[rock_id]))
+
+    def sensor_accuracy(self, position: tuple[int, int], rock_id: int) -> float:
+        if not 0 <= rock_id < self.num_rocks:
+            raise ValueError(f"rock_id out of range: {rock_id}")
+        distance = math.dist(position, self.map_spec.rock_positions[rock_id])
+        return 0.5 * (1.0 + 2.0 ** (-distance / self.half_efficiency_distance))
 
     def action(self, action_name: str):
         try:
@@ -205,25 +275,26 @@ class RockDiagnosisModel:
         action_name: str,
         outcome: str | None,
     ) -> np.ndarray:
-        action = self.action(action_name)
-        if not isinstance(action, CheckAction):
+        rock_id = self.check_id(action_name)
+        if rock_id is None:
             # Rock Diagnosis moves have the deterministic ``none`` observation.
             return np.ones(len(self.hidden_states), dtype=float)
-        observation = Observation(outcome)
-        return np.asarray(
-            [
-                self._observation.probability(
-                    observation,
-                    self._transition.sample(State(position, types), action),
-                    action,
-                )
-                for types in self.hidden_states
-            ],
-            dtype=float,
-        )
+        if outcome not in (RockType.GOOD, RockType.BAD):
+            raise ValueError(f"invalid Rock Diagnosis check outcome: {outcome!r}")
+        accuracy = self.sensor_accuracy(position, rock_id)
+        reports_good = outcome == RockType.GOOD
+        matches_report = self._good_state_masks[rock_id] == reports_good
+        return np.where(matches_report, accuracy, 1.0 - accuracy)
 
     @staticmethod
     def entropy(belief: np.ndarray) -> float:
+        if isinstance(belief, _FactorizedRockBelief) and belief.rock_good_probabilities is not None:
+            entropy = 0.0
+            for probability in belief.rock_good_probabilities:
+                if EPSILON < probability < 1.0 - EPSILON:
+                    entropy -= probability * math.log(probability)
+                    entropy -= (1.0 - probability) * math.log(1.0 - probability)
+            return float(entropy)
         nonzero = belief[belief > 0.0]
         return -float(np.dot(nonzero, np.log(nonzero)))
 
@@ -234,6 +305,12 @@ class RockDiagnosisModel:
         action_name: str,
         outcome: str | None,
     ) -> float:
+        rock_id = self.check_id(action_name)
+        if rock_id is not None and outcome in (RockType.GOOD, RockType.BAD):
+            p_good = self.rock_good_probability(belief, rock_id)
+            accuracy = self.sensor_accuracy(position, rock_id)
+            p_observe_good = p_good * accuracy + (1.0 - p_good) * (1.0 - accuracy)
+            return p_observe_good if outcome == RockType.GOOD else 1.0 - p_observe_good
         return float(np.dot(belief, self.likelihood_vector(position, action_name, outcome)))
 
     def posterior(
@@ -245,21 +322,40 @@ class RockDiagnosisModel:
     ) -> np.ndarray:
         if self.check_id(action_name) is None:
             return belief.copy()
+        rock_id = self.check_id(action_name)
+        assert rock_id is not None
         posterior = belief * self.likelihood_vector(position, action_name, outcome)
         normalizer = float(posterior.sum())
-        if normalizer <= EPSILON:
+        if not math.isfinite(normalizer) or normalizer <= 0.0:
             raise ValueError("cannot update on an impossible Rock Diagnosis observation")
-        return posterior / normalizer
+        normalized = np.asarray(posterior / normalizer)
+        if isinstance(belief, _FactorizedRockBelief) and belief.rock_good_probabilities is not None:
+            marginals = belief.rock_good_probabilities.copy()
+            prior_good = float(marginals[rock_id])
+            accuracy = self.sensor_accuracy(position, rock_id)
+            good_likelihood = accuracy if outcome == RockType.GOOD else 1.0 - accuracy
+            marginals[rock_id] = prior_good * good_likelihood / normalizer
+            return _FactorizedRockBelief(normalized, marginals)
+        return normalized
 
     def expected_information_gain(self, position: tuple[int, int], belief: np.ndarray, action_name: str) -> float:
-        if self.check_id(action_name) is None:
+        rock_id = self.check_id(action_name)
+        if rock_id is None:
             return 0.0
-        expected_entropy = 0.0
-        for outcome in self.outcomes(action_name):
-            probability = self.outcome_probability(position, belief, action_name, outcome)
-            if probability > EPSILON:
-                expected_entropy += probability * self.entropy(self.posterior(position, belief, action_name, outcome))
-        return self.entropy(belief) - expected_entropy
+        p_good = self.rock_good_probability(belief, rock_id)
+        accuracy = self.sensor_accuracy(position, rock_id)
+        p_observe_good = p_good * accuracy + (1.0 - p_good) * (1.0 - accuracy)
+
+        def binary_entropy(probability: float) -> float:
+            if probability <= EPSILON or probability >= 1.0 - EPSILON:
+                return 0.0
+            return -probability * math.log(probability) - (1.0 - probability) * math.log(
+                1.0 - probability
+            )
+
+        # Y is conditionally independent of the remaining rock vector given this
+        # rock, so I(full state; Y) equals the binary-channel mutual information.
+        return max(0.0, binary_entropy(p_observe_good) - binary_entropy(accuracy))
 
     def decode_map_index(self, belief: np.ndarray) -> int:
         return int(np.argmax(belief))

@@ -1,0 +1,86 @@
+{
+  "audit_passed": true,
+  "comparison": {
+    "entropy_auc_gain_ci95": [
+      0.5800562532034176,
+      0.5970613129132408
+    ],
+    "entropy_auc_gain_mean": 0.5888433568362575,
+    "final_entropy_gain_ci95": [
+      1.3654625474817803,
+      1.4100238791613497
+    ],
+    "final_entropy_gain_mean": 1.3882410627895032,
+    "truth_log_auc_gain_ci95": [
+      0.547015567301299,
+      0.6396036301945324
+    ],
+    "truth_log_auc_gain_mean": 0.5930082543784706,
+    "wins_ties_losses": [
+      100,
+      0,
+      0
+    ]
+  },
+  "depth_summaries": {
+    "1": {
+      "decision_count": 1500,
+      "entropy_auc_mean": 10.359741854218385,
+      "final_entropy_mean": 10.331017446846527,
+      "most_common_sequence": [
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3",
+        "check-3"
+      ],
+      "most_common_sequence_count": 100,
+      "move_count": 0,
+      "truth_log_auc_mean": -10.35571645594426,
+      "unique_action_sequences": 1
+    },
+    "2": {
+      "decision_count": 1500,
+      "entropy_auc_mean": 9.770898497382127,
+      "final_entropy_mean": 8.942776384057028,
+      "most_common_sequence": [
+        "move-EAST",
+        "move-NORTH",
+        "move-EAST",
+        "check-3",
+        "move-EAST",
+        "move-SOUTH",
+        "check-11",
+        "check-11",
+        "check-11",
+        "check-11",
+        "check-11",
+        "check-11",
+        "check-11",
+        "check-11",
+        "check-14"
+      ],
+      "most_common_sequence_count": 96,
+      "move_count": 500,
+      "truth_log_auc_mean": -9.76270820156579,
+      "unique_action_sequences": 2
+    }
+  },
+  "initial_exact_values": {
+    "1": 0.0057223690223843215,
+    "2": 0.02985110651988665
+  },
+  "primary_gate_passed": true,
+  "schema_version": 1,
+  "truth_log_corroboration_passed": true
+}

@@ -52,7 +52,8 @@ $0.362$--$0.887$; all twelve paired 95\% intervals exclude zero, and
 truth-log-posterior AUC agrees. Both the eight- and eleven-rock results replicate
 across Gemma 4 26B A4B and GPT-5.4 Mini under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
-move. Negative location, Paprika, and MediQ audits identify the boundary: depth
+move; an exact gate preserves the planning gap at 32,768 latent states. Negative
+location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
 The result supports an LLM-Modulo architecture for sequential BED---semantic policy
 generation coupled to exact external verification---rather than unverified LLM
@@ -336,6 +337,13 @@ maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.
 11-rock width sweep passed all 18 gates: K4 beat K2 by .5655 entropy-AUC nats
 [.4974, .6418], while K6 minus K4 was .0102 [-.0156, .0337]. K4 therefore matched
 K6 endpoint quality with 9.49 instead of 14.24 scorer nodes/decision.
+
+A separately preregistered 100-pair exact qualification on a frozen
+RockSample[15,15] instance extends the structural mechanism to 32,768 latent
+vectors. Exhaustive d2 beat d1 by .5888 entropy-AUC nats [.5801, .5971] and .5930
+truth-log-AUC nats [.5470, .6396], with 100/0/0 entropy wins/ties/losses. Greedy d1
+never moved in 1,500 decisions, while d2 moved 500 times. This is exact scale
+evidence; the separately registered LLM-policy confirmation has no endpoint yet.
 
 We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
 panel activation unlocks precise bit and parity tests for a 32-state fault code. In

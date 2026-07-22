@@ -424,13 +424,7 @@ def _state_from_serialized_history(
 
 def _rock_marginals(model: RockDiagnosisModel, belief: np.ndarray) -> list[float]:
     return [
-        float(
-            sum(
-                probability
-                for state, probability in zip(model.hidden_states, belief)
-                if str(state[rock_id]).lower() == "good"
-            )
-        )
+        model.rock_good_probability(belief, rock_id)
         for rock_id in range(model.num_rocks)
     ]
 
