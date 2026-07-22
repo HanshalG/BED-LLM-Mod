@@ -44,6 +44,12 @@ The formal run is projected at `$0.25` and has a hard per-run cap of `$0.50` wit
 
 The first 2-trial, 3-round interface smoke failed closed after 11 requests because Gemma repeated a terminal precise root after one retry; it cost `$0.00598281`. This motivated the frozen deterministic terminal deduplication. A fresh smoke then passed with 10 accepted cells, two rejected responses corrected on retry, one terminal repair, and zero rollout-scoring LLM calls. It cost `$0.00564344`. Over only two descriptive pairs, StrategyEIG matched exhaustive d2 and gained `+0.3145` entropy-AUC nats over matched random; these values are not pooled with the formal run.
 
+## Registered Outcome
+
+The v1 confirmation failed closed and produced no policy endpoint. Across the initial run and 15 identical-config resumes, 385 cells were accepted and revalidated, but the cache then plateaued because temperature-zero Gemma deterministically repeated invalid cells. The audit preserved 662 rejected attempts: 378 illegal follow-up actions, 156 illegal root actions, 115 incorrect outcome-key sets, 11 invalid JSON responses, and two incomplete fences. Twenty-seven terminal roots were repaired under the registered deterministic rule. The 16 serving runs made 1,047 requests and cost `$0.76078769` in total.
+
+No invalid policy was scored or executed, and no partial trial was used as an endpoint. This is a failed literal-action interface result, not a negative StrategyEIG performance result. The frozen failure is reported in `GATED_SENSOR_STRATEGY_V1_FAILURE_RESULT.md`; any replacement interface requires a new preregistration.
+
 ## Command
 
 ```bash
