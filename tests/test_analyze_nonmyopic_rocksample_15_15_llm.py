@@ -164,7 +164,7 @@ def test_auditor_accepts_registered_vllm_replication() -> None:
 
 
 @pytest.mark.parametrize(
-    "run_key", ["vllm_seed_24102", "vllm_seed_24103", "e4b_vllm"]
+    "run_key", ["vllm_seed_24102", "vllm_seed_24103", "e4b_vllm", "12b_vllm"]
 )
 def test_auditor_accepts_registered_vllm_runs(run_key: str) -> None:
     audit = analyze_run(_result(run_key=run_key), run_key)

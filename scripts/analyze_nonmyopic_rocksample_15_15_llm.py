@@ -72,6 +72,15 @@ EXPECTED_RUNS = {
         "trial_concurrency": 1,
         "resumed": False,
     },
+    "12b_vllm": {
+        "run_id": "nonmyopic-rocksample-15-15-12b-vllm-20260722",
+        "seed": 24106,
+        "model": "google/gemma-4-12B-it",
+        "label": "Gemma 4 12B direct vLLM seed 24106",
+        "backend": "vllm",
+        "trial_concurrency": 1,
+        "resumed": False,
+    },
 }
 
 

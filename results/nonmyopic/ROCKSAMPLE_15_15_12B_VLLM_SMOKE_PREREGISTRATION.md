@@ -86,3 +86,13 @@ Docker Hub publishes the official pinned `v0.23.0-cu129` image. The next serving
 repair uses that image with vLLM CUDA compatibility enabled on A100 and a fresh
 versioned dependency path. The model and all registered scientific settings remain
 unchanged.
+
+Job `106220` completed on `msc` node `oat14` with the pinned
+`vllm/vllm-openai:v0.23.0-cu129` image and passed every frozen gate. All ten cells
+parsed without repair or terminal failure; every h2 cell contained movement and
+direct-check roots plus a move-then-check continuation. Mean best-proposed/exhaustive
+d2 value across the eight h2 probes was `0.4217`, exceeding the registered `0.40`
+threshold, and seven of eight probes exceeded `0.20`, exceeding the registered six.
+The run used ten requests, 41,976 prompt tokens, 3,120 completion tokens, zero
+reasoning tokens, and zero forced exits. The preregistered fresh-seed formal run is
+therefore permitted.
