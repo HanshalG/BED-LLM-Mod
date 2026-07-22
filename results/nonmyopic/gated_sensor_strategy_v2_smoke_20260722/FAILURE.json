@@ -1,0 +1,702 @@
+{
+  "candidate_requests": [],
+  "config": {
+    "bootstrap_replicates": 200,
+    "interface_version": "indexed_branch_v2",
+    "num_rounds": 3,
+    "num_strategies": 6,
+    "num_trials": 2,
+    "precise_accuracy": 0.95,
+    "screen_accuracy": 0.65,
+    "seed": 24093,
+    "temperature": 0.0,
+    "trial_concurrency": 4,
+    "validation_retries": 1
+  },
+  "error": "indexed cell failed after two attempts: slot 3 followup_indices must contain exactly ['positive', 'negative']",
+  "invalid_responses": [
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "error": "slot 3 followup_indices must contain exactly ['positive', 'negative']",
+      "history": [],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"A-bit0\",\"description\":\"Test bit-0 via A to isolate early bits.\",\"followup_indices\":{\"none\":0}},{\"name\":\"A-bit1\",\"description\":\"Test bit-1 via A to isolate early bits.\",\"followup_indices\":{\"none\":1}},{\"name\":\"A-xor01\",\"description\":\"Test XOR relationship in A.\",\"followup_indices\":{\"none\":3}},{\"name\":\"B-bit2\",\"description\":\"Test bit-2 via B to isolate late bits.\",\"followup_indices\":{\"none\":0}},{\"name\":\"B-xor23\",\"description\":\"Test XOR relationship in B.\",\"followup_indices\":{\"none\":3}},{\"name\":\"C-bit0\",\"description\":\"Test bit-0 via C to cross-reference A.\",\"followup_indices\":{\"none\":0}}]}\n```",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-0",
+        "screen:bit-1",
+        "screen:bit-2"
+      ],
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 1,
+      "error": "slot 3 followup_indices must contain exactly ['positive', 'negative']",
+      "history": [],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"A-bit0\",\"description\":\"Test bit-0 via A to isolate early bits.\",\"followup_indices\":{\"none\":0}},{\"name\":\"A-bit1\",\"description\":\"Test bit-1 via A to isolate early bits.\",\"followup_indices\":{\"none\":1}},{\"name\":\"A-xor01\",\"description\":\"Test XOR relationship in A.\",\"followup_indices\":{\"none\":3}},{\"name\":\"B-bit2\",\"description\":\"Test bit-2 via B to isolate late bits.\",\"followup_indices\":{\"none\":0}},{\"name\":\"B-xor23\",\"description\":\"Test XOR relationship in B.\",\"followup_indices\":{\"none\":3}},{\"name\":\"C-bit0\",\"description\":\"Test bit-0 via C to cross-reference A.\",\"followup_indices\":{\"none\":0}}]}\n```",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-0",
+        "screen:bit-1",
+        "screen:bit-2"
+      ],
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "error": "slot 0 followup_indices must contain exactly ['none']",
+      "history": [],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"A-bit0\",\"description\":\"Test bit-0 via A to isolate early bits.\",\"followup_indices\":{\"0\":0,\"1\":0}},{\"name\":\"A-bit1\",\"description\":\"Test bit-1 via A to isolate early bits.\",\"followup_indices\":{\"0\":1,\"1\":0}},{\"name\":\"A-xor01\",\"description\":\"Test XOR relationship in A.\",\"followup_indices\":{\"0\":3,\"1\":0}},{\"name\":\"B-bit2\",\"description\":\"Test bit-2 via B to isolate late bits.\",\"followup_indices\":{\"0\":0,\"1\":0}},{\"name\":\"C-bit0\",\"description\":\"Test bit-0 via C to cross-verify A.\",\"followup_indices\":{\"0\":0,\"1\":0}},{\"name\":\"C-xor03\",\"description\":\"Test long-range XOR in C.\",\"followup_indices\":{\"0\":3,\"1\":0}}]}\n```",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-0",
+        "screen:bit-1",
+        "screen:bit-2"
+      ],
+      "trial_index": 1
+    },
+    {
+      "active_panel": null,
+      "attempt": 1,
+      "error": "slot 3 followup_indices must contain exactly ['positive', 'negative']",
+      "history": [],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"A-bit0\",\"description\":\"Test bit-0 via A to isolate early bits.\",\"followup_indices\":{\"none\":0}},{\"name\":\"A-bit1\",\"description\":\"Test bit-1 via A to isolate early bits.\",\"followup_indices\":{\"none\":1}},{\"name\":\"A-xor01\",\"description\":\"Test XOR relationship in A.\",\"followup_indices\":{\"none\":3}},{\"name\":\"B-bit2\",\"description\":\"Test bit-2 via B to isolate late bits.\",\"followup_indices\":{\"none\":0}},{\"name\":\"C-bit0\",\"description\":\"Test bit-0 via C to cross-verify A.\",\"followup_indices\":{\"none\":0}},{\"name\":\"C-xor03\",\"description\":\"Test long-range XOR in C.\",\"followup_indices\":{\"none\":3}}]}\n```",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-0",
+        "screen:bit-1",
+        "screen:bit-2"
+      ],
+      "trial_index": 1
+    }
+  ],
+  "schema_version": 2,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 780,
+    "adapter_cost_usd": 0.0011913000000000002,
+    "adapter_prompt_tokens": 9269,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 4,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 780,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 780,
+        "cost_usd": 0.0011913000000000002,
+        "prompt_tokens": 9269,
+        "reasoning_tokens": 0,
+        "requests": 4
+      }
+    },
+    "prompt_tokens": 9269,
+    "reasoning_tokens": 0,
+    "remaining_usd": 10.287933572540041,
+    "requests": 4,
+    "run_budget_usd": 0.5,
+    "run_cost_usd": 0.0011913000000000002,
+    "run_remaining_usd": 0.4988087,
+    "total_spent_usd": 29.71206642745996
+  }
+}

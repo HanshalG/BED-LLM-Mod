@@ -1,6 +1,6 @@
 \documentclass[10pt]{article}
 
-\usepackage[margin=0.72in]{geometry}
+\usepackage[margin=0.65in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{float}
@@ -9,9 +9,24 @@
 \usepackage{natbib}
 
 \setlength{\parindent}{1em}
-\setlength{\parskip}{0.15em}
+\setlength{\parskip}{0pt}
 \setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
 \setlength{\floatsep}{6pt plus 2pt minus 2pt}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{center}
+    {\LARGE \@title\par}
+    \vspace{0.4em}
+    {\normalsize \@author\par}
+  \end{center}
+  \vspace{0.3em}
+}
+\renewcommand\section{\@startsection{section}{1}{0pt}%
+  {1.25ex plus 0.2ex minus 0.1ex}{0.55ex}{\normalfont\Large\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{0pt}%
+  {0.6ex}{0.5em}{\normalfont\normalsize\bfseries}}
+\makeatother
 
 \title{When Does Non-Myopic Bayesian Experimental Design Work with Language Models?}
 \author{Hanshal Goyal}
@@ -43,6 +58,8 @@ The result supports an LLM-Modulo architecture for sequential BED---semantic pol
 generation coupled to exact external verification---rather than unverified LLM
 simulation alone.
 \end{abstract}
+
+\small
 
 \section{Introduction}
 
@@ -76,6 +93,9 @@ sufficiency plus record sparsity in MediQ.
 
 Our contributions are:
 \begin{enumerate}
+  \setlength{\itemsep}{0.15em}
+  \setlength{\topsep}{0.25em}
+  \setlength{\parsep}{0pt}
   \item StrategyEIG, an LLM-Modulo sequential BED architecture in which an LLM
   proposes explicit contingent policies and an exact Bayesian component verifies
   their total information gain \citep{kambhampati2024llmmodulo};
@@ -169,6 +189,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
+Gated Sensor & Exact finite state & Zero-EIG activation & Exact d2 beats d1; LLM ties random & Structural positive \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -316,10 +337,21 @@ maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.
 [.4974, .6418], while K6 minus K4 was .0102 [-.0156, .0337]. K4 therefore matched
 K6 endpoint quality with 9.49 instead of 14.24 scorer nodes/decision.
 
+We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
+panel activation unlocks precise bit and parity tests for a 32-state fault code. In
+a preregistered 500-pair exact gate, d2 beat d1 by 1.2459 entropy-AUC nats
+[1.2401, 1.2516], with 500/0/0 wins/ties/losses; the truth-log-AUC gain was
+1.2806 [1.1943, 1.3630]. The LLM extension exposed a boundary rather than a second
+policy success. A strict literal-action interface failed closed with 662 rejected
+attempts; a branch-local integer interface eliminated legality errors. Its strongest
+exploratory GPT-5.4 Mini probe beat both greedy controls but tied matched random
+policies: $-.0413$ [-.1854, .0795], with 5/0/3 wins/ties/losses. Exact verification
+cannot recover setup value when the proposed continuation itself is redundant.
+
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
-entropy-AUC nats, with 95\% interval [.1998, .2090] in favor of d2 and 0/0/500 d3
-wins/ties/losses; truth-log AUC agreed. At the first divergence, d3 takes a noisy
+entropy-AUC nats, with 95\% interval [.1998, .2090] in favor of d2. It had
+0/0/500 wins/ties/losses; truth-log AUC agreed. At the first divergence, d3 takes a noisy
 check because its local value includes a promised later move and perfect check.
 Replanning restores the three-step window, so it repeats the check and postpones the
 continuation. A fresh endpoint-aligned repair weighted earlier gains by their remaining
@@ -435,6 +467,9 @@ than recover a missing patient state.
 
 Future depth studies should cross the following gates in order:
 \begin{enumerate}
+  \setlength{\itemsep}{0.15em}
+  \setlength{\topsep}{0.25em}
+  \setlength{\parsep}{0pt}
   \item \textbf{Target and state:} the endpoint must decode $\theta$, while a
   latent $z$ must contain everything required to generate responses.
   \item \textbf{Prior:} held-out log loss and Brier score must beat uniform, with
@@ -497,7 +532,7 @@ implementation details. Testing them before scaling horizon is both cheaper and
 scientifically stronger than explaining another non-monotonic depth sweep after
 the fact.
 
-{\small
+{\footnotesize
 \bibliographystyle{plainnat}
 \bibliography{references}
 }
