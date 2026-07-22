@@ -52,3 +52,11 @@ sbatch --job-name=r15-vllm-formal scripts/run_nonmyopic_rock_strategy_a100.sh \
   --seed 24101 --bootstrap-replicates 10000 --trial-concurrency 1 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Execution Status
+
+The first smoke allocation, job `106098`, failed before model load or any LLM
+response because the fresh checkout's `.env` symlink pointed to a retired workspace.
+The symlink was corrected to the existing cluster secret file without reading or
+changing its contents. The identical smoke was resubmitted as job `106101`; it is
+pending for an A100. No interface or policy endpoint has yet been observed.
