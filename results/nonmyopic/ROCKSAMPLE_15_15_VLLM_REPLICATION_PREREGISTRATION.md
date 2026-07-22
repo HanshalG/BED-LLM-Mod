@@ -63,5 +63,9 @@ but failed before model initialization because the existing user conda environme
 lacked the repo-pinned `pomdp-py==1.3.5.1`. That exact package and its SciPy
 dependency were installed into the user environment, and an import preflight
 constructed the 32,768-state model successfully under vLLM `0.19.1rc1.dev367`.
-The unchanged smoke is resubmitted as job `106106`. No interface or policy endpoint
-has yet been observed.
+Job `106106` revealed that `/scratch-ssd` is node-local: the login-node install did
+not modify `oat10`'s environment, so it failed at the same pre-import stage. The
+launcher now checks `pomdp_py` after activating the allocation-local environment and,
+only when absent, installs the pinned wheel under the cluster's existing package
+lock before asserting the frozen map import. No model or policy endpoint has yet
+been observed.
