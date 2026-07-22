@@ -1,0 +1,1843 @@
+{
+  "candidate_requests": [
+    {
+      "active_panel": null,
+      "attempt": 1,
+      "history": [],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-bit-0-focus\",\n      \"description\": \"Activate A and test bit-0 to isolate early A-panel faults.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"B-bit-2-focus\",\n      \"description\": \"Activate B and test bit-2 to check overlap with A and C.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-bit-3-focus\",\n      \"description\": \"Activate C and test bit-3 to isolate C-panel faults.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"Screen-bit-1-split\",\n      \"description\": \"Screen bit-1 to determine if A is active, then refine with bit-0.\",\n      \"root_action\": \"screen:bit-1\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"Screen-xor-0-1-split\",\n      \"description\": \"Screen XOR 0-1 to check A-panel parity, then target bit-2.\",\n      \"root_action\": \"screen:xor-0-1\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"Screen-xor-2-4-split\",\n      \"description\": \"Screen XOR 2-4 to check B/C overlap, then target bit-0.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 0,
+      "validated_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-bit-0-focus\",\n      \"description\": \"Activate A and test bit-0 to isolate early A-panel faults.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"B-bit-2-focus\",\n      \"description\": \"Activate B and test bit-2 to check overlap with A and C.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-bit-3-focus\",\n      \"description\": \"Activate C and test bit-3 to isolate C-panel faults.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"Screen-bit-1-split\",\n      \"description\": \"Screen bit-1 to determine if A is active, then refine with bit-0.\",\n      \"root_action\": \"screen:bit-1\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"Screen-xor-0-1-split\",\n      \"description\": \"Screen XOR 0-1 to check A-panel parity, then target bit-2.\",\n      \"root_action\": \"screen:xor-0-1\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"Screen-xor-2-4-split\",\n      \"description\": \"Screen XOR 2-4 to check B/C overlap, then target bit-0.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    }\n  ]\n}\n```"
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"machine_a_init\",\"description\":\"Mandatory machine-assigned activation of panel A.\",\"root_action\":\"activate:A\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"machine_c_init\",\"description\":\"Mandatory machine-assigned activation of panel C.\",\"root_action\":\"activate:C\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"bit2_precise_split\",\"description\":\"Use precise bit-2 to isolate panel B faults before branching.\",\"root_action\":\"precise:bit-2\",\"followups\":{\"positive\":\"precise:bit-3\",\"negative\":\"precise:bit-4\"}},{\"name\":\"xor23_screen_check\",\"description\":\"Screen xor-2-3 to differentiate bit-2/3/4 combinations.\",\"root_action\":\"screen:xor-2-3\",\"followups\":{\"positive\":\"precise:bit-2\",\"negative\":\"precise:bit-4\"}},{\"name\":\"bit3_precise_probe\",\"description\":\"Directly probe bit-3 to resolve panel B/C overlap.\",\"root_action\":\"precise:bit-3\",\"followups\":{\"positive\":\"precise:bit-4\",\"negative\":\"precise:bit-2\"}},{\"name\":\"xor24_screen_probe\",\"description\":\"Use screen xor-2-4 to identify bit-2 or bit-4 faults.\",\"root_action\":\"screen:xor-2-4\",\"followups\":{\"positive\":\"precise:bit-2\",\"negative\":\"precise:bit-3\"}}]}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 0,
+      "validated_response": "```json\n{\"strategies\":[{\"name\":\"machine_a_init\",\"description\":\"Mandatory machine-assigned activation of panel A.\",\"root_action\":\"activate:A\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"machine_c_init\",\"description\":\"Mandatory machine-assigned activation of panel C.\",\"root_action\":\"activate:C\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"bit2_precise_split\",\"description\":\"Use precise bit-2 to isolate panel B faults before branching.\",\"root_action\":\"precise:bit-2\",\"followups\":{\"positive\":\"precise:bit-3\",\"negative\":\"precise:bit-4\"}},{\"name\":\"xor23_screen_check\",\"description\":\"Screen xor-2-3 to differentiate bit-2/3/4 combinations.\",\"root_action\":\"screen:xor-2-3\",\"followups\":{\"positive\":\"precise:bit-2\",\"negative\":\"precise:bit-4\"}},{\"name\":\"bit3_precise_probe\",\"description\":\"Directly probe bit-3 to resolve panel B/C overlap.\",\"root_action\":\"precise:bit-3\",\"followups\":{\"positive\":\"precise:bit-4\",\"negative\":\"precise:bit-2\"}},{\"name\":\"xor24_screen_probe\",\"description\":\"Use screen xor-2-4 to identify bit-2 or bit-4 faults.\",\"root_action\":\"screen:xor-2-4\",\"followups\":{\"positive\":\"precise:bit-2\",\"negative\":\"precise:bit-3\"}}]}\n```"
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:bit-1",
+          "observation": "negative"
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-focus-bit0\",\n      \"description\": \"Activate A and test bit-0 to isolate A-specific faults.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"B-focus-bit2\",\n      \"description\": \"Activate B and test bit-2 to isolate B-specific faults.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-focus-bit3\",\n      \"description\": \"Activate C and test bit-3 to isolate C-specific faults.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"screen-bit0-split\",\n      \"description\": \"Screen bit-0 to partition the search space between A/C and B.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen-xor03-split\",\n      \"description\": \"Screen xor-0-3 to differentiate between A and C components.\",\n      \"root_action\": \"screen:xor-0-3\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:A\"\n      }\n    },\n    {\n      \"name\": \"screen-bit4-split\",\n      \"description\": \"Screen bit-4 to differentiate between B and C components.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:B\"\n      }\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 0,
+      "validated_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-focus-bit0\",\n      \"description\": \"Activate A and test bit-0 to isolate A-specific faults.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"B-focus-bit2\",\n      \"description\": \"Activate B and test bit-2 to isolate B-specific faults.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-focus-bit3\",\n      \"description\": \"Activate C and test bit-3 to isolate C-specific faults.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"screen-bit0-split\",\n      \"description\": \"Screen bit-0 to partition the search space between A/C and B.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen-xor03-split\",\n      \"description\": \"Screen xor-0-3 to differentiate between A and C components.\",\n      \"root_action\": \"screen:xor-0-3\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:A\"\n      }\n    },\n    {\n      \"name\": \"screen-bit4-split\",\n      \"description\": \"Screen bit-4 to differentiate between B and C components.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:B\"\n      }\n    }\n  ]\n}\n```"
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        },
+        {
+          "action": "precise:bit-2",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate-bit-3\",\n      \"description\": \"Maximize entropy reduction by testing bit-3, which has high uncertainty and is shared with panel C.\",\n      \"root_action\": \"precise:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate-bit-4\",\n      \"description\": \"Maximize entropy reduction by testing bit-4, which has high uncertainty and is shared with panel C.\",\n      \"root_action\": \"precise:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-3-check\",\n      \"description\": \"Test the relationship between the known positive bit-2 and uncertain bit-3 to narrow fault space.\",\n      \"root_action\": \"precise:xor-2-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-4-check\",\n      \"description\": \"Test the relationship between the known positive bit-2 and uncertain bit-4 to narrow fault space.\",\n      \"root_action\": \"precise:xor-2-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-3-4-check\",\n      \"description\": \"Test the relationship between two high-uncertainty bits (3 and 4) within the current panel.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"redundant-bit-2-verify\",\n      \"description\": \"Re-verify bit-2 to check for sensor noise or transient faults, despite low entropy.\",\n      \"root_action\": \"precise:bit-2\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 0,
+      "validated_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate-bit-3\",\n      \"description\": \"Maximize entropy reduction by testing bit-3, which has high uncertainty and is shared with panel C.\",\n      \"root_action\": \"precise:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate-bit-4\",\n      \"description\": \"Maximize entropy reduction by testing bit-4, which has high uncertainty and is shared with panel C.\",\n      \"root_action\": \"precise:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-3-check\",\n      \"description\": \"Test the relationship between the known positive bit-2 and uncertain bit-3 to narrow fault space.\",\n      \"root_action\": \"precise:xor-2-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-4-check\",\n      \"description\": \"Test the relationship between the known positive bit-2 and uncertain bit-4 to narrow fault space.\",\n      \"root_action\": \"precise:xor-2-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-3-4-check\",\n      \"description\": \"Test the relationship between two high-uncertainty bits (3 and 4) within the current panel.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"redundant-bit-2-verify\",\n      \"description\": \"Re-verify bit-2 to check for sensor noise or transient faults, despite low entropy.\",\n      \"root_action\": \"precise:bit-2\",\n      \"followups\": {}\n    }\n  ]\n}\n```"
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:bit-1",
+          "observation": "negative"
+        },
+        {
+          "action": "screen:xor-0-3",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate_bit_0_via_A\",\n      \"description\": \"Target bit-0 to resolve overlap between Panel A and Panel C given xor-0-3 is positive.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit_3_via_B\",\n      \"description\": \"Target bit-3 to differentiate between Panel B and Panel C dependencies.\",\n      \"root_action\": \"screen:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit_4_via_C\",\n      \"description\": \"Target bit-4 to resolve the high-entropy state of Panel C predicates.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"cross_check_xor_0_4\",\n      \"description\": \"Use xor-0-4 to bridge the known positive xor-0-3 and the unknown bit-4.\",\n      \"root_action\": \"screen:xor-0-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"resolve_bit_2_overlap\",\n      \"description\": \"Test bit-2 to disambiguate Panel A and Panel B intersection points.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"verify_xor_3_4_link\",\n      \"description\": \"Test xor-3-4 to confirm the relationship between the bit-3 and bit-4 fault clusters.\",\n      \"root_action\": \"screen:xor-3-4\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 0,
+      "validated_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate_bit_0_via_A\",\n      \"description\": \"Target bit-0 to resolve overlap between Panel A and Panel C given xor-0-3 is positive.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit_3_via_B\",\n      \"description\": \"Target bit-3 to differentiate between Panel B and Panel C dependencies.\",\n      \"root_action\": \"screen:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit_4_via_C\",\n      \"description\": \"Target bit-4 to resolve the high-entropy state of Panel C predicates.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"cross_check_xor_0_4\",\n      \"description\": \"Use xor-0-4 to bridge the known positive xor-0-3 and the unknown bit-4.\",\n      \"root_action\": \"screen:xor-0-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"resolve_bit_2_overlap\",\n      \"description\": \"Test bit-2 to disambiguate Panel A and Panel B intersection points.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"verify_xor_3_4_link\",\n      \"description\": \"Test xor-3-4 to confirm the relationship between the bit-3 and bit-4 fault clusters.\",\n      \"root_action\": \"screen:xor-3-4\",\n      \"followups\": {}\n    }\n  ]\n}\n```"
+    },
+    {
+      "active_panel": null,
+      "attempt": 1,
+      "history": [],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"activate_A_bit0\",\n      \"description\": \"Machine-assigned: Activate A and test bit-0.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"activate_B_bit2\",\n      \"description\": \"Machine-assigned: Activate B and test bit-2.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"activate_C_bit3\",\n      \"description\": \"Machine-assigned: Activate C and test bit-3.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_0_3_split\",\n      \"description\": \"Use screen to isolate overlap between A and C via xor-0-3.\",\n      \"root_action\": \"screen:xor-0-3\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen_bit_2_pivot\",\n      \"description\": \"Test bit-2 to pivot between A, B, and C coverage.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_2_4_bridge\",\n      \"description\": \"Test xor-2-4 to bridge B and C fault domains.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 1,
+      "validated_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"activate_A_bit0\",\n      \"description\": \"Machine-assigned: Activate A and test bit-0.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"activate_B_bit2\",\n      \"description\": \"Machine-assigned: Activate B and test bit-2.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"activate_C_bit3\",\n      \"description\": \"Machine-assigned: Activate C and test bit-3.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_0_3_split\",\n      \"description\": \"Use screen to isolate overlap between A and C via xor-0-3.\",\n      \"root_action\": \"screen:xor-0-3\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen_bit_2_pivot\",\n      \"description\": \"Test bit-2 to pivot between A, B, and C coverage.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_2_4_bridge\",\n      \"description\": \"Test xor-2-4 to bridge B and C fault domains.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```"
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"A-activation-bit0\",\"description\":\"Machine-assigned slot 1: Activate A and test bit-0.\",\"root_action\":\"activate:A\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"C-activation-bit0\",\"description\":\"Machine-assigned slot 2: Activate C and test bit-0.\",\"root_action\":\"activate:C\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"B-precise-bit2\",\"description\":\"Test bit-2 in panel B to isolate bit-2 faults.\",\"root_action\":\"precise:bit-2\",\"followups\":{\"positive\":\"screen:bit-3\",\"negative\":\"screen:bit-3\"}},{\"name\":\"B-precise-xor23\",\"description\":\"Test XOR relationship between bits 2 and 3.\",\"root_action\":\"precise:xor-2-3\",\"followups\":{\"positive\":\"screen:bit-4\",\"negative\":\"screen:bit-4\"}},{\"name\":\"B-precise-xor24\",\"description\":\"Test XOR relationship between bits 2 and 4.\",\"root_action\":\"precise:xor-2-4\",\"followups\":{\"positive\":\"screen:bit-3\",\"negative\":\"screen:bit-3\"}},{\"name\":\"B-screen-bit3\",\"description\":\"Screen bit-3 to narrow down panel B/C overlap.\",\"root_action\":\"screen:bit-3\",\"followups\":{\"positive\":\"precise:bit-4\",\"negative\":\"precise:bit-4\"}}]}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 1,
+      "validated_response": "```json\n{\"strategies\":[{\"name\":\"A-activation-bit0\",\"description\":\"Machine-assigned slot 1: Activate A and test bit-0.\",\"root_action\":\"activate:A\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"C-activation-bit0\",\"description\":\"Machine-assigned slot 2: Activate C and test bit-0.\",\"root_action\":\"activate:C\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"B-precise-bit2\",\"description\":\"Test bit-2 in panel B to isolate bit-2 faults.\",\"root_action\":\"precise:bit-2\",\"followups\":{\"positive\":\"screen:bit-3\",\"negative\":\"screen:bit-3\"}},{\"name\":\"B-precise-xor23\",\"description\":\"Test XOR relationship between bits 2 and 3.\",\"root_action\":\"precise:xor-2-3\",\"followups\":{\"positive\":\"screen:bit-4\",\"negative\":\"screen:bit-4\"}},{\"name\":\"B-precise-xor24\",\"description\":\"Test XOR relationship between bits 2 and 4.\",\"root_action\":\"precise:xor-2-4\",\"followups\":{\"positive\":\"screen:bit-3\",\"negative\":\"screen:bit-3\"}},{\"name\":\"B-screen-bit3\",\"description\":\"Screen bit-3 to narrow down panel B/C overlap.\",\"root_action\":\"screen:bit-3\",\"followups\":{\"positive\":\"precise:bit-4\",\"negative\":\"precise:bit-4\"}}]}\n```"
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:xor-0-3",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"activate_A_focus\",\n      \"description\": \"Activate panel A to resolve bit-0/1/2 ambiguity following xor-0-3 positive.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"activate_B_focus\",\n      \"description\": \"Activate panel B to resolve bit-2/3/4 ambiguity following xor-0-3 positive.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"activate_C_focus\",\n      \"description\": \"Activate panel C to confirm bit-0/3/4 components of the xor-0-3 result.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-4\"\n      }\n    },\n    {\n      \"name\": \"screen_bit0_split\",\n      \"description\": \"Use bit-0 screen to bifurcate the search space between panel A and C.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen_bit2_split\",\n      \"description\": \"Use bit-2 screen to isolate overlap between A and B.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"screen_xor24_split\",\n      \"description\": \"Use xor-2-4 to differentiate between bit-2 and bit-4 involvement.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 1,
+      "validated_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"activate_A_focus\",\n      \"description\": \"Activate panel A to resolve bit-0/1/2 ambiguity following xor-0-3 positive.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"activate_B_focus\",\n      \"description\": \"Activate panel B to resolve bit-2/3/4 ambiguity following xor-0-3 positive.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"activate_C_focus\",\n      \"description\": \"Activate panel C to confirm bit-0/3/4 components of the xor-0-3 result.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-4\"\n      }\n    },\n    {\n      \"name\": \"screen_bit0_split\",\n      \"description\": \"Use bit-0 screen to bifurcate the search space between panel A and C.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen_bit2_split\",\n      \"description\": \"Use bit-2 screen to isolate overlap between A and B.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"screen_xor24_split\",\n      \"description\": \"Use xor-2-4 to differentiate between bit-2 and bit-4 involvement.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```"
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        },
+        {
+          "action": "precise:bit-2",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate_bit3_entropy\",\n      \"description\": \"Target high-entropy bit-3 in panel B to differentiate between bit-3 and bit-4 faults.\",\n      \"root_action\": \"precise:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit4_entropy\",\n      \"description\": \"Target high-entropy bit-4 in panel B to differentiate between bit-3 and bit-4 faults.\",\n      \"root_action\": \"precise:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor_dependency_23\",\n      \"description\": \"Test XOR relationship between bit-2 (known positive) and bit-3 to isolate bit-3 state.\",\n      \"root_action\": \"precise:xor-2-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor_dependency_24\",\n      \"description\": \"Test XOR relationship between bit-2 (known positive) and bit-4 to isolate bit-4 state.\",\n      \"root_action\": \"precise:xor-2-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor_dependency_34\",\n      \"description\": \"Test XOR relationship between bit-3 and bit-4 to resolve parity without bit-2 dependency.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"cross_panel_validation_c\",\n      \"description\": \"Switch to panel C to verify bit-3 or bit-4 via overlapping predicates to confirm panel B results.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 1,
+      "trial_index": 1,
+      "validated_response": "{\"strategies\":[{\"description\":\"Target high-entropy bit-3 in panel B to differentiate between bit-3 and bit-4 faults.\",\"followups\":{},\"name\":\"isolate_bit3_entropy\",\"root_action\":\"precise:bit-3\"},{\"description\":\"Target high-entropy bit-4 in panel B to differentiate between bit-3 and bit-4 faults.\",\"followups\":{},\"name\":\"isolate_bit4_entropy\",\"root_action\":\"precise:bit-4\"},{\"description\":\"Test XOR relationship between bit-2 (known positive) and bit-3 to isolate bit-3 state.\",\"followups\":{},\"name\":\"xor_dependency_23\",\"root_action\":\"precise:xor-2-3\"},{\"description\":\"Test XOR relationship between bit-2 (known positive) and bit-4 to isolate bit-4 state.\",\"followups\":{},\"name\":\"xor_dependency_24\",\"root_action\":\"precise:xor-2-4\"},{\"description\":\"Test XOR relationship between bit-3 and bit-4 to resolve parity without bit-2 dependency.\",\"followups\":{},\"name\":\"xor_dependency_34\",\"root_action\":\"precise:xor-3-4\"},{\"description\":\"Switch to panel C to verify bit-3 or bit-4 via overlapping predicates to confirm panel B results.\",\"followups\":{},\"name\":\"cross_panel_validation_c\",\"root_action\":\"screen:bit-0\"}]}"
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:xor-0-3",
+          "observation": "positive"
+        },
+        {
+          "action": "screen:bit-0",
+          "observation": "negative"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"bit-3_isolation\",\n      \"description\": \"Target bit-3 to resolve the intersection of xor-0-3 and bit-0 constraints.\",\n      \"root_action\": \"screen:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-0-4_cross_check\",\n      \"description\": \"Test xor-0-4 to leverage the high entropy and overlap with panel C predicates.\",\n      \"root_action\": \"screen:xor-0-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"bit-2_pivot\",\n      \"description\": \"Use bit-2 as a bridge between panel A and panel B to narrow fault space.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-3-4_panel_c_refinement\",\n      \"description\": \"Test xor-3-4 to differentiate between bit-3 and bit-4 faults in panel C.\",\n      \"root_action\": \"screen:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"bit-4_independence\",\n      \"description\": \"Directly probe bit-4 to decouple it from the xor-0-4 and xor-3-4 dependencies.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-3_inter_panel_link\",\n      \"description\": \"Test xor-2-3 to bridge the uncertainty between panel B and panel C.\",\n      \"root_action\": \"screen:xor-2-3\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "terminal_root_repairs": 0,
+      "trial_index": 1,
+      "validated_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"bit-3_isolation\",\n      \"description\": \"Target bit-3 to resolve the intersection of xor-0-3 and bit-0 constraints.\",\n      \"root_action\": \"screen:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-0-4_cross_check\",\n      \"description\": \"Test xor-0-4 to leverage the high entropy and overlap with panel C predicates.\",\n      \"root_action\": \"screen:xor-0-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"bit-2_pivot\",\n      \"description\": \"Use bit-2 as a bridge between panel A and panel B to narrow fault space.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-3-4_panel_c_refinement\",\n      \"description\": \"Test xor-3-4 to differentiate between bit-3 and bit-4 faults in panel C.\",\n      \"root_action\": \"screen:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"bit-4_independence\",\n      \"description\": \"Directly probe bit-4 to decouple it from the xor-0-4 and xor-3-4 dependencies.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-3_inter_panel_link\",\n      \"description\": \"Test xor-2-3 to bridge the uncertainty between panel B and panel C.\",\n      \"root_action\": \"screen:xor-2-3\",\n      \"followups\": {}\n    }\n  ]\n}\n```"
+    }
+  ],
+  "comparisons": {
+    "strategy_eig_minus_exhaustive_d1": {
+      "entropy_auc_gain_ci95": [
+        0.4032308541634473,
+        0.4032308541634473
+      ],
+      "entropy_auc_gain_mean": 0.4032308541634473,
+      "entropy_auc_paired_values": [
+        0.4032308541634473,
+        0.4032308541634473
+      ],
+      "entropy_auc_wins_ties_losses": [
+        2,
+        0,
+        0
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        0.5298181628415617,
+        0.9425109684457111
+      ],
+      "truth_log_probability_auc_gain_mean": 0.7361645656436364,
+      "truth_log_probability_auc_paired_values": [
+        0.5298181628415617,
+        0.9425109684457111
+      ]
+    },
+    "strategy_eig_minus_exhaustive_d2": {
+      "entropy_auc_gain_ci95": [
+        0.0,
+        0.0
+      ],
+      "entropy_auc_gain_mean": 0.0,
+      "entropy_auc_paired_values": [
+        0.0,
+        0.0
+      ],
+      "entropy_auc_wins_ties_losses": [
+        0,
+        2,
+        0
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        0.0,
+        0.0
+      ],
+      "truth_log_probability_auc_gain_mean": 0.0,
+      "truth_log_probability_auc_paired_values": [
+        0.0,
+        0.0
+      ]
+    },
+    "strategy_eig_minus_random_strategy": {
+      "entropy_auc_gain_ci95": [
+        0.29928759712583997,
+        0.3297546248093819
+      ],
+      "entropy_auc_gain_mean": 0.31452111096761093,
+      "entropy_auc_paired_values": [
+        0.3297546248093819,
+        0.29928759712583997
+      ],
+      "entropy_auc_wins_ties_losses": [
+        2,
+        0,
+        0
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        0.2529930811366028,
+        0.4279025907815961
+      ],
+      "truth_log_probability_auc_gain_mean": 0.34044783595909944,
+      "truth_log_probability_auc_paired_values": [
+        0.4279025907815961,
+        0.2529930811366028
+      ]
+    },
+    "strategy_eig_minus_shared_d1": {
+      "entropy_auc_gain_ci95": [
+        0.4032308541634464,
+        0.4032308541634473
+      ],
+      "entropy_auc_gain_mean": 0.40323085416344684,
+      "entropy_auc_paired_values": [
+        0.4032308541634473,
+        0.4032308541634464
+      ],
+      "entropy_auc_wins_ties_losses": [
+        2,
+        0,
+        0
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        0.736164565643636,
+        0.7361645656436369
+      ],
+      "truth_log_probability_auc_gain_mean": 0.7361645656436364,
+      "truth_log_probability_auc_paired_values": [
+        0.7361645656436369,
+        0.736164565643636
+      ]
+    }
+  },
+  "config": {
+    "bootstrap_replicates": 200,
+    "num_rounds": 3,
+    "num_strategies": 6,
+    "num_trials": 2,
+    "precise_accuracy": 0.95,
+    "screen_accuracy": 0.65,
+    "seed": 24092,
+    "temperature": 0.0,
+    "trial_concurrency": 4,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "gate": {
+    "passed": true,
+    "rule": "StrategyEIG entropy-AUC lower CI exceeds shared d1, exhaustive d1, and matched random"
+  },
+  "invalid_responses": [
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "error": "strategy 3 followup 'positive' is illegal: 'precise:bit-0'",
+      "history": [],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-bit-0-focus\",\n      \"description\": \"Activate A and test bit-0 to isolate early A-panel faults.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"B-bit-2-focus\",\n      \"description\": \"Activate B and test bit-2 to check overlap with A and C.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-bit-3-focus\",\n      \"description\": \"Activate C and test bit-3 to isolate C-panel faults.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"Screen-bit-1-split\",\n      \"description\": \"Screen bit-1 to determine if A is active, then refine with bit-0.\",\n      \"root_action\": \"screen:bit-1\",\n      \"followups\": {\n        \"positive\": \"precise:bit-0\",\n        \"negative\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"Screen-xor-0-1-split\",\n      \"description\": \"Screen XOR 0-1 to check A-panel parity, then target bit-2.\",\n      \"root_action\": \"screen:xor-0-1\",\n      \"followups\": {\n        \"positive\": \"precise:bit-2\",\n        \"negative\": \"precise:bit-4\"\n      }\n    },\n    {\n      \"name\": \"Screen-xor-2-4-split\",\n      \"description\": \"Screen XOR 2-4 to check B/C overlap, then target bit-0.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"precise:bit-0\",\n        \"negative\": \"precise:bit-1\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "error": "strategy 0 followups must contain exactly ['none']",
+      "history": [],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"activate_A_bit0\",\n      \"description\": \"Machine-assigned: Activate A and test bit-0.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"precise:bit-0\": {\n          \"positive\": \"screen:bit-0\",\n          \"negative\": \"screen:bit-0\"\n        }\n      }\n    },\n    {\n      \"name\": \"activate_B_bit2\",\n      \"description\": \"Machine-assigned: Activate B and test bit-2.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"precise:bit-2\": {\n          \"positive\": \"screen:bit-2\",\n          \"negative\": \"screen:bit-2\"\n        }\n      }\n    },\n    {\n      \"name\": \"activate_C_bit3\",\n      \"description\": \"Machine-assigned: Activate C and test bit-3.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"precise:bit-3\": {\n          \"positive\": \"screen:bit-3\",\n          \"negative\": \"screen:bit-3\"\n        }\n      }\n    },\n    {\n      \"name\": \"screen_xor_0_3_split\",\n      \"description\": \"Use screen to isolate overlap between A and C via xor-0-3.\",\n      \"root_action\": \"screen:xor-0-3\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen_bit_2_pivot\",\n      \"description\": \"Test bit-2 to pivot between A, B, and C coverage.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_2_4_bridge\",\n      \"description\": \"Test xor-2-4 to bridge B and C fault domains.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 1
+    }
+  ],
+  "mechanics": {
+    "all_selected_actions_legal": true,
+    "bounded_validation_retries": 2,
+    "paired_trials_and_truths": true,
+    "rollout_scoring_llm_calls": 0,
+    "strategy_initial_cells_cover_all_activation_roots": true
+  },
+  "provider": {
+    "accepted_requests": 10,
+    "cache_hits": 2,
+    "invalid_responses": 2,
+    "logical_calls": 12,
+    "physical_requests": 12,
+    "terminal_root_repairs": 1
+  },
+  "run_id": "nonmyopic-gated-sensor-strategy-smoke-v2-20260722",
+  "schema_version": 1,
+  "traces": {
+    "exhaustive_d1": [
+      {
+        "arm": "exhaustive_d1",
+        "entropy_auc": 3.374334819749101,
+        "final_entropy": 3.3286342782237877,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -3.297682317803477,
+        "steps": [
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.420035361274414,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 1,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.2033716383322353
+          },
+          {
+            "action": "screen:bit-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.041645056233354794,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531222,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.374334819749101,
+            "entropy_before": 3.420035361274414,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.560046582270968
+          },
+          {
+            "action": "screen:bit-4",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.04164505623335435,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04164505623335435,
+              0.045700541525313554,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04533599722564441,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.374334819749101,
+            "immediate_eig": 0.045700541525313554,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.045700541525313554,
+            "realized_entropy_drop": 0.045700541525313554,
+            "round": 3,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.297682317803477
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 14,
+        "truth_log_probability_auc": -3.3537001794688934
+      },
+      {
+        "arm": "exhaustive_d1",
+        "entropy_auc": 3.374334819749101,
+        "final_entropy": 3.3286342782237877,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -3.9167215262097006,
+        "steps": [
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.420035361274414,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 1,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.822410846738459
+          },
+          {
+            "action": "screen:bit-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.041645056233354794,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531222,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.374334819749101,
+            "entropy_before": 3.420035361274414,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.560046582270968
+          },
+          {
+            "action": "screen:bit-4",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.04164505623335435,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04164505623335435,
+              0.045700541525313554,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04533599722564441,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.374334819749101,
+            "immediate_eig": 0.045700541525313554,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.045700541525313554,
+            "realized_entropy_drop": 0.045700541525313554,
+            "round": 3,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.9167215262097006
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 21,
+        "truth_log_probability_auc": -3.766392985073043
+      }
+    ],
+    "exhaustive_d2": [
+      {
+        "arm": "exhaustive_d2",
+        "entropy_auc": 2.971103965585654,
+        "final_entropy": 2.476472028371581,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -2.182028130454937,
+        "steps": [
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.4946319372140735,
+              0.49463193721407306,
+              0.09140108305062622,
+              0.09140108305062622,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 495,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.49463193721407306,
+              0.540332478739386,
+              0.5403324787393862,
+              0.5403324787393853,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.9892638744281457,
+              0.9892638744281457,
+              0.9892638744281461,
+              0.9892638744281459,
+              0.9892638744281457,
+              0.9892638744281457
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.9892638744281461,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 861,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:bit-0",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.008794231593035384,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.11544060688577984,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.4946319372140726
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.476472028371581,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.4946319372140726,
+            "round": 3,
+            "scorer_units": 21,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.182028130454937
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 14,
+        "truth_log_probability_auc": -2.8238820166273317
+      },
+      {
+        "arm": "exhaustive_d2",
+        "entropy_auc": 2.971103965585654,
+        "final_entropy": 2.4764720283715813,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -2.182028130454937,
+        "steps": [
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.4946319372140735,
+              0.49463193721407306,
+              0.09140108305062622,
+              0.09140108305062622,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 495,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.49463193721407306,
+              0.540332478739386,
+              0.5403324787393862,
+              0.5403324787393853,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.9892638744281457,
+              0.9892638744281457,
+              0.9892638744281461,
+              0.9892638744281459,
+              0.9892638744281457,
+              0.9892638744281457
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.9892638744281461,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 861,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:bit-0",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.008794231593035384,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.11544060688577984,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.4946319372140726
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.4764720283715813,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.49463193721407217,
+            "round": 3,
+            "scorer_units": 21,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.182028130454937
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 21,
+        "truth_log_probability_auc": -2.8238820166273317
+      }
+    ],
+    "random_strategy": [
+      {
+        "arm": "random_strategy",
+        "entropy_auc": 3.300858590395036,
+        "final_entropy": 2.9711039655856544,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -2.8238820166273317,
+        "steps": [
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:xor-0-2",
+              "screen:xor-0-4",
+              "screen:xor-2-3"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.49463193721407306,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.068550812287969
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-0-2\"},\"name\":\"random-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"random-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"random-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:xor-2-4\",\"positive\":\"screen:bit-3\"},\"name\":\"random-3\",\"root_action\":\"screen:xor-0-2\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:xor-2-3\",\"positive\":\"screen:bit-0\"},\"name\":\"random-4\",\"root_action\":\"screen:xor-0-4\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:xor-0-2\"},\"name\":\"random-5\",\"root_action\":\"screen:xor-2-3\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.49463193721407306,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 15,
+            "selected_strategy": "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-0-2\"},\"name\":\"random-0\",\"root_action\":\"activate:A\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "activate:B",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:xor-1-2",
+              "screen:xor-2-3",
+              "screen:xor-2-4",
+              "screen:xor-3-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407217,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.293016510132349,
+              0.09140108305062578
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"random-0\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-3-4\"},\"name\":\"random-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:bit-3\",\"positive\":\"screen:xor-2-3\"},\"name\":\"random-2\",\"root_action\":\"screen:xor-1-2\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:bit-1\",\"positive\":\"screen:xor-1-2\"},\"name\":\"random-3\",\"root_action\":\"screen:xor-2-3\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"precise:bit-1\",\"positive\":\"activate:C\"},\"name\":\"random-4\",\"root_action\":\"screen:xor-2-4\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:bit-0\",\"positive\":\"screen:bit-0\"},\"name\":\"random-5\",\"root_action\":\"screen:xor-3-4\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.49463193721407306,
+            "realized_entropy_drop": 0.0,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"random-0\",\"root_action\":\"activate:B\"}",
+            "state_before": "A",
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-3",
+            "candidate_roots": [
+              "screen:xor-1-2",
+              "screen:xor-3-4",
+              "screen:xor-0-1",
+              "screen:bit-2",
+              "precise:bit-3",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.49463193721407217,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-0\",\"root_action\":\"screen:xor-1-2\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-1\",\"root_action\":\"screen:xor-3-4\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-2\",\"root_action\":\"screen:xor-0-1\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-3\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-4\",\"root_action\":\"precise:bit-3\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-5\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 2.9711039655856544,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.49463193721407217,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.49463193721407217,
+            "realized_entropy_drop": 0.49463193721407217,
+            "round": 3,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-4\",\"root_action\":\"precise:bit-3\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.8238820166273317
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 14,
+        "truth_log_probability_auc": -3.251784607408928
+      },
+      {
+        "arm": "random_strategy",
+        "entropy_auc": 3.270391562711494,
+        "final_entropy": 2.925403424060341,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -2.561517752159841,
+        "steps": [
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:xor-2-3",
+              "screen:xor-2-4",
+              "screen:xor-3-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.49463193721407306,
+              0.09140108305062578,
+              0.068550812287969,
+              0.09140108305062578
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-0-1\"},\"name\":\"random-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-2-3\"},\"name\":\"random-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-0-4\"},\"name\":\"random-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:bit-4\",\"positive\":\"screen:bit-3\"},\"name\":\"random-3\",\"root_action\":\"screen:xor-2-3\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:bit-4\",\"positive\":\"activate:C\"},\"name\":\"random-4\",\"root_action\":\"screen:xor-2-4\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:xor-0-1\",\"positive\":\"screen:xor-2-3\"},\"name\":\"random-5\",\"root_action\":\"screen:xor-3-4\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.49463193721407306,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 15,
+            "selected_strategy": "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-0-1\"},\"name\":\"random-0\",\"root_action\":\"activate:A\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "screen:bit-1",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-2",
+              "screen:bit-1",
+              "precise:xor-0-1",
+              "precise:xor-1-2"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.3138390382490259,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.517482207976729
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"random-0\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"none\":\"precise:xor-0-4\"},\"name\":\"random-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:bit-2\",\"positive\":\"precise:xor-1-2\"},\"name\":\"random-2\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"precise:bit-2\",\"positive\":\"precise:bit-0\"},\"name\":\"random-3\",\"root_action\":\"screen:bit-1\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"screen:bit-0\",\"positive\":\"screen:bit-3\"},\"name\":\"random-4\",\"root_action\":\"precise:xor-0-1\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"activate:C\",\"positive\":\"screen:bit-2\"},\"name\":\"random-5\",\"root_action\":\"precise:xor-1-2\"}"
+            ],
+            "entropy_after": 3.420035361274414,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.5403324787393857,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{\"negative\":\"precise:bit-2\",\"positive\":\"precise:bit-0\"},\"name\":\"random-3\",\"root_action\":\"screen:bit-1\"}",
+            "state_before": "A",
+            "truth_log_probability": -3.2033716383322353
+          },
+          {
+            "action": "precise:xor-0-1",
+            "candidate_roots": [
+              "precise:xor-0-1",
+              "precise:xor-0-2",
+              "screen:xor-0-1",
+              "precise:bit-1",
+              "screen:bit-1",
+              "screen:xor-0-3"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.49463193721407306,
+              0.045700541525312666,
+              0.4577256272817958,
+              0.041645056233354794,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-0\",\"root_action\":\"precise:xor-0-1\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-1\",\"root_action\":\"precise:xor-0-2\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-2\",\"root_action\":\"screen:xor-0-1\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-3\",\"root_action\":\"precise:bit-1\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-4\",\"root_action\":\"screen:bit-1\"}",
+              "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-5\",\"root_action\":\"screen:xor-0-3\"}"
+            ],
+            "entropy_after": 2.925403424060341,
+            "entropy_before": 3.420035361274414,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 3,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"A policy sampled from the matched legal branch grammar.\",\"followups\":{},\"name\":\"random-0\",\"root_action\":\"precise:xor-0-1\"}",
+            "state_before": "A",
+            "truth_log_probability": -2.561517752159841
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 21,
+        "truth_log_probability_auc": -3.0768750977639345
+      }
+    ],
+    "shared_d1": [
+      {
+        "arm": "shared_d1",
+        "entropy_auc": 3.374334819749101,
+        "final_entropy": 3.3286342782237877,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -3.297682317803477,
+        "steps": [
+          {
+            "action": "screen:bit-1",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-1",
+              "screen:xor-0-1",
+              "screen:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Activate A and test bit-0 to isolate early A-panel faults.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"A-bit-0-focus\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Activate B and test bit-2 to check overlap with A and C.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"B-bit-2-focus\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Activate C and test bit-3 to isolate C-panel faults.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"C-bit-3-focus\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Screen bit-1 to determine if A is active, then refine with bit-0.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"Screen-bit-1-split\",\"root_action\":\"screen:bit-1\"}",
+              "{\"description\":\"Screen XOR 0-1 to check A-panel parity, then target bit-2.\",\"followups\":{\"negative\":\"activate:C\",\"positive\":\"activate:B\"},\"name\":\"Screen-xor-0-1-split\",\"root_action\":\"screen:xor-0-1\"}",
+              "{\"description\":\"Screen XOR 2-4 to check B/C overlap, then target bit-0.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"Screen-xor-2-4-split\",\"root_action\":\"screen:xor-2-4\"}"
+            ],
+            "entropy_after": 3.420035361274414,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 1,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Screen bit-1 to determine if A is active, then refine with bit-0.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"Screen-bit-1-split\",\"root_action\":\"screen:bit-1\"}",
+            "state_before": null,
+            "truth_log_probability": -3.822410846738459
+          },
+          {
+            "action": "screen:xor-0-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:xor-0-3",
+              "screen:bit-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Activate A and test bit-0 to isolate A-specific faults.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"A-focus-bit0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Activate B and test bit-2 to isolate B-specific faults.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"B-focus-bit2\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Activate C and test bit-3 to isolate C-specific faults.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"C-focus-bit3\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Screen bit-0 to partition the search space between A/C and B.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"screen-bit0-split\",\"root_action\":\"screen:bit-0\"}",
+              "{\"description\":\"Screen xor-0-3 to differentiate between A and C components.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:C\"},\"name\":\"screen-xor03-split\",\"root_action\":\"screen:xor-0-3\"}",
+              "{\"description\":\"Screen bit-4 to differentiate between B and C components.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:C\"},\"name\":\"screen-bit4-split\",\"root_action\":\"screen:bit-4\"}"
+            ],
+            "entropy_after": 3.374334819749101,
+            "entropy_before": 3.420035361274414,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Screen xor-0-3 to differentiate between A and C components.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:C\"},\"name\":\"screen-xor03-split\",\"root_action\":\"screen:xor-0-3\"}",
+            "state_before": null,
+            "truth_log_probability": -3.560046582270968
+          },
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "screen:bit-0",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-4",
+              "screen:bit-2",
+              "screen:xor-3-4"
+            ],
+            "candidate_scores": [
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Target bit-0 to resolve overlap between Panel A and Panel C given xor-0-3 is positive.\",\"followups\":{},\"name\":\"isolate_bit_0_via_A\",\"root_action\":\"screen:bit-0\"}",
+              "{\"description\":\"Target bit-3 to differentiate between Panel B and Panel C dependencies.\",\"followups\":{},\"name\":\"isolate_bit_3_via_B\",\"root_action\":\"screen:bit-3\"}",
+              "{\"description\":\"Target bit-4 to resolve the high-entropy state of Panel C predicates.\",\"followups\":{},\"name\":\"isolate_bit_4_via_C\",\"root_action\":\"screen:bit-4\"}",
+              "{\"description\":\"Use xor-0-4 to bridge the known positive xor-0-3 and the unknown bit-4.\",\"followups\":{},\"name\":\"cross_check_xor_0_4\",\"root_action\":\"screen:xor-0-4\"}",
+              "{\"description\":\"Test bit-2 to disambiguate Panel A and Panel B intersection points.\",\"followups\":{},\"name\":\"resolve_bit_2_overlap\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"Test xor-3-4 to confirm the relationship between the bit-3 and bit-4 fault clusters.\",\"followups\":{},\"name\":\"verify_xor_3_4_link\",\"root_action\":\"screen:xor-3-4\"}"
+            ],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.374334819749101,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525313554,
+            "round": 3,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Target bit-0 to resolve overlap between Panel A and Panel C given xor-0-3 is positive.\",\"followups\":{},\"name\":\"isolate_bit_0_via_A\",\"root_action\":\"screen:bit-0\"}",
+            "state_before": null,
+            "truth_log_probability": -3.297682317803477
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 14,
+        "truth_log_probability_auc": -3.5600465822709686
+      },
+      {
+        "arm": "shared_d1",
+        "entropy_auc": 3.3743348197491003,
+        "final_entropy": 3.3286342782237877,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -3.9167215262097006,
+        "steps": [
+          {
+            "action": "screen:xor-0-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:xor-0-3",
+              "screen:bit-2",
+              "screen:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Machine-assigned: Activate A and test bit-0.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"activate_A_bit0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Machine-assigned: Activate B and test bit-2.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"activate_B_bit2\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Machine-assigned: Activate C and test bit-3.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"activate_C_bit3\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Use screen to isolate overlap between A and C via xor-0-3.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"screen_xor_0_3_split\",\"root_action\":\"screen:xor-0-3\"}",
+              "{\"description\":\"Test bit-2 to pivot between A, B, and C coverage.\",\"followups\":{\"negative\":\"activate:C\",\"positive\":\"activate:B\"},\"name\":\"screen_bit_2_pivot\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"Test xor-2-4 to bridge B and C fault domains.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:B\"},\"name\":\"screen_xor_2_4_bridge\",\"root_action\":\"screen:xor-2-4\"}"
+            ],
+            "entropy_after": 3.4200353612744134,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.04570054152531311,
+            "round": 1,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Use screen to isolate overlap between A and C via xor-0-3.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"screen_xor_0_3_split\",\"root_action\":\"screen:xor-0-3\"}",
+            "state_before": null,
+            "truth_log_probability": -3.2033716383322353
+          },
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-2",
+              "screen:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Activate panel A to resolve bit-0/1/2 ambiguity following xor-0-3 positive.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"activate_A_focus\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Activate panel B to resolve bit-2/3/4 ambiguity following xor-0-3 positive.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"activate_B_focus\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Activate panel C to confirm bit-0/3/4 components of the xor-0-3 result.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"activate_C_focus\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Use bit-0 screen to bifurcate the search space between panel A and C.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"screen_bit0_split\",\"root_action\":\"screen:bit-0\"}",
+              "{\"description\":\"Use bit-2 screen to isolate overlap between A and B.\",\"followups\":{\"negative\":\"activate:C\",\"positive\":\"activate:B\"},\"name\":\"screen_bit2_split\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"Use xor-2-4 to differentiate between bit-2 and bit-4 involvement.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:B\"},\"name\":\"screen_xor24_split\",\"root_action\":\"screen:xor-2-4\"}"
+            ],
+            "entropy_after": 3.3743348197491008,
+            "entropy_before": 3.4200353612744134,
+            "immediate_eig": 0.045700541525312666,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.045700541525312666,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Use bit-0 screen to bifurcate the search space between panel A and C.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"screen_bit0_split\",\"root_action\":\"screen:bit-0\"}",
+            "state_before": null,
+            "truth_log_probability": -3.560046582270968
+          },
+          {
+            "action": "screen:xor-0-4",
+            "candidate_roots": [
+              "screen:bit-3",
+              "screen:xor-0-4",
+              "screen:bit-2",
+              "screen:xor-3-4",
+              "screen:bit-4",
+              "screen:xor-2-3"
+            ],
+            "candidate_scores": [
+              0.04533599722564352,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Target bit-3 to resolve the intersection of xor-0-3 and bit-0 constraints.\",\"followups\":{},\"name\":\"bit-3_isolation\",\"root_action\":\"screen:bit-3\"}",
+              "{\"description\":\"Test xor-0-4 to leverage the high entropy and overlap with panel C predicates.\",\"followups\":{},\"name\":\"xor-0-4_cross_check\",\"root_action\":\"screen:xor-0-4\"}",
+              "{\"description\":\"Use bit-2 as a bridge between panel A and panel B to narrow fault space.\",\"followups\":{},\"name\":\"bit-2_pivot\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"Test xor-3-4 to differentiate between bit-3 and bit-4 faults in panel C.\",\"followups\":{},\"name\":\"xor-3-4_panel_c_refinement\",\"root_action\":\"screen:xor-3-4\"}",
+              "{\"description\":\"Directly probe bit-4 to decouple it from the xor-0-4 and xor-3-4 dependencies.\",\"followups\":{},\"name\":\"bit-4_independence\",\"root_action\":\"screen:bit-4\"}",
+              "{\"description\":\"Test xor-2-3 to bridge the uncertainty between panel B and panel C.\",\"followups\":{},\"name\":\"xor-2-3_inter_panel_link\",\"root_action\":\"screen:xor-2-3\"}"
+            ],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.3743348197491008,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.04570054152531311,
+            "round": 3,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Test xor-0-4 to leverage the high entropy and overlap with panel C predicates.\",\"followups\":{},\"name\":\"xor-0-4_cross_check\",\"root_action\":\"screen:xor-0-4\"}",
+            "state_before": null,
+            "truth_log_probability": -3.9167215262097006
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 21,
+        "truth_log_probability_auc": -3.5600465822709677
+      }
+    ],
+    "strategy_eig": [
+      {
+        "arm": "strategy_eig",
+        "entropy_auc": 2.971103965585654,
+        "final_entropy": 2.476472028371581,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -2.182028130454937,
+        "steps": [
+          {
+            "action": "activate:B",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-1",
+              "screen:xor-0-1",
+              "screen:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.4946319372140735,
+              0.49463193721407217,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Activate A and test bit-0 to isolate early A-panel faults.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"A-bit-0-focus\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Activate B and test bit-2 to check overlap with A and C.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"B-bit-2-focus\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Activate C and test bit-3 to isolate C-panel faults.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"C-bit-3-focus\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Screen bit-1 to determine if A is active, then refine with bit-0.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"Screen-bit-1-split\",\"root_action\":\"screen:bit-1\"}",
+              "{\"description\":\"Screen XOR 0-1 to check A-panel parity, then target bit-2.\",\"followups\":{\"negative\":\"activate:C\",\"positive\":\"activate:B\"},\"name\":\"Screen-xor-0-1-split\",\"root_action\":\"screen:xor-0-1\"}",
+              "{\"description\":\"Screen XOR 2-4 to check B/C overlap, then target bit-0.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"Screen-xor-2-4-split\",\"root_action\":\"screen:xor-2-4\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 1,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 15,
+            "selected_strategy": "{\"description\":\"Activate B and test bit-2 to check overlap with A and C.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"B-bit-2-focus\",\"root_action\":\"activate:B\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:bit-2",
+              "screen:xor-2-3",
+              "precise:bit-3",
+              "screen:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.9892638744281457,
+              0.5403324787393853,
+              0.9892638744281452,
+              0.5403324787393857
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Mandatory machine-assigned activation of panel A.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"machine_a_init\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Mandatory machine-assigned activation of panel C.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"machine_c_init\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Use precise bit-2 to isolate panel B faults before branching.\",\"followups\":{\"negative\":\"precise:bit-4\",\"positive\":\"precise:bit-3\"},\"name\":\"bit2_precise_split\",\"root_action\":\"precise:bit-2\"}",
+              "{\"description\":\"Screen xor-2-3 to differentiate bit-2/3/4 combinations.\",\"followups\":{\"negative\":\"precise:bit-4\",\"positive\":\"precise:bit-2\"},\"name\":\"xor23_screen_check\",\"root_action\":\"screen:xor-2-3\"}",
+              "{\"description\":\"Directly probe bit-3 to resolve panel B/C overlap.\",\"followups\":{\"negative\":\"precise:bit-2\",\"positive\":\"precise:bit-4\"},\"name\":\"bit3_precise_probe\",\"root_action\":\"precise:bit-3\"}",
+              "{\"description\":\"Use screen xor-2-4 to identify bit-2 or bit-4 faults.\",\"followups\":{\"negative\":\"precise:bit-3\",\"positive\":\"precise:bit-2\"},\"name\":\"xor24_screen_probe\",\"root_action\":\"screen:xor-2-4\"}"
+            ],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.9892638744281457,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": "{\"description\":\"Use precise bit-2 to isolate panel B faults before branching.\",\"followups\":{\"negative\":\"precise:bit-4\",\"positive\":\"precise:bit-3\"},\"name\":\"bit2_precise_split\",\"root_action\":\"precise:bit-2\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:xor-2-3",
+            "candidate_roots": [
+              "precise:bit-3",
+              "precise:bit-4",
+              "precise:xor-2-3",
+              "precise:xor-2-4",
+              "precise:xor-3-4",
+              "precise:bit-2"
+            ],
+            "candidate_scores": [
+              0.49463193721407217,
+              0.49463193721407217,
+              0.4946319372140726,
+              0.49463193721407217,
+              0.49463193721407217,
+              0.11544060688577984
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Maximize entropy reduction by testing bit-3, which has high uncertainty and is shared with panel C.\",\"followups\":{},\"name\":\"isolate-bit-3\",\"root_action\":\"precise:bit-3\"}",
+              "{\"description\":\"Maximize entropy reduction by testing bit-4, which has high uncertainty and is shared with panel C.\",\"followups\":{},\"name\":\"isolate-bit-4\",\"root_action\":\"precise:bit-4\"}",
+              "{\"description\":\"Test the relationship between the known positive bit-2 and uncertain bit-3 to narrow fault space.\",\"followups\":{},\"name\":\"xor-2-3-check\",\"root_action\":\"precise:xor-2-3\"}",
+              "{\"description\":\"Test the relationship between the known positive bit-2 and uncertain bit-4 to narrow fault space.\",\"followups\":{},\"name\":\"xor-2-4-check\",\"root_action\":\"precise:xor-2-4\"}",
+              "{\"description\":\"Test the relationship between two high-uncertainty bits (3 and 4) within the current panel.\",\"followups\":{},\"name\":\"xor-3-4-check\",\"root_action\":\"precise:xor-3-4\"}",
+              "{\"description\":\"Re-verify bit-2 to check for sensor noise or transient faults, despite low entropy.\",\"followups\":{},\"name\":\"redundant-bit-2-verify\",\"root_action\":\"precise:bit-2\"}"
+            ],
+            "entropy_after": 2.476472028371581,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.4946319372140726,
+            "round": 3,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Test the relationship between the known positive bit-2 and uncertain bit-3 to narrow fault space.\",\"followups\":{},\"name\":\"xor-2-3-check\",\"root_action\":\"precise:xor-2-3\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.182028130454937
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 14,
+        "truth_log_probability_auc": -2.8238820166273317
+      },
+      {
+        "arm": "strategy_eig",
+        "entropy_auc": 2.971103965585654,
+        "final_entropy": 2.4764720283715813,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -2.182028130454937,
+        "steps": [
+          {
+            "action": "activate:B",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:xor-0-3",
+              "screen:bit-2",
+              "screen:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.4946319372140735,
+              0.49463193721407217,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Machine-assigned: Activate A and test bit-0.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"activate_A_bit0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Machine-assigned: Activate B and test bit-2.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"activate_B_bit2\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Machine-assigned: Activate C and test bit-3.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"activate_C_bit3\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Use screen to isolate overlap between A and C via xor-0-3.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"screen_xor_0_3_split\",\"root_action\":\"screen:xor-0-3\"}",
+              "{\"description\":\"Test bit-2 to pivot between A, B, and C coverage.\",\"followups\":{\"negative\":\"activate:C\",\"positive\":\"activate:B\"},\"name\":\"screen_bit_2_pivot\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"Test xor-2-4 to bridge B and C fault domains.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:B\"},\"name\":\"screen_xor_2_4_bridge\",\"root_action\":\"screen:xor-2-4\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 1,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 15,
+            "selected_strategy": "{\"description\":\"Machine-assigned: Activate B and test bit-2.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"activate_B_bit2\",\"root_action\":\"activate:B\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:bit-2",
+              "precise:xor-2-3",
+              "precise:xor-2-4",
+              "screen:bit-3"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.5403324787393862,
+              0.5403324787393857,
+              0.5403324787393853,
+              0.5403324787393853
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Machine-assigned slot 1: Activate A and test bit-0.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"A-activation-bit0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Machine-assigned slot 2: Activate C and test bit-0.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"C-activation-bit0\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Test bit-2 in panel B to isolate bit-2 faults.\",\"followups\":{\"negative\":\"screen:bit-3\",\"positive\":\"screen:bit-3\"},\"name\":\"B-precise-bit2\",\"root_action\":\"precise:bit-2\"}",
+              "{\"description\":\"Test XOR relationship between bits 2 and 3.\",\"followups\":{\"negative\":\"screen:bit-4\",\"positive\":\"screen:bit-4\"},\"name\":\"B-precise-xor23\",\"root_action\":\"precise:xor-2-3\"}",
+              "{\"description\":\"Test XOR relationship between bits 2 and 4.\",\"followups\":{\"negative\":\"screen:bit-3\",\"positive\":\"screen:bit-3\"},\"name\":\"B-precise-xor24\",\"root_action\":\"precise:xor-2-4\"}",
+              "{\"description\":\"Screen bit-3 to narrow down panel B/C overlap.\",\"followups\":{\"negative\":\"precise:bit-4\",\"positive\":\"precise:bit-4\"},\"name\":\"B-screen-bit3\",\"root_action\":\"screen:bit-3\"}"
+            ],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.5403324787393862,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": "{\"description\":\"Test bit-2 in panel B to isolate bit-2 faults.\",\"followups\":{\"negative\":\"screen:bit-3\",\"positive\":\"screen:bit-3\"},\"name\":\"B-precise-bit2\",\"root_action\":\"precise:bit-2\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:xor-2-3",
+            "candidate_roots": [
+              "precise:bit-3",
+              "precise:bit-4",
+              "precise:xor-2-3",
+              "precise:xor-2-4",
+              "precise:xor-3-4",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.49463193721407217,
+              0.49463193721407217,
+              0.4946319372140726,
+              0.49463193721407217,
+              0.49463193721407217,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Target high-entropy bit-3 in panel B to differentiate between bit-3 and bit-4 faults.\",\"followups\":{},\"name\":\"isolate_bit3_entropy\",\"root_action\":\"precise:bit-3\"}",
+              "{\"description\":\"Target high-entropy bit-4 in panel B to differentiate between bit-3 and bit-4 faults.\",\"followups\":{},\"name\":\"isolate_bit4_entropy\",\"root_action\":\"precise:bit-4\"}",
+              "{\"description\":\"Test XOR relationship between bit-2 (known positive) and bit-3 to isolate bit-3 state.\",\"followups\":{},\"name\":\"xor_dependency_23\",\"root_action\":\"precise:xor-2-3\"}",
+              "{\"description\":\"Test XOR relationship between bit-2 (known positive) and bit-4 to isolate bit-4 state.\",\"followups\":{},\"name\":\"xor_dependency_24\",\"root_action\":\"precise:xor-2-4\"}",
+              "{\"description\":\"Test XOR relationship between bit-3 and bit-4 to resolve parity without bit-2 dependency.\",\"followups\":{},\"name\":\"xor_dependency_34\",\"root_action\":\"precise:xor-3-4\"}",
+              "{\"description\":\"Switch to panel C to verify bit-3 or bit-4 via overlapping predicates to confirm panel B results.\",\"followups\":{},\"name\":\"cross_panel_validation_c\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 2.4764720283715813,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.49463193721407217,
+            "round": 3,
+            "scorer_units": 6,
+            "selected_strategy": "{\"description\":\"Test XOR relationship between bit-2 (known positive) and bit-3 to isolate bit-3 state.\",\"followups\":{},\"name\":\"xor_dependency_23\",\"root_action\":\"precise:xor-2-3\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.182028130454937
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 21,
+        "truth_log_probability_auc": -2.8238820166273317
+      }
+    ]
+  },
+  "usage": {
+    "adapter_completion_tokens": 5502,
+    "adapter_cost_usd": 0.00564344,
+    "adapter_prompt_tokens": 41391,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 12,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 5502,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 5502,
+        "cost_usd": 0.00564344,
+        "prompt_tokens": 41391,
+        "reasoning_tokens": 0,
+        "requests": 12
+      }
+    },
+    "prompt_tokens": 41391,
+    "reasoning_tokens": 0,
+    "remaining_usd": 11.049912562540051,
+    "requests": 12,
+    "run_budget_usd": 2.0,
+    "run_cost_usd": 0.00564344,
+    "run_remaining_usd": 1.99435656,
+    "total_spent_usd": 28.95008743745995
+  }
+}

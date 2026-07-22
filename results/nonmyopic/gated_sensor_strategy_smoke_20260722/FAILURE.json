@@ -1,0 +1,197 @@
+{
+  "candidate_requests": [
+    {
+      "active_panel": null,
+      "attempt": 1,
+      "history": [],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-bit0-focus\",\n      \"description\": \"Activate A and test bit-0 to isolate A's primary bit.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"B-bit2-focus\",\n      \"description\": \"Activate B and test bit-2 to isolate B's primary bit.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-bit3-focus\",\n      \"description\": \"Activate C and test bit-3 to isolate C's primary bit.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"Screen-XOR-01\",\n      \"description\": \"Screen XOR-0-1 to identify parity between A and C bits.\",\n      \"root_action\": \"screen:xor-0-1\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"Screen-XOR-24\",\n      \"description\": \"Screen XOR-2-4 to identify parity between B and C bits.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"Screen-Bit4-Direct\",\n      \"description\": \"Screen bit-4 to immediately narrow down C or B involvement.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 1
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"machine_slot_1\",\"description\":\"Machine-assigned activation for panel A.\",\"root_action\":\"activate:A\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"machine_slot_2\",\"description\":\"Machine-assigned activation for panel C.\",\"root_action\":\"activate:C\",\"followups\":{\"none\":\"precise:bit-0\"}},{\"name\":\"bit2_precise_split\",\"description\":\"Use precise bit-2 to isolate panel B faults, then screen bit-0 to check panel A/C overlap.\",\"root_action\":\"precise:bit-2\",\"followups\":{\"positive\":\"screen:bit-0\",\"negative\":\"screen:bit-3\"}},{\"name\":\"bit3_precise_split\",\"description\":\"Use precise bit-3 to isolate panel B/C faults, then screen bit-2 to check panel B overlap.\",\"root_action\":\"precise:bit-3\",\"followups\":{\"positive\":\"screen:bit-2\",\"negative\":\"screen:bit-4\"}},{\"name\":\"xor23_precise_split\",\"description\":\"Use precise XOR-2-3 to isolate panel B, then screen bit-4 to check panel C.\",\"root_action\":\"precise:xor-2-3\",\"followups\":{\"positive\":\"screen:bit-4\",\"negative\":\"screen:bit-0\"}},{\"name\":\"bit0_screen_split\",\"description\":\"Use screen bit-0 to check panel A/C, then precise bit-2 to isolate panel B.\",\"root_action\":\"screen:bit-0\",\"followups\":{\"positive\":\"precise:bit-2\",\"negative\":\"precise:bit-3\"}}]}\n```",
+      "trial_index": 1
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:xor-0-1",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-bit-1-isolation\",\n      \"description\": \"Activate A and isolate bit-1 to resolve the xor-0-1 positive result.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-1\"\n      }\n    },\n    {\n      \"name\": \"B-bit-2-isolation\",\n      \"description\": \"Activate B and check bit-2 to see if the fault extends to panel B.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-bit-0-isolation\",\n      \"description\": \"Activate C and check bit-0 to verify if the fault is shared with panel C.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"bit-1-screen-refinement\",\n      \"description\": \"Screen bit-1 to determine if it is the source of the xor-0-1 signal.\",\n      \"root_action\": \"screen:bit-1\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"bit-2-screen-refinement\",\n      \"description\": \"Screen bit-2 to check for overlap between A and B panels.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"xor-0-2-screen-refinement\",\n      \"description\": \"Screen xor-0-2 to differentiate between bit-0 and bit-2 involvement.\",\n      \"root_action\": \"screen:xor-0-2\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 1
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"activate_A_bit0\",\n      \"description\": \"Machine-assigned slot 1: Activate A and test bit-0.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"activate_B_bit2\",\n      \"description\": \"Machine-assigned slot 2: Activate B and test bit-2.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"activate_C_bit3\",\n      \"description\": \"Machine-assigned slot 3: Activate C and test bit-3.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_0_1_split\",\n      \"description\": \"Use XOR-0-1 to isolate bit-0/bit-1 parity, then pivot to panel B.\",\n      \"root_action\": \"screen:xor-0-1\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"screen_bit_2_pivot\",\n      \"description\": \"Test bit-2 via screen to determine if fault is in A, B, or C overlap.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:A\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_3_4_check\",\n      \"description\": \"Test XOR-3-4 to isolate high-index bit faults, then pivot to A.\",\n      \"root_action\": \"screen:xor-3-4\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 0
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"machine_slot_1\",\n      \"description\": \"Machine-assigned activation of panel A.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"machine_slot_2\",\n      \"description\": \"Machine-assigned activation of panel C.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"bit-2_isolation\",\n      \"description\": \"Test bit-2 to partition fault space between B and A/C.\",\n      \"root_action\": \"precise:bit-2\",\n      \"followups\": {\n        \"positive\": \"precise:bit-3\",\n        \"negative\": \"activate:A\"\n      }\n    },\n    {\n      \"name\": \"xor-2-3_partition\",\n      \"description\": \"Use XOR-2-3 to distinguish bit-2/bit-3 combinations.\",\n      \"root_action\": \"precise:xor-2-3\",\n      \"followups\": {\n        \"positive\": \"precise:bit-2\",\n        \"negative\": \"precise:bit-3\"\n      }\n    },\n    {\n      \"name\": \"bit-0_screen_probe\",\n      \"description\": \"Screen bit-0 to identify panel A or C involvement.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"xor-3-4_logic_check\",\n      \"description\": \"Test XOR-3-4 to isolate faults in the C/B overlap.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {\n        \"positive\": \"precise:bit-4\",\n        \"negative\": \"precise:bit-3\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:xor-0-1",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"activate_A_bit_1\",\n      \"description\": \"Activate panel A and test bit-1 to isolate the source of the xor-0-1 positive result.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"none\": \"precise:bit-1\"\n      }\n    },\n    {\n      \"name\": \"activate_B_bit_2\",\n      \"description\": \"Activate panel B and test bit-2 to check for overlap with the xor-0-1 fault.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"none\": \"precise:bit-2\"\n      }\n    },\n    {\n      \"name\": \"activate_C_bit_0\",\n      \"description\": \"Activate panel C and test bit-0 to confirm if the fault is shared across panels.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"none\": \"precise:bit-0\"\n      }\n    },\n    {\n      \"name\": \"screen_bit_0_refinement\",\n      \"description\": \"Screen bit-0 to determine if the fault is in the shared bit-0 domain.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"screen_bit_2_refinement\",\n      \"description\": \"Screen bit-2 to check for intersection between panel A and B.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"screen_xor_3_4_refinement\",\n      \"description\": \"Screen xor-3-4 to check for faults in the high-index bits.\",\n      \"root_action\": \"screen:xor-3-4\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 0
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        },
+        {
+          "action": "precise:xor-2-3",
+          "observation": "negative"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate_bit_2\",\n      \"description\": \"Target bit-2 to resolve overlap between Panel B and Panel A/C predicates.\",\n      \"root_action\": \"precise:bit-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit_3\",\n      \"description\": \"Target bit-3 to differentiate between Panel B and Panel C fault modes.\",\n      \"root_action\": \"precise:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit_4\",\n      \"description\": \"Target bit-4 to resolve high-entropy bit state in Panel B.\",\n      \"root_action\": \"precise:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"parity_check_2_4\",\n      \"description\": \"Use xor-2-4 to check correlation between bits 2 and 4 in Panel B.\",\n      \"root_action\": \"precise:xor-2-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"parity_check_3_4\",\n      \"description\": \"Use xor-3-4 to check correlation between bits 3 and 4 in Panel B.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"redundant_xor_2_3\",\n      \"description\": \"Re-verify xor-2-3 to confirm low-probability state stability.\",\n      \"root_action\": \"precise:xor-2-3\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:xor-0-1",
+          "observation": "positive"
+        },
+        {
+          "action": "screen:bit-2",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate_bit_0_via_A\",\n      \"description\": \"Target bit-0 to resolve the xor-0-1 constraint given bit-1 is implied by xor-0-1 and bit-2.\",\n      \"root_action\": \"screen:bit-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate_bit_1_via_A\",\n      \"description\": \"Target bit-1 to confirm the state of the xor-0-1 relationship.\",\n      \"root_action\": \"screen:bit-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"cross_check_bit_2_via_B\",\n      \"description\": \"Re-verify bit-2 on panel B to check for panel-specific fault consistency.\",\n      \"root_action\": \"screen:bit-2\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"bridge_A_B_via_xor_2_3\",\n      \"description\": \"Use xor-2-3 to link the known bit-2 state to the uncertain bit-3 state.\",\n      \"root_action\": \"screen:xor-2-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"bridge_A_C_via_xor_0_3\",\n      \"description\": \"Use xor-0-3 to link the uncertain bit-0/bit-3 states across panels A and C.\",\n      \"root_action\": \"screen:xor-0-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"high_entropy_bit_3\",\n      \"description\": \"Directly probe bit-3 to reduce uncertainty in the B and C panel intersection.\",\n      \"root_action\": \"screen:bit-3\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "trial_index": 0
+    }
+  ],
+  "config": {
+    "bootstrap_replicates": 200,
+    "num_rounds": 3,
+    "num_strategies": 6,
+    "num_trials": 2,
+    "precise_accuracy": 0.95,
+    "screen_accuracy": 0.65,
+    "seed": 24092,
+    "temperature": 0.0,
+    "trial_concurrency": 4,
+    "validation_retries": 1
+  },
+  "error": "strategy cell failed after two attempts: strategies must be behaviorally distinct",
+  "invalid_responses": [
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "error": "strategy 0 followups must contain exactly ['none']",
+      "history": [],
+      "horizon": 2,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"A-bit0-focus\",\n      \"description\": \"Activate A and test bit-0 to isolate A's primary bit.\",\n      \"root_action\": \"activate:A\",\n      \"followups\": {\n        \"precise:bit-0\": \"screen:bit-0\"\n      }\n    },\n    {\n      \"name\": \"B-bit2-focus\",\n      \"description\": \"Activate B and test bit-2 to isolate B's primary bit.\",\n      \"root_action\": \"activate:B\",\n      \"followups\": {\n        \"precise:bit-2\": \"screen:bit-2\"\n      }\n    },\n    {\n      \"name\": \"C-bit3-focus\",\n      \"description\": \"Activate C and test bit-3 to isolate C's primary bit.\",\n      \"root_action\": \"activate:C\",\n      \"followups\": {\n        \"precise:bit-3\": \"screen:bit-3\"\n      }\n    },\n    {\n      \"name\": \"Screen-XOR-01\",\n      \"description\": \"Screen XOR-0-1 to identify parity between A and C bits.\",\n      \"root_action\": \"screen:xor-0-1\",\n      \"followups\": {\n        \"positive\": \"activate:A\",\n        \"negative\": \"activate:B\"\n      }\n    },\n    {\n      \"name\": \"Screen-XOR-24\",\n      \"description\": \"Screen XOR-2-4 to identify parity between B and C bits.\",\n      \"root_action\": \"screen:xor-2-4\",\n      \"followups\": {\n        \"positive\": \"activate:B\",\n        \"negative\": \"activate:C\"\n      }\n    },\n    {\n      \"name\": \"Screen-Bit4-Direct\",\n      \"description\": \"Screen bit-4 to immediately narrow down C or B involvement.\",\n      \"root_action\": \"screen:bit-4\",\n      \"followups\": {\n        \"positive\": \"activate:C\",\n        \"negative\": \"activate:A\"\n      }\n    }\n  ]\n}\n```",
+      "trial_index": 1
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "error": "strategies must be behaviorally distinct",
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        },
+        {
+          "action": "precise:bit-2",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"isolate-bit-3\",\n      \"description\": \"Maximize entropy reduction by testing bit-3, which has high uncertainty and is shared with panel C.\",\n      \"root_action\": \"precise:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"isolate-bit-4\",\n      \"description\": \"Maximize entropy reduction by testing bit-4, which has high uncertainty and is shared with panel C.\",\n      \"root_action\": \"precise:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-dependency-2-3\",\n      \"description\": \"Test the relationship between the known positive bit-2 and the uncertain bit-3.\",\n      \"root_action\": \"precise:xor-2-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-dependency-2-4\",\n      \"description\": \"Test the relationship between the known positive bit-2 and the uncertain bit-4.\",\n      \"root_action\": \"precise:xor-2-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-dependency-3-4\",\n      \"description\": \"Test the relationship between two high-uncertainty bits within the current panel.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"cross-panel-check-xor-3-4\",\n      \"description\": \"Target the xor-3-4 predicate which is common to both B and C to facilitate panel switching.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "trial_index": 1
+    },
+    {
+      "active_panel": "B",
+      "attempt": 1,
+      "error": "strategies must be behaviorally distinct",
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        },
+        {
+          "action": "precise:bit-2",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 1,
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"bit-3-entropy-max\",\n      \"description\": \"Target bit-3 to resolve high uncertainty and bridge to panel C.\",\n      \"root_action\": \"precise:bit-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"bit-4-entropy-max\",\n      \"description\": \"Target bit-4 to resolve high uncertainty and bridge to panel C.\",\n      \"root_action\": \"precise:bit-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-3-relation\",\n      \"description\": \"Test bit-3 dependency against the known positive bit-2.\",\n      \"root_action\": \"precise:xor-2-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-2-4-relation\",\n      \"description\": \"Test bit-4 dependency against the known positive bit-2.\",\n      \"root_action\": \"precise:xor-2-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"xor-3-4-internal\",\n      \"description\": \"Test the interaction between two uncertain bits within panel B.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"panel-c-bridge-xor\",\n      \"description\": \"Focus on the xor-3-4 predicate to prepare for transition to panel C.\",\n      \"root_action\": \"precise:xor-3-4\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "trial_index": 1
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 5108,
+    "adapter_cost_usd": 0.005982810000000001,
+    "adapter_prompt_tokens": 37407,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 11,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 5108,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 5108,
+        "cost_usd": 0.005982810000000001,
+        "prompt_tokens": 37407,
+        "reasoning_tokens": 0,
+        "requests": 11
+      }
+    },
+    "prompt_tokens": 37407,
+    "reasoning_tokens": 0,
+    "remaining_usd": 11.055556002540047,
+    "requests": 11,
+    "run_budget_usd": 2.0,
+    "run_cost_usd": 0.005982810000000001,
+    "run_remaining_usd": 1.99401719,
+    "total_spent_usd": 28.944443997459953
+  }
+}
