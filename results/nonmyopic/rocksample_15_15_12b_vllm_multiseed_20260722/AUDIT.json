@@ -1,0 +1,772 @@
+{
+  "all_12_fresh_seed_intervals_passed": true,
+  "all_fresh_seed_primary_gates_passed": true,
+  "all_fresh_seed_truth_log_gates_passed": true,
+  "all_three_direct_vllm_seeds_passed": true,
+  "bootstrap": {
+    "base_seed": 24109,
+    "method": "equal_seed_weight_stratified_paired_trial_bootstrap",
+    "replicates": 10000
+  },
+  "claim": "gemma_12b_15_rock_gain_replicates_across_two_fresh_seeds",
+  "pooled_90_pair_comparisons": {
+    "random_strategy": {
+      "entropy_auc_ci95": [
+        0.5929830953196986,
+        0.6450673474823927
+      ],
+      "entropy_auc_gain": 0.6193976041572359,
+      "entropy_auc_wins_ties_losses": [
+        90,
+        0,
+        0
+      ],
+      "truth_log_auc_ci95": [
+        0.5717749673925848,
+        0.6773168064093795
+      ],
+      "truth_log_auc_gain": 0.6251449422294901
+    },
+    "shared_d1": {
+      "entropy_auc_ci95": [
+        0.6171273968487803,
+        0.66719693828631
+      ],
+      "entropy_auc_gain": 0.6417348828836391,
+      "entropy_auc_wins_ties_losses": [
+        90,
+        0,
+        0
+      ],
+      "truth_log_auc_ci95": [
+        0.5959814196974665,
+        0.6751578539950789
+      ],
+      "truth_log_auc_gain": 0.635982680134248
+    },
+    "width": {
+      "entropy_auc_ci95": [
+        0.5813207908274657,
+        0.6339562131157068
+      ],
+      "entropy_auc_gain": 0.6074847291485875,
+      "entropy_auc_wins_ties_losses": [
+        90,
+        0,
+        0
+      ],
+      "truth_log_auc_ci95": [
+        0.5422302259160583,
+        0.6446297363054797
+      ],
+      "truth_log_auc_gain": 0.5933452961824379
+    }
+  },
+  "runs": {
+    "12b_vllm": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 450,
+          "entropy_auc_mean": 9.29900090514197,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 241,
+          "move_rate": 0.5355555555555556,
+          "round_entropy_mean": [
+            10.397207708399172,
+            10.397207708399172,
+            10.397207708399172,
+            9.704060527839228,
+            9.704060527839228,
+            9.704060527839228,
+            9.69487454633605,
+            9.001727365776103,
+            9.001727365776103,
+            9.001727365776103,
+            8.971876259256216,
+            8.77315496479509,
+            8.37960673069228,
+            8.3105477098888,
+            8.045966560117593
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.360201306330842,
+          "mean_h2_exhaustive_fraction": 0.17158333433226067,
+          "move_count": 129,
+          "move_rate": 0.2866666666666667,
+          "round_entropy_mean": [
+            10.396552818599254,
+            10.394598188775811,
+            10.392760117015559,
+            10.389576294219669,
+            10.384615989605571,
+            10.382871230778104,
+            10.380642961616932,
+            10.380232794303653,
+            10.36878486580374,
+            10.342788749772447,
+            10.337581186747888,
+            10.332522356520036,
+            10.316294813415285,
+            10.309693292423505,
+            10.293503935365178
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.38415741356256,
+          "mean_h2_exhaustive_fraction": 0.06530897981002393,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.390796876266604,
+            10.3907316336284,
+            10.389984619687448,
+            10.390062378261451,
+            10.387992644219548,
+            10.386888674983904,
+            10.385141839481806,
+            10.385941371068151,
+            10.384437664730804,
+            10.381636779916912,
+            10.37534745880535,
+            10.378781955810293,
+            10.375672893815265,
+            10.367459073385685
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 450,
+          "entropy_auc_mean": 9.765574559891652,
+          "mean_h2_exhaustive_fraction": 0.4952087922587481,
+          "move_count": 173,
+          "move_rate": 0.3844444444444444,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.391485339376795,
+            10.391485339376795,
+            10.391485339376795,
+            9.698338158816851,
+            9.691958197318383,
+            9.688791641846292,
+            9.68370673792174,
+            9.632300626968563,
+            9.549172541857276,
+            9.515792666218609,
+            9.489944602758522,
+            9.425566390991538,
+            9.308814150966567,
+            9.233291325203277
+          ]
+        },
+        "width": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.34479244210836,
+          "mean_h2_exhaustive_fraction": 0.19157316367798002,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.387456861903429,
+            10.384233532090041,
+            10.37191520769601,
+            10.366450383347377,
+            10.363215534534763,
+            10.359912942862556,
+            10.352200620462261,
+            10.337736681743937,
+            10.32732032597216,
+            10.316898976343632,
+            10.313653134,
+            10.307326087268661,
+            10.29604050201284,
+            10.29604050201096
+          ]
+        }
+      },
+      "claim": "positive_nonmyopic_gain_scales_to_standard_15_rock_geometry",
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.5627673022868296,
+            0.6275904432786068
+          ],
+          "entropy_auc_gain": 0.5946267464391899,
+          "truth_log_auc_ci95": [
+            0.5517437428722531,
+            0.7355624656140811
+          ],
+          "truth_log_auc_gain": 0.6422236103528901,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.5843195416733018,
+            0.6564656474509842
+          ],
+          "entropy_auc_gain": 0.6185828536709091,
+          "truth_log_auc_ci95": [
+            0.5392674462428914,
+            0.665174837178721
+          ],
+          "truth_log_auc_gain": 0.6026377528129854,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.5411153845501057,
+            0.6202040166187068
+          ],
+          "entropy_auc_gain": 0.5792178822167081,
+          "truth_log_auc_ci95": [
+            0.4775700586067746,
+            0.6418093558895505
+          ],
+          "truth_log_auc_gain": 0.556046018035694,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.4665736547496818,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.5028164795893016,
+        -0.42835029169598915
+      ],
+      "label": "Gemma 4 12B direct vLLM seed 24106",
+      "mechanics": {
+        "accepted_llm_cells": 1356,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 900,
+        "logical_width_requests": 450,
+        "physical_llm_requests": 1356,
+        "provider_cache_hits": 366,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 0,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 0,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "model": "google/gemma-4-12B-it",
+      "primary_gate_passed": true,
+      "resume": {
+        "accepted_cells_reused": 372,
+        "failure_artifact": "results/nonmyopic/rocksample_15_15_12b_vllm_20260722/L1_FAILURE.json",
+        "prior_error": "cannot update on an impossible Rock Diagnosis observation",
+        "prior_usage": {
+          "backend": "vllm",
+          "completion_tokens": 90333,
+          "cost_usd": 0.0,
+          "forced_exits": 0,
+          "model": "google/gemma-4-12B-it",
+          "model_usage": {
+            "google/gemma-4-12B-it": {
+              "completion_tokens": 90333,
+              "cost_usd": 0.0,
+              "prompt_tokens": 1195995,
+              "reasoning_tokens": 0,
+              "requests": 373
+            }
+          },
+          "prompt_tokens": 1195995,
+          "reasoning_tokens": 0,
+          "requests": 373,
+          "run_cost_usd": 0.0
+        },
+        "rejected_responses_preserved": 0,
+        "strategy_cells_reused": 242,
+        "width_cells_reused": 130
+      },
+      "schema_version": 1,
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "backend": "vllm",
+        "completion_tokens": 335732,
+        "cost_usd": 0.0,
+        "forced_exits": 0,
+        "model": "google/gemma-4-12B-it",
+        "model_usage": {
+          "google/gemma-4-12B-it": {
+            "completion_tokens": 335732,
+            "cost_usd": 0.0,
+            "prompt_tokens": 4440025,
+            "reasoning_tokens": 0,
+            "requests": 1357
+          }
+        },
+        "prompt_tokens": 4440025,
+        "reasoning_tokens": 0,
+        "requests": 1357,
+        "run_cost_usd": 0.0
+      }
+    },
+    "12b_vllm_seed_24107": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 450,
+          "entropy_auc_mean": 9.29807889222806,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 244,
+          "move_rate": 0.5422222222222223,
+          "round_entropy_mean": [
+            10.397207708399172,
+            10.397207708399172,
+            10.397207708399172,
+            9.704060527839228,
+            9.704060527839228,
+            9.704060527839228,
+            9.69487454633605,
+            9.001727365776103,
+            9.001727365776103,
+            9.001727365776103,
+            8.971876259256216,
+            8.679722328047525,
+            8.443774966623302,
+            8.393203740007452,
+            7.978744737106835
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.355131813422632,
+          "mean_h2_exhaustive_fraction": 0.17953668980237267,
+          "move_count": 145,
+          "move_rate": 0.32222222222222224,
+          "round_entropy_mean": [
+            10.396158922995575,
+            10.395755157997852,
+            10.395519989241121,
+            10.39499767880328,
+            10.386655987643525,
+            10.378947246911425,
+            10.378114496816838,
+            10.350511455220621,
+            10.346177294401848,
+            10.33863369758454,
+            10.325459845749839,
+            10.323036236208763,
+            10.318703793528936,
+            10.314901208125075,
+            10.283404190110238
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.377655023076981,
+          "mean_h2_exhaustive_fraction": 0.06545737787965607,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.390651764291821,
+            10.390586521653612,
+            10.38935115331818,
+            10.389891261420315,
+            10.387868845726423,
+            10.38522563204265,
+            10.382817080850552,
+            10.377734880150046,
+            10.369981444138045,
+            10.363864617367335,
+            10.3631656513171,
+            10.361958354536712,
+            10.357914107247552,
+            10.362328692717576
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 450,
+          "entropy_auc_mean": 9.719240634939128,
+          "mean_h2_exhaustive_fraction": 0.5243636647477645,
+          "move_count": 195,
+          "move_rate": 0.43333333333333335,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.391485339376795,
+            10.391485339376795,
+            10.391485339376795,
+            9.698338158816851,
+            9.691993327338462,
+            9.69095360250493,
+            9.687434825517657,
+            9.590189090936313,
+            9.417702711459688,
+            9.36895403047613,
+            9.34167693161382,
+            9.318553285747809,
+            9.224110306047182,
+            9.192761896120924
+          ]
+        },
+        "width": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.352258061778942,
+          "mean_h2_exhaustive_fraction": 0.19158645990665327,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.384456601443201,
+            10.381332809175339,
+            10.372665272811064,
+            10.36500002189003,
+            10.354149707587993,
+            10.348667234604715,
+            10.34602590142105,
+            10.353375502377732,
+            10.350142380781856,
+            10.343737733275775,
+            10.331653165003367,
+            10.32479897832241,
+            10.31819013930734,
+            10.318190139305461
+          ]
+        }
+      },
+      "claim": "positive_nonmyopic_gain_scales_to_standard_15_rock_geometry",
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.5791217184042678,
+            0.6911187514075469
+          ],
+          "entropy_auc_gain": 0.6358911784835027,
+          "truth_log_auc_ci95": [
+            0.48203084687663783,
+            0.6779437029084389
+          ],
+          "truth_log_auc_gain": 0.5827119059824706,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.6111575790456517,
+            0.7063666315610939
+          ],
+          "entropy_auc_gain": 0.6584143881378524,
+          "truth_log_auc_ci95": [
+            0.6296902907263816,
+            0.7556213291485712
+          ],
+          "truth_log_auc_gain": 0.6940229173599642,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.5870270547763741,
+            0.6785599954794953
+          ],
+          "entropy_auc_gain": 0.6330174268398129,
+          "truth_log_auc_ci95": [
+            0.5919800652144211,
+            0.7840315159227955
+          ],
+          "truth_log_auc_gain": 0.6861805558029522,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.42116174271106854,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.47123024188462476,
+        -0.37118795195921334
+      ],
+      "label": "Gemma 4 12B direct vLLM seed 24107",
+      "mechanics": {
+        "accepted_llm_cells": 1290,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 900,
+        "logical_width_requests": 450,
+        "physical_llm_requests": 1290,
+        "provider_cache_hits": 60,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 0,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 0,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "model": "google/gemma-4-12B-it",
+      "primary_gate_passed": true,
+      "resume": null,
+      "schema_version": 1,
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "backend": "vllm",
+        "completion_tokens": 312382,
+        "cost_usd": 0.0,
+        "forced_exits": 0,
+        "model": "google/gemma-4-12B-it",
+        "model_usage": {
+          "google/gemma-4-12B-it": {
+            "completion_tokens": 312382,
+            "cost_usd": 0.0,
+            "prompt_tokens": 4124217,
+            "reasoning_tokens": 0,
+            "requests": 1290
+          }
+        },
+        "prompt_tokens": 4124217,
+        "reasoning_tokens": 0,
+        "requests": 1290,
+        "run_cost_usd": 0.0
+      }
+    },
+    "12b_vllm_seed_24108": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 450,
+          "entropy_auc_mean": 9.29929439136155,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 242,
+          "move_rate": 0.5377777777777778,
+          "round_entropy_mean": [
+            10.397207708399172,
+            10.397207708399172,
+            10.397207708399172,
+            9.704060527839228,
+            9.704060527839228,
+            9.704060527839228,
+            9.69487454633605,
+            9.001727365776103,
+            9.001727365776103,
+            9.001727365776103,
+            8.971876259256216,
+            8.68701835114711,
+            8.494678329225342,
+            8.358218225400183,
+            7.973763353014819
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.359596584960103,
+          "mean_h2_exhaustive_fraction": 0.16563323232677388,
+          "move_count": 143,
+          "move_rate": 0.31777777777777777,
+          "round_entropy_mean": [
+            10.39611554177549,
+            10.39600345905016,
+            10.395514916544181,
+            10.390002336335062,
+            10.383525479724028,
+            10.381530537861153,
+            10.373586865756543,
+            10.36882513795659,
+            10.359635252099336,
+            10.351057569392491,
+            10.348428100394004,
+            10.326658222442127,
+            10.325191526557523,
+            10.313292002031005,
+            10.284581826481844
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.380129104253244,
+          "mean_h2_exhaustive_fraction": 0.056828786981825946,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.390622741896864,
+            10.390557499258657,
+            10.388680967777912,
+            10.386220615616491,
+            10.385092296013458,
+            10.383907160819417,
+            10.381009147755796,
+            10.379708720726097,
+            10.380072688179322,
+            10.376930076445255,
+            10.372071376709497,
+            10.367885033869022,
+            10.36550606185856,
+            10.362186837495502
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 450,
+          "entropy_auc_mean": 9.731921697411089,
+          "mean_h2_exhaustive_fraction": 0.5327013081865046,
+          "move_count": 183,
+          "move_rate": 0.4066666666666667,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.391485339376795,
+            10.391485339376795,
+            10.391485339376795,
+            9.698338158816851,
+            9.691265474822224,
+            9.684631102672538,
+            9.680730834417107,
+            9.629691878018432,
+            9.45941240507272,
+            9.432026427874677,
+            9.360531038566632,
+            9.314979407284595,
+            9.244468454405375,
+            9.216808921708033
+          ]
+        },
+        "width": {
+          "decision_count": 450,
+          "entropy_auc_mean": 10.342140575800329,
+          "mean_h2_exhaustive_fraction": 0.19156412636464829,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            10.391485339376795,
+            10.387456861903432,
+            10.376981724803288,
+            10.36668250943462,
+            10.358819764806169,
+            10.35295068557732,
+            10.351725535217948,
+            10.341845062342195,
+            10.332730877395067,
+            10.328654849982087,
+            10.318185234817657,
+            10.315686969674772,
+            10.31062201608943,
+            10.29914060279304,
+            10.299140602791157
+          ]
+        }
+      },
+      "claim": "positive_nonmyopic_gain_scales_to_standard_15_rock_geometry",
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.5832434322094304,
+            0.67409498127227
+          ],
+          "entropy_auc_gain": 0.6276748875490135,
+          "truth_log_auc_ci95": [
+            0.5604278934812849,
+            0.7404078540461029
+          ],
+          "truth_log_auc_gain": 0.6504993103531089,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.6030313855922291,
+            0.6937335332602522
+          ],
+          "entropy_auc_gain": 0.6482074068421542,
+          "truth_log_auc_ci95": [
+            0.5269658224452599,
+            0.6917501101261099
+          ],
+          "truth_log_auc_gain": 0.611287370229793,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.5608808715385787,
+            0.6597770592869492
+          ],
+          "entropy_auc_gain": 0.6102188783892409,
+          "truth_log_auc_ci95": [
+            0.4458769127145206,
+            0.6277397741488314
+          ],
+          "truth_log_auc_gain": 0.5378093147086669,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.4326273060495396,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.4852581599348934,
+        -0.37972961522900195
+      ],
+      "label": "Gemma 4 12B direct vLLM seed 24108",
+      "mechanics": {
+        "accepted_llm_cells": 1290,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 900,
+        "logical_width_requests": 450,
+        "physical_llm_requests": 1290,
+        "provider_cache_hits": 60,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 0,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 0,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "model": "google/gemma-4-12B-it",
+      "primary_gate_passed": true,
+      "resume": null,
+      "schema_version": 1,
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "backend": "vllm",
+        "completion_tokens": 312121,
+        "cost_usd": 0.0,
+        "forced_exits": 0,
+        "model": "google/gemma-4-12B-it",
+        "model_usage": {
+          "google/gemma-4-12B-it": {
+            "completion_tokens": 312121,
+            "cost_usd": 0.0,
+            "prompt_tokens": 4124826,
+            "reasoning_tokens": 0,
+            "requests": 1290
+          }
+        },
+        "prompt_tokens": 4124826,
+        "reasoning_tokens": 0,
+        "requests": 1290,
+        "run_cost_usd": 0.0
+      }
+    }
+  },
+  "schema_version": 1,
+  "total_cost_usd": 0.0,
+  "total_requests": 3937
+}

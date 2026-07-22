@@ -52,7 +52,7 @@ $0.362$--$0.887$; all fifteen paired 95\% intervals exclude zero, and
 truth-log-posterior AUC agrees. Both the eight- and eleven-rock results replicate
 across Gemma 4 26B A4B and GPT-5.4 Mini under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
-move; an exact gate, three direct-vLLM 26B seeds, and a successful 12B transfer
+move; an exact gate and three direct-vLLM seeds each at 26B and 12B
 preserve the planning gap at 32,768 latent states, while E4B fails. Negative
 location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
@@ -370,11 +370,13 @@ but its K4 proposals captured only 6.8\% of exhaustive d2 value, versus
 but failed the matched-width interval, .0408 [-.0035, .0884], and failed truth-log
 corroboration against shared d1 and width. Thus exact verification removes scoring
 noise but cannot recover a valuable branch absent from the bounded proposal set.
-A preregistered non-thinking 12B transfer passed all six gates: entropy-AUC gains
-were .6186, .5792, and .5946 against shared d1, width, and random; all lower bounds
-were positive, with 30/0/0 each and positive truth-log intervals. Its K4 support
-captured 49.5\% of exhaustive d2 value. Different fresh seeds make the model-size
-contrast descriptive, but the pass brackets a practical E4B-to-12B capacity boundary.
+A preregistered non-thinking 12B transfer passed all six gates, and two frozen
+fresh seeds independently replicated every entropy and truth-log interval. Across
+all 90 pairs, pooled entropy-AUC gains were .6417 [.6171, .6672], .6075 [.5813,
+.6340], and .6194 [.5930, .6451] against shared d1, width, and random, with 90/0/0
+each. Its K4 support captured 49.5--53.3\% of exhaustive d2 value across seeds.
+Different fresh seeds make the model-size contrast descriptive, but the replicated
+pass brackets a practical E4B-to-12B capacity boundary.
 
 We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
 panel activation unlocks precise bit and parity tests for a 32-state fault code. In
@@ -557,9 +559,9 @@ stronger-author retry did not pass the held-out calibration gate.
 The audits also cannot cleanly separate model capacity from representation: a
 larger model may estimate a better likelihood, but cannot make an exam-treatment
 label a sufficient patient state or reveal facts absent from a static record.
-OpenRouter provider nondeterminism, finite generated supports, different fresh seeds
-across the Rock replications, and post-hoc synthesis across heterogeneous experiments
-remain limitations.
+OpenRouter provider nondeterminism, finite generated supports, non-paired model-size
+comparisons, and post-hoc synthesis across heterogeneous experiments remain
+limitations.
 
 The evidence supports a constructive conclusion. With a coherent simulator and
 an enabling-information gap, LLM proposals plus exact rollout-EIG verification

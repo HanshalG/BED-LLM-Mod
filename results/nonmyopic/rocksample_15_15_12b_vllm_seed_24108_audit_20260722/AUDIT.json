@@ -1,0 +1,225 @@
+{
+  "arms": {
+    "exhaustive_d2": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.29929439136155,
+      "mean_h2_exhaustive_fraction": 1.0,
+      "move_count": 242,
+      "move_rate": 0.5377777777777778,
+      "round_entropy_mean": [
+        10.397207708399172,
+        10.397207708399172,
+        10.397207708399172,
+        9.704060527839228,
+        9.704060527839228,
+        9.704060527839228,
+        9.69487454633605,
+        9.001727365776103,
+        9.001727365776103,
+        9.001727365776103,
+        8.971876259256216,
+        8.68701835114711,
+        8.494678329225342,
+        8.358218225400183,
+        7.973763353014819
+      ]
+    },
+    "random_strategy": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.359596584960103,
+      "mean_h2_exhaustive_fraction": 0.16563323232677388,
+      "move_count": 143,
+      "move_rate": 0.31777777777777777,
+      "round_entropy_mean": [
+        10.39611554177549,
+        10.39600345905016,
+        10.395514916544181,
+        10.390002336335062,
+        10.383525479724028,
+        10.381530537861153,
+        10.373586865756543,
+        10.36882513795659,
+        10.359635252099336,
+        10.351057569392491,
+        10.348428100394004,
+        10.326658222442127,
+        10.325191526557523,
+        10.313292002031005,
+        10.284581826481844
+      ]
+    },
+    "shared_d1": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.380129104253244,
+      "mean_h2_exhaustive_fraction": 0.056828786981825946,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.390622741896864,
+        10.390557499258657,
+        10.388680967777912,
+        10.386220615616491,
+        10.385092296013458,
+        10.383907160819417,
+        10.381009147755796,
+        10.379708720726097,
+        10.380072688179322,
+        10.376930076445255,
+        10.372071376709497,
+        10.367885033869022,
+        10.36550606185856,
+        10.362186837495502
+      ]
+    },
+    "strategy_eig": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.731921697411089,
+      "mean_h2_exhaustive_fraction": 0.5327013081865046,
+      "move_count": 183,
+      "move_rate": 0.4066666666666667,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.391485339376795,
+        10.391485339376795,
+        10.391485339376795,
+        9.698338158816851,
+        9.691265474822224,
+        9.684631102672538,
+        9.680730834417107,
+        9.629691878018432,
+        9.45941240507272,
+        9.432026427874677,
+        9.360531038566632,
+        9.314979407284595,
+        9.244468454405375,
+        9.216808921708033
+      ]
+    },
+    "width": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.342140575800329,
+      "mean_h2_exhaustive_fraction": 0.19156412636464829,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.387456861903432,
+        10.376981724803288,
+        10.36668250943462,
+        10.358819764806169,
+        10.35295068557732,
+        10.351725535217948,
+        10.341845062342195,
+        10.332730877395067,
+        10.328654849982087,
+        10.318185234817657,
+        10.315686969674772,
+        10.31062201608943,
+        10.29914060279304,
+        10.299140602791157
+      ]
+    }
+  },
+  "claim": "positive_nonmyopic_gain_scales_to_standard_15_rock_geometry",
+  "comparisons": {
+    "random_strategy": {
+      "entropy_auc_ci95": [
+        0.5832434322094304,
+        0.67409498127227
+      ],
+      "entropy_auc_gain": 0.6276748875490135,
+      "truth_log_auc_ci95": [
+        0.5604278934812849,
+        0.7404078540461029
+      ],
+      "truth_log_auc_gain": 0.6504993103531089,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    },
+    "shared_d1": {
+      "entropy_auc_ci95": [
+        0.6030313855922291,
+        0.6937335332602522
+      ],
+      "entropy_auc_gain": 0.6482074068421542,
+      "truth_log_auc_ci95": [
+        0.5269658224452599,
+        0.6917501101261099
+      ],
+      "truth_log_auc_gain": 0.611287370229793,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    },
+    "width": {
+      "entropy_auc_ci95": [
+        0.5608808715385787,
+        0.6597770592869492
+      ],
+      "entropy_auc_gain": 0.6102188783892409,
+      "truth_log_auc_ci95": [
+        0.4458769127145206,
+        0.6277397741488314
+      ],
+      "truth_log_auc_gain": 0.5378093147086669,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    }
+  },
+  "exact_d2_entropy_auc_gap": -0.4326273060495396,
+  "exact_d2_entropy_auc_gap_ci95": [
+    -0.4852581599348934,
+    -0.37972961522900195
+  ],
+  "label": "Gemma 4 12B direct vLLM seed 24108",
+  "mechanics": {
+    "accepted_llm_cells": 1290,
+    "all_selected_actions_legal": true,
+    "initial_strategy_cells_shared_with_d1": true,
+    "logical_strategy_requests": 900,
+    "logical_width_requests": 450,
+    "physical_llm_requests": 1290,
+    "provider_cache_hits": 60,
+    "random_strategy_cells_have_k_candidates": true,
+    "raw_rejected_responses": 0,
+    "rollout_scoring_llm_calls": 0,
+    "terminal_cell_failures": 0,
+    "terminal_followup_repairs": 0,
+    "width_exact_scorer_units_match_strategy_eig": true,
+    "width_logical_llm_calls_match_strategy_eig": true
+  },
+  "model": "google/gemma-4-12B-it",
+  "primary_gate_passed": true,
+  "resume": null,
+  "schema_version": 1,
+  "truth_log_corroboration_passed": true,
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 312121,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-12B-it",
+    "model_usage": {
+      "google/gemma-4-12B-it": {
+        "completion_tokens": 312121,
+        "cost_usd": 0.0,
+        "prompt_tokens": 4124826,
+        "reasoning_tokens": 0,
+        "requests": 1290
+      }
+    },
+    "prompt_tokens": 4124826,
+    "reasoning_tokens": 0,
+    "requests": 1290,
+    "run_cost_usd": 0.0
+  }
+}

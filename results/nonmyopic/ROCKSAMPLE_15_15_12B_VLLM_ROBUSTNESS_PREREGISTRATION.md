@@ -62,4 +62,17 @@ sbatch --nodelist=oat14 --job-name=r15-12b-s24108 \
 
 ## Execution Status
 
-Pending launch from the committed preregistration revision.
+Completed from preregistration commit `b55c4e6` on 2026-07-22. Jobs `106288`
+(seed `24107`) and `106289` (seed `24108`) ran concurrently on `oat14` in the
+`msc` partition with `oat12` excluded. Both completed without a resume, rejected
+response, terminal failure, reasoning token, forced exit, or rollout-scoring LLM
+call.
+
+The independent per-seed audits passed all six required intervals for each fresh
+seed. The locked equal-seed-weight aggregate also passed: across 90 paired trials,
+entropy-AUC gains were `+0.6417 [0.6171, 0.6672]` against shared d1, `+0.6075
+[0.5813, 0.6340]` against width, and `+0.6194 [0.5930, 0.6451]` against random,
+with `90/0/0` wins/ties/losses each. The corresponding truth-log-AUC intervals
+were all strictly positive. See
+`ROCKSAMPLE_15_15_12B_VLLM_ROBUSTNESS_RESULT.md` and the stored independent
+audits for the complete decision record.

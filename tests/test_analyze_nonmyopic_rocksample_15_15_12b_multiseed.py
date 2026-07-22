@@ -1,8 +1,34 @@
 from __future__ import annotations
 
+from pathlib import Path
+import subprocess
+import sys
+
 import scripts.analyze_nonmyopic_rocksample_15_15_12b_multiseed as twelve_b
 import scripts.analyze_nonmyopic_rocksample_15_15_vllm_multiseed as base
 from scripts.analyze_nonmyopic_rock_branch_result import ARMS, BASELINES
+
+
+def test_12b_multiseed_script_is_directly_executable() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(
+                repo_root
+                / "scripts"
+                / "analyze_nonmyopic_rocksample_15_15_12b_multiseed.py"
+            ),
+            "--help",
+        ],
+        cwd=repo_root,
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "Audit the three direct-vLLM Gemma 4 12B" in result.stdout
 
 
 def _payload(gain: float) -> dict:

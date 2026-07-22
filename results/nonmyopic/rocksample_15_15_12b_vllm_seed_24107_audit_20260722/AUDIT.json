@@ -1,0 +1,225 @@
+{
+  "arms": {
+    "exhaustive_d2": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.29807889222806,
+      "mean_h2_exhaustive_fraction": 1.0,
+      "move_count": 244,
+      "move_rate": 0.5422222222222223,
+      "round_entropy_mean": [
+        10.397207708399172,
+        10.397207708399172,
+        10.397207708399172,
+        9.704060527839228,
+        9.704060527839228,
+        9.704060527839228,
+        9.69487454633605,
+        9.001727365776103,
+        9.001727365776103,
+        9.001727365776103,
+        8.971876259256216,
+        8.679722328047525,
+        8.443774966623302,
+        8.393203740007452,
+        7.978744737106835
+      ]
+    },
+    "random_strategy": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.355131813422632,
+      "mean_h2_exhaustive_fraction": 0.17953668980237267,
+      "move_count": 145,
+      "move_rate": 0.32222222222222224,
+      "round_entropy_mean": [
+        10.396158922995575,
+        10.395755157997852,
+        10.395519989241121,
+        10.39499767880328,
+        10.386655987643525,
+        10.378947246911425,
+        10.378114496816838,
+        10.350511455220621,
+        10.346177294401848,
+        10.33863369758454,
+        10.325459845749839,
+        10.323036236208763,
+        10.318703793528936,
+        10.314901208125075,
+        10.283404190110238
+      ]
+    },
+    "shared_d1": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.377655023076981,
+      "mean_h2_exhaustive_fraction": 0.06545737787965607,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.390651764291821,
+        10.390586521653612,
+        10.38935115331818,
+        10.389891261420315,
+        10.387868845726423,
+        10.38522563204265,
+        10.382817080850552,
+        10.377734880150046,
+        10.369981444138045,
+        10.363864617367335,
+        10.3631656513171,
+        10.361958354536712,
+        10.357914107247552,
+        10.362328692717576
+      ]
+    },
+    "strategy_eig": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.719240634939128,
+      "mean_h2_exhaustive_fraction": 0.5243636647477645,
+      "move_count": 195,
+      "move_rate": 0.43333333333333335,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.391485339376795,
+        10.391485339376795,
+        10.391485339376795,
+        9.698338158816851,
+        9.691993327338462,
+        9.69095360250493,
+        9.687434825517657,
+        9.590189090936313,
+        9.417702711459688,
+        9.36895403047613,
+        9.34167693161382,
+        9.318553285747809,
+        9.224110306047182,
+        9.192761896120924
+      ]
+    },
+    "width": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.352258061778942,
+      "mean_h2_exhaustive_fraction": 0.19158645990665327,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.384456601443201,
+        10.381332809175339,
+        10.372665272811064,
+        10.36500002189003,
+        10.354149707587993,
+        10.348667234604715,
+        10.34602590142105,
+        10.353375502377732,
+        10.350142380781856,
+        10.343737733275775,
+        10.331653165003367,
+        10.32479897832241,
+        10.31819013930734,
+        10.318190139305461
+      ]
+    }
+  },
+  "claim": "positive_nonmyopic_gain_scales_to_standard_15_rock_geometry",
+  "comparisons": {
+    "random_strategy": {
+      "entropy_auc_ci95": [
+        0.5791217184042678,
+        0.6911187514075469
+      ],
+      "entropy_auc_gain": 0.6358911784835027,
+      "truth_log_auc_ci95": [
+        0.48203084687663783,
+        0.6779437029084389
+      ],
+      "truth_log_auc_gain": 0.5827119059824706,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    },
+    "shared_d1": {
+      "entropy_auc_ci95": [
+        0.6111575790456517,
+        0.7063666315610939
+      ],
+      "entropy_auc_gain": 0.6584143881378524,
+      "truth_log_auc_ci95": [
+        0.6296902907263816,
+        0.7556213291485712
+      ],
+      "truth_log_auc_gain": 0.6940229173599642,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    },
+    "width": {
+      "entropy_auc_ci95": [
+        0.5870270547763741,
+        0.6785599954794953
+      ],
+      "entropy_auc_gain": 0.6330174268398129,
+      "truth_log_auc_ci95": [
+        0.5919800652144211,
+        0.7840315159227955
+      ],
+      "truth_log_auc_gain": 0.6861805558029522,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    }
+  },
+  "exact_d2_entropy_auc_gap": -0.42116174271106854,
+  "exact_d2_entropy_auc_gap_ci95": [
+    -0.47123024188462476,
+    -0.37118795195921334
+  ],
+  "label": "Gemma 4 12B direct vLLM seed 24107",
+  "mechanics": {
+    "accepted_llm_cells": 1290,
+    "all_selected_actions_legal": true,
+    "initial_strategy_cells_shared_with_d1": true,
+    "logical_strategy_requests": 900,
+    "logical_width_requests": 450,
+    "physical_llm_requests": 1290,
+    "provider_cache_hits": 60,
+    "random_strategy_cells_have_k_candidates": true,
+    "raw_rejected_responses": 0,
+    "rollout_scoring_llm_calls": 0,
+    "terminal_cell_failures": 0,
+    "terminal_followup_repairs": 0,
+    "width_exact_scorer_units_match_strategy_eig": true,
+    "width_logical_llm_calls_match_strategy_eig": true
+  },
+  "model": "google/gemma-4-12B-it",
+  "primary_gate_passed": true,
+  "resume": null,
+  "schema_version": 1,
+  "truth_log_corroboration_passed": true,
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 312382,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-12B-it",
+    "model_usage": {
+      "google/gemma-4-12B-it": {
+        "completion_tokens": 312382,
+        "cost_usd": 0.0,
+        "prompt_tokens": 4124217,
+        "reasoning_tokens": 0,
+        "requests": 1290
+      }
+    },
+    "prompt_tokens": 4124217,
+    "reasoning_tokens": 0,
+    "requests": 1290,
+    "run_cost_usd": 0.0
+  }
+}
