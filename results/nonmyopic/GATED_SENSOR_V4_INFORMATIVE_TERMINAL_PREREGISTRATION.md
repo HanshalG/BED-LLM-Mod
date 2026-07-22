@@ -58,3 +58,17 @@ Truth-log AUC, the gap to exhaustive d2, immediate-EIG choice efficiency, retrie
 and action traces are mandatory diagnostics but cannot rescue a failed gate. A pass
 would authorize only a separately preregistered fresh-seed confirmation. A failure
 stops this Gated Sensor interface line; no threshold or same-seed repair is allowed.
+
+## Registered Outcome
+
+Job `106342` completed on `msc/oat14` and failed the frozen matched-random gate. All
+mechanics passed; 52 cells were accepted after three corrected first-attempt index
+errors, with zero reasoning tokens, forced exits, or rollout-scoring LLM calls.
+
+V4 eliminated the targeted pathology: the independent choice audit found zero
+terminal activations and zero zero-EIG selections across 164 branch choices. The
+deployed policy used exactly two activations and six precise tests in every trial.
+StrategyEIG beat shared and exhaustive d1 by `+1.1945` entropy-AUC nats (95% CI
+`[+1.0965, +1.2924]`) and essentially matched exhaustive d2 (`+0.0039`,
+`[0.0000, +0.0117]`). However, it was `-0.0352` versus matched random
+(`[-0.1173, +0.0167]`; 2/0/2 wins/ties/losses), so no formal run is authorized.
