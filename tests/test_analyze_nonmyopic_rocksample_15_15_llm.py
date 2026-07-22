@@ -181,6 +181,7 @@ def test_summary_reports_failed_gate_without_positive_claim() -> None:
 
     assert "fails its preregistered primary entropy-AUC gate" in summary
     assert "The registered fifteen-rock run" in summary
+    assert EXPECTED_RUNS["gemma"]["label"] in summary
     assert "Positive paired gains favor StrategyEIG" not in summary
 
 

@@ -52,4 +52,13 @@ sbatch --job-name=r15-e4b-formal scripts/run_nonmyopic_rock_strategy_a100.sh \
 
 ## Execution Status
 
-Pending.
+Job `106129` completed on `msc` node `oat16` from preregistration commit `d0b0645`.
+The primary and truth-log transfer gates both failed. StrategyEIG's entropy-AUC
+gains were `+0.0687` `[+0.0254, +0.1208]` against shared d1, `+0.0408`
+`[-0.0035, +0.0884]` against matched width, and `+0.0518`
+`[+0.0010, +0.1098]` against random strategies. Truth-log intervals failed against
+shared d1 and width. No seed was replaced and the run is not pooled with 26B.
+
+All registered mechanics passed: zero terminal failures, legal selected actions,
+paired controls, matched width accounting, K4 random cells, and zero rollout LLM
+calls. The independent trace/bootstrap audit reproduced the failed decisions.

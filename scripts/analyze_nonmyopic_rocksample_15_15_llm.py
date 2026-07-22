@@ -347,7 +347,7 @@ def render_summary(audit: dict[str, Any]) -> str:
     else:
         outcome = "fails its preregistered primary entropy-AUC gate."
     lines = [
-        "# RockSample[15,15] Gemma Root-Slot Confirmation",
+        f"# RockSample[15,15] {audit['label']}",
         "",
         f"The registered fifteen-rock run {outcome}",
         "",
@@ -410,7 +410,7 @@ def plot_entropy(audit: dict[str, Any], output_path: Path) -> None:
             markersize=3.5,
             **ARM_STYLES[arm],
         )
-    axis.set_title("RockSample[15,15]: Gemma root-slot confirmation")
+    axis.set_title(f"RockSample[15,15]: {audit['label']}")
     axis.set_xlabel("Round")
     axis.set_ylabel("Mean posterior entropy (nats)")
     axis.set_xticks(list(rounds))

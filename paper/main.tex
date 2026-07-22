@@ -363,6 +363,14 @@ gates. Across all 90 paired trials, pooled entropy-AUC gains were .6839
 [.6626, .7051], .6815 [.6603, .7036], and .6760 [.6493, .7017] against shared d1,
 width, and random, respectively, with 90/0/0 each.
 
+A preregistered smaller-proposer transfer exposed the corresponding capacity
+boundary. Non-thinking Gemma 4 E4B passed all legality and branch-mechanics checks,
+but its K4 proposals captured only 6.8\% of exhaustive d2 value, versus
+41.1--47.6\% for the three 26B seeds. It beat shared d1 and random on entropy AUC,
+but failed the matched-width interval, .0408 [-.0035, .0884], and failed truth-log
+corroboration against shared d1 and width. Thus exact verification removes scoring
+noise but cannot recover a valuable branch absent from the bounded proposal set.
+
 We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
 panel activation unlocks precise bit and parity tests for a 32-state fault code. In
 a preregistered 500-pair exact gate, d2 beat d1 by 1.2459 entropy-AUC nats
