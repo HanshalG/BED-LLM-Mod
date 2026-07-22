@@ -445,7 +445,7 @@ def render_summary(audit: dict[str, Any]) -> str:
             f"{exact_comparison}{exact_gap:+.4f} "
             f"[{exact_ci[0]:+.4f}, {exact_ci[1]:+.4f}]. The run made "
             f"{audit['usage']['requests']} physical requests, retained "
-            f"{audit['mechanics']['raw_rejected_responses']} rejected response, and cost "
+            f"{audit['mechanics']['raw_rejected_responses']} rejected responses, and cost "
             f"${audit['usage']['run_cost_usd']:.8f}. It had zero terminal failures, "
             "reasoning tokens, forced exits, or rollout-scoring LLM calls. "
             f"{resume_text}",
@@ -490,6 +490,8 @@ def main() -> None:
     audit = analyze_run(
         json.loads(args.result.read_text(encoding="utf-8")), args.run_key
     )
+    args.audit_output.parent.mkdir(parents=True, exist_ok=True)
+    args.summary_output.parent.mkdir(parents=True, exist_ok=True)
     args.audit_output.write_text(
         json.dumps(audit, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )

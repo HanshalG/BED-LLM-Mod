@@ -119,6 +119,35 @@ def test_openrouter_adapter_tracks_native_cost_without_reasoning(monkeypatch, tm
     assert "secret-test-key" not in (tmp_path / "run.log").read_text()
 
 
+def test_openrouter_budget_warning_uses_configured_threshold_and_emits_once(
+    monkeypatch, tmp_path: Path, capsys
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    spend = tmp_path / "spend.json"
+    spend.write_text(
+        json.dumps({"budget_usd": 1.0, "total_spent_usd": 0.89, "runs": {}})
+    )
+    monkeypatch.setattr(
+        "urllib.request.urlopen",
+        lambda request, timeout: _Response(_completion(cost=0.02)),
+    )
+    adapter = OpenRouterAdapter(
+        ModelSpec(model="openai/gpt-5.4-mini", backend="openrouter"),
+        _config(
+            tmp_path,
+            openrouter_budget_usd=1.0,
+            openrouter_projected_cost_usd=0.0,
+        ),
+    )
+
+    adapter.chat_complete([{"role": "user", "content": "one"}], 0.0)
+    adapter.chat_complete([{"role": "user", "content": "two"}], 0.0)
+
+    output = capsys.readouterr().out
+    assert output.count("cumulative OpenRouter spend") == 1
+    assert "$1.00" in output
+
+
 def test_openrouter_adapter_uses_mediq_seed(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
     captured = {}

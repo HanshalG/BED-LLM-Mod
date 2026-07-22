@@ -1,0 +1,234 @@
+{
+  "arms": {
+    "exhaustive_d2": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.82907992109878,
+      "mean_h2_exhaustive_fraction": 1.0,
+      "move_count": 156,
+      "move_rate": 0.3466666666666667,
+      "round_entropy_mean": [
+        10.397207708399172,
+        10.397207708399172,
+        10.397207708399172,
+        10.367356601879292,
+        10.320599465853546,
+        9.82644110750562,
+        9.817156381712627,
+        9.697651704083317,
+        9.684257629917699,
+        9.612035556600633,
+        9.600727254178347,
+        9.516010754067514,
+        9.49968132688418,
+        9.411001238394196,
+        8.89165667020721
+      ]
+    },
+    "random_strategy": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.341530742166762,
+      "mean_h2_exhaustive_fraction": 0.20241326970194978,
+      "move_count": 130,
+      "move_rate": 0.28888888888888886,
+      "round_entropy_mean": [
+        10.396166972164268,
+        10.394376061847282,
+        10.394573705422092,
+        10.39194657972135,
+        10.366971107006803,
+        10.36656204659518,
+        10.361665481643193,
+        10.357793546107608,
+        10.35209451663267,
+        10.320928491228557,
+        10.319906582746734,
+        10.289403722989345,
+        10.273044061970019,
+        10.273597813867774,
+        10.263930442558587
+      ]
+    },
+    "shared_d1": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.37212083023884,
+      "mean_h2_exhaustive_fraction": 0.12844737257373398,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.392124332888049,
+        10.389383393235558,
+        10.386293736161901,
+        10.384160113004421,
+        10.381837688490691,
+        10.375493399284515,
+        10.376962919303512,
+        10.373497550872143,
+        10.371200094232027,
+        10.36554828908471,
+        10.366729723875183,
+        10.363878999738153,
+        10.35802296769681,
+        10.352952178138194,
+        10.343727067576756
+      ]
+    },
+    "strategy_eig": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.900500593257492,
+      "mean_h2_exhaustive_fraction": 0.4572965440095141,
+      "move_count": 233,
+      "move_rate": 0.5177777777777778,
+      "round_entropy_mean": [
+        10.396403396242375,
+        10.393263816825346,
+        10.369705510711688,
+        10.189490557067616,
+        10.135191487859906,
+        9.972269510249644,
+        9.889496961266131,
+        9.87783319841866,
+        9.813897105907673,
+        9.711892694377768,
+        9.683903349036058,
+        9.626224100229217,
+        9.570321406868777,
+        9.523586628423166,
+        9.354029175378361
+      ]
+    },
+    "width": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.356685154280617,
+      "mean_h2_exhaustive_fraction": 0.19019821448382862,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.385956731673314,
+        10.38133280917534,
+        10.376781752171874,
+        10.37177929650769,
+        10.368548449140093,
+        10.365027412717334,
+        10.35913738244172,
+        10.351324253374221,
+        10.343056062176053,
+        10.340033514986203,
+        10.329131209681243,
+        10.330799412739601,
+        10.33250532767102,
+        10.323378360376783
+      ]
+    }
+  },
+  "claim": "positive_nonmyopic_gain_scales_to_standard_15_rock_geometry",
+  "comparisons": {
+    "random_strategy": {
+      "entropy_auc_ci95": [
+        0.3245477746418289,
+        0.5482725056352489
+      ],
+      "entropy_auc_gain": 0.44103014890927056,
+      "truth_log_auc_ci95": [
+        0.39835712169627197,
+        0.6508720994960359
+      ],
+      "truth_log_auc_gain": 0.5276148443099504,
+      "wins_ties_losses": [
+        27,
+        0,
+        3
+      ]
+    },
+    "shared_d1": {
+      "entropy_auc_ci95": [
+        0.376175584224628,
+        0.560061201879386
+      ],
+      "entropy_auc_gain": 0.4716202369813489,
+      "truth_log_auc_ci95": [
+        0.39650947118149954,
+        0.648094112758484
+      ],
+      "truth_log_auc_gain": 0.5235938159766153,
+      "wins_ties_losses": [
+        28,
+        0,
+        2
+      ]
+    },
+    "width": {
+      "entropy_auc_ci95": [
+        0.36534859048311613,
+        0.5481784139373155
+      ],
+      "entropy_auc_gain": 0.4561845610231256,
+      "truth_log_auc_ci95": [
+        0.4003293812785686,
+        0.7053585261840044
+      ],
+      "truth_log_auc_gain": 0.5552696059912469,
+      "wins_ties_losses": [
+        28,
+        0,
+        2
+      ]
+    }
+  },
+  "exact_d2_entropy_auc_gap": -0.07142067215871174,
+  "exact_d2_entropy_auc_gap_ci95": [
+    -0.1623394548678004,
+    0.020769424160258877
+  ],
+  "label": "GPT-5.4 Mini OpenRouter seed 24114",
+  "mechanics": {
+    "accepted_llm_cells": 1312,
+    "all_selected_actions_legal": true,
+    "initial_strategy_cells_shared_with_d1": true,
+    "logical_strategy_requests": 900,
+    "logical_width_requests": 450,
+    "physical_llm_requests": 1372,
+    "provider_cache_hits": 38,
+    "random_strategy_cells_have_k_candidates": true,
+    "raw_rejected_responses": 60,
+    "rollout_scoring_llm_calls": 0,
+    "terminal_cell_failures": 0,
+    "terminal_followup_repairs": 0,
+    "width_exact_scorer_units_match_strategy_eig": true,
+    "width_logical_llm_calls_match_strategy_eig": true
+  },
+  "model": "openai/gpt-5.4-mini",
+  "primary_gate_passed": true,
+  "resume": null,
+  "schema_version": 1,
+  "truth_log_corroboration_passed": true,
+  "usage": {
+    "adapter_completion_tokens": 252827,
+    "adapter_cost_usd": 3.6850700999999964,
+    "adapter_prompt_tokens": 3898276,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 1372,
+    "backend": "openrouter",
+    "budget_usd": 70.0,
+    "completion_tokens": 252827,
+    "forced_exits": 0,
+    "model": "openai/gpt-5.4-mini",
+    "model_usage": {
+      "openai/gpt-5.4-mini": {
+        "completion_tokens": 252827,
+        "cost_usd": 3.6850700999999964,
+        "prompt_tokens": 3898276,
+        "reasoning_tokens": 0,
+        "requests": 1372
+      }
+    },
+    "prompt_tokens": 3898276,
+    "reasoning_tokens": 0,
+    "remaining_usd": 35.54314569254008,
+    "requests": 1372,
+    "run_budget_usd": 6.0,
+    "run_cost_usd": 3.6850700999999964,
+    "run_remaining_usd": 2.3149299000000036,
+    "total_spent_usd": 34.45685430745992
+  }
+}

@@ -86,3 +86,14 @@ h2 cells contained movement and check roots, and every movement policy continued
 to a check. The ten requests used 37,943 prompt and 2,450 completion tokens and
 cost `$0.03948225`, below the frozen `$0.10` ceiling. No proposal-quality score was
 used in the decision. This authorizes the unchanged formal command above.
+
+## Formal Outcome
+
+The unchanged fresh-seed formal completed and passed all three primary entropy-AUC
+and all three truth-log-AUC gates. The independently reconstructed entropy gains
+were `+0.4716` `[+0.3762,+0.5601]` against shared d1, `+0.4562`
+`[+0.3653,+0.5482]` against matched width, and `+0.4410`
+`[+0.3245,+0.5483]` against matched random. Truth-log lower bounds were all above
+`+0.3965`. All registered mechanics passed, with zero terminal failures, reasoning
+tokens, forced exits, or rollout-scoring LLM calls. Full results are in
+`ROCKSAMPLE_15_15_GPT54MINI_RESULT.md`.

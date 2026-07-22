@@ -49,8 +49,8 @@ preregistered Rock Diagnosis maps with three to fifteen rocks, StrategyEIG impro
 entropy AUC over the same LLM roots scored myopically by $0.475$--$0.941$,
 exhaustive one-step width by $0.452$--$0.939$, and matched random strategies by
 $0.362$--$0.887$; all fifteen paired 95\% intervals exclude zero, and
-truth-log-posterior AUC agrees. Both the eight- and eleven-rock results replicate
-across Gemma 4 26B A4B and GPT-5.4 Mini under shared root slots. The selected
+truth-log-posterior AUC agrees. GPT-5.4 Mini replicates the eight-, eleven-, and
+fifteen-rock gains under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
 move; an exact gate and three direct-vLLM seeds each at 26B and 12B
 preserve the planning gap at 32,768 latent states, while E4B fails. Negative
@@ -349,19 +349,17 @@ K6 endpoint quality with 9.49 instead of 14.24 scorer nodes/decision.
 A preregistered 100-pair exact qualification on the frozen
 RockSample[15,15] instance extends the structural mechanism to 32,768 latent
 vectors. Exhaustive d2 beat d1 by .5888 entropy-AUC nats [.5801, .5971] and .5930
-truth-log-AUC nats [.5470, .6396], with 100/0/0 entropy wins/ties/losses. Greedy d1
-never moved in 1,500 decisions, while d2 moved 500 times. A fresh direct-vLLM Gemma
-policy replication then passed all six registered gates: entropy-AUC gains were
+truth-log-AUC nats [.5470, .6396], with 100/0/0 wins/ties/losses. A fresh
+direct-vLLM Gemma policy then passed all six registered gates: entropy-AUC gains were
 .6723 [.6328, .7124] against shared d1, .6700 [.6301, .7111] against exhaustive d1
 width, and .6345 [.5722, .6877] against random strategies, with 30/0/0 each and
-positive truth-log intervals. StrategyEIG moved 150/450 times; both myopic controls
-never moved. Its AUC was .0671 [.0280, .1073] better than terminal-objective
-exhaustive d2, although d2's final entropy was .4258 nats lower because it delayed
-checks for an additional movement. No LLM was called during rollout scoring.
-Two preregistered fresh direct-vLLM seeds also passed all twelve entropy/truth
-gates. Across all 90 paired trials, pooled entropy-AUC gains were .6839
+positive truth-log intervals. Two fresh direct-vLLM seeds also passed all twelve
+gates; pooled 90-pair entropy-AUC gains were .6839
 [.6626, .7051], .6815 [.6603, .7036], and .6760 [.6493, .7017] against shared d1,
-width, and random, respectively, with 90/0/0 each.
+width, and random, with 90/0/0 each. A fresh GPT-5.4 Mini replication passed all
+six gates as well: .4716 [.3762, .5601], .4562 [.3653, .5482], and .4410
+[.3245, .5483], respectively. It moved on 233/450 decisions; both myopic controls
+never moved, and rollout scoring made no LLM calls.
 
 A preregistered smaller-proposer transfer exposed the corresponding capacity
 boundary. Non-thinking Gemma 4 E4B passed all legality and branch-mechanics checks,

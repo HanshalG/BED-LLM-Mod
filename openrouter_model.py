@@ -215,6 +215,21 @@ class OpenRouterAdapter:
         self.local_prompt_tokens = 0
         self.local_completion_tokens = 0
         self.local_reasoning_tokens = 0
+        self._budget_warning_emitted = False
+        self._budget_warning_lock = threading.Lock()
+
+    def _warn_near_budget_once(self, cumulative: float) -> None:
+        budget = float(self.config.openrouter_budget_usd)
+        if cumulative < 0.9 * budget:
+            return
+        with self._budget_warning_lock:
+            if self._budget_warning_emitted:
+                return
+            self._budget_warning_emitted = True
+        print(
+            f"WARNING: cumulative OpenRouter spend is ${cumulative:.2f} "
+            f"of ${budget:.2f}; ${budget - cumulative:.2f} remains"
+        )
 
     def _payload(self, messages: list[dict[str, str]], temperature: float, n: int, max_tokens: int | None = None) -> dict[str, Any]:
         payload: dict[str, Any] = {
@@ -326,8 +341,7 @@ class OpenRouterAdapter:
             write_to_log(json.dumps(payload, sort_keys=True) + "\n", self.config)
             if any(choice.get("finish_reason") == "length" for choice in choices):
                 write_to_log("Forced thinking exit (OpenRouter finish_reason=length)\n", self.config)
-        if cumulative >= 18.0:
-            print(f"WARNING: cumulative OpenRouter spend is ${cumulative:.2f}; request top-up before more runs")
+        self._warn_near_budget_once(cumulative)
         return [self._content(choice) for choice in choices]
 
     def chat_complete(self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1) -> list[str]:
