@@ -72,3 +72,8 @@ The crashing 373rd response consumed tokens but escaped before it could be recor
 as an accepted or rejected cell. Cumulative final serving usage will therefore be
 the replayable physical-cell count plus one. The resume accounting merges the prior
 and new vLLM process snapshots and preserves that discrepancy explicitly.
+
+Resume job `106265` completed on `msc` node `oat14` from repair/accounting commit
+`c6133c7`. The independent trace/bootstrap audit passed the primary entropy-AUC gate
+and the separate truth-log corroboration gate. No seed, endpoint, candidate budget,
+or control was replaced.

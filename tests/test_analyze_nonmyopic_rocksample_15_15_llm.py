@@ -185,6 +185,14 @@ def test_summary_reports_failed_gate_without_positive_claim() -> None:
     assert "Positive paired gains favor StrategyEIG" not in summary
 
 
+def test_summary_reports_registered_resume() -> None:
+    summary = render_summary(analyze_run(_result(run_key="12b_vllm"), "12b_vllm"))
+
+    assert "resumed from 372 revalidated cells" in summary
+    assert "zero terminal failures, reasoning tokens, forced exits, or rollout-scoring" in summary
+    assert "zero terminal failures, reasoning tokens, forced exits, resumes" not in summary
+
+
 def test_summary_labels_positive_exhaustive_d2_comparison_as_advantage() -> None:
     audit = analyze(_result())
     audit["exact_d2_entropy_auc_gap"] = 0.1

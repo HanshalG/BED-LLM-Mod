@@ -390,6 +390,14 @@ def render_summary(audit: dict[str, Any]) -> str:
     strategy = audit["arms"]["strategy_eig"]
     exact_gap = audit["exact_d2_entropy_auc_gap"]
     exact_ci = audit["exact_d2_entropy_auc_gap_ci95"]
+    resume = audit["resume"]
+    if resume is None:
+        resume_text = "The run did not resume from a prior failure."
+    else:
+        resume_text = (
+            f"It resumed from {resume['accepted_cells_reused']} revalidated cells after "
+            f"the reported prior error: {resume['prior_error']}."
+        )
     if exact_ci[0] > 0.0:
         exact_comparison = (
             "Its entropy-AUC advantage over terminal-objective exhaustive d2 is "
@@ -412,7 +420,8 @@ def render_summary(audit: dict[str, Any]) -> str:
             f"{audit['usage']['requests']} physical requests, retained "
             f"{audit['mechanics']['raw_rejected_responses']} rejected response, and cost "
             f"${audit['usage']['run_cost_usd']:.8f}. It had zero terminal failures, "
-            "reasoning tokens, forced exits, resumes, or rollout-scoring LLM calls.",
+            "reasoning tokens, forced exits, or rollout-scoring LLM calls. "
+            f"{resume_text}",
             "",
         ]
     )

@@ -52,8 +52,8 @@ $0.362$--$0.887$; all fifteen paired 95\% intervals exclude zero, and
 truth-log-posterior AUC agrees. Both the eight- and eleven-rock results replicate
 across Gemma 4 26B A4B and GPT-5.4 Mini under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
-move; both an exact gate and a three-seed direct-vLLM policy result preserve the planning gap
-at 32,768 latent states. Negative
+move; an exact gate, three direct-vLLM 26B seeds, and a successful 12B transfer
+preserve the planning gap at 32,768 latent states, while E4B fails. Negative
 location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
 The result supports an LLM-Modulo architecture for sequential BED---semantic policy
@@ -370,6 +370,11 @@ but its K4 proposals captured only 6.8\% of exhaustive d2 value, versus
 but failed the matched-width interval, .0408 [-.0035, .0884], and failed truth-log
 corroboration against shared d1 and width. Thus exact verification removes scoring
 noise but cannot recover a valuable branch absent from the bounded proposal set.
+A preregistered non-thinking 12B transfer passed all six gates: entropy-AUC gains
+were .6186, .5792, and .5946 against shared d1, width, and random; all lower bounds
+were positive, with 30/0/0 each and positive truth-log intervals. Its K4 support
+captured 49.5\% of exhaustive d2 value. Different fresh seeds make the model-size
+contrast descriptive, but the pass brackets a practical E4B-to-12B capacity boundary.
 
 We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
 panel activation unlocks precise bit and parity tests for a 32-state fault code. In
@@ -566,7 +571,8 @@ implementation details. Testing them before scaling horizon is both cheaper and
 scientifically stronger than explaining another non-monotonic depth sweep after
 the fact.
 
-{\footnotesize
+{\scriptsize
+\setlength{\bibsep}{0pt}
 \bibliographystyle{plainnat}
 \bibliography{references}
 }
