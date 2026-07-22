@@ -44,15 +44,16 @@ an exact constrained-location test, semantic 20 Questions, and two external
 interactive benchmarks: Paprika troubleshooting and MediQ clinical reasoning.
 Depth-two planning succeeds in the exact test, while one-step EIG substantially
 beats prompting in 20 Questions. We then test StrategyEIG: an LLM proposes short
-contingent policies and an exact Bayesian verifier selects their root. Across four
-preregistered Rock Diagnosis maps with three to eleven rocks, StrategyEIG improves
+contingent policies and an exact Bayesian verifier selects their root. Across five
+preregistered Rock Diagnosis maps with three to fifteen rocks, StrategyEIG improves
 entropy AUC over the same LLM roots scored myopically by $0.475$--$0.941$,
 exhaustive one-step width by $0.452$--$0.939$, and matched random strategies by
-$0.362$--$0.887$; all twelve paired 95\% intervals exclude zero, and
+$0.362$--$0.887$; all fifteen paired 95\% intervals exclude zero, and
 truth-log-posterior AUC agrees. Both the eight- and eleven-rock results replicate
 across Gemma 4 26B A4B and GPT-5.4 Mini under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
-move; an exact gate preserves the planning gap at 32,768 latent states. Negative
+move; both an exact gate and a direct-vLLM policy result preserve the planning gap
+at 32,768 latent states. Negative
 location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
 The result supports an LLM-Modulo architecture for sequential BED---semantic policy
@@ -245,7 +246,8 @@ the LLM was never called inside rollout scoring.
 
 We preregistered 30 paired eight-round trajectories on each of two paper maps,
 then scale extensions on the canonical eight-rock RockSample[7,8] geometry from
-\citet{smith2004hsvi} and the standard eleven-rock RockSample[11,11] SARSOP instance.
+\citet{smith2004hsvi}, the standard eleven-rock RockSample[11,11] SARSOP instance,
+and a frozen fifteen-rock RockSample[15,15] POBAX instance.
 This is a diagnosis-only
 adaptation: it retains the latent rock vector, grid movement, and distance-dependent
 sensor, while excluding sampling, reward, and exit actions.
@@ -274,11 +276,14 @@ Map & Control & Entropy-AUC gain & 95\% CI & W/T/L \\
 11--11 & Shared-roots d1 & .9412 & [.8968, .9807] & 30/0/0 \\
 11--11 & Exhaustive d1 width & .9387 & [.8952, .9773] & 30/0/0 \\
 11--11 & Random strategies & .8867 & [.8305, .9385] & 30/0/0 \\
+15--15 & Shared-roots d1 & .6723 & [.6328, .7124] & 30/0/0 \\
+15--15 & Exhaustive d1 width & .6700 & [.6301, .7111] & 30/0/0 \\
+15--15 & Random strategies & .6345 & [.5722, .6877] & 30/0/0 \\
 \bottomrule
 \end{tabular}
-\caption{Preregistered StrategyEIG confirmation. All twelve primary paired bootstrap
-intervals exclude zero. Truth-log-posterior AUC also favors StrategyEIG in all twelve
-comparisons, with all twelve intervals excluding zero.}
+\caption{Preregistered StrategyEIG confirmation. All fifteen primary paired bootstrap
+intervals exclude zero. Truth-log-posterior AUC also favors StrategyEIG in all fifteen
+comparisons, with all fifteen intervals excluding zero.}
 \label{tab:rock-strategy}
 \end{table}
 
@@ -293,8 +298,9 @@ large entropy drops from more accurate checks.}
 
 The mechanism is direct. StrategyEIG selects movement on 140/240 and 128/240
 decisions on the smaller maps, 193/300 on RockSample[7,8], and 195/360 on
-RockSample[11,11], while shared d1 and exhaustive d1 width never move. Its proposals
-capture 90.6\%, 86.1\%, 85.8\%, and 73.9\% of exhaustive d2 value over depth-two
+RockSample[11,11], and 150/450 on RockSample[15,15], while shared d1 and exhaustive
+d1 width never move. Its proposals capture 90.6\%, 86.1\%, 85.8\%, 73.9\%, and
+41.1\% of exhaustive d2 value over depth-two
 rounds. Before the paid eight-rock scale extension,
 a 1,000-pair exact qualification found that exhaustive d2 reduced final entropy by
 1.6775 nats relative to exhaustive d1, with 95\% interval [1.6568, 1.6980].
@@ -338,12 +344,18 @@ maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.
 [.4974, .6418], while K6 minus K4 was .0102 [-.0156, .0337]. K4 therefore matched
 K6 endpoint quality with 9.49 instead of 14.24 scorer nodes/decision.
 
-A separately preregistered 100-pair exact qualification on a frozen
+A preregistered 100-pair exact qualification on the frozen
 RockSample[15,15] instance extends the structural mechanism to 32,768 latent
 vectors. Exhaustive d2 beat d1 by .5888 entropy-AUC nats [.5801, .5971] and .5930
 truth-log-AUC nats [.5470, .6396], with 100/0/0 entropy wins/ties/losses. Greedy d1
-never moved in 1,500 decisions, while d2 moved 500 times. This is exact scale
-evidence; the separately registered LLM-policy confirmation has no endpoint yet.
+never moved in 1,500 decisions, while d2 moved 500 times. A fresh direct-vLLM Gemma
+policy replication then passed all six registered gates: entropy-AUC gains were
+.6723 [.6328, .7124] against shared d1, .6700 [.6301, .7111] against exhaustive d1
+width, and .6345 [.5722, .6877] against random strategies, with 30/0/0 each and
+positive truth-log intervals. StrategyEIG moved 150/450 times; both myopic controls
+never moved. Its AUC was .0671 [.0280, .1073] better than terminal-objective
+exhaustive d2, although d2's final entropy was .4258 nats lower because it delayed
+checks for an additional movement. No LLM was called during rollout scoring.
 
 We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
 panel activation unlocks precise bit and parity tests for a 32-state fault code. In

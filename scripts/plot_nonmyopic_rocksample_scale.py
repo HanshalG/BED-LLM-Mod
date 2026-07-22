@@ -1,4 +1,4 @@
-"""Plot the four preregistered Rock Diagnosis StrategyEIG confirmations."""
+"""Plot the five preregistered Rock Diagnosis StrategyEIG confirmations."""
 
 from __future__ import annotations
 
@@ -29,6 +29,7 @@ def plot_scale_results(
     base_payload: dict[str, Any],
     eight_rock_payload: dict[str, Any],
     eleven_rock_payload: dict[str, Any],
+    fifteen_rock_payload: dict[str, Any],
     output_path: Path,
 ) -> None:
     panels = [
@@ -36,8 +37,9 @@ def plot_scale_results(
         ("5-7", _round_means(base_payload, "5-7")),
         ("7-8", _round_means(eight_rock_payload, "7-8")),
         ("11-11", _round_means(eleven_rock_payload, "11-11")),
+        ("15-15", _round_means(fifteen_rock_payload, "15-15")),
     ]
-    fig, axes = plt.subplots(1, 4, figsize=(15.2, 4.2))
+    fig, axes = plt.subplots(1, 5, figsize=(18.8, 4.6))
     for axis, (map_name, means) in zip(axes, panels):
         rounds = range(1, len(next(iter(means.values()))) + 1)
         for arm in ARMS:
@@ -50,7 +52,12 @@ def plot_scale_results(
             )
         axis.set_title(f"RockSample[{map_name}]")
         axis.set_xlabel("Round")
-        axis.set_xticks(list(rounds))
+        round_values = list(rounds)
+        tick_step = 2 if len(round_values) > 10 else 1
+        ticks = round_values[::tick_step]
+        if ticks[-1] != round_values[-1]:
+            ticks.append(round_values[-1])
+        axis.set_xticks(ticks)
         axis.grid(True, color="#d9d9d9", linewidth=0.6, alpha=0.8)
         axis.spines[["top", "right"]].set_visible(False)
     axes[0].set_ylabel("Mean entropy (nats)")
@@ -68,12 +75,14 @@ def main() -> None:
     parser.add_argument("base_result", type=Path)
     parser.add_argument("eight_rock_result", type=Path)
     parser.add_argument("eleven_rock_result", type=Path)
+    parser.add_argument("fifteen_rock_result", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     plot_scale_results(
         json.loads(args.base_result.read_text(encoding="utf-8")),
         json.loads(args.eight_rock_result.read_text(encoding="utf-8")),
         json.loads(args.eleven_rock_result.read_text(encoding="utf-8")),
+        json.loads(args.fifteen_rock_result.read_text(encoding="utf-8")),
         args.output,
     )
 

@@ -76,3 +76,12 @@ forced exits. All cells contained the required movement and check roots, and eve
 movement branch continued to a check. Direct vLLM recorded 41,976 prompt and 2,900
 completion tokens across ten requests at zero monetary cost. This authorized the
 unchanged formal job `106113`.
+
+Job `106113` completed on `oat14` without a runtime or engine failure. It accepted
+all 1,320 logical cells after one malformed-JSON repair and passed the preregistered
+primary and truth-log gates. StrategyEIG's entropy-AUC gains were +0.6723
+[+0.6328, +0.7124] against shared-roots d1, +0.6700 [+0.6301, +0.7111]
+against exhaustive d1 width, and +0.6345 [+0.5722, +0.6877] against matched
+random strategies, with 30/0/0 wins/ties/losses in all three comparisons. The
+independent trace and bootstrap audit passed. Full interpretation is recorded in
+`ROCKSAMPLE_15_15_VLLM_REPLICATION_RESULT.md`.

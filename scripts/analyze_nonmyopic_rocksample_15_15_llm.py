@@ -85,11 +85,16 @@ def _assert_float_lists_match(actual: list[float], expected: list[float]) -> Non
 
 
 def _assert_bootstrap_ci(
-    values: list[float], stored: list[float], *, seed: int, label: str
+    values: list[float],
+    stored: list[float],
+    *,
+    seed: int,
+    label: str,
+    metric: str,
 ) -> None:
     expected = _bootstrap_mean_ci(
         np.asarray(values, dtype=float),
-        seed=_stable_seed(seed, "l1-bootstrap", label),
+        seed=_stable_seed(seed, "l1-bootstrap", label, metric),
         replicates=10_000,
     )
     _assert_float_lists_match(list(expected), stored)
@@ -189,13 +194,15 @@ def _analyze_expected(
             entropy_values,
             stored["entropy_auc_gain_ci95"],
             seed=expected["seed"],
-            label=f"{comparison_label}-entropy-auc",
+            label=comparison_label,
+            metric="entropy-auc",
         )
         _assert_bootstrap_ci(
             truth_values,
             stored["truth_log_probability_auc_gain_ci95"],
             seed=expected["seed"],
-            label=f"{comparison_label}-truth-log-auc",
+            label=comparison_label,
+            metric="truth-log-auc",
         )
         assert math.isclose(
             statistics.fmean(entropy_values),
@@ -265,7 +272,8 @@ def _analyze_expected(
         exact_values,
         exact["entropy_auc_gain_ci95"],
         seed=expected["seed"],
-        label=f"{EXPECTED_MAP}-exhaustive_d2-entropy-auc",
+        label=f"{EXPECTED_MAP}-exhaustive_d2",
+        metric="entropy-auc",
     )
     assert math.isclose(
         statistics.fmean(exact_values),
@@ -299,11 +307,22 @@ def analyze(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def render_summary(audit: dict[str, Any]) -> str:
+    if audit["primary_gate_passed"] and audit["truth_log_corroboration_passed"]:
+        outcome = (
+            "passes its primary and truth-log corroboration gates. Positive paired "
+            "gains favor StrategyEIG."
+        )
+    elif audit["primary_gate_passed"]:
+        outcome = (
+            "passes its primary entropy-AUC gate but fails its truth-log "
+            "corroboration gate."
+        )
+    else:
+        outcome = "fails its preregistered primary entropy-AUC gate."
     lines = [
         "# RockSample[15,15] Gemma Root-Slot Confirmation",
         "",
-        "The preregistered fifteen-rock scale confirmation passes its primary and "
-        "truth-log corroboration gates. Positive paired gains favor StrategyEIG.",
+        f"The preregistered fifteen-rock scale confirmation {outcome}",
         "",
         "| Control | Entropy-AUC gain [95% CI] | Truth-log-AUC gain [95% CI] | AUC W/T/L |",
         "| --- | --- | --- | --- |",
@@ -324,15 +343,24 @@ def render_summary(audit: dict[str, Any]) -> str:
     strategy = audit["arms"]["strategy_eig"]
     exact_gap = audit["exact_d2_entropy_auc_gap"]
     exact_ci = audit["exact_d2_entropy_auc_gap_ci95"]
+    if exact_ci[0] > 0.0:
+        exact_comparison = (
+            "Its entropy-AUC advantage over terminal-objective exhaustive d2 is "
+        )
+    elif exact_ci[1] < 0.0:
+        exact_comparison = "Its remaining entropy-AUC gap to exhaustive d2 is "
+    else:
+        exact_comparison = "Its entropy-AUC difference from exhaustive d2 is "
     lines.extend(
         [
             "",
-            "All three primary and all three truth-log intervals exclude zero. "
+            f"Primary gate passed: {audit['primary_gate_passed']}. Truth-log "
+            f"corroboration passed: {audit['truth_log_corroboration_passed']}. "
             f"StrategyEIG moves on {strategy['move_count']}/{strategy['decision_count']} "
             f"decisions and captures {strategy['mean_h2_exhaustive_fraction']:.1%} of "
             "exhaustive d2 value over nonterminal horizon-two rounds.",
             "",
-            f"The remaining entropy-AUC gap to exhaustive d2 is {exact_gap:+.4f} "
+            f"{exact_comparison}{exact_gap:+.4f} "
             f"[{exact_ci[0]:+.4f}, {exact_ci[1]:+.4f}]. The run made "
             f"{audit['usage']['requests']} physical requests, retained "
             f"{audit['mechanics']['raw_rejected_responses']} rejected response, and cost "

@@ -1,5 +1,6 @@
 import copy
 
+import numpy as np
 import pytest
 
 from scripts.analyze_nonmyopic_rock_branch_result import ARMS, BASELINES
@@ -10,7 +11,10 @@ from scripts.analyze_nonmyopic_rocksample_15_15_llm import (
     EXPECTED_RUNS,
     analyze,
     analyze_run,
+    _assert_bootstrap_ci,
+    render_summary,
 )
+from scripts.nonmyopic_rock_strategy_prior import _bootstrap_mean_ci, _stable_seed
 
 
 def _trace(arm: str, trial_index: int) -> dict:
@@ -157,3 +161,41 @@ def test_auditor_accepts_registered_vllm_replication() -> None:
     assert audit["model"] == "google/gemma-4-26B-A4B-it"
     assert audit["usage"]["backend"] == "vllm"
     assert audit["primary_gate_passed"]
+
+
+def test_summary_reports_failed_gate_without_positive_claim() -> None:
+    audit = analyze(_result())
+    audit["primary_gate_passed"] = False
+
+    summary = render_summary(audit)
+
+    assert "fails its preregistered primary entropy-AUC gate" in summary
+    assert "Positive paired gains favor StrategyEIG" not in summary
+
+
+def test_summary_labels_positive_exhaustive_d2_comparison_as_advantage() -> None:
+    audit = analyze(_result())
+    audit["exact_d2_entropy_auc_gap"] = 0.1
+    audit["exact_d2_entropy_auc_gap_ci95"] = [0.05, 0.15]
+
+    summary = render_summary(audit)
+
+    assert "advantage over terminal-objective exhaustive d2" in summary
+    assert "remaining entropy-AUC gap" not in summary
+
+
+def test_auditor_reconstructs_metric_as_separate_seed_component() -> None:
+    values = [float(index) for index in range(30)]
+    stored = _bootstrap_mean_ci(
+        np.asarray(values),
+        seed=_stable_seed(24101, "l1-bootstrap", "15-15-shared_d1", "entropy-auc"),
+        replicates=10_000,
+    )
+
+    _assert_bootstrap_ci(
+        values,
+        list(stored),
+        seed=24101,
+        label="15-15-shared_d1",
+        metric="entropy-auc",
+    )
