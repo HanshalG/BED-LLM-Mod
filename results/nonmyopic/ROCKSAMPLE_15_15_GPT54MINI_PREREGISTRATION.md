@@ -77,3 +77,12 @@ python scripts/nonmyopic_rock_strategy_prior.py \
   --seed 24114 --bootstrap-replicates 10000 --trial-concurrency 4 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Serving Gate Outcome
+
+The fresh actual-prompt smoke passed all 10/10 cells on the first response. It had
+zero rejected attempts, terminal failures, reasoning tokens, or forced exits; all
+h2 cells contained movement and check roots, and every movement policy continued
+to a check. The ten requests used 37,943 prompt and 2,450 completion tokens and
+cost `$0.03948225`, below the frozen `$0.10` ceiling. No proposal-quality score was
+used in the decision. This authorizes the unchanged formal command above.
