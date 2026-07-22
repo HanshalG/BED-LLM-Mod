@@ -387,7 +387,10 @@ policy success. A strict literal-action interface failed closed with 662 rejecte
 attempts; a branch-local integer interface eliminated legality errors. Its strongest
 exploratory GPT-5.4 Mini probe beat both greedy controls but tied matched random
 policies: $-.0413$ [-.1854, .0795], with 5/0/3 wins/ties/losses. Exact verification
-cannot recover setup value when the proposed continuation itself is redundant.
+cannot recover setup value when the proposed continuation itself is redundant. An
+exact same-state audit confirms that localization: fixed roots contained an
+exhaustive-optimal root on every audited state, but LLM continuations recovered .759
+of same-root oracle value versus .802 for matched random continuations.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044

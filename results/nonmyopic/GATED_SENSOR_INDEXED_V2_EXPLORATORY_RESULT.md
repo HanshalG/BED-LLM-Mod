@@ -38,8 +38,19 @@ The exploratory sequence isolated representation and information problems:
 The exact scorer can value an activation root only through the continuation supplied
 by the LLM. In losing trials, the proposal stays in a panel after its independent
 predicate rank is exhausted or selects a precise test redundant with the branch
-history. Matched random continuation indices can then be luckier even though both
-methods receive the same roots and the verifier is exact. Full-posterior prompting
+history. A zero-call exact closure audit separates root and continuation quality:
+
+| Proposal source | h2 states | Root coverage | Continuation efficiency | Optimal continuation rate |
+| --- | ---: | ---: | ---: | ---: |
+| GPT-5.4 Mini | 56 | `1.0000` | `0.7591` | `0.3214` |
+| Matched random on the same beliefs | 56 | `1.0000` | `0.8020` | `0.3571` |
+
+Root coverage is exact same-root closure divided by exhaustive d2; continuation
+efficiency is proposed value divided by same-root closure. Thus every audited fixed
+root set contained an exhaustive-optimal root, but the LLM continuations recovered
+`0.0429` less same-root value than random continuations rescored on the exact same
+LLM-reached beliefs. The separately reached random arm gives `0.8182`; it is
+descriptive because trajectory drift changes its beliefs. Full-posterior prompting
 helps, but exact verification cannot repair a missing useful continuation policy.
 
 This is therefore an exploratory interface audit, not a formal v2 policy result. It
@@ -55,6 +66,8 @@ insufficient when that proposal is redundant.
   `results/nonmyopic/gated_sensor_v2_gpt54mini_k4_probe_20260722/RESULT.json`
 - Six-root fixed-matrix probe:
   `results/nonmyopic/gated_sensor_v2_gpt54mini_fixed_probe_20260722/RESULT.json`
+- Shared-state continuation audit:
+  `results/nonmyopic/gated_sensor_v2_gpt54mini_continuation_audit_20260722/AUDIT.json`
 - Interface implementation: `scripts/nonmyopic_gated_sensor_strategy_prior_v2.py`
 
 Indexed-v2 exploration spent approximately `$0.52`, including an aborted thinking
