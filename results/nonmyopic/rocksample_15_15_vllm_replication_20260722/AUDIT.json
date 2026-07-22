@@ -180,7 +180,7 @@
     0.027952033089468045,
     0.10729261182367339
   ],
-  "label": "Gemma 4 26B A4B direct vLLM",
+  "label": "Gemma 4 26B A4B direct vLLM seed 24101",
   "mechanics": {
     "accepted_llm_cells": 1320,
     "all_selected_actions_legal": true,

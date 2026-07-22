@@ -163,6 +163,14 @@ def test_auditor_accepts_registered_vllm_replication() -> None:
     assert audit["primary_gate_passed"]
 
 
+@pytest.mark.parametrize("run_key", ["vllm_seed_24102", "vllm_seed_24103"])
+def test_auditor_accepts_registered_vllm_robustness_seeds(run_key: str) -> None:
+    audit = analyze_run(_result(run_key=run_key), run_key)
+
+    assert audit["usage"]["backend"] == "vllm"
+    assert audit["primary_gate_passed"]
+
+
 def test_summary_reports_failed_gate_without_positive_claim() -> None:
     audit = analyze(_result())
     audit["primary_gate_passed"] = False

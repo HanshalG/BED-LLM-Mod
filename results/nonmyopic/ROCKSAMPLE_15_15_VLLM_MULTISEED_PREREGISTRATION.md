@@ -67,3 +67,11 @@ sbatch --job-name=r15-vllm-s24103 scripts/run_nonmyopic_rock_strategy_a100.sh \
   --seed 24103 --bootstrap-replicates 10000 --trial-concurrency 1 \
   --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 ```
+
+## Outcome
+
+Jobs `106122` and `106123` completed on separate A100s of `oat14`. Both fresh
+seeds passed all six registered entropy/truth gates with zero terminal failures or
+rollout-scoring LLM calls. The secondary three-seed pool has 90/0/0 entropy-AUC
+wins/ties/losses against each control. Full audited values and interpretation are
+in `ROCKSAMPLE_15_15_VLLM_MULTISEED_RESULT.md`.

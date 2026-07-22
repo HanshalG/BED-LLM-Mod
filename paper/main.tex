@@ -52,7 +52,7 @@ $0.362$--$0.887$; all fifteen paired 95\% intervals exclude zero, and
 truth-log-posterior AUC agrees. Both the eight- and eleven-rock results replicate
 across Gemma 4 26B A4B and GPT-5.4 Mini under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
-move; both an exact gate and a direct-vLLM policy result preserve the planning gap
+move; both an exact gate and a three-seed direct-vLLM policy result preserve the planning gap
 at 32,768 latent states. Negative
 location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
@@ -356,6 +356,10 @@ positive truth-log intervals. StrategyEIG moved 150/450 times; both myopic contr
 never moved. Its AUC was .0671 [.0280, .1073] better than terminal-objective
 exhaustive d2, although d2's final entropy was .4258 nats lower because it delayed
 checks for an additional movement. No LLM was called during rollout scoring.
+Two preregistered fresh direct-vLLM seeds also passed all twelve entropy/truth
+gates. Across all 90 paired trials, pooled entropy-AUC gains were .6839
+[.6626, .7051], .6815 [.6603, .7036], and .6760 [.6493, .7017] against shared d1,
+width, and random, respectively, with 90/0/0 each.
 
 We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
 panel activation unlocks precise bit and parity tests for a 32-state fault code. In

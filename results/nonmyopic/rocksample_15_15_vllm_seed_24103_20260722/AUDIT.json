@@ -1,0 +1,225 @@
+{
+  "arms": {
+    "exhaustive_d2": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.745174136815855,
+      "mean_h2_exhaustive_fraction": 1.0,
+      "move_count": 157,
+      "move_rate": 0.3488888888888889,
+      "round_entropy_mean": [
+        10.397207708399172,
+        10.397207708399172,
+        10.397207708399172,
+        9.704060527839228,
+        9.704060527839228,
+        9.704060527839228,
+        9.69487454633605,
+        9.686183730490722,
+        9.672282923295132,
+        9.663976888024662,
+        9.583816261875931,
+        9.585200920560132,
+        9.559641032983704,
+        9.550091375855782,
+        8.877739664100504
+      ]
+    },
+    "random_strategy": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.353880621848647,
+      "mean_h2_exhaustive_fraction": 0.1771441487950212,
+      "move_count": 138,
+      "move_rate": 0.30666666666666664,
+      "round_entropy_mean": [
+        10.396557103388151,
+        10.39461250521034,
+        10.394027851393881,
+        10.387273509606766,
+        10.38886774976935,
+        10.37528610383092,
+        10.37234657651765,
+        10.368117205257883,
+        10.36741573280766,
+        10.33926379937145,
+        10.30873572796173,
+        10.311852191797495,
+        10.306365246130941,
+        10.30266060802419,
+        10.294827416661292
+      ]
+    },
+    "shared_d1": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.363817829571335,
+      "mean_h2_exhaustive_fraction": 0.18092241272474643,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.390245450762427,
+        10.385466908174008,
+        10.380092920560967,
+        10.37554186355751,
+        10.359409048903599,
+        10.36225040469526,
+        10.357222692790833,
+        10.357693560339403,
+        10.351221641258995,
+        10.346011384261937,
+        10.349234890848658,
+        10.353376533413252,
+        10.35322879181974,
+        10.344786012806681
+      ]
+    },
+    "strategy_eig": {
+      "decision_count": 450,
+      "entropy_auc_mean": 9.646263956233359,
+      "mean_h2_exhaustive_fraction": 0.475949811127884,
+      "move_count": 162,
+      "move_rate": 0.36,
+      "round_entropy_mean": [
+        10.397207708399172,
+        10.397207708399172,
+        10.397207708399172,
+        9.704060527839228,
+        9.704060527839228,
+        9.634777411419234,
+        9.536922498428483,
+        9.506082087987725,
+        9.465414350952582,
+        9.402087034452729,
+        9.335210342917339,
+        9.326604449880383,
+        9.32244411753613,
+        9.313157818900656,
+        9.251515050149155
+      ]
+    },
+    "width": {
+      "decision_count": 450,
+      "entropy_auc_mean": 10.361944429747574,
+      "mean_h2_exhaustive_fraction": 0.19160508293492967,
+      "move_count": 0,
+      "move_rate": 0.0,
+      "round_entropy_mean": [
+        10.391485339376795,
+        10.386706796788372,
+        10.38133280917534,
+        10.376781752171873,
+        10.360648937517974,
+        10.363490293309622,
+        10.358462581405204,
+        10.358933448953765,
+        10.352461529873368,
+        10.3472512728763,
+        10.350474779463031,
+        10.35461642202762,
+        10.354468680434117,
+        10.34602590142105,
+        10.34602590141917
+      ]
+    }
+  },
+  "claim": "positive_nonmyopic_gain_scales_to_standard_15_rock_geometry",
+  "comparisons": {
+    "random_strategy": {
+      "entropy_auc_ci95": [
+        0.6713660393017797,
+        0.7431119119207958
+      ],
+      "entropy_auc_gain": 0.7076166656152867,
+      "truth_log_auc_ci95": [
+        0.4649081510416176,
+        0.8356699161080687
+      ],
+      "truth_log_auc_gain": 0.670518909680523,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    },
+    "shared_d1": {
+      "entropy_auc_ci95": [
+        0.6815761649247608,
+        0.7520341850409291
+      ],
+      "entropy_auc_gain": 0.7175538733379766,
+      "truth_log_auc_ci95": [
+        0.4647417579762344,
+        0.84955183230779
+      ],
+      "truth_log_auc_gain": 0.6750469171094664,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    },
+    "width": {
+      "entropy_auc_ci95": [
+        0.6790346216407195,
+        0.7511930002684101
+      ],
+      "entropy_auc_gain": 0.7156804735142134,
+      "truth_log_auc_ci95": [
+        0.44681409285128243,
+        0.8404466065833119
+      ],
+      "truth_log_auc_gain": 0.6671781250943393,
+      "wins_ties_losses": [
+        30,
+        0,
+        0
+      ]
+    }
+  },
+  "exact_d2_entropy_auc_gap": 0.09891018058249597,
+  "exact_d2_entropy_auc_gap_ci95": [
+    0.053687860112657776,
+    0.14159784376326917
+  ],
+  "label": "Gemma 4 26B A4B direct vLLM seed 24103",
+  "mechanics": {
+    "accepted_llm_cells": 1320,
+    "all_selected_actions_legal": true,
+    "initial_strategy_cells_shared_with_d1": true,
+    "logical_strategy_requests": 900,
+    "logical_width_requests": 450,
+    "physical_llm_requests": 1320,
+    "provider_cache_hits": 30,
+    "random_strategy_cells_have_k_candidates": true,
+    "raw_rejected_responses": 0,
+    "rollout_scoring_llm_calls": 0,
+    "terminal_cell_failures": 0,
+    "terminal_followup_repairs": 0,
+    "width_exact_scorer_units_match_strategy_eig": true,
+    "width_logical_llm_calls_match_strategy_eig": true
+  },
+  "model": "google/gemma-4-26B-A4B-it",
+  "primary_gate_passed": true,
+  "resume": null,
+  "schema_version": 1,
+  "truth_log_corroboration_passed": true,
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 302581,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26B-A4B-it",
+    "model_usage": {
+      "google/gemma-4-26B-A4B-it": {
+        "completion_tokens": 302581,
+        "cost_usd": 0.0,
+        "prompt_tokens": 4258063,
+        "reasoning_tokens": 0,
+        "requests": 1320
+      }
+    },
+    "prompt_tokens": 4258063,
+    "reasoning_tokens": 0,
+    "requests": 1320,
+    "run_cost_usd": 0.0
+  }
+}
