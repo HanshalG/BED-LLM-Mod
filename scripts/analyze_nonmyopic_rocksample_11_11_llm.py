@@ -61,15 +61,39 @@ EXPECTED_RUNS = {
         "label": "Gemma seed 24083",
         "resumed": False,
     },
+    "width_k2": {
+        "run_id": "nonmyopic-rocksample-11-11-width-k2-seed-24085-20260721",
+        "seed": 24085,
+        "num_strategies": 2,
+        "model": "google/gemma-4-26b-a4b-it",
+        "label": "K2",
+        "resumed": False,
+    },
+    "width_k4": {
+        "run_id": "nonmyopic-rocksample-11-11-width-k4-seed-24085-20260721",
+        "seed": 24085,
+        "num_strategies": 4,
+        "model": "google/gemma-4-26b-a4b-it",
+        "label": "K4",
+        "resumed": False,
+    },
+    "width_k6": {
+        "run_id": "nonmyopic-rocksample-11-11-width-k6-seed-24085-20260721",
+        "seed": 24085,
+        "num_strategies": 6,
+        "model": "google/gemma-4-26b-a4b-it",
+        "label": "K6",
+        "resumed": False,
+    },
 }
 
 
-def _expected_config(seed: int) -> dict[str, Any]:
+def _expected_config(seed: int, num_strategies: int = 6) -> dict[str, Any]:
     return {
         "map_names": [EXPECTED_MAP],
         "num_trials_per_map": 30,
         "num_rounds": 12,
-        "num_strategies": 6,
+        "num_strategies": num_strategies,
         "planning_horizon": 2,
         "seed": seed,
         "bootstrap_replicates": 10_000,
@@ -105,7 +129,8 @@ def _analyze_expected(
     assert payload["stage"] == "L1"
     assert payload["dry_run"] is False
     assert payload["run_id"] == expected["run_id"]
-    assert payload["config"] == _expected_config(expected["seed"])
+    num_strategies = expected.get("num_strategies", 6)
+    assert payload["config"] == _expected_config(expected["seed"], num_strategies)
     if expected["resumed"]:
         resume = payload["resume"]
         assert resume is not None
@@ -154,6 +179,13 @@ def _analyze_expected(
         assert all(len(trace["steps"]) == 12 for trace in traces[arm])
         assert all(trace["map_name"] == EXPECTED_MAP for trace in traces[arm])
         assert all(trace["arm"] == arm for trace in traces[arm])
+    if "num_strategies" in expected:
+        for arm in ("strategy_eig", "shared_d1", "random_strategy"):
+            assert all(
+                len(step["candidate_strategies"]) == num_strategies
+                for trace in traces[arm]
+                for step in trace["steps"]
+            )
 
     paired = payload["maps"][EXPECTED_MAP]["paired"]
     comparisons: dict[str, Any] = {}
