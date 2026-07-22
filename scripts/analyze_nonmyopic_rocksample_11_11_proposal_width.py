@@ -199,6 +199,7 @@ def plot_width(audit: dict[str, Any], output_path: Path) -> None:
             **ARM_STYLES[arm],
         )
     axes[0].set_xlabel("Proposed strategies (K)")
+    axes[0].set_title("Policy quality (lower is better)")
     axes[0].set_ylabel("Mean posterior entropy AUC (nats)")
     axes[0].set_xticks(WIDTHS)
     axes[0].grid(True, color="#d9d9d9", linewidth=0.6, alpha=0.8)
@@ -216,6 +217,7 @@ def plot_width(audit: dict[str, Any], output_path: Path) -> None:
             **ARM_STYLES[arm],
         )
     axes[1].set_yscale("log")
+    axes[1].set_title("Exact verification width")
     axes[1].set_xlabel("Proposed strategies (K)")
     axes[1].set_ylabel("Exact scorer nodes / decision")
     axes[1].set_xticks(WIDTHS)

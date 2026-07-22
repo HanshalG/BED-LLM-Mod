@@ -1,0 +1,683 @@
+{
+  "accepted_requests": [
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        1,
+        5
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"proximity-reduction-north\",\"description\":\"Move north to reduce Manhattan distance to rock 3, then perform a high-accuracy check on it.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"direct-high-gain-check\",\"description\":\"Perform an immediate check on rock 3 to maximize information gain from the current position.\",\"root_action\":\"check-3\",\"followups\":{\"good\":\"check-0\",\"bad\":\"check-4\"}}]}\n```",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"proximity-move-north\",\n      \"description\": \"Move north to reduce distance to rock 0 and then perform a high-accuracy check on rock 0.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-0\"\n      }\n    },\n    {\n      \"name\": \"direct-check-rock-0\",\n      \"description\": \"Perform an immediate check on rock 0 to maximize information gain from the current position.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {\n        \"good\": \"check-1\",\n        \"bad\": \"check-3\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"proximity-reduction-north\",\n      \"description\": \"Move north to reduce distance to rock 0 and then perform a high-accuracy check on rock 0.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-0\"\n      }\n    },\n    {\n      \"name\": \"direct-check-rock-1\",\n      \"description\": \"Perform an immediate check on rock 1 to maximize information gain from the current position.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-0\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 8
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"proximity-reduction-north\",\n      \"description\": \"Move north to reduce Manhattan distance to rock 0 and rock 3, then perform a check to maximize information gain.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-3\"\n      }\n    },\n    {\n      \"name\": \"direct-uncertainty-check\",\n      \"description\": \"Directly check rock 1 to resolve its high uncertainty immediately.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-2\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 2
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        1,
+        5
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"approach-rock-3\",\"description\":\"Move north to reduce distance to rock 3, then perform a high-accuracy check on it.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"verify-rock-0\",\"description\":\"Directly check rock 0 to refine the posterior after the previous bad observation.\",\"root_action\":\"check-0\",\"followups\":{\"good\":\"check-1\",\"bad\":\"check-3\"}}]}\n```",
+      "request_type": "strategy",
+      "trial_index": 5
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"proximity-reduction-north\",\n      \"description\": \"Move north to reduce Manhattan distance to rock 0 and rock 3, then perform a check to maximize information gain.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-0\"\n      }\n    },\n    {\n      \"name\": \"direct-uncertainty-check\",\n      \"description\": \"Directly check rock 1 to resolve its high uncertainty following the previous bad result on check-1.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-2\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 7
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"proximity-reduction-north\",\"description\":\"Move north to reduce Manhattan distance to rock 0 and rock 3, then perform a high-accuracy check on rock 0.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-0\"}},{\"name\":\"direct-verify-rock-1\",\"description\":\"Directly check rock 1 to resolve uncertainty, regardless of movement.\",\"root_action\":\"check-1\",\"followups\":{\"good\":\"check-1\",\"bad\":\"check-1\"}}]}\n```",
+      "request_type": "strategy",
+      "trial_index": 3
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "position": [
+        0,
+        5
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"proximity-move-north\",\n      \"description\": \"Move north to reduce distance to rock 0 and then perform a high-accuracy check on it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-0\"\n      }\n    },\n    {\n      \"name\": \"direct-verify-rock-1\",\n      \"description\": \"Immediately check rock 1 to exploit its high prior probability and current proximity.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {\n        \"good\": \"check-0\",\n        \"bad\": \"check-3\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 6
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        },
+        {
+          "action": "check-5",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "position": [
+        0,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Verify Rock 1\",\n      \"description\": \"Directly check Rock 1 to exploit the high proximity and refine the posterior of the most likely candidate.\",\n      \"root_action\": \"check-1\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Reposition for Rock 0\",\n      \"description\": \"Move North to reduce Manhattan distance to Rock 0 and Rock 1, preparing for higher accuracy checks.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 9
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "position": [
+        1,
+        5
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"Direct High-Certainty Check\",\n      \"description\": \"Performs a check on a rock with high prior probability to confirm its state, leveraging the existing information from the previous check-0 result.\",\n      \"root_action\": \"check-0\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"Proximity Optimization Move\",\n      \"description\": \"Moves the rover closer to the cluster of rocks with high uncertainty to prepare for high-accuracy checks in the next horizon.\",\n      \"root_action\": \"move-WEST\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 4
+    }
+  ],
+  "cells": [
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 1,
+      "contingent_check_count": 1,
+      "exact_eig": [
+        0.0692831164199994,
+        0.01664015676596886
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-0"
+      ],
+      "state_index": 0,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 0 and then perform a high-accuracy check on rock 0.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "proximity-move-north",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Perform an immediate check on rock 0 to maximize information gain from the current position.",
+          "followups": {
+            "bad": "check-3",
+            "good": "check-1"
+          },
+          "name": "direct-check-rock-0",
+          "root_action": "check-0"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 1,
+      "contingent_check_count": 1,
+      "exact_eig": [
+        0.06928311641999763,
+        0.03358617258164198
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        1,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-3"
+      ],
+      "state_index": 1,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce Manhattan distance to rock 3, then perform a high-accuracy check on it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "proximity-reduction-north",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Perform an immediate check on rock 3 to maximize information gain from the current position.",
+          "followups": {
+            "bad": "check-4",
+            "good": "check-0"
+          },
+          "name": "direct-high-gain-check",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.20413597440049672,
+      "best_index": 1,
+      "best_root_action": "check-1",
+      "check_policy_count": 1,
+      "contingent_check_count": 1,
+      "exact_eig": [
+        0.009185981503183172,
+        0.014143176479899822
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-1"
+      ],
+      "state_index": 2,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce Manhattan distance to rock 0 and rock 3, then perform a check to maximize information gain.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "proximity-reduction-north",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Directly check rock 1 to resolve its high uncertainty immediately.",
+          "followups": {
+            "bad": "check-2",
+            "good": "check-0"
+          },
+          "name": "direct-uncertainty-check",
+          "root_action": "check-1"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.9821040294024107,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 1,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.06804322780563332,
+        0.018204222313228158
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-1"
+      ],
+      "state_index": 3,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce Manhattan distance to rock 0 and rock 3, then perform a high-accuracy check on rock 0.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "proximity-reduction-north",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Directly check rock 1 to resolve uncertainty, regardless of movement.",
+          "followups": {
+            "bad": "check-1",
+            "good": "check-1"
+          },
+          "name": "direct-verify-rock-1",
+          "root_action": "check-1"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.1895114467671427,
+      "best_index": 0,
+      "best_root_action": "check-0",
+      "check_policy_count": 1,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.005657126384183364,
+        4.440892098500626e-15
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 0,
+      "position": [
+        1,
+        5
+      ],
+      "root_actions": [
+        "check-0",
+        "move-WEST"
+      ],
+      "state_index": 4,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Performs a check on a rock with high prior probability to confirm its state, leveraging the existing information from the previous check-0 result.",
+          "followups": {},
+          "name": "Direct High-Certainty Check",
+          "root_action": "check-0"
+        },
+        {
+          "description": "Moves the rover closer to the cluster of rocks with high uncertainty to prepare for high-accuracy checks in the next horizon.",
+          "followups": {},
+          "name": "Proximity Optimization Move",
+          "root_action": "move-WEST"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.9999999999999225,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 1,
+      "contingent_check_count": 1,
+      "exact_eig": [
+        0.06928311641998963,
+        0.023581674124436347
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        1,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-0"
+      ],
+      "state_index": 5,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 3, then perform a high-accuracy check on it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "approach-rock-3",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Directly check rock 0 to refine the posterior after the previous bad observation.",
+          "followups": {
+            "bad": "check-3",
+            "good": "check-1"
+          },
+          "name": "verify-rock-0",
+          "root_action": "check-0"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 1,
+      "contingent_check_count": 1,
+      "exact_eig": [
+        0.06928311641999763,
+        0.016504135210550608
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-1"
+      ],
+      "state_index": 6,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 0 and then perform a high-accuracy check on it.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "proximity-move-north",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Immediately check rock 1 to exploit its high prior probability and current proximity.",
+          "followups": {
+            "bad": "check-3",
+            "good": "check-0"
+          },
+          "name": "direct-verify-rock-1",
+          "root_action": "check-1"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "move-NORTH",
+      "check_policy_count": 1,
+      "contingent_check_count": 1,
+      "exact_eig": [
+        0.06928311641999763,
+        0.013983389345359143
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        0,
+        5
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-1"
+      ],
+      "state_index": 7,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce Manhattan distance to rock 0 and rock 3, then perform a check to maximize information gain.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "proximity-reduction-north",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Directly check rock 1 to resolve its high uncertainty following the previous bad result on check-1.",
+          "followups": {
+            "bad": "check-2",
+            "good": "check-0"
+          },
+          "name": "direct-uncertainty-check",
+          "root_action": "check-1"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.101743189631667,
+      "best_index": 1,
+      "best_root_action": "check-1",
+      "check_policy_count": 1,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.009185981503184948,
+        0.07052300503436548
+      ],
+      "horizon": 2,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 1,
+      "position": [
+        0,
+        6
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "check-1"
+      ],
+      "state_index": 8,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 0 and then perform a high-accuracy check on rock 0.",
+          "followups": {
+            "none": "check-0"
+          },
+          "name": "proximity-reduction-north",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Perform an immediate check on rock 1 to maximize information gain from the current position.",
+          "followups": {
+            "bad": "check-0",
+            "good": "check-0"
+          },
+          "name": "direct-check-rock-1",
+          "root_action": "check-1"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0,
+      "best_index": 0,
+      "best_root_action": "check-1",
+      "check_policy_count": 1,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.06928311641999763,
+        0.0
+      ],
+      "horizon": 1,
+      "map_name": "11-11",
+      "move_policy_count": 1,
+      "move_then_check_count": 0,
+      "position": [
+        0,
+        6
+      ],
+      "root_actions": [
+        "check-1",
+        "move-NORTH"
+      ],
+      "state_index": 9,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Directly check Rock 1 to exploit the high proximity and refine the posterior of the most likely candidate.",
+          "followups": {},
+          "name": "Verify Rock 1",
+          "root_action": "check-1"
+        },
+        {
+          "description": "Move North to reduce Manhattan distance to Rock 0 and Rock 1, preparing for higher accuracy checks.",
+          "followups": {},
+          "name": "Reposition for Rock 0",
+          "root_action": "move-NORTH"
+        }
+      ]
+    }
+  ],
+  "config": {
+    "bootstrap_replicates": 10,
+    "map_names": [
+      "11-11"
+    ],
+    "num_rounds": 2,
+    "num_strategies": 2,
+    "num_trials_per_map": 1,
+    "planning_horizon": 2,
+    "primary_endpoint": "final_entropy",
+    "seed": 12032,
+    "strategy_schema": "branch_policy_v2",
+    "temperature": 0.0,
+    "trial_concurrency": 1,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "invalid_responses": [],
+  "mechanics": {
+    "all_cells_have_move_and_check_roots": true,
+    "all_move_cells_include_move_then_check": true,
+    "parse_rate": 1.0,
+    "passed_cells": 10,
+    "raw_rejected_attempts": 0,
+    "requested_cells": 10,
+    "terminal_failures": 0
+  },
+  "passed": true,
+  "run_id": "nonmyopic-rocksample-11-11-width-k2-smoke-20260721",
+  "schema_version": 1,
+  "stage": "rock_branch_strategy_serving_smoke",
+  "usage": {
+    "adapter_completion_tokens": 1546,
+    "adapter_cost_usd": 0.0028379900000000003,
+    "adapter_prompt_tokens": 27378,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 1546,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 1546,
+        "cost_usd": 0.0028379900000000003,
+        "prompt_tokens": 27378,
+        "reasoning_tokens": 0,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 27378,
+    "reasoning_tokens": 0,
+    "remaining_usd": 11.868430422540012,
+    "requests": 10,
+    "run_budget_usd": 2.0,
+    "run_cost_usd": 0.0028379900000000003,
+    "run_remaining_usd": 1.99716201,
+    "total_spent_usd": 28.131569577459988
+  }
+}

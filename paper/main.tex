@@ -311,7 +311,10 @@ the result to 2,048 latent states with zero rollout LLM calls. Exact closure rai
 LLM roots from 73.9\% to 96.9\% of oracle value, but random roots reached 96.7\%,
 localizing the LLM advantage to continuation choice; the paid gate failed. Across
 maps, K6 uses 13.7--14.2 scorer nodes/decision versus exhaustive d2's 64.3--354.2
-(4.7$\times$--24.9$\times$); these are tree-width, not wall-clock, ratios.
+(4.7$\times$--24.9$\times$); these are tree-width, not wall-clock, ratios. A fresh
+11-rock width sweep passed all 18 gates: K4 beat K2 by .5655 entropy-AUC nats
+[.4974, .6418], while K6 minus K4 was .0102 [-.0156, .0337]. K4 therefore matched
+K6 endpoint quality with 9.49 instead of 14.24 scorer nodes/decision.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044

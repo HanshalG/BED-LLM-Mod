@@ -1,6 +1,6 @@
 # RockSample[11,11] StrategyEIG Proposal-Width Robustness
 
-Registered 2026-07-21 before any response or endpoint for seed 24085 or the K2/K4/K6
+Registered 2026-07-22 before any response or endpoint for seed 24085 or the K2/K4/K6
 comparison. Prior K6 endpoints and the exact oracle's preference for the first
 machine-assigned movement root are known.
 
@@ -79,3 +79,41 @@ for k in 2 4 6; do
     --strategy-schema branch_policy_v2 --primary-endpoint entropy_auc
 done
 ```
+
+## Outcome
+
+All three fresh serving smokes passed 10/10 cells on the first response with zero
+rejects, reasoning tokens, forced exits, or terminal failures. K2, K4, and K6 cost
+`$0.00283799`, `$0.00378013`, and `$0.00420095`, respectively.
+
+All 18 preregistered width-by-control-by-endpoint intervals passed. Entropy-AUC gains
+against shared d1, exhaustive d1 width, and matched random strategies were:
+
+- K2: `+0.3686` (95% CI `[+0.2921,+0.4381]`), `+0.3559`
+  (`[+0.2817,+0.4232]`), and `+0.3728` (`[+0.2765,+0.4543]`);
+- K4: `+0.9231` (`[+0.9053,+0.9425]`), `+0.9207`
+  (`[+0.9013,+0.9427]`), and `+0.9047` (`[+0.8574,+0.9453]`);
+- K6: `+0.9365` (`[+0.9160,+0.9574]`), `+0.9310`
+  (`[+0.9146,+0.9486]`), and `+0.8453` (`[+0.7893,+0.8950]`).
+
+Every truth-log-AUC lower bound was also positive. The secondary paired width
+comparison found a large K4-minus-K2 entropy-AUC gain of `+0.5655`
+(`[+0.4974,+0.6418]`) and truth-log gain of `+0.5555`
+(`[+0.4794,+0.6363]`). K6-minus-K4 was statistically indistinguishable from zero:
+entropy `+0.0102` (`[-0.0156,+0.0337]`) and truth log `-0.0004`
+(`[-0.0433,+0.0440]`). This is a measured saturation result, not a changed gate.
+
+Mean exact scorer nodes per decision were 4.75, 9.49, and 14.24 for K2/K4/K6,
+versus 354.17 for exhaustive d2. Exact-d2 entropy-AUC gaps narrowed from -0.750 at
+K2 to -0.184 at K4 and -0.174 at K6. Movement counts were 92, 185, and 200 of 360.
+Thus K4 captured nearly all K6 endpoint quality with one-third fewer verifier nodes.
+
+The three formal runs made 3,157 requests, retained 7 bounded rejects, used zero
+reasoning tokens, forced exits, terminal failures, or rollout-scoring LLM calls, and
+cost `$0.79891053`. Including all three smokes, the wave cost `$0.80972960`.
+
+Calendar-date correction: the preregistration commit `658605d` has authoritative
+timestamp `2026-07-22T01:47:34+01:00`. The thread date remained stale at July 21 when
+the file was written, so its header and ledger date were corrected after the run. The
+already frozen `20260721` run IDs and artifact paths are retained verbatim; this
+bookkeeping correction changes no seed, command, gate, response, or endpoint.

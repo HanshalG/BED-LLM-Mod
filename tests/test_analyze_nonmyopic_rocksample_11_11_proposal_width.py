@@ -14,6 +14,11 @@ REFERENCE = (
     ROOT
     / "results/nonmyopic/rocksample_11_11_gemma_slot_confirmation_20260721/L1.json"
 )
+RESULTS = tuple(
+    ROOT
+    / f"results/nonmyopic/rocksample_11_11_width_k{width}_seed_24085_20260721/L1.json"
+    for width in (2, 4, 6)
+)
 
 
 def _payloads() -> list[dict]:
@@ -56,3 +61,13 @@ def test_width_auditor_rejects_wrong_candidate_count() -> None:
         pass
     else:
         raise AssertionError("auditor accepted a K2 step with three strategies")
+
+
+def test_width_auditor_reconstructs_registered_artifacts() -> None:
+    audit = analyze([json.loads(path.read_text()) for path in RESULTS])
+
+    assert audit["all_18_intervals_passed"]
+    assert audit["total_requests"] == 3157
+    assert audit["secondary_cross_width_comparisons"][
+        "width_k4_minus_width_k2"
+    ]["entropy_auc_gain"] == 0.5655142301465437

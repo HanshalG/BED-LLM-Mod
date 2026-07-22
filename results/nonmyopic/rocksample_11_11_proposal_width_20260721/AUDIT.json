@@ -1,0 +1,794 @@
+{
+  "all_18_intervals_passed": true,
+  "all_width_primary_gates_passed": true,
+  "all_width_truth_log_gates_passed": true,
+  "arm_summaries": {
+    "width_k2": {
+      "exhaustive_d2": {
+        "entropy_auc_mean": 6.4636000921911565,
+        "scorer_units_per_decision": 354.1666666666667,
+        "truth_log_auc_mean": -6.456134158481392
+      },
+      "random_strategy": {
+        "entropy_auc_mean": 7.585936982490831,
+        "scorer_units_per_decision": 4.747222222222222,
+        "truth_log_auc_mean": -7.548927110802566
+      },
+      "shared_d1": {
+        "entropy_auc_mean": 7.581752939851748,
+        "scorer_units_per_decision": 2.0,
+        "truth_log_auc_mean": -7.575694895999125
+      },
+      "strategy_eig": {
+        "entropy_auc_mean": 7.2131712658685805,
+        "scorer_units_per_decision": 4.747222222222222,
+        "truth_log_auc_mean": -7.1928832687699895
+      },
+      "width": {
+        "entropy_auc_mean": 7.569050465899841,
+        "scorer_units_per_decision": 4.747222222222222,
+        "truth_log_auc_mean": -7.539478523569726
+      }
+    },
+    "width_k4": {
+      "exhaustive_d2": {
+        "entropy_auc_mean": 6.4636000921911565,
+        "scorer_units_per_decision": 354.1666666666667,
+        "truth_log_auc_mean": -6.456134158481392
+      },
+      "random_strategy": {
+        "entropy_auc_mean": 7.552365144133208,
+        "scorer_units_per_decision": 9.497222222222222,
+        "truth_log_auc_mean": -7.624011186002958
+      },
+      "shared_d1": {
+        "entropy_auc_mean": 7.57072877631576,
+        "scorer_units_per_decision": 4.0,
+        "truth_log_auc_mean": -7.536752440895785
+      },
+      "strategy_eig": {
+        "entropy_auc_mean": 6.647657035722037,
+        "scorer_units_per_decision": 9.491666666666667,
+        "truth_log_auc_mean": -6.637385492238492
+      },
+      "width": {
+        "entropy_auc_mean": 7.5683078582245535,
+        "scorer_units_per_decision": 9.491666666666667,
+        "truth_log_auc_mean": -7.538859198652693
+      }
+    },
+    "width_k6": {
+      "exhaustive_d2": {
+        "entropy_auc_mean": 6.4636000921911565,
+        "scorer_units_per_decision": 354.1666666666667,
+        "truth_log_auc_mean": -6.456134158481392
+      },
+      "random_strategy": {
+        "entropy_auc_mean": 7.482803507261919,
+        "scorer_units_per_decision": 14.23611111111111,
+        "truth_log_auc_mean": -7.468338100138487
+      },
+      "shared_d1": {
+        "entropy_auc_mean": 7.573987527781536,
+        "scorer_units_per_decision": 6.0,
+        "truth_log_auc_mean": -7.531584544926978
+      },
+      "strategy_eig": {
+        "entropy_auc_mean": 6.637485744813386,
+        "scorer_units_per_decision": 14.238888888888889,
+        "truth_log_auc_mean": -6.637755292839374
+      },
+      "width": {
+        "entropy_auc_mean": 7.568521018562028,
+        "scorer_units_per_decision": 14.238888888888889,
+        "truth_log_auc_mean": -7.537763236485309
+      }
+    }
+  },
+  "bootstrap": {
+    "method": "paired_trial_bootstrap",
+    "replicates": 10000,
+    "seed": 24086
+  },
+  "claim": "strategy_eig_gain_is_robust_from_k2_to_k6",
+  "runs": {
+    "width_k2": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 360,
+          "entropy_auc_mean": 6.4636000921911565,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 240,
+          "move_rate": 0.6666666666666666,
+          "round_entropy_mean": [
+            7.624618986159392,
+            7.624618986159392,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.238324625039515,
+            6.238324625039515,
+            5.54517744447956,
+            5.54517744447956,
+            5.54517744447956,
+            5.475894328059564
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.585936982490831,
+          "mean_h2_exhaustive_fraction": 0.12312743171469491,
+          "move_count": 101,
+          "move_rate": 0.28055555555555556,
+          "round_entropy_mean": [
+            7.6226348522808385,
+            7.618055024322496,
+            7.613805736299195,
+            7.6086094085409535,
+            7.585884623842512,
+            7.5821071897831915,
+            7.579674191314305,
+            7.575985673198657,
+            7.572723049661883,
+            7.5625161298999135,
+            7.561842668906282,
+            7.547405241839742
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.581752939851748,
+          "mean_h2_exhaustive_fraction": 0.0805134521686874,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            7.616356634651093,
+            7.608239193978375,
+            7.60255935771481,
+            7.598486210720762,
+            7.589244466953303,
+            7.583868836600241,
+            7.583268633412454,
+            7.565815944764207,
+            7.562846318972989,
+            7.562794612547303,
+            7.554533051763776,
+            7.55302201614167
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.2131712658685805,
+          "mean_h2_exhaustive_fraction": 0.3608664934996295,
+          "move_count": 92,
+          "move_rate": 0.25555555555555554,
+          "round_entropy_mean": [
+            7.624618986159392,
+            7.624618986159392,
+            7.50432581521409,
+            7.2260994547501385,
+            7.085079707265864,
+            7.080439702195844,
+            7.08150193409676,
+            7.081799703078459,
+            7.081744464880185,
+            7.058167822258832,
+            7.056213589851954,
+            7.05344502451204
+          ]
+        },
+        "width": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.569050465899841,
+          "mean_h2_exhaustive_fraction": 0.13248457448747575,
+          "move_count": 30,
+          "move_rate": 0.08333333333333333,
+          "round_entropy_mean": [
+            7.615433004656211,
+            7.60624702315303,
+            7.598747993797604,
+            7.594560235561025,
+            7.583379180104607,
+            7.57233016882362,
+            7.5594713598980805,
+            7.551204531168157,
+            7.5421863449977256,
+            7.541439293267328,
+            7.531803227685355,
+            7.531803227685355
+          ]
+        }
+      },
+      "claim": "positive_nonmyopic_gain_scales_to_standard_11_rock_geometry",
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.27645198856305603,
+            0.4543048960856772
+          ],
+          "entropy_auc_gain": 0.37276571662225055,
+          "truth_log_auc_ci95": [
+            0.24738362329605665,
+            0.4648940208894966
+          ],
+          "truth_log_auc_gain": 0.35604384203257683,
+          "wins_ties_losses": [
+            25,
+            0,
+            5
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.29207512395735347,
+            0.43811094692433505
+          ],
+          "entropy_auc_gain": 0.36858167398316755,
+          "truth_log_auc_ci95": [
+            0.27041847158675636,
+            0.5005412081745898
+          ],
+          "truth_log_auc_gain": 0.3828116272291363,
+          "wins_ties_losses": [
+            26,
+            0,
+            4
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.281728054963682,
+            0.4232491618780942
+          ],
+          "entropy_auc_gain": 0.35587920003126106,
+          "truth_log_auc_ci95": [
+            0.22273974982013234,
+            0.4670882200469834
+          ],
+          "truth_log_auc_gain": 0.3465952547997374,
+          "wins_ties_losses": [
+            24,
+            0,
+            6
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.749571173677423,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.8278061034601328,
+        -0.6791508064381448
+      ],
+      "label": "K2",
+      "mechanics": {
+        "accepted_llm_cells": 1050,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 720,
+        "logical_width_requests": 360,
+        "physical_llm_requests": 1050,
+        "provider_cache_hits": 30,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 0,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 0,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "model": "google/gemma-4-26b-a4b-it",
+      "primary_gate_passed": true,
+      "resume": null,
+      "schema_version": 1,
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "adapter_completion_tokens": 126659,
+        "adapter_cost_usd": 0.24193589999999945,
+        "adapter_prompt_tokens": 2139135,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 1050,
+        "backend": "openrouter",
+        "budget_usd": 40.0,
+        "completion_tokens": 126659,
+        "forced_exits": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 126659,
+            "cost_usd": 0.24193589999999945,
+            "prompt_tokens": 2139135,
+            "reasoning_tokens": 0,
+            "requests": 1050
+          }
+        },
+        "prompt_tokens": 2139135,
+        "reasoning_tokens": 0,
+        "remaining_usd": 11.61851344253996,
+        "requests": 1050,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 0.24193589999999945,
+        "run_remaining_usd": 1.7580641000000006,
+        "total_spent_usd": 28.38148655746004
+      }
+    },
+    "width_k4": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 360,
+          "entropy_auc_mean": 6.4636000921911565,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 240,
+          "move_rate": 0.6666666666666666,
+          "round_entropy_mean": [
+            7.624618986159392,
+            7.624618986159392,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.238324625039515,
+            6.238324625039515,
+            5.54517744447956,
+            5.54517744447956,
+            5.54517744447956,
+            5.475894328059564
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.552365144133208,
+          "mean_h2_exhaustive_fraction": 0.18662745963966895,
+          "move_count": 97,
+          "move_rate": 0.26944444444444443,
+          "round_entropy_mean": [
+            7.622011714953183,
+            7.619134443407921,
+            7.61696013947218,
+            7.610210337347212,
+            7.604588754186747,
+            7.57289338497045,
+            7.568460603436747,
+            7.51873830619814,
+            7.511889875178451,
+            7.488246365647466,
+            7.477928263650862,
+            7.417319541149136
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.57072877631576,
+          "mean_h2_exhaustive_fraction": 0.10894566844771801,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            7.615433004656211,
+            7.607007886713125,
+            7.599906726467543,
+            7.595376915397399,
+            7.585172186888922,
+            7.5730224417173035,
+            7.565758014656079,
+            7.555549563242091,
+            7.543197233857763,
+            7.5446298310406235,
+            7.533016598990219,
+            7.530674912161846
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 360,
+          "entropy_auc_mean": 6.647657035722037,
+          "mean_h2_exhaustive_fraction": 0.677812596109043,
+          "move_count": 185,
+          "move_rate": 0.5138888888888888,
+          "round_entropy_mean": [
+            7.624618986159392,
+            7.624618986159392,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.238324625039515,
+            6.186804386347541,
+            6.12667845681669,
+            6.099785483193074,
+            6.0783964809674575,
+            6.0667698015835585
+          ]
+        },
+        "width": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.5683078582245535,
+          "mean_h2_exhaustive_fraction": 0.13251805952104065,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            7.615433004656211,
+            7.60624702315303,
+            7.598747993797604,
+            7.594560235561025,
+            7.583379180104607,
+            7.57233016882362,
+            7.5594713598980805,
+            7.551204531168157,
+            7.5421863449977256,
+            7.541797390038126,
+            7.534908474851415,
+            7.519428591645032
+          ]
+        }
+      },
+      "claim": "positive_nonmyopic_gain_scales_to_standard_11_rock_geometry",
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.8573937910502336,
+            0.9452705224454003
+          ],
+          "entropy_auc_gain": 0.9047081084111713,
+          "truth_log_auc_ci95": [
+            0.9014837280059442,
+            1.0706229199383623
+          ],
+          "truth_log_auc_gain": 0.9866256937644662,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.9053165400980259,
+            0.9424576048810586
+          ],
+          "entropy_auc_gain": 0.9230717405937233,
+          "truth_log_auc_ci95": [
+            0.7946719781606603,
+            1.0094377246433741
+          ],
+          "truth_log_auc_gain": 0.8993669486572936,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.9012819380188294,
+            0.9427125476950813
+          ],
+          "entropy_auc_gain": 0.9206508225025161,
+          "truth_log_auc_ci95": [
+            0.7992618427595588,
+            1.004480528544519
+          ],
+          "truth_log_auc_gain": 0.9014737064142022,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.18405694353087929,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.20135665454763946,
+        -0.1637441607035945
+      ],
+      "label": "K4",
+      "mechanics": {
+        "accepted_llm_cells": 1050,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 720,
+        "logical_width_requests": 360,
+        "physical_llm_requests": 1051,
+        "provider_cache_hits": 30,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 1,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 0,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "model": "google/gemma-4-26b-a4b-it",
+      "primary_gate_passed": true,
+      "resume": null,
+      "schema_version": 1,
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "adapter_completion_tokens": 226980,
+        "adapter_cost_usd": 0.2844147999999999,
+        "adapter_prompt_tokens": 2184469,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 1051,
+        "backend": "openrouter",
+        "budget_usd": 40.0,
+        "completion_tokens": 226980,
+        "forced_exits": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 226980,
+            "cost_usd": 0.2844147999999999,
+            "prompt_tokens": 2184469,
+            "reasoning_tokens": 0,
+            "requests": 1051
+          }
+        },
+        "prompt_tokens": 2184469,
+        "reasoning_tokens": 0,
+        "remaining_usd": 11.33409864253995,
+        "requests": 1051,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 0.2844147999999999,
+        "run_remaining_usd": 1.7155852,
+        "total_spent_usd": 28.66590135746005
+      }
+    },
+    "width_k6": {
+      "arms": {
+        "exhaustive_d2": {
+          "decision_count": 360,
+          "entropy_auc_mean": 6.4636000921911565,
+          "mean_h2_exhaustive_fraction": 1.0,
+          "move_count": 240,
+          "move_rate": 0.6666666666666666,
+          "round_entropy_mean": [
+            7.624618986159392,
+            7.624618986159392,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.238324625039515,
+            6.238324625039515,
+            5.54517744447956,
+            5.54517744447956,
+            5.54517744447956,
+            5.475894328059564
+          ]
+        },
+        "random_strategy": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.482803507261919,
+          "mean_h2_exhaustive_fraction": 0.26331189514428205,
+          "move_count": 104,
+          "move_rate": 0.28888888888888886,
+          "round_entropy_mean": [
+            7.620373437231587,
+            7.618005967389834,
+            7.608331562403874,
+            7.59820653593739,
+            7.572005517424365,
+            7.527068226585769,
+            7.494876189586097,
+            7.467194932217458,
+            7.393655191347644,
+            7.31986003532979,
+            7.310149318519941,
+            7.263915173169278
+          ]
+        },
+        "shared_d1": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.573987527781536,
+          "mean_h2_exhaustive_fraction": 0.1072350605600909,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            7.615433004656211,
+            7.605700646473865,
+            7.60091988504351,
+            7.5942701490873326,
+            7.582354052324391,
+            7.571362992665779,
+            7.563342241001822,
+            7.561525892842675,
+            7.555859972706049,
+            7.554157357826239,
+            7.546951483335945,
+            7.53597265541461
+          ]
+        },
+        "strategy_eig": {
+          "decision_count": 360,
+          "entropy_auc_mean": 6.637485744813386,
+          "mean_h2_exhaustive_fraction": 0.6993553045436188,
+          "move_count": 200,
+          "move_rate": 0.5555555555555556,
+          "round_entropy_mean": [
+            7.624618986159392,
+            7.624618986159392,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.931471805599452,
+            6.238324625039515,
+            6.19114008720429,
+            6.142578679547049,
+            6.12179374462105,
+            6.023099775509737,
+            5.957766831122374
+          ]
+        },
+        "width": {
+          "decision_count": 360,
+          "entropy_auc_mean": 7.568521018562028,
+          "mean_h2_exhaustive_fraction": 0.13251805952104065,
+          "move_count": 0,
+          "move_rate": 0.0,
+          "round_entropy_mean": [
+            7.615433004656211,
+            7.60624702315303,
+            7.598747993797604,
+            7.594560235561025,
+            7.583379180104607,
+            7.57233016882362,
+            7.5594713598980805,
+            7.551204531168157,
+            7.5421863449977256,
+            7.541797390038126,
+            7.534908474851415,
+            7.521986515694734
+          ]
+        }
+      },
+      "claim": "positive_nonmyopic_gain_scales_to_standard_11_rock_geometry",
+      "comparisons": {
+        "random_strategy": {
+          "entropy_auc_ci95": [
+            0.7893413381055585,
+            0.8949931295307442
+          ],
+          "entropy_auc_gain": 0.8453177624485335,
+          "truth_log_auc_ci95": [
+            0.7233957265204515,
+            0.9401290618771287
+          ],
+          "truth_log_auc_gain": 0.8305828072991126,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "shared_d1": {
+          "entropy_auc_ci95": [
+            0.9160101012313046,
+            0.9573915568102742
+          ],
+          "entropy_auc_gain": 0.93650178296815,
+          "truth_log_auc_ci95": [
+            0.7976080828413181,
+            0.9977730909421768
+          ],
+          "truth_log_auc_gain": 0.8938292520876041,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        },
+        "width": {
+          "entropy_auc_ci95": [
+            0.9145602874828423,
+            0.9486477444569371
+          ],
+          "entropy_auc_gain": 0.9310352737486428,
+          "truth_log_auc_ci95": [
+            0.803829706191565,
+            1.0038981500364716
+          ],
+          "truth_log_auc_gain": 0.9000079436459346,
+          "wins_ties_losses": [
+            30,
+            0,
+            0
+          ]
+        }
+      },
+      "exact_d2_entropy_auc_gap": -0.17388565262222785,
+      "exact_d2_entropy_auc_gap_ci95": [
+        -0.18968206410351837,
+        -0.15654831764637261
+      ],
+      "label": "K6",
+      "mechanics": {
+        "accepted_llm_cells": 1050,
+        "all_selected_actions_legal": true,
+        "initial_strategy_cells_shared_with_d1": true,
+        "logical_strategy_requests": 720,
+        "logical_width_requests": 360,
+        "physical_llm_requests": 1056,
+        "provider_cache_hits": 30,
+        "random_strategy_cells_have_k_candidates": true,
+        "raw_rejected_responses": 6,
+        "rollout_scoring_llm_calls": 0,
+        "terminal_cell_failures": 0,
+        "terminal_followup_repairs": 0,
+        "width_exact_scorer_units_match_strategy_eig": true,
+        "width_logical_llm_calls_match_strategy_eig": true
+      },
+      "model": "google/gemma-4-26b-a4b-it",
+      "primary_gate_passed": true,
+      "resume": null,
+      "schema_version": 1,
+      "truth_log_corroboration_passed": true,
+      "usage": {
+        "adapter_completion_tokens": 275792,
+        "adapter_cost_usd": 0.27255983,
+        "adapter_prompt_tokens": 2211468,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 1056,
+        "backend": "openrouter",
+        "budget_usd": 40.0,
+        "completion_tokens": 275792,
+        "forced_exits": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 275792,
+            "cost_usd": 0.27255983,
+            "prompt_tokens": 2211468,
+            "reasoning_tokens": 0,
+            "requests": 1056
+          }
+        },
+        "prompt_tokens": 2211468,
+        "reasoning_tokens": 0,
+        "remaining_usd": 11.061538812540043,
+        "requests": 1056,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 0.27255983,
+        "run_remaining_usd": 1.72744017,
+        "total_spent_usd": 28.938461187459957
+      }
+    }
+  },
+  "schema_version": 1,
+  "secondary_cross_width_comparisons": {
+    "width_k4_minus_width_k2": {
+      "entropy_auc_ci95": [
+        0.49735162445889436,
+        0.641769964325202
+      ],
+      "entropy_auc_gain": 0.5655142301465437,
+      "truth_log_auc_ci95": [
+        0.479354729392593,
+        0.6363149916325621
+      ],
+      "truth_log_auc_gain": 0.5554977765314978
+    },
+    "width_k6_minus_width_k2": {
+      "entropy_auc_ci95": [
+        0.5025834883989984,
+        0.654973692031861
+      ],
+      "entropy_auc_gain": 0.5756855210551953,
+      "truth_log_auc_ci95": [
+        0.4767608031945751,
+        0.6425801584249977
+      ],
+      "truth_log_auc_gain": 0.5551279759306151
+    },
+    "width_k6_minus_width_k4": {
+      "entropy_auc_ci95": [
+        -0.01561508761792503,
+        0.03365120231859567
+      ],
+      "entropy_auc_gain": 0.010171290908651749,
+      "truth_log_auc_ci95": [
+        -0.043337963581870455,
+        0.04399142422165009
+      ],
+      "truth_log_auc_gain": -0.0003698006008827193
+    }
+  },
+  "total_cost_usd": 0.7989105299999993,
+  "total_requests": 3157
+}
