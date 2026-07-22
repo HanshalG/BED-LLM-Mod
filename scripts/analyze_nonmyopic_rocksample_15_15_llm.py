@@ -79,7 +79,8 @@ EXPECTED_RUNS = {
         "label": "Gemma 4 12B direct vLLM seed 24106",
         "backend": "vllm",
         "trial_concurrency": 1,
-        "resumed": False,
+        "resumed": True,
+        "accepted_cells_reused": 372,
     },
 }
 

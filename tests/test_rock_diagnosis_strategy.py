@@ -131,6 +131,40 @@ def test_one_step_exact_strategy_score_matches_action_eig() -> None:
     assert score.leaf_nodes == 2
 
 
+def test_exact_score_skips_jointly_impossible_complementary_observation(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    model = RockDiagnosisModel(get_paper_map("3-6"))
+    rock_id = 0
+    position = model.map_spec.rock_positions[rock_id]
+    belief = np.zeros_like(model.initial_belief)
+    good_mask = model._good_state_masks[rock_id]
+    belief[good_mask] = 1.0 / int(np.count_nonzero(good_mask))
+    monkeypatch.setattr(
+        model,
+        "rock_good_probability",
+        lambda _belief, _rock_id: 1.0 - 2e-15,
+    )
+    strategy = parse_rock_strategy(
+        _strategy_text(
+            [{"when": [], "action": {"kind": "check_rock", "rock_id": rock_id}}]
+        ),
+        model,
+    )
+
+    assert model.outcome_probability(position, belief, "check-0", "bad") == 0.0
+    score = score_rock_strategy_exact(
+        model,
+        strategy,
+        position=position,
+        belief=belief,
+        horizon=1,
+    )
+
+    assert score.leaf_nodes == 1
+    assert score.eig == pytest.approx(0.0)
+
+
 def test_random_strategy_sampler_is_reproducible_and_parseable() -> None:
     model = RockDiagnosisModel(get_paper_map("5-7"))
     first = random_rock_strategy_text(model, np.random.default_rng(42), index=0)

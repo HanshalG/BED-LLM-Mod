@@ -305,12 +305,9 @@ class RockDiagnosisModel:
         action_name: str,
         outcome: str | None,
     ) -> float:
-        rock_id = self.check_id(action_name)
-        if rock_id is not None and outcome in (RockType.GOOD, RockType.BAD):
-            p_good = self.rock_good_probability(belief, rock_id)
-            accuracy = self.sensor_accuracy(position, rock_id)
-            p_observe_good = p_good * accuracy + (1.0 - p_good) * (1.0 - accuracy)
-            return p_observe_good if outcome == RockType.GOOD else 1.0 - p_observe_good
+        # Use the same joint normalizer as posterior(). Computing the complementary
+        # binary probability as 1 - p can leave a tiny positive cancellation
+        # residue for an observation whose likelihood is exactly zero.
         return float(np.dot(belief, self.likelihood_vector(position, action_name, outcome)))
 
     def posterior(

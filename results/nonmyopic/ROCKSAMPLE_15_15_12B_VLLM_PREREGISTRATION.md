@@ -52,4 +52,18 @@ sbatch --job-name=r15-12b-formal scripts/run_nonmyopic_rock_strategy_a100_singul
 
 ## Execution Status
 
-Pending launch from the committed preregistration revision.
+Job `106227` launched from commit `d954aa0` on `msc` node `oat14`. It stopped before
+an endpoint after 373 model requests because the exact verifier enumerated an
+observation with a tiny positive complementary scalar probability but exactly zero
+joint likelihood, then correctly rejected the impossible posterior update. The
+failed-closed artifact contains 372 accepted cells, zero invalid responses, and no
+policy metrics.
+
+Before any additional 12B response, the numerical repair is frozen: predictive
+branch probability will use the same joint likelihood normalizer as the posterior,
+so exactly impossible branches have zero expectation weight. A regression test
+covers the cancellation case. The run will resume with `--resume-failure` from the
+failed-closed artifact, revalidating and reusing all 372 accepted cells. Model,
+seed `24106`, hidden trials, prompts, K, horizon, controls, endpoints, and gates are
+unchanged. This is a reported same-seed software-failure resume, not a replacement
+seed or a fresh endpoint attempt.
