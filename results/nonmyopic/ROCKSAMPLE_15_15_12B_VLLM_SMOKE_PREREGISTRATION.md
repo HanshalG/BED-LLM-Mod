@@ -72,3 +72,9 @@ added in vLLM 0.23.0. The next serving-only repair pins
 `vllm/vllm-openai:v0.23.0` and uses a fresh dependency directory containing only
 PyYAML, pomdp-py, and openai-harmony without overriding the container's numerical,
 Transformers, or pydantic stack. The scientific protocol remains unchanged.
+
+Pinned-image job `106206` successfully built and cached the v0.23.0 SIF on `oat14`,
+then failed in the repository preflight before model creation or any response because
+pomdp-py's Gaussian module imports SciPy. The isolated dependency list now adds pinned
+`scipy==1.17.1` without dependencies; the container's numerical stack and every
+scientific setting remain unchanged.
