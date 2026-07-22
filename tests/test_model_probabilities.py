@@ -874,6 +874,26 @@ def test_chat_complete_logs_token_usage_jsonl(tmp_path):
     )
 
     assert completions == ["done"]
+    assert adapter.usage_snapshot() == {
+        "backend": "vllm",
+        "model": "test/model",
+        "run_cost_usd": 0.0,
+        "requests": 1,
+        "prompt_tokens": 2,
+        "completion_tokens": 3,
+        "reasoning_tokens": 0,
+        "cost_usd": 0.0,
+        "model_usage": {
+            "test/model": {
+                "requests": 1,
+                "prompt_tokens": 2,
+                "completion_tokens": 3,
+                "reasoning_tokens": 0,
+                "cost_usd": 0.0,
+            }
+        },
+        "forced_exits": 0,
+    }
     records = [
         json.loads(line)
         for line in adapter.config.log_path.read_text(encoding="utf-8").splitlines()

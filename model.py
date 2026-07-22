@@ -6,6 +6,7 @@ from datetime import date
 import json
 import math
 import os
+import threading
 import time
 
 import torch
@@ -78,6 +79,7 @@ class BaseVLLMAdapter(Model):
         self.model_name = spec.model
         self.use_logprobs = spec.use_logprobs
         self.tokenizer = self._build_tokenizer()
+        self._initialize_usage_counters()
 
         if tensor_parallel_size is None:
             tensor_parallel_size = spec.tensor_parallel_size
@@ -106,6 +108,54 @@ class BaseVLLMAdapter(Model):
                 dtype=dtype,
                 **extra_kwargs,
             )
+
+    def _initialize_usage_counters(self) -> None:
+        self._usage_lock = threading.Lock()
+        self._usage_requests = 0
+        self._usage_prompt_tokens = 0
+        self._usage_completion_tokens = 0
+
+    def _ensure_usage_counters(self) -> None:
+        if not hasattr(self, "_usage_lock"):
+            self._initialize_usage_counters()
+
+    def _record_request_outputs(self, request_outputs) -> None:
+        self._ensure_usage_counters()
+        requests = list(request_outputs)
+        prompt_tokens = sum(
+            len(getattr(request, "prompt_token_ids", None) or []) for request in requests
+        )
+        completion_tokens = sum(
+            len(getattr(output, "token_ids", None) or [])
+            for request in requests
+            for output in (getattr(request, "outputs", None) or [])
+        )
+        with self._usage_lock:
+            self._usage_requests += len(requests)
+            self._usage_prompt_tokens += prompt_tokens
+            self._usage_completion_tokens += completion_tokens
+
+    def usage_snapshot(self) -> dict[str, object]:
+        self._ensure_usage_counters()
+        with self._usage_lock:
+            requests = self._usage_requests
+            prompt_tokens = self._usage_prompt_tokens
+            completion_tokens = self._usage_completion_tokens
+        model_usage = {
+            "requests": requests,
+            "prompt_tokens": prompt_tokens,
+            "completion_tokens": completion_tokens,
+            "reasoning_tokens": 0,
+            "cost_usd": 0.0,
+        }
+        return {
+            "backend": "vllm",
+            "model": self.model_name,
+            "run_cost_usd": 0.0,
+            **model_usage,
+            "model_usage": {self.model_name: model_usage},
+            "forced_exits": 0,
+        }
 
     def _tokenizer_kwargs(self) -> dict[str, object]:
         return {}
@@ -333,6 +383,7 @@ class BaseVLLMAdapter(Model):
             n=1,
         )
         continuation_outputs = self.llm.generate(continuation_prompts, sampling_params)
+        self._record_request_outputs(continuation_outputs)
         forced_count = 0
         empty_count = 0
         for continuation_idx, (original_idx, request_output) in enumerate(
@@ -459,6 +510,7 @@ class BaseVLLMAdapter(Model):
             for response in responses:
                 full_prompts = [prompt + response for prompt in block_prompts]
                 outputs = self.llm.generate(full_prompts, sampling_params=sampling_params)
+                self._record_request_outputs(outputs)
 
                 block_scores: list[float] = []
                 for output, base_length in zip(outputs, block_base_lengths):
@@ -500,6 +552,7 @@ class BaseVLLMAdapter(Model):
                 n=1,
             )
             outputs = self.llm.generate(block_prompts, sampling_params)
+            self._record_request_outputs(outputs)
             completion_outputs = [
                 output.outputs[0] if output.outputs else None
                 for output in outputs
@@ -537,6 +590,7 @@ class BaseVLLMAdapter(Model):
             n=num_responses,
         )
         outputs = self.llm.generate([prompt], sampling_params)
+        self._record_request_outputs(outputs)
         request_output = outputs[0]
         for response_idx, output in enumerate(request_output.outputs):
             self._log_llm_token_usage(
