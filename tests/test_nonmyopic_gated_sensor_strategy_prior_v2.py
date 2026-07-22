@@ -150,3 +150,115 @@ def test_v2_prompt_does_not_add_branch_beliefs() -> None:
     slots = json.loads(messages[-1]["content"].split("INDEXED_SLOTS=", 1)[1])
 
     assert all("branch_beliefs" not in slot for slot in slots)
+
+
+def test_v4_terminal_menus_exclude_setup_actions_without_changing_legacy_menus() -> None:
+    model = GatedSensorModel()
+    roots = _fixed_roots(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        horizon=2,
+        count=4,
+    )
+
+    legacy = _branch_menus(model, state=model.initial_state, roots=roots, horizon=2)
+    informative = _branch_menus(
+        model,
+        state=model.initial_state,
+        roots=roots,
+        horizon=2,
+        informative_terminal_only=True,
+    )
+
+    measurement_slot = next(index for index, root in enumerate(roots) if not root.startswith("activate:"))
+    assert any(
+        action.startswith("activate:")
+        for choices in legacy[measurement_slot].values()
+        for action in choices
+    )
+    assert all(
+        not action.startswith("activate:")
+        for choices in informative[measurement_slot].values()
+        for action in choices
+    )
+    for index, root in enumerate(roots):
+        if root.startswith("activate:"):
+            assert informative[index] == legacy[index]
+
+
+def test_v4_prompt_keeps_branch_beliefs_and_describes_terminal_menu_pruning() -> None:
+    model = GatedSensorModel()
+    config = IndexedStrategyConfig(
+        interface_version="indexed_branch_v4",
+        num_trials=1,
+        num_rounds=2,
+        num_strategies=4,
+        bootstrap_replicates=100,
+        trial_concurrency=1,
+    )
+    config.validate()
+    provider = IndexedStrategyProvider(DeterministicIndexedModel(), config)
+    roots = _fixed_roots(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        horizon=2,
+        count=4,
+    )
+    menus = _branch_menus(
+        model,
+        state=model.initial_state,
+        roots=roots,
+        horizon=2,
+        informative_terminal_only=True,
+    )
+
+    messages = provider._messages(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+        roots=roots,
+        menus=menus,
+    )
+    slots = json.loads(messages[-1]["content"].split("INDEXED_SLOTS=", 1)[1])
+
+    assert all("branch_beliefs" in slot for slot in slots)
+    assert "only actions that produce an observation" in messages[-1]["content"]
+
+
+@pytest.mark.parametrize("num_strategies", [4, 6])
+def test_indexed_prompt_schema_matches_the_assigned_slot_count(num_strategies: int) -> None:
+    model = GatedSensorModel()
+    config = IndexedStrategyConfig(
+        num_trials=1,
+        num_rounds=2,
+        num_strategies=num_strategies,
+        bootstrap_replicates=100,
+        trial_concurrency=1,
+    )
+    provider = IndexedStrategyProvider(DeterministicIndexedModel(), config)
+    roots = _fixed_roots(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        horizon=2,
+        count=num_strategies,
+    )
+    menus = _branch_menus(model, state=model.initial_state, roots=roots, horizon=2)
+
+    messages = provider._messages(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+        roots=roots,
+        menus=menus,
+    )
+    schema_line = next(
+        line for line in messages[-1]["content"].splitlines() if line.startswith("Schema: ")
+    )
+    schema = json.loads(schema_line.removeprefix("Schema: "))
+
+    assert schema == {"choices": [[0, 0] for _root in roots]}

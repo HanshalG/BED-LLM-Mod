@@ -60,8 +60,15 @@ class IndexedStrategyConfig:
     precise_accuracy: float = 0.95
 
     def validate(self) -> None:
-        if self.interface_version not in {"indexed_branch_v2", "indexed_branch_v3"}:
-            raise ValueError("interface_version must be indexed_branch_v2 or indexed_branch_v3")
+        if self.interface_version not in {
+            "indexed_branch_v2",
+            "indexed_branch_v3",
+            "indexed_branch_v4",
+        }:
+            raise ValueError(
+                "interface_version must be indexed_branch_v2, indexed_branch_v3, "
+                "or indexed_branch_v4"
+            )
         if min(
             self.num_trials,
             self.num_rounds,
@@ -108,6 +115,7 @@ def _branch_menus(
     state: SensorState,
     roots: tuple[str, ...],
     horizon: int,
+    informative_terminal_only: bool = False,
 ) -> list[dict[str, list[str]]]:
     menus: list[dict[str, list[str]]] = []
     for root in roots:
@@ -117,6 +125,8 @@ def _branch_menus(
             choices = model.legal_actions(child_state)
             if root.startswith("activate:"):
                 choices = tuple(action for action in choices if action.startswith("precise:"))
+            elif informative_terminal_only:
+                choices = tuple(action for action in choices if not action.startswith("activate:"))
             for outcome in model.outcomes(root):
                 key = "none" if outcome is None else outcome
                 root_menus[key] = list(choices)
@@ -223,7 +233,7 @@ class IndexedStrategyProvider:
                     for outcome, choices in root_menus.items()
                 },
             }
-            if self.config.interface_version == "indexed_branch_v3":
+            if self.config.interface_version in {"indexed_branch_v3", "indexed_branch_v4"}:
                 branch_beliefs: dict[str, Any] = {}
                 for outcome in root_menus:
                     observation = None if outcome == "none" else outcome
@@ -243,7 +253,11 @@ class IndexedStrategyProvider:
             [
                 f"INTERFACE={self.config.interface_version}",
                 f"Return exactly {len(roots)} strategies in slot order.",
-                'Schema: {"choices":[[0,0],[1,0],[2,0],[0,1],[3,2],[1,0]]}',
+                "Schema: "
+                + json.dumps(
+                    {"choices": [[0, 0] for _root in roots]},
+                    separators=(",", ":"),
+                ),
                 "Return one row per slot and exactly two integers per row. For a one-branch activation "
                 "slot, the first integer selects the none branch and the second integer is ignored padding. "
                 "For a measurement slot, the integers select positive then negative. "
@@ -254,7 +268,13 @@ class IndexedStrategyProvider:
                     "Each branch_beliefs entry is the exact simulated belief after that root outcome. "
                     "Use its predicate marginals to choose a balanced, nonredundant follow-up. No policy "
                     "score or hidden truth is provided."
-                    if self.config.interface_version == "indexed_branch_v3"
+                    if self.config.interface_version in {"indexed_branch_v3", "indexed_branch_v4"}
+                    else ""
+                ),
+                (
+                    "The final-step menus contain only actions that produce an observation within this "
+                    "planning horizon."
+                    if self.config.interface_version == "indexed_branch_v4"
                     else ""
                 ),
                 "Current active panel: " + (state.active_panel or "none"),
@@ -317,7 +337,13 @@ class IndexedStrategyProvider:
             horizon=horizon,
             count=self.config.num_strategies,
         )
-        menus = _branch_menus(model, state=state, roots=roots, horizon=horizon)
+        menus = _branch_menus(
+            model,
+            state=state,
+            roots=roots,
+            horizon=horizon,
+            informative_terminal_only=self.config.interface_version == "indexed_branch_v4",
+        )
         if horizon <= 1:
             response = json.dumps({"choices": [[] for _root in roots]}, separators=(",", ":"))
             strategies = compile_indexed_cell(response, roots=roots, menus=menus)
@@ -382,7 +408,8 @@ class IndexedStrategyProvider:
                 self.physical_requests.append({**context, "attempt": attempt, "raw_response": response})
                 self._cache[key] = cell
             return cell
-        raise StrategyProposalError(f"indexed cell failed after two attempts: {error}")
+        attempts = self.config.validation_retries + 1
+        raise StrategyProposalError(f"indexed cell failed after {attempts} attempts: {error}")
 
 
 class DeterministicIndexedModel:
@@ -451,7 +478,13 @@ def _random_selection_v2(
         horizon=horizon,
         count=config.num_strategies,
     )
-    menus = _branch_menus(model, state=state.sensor_state, roots=roots, horizon=horizon)
+    menus = _branch_menus(
+        model,
+        state=state.sensor_state,
+        roots=roots,
+        horizon=horizon,
+        informative_terminal_only=config.interface_version == "indexed_branch_v4",
+    )
     rng = np.random.default_rng(_stable_seed(config.seed, "indexed-random", trial_index, round_index))
     choices = []
     for root_menus in menus:
@@ -643,7 +676,7 @@ def main() -> None:
     parser.add_argument("--trial-concurrency", type=int, default=32)
     parser.add_argument(
         "--interface-version",
-        choices=("indexed_branch_v2", "indexed_branch_v3"),
+        choices=("indexed_branch_v2", "indexed_branch_v3", "indexed_branch_v4"),
         default="indexed_branch_v2",
     )
     parser.add_argument("--dry-run", action="store_true")
