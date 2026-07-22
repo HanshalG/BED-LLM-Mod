@@ -68,3 +68,85 @@ def test_v2_dry_run_is_paired_and_uses_no_terminal_llm_calls() -> None:
         for traces in summary["traces"].values()
         for trace in traces
     )
+
+
+def test_v3_prompt_supplies_branch_beliefs_without_oracle_scores() -> None:
+    model = GatedSensorModel()
+    config = IndexedStrategyConfig(
+        interface_version="indexed_branch_v3",
+        num_trials=1,
+        num_rounds=2,
+        num_strategies=4,
+        bootstrap_replicates=100,
+        trial_concurrency=1,
+    )
+    provider = IndexedStrategyProvider(DeterministicIndexedModel(), config)
+    roots = _fixed_roots(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        horizon=2,
+        count=4,
+    )
+    menus = _branch_menus(model, state=model.initial_state, roots=roots, horizon=2)
+
+    messages = provider._messages(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+        roots=roots,
+        menus=menus,
+    )
+    slots = json.loads(messages[-1]["content"].split("INDEXED_SLOTS=", 1)[1])
+
+    assert "branch_beliefs" in slots[0]
+    assert slots[0]["branch_beliefs"]["none"]["probability"] == pytest.approx(1.0)
+    measurement_slot = slots[-1]
+    assert measurement_slot["root_action"] == "screen:bit-0"
+    positive_marginals = {
+        row["predicate"]: row["p_true"]
+        for row in measurement_slot["branch_beliefs"]["positive"]["predicate_marginals"]
+    }
+    negative_marginals = {
+        row["predicate"]: row["p_true"]
+        for row in measurement_slot["branch_beliefs"]["negative"]["predicate_marginals"]
+    }
+    assert positive_marginals["bit-0"] == pytest.approx(0.65)
+    assert negative_marginals["bit-0"] == pytest.approx(0.35)
+    branch_payload = json.dumps(slots, sort_keys=True).lower()
+    assert "planning_score" not in branch_payload
+    assert '"eig"' not in branch_payload
+    assert "truth_index" not in branch_payload
+
+
+def test_v2_prompt_does_not_add_branch_beliefs() -> None:
+    model = GatedSensorModel()
+    config = IndexedStrategyConfig(
+        num_trials=1,
+        num_rounds=2,
+        num_strategies=4,
+        bootstrap_replicates=100,
+        trial_concurrency=1,
+    )
+    provider = IndexedStrategyProvider(DeterministicIndexedModel(), config)
+    roots = _fixed_roots(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        horizon=2,
+        count=4,
+    )
+    menus = _branch_menus(model, state=model.initial_state, roots=roots, horizon=2)
+
+    messages = provider._messages(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+        roots=roots,
+        menus=menus,
+    )
+    slots = json.loads(messages[-1]["content"].split("INDEXED_SLOTS=", 1)[1])
+
+    assert all("branch_beliefs" not in slot for slot in slots)

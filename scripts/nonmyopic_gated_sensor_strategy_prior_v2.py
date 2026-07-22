@@ -60,8 +60,8 @@ class IndexedStrategyConfig:
     precise_accuracy: float = 0.95
 
     def validate(self) -> None:
-        if self.interface_version != "indexed_branch_v2":
-            raise ValueError("interface_version must be indexed_branch_v2")
+        if self.interface_version not in {"indexed_branch_v2", "indexed_branch_v3"}:
+            raise ValueError("interface_version must be indexed_branch_v2 or indexed_branch_v3")
         if min(
             self.num_trials,
             self.num_rounds,
@@ -213,8 +213,9 @@ class IndexedStrategyProvider:
         roots: tuple[str, ...],
         menus: list[dict[str, list[str]]],
     ) -> list[dict[str, str]]:
-        slots = [
-            {
+        slots = []
+        for slot, (root, root_menus) in enumerate(zip(roots, menus, strict=True)):
+            slot_payload: dict[str, Any] = {
                 "slot": slot,
                 "root_action": root,
                 "followup_menus": {
@@ -222,15 +223,25 @@ class IndexedStrategyProvider:
                     for outcome, choices in root_menus.items()
                 },
             }
-            for slot, (root, root_menus) in enumerate(zip(roots, menus, strict=True))
-        ]
+            if self.config.interface_version == "indexed_branch_v3":
+                branch_beliefs: dict[str, Any] = {}
+                for outcome in root_menus:
+                    observation = None if outcome == "none" else outcome
+                    probability = model.outcome_probability(belief, root, observation)
+                    posterior = model.posterior(belief, root, observation)
+                    branch_beliefs[outcome] = {
+                        "probability": round(probability, 10),
+                        "predicate_marginals": _predicate_summary(model, posterior),
+                    }
+                slot_payload["branch_beliefs"] = branch_beliefs
+            slots.append(slot_payload)
         system = (
             "You choose observation-contingent follow-ups for exact Bayesian fault diagnosis. "
             "Roots and legal branch menus are machine assigned. Return JSON only and choose integer indices."
         )
         user = "\n".join(
             [
-                "INTERFACE=indexed_branch_v2",
+                f"INTERFACE={self.config.interface_version}",
                 f"Return exactly {len(roots)} strategies in slot order.",
                 'Schema: {"choices":[[0,0],[1,0],[2,0],[0,1],[3,2],[1,0]]}',
                 "Return one row per slot and exactly two integers per row. For a one-branch activation "
@@ -239,6 +250,13 @@ class IndexedStrategyProvider:
                 "Never emit names, action strings, outcome keys, roots, explanations, or extra fields.",
                 "Favor nonredundant tests that reduce remaining posterior uncertainty. Positive and negative "
                 "branches may need different follow-ups.",
+                (
+                    "Each branch_beliefs entry is the exact simulated belief after that root outcome. "
+                    "Use its predicate marginals to choose a balanced, nonredundant follow-up. No policy "
+                    "score or hidden truth is provided."
+                    if self.config.interface_version == "indexed_branch_v3"
+                    else ""
+                ),
                 "Current active panel: " + (state.active_panel or "none"),
                 "Current exact predicate marginals: "
                 + json.dumps(_predicate_summary(model, belief), separators=(",", ":")),
@@ -623,9 +641,15 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=24_093)
     parser.add_argument("--bootstrap-replicates", type=int, default=10_000)
     parser.add_argument("--trial-concurrency", type=int, default=32)
+    parser.add_argument(
+        "--interface-version",
+        choices=("indexed_branch_v2", "indexed_branch_v3"),
+        default="indexed_branch_v2",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = IndexedStrategyConfig(
+        interface_version=args.interface_version,
         num_trials=args.num_trials,
         num_rounds=args.num_rounds,
         num_strategies=args.num_strategies,
