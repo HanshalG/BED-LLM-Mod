@@ -49,3 +49,13 @@ accepted physical requests with zero invalid responses, reasoning tokens, forced
 exits, or rollout-scoring LLM calls; all mechanics passed. It used 37,540 prompt and
 250 completion tokens and cost `$0.02478720`. No S0 continuation-quality value was
 used in the decision. Stage S1 is authorized under the frozen fresh-seed protocol.
+
+Stage S1 subsequently completed with 52/52 accepted cells, zero invalid responses,
+reasoning tokens, forced exits, or rollout-scoring LLM calls. It cost `$0.11297670`.
+The frozen proposal gate failed: exact same-root continuation efficiency was
+`0.6938`, below `0.90`, and matched-random continuations scored `0.7834` on the
+same 28 StrategyEIG-reached states, giving a difference of `-0.0896` rather than
+the required `+0.05`. The 30-pair confirmation and any model replacement are not
+authorized under this protocol. Secondary policy results and the post-decision
+choice-mechanics audit are reported in
+`GATED_SENSOR_V3_GPT54MINI_OPENROUTER_RESULT.md`.

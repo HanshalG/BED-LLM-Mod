@@ -390,7 +390,11 @@ policies: $-.0413$ [-.1854, .0795], with 5/0/3 wins/ties/losses. Exact verificat
 cannot recover setup value when the proposed continuation itself is redundant. An
 exact same-state audit confirms that localization: fixed roots contained an
 exhaustive-optimal root on every audited state, but LLM continuations recovered .759
-of same-root oracle value versus .802 for matched random continuations.
+of same-root oracle value versus .802 for matched random continuations. A frozen
+branch-conditioned retry also failed (.694 versus .783; random-policy entropy AUC
+$-.122$ [$-.268$, $-.008$]): 70/104 measurement-root continuations selected a
+terminal zero-EIG activation. Richer beliefs did not fix the indexed proposal
+bottleneck, so no formal confirmation followed.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
@@ -559,12 +563,10 @@ stops before a calibrated policy comparison. We do not claim that non-myopic BED
 cannot work; we report that the preregistered iCRAFT profile construction and its one
 stronger-author retry did not pass the held-out calibration gate.
 
-The audits also cannot cleanly separate model capacity from representation: a
-larger model may estimate a better likelihood, but cannot make an exam-treatment
-label a sufficient patient state or reveal facts absent from a static record.
-OpenRouter provider nondeterminism, finite generated supports, non-paired model-size
-comparisons, and post-hoc synthesis across heterogeneous experiments remain
-limitations.
+Model capacity and representation remain confounded: a larger model cannot make
+an exam-treatment label sufficient or reveal absent facts. OpenRouter provider
+nondeterminism, finite supports, non-paired model-size comparisons, and post-hoc
+synthesis remain limitations.
 
 The evidence supports a constructive conclusion. With a coherent simulator and
 an enabling-information gap, LLM proposals plus exact rollout-EIG verification
