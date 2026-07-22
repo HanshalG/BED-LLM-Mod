@@ -269,7 +269,18 @@ class Config:
             self.location_max_step_radius = float(self.location_max_step_radius)
             if not math.isfinite(self.location_max_step_radius) or self.location_max_step_radius <= 0.0:
                 raise ValueError("location_max_step_radius must be a positive number or null")
-        self.location_max_new_tokens = self.effective_max_model_len
+        if self.location_max_new_tokens is None:
+            self.location_max_new_tokens = self.effective_max_model_len
+        elif (
+            isinstance(self.location_max_new_tokens, bool)
+            or not isinstance(self.location_max_new_tokens, int)
+            or self.location_max_new_tokens <= 0
+        ):
+            raise ValueError("location_max_new_tokens must be a positive integer")
+        elif self.location_max_new_tokens > self.effective_max_model_len:
+            raise ValueError(
+                "location_max_new_tokens cannot exceed the effective max model length"
+            )
         if self.paprika_split not in {"train", "eval"}:
             raise ValueError("paprika_split must be one of: train, eval")
         if self.paprika_candidate_prompt_mode not in {"standard", "best_n"}:
@@ -1122,7 +1133,7 @@ def load_config(path: str) -> Config:
         location_eig_bounds_inner_samples = location_eig_bounds_inner_samples,
         location_eig_bounds_seed = location_eig_bounds_seed,
         location_eig_bounds_chunk_size = location_eig_bounds_chunk_size,
-        location_max_new_tokens = None,
+        location_max_new_tokens = raw.get("location_max_new_tokens"),
         paprika_data_path = raw.get("paprika_data_path"),
         paprika_split = raw.get("paprika_split", "eval"),
         paprika_verify_official_hash = raw.get("paprika_verify_official_hash", True),

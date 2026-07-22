@@ -829,6 +829,45 @@ environment:
     assert config.location_max_new_tokens == 16384
 
 
+def test_load_config_preserves_explicit_location_generation_budget(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26B-A4B-it"
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26B-A4B-it"
+      max_model_len: 32768
+location_max_new_tokens: 2048
+""".strip(),
+        encoding="utf-8",
+    )
+
+    config = load_config(str(config_path))
+
+    assert config.location_max_new_tokens == 2048
+
+
+@pytest.mark.parametrize("value", [0, -1, True, 32769])
+def test_load_config_rejects_invalid_location_generation_budget(
+    tmp_path, value
+) -> None:
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        f"""
+model_pairs: []
+max_model_len: 32768
+location_max_new_tokens: {value!r}
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="location_max_new_tokens"):
+        load_config(str(config_path))
+
+
 def test_phase4_constrained_and_unconstrained_location_configs_load():
     constrained = load_config("configs/config_location_branch_decoy_local.yaml")
     unconstrained = load_config("configs/config_location_branch_decoy_local_unconstrained.yaml")

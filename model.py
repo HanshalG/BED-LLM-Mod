@@ -22,6 +22,11 @@ from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
 
 
+def _wandb_log(payload: dict[str, object]) -> None:
+    if getattr(wandb, "run", None) is not None:
+        wandb.log(payload)
+
+
 @contextmanager
 def _temporary_cuda_visible_devices(cuda_visible_devices: str | None):
     if cuda_visible_devices is None:
@@ -353,7 +358,7 @@ class BaseVLLMAdapter(Model):
             else:
                 empty_count += 1
 
-        wandb.log({
+        _wandb_log({
             "event": "Forced thinking exit",
             "forced_thinking_exit_count": forced_count,
             "forced_thinking_exit_length_count": len(budget_limited_indices),
@@ -551,7 +556,7 @@ class BaseVLLMAdapter(Model):
         )
 
         elapsed_time = time.perf_counter() - start_time
-        wandb.log({
+        _wandb_log({
             "event": "Chat completion",
             "number_input_tokens": len(outputs[0].prompt_token_ids),
             "elapsed_time": elapsed_time,
@@ -570,7 +575,7 @@ class BaseVLLMAdapter(Model):
         )
 
         elapsed_time = time.perf_counter() - start_time
-        wandb.log({
+        _wandb_log({
             "event": "Batched chat completion",
             "number_conversations": len(batch_messages),
             "elapsed_time_batched": elapsed_time,
@@ -601,7 +606,7 @@ class BaseVLLMAdapter(Model):
             )
 
         elapsed_time = time.perf_counter() - start_time
-        wandb.log({
+        _wandb_log({
             "event": "Batched probability determination",
             "number_conversations": len(messages) * len(responses),
             "elapsed_time_batched": elapsed_time,
