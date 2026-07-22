@@ -26,7 +26,7 @@ def test_continuation_fidelity_decomposes_proposal_and_root_quality() -> None:
     summary = analyze(payload)
 
     assert summary["no_llm_calls"]
-    for arm in ("strategy_eig", "random_strategy"):
+    for arm in ("strategy_eig", "shared_state_random", "random_strategy"):
         arm_summary = summary["arms"][arm]
         assert arm_summary["num_h2_states"] == 9
         assert 0.0 <= arm_summary["mean_continuation_efficiency"] <= 1.0
@@ -37,3 +37,10 @@ def test_continuation_fidelity_decomposes_proposal_and_root_quality() -> None:
             assert row["proposal_exhaustive_fraction"] == pytest.approx(
                 row["continuation_efficiency"] * row["root_coverage"]
             )
+    assert [
+        (row["trial_index"], row["round"], row["active_panel"])
+        for row in summary["rows"]["strategy_eig"]
+    ] == [
+        (row["trial_index"], row["round"], row["active_panel"])
+        for row in summary["rows"]["shared_state_random"]
+    ]

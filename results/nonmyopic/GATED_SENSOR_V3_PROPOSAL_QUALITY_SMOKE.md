@@ -27,9 +27,14 @@ The interface qualifies for a fresh preregistered confirmation only if at least 
 model has zero terminal/legality failures and, over its 28 nonterminal h2 states:
 
 - mean exact same-root continuation efficiency is at least `0.90`; and
-- continuation efficiency exceeds its matched-random arm by at least `+0.05`.
+- continuation efficiency exceeds matched random continuations rescored on the
+  exact same LLM-reached beliefs by at least `+0.05`.
 
 Continuation efficiency is proposed branch-policy value divided by exact value
 after optimizing only the continuation under the identical fixed roots. Root
 coverage and proposal/exhaustive-d2 fraction are reported separately. No failed
 model is replaced, and no threshold is changed after responses.
+
+The separately reached random-policy trajectory is descriptive. It is not used for
+the proposal-quality threshold because comparing different reached beliefs would
+confound continuation quality with prior trajectory drift.
