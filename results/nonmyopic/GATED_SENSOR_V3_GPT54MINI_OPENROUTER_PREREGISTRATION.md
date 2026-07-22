@@ -41,3 +41,11 @@ Passing S1 authorizes a separately preregistered fresh 30-pair confirmation with
 entropy AUC primary, truth-log AUC corroborating, shared d1, exhaustive d1,
 matched-random strategies, and exhaustive d2. S0/S1 trials are never pooled into that
 confirmation.
+
+## Execution Status
+
+Stage S0 completed from preregistration commit `137e2fd`. It produced exactly ten
+accepted physical requests with zero invalid responses, reasoning tokens, forced
+exits, or rollout-scoring LLM calls; all mechanics passed. It used 37,540 prompt and
+250 completion tokens and cost `$0.02478720`. No S0 continuation-quality value was
+used in the decision. Stage S1 is authorized under the frozen fresh-seed protocol.

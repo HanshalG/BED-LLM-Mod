@@ -1,0 +1,3075 @@
+{
+  "candidate_requests": [
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[0,0],[0,1]]}",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-0"
+      ],
+      "trial_index": 1
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[4,0],[12,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:C",
+        "precise:bit-2",
+        "precise:xor-2-4"
+      ],
+      "trial_index": 1
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[0,0],[4,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-0"
+      ],
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:bit-0",
+          "observation": "negative"
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[0,0],[6,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-3"
+      ],
+      "trial_index": 1
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[0,0],[0,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:C",
+        "precise:bit-2",
+        "precise:xor-2-4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        },
+        {
+          "action": "precise:bit-2",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[0,0],[0,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:C",
+        "precise:xor-2-3",
+        "precise:bit-3"
+      ],
+      "trial_index": 1
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:bit-0",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[3,2],[1,0],[0,1]]}",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-4"
+      ],
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:bit-0",
+          "observation": "negative"
+        },
+        {
+          "action": "screen:bit-3",
+          "observation": "negative"
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[0,0],[0,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-4"
+      ],
+      "trial_index": 1
+    },
+    {
+      "active_panel": "B",
+      "attempt": 0,
+      "history": [
+        {
+          "action": "activate:B",
+          "observation": null
+        },
+        {
+          "action": "precise:bit-2",
+          "observation": "negative"
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4",
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[0,0],[0,0],[15,0],[15,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:C",
+        "precise:xor-2-3",
+        "precise:bit-3"
+      ],
+      "trial_index": 0
+    },
+    {
+      "active_panel": null,
+      "attempt": 0,
+      "history": [
+        {
+          "action": "screen:bit-0",
+          "observation": "positive"
+        },
+        {
+          "action": "screen:bit-4",
+          "observation": "positive"
+        }
+      ],
+      "horizon": 2,
+      "menus": [
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-1",
+            "precise:bit-2",
+            "precise:xor-0-1",
+            "precise:xor-1-2",
+            "precise:xor-0-2"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-2",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-2-3",
+            "precise:xor-3-4",
+            "precise:xor-2-4"
+          ]
+        },
+        {
+          "none": [
+            "precise:bit-0",
+            "precise:bit-3",
+            "precise:bit-4",
+            "precise:xor-0-3",
+            "precise:xor-0-4",
+            "precise:xor-3-4"
+          ]
+        },
+        {
+          "negative": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ],
+          "positive": [
+            "activate:A",
+            "activate:B",
+            "activate:C",
+            "screen:bit-0",
+            "screen:bit-1",
+            "screen:bit-2",
+            "screen:bit-3",
+            "screen:bit-4",
+            "screen:xor-0-1",
+            "screen:xor-1-2",
+            "screen:xor-0-2",
+            "screen:xor-2-3",
+            "screen:xor-3-4",
+            "screen:xor-2-4",
+            "screen:xor-0-3",
+            "screen:xor-0-4"
+          ]
+        }
+      ],
+      "raw_response": "{\"choices\":[[3,0],[0,0],[4,0],[8,0]]}",
+      "roots": [
+        "activate:A",
+        "activate:B",
+        "activate:C",
+        "screen:bit-1"
+      ],
+      "trial_index": 0
+    }
+  ],
+  "comparisons": {
+    "strategy_eig_minus_exhaustive_d1": {
+      "entropy_auc_gain_ci95": [
+        0.3803805834007905,
+        0.6276965520078264
+      ],
+      "entropy_auc_gain_mean": 0.5040385677043084,
+      "entropy_auc_paired_values": [
+        0.6276965520078264,
+        0.3803805834007905
+      ],
+      "entropy_auc_wins_ties_losses": [
+        2,
+        0,
+        0
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        0.6163897722929756,
+        1.0692618397145583
+      ],
+      "truth_log_probability_auc_gain_mean": 0.842825806003767,
+      "truth_log_probability_auc_paired_values": [
+        0.6163897722929756,
+        1.0692618397145583
+      ]
+    },
+    "strategy_eig_minus_exhaustive_d2": {
+      "entropy_auc_gain_ci95": [
+        -0.2473159686070363,
+        0.0
+      ],
+      "entropy_auc_gain_mean": -0.12365798430351815,
+      "entropy_auc_paired_values": [
+        0.0,
+        -0.2473159686070363
+      ],
+      "entropy_auc_wins_ties_losses": [
+        0,
+        1,
+        1
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        -0.3209269430861972,
+        0.0
+      ],
+      "truth_log_probability_auc_gain_mean": -0.1604634715430986,
+      "truth_log_probability_auc_paired_values": [
+        0.0,
+        -0.3209269430861972
+      ]
+    },
+    "strategy_eig_minus_random_strategy": {
+      "entropy_auc_gain_ci95": [
+        -0.2473159686070363,
+        0.0
+      ],
+      "entropy_auc_gain_mean": -0.12365798430351815,
+      "entropy_auc_paired_values": [
+        0.0,
+        -0.2473159686070363
+      ],
+      "entropy_auc_wins_ties_losses": [
+        0,
+        1,
+        1
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        -0.3209269430861972,
+        0.0
+      ],
+      "truth_log_probability_auc_gain_mean": -0.1604634715430986,
+      "truth_log_probability_auc_paired_values": [
+        0.0,
+        -0.3209269430861972
+      ]
+    },
+    "strategy_eig_minus_shared_d1": {
+      "entropy_auc_gain_ci95": [
+        0.3803805834007905,
+        0.6276965520078264
+      ],
+      "entropy_auc_gain_mean": 0.5040385677043084,
+      "entropy_auc_paired_values": [
+        0.6276965520078264,
+        0.3803805834007905
+      ],
+      "entropy_auc_wins_ties_losses": [
+        2,
+        0,
+        0
+      ],
+      "truth_log_probability_auc_gain_ci95": [
+        0.6163897722929756,
+        1.0692618397145583
+      ],
+      "truth_log_probability_auc_gain_mean": 0.842825806003767,
+      "truth_log_probability_auc_paired_values": [
+        0.6163897722929756,
+        1.0692618397145583
+      ]
+    }
+  },
+  "config": {
+    "bootstrap_replicates": 200,
+    "interface_version": "indexed_branch_v3",
+    "num_rounds": 4,
+    "num_strategies": 4,
+    "num_trials": 2,
+    "precise_accuracy": 0.95,
+    "screen_accuracy": 0.65,
+    "seed": 24111,
+    "temperature": 0.0,
+    "trial_concurrency": 2,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "gate": {
+    "passed": false,
+    "rule": "indexed StrategyEIG entropy-AUC lower CI exceeds shared d1, exhaustive d1, and matched random"
+  },
+  "invalid_responses": [],
+  "mechanics": {
+    "all_selected_actions_legal": true,
+    "initial_activation_roots_shared_with_random": true,
+    "paired_trials_and_truths": true,
+    "rollout_scoring_made_no_llm_calls": true,
+    "terminal_selection_made_no_llm_calls": true
+  },
+  "provider": {
+    "accepted_requests": 10,
+    "cache_hits": 2,
+    "invalid_responses": 0,
+    "local_terminal_cells": 4,
+    "logical_calls": 16,
+    "physical_requests": 10
+  },
+  "run_id": "gated-sensor-v3-gpt54mini-openrouter-s0-20260722",
+  "schema_version": 2,
+  "traces": {
+    "exhaustive_d1": [
+      {
+        "arm": "exhaustive_d1",
+        "entropy_auc": 3.351484548986444,
+        "final_entropy": 3.282933736698475,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -3.0353180533359856,
+        "steps": [
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.4200353612744134,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.04570054152531311,
+            "round": 1,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.2033716383322353
+          },
+          {
+            "action": "screen:bit-4",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.041645056233353905,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531222
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.3743348197491008,
+            "entropy_before": 3.4200353612744134,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -2.9410073738647444
+          },
+          {
+            "action": "screen:bit-1",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.041645056233353905,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04164505623335435,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04533599722564352
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.3743348197491008,
+            "immediate_eig": 0.045700541525312666,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.045700541525312666,
+            "realized_entropy_drop": 0.04570054152531311,
+            "round": 3,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.297682317803477
+          },
+          {
+            "action": "screen:bit-2",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04164505623335435,
+              0.04164505623335435,
+              0.045700541525312666,
+              0.04570054152531222,
+              0.041645056233353905,
+              0.04533599722564352,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531222,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04533599722564352
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.282933736698475,
+            "entropy_before": 3.3286342782237877,
+            "immediate_eig": 0.045700541525312666,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.045700541525312666,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 4,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.0353180533359856
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 17,
+        "truth_log_probability_auc": -3.11934484583411
+      },
+      {
+        "arm": "exhaustive_d1",
+        "entropy_auc": 3.3514845489864444,
+        "final_entropy": 3.282933736698475,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -4.273396470148433,
+        "steps": [
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.420035361274414,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 1,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.822410846738459
+          },
+          {
+            "action": "screen:bit-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.041645056233354794,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531222,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.374334819749101,
+            "entropy_before": 3.420035361274414,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.560046582270968
+          },
+          {
+            "action": "screen:bit-4",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.04164505623335435,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04164505623335435,
+              0.045700541525313554,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04570054152531311,
+              0.04533599722564441,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.374334819749101,
+            "immediate_eig": 0.045700541525313554,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.045700541525313554,
+            "realized_entropy_drop": 0.045700541525313554,
+            "round": 3,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.9167215262097006
+          },
+          {
+            "action": "screen:xor-2-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.041645056233353905,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04164505623335435,
+              0.041645056233353905,
+              0.04570054152531222,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045335997225643965,
+              0.045700541525312666,
+              0.04533599722564352,
+              0.04533599722564352
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.282933736698475,
+            "entropy_before": 3.3286342782237877,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 4,
+            "scorer_units": 16,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -4.273396470148433
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 28,
+        "truth_log_probability_auc": -3.89314385634189
+      }
+    ],
+    "exhaustive_d2": [
+      {
+        "arm": "exhaustive_d2",
+        "entropy_auc": 2.7237879969786176,
+        "final_entropy": 1.9818400911575087,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -1.5401742442825423,
+        "steps": [
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.4946319372140735,
+              0.49463193721407306,
+              0.09140108305062622,
+              0.09140108305062622,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 495,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.49463193721407306,
+              0.540332478739386,
+              0.5403324787393862,
+              0.5403324787393853,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.9892638744281457,
+              0.9892638744281457,
+              0.9892638744281461,
+              0.9892638744281459,
+              0.9892638744281457,
+              0.9892638744281457
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.9892638744281461,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 861,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:bit-1",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.494631937214073,
+              0.494631937214073,
+              0.5403324787393855,
+              0.5403324787393853,
+              0.5034261688071087,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393855,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393855,
+              0.5403324787393853,
+              0.9892638744281451,
+              0.9892638744281452,
+              0.6100725440998518,
+              0.989263874428145,
+              0.989263874428145,
+              0.989263874428145
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.476472028371581,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.9892638744281452,
+            "realized_entropy_drop": 0.4946319372140726,
+            "round": 3,
+            "scorer_units": 861,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.182028130454937
+          },
+          {
+            "action": "precise:bit-0",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.04570054152531222,
+              0.008794231593035384,
+              0.008794231593035384,
+              0.04570054152531222,
+              0.045700541525312666,
+              0.04570054152531222,
+              0.01587838770746819,
+              0.04570054152531222,
+              0.04570054152531222,
+              0.04570054152531222,
+              0.04570054152531222,
+              0.045700541525312666,
+              0.04570054152531222,
+              0.4946319372140724,
+              0.1154406068857794,
+              0.1154406068857794,
+              0.49463193721407217,
+              0.19819457509380545,
+              0.49463193721407217
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 1.9818400911575087,
+            "entropy_before": 2.476472028371581,
+            "immediate_eig": 0.4946319372140724,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.4946319372140724,
+            "realized_entropy_drop": 0.49463193721407217,
+            "round": 4,
+            "scorer_units": 21,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -1.5401742442825423
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 17,
+        "truth_log_probability_auc": -2.5029550735411346
+      },
+      {
+        "arm": "exhaustive_d2",
+        "entropy_auc": 2.7237879969786176,
+        "final_entropy": 1.9818400911575085,
+        "final_map_accuracy": 1.0,
+        "final_truth_log_probability": -1.5401742442825423,
+        "steps": [
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.4946319372140735,
+              0.49463193721407306,
+              0.09140108305062622,
+              0.09140108305062622,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.091401083050626,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578,
+              0.09140108305062578
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 495,
+            "selected_strategy": null,
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.4946319372140735,
+              0.49463193721407306,
+              0.540332478739386,
+              0.5403324787393862,
+              0.5403324787393853,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.540332478739386,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.5403324787393857,
+              0.9892638744281457,
+              0.9892638744281457,
+              0.9892638744281461,
+              0.9892638744281459,
+              0.9892638744281457,
+              0.9892638744281457
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.9892638744281461,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 861,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:bit-0",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.494631937214073,
+              0.494631937214073,
+              0.5403324787393855,
+              0.5403324787393853,
+              0.5034261688071087,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393855,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.5403324787393853,
+              0.9892638744281451,
+              0.9892638744281451,
+              0.6100725440998518,
+              0.9892638744281451,
+              0.9892638744281451,
+              0.9892638744281451
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 2.4764720283715813,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.9892638744281451,
+            "realized_entropy_drop": 0.49463193721407217,
+            "round": 3,
+            "scorer_units": 861,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -2.182028130454937
+          },
+          {
+            "action": "precise:bit-1",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "screen:bit-0",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:bit-3",
+              "screen:bit-4",
+              "screen:xor-0-1",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3",
+              "screen:xor-3-4",
+              "screen:xor-2-4",
+              "screen:xor-0-3",
+              "screen:xor-0-4",
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:bit-2",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.008794231593035828,
+              0.045700541525312666,
+              0.008794231593035828,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.04570054152531311,
+              0.045700541525312666,
+              0.01587838770746819,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.11544060688578028,
+              0.4946319372140726,
+              0.11544060688577984,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.1981945750938059
+            ],
+            "candidate_strategies": [],
+            "entropy_after": 1.9818400911575085,
+            "entropy_before": 2.4764720283715813,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.49463193721407284,
+            "round": 4,
+            "scorer_units": 21,
+            "selected_strategy": null,
+            "state_before": "A",
+            "truth_log_probability": -1.5401742442825423
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 28,
+        "truth_log_probability_auc": -2.5029550735411346
+      }
+    ],
+    "random_strategy": [
+      {
+        "arm": "random_strategy",
+        "entropy_auc": 2.7237879969786176,
+        "final_entropy": 1.981840091157509,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -1.5401742442825423,
+        "steps": [
+          {
+            "action": "activate:B",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.4946319372140735,
+              0.49463193721407306,
+              0.09140108305062533
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-0-1\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-2-4\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:bit-2\",\"positive\":\"screen:xor-2-3\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 9,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-2-4\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:xor-2-4",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:bit-2",
+              "precise:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.7647981765837657,
+              0.7647981765837661
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-1\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"precise:bit-4\",\"positive\":\"screen:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:bit-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:bit-1\",\"positive\":\"precise:xor-3-4\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:xor-2-4\"}"
+            ],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.7647981765837661,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:bit-1\",\"positive\":\"precise:xor-3-4\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:xor-2-4\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:xor-2-3",
+              "precise:bit-2"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.4946319372140726,
+              0.7647981765837648,
+              0.9892638744281448
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-1-2\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-4\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:bit-4\",\"positive\":\"precise:bit-2\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-2-3\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"precise:xor-3-4\",\"positive\":\"precise:bit-3\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-2\"}"
+            ],
+            "entropy_after": 2.4764720283715813,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.49463193721407217,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.9892638744281448,
+            "realized_entropy_drop": 0.49463193721407217,
+            "round": 3,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"precise:xor-3-4\",\"positive\":\"precise:bit-3\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-2\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.182028130454937
+          },
+          {
+            "action": "precise:bit-3",
+            "candidate_roots": [
+              "precise:bit-3",
+              "precise:xor-2-3",
+              "precise:xor-3-4",
+              "precise:bit-4"
+            ],
+            "candidate_scores": [
+              0.4946319372140726,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.19819457509380545
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:bit-3\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-1\",\"root_action\":\"precise:xor-2-3\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-3-4\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-4\"}"
+            ],
+            "entropy_after": 1.981840091157509,
+            "entropy_before": 2.4764720283715813,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.4946319372140724,
+            "round": 4,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:bit-3\"}",
+            "state_before": "B",
+            "truth_log_probability": -1.5401742442825423
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 17,
+        "truth_log_probability_auc": -2.5029550735411346
+      },
+      {
+        "arm": "random_strategy",
+        "entropy_auc": 2.7237879969786176,
+        "final_entropy": 1.9818400911575085,
+        "final_map_accuracy": 1.0,
+        "final_truth_log_probability": -1.5401742442825423,
+        "steps": [
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407217,
+              0.49463193721407306,
+              0.09140108305062578
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-0-1\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-3-4\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:bit-3\",\"positive\":\"screen:bit-3\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 0,
+            "observation": null,
+            "planning_score": 0.49463193721407306,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 9,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-0-1\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-0",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "precise:bit-2",
+              "precise:bit-0"
+            ],
+            "candidate_scores": [
+              0.49463193721407217,
+              0.49463193721407217,
+              0.5218793237732475,
+              0.7647981765837657
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-3-4\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:bit-2\",\"positive\":\"screen:xor-0-1\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:bit-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:xor-0-1\",\"positive\":\"precise:bit-2\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-0\"}"
+            ],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.49463193721407306,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.7647981765837657,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"screen:xor-0-1\",\"positive\":\"precise:bit-2\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-0\"}",
+            "state_before": "A",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:xor-0-2",
+            "candidate_roots": [
+              "activate:B",
+              "activate:C",
+              "precise:xor-1-2",
+              "precise:xor-0-2"
+            ],
+            "candidate_scores": [
+              0.4946319372140726,
+              0.4946319372140726,
+              0.49902905301058986,
+              0.7647981765837648
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"screen:xor-1-2\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-1-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"precise:xor-1-2\",\"positive\":\"screen:xor-1-2\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:xor-0-2\"}"
+            ],
+            "entropy_after": 2.476472028371581,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.7647981765837648,
+            "realized_entropy_drop": 0.4946319372140726,
+            "round": 3,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"precise:xor-1-2\",\"positive\":\"screen:xor-1-2\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:xor-0-2\"}",
+            "state_before": "A",
+            "truth_log_probability": -2.182028130454937
+          },
+          {
+            "action": "precise:bit-1",
+            "candidate_roots": [
+              "precise:bit-1",
+              "precise:xor-0-1",
+              "precise:xor-1-2",
+              "precise:bit-2"
+            ],
+            "candidate_scores": [
+              0.49463193721407217,
+              0.49463193721407217,
+              0.49463193721407217,
+              0.19819457509380545
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:bit-1\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-1\",\"root_action\":\"precise:xor-0-1\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-1-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-2\"}"
+            ],
+            "entropy_after": 1.9818400911575085,
+            "entropy_before": 2.476472028371581,
+            "immediate_eig": 0.49463193721407217,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.49463193721407217,
+            "realized_entropy_drop": 0.4946319372140724,
+            "round": 4,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:bit-1\"}",
+            "state_before": "A",
+            "truth_log_probability": -1.5401742442825423
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 28,
+        "truth_log_probability_auc": -2.5029550735411346
+      }
+    ],
+    "shared_d1": [
+      {
+        "arm": "shared_d1",
+        "entropy_auc": 3.351484548986444,
+        "final_entropy": 3.282933736698475,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -3.0353180533359856,
+        "steps": [
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:bit-1\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 3.4200353612744134,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.04570054152531311,
+            "round": 1,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:bit-1\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}",
+            "state_before": null,
+            "truth_log_probability": -3.2033716383322353
+          },
+          {
+            "action": "screen:bit-4",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-4"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-2-3\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-3\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-4\"}"
+            ],
+            "entropy_after": 3.3743348197491008,
+            "entropy_before": 3.4200353612744134,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-4\"}",
+            "state_before": null,
+            "truth_log_probability": -2.9410073738647444
+          },
+          {
+            "action": "screen:bit-1",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-1"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-0-1\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:xor-0-4\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:xor-0-1\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-1\"}"
+            ],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.3743348197491008,
+            "immediate_eig": 0.045700541525312666,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.045700541525312666,
+            "realized_entropy_drop": 0.04570054152531311,
+            "round": 3,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:xor-0-1\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-1\"}",
+            "state_before": null,
+            "truth_log_probability": -3.297682317803477
+          },
+          {
+            "action": "screen:bit-2",
+            "candidate_roots": [
+              "screen:bit-2",
+              "screen:xor-1-2",
+              "screen:xor-0-2",
+              "screen:xor-2-3"
+            ],
+            "candidate_scores": [
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-1\",\"root_action\":\"screen:xor-1-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-2\",\"root_action\":\"screen:xor-0-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:xor-2-3\"}"
+            ],
+            "entropy_after": 3.282933736698475,
+            "entropy_before": 3.3286342782237877,
+            "immediate_eig": 0.045700541525312666,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.045700541525312666,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 4,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"screen:bit-2\"}",
+            "state_before": null,
+            "truth_log_probability": -3.0353180533359856
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 17,
+        "truth_log_probability_auc": -3.11934484583411
+      },
+      {
+        "arm": "shared_d1",
+        "entropy_auc": 3.3514845489864444,
+        "final_entropy": 3.282933736698475,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -4.273396470148433,
+        "steps": [
+          {
+            "action": "screen:bit-0",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 3.420035361274414,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 1,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}",
+            "state_before": null,
+            "truth_log_probability": -3.822410846738459
+          },
+          {
+            "action": "screen:bit-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-3"
+            ],
+            "candidate_scores": [
+              0.0,
+              0.0,
+              0.0,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:bit-3\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-3\"}"
+            ],
+            "entropy_after": 3.374334819749101,
+            "entropy_before": 3.420035361274414,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 2,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:bit-3\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-3\"}",
+            "state_before": null,
+            "truth_log_probability": -3.560046582270968
+          },
+          {
+            "action": "screen:bit-4",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-4"
+            ],
+            "candidate_scores": [
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              4.440892098500626e-16,
+              0.045700541525313554
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-4\"}"
+            ],
+            "entropy_after": 3.3286342782237877,
+            "entropy_before": 3.374334819749101,
+            "immediate_eig": 0.045700541525313554,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.045700541525313554,
+            "realized_entropy_drop": 0.045700541525313554,
+            "round": 3,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-4\"}",
+            "state_before": null,
+            "truth_log_probability": -3.9167215262097006
+          },
+          {
+            "action": "screen:xor-2-3",
+            "candidate_roots": [
+              "screen:xor-2-3",
+              "screen:bit-1",
+              "screen:bit-2",
+              "screen:xor-1-2"
+            ],
+            "candidate_scores": [
+              0.04570054152531311,
+              0.045700541525312666,
+              0.045700541525312666,
+              0.045700541525312666
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"screen:xor-2-3\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-1\",\"root_action\":\"screen:bit-1\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-2\",\"root_action\":\"screen:bit-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:xor-1-2\"}"
+            ],
+            "entropy_after": 3.282933736698475,
+            "entropy_before": 3.3286342782237877,
+            "immediate_eig": 0.04570054152531311,
+            "logical_llm_calls": 0,
+            "observation": "negative",
+            "planning_score": 0.04570054152531311,
+            "realized_entropy_drop": 0.045700541525312666,
+            "round": 4,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"screen:xor-2-3\"}",
+            "state_before": null,
+            "truth_log_probability": -4.273396470148433
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 28,
+        "truth_log_probability_auc": -3.89314385634189
+      }
+    ],
+    "strategy_eig": [
+      {
+        "arm": "strategy_eig",
+        "entropy_auc": 2.7237879969786176,
+        "final_entropy": 1.9818400911575085,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -1.5401742442825423,
+        "steps": [
+          {
+            "action": "activate:B",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.4946319372140735,
+              0.49463193721407306,
+              0.068550812287969
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:bit-1\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 1,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 9,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:bit-2",
+              "precise:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.4946319372140735,
+              0.4946319372140735
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:bit-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:xor-2-4\"}"
+            ],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:bit-2\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:xor-2-3",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:xor-2-3",
+              "precise:bit-3"
+            ],
+            "candidate_scores": [
+              0.4946319372140726,
+              0.4946319372140726,
+              0.5523522406569628,
+              0.5523522406569623
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"precise:bit-2\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-2-3\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"precise:bit-2\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-3\"}"
+            ],
+            "entropy_after": 2.476472028371581,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 1,
+            "observation": "negative",
+            "planning_score": 0.5523522406569628,
+            "realized_entropy_drop": 0.4946319372140726,
+            "round": 3,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"precise:bit-2\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-2-3\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.182028130454937
+          },
+          {
+            "action": "precise:xor-2-4",
+            "candidate_roots": [
+              "precise:xor-2-4",
+              "precise:bit-4",
+              "precise:xor-3-4",
+              "precise:bit-3"
+            ],
+            "candidate_scores": [
+              0.4946319372140724,
+              0.49463193721407217,
+              0.49463193721407195,
+              0.198194575093805
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:xor-2-4\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-1\",\"root_action\":\"precise:bit-4\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-3-4\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-3\"}"
+            ],
+            "entropy_after": 1.9818400911575085,
+            "entropy_before": 2.476472028371581,
+            "immediate_eig": 0.4946319372140724,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.4946319372140724,
+            "realized_entropy_drop": 0.4946319372140724,
+            "round": 4,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:xor-2-4\"}",
+            "state_before": "B",
+            "truth_log_probability": -1.5401742442825423
+          }
+        ],
+        "trial_index": 0,
+        "truth_index": 17,
+        "truth_log_probability_auc": -2.5029550735411346
+      },
+      {
+        "arm": "strategy_eig",
+        "entropy_auc": 2.971103965585654,
+        "final_entropy": 2.4764720283715813,
+        "final_map_accuracy": 0.0,
+        "final_truth_log_probability": -2.182028130454937,
+        "steps": [
+          {
+            "action": "activate:B",
+            "candidate_roots": [
+              "activate:A",
+              "activate:B",
+              "activate:C",
+              "screen:bit-0"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.4946319372140735,
+              0.49463193721407306,
+              0.04570054152531311
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-2\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:B\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"screen:bit-0\"}"
+            ],
+            "entropy_after": 3.4657359027997265,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.0,
+            "logical_llm_calls": 1,
+            "observation": null,
+            "planning_score": 0.4946319372140735,
+            "realized_entropy_drop": 0.0,
+            "round": 1,
+            "scorer_units": 9,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-2\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:B\"}",
+            "state_before": null,
+            "truth_log_probability": -3.4657359027997265
+          },
+          {
+            "action": "precise:bit-2",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:bit-2",
+              "precise:xor-2-4"
+            ],
+            "candidate_scores": [
+              0.49463193721407306,
+              0.49463193721407306,
+              0.4990290530105912,
+              0.4990290530105912
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:bit-2\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:bit-2\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:xor-2-4\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:xor-2-4\"}"
+            ],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 3.4657359027997265,
+            "immediate_eig": 0.4946319372140735,
+            "logical_llm_calls": 1,
+            "observation": "positive",
+            "planning_score": 0.4990290530105912,
+            "realized_entropy_drop": 0.49463193721407306,
+            "round": 2,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"screen:bit-2\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:bit-2\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "activate:A",
+            "candidate_roots": [
+              "activate:A",
+              "activate:C",
+              "precise:xor-2-3",
+              "precise:bit-3"
+            ],
+            "candidate_scores": [
+              0.4946319372140726,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.49463193721407217
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-1\",\"root_action\":\"activate:C\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-2-3\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"negative\":\"activate:A\",\"positive\":\"activate:A\"},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:bit-3\"}"
+            ],
+            "entropy_after": 2.9711039655856535,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 4.440892098500626e-16,
+            "logical_llm_calls": 1,
+            "observation": null,
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.0,
+            "round": 3,
+            "scorer_units": 10,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{\"none\":\"precise:bit-0\"},\"name\":\"indexed-slot-0\",\"root_action\":\"activate:A\"}",
+            "state_before": "B",
+            "truth_log_probability": -2.8238820166273317
+          },
+          {
+            "action": "precise:bit-0",
+            "candidate_roots": [
+              "precise:bit-0",
+              "precise:bit-1",
+              "precise:xor-0-1",
+              "precise:xor-1-2"
+            ],
+            "candidate_scores": [
+              0.4946319372140726,
+              0.4946319372140726,
+              0.4946319372140726,
+              0.4946319372140726
+            ],
+            "candidate_strategies": [
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:bit-0\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-1\",\"root_action\":\"precise:bit-1\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-2\",\"root_action\":\"precise:xor-0-1\"}",
+              "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-3\",\"root_action\":\"precise:xor-1-2\"}"
+            ],
+            "entropy_after": 2.4764720283715813,
+            "entropy_before": 2.9711039655856535,
+            "immediate_eig": 0.4946319372140726,
+            "logical_llm_calls": 0,
+            "observation": "positive",
+            "planning_score": 0.4946319372140726,
+            "realized_entropy_drop": 0.49463193721407217,
+            "round": 4,
+            "scorer_units": 4,
+            "selected_strategy": "{\"description\":\"Branch-local choices compiled from the model's fixed-shape integer row.\",\"followups\":{},\"name\":\"indexed-slot-0\",\"root_action\":\"precise:bit-0\"}",
+            "state_before": "A",
+            "truth_log_probability": -2.182028130454937
+          }
+        ],
+        "trial_index": 1,
+        "truth_index": 28,
+        "truth_log_probability_auc": -2.8238820166273317
+      }
+    ]
+  },
+  "usage": {
+    "adapter_completion_tokens": 250,
+    "adapter_cost_usd": 0.024787200000000002,
+    "adapter_prompt_tokens": 37540,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "backend": "openrouter",
+    "budget_usd": 40.0,
+    "completion_tokens": 250,
+    "forced_exits": 0,
+    "model": "openai/gpt-5.4-mini",
+    "model_usage": {
+      "openai/gpt-5.4-mini": {
+        "completion_tokens": 250,
+        "cost_usd": 0.024787200000000002,
+        "prompt_tokens": 37540,
+        "reasoning_tokens": 0,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 37540,
+    "reasoning_tokens": 0,
+    "remaining_usd": 9.38067474254003,
+    "requests": 10,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.024787200000000002,
+    "run_remaining_usd": 0.2252128,
+    "total_spent_usd": 30.61932525745997
+  }
+}
