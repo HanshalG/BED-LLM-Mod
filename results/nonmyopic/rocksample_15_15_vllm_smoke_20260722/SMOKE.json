@@ -1,0 +1,874 @@
+{
+  "accepted_requests": [
+    {
+      "attempt": 0,
+      "history": [],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        0,
+        7
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"North-to-14\",\n      \"description\": \"Move North to reduce distance to rock 14, then check it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-14\"\n      }\n    },\n    {\n      \"name\": \"East-to-3\",\n      \"description\": \"Move East to reduce distance to rock 3, then check it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-3\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-14\",\n      \"description\": \"Perform an immediate check on rock 14 to gain information.\",\n      \"root_action\": \"check-14\",\n      \"followups\": {\n        \"good\": \"check-3\",\n        \"bad\": \"check-11\"\n      }\n    },\n    {\n      \"name\": \"Direct-Check-3\",\n      \"description\": \"Perform an immediate check on rock 3 to gain information.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {\n        \"good\": \"check-14\",\n        \"bad\": \"check-10\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 0
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        1,
+        7
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"North-to-Rock-14\",\"description\":\"Move North to reduce distance to rock 14, then check it.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-14\"}},{\"name\":\"East-to-Rock-3\",\"description\":\"Move East to reduce distance to rock 3, then check it.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"Direct-Check-14\",\"description\":\"Perform an immediate check on rock 14 to gain information.\",\"root_action\":\"check-14\",\"followups\":{\"good\":\"check-3\",\"bad\":\"check-11\"}},{\"name\":\"Direct-Check-3\",\"description\":\"Perform an immediate check on rock 3 to gain information.\",\"root_action\":\"check-3\",\"followups\":{\"good\":\"check-14\",\"bad\":\"check-4\"}}]}\n```",
+      "request_type": "strategy",
+      "trial_index": 1
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        0,
+        7
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"North-to-14\",\"description\":\"Move North to reduce distance to rock 14, then check it.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-14\"}},{\"name\":\"East-to-3\",\"description\":\"Move East to reduce distance to rock 3, then check it.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"Direct-14\",\"description\":\"Check rock 14 immediately to gain information.\",\"root_action\":\"check-14\",\"followups\":{\"good\":\"check-3\",\"bad\":\"check-11\"}},{\"name\":\"Direct-3\",\"description\":\"Check rock 3 immediately to gain information.\",\"root_action\":\"check-3\",\"followups\":{\"good\":\"check-14\",\"bad\":\"check-10\"}}]}\n```",
+      "request_type": "strategy",
+      "trial_index": 2
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        0,
+        7
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"North-to-14\",\"description\":\"Move North to reduce distance to rock 14, then check it.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-14\"}},{\"name\":\"East-to-3\",\"description\":\"Move East to reduce distance to rock 3, then check it.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"Check-14-Direct\",\"description\":\"Directly check rock 14 to gain information.\",\"root_action\":\"check-14\",\"followups\":{\"good\":\"check-3\",\"bad\":\"check-11\"}},{\"name\":\"Check-3-Direct\",\"description\":\"Directly check rock 3 to gain information.\",\"root_action\":\"check-3\",\"followups\":{\"good\":\"check-14\",\"bad\":\"check-10\"}}]}\n```",
+      "request_type": "strategy",
+      "trial_index": 3
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-0",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "15-15",
+      "position": [
+        1,
+        7
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"immediate-check-14\",\n      \"description\": \"Perform a check on rock 14 which is currently very close to the rover to maximize immediate information gain.\",\n      \"root_action\": \"check-14\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"move-east-approach\",\n      \"description\": \"Move EAST to reduce Manhattan distance to several rocks, specifically targeting rock 3 and rock 14.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"move-north-approach\",\n      \"description\": \"Move NORTH to decrease distance to rock 14 and rock 3.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"immediate-check-3\",\n      \"description\": \"Perform a check on rock 3 which is relatively close to the current position.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 4
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-EAST",
+          "observation": null
+        },
+        {
+          "action": "check-0",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        1,
+        7
+      ],
+      "raw_response": "```json\n{\"strategies\":[{\"name\":\"North-to-14\",\"description\":\"Move north to reduce distance to rock 14, then check it.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-14\"}},{\"name\":\"East-to-3\",\"description\":\"Move east to reduce distance to rock 3, then check it.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"Check-14-Direct\",\"description\":\"Directly check rock 14 to gain information.\",\"root_action\":\"check-14\",\"followups\":{\"good\":\"check-3\",\"bad\":\"check-11\"}},{\"name\":\"Check-3-Direct\",\"description\":\"Directly check rock 3 to gain information.\",\"root_action\":\"check-3\",\"followups\":{\"good\":\"check-14\",\"bad\":\"check-1\"\\\"}}]}\n```\n\nWait, I see a typo in my manual JSON construction for the last item. Let me re-format correctly to ensure valid JSON and strict adherence to the schema.\n\n```json\n{\"strategies\":[{\"name\":\"North-to-14\",\"description\":\"Move north to reduce distance to rock 14, then check it.\",\"root_action\":\"move-NORTH\",\"followups\":{\"none\":\"check-14\"}},{\"name\":\"East-to-3\",\"description\":\"Move east to reduce distance to rock 3, then check it.\",\"root_action\":\"move-EAST\",\"followups\":{\"none\":\"check-3\"}},{\"name\":\"Check-14-Direct\",\"description\":\"Directly check rock 14 to gain information.\",\"root_action\":\"check-14\",\"followups\":{\"good\":\"check-3\",\"bad\":\"check-11\"}},{\"name\":\"Check-3-Direct\",\"description\":\"Directly check rock 3 to gain information.\",\"root_action\":\"check-3\",\"followups\":{\"good\":\"check-14\",\"bad\":\"check-1\"}}]}\n```",
+      "request_type": "strategy",
+      "trial_index": 5
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "good"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        0,
+        7
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"north-to-rock-14\",\n      \"description\": \"Move north to reduce distance to rock 14 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-14\"\n      }\n    },\n    {\n      \"name\": \"east-to-rock-3\",\n      \"description\": \"Move east to reduce distance to rock 3 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-3\"\n      }\n    },\n    {\n      \"name\": \"check-14-direct\",\n      \"description\": \"Directly check rock 14 to gain information about its state.\",\n      \"root_action\": \"check-14\",\n      \"followups\": {\n        \"good\": \"check-3\",\n        \"bad\": \"check-11\"\n      }\n    },\n    {\n      \"name\": \"check-3-direct\",\n      \"description\": \"Directly check rock 3 to gain information about its state.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {\n        \"good\": \"check-14\",\n        \"bad\": \"check-4\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 6
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "check-1",
+          "observation": "bad"
+        }
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        0,
+        7
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"north-to-rock-14\",\n      \"description\": \"Move north to reduce distance to rock 14 before checking it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-14\"\n      }\n    },\n    {\n      \"name\": \"east-to-rock-3\",\n      \"description\": \"Move east to reduce distance to rock 3 before checking it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-3\"\n      }\n    },\n    {\n      \"name\": \"check-14-direct\",\n      \"description\": \"Directly check rock 14 to gain information about its state.\",\n      \"root_action\": \"check-14\",\n      \"followups\": {\n        \"good\": \"check-3\",\n        \"bad\": \"check-11\"\n      }\n    },\n    {\n      \"name\": \"check-3-direct\",\n      \"description\": \"Directly check rock 3 to gain information about its state.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {\n        \"good\": \"check-14\",\n        \"bad\": \"check-4\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 7
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        }
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "position": [
+        0,
+        8
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"north-proximity-check\",\n      \"description\": \"Move north to reduce distance to rock 14 and then perform a check on it.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {\n        \"none\": \"check-14\"\n      }\n    },\n    {\n      \"name\": \"east-proximity-check\",\n      \"description\": \"Move east to reduce distance to rock 3 and then perform a check on it.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {\n        \"none\": \"check-3\"\n      }\n    },\n    {\n      \"name\": \"direct-check-low-dist\",\n      \"description\": \"Perform a direct check on rock 14 which is currently at a low Manhattan distance.\",\n      \"root_action\": \"check-14\",\n      \"followups\": {\n        \"good\": \"check-3\",\n        \"bad\": \"check-11\"\n      }\n    },\n    {\n      \"name\": \"direct-check-mid-dist\",\n      \"description\": \"Perform a direct check on rock 11 to gain information on a mid-range target.\",\n      \"root_action\": \"check-11\",\n      \"followups\": {\n        \"good\": \"check-14\",\n        \"bad\": \"check-4\"\n      }\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 8
+    },
+    {
+      "attempt": 0,
+      "history": [
+        {
+          "action": "move-SOUTH",
+          "observation": null
+        },
+        {
+          "action": "check-5",
+          "observation": "good"
+        }
+      ],
+      "horizon": 1,
+      "map_name": "15-15",
+      "position": [
+        0,
+        8
+      ],
+      "raw_response": "```json\n{\n  \"strategies\": [\n    {\n      \"name\": \"proximity-check-11\",\n      \"description\": \"Perform a check on rock 11 which is relatively close to the current position to maximize information gain via high accuracy.\",\n      \"root_action\": \"check-11\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"move-east-optimization\",\n      \"description\": \"Move EAST to reduce the Manhattan distance to several rocks (1, 3, 4, 6, 11, 14) to prepare for high-accuracy checks.\",\n      \"root_action\": \"move-EAST\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"proximity-check-3\",\n      \"description\": \"Perform a check on rock 3 which is at a moderate distance, providing a balance of information and reliability.\",\n      \"root_action\": \"check-3\",\n      \"followups\": {}\n    },\n    {\n      \"name\": \"move-north-optimization\",\n      \"description\": \"Move NORTH to decrease distance to rocks in the upper grid area, specifically targeting rock 14.\",\n      \"root_action\": \"move-NORTH\",\n      \"followups\": {}\n    }\n  ]\n}\n```",
+      "request_type": "strategy",
+      "trial_index": 9
+    }
+  ],
+  "cells": [
+    {
+      "best_exhaustive_fraction": 0.9999999999991186,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.0008961491433474578,
+        0.029851106519860338,
+        0.004285681508363837,
+        0.006374934648633257
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        0,
+        7
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-3"
+      ],
+      "state_index": 0,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move North to reduce distance to rock 14, then check it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "North-to-14",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move East to reduce distance to rock 3, then check it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "East-to-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Perform an immediate check on rock 14 to gain information.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "Direct-Check-14",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Perform an immediate check on rock 3 to gain information.",
+          "followups": {
+            "bad": "check-10",
+            "good": "check-14"
+          },
+          "name": "Direct-Check-3",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.999999999999524,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.005722369022361562,
+        0.06928311641996565,
+        0.02498541631367246,
+        0.03489217184314697
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        1,
+        7
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-3"
+      ],
+      "state_index": 1,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move North to reduce distance to rock 14, then check it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "North-to-Rock-14",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move East to reduce distance to rock 3, then check it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "East-to-Rock-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Perform an immediate check on rock 14 to gain information.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "Direct-Check-14",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Perform an immediate check on rock 3 to gain information.",
+          "followups": {
+            "bad": "check-4",
+            "good": "check-14"
+          },
+          "name": "Direct-Check-3",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0000000000007252,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.0008961491433865376,
+        0.0298511065199083,
+        0.004285681508395811,
+        0.006374934648679442
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        0,
+        7
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-3"
+      ],
+      "state_index": 2,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move North to reduce distance to rock 14, then check it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "North-to-14",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move East to reduce distance to rock 3, then check it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "East-to-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Check rock 14 immediately to gain information.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "Direct-14",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Check rock 3 immediately to gain information.",
+          "followups": {
+            "bad": "check-10",
+            "good": "check-14"
+          },
+          "name": "Direct-3",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0000000000007847,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.0008961491433865376,
+        0.029851106519910076,
+        0.004285681508395811,
+        0.006374934648681219
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        0,
+        7
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-3"
+      ],
+      "state_index": 3,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move North to reduce distance to rock 14, then check it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "North-to-14",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move East to reduce distance to rock 3, then check it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "East-to-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Directly check rock 14 to gain information.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "Check-14-Direct",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Directly check rock 3 to gain information.",
+          "followups": {
+            "bad": "check-10",
+            "good": "check-14"
+          },
+          "name": "Check-3-Direct",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0000000000000706,
+      "best_index": 3,
+      "best_root_action": "check-3",
+      "check_policy_count": 2,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.009185981503183172,
+        0.0,
+        0.0,
+        0.02985110651988876
+      ],
+      "horizon": 1,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 0,
+      "position": [
+        1,
+        7
+      ],
+      "root_actions": [
+        "check-14",
+        "move-EAST",
+        "move-NORTH",
+        "check-3"
+      ],
+      "state_index": 4,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Perform a check on rock 14 which is currently very close to the rover to maximize immediate information gain.",
+          "followups": {},
+          "name": "immediate-check-14",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Move EAST to reduce Manhattan distance to several rocks, specifically targeting rock 3 and rock 14.",
+          "followups": {},
+          "name": "move-east-approach",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Move NORTH to decrease distance to rock 14 and rock 3.",
+          "followups": {},
+          "name": "move-north-approach",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Perform a check on rock 3 which is relatively close to the current position.",
+          "followups": {},
+          "name": "immediate-check-3",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0000000000001394,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.005722369022384655,
+        0.06928311642000828,
+        0.024985416313699105,
+        0.034446251244043324
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        1,
+        7
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-3"
+      ],
+      "state_index": 5,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 14, then check it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "North-to-14",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to reduce distance to rock 3, then check it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "East-to-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Directly check rock 14 to gain information.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "Check-14-Direct",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Directly check rock 3 to gain information.",
+          "followups": {
+            "bad": "check-1",
+            "good": "check-14"
+          },
+          "name": "Check-3-Direct",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.000000000000071,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.0008961491433758795,
+        0.02985110651988876,
+        0.004285681508383377,
+        0.00652692171239444
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        0,
+        7
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-3"
+      ],
+      "state_index": 6,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 14 before checking it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "north-to-rock-14",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to reduce distance to rock 3 before checking it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east-to-rock-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Directly check rock 14 to gain information about its state.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "check-14-direct",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Directly check rock 3 to gain information about its state.",
+          "followups": {
+            "bad": "check-4",
+            "good": "check-14"
+          },
+          "name": "check-3-direct",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0000000000000107,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.000896149143363445,
+        0.029851106519886983,
+        0.004285681508383377,
+        0.006526921712392664
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        0,
+        7
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-3"
+      ],
+      "state_index": 7,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 14 before checking it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "north-to-rock-14",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to reduce distance to rock 3 before checking it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east-to-rock-3",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Directly check rock 14 to gain information about its state.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "check-14-direct",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Directly check rock 3 to gain information about its state.",
+          "followups": {
+            "bad": "check-4",
+            "good": "check-14"
+          },
+          "name": "check-3-direct",
+          "root_action": "check-3"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 0.999999999994781,
+      "best_index": 1,
+      "best_root_action": "move-EAST",
+      "check_policy_count": 2,
+      "contingent_check_count": 2,
+      "exact_eig": [
+        0.0012398886143358823,
+        0.0057223690223544565,
+        0.002218105265626491,
+        0.0022181052656282674
+      ],
+      "horizon": 2,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 2,
+      "position": [
+        0,
+        8
+      ],
+      "root_actions": [
+        "move-NORTH",
+        "move-EAST",
+        "check-14",
+        "check-11"
+      ],
+      "state_index": 8,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Move north to reduce distance to rock 14 and then perform a check on it.",
+          "followups": {
+            "none": "check-14"
+          },
+          "name": "north-proximity-check",
+          "root_action": "move-NORTH"
+        },
+        {
+          "description": "Move east to reduce distance to rock 3 and then perform a check on it.",
+          "followups": {
+            "none": "check-3"
+          },
+          "name": "east-proximity-check",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Perform a direct check on rock 14 which is currently at a low Manhattan distance.",
+          "followups": {
+            "bad": "check-11",
+            "good": "check-3"
+          },
+          "name": "direct-check-low-dist",
+          "root_action": "check-14"
+        },
+        {
+          "description": "Perform a direct check on rock 11 to gain information on a mid-range target.",
+          "followups": {
+            "bad": "check-4",
+            "good": "check-14"
+          },
+          "name": "direct-check-mid-dist",
+          "root_action": "check-11"
+        }
+      ]
+    },
+    {
+      "best_exhaustive_fraction": 1.0000000000078133,
+      "best_index": 2,
+      "best_root_action": "check-3",
+      "check_policy_count": 2,
+      "contingent_check_count": 0,
+      "exact_eig": [
+        0.0008961491433971958,
+        0.0,
+        0.001747763101151989,
+        0.0
+      ],
+      "horizon": 1,
+      "map_name": "15-15",
+      "move_policy_count": 2,
+      "move_then_check_count": 0,
+      "position": [
+        0,
+        8
+      ],
+      "root_actions": [
+        "check-11",
+        "move-EAST",
+        "check-3",
+        "move-NORTH"
+      ],
+      "state_index": 9,
+      "status": "passed",
+      "strategies": [
+        {
+          "description": "Perform a check on rock 11 which is relatively close to the current position to maximize information gain via high accuracy.",
+          "followups": {},
+          "name": "proximity-check-11",
+          "root_action": "check-11"
+        },
+        {
+          "description": "Move EAST to reduce the Manhattan distance to several rocks (1, 3, 4, 6, 11, 14) to prepare for high-accuracy checks.",
+          "followups": {},
+          "name": "move-east-optimization",
+          "root_action": "move-EAST"
+        },
+        {
+          "description": "Perform a check on rock 3 which is at a moderate distance, providing a balance of information and reliability.",
+          "followups": {},
+          "name": "proximity-check-3",
+          "root_action": "check-3"
+        },
+        {
+          "description": "Move NORTH to decrease distance to rocks in the upper grid area, specifically targeting rock 14.",
+          "followups": {},
+          "name": "move-north-optimization",
+          "root_action": "move-NORTH"
+        }
+      ]
+    }
+  ],
+  "config": {
+    "bootstrap_replicates": 10,
+    "map_names": [
+      "15-15"
+    ],
+    "num_rounds": 2,
+    "num_strategies": 4,
+    "num_trials_per_map": 1,
+    "planning_horizon": 2,
+    "primary_endpoint": "final_entropy",
+    "seed": 12032,
+    "strategy_schema": "branch_policy_v2",
+    "temperature": 0.0,
+    "trial_concurrency": 1,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "invalid_responses": [],
+  "mechanics": {
+    "all_cells_have_move_and_check_roots": true,
+    "all_move_cells_include_move_then_check": true,
+    "parse_rate": 1.0,
+    "passed_cells": 10,
+    "raw_rejected_attempts": 0,
+    "requested_cells": 10,
+    "terminal_failures": 0
+  },
+  "passed": true,
+  "run_id": "nonmyopic-rocksample-15-15-vllm-smoke-20260722",
+  "schema_version": 1,
+  "stage": "rock_branch_strategy_serving_smoke",
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 2900,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26B-A4B-it",
+    "model_usage": {
+      "google/gemma-4-26B-A4B-it": {
+        "completion_tokens": 2900,
+        "cost_usd": 0.0,
+        "prompt_tokens": 41976,
+        "reasoning_tokens": 0,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 41976,
+    "reasoning_tokens": 0,
+    "requests": 10,
+    "run_cost_usd": 0.0
+  }
+}

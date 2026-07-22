@@ -69,3 +69,10 @@ launcher now checks `pomdp_py` after activating the allocation-local environment
 only when absent, installs the pinned wheel under the cluster's existing package
 lock before asserting the frozen map import. No model or policy endpoint has yet
 been observed.
+
+The corrected actual-prompt smoke, job `106109` on `oat10`, passed 10/10 cells on
+the first response with zero rejects, terminal failures, reasoning tokens, or
+forced exits. All cells contained the required movement and check roots, and every
+movement branch continued to a check. Direct vLLM recorded 41,976 prompt and 2,900
+completion tokens across ten requests at zero monetary cost. This authorized the
+unchanged formal job `106113`.
