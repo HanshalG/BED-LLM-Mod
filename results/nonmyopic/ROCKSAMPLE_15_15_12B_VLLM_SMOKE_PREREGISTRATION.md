@@ -78,3 +78,11 @@ then failed in the repository preflight before model creation or any response be
 pomdp-py's Gaussian module imports SciPy. The isolated dependency list now adds pinned
 `scipy==1.17.1` without dependencies; the container's numerical stack and every
 scientific setting remain unchanged.
+
+Job `106215` then resolved `Gemma4UnifiedForConditionalGeneration` under vLLM 0.23.0
+but failed at CUDA initialization before loading weights or producing a response: the
+default v0.23.0 image targets CUDA 13 while `oat14` exposes driver compatibility 12.5.
+Docker Hub publishes the official pinned `v0.23.0-cu129` image. The next serving-only
+repair uses that image with vLLM CUDA compatibility enabled on A100 and a fresh
+versioned dependency path. The model and all registered scientific settings remain
+unchanged.

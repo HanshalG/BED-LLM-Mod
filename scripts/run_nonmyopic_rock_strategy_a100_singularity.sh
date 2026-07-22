@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-CONTAINER="docker://vllm/vllm-openai:v0.23.0"
+CONTAINER="docker://vllm/vllm-openai:v0.23.0-cu129"
 
 export SINGULARITY_CACHEDIR=/scratch-ssd/$USER/cache
 export SINGULARITY_TMPDIR=/scratch-ssd/$USER/tmp
@@ -21,7 +21,7 @@ export TRANSFORMERS_CACHE=$HF_HOME/transformers
 export HF_HUB_CACHE=$HF_HOME/hub
 export HF_DATASETS_CACHE=$HF_HOME/datasets
 export XDG_CACHE_HOME=/scratch-ssd/$USER/.cache
-export BED_LLM_PYDEPS=/scratch-ssd/$USER/bed-llm-pydeps-vllm-0.23.0
+export BED_LLM_PYDEPS=/scratch-ssd/$USER/bed-llm-pydeps-vllm-0.23.0-cu129
 export PYTHONNOUSERSITE=1
 export PYTHONPATH="$BED_LLM_PYDEPS"
 export VLLM_ENABLE_CUDA_COMPATIBILITY=1
