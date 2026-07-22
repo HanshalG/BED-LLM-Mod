@@ -177,7 +177,17 @@ def _analyze_expected(
     usage = payload["usage"]
     assert usage["backend"] == expected["backend"]
     assert usage["model"] == expected["model"]
-    assert usage["requests"] == mechanics["physical_llm_requests"]
+    unlogged_prior_requests = 0
+    if payload["resume"] is not None:
+        resume = payload["resume"]
+        prior_requests = int(resume.get("prior_usage", {}).get("requests", 0))
+        prior_logged = int(resume["accepted_cells_reused"]) + int(
+            resume.get("rejected_responses_preserved", 0)
+        )
+        unlogged_prior_requests = max(0, prior_requests - prior_logged)
+    assert usage["requests"] == (
+        mechanics["physical_llm_requests"] + unlogged_prior_requests
+    )
     assert usage["reasoning_tokens"] == 0
     assert usage["forced_exits"] == 0
     assert set(usage["model_usage"]) == {expected["model"]}

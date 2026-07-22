@@ -67,3 +67,8 @@ failed-closed artifact, revalidating and reusing all 372 accepted cells. Model,
 seed `24106`, hidden trials, prompts, K, horizon, controls, endpoints, and gates are
 unchanged. This is a reported same-seed software-failure resume, not a replacement
 seed or a fresh endpoint attempt.
+
+The crashing 373rd response consumed tokens but escaped before it could be recorded
+as an accepted or rejected cell. Cumulative final serving usage will therefore be
+the replayable physical-cell count plus one. The resume accounting merges the prior
+and new vLLM process snapshots and preserves that discrepancy explicitly.

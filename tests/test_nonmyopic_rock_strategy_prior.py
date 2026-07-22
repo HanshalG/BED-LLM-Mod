@@ -14,12 +14,101 @@ from scripts.nonmyopic_rock_strategy_prior import (
     L1Config,
     LLMRockStrategyProvider,
     StrategyProposalError,
+    _merge_usage_snapshots,
     _posterior_prompt_lines,
+    _usage_snapshot_for_run,
     parse_branch_strategy_cell,
     parse_strategy_cell,
     parse_width_cell,
     run_l1_anchor,
 )
+
+
+def test_resume_usage_merges_disjoint_vllm_processes() -> None:
+    class CurrentModel:
+        def usage_snapshot(self):
+            return {
+                "backend": "vllm",
+                "model": "test-model",
+                "requests": 7,
+                "prompt_tokens": 70,
+                "completion_tokens": 14,
+                "reasoning_tokens": 0,
+                "run_cost_usd": 0.0,
+                "model_usage": {
+                    "test-model": {
+                        "requests": 7,
+                        "prompt_tokens": 70,
+                        "completion_tokens": 14,
+                        "reasoning_tokens": 0,
+                        "cost_usd": 0.0,
+                    }
+                },
+                "forced_exits": 0,
+            }
+
+    prior = {
+        "backend": "vllm",
+        "model": "test-model",
+        "requests": 4,
+        "prompt_tokens": 40,
+        "completion_tokens": 8,
+        "reasoning_tokens": 0,
+        "run_cost_usd": 0.0,
+        "model_usage": {
+            "test-model": {
+                "requests": 4,
+                "prompt_tokens": 40,
+                "completion_tokens": 8,
+                "reasoning_tokens": 0,
+                "cost_usd": 0.0,
+            }
+        },
+        "forced_exits": 0,
+    }
+    usage = _usage_snapshot_for_run(
+        CurrentModel(),
+        resume_info={
+            "accepted_cells_reused": 3,
+            "rejected_responses_preserved": 0,
+            "prior_usage": prior,
+        },
+        recorded_requests=10,
+    )
+
+    assert usage["requests"] == 11
+    assert usage["prompt_tokens"] == 110
+    assert usage["model_usage"]["test-model"]["completion_tokens"] == 22
+
+
+def test_resume_usage_keeps_already_cumulative_snapshot() -> None:
+    class CurrentModel:
+        def usage_snapshot(self):
+            return {"backend": "openrouter", "model": "test-model", "requests": 11}
+
+    usage = _usage_snapshot_for_run(
+        CurrentModel(),
+        resume_info={
+            "accepted_cells_reused": 3,
+            "rejected_responses_preserved": 0,
+            "prior_usage": {
+                "backend": "openrouter",
+                "model": "test-model",
+                "requests": 4,
+            },
+        },
+        recorded_requests=10,
+    )
+
+    assert usage["requests"] == 11
+
+
+def test_usage_merge_rejects_provider_mismatch() -> None:
+    with pytest.raises(ValueError, match="backend"):
+        _merge_usage_snapshots(
+            {"backend": "openrouter", "requests": 1},
+            {"backend": "vllm", "requests": 1},
+        )
 
 
 def test_large_factorized_belief_uses_exact_compact_prompt_summary() -> None:

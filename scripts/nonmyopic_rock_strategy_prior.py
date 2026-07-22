@@ -1941,6 +1941,69 @@ def _usage_snapshot(model: Any) -> dict[str, Any]:
     return snapshot() if callable(snapshot) else {"backend": "unknown"}
 
 
+def _merge_usage_snapshots(
+    prior: dict[str, Any], current: dict[str, Any]
+) -> dict[str, Any]:
+    """Add disjoint serving-process usage while preserving provider identity."""
+
+    for field in ("backend", "model"):
+        if prior.get(field) is not None and current.get(field) != prior[field]:
+            raise ValueError(f"resume usage {field} does not match the current process")
+    merged = dict(current)
+    additive_fields = (
+        "requests",
+        "prompt_tokens",
+        "completion_tokens",
+        "reasoning_tokens",
+        "cost_usd",
+        "run_cost_usd",
+        "forced_exits",
+    )
+    for field in additive_fields:
+        if field in prior or field in current:
+            merged[field] = prior.get(field, 0) + current.get(field, 0)
+    merged_models: dict[str, dict[str, Any]] = {}
+    for snapshot in (prior, current):
+        for model_name, values in snapshot.get("model_usage", {}).items():
+            totals = merged_models.setdefault(model_name, {})
+            for field, value in values.items():
+                if field in additive_fields:
+                    totals[field] = totals.get(field, 0) + value
+                else:
+                    totals[field] = value
+    if merged_models:
+        merged["model_usage"] = merged_models
+    return merged
+
+
+def _usage_snapshot_for_run(
+    model: Any,
+    *,
+    resume_info: dict[str, Any] | None,
+    recorded_requests: int,
+) -> dict[str, Any]:
+    """Return cumulative usage for fresh runs and failed-closed resumes."""
+
+    current = _usage_snapshot(model)
+    if resume_info is None:
+        return current
+    prior = resume_info.get("prior_usage", {})
+    prior_requests = int(prior.get("requests", 0))
+    prior_logged = int(resume_info["accepted_cells_reused"]) + int(
+        resume_info["rejected_responses_preserved"]
+    )
+    unlogged_prior_requests = max(0, prior_requests - prior_logged)
+    expected_total = recorded_requests + unlogged_prior_requests
+    if int(current.get("requests", -1)) == expected_total:
+        return current
+    merged = _merge_usage_snapshots(prior, current)
+    if int(merged.get("requests", -1)) != expected_total:
+        raise ValueError(
+            "resume usage cannot be reconciled with recorded and prior requests"
+        )
+    return merged
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -2012,7 +2075,12 @@ def main() -> None:
         summary = run_l1_anchor(provider, config)
     except Exception as exc:
         try:
-            usage = _usage_snapshot(chat_model)
+            usage = _usage_snapshot_for_run(
+                chat_model,
+                resume_info=resume_info,
+                recorded_requests=len(provider.physical_requests)
+                + len(provider.invalid_responses),
+            )
         except Exception as usage_exc:
             usage = {
                 "backend": "unavailable",
@@ -2035,7 +2103,11 @@ def main() -> None:
             json.dumps(failure, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
         raise
-    summary["usage"] = _usage_snapshot(chat_model)
+    summary["usage"] = _usage_snapshot_for_run(
+        chat_model,
+        resume_info=resume_info,
+        recorded_requests=len(provider.physical_requests) + len(provider.invalid_responses),
+    )
     summary["run_id"] = args.run_id
     summary["dry_run"] = args.dry_run
     summary["resume"] = resume_info
