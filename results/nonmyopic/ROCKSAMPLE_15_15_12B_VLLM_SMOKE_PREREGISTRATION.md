@@ -46,7 +46,7 @@ cannot change prompts, thresholds, K, or probe states.
 ## Frozen Command
 
 ```bash
-sbatch --job-name=r15-12b-smoke scripts/run_nonmyopic_rock_strategy_a100.sh \
+sbatch --job-name=r15-12b-smoke scripts/run_nonmyopic_rock_strategy_a100_singularity.sh \
   scripts/nonmyopic_rock_branch_strategy_smoke.py \
   --config configs/config_nonmyopic_rocksample_15_15_12b_vllm.yaml \
   --maps 15-15 --probe-states-per-map 10 --num-strategies 4 --concurrency 1 \
@@ -58,4 +58,10 @@ sbatch --job-name=r15-12b-smoke scripts/run_nonmyopic_rock_strategy_a100.sh \
 
 ## Execution Status
 
-Pending.
+The initial job `106170` reached `msc` node `oat16` but failed before model
+initialization or any LLM response. The node-local vLLM build predates
+`Gemma4UnifiedForConditionalGeneration`; upgrading Transformers alone cannot add the
+missing vLLM architecture. Per the frozen serving-repair allowance, the identical
+smoke will rerun through the repository's established Singularity pattern using the
+official `vllm/vllm-openai:gemma4` image, which contains Gemma 4 Unified support.
+The checkpoint, prompts, K, probes, thresholds, and one-repair policy are unchanged.
