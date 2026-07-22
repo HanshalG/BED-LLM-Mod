@@ -63,6 +63,15 @@ EXPECTED_RUNS = {
         "trial_concurrency": 1,
         "resumed": False,
     },
+    "e4b_vllm": {
+        "run_id": "nonmyopic-rocksample-15-15-e4b-vllm-20260722",
+        "seed": 24105,
+        "model": "google/gemma-4-E4B-it",
+        "label": "Gemma 4 E4B direct vLLM seed 24105",
+        "backend": "vllm",
+        "trial_concurrency": 1,
+        "resumed": False,
+    },
 }
 
 
@@ -340,7 +349,7 @@ def render_summary(audit: dict[str, Any]) -> str:
     lines = [
         "# RockSample[15,15] Gemma Root-Slot Confirmation",
         "",
-        f"The preregistered fifteen-rock scale confirmation {outcome}",
+        f"The registered fifteen-rock run {outcome}",
         "",
         "| Control | Entropy-AUC gain [95% CI] | Truth-log-AUC gain [95% CI] | AUC W/T/L |",
         "| --- | --- | --- | --- |",

@@ -163,8 +163,10 @@ def test_auditor_accepts_registered_vllm_replication() -> None:
     assert audit["primary_gate_passed"]
 
 
-@pytest.mark.parametrize("run_key", ["vllm_seed_24102", "vllm_seed_24103"])
-def test_auditor_accepts_registered_vllm_robustness_seeds(run_key: str) -> None:
+@pytest.mark.parametrize(
+    "run_key", ["vllm_seed_24102", "vllm_seed_24103", "e4b_vllm"]
+)
+def test_auditor_accepts_registered_vllm_runs(run_key: str) -> None:
     audit = analyze_run(_result(run_key=run_key), run_key)
 
     assert audit["usage"]["backend"] == "vllm"
@@ -178,6 +180,7 @@ def test_summary_reports_failed_gate_without_positive_claim() -> None:
     summary = render_summary(audit)
 
     assert "fails its preregistered primary entropy-AUC gate" in summary
+    assert "The registered fifteen-rock run" in summary
     assert "Positive paired gains favor StrategyEIG" not in summary
 
 
