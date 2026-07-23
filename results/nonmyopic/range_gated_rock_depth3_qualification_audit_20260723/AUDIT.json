@@ -1,0 +1,41 @@
+{
+  "entropy_auc_gain": {
+    "independent_ci95": [
+      0.45994037056977505,
+      0.4656931249519812
+    ],
+    "mean": 0.4629602875410432
+  },
+  "mechanics": {
+    "all_actions_legal": true,
+    "all_registered_traces_replayed": true,
+    "every_recorded_action_is_independently_optimal": true,
+    "independent_planning_values_match": true,
+    "no_llm_calls": true,
+    "paired_truths_match": true,
+    "posterior_metrics_match": true,
+    "seeded_observations_match": true,
+    "stored_comparison_matches_replay": true,
+    "stored_positions_match": true
+  },
+  "passed": true,
+  "schema_version": 1,
+  "source_config": {
+    "bootstrap_replicates": 10000,
+    "map_name": "7-8",
+    "num_rounds": 8,
+    "num_trials": 500,
+    "onsite_accuracy": 0.95,
+    "remote_accuracy": 0.55,
+    "seed": 24141,
+    "trial_concurrency": 16
+  },
+  "stage": "range_gated_rock_depth3_exact_qualification_audit",
+  "truth_log_probability_auc_gain": {
+    "independent_ci95": [
+      0.4506132050540714,
+      0.4890910699737925
+    ],
+    "mean": 0.47013777003686014
+  }
+}

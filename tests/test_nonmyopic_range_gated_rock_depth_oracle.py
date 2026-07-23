@@ -5,6 +5,7 @@ from scripts.nonmyopic_range_gated_rock_depth_oracle import (
     RangeGatedDepthConfig,
     run_qualification,
 )
+from scripts.audit_nonmyopic_range_gated_rock_depth_oracle import audit
 
 
 def test_range_gated_sensor_is_weak_remotely_and_strong_onsite() -> None:
@@ -39,3 +40,6 @@ def test_tiny_exact_qualification_exposes_depth_three_mechanism() -> None:
     assert summary["truth_log_corroboration_passed"]
     assert all(summary["mechanics"].values())
     assert summary["comparisons"]["d3_minus_d2"]["entropy_auc_gain_mean"] > 0.0
+    audited = audit(summary)
+    assert audited["passed"]
+    assert all(audited["mechanics"].values())
