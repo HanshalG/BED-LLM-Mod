@@ -28,6 +28,10 @@ def _without_ci(comparison: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _json_normalize(value: Any) -> Any:
+    return json.loads(json.dumps(value, sort_keys=True))
+
+
 def audit_result(
     result: dict[str, Any],
     *,
@@ -63,7 +67,10 @@ def audit_result(
         "all_traces_replayed": _close(replay["traces"], result["traces"]),
         "all_truth_indices_replayed": replay["truth_indices"]
         == result["truth_indices"],
-        "source_prior_recomputed": _close(replay["source"], result["source"]),
+        "source_prior_recomputed": _close(
+            _json_normalize(replay["source"]),
+            _json_normalize(result["source"]),
+        ),
         "initial_values_recomputed": _close(
             replay["initial_action_values"],
             result["initial_action_values"],

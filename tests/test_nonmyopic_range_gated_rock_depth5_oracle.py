@@ -1,4 +1,5 @@
 from dataclasses import replace
+import json
 
 import numpy as np
 import pytest
@@ -53,7 +54,8 @@ def test_small_focused_depth5_qualification_replays_exactly() -> None:
         seed=24_237,
     )
     result = run_qualification(config)
-    audit = audit_result(result, audit_bootstrap_seed=24_238)
+    serialized_result = json.loads(json.dumps(result))
+    audit = audit_result(serialized_result, audit_bootstrap_seed=24_238)
 
     assert all(result["mechanics"].values())
     assert result["comparison"]["entropy_auc_gain_mean"] > 0.0
@@ -63,5 +65,6 @@ def test_small_focused_depth5_qualification_replays_exactly() -> None:
         for row in result["traces"]["5"]
     )
     assert audit["mechanics"]["all_traces_replayed"]
+    assert audit["mechanics"]["source_prior_recomputed"]
     assert audit["mechanics"]["producer_comparison_recomputed"]
     assert audit["mechanics"]["audit_values_match_without_ci"]
