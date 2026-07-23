@@ -1,0 +1,147 @@
+{
+  "audit_bootstrap_seed": 24242,
+  "comparisons": {
+    "exact_h5_route_selection_rate": 0.9375,
+    "llm_minus_matched_random_goals": {
+      "ci95": [
+        0.1813060531980559,
+        0.4502741960581684
+      ],
+      "mean": 0.3304228510298537,
+      "values": [
+        0.47085055985129903,
+        0.0,
+        0.4765809541695652,
+        0.0,
+        0.48952374003656696,
+        0.4895237400365672,
+        0.47085055985129776,
+        0.47085055985130053,
+        0.4708505598512988,
+        0.48952374003656807,
+        0.4814675777535869,
+        -0.470850559851301,
+        0.0,
+        0.4895237400365672,
+        0.4814894906847759,
+        0.47658095416956625
+      ],
+      "wins_ties_losses": [
+        12,
+        3,
+        1
+      ]
+    },
+    "llm_minus_shared_h4": {
+      "ci95": [
+        0.38722202526277194,
+        0.47701813025474027
+      ],
+      "mean": 0.44694036989569264,
+      "values": [
+        0.4765809541695652,
+        0.4765809541695663,
+        0.4765809541695652,
+        0.47891255995716514,
+        0.47658095416956475,
+        0.476580954169565,
+        0.47658095416956386,
+        0.47658095416956675,
+        0.476580954169565,
+        0.47658095416956586,
+        0.4765809541695654,
+        0.0,
+        0.47658095416956564,
+        0.476580954169565,
+        0.4765809541695667,
+        0.47658095416956625
+      ],
+      "wins_ties_losses": [
+        15,
+        1,
+        0
+      ]
+    },
+    "llm_minus_strong_d4": {
+      "ci95": [
+        0.381796010445976,
+        0.4700804904180952
+      ],
+      "mean": 0.44065233042738866,
+      "values": [
+        0.47008049041809463,
+        0.47008049041809574,
+        0.47008049041809463,
+        0.47008049041809374,
+        0.4700804904180942,
+        0.4700804904180944,
+        0.4700804904180933,
+        0.4700804904180962,
+        0.4700804904180944,
+        0.4700804904180953,
+        0.47008049041809485,
+        -0.0007700694332043456,
+        0.4700804904180951,
+        0.4700804904180944,
+        0.47008049041809613,
+        0.4700804904180957
+      ],
+      "wins_ties_losses": [
+        15,
+        0,
+        1
+      ]
+    },
+    "recovery_fraction": {
+      "ci95": [
+        0.8121928440518826,
+        1.0
+      ],
+      "mean": 0.9373976146839609,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        -0.0016381650566255884,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "wins_ties_losses": [
+        15,
+        0,
+        1
+      ]
+    }
+  },
+  "endpoint_gate": {
+    "matched_random_goal_lower_bound_positive": true,
+    "mean_recovery_at_least_threshold": true,
+    "route_selection_at_least_threshold": true,
+    "shared_h4_lower_bound_positive": true,
+    "strong_d4_lower_bound_positive": true
+  },
+  "gate": {
+    "passed": true
+  },
+  "mechanics": {
+    "all_record_fields_match": true,
+    "all_records_replayed": true,
+    "all_target_assignments_recompiled_independently": true,
+    "producer_comparisons_recomputed": true,
+    "producer_gate_passed": true,
+    "producer_values_match_without_ci": true
+  },
+  "schema_version": 1,
+  "source_stage": "range_gated_rock_depth5_goal_compiler_proposal_gate",
+  "stage": "range_gated_rock_depth5_goal_compiler_proposal_audit"
+}

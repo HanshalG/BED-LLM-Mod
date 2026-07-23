@@ -1,0 +1,3521 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-1",
+          "bad"
+        ],
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 15,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-2",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-1"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":3}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-3"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        3
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 9,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":2}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        2
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 8,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-1"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 10,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-0",
+          "good"
+        ],
+        [
+          "check-5",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-0",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":3}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-3"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        3
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 12,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-5",
+          "bad"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 14,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-5",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 13,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-0",
+          "good"
+        ],
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 11,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":4,\"r1\":7,\"r2\":6,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "target_assignments": [
+        4,
+        7,
+        6,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 7,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    }
+  ],
+  "cell_concurrency": 16,
+  "comparisons": {
+    "exact_h5_route_selection_rate": 0.9375,
+    "llm_minus_matched_random_goals": {
+      "ci95": [
+        0.18073146346614996,
+        0.4501784990293608
+      ],
+      "mean": 0.3304228510298537,
+      "values": [
+        0.47085055985129903,
+        0.0,
+        0.4765809541695652,
+        0.0,
+        0.48952374003656696,
+        0.4895237400365672,
+        0.47085055985129776,
+        0.47085055985130053,
+        0.4708505598512988,
+        0.48952374003656807,
+        0.4814675777535869,
+        -0.470850559851301,
+        0.0,
+        0.4895237400365672,
+        0.4814894906847759,
+        0.47658095416956625
+      ],
+      "wins_ties_losses": [
+        12,
+        3,
+        1
+      ]
+    },
+    "llm_minus_shared_h4": {
+      "ci95": [
+        0.3872220252627719,
+        0.4770181302547404
+      ],
+      "mean": 0.44694036989569264,
+      "values": [
+        0.4765809541695652,
+        0.4765809541695663,
+        0.4765809541695652,
+        0.47891255995716514,
+        0.47658095416956475,
+        0.476580954169565,
+        0.47658095416956386,
+        0.47658095416956675,
+        0.476580954169565,
+        0.47658095416956586,
+        0.4765809541695654,
+        0.0,
+        0.47658095416956564,
+        0.476580954169565,
+        0.4765809541695667,
+        0.47658095416956625
+      ],
+      "wins_ties_losses": [
+        15,
+        1,
+        0
+      ]
+    },
+    "llm_minus_strong_d4": {
+      "ci95": [
+        0.3817960104459761,
+        0.4700804904180952
+      ],
+      "mean": 0.44065233042738866,
+      "values": [
+        0.47008049041809463,
+        0.47008049041809574,
+        0.47008049041809463,
+        0.47008049041809374,
+        0.4700804904180942,
+        0.4700804904180944,
+        0.4700804904180933,
+        0.4700804904180962,
+        0.4700804904180944,
+        0.4700804904180953,
+        0.47008049041809485,
+        -0.0007700694332043456,
+        0.4700804904180951,
+        0.4700804904180944,
+        0.47008049041809613,
+        0.4700804904180957
+      ],
+      "wins_ties_losses": [
+        15,
+        0,
+        1
+      ]
+    },
+    "recovery_fraction": {
+      "ci95": [
+        0.8121928440518826,
+        1.0
+      ],
+      "mean": 0.9373976146839609,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        -0.0016381650566255884,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "wins_ties_losses": [
+        15,
+        0,
+        1
+      ]
+    }
+  },
+  "config": {
+    "bootstrap_replicates": 5000,
+    "bootstrap_seed": 24241,
+    "num_cells": 16,
+    "recovery_threshold": 0.6,
+    "route_selection_threshold": 0.75,
+    "seed": 24240
+  },
+  "dry_run": false,
+  "endpoint_gate": {
+    "matched_random_goal_lower_bound_positive": true,
+    "mean_recovery_at_least_threshold": true,
+    "route_selection_at_least_threshold": true,
+    "shared_h4_lower_bound_positive": true,
+    "strong_d4_lower_bound_positive": true
+  },
+  "gate": {
+    "passed": true
+  },
+  "invalid_responses": [],
+  "mechanics": {
+    "all_cells_are_strict_h5_opportunities": true,
+    "all_controls_exactly_scored": true,
+    "all_exact_h5_roots_are_north": true,
+    "all_registered_routes_are_exact_h5": true,
+    "all_roots_match_fixed_interface": true,
+    "all_targets_are_distinct": true,
+    "scoring_made_no_llm_calls": true,
+    "sixteen_distinct_cells_resolved": true,
+    "usage_accounted": true
+  },
+  "records": [
+    {
+      "cell_index": 0,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.49463193721407195,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.49463193721407195,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "h5_opportunity": 0.47008049041809463,
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "llm_plan_values": [
+        0.49463193721407195,
+        0.013042616198149871,
+        0.018050983044506745,
+        0.00022157359348307098
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.49463193721407195,
+      "matched_random_plan_values": [
+        0.02378137736277292,
+        8.182856616589785e-05,
+        0.005108197177504548,
+        0.005130110108692243
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        4,
+        3,
+        1,
+        6
+      ],
+      "matched_random_value": 0.02378137736277292,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.018050983044506745,
+      "strong_d4_h5_value": 0.024551446795977323,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 1,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.49463193721407306,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.49463193721407306,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-3"
+      ],
+      "h5_opportunity": 0.47008049041809574,
+      "history": [
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.49463193721407306,
+        0.013042616198149906,
+        0.018050983044506762,
+        0.00024345649416085882
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        3
+      ],
+      "llm_value": 0.49463193721407306,
+      "matched_random_plan_values": [
+        0.02378137736277296,
+        0.49463193721407306,
+        0.005108197177504548,
+        0.00022157359348307096
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ],
+        [
+          "check-3",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-WEST",
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "matched_random_target_assignments": [
+        4,
+        6,
+        0,
+        7
+      ],
+      "matched_random_value": 0.49463193721407306,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.018050983044506762,
+      "strong_d4_h5_value": 0.024551446795977344,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 2,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.49463193721407195,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.49463193721407195,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-3"
+      ],
+      "h5_opportunity": 0.47008049041809463,
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "llm_plan_values": [
+        0.49463193721407195,
+        0.013042616198149871,
+        0.018050983044506745,
+        0.0002434564941608588
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        3
+      ],
+      "llm_value": 0.49463193721407195,
+      "matched_random_plan_values": [
+        0.00012174326233538297,
+        9.983033114768769e-05,
+        0.018050983044506745,
+        0.0002035718285012811
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        3,
+        0,
+        4,
+        1
+      ],
+      "matched_random_value": 0.018050983044506745,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.018050983044506745,
+      "strong_d4_h5_value": 0.024551446795977323,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 3,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.49463193721407106,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.49463193721407106,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "h5_opportunity": 0.47008049041809374,
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "llm_plan_values": [
+        0.49463193721407106,
+        0.015869179981279263,
+        0.01571937725690594,
+        0.00022157359348307096
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.49463193721407106,
+      "matched_random_plan_values": [
+        9.983033114768748e-05,
+        0.49463193721407106,
+        0.01571937725690594,
+        0.00022157359348307096
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-5"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-WEST",
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "matched_random_target_assignments": [
+        5,
+        6,
+        4,
+        2
+      ],
+      "matched_random_value": 0.49463193721407106,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01571937725690594,
+      "strong_d4_h5_value": 0.02455144679597732,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 4,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140715,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140715,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "h5_opportunity": 0.4700804904180942,
+      "history": [
+        [
+          "check-1",
+          "bad"
+        ],
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140715,
+        0.015869179981279277,
+        0.01805098304450675,
+        0.00020357182850128114
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140715,
+      "matched_random_plan_values": [
+        9.983033114768758e-05,
+        8.182856616589779e-05,
+        0.005108197177504548,
+        0.00022157359348307098
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-2"
+      ],
+      "matched_random_target_assignments": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "matched_random_value": 0.005108197177504548,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450675,
+      "strong_d4_h5_value": 0.024551446795977337,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 5,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140717,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140717,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "h5_opportunity": 0.4700804904180944,
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140717,
+        0.013042616198149871,
+        0.01805098304450676,
+        0.00022157359348307093
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140717,
+      "matched_random_plan_values": [
+        9.983033114768764e-05,
+        9.983033114768764e-05,
+        0.005108197177504548,
+        0.00024348652467076623
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-5"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-1"
+      ],
+      "matched_random_target_assignments": [
+        0,
+        5,
+        1,
+        3
+      ],
+      "matched_random_value": 0.005108197177504548,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450676,
+      "strong_d4_h5_value": 0.02455144679597733,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 6,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140706,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140706,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "h5_opportunity": 0.4700804904180933,
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-0",
+          "bad"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140706,
+        0.01586917998127925,
+        0.01805098304450673,
+        0.00022157359348307082
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140706,
+      "matched_random_plan_values": [
+        0.023781377362772867,
+        9.983033114768742e-05,
+        0.005108197177504548,
+        0.00022157359348307082
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-5"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        4,
+        5,
+        1,
+        2
+      ],
+      "matched_random_value": 0.023781377362772867,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450673,
+      "strong_d4_h5_value": 0.02455144679597732,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 7,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140735,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140735,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "h5_opportunity": 0.4700804904180962,
+      "history": [],
+      "llm_plan_values": [
+        0.4946319372140735,
+        0.013042616198149913,
+        0.018050983044506735,
+        0.00019966066229537555
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140735,
+      "matched_random_plan_values": [
+        0.02378137736277297,
+        9.983033114768796e-05,
+        0.005108197177504548,
+        0.00019966066229537555
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-5"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        4,
+        1,
+        0,
+        5
+      ],
+      "matched_random_value": 0.02378137736277297,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        9.98303311476878e-05
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.018050983044506735,
+      "strong_d4_h5_value": 0.024551446795977316,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 8,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140717,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140717,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-1"
+      ],
+      "h5_opportunity": 0.4700804904180944,
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140717,
+        0.013042616198149871,
+        0.01805098304450676,
+        0.00024345649416085874
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140717,
+      "matched_random_plan_values": [
+        0.02378137736277291,
+        0.013042616198149871,
+        0.005130110108692243,
+        0.00024345649416085874
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        4,
+        7,
+        3,
+        1
+      ],
+      "matched_random_value": 0.02378137736277291,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450676,
+      "strong_d4_h5_value": 0.02455144679597733,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 9,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140726,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140726,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "h5_opportunity": 0.4700804904180953,
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140726,
+        0.013042616198149892,
+        0.01805098304450674,
+        0.00024345649416085868
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        2
+      ],
+      "llm_value": 0.4946319372140726,
+      "matched_random_plan_values": [
+        0.00012174326233538313,
+        9.98303311476878e-05,
+        0.005108197177504548,
+        0.0002215735934830709
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "check-6",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-6",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-7"
+      ],
+      "matched_random_target_assignments": [
+        2,
+        1,
+        7,
+        3
+      ],
+      "matched_random_value": 0.005108197177504548,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450674,
+      "strong_d4_h5_value": 0.024551446795977323,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 10,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.49463193721407217,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.49463193721407217,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "h5_opportunity": 0.47008049041809485,
+      "history": [
+        [
+          "check-0",
+          "good"
+        ],
+        [
+          "check-5",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.49463193721407217,
+        0.013042616198149878,
+        0.018050983044506766,
+        0.00022157359348307093
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.49463193721407217,
+      "matched_random_plan_values": [
+        9.983033114768769e-05,
+        9.983033114768769e-05,
+        0.005130110108692243,
+        0.013164359460485279
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-5"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        1,
+        2,
+        5,
+        4
+      ],
+      "matched_random_value": 0.013164359460485279,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.018050983044506766,
+      "strong_d4_h5_value": 0.02455144679597733,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 11,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.49463193721407395,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.49463193721407395,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "h5_opportunity": 0.47008049041809663,
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.023781377362772985,
+        0.013042616198149927,
+        0.00996673285934701,
+        0.0001996606622953756
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4",
+        "check-4"
+      ],
+      "llm_target_assignments": [
+        4,
+        7,
+        6,
+        1
+      ],
+      "llm_value": 0.023781377362772985,
+      "matched_random_plan_values": [
+        9.983033114768807e-05,
+        0.49463193721407395,
+        0.005108197177504548,
+        0.013142446529297578
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-SOUTH",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-WEST",
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "matched_random_target_assignments": [
+        7,
+        6,
+        0,
+        4
+      ],
+      "matched_random_value": 0.49463193721407395,
+      "recovery_fraction": -0.0016381650566255884,
+      "shared_h4_plan_values": [
+        0.013042616198149918,
+        0.0,
+        0.00500836684635686,
+        9.98303311476878e-05
+      ],
+      "shared_h4_selected_full_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.023781377362772985,
+      "strong_d4_h5_value": 0.02455144679597733,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 12,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140724,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140724,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "h5_opportunity": 0.4700804904180951,
+      "history": [
+        [
+          "check-5",
+          "bad"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140724,
+        0.013042616198149885,
+        0.01805098304450676,
+        0.00022157359348307096
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140724,
+      "matched_random_plan_values": [
+        0.4946319372140724,
+        0.00012174326233538307,
+        0.01805098304450676,
+        0.00022157359348307096
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "matched_random_target_assignments": [
+        6,
+        2,
+        4,
+        0
+      ],
+      "matched_random_value": 0.4946319372140724,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450676,
+      "strong_d4_h5_value": 0.024551446795977334,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 13,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140717,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140717,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "h5_opportunity": 0.4700804904180944,
+      "history": [
+        [
+          "check-0",
+          "good"
+        ],
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140717,
+        0.013042616198149871,
+        0.018050983044506745,
+        0.00022157359348307093
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140717,
+      "matched_random_plan_values": [
+        0.00012174326233538291,
+        9.983033114768764e-05,
+        0.005108197177504548,
+        0.00024345649416085874
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-0"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-1"
+      ],
+      "matched_random_target_assignments": [
+        3,
+        4,
+        1,
+        0
+      ],
+      "matched_random_value": 0.005108197177504548,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        0.00012174326233538313
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.018050983044506745,
+      "strong_d4_h5_value": 0.024551446795977316,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 14,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.4946319372140735,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.4946319372140735,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "h5_opportunity": 0.47008049041809613,
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-5",
+          "bad"
+        ]
+      ],
+      "llm_plan_values": [
+        0.4946319372140735,
+        0.013042616198149913,
+        0.01805098304450678,
+        0.00019966066229537566
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.4946319372140735,
+      "matched_random_plan_values": [
+        9.983033114768796e-05,
+        9.983033114768796e-05,
+        0.009966732859347027,
+        0.013142446529297589
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        1,
+        3,
+        6,
+        4
+      ],
+      "matched_random_value": 0.013142446529297589,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        9.98303311476878e-05
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450678,
+      "strong_d4_h5_value": 0.024551446795977365,
+      "strong_d4_root": "check-6"
+    },
+    {
+      "cell_index": 15,
+      "critical_h5_route": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "critical_h5_route_value": 0.49463193721407306,
+      "exact_h5_root": "move-NORTH",
+      "exact_h5_value": 0.49463193721407306,
+      "fixed_roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-1"
+      ],
+      "h5_opportunity": 0.4700804904180957,
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-2",
+          "bad"
+        ]
+      ],
+      "llm_plan_values": [
+        0.49463193721407306,
+        0.013042616198149906,
+        0.01805098304450678,
+        0.0001996404679379389
+      ],
+      "llm_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "llm_selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "llm_target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ],
+      "llm_value": 0.49463193721407306,
+      "matched_random_plan_values": [
+        9.983033114768791e-05,
+        8.182856616589801e-05,
+        0.01805098304450678,
+        0.00019966066229537563
+      ],
+      "matched_random_plans": [
+        [
+          "move-NORTH",
+          "move-SOUTH",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-2"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "matched_random_selected_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "matched_random_target_assignments": [
+        7,
+        2,
+        4,
+        3
+      ],
+      "matched_random_value": 0.01805098304450678,
+      "recovery_fraction": 1.0,
+      "shared_h4_plan_values": [
+        0.0,
+        0.0,
+        0.00500836684635686,
+        9.98303311476878e-05
+      ],
+      "shared_h4_selected_full_plan": [
+        "check-6",
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "shared_h4_selected_full_value": 0.01805098304450678,
+      "strong_d4_h5_value": 0.024551446795977358,
+      "strong_d4_root": "check-6"
+    }
+  ],
+  "run_id": "range-gated-rock-h5-goal-s1-24240",
+  "schema_version": 1,
+  "stage": "range_gated_rock_depth5_goal_compiler_proposal_gate",
+  "strategy_config": {
+    "horizon": 5,
+    "max_new_tokens": 128,
+    "num_plans": 4,
+    "seed": 24240,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "usage": {
+    "adapter_completion_tokens": 67971,
+    "adapter_cost_usd": 0.03263011999999999,
+    "adapter_prompt_tokens": 47787,
+    "adapter_reasoning_tokens": 42955,
+    "adapter_requests": 32,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 67971,
+    "forced_exits": 16,
+    "forced_final_requests": 16,
+    "forced_final_successes": 16,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 67971,
+        "cost_usd": 0.03263011999999999,
+        "prompt_tokens": 47787,
+        "reasoning_tokens": 42955,
+        "requests": 32
+      }
+    },
+    "prompt_tokens": 47787,
+    "reasoning_tokens": 42955,
+    "remaining_usd": 69.65677888754017,
+    "requests": 32,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.03263011999999999,
+    "run_remaining_usd": 0.21736988000000002,
+    "total_spent_usd": 40.34322111245983
+  }
+}
