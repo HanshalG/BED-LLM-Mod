@@ -272,6 +272,21 @@ def test_projection_requires_utility_summaries() -> None:
         config.validate()
 
 
+def test_projected_confirmation_audit_treats_machine_zero_entropies_as_ties() -> None:
+    root = Path(__file__).resolve().parents[1]
+    path = (
+        root
+        / "results/nonmyopic/thyroid_workup_projected_utility_gpt54mini_confirmation_20260723/CONFIRMATION.json"
+    )
+    if not path.exists():
+        pytest.skip("projected confirmation artifact is not present")
+
+    audited = audit_confirmation(json.loads(path.read_text(encoding="utf-8")))
+
+    assert audited["mechanics"]["all_projections_are_exact_legal_minima"]
+    assert audited["projection"]["max_expected_entropy_excess"] < 1e-12
+
+
 def test_banked_gpt_confirmation_failure_replays_independently() -> None:
     root = Path(__file__).resolve().parents[1]
     payload = json.loads(

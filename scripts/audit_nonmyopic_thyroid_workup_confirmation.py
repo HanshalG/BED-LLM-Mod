@@ -16,6 +16,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from environments.thyroid_workup import COLLECT_BLOOD_ACTION, ThyroidWorkupModel  # noqa: E402
+from environments.thyroid_workup.model import EPSILON  # noqa: E402
 from scripts.audit_nonmyopic_thyroid_workup_oracle import independent_action_costs  # noqa: E402
 
 
@@ -96,6 +97,7 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
         "projected_branches": 0,
         "total_branches": 0,
         "projected_branch_rate": 0.0,
+        "max_expected_entropy_excess": 0.0,
     }
     if projected_stage:
         checks["all_projections_are_exact_legal_minima"] = True
@@ -126,15 +128,24 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
                 raw_outcome = None if outcome == "none" else outcome
                 posterior = model.posterior(belief, root, raw_outcome)
                 choices = request["menus"][root][outcome]
-                best = min(
-                    enumerate(choices),
-                    key=lambda item: (
-                        model.expected_target_entropy(posterior, item[1]),
-                        item[0],
-                    ),
-                )[1]
+                expected_entropies = [
+                    model.expected_target_entropy(posterior, choice) for choice in choices
+                ]
+                minimum = min(expected_entropies)
+                best_index = next(
+                    index
+                    for index, value in enumerate(expected_entropies)
+                    if value <= minimum + EPSILON
+                )
+                best = choices[best_index]
+                replacement_index = choices.index(event["replacement"])
+                excess = expected_entropies[replacement_index] - minimum
+                projection["max_expected_entropy_excess"] = max(
+                    projection["max_expected_entropy_excess"], excess
+                )
                 checks["all_projections_are_exact_legal_minima"] &= (
                     event["replacement"] == best
+                    and excess <= EPSILON
                     and event["replacement"] in model.legal_actions(
                         model.next_state(state, root)
                     )
@@ -146,7 +157,7 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
                 rel_tol=0.0,
                 abs_tol=1e-12,
             )
-            for key in projection
+            for key in payload["projection"]
         )
     replayed: dict[str, list[dict[str, float]]] = {arm: [] for arm in payload["traces"]}
     cache: dict[tuple[bool, tuple[int, ...], int, bytes], dict[str, float]] = {}
