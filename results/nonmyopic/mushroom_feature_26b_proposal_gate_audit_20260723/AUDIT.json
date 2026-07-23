@@ -1,0 +1,65 @@
+{
+  "choice_mechanics": {
+    "collected_spore_print_rate": 0.7060439560439561,
+    "collection_root_followups": {
+      "bruises": 9,
+      "odor": 6,
+      "spore-print-color": 1
+    },
+    "feature_counts_by_phase": {
+      "collected": {
+        "bruises": 20,
+        "gill-attachment": 2,
+        "odor": 16,
+        "population": 6,
+        "ring-type": 63,
+        "spore-print-color": 257
+      },
+      "uncollected": {
+        "bruises": 9,
+        "cap-color": 43,
+        "cap-shape": 80,
+        "cap-surface": 103,
+        "habitat": 15,
+        "odor": 6,
+        "population": 11,
+        "spore-print-color": 1
+      }
+    },
+    "index_counts_by_phase": {
+      "collected": {
+        "15": 37,
+        "16": 79,
+        "17": 175,
+        "18": 35,
+        "3": 30,
+        "4": 8
+      },
+      "uncollected": {
+        "0": 169,
+        "1": 95,
+        "16": 1,
+        "2": 3
+      }
+    },
+    "uncollected_index_zero_rate": 0.6305970149253731
+  },
+  "mechanics": {
+    "all_accepted_responses_replayed": true,
+    "banked_gate_failed": true,
+    "comparisons_match_within_1e_12": true,
+    "core_mechanics_exactly_match": true,
+    "endpoint_gate_exactly_matches": true,
+    "registered_record_endpoints_match_within_1e_12": true,
+    "runtime_mechanics_pass": true
+  },
+  "passed": true,
+  "replay_diagnostics": {
+    "platform_tied_candidate_root_cells": [
+      27
+    ],
+    "platform_tied_candidate_root_count": 1
+  },
+  "schema_version": 1,
+  "stage": "mushroom_feature_acquisition_26b_proposal_gate_audit"
+}
