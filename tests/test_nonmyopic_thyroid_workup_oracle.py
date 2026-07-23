@@ -11,6 +11,16 @@ from scripts.nonmyopic_thyroid_workup_oracle import (
     run_qualification,
 )
 from scripts.audit_nonmyopic_thyroid_workup_oracle import audit
+from scripts.nonmyopic_thyroid_workup_proposal_gate import (
+    ThyroidProposalGateConfig,
+    build_proposal_cells,
+)
+from scripts.nonmyopic_thyroid_workup_strategy import (
+    DeterministicNamedThyroidModel,
+    NamedThyroidProvider,
+    ThyroidStrategyConfig,
+    run_smoke,
+)
 
 
 def test_thyroid_cohort_and_acquisition_contract() -> None:
@@ -73,3 +83,21 @@ def test_independent_audit_replays_tiny_qualification() -> None:
     assert audited["entropy_auc_gain"]["mean"] == pytest.approx(
         summary["comparison"]["entropy_auc_gain"]["mean"]
     )
+
+
+def test_named_thyroid_smoke_has_fixed_collection_root_and_legal_actions() -> None:
+    config = ThyroidStrategyConfig()
+    result = run_smoke(
+        NamedThyroidProvider(DeterministicNamedThyroidModel(), config), config
+    )
+
+    assert all(result["mechanics"].values())
+
+
+def test_proposal_catalog_has_distinct_exact_collection_opportunities() -> None:
+    model = ThyroidWorkupModel()
+    cells = build_proposal_cells(model, ThyroidProposalGateConfig())
+
+    assert len(cells) == 32
+    assert len({cell.history for cell in cells}) == 32
+    assert all(not cell.state.blood_collected for cell in cells)
