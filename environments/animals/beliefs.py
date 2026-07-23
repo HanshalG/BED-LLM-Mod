@@ -87,9 +87,11 @@ def _generate_new_beliefs_many(system_prompts: list[dict[str, str]], histories_q
     if not system_prompts:
         return []
 
+    num_calls = config.belief_generation_num_calls
     batch_messages = [
         [system_prompt] + reverse_history(history_questioner) + [generate_animals_user_prompt()]
         for system_prompt, history_questioner in zip(system_prompts, histories_questioner)
+        for _call_index in range(num_calls)
     ]
     completions = questioner.chat_complete_messages_batched(
         batch_messages=batch_messages,
@@ -102,11 +104,28 @@ def _generate_new_beliefs_many(system_prompts: list[dict[str, str]], histories_q
         )
 
     branch_beliefs: list[list[str]] = []
-    for history_questioner, completion in zip(histories_questioner, completions):
+    for branch_index, history_questioner in enumerate(histories_questioner):
         print(f"[beliefs] Generating beliefs from {len(history_questioner) // 2} answered round(s)")
-        raw_beliefs = convert_string_to_array(completion)
+        branch_completions = completions[
+            branch_index * num_calls:(branch_index + 1) * num_calls
+        ]
+        raw_beliefs = [
+            belief
+            for completion in branch_completions
+            for belief in convert_string_to_array(completion)
+        ]
         cleaned_beliefs = clean_generated_belief_labels(raw_beliefs)
-        print(f"[beliefs] Generated {len(raw_beliefs)} raw belief(s)")
+        if num_calls > 1:
+            cleaned_beliefs = list(
+                make_animals_belief_state(
+                    cleaned_beliefs,
+                    fallback_to_uniform=True,
+                ).hypotheses
+            )
+        print(
+            f"[beliefs] Generated {len(raw_beliefs)} raw belief(s) "
+            f"across {num_calls} call(s)"
+        )
         print(f"[beliefs] {len(cleaned_beliefs)} belief(s) remain after structural cleanup")
         if config.belief_state_mode == "categorical":
             print_and_log(

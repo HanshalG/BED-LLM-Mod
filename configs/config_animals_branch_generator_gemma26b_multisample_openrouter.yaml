@@ -1,0 +1,39 @@
+version: 0
+task: animals
+animals:
+  - ["placeholder"]
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: false
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: false
+      max_model_len: 32768
+method_names:
+  - "EIG"
+batched_block_size: 256
+generation_temperature_diverse: 0.7
+generation_temperature_simple: 0.0
+answer_temperature: 0.0
+target_num_questions: 3
+num_mc_samples: 12
+max_num_samples: 16
+min_num_samples: 12
+belief_generation_num_calls: 4
+threshold_rejection_probability: 0.2
+belief_state_mode: uniform
+belief_generation_enabled: true
+belief_filtering_enabled: true
+openrouter_budget_usd: 110.0
+openrouter_run_budget_usd: 2.0
+openrouter_projected_cost_usd: 0.75
+openrouter_concurrency: 256
+openrouter_max_retries: 3
+openrouter_backoff_seconds: 1.0
+openrouter_request_timeout_seconds: 120.0
+openrouter_max_output_tokens: 256
+openrouter_spend_path: results/path_e/openrouter_spend.json

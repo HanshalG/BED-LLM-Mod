@@ -18,7 +18,14 @@ fake_model_module.Model = _ModelBase
 sys.modules.setdefault("model", fake_model_module)
 
 from helpers import Config
-from environments.animals.beliefs import build_belief_state, filter_valid_animal_names_batched, generate_new_beliefs, initialize_belief_state, update_beliefs_batched
+from environments.animals.beliefs import (
+    _generate_new_beliefs_many,
+    build_belief_state,
+    filter_valid_animal_names_batched,
+    generate_new_beliefs,
+    initialize_belief_state,
+    update_beliefs_batched,
+)
 
 
 class FakeBeliefScoringModel(_ModelBase):
@@ -68,6 +75,29 @@ def _make_config() -> Config:
         belief_distribution_num_calls=1,
         batched_block_size=16,
     )
+
+
+def test_generate_new_beliefs_many_merges_independent_calls_per_branch():
+    config = Config(
+        belief_generation_num_calls=2,
+        batched_block_size=16,
+    )
+    model = FakeBeliefScoringModel(
+        batched_completions=[
+            ["Cat\nDog", "Fox\nCat", "Eagle", "Owl\nHawk"],
+        ]
+    )
+
+    generated = _generate_new_beliefs_many(
+        [{"role": "system", "content": "branch 0"}, {"role": "system", "content": "branch 1"}],
+        [[], []],
+        model,
+        0.7,
+        config,
+    )
+
+    assert generated == [["Cat", "Dog", "Fox"], ["Eagle", "Owl", "Hawk"]]
+    assert len(model.batched_calls[0]["batch_messages"]) == 4
 
 
 class FakeBeliefGenerationModel(_ModelBase):

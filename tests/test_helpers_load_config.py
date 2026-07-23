@@ -726,6 +726,21 @@ belief_state_mode: weighted
 
 
 @pytest.mark.parametrize("raw_value", [0, -1])
+def test_load_config_rejects_non_positive_belief_generation_num_calls(tmp_path, raw_value):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        f"""
+model_pairs: []
+belief_generation_num_calls: {raw_value}
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="belief_generation_num_calls must be at least 1"):
+        load_config(str(config_path))
+
+
+@pytest.mark.parametrize("raw_value", [0, -1])
 def test_load_config_rejects_non_positive_belief_distribution_num_calls(tmp_path, raw_value):
     config_path = tmp_path / "config.yaml"
     config_path.write_text(

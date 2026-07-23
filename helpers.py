@@ -78,6 +78,7 @@ class Config:
     threshold_rejection_probability: float = 0.2
     belief_state_mode: BeliefStateMode = "uniform"
     belief_probability_temperature: float = 0.0
+    belief_generation_num_calls: int = 1
     belief_distribution_num_calls: int = 1
     belief_distribution_permute_history: bool = False
     probability_parse_fallback_to_uniform: bool = True
@@ -782,6 +783,11 @@ def load_config(path: str) -> Config:
     belief_state_mode = raw.get("belief_state_mode", "uniform")
     if belief_state_mode not in {"uniform", "categorical"}:
         raise ValueError("belief_state_mode must be one of: uniform, categorical")
+    belief_generation_num_calls = raw.get("belief_generation_num_calls", 1)
+    if not isinstance(belief_generation_num_calls, int) or isinstance(belief_generation_num_calls, bool):
+        raise ValueError("belief_generation_num_calls must be an integer")
+    if belief_generation_num_calls < 1:
+        raise ValueError("belief_generation_num_calls must be at least 1")
     belief_distribution_num_calls = raw.get("belief_distribution_num_calls", 1)
     if not isinstance(belief_distribution_num_calls, int) or isinstance(belief_distribution_num_calls, bool):
         raise ValueError("belief_distribution_num_calls must be an integer")
@@ -1067,6 +1073,7 @@ def load_config(path: str) -> Config:
         threshold_rejection_probability = raw.get("threshold_rejection_probability", 0.2),
         belief_state_mode = belief_state_mode,
         belief_probability_temperature = raw.get("belief_probability_temperature", 0.0),
+        belief_generation_num_calls = belief_generation_num_calls,
         belief_distribution_num_calls = belief_distribution_num_calls,
         belief_distribution_permute_history = belief_distribution_permute_history,
         probability_parse_fallback_to_uniform = probability_parse_fallback_to_uniform,

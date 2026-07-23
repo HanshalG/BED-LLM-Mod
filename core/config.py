@@ -71,6 +71,7 @@ class AnimalsConfig:
     threshold_rejection_probability: float = 0.2
     belief_state_mode: str = "uniform"
     belief_probability_temperature: float = 0.0
+    belief_generation_num_calls: int = 1
     belief_distribution_num_calls: int = 1
     belief_distribution_permute_history: bool = False
     probability_parse_fallback_to_uniform: bool = True
@@ -233,6 +234,7 @@ def animals_view(config: Any) -> AnimalsConfig:
         threshold_rejection_probability=getattr(config, "threshold_rejection_probability", 0.2),
         belief_state_mode=getattr(config, "belief_state_mode", "uniform"),
         belief_probability_temperature=getattr(config, "belief_probability_temperature", 0.0),
+        belief_generation_num_calls=getattr(config, "belief_generation_num_calls", 1),
         belief_distribution_num_calls=getattr(config, "belief_distribution_num_calls", 1),
         belief_distribution_permute_history=getattr(config, "belief_distribution_permute_history", False),
         probability_parse_fallback_to_uniform=getattr(config, "probability_parse_fallback_to_uniform", True),
