@@ -1,0 +1,3 @@
+ann-*.data -diff
+ann-thyroid.names -diff
+costs/* -diff
