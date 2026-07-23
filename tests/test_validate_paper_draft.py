@@ -22,7 +22,8 @@ interval crossed zero, so it is not an all-gates confirmation.
 Mushroom collected 50/50 with zero projected branches, exactly matched d2, and its
 truth-log intervals agreed.
 In a range-gated task, Exact d3 beat exact d2,
-but this is structural rather than LLM-policy evidence.
+and a 26B gate selected it on 16/16 cells. A tied-control identity mismatch blocked
+the audit, so there was no trajectory; this is proposal evidence only.
 """
 
 VALID_FIGURE_LABELS = "\\label{fig:validation-chain}\\label{fig:rock-entropy}"

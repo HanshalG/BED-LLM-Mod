@@ -45,15 +45,15 @@ interactive benchmarks: Paprika troubleshooting and MediQ clinical reasoning.
 Depth-two planning succeeds in the exact test, while one-step EIG substantially
 beats prompting in 20 Questions. We then test StrategyEIG: an LLM proposes short
 contingent policies and an exact Bayesian verifier selects their root. Across five
-preregistered Rock Diagnosis maps with three to fifteen rocks, StrategyEIG improves
-entropy AUC over the same LLM roots scored myopically by $0.475$--$0.941$,
-exhaustive one-step width by $0.452$--$0.939$, and matched random strategies by
-$0.362$--$0.887$; all fifteen paired 95\% intervals exclude zero, and
-truth-log-posterior AUC agrees. GPT-5.4 Mini replicates the eight-, eleven-, and
-fifteen-rock gains under shared root slots. The selected
-policies move to enable accurate future checks, whereas both myopic controls never
-move; an exact gate and three direct-vLLM seeds each at 26B and 12B
-preserve the planning gap at 32,768 latent states, while E4B fails. Two
+preregistered Rock Diagnosis maps (3--15 rocks), StrategyEIG improves entropy AUC
+over the same LLM roots scored myopically by $0.475$--$0.941$, exhaustive one-step
+width by $0.452$--$0.939$, and matched random strategies by $0.362$--$0.887$;
+all fifteen paired 95\% intervals exclude zero and truth-log-posterior AUC agrees.
+GPT-5.4 Mini replicates the 8-, 11-, and 15-rock gains. The selected policies move
+to enable accurate future checks while both myopic controls never move; exact and
+direct-vLLM gates at 26B and 12B preserve the gap at 32,768 latent states, while
+E4B fails. A successor-grounded 26B gate recovers exact d3 on 16/16 range-gated
+cells, but a tied-control identity audit blocks trajectories. Two
 data-derived semantic unlock tasks reproduce exact d2 gains; a UCI Thyroid task with
 native delayed-assay metadata further passes a 26B proposal gate. Names-only transfer
 fails, but calibrated utility cards recover 100\% of exact d2 on UCI Mushroom with
@@ -197,7 +197,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
-Gated Sensor & Exact finite state & Zero-EIG activation & Exact d2 beats d1; LLM ties random & Structural positive \\
+Range-gated Rock & Exact finite state & Two-step travel & 26B h3 proposals recover d3 on 16/16 & Proposal positive; no trajectory \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
@@ -371,14 +371,11 @@ each. Its K4 support captured 49.5--53.3\% of exhaustive d2 value across seeds.
 Different fresh seeds make the model-size contrast descriptive, but the replicated
 pass brackets a practical E4B-to-12B capacity boundary.
 
-In a non-spatial Gated Sensor task, zero-information activation unlocks precise
-tests for a 32-state fault. Exact d2 beat d1 by 1.2459 entropy-AUC nats
-[1.2401, 1.2516] over 500 pairs. The LLM extension again exposed a proposal
-boundary: its strongest GPT-5.4 Mini probe tied matched random ($-.0413$
-[$-.1854,.0795$]). Same-state recovery was .759 for LLM versus .802 for random;
-a frozen retry fell to .694 versus .783 because 70/104 measurement-root
-continuations selected terminal zero-EIG activation. Exact verification cannot
-recover setup value from a redundant continuation, so no confirmation followed.
+In a non-spatial Gated Sensor task, zero-EIG activation unlocks precise tests for
+a 32-state fault; exact d2 beat d1 by 1.2459 [1.2401,1.2516] entropy-AUC nats.
+The strongest GPT-5.4 Mini probe nevertheless tied random, $-.0413$
+[$-.1854,.0795$], because its continuations redundantly activated at the terminal
+step. Verification cannot recover setup value absent from the proposal.
 
 Three data-derived tasks reproduce the structural gap. On UCI Mushroom, exact d2
 gained .1153 [.1057,.1254] over d1. Names-only 26B recovered .327 with 10/16
@@ -409,20 +406,20 @@ gained .2026 [.1437,.2543] over d1 and .1185 [.0813,.1578] over random; truth-lo
 intervals were positive, recovery was .994, and collection was 50/50. Only 17/4,338
 branches were projected, supporting machine-grounded rather than unaided LLM planning.
 
-More receding-horizon depth is not automatically better, even with the exact
-simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
-entropy-AUC nats, with 95\% interval [.1998, .2090] in favor of d2. It had
-0/0/500 wins/ties/losses; truth-log AUC agreed. At the first divergence, d3 takes a noisy
-check because its local value includes a promised later move and perfect check.
-Replanning restores the three-step window, so it repeats the check and postpones the
-continuation. A fresh endpoint-aligned repair weighted earlier gains by their remaining
-AUC exposure. D3 then beat same-utility d2 by .2744 [.2689, .2799], but exactly
-reproduced the prior best d2 trajectory, so alignment alone created no deeper oracle gain.
+More receding-horizon depth is not automatically better. In 500 exact pairs,
+terminal-EIG d3 lost to d2 by .2044 [.1998,.2090] entropy-AUC nats, 0/0/500:
+replanning repeated a noisy check and postponed its promised move. Endpoint weighting
+beat same-utility d2 by .2744 [.2689,.2799] but reproduced the prior d2 trajectory,
+creating no deeper oracle gain.
 
-A range-gated variant made the extra step load-bearing: checks were .55 accurate
-remotely and .95 on site, two moves away. Exact d3 beat exact d2 by .4630
-[.4600,.4657] entropy-AUC nats over 500 pairs, always moving twice while d2 checked.
-A frozen 26B named-plan smoke failed before scoring; the h3 result is structural rather than LLM-policy evidence.
+A range-gated variant made the extra step load-bearing: .55-accurate remote checks
+became .95 accurate on site, two moves away. Exact d3 beat exact d2 by .4630
+[.4600,.4657] over 500 pairs. A successor-grounded 26B gate proposed the exact
+\textsc{South},\textsc{South},check-5 optimum on 16/16 fresh cells, gaining .4809
+[.4799,.4818] over identical-root random, .4859 [.4849,.4871] over shared d2, and
+.4796 over the strongest d2 root; exact-d3 recovery was 1.0. Replay matched all
+values, but two tied control identities differed across platforms. The frozen audit
+therefore failed and no trajectory ran: positive h3 proposal evidence only.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
@@ -544,7 +541,7 @@ Future depth studies should cross the following gates in order:
   two beating greedy under the benchmark's native action and budget rules.
   \item \textbf{Ranking fidelity:} estimated incremental lookahead value must rank
   oracle incremental value under shared candidates and common random numbers.
-  \item \textbf{Policy test:} only then compare depth one and two on paired cases,
+  \item \textbf{Policy test:} only then compare candidate horizons on paired cases,
   with identical root candidates, simulator seeds, and stopping rules.
 \end{enumerate}
 
@@ -553,7 +550,9 @@ Future depth studies should cross the following gates in order:
 This is a validation study and positive structured-benchmark result, not yet a positive
 external-benchmark claim for non-myopic LLM BED. Rock Diagnosis uses an exact finite simulator;
 its diagnosis-only extensions omit reward, sampling, and exit. Rock Diagnosis does
-not test robustness to learned likelihoods or open responses. Mushroom and Cleveland
+not test robustness to learned likelihoods or open responses. Its range-gated h3
+result remains proposal-only: a tied-control identity mismatch failed the frozen
+cross-platform audit, so no trajectory ran. Mushroom and Cleveland
 use artificial unlocks and exact local summaries; Mushroom matched d2 without
 projection. Thyroid has native delayed/grouped metadata, but
 its 26B proposal pass failed trajectory serving and names-only GPT lost to random.

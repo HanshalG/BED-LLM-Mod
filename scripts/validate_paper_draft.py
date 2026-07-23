@@ -68,7 +68,10 @@ REQUIRED_LIMITATION_PATTERNS = {
     "range_gated_depth_scope": (
         r"range-gated",
         r"Exact d3 beat exact d2",
-        r"structural rather than LLM-policy evidence",
+        r"16/16",
+        r"tied-control\s+identity",
+        r"no\s+trajectory",
+        r"proposal\s+evidence",
     ),
 }
 

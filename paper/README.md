@@ -6,8 +6,9 @@ the paired Rock Diagnosis policy result, the exact Gated Sensor qualification an
 LLM-interface audit, exact UCI Mushroom, Cleveland, and Thyroid semantic-unlock
 qualifications, the passed Thyroid 26B proposal gate, failed 26B/GPT trajectory
 transfers, positive projected-utility confirmation, and projection-only factorial
-ablation, a strict exact range-gated d3 opportunity with a failed
-26B serving gate, the banked animals result, the natural-location depth
+ablation, a strict exact range-gated d3 opportunity where successor-grounded
+26B recovered the optimum but a tied-control identity audit blocked trajectories,
+the banked animals result, the natural-location depth
 audit, and the Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood
 gate failed.
