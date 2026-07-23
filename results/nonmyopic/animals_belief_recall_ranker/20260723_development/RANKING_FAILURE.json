@@ -1,0 +1,16 @@
+{
+  "error": "ValueError: ranker response is not bare JSON",
+  "run_id": "animals-belief-recall-ranker-development-20260723",
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "results/nonmyopic/animals_coverage_dynamics/20260718_gemma26b_recovery/COVERAGE_PROBE.json",
+      "sha256": "a9ff329d641c38fbb75951421f86509560ceee2f6709cc238b745337ab407b66"
+    },
+    {
+      "path": "results/nonmyopic/animals_coverage_dynamics/20260718_proxy_validation/COVERAGE_PROBE.json",
+      "sha256": "c715aaad8db928aeb27a6c01bb52bd66761c6a21f61435e9c206976eeeb372d3"
+    }
+  ],
+  "status": "failed_closed"
+}

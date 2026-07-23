@@ -1,0 +1,1850 @@
+{
+  "config_path": "configs/config_animals_belief_recall_ranker_openrouter.yaml",
+  "records": [
+    {
+      "belief_recall_scores": [
+        0.85,
+        0.95,
+        0.75
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6365141682671818,
+          "p_no": 0.3333333333333333,
+          "p_yes": 0.6666666666666666,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 15,
+          "support_size_if_yes": 21,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6110507080255654,
+          "p_no": 0.49491666666666667,
+          "p_yes": 0.5050833333333333,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 20,
+          "support_size_if_yes": 21,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.2868359830285297,
+          "p_no": 0.9166666666666666,
+          "p_yes": 0.08333333333333333,
+          "question": "Does it have wings?",
+          "support_size_if_no": 23,
+          "support_size_if_yes": 15,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does it live in the water?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.3333333333333333,
+            "predictive_probability_yes": 0.6666666666666666,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 15,
+            "regenerated_support_size_if_yes": 21
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.49491666666666667,
+            "predictive_probability_yes": 0.5050833333333333,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 20,
+            "regenerated_support_size_if_yes": 21
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.9166666666666666,
+            "predictive_probability_yes": 0.08333333333333333,
+            "question": "Does it have wings?",
+            "regenerated_support_size_if_no": 23,
+            "regenerated_support_size_if_yes": 15
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does it live in the water?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[0.85,0.95,0.75]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 0
+    },
+    {
+      "belief_recall_scores": [
+        16.5,
+        19.5,
+        20.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5302970807552876,
+          "p_no": 0.7519999999999999,
+          "p_yes": 0.24799999999999997,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 17,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.3625,
+          "immediate_eig": 0.5502383394371015,
+          "p_no": 0.6375000000000001,
+          "p_yes": 0.3625,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 19,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.4177056773300356,
+          "p_no": 0.2841666666666666,
+          "p_yes": 0.7158333333333333,
+          "question": "Is it larger than a medium-sized dog?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 23,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.7519999999999999,
+            "predictive_probability_yes": 0.24799999999999997,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 17,
+            "regenerated_support_size_if_yes": 19
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.6375000000000001,
+            "predictive_probability_yes": 0.3625,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 19,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.2841666666666666,
+            "predictive_probability_yes": 0.7158333333333333,
+            "question": "Is it larger than a medium-sized dog?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 23
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Is it a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[16.5,19.5,20.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 1
+    },
+    {
+      "belief_recall_scores": [
+        18.5,
+        20.5,
+        18.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5429633497671196,
+          "p_no": 0.74575,
+          "p_yes": 0.2542499999999999,
+          "question": "Does the animal live in the water?",
+          "support_size_if_no": 22,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6365141682671818,
+          "p_no": 0.3333333333333333,
+          "p_yes": 0.6666666666666666,
+          "question": "Is the animal a mammal?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 23,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5260268190338235,
+          "p_no": 0.7375000000000002,
+          "p_yes": 0.2625,
+          "question": "Does the animal have fur?",
+          "support_size_if_no": 19,
+          "support_size_if_yes": 18,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does the animal have more than four legs?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.74575,
+            "predictive_probability_yes": 0.2542499999999999,
+            "question": "Does the animal live in the water?",
+            "regenerated_support_size_if_no": 22,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.3333333333333333,
+            "predictive_probability_yes": 0.6666666666666666,
+            "question": "Is the animal a mammal?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 23
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.7375000000000002,
+            "predictive_probability_yes": 0.2625,
+            "question": "Does the animal have fur?",
+            "regenerated_support_size_if_no": 19,
+            "regenerated_support_size_if_yes": 18
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does the animal have more than four legs?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[18.5,20.5,18.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 2
+    },
+    {
+      "belief_recall_scores": [
+        14.5,
+        18.5,
+        19.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.42275804241871745,
+          "p_no": 0.8258333333333333,
+          "p_yes": 0.17416666666666666,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5679506170404159,
+          "p_no": 0.4124999999999999,
+          "p_yes": 0.5875,
+          "question": "Is it found in Asia?",
+          "support_size_if_no": 22,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.2608333333333333,
+          "immediate_eig": 0.45478823257461837,
+          "p_no": 0.2608333333333333,
+          "p_yes": 0.7391666666666666,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": true,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.8258333333333333,
+            "predictive_probability_yes": 0.17416666666666666,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 19
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.4124999999999999,
+            "predictive_probability_yes": 0.5875,
+            "question": "Is it found in Asia?",
+            "regenerated_support_size_if_no": 22,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.2608333333333333,
+            "predictive_probability_yes": 0.7391666666666666,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 20
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Is it a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[14.5,18.5,19.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 3
+    },
+    {
+      "belief_recall_scores": [
+        18.5,
+        16.0,
+        17.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.5094166666666666,
+          "immediate_eig": 0.6592359667458555,
+          "p_no": 0.49058333333333337,
+          "p_yes": 0.5094166666666666,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 15,
+          "support_size_if_yes": 18,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.4505612088386736,
+          "p_no": 0.8333333333333334,
+          "p_yes": 0.16666666666666666,
+          "question": "Is it a reptile?",
+          "support_size_if_no": 15,
+          "support_size_if_yes": 17,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5503236323708939,
+          "p_no": 0.7458333333333332,
+          "p_yes": 0.25416666666666665,
+          "question": "Does it have wings?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Is it a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.49058333333333337,
+            "predictive_probability_yes": 0.5094166666666666,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 15,
+            "regenerated_support_size_if_yes": 18
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.8333333333333334,
+            "predictive_probability_yes": 0.16666666666666666,
+            "question": "Is it a reptile?",
+            "regenerated_support_size_if_no": 15,
+            "regenerated_support_size_if_yes": 17
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.7458333333333332,
+            "predictive_probability_yes": 0.25416666666666665,
+            "question": "Does it have wings?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 19
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Is it a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[18.5,16.0,17.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 4
+    },
+    {
+      "belief_recall_scores": [
+        7.5,
+        8.0,
+        8.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6050891715463351,
+          "p_no": 0.5706666666666667,
+          "p_yes": 0.42933333333333334,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 20,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6791932659638946,
+          "p_no": 0.5833333333333334,
+          "p_yes": 0.4166666666666667,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 18,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6931471805323143,
+          "p_no": 0.5,
+          "p_yes": 0.5,
+          "question": "Does it have four legs?",
+          "support_size_if_no": 15,
+          "support_size_if_yes": 24,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it a predator?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.5706666666666667,
+            "predictive_probability_yes": 0.42933333333333334,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 20,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.5833333333333334,
+            "predictive_probability_yes": 0.4166666666666667,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 18
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.5,
+            "predictive_probability_yes": 0.5,
+            "question": "Does it have four legs?",
+            "regenerated_support_size_if_no": 15,
+            "regenerated_support_size_if_yes": 24
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Is it a predator?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[7.5,8.0,8.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 5
+    },
+    {
+      "belief_recall_scores": [
+        14.6,
+        19.5,
+        15.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5161918662062919,
+          "p_no": 0.7575,
+          "p_yes": 0.24249999999999997,
+          "question": "Does it live in Africa?",
+          "support_size_if_no": 20,
+          "support_size_if_yes": 17,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5585474125717641,
+          "p_no": 0.4266666666666667,
+          "p_yes": 0.5733333333333334,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 19,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.2353232962211598,
+          "p_no": 0.875,
+          "p_yes": 0.12500000000000003,
+          "question": "Is it larger than a human?",
+          "support_size_if_no": 22,
+          "support_size_if_yes": 14,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is the animal a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.7575,
+            "predictive_probability_yes": 0.24249999999999997,
+            "question": "Does it live in Africa?",
+            "regenerated_support_size_if_no": 20,
+            "regenerated_support_size_if_yes": 17
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.4266666666666667,
+            "predictive_probability_yes": 0.5733333333333334,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 19,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.875,
+            "predictive_probability_yes": 0.12500000000000003,
+            "question": "Is it larger than a human?",
+            "regenerated_support_size_if_no": 22,
+            "regenerated_support_size_if_yes": 14
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Is the animal a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[14.6,19.5,15.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 6
+    },
+    {
+      "belief_recall_scores": [
+        14.5,
+        18.5,
+        19.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6030437769654063,
+          "p_no": 0.33416666666666667,
+          "p_yes": 0.6658333333333333,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 15,
+          "support_size_if_yes": 18,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.45,
+          "immediate_eig": 0.5718783864374636,
+          "p_no": 0.5499999999999999,
+          "p_yes": 0.45,
+          "question": "Is it found in Africa?",
+          "support_size_if_no": 19,
+          "support_size_if_yes": 18,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        },
+        {
+          "expected_truth_coverage": 0.6566666666666666,
+          "immediate_eig": 0.5415985600727822,
+          "p_no": 0.34333333333333327,
+          "p_yes": 0.6566666666666666,
+          "question": "Is it larger than a medium-sized dog?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.33416666666666667,
+            "predictive_probability_yes": 0.6658333333333333,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 15,
+            "regenerated_support_size_if_yes": 18
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.5499999999999999,
+            "predictive_probability_yes": 0.45,
+            "question": "Is it found in Africa?",
+            "regenerated_support_size_if_no": 19,
+            "regenerated_support_size_if_yes": 18
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.34333333333333327,
+            "predictive_probability_yes": 0.6566666666666666,
+            "question": "Is it larger than a medium-sized dog?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 20
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Is it a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[14.5,18.5,19.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 7
+    },
+    {
+      "belief_recall_scores": [
+        16.5,
+        16.5,
+        23.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5560001083051374,
+          "p_no": 0.24908333333333332,
+          "p_yes": 0.7509166666666666,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6791932659638946,
+          "p_no": 0.4166666666666667,
+          "p_yes": 0.5833333333333334,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 13,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.49666666666666665,
+          "immediate_eig": 0.6625816376204893,
+          "p_no": 0.5033333333333333,
+          "p_yes": 0.49666666666666665,
+          "question": "Is it larger than a dog?",
+          "support_size_if_no": 21,
+          "support_size_if_yes": 25,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does it have feathers?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.24908333333333332,
+            "predictive_probability_yes": 0.7509166666666666,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 19
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.4166666666666667,
+            "predictive_probability_yes": 0.5833333333333334,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 13,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.5033333333333333,
+            "predictive_probability_yes": 0.49666666666666665,
+            "question": "Is it larger than a dog?",
+            "regenerated_support_size_if_no": 21,
+            "regenerated_support_size_if_yes": 25
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does it have feathers?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[16.5,16.5,23.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 8
+    },
+    {
+      "belief_recall_scores": [
+        8.5,
+        7.0,
+        9.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6365141682671818,
+          "p_no": 0.3333333333333333,
+          "p_yes": 0.6666666666666666,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 21,
+          "support_size_if_yes": 17,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.2868359830285297,
+          "p_no": 0.9166666666666666,
+          "p_yes": 0.08333333333333333,
+          "question": "Is it a fish?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 16,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.42724935837563,
+          "p_no": 0.1625,
+          "p_yes": 0.8375,
+          "question": "Does it have bones?",
+          "support_size_if_no": 20,
+          "support_size_if_yes": 17,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Does it live in the water?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.3333333333333333,
+            "predictive_probability_yes": 0.6666666666666666,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 21,
+            "regenerated_support_size_if_yes": 17
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.9166666666666666,
+            "predictive_probability_yes": 0.08333333333333333,
+            "question": "Is it a fish?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 16
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.1625,
+            "predictive_probability_yes": 0.8375,
+            "question": "Does it have bones?",
+            "regenerated_support_size_if_no": 20,
+            "regenerated_support_size_if_yes": 17
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Does it live in the water?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[8.5,7.0,9.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-gemma26b-recovery-20260718",
+      "source_state_index": 9
+    },
+    {
+      "belief_recall_scores": [
+        24.0,
+        21.0,
+        22.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.4505612088386736,
+          "p_no": 0.16666666666666666,
+          "p_yes": 0.8333333333333334,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 17,
+          "support_size_if_yes": 26,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9674166666666666,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5389139511732179,
+          "p_no": 0.6374166666666667,
+          "p_yes": 0.36258333333333326,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 20,
+          "support_size_if_yes": 22,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9591666666666667,
+          "expected_surviving_map_mass": 0.16583333333333333,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.4195017590923864,
+          "p_no": 0.31416666666666665,
+          "p_yes": 0.6858333333333334,
+          "question": "Is it larger than a dog?",
+          "support_size_if_no": 24,
+          "support_size_if_yes": 21,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does it live in the water?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.16666666666666666,
+            "predictive_probability_yes": 0.8333333333333334,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 17,
+            "regenerated_support_size_if_yes": 26
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.6374166666666667,
+            "predictive_probability_yes": 0.36258333333333326,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 20,
+            "regenerated_support_size_if_yes": 22
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.31416666666666665,
+            "predictive_probability_yes": 0.6858333333333334,
+            "question": "Is it larger than a dog?",
+            "regenerated_support_size_if_no": 24,
+            "regenerated_support_size_if_yes": 21
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does it live in the water?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[24.0,21.0,22.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 0
+    },
+    {
+      "belief_recall_scores": [
+        14.5,
+        18.5,
+        21.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 0.9823333333333333,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.39311716103493793,
+          "p_no": 0.824,
+          "p_yes": 0.17600000000000002,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 18,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9758333333333333,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5607535681088952,
+          "p_no": 0.6475,
+          "p_yes": 0.35250000000000004,
+          "question": "Is it found in Asia?",
+          "support_size_if_no": 24,
+          "support_size_if_yes": 21,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9649999999999999,
+          "expected_surviving_map_mass": 0.16583333333333333,
+          "expected_truth_coverage": 0.5016666666666666,
+          "immediate_eig": 0.524374292586122,
+          "p_no": 0.49833333333333335,
+          "p_yes": 0.5016666666666666,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 20,
+          "support_size_if_yes": 22,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is the animal a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.824,
+            "predictive_probability_yes": 0.17600000000000002,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 18
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.6475,
+            "predictive_probability_yes": 0.35250000000000004,
+            "question": "Is it found in Asia?",
+            "regenerated_support_size_if_no": 24,
+            "regenerated_support_size_if_yes": 21
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.49833333333333335,
+            "predictive_probability_yes": 0.5016666666666666,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 20,
+            "regenerated_support_size_if_yes": 22
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Is the animal a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[14.5,18.5,21.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 1
+    },
+    {
+      "belief_recall_scores": [
+        18.5,
+        21.0,
+        24.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 0.9856666666666669,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5746042847473835,
+          "p_no": 0.6689999999999999,
+          "p_yes": 0.33099999999999996,
+          "question": "Does the animal live in the water?",
+          "support_size_if_no": 24,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6365141682671818,
+          "p_no": 0.3333333333333333,
+          "p_yes": 0.6666666666666666,
+          "question": "Is the animal a mammal?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 24,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5623351445911773,
+          "p_no": 0.75,
+          "p_yes": 0.25,
+          "question": "Does the animal have feathers?",
+          "support_size_if_no": 31,
+          "support_size_if_yes": 17,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does the animal have more than four legs?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.6689999999999999,
+            "predictive_probability_yes": 0.33099999999999996,
+            "question": "Does the animal live in the water?",
+            "regenerated_support_size_if_no": 24,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.3333333333333333,
+            "predictive_probability_yes": 0.6666666666666666,
+            "question": "Is the animal a mammal?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 24
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.75,
+            "predictive_probability_yes": 0.25,
+            "question": "Does the animal have feathers?",
+            "regenerated_support_size_if_no": 31,
+            "regenerated_support_size_if_yes": 17
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does the animal have more than four legs?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[18.5,21.0,24.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 2
+    },
+    {
+      "belief_recall_scores": [
+        8.5,
+        7.5,
+        9.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.8333333333333334,
+          "immediate_eig": 0.4505612088386736,
+          "p_no": 0.16666666666666666,
+          "p_yes": 0.8333333333333334,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        },
+        {
+          "expected_current_support_retention": 0.9832500000000001,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.8249166666666667,
+          "immediate_eig": 0.3962295369122346,
+          "p_no": 0.8249166666666667,
+          "p_yes": 0.17508333333333329,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": true,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9624999999999998,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.49583333333333335,
+          "immediate_eig": 0.5586290789342192,
+          "p_no": 0.5041666666666667,
+          "p_yes": 0.49583333333333335,
+          "question": "Is it larger than a medium-sized dog?",
+          "support_size_if_no": 21,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does it live in the water?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.16666666666666666,
+            "predictive_probability_yes": 0.8333333333333334,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 20
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.8249166666666667,
+            "predictive_probability_yes": 0.17508333333333329,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 19
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.5041666666666667,
+            "predictive_probability_yes": 0.49583333333333335,
+            "question": "Is it larger than a medium-sized dog?",
+            "regenerated_support_size_if_no": 21,
+            "regenerated_support_size_if_yes": 20
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does it live in the water?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[8.5,7.5,9.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 3
+    },
+    {
+      "belief_recall_scores": [
+        0.85,
+        0.82,
+        0.78
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 1.0000000000000002,
+          "expected_surviving_map_mass": 0.18181818181818182,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5859526182759198,
+          "p_no": 0.7272727272727273,
+          "p_yes": 0.2727272727272727,
+          "question": "Does it have feathers?",
+          "support_size_if_no": 16,
+          "support_size_if_yes": 16,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9772727272727274,
+          "expected_surviving_map_mass": 0.18181818181818182,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6074274998458179,
+          "p_no": 0.5318181818181819,
+          "p_yes": 0.46818181818181814,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 13,
+          "support_size_if_yes": 17,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0000000000000002,
+          "expected_surviving_map_mass": 0.18181818181818182,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6554817738737617,
+          "p_no": 0.6363636363636364,
+          "p_yes": 0.36363636363636365,
+          "question": "Is it a reptile?",
+          "support_size_if_no": 9,
+          "support_size_if_yes": 16,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Is the animal a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.7272727272727273,
+            "predictive_probability_yes": 0.2727272727272727,
+            "question": "Does it have feathers?",
+            "regenerated_support_size_if_no": 16,
+            "regenerated_support_size_if_yes": 16
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.5318181818181819,
+            "predictive_probability_yes": 0.46818181818181814,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 13,
+            "regenerated_support_size_if_yes": 17
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.6363636363636364,
+            "predictive_probability_yes": 0.36363636363636365,
+            "question": "Is it a reptile?",
+            "regenerated_support_size_if_no": 9,
+            "regenerated_support_size_if_yes": 16
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Is the animal a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[0.85,0.82,0.78]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 4
+    },
+    {
+      "belief_recall_scores": [
+        15.0,
+        23.0,
+        20.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 0.9783333333333333,
+          "expected_surviving_map_mass": 0.16583333333333333,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.39876317484038504,
+          "p_no": 0.5433333333333333,
+          "p_yes": 0.4566666666666666,
+          "question": "Does the animal live in a forest or jungle habitat?",
+          "support_size_if_no": 15,
+          "support_size_if_yes": 25,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.2868359830285297,
+          "p_no": 0.08333333333333333,
+          "p_yes": 0.9166666666666666,
+          "question": "Is the animal a mammal?",
+          "support_size_if_no": 13,
+          "support_size_if_yes": 23,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.4098055549313504,
+          "p_no": 0.15833333333333333,
+          "p_yes": 0.8416666666666667,
+          "question": "Does the animal have fur?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 23,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Is the animal larger than a medium-sized dog?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.5433333333333333,
+            "predictive_probability_yes": 0.4566666666666666,
+            "question": "Does the animal live in a forest or jungle habitat?",
+            "regenerated_support_size_if_no": 15,
+            "regenerated_support_size_if_yes": 25
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.08333333333333333,
+            "predictive_probability_yes": 0.9166666666666666,
+            "question": "Is the animal a mammal?",
+            "regenerated_support_size_if_no": 13,
+            "regenerated_support_size_if_yes": 23
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.15833333333333333,
+            "predictive_probability_yes": 0.8416666666666667,
+            "question": "Does the animal have fur?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 23
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Is the animal larger than a medium-sized dog?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[15.0,23.0,20.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 5
+    },
+    {
+      "belief_recall_scores": [
+        18.5,
+        20.0,
+        20.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.2868359830285297,
+          "p_no": 0.08333333333333333,
+          "p_yes": 0.9166666666666666,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 14,
+          "support_size_if_yes": 22,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9808333333333332,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5969882847339735,
+          "p_no": 0.5891666666666666,
+          "p_yes": 0.4108333333333334,
+          "question": "Is it a carnivore?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9583333333333333,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.5308282927859814,
+          "p_no": 0.5750000000000001,
+          "p_yes": 0.425,
+          "question": "Is it larger than a medium-sized dog?",
+          "support_size_if_no": 21,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does it live in the water?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.08333333333333333,
+            "predictive_probability_yes": 0.9166666666666666,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 14,
+            "regenerated_support_size_if_yes": 22
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.5891666666666666,
+            "predictive_probability_yes": 0.4108333333333334,
+            "question": "Is it a carnivore?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 19
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.5750000000000001,
+            "predictive_probability_yes": 0.425,
+            "question": "Is it larger than a medium-sized dog?",
+            "regenerated_support_size_if_no": 21,
+            "regenerated_support_size_if_yes": 20
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does it live in the water?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[18.5,20.0,20.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 6
+    },
+    {
+      "belief_recall_scores": [
+        18.0,
+        19.5,
+        20.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 0.9899166666666668,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.5899166666666666,
+          "immediate_eig": 0.6338104619371329,
+          "p_no": 0.5899166666666666,
+          "p_yes": 0.41008333333333336,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 18,
+          "truth_covered_if_no": true,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 0.9825000000000002,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.3325,
+          "immediate_eig": 0.5710920662704916,
+          "p_no": 0.6675,
+          "p_yes": 0.3325,
+          "question": "Is it found in Africa?",
+          "support_size_if_no": 21,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        },
+        {
+          "expected_current_support_retention": 0.9683333333333332,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.5425,
+          "immediate_eig": 0.4891649763233461,
+          "p_no": 0.4575,
+          "p_yes": 0.5425,
+          "question": "Is it larger than a medium-sized dog?",
+          "support_size_if_no": 19,
+          "support_size_if_yes": 20,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it a mammal?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.5899166666666666,
+            "predictive_probability_yes": 0.41008333333333336,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 18
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.6675,
+            "predictive_probability_yes": 0.3325,
+            "question": "Is it found in Africa?",
+            "regenerated_support_size_if_no": 21,
+            "regenerated_support_size_if_yes": 19
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.4575,
+            "predictive_probability_yes": 0.5425,
+            "question": "Is it larger than a medium-sized dog?",
+            "regenerated_support_size_if_no": 19,
+            "regenerated_support_size_if_yes": 20
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Is it a mammal?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[18.0,19.5,20.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 7
+    },
+    {
+      "belief_recall_scores": [
+        14.5,
+        20.5,
+        17.5
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 0.9939166666666666,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.9105833333333334,
+          "immediate_eig": 0.2733327814701103,
+          "p_no": 0.9105833333333334,
+          "p_yes": 0.08941666666666664,
+          "question": "Does it live in the water?",
+          "support_size_if_no": 22,
+          "support_size_if_yes": 19,
+          "truth_covered_if_no": true,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.5833333333333334,
+          "immediate_eig": 0.6791932659638946,
+          "p_no": 0.4166666666666667,
+          "p_yes": 0.5833333333333334,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 15,
+          "support_size_if_yes": 22,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": true
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.6666666666666666,
+          "immediate_eig": 0.6365141682671818,
+          "p_no": 0.6666666666666666,
+          "p_yes": 0.3333333333333333,
+          "question": "Does it have more than four legs?",
+          "support_size_if_no": 21,
+          "support_size_if_yes": 14,
+          "truth_covered_if_no": true,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "No",
+          "question": "Does it have feathers?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.9105833333333334,
+            "predictive_probability_yes": 0.08941666666666664,
+            "question": "Does it live in the water?",
+            "regenerated_support_size_if_no": 22,
+            "regenerated_support_size_if_yes": 19
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.4166666666666667,
+            "predictive_probability_yes": 0.5833333333333334,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 15,
+            "regenerated_support_size_if_yes": 22
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.6666666666666666,
+            "predictive_probability_yes": 0.3333333333333333,
+            "question": "Does it have more than four legs?",
+            "regenerated_support_size_if_no": 21,
+            "regenerated_support_size_if_yes": 14
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "No",
+            "question": "Does it have feathers?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[14.5,20.5,17.5]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 8
+    },
+    {
+      "belief_recall_scores": [
+        16.5,
+        18.0,
+        17.0
+      ],
+      "candidate_dynamics": [
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6791932659638946,
+          "p_no": 0.5833333333333334,
+          "p_yes": 0.4166666666666667,
+          "question": "Is it a mammal?",
+          "support_size_if_no": 18,
+          "support_size_if_yes": 16,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6931471805323143,
+          "p_no": 0.5,
+          "p_yes": 0.5,
+          "question": "Is it a fish?",
+          "support_size_if_no": 20,
+          "support_size_if_yes": 16,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        },
+        {
+          "expected_current_support_retention": 1.0,
+          "expected_surviving_map_mass": 0.16666666666666666,
+          "expected_truth_coverage": 0.0,
+          "immediate_eig": 0.6365141682671818,
+          "p_no": 0.3333333333333333,
+          "p_yes": 0.6666666666666666,
+          "question": "Does it have bones?",
+          "support_size_if_no": 19,
+          "support_size_if_yes": 15,
+          "truth_covered_if_no": false,
+          "truth_covered_if_yes": false
+        }
+      ],
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Does it live in the water?"
+        }
+      ],
+      "model_visible_payload": {
+        "candidates": [
+          {
+            "index": 0,
+            "predictive_probability_no": 0.5833333333333334,
+            "predictive_probability_yes": 0.4166666666666667,
+            "question": "Is it a mammal?",
+            "regenerated_support_size_if_no": 18,
+            "regenerated_support_size_if_yes": 16
+          },
+          {
+            "index": 1,
+            "predictive_probability_no": 0.5,
+            "predictive_probability_yes": 0.5,
+            "question": "Is it a fish?",
+            "regenerated_support_size_if_no": 20,
+            "regenerated_support_size_if_yes": 16
+          },
+          {
+            "index": 2,
+            "predictive_probability_no": 0.3333333333333333,
+            "predictive_probability_yes": 0.6666666666666666,
+            "question": "Does it have bones?",
+            "regenerated_support_size_if_no": 19,
+            "regenerated_support_size_if_yes": 15
+          }
+        ],
+        "domain": "animals",
+        "history": [
+          {
+            "answer": "Yes",
+            "question": "Does it live in the water?"
+          }
+        ]
+      },
+      "raw_ranker_response": "```json\n{\"scores\":[16.5,18.0,17.0]}\n```",
+      "source_run_id": "animals-coverage-dynamics-proxy-validation-20260718",
+      "source_state_index": 9
+    }
+  ],
+  "run_id": "animals-belief-recall-ranker-development-v2-20260723",
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "results/nonmyopic/animals_coverage_dynamics/20260718_gemma26b_recovery/COVERAGE_PROBE.json",
+      "sha256": "a9ff329d641c38fbb75951421f86509560ceee2f6709cc238b745337ab407b66"
+    },
+    {
+      "path": "results/nonmyopic/animals_coverage_dynamics/20260718_proxy_validation/COVERAGE_PROBE.json",
+      "sha256": "c715aaad8db928aeb27a6c01bb52bd66761c6a21f61435e9c206976eeeb372d3"
+    }
+  ],
+  "status": "development_only",
+  "summary": {
+    "mean_active_state_regret_belief_recall": 0.1194074074074074,
+    "mean_active_state_regret_immediate_eig": 0.2867314814814815,
+    "mean_coverage_regret_belief_recall": 0.053733333333333334,
+    "mean_coverage_regret_immediate_eig": 0.12902916666666667,
+    "mean_oracle_candidate_expected_truth_coverage": 0.2560791666666667,
+    "mean_paired_selected_coverage_gain": 0.07529583333333333,
+    "mean_selected_expected_truth_coverage_belief_recall": 0.2023458333333333,
+    "mean_selected_expected_truth_coverage_immediate_eig": 0.12705,
+    "num_active_states": 9,
+    "num_candidate_rows": 60,
+    "num_states": 20,
+    "ranker_immediate_wins_ties_losses": [
+      4,
+      14,
+      2
+    ],
+    "spearman_belief_recall_score_vs_expected_truth_coverage": 0.12440120854472735,
+    "spearman_immediate_eig_vs_expected_truth_coverage": 0.0031800441624924764
+  },
+  "target_blind_prompt_construction": true,
+  "usage": {
+    "adapter_completion_tokens": 471,
+    "adapter_cost_usd": 0.0010749,
+    "adapter_prompt_tokens": 9936,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 20,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 471,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 471,
+        "cost_usd": 0.0010749,
+        "prompt_tokens": 9936,
+        "reasoning_tokens": 0,
+        "requests": 20
+      }
+    },
+    "prompt_tokens": 9936,
+    "reasoning_tokens": 0,
+    "remaining_usd": 69.48254146754013,
+    "requests": 20,
+    "run_budget_usd": 0.1,
+    "run_cost_usd": 0.0010749,
+    "run_remaining_usd": 0.0989251,
+    "total_spent_usd": 40.51745853245987
+  }
+}

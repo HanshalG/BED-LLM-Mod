@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/animals_belief_recall_ranker.py", line 86, in parse_scores
+    payload = json.loads(text.strip())
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/animals_belief_recall_ranker.py", line 325, in <module>
+    main()
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/animals_belief_recall_ranker.py", line 290, in main
+    ranked_records, usage = run_ranker(records, runtime_config)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/animals_belief_recall_ranker.py", line 262, in run_ranker
+    "belief_recall_scores": parse_scores(completion, candidate_count),
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/animals_belief_recall_ranker.py", line 88, in parse_scores
+    raise ValueError("ranker response is not bare JSON") from exc
+ValueError: ranker response is not bare JSON
