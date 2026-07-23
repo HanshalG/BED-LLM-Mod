@@ -1,0 +1,52 @@
+version: 0
+task: animals
+animals:
+  - [
+      "Squirrel", "Chipmunk", "Mole", "Shrew", "Hamster", "Gerbil",
+      "Guinea Pig", "Chinchilla", "Ferret", "Mink", "Weasel", "Stoat",
+      "Mongoose", "Meerkat", "Wombat", "Platypus", "Echidna", "Wallaby",
+      "Tasmanian Devil", "Orangutan", "Chimpanzee", "Baboon", "Lemur",
+      "Capuchin Monkey", "Gibbon", "Mandrill", "Bonobo", "Alpaca",
+      "Reindeer", "Antelope", "Gazelle", "Ibex", "Buffalo", "Boar",
+      "Warthog", "Tapir", "Okapi", "Manatee", "Walrus", "Sea Lion",
+      "Orca", "Porpoise", "Swordfish", "Tuna", "Salmon", "Trout", "Eel",
+      "Stingray", "Manta Ray", "Seahorse", "Jellyfish", "Starfish",
+      "Squid", "Cuttlefish", "Nautilus", "Shrimp", "Prawn", "Clam",
+      "Oyster", "Scallop"
+    ]
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: false
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26b-a4b-it"
+      backend: openrouter
+      thinking: false
+      max_model_len: 32768
+method_names:
+  - "EIG"
+batched_block_size: 256
+generation_temperature_diverse: 0.0
+generation_temperature_simple: 0.0
+answer_temperature: 0.0
+target_num_questions: 3
+num_mc_samples: 12
+max_num_samples: 16
+min_num_samples: 12
+threshold_rejection_probability: 0.2
+belief_state_mode: uniform
+belief_generation_enabled: true
+belief_filtering_enabled: true
+belief_guess_threshold: null
+forward_search_verbose: false
+openrouter_budget_usd: 110.0
+openrouter_run_budget_usd: 1.50
+openrouter_projected_cost_usd: 0.75
+openrouter_concurrency: 256
+openrouter_max_retries: 3
+openrouter_backoff_seconds: 1.0
+openrouter_request_timeout_seconds: 120.0
+openrouter_max_output_tokens: 256
+openrouter_spend_path: results/path_e/openrouter_spend.json
