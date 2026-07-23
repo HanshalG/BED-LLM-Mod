@@ -3,7 +3,11 @@ import math
 import numpy as np
 import pytest
 
-from environments.rock_diagnosis import RockDiagnosisModel, get_paper_map
+from environments.rock_diagnosis import (
+    RangeGatedRockDiagnosisModel,
+    RockDiagnosisModel,
+    get_paper_map,
+)
 from scripts.nonmyopic_rock_diagnosis_oracle import (
     OracleConfig,
     _candidate_cell,
@@ -22,6 +26,15 @@ def test_paper_maps_and_exact_immediate_eig_are_well_formed() -> None:
     belief = model.initial_belief
     assert model.expected_information_gain(paper_map.start_position, belief, "move-EAST") == 0.0
     assert model.expected_information_gain(paper_map.start_position, belief, "check-2") > 0.0
+
+
+def test_range_gated_variant_uses_on_site_accuracy_only_at_target_rock() -> None:
+    model = RangeGatedRockDiagnosisModel(get_paper_map("3-6"))
+    start = model.map_spec.start_position
+    rock = model.map_spec.rock_positions[0]
+
+    assert model.sensor_accuracy(start, 0) == pytest.approx(0.55)
+    assert model.sensor_accuracy(rock, 0) == pytest.approx(0.95)
 
 
 def test_binary_channel_eig_matches_full_joint_entropy_definition() -> None:

@@ -1,6 +1,11 @@
 """Exact Rock Diagnosis dynamics adapted from the RockSample POMDP."""
 
-from .core import RockDiagnosisMap, RockDiagnosisModel, get_paper_map
+from .core import (
+    RangeGatedRockDiagnosisModel,
+    RockDiagnosisMap,
+    RockDiagnosisModel,
+    get_paper_map,
+)
 from .strategy import (
     ExactRockStrategyScore,
     RockStrategy,
@@ -16,6 +21,7 @@ __all__ = [
     "ExactRockStrategyScore",
     "RockDiagnosisMap",
     "RockDiagnosisModel",
+    "RangeGatedRockDiagnosisModel",
     "RockStrategy",
     "RockStrategyExecutionError",
     "RockStrategyExecutor",

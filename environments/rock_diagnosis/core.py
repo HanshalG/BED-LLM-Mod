@@ -356,3 +356,31 @@ class RockDiagnosisModel:
 
     def decode_map_index(self, belief: np.ndarray) -> int:
         return int(np.argmax(belief))
+
+
+class RangeGatedRockDiagnosisModel(RockDiagnosisModel):
+    """Rock Diagnosis where accurate inspection requires reaching a rock."""
+
+    def __init__(
+        self,
+        map_spec: RockDiagnosisMap,
+        *,
+        remote_accuracy: float = 0.55,
+        onsite_accuracy: float = 0.95,
+    ) -> None:
+        if not 0.5 <= remote_accuracy < onsite_accuracy <= 1.0:
+            raise ValueError(
+                "range-gated accuracies must satisfy 0.5 <= remote < onsite <= 1"
+            )
+        super().__init__(map_spec)
+        self.remote_accuracy = float(remote_accuracy)
+        self.onsite_accuracy = float(onsite_accuracy)
+
+    def sensor_accuracy(self, position: tuple[int, int], rock_id: int) -> float:
+        if not 0 <= rock_id < self.num_rocks:
+            raise ValueError(f"rock_id out of range: {rock_id}")
+        return (
+            self.onsite_accuracy
+            if position == self.map_spec.rock_positions[rock_id]
+            else self.remote_accuracy
+        )
