@@ -2,6 +2,7 @@
 #SBATCH --partition=msc
 #SBATCH --gres=gpu:a100:1
 #SBATCH --cpus-per-task=10
+#SBATCH --mem=64G
 #SBATCH --job-name=range_gated_h3
 #SBATCH --output=slurm_logs/slurm-%j.out
 #SBATCH --error=slurm_logs/slurm-%j.err
