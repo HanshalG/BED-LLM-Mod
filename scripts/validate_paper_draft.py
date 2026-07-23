@@ -58,6 +58,13 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"independent\s+truth-log",
         r"not\s+an\s+all-gates\s+confirmation",
     ),
+    "mushroom_grounding_scope": (
+        r"Mushroom",
+        r"50/50",
+        r"zero\s+projected\s+branches",
+        r"exactly\s+matched\s+d2",
+        r"truth-log\s+intervals\s+agreed",
+    ),
     "range_gated_depth_scope": (
         r"range-gated",
         r"Exact d3 beat exact d2",

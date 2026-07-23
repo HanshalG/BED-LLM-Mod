@@ -19,6 +19,8 @@ The projected repair uses exact local summaries and projected branches, so it is
 Its projection-only ablation collected 0/50.
 Cleveland recovered 100.9 with zero projected branches, but its independent truth-log
 interval crossed zero, so it is not an all-gates confirmation.
+Mushroom collected 50/50 with zero projected branches, exactly matched d2, and its
+truth-log intervals agreed.
 In a range-gated task, Exact d3 beat exact d2,
 but this is structural rather than LLM-policy evidence.
 """
