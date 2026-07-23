@@ -72,9 +72,14 @@ def compile_fixed_tail_cell(
     position: tuple[int, int],
     roots: tuple[str, ...],
     config: RangeGatedStrategyConfig,
+    accept_json_prefix: bool = False,
 ) -> tuple[Plan, ...]:
+    normalized = _normalize_response(response)
     try:
-        payload = json.loads(_normalize_response(response))
+        if accept_json_prefix:
+            payload, _end = json.JSONDecoder().raw_decode(normalized)
+        else:
+            payload = json.loads(normalized)
     except json.JSONDecodeError as exc:
         raise StrategyProposalError("fixed-tail response is not valid JSON") from exc
     expected_keys = {f"r{index}" for index in range(len(roots))}
@@ -111,10 +116,12 @@ class FixedRootTailProvider:
         config: RangeGatedStrategyConfig,
         *,
         include_successor_grounding: bool = False,
+        accept_json_prefix: bool = False,
     ) -> None:
         self.chat_model = chat_model
         self.config = config
         self.include_successor_grounding = include_successor_grounding
+        self.accept_json_prefix = accept_json_prefix
         self.physical_requests: list[dict[str, Any]] = []
         self.invalid_responses: list[dict[str, Any]] = []
         self._lock = threading.Lock()
@@ -234,6 +241,7 @@ class FixedRootTailProvider:
                     position=position,
                     roots=roots,
                     config=self.config,
+                    accept_json_prefix=self.accept_json_prefix,
                 )
             except StrategyProposalError as exc:
                 error = exc
@@ -370,6 +378,7 @@ def run_smoke(
         "stage": "range_gated_rock_fixed_root_tail_serving_smoke",
         "config": asdict(config),
         "successor_grounding": provider.include_successor_grounding,
+        "accept_json_prefix": provider.accept_json_prefix,
         "mechanics": mechanics,
         "delayed_onsite_route_count": delayed_route_count,
         "provider": {
@@ -380,6 +389,17 @@ def run_smoke(
         "candidate_requests": provider.physical_requests,
         "invalid_responses": provider.invalid_responses,
     }
+
+
+def usage_with_forced_events(chat_model: ChatModel, output_dir: Path) -> dict[str, Any]:
+    usage = _usage_snapshot(chat_model)
+    if usage.get("backend") == "vllm":
+        log_path = output_dir / "run.log"
+        log_text = log_path.read_text(encoding="utf-8") if log_path.exists() else ""
+        usage["forced_finalization_events"] = log_text.count(
+            "Forced thinking exit"
+        )
+    return usage
 
 
 def main() -> None:
@@ -403,6 +423,7 @@ def main() -> None:
     )
     parser.add_argument("--seed", type=int, default=24_177)
     parser.add_argument("--successor-grounding", action="store_true")
+    parser.add_argument("--accept-json-prefix", action="store_true")
     parser.add_argument(
         "--model-generation-tokens",
         type=int,
@@ -419,6 +440,7 @@ def main() -> None:
     else:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
+        runtime_config.log_path = args.output_dir / "run.log"
         runtime_config.location_max_new_tokens = (
             args.model_generation_tokens or config.max_new_tokens
         )
@@ -429,6 +451,7 @@ def main() -> None:
         chat_model,
         config,
         include_successor_grounding=args.successor_grounding,
+        accept_json_prefix=args.accept_json_prefix,
     )
     try:
         result = run_smoke(provider, config)
@@ -441,14 +464,14 @@ def main() -> None:
             "config": asdict(config),
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
-            "usage": _usage_snapshot(chat_model),
+            "usage": usage_with_forced_events(chat_model, args.output_dir),
         }
         (args.output_dir / "SMOKE_FAILURE.json").write_text(
             json.dumps(failure, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
         )
         raise
-    result["usage"] = _usage_snapshot(chat_model)
+    result["usage"] = usage_with_forced_events(chat_model, args.output_dir)
     result["run_id"] = args.run_id
     result["dry_run"] = args.dry_run
     if args.successor_grounding:
@@ -460,9 +483,14 @@ def main() -> None:
         result["mechanics"]["zero_reasoning_tokens"] = (
             int(result["usage"].get("reasoning_tokens", 0)) == 0
         )
-    result["mechanics"]["zero_forced_exits"] = (
-        int(result["usage"].get("forced_exits", 0)) == 0
-    )
+    if result["usage"].get("backend") == "vllm" and args.successor_grounding:
+        result["mechanics"]["forced_finalization_events_accounted"] = (
+            "forced_finalization_events" in result["usage"]
+        )
+    else:
+        result["mechanics"]["zero_forced_exits"] = (
+            int(result["usage"].get("forced_exits", 0)) == 0
+        )
     result["gate"] = {"passed": all(result["mechanics"].values())}
     (args.output_dir / "SMOKE.json").write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"

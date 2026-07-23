@@ -82,6 +82,38 @@ def test_fixed_tail_compiler_preserves_roots_and_checks_dynamic_legality() -> No
         )
 
 
+def test_json_prefix_acceptance_is_opt_in_and_keeps_strict_compilation() -> None:
+    model = _model()
+    position = model.map_spec.start_position
+    roots = fixed_roots(model, position=position, belief=model.initial_belief)
+    response = (
+        '{"r0":["move-SOUTH","check-5"],'
+        '"r1":["move-EAST","check-2"],'
+        '"r2":["check-1","check-2"],'
+        '"r3":["check-2","check-3"]}\n'
+        "Trailing self-correction prose."
+    )
+
+    with pytest.raises(StrategyProposalError, match="not valid JSON"):
+        compile_fixed_tail_cell(
+            response,
+            model=model,
+            position=position,
+            roots=roots,
+            config=RangeGatedStrategyConfig(),
+        )
+
+    plans = compile_fixed_tail_cell(
+        response,
+        model=model,
+        position=position,
+        roots=roots,
+        config=RangeGatedStrategyConfig(),
+        accept_json_prefix=True,
+    )
+    assert plans[0] == ("move-SOUTH", "move-SOUTH", "check-5")
+
+
 def test_fixed_tail_prompt_exposes_geometry_but_no_scores_or_answer() -> None:
     model = _model()
     config = RangeGatedStrategyConfig()

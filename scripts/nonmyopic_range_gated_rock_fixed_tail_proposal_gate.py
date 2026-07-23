@@ -19,12 +19,12 @@ from helpers import Config, load_config
 from model_factory import build_model_adapter
 from scripts.nonmyopic_gated_sensor_strategy_prior import (
     StrategyProposalError,
-    _usage_snapshot,
 )
 from scripts.nonmyopic_range_gated_rock_fixed_tail import (
     DeterministicFixedTailModel,
     FixedRootTailProvider,
     fixed_roots,
+    usage_with_forced_events,
 )
 from scripts.nonmyopic_range_gated_rock_proposal_gate import (
     RangeGatedProposalGateConfig,
@@ -308,6 +308,7 @@ def main() -> None:
         default="range-gated-rock-successor-grounded-cluster26b-proposal-20260723",
     )
     parser.add_argument("--model-generation-tokens", type=int, default=4096)
+    parser.add_argument("--accept-json-prefix", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     gate_config = RangeGatedProposalGateConfig(seed=args.seed)
@@ -320,6 +321,7 @@ def main() -> None:
     else:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
+        runtime_config.log_path = args.output_dir / "run.log"
         runtime_config.location_max_new_tokens = args.model_generation_tokens
         chat_model = build_model_adapter(
             runtime_config.model_pairs[0].questioner,
@@ -329,6 +331,7 @@ def main() -> None:
         chat_model,
         strategy_config,
         include_successor_grounding=True,
+        accept_json_prefix=args.accept_json_prefix,
     )
     try:
         result = run_proposal_gate(provider, gate_config)
@@ -341,14 +344,14 @@ def main() -> None:
             "config": asdict(gate_config),
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
-            "usage": _usage_snapshot(chat_model),
+            "usage": usage_with_forced_events(chat_model, args.output_dir),
         }
         (args.output_dir / "PROPOSAL_FAILURE.json").write_text(
             json.dumps(failure, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
         )
         raise
-    result["usage"] = _usage_snapshot(chat_model)
+    result["usage"] = usage_with_forced_events(chat_model, args.output_dir)
     result["mechanics"]["usage_accounted"] = all(
         field in result["usage"]
         for field in ("requests", "completion_tokens", "forced_exits")
