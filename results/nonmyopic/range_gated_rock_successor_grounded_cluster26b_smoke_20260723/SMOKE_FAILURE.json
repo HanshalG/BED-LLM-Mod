@@ -1,0 +1,372 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "compiled_plans": [
+        [
+          "move-SOUTH",
+          "move-SOUTH",
+          "check-5"
+        ],
+        [
+          "move-NORTH",
+          "move-EAST",
+          "move-EAST"
+        ],
+        [
+          "check-0",
+          "move-EAST",
+          "check-0"
+        ],
+        [
+          "check-1",
+          "move-EAST",
+          "check-1"
+        ]
+      ],
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"move-EAST\"],\"r2\":[\"move-EAST\",\"check-0\"],\"r3\":[\"move-EAST\",\"check-1\"]}",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "compiled_plans": [
+        [
+          "move-SOUTH",
+          "move-SOUTH",
+          "check-5"
+        ],
+        [
+          "move-NORTH",
+          "move-EAST",
+          "move-EAST"
+        ],
+        [
+          "check-0",
+          "move-EAST",
+          "check-2"
+        ],
+        [
+          "check-1",
+          "move-EAST",
+          "check-1"
+        ]
+      ],
+      "history": [
+        [
+          "check-6",
+          "bad"
+        ],
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"move-EAST\"],\"r2\":[\"move-EAST\",\"check-2\"],\"r3\":[\"move-EAST\",\"check-1\"]}",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "compiled_plans": [
+        [
+          "move-SOUTH",
+          "move-SOUTH",
+          "check-5"
+        ],
+        [
+          "move-NORTH",
+          "move-EAST",
+          "check-2"
+        ],
+        [
+          "check-1",
+          "move-EAST",
+          "check-2"
+        ],
+        [
+          "check-2",
+          "move-EAST",
+          "check-2"
+        ]
+      ],
+      "history": [
+        [
+          "check-0",
+          "good"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"check-2\"],\"r2\":[\"move-EAST\",\"check-2\"],\"r3\":[\"move-EAST\",\"check-2\"]}",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "compiled_plans": [
+        [
+          "move-SOUTH",
+          "move-SOUTH",
+          "check-5"
+        ],
+        [
+          "move-NORTH",
+          "move-EAST",
+          "move-EAST"
+        ],
+        [
+          "check-2",
+          "move-EAST",
+          "check-3"
+        ],
+        [
+          "check-3",
+          "move-EAST",
+          "check-3"
+        ]
+      ],
+      "history": [
+        [
+          "check-1",
+          "bad"
+        ],
+        [
+          "check-0",
+          "bad"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"move-EAST\"],\"r2\":[\"move-EAST\",\"check-3\"],\"r3\":[\"move-EAST\",\"check-3\"]}",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-2",
+        "check-3"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "compiled_plans": [
+        [
+          "move-SOUTH",
+          "move-SOUTH",
+          "check-5"
+        ],
+        [
+          "move-NORTH",
+          "move-EAST",
+          "check-2"
+        ],
+        [
+          "check-1",
+          "move-EAST",
+          "check-3"
+        ],
+        [
+          "check-2",
+          "move-EAST",
+          "check-2"
+        ]
+      ],
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-4",
+          "good"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"check-2\"],\"r2\":[\"move-EAST\",\"check-3\"],\"r3\":[\"move-EAST\",\"check-2\"]}",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "compiled_plans": [
+        [
+          "move-SOUTH",
+          "move-SOUTH",
+          "check-5"
+        ],
+        [
+          "move-NORTH",
+          "move-EAST",
+          "check-2"
+        ],
+        [
+          "check-0",
+          "move-EAST",
+          "check-0"
+        ],
+        [
+          "check-2",
+          "move-EAST",
+          "check-2"
+        ]
+      ],
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"check-2\"],\"r2\":[\"move-EAST\",\"check-0\"],\"r3\":[\"move-EAST\",\"check-2\"]}",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-2"
+      ]
+    }
+  ],
+  "config": {
+    "horizon": 3,
+    "max_new_tokens": 256,
+    "num_plans": 4,
+    "seed": 24183,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "error": "fixed-root tail cell failed after two attempts: fixed-tail response is not valid JSON",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "error": "fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-6",
+          "good"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"move-EAST\"],\"r2\":[\"move-EAST\",\"check-2\"],\"r3\":[\"move-EAST\",\"move-EAST\"]}\n\nWait, I see a mistake in my manual calculation. Let me re-verify all plans.\n\nr0: Root `move-SOUTH` ([0,4]). Action 2 `move-SOUTH` ([0,5]). Action 3 `check-5` ([0,5]). (Legal)\nr1: Root `move-NORTH` ([0,2]). Action 2 `move-EAST` ([1,2]). Action 3 `move-EAST` ([2,2]). (Wait, Action 3 must be a check).\nLet's try again.\n\nr0: Root `move-SOUTH` ([0,4]). Action 2 `move-SOUTH` ([0,5]). Action 3 `check-5` ([0,5]).\nr1: Root `move-NORTH` ([0,2]). Action 2 `move-EAST` ([1,2]). Action 3 `move-EAST` (to [2,2]). (No, Action 3 must be a check).\nIf Action 3 is `check-2`, Action 2 must end at [2,2].\nFrom [0,2], to get to [2,2] in one action (Action 2), we need to move two units. Not possible.\nWait, the prompt says \"A plan may spend two actions travelling so its final check is high-fidelity on site.\"\nThis means:\nAction 1: Move\nAction 2: Move\nAction 3: Check (on-site)\n\nLet's re-calculate:\nr0: Root `move-SOUTH` ([0,4]). Action 2 `move-SOUTH` ([0,5]). Action 3 `check-5` ([0,5]). (Legal)\nr1: Root `move-NORTH` ([0,2]). Action 2 `move-EAST` ([1,2]). Action 3 `move-EAST` (to [2,2]). (No, Action 3 must be a check).\nWait, if Action 3 is `check-2`, then Action 2 must be `move-EAST` and the position after Action 2 must be [2,",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 6,
+      "error": "fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-6",
+          "good"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "{\"r0\":[\"move-SOUTH\",\"check-5\"],\"r1\":[\"move-EAST\",\"move-EAST\"],\"r2\":[\"move-EAST\",\"check-2\"],\"r3\":[\"move-EAST\",\"move-EAST\"]}\n\nWait, I just realized I'm still struggling with the \"Action 3 must be a check\" vs \"Action 3 can be a move\" part.\nLet's look at the prompt again: \"A plan may spend two actions travelling so its final check is high-fidelity on site.\"\nThis means:\nAction 1: Move\nAction 2: Move\nAction 3: Check\nThis is a 3-action plan.\nThe root is Action 1.\nThe two action strings are Action 2 and Action 3.\nSo for r1:\nAction 1: `move-NORTH` (Root)\nAction 2: `move-EAST`\nAction 3: `move-EAST`? No, that's not a check.\nIf Action 3 is `check-2`, then Action 2 must be `move-EAST` and the position after Action 2 must be [2,2].\nBut from [0,2], `move-EAST` only gets to [1,2].\nIs there any rock reachable from [0,2] in two moves?\n[0,2] -> [1,2] -> [2,2] (check-2)\n[0,2] -> [0,1] -> [1,1] (no)\n[0,2] -> [0,3] -> [1,3] (no)\nWait, if Action 2 is `move-EAST` and Action 3 is `check-2`, the position after Action 2 is [1,2].\n`check-2` is at [2,2]. So `check-2` from [1,2] is a remote check.\nBut the prompt says \"A plan may spend two actions travelling so its final check is high-fidelity on site.\"\nThis implies we *should* try to get to the rock.\nIf we can't get to a rock in 2 moves (Action 1 + Action 2), we can't have a high-fidelity check as Action 3.\nLet's re-check r1 (Root [0,2]):\n- Rock 0:",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "stage": "range_gated_rock_fixed_root_tail_serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 34068,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26B-A4B-it",
+    "model_usage": {
+      "google/gemma-4-26B-A4B-it": {
+        "completion_tokens": 34068,
+        "cost_usd": 0.0,
+        "prompt_tokens": 59664,
+        "reasoning_tokens": 0,
+        "requests": 16
+      }
+    },
+    "prompt_tokens": 59664,
+    "reasoning_tokens": 0,
+    "requests": 16,
+    "run_cost_usd": 0.0
+  }
+}
