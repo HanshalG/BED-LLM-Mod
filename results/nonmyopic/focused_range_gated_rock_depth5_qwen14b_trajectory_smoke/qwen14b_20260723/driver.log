@@ -1,0 +1,43 @@
+Traceback (most recent call last):
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/nonmyopic_range_gated_rock_depth5_trajectory_smoke.py", line 238, in <module>
+    main()
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/nonmyopic_range_gated_rock_depth5_trajectory_smoke.py", line 195, in main
+    result = run_smoke(provider, strategy_config=strategy_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/nonmyopic_range_gated_rock_depth5_trajectory_smoke.py", line 85, in run_smoke
+    cell = provider.propose(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/hanshalgoyal/BED-LLM-Mod/scripts/nonmyopic_range_gated_rock_depth5_goal_compiler.py", line 333, in propose
+    response = self.chat_model.chat_complete(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hanshalgoyal/BED-LLM-Mod/openrouter_model.py", line 450, in chat_complete
+    return self._complete_request(messages, temperature, n=num_responses)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/hanshalgoyal/BED-LLM-Mod/openrouter_model.py", line 342, in _complete_request
+    data = self._post(
+           ^^^^^^^^^^^
+  File "/Users/hanshalgoyal/BED-LLM-Mod/openrouter_model.py", line 291, in _post
+    return json.loads(response.read())
+                      ^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/http/client.py", line 473, in read
+    return self._read_chunked(amt)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/http/client.py", line 595, in _read_chunked
+    while (chunk_left := self._get_chunk_left()) is not None:
+                         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/http/client.py", line 579, in _get_chunk_left
+    chunk_left = self._read_next_chunk_size()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/http/client.py", line 539, in _read_next_chunk_size
+    line = self.fp.readline(_MAXLINE + 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/ssl.py", line 1251, in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/ssl.py", line 1103, in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
