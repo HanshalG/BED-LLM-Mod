@@ -44,6 +44,8 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"native\s+delayed-assay metadata",
         r"matched-random\s+continuations",
         r"ungrounded\s+empirical assay utility",
+        r"utility-card\s+repair",
+        r"before\s+endpoints",
     ),
     "range_gated_depth_scope": (
         r"range-gated",

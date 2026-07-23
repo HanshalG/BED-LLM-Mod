@@ -14,6 +14,7 @@ one model family, and OpenRouter introduces provider nondeterminism. The iCRAFT
 profile-support gate failed before likelihood evaluation. Mushroom, Cleveland, and
 Thyroid show exact d2 structure with partial LLM transfer. Thyroid uses native delayed-assay metadata,
 fails to beat matched-random continuations, and exposes ungrounded empirical assay utility.
+Its utility-card repair stops before endpoints.
 In a range-gated task, Exact d3 beat exact d2,
 but this is structural rather than LLM-policy evidence.
 """
