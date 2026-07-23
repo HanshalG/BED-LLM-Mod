@@ -443,9 +443,15 @@ def main() -> None:
     result["usage"] = _usage_snapshot(chat_model)
     result["run_id"] = args.run_id
     result["dry_run"] = args.dry_run
-    result["mechanics"]["zero_reasoning_tokens"] = (
-        int(result["usage"].get("reasoning_tokens", 0)) == 0
-    )
+    if args.successor_grounding:
+        result["mechanics"]["reasoning_usage_accounted"] = all(
+            field in result["usage"]
+            for field in ("reasoning_tokens", "completion_tokens", "requests")
+        )
+    else:
+        result["mechanics"]["zero_reasoning_tokens"] = (
+            int(result["usage"].get("reasoning_tokens", 0)) == 0
+        )
     result["mechanics"]["zero_forced_exits"] = (
         int(result["usage"].get("forced_exits", 0)) == 0
     )
