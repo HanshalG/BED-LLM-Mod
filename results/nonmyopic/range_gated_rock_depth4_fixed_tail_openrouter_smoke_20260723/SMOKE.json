@@ -1,0 +1,1149 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 1,
+      "cell_index": 0,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-7"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-NORTH\",\"check-6\"],\"r1\":[\"move-WEST\",\"move-NORTH\",\"check-7\"],\"r2\":[\"move-NORTH\",\"move-WEST\",\"check-7\"],\"r3\":[\"move-NORTH\",\"move-WEST\",\"check-7\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-3"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 1,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "check-6",
+          "move-SOUTH"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "check-7",
+          "move-EAST"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-5"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "check-5"
+        ]
+      ],
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"check-6\",\"move-SOUTH\"],\"r1\":[\"move-WEST\",\"check-7\",\"move-EAST\"],\"r2\":[\"move-NORTH\",\"move-NORTH\",\"check-5\"],\"r3\":[\"move-NORTH\",\"move-NORTH\",\"check-5\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-1"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-WEST",
+          "check-1"
+        ]
+      ],
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-6",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-WEST\",\"check-6\"],\"r1\":[\"move-WEST\",\"move-WEST\",\"check-7\"],\"r2\":[\"move-NORTH\",\"move-WEST\",\"check-1\"],\"r3\":[\"move-NORTH\",\"move-WEST\",\"check-1\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "history": [
+        [
+          "check-4",
+          "good"
+        ],
+        [
+          "check-4",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-WEST\",\"check-6\"],\"r1\":[\"move-NORTH\",\"move-NORTH\",\"check-6\"],\"r2\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"],\"r3\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-0",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-NORTH\",\"check-6\"],\"r1\":[\"move-WEST\",\"move-NORTH\",\"check-6\"],\"r2\":[\"move-NORTH\",\"move-WEST\",\"check-7\"],\"r3\":[\"move-NORTH\",\"move-WEST\",\"check-7\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-4"
+        ]
+      ],
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-WEST\",\"check-6\"],\"r1\":[\"move-WEST\",\"move-NORTH\",\"check-6\"],\"r2\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"],\"r3\":[\"move-NORTH\",\"move-WEST\",\"check-4\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "history": [
+        [
+          "check-4",
+          "good"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-WEST\",\"check-6\"],\"r1\":[\"move-WEST\",\"move-NORTH\",\"check-6\"],\"r2\":[\"move-NORTH\",\"move-WEST\",\"check-7\"],\"r3\":[\"move-NORTH\",\"move-WEST\",\"check-7\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 7,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-WEST\",\"check-6\"],\"r1\":[\"move-WEST\",\"move-NORTH\",\"check-6\"],\"r2\":[\"move-NORTH\",\"move-WEST\",\"check-7\"],\"r3\":[\"move-NORTH\",\"move-WEST\",\"check-7\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 8,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-5"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-5"
+        ]
+      ],
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-6",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"check-4\",\"check-4\"],\"r1\":[\"move-WEST\",\"move-NORTH\",\"check-6\"],\"r2\":[\"move-NORTH\",\"move-WEST\",\"check-5\"],\"r3\":[\"move-NORTH\",\"move-WEST\",\"check-5\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 9,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-6",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"move-WEST\",\"check-6\"],\"r1\":[\"move-WEST\",\"move-WEST\",\"check-7\"],\"r2\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"],\"r3\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    }
+  ],
+  "config": {
+    "horizon": 4,
+    "max_new_tokens": 256,
+    "num_plans": 4,
+    "seed": 24208,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "critical_route_count": 0,
+  "dry_run": false,
+  "exact_root_match_count": 0,
+  "gate": {
+    "passed": false
+  },
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "[Wafer: response was truncated before the model finished its internal reasoning. Increase max_tokens, or disable thinking on this model (e.g. chat_template_kwargs.enable_thinking=false), then retry.]",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-3"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "error": "r0 must contain exactly three action strings",
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":[\"move-WEST\",\"check-6\",\"move-SOUTH\",\"move-SOUTH\"],\"r1\":[\"move-WEST\",\"check-7\",\"move-EAST\",\"move-EAST\"],\"r2\":[\"move-NORTH\",\"move-NORTH\",\"move-WEST\",\"check-5\"],\"r3\":[\"move-NORTH\",\"move-NORTH\",\"move-WEST\",\"check-5\"]}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    }
+  ],
+  "mechanics": {
+    "all_cells_have_four_legal_fixed_root_plans": true,
+    "critical_route_present_in_at_least_eight_cells": false,
+    "exact_h4_root_selected_in_at_least_eight_cells": false,
+    "exactly_ten_accepted_calls": true,
+    "scoring_made_no_llm_calls": true,
+    "ten_distinct_cells_completed": true,
+    "usage_accounted": true
+  },
+  "records": [
+    {
+      "cell_index": 0,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-7"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-WEST",
+        "check-7"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 1,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "check-6",
+          "move-SOUTH"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "check-7",
+          "move-EAST"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-5"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "check-5"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-NORTH",
+        "check-5"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 2,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-6",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-1"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-WEST",
+          "check-1"
+        ]
+      ],
+      "selected_plan": [
+        "check-2",
+        "move-NORTH",
+        "move-WEST",
+        "check-1"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 3,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-4",
+          "good"
+        ],
+        [
+          "check-4",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-NORTH",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 4,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-0",
+          "bad"
+        ],
+        [
+          "check-0",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-WEST",
+        "check-7"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 5,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-4"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 6,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-4",
+          "good"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-WEST",
+        "check-7"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 7,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-WEST",
+        "check-7"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 8,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-6",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-WEST",
+          "check-5"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-5"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-WEST",
+        "check-5"
+      ],
+      "selected_root_matches_exact": false
+    },
+    {
+      "cell_index": 9,
+      "critical_route_present": false,
+      "exact_h4_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-6",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "selected_plan": [
+        "check-0",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4"
+      ],
+      "selected_root_matches_exact": false
+    }
+  ],
+  "run_id": "range-gated-rock-depth4-fixed-tail-openrouter-smoke-20260723",
+  "schema_version": 1,
+  "stage": "range_gated_rock_depth4_fixed_tail_serving_smoke",
+  "usage": {
+    "adapter_completion_tokens": 52977,
+    "adapter_cost_usd": 0.03729986999999999,
+    "adapter_prompt_tokens": 175575,
+    "adapter_reasoning_tokens": 41829,
+    "adapter_requests": 23,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 52977,
+    "forced_exits": 12,
+    "forced_final_requests": 11,
+    "forced_final_successes": 11,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 52977,
+        "cost_usd": 0.03729986999999999,
+        "prompt_tokens": 175575,
+        "reasoning_tokens": 41829,
+        "requests": 23
+      }
+    },
+    "prompt_tokens": 175575,
+    "reasoning_tokens": 41829,
+    "remaining_usd": 71.43984490254013,
+    "requests": 23,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.03729986999999999,
+    "run_remaining_usd": 0.21270013000000002,
+    "total_spent_usd": 38.56015509745988
+  }
+}
