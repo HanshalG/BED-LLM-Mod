@@ -33,6 +33,12 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"profile-support gate",
         r"before likelihood",
     ),
+    "semantic_unlock_scope": (
+        r"Mushroom",
+        r"Cleveland",
+        r"exact d2",
+        r"failed proposal gates",
+    ),
 }
 
 REQUIRED_FIGURE_LABELS: dict[str, str] = {

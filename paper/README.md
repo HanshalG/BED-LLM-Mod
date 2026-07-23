@@ -3,8 +3,9 @@
 This directory holds the evidence-supported workshop draft on non-myopic BED
 with LLM-derived probabilistic models. It combines exact planning controls,
 the paired Rock Diagnosis policy result, the exact Gated Sensor qualification and
-LLM-interface audit, the banked animals result, the natural-location depth audit,
-and the Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
+LLM-interface audit, exact UCI Mushroom and Cleveland semantic-unlock qualifications
+with failed 26B proposal gates, the banked animals result, the natural-location depth
+audit, and the Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood
 gate failed.
 

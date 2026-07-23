@@ -53,8 +53,9 @@ truth-log-posterior AUC agrees. GPT-5.4 Mini replicates the eight-, eleven-, and
 fifteen-rock gains under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
 move; an exact gate and three direct-vLLM seeds each at 26B and 12B
-preserve the planning gap at 32,768 latent states, while E4B fails. Negative
-location, Paprika, and MediQ audits identify the boundary: depth
+preserve the planning gap at 32,768 latent states, while E4B fails. Two
+data-derived semantic unlock tasks reproduce exact d2 gains but fail frozen 26B
+proposal gates. Negative location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
 The result supports an LLM-Modulo architecture for sequential BED---semantic policy
 generation coupled to exact external verification---rather than unverified LLM
@@ -192,6 +193,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
 Gated Sensor & Exact finite state & Zero-EIG activation & Exact d2 beats d1; LLM ties random & Structural positive \\
+Mushroom / Cleveland & Exact empirical & Zero-EIG acquisition/workup & Exact d2 wins; 26B proposals fail & Structural positive \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -311,23 +313,11 @@ Gemma root over exact legal followups, raising mean exhaustive fraction from 85.
 99.6\% and localizing most headroom to continuation choice. Optimal-root coverage was
 242/270 (89.6\%), one state below the frozen 90\% paid-run gate, so we did not tune or run it.
 
-Under fresh seed and machine-assigned movement-root slots, GPT-5.4 Mini also beat
-shared d1, exhaustive d1 width, and random policies: .5104 [.4312, .5863], .4928
-[.4115, .5734], and .4130 [.3225, .4988], with 28/0/2 each; all truth-log intervals
-excluded zero. The sign is not Gemma-specific, although GPT's smaller gains and
-66.3\% exhaustive fraction leave proposal headroom.
-
-To remove the remaining interface difference, we preregistered a second fresh-seed
-Gemma run under the identical movement-root slots. Its entropy-AUC gains were .7846
-[.7370, .8296] against shared d1, .7729 [.7252, .8167] against exhaustive d1 width,
-and .7334 [.6813, .7835] against random strategies, with 30/0/0 wins/ties/losses
-in every comparison. All truth-log-AUC intervals again excluded zero. The run
-completed all 870 proposal cells without a rejection or resume and narrowed the
-gap to exhaustive d2 from .1303 in the semantic-prompt Gemma run to .0814. This
-same-interface replication removes prompt format as an explanation for the
-cross-family positive result. Effect-size differences across prompts and models
-remain descriptive because the runs use different seeds; they are not causal
-interface or model-superiority tests.
+Fresh machine-slot replications at eight rocks also passed all controls: GPT-5.4
+Mini gained .5104, .4928, and .4130 entropy-AUC nats against shared d1, width, and
+random, while Gemma gained .7846, .7729, and .7334; every paired interval and
+truth-log corroboration excluded zero. Because seeds differ, cross-model effect
+sizes remain descriptive rather than causal model comparisons.
 
 Finally, a 500-pair exact gate on RockSample[11,11] found that exhaustive d2 beat
 exhaustive d1 by 1.1042 entropy-AUC nats [1.1015, 1.1068]. Four independent Gemma
@@ -393,6 +383,21 @@ branch-conditioned retry also failed (.694 versus .783; random-policy entropy AU
 $-.122$ [$-.268$, $-.008$]): 70/104 measurement-root continuations selected a
 terminal zero-EIG activation. Richer beliefs did not fix the indexed proposal
 bottleneck, so no formal confirmation followed.
+
+Two data-derived semantic tasks independently reproduce the structural gap but
+not the LLM-policy gain. In UCI Mushroom, collecting a specimen has zero immediate
+EIG but unlocks detailed features; exact d2 improved entropy AUC by .1153
+[.1057, .1254] over d1 on 1,000 paired rows. The frozen 26B proposal gate beat
+matched random, but selected collection on only 10/16 opportunities and recovered
+.327 of exhaustive d2 value, failing the strong-d1 and recovery gates. In the
+independent UCI Cleveland cohort, a zero-information clinical workup unlocks eight
+tests. Exact d2 improved entropy AUC by .0687 [.0573, .0803] and ordered workup
+2.22 rounds earlier. Yet the 26B gate selected workup on only 1/16 exact d2
+opportunities and was worse than the strong d1 continuation by .0435
+[.0083, .0704]. Independent replay localized this to menu position: 15/16
+workup-root continuations chose age or sex, while every ordinary-query branch
+chose the setup action. Thus semantic task structure transfers more readily than
+the bounded proposal prior; no formal policy run followed either failed gate.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
@@ -533,16 +538,11 @@ Future depth studies should cross the following gates in order:
   with identical root candidates, simulator seeds, and stopping rules.
 \end{enumerate}
 
-Within MediQ, the official iCRAFT-MD split offered a fresh diagnosis-only target:
-all 140 targets are diagnoses and records have a mean 14.82 atomic facts (median
-14, minimum 9), compared with 11.20 (median 10, minimum 2) in usable iMEDQA. We
-preregistered and tested the natural repair---several concrete counterfactual
-patient profiles $z$ per diagnosis, profile-conditioned replies, label-independent
-availability, and EIG about $\theta=g(z)$. A stronger author could construct the fixed
-support, but only 14/48 held-out FactSelect outcomes were answerable, short of the
-frozen 24-outcome requirement. This is an upstream channel/model-validity failure, not
-evidence that a later policy would fail. It nevertheless closes this un-tuned path:
-we do not promote iCRAFT as an unevaluated escape hatch.
+Within MediQ, a final preregistered iCRAFT-MD repair used concrete patient profiles
+$z$ per diagnosis and label-independent availability. A stronger model constructed
+the fixed support, but only 14/48 held-out FactSelect outcomes were answerable,
+below the frozen 24. This upstream channel failure closed the path before likelihood,
+ranking, or policy evaluation; we do not promote iCRAFT as an unevaluated escape hatch.
 
 \section{Limitations and Conclusion}
 
@@ -552,7 +552,10 @@ exact finite simulator and deliberately visible enabling structure; even the
 canonical RockSample[7,8] and standard RockSample[11,11] extensions are
 diagnosis-only adaptations without the benchmark's reward, sampling, or exit
 actions. Rock Diagnosis does not test robustness to learned likelihoods or
-open-ended responses. Animals establishes
+open-ended responses. The Mushroom and Cleveland constructions use real tabular
+cohorts but impose artificial zero-information unlock actions; their exact d2
+gains are structural positives, and their failed proposal gates are not positive
+policy transfers. Animals establishes
 one-step transfer, but its
 full depth-one and depth-two streams are only partially paired and have weaker
 code provenance than the newer audits. Natural location results use one model

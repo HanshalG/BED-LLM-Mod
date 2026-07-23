@@ -11,7 +11,8 @@ not test robustness to learned likelihoods. Animals streams are only partially
 paired. Paprika policy counts are endpoint-invalid. MediQ stops before a calibrated
 policy comparison. We do not claim that non-myopic BED cannot work. The study uses
 one model family, and OpenRouter introduces provider nondeterminism. The iCRAFT
-profile-support gate failed before likelihood evaluation.
+profile-support gate failed before likelihood evaluation. Mushroom and Cleveland
+show exact d2 structure but failed proposal gates.
 """
 
 VALID_FIGURE_LABELS = "\\label{fig:validation-chain}\\label{fig:rock-entropy}"
