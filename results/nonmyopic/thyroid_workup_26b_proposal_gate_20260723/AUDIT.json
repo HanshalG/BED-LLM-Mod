@@ -1,0 +1,41 @@
+{
+  "collection_selection_rate": 1.0,
+  "matched_random_minus_llm_cost": {
+    "independent_ci95": [
+      0.1128796265977322,
+      0.13716981661958685
+    ],
+    "mean": 0.1265068857630389
+  },
+  "mechanics": {
+    "all_cells_are_positive_collection_opportunities": true,
+    "all_exact_controls_match": true,
+    "all_histories_distinct": true,
+    "all_histories_replayed": true,
+    "all_llm_policy_costs_match": true,
+    "all_named_followups_legal_and_complete": true,
+    "all_random_controls_match": true,
+    "all_roots_independently_match": true,
+    "all_selected_slots_and_roots_match": true,
+    "all_stored_observations_match_truth": true,
+    "no_llm_calls": true
+  },
+  "passed": true,
+  "recovery_fraction": {
+    "independent_ci95": [
+      0.9505979558286585,
+      1.0
+    ],
+    "mean": 0.9835326519428862
+  },
+  "schema_version": 1,
+  "shared_d1_minus_llm_cost": {
+    "independent_ci95": [
+      0.12020385871573316,
+      0.13637786527962922
+    ],
+    "mean": 0.12968750845940177
+  },
+  "stage": "uci_thyroid_workup_26b_named_proposal_gate_audit",
+  "unique_planning_subtrees_recomputed": 965
+}

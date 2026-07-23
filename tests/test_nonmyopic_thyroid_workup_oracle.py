@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import numpy as np
 import pytest
 
@@ -11,6 +14,7 @@ from scripts.nonmyopic_thyroid_workup_oracle import (
     run_qualification,
 )
 from scripts.audit_nonmyopic_thyroid_workup_oracle import audit
+from scripts.audit_nonmyopic_thyroid_workup_proposal_gate import audit as audit_proposal_gate
 from scripts.nonmyopic_thyroid_workup_proposal_gate import (
     ThyroidProposalGateConfig,
     build_proposal_cells,
@@ -101,3 +105,15 @@ def test_proposal_catalog_has_distinct_exact_collection_opportunities() -> None:
     assert len(cells) == 32
     assert len({cell.history for cell in cells}) == 32
     assert all(not cell.state.blood_collected for cell in cells)
+
+
+def test_banked_named_proposal_gate_passes_independent_replay() -> None:
+    root = Path(__file__).resolve().parents[1]
+    payload = json.loads(
+        (
+            root
+            / "results/nonmyopic/thyroid_workup_26b_proposal_gate_20260723/GATE.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert audit_proposal_gate(payload)["passed"]
