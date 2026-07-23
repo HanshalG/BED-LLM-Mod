@@ -17,6 +17,8 @@ fails to beat matched-random continuations, and exposes ungrounded empirical ass
 Its utility-card repair stops before endpoints.
 The projected repair uses exact local summaries and projected branches, so it is not unaided LLM planning.
 Its projection-only ablation collected 0/50.
+Cleveland recovered 100.9 with zero projected branches, but its independent truth-log
+interval crossed zero, so it is not an all-gates confirmation.
 In a range-gated task, Exact d3 beat exact d2,
 but this is structural rather than LLM-policy evidence.
 """

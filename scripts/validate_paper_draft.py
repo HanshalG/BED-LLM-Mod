@@ -51,6 +51,13 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"projection-only",
         r"collected\s+0/50",
     ),
+    "cleveland_grounding_scope": (
+        r"Cleveland",
+        r"100\.9",
+        r"zero\s+projected\s+branches",
+        r"independent\s+truth-log",
+        r"not\s+an\s+all-gates\s+confirmation",
+    ),
     "range_gated_depth_scope": (
         r"range-gated",
         r"Exact d3 beat exact d2",
