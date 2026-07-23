@@ -55,8 +55,9 @@ policies move to enable accurate future checks, whereas both myopic controls nev
 move; an exact gate and three direct-vLLM seeds each at 26B and 12B
 preserve the planning gap at 32,768 latent states, while E4B fails. Two
 data-derived semantic unlock tasks reproduce exact d2 gains; a UCI Thyroid task with
-native delayed-assay metadata further passes a 26B proposal gate, but sustained 26B
-serving fails and GPT-5.4 Mini does not beat matched-random continuations. Negative
+native delayed-assay metadata further passes a 26B proposal gate. Names-only transfer
+fails, but calibrated utility cards plus bounded legal projection recover 99.4\% of
+exact d2 and beat d1 and matched random. Negative
 location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
 The result supports an LLM-Modulo architecture for sequential BED---semantic policy
@@ -195,7 +196,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
 Gated Sensor & Exact finite state & Zero-EIG activation & Exact d2 beats d1; LLM ties random & Structural positive \\
-Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Exact d2 wins; LLM transfer is partial & Structural positive \\
+Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Exact d2 wins; projected Thyroid transfers & Positive / partial \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -384,17 +385,17 @@ On UCI Cleveland, exact d2 gained .0687 [.0573,.0803] and ordered a workup 2.22
 rounds earlier; 26B selected workup on 1/16 opportunities and lost to the strong
 d1 continuation. Both gates failed.
 
-UCI Thyroid's release marks 16 variables immediate and TSH, T3, TT4, and T4U as
-one delayed blood-test group. On 1,000 fresh pairs, exact d2 collected despite
-zero immediate EIG, then queried TSH, gaining .1659 [.1523,.1791] entropy AUC and
-.1669 [.1359,.1998] truth-log AUC over d1. A 26B proposal gate selected collection
-32/32 times and recovered .984 of exact d2, but trajectory serving failed when it
-repeated the current T4U query after the menu shrank. GPT-5.4 Mini completed 50
-pairs and gained .0641 [.0205,.1046] over d1, but lost .0339 [-.0739,.0073] to
-matched-random continuations, recovered .308 of d2, and collected first 2/50 times.
-It proposed age after collection 48/50 times and TSH twice; exact utility cards then
-restored collection/TSH in all eight observed starts but failed late-state
-serialization before endpoints, separating ungrounded empirical assay utility from serving.
+UCI Thyroid marks 16 variables immediate and TSH, T3, TT4, and T4U as one delayed
+blood-test group. On 1,000 fresh pairs, exact d2 collected then queried TSH, gaining
+.1659 [.1523,.1791] entropy AUC and .1669 [.1359,.1998] truth-log AUC over d1. A 26B
+proposal gate recovered .984 of d2, but trajectory serving failed. Names-only
+GPT-5.4 Mini gained .0641 [.0205,.1046] over d1, lost .0339 [-.0739,.0073] to
+matched-random continuations, and exposed ungrounded empirical assay utility; a
+utility-card repair fixed eight starts but failed before endpoints. Fresh bounded
+legal projection changed only invalid branches after retry. Over 50 pairs, entropy AUC
+gained .2026 [.1437,.2543] over d1 and .1185 [.0813,.1578] over random; truth-log
+intervals were positive, recovery was .994, and collection was 50/50. Only 17/4,338
+branches were projected, supporting machine-grounded rather than unaided LLM planning.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
@@ -546,42 +547,33 @@ ranking, or policy evaluation; we do not promote iCRAFT as an unevaluated escape
 
 \section{Limitations and Conclusion}
 
-This is a validation study and a positive structured-benchmark result, not yet a
-positive external-benchmark claim for non-myopic LLM BED. Rock Diagnosis has an
-exact finite simulator and deliberately visible enabling structure; even the
-canonical RockSample[7,8] and standard RockSample[11,11] extensions are
-diagnosis-only adaptations without the benchmark's reward, sampling, or exit
-actions. Rock Diagnosis does not test robustness to learned likelihoods or
-open-ended responses; the range-gated sensor is also a deliberate access-delay
-adaptation, and its failed serving smoke is not an h3 policy result. The Mushroom
-and Cleveland constructions use real tabular cohorts but impose artificial
+This is a validation study and positive structured-benchmark result, not yet a positive
+external-benchmark claim for non-myopic LLM BED. Rock Diagnosis uses an exact finite simulator;
+its canonical RockSample extensions are diagnosis-only and omit native reward,
+sampling, and exit. Rock Diagnosis does not test robustness to learned likelihoods
+or open responses. The Mushroom and Cleveland cohorts impose artificial
 zero-information unlock actions. Thyroid uses released delayed/grouped acquisition
 metadata, but its exact gain remains structural: the 26B proposal pass did not
-survive trajectory serving, GPT beat d1 but not matched random, and its utility-card
-repair had no endpoint. Animals establishes
-one-step transfer, but its
-full depth-one and depth-two streams are only partially paired and have weaker
-code provenance than the newer audits. Natural location results use one model
+survive trajectory serving and names-only GPT beat d1 but not random. Its
+projected-utility repair passed, but used exact local summaries and 17 projected
+branches, so it is not unaided LLM planning. Animals establishes one-step transfer,
+but its depth streams are only partially paired. Natural location uses one model
 family and environment. Paprika policy counts are endpoint-invalid, and MediQ
 stops before a calibrated policy comparison. We do not claim that non-myopic BED
 cannot work; we report that the preregistered iCRAFT profile construction and its one
 stronger-author retry did not pass the held-out calibration gate.
 
-Model capacity and representation remain confounded: a larger model cannot make
-an exam-treatment label sufficient or reveal absent facts. OpenRouter provider
-nondeterminism, finite supports, non-paired model-size comparisons, and post-hoc
-synthesis remain limitations.
+Model capacity and representation remain confounded. OpenRouter provider nondeterminism,
+finite supports, non-paired model-size comparisons, and post-hoc synthesis remain limitations.
 
 The evidence supports a constructive conclusion. With a coherent simulator and
 an enabling-information gap, LLM proposals plus exact rollout-EIG verification
 produce a large, paired, non-myopic gain; both generation and verification matter.
 One-step semantic EIG can also improve information gathering. But depth is not a
 substitute for a valid joint model, deployment-matched branches, or a task in which
-greedy information gain is genuinely suboptimal; calibrated summaries fixed early
-choices, not serialization. These are empirical gates, not
-implementation details. Testing them before scaling horizon is both cheaper and
-scientifically stronger than explaining another non-monotonic depth sweep after
-the fact.
+greedy information gain is genuinely suboptimal. Calibrated summaries plus bounded
+legal projection repaired Thyroid transfer by moving explicit work into the machine
+component. These empirical gates should precede another non-monotonic depth sweep.
 
 {\scriptsize
 \setlength{\bibsep}{0pt}

@@ -15,6 +15,7 @@ profile-support gate failed before likelihood evaluation. Mushroom, Cleveland, a
 Thyroid show exact d2 structure with partial LLM transfer. Thyroid uses native delayed-assay metadata,
 fails to beat matched-random continuations, and exposes ungrounded empirical assay utility.
 Its utility-card repair stops before endpoints.
+The projected repair uses exact local summaries and projected branches, so it is not unaided LLM planning.
 In a range-gated task, Exact d3 beat exact d2,
 but this is structural rather than LLM-policy evidence.
 """

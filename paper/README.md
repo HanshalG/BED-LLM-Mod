@@ -5,7 +5,7 @@ with LLM-derived probabilistic models. It combines exact planning controls,
 the paired Rock Diagnosis policy result, the exact Gated Sensor qualification and
 LLM-interface audit, exact UCI Mushroom, Cleveland, and Thyroid semantic-unlock
 qualifications, the passed Thyroid 26B proposal gate and failed 26B/GPT trajectory
-transfers plus the endpoint-free utility-card repair, a strict exact range-gated d3 opportunity with a failed
+transfers plus the positive projected-utility confirmation, a strict exact range-gated d3 opportunity with a failed
 26B serving gate, the banked animals result, the natural-location depth
 audit, and the Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood

@@ -46,6 +46,8 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"ungrounded\s+empirical assay utility",
         r"utility-card\s+repair",
         r"before\s+endpoints",
+        r"projected\s+branches",
+        r"not\s+unaided LLM planning",
     ),
     "range_gated_depth_scope": (
         r"range-gated",
