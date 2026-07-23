@@ -92,6 +92,37 @@ def build_messages(record: dict[str, Any]) -> list[dict[str, str]]:
     ]
 
 
+def hydrate_immediate_eig(
+    records: list[dict[str, Any]],
+    baseline_records: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    baseline_by_state = {
+        int(record["state_index"]): record for record in baseline_records
+    }
+    hydrated = []
+    for record in records:
+        baseline = baseline_by_state[int(record["state_index"])]
+        baseline_by_question = {
+            str(candidate["question"]): float(candidate["immediate_eig"])
+            for candidate in baseline["candidate_dynamics"]
+        }
+        candidates = []
+        for candidate in record["candidate_dynamics"]:
+            question = str(candidate["question"])
+            if question not in baseline_by_question:
+                raise ValueError(
+                    f"missing baseline EIG for state {record['state_index']}: {question}"
+                )
+            candidates.append(
+                {
+                    **candidate,
+                    "immediate_eig": baseline_by_question[question],
+                }
+            )
+        hydrated.append({**record, "candidate_dynamics": candidates})
+    return hydrated
+
+
 def run_ranker(
     records: list[dict[str, Any]],
     runtime_config: Config,
@@ -137,6 +168,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--input", type=Path, required=True)
+    parser.add_argument("--baseline-input", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument(
         "--run-id",
@@ -149,6 +181,12 @@ def main() -> None:
     records = payload.get("records")
     if not isinstance(records, list):
         raise ValueError("input does not contain a records list")
+    if args.baseline_input is not None:
+        baseline_payload = json.loads(args.baseline_input.read_text())
+        baseline_records = baseline_payload.get("records")
+        if not isinstance(baseline_records, list):
+            raise ValueError("baseline input does not contain a records list")
+        records = hydrate_immediate_eig(records, baseline_records)
     config = load_config(str(args.config))
     config.run_id = args.run_id
     args.output_dir.mkdir(parents=True, exist_ok=True)

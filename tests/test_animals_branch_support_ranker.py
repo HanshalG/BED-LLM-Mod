@@ -1,6 +1,10 @@
 import json
 
-from scripts.animals_branch_support_ranker import build_messages, prompt_payload
+from scripts.animals_branch_support_ranker import (
+    build_messages,
+    hydrate_immediate_eig,
+    prompt_payload,
+)
 
 
 def _record():
@@ -39,3 +43,22 @@ def test_branch_support_payload_includes_supports_but_excludes_target_fields():
     assert "truth_covered" not in encoded
     assert "immediate_eig" not in encoded
     assert "unknown target is not provided" in build_messages(_record())[1]["content"]
+
+
+def test_hydrate_immediate_eig_matches_state_and_question_without_prompt_leak():
+    record = _record()
+    record["state_index"] = 7
+    baseline = {
+        "state_index": 7,
+        "candidate_dynamics": [
+            {
+                "question": "Is it found in Australia?",
+                "immediate_eig": 0.625,
+            }
+        ],
+    }
+
+    hydrated = hydrate_immediate_eig([record], [baseline])[0]
+
+    assert hydrated["candidate_dynamics"][0]["immediate_eig"] == 0.625
+    assert "immediate_eig" not in json.dumps(prompt_payload(hydrated))
