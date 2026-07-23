@@ -44,7 +44,9 @@ def test_indexed_compiler_maps_every_dynamic_branch_to_a_legal_query() -> None:
         belief=model.initial_belief,
         roots=roots,
     )
-    response = json.dumps({"choices": "0" * sum(len(root_menus) for root_menus in menus)})
+    response = json.dumps(
+        {f"r{slot}": "0" * len(root_menus) for slot, root_menus in enumerate(menus)}
+    )
     strategies = compile_indexed_cell(response, roots=roots, menus=menus)
 
     assert len(strategies) == 4
@@ -75,14 +77,18 @@ def test_indexed_compiler_rejects_nested_or_wrong_length_choices() -> None:
         roots=roots,
     )
 
-    with pytest.raises(StrategyProposalError, match="one code string"):
+    with pytest.raises(StrategyProposalError, match="exactly keys"):
         compile_indexed_cell(
             json.dumps({"choices": [[0] for _root in roots]}),
             roots=roots,
             menus=menus,
         )
     with pytest.raises(StrategyProposalError, match="exactly"):
-        compile_indexed_cell(json.dumps({"choices": "0"}), roots=roots, menus=menus)
+        compile_indexed_cell(
+            json.dumps({"r0": "0", "r1": "0", "r2": "0", "r3": "0"}),
+            roots=roots,
+            menus=menus,
+        )
 
 
 def test_prompt_exposes_branch_class_probabilities_without_scores_or_truth() -> None:
@@ -105,8 +111,9 @@ def test_prompt_exposes_branch_class_probabilities_without_scores_or_truth() -> 
     assert "p_edible" in prompt
     assert "p_poisonous" in prompt
     assert "outcome_label" in prompt
-    assert '"choices":"' in prompt
+    assert '"r0":"' in prompt
     assert '"code":"0"' in prompt
+    assert prompt.count('"menu":[') == 4
     assert "planning_score" not in prompt
     assert '"eig"' not in prompt.lower()
     assert "truth_index" not in prompt
