@@ -51,9 +51,10 @@ def test_prompt_payload_excludes_all_target_measurement_fields():
 
 def test_parse_scores_requires_one_finite_score_per_candidate():
     assert parse_scores('{"scores":[0.25,3]}', 2) == [0.25, 3.0]
+    assert parse_scores('```json\n{"scores":[0.25,3]}\n```', 2) == [0.25, 3.0]
 
     with pytest.raises(ValueError, match="bare JSON"):
-        parse_scores('```json\\n{"scores":[1,2]}\\n```', 2)
+        parse_scores('Scores: {"scores":[1,2]}', 2)
     with pytest.raises(ValueError, match="exactly 2"):
         parse_scores('{"scores":[1]}', 2)
     with pytest.raises(ValueError, match="only a scores"):

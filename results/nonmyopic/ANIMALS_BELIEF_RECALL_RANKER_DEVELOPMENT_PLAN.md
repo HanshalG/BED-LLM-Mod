@@ -38,3 +38,18 @@ fresh target/seed coverage probe before integrating any policy.
 - Raw model-visible payloads and responses are stored for audit.
 - OpenRouter run cap: `$0.10`; projected cost: `$0.01`.
 - Project ledger before responses: `$40.51526205` of `$110`.
+
+## Format-Only Recovery Amendment
+
+The frozen first invocation made all 20 requests but failed closed before a
+ranking endpoint because at least one response was not strict bare JSON. The
+failure artifact contains no raw completions because v1 parsed before
+serializing them. Usage was 9,938 prompt tokens, 463 completion tokens, zero
+reasoning tokens, and `$0.00112158`.
+
+A single v2 recovery is frozen before its responses. It changes only the output
+parser to accept one standard Markdown JSON fence around the otherwise
+unchanged one-field object, and it persists every raw response plus the failing
+index if any parse still fails. Prompt, model, temperature, source hashes,
+candidate rows, scoring summary, and `$0.10` cap are unchanged. This is still
+development-only and cannot establish a policy claim.

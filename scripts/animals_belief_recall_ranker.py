@@ -38,6 +38,21 @@ SYSTEM_PROMPT = {
 }
 
 
+class RankerResponseError(ValueError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        failing_index: int,
+        completions: list[str],
+        usage: dict[str, Any],
+    ) -> None:
+        super().__init__(message)
+        self.failing_index = failing_index
+        self.completions = completions
+        self.usage = usage
+
+
 def prompt_payload(record: dict[str, Any]) -> dict[str, Any]:
     """Build the complete model-visible payload from an explicit safe allowlist."""
     candidates = []
@@ -82,8 +97,13 @@ def build_messages(record: dict[str, Any]) -> list[dict[str, str]]:
 
 
 def parse_scores(text: str, expected_count: int) -> list[float]:
+    cleaned = text.strip()
+    if cleaned.startswith("```") and cleaned.endswith("```"):
+        lines = cleaned.splitlines()
+        if len(lines) >= 3 and lines[0].strip() in {"```", "```json"}:
+            cleaned = "\n".join(lines[1:-1]).strip()
     try:
-        payload = json.loads(text.strip())
+        payload = json.loads(cleaned)
     except json.JSONDecodeError as exc:
         raise ValueError("ranker response is not bare JSON") from exc
     if not isinstance(payload, dict) or set(payload) != {"scores"}:
@@ -253,18 +273,28 @@ def run_ranker(
     if len(completions) != len(records):
         raise RuntimeError("ranker returned the wrong number of completions")
 
+    usage = model.usage_snapshot()
     ranked_records = []
-    for record, completion in zip(records, completions):
+    for record_index, (record, completion) in enumerate(zip(records, completions)):
         candidate_count = len(record["candidate_dynamics"])
+        try:
+            scores = parse_scores(completion, candidate_count)
+        except ValueError as exc:
+            raise RankerResponseError(
+                str(exc),
+                failing_index=record_index,
+                completions=completions,
+                usage=usage,
+            ) from exc
         ranked_records.append(
             {
                 **record,
-                "belief_recall_scores": parse_scores(completion, candidate_count),
+                "belief_recall_scores": scores,
                 "raw_ranker_response": completion,
                 "model_visible_payload": prompt_payload(record),
             }
         )
-    return ranked_records, model.usage_snapshot()
+    return ranked_records, usage
 
 
 def main() -> None:
@@ -296,6 +326,9 @@ def main() -> None:
             "run_id": args.run_id,
             "error": f"{type(exc).__name__}: {exc}",
             "sources": sources,
+            "failing_index": getattr(exc, "failing_index", None),
+            "raw_ranker_responses": getattr(exc, "completions", None),
+            "usage": getattr(exc, "usage", None),
         }
         (args.output_dir / "RANKING_FAILURE.json").write_text(
             json.dumps(failure, indent=2, sort_keys=True) + "\n",
