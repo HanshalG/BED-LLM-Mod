@@ -69,6 +69,7 @@ def test_deterministic_proposal_gate_runs_all_exact_controls() -> None:
     result = run_proposal_gate(provider, MushroomProposalGateConfig())
 
     assert all(result["mechanics"].values())
+    assert all(result["contribution_gate"].values())
     assert len(result["records"]) == 32
     assert len(provider.physical_requests) == 32
     assert len(provider.invalid_responses) == 0

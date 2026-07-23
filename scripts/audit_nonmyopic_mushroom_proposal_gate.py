@@ -19,6 +19,7 @@ from scripts.nonmyopic_mushroom_proposal_gate import (  # noqa: E402
 )
 from scripts.nonmyopic_mushroom_strategy import (  # noqa: E402
     IndexedMushroomProvider,
+    MushroomBranchStrategy,
     MushroomStrategyConfig,
     compile_indexed_cell,
 )
@@ -66,22 +67,34 @@ def _choice_mechanics(result: dict[str, Any]) -> dict[str, Any]:
     collect_followups: Counter[str] = Counter()
     for request in result["candidate_requests"]:
         phase = records[request["cell_index"]]["phase"]
-        roots = tuple(request["roots"])
         menus = [
             {outcome: tuple(choices) for outcome, choices in root_menus.items()}
             for root_menus in request["menus"]
         ]
-        strategies = compile_indexed_cell(
-            request["raw_response"],
-            roots=roots,
-            menus=menus,
-        )
-        normalized = request["raw_response"].strip()
-        if "```json" in normalized:
-            normalized = normalized.rsplit("```json", 1)[1].split("```", 1)[0].strip()
-        payload = json.loads(normalized)
-        for values in payload.values():
-            index_counts[phase].update(values)
+        if "compiled_strategies" in request:
+            strategies = [
+                MushroomBranchStrategy(
+                    root_action=item["root_action"],
+                    followups=item["followups"],
+                )
+                for item in request["compiled_strategies"]
+            ]
+            for strategy, root_menus in zip(strategies, menus, strict=True):
+                for outcome, followup in strategy.followups.items():
+                    index_counts[phase][root_menus[outcome].index(followup)] += 1
+        else:
+            roots = tuple(request["roots"])
+            strategies = compile_indexed_cell(
+                request["raw_response"],
+                roots=roots,
+                menus=menus,
+            )
+            normalized = request["raw_response"].strip()
+            if "```json" in normalized:
+                normalized = normalized.rsplit("```json", 1)[1].split("```", 1)[0].strip()
+            payload = json.loads(normalized)
+            for values in payload.values():
+                index_counts[phase].update(values)
         for strategy in strategies:
             for followup in strategy.followups.values():
                 feature_counts[phase][followup.split(":", 1)[1]] += 1
@@ -107,9 +120,23 @@ def _choice_mechanics(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def run_audit(result: dict[str, Any]) -> dict[str, Any]:
-    accepted = [request["raw_response"] for request in result["candidate_requests"]]
-    replay_model = ReplayChatModel(accepted)
-    strategy_config = MushroomStrategyConfig(seed=int(result["config"]["seed"]))
+    responses: list[str] = []
+    invalid_by_cell: dict[int, list[dict[str, Any]]] = {}
+    for request in result["invalid_responses"]:
+        invalid_by_cell.setdefault(int(request["cell_index"]), []).append(request)
+    for accepted in result["candidate_requests"]:
+        invalid = sorted(
+            invalid_by_cell.get(int(accepted["cell_index"]), []),
+            key=lambda request: int(request["attempt"]),
+        )
+        responses.extend(request["raw_response"] for request in invalid)
+        if not accepted.get("projected"):
+            responses.append(accepted["raw_response"])
+    replay_model = ReplayChatModel(responses)
+    strategy_payload = result.get(
+        "strategy_config", {"seed": int(result["config"]["seed"])}
+    )
+    strategy_config = MushroomStrategyConfig(**strategy_payload)
     provider = IndexedMushroomProvider(replay_model, strategy_config)
     replay = run_proposal_gate(provider, MushroomProposalGateConfig(**result["config"]))
     endpoint_record_keys = {
@@ -154,17 +181,28 @@ def run_audit(result: dict[str, Any]) -> dict[str, Any]:
         )
     )
     mechanics = {
-        "all_accepted_responses_replayed": replay_model.offset == 32,
+        "all_physical_responses_replayed": replay_model.offset == len(responses),
         "registered_record_endpoints_match_within_1e_12": record_endpoints_match,
         "comparisons_match_within_1e_12": comparisons_match,
         "endpoint_gate_exactly_matches": replay["endpoint_gate"] == result["endpoint_gate"],
+        "contribution_exactly_matches": _close(
+            replay["contribution"], result.get("contribution", replay["contribution"])
+        ),
+        "contribution_gate_exactly_matches": replay["contribution_gate"]
+        == result.get("contribution_gate", replay["contribution_gate"]),
         "core_mechanics_exactly_match": core_mechanics_match,
         "runtime_mechanics_pass": runtime_mechanics_pass,
-        "banked_gate_failed": result["gate"]["passed"] is False,
+        "registered_gate_matches_replay": result["gate"]["passed"]
+        == (
+            all(replay["mechanics"].values())
+            and all(replay["endpoint_gate"].values())
+            and all(replay["contribution_gate"].values())
+            and runtime_mechanics_pass
+        ),
     }
     return {
         "schema_version": 1,
-        "stage": "mushroom_feature_acquisition_26b_proposal_gate_audit",
+        "stage": result["stage"] + "_audit",
         "passed": all(mechanics.values()),
         "mechanics": mechanics,
         "choice_mechanics": _choice_mechanics(result),
