@@ -1,0 +1,1840 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "history": [],
+      "menus": [
+        {
+          "none": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ]
+        },
+        {
+          "1": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "2": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "3": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "4": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "0": [
+            "order:clinical-workup",
+            "query:age",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "1": [
+            "order:clinical-workup",
+            "query:age",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[0],\"r1\":[0,0,0,0],\"r2\":[0,0],\"r3\":[0,0,0]}\n```",
+      "roots": [
+        "order:clinical-workup",
+        "query:chest-pain",
+        "query:sex",
+        "query:age"
+      ],
+      "workup_ordered": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "history": [
+        {
+          "action": "query:chest-pain",
+          "outcome": "4"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ]
+        },
+        {
+          "0": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "1": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "0": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure"
+          ],
+          "1": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[0],\"r1\":[0,0],\"r2\":[0,0],\"r3\":[0,0,0]}\n```",
+      "roots": [
+        "order:clinical-workup",
+        "query:sex",
+        "query:fasting-blood-sugar",
+        "query:age"
+      ],
+      "workup_ordered": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "history": [
+        {
+          "action": "query:chest-pain",
+          "outcome": "3"
+        },
+        {
+          "action": "query:sex",
+          "outcome": "0"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:age",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:age",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:age",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:age",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "0": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure"
+          ],
+          "1": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[0],\"r1\":[0,0,0],\"r2\":[0,0,0],\"r3\":[0,0]}\n```",
+      "roots": [
+        "order:clinical-workup",
+        "query:resting-blood-pressure",
+        "query:age",
+        "query:fasting-blood-sugar"
+      ],
+      "workup_ordered": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "history": [
+        {
+          "action": "query:chest-pain",
+          "outcome": "2"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:age",
+            "query:sex",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "0": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "1": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[0],\"r1\":[0,0,0],\"r2\":[0,0,0],\"r3\":[0,0]}\n```",
+      "roots": [
+        "order:clinical-workup",
+        "query:age",
+        "query:resting-blood-pressure",
+        "query:sex"
+      ],
+      "workup_ordered": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "history": [
+        {
+          "action": "query:chest-pain",
+          "outcome": "4"
+        },
+        {
+          "action": "query:sex",
+          "outcome": "1"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:age",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:resting-blood-pressure",
+            "query:fasting-blood-sugar"
+          ]
+        },
+        {
+          "0": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure"
+          ],
+          "1": [
+            "order:clinical-workup",
+            "query:age",
+            "query:resting-blood-pressure"
+          ]
+        },
+        {
+          "high": [
+            "order:clinical-workup",
+            "query:age",
+            "query:fasting-blood-sugar"
+          ],
+          "low": [
+            "order:clinical-workup",
+            "query:age",
+            "query:fasting-blood-sugar"
+          ],
+          "mid": [
+            "order:clinical-workup",
+            "query:age",
+            "query:fasting-blood-sugar"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[0],\"r1\":[0,0,0],\"r2\":[0,0],\"r3\":[0,0,0]}\n```",
+      "roots": [
+        "order:clinical-workup",
+        "query:age",
+        "query:fasting-blood-sugar",
+        "query:resting-blood-pressure"
+      ],
+      "workup_ordered": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "history": [
+        {
+          "action": "order:clinical-workup",
+          "outcome": null
+        }
+      ],
+      "menus": [
+        {
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "6": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "7": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ]
+        },
+        {
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ]
+        },
+        {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:thal"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:thal"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:thal"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:thal"
+          ]
+        },
+        {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels",
+            "query:thal"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[11,11,11],\"r1\":[11,11,11,10],\"r2\":[11,10,11,11],\"r3\":[11,10]}\n```",
+      "roots": [
+        "query:thal",
+        "query:chest-pain",
+        "query:major-vessels",
+        "query:exercise-angina"
+      ],
+      "workup_ordered": true
+    },
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "history": [
+        {
+          "action": "order:clinical-workup",
+          "outcome": null
+        },
+        {
+          "action": "query:thal",
+          "outcome": "7"
+        }
+      ],
+      "menus": [
+        {
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ]
+        },
+        {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "high": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "low": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "mid": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ]
+        },
+        {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[10,10,10,10],\"r1\":[10,10,10,10],\"r2\":[10,10,10],\"r3\":[10,10]}\n```",
+      "roots": [
+        "query:chest-pain",
+        "query:major-vessels",
+        "query:max-heart-rate",
+        "query:exercise-angina"
+      ],
+      "workup_ordered": true
+    },
+    {
+      "attempt": 0,
+      "cell_index": 7,
+      "history": [
+        {
+          "action": "order:clinical-workup",
+          "outcome": null
+        },
+        {
+          "action": "query:thal",
+          "outcome": "3"
+        },
+        {
+          "action": "query:major-vessels",
+          "outcome": "0"
+        }
+      ],
+      "menus": [
+        {
+          "high": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "low": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "mid": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "high": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "low": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "mid": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "high": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "low": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "mid": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[9,9,9],\"r1\":[9,9,9],\"r2\":[9,9,9],\"r3\":[9,9,9,9]}\n```",
+      "roots": [
+        "query:max-heart-rate",
+        "query:age",
+        "query:resting-blood-pressure",
+        "query:chest-pain"
+      ],
+      "workup_ordered": true
+    },
+    {
+      "attempt": 0,
+      "cell_index": 8,
+      "history": [
+        {
+          "action": "order:clinical-workup",
+          "outcome": null
+        },
+        {
+          "action": "query:thal",
+          "outcome": "3"
+        }
+      ],
+      "menus": [
+        {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ]
+        },
+        {
+          "high": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "low": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "mid": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ]
+        },
+        {
+          "high": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "low": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ],
+          "mid": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope",
+            "query:major-vessels"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[10,10,10,10],\"r1\":[10,10,10,10],\"r2\":[10,10,10],\"r3\":[10,10,10]}\n```",
+      "roots": [
+        "query:major-vessels",
+        "query:chest-pain",
+        "query:age",
+        "query:max-heart-rate"
+      ],
+      "workup_ordered": true
+    },
+    {
+      "attempt": 0,
+      "cell_index": 9,
+      "history": [
+        {
+          "action": "order:clinical-workup",
+          "outcome": null
+        },
+        {
+          "action": "query:thal",
+          "outcome": "3"
+        },
+        {
+          "action": "query:major-vessels",
+          "outcome": "0"
+        }
+      ],
+      "menus": [
+        {
+          "high": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "low": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "mid": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "high": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "low": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "mid": [
+            "query:sex",
+            "query:chest-pain",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "high": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "low": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "mid": [
+            "query:age",
+            "query:sex",
+            "query:chest-pain",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        },
+        {
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:resting-blood-pressure",
+            "query:serum-cholesterol",
+            "query:fasting-blood-sugar",
+            "query:resting-ecg",
+            "query:max-heart-rate",
+            "query:exercise-angina",
+            "query:st-depression",
+            "query:st-slope"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"r0\":[9,9,9],\"r1\":[9,9,9],\"r2\":[9,9,9],\"r3\":[9,9,9,9]}\n```",
+      "roots": [
+        "query:max-heart-rate",
+        "query:age",
+        "query:resting-blood-pressure",
+        "query:chest-pain"
+      ],
+      "workup_ordered": true
+    }
+  ],
+  "config": {
+    "max_new_tokens": 128,
+    "num_strategies": 4,
+    "seed": 24138,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "gate": {
+    "passed": true
+  },
+  "invalid_responses": [],
+  "mechanics": {
+    "all_roots_and_followups_legal": true,
+    "exactly_ten_logical_calls": true,
+    "rollout_scoring_made_no_llm_calls": true,
+    "ten_cells_completed": true,
+    "workup_root_and_branch_followups_representable": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true
+  },
+  "provider": {
+    "accepted_requests": 10,
+    "invalid_responses": 0,
+    "physical_requests": 10
+  },
+  "records": [
+    {
+      "cell_index": 0,
+      "followups": [
+        {
+          "none": "query:age"
+        },
+        {
+          "1": "order:clinical-workup",
+          "2": "order:clinical-workup",
+          "3": "order:clinical-workup",
+          "4": "order:clinical-workup"
+        },
+        {
+          "0": "order:clinical-workup",
+          "1": "order:clinical-workup"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        }
+      ],
+      "history_length": 0,
+      "roots": [
+        "order:clinical-workup",
+        "query:chest-pain",
+        "query:sex",
+        "query:age"
+      ],
+      "truth_index": 36,
+      "workup_ordered": false
+    },
+    {
+      "cell_index": 1,
+      "followups": [
+        {
+          "none": "query:age"
+        },
+        {
+          "0": "order:clinical-workup",
+          "1": "order:clinical-workup"
+        },
+        {
+          "0": "order:clinical-workup",
+          "1": "order:clinical-workup"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        }
+      ],
+      "history_length": 1,
+      "roots": [
+        "order:clinical-workup",
+        "query:sex",
+        "query:fasting-blood-sugar",
+        "query:age"
+      ],
+      "truth_index": 294,
+      "workup_ordered": false
+    },
+    {
+      "cell_index": 2,
+      "followups": [
+        {
+          "none": "query:age"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        },
+        {
+          "0": "order:clinical-workup",
+          "1": "order:clinical-workup"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "order:clinical-workup",
+        "query:resting-blood-pressure",
+        "query:age",
+        "query:fasting-blood-sugar"
+      ],
+      "truth_index": 113,
+      "workup_ordered": false
+    },
+    {
+      "cell_index": 3,
+      "followups": [
+        {
+          "none": "query:age"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        },
+        {
+          "0": "order:clinical-workup",
+          "1": "order:clinical-workup"
+        }
+      ],
+      "history_length": 1,
+      "roots": [
+        "order:clinical-workup",
+        "query:age",
+        "query:resting-blood-pressure",
+        "query:sex"
+      ],
+      "truth_index": 114,
+      "workup_ordered": false
+    },
+    {
+      "cell_index": 4,
+      "followups": [
+        {
+          "none": "query:age"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        },
+        {
+          "0": "order:clinical-workup",
+          "1": "order:clinical-workup"
+        },
+        {
+          "high": "order:clinical-workup",
+          "low": "order:clinical-workup",
+          "mid": "order:clinical-workup"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "order:clinical-workup",
+        "query:age",
+        "query:fasting-blood-sugar",
+        "query:resting-blood-pressure"
+      ],
+      "truth_index": 55,
+      "workup_ordered": false
+    },
+    {
+      "cell_index": 5,
+      "followups": [
+        {
+          "3": "query:major-vessels",
+          "6": "query:major-vessels",
+          "7": "query:major-vessels"
+        },
+        {
+          "1": "query:thal",
+          "2": "query:thal",
+          "3": "query:thal",
+          "4": "query:major-vessels"
+        },
+        {
+          "0": "query:thal",
+          "1": "query:st-slope",
+          "2": "query:thal",
+          "3": "query:thal"
+        },
+        {
+          "0": "query:thal",
+          "1": "query:major-vessels"
+        }
+      ],
+      "history_length": 1,
+      "roots": [
+        "query:thal",
+        "query:chest-pain",
+        "query:major-vessels",
+        "query:exercise-angina"
+      ],
+      "truth_index": 40,
+      "workup_ordered": true
+    },
+    {
+      "cell_index": 6,
+      "followups": [
+        {
+          "1": "query:major-vessels",
+          "2": "query:major-vessels",
+          "3": "query:major-vessels",
+          "4": "query:major-vessels"
+        },
+        {
+          "0": "query:st-slope",
+          "1": "query:st-slope",
+          "2": "query:st-slope",
+          "3": "query:st-slope"
+        },
+        {
+          "high": "query:major-vessels",
+          "low": "query:major-vessels",
+          "mid": "query:major-vessels"
+        },
+        {
+          "0": "query:major-vessels",
+          "1": "query:major-vessels"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "query:chest-pain",
+        "query:major-vessels",
+        "query:max-heart-rate",
+        "query:exercise-angina"
+      ],
+      "truth_index": 271,
+      "workup_ordered": true
+    },
+    {
+      "cell_index": 7,
+      "followups": [
+        {
+          "high": "query:st-slope",
+          "low": "query:st-slope",
+          "mid": "query:st-slope"
+        },
+        {
+          "high": "query:st-slope",
+          "low": "query:st-slope",
+          "mid": "query:st-slope"
+        },
+        {
+          "high": "query:st-slope",
+          "low": "query:st-slope",
+          "mid": "query:st-slope"
+        },
+        {
+          "1": "query:st-slope",
+          "2": "query:st-slope",
+          "3": "query:st-slope",
+          "4": "query:st-slope"
+        }
+      ],
+      "history_length": 3,
+      "roots": [
+        "query:max-heart-rate",
+        "query:age",
+        "query:resting-blood-pressure",
+        "query:chest-pain"
+      ],
+      "truth_index": 43,
+      "workup_ordered": true
+    },
+    {
+      "cell_index": 8,
+      "followups": [
+        {
+          "0": "query:st-slope",
+          "1": "query:st-slope",
+          "2": "query:st-slope",
+          "3": "query:st-slope"
+        },
+        {
+          "1": "query:major-vessels",
+          "2": "query:major-vessels",
+          "3": "query:major-vessels",
+          "4": "query:major-vessels"
+        },
+        {
+          "high": "query:major-vessels",
+          "low": "query:major-vessels",
+          "mid": "query:major-vessels"
+        },
+        {
+          "high": "query:major-vessels",
+          "low": "query:major-vessels",
+          "mid": "query:major-vessels"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "query:major-vessels",
+        "query:chest-pain",
+        "query:age",
+        "query:max-heart-rate"
+      ],
+      "truth_index": 99,
+      "workup_ordered": true
+    },
+    {
+      "cell_index": 9,
+      "followups": [
+        {
+          "high": "query:st-slope",
+          "low": "query:st-slope",
+          "mid": "query:st-slope"
+        },
+        {
+          "high": "query:st-slope",
+          "low": "query:st-slope",
+          "mid": "query:st-slope"
+        },
+        {
+          "high": "query:st-slope",
+          "low": "query:st-slope",
+          "mid": "query:st-slope"
+        },
+        {
+          "1": "query:st-slope",
+          "2": "query:st-slope",
+          "3": "query:st-slope",
+          "4": "query:st-slope"
+        }
+      ],
+      "history_length": 3,
+      "roots": [
+        "query:max-heart-rate",
+        "query:age",
+        "query:resting-blood-pressure",
+        "query:chest-pain"
+      ],
+      "truth_index": 98,
+      "workup_ordered": true
+    }
+  ],
+  "run_id": "heart-workup-26b-smoke-v2-20260723",
+  "schema_version": 1,
+  "stage": "cleveland_heart_workup_26b_serving_smoke",
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 452,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26B-A4B-it",
+    "model_usage": {
+      "google/gemma-4-26B-A4B-it": {
+        "completion_tokens": 452,
+        "cost_usd": 0.0,
+        "prompt_tokens": 19305,
+        "reasoning_tokens": 0,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 19305,
+    "reasoning_tokens": 0,
+    "requests": 10,
+    "run_cost_usd": 0.0
+  }
+}
