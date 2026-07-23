@@ -579,6 +579,14 @@ def test_candidate_coverage_dynamics_uses_production_branch_updates_without_targ
         (True, False),
         (False, True),
     ]
+    assert [entry.support_if_yes for entry in dynamics] == [
+        (truth,),
+        ("cat",),
+    ]
+    assert [entry.support_if_no for entry in dynamics] == [
+        ("dog",),
+        (truth,),
+    ]
     assert seen_histories == [
         [{"role": "assistant", "content": "Question A?"}, {"role": "user", "content": "Yes"}],
         [{"role": "assistant", "content": "Question A?"}, {"role": "user", "content": "No"}],

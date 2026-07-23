@@ -276,6 +276,7 @@ def run_probe(
                     "bootstrap_answer": bootstrap_answer,
                     "history": [{"question": question, "answer": answer} for question, answer in history],
                     "belief_support_size": beliefs.support_size,
+                    "belief_support": list(beliefs.hypotheses),
                     "truth_covered_before_counterfactuals": any(
                         hypothesis.strip().casefold() == target.strip().casefold()
                         for hypothesis in beliefs.hypotheses

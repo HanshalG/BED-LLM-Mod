@@ -45,6 +45,8 @@ class CandidateCoverageDynamics:
     truth_covered_if_no: bool
     support_size_if_yes: int
     support_size_if_no: int
+    support_if_yes: tuple[str, ...]
+    support_if_no: tuple[str, ...]
 
     @property
     def expected_truth_coverage(self) -> float:
@@ -413,6 +415,8 @@ def evaluate_candidate_coverage_dynamics(
                 truth_covered_if_no=no_covered,
                 support_size_if_yes=future_yes.support_size,
                 support_size_if_no=future_no.support_size,
+                support_if_yes=tuple(str(item) for item in future_yes.hypotheses),
+                support_if_no=tuple(str(item) for item in future_no.hypotheses),
             )
         )
     return dynamics
