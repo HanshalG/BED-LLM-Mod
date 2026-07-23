@@ -1,0 +1,58 @@
+{
+  "choice_mechanics": {
+    "selected_roots_by_phase": {
+      "unworked": {
+        "order:clinical-workup": 1,
+        "query:age": 2,
+        "query:chest-pain": 2,
+        "query:fasting-blood-sugar": 3,
+        "query:resting-blood-pressure": 1,
+        "query:sex": 7
+      },
+      "worked": {
+        "query:age": 2,
+        "query:major-vessels": 2,
+        "query:max-heart-rate": 1,
+        "query:resting-ecg": 3,
+        "query:serum-cholesterol": 1,
+        "query:sex": 1,
+        "query:st-depression": 2,
+        "query:st-slope": 1,
+        "query:thal": 3
+      }
+    },
+    "unworked_order_root_followups": {
+      "query:age": 9,
+      "query:sex": 6,
+      "query:thal": 1
+    },
+    "unworked_order_root_index_zero_rate": 0.9375,
+    "unworked_other_branch_workup_rate": 1.0,
+    "unworked_other_root_followups": {
+      "order:clinical-workup": 120
+    },
+    "worked_followups": {
+      "query:age": 2,
+      "query:exercise-angina": 7,
+      "query:major-vessels": 58,
+      "query:max-heart-rate": 13,
+      "query:serum-cholesterol": 12,
+      "query:sex": 2,
+      "query:st-depression": 6,
+      "query:st-slope": 23,
+      "query:thal": 45
+    }
+  },
+  "mechanics": {
+    "all_accepted_responses_replayed": true,
+    "banked_gate_failed": true,
+    "comparisons_match_within_1e_12": true,
+    "core_mechanics_exactly_match": true,
+    "endpoint_gate_exactly_matches": true,
+    "registered_records_match_within_1e_12": true,
+    "runtime_mechanics_pass": true
+  },
+  "passed": true,
+  "schema_version": 1,
+  "stage": "cleveland_heart_workup_26b_proposal_gate_audit"
+}
