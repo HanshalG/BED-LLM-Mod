@@ -163,7 +163,7 @@ def main() -> None:
     else:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
-        runtime_config.log_path = str(args.output_dir / "run.log")
+        runtime_config.log_path = args.output_dir / "run.log"
         chat_model = build_model_adapter(
             runtime_config.model_pairs[0].questioner, config=runtime_config
         )
