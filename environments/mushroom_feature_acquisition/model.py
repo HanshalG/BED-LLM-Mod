@@ -65,6 +65,30 @@ FEATURE_DESCRIPTIONS: Final = {
     "population": "observed population pattern",
     "habitat": "habitat category",
 }
+FEATURE_VALUE_LABELS: Final = {
+    "cap-shape": {"b": "bell", "c": "conical", "f": "flat", "k": "knobbed", "s": "sunken", "x": "convex"},
+    "cap-surface": {"f": "fibrous", "g": "grooved", "s": "smooth", "y": "scaly"},
+    "cap-color": {"b": "buff", "c": "cinnamon", "e": "red", "g": "gray", "n": "brown", "p": "pink", "r": "green", "u": "purple", "w": "white", "y": "yellow"},
+    "bruises": {"f": "no bruising", "t": "bruises"},
+    "odor": {"a": "almond", "c": "creosote", "f": "foul", "l": "anise", "m": "musty", "n": "none", "p": "pungent", "s": "spicy", "y": "fishy"},
+    "gill-attachment": {"a": "attached", "d": "descending", "f": "free", "n": "notched"},
+    "gill-spacing": {"c": "close", "d": "distant", "w": "crowded"},
+    "gill-size": {"b": "broad", "n": "narrow"},
+    "gill-color": {"b": "buff", "e": "red", "g": "gray", "h": "chocolate", "k": "black", "n": "brown", "o": "orange", "p": "pink", "r": "green", "u": "purple", "w": "white", "y": "yellow"},
+    "stalk-shape": {"e": "enlarging", "t": "tapering"},
+    "stalk-root": {"?": "missing", "b": "bulbous", "c": "club", "e": "equal", "r": "rooted", "u": "cup", "z": "rhizomorph"},
+    "stalk-surface-above-ring": {"f": "fibrous", "k": "silky", "s": "smooth", "y": "scaly"},
+    "stalk-surface-below-ring": {"f": "fibrous", "k": "silky", "s": "smooth", "y": "scaly"},
+    "stalk-color-above-ring": {"b": "buff", "c": "cinnamon", "e": "red", "g": "gray", "n": "brown", "o": "orange", "p": "pink", "w": "white", "y": "yellow"},
+    "stalk-color-below-ring": {"b": "buff", "c": "cinnamon", "e": "red", "g": "gray", "n": "brown", "o": "orange", "p": "pink", "w": "white", "y": "yellow"},
+    "veil-type": {"p": "partial", "u": "universal"},
+    "veil-color": {"n": "brown", "o": "orange", "w": "white", "y": "yellow"},
+    "ring-number": {"n": "none", "o": "one", "t": "two"},
+    "ring-type": {"c": "cobwebby", "e": "evanescent", "f": "flaring", "l": "large", "n": "none", "p": "pendant", "s": "sheathing", "z": "zone"},
+    "spore-print-color": {"b": "buff", "h": "chocolate", "k": "black", "n": "brown", "o": "orange", "r": "green", "u": "purple", "w": "white", "y": "yellow"},
+    "population": {"a": "abundant", "c": "clustered", "n": "numerous", "s": "scattered", "v": "several", "y": "solitary"},
+    "habitat": {"d": "woods", "g": "grasses", "l": "leaves", "m": "meadows", "p": "paths", "u": "urban", "w": "waste"},
+}
 
 
 @dataclass(frozen=True)
@@ -201,6 +225,11 @@ class MushroomFeatureModel:
         if action == COLLECT_ACTION:
             return None
         return str(self.feature_values[truth_index, self._feature_index[self.action_feature(action)]])
+
+    def outcome_label(self, feature: str, outcome: str) -> str:
+        if feature not in self._feature_index or outcome not in self._outcomes[feature]:
+            raise ValueError(f"invalid outcome {outcome!r} for {feature}")
+        return FEATURE_VALUE_LABELS[feature][outcome]
 
     def truth_log_probability(self, belief: np.ndarray, truth_index: int) -> float:
         label = str(self.classes[truth_index])
