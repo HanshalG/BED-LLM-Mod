@@ -1,0 +1,16 @@
+{
+  "gate": {
+    "passed": true
+  },
+  "endpoint_gate": {
+    "entropy_vs_shared_h4_lower_bound_positive": true,
+    "truth_log_vs_shared_h4_lower_bound_positive": true,
+    "entropy_vs_random_h5_lower_bound_positive": true,
+    "truth_log_vs_random_h5_lower_bound_positive": true,
+    "entropy_vs_exact_d4_lower_bound_positive": true,
+    "truth_log_vs_exact_d4_lower_bound_positive": true,
+    "mean_exact_h5_recovery_at_least_threshold": true,
+    "registered_route_rate_at_least_threshold": true,
+    "onsite_by_round_five_at_least_threshold": true
+  }
+}

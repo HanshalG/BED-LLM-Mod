@@ -1,0 +1,82 @@
+{
+  "audit_bootstrap_seed": 24253,
+  "comparisons": {
+    "entropy_auc_gain_vs_exact_d4": {
+      "independent_ci95": [
+        0.28783117702564676,
+        0.3025076867083714
+      ],
+      "mean": 0.2957693500268441
+    },
+    "entropy_auc_gain_vs_random_h5": {
+      "independent_ci95": [
+        0.21778319811540248,
+        0.24722463831859673
+      ],
+      "mean": 0.23284053300861532
+    },
+    "entropy_auc_gain_vs_shared_h4": {
+      "independent_ci95": [
+        0.28787229895683664,
+        0.3025671476440876
+      ],
+      "mean": 0.2957693500268441
+    },
+    "truth_log_auc_gain_vs_exact_d4": {
+      "independent_ci95": [
+        0.26010283104746157,
+        0.3492362373733011
+      ],
+      "mean": 0.30478244058723536
+    },
+    "truth_log_auc_gain_vs_random_h5": {
+      "independent_ci95": [
+        0.206097515384991,
+        0.27512848354645275
+      ],
+      "mean": 0.24006223176212557
+    },
+    "truth_log_auc_gain_vs_shared_h4": {
+      "independent_ci95": [
+        0.26023621727855484,
+        0.3489432285709865
+      ],
+      "mean": 0.30478244058723536
+    }
+  },
+  "endpoint_gate": {
+    "entropy_vs_exact_d4_lower_bound_positive": true,
+    "entropy_vs_random_h5_lower_bound_positive": true,
+    "entropy_vs_shared_h4_lower_bound_positive": true,
+    "mean_exact_h5_recovery_at_least_threshold": true,
+    "onsite_by_round_five_at_least_threshold": true,
+    "registered_route_rate_at_least_threshold": true,
+    "truth_log_vs_exact_d4_lower_bound_positive": true,
+    "truth_log_vs_random_h5_lower_bound_positive": true,
+    "truth_log_vs_shared_h4_lower_bound_positive": true
+  },
+  "exact_h5_entropy_gain_vs_exact_d4": 0.2957693500268441,
+  "gate": {
+    "passed": true
+  },
+  "llm_onsite_by_round_five_rate": 1.0,
+  "llm_recovery_fraction_of_exact_h5_gain": 1.0,
+  "llm_registered_route_rate": 1.0,
+  "mechanics": {
+    "all_aggregate_means_match": true,
+    "all_cache_keys_are_state_and_plan_consistent": true,
+    "all_exact_control_actions_match": true,
+    "all_histories_positions_and_observations_replayed": true,
+    "all_llm_plan_values_and_selections_match": true,
+    "all_posterior_metrics_match": true,
+    "all_random_plan_values_and_selections_match": true,
+    "all_target_assignments_recompiled": true,
+    "all_unique_cache_misses_match_physical_requests": true,
+    "no_llm_calls": true,
+    "paired_truths_match": true,
+    "source_prior_recomputed": true
+  },
+  "schema_version": 1,
+  "source_stage": "focused_range_gated_rock_cached_h5_trajectory_confirmation",
+  "stage": "focused_range_gated_rock_cached_h5_trajectory_audit"
+}

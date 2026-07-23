@@ -1,0 +1,110 @@
+{
+  "audit_bootstrap_seed": 24257,
+  "comparisons": {
+    "entropy_auc_gain_vs_exact_d4": {
+      "independent_stratified_ci95": [
+        0.279039814969529,
+        0.290490538097596
+      ],
+      "mean": 0.2849804419977619,
+      "wins_ties_losses": [
+        150,
+        0,
+        0
+      ]
+    },
+    "entropy_auc_gain_vs_random_h5": {
+      "independent_stratified_ci95": [
+        0.20153804700936728,
+        0.22182151597727312
+      ],
+      "mean": 0.2117569379520656,
+      "wins_ties_losses": [
+        148,
+        2,
+        0
+      ]
+    },
+    "entropy_auc_gain_vs_shared_h4": {
+      "independent_stratified_ci95": [
+        0.2649460051464503,
+        0.28000718789287504
+      ],
+      "mean": 0.27265785415329674,
+      "wins_ties_losses": [
+        150,
+        0,
+        0
+      ]
+    },
+    "truth_log_auc_gain_vs_exact_d4": {
+      "independent_stratified_ci95": [
+        0.265464914615732,
+        0.3292738799152907
+      ],
+      "mean": 0.29743190910759437,
+      "wins_ties_losses": [
+        144,
+        0,
+        6
+      ]
+    },
+    "truth_log_auc_gain_vs_random_h5": {
+      "independent_stratified_ci95": [
+        0.19335147795157862,
+        0.23284346766158362
+      ],
+      "mean": 0.2125030987089781,
+      "wins_ties_losses": [
+        147,
+        2,
+        1
+      ]
+    },
+    "truth_log_auc_gain_vs_shared_h4": {
+      "independent_stratified_ci95": [
+        0.24950394253085711,
+        0.3098404103401809
+      ],
+      "mean": 0.2792951401048006,
+      "wins_ties_losses": [
+        144,
+        0,
+        6
+      ]
+    }
+  },
+  "endpoint_gate": {
+    "entropy_auc_gain_vs_exact_d4_pooled_lower_bound_positive": true,
+    "entropy_auc_gain_vs_exact_d4_positive_in_every_replication": true,
+    "entropy_auc_gain_vs_random_h5_pooled_lower_bound_positive": true,
+    "entropy_auc_gain_vs_random_h5_positive_in_every_replication": true,
+    "entropy_auc_gain_vs_shared_h4_pooled_lower_bound_positive": true,
+    "entropy_auc_gain_vs_shared_h4_positive_in_every_replication": true,
+    "pooled_onsite_rate_at_least_0_75": true,
+    "pooled_recovery_at_least_0_60": true,
+    "pooled_route_rate_at_least_0_75": true,
+    "truth_log_auc_gain_vs_exact_d4_pooled_lower_bound_positive": true,
+    "truth_log_auc_gain_vs_exact_d4_positive_in_every_replication": true,
+    "truth_log_auc_gain_vs_random_h5_pooled_lower_bound_positive": true,
+    "truth_log_auc_gain_vs_random_h5_positive_in_every_replication": true,
+    "truth_log_auc_gain_vs_shared_h4_pooled_lower_bound_positive": true,
+    "truth_log_auc_gain_vs_shared_h4_positive_in_every_replication": true
+  },
+  "gate": {
+    "passed": true
+  },
+  "mechanics": {
+    "all_paired_values_match": true,
+    "all_pooled_means_match": true,
+    "all_scalar_endpoints_match": true,
+    "all_source_audits_pass": true,
+    "all_wins_ties_losses_match": true,
+    "independent_lower_bounds_positive": true,
+    "registered_seeds_match": true,
+    "source_stage_matches": true
+  },
+  "schema_version": 1,
+  "source_stage": "focused_range_gated_rock_h5_trajectory_replication_pool",
+  "stage": "focused_range_gated_rock_h5_trajectory_replication_pool_audit"
+}

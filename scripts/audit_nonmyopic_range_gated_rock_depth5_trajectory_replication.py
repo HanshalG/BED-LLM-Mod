@@ -6,7 +6,11 @@ import argparse
 import json
 import math
 from pathlib import Path
+import sys
 from typing import Any, Sequence
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from scripts.nonmyopic_range_gated_rock_depth5_trajectory_replication import (
     METRICS,
