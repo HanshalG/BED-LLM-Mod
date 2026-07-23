@@ -73,6 +73,7 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
     if payload.get("stage") not in {
         "uci_thyroid_workup_26b_paired_trajectory_confirmation",
         "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation",
+        "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation",
     }:
         raise ValueError("unexpected thyroid confirmation stage")
     model = ThyroidWorkupModel()
@@ -86,6 +87,67 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
         "paired_truths_distinct_and_match": True,
         "no_llm_calls": True,
     }
+    projected_stage = payload.get("stage") == (
+        "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+    )
+    projection = {
+        "projected_cells": 0,
+        "projected_cell_rate": 0.0,
+        "projected_branches": 0,
+        "total_branches": 0,
+        "projected_branch_rate": 0.0,
+    }
+    if projected_stage:
+        checks["all_projections_are_exact_legal_minima"] = True
+        checks["projection_aggregates_match"] = True
+        requests = payload["candidate_requests"]
+        projected = payload["projected_responses"]
+        projection["projected_cells"] = len(projected)
+        projection["total_branches"] = sum(
+            sum(len(outcomes) for outcomes in request["menus"].values())
+            for request in requests
+        )
+        projection["projected_branches"] = sum(
+            len(request["projection_events"]) for request in projected
+        )
+        projection["projected_cell_rate"] = len(projected) / len(requests)
+        projection["projected_branch_rate"] = (
+            projection["projected_branches"] / projection["total_branches"]
+        )
+        for request in projected:
+            state = model.initial_state
+            belief = model.initial_belief
+            for action, outcome in request["history"]:
+                belief = model.posterior(belief, action, outcome)
+                state = model.next_state(state, action)
+            for event in request["projection_events"]:
+                root = event["root"]
+                outcome = event["outcome"]
+                raw_outcome = None if outcome == "none" else outcome
+                posterior = model.posterior(belief, root, raw_outcome)
+                choices = request["menus"][root][outcome]
+                best = min(
+                    enumerate(choices),
+                    key=lambda item: (
+                        model.expected_target_entropy(posterior, item[1]),
+                        item[0],
+                    ),
+                )[1]
+                checks["all_projections_are_exact_legal_minima"] &= (
+                    event["replacement"] == best
+                    and event["replacement"] in model.legal_actions(
+                        model.next_state(state, root)
+                    )
+                )
+        checks["projection_aggregates_match"] &= all(
+            math.isclose(
+                float(projection[key]),
+                float(payload["projection"][key]),
+                rel_tol=0.0,
+                abs_tol=1e-12,
+            )
+            for key in projection
+        )
     replayed: dict[str, list[dict[str, float]]] = {arm: [] for arm in payload["traces"]}
     cache: dict[tuple[bool, tuple[int, ...], int, bytes], dict[str, float]] = {}
     for arm, traces in payload["traces"].items():
@@ -237,6 +299,13 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
         and recovery >= 0.60
         and collection >= 0.75
     )
+    if projected_stage:
+        scientific_gate &= (
+            projection["projected_cell_rate"]
+            <= float(payload["config"]["projection_cell_rate_threshold"])
+            and projection["projected_branch_rate"]
+            <= float(payload["config"]["projection_branch_rate_threshold"])
+        )
     return {
         "schema_version": 1,
         "stage": "uci_thyroid_workup_paired_trajectory_confirmation_audit",
@@ -246,6 +315,7 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
         "exact_depth_two_entropy_gain_vs_depth_one": exact_gain,
         "llm_recovery_fraction_of_exact_depth_two_gain": recovery,
         "llm_first_collection_rate": collection,
+        "projection": projection,
         "audit_valid": all(checks.values()),
         "registered_scientific_gate_recomputed": scientific_gate,
     }

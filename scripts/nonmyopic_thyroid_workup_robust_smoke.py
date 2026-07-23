@@ -130,10 +130,13 @@ def main() -> None:
         choices=("none", "branch_local_expected_entropy"),
         default="none",
     )
+    parser.add_argument("--project-invalid-after-retries", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     strategy_config = ThyroidStrategyConfig(
-        seed=args.seed, utility_summary_mode=args.utility_summary_mode
+        seed=args.seed,
+        utility_summary_mode=args.utility_summary_mode,
+        project_invalid_after_retries=args.project_invalid_after_retries,
     )
     strategy_config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -156,9 +159,13 @@ def main() -> None:
         result = run_smoke(provider, seed=args.seed)
     except StrategyProposalError as exc:
         stage = (
-            "uci_thyroid_workup_utility_grounded_late_state_serving_smoke"
-            if args.utility_summary_mode == "branch_local_expected_entropy"
-            else "uci_thyroid_workup_named_late_state_serving_smoke"
+            "uci_thyroid_workup_projected_utility_late_state_serving_smoke"
+            if args.project_invalid_after_retries
+            else (
+                "uci_thyroid_workup_utility_grounded_late_state_serving_smoke"
+                if args.utility_summary_mode == "branch_local_expected_entropy"
+                else "uci_thyroid_workup_named_late_state_serving_smoke"
+            )
         )
         failure = {
             "schema_version": 1,
@@ -168,6 +175,7 @@ def main() -> None:
             "strategy_config": asdict(strategy_config),
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
+            "projected_responses": provider.projected_responses,
             "usage": _usage_snapshot(chat_model),
         }
         (args.output_dir / "SMOKE_FAILURE.json").write_text(
@@ -175,9 +183,12 @@ def main() -> None:
         )
         raise
     result["strategy_config"] = asdict(strategy_config)
-    if args.utility_summary_mode == "branch_local_expected_entropy":
+    if args.project_invalid_after_retries:
+        result["stage"] = "uci_thyroid_workup_projected_utility_late_state_serving_smoke"
+    elif args.utility_summary_mode == "branch_local_expected_entropy":
         result["stage"] = "uci_thyroid_workup_utility_grounded_late_state_serving_smoke"
     result["usage"] = _usage_snapshot(chat_model)
+    result["projected_responses"] = provider.projected_responses
     result["run_id"] = args.run_id
     result["dry_run"] = args.dry_run
     result["mechanics"]["zero_reasoning_tokens"] = (
@@ -186,6 +197,8 @@ def main() -> None:
     result["mechanics"]["zero_forced_exits"] = (
         int(result["usage"].get("forced_exits", 0)) == 0
     )
+    if args.project_invalid_after_retries:
+        result["mechanics"]["zero_projected_cells"] = not provider.projected_responses
     result["passed"] = all(result["mechanics"].values())
     (args.output_dir / "SMOKE.json").write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"

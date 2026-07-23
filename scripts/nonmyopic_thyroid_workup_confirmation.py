@@ -52,6 +52,8 @@ class ThyroidConfirmationConfig:
     bootstrap_replicates: int = 10_000
     collection_rate_threshold: float = 0.75
     recovery_threshold: float = 0.60
+    projection_cell_rate_threshold: float = 0.05
+    projection_branch_rate_threshold: float = 0.01
 
     def validate(self, cohort_size: int) -> None:
         if self.num_trials != 50 or self.num_rounds != 8:
@@ -64,6 +66,10 @@ class ThyroidConfirmationConfig:
             raise ValueError("collection threshold must be a probability")
         if not 0.0 <= self.recovery_threshold <= 1.0:
             raise ValueError("recovery threshold must be a fraction")
+        if self.projection_cell_rate_threshold != 0.05:
+            raise ValueError("the frozen projection cell-rate threshold is 5%")
+        if self.projection_branch_rate_threshold != 0.01:
+            raise ValueError("the frozen projection branch-rate threshold is 1%")
 
 
 def _stable_seed(*parts: Any) -> int:
@@ -265,6 +271,21 @@ def run_confirmation(
     collection_rate = float(
         np.mean([trace["steps"][0]["action"] == COLLECT_BLOOD_ACTION for trace in traces["llm"]])
     )
+    total_branches = sum(
+        sum(len(outcomes) for outcomes in request["menus"].values())
+        for request in provider.physical_requests
+    )
+    projected_cells = len(provider.projected_responses)
+    projected_branches = sum(
+        len(request["projection_events"]) for request in provider.projected_responses
+    )
+    projection = {
+        "projected_cells": projected_cells,
+        "projected_cell_rate": projected_cells / (config.num_trials * (config.num_rounds - 1)),
+        "projected_branches": projected_branches,
+        "total_branches": total_branches,
+        "projected_branch_rate": projected_branches / total_branches,
+    }
     mechanics = {
         "paired_truths_without_replacement": len(set(int(value) for value in truths))
         == config.num_trials,
@@ -308,10 +329,27 @@ def run_confirmation(
         "first_collection_rate_at_least_threshold": collection_rate
         >= config.collection_rate_threshold,
     }
+    if provider.config.project_invalid_after_retries:
+        endpoint_gate.update(
+            {
+                "projected_cell_rate_at_most_threshold": projection[
+                    "projected_cell_rate"
+                ]
+                <= config.projection_cell_rate_threshold,
+                "projected_branch_rate_at_most_threshold": projection[
+                    "projected_branch_rate"
+                ]
+                <= config.projection_branch_rate_threshold,
+            }
+        )
     stage = (
-        "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
-        if provider.config.utility_summary_mode == "branch_local_expected_entropy"
-        else "uci_thyroid_workup_26b_paired_trajectory_confirmation"
+        "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+        if provider.config.project_invalid_after_retries
+        else (
+            "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
+            if provider.config.utility_summary_mode == "branch_local_expected_entropy"
+            else "uci_thyroid_workup_26b_paired_trajectory_confirmation"
+        )
     )
     return {
         "schema_version": 1,
@@ -323,10 +361,12 @@ def run_confirmation(
         "exact_depth_two_entropy_gain_vs_depth_one": exact_gain,
         "llm_recovery_fraction_of_exact_depth_two_gain": recovery,
         "llm_first_collection_rate": collection_rate,
+        "projection": projection,
         "endpoint_gate": endpoint_gate,
         "traces": traces,
         "candidate_requests": provider.physical_requests,
         "invalid_responses": provider.invalid_responses,
+        "projected_responses": provider.projected_responses,
     }
 
 
@@ -339,9 +379,14 @@ def _state_before(model: ThyroidWorkupModel, steps: list[dict[str, Any]], count:
 
 def render(result: dict[str, Any]) -> str:
     title = (
-        "# UCI Thyroid Utility-Grounded Paired Trajectory Confirmation"
-        if result["stage"] == "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
-        else "# UCI Thyroid 26B Paired Trajectory Confirmation"
+        "# UCI Thyroid Projected-Utility Paired Trajectory Confirmation"
+        if result["stage"] == "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+        else (
+            "# UCI Thyroid Utility-Grounded Paired Trajectory Confirmation"
+            if result["stage"]
+            == "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
+            else "# UCI Thyroid 26B Paired Trajectory Confirmation"
+        )
     )
     lines = [
         title,
@@ -370,6 +415,18 @@ def render(result: dict[str, Any]) -> str:
             "",
         ]
     )
+    if result["stage"] == "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation":
+        projection = result["projection"]
+        lines.extend(
+            [
+                f"Projected cells: {projection['projected_cells']} "
+                f"({projection['projected_cell_rate']:.2%}).",
+                f"Projected branches: {projection['projected_branches']}/"
+                f"{projection['total_branches']} "
+                f"({projection['projected_branch_rate']:.2%}).",
+                "",
+            ]
+        )
     return "\n".join(lines)
 
 
@@ -392,11 +449,14 @@ def main() -> None:
         choices=("none", "branch_local_expected_entropy"),
         default="none",
     )
+    parser.add_argument("--project-invalid-after-retries", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = ThyroidConfirmationConfig(seed=args.seed)
     strategy_config = ThyroidStrategyConfig(
-        seed=args.seed, utility_summary_mode=args.utility_summary_mode
+        seed=args.seed,
+        utility_summary_mode=args.utility_summary_mode,
+        project_invalid_after_retries=args.project_invalid_after_retries,
     )
     strategy_config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -419,9 +479,13 @@ def main() -> None:
         result = run_confirmation(provider, config)
     except StrategyProposalError as exc:
         stage = (
-            "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
-            if args.utility_summary_mode == "branch_local_expected_entropy"
-            else "uci_thyroid_workup_26b_paired_trajectory_confirmation"
+            "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+            if args.project_invalid_after_retries
+            else (
+                "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
+                if args.utility_summary_mode == "branch_local_expected_entropy"
+                else "uci_thyroid_workup_26b_paired_trajectory_confirmation"
+            )
         )
         failure = {
             "schema_version": 1,
@@ -432,6 +496,7 @@ def main() -> None:
             "strategy_config": asdict(strategy_config),
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
+            "projected_responses": provider.projected_responses,
             "usage": _usage_snapshot(chat_model),
         }
         (args.output_dir / "CONFIRMATION_FAILURE.json").write_text(

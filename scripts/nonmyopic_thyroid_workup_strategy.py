@@ -63,6 +63,7 @@ class ThyroidStrategyConfig:
     validation_retries: int = 1
     max_new_tokens: int = 1_024
     utility_summary_mode: Literal["none", "branch_local_expected_entropy"] = "none"
+    project_invalid_after_retries: bool = False
 
     def validate(self) -> None:
         if self.num_strategies != 4:
@@ -73,6 +74,10 @@ class ThyroidStrategyConfig:
             raise ValueError("the frozen thyroid interface uses a 1,024-token output cap")
         if self.utility_summary_mode not in ("none", "branch_local_expected_entropy"):
             raise ValueError("unsupported thyroid continuation utility summary mode")
+        if self.project_invalid_after_retries and self.utility_summary_mode != (
+            "branch_local_expected_entropy"
+        ):
+            raise ValueError("thyroid projection requires branch-local utility summaries")
 
 
 @dataclass(frozen=True)
@@ -210,12 +215,59 @@ def compile_named_cell(
     return tuple(strategies)
 
 
+def project_named_cell(
+    response: str,
+    *,
+    roots: tuple[str, ...],
+    menus: dict[str, dict[str, tuple[str, ...]]],
+    utility_cards: dict[str, dict[str, list[dict[str, float | str]]]],
+) -> tuple[tuple[ThyroidBranchStrategy, ...], list[dict[str, str]]]:
+    """Project an invalid response onto complete legal branch policies."""
+    try:
+        payload = json.loads(_normalize_response(response))
+    except (StrategyProposalError, json.JSONDecodeError):
+        payload = {}
+    if not isinstance(payload, dict):
+        payload = {}
+    strategies: list[ThyroidBranchStrategy] = []
+    projections: list[dict[str, str]] = []
+    for root in roots:
+        encoded = payload.get(root, {})
+        if not isinstance(encoded, dict):
+            encoded = {}
+        followups: dict[str, str] = {}
+        for outcome, choices in menus[root].items():
+            proposed = encoded.get(outcome)
+            if isinstance(proposed, str) and proposed in choices:
+                followups[outcome] = proposed
+                continue
+            cards = utility_cards[root][outcome]
+            best = min(
+                enumerate(cards),
+                key=lambda item: (item[1]["expected_class_entropy"], item[0]),
+            )[1]["action"]
+            if not isinstance(best, str) or best not in choices:
+                raise StrategyProposalError("utility projection produced an illegal action")
+            followups[outcome] = best
+            projections.append(
+                {
+                    "root": root,
+                    "outcome": outcome,
+                    "proposed": repr(proposed),
+                    "replacement": best,
+                }
+            )
+        strategies.append(ThyroidBranchStrategy(root, followups))
+    return tuple(strategies), projections
+
+
 class NamedThyroidProvider:
     def __init__(self, chat_model: ChatModel, config: ThyroidStrategyConfig) -> None:
         self.chat_model = chat_model
         self.config = config
         self.physical_requests: list[dict[str, Any]] = []
         self.invalid_responses: list[dict[str, Any]] = []
+        self.projected_responses: list[dict[str, Any]] = []
         self._lock = threading.Lock()
 
     def _messages(
@@ -367,6 +419,28 @@ class NamedThyroidProvider:
                             ),
                         },
                     ]
+                    continue
+                if self.config.project_invalid_after_retries:
+                    cards = continuation_utility_cards(
+                        model, belief=belief, roots=roots, menus=menus
+                    )
+                    strategies, projections = project_named_cell(
+                        response,
+                        roots=roots,
+                        menus=menus,
+                        utility_cards=cards,
+                    )
+                    projected = {
+                        **context,
+                        "attempt": attempt,
+                        "raw_response": response,
+                        "projected": True,
+                        "projection_events": projections,
+                    }
+                    with self._lock:
+                        self.projected_responses.append(projected)
+                        self.physical_requests.append(projected)
+                    return ThyroidStrategyCell(strategies, response)
                 continue
             with self._lock:
                 self.physical_requests.append(

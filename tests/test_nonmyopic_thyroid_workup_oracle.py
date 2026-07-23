@@ -212,6 +212,66 @@ def test_thyroid_strategy_rejects_unknown_utility_summary_mode() -> None:
         config.validate()
 
 
+class _RepeatingRootThyroidModel:
+    def chat_complete(
+        self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1
+    ) -> list[str]:
+        del temperature
+        assert num_responses == 1
+        prompt = next(
+            message["content"] for message in messages if "ROOTS=" in message["content"]
+        )
+        slots = json.loads(prompt.split("ROOTS=", 1)[1])
+        return [
+            json.dumps(
+                {
+                    slot["root_action"]: {
+                        branch["outcome"]: slot["root_action"]
+                        for branch in slot["branches"]
+                    }
+                    for slot in slots
+                }
+            )
+        ]
+
+
+def test_projection_replaces_only_invalid_branches_with_best_legal_actions() -> None:
+    model = ThyroidWorkupModel()
+    config = ThyroidStrategyConfig(
+        utility_summary_mode="branch_local_expected_entropy",
+        project_invalid_after_retries=True,
+    )
+    provider = NamedThyroidProvider(_RepeatingRootThyroidModel(), config)
+
+    cell = provider.propose(
+        model,
+        cell_index=0,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+    )
+
+    assert len(provider.invalid_responses) == 2
+    assert len(provider.projected_responses) == 1
+    assert provider.physical_requests[0]["projected"]
+    cards = provider.physical_requests[0]["continuation_utility_cards"]
+    for strategy in cell.strategies:
+        for outcome, followup in strategy.followups.items():
+            best = min(
+                enumerate(cards[strategy.root_action][outcome]),
+                key=lambda item: (item[1]["expected_class_entropy"], item[0]),
+            )[1]["action"]
+            assert followup == best
+            assert followup != strategy.root_action
+
+
+def test_projection_requires_utility_summaries() -> None:
+    config = ThyroidStrategyConfig(project_invalid_after_retries=True)
+
+    with pytest.raises(ValueError, match="projection requires"):
+        config.validate()
+
+
 def test_banked_gpt_confirmation_failure_replays_independently() -> None:
     root = Path(__file__).resolve().parents[1]
     payload = json.loads(
