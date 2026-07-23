@@ -72,6 +72,11 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"tied-control\s+identity",
         r"no\s+trajectory",
         r"proposal\s+evidence",
+        r"exact d4",
+        r"\.3484",
+        r"500/0/0",
+        r"reasoning-only",
+        r"not\s+an\s+LLM-policy\s+claim",
     ),
 }
 

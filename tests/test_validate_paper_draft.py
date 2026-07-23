@@ -24,6 +24,8 @@ truth-log intervals agreed.
 In a range-gated task, Exact d3 beat exact d2,
 and a 26B gate selected it on 16/16 cells. A tied-control identity mismatch blocked
 the audit, so there was no trajectory; this is proposal evidence only.
+An exact d4 gate beat d3 by .3484 with 500/0/0, but a frontier smoke returned
+reasoning-only responses, so this is not an LLM-policy claim.
 """
 
 VALID_FIGURE_LABELS = "\\label{fig:validation-chain}\\label{fig:rock-entropy}"
