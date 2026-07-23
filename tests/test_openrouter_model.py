@@ -198,6 +198,62 @@ def test_openrouter_thinking_payload_and_forced_exit_are_measured(monkeypatch, t
     assert "Forced thinking exit" in (tmp_path / "run.log").read_text()
 
 
+def test_openrouter_reasoning_only_length_response_gets_bounded_finalization(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
+    payloads = []
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        payloads.append(json.loads(request.data))
+        if len(payloads) == 1:
+            response = _completion(
+                content=None,
+                reasoning_tokens=1024,
+                finish_reason="length",
+            )
+            response["choices"][0]["message"]["reasoning_details"] = [
+                {
+                    "type": "reasoning.text",
+                    "text": "preserved analysis",
+                    "format": "unknown",
+                    "id": None,
+                }
+            ]
+            return _Response(response)
+        return _Response(_completion(content='{"r0":["move-SOUTH","check-5"]}'))
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="google/gemma-4-26b-a4b-it",
+            backend="openrouter",
+            thinking=True,
+            thinking_max_new_tokens=1024,
+            thinking_final_max_new_tokens=256,
+        ),
+        _config(tmp_path),
+    )
+
+    completion = adapter.chat_complete(
+        [{"role": "user", "content": "return json"}], 0.0
+    )
+
+    assert completion == ['{"r0":["move-SOUTH","check-5"]}']
+    assert len(payloads) == 2
+    assert payloads[1]["max_tokens"] == 256
+    assert payloads[1]["reasoning"] == {"enabled": False, "exclude": True}
+    assert payloads[1]["messages"][-2]["reasoning_details"][0]["text"] == (
+        "preserved analysis"
+    )
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["forced_exits"] == 1
+    assert snapshot["forced_final_requests"] == 1
+    assert snapshot["forced_final_successes"] == 1
+    assert snapshot["adapter_requests"] == 2
+
+
 def test_openrouter_explicit_reasoning_effort_overrides_model_default(
     monkeypatch, tmp_path: Path
 ) -> None:

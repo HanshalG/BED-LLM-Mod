@@ -215,6 +215,8 @@ class OpenRouterAdapter:
         self.local_prompt_tokens = 0
         self.local_completion_tokens = 0
         self.local_reasoning_tokens = 0
+        self.forced_final_requests = 0
+        self.forced_final_successes = 0
         self._budget_warning_emitted = False
         self._budget_warning_lock = threading.Lock()
 
@@ -231,7 +233,15 @@ class OpenRouterAdapter:
             f"of ${budget:.2f}; ${budget - cumulative:.2f} remains"
         )
 
-    def _payload(self, messages: list[dict[str, str]], temperature: float, n: int, max_tokens: int | None = None) -> dict[str, Any]:
+    def _payload(
+        self,
+        messages: list[dict[str, Any]],
+        temperature: float,
+        n: int,
+        max_tokens: int | None = None,
+        *,
+        disable_reasoning: bool = False,
+    ) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "model": self.model_name,
             "messages": messages,
@@ -241,7 +251,9 @@ class OpenRouterAdapter:
             "max_tokens": int(max_tokens or self.max_tokens),
             "n": int(n),
         }
-        if self.spec.reasoning_max_tokens is not None:
+        if disable_reasoning:
+            payload["reasoning"] = {"enabled": False, "exclude": True}
+        elif self.spec.reasoning_max_tokens is not None:
             payload["reasoning"] = {
                 "max_tokens": self.spec.reasoning_max_tokens,
                 "exclude": False,
@@ -297,14 +309,33 @@ class OpenRouterAdapter:
     @staticmethod
     def _content(choice: dict[str, Any]) -> str:
         content = (choice.get("message") or {}).get("content", "")
+        if content is None:
+            return ""
         if isinstance(content, str):
             return content.strip()
         if isinstance(content, list):
             return "".join(str(item.get("text", "")) for item in content if isinstance(item, dict)).strip()
         return str(content).strip()
 
-    def _complete_request(self, messages: list[dict[str, str]], temperature: float, n: int = 1, max_tokens: int | None = None) -> list[str]:
-        data = self._post(self._payload(messages, temperature, n, max_tokens))
+    def _complete_request(
+        self,
+        messages: list[dict[str, Any]],
+        temperature: float,
+        n: int = 1,
+        max_tokens: int | None = None,
+        *,
+        allow_forced_final: bool = True,
+        disable_reasoning: bool = False,
+    ) -> list[str]:
+        data = self._post(
+            self._payload(
+                messages,
+                temperature,
+                n,
+                max_tokens,
+                disable_reasoning=disable_reasoning,
+            )
+        )
         choices = data.get("choices")
         usage = data.get("usage")
         if not isinstance(choices, list) or not choices:
@@ -342,7 +373,54 @@ class OpenRouterAdapter:
             if any(choice.get("finish_reason") == "length" for choice in choices):
                 write_to_log("Forced thinking exit (OpenRouter finish_reason=length)\n", self.config)
         self._warn_near_budget_once(cumulative)
-        return [self._content(choice) for choice in choices]
+        contents = [self._content(choice) for choice in choices]
+        if (
+            allow_forced_final
+            and self.thinking
+            and n == 1
+            and choices[0].get("finish_reason") == "length"
+            and not contents[0]
+        ):
+            message = choices[0].get("message") or {}
+            preserved: dict[str, Any] = {
+                "role": "assistant",
+                "content": message.get("content") or "",
+            }
+            if message.get("reasoning_details") is not None:
+                preserved["reasoning_details"] = message["reasoning_details"]
+            elif message.get("reasoning") is not None:
+                preserved["reasoning"] = message["reasoning"]
+            elif message.get("reasoning_content") is not None:
+                preserved["reasoning_content"] = message["reasoning_content"]
+            forced_messages = [
+                *messages,
+                preserved,
+                {
+                    "role": "user",
+                    "content": (
+                        "Continue from the preserved reasoning and return only the "
+                        "final answer requested by the original user. Do not include "
+                        "reasoning, explanation, or extra prose."
+                    ),
+                },
+            ]
+            self.forced_final_requests += 1
+            if self.config.log_path is not None:
+                write_to_log(
+                    "OpenRouter forced-final continuation request\n", self.config
+                )
+            forced = self._complete_request(
+                forced_messages,
+                0.0,
+                n=1,
+                max_tokens=int(self.spec.thinking_final_max_new_tokens or 512),
+                allow_forced_final=False,
+                disable_reasoning=True,
+            )
+            if forced[0]:
+                self.forced_final_successes += 1
+            return forced
+        return contents
 
     def chat_complete(self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1) -> list[str]:
         return self._complete_request(messages, temperature, n=num_responses)
@@ -379,4 +457,6 @@ class OpenRouterAdapter:
             }
         )
         snapshot["forced_exits"] = self.forced_exits
+        snapshot["forced_final_requests"] = self.forced_final_requests
+        snapshot["forced_final_successes"] = self.forced_final_successes
         return snapshot
