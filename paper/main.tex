@@ -426,8 +426,11 @@ Moving only the start to $(6,6)$ made rock 4 three moves away. In an audited
 500-pair gate, exact d4 beat d3 by .3484 entropy-AUC nats (500/0/0) and .3424
 truth-log-AUC nats [.3021,.3809], always taking
 \textsc{North}$\times3$,check-4 on site. Score-free h4 smokes failed across
-Gemma/Qwen; frontier GPT-5.4 returned reasoning-only length stops. Thus h4 is
-exact structural evidence, not an LLM-policy claim.
+Gemma/Qwen; frontier GPT-5.4 returned reasoning-only length stops. Replacing
+action tails with semantic target selection plus deterministic routing recovered
+the exact route on 10/10 smoke cells, but its 16-cell gate failed closed on
+provider truncation after 15 accepted cells. Thus h4 is exact structural and
+mechanism evidence, not an LLM-policy claim.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
@@ -561,8 +564,8 @@ its diagnosis-only extensions omit reward, sampling, and exit. Rock Diagnosis do
 not test robustness to learned likelihoods or open responses. Its range-gated h3
 result remains proposal-only: a tied-control identity mismatch failed the frozen
 cross-platform audit, so no trajectory ran. The range-gated h4 result is an exact
-oracle qualification; all score-free LLM proposal smokes failed before a policy
-gate. Mushroom and Cleveland
+oracle qualification; unaided score-free action-sequence smokes and the
+hierarchical target gate all failed before a policy endpoint. Mushroom and Cleveland
 use artificial unlocks and exact local summaries; Mushroom matched d2 without
 projection. Thyroid has native delayed/grouped metadata, but
 its 26B proposal pass failed trajectory serving and names-only GPT lost to random.

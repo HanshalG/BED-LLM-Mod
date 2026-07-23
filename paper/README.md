@@ -9,7 +9,8 @@ transfers, positive projected-utility confirmation, and projection-only factoria
 ablation, a strict exact range-gated d3 opportunity where successor-grounded
 26B recovered the optimum but a tied-control identity audit blocked trajectories,
 an independently audited corner-start exact d4-over-d3 gain with failed
-score-free h4 LLM serving gates,
+score-free h4 LLM serving gates and a hierarchical target-selection mechanism
+smoke that recovered the route before the full serving gate failed,
 the banked animals result, the natural-location depth
 audit, and the Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood

@@ -76,6 +76,10 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"\.3484",
         r"500/0/0",
         r"reasoning-only",
+        r"semantic\s+target\s+selection",
+        r"10/10",
+        r"provider\s+truncation",
+        r"mechanism\s+evidence",
         r"not\s+an\s+LLM-policy\s+claim",
     ),
 }
