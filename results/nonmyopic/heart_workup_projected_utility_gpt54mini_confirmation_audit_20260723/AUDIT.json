@@ -1,0 +1,65 @@
+{
+  "audit_valid": true,
+  "comparisons": {
+    "entropy_auc_gain_vs_depth_one": {
+      "independent_ci95": [
+        0.034747490412802444,
+        0.09255755222550355
+      ],
+      "mean": 0.06313993969847007
+    },
+    "entropy_auc_gain_vs_random": {
+      "independent_ci95": [
+        0.006437609669958831,
+        0.05232613990413272
+      ],
+      "mean": 0.028905608391950312
+    },
+    "truth_log_auc_gain_vs_depth_one": {
+      "independent_ci95": [
+        0.02851711503055399,
+        0.12313276786143879
+      ],
+      "mean": 0.07170081400489045
+    },
+    "truth_log_auc_gain_vs_random": {
+      "independent_ci95": [
+        -0.0006816432188540319,
+        0.062252674377435716
+      ],
+      "mean": 0.029052363976768046
+    },
+    "workup_round_advance_vs_depth_one": {
+      "independent_ci95": [
+        1.66,
+        2.62
+      ],
+      "mean": 2.14
+    }
+  },
+  "exact_depth_two_entropy_gain_vs_depth_one": 0.06258409659760374,
+  "llm_recovery_fraction_of_exact_depth_two_gain": 1.0088815390983468,
+  "mechanics": {
+    "all_aggregate_metrics_match": true,
+    "all_exact_control_actions_match": true,
+    "all_histories_states_and_observations_replayed": true,
+    "all_llm_policies_and_selections_match": true,
+    "all_posterior_metrics_match": true,
+    "all_projections_are_exact_legal_minima": true,
+    "all_random_policies_and_selections_match": true,
+    "no_llm_calls": true,
+    "paired_truths_distinct_and_match": true,
+    "projection_aggregates_match": true
+  },
+  "projection": {
+    "max_expected_entropy_excess": 0.0,
+    "projected_branch_rate": 0.0,
+    "projected_branches": 0,
+    "projected_cell_rate": 0.0,
+    "projected_cells": 0,
+    "total_branches": 3028
+  },
+  "registered_scientific_gate_recomputed": false,
+  "schema_version": 1,
+  "stage": "cleveland_heart_workup_projected_utility_confirmation_audit"
+}
