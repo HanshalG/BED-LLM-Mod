@@ -29,8 +29,11 @@ reasoning-only responses. Semantic target selection recovered the route on 10/10
 smoke cells before provider truncation, so this is mechanism evidence, not an
 LLM-policy claim.
 An exact h5 gate wins 500/500 pairs. A hierarchical target gate selects the
-route on 15/16 cells and recovers .937 of the opportunity. This is h5
-proposal-quality evidence; no h5 trajectory has run.
+route on 15/16 cells and recovers .937 of the opportunity. In fresh trajectories,
+h5 gains .2832 over identical compiled plans at h4 (50/0/0) and .2041 over
+matched-random h5 targets (49/1/0). Audit replay uses 18 physical prompts for
+400 logical decisions. This remains an engineered exact task, not unaided LLM
+planning.
 """
 
 VALID_FIGURE_LABELS = "\\label{fig:validation-chain}\\label{fig:rock-entropy}"

@@ -52,11 +52,11 @@ all fifteen paired 95\% intervals exclude zero and truth-log-posterior AUC agree
 GPT-5.4 Mini replicates the 8-, 11-, and 15-rock gains. The selected policies move
 to enable accurate future checks while both myopic controls never move; exact and
 direct-vLLM gates at 26B and 12B preserve the gap at 32,768 latent states, while
-E4B fails. Range-gating yields exact d3 proposal recovery on 16/16 cells and an
-audited exact d4-over-d3 gain of $.3484$ (500/0/0). A focused-prior exact h5
-gate wins 500/500 pairs; hierarchical semantic targets then select the exact h5
-route on 15/16 cells and recover 93.7\% of its gain, although no h5 trajectory
-has yet run. Two
+E4B fails. Range-gating yields d3 proposal recovery on 16/16 cells and an exact
+d4-over-d3 gain of $.3484$ (500/0/0). Focused-prior exact h5 wins 500/500 pairs,
+and a hierarchical compiler selects its route on 15/16 cells. On 50 paired
+trajectories, cached h5 matches exhaustive d5 and beats the same plans scored at
+h4 by $.2832$ (50/0/0) and matched-random h5 targets by $.2041$ (49/1/0). Two
 data-derived semantic unlock tasks reproduce exact d2 gains; a UCI Thyroid task with
 native delayed-assay metadata further passes a 26B proposal gate. Names-only transfer
 fails, but calibrated utility cards recover 100\% of exact d2 on UCI Mushroom with
@@ -200,7 +200,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
-Range-gated Rock & Exact finite state & Two--four-step travel & h3 16/16; exact h5--h4 +.289; h5 targets 15/16 & Proposal / oracle positive \\
+Range-gated Rock & Exact finite state & Two--four-step travel & h5 traj.: +.283 vs h4; +.204 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
@@ -428,13 +428,15 @@ stopped the gate after 15 accepted cells: mechanism evidence, not an LLM-policy
 claim.
 
 A separately preregistered focused prior extended the route to h5. Exact h5 beat
-d4 by .2890 [.2858,.2920] entropy-AUC nats (500/500 wins), with positive
-truth-log corroboration. The 26B target compiler selected
-\textsc{North},\textsc{West}$\times3$,check-6 on 15/16 cells and recovered
-.937 [.812,1] of the opportunity. It gained .3304 versus random targets, .4469
-versus shared h4 scoring, and .4407 versus the strongest exact-h4 root; all
-paired lower bounds were positive and independent replay passed. This is h5
-proposal-quality evidence; no h5 trajectory has run.
+d4 by .2890 [.2858,.2920] entropy-AUC nats (500/500), with positive truth-log
+corroboration. A 26B compiler selected
+\textsc{North},\textsc{West}$\times3$,check-6 on 15/16 cells and recovered .937
+[.812,1] of the proposal opportunity. Across 50 paired trajectories, cached h5
+matched exhaustive d5 and gained .2832 [.2711,.2939] over exhaustive d4 and
+identical compiled plans scored at h4 (50/0/0), and .2041 [.1848,.2230] over
+matched-random h5 targets (49/1/0); all truth-log intervals were positive.
+Route, on-site check, and gap recovery were 50/50, 50/50, and 1.0. Independent
+replay passed using 18 physical prompts for 400 logical decisions.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
@@ -507,34 +509,26 @@ this model; they do not reduce its bias. Bayesian design is particularly exposed
 to misspecification because the same model both predicts data and decides which
 data to collect \citep{catanach2023misspecification}.
 
-BED-LLM reaches strong one-step results under cleaner conditions: a concrete
-entity or user profile, a small response space, a prior-likelihood construction,
-and diverse hypotheses retained with uniform mass after history filtering
-\citep{choudhury2025bedllm}. It explicitly reports raw in-context beliefs as
-overconfident and finds its data-estimation ablation weaker than prior-likelihood
-BED. Our MediQ belief similarly reached mean top probability $0.867$ after round
-one at only 50\% accuracy.
+BED-LLM's strong one-step results use a concrete entity or profile, small response
+space, prior-likelihood construction, and diverse filtered hypotheses
+\citep{choudhury2025bedllm}. It finds raw in-context beliefs overconfident and
+data-estimation weaker than prior-likelihood BED; our MediQ belief likewise reached
+top probability $0.867$ after round one at only 50\% accuracy.
 
-The Rock result instead follows the LLM-Modulo pattern: the model supplies a small,
-semantically informed policy set, while a sound external component checks grammar,
-legality, Bayesian updates, and total information gain
-\citep{kambhampati2024llmmodulo}. The comparison to random policies shows that the
-generator contributes useful search bias; the comparison to the same roots under
-d1 shows that external lookahead contributes the decision rule. Neither component
-alone explains the gain.
+Rock follows LLM-Modulo: the model supplies semantic policies, while an external
+component checks grammar, legality, Bayesian updates, and total information gain
+\citep{kambhampati2024llmmodulo}. Random-policy and same-root d1 controls attribute
+the gain to useful LLM search bias plus external lookahead, not either alone.
 
-UoT reports depth gains on explicit possibility sets with only 5 or 15 diseases
-\citep{hu2024uot}. CA-BED uses finite exclusive hypotheses, soft LLM likelihoods,
-binary questions, and depth two \citep{arnould2026cabed}, but lacks a causal
-depth-one/depth-two ablation and its categorical extension hurts Detective. These
-results show structured planning can help, not that horizon survives an
-insufficient latent or incompatible answer categories.
+UoT reports depth gains on explicit sets of 5 or 15 diseases \citep{hu2024uot}.
+CA-BED uses finite hypotheses, soft LLM likelihoods, binary questions, and d2
+\citep{arnould2026cabed}, but lacks a causal d1/d2 ablation and its categorical
+extension hurts Detective. Thus structured planning can help, without showing
+that horizon survives an insufficient latent or incompatible answers.
 
-Deep adaptive design and RL-BED optimize total sequential utility through
-amortized policies or reinforcement learning \citep{foster2021deep,blau2022rlbed}.
-Both require trajectories from a meaningful simulator. Training on the current
-MediQ surrogate would amortize its annotation and calibration artifacts rather
-than recover a missing patient state.
+DAD and RL-BED optimize total sequential utility via amortization or RL
+\citep{foster2021deep,blau2022rlbed}, but require a meaningful simulator; the
+current MediQ surrogate would amortize annotation artifacts, not recover missing state.
 
 \section{A Validation-First Path Forward}
 
@@ -543,58 +537,36 @@ Future depth studies should cross the following gates in order:
   \setlength{\itemsep}{0.15em}
   \setlength{\topsep}{0.25em}
   \setlength{\parsep}{0pt}
-  \item \textbf{Target and state:} the endpoint must decode $\theta$, while a
-  latent $z$ must contain everything required to generate responses.
-  \item \textbf{Prior:} held-out log loss and Brier score must beat uniform, with
-  no high-confidence wrong collapse.
-  \item \textbf{Likelihood:} available observations must improve mean true-target
-  log probability; missingness must be neutral unless its semantics are genuinely
-  target-dependent.
-  \item \textbf{Branch equivalence:} simulated and deployed histories must yield
-  the same support, probabilities, and stopping behavior.
-  \item \textbf{Structural gap:} an exact or high-fidelity oracle must show depth
-  two beating greedy under the benchmark's native action and budget rules.
-  \item \textbf{Ranking fidelity:} estimated incremental lookahead value must rank
-  oracle incremental value under shared candidates and common random numbers.
-  \item \textbf{Policy test:} only then compare candidate horizons on paired cases,
-  with identical root candidates, simulator seeds, and stopping rules.
+  \item \textbf{Target and state:} the endpoint decodes $\theta$; latent $z$ generates responses.
+  \item \textbf{Prior:} held-out log loss and Brier score beat uniform without confident-wrong collapse.
+  \item \textbf{Likelihood:} observations improve true-target log probability; missingness is neutral unless target-dependent.
+  \item \textbf{Branch equivalence:} simulation and deployment agree on support, probabilities, and stopping.
+  \item \textbf{Structural gap:} an oracle shows d2 beating greedy under native rules.
+  \item \textbf{Ranking fidelity:} estimated lookahead ranks oracle value under common candidates and randomness.
+  \item \textbf{Policy test:} paired horizons share root candidates, simulator seeds, and stopping.
 \end{enumerate}
 
 \section{Limitations and Conclusion}
 
-This is a validation study and positive structured-benchmark result, not yet a positive
-external-benchmark claim for non-myopic LLM BED. Rock Diagnosis uses an exact finite simulator;
-its diagnosis-only extensions omit reward, sampling, and exit. Rock Diagnosis does
-not test robustness to learned likelihoods or open responses. Its range-gated h3
-result remains proposal-only: a tied-control identity mismatch failed the frozen
-cross-platform audit, so no trajectory ran. The range-gated h4 result is an exact
-oracle qualification; unaided score-free action-sequence smokes and the
-first hierarchical target gate all failed before a policy endpoint. The focused-prior
-h5 result adds an exact 500-pair qualification and an audited 15/16 hierarchical
-proposal pass, but no h5 trajectory has run. Mushroom and Cleveland use artificial
-unlocks and exact local summaries. Thyroid has native delayed/grouped metadata,
-but its 26B trajectory serving failed and names-only GPT lost to random. Projected
-utility used exact summaries and 17 branches, so it is not unaided LLM planning.
-Cleveland used no projection and passed entropy, but its independent truth-log
-interval against random crossed zero, so it is not an all-gates confirmation.
-Animals establishes one-step transfer,
-but its depth streams are only partially paired. Natural location uses one model
-family and environment. Paprika policy counts are endpoint-invalid, and MediQ
-stops before a calibrated policy comparison. We do not claim that non-myopic BED
-cannot work; the preregistered iCRAFT profile gate failed held-out calibration.
+This is a positive structured-benchmark result, not yet a positive external-benchmark claim.
+Rock Diagnosis uses an exact finite simulator and does not test robustness to learned likelihoods or open responses.
+Range-gated h3 remains proposal evidence only after a tied-control audit mismatch,
+so no trajectory ran; h4 is exact-oracle evidence after unaided policy gates failed.
+Focused-prior h5 adds exact 500-pair and audited 15/16 gates plus a positive
+50-pair trajectory, but remains an engineered exact task with deterministic routing
+and verification, not unaided LLM planning. Mushroom and Cleveland use artificial
+unlocks and exact summaries. Thyroid's projected utility also uses exact summaries.
+Cleveland recovered 100.9 with zero projected branches, but its independent truth-log
+interval crosses zero, so it is not an all-gates confirmation. Animals is only partially paired;
+natural location uses one model family and environment. Paprika
+policy counts are endpoint-invalid, MediQ stops before a calibrated policy comparison,
+and the iCRAFT profile-support gate fails before likelihood. We do not claim that non-myopic BED cannot work.
+Finite supports, post-hoc synthesis, and OpenRouter nondeterminism further limit generality.
 
-One model family, finite supports, post-hoc synthesis, and OpenRouter provider
-nondeterminism limit generality.
-
-The evidence supports a constructive conclusion. With a coherent simulator and
-an enabling-information gap, LLM proposals plus exact rollout-EIG verification
-produce a large, paired, non-myopic gain; both generation and verification matter.
-But depth is not a
-substitute for a valid joint model, deployment-matched branches, or a task in which
-greedy information gain is genuinely suboptimal. Calibrated summaries plus bounded
-legal projection repaired Thyroid transfer, and the same summaries yielded a
-zero-projection full Mushroom transfer and primary-endpoint Cleveland transfer;
-projection-only failed random.
+The constructive result is that, given a coherent simulator and enabling-information
+gap, LLM proposals plus exact rollout-EIG verification produce a large paired
+non-myopic gain; generation and verification both matter. Depth cannot replace a
+valid joint model, deployment-matched branches, or genuinely non-myopic task.
 
 {\scriptsize
 \setlength{\bibsep}{0pt}

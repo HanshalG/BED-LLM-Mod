@@ -85,8 +85,16 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"500/500",
         r"15/16",
         r"\.937",
-        r"h5\s+proposal-quality\s+evidence",
-        r"no\s+h5\s+trajectory",
+        r"\.2832",
+        r"50/0/0",
+        r"identical\s+compiled\s+plans",
+        r"\.2041",
+        r"matched-random\s+h5",
+        r"49/1/0",
+        r"18\s+physical\s+prompts",
+        r"400\s+logical\s+decisions",
+        r"engineered\s+exact",
+        r"not\s+unaided\s+LLM\s+planning",
     ),
 }
 
