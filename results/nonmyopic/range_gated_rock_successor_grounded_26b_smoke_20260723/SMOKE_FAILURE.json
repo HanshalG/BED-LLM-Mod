@@ -1,0 +1,98 @@
+{
+  "candidate_requests": [],
+  "config": {
+    "horizon": 3,
+    "max_new_tokens": 256,
+    "num_plans": 4,
+    "seed": 24179,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "error": "fixed-root tail cell failed after two attempts: fixed-tail response is not valid JSON",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "error": "fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-4",
+          "bad"
+        ],
+        [
+          "check-7",
+          "bad"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "None",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 0,
+      "error": "fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-4",
+          "bad"
+        ],
+        [
+          "check-7",
+          "bad"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "None",
+      "roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "stage": "range_gated_rock_fixed_root_tail_serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 8704,
+    "adapter_cost_usd": 0.00331264,
+    "adapter_prompt_tokens": 3253,
+    "adapter_reasoning_tokens": 6505,
+    "adapter_requests": 2,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 8704,
+    "forced_exits": 2,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 8704,
+        "cost_usd": 0.00331264,
+        "prompt_tokens": 3253,
+        "reasoning_tokens": 6505,
+        "requests": 2
+      }
+    },
+    "prompt_tokens": 3253,
+    "reasoning_tokens": 6505,
+    "remaining_usd": 71.48125170254012,
+    "requests": 2,
+    "run_budget_usd": 1.0,
+    "run_cost_usd": 0.00331264,
+    "run_remaining_usd": 0.99668736,
+    "total_spent_usd": 38.51874829745988
+  }
+}
