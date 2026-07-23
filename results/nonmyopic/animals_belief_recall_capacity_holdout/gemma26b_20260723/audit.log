@@ -1,0 +1,51 @@
+{
+  "audit_capacity_gated_summary": {
+    "mean_active_state_regret_belief_recall": 0.2793201754385965,
+    "mean_active_state_regret_immediate_eig": 0.31011842105263154,
+    "mean_coverage_regret_belief_recall": 0.08845138888888888,
+    "mean_coverage_regret_immediate_eig": 0.09820416666666666,
+    "mean_oracle_candidate_expected_truth_coverage": 0.1801222222222222,
+    "mean_paired_selected_coverage_gain": 0.009752777777777779,
+    "mean_selected_expected_truth_coverage_belief_recall": 0.09167083333333334,
+    "mean_selected_expected_truth_coverage_immediate_eig": 0.08191805555555556,
+    "num_active_states": 19,
+    "num_candidate_rows": 180,
+    "num_states": 60,
+    "ranker_immediate_wins_ties_losses": [
+      1,
+      59,
+      0
+    ],
+    "spearman_belief_recall_score_vs_expected_truth_coverage": -0.079442664800774,
+    "spearman_immediate_eig_vs_expected_truth_coverage": -0.0625342314681681
+  },
+  "audit_gates": {
+    "active_state_regret_better_than_immediate_eig": true,
+    "all_pass": false,
+    "at_least_fifteen_active_states": true,
+    "more_ranker_wins_than_losses": true,
+    "paired_bootstrap_lower_bound_positive": false,
+    "sixty_states_completed": true,
+    "support_capacity_is_exactly_max_num_samples": true
+  },
+  "audit_paired_coverage_gain_bootstrap": {
+    "ci95": [
+      0.0,
+      0.029258333333333334
+    ],
+    "mean": 0.009752777777777779,
+    "replicates": 10000,
+    "seed": 24277
+  },
+  "checks": {
+    "all_model_visible_payloads_rebuilt_exactly": true,
+    "all_pass": false,
+    "all_raw_responses_reparse_exactly": true,
+    "audit_bootstrap_gates_pass": false,
+    "capacity_gated_summary_replays": true,
+    "producer_gate_status_replays": true,
+    "sixty_distinct_measurement_targets": true
+  },
+  "schema_version": 1,
+  "status": "failed"
+}
