@@ -35,8 +35,12 @@ class CandidateCoverageDynamics:
     immediate_eig: float
     p_yes: float
     p_no: float
+    current_support_retention_if_yes: float
+    current_support_retention_if_no: float
     expected_current_support_retention: float
     expected_surviving_map_mass: float
+    expected_dynamic_brier_score: float
+    dynamic_brier_gain: float
     truth_covered_if_yes: bool
     truth_covered_if_no: bool
     support_size_if_yes: int
@@ -346,22 +350,50 @@ def evaluate_candidate_coverage_dynamics(
         question_rows = probability_rows[
             question_index * len(samples):(question_index + 1) * len(samples)
         ]
-        expected_current_support_retention = 0.0
+        current_support_retention_if_yes = 0.0
+        current_support_retention_if_no = 0.0
+        expected_pseudo_truth_probability = 0.0
         yes_surviving_masses: list[float] = []
         no_surviving_masses: list[float] = []
+        yes_probabilities = {
+            hypothesis.strip().casefold(): float(probability)
+            for hypothesis, probability in future_yes
+        }
+        no_probabilities = {
+            hypothesis.strip().casefold(): float(probability)
+            for hypothesis, probability in future_no
+        }
         for hypothesis, weight, answer_probabilities in zip(samples, sample_weights, question_rows):
             hypothesis_key = str(hypothesis).strip().casefold()
             yes_mass = float(weight) * answer_probabilities["Yes"]
             no_mass = float(weight) * answer_probabilities["No"]
             if hypothesis_key in yes_support:
-                expected_current_support_retention += yes_mass
+                current_support_retention_if_yes += yes_mass
                 yes_surviving_masses.append(yes_mass)
+                expected_pseudo_truth_probability += (
+                    yes_mass * yes_probabilities[hypothesis_key]
+                )
             if hypothesis_key in no_support:
-                expected_current_support_retention += no_mass
+                current_support_retention_if_no += no_mass
                 no_surviving_masses.append(no_mass)
+                expected_pseudo_truth_probability += (
+                    no_mass * no_probabilities[hypothesis_key]
+                )
+        expected_current_support_retention = (
+            current_support_retention_if_yes
+            + current_support_retention_if_no
+        )
         expected_surviving_map_mass = (
             max(yes_surviving_masses, default=0.0)
             + max(no_surviving_masses, default=0.0)
+        )
+        expected_dynamic_brier_score = (
+            2.0 * expected_pseudo_truth_probability
+            - float(p_yes) * sum(probability**2 for probability in future_yes.probabilities)
+            - float(p_no) * sum(probability**2 for probability in future_no.probabilities)
+        )
+        current_brier_score = sum(
+            probability**2 for probability in belief_state.probabilities
         )
         dynamics.append(
             CandidateCoverageDynamics(
@@ -369,8 +401,14 @@ def evaluate_candidate_coverage_dynamics(
                 immediate_eig=float(immediate_eig),
                 p_yes=float(p_yes),
                 p_no=float(p_no),
+                current_support_retention_if_yes=current_support_retention_if_yes,
+                current_support_retention_if_no=current_support_retention_if_no,
                 expected_current_support_retention=expected_current_support_retention,
                 expected_surviving_map_mass=expected_surviving_map_mass,
+                expected_dynamic_brier_score=expected_dynamic_brier_score,
+                dynamic_brier_gain=(
+                    expected_dynamic_brier_score - current_brier_score
+                ),
                 truth_covered_if_yes=yes_covered,
                 truth_covered_if_no=no_covered,
                 support_size_if_yes=future_yes.support_size,

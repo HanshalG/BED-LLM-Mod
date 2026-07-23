@@ -570,7 +570,11 @@ def test_candidate_coverage_dynamics_uses_production_branch_updates_without_targ
     assert [entry.immediate_eig for entry in dynamics] == pytest.approx([0.0, 0.0])
     assert [entry.expected_truth_coverage for entry in dynamics] == pytest.approx([0.5, 0.5])
     assert [entry.expected_current_support_retention for entry in dynamics] == pytest.approx([0.25, 0.25])
+    assert [entry.current_support_retention_if_yes for entry in dynamics] == pytest.approx([0.0, 0.25])
+    assert [entry.current_support_retention_if_no for entry in dynamics] == pytest.approx([0.25, 0.0])
     assert [entry.expected_surviving_map_mass for entry in dynamics] == pytest.approx([0.25, 0.25])
+    assert [entry.expected_dynamic_brier_score for entry in dynamics] == pytest.approx([-0.5, -0.5])
+    assert [entry.dynamic_brier_gain for entry in dynamics] == pytest.approx([-1.0, -1.0])
     assert [(entry.truth_covered_if_yes, entry.truth_covered_if_no) for entry in dynamics] == [
         (True, False),
         (False, True),
@@ -584,6 +588,40 @@ def test_candidate_coverage_dynamics_uses_production_branch_updates_without_targ
     assert all(truth not in message["content"] for history in seen_histories for message in history)
     assert seen_beliefs == [beliefs]
     assert all(truth not in branch_beliefs for branch_beliefs in seen_beliefs)
+
+
+def test_candidate_coverage_dynamics_brier_gain_rewards_calibrated_branch_beliefs(monkeypatch):
+    beliefs = ["cat", "dog"]
+    config = _make_config()
+    model = FakeModel(
+        {
+            ("cat", "Is it a cat?"): {"Yes": 1.0, "No": 0.0},
+            ("dog", "Is it a cat?"): {"Yes": 0.0, "No": 1.0},
+        }
+    )
+
+    monkeypatch.setattr(
+        gcq,
+        "_update_beliefs_many",
+        lambda histories, *args, **kwargs: [
+            ["cat"] if history[-1]["content"] == "Yes" else ["dog"]
+            for history in histories
+        ],
+    )
+
+    dynamics = gcq.evaluate_candidate_coverage_dynamics(
+        beliefs,
+        [],
+        ["Is it a cat?"],
+        "Secret Animal",
+        deterministic=True,
+        questioner=model,
+        config=config,
+    )
+
+    assert dynamics[0].expected_current_support_retention == pytest.approx(1.0)
+    assert dynamics[0].expected_dynamic_brier_score == pytest.approx(1.0)
+    assert dynamics[0].dynamic_brier_gain == pytest.approx(0.5)
 
 
 def test_evaluate_questions_forward_search_uses_full_update_for_deterministic_branches(monkeypatch):

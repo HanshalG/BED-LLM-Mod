@@ -94,8 +94,12 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
     expected_coverages: list[float] = []
     support_retentions: list[float] = []
     surviving_map_masses: list[float] = []
+    dynamic_brier_gains: list[float] = []
     state_spreads: list[float] = []
     immediate_eig_coverage_regrets: list[float] = []
+    immediate_eig_selected_coverages: list[float] = []
+    dynamic_brier_selected_coverages: list[float] = []
+    dynamic_brier_paired_gains: list[float] = []
 
     for record in records:
         dynamics = record["candidate_dynamics"]
@@ -106,6 +110,21 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
         state_spreads.append(max(coverage_values) - min(coverage_values))
         selected_index = max(range(len(dynamics)), key=lambda index: eig_values[index])
         immediate_eig_coverage_regrets.append(max(coverage_values) - coverage_values[selected_index])
+        immediate_eig_selected_coverages.append(coverage_values[selected_index])
+        if all("dynamic_brier_gain" in entry for entry in dynamics):
+            brier_values = [
+                float(entry["dynamic_brier_gain"]) for entry in dynamics
+            ]
+            brier_index = max(
+                range(len(dynamics)),
+                key=lambda index: brier_values[index],
+            )
+            dynamic_brier_selected_coverages.append(
+                coverage_values[brier_index]
+            )
+            dynamic_brier_paired_gains.append(
+                coverage_values[brier_index] - coverage_values[selected_index]
+            )
         immediate_eigs.extend(eig_values)
         expected_coverages.extend(coverage_values)
         support_retentions.extend(
@@ -117,6 +136,11 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
             float(entry["expected_surviving_map_mass"])
             for entry in dynamics
             if "expected_surviving_map_mass" in entry
+        )
+        dynamic_brier_gains.extend(
+            float(entry["dynamic_brier_gain"])
+            for entry in dynamics
+            if "dynamic_brier_gain" in entry
         )
 
     spearman = _pearson_correlation(_average_ranks(immediate_eigs), _average_ranks(expected_coverages))
@@ -130,6 +154,11 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
         if len(surviving_map_masses) == len(expected_coverages)
         else None
     )
+    dynamic_brier_spearman = (
+        _pearson_correlation(_average_ranks(dynamic_brier_gains), _average_ranks(expected_coverages))
+        if len(dynamic_brier_gains) == len(expected_coverages)
+        else None
+    )
     return {
         "num_states": len(records),
         "num_candidate_rows": len(immediate_eigs),
@@ -140,12 +169,37 @@ def summarize_probe(records: list[dict[str, Any]]) -> dict[str, Any]:
         "mean_immediate_eig_coverage_regret": (
             float(np.mean(immediate_eig_coverage_regrets)) if immediate_eig_coverage_regrets else None
         ),
+        "mean_immediate_eig_selected_expected_truth_coverage": (
+            float(np.mean(immediate_eig_selected_coverages))
+            if immediate_eig_selected_coverages
+            else None
+        ),
+        "mean_dynamic_brier_selected_expected_truth_coverage": (
+            float(np.mean(dynamic_brier_selected_coverages))
+            if dynamic_brier_selected_coverages
+            else None
+        ),
+        "mean_dynamic_brier_paired_coverage_gain": (
+            float(np.mean(dynamic_brier_paired_gains))
+            if dynamic_brier_paired_gains
+            else None
+        ),
+        "dynamic_brier_immediate_wins_ties_losses": (
+            [
+                sum(gain > 0.0 for gain in dynamic_brier_paired_gains),
+                sum(gain == 0.0 for gain in dynamic_brier_paired_gains),
+                sum(gain < 0.0 for gain in dynamic_brier_paired_gains),
+            ]
+            if dynamic_brier_paired_gains
+            else None
+        ),
         "states_with_immediate_eig_coverage_regret_at_least_0_20": sum(
             regret >= 0.20 for regret in immediate_eig_coverage_regrets
         ),
         "spearman_immediate_eig_vs_expected_truth_coverage": spearman,
         "spearman_support_retention_vs_expected_truth_coverage": retention_spearman,
         "spearman_surviving_map_mass_vs_expected_truth_coverage": map_mass_spearman,
+        "spearman_dynamic_brier_gain_vs_expected_truth_coverage": dynamic_brier_spearman,
     }
 
 
@@ -263,9 +317,12 @@ def render_report(payload: dict[str, Any]) -> str:
         f"- Median within-state coverage spread: `{summary['median_within_state_coverage_spread']}`",
         f"- Max within-state coverage spread: `{summary['max_within_state_coverage_spread']}`",
         f"- Mean immediate-EIG coverage regret: `{summary['mean_immediate_eig_coverage_regret']}`",
+        f"- Mean dynamic-Brier paired coverage gain: `{summary['mean_dynamic_brier_paired_coverage_gain']}`",
+        f"- Dynamic-Brier versus immediate-EIG W/T/L: `{summary['dynamic_brier_immediate_wins_ties_losses']}`",
         f"- Spearman(immediate EIG, expected truth coverage): `{summary['spearman_immediate_eig_vs_expected_truth_coverage']}`",
         f"- Spearman(support retention, expected truth coverage): `{summary['spearman_support_retention_vs_expected_truth_coverage']}`",
         f"- Spearman(surviving MAP mass, expected truth coverage): `{summary['spearman_surviving_map_mass_vs_expected_truth_coverage']}`",
+        f"- Spearman(dynamic Brier gain, expected truth coverage): `{summary['spearman_dynamic_brier_gain_vs_expected_truth_coverage']}`",
         "",
         "Per-state candidate/branch values are in `COVERAGE_PROBE.json`.",
         "",
