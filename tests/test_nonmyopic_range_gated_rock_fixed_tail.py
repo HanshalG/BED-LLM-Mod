@@ -102,6 +102,36 @@ def test_fixed_tail_prompt_exposes_geometry_but_no_scores_or_answer() -> None:
     assert "move-SOUTH\",\"check-5" not in prompt
 
 
+def test_successor_grounding_lists_transitions_without_utility_or_preference() -> None:
+    model = _model()
+    config = RangeGatedStrategyConfig()
+    provider = FixedRootTailProvider(
+        DeterministicFixedTailModel(),
+        config,
+        include_successor_grounding=True,
+    )
+    roots = fixed_roots(
+        model,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+    )
+    messages = provider._messages(
+        model,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+        roots=roots,
+    )
+    prompt = messages[-1]["content"]
+
+    assert "second_action_successors" in prompt
+    assert '"action":"move-SOUTH","position_after_action":[0,5]' in prompt
+    assert "expected_information_gain" not in prompt
+    assert '"score"' not in prompt
+    assert "preferred" not in prompt
+    assert "move-SOUTH\",\"check-5" not in prompt
+
+
 def test_deterministic_fixed_tail_smoke_covers_delayed_route() -> None:
     config = RangeGatedStrategyConfig(seed=24_177)
     provider = FixedRootTailProvider(DeterministicFixedTailModel(), config)

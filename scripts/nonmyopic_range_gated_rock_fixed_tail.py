@@ -105,9 +105,16 @@ def compile_fixed_tail_cell(
 
 
 class FixedRootTailProvider:
-    def __init__(self, chat_model: ChatModel, config: RangeGatedStrategyConfig) -> None:
+    def __init__(
+        self,
+        chat_model: ChatModel,
+        config: RangeGatedStrategyConfig,
+        *,
+        include_successor_grounding: bool = False,
+    ) -> None:
         self.chat_model = chat_model
         self.config = config
+        self.include_successor_grounding = include_successor_grounding
         self.physical_requests: list[dict[str, Any]] = []
         self.invalid_responses: list[dict[str, Any]] = []
         self._lock = threading.Lock()
@@ -124,14 +131,23 @@ class FixedRootTailProvider:
         slots = []
         for index, root in enumerate(roots):
             after_root = model.next_position(position, root)
-            slots.append(
-                {
-                    "key": f"r{index}",
-                    "fixed_root": root,
-                    "position_after_root": list(after_root),
-                    "legal_second_actions": list(model.legal_actions(after_root)),
-                }
-            )
+            slot: dict[str, Any] = {
+                "key": f"r{index}",
+                "fixed_root": root,
+                "position_after_root": list(after_root),
+                "legal_second_actions": list(model.legal_actions(after_root)),
+            }
+            if self.include_successor_grounding:
+                slot["second_action_successors"] = [
+                    {
+                        "action": action,
+                        "position_after_action": list(
+                            model.next_position(after_root, action)
+                        ),
+                    }
+                    for action in model.legal_actions(after_root)
+                ]
+            slots.append(slot)
         context = {
             "grid_coordinates": "x and y each range from 0 through 6",
             "current_position": list(position),
@@ -159,6 +175,7 @@ class FixedRootTailProvider:
                 for action, outcome in history
             ],
             "root_slots": slots,
+            "successor_grounding": self.include_successor_grounding,
         }
         schema = {f"r{index}": ["action2", "action3"] for index in range(4)}
         user = "\n".join(
@@ -352,6 +369,7 @@ def run_smoke(
         "schema_version": 1,
         "stage": "range_gated_rock_fixed_root_tail_serving_smoke",
         "config": asdict(config),
+        "successor_grounding": provider.include_successor_grounding,
         "mechanics": mechanics,
         "delayed_onsite_route_count": delayed_route_count,
         "provider": {
@@ -384,6 +402,7 @@ def main() -> None:
         "--run-id", default="range-gated-rock-fixed-tail-gpt54mini-smoke-20260723"
     )
     parser.add_argument("--seed", type=int, default=24_177)
+    parser.add_argument("--successor-grounding", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = RangeGatedStrategyConfig(seed=args.seed)
@@ -398,7 +417,11 @@ def main() -> None:
         chat_model = build_model_adapter(
             runtime_config.model_pairs[0].questioner, config=runtime_config
         )
-    provider = FixedRootTailProvider(chat_model, config)
+    provider = FixedRootTailProvider(
+        chat_model,
+        config,
+        include_successor_grounding=args.successor_grounding,
+    )
     try:
         result = run_smoke(provider, config)
     except StrategyProposalError as exc:
