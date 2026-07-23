@@ -18,6 +18,7 @@ from scripts.nonmyopic_heart_workup_proposal_gate import (  # noqa: E402
     run_proposal_gate,
 )
 from scripts.nonmyopic_heart_workup_strategy import (  # noqa: E402
+    HeartBranchStrategy,
     HeartStrategyConfig,
     IndexedHeartProvider,
     compile_indexed_cell,
@@ -74,18 +75,27 @@ def _choice_mechanics(result: dict[str, Any]) -> dict[str, Any]:
     for request in result["candidate_requests"]:
         phase = records[request["cell_index"]]["phase"]
         selected_roots[phase][records[request["cell_index"]]["llm_selected_root"]] += 1
-        roots = tuple(request["roots"])
-        menus = [
-            {outcome: tuple(choices) for outcome, choices in root_menus.items()}
-            for root_menus in request["menus"]
-        ]
-        strategies = compile_indexed_cell(
-            request["raw_response"], roots=roots, menus=menus
-        )
+        if "compiled_strategies" in request:
+            strategies = [
+                HeartBranchStrategy(
+                    root_action=item["root_action"],
+                    followups=item["followups"],
+                )
+                for item in request["compiled_strategies"]
+            ]
+        else:
+            roots = tuple(request["roots"])
+            menus = [
+                {outcome: tuple(choices) for outcome, choices in root_menus.items()}
+                for root_menus in request["menus"]
+            ]
+            strategies = compile_indexed_cell(
+                request["raw_response"], roots=roots, menus=menus
+            )
         if phase == "unworked":
             order_followup = strategies[0].followups["none"]
             unworked_order_followups[order_followup] += 1
-            first_choice = next(iter(menus[0].values()))[0]
+            first_choice = request["menus"][0]["none"][0]
             unworked_order_index_zero += int(order_followup == first_choice)
             for strategy in strategies[1:]:
                 unworked_other_followups.update(strategy.followups.values())
@@ -112,9 +122,23 @@ def _choice_mechanics(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def run_audit(result: dict[str, Any]) -> dict[str, Any]:
-    accepted = [request["raw_response"] for request in result["candidate_requests"]]
-    replay_model = ReplayChatModel(accepted)
-    strategy_config = HeartStrategyConfig(seed=int(result["config"]["seed"]))
+    responses: list[str] = []
+    invalid_by_cell: dict[int, list[dict[str, Any]]] = {}
+    for request in result["invalid_responses"]:
+        invalid_by_cell.setdefault(int(request["cell_index"]), []).append(request)
+    for accepted in result["candidate_requests"]:
+        invalid = sorted(
+            invalid_by_cell.get(int(accepted["cell_index"]), []),
+            key=lambda request: int(request["attempt"]),
+        )
+        responses.extend(request["raw_response"] for request in invalid)
+        if not accepted.get("projected"):
+            responses.append(accepted["raw_response"])
+    replay_model = ReplayChatModel(responses)
+    strategy_payload = result.get(
+        "strategy_config", {"seed": int(result["config"]["seed"])}
+    )
+    strategy_config = HeartStrategyConfig(**strategy_payload)
     provider = IndexedHeartProvider(replay_model, strategy_config)
     replay = run_proposal_gate(provider, HeartProposalGateConfig(**result["config"]))
     record_keys = {
@@ -152,22 +176,33 @@ def run_audit(result: dict[str, Any]) -> dict[str, Any]:
         )
     )
     mechanics = {
-        "all_accepted_responses_replayed": replay_model.offset == 32,
+        "all_physical_responses_replayed": replay_model.offset == len(responses),
         "registered_records_match_within_1e_12": records_match,
         "comparisons_match_within_1e_12": _close(
             replay["comparisons"], result["comparisons"]
         ),
         "endpoint_gate_exactly_matches": replay["endpoint_gate"] == result["endpoint_gate"],
+        "contribution_exactly_matches": _close(
+            replay["contribution"], result.get("contribution", replay["contribution"])
+        ),
+        "contribution_gate_exactly_matches": replay["contribution_gate"]
+        == result.get("contribution_gate", replay["contribution_gate"]),
         "core_mechanics_exactly_match": all(
             result["mechanics"].get(key) == value
             for key, value in replay["mechanics"].items()
         ),
         "runtime_mechanics_pass": runtime_mechanics,
-        "banked_gate_failed": result["gate"]["passed"] is False,
+        "registered_gate_matches_replay": result["gate"]["passed"]
+        == (
+            all(replay["mechanics"].values())
+            and all(replay["endpoint_gate"].values())
+            and all(replay["contribution_gate"].values())
+            and runtime_mechanics
+        ),
     }
     return {
         "schema_version": 1,
-        "stage": "cleveland_heart_workup_26b_proposal_gate_audit",
+        "stage": result["stage"] + "_audit",
         "passed": all(mechanics.values()),
         "mechanics": mechanics,
         "choice_mechanics": _choice_mechanics(result),

@@ -51,6 +51,8 @@ class HeartProposalGateConfig:
     bootstrap_replicates: int = 5_000
     workup_rate_threshold: float = 0.75
     recovery_threshold: float = 0.60
+    projected_cell_rate_ceiling: float = 0.05
+    projected_branch_rate_ceiling: float = 0.01
 
     def validate(self, *, catalog_size: int) -> None:
         if self.num_cells != 32 or self.num_unworked != 16:
@@ -63,6 +65,10 @@ class HeartProposalGateConfig:
             raise ValueError("workup rate threshold must be a probability")
         if not 0.0 <= self.recovery_threshold <= 1.0:
             raise ValueError("recovery threshold must be a fraction")
+        if self.projected_cell_rate_ceiling != 0.05:
+            raise ValueError("the frozen Heart gate permits at most 5% projected cells")
+        if self.projected_branch_rate_ceiling != 0.01:
+            raise ValueError("the frozen Heart gate permits at most 1% projected branches")
 
 
 @dataclass(frozen=True)
@@ -395,13 +401,44 @@ def run_proposal_gate(
         ]["mean"]
         >= config.recovery_threshold,
     }
+    projected_cells = len(provider.projected_responses)
+    projected_branches = sum(
+        len(request["projection_events"]) for request in provider.projected_responses
+    )
+    total_branches = sum(
+        sum(len(root_menus) for root_menus in request["menus"])
+        for request in provider.physical_requests
+    )
+    contribution = {
+        "projected_cells": projected_cells,
+        "total_cells": len(records),
+        "projected_cell_rate": projected_cells / len(records),
+        "projected_branches": projected_branches,
+        "total_branches": total_branches,
+        "projected_branch_rate": projected_branches / total_branches,
+    }
+    contribution_gate = {
+        "projected_cell_rate_at_most_ceiling": contribution["projected_cell_rate"]
+        <= config.projected_cell_rate_ceiling,
+        "projected_branch_rate_at_most_ceiling": contribution["projected_branch_rate"]
+        <= config.projected_branch_rate_ceiling,
+    }
+    stage = (
+        "cleveland_heart_workup_projected_utility_proposal_gate"
+        if provider.config.utility_summary_mode == "branch_local_expected_entropy"
+        and provider.config.project_invalid_after_retries
+        else "cleveland_heart_workup_26b_proposal_gate"
+    )
     return {
         "schema_version": 1,
-        "stage": "cleveland_heart_workup_26b_proposal_gate",
+        "stage": stage,
         "config": asdict(config),
+        "strategy_config": asdict(provider.config),
         "mechanics": mechanics,
         "comparisons": comparisons,
         "endpoint_gate": endpoint_gate,
+        "contribution": contribution,
+        "contribution_gate": contribution_gate,
         "records": records,
         "candidate_requests": provider.physical_requests,
         "invalid_responses": provider.invalid_responses,
@@ -435,6 +472,14 @@ def render_report(result: dict[str, Any]) -> str:
             "Workup-root selection on unworked opportunities: "
             f"{comparisons['unworked_workup_selection_rate']:.1%}.",
             "",
+            "Projected cells: "
+            f"{result['contribution']['projected_cells']}/"
+            f"{result['contribution']['total_cells']} "
+            f"({result['contribution']['projected_cell_rate']:.2%}); projected branches: "
+            f"{result['contribution']['projected_branches']}/"
+            f"{result['contribution']['total_branches']} "
+            f"({result['contribution']['projected_branch_rate']:.3%}).",
+            "",
             "The LLM proposed policies once per cell. All scoring, controls, and bootstrap "
             "calculations were exact and made zero LLM calls.",
         ]
@@ -456,10 +501,20 @@ def main() -> None:
     )
     parser.add_argument("--run-id", default="heart-workup-26b-proposal-gate-20260723")
     parser.add_argument("--seed", type=int, default=24_137)
+    parser.add_argument(
+        "--utility-summary-mode",
+        choices=("none", "branch_local_expected_entropy"),
+        default="none",
+    )
+    parser.add_argument("--project-invalid-after-retries", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = HeartProposalGateConfig(seed=args.seed)
-    strategy_config = HeartStrategyConfig(seed=args.seed)
+    strategy_config = HeartStrategyConfig(
+        seed=args.seed,
+        utility_summary_mode=args.utility_summary_mode,
+        project_invalid_after_retries=args.project_invalid_after_retries,
+    )
     strategy_config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     if args.dry_run:
@@ -478,7 +533,12 @@ def main() -> None:
     except (RuntimeError, StrategyProposalError) as exc:
         failure = {
             "schema_version": 1,
-            "stage": "cleveland_heart_workup_26b_proposal_gate",
+            "stage": (
+                "cleveland_heart_workup_projected_utility_proposal_gate"
+                if args.utility_summary_mode == "branch_local_expected_entropy"
+                and args.project_invalid_after_retries
+                else "cleveland_heart_workup_26b_proposal_gate"
+            ),
             "status": "failed_closed",
             "error": str(exc),
             "config": asdict(config),
@@ -505,6 +565,7 @@ def main() -> None:
     result["gate"] = {
         "passed": all(result["mechanics"].values())
         and all(result["endpoint_gate"].values())
+        and all(result["contribution_gate"].values())
     }
     (args.output_dir / "GATE.json").write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -515,6 +576,8 @@ def main() -> None:
             {
                 "gate": result["gate"],
                 "endpoint_gate": result["endpoint_gate"],
+                "contribution_gate": result["contribution_gate"],
+                "contribution": result["contribution"],
                 "provider": {
                     "accepted_requests": len(provider.physical_requests),
                     "invalid_responses": len(provider.invalid_responses),

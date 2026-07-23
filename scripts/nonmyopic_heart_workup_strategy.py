@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 import sys
 import threading
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 
@@ -64,6 +64,8 @@ class HeartStrategyConfig:
     temperature: float = 0.0
     validation_retries: int = 1
     max_new_tokens: int = 128
+    utility_summary_mode: Literal["none", "branch_local_expected_entropy"] = "none"
+    project_invalid_after_retries: bool = False
 
     def validate(self) -> None:
         if self.num_strategies != 4:
@@ -72,6 +74,8 @@ class HeartStrategyConfig:
             raise ValueError("the frozen Heart interface permits one validation retry")
         if self.max_new_tokens != 128:
             raise ValueError("the frozen Heart interface uses a 128-token output cap")
+        if self.utility_summary_mode not in ("none", "branch_local_expected_entropy"):
+            raise ValueError("unsupported Heart continuation utility summary mode")
 
 
 @dataclass(frozen=True)
@@ -157,6 +161,51 @@ def branch_menus(
     return menus
 
 
+def continuation_utility_cards(
+    model: HeartWorkupModel,
+    *,
+    belief: np.ndarray,
+    roots: tuple[str, ...],
+    menus: list[dict[str, tuple[str, ...]]],
+) -> list[dict[str, list[dict[str, float | int | str]]]]:
+    """Return leakage-free one-step utility summaries under each root outcome."""
+    cards: list[dict[str, list[dict[str, float | int | str]]]] = []
+    for root, root_menus in zip(roots, menus, strict=True):
+        root_cards: dict[str, list[dict[str, float | int | str]]] = {}
+        for outcome, choices in root_menus.items():
+            raw_outcome = None if outcome == "none" else outcome
+            posterior = model.posterior(belief, root, raw_outcome)
+            entropy = model.target_entropy(posterior)
+            root_cards[outcome] = [
+                {
+                    "index": index,
+                    "action": action,
+                    "expected_class_entropy": round(
+                        model.expected_target_entropy(posterior, action), 8
+                    ),
+                    "one_step_information_gain": round(
+                        entropy - model.expected_target_entropy(posterior, action), 8
+                    ),
+                }
+                for index, action in enumerate(choices)
+            ]
+        cards.append(root_cards)
+    return cards
+
+
+def _best_continuation_index(
+    model: HeartWorkupModel,
+    *,
+    posterior: np.ndarray,
+    choices: tuple[str, ...],
+) -> int:
+    scores = [model.expected_target_entropy(posterior, action) for action in choices]
+    best_score = min(scores)
+    return next(
+        index for index, score in enumerate(scores) if score <= best_score + EPSILON
+    )
+
+
 def compile_indexed_cell(
     response: str,
     *,
@@ -193,12 +242,78 @@ def compile_indexed_cell(
     return tuple(strategies)
 
 
+def project_indexed_cell(
+    response: str,
+    *,
+    model: HeartWorkupModel,
+    belief: np.ndarray,
+    roots: tuple[str, ...],
+    menus: list[dict[str, tuple[str, ...]]],
+) -> tuple[tuple[HeartBranchStrategy, ...], list[dict[str, Any]]]:
+    """Project only invalid indexed branches onto exact legal continuations."""
+    try:
+        payload = json.loads(_normalize_response(response))
+    except (StrategyProposalError, json.JSONDecodeError):
+        payload = {}
+    if not isinstance(payload, dict):
+        payload = {}
+    strategies: list[HeartBranchStrategy] = []
+    projections: list[dict[str, Any]] = []
+    for slot, (root, root_menus) in enumerate(zip(roots, menus, strict=True)):
+        encoded = payload.get(f"r{slot}", [])
+        if not isinstance(encoded, list):
+            encoded = []
+        followups: dict[str, str] = {}
+        for branch_index, (outcome, choices) in enumerate(root_menus.items()):
+            proposed = encoded[branch_index] if branch_index < len(encoded) else None
+            if (
+                not isinstance(proposed, bool)
+                and isinstance(proposed, int)
+                and 0 <= proposed < len(choices)
+            ):
+                followups[outcome] = choices[proposed]
+                continue
+            raw_outcome = None if outcome == "none" else outcome
+            posterior = model.posterior(belief, root, raw_outcome)
+            replacement_index = _best_continuation_index(
+                model, posterior=posterior, choices=choices
+            )
+            replacement = choices[replacement_index]
+            followups[outcome] = replacement
+            projections.append(
+                {
+                    "slot": slot,
+                    "root": root,
+                    "outcome": outcome,
+                    "branch_index": branch_index,
+                    "proposed": repr(proposed),
+                    "replacement_index": replacement_index,
+                    "replacement": replacement,
+                }
+            )
+        strategies.append(HeartBranchStrategy(root, followups))
+    return tuple(strategies), projections
+
+
+def _serialized_strategies(
+    strategies: tuple[HeartBranchStrategy, ...],
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "root_action": strategy.root_action,
+            "followups": dict(strategy.followups),
+        }
+        for strategy in strategies
+    ]
+
+
 class IndexedHeartProvider:
     def __init__(self, chat_model: ChatModel, config: HeartStrategyConfig) -> None:
         self.chat_model = chat_model
         self.config = config
         self.physical_requests: list[dict[str, Any]] = []
         self.invalid_responses: list[dict[str, Any]] = []
+        self.projected_responses: list[dict[str, Any]] = []
         self._lock = threading.Lock()
 
     def _messages(
@@ -212,6 +327,11 @@ class IndexedHeartProvider:
         menus: list[dict[str, tuple[str, ...]]],
     ) -> list[dict[str, str]]:
         slots: list[dict[str, Any]] = []
+        utility_cards = (
+            continuation_utility_cards(model, belief=belief, roots=roots, menus=menus)
+            if self.config.utility_summary_mode == "branch_local_expected_entropy"
+            else None
+        )
         for slot, (root, root_menus) in enumerate(zip(roots, menus, strict=True)):
             menu_variants = set(root_menus.values())
             if len(menu_variants) != 1:
@@ -233,6 +353,8 @@ class IndexedHeartProvider:
                     branch["outcome_label"] = _outcome_label(
                         model.action_feature(root), outcome
                     )
+                if utility_cards is not None:
+                    branch["continuation_utility"] = utility_cards[slot][outcome]
                 branches.append(branch)
             slots.append(
                 {
@@ -268,12 +390,21 @@ class IndexedHeartProvider:
             }
             for slot, slot_payload in enumerate(slots)
         }
+        instructions = [
+            "Choose one legal second action for every outcome branch of every fixed root.",
+            "The goal is to reduce uncertainty about heart-disease presence over two actions.",
+            "The exact verifier will score the complete branch policies and choose one root.",
+            "A clinical workup consumes a round and reveals nothing immediately, but unlocks stronger tests.",
+        ]
+        if self.config.utility_summary_mode == "branch_local_expected_entropy":
+            instructions.append(
+                "Each branch includes calibrated continuation_utility values from the empirical "
+                "prior. Prefer lower expected_class_entropy (equivalently higher "
+                "one_step_information_gain) within that branch."
+            )
         user = "\n".join(
             [
-                "Choose one legal second action for every outcome branch of every fixed root.",
-                "The goal is to reduce uncertainty about heart-disease presence over two actions.",
-                "The exact verifier will score the complete branch policies and choose one root.",
-                "A clinical workup consumes a round and reveals nothing immediately, but unlocks stronger tests.",
+                *instructions,
                 "Return JSON only: one integer menu index per listed branch, in listed order.",
                 "Menu indexes are LOCAL to each root. Never reuse an r0 index as an r1/r2/r3 index.",
                 "Schema: " + json.dumps(schema, separators=(",", ":")),
@@ -326,6 +457,11 @@ class IndexedHeartProvider:
                 for root_menus in menus
             ],
         }
+        if self.config.utility_summary_mode == "branch_local_expected_entropy":
+            context["utility_summary_mode"] = self.config.utility_summary_mode
+            context["continuation_utility_cards"] = continuation_utility_cards(
+                model, belief=belief, roots=roots, menus=menus
+            )
         error: Exception | None = None
         for attempt in range(self.config.validation_retries + 1):
             response = self.chat_model.chat_complete(
@@ -352,10 +488,36 @@ class IndexedHeartProvider:
                             ),
                         },
                     ]
+                    continue
+                if self.config.project_invalid_after_retries:
+                    strategies, projections = project_indexed_cell(
+                        response,
+                        model=model,
+                        belief=belief,
+                        roots=roots,
+                        menus=menus,
+                    )
+                    projected = {
+                        **context,
+                        "attempt": attempt,
+                        "raw_response": response,
+                        "projected": True,
+                        "projection_events": projections,
+                        "compiled_strategies": _serialized_strategies(strategies),
+                    }
+                    with self._lock:
+                        self.projected_responses.append(projected)
+                        self.physical_requests.append(projected)
+                    return HeartStrategyCell(strategies, response)
                 continue
             with self._lock:
                 self.physical_requests.append(
-                    {**context, "attempt": attempt, "raw_response": response}
+                    {
+                        **context,
+                        "attempt": attempt,
+                        "raw_response": response,
+                        "compiled_strategies": _serialized_strategies(strategies),
+                    }
                 )
             return HeartStrategyCell(strategies, response)
         raise StrategyProposalError(f"Heart cell failed after two attempts: {error}")
@@ -462,18 +624,29 @@ def run_smoke(provider: IndexedHeartProvider, config: HeartStrategyConfig) -> di
         )
     return {
         "schema_version": 1,
-        "stage": "cleveland_heart_workup_26b_serving_smoke",
+        "stage": (
+            "cleveland_heart_workup_projected_utility_serving_smoke"
+            if config.utility_summary_mode == "branch_local_expected_entropy"
+            and config.project_invalid_after_retries
+            else "cleveland_heart_workup_26b_serving_smoke"
+        ),
         "config": asdict(config),
         "mechanics": {
             "ten_cells_completed": len(records) == 10,
             "all_roots_and_followups_legal": all_legal,
             "workup_root_and_branch_followups_representable": workup_covered,
             "exactly_ten_logical_calls": len(provider.physical_requests) == 10,
+            "zero_projected_cells": len(provider.projected_responses) == 0,
             "rollout_scoring_made_no_llm_calls": True,
         },
         "provider": {
             "accepted_requests": len(provider.physical_requests),
             "invalid_responses": len(provider.invalid_responses),
+            "projected_cells": len(provider.projected_responses),
+            "projected_branches": sum(
+                len(request["projection_events"])
+                for request in provider.projected_responses
+            ),
             "physical_requests": len(provider.physical_requests) + len(provider.invalid_responses),
         },
         "records": records,
@@ -496,9 +669,19 @@ def main() -> None:
     )
     parser.add_argument("--run-id", default="heart-workup-26b-smoke-20260723")
     parser.add_argument("--seed", type=int, default=24_136)
+    parser.add_argument(
+        "--utility-summary-mode",
+        choices=("none", "branch_local_expected_entropy"),
+        default="none",
+    )
+    parser.add_argument("--project-invalid-after-retries", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    config = HeartStrategyConfig(seed=args.seed)
+    config = HeartStrategyConfig(
+        seed=args.seed,
+        utility_summary_mode=args.utility_summary_mode,
+        project_invalid_after_retries=args.project_invalid_after_retries,
+    )
     config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     if args.dry_run:
@@ -517,7 +700,12 @@ def main() -> None:
     except StrategyProposalError as exc:
         failure = {
             "schema_version": 1,
-            "stage": "cleveland_heart_workup_26b_serving_smoke",
+            "stage": (
+                "cleveland_heart_workup_projected_utility_serving_smoke"
+                if config.utility_summary_mode == "branch_local_expected_entropy"
+                and config.project_invalid_after_retries
+                else "cleveland_heart_workup_26b_serving_smoke"
+            ),
             "status": "failed_closed",
             "error": str(exc),
             "config": asdict(config),
