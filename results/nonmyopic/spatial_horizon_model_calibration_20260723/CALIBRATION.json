@@ -1,0 +1,162 @@
+{
+  "models": [
+    {
+      "endpoint_free": true,
+      "model": "google/gemma-4-31b-it",
+      "model_key": "gemma31b",
+      "passed": false,
+      "records": [
+        {
+          "case": "east",
+          "exact": false,
+          "expected": [
+            "move-EAST",
+            "move-EAST",
+            "inspect-A"
+          ],
+          "parsed": null,
+          "raw_response": "```json\n{\"tail\":[\"move-EAST\",\"move-EAST\",\"inspect-A\"]}\n```"
+        },
+        {
+          "case": "south",
+          "exact": false,
+          "expected": [
+            "move-SOUTH",
+            "move-SOUTH",
+            "inspect-B"
+          ],
+          "parsed": null,
+          "raw_response": "```json\n{\"tail\":[\"move-SOUTH\",\"move-SOUTH\",\"inspect-B\"]}\n```"
+        },
+        {
+          "case": "west",
+          "exact": false,
+          "expected": [
+            "move-WEST",
+            "move-WEST",
+            "inspect-C"
+          ],
+          "parsed": null,
+          "raw_response": "```json\n{\"tail\":[\"move-WEST\",\"move-WEST\",\"inspect-C\"]}\n```"
+        }
+      ],
+      "usage": {
+        "adapter_completion_tokens": 1517,
+        "adapter_cost_usd": 0.00064646,
+        "adapter_prompt_tokens": 706,
+        "adapter_reasoning_tokens": 1133,
+        "adapter_requests": 3,
+        "backend": "openrouter",
+        "budget_usd": 110.0,
+        "completion_tokens": 1517,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-31b-it",
+        "model_usage": {
+          "google/gemma-4-31b-it": {
+            "completion_tokens": 1517,
+            "cost_usd": 0.00064646,
+            "prompt_tokens": 706,
+            "reasoning_tokens": 1133,
+            "requests": 3
+          }
+        },
+        "prompt_tokens": 706,
+        "reasoning_tokens": 1133,
+        "remaining_usd": 71.37180760754012,
+        "requests": 3,
+        "run_budget_usd": 1.0,
+        "run_cost_usd": 0.00064646,
+        "run_remaining_usd": 0.99935354,
+        "total_spent_usd": 38.62819239245988
+      }
+    },
+    {
+      "endpoint_free": true,
+      "model": "qwen/qwen3-32b",
+      "model_key": "qwen32b",
+      "passed": true,
+      "records": [
+        {
+          "case": "east",
+          "exact": true,
+          "expected": [
+            "move-EAST",
+            "move-EAST",
+            "inspect-A"
+          ],
+          "parsed": [
+            "move-EAST",
+            "move-EAST",
+            "inspect-A"
+          ],
+          "raw_response": "{\"tail\":[\"move-EAST\",\"move-EAST\",\"inspect-A\"]}"
+        },
+        {
+          "case": "south",
+          "exact": true,
+          "expected": [
+            "move-SOUTH",
+            "move-SOUTH",
+            "inspect-B"
+          ],
+          "parsed": [
+            "move-SOUTH",
+            "move-SOUTH",
+            "inspect-B"
+          ],
+          "raw_response": "{\"tail\":[\"move-SOUTH\",\"move-SOUTH\",\"inspect-B\"]}"
+        },
+        {
+          "case": "west",
+          "exact": true,
+          "expected": [
+            "move-WEST",
+            "move-WEST",
+            "inspect-C"
+          ],
+          "parsed": [
+            "move-WEST",
+            "move-WEST",
+            "inspect-C"
+          ],
+          "raw_response": "{\"tail\":[\"move-WEST\",\"move-WEST\",\"inspect-C\"]}"
+        }
+      ],
+      "usage": {
+        "adapter_completion_tokens": 920,
+        "adapter_cost_usd": 0.00030824,
+        "adapter_prompt_tokens": 633,
+        "adapter_reasoning_tokens": 800,
+        "adapter_requests": 3,
+        "backend": "openrouter",
+        "budget_usd": 110.0,
+        "completion_tokens": 920,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "qwen/qwen3-32b",
+        "model_usage": {
+          "qwen/qwen3-32b": {
+            "completion_tokens": 920,
+            "cost_usd": 0.00030824,
+            "prompt_tokens": 633,
+            "reasoning_tokens": 800,
+            "requests": 3
+          }
+        },
+        "prompt_tokens": 633,
+        "reasoning_tokens": 800,
+        "remaining_usd": 71.37245406754013,
+        "requests": 3,
+        "run_budget_usd": 1.0,
+        "run_cost_usd": 0.00030824,
+        "run_remaining_usd": 0.99969176,
+        "total_spent_usd": 38.627545932459874
+      }
+    }
+  ],
+  "schema_version": 1,
+  "stage": "endpoint_free_spatial_horizon_model_selection"
+}

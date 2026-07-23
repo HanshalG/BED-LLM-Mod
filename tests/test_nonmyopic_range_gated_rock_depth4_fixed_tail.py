@@ -105,11 +105,12 @@ def test_deterministic_depth4_smoke_recovers_critical_route() -> None:
         DeterministicDepth4TailModel(), config
     )
 
-    result = run_smoke(provider, config)
+    result = run_smoke(provider, config, cell_concurrency=4)
 
     assert all(result["mechanics"].values())
     assert result["critical_route_count"] == 10
     assert result["exact_root_match_count"] == 10
+    assert result["cell_concurrency"] == 4
 
 
 class _ScriptedModel:

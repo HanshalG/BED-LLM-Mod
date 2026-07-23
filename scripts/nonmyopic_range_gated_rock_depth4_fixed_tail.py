@@ -685,23 +685,44 @@ def _score_cell(
 def run_smoke(
     provider: Depth4FixedRootTailProvider,
     strategy_config: RangeGatedDepth4StrategyConfig,
+    *,
+    cell_concurrency: int = 1,
 ) -> dict[str, Any]:
+    if cell_concurrency <= 0:
+        raise ValueError("cell concurrency must be positive")
     model = build_depth4_model()
     position = model.map_spec.start_position
     exhaustive_plans = enumerate_legal_plans(
         model, position=position, horizon=4
     )
-    records: list[dict[str, Any]] = []
-    for cell_index, (belief, history) in enumerate(
-        build_belief_cells(model, count=10, seed=strategy_config.seed)
-    ):
-        cell = provider.propose(
+    cells = build_belief_cells(model, count=10, seed=strategy_config.seed)
+
+    def propose_cell(
+        item: tuple[int, tuple[np.ndarray, History]],
+    ) -> RangeGatedPlanCell:
+        cell_index, (belief, history) = item
+        return provider.propose(
             model,
             cell_index=cell_index,
             position=position,
             belief=belief,
             history=history,
         )
+
+    indexed_cells = list(enumerate(cells))
+    if cell_concurrency == 1:
+        proposals = [propose_cell(item) for item in indexed_cells]
+    else:
+        with ThreadPoolExecutor(max_workers=cell_concurrency) as executor:
+            proposals = list(executor.map(propose_cell, indexed_cells))
+    requests_by_cell = {
+        int(request["cell_index"]): request
+        for request in provider.physical_requests
+    }
+    records: list[dict[str, Any]] = []
+    for (cell_index, (belief, history)), cell in zip(
+        indexed_cells, proposals, strict=True
+    ):
         selected, _value, _values = stable_best_plan(
             model, position=position, belief=belief, plans=cell.plans
         )
@@ -718,7 +739,7 @@ def run_smoke(
             "selected_root_matches_exact": selected[0] == exact[0],
         }
         if isinstance(provider, ProjectedDepth4FixedRootTailProvider):
-            request = provider.physical_requests[-1]
+            request = requests_by_cell[cell_index]
             selected_index = cell.plans.index(selected)
             record.update(
                 {
@@ -773,6 +794,7 @@ def run_smoke(
     return {
         "schema_version": 1,
         "stage": "range_gated_rock_depth4_fixed_tail_serving_smoke",
+        "cell_concurrency": cell_concurrency,
         "config": asdict(strategy_config),
         "mechanics": mechanics,
         "critical_route_count": route_count,
@@ -1061,7 +1083,11 @@ def main() -> None:
     provider = provider_class(chat_model, strategy_config)
     try:
         if args.stage == "smoke":
-            result = run_smoke(provider, strategy_config)
+            result = run_smoke(
+                provider,
+                strategy_config,
+                cell_concurrency=args.cell_concurrency,
+            )
         else:
             result = run_proposal_gate(
                 provider,
