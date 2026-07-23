@@ -1,0 +1,94 @@
+{
+  "choice_mechanics": {
+    "collected_spore_print_rate": 0.10434782608695652,
+    "collection_root_followups": {
+      "bruises": 2,
+      "odor": 11,
+      "ring-type": 2,
+      "spore-print-color": 1
+    },
+    "feature_counts_by_phase": {
+      "collected": {
+        "bruises": 12,
+        "cap-color": 19,
+        "cap-shape": 62,
+        "cap-surface": 16,
+        "gill-attachment": 1,
+        "gill-color": 11,
+        "gill-size": 11,
+        "habitat": 9,
+        "odor": 96,
+        "population": 5,
+        "ring-number": 5,
+        "ring-type": 7,
+        "spore-print-color": 36,
+        "stalk-color-below-ring": 3,
+        "stalk-root": 28,
+        "stalk-surface-above-ring": 12,
+        "stalk-surface-below-ring": 2,
+        "veil-color": 1,
+        "veil-type": 9
+      },
+      "uncollected": {
+        "bruises": 2,
+        "cap-color": 33,
+        "cap-shape": 33,
+        "cap-surface": 72,
+        "habitat": 66,
+        "odor": 11,
+        "population": 36,
+        "ring-type": 2,
+        "spore-print-color": 1
+      }
+    },
+    "index_counts_by_phase": {
+      "collected": {
+        "0": 67,
+        "1": 12,
+        "10": 4,
+        "12": 1,
+        "13": 11,
+        "14": 4,
+        "15": 12,
+        "16": 12,
+        "17": 20,
+        "18": 8,
+        "19": 7,
+        "2": 26,
+        "3": 43,
+        "4": 58,
+        "6": 13,
+        "7": 3,
+        "8": 10,
+        "9": 34
+      },
+      "uncollected": {
+        "0": 106,
+        "1": 85,
+        "15": 2,
+        "16": 1,
+        "2": 50,
+        "3": 12
+      }
+    },
+    "uncollected_index_zero_rate": 0.4140625
+  },
+  "mechanics": {
+    "all_physical_responses_replayed": true,
+    "comparisons_match_within_1e_12": true,
+    "contribution_exactly_matches": true,
+    "contribution_gate_exactly_matches": true,
+    "core_mechanics_exactly_match": true,
+    "endpoint_gate_exactly_matches": true,
+    "registered_gate_matches_replay": true,
+    "registered_record_endpoints_match_within_1e_12": true,
+    "runtime_mechanics_pass": true
+  },
+  "passed": true,
+  "replay_diagnostics": {
+    "platform_tied_candidate_root_cells": [],
+    "platform_tied_candidate_root_count": 0
+  },
+  "schema_version": 1,
+  "stage": "mushroom_feature_acquisition_projected_utility_proposal_gate_audit"
+}
