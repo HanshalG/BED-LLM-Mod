@@ -403,6 +403,12 @@ def main() -> None:
     )
     parser.add_argument("--seed", type=int, default=24_177)
     parser.add_argument("--successor-grounding", action="store_true")
+    parser.add_argument(
+        "--model-generation-tokens",
+        type=int,
+        default=None,
+        help="Override the backend first-pass generation budget.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = RangeGatedStrategyConfig(seed=args.seed)
@@ -413,7 +419,9 @@ def main() -> None:
     else:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
-        runtime_config.location_max_new_tokens = config.max_new_tokens
+        runtime_config.location_max_new_tokens = (
+            args.model_generation_tokens or config.max_new_tokens
+        )
         chat_model = build_model_adapter(
             runtime_config.model_pairs[0].questioner, config=runtime_config
         )

@@ -1,0 +1,27 @@
+version: 0
+task: animals
+model_pairs:
+  - questioner:
+      model: "google/gemma-4-26B-A4B-it"
+      thinking: true
+      thinking_max_new_tokens: 4096
+      thinking_final_max_new_tokens: 512
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+    answerer:
+      model: "google/gemma-4-26B-A4B-it"
+      thinking: false
+      cuda_visible_devices: "0"
+      tensor_parallel_size: 1
+      gpu_memory_utilization: 0.88
+      max_model_len: 32768
+method_names:
+  - "StrategyEIG"
+generation_temperature_diverse: 0.0
+generation_temperature_simple: 0.0
+answer_temperature: 0.0
+location_max_new_tokens: 4096
+probability_parse_fallback_to_uniform: false
+batched_block_size: 4
