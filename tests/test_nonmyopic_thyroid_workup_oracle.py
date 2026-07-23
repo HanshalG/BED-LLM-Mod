@@ -15,6 +15,7 @@ from scripts.nonmyopic_thyroid_workup_oracle import (
 )
 from scripts.audit_nonmyopic_thyroid_workup_oracle import audit
 from scripts.audit_nonmyopic_thyroid_workup_proposal_gate import audit as audit_proposal_gate
+from scripts.audit_nonmyopic_thyroid_workup_confirmation import audit as audit_confirmation
 from scripts.nonmyopic_thyroid_workup_proposal_gate import (
     ThyroidProposalGateConfig,
     build_proposal_cells,
@@ -154,3 +155,17 @@ def test_late_state_smoke_covers_shrinking_menus() -> None:
 
     assert {len(history) for _, _, _, history in cells} == set(range(7))
     assert all(result["mechanics"].values())
+
+
+def test_banked_gpt_confirmation_failure_replays_independently() -> None:
+    root = Path(__file__).resolve().parents[1]
+    payload = json.loads(
+        (
+            root
+            / "results/nonmyopic/thyroid_workup_gpt54mini_confirmation_20260723/CONFIRMATION.json"
+        ).read_text(encoding="utf-8")
+    )
+    audited = audit_confirmation(payload)
+
+    assert audited["audit_valid"]
+    assert not audited["registered_scientific_gate_recomputed"]
