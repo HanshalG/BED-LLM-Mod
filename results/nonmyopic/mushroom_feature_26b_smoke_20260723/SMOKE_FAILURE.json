@@ -1,0 +1,349 @@
+{
+  "candidate_requests": [],
+  "config": {
+    "num_strategies": 4,
+    "seed": 24127,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "error": "Mushroom cell failed after two attempts: response has an incomplete JSON fence",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "error": "response has an incomplete JSON fence",
+      "history": [],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "a": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "v": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ]
+        },
+        {
+          "d": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "l": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "m": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "x": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"choices\":[[0],[0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0",
+      "roots": [
+        "collect:specimen",
+        "query:population",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false
+    },
+    {
+      "attempt": 1,
+      "cell_index": 0,
+      "error": "response has an incomplete JSON fence",
+      "history": [],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "a": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "v": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ]
+        },
+        {
+          "d": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "l": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "m": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "x": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "```json\n{\"choices\":[[0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0",
+      "roots": [
+        "collect:specimen",
+        "query:population",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false
+    }
+  ],
+  "schema_version": 1,
+  "stage": "mushroom_feature_acquisition_26b_serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 4096,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26B-A4B-it",
+    "model_usage": {
+      "google/gemma-4-26B-A4B-it": {
+        "completion_tokens": 4096,
+        "cost_usd": 0.0,
+        "prompt_tokens": 7979,
+        "reasoning_tokens": 0,
+        "requests": 2
+      }
+    },
+    "prompt_tokens": 7979,
+    "reasoning_tokens": 0,
+    "requests": 2,
+    "run_cost_usd": 0.0
+  }
+}

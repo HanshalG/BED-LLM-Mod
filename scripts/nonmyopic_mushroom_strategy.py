@@ -32,6 +32,8 @@ from scripts.nonmyopic_gated_sensor_strategy_prior import (  # noqa: E402
     _usage_snapshot,
 )
 
+CHOICE_CODES = "0123456789ABCDEFGHIJKLMNOPQRSTUV"
+
 
 @dataclass(frozen=True)
 class MushroomStrategyConfig:
@@ -39,12 +41,15 @@ class MushroomStrategyConfig:
     seed: int = 24_127
     temperature: float = 0.0
     validation_retries: int = 1
+    max_new_tokens: int = 128
 
     def validate(self) -> None:
         if self.num_strategies != 4:
             raise ValueError("the frozen Mushroom interface uses exactly four roots")
         if self.validation_retries != 1:
             raise ValueError("the frozen Mushroom interface permits one validation retry")
+        if self.max_new_tokens != 128:
+            raise ValueError("the repaired Mushroom smoke uses a 128-token output cap")
 
 
 @dataclass(frozen=True)
@@ -140,24 +145,25 @@ def compile_indexed_cell(
         raise StrategyProposalError("indexed Mushroom response is not valid JSON") from exc
     if not isinstance(payload, dict) or set(payload) != {"choices"}:
         raise StrategyProposalError("indexed Mushroom response must contain exactly choices")
-    rows = payload["choices"]
-    if not isinstance(rows, list) or len(rows) != len(roots):
-        raise StrategyProposalError(f"expected exactly {len(roots)} indexed rows")
+    encoded = payload["choices"]
+    expected_length = sum(len(root_menus) for root_menus in menus)
+    if not isinstance(encoded, str) or len(encoded) != expected_length:
+        raise StrategyProposalError(
+            f"choices must be one code string of exactly {expected_length} characters"
+        )
     strategies: list[MushroomBranchStrategy] = []
-    for slot, (row, root, root_menus) in enumerate(zip(rows, roots, menus, strict=True)):
-        if not isinstance(row, list) or len(row) != len(root_menus):
-            raise StrategyProposalError(
-                f"slot {slot} must contain exactly {len(root_menus)} integer choices"
-            )
+    offset = 0
+    for slot, (root, root_menus) in enumerate(zip(roots, menus, strict=True)):
         followups: dict[str, str] = {}
-        for branch_index, (outcome, choices) in enumerate(root_menus.items()):
-            index = row[branch_index]
-            if isinstance(index, bool) or not isinstance(index, int):
-                raise StrategyProposalError(f"slot {slot} choices must be integers")
-            if not 0 <= index < len(choices):
+        for outcome, choices in root_menus.items():
+            code = encoded[offset]
+            offset += 1
+            if code not in CHOICE_CODES[: len(choices)]:
                 raise StrategyProposalError(
-                    f"slot {slot} index for {outcome} must be in [0, {len(choices) - 1}]"
+                    f"slot {slot} code for {outcome} must be one of "
+                    f"{CHOICE_CODES[: len(choices)]!r}"
                 )
+            index = CHOICE_CODES.index(code)
             followups[outcome] = choices[index]
         strategies.append(MushroomBranchStrategy(root, followups))
     return tuple(strategies)
@@ -194,7 +200,7 @@ class IndexedMushroomProvider:
                     "p_poisonous": round(model.class_probability(posterior, "p"), 10),
                     "menu": [
                         {
-                            "index": index,
+                            "code": CHOICE_CODES[index],
                             "feature": model.action_feature(action),
                             "description": FEATURE_DESCRIPTIONS[model.action_feature(action)],
                         }
@@ -217,7 +223,8 @@ class IndexedMushroomProvider:
                     "branches": branches,
                 }
             )
-        schema = {"choices": [[0 for _branch in slot["branches"]] for slot in slots]}
+        choice_count = sum(len(slot["branches"]) for slot in slots)
+        schema = {"choices": "0" * choice_count}
         history_payload = []
         for action, outcome in history:
             item: dict[str, Any] = {"action": action, "outcome": outcome}
@@ -229,7 +236,8 @@ class IndexedMushroomProvider:
             [
                 "Choose one legal follow-up feature for every outcome branch of every fixed root.",
                 "The goal is to distinguish edible from poisonous mushrooms quickly over the remaining rounds.",
-                "Return JSON only. Use exactly one integer menu index per listed branch, in branch order.",
+                "Return JSON only. Concatenate exactly one menu code per listed branch, in root and branch order.",
+                f"The choices string must contain exactly {choice_count} characters and no spaces.",
                 "Schema: " + json.dumps(schema, separators=(",", ":")),
                 "Never emit feature names, explanations, scores, or extra fields.",
                 "Current specimen collected: " + str(state.specimen_collected).lower(),
@@ -316,7 +324,8 @@ class DeterministicIndexedMushroomModel:
         if num_responses != 1:
             raise ValueError("deterministic Mushroom model supports one response")
         slots = json.loads(messages[-1]["content"].split("ROOT_SLOTS=", 1)[1])
-        return [json.dumps({"choices": [[0 for _branch in slot["branches"]] for slot in slots]})]
+        count = sum(len(slot["branches"]) for slot in slots)
+        return [json.dumps({"choices": "0" * count})]
 
 
 def _best_query(
@@ -443,6 +452,7 @@ def main() -> None:
     else:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
+        runtime_config.location_max_new_tokens = config.max_new_tokens
         chat_model = build_model_adapter(runtime_config.model_pairs[0].questioner, config=runtime_config)
     provider = IndexedMushroomProvider(chat_model, config)
     try:

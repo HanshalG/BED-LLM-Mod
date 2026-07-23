@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from environments.mushroom_feature_acquisition import COLLECT_ACTION, MushroomFeatureModel
 from scripts.nonmyopic_mushroom_strategy import (
     DeterministicIndexedMushroomModel,
@@ -11,6 +13,7 @@ from scripts.nonmyopic_mushroom_strategy import (
     compile_indexed_cell,
     run_smoke,
 )
+from scripts.nonmyopic_gated_sensor_strategy_prior import StrategyProposalError
 
 
 def test_fixed_roots_cover_collection_and_three_strong_field_queries() -> None:
@@ -41,9 +44,7 @@ def test_indexed_compiler_maps_every_dynamic_branch_to_a_legal_query() -> None:
         belief=model.initial_belief,
         roots=roots,
     )
-    response = json.dumps(
-        {"choices": [[0 for _branch in root_menus] for root_menus in menus]}
-    )
+    response = json.dumps({"choices": "0" * sum(len(root_menus) for root_menus in menus)})
     strategies = compile_indexed_cell(response, roots=roots, menus=menus)
 
     assert len(strategies) == 4
@@ -53,9 +54,35 @@ def test_indexed_compiler_maps_every_dynamic_branch_to_a_legal_query() -> None:
         for followup in strategy.followups.values()
     )
     assert all(
-        model.action_feature(followup) not in {"cap-shape", "cap-surface", "cap-color", "population", "habitat"}
+        model.action_feature(followup)
+        not in {"cap-shape", "cap-surface", "cap-color", "population", "habitat"}
         for followup in strategies[0].followups.values()
     )
+
+
+def test_indexed_compiler_rejects_nested_or_wrong_length_choices() -> None:
+    model = MushroomFeatureModel()
+    roots = _fixed_roots(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        count=4,
+    )
+    menus = _branch_menus(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        roots=roots,
+    )
+
+    with pytest.raises(StrategyProposalError, match="one code string"):
+        compile_indexed_cell(
+            json.dumps({"choices": [[0] for _root in roots]}),
+            roots=roots,
+            menus=menus,
+        )
+    with pytest.raises(StrategyProposalError, match="exactly"):
+        compile_indexed_cell(json.dumps({"choices": "0"}), roots=roots, menus=menus)
 
 
 def test_prompt_exposes_branch_class_probabilities_without_scores_or_truth() -> None:
@@ -78,6 +105,8 @@ def test_prompt_exposes_branch_class_probabilities_without_scores_or_truth() -> 
     assert "p_edible" in prompt
     assert "p_poisonous" in prompt
     assert "outcome_label" in prompt
+    assert '"choices":"' in prompt
+    assert '"code":"0"' in prompt
     assert "planning_score" not in prompt
     assert '"eig"' not in prompt.lower()
     assert "truth_index" not in prompt
