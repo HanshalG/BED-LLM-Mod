@@ -1,0 +1,40 @@
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.0014155, "cumulative_cost_usd": 40.293031682459834, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1483, "reasoning_enabled": true, "reasoning_tokens": 2682, "temperature": 0.0, "total_tokens": 5707}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 27, "cost_usd": 0.00010035, "cumulative_cost_usd": 40.29313203245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1524, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1551}
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.0014117, "cumulative_cost_usd": 40.29454373245983, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1445, "reasoning_enabled": true, "reasoning_tokens": 2805, "temperature": 0.0, "total_tokens": 5669}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 22, "cost_usd": 0.00020198, "cumulative_cost_usd": 40.29474571245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1486, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1508}
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.00186432, "cumulative_cost_usd": 40.29661003245983, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1456, "reasoning_enabled": true, "reasoning_tokens": 2521, "temperature": 0.0, "total_tokens": 5680}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 27, "cost_usd": 0.00019032, "cumulative_cost_usd": 40.29680035245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1496, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1523}
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.00186768, "cumulative_cost_usd": 40.29866803245983, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1484, "reasoning_enabled": true, "reasoning_tokens": 2710, "temperature": 0.0, "total_tokens": 5708}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.00186768, "cumulative_cost_usd": 40.300535712459826, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1484, "reasoning_enabled": true, "reasoning_tokens": 2588, "temperature": 0.0, "total_tokens": 5708}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 27, "cost_usd": 0.00019368, "cumulative_cost_usd": 40.30072939245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1524, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1551}
+{"backend": "openrouter", "completion_tokens": 27, "cost_usd": 0.0001604, "cumulative_cost_usd": 40.30088979245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1523, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1550}
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.00188252, "cumulative_cost_usd": 40.30277231245983, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1484, "reasoning_enabled": true, "reasoning_tokens": 2482, "temperature": 0.0, "total_tokens": 5708}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.0018646, "cumulative_cost_usd": 40.30463691245983, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1484, "reasoning_enabled": true, "reasoning_tokens": 2647, "temperature": 0.0, "total_tokens": 5708}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 22, "cost_usd": 0.00020627, "cumulative_cost_usd": 40.30484318245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1519, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1541}
+{"backend": "openrouter", "completion_tokens": 27, "cost_usd": 0.00019233, "cumulative_cost_usd": 40.305035512459824, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1524, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1551}
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.00165648, "cumulative_cost_usd": 40.306691992459825, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1484, "reasoning_enabled": true, "reasoning_tokens": 2741, "temperature": 0.0, "total_tokens": 5708}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 22, "cost_usd": 0.00019156, "cumulative_cost_usd": 40.30688355245982, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1524, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1546}
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.00165264, "cumulative_cost_usd": 40.308536192459826, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1452, "reasoning_enabled": true, "reasoning_tokens": 2529, "temperature": 0.0, "total_tokens": 5676}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 27, "cost_usd": 0.00020476, "cumulative_cost_usd": 40.30874095245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1492, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1519}
+{"backend": "openrouter", "completion_tokens": 4224, "cost_usd": 0.00165648, "cumulative_cost_usd": 40.31039743245983, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1484, "reasoning_enabled": true, "reasoning_tokens": 2748, "temperature": 0.0, "total_tokens": 5708}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 27, "cost_usd": 0.00019356, "cumulative_cost_usd": 40.31059099245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 1524, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 1551}

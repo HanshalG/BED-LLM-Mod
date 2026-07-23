@@ -1,0 +1,1281 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-1"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-7"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 7,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-4",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-4",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-4"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-1",
+          "bad"
+        ],
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":4,\"r1\":7,\"r2\":6,\"r3\":3}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-3"
+      ],
+      "target_assignments": [
+        4,
+        7,
+        6,
+        3
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-1"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-5",
+          "bad"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-2"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 9,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 8,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "compiler_rule": "three canonical shortest-path transit slots then target check",
+      "history": [
+        [
+          "check-4",
+          "bad"
+        ],
+        [
+          "check-7",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\"r0\":6,\"r1\":7,\"r2\":4,\"r3\":1}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-6",
+        "check-0"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    }
+  ],
+  "cell_concurrency": 10,
+  "config": {
+    "horizon": 5,
+    "max_new_tokens": 128,
+    "num_plans": 4,
+    "seed": 24239,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "critical_route_count": 9,
+  "critical_target_count": 9,
+  "dry_run": false,
+  "exact_plan_match_count": 9,
+  "gate": {
+    "passed": true
+  },
+  "invalid_responses": [],
+  "mechanics": {
+    "all_cells_have_four_distinct_targets": true,
+    "all_compiled_plans_are_legal_h5": true,
+    "all_exact_h5_roots_are_north": true,
+    "critical_route_present_in_at_least_eight_cells": true,
+    "critical_target_assigned_to_north_root_in_at_least_eight_cells": true,
+    "exact_h5_route_selected_in_at_least_eight_cells": true,
+    "exactly_ten_accepted_calls": true,
+    "scoring_made_no_llm_calls": true,
+    "ten_distinct_cells_completed": true,
+    "usage_accounted": true
+  },
+  "records": [
+    {
+      "cell_index": 0,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 1,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-7",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-7",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 2,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 3,
+      "critical_goal_assigned_to_north_root": false,
+      "critical_route_present": false,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-1",
+          "bad"
+        ],
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-3",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-3"
+        ]
+      ],
+      "selected_is_critical_route": false,
+      "selected_plan": [
+        "move-NORTH",
+        "move-NORTH",
+        "move-NORTH",
+        "check-4",
+        "check-4"
+      ],
+      "target_assignments": [
+        4,
+        7,
+        6,
+        3
+      ]
+    },
+    {
+      "cell_index": 4,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-3",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 5,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-5",
+          "bad"
+        ],
+        [
+          "check-2",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-2",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 6,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 7,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-4",
+          "good"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-4",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 8,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-4",
+          "bad"
+        ],
+        [
+          "check-7",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    },
+    {
+      "cell_index": 9,
+      "critical_goal_assigned_to_north_root": true,
+      "critical_route_present": true,
+      "exact_root": "move-NORTH",
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-6",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-1"
+        ]
+      ],
+      "selected_is_critical_route": true,
+      "selected_plan": [
+        "move-NORTH",
+        "move-WEST",
+        "move-WEST",
+        "move-WEST",
+        "check-6"
+      ],
+      "target_assignments": [
+        6,
+        7,
+        4,
+        1
+      ]
+    }
+  ],
+  "run_id": "range-gated-rock-h5-goal-s0-24239",
+  "schema_version": 1,
+  "stage": "range_gated_rock_depth5_goal_compiler_smoke",
+  "usage": {
+    "adapter_completion_tokens": 42495,
+    "adapter_cost_usd": 0.018974809999999998,
+    "adapter_prompt_tokens": 29876,
+    "adapter_reasoning_tokens": 26453,
+    "adapter_requests": 20,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 42495,
+    "forced_exits": 10,
+    "forced_final_requests": 10,
+    "forced_final_successes": 10,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 42495,
+        "cost_usd": 0.018974809999999998,
+        "prompt_tokens": 29876,
+        "reasoning_tokens": 26453,
+        "requests": 20
+      }
+    },
+    "prompt_tokens": 29876,
+    "reasoning_tokens": 26453,
+    "remaining_usd": 69.68940900754018,
+    "requests": 20,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.018974809999999998,
+    "run_remaining_usd": 0.23102519,
+    "total_spent_usd": 40.31059099245983
+  }
+}
