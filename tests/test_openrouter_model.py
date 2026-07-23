@@ -254,6 +254,102 @@ def test_openrouter_reasoning_only_length_response_gets_bounded_finalization(
     assert snapshot["adapter_requests"] == 2
 
 
+def test_openrouter_wafer_truncation_notice_gets_bounded_finalization(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
+    payloads = []
+    notice = (
+        "[Wafer: response was truncated before the model finished its internal "
+        "reasoning. Increase max_tokens, or disable thinking on this model "
+        "(e.g. chat_template_kwargs.enable_thinking=false), then retry.]"
+    )
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        payloads.append(json.loads(request.data))
+        if len(payloads) == 1:
+            return _Response(
+                _completion(
+                    content=notice,
+                    reasoning_tokens=1024,
+                    finish_reason="length",
+                )
+            )
+        return _Response(_completion(content='{"r0":4,"r1":7,"r2":6,"r3":1}'))
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="google/gemma-4-26b-a4b-it",
+            backend="openrouter",
+            thinking=True,
+            thinking_max_new_tokens=1024,
+            thinking_final_max_new_tokens=128,
+        ),
+        _config(tmp_path),
+    )
+
+    completion = adapter.chat_complete(
+        [{"role": "user", "content": "return target json"}], 0.0
+    )
+
+    assert completion == ['{"r0":4,"r1":7,"r2":6,"r3":1}']
+    assert len(payloads) == 2
+    assert payloads[1]["max_tokens"] == 128
+    assert payloads[1]["reasoning"] == {"enabled": False, "exclude": True}
+    assert payloads[1]["messages"][-2]["content"] == ""
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["forced_final_requests"] == 1
+    assert snapshot["forced_final_successes"] == 1
+    assert "provider truncation notice normalized" in (
+        tmp_path / "run.log"
+    ).read_text()
+
+
+def test_openrouter_native_reasoning_length_stop_gets_bounded_finalization(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret")
+    payloads = []
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        payloads.append(json.loads(request.data))
+        if len(payloads) == 1:
+            return _Response(
+                _completion(
+                    content=None,
+                    reasoning_tokens=2048,
+                    finish_reason="length",
+                )
+            )
+        return _Response(_completion(content='{"answer":"done"}'))
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="openai/gpt-5.4",
+            backend="openrouter",
+            reasoning_effort="high",
+        ),
+        _config(tmp_path),
+    )
+
+    completion = adapter.chat_complete(
+        [{"role": "user", "content": "return json"}], 0.0
+    )
+
+    assert completion == ['{"answer":"done"}']
+    assert len(payloads) == 2
+    assert payloads[0]["reasoning"] == {"effort": "high", "exclude": False}
+    assert payloads[1]["max_tokens"] == 512
+    assert payloads[1]["reasoning"] == {"enabled": False, "exclude": True}
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["forced_final_requests"] == 1
+    assert snapshot["forced_final_successes"] == 1
+
+
 def test_openrouter_explicit_reasoning_effort_overrides_model_default(
     monkeypatch, tmp_path: Path
 ) -> None:

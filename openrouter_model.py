@@ -21,6 +21,9 @@ from helpers import Config, ModelSpec, _probability_results_from_messages, write
 
 
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+WAFER_REASONING_TRUNCATION_PREFIX = (
+    "[wafer: response was truncated before the model finished its internal reasoning."
+)
 OPENROUTER_GEMMA_4_26B_A4B = "google/gemma-4-26b-a4b-it"
 _SPEND_LOCK = threading.Lock()
 
@@ -317,6 +320,15 @@ class OpenRouterAdapter:
             return "".join(str(item.get("text", "")) for item in content if isinstance(item, dict)).strip()
         return str(content).strip()
 
+    @staticmethod
+    def _is_reasoning_truncation_notice(content: str) -> bool:
+        normalized = " ".join(content.strip().lower().split())
+        return (
+            normalized.startswith(WAFER_REASONING_TRUNCATION_PREFIX)
+            and "increase max_tokens" in normalized
+            and "disable thinking" in normalized
+        )
+
     def _complete_request(
         self,
         messages: list[dict[str, Any]],
@@ -374,17 +386,24 @@ class OpenRouterAdapter:
                 write_to_log("Forced thinking exit (OpenRouter finish_reason=length)\n", self.config)
         self._warn_near_budget_once(cumulative)
         contents = [self._content(choice) for choice in choices]
+        provider_truncation_notice = self._is_reasoning_truncation_notice(
+            contents[0]
+        )
         if (
             allow_forced_final
-            and self.thinking
+            and self.reasoning_enabled
             and n == 1
             and choices[0].get("finish_reason") == "length"
-            and not contents[0]
+            and (not contents[0] or provider_truncation_notice)
         ):
             message = choices[0].get("message") or {}
             preserved: dict[str, Any] = {
                 "role": "assistant",
-                "content": message.get("content") or "",
+                "content": (
+                    ""
+                    if provider_truncation_notice
+                    else message.get("content") or ""
+                ),
             }
             if message.get("reasoning_details") is not None:
                 preserved["reasoning_details"] = message["reasoning_details"]
@@ -406,6 +425,11 @@ class OpenRouterAdapter:
             ]
             self.forced_final_requests += 1
             if self.config.log_path is not None:
+                if provider_truncation_notice:
+                    write_to_log(
+                        "OpenRouter provider truncation notice normalized\n",
+                        self.config,
+                    )
                 write_to_log(
                     "OpenRouter forced-final continuation request\n", self.config
                 )
