@@ -163,6 +163,27 @@ def audit_result(result: dict[str, Any]) -> dict[str, Any]:
         request["cell_index"]: request["compiled_plans"]
         for request in result["candidate_requests"]
     }
+    tied_control_identity_fields = {
+        "matched_random_selected_plan",
+        "strong_d2_root",
+        "strong_d2_h3_plan",
+    }
+    replayed_without_tied_control = [
+        {
+            key: value
+            for key, value in row.items()
+            if key not in tied_control_identity_fields
+        }
+        for row in replayed
+    ]
+    producer_without_tied_control = [
+        {
+            key: value
+            for key, value in row.items()
+            if key not in tied_control_identity_fields
+        }
+        for row in result["records"]
+    ]
     mechanics = {
         "all_records_replayed": len(replayed) == config.num_cells,
         "serialized_requests_match_records": all(
@@ -174,6 +195,14 @@ def audit_result(result: dict[str, Any]) -> dict[str, Any]:
             for row in replayed
         ),
         "all_record_fields_match": _close(replayed, result["records"]),
+        "all_records_match_modulo_tied_strong_d2_identity": _close(
+            replayed_without_tied_control,
+            producer_without_tied_control,
+        ),
+        "all_strong_d2_values_match": _close(
+            [row["strong_d2_h3_value"] for row in replayed],
+            [row["strong_d2_h3_value"] for row in result["records"]],
+        ),
         "all_comparisons_match": _close(comparisons, result["comparisons"]),
         "producer_gate_passed": bool(result["gate"]["passed"]),
     }
