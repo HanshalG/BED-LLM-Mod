@@ -1,0 +1,20 @@
+{
+  "mean_active_state_regret_belief_recall": 0.16614583333333333,
+  "mean_active_state_regret_immediate_eig": 0.3996770833333333,
+  "mean_coverage_regret_belief_recall": 0.06645833333333333,
+  "mean_coverage_regret_immediate_eig": 0.15987083333333332,
+  "mean_oracle_candidate_expected_truth_coverage": 0.2557041666666667,
+  "mean_paired_selected_coverage_gain": 0.0934125,
+  "mean_selected_expected_truth_coverage_belief_recall": 0.18924583333333334,
+  "mean_selected_expected_truth_coverage_immediate_eig": 0.09583333333333333,
+  "num_active_states": 8,
+  "num_candidate_rows": 60,
+  "num_states": 20,
+  "ranker_immediate_wins_ties_losses": [
+    3,
+    17,
+    0
+  ],
+  "spearman_belief_recall_score_vs_expected_truth_coverage": 0.16095022545497928,
+  "spearman_immediate_eig_vs_expected_truth_coverage": -0.08874000105005192
+}
