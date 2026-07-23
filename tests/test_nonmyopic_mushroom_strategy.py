@@ -11,6 +11,7 @@ from scripts.nonmyopic_mushroom_strategy import (
     _fixed_roots,
     build_smoke_cells,
     compile_indexed_cell,
+    continuation_predictive_evidence,
     continuation_utility_cards,
     project_indexed_cell,
     run_smoke,
@@ -177,6 +178,65 @@ def test_mushroom_utility_prompt_is_opt_in() -> None:
 
     assert "continuation_utility" not in plain[-1]["content"]
     assert "continuation_utility" in grounded[-1]["content"]
+
+
+def test_mushroom_predictive_evidence_contains_no_precomputed_scores() -> None:
+    model = MushroomFeatureModel()
+    belief = model.initial_belief
+    roots = _fixed_roots(
+        model, state=model.initial_state, belief=belief, count=4
+    )
+    menus = _branch_menus(
+        model, state=model.initial_state, belief=belief, roots=roots
+    )
+    evidence = continuation_predictive_evidence(
+        model, belief=belief, roots=roots, menus=menus
+    )
+    first = evidence[0]["none"][0]
+
+    assert first["index"] == 0
+    assert first["feature"] == model.action_feature(menus[0]["none"][0])
+    assert sum(item["probability"] for item in first["predictive_outcomes"]) == pytest.approx(
+        1.0, abs=1e-7
+    )
+    assert all(
+        item["p_edible_after"] + item["p_poisonous_after"]
+        == pytest.approx(1.0, abs=1e-7)
+        for item in first["predictive_outcomes"]
+    )
+    assert "expected_class_entropy" not in json.dumps(evidence)
+    assert "information_gain" not in json.dumps(evidence)
+
+
+def test_mushroom_predictive_prompt_exposes_evidence_but_not_answer() -> None:
+    model = MushroomFeatureModel()
+    roots = _fixed_roots(
+        model, state=model.initial_state, belief=model.initial_belief, count=4
+    )
+    menus = _branch_menus(
+        model, state=model.initial_state, belief=model.initial_belief, roots=roots
+    )
+    messages = IndexedMushroomProvider(
+        DeterministicIndexedMushroomModel(),
+        MushroomStrategyConfig(
+            utility_summary_mode="branch_local_predictive_evidence"
+        ),
+    )._messages(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+        roots=roots,
+        menus=menus,
+    )
+    prompt = messages[-1]["content"]
+
+    assert "continuation_predictive_evidence" in prompt
+    assert "predictive_outcomes" in prompt
+    assert "p_edible_after" in prompt
+    assert "expected_class_entropy" not in prompt
+    assert "one_step_information_gain" not in prompt
+    assert "continuation_utility" not in prompt
 
 
 def test_mushroom_projection_preserves_valid_indexes_and_repairs_invalid() -> None:

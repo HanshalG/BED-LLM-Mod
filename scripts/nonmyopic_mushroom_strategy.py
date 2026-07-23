@@ -39,7 +39,11 @@ class MushroomStrategyConfig:
     temperature: float = 0.0
     validation_retries: int = 1
     max_new_tokens: int = 128
-    utility_summary_mode: Literal["none", "branch_local_expected_entropy"] = "none"
+    utility_summary_mode: Literal[
+        "none",
+        "branch_local_expected_entropy",
+        "branch_local_predictive_evidence",
+    ] = "none"
     project_invalid_after_retries: bool = False
     allow_fewer_roots_when_exhausted: bool = False
 
@@ -50,7 +54,11 @@ class MushroomStrategyConfig:
             raise ValueError("the frozen Mushroom interface permits one validation retry")
         if self.max_new_tokens != 128:
             raise ValueError("the repaired Mushroom smoke uses a 128-token output cap")
-        if self.utility_summary_mode not in ("none", "branch_local_expected_entropy"):
+        if self.utility_summary_mode not in (
+            "none",
+            "branch_local_expected_entropy",
+            "branch_local_predictive_evidence",
+        ):
             raise ValueError("unsupported Mushroom continuation utility summary mode")
 
 
@@ -166,6 +174,56 @@ def continuation_utility_cards(
             root_cards[outcome] = action_cards
         cards.append(root_cards)
     return cards
+
+
+def continuation_predictive_evidence(
+    model: MushroomFeatureModel,
+    *,
+    belief: np.ndarray,
+    roots: tuple[str, ...],
+    menus: list[dict[str, tuple[str, ...]]],
+) -> list[dict[str, list[dict[str, Any]]]]:
+    """Return branch-local predictive evidence without a precomputed action score."""
+    evidence: list[dict[str, list[dict[str, Any]]]] = []
+    for root, root_menus in zip(roots, menus, strict=True):
+        root_evidence: dict[str, list[dict[str, Any]]] = {}
+        for root_outcome, choices in root_menus.items():
+            raw_root_outcome = None if root_outcome == "none" else root_outcome
+            branch_belief = model.posterior(belief, root, raw_root_outcome)
+            action_evidence = []
+            for index, action in enumerate(choices):
+                feature = model.action_feature(action)
+                predictive_outcomes = []
+                for outcome in model.outcomes(action):
+                    probability = model.outcome_probability(
+                        branch_belief, action, outcome
+                    )
+                    if probability <= EPSILON:
+                        continue
+                    posterior = model.posterior(branch_belief, action, outcome)
+                    predictive_outcomes.append(
+                        {
+                            "outcome": outcome,
+                            "outcome_label": model.outcome_label(feature, str(outcome)),
+                            "probability": round(probability, 8),
+                            "p_edible_after": round(
+                                model.class_probability(posterior, "e"), 8
+                            ),
+                            "p_poisonous_after": round(
+                                model.class_probability(posterior, "p"), 8
+                            ),
+                        }
+                    )
+                action_evidence.append(
+                    {
+                        "index": index,
+                        "feature": feature,
+                        "predictive_outcomes": predictive_outcomes,
+                    }
+                )
+            root_evidence[root_outcome] = action_evidence
+        evidence.append(root_evidence)
+    return evidence
 
 
 def _best_continuation_index(
@@ -307,6 +365,13 @@ class IndexedMushroomProvider:
             if self.config.utility_summary_mode == "branch_local_expected_entropy"
             else None
         )
+        predictive_evidence = (
+            continuation_predictive_evidence(
+                model, belief=belief, roots=roots, menus=menus
+            )
+            if self.config.utility_summary_mode == "branch_local_predictive_evidence"
+            else None
+        )
         for slot, (root, root_menus) in enumerate(zip(roots, menus, strict=True)):
             menu_variants = set(root_menus.values())
             if len(menu_variants) != 1:
@@ -327,6 +392,10 @@ class IndexedMushroomProvider:
                     branch["outcome_label"] = model.outcome_label(feature, outcome)
                 if utility_cards is not None:
                     branch["continuation_utility"] = utility_cards[slot][outcome]
+                if predictive_evidence is not None:
+                    branch["continuation_predictive_evidence"] = predictive_evidence[
+                        slot
+                    ][outcome]
                 branches.append(branch)
             slots.append(
                 {
@@ -368,6 +437,12 @@ class IndexedMushroomProvider:
                 "Each branch includes calibrated continuation_utility values from the empirical "
                 "prior. Prefer lower expected_class_entropy (equivalently higher "
                 "one_step_information_gain) within that branch."
+            )
+        elif self.config.utility_summary_mode == "branch_local_predictive_evidence":
+            instructions.append(
+                "Each branch includes calibrated outcome probabilities and class posteriors for "
+                "every legal follow-up. No action score is supplied. Aggregate across all outcomes "
+                "and prefer the follow-up expected to leave the least class uncertainty."
             )
         user = "\n".join(
             [
@@ -587,6 +662,9 @@ def run_smoke(
     physical_before = len(provider.physical_requests) + len(provider.invalid_responses)
     all_legal = True
     collection_covered = True
+    optimal_branches = 0
+    total_branches = 0
+    uniform_optimal_probability_sum = 0.0
     for index, (truth, state, belief, history) in enumerate(cells):
         cell = provider.propose(
             model,
@@ -604,6 +682,42 @@ def run_smoke(
         )
         if not state.specimen_collected:
             collection_covered &= cell.strategies[0].root_action == COLLECT_ACTION
+        for strategy in cell.strategies:
+            root_outcomes = model.outcomes(strategy.root_action)
+            child_state = model.next_state(state, strategy.root_action)
+            for outcome in root_outcomes:
+                probability = model.outcome_probability(
+                    belief, strategy.root_action, outcome
+                )
+                if probability <= EPSILON:
+                    continue
+                key = "none" if outcome is None else str(outcome)
+                posterior = model.posterior(belief, strategy.root_action, outcome)
+                choices = tuple(
+                    action
+                    for action in model.legal_actions(child_state)
+                    if action.startswith("query:")
+                )
+                if strategy.root_action == COLLECT_ACTION:
+                    choices = tuple(
+                        action
+                        for action in choices
+                        if model.action_feature(action) not in FIELD_FEATURES
+                    )
+                scores = [
+                    model.expected_target_entropy(posterior, action)
+                    for action in choices
+                ]
+                minimum = min(scores)
+                optimal_indexes = {
+                    branch_index
+                    for branch_index, score in enumerate(scores)
+                    if score <= minimum + EPSILON
+                }
+                selected_index = choices.index(strategy.followups[key])
+                optimal_branches += int(selected_index in optimal_indexes)
+                total_branches += 1
+                uniform_optimal_probability_sum += len(optimal_indexes) / len(choices)
         records.append(
             {
                 "cell_index": index,
@@ -615,6 +729,20 @@ def run_smoke(
             }
         )
     physical_after = len(provider.physical_requests) + len(provider.invalid_responses)
+    optimal_branch_fraction = optimal_branches / total_branches
+    uniform_optimal_fraction = uniform_optimal_probability_sum / total_branches
+    predictive_quality = (
+        {
+            "predictive_exact_optimal_branch_fraction_at_least_half": (
+                optimal_branch_fraction >= 0.5
+            ),
+            "predictive_optimal_branch_fraction_beats_uniform_by_twenty_points": (
+                optimal_branch_fraction >= uniform_optimal_fraction + 0.2
+            ),
+        }
+        if config.utility_summary_mode == "branch_local_predictive_evidence"
+        else {}
+    )
     return {
         "schema_version": 1,
         "stage": (
@@ -631,6 +759,7 @@ def run_smoke(
             "exactly_ten_logical_calls": len(provider.physical_requests) - accepted_before == 10,
             "zero_projected_cells": len(provider.projected_responses) == 0,
             "rollout_scoring_made_no_llm_calls": True,
+            **predictive_quality,
         },
         "provider": {
             "accepted_requests": len(provider.physical_requests),
@@ -643,6 +772,14 @@ def run_smoke(
             "physical_requests": physical_after,
         },
         "records": records,
+        "branch_quality": {
+            "exact_optimal_branches": optimal_branches,
+            "total_branches": total_branches,
+            "exact_optimal_fraction": optimal_branch_fraction,
+            "uniform_menu_optimal_fraction": uniform_optimal_fraction,
+            "advantage_over_uniform": optimal_branch_fraction
+            - uniform_optimal_fraction,
+        },
         "candidate_requests": provider.physical_requests,
         "invalid_responses": provider.invalid_responses,
     }
@@ -660,7 +797,11 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=24_127)
     parser.add_argument(
         "--utility-summary-mode",
-        choices=("none", "branch_local_expected_entropy"),
+        choices=(
+            "none",
+            "branch_local_expected_entropy",
+            "branch_local_predictive_evidence",
+        ),
         default="none",
     )
     parser.add_argument("--project-invalid-after-retries", action="store_true")
