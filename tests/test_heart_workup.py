@@ -5,6 +5,8 @@ from environments.heart_workup import (
     ORDER_WORKUP_ACTION,
     HeartWorkupModel,
 )
+from scripts.audit_nonmyopic_heart_workup_oracle import independent_action_costs
+from scripts.nonmyopic_mushroom_feature_oracle import exact_action_costs
 
 
 def test_heart_workup_loads_complete_cleveland_cohort() -> None:
@@ -45,3 +47,22 @@ def test_query_conditioning_is_exact_and_nonrepeatable() -> None:
     assert posterior.sum() == 1.0
     assert np.all(model.feature_values[posterior > 0, 2] == outcome)
     assert action not in model.legal_actions(state)
+
+
+def test_independent_heart_planner_matches_registered_depth_two_costs() -> None:
+    model = HeartWorkupModel()
+    expected, _ = exact_action_costs(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        depth=2,
+    )
+    audited = independent_action_costs(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        depth=2,
+    )
+
+    assert tuple(audited) == tuple(expected)
+    assert all(np.isclose(audited[action], expected[action]) for action in expected)

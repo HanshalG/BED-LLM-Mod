@@ -1,0 +1,37 @@
+{
+  "entropy_auc_gain": {
+    "independent_ci95": [
+      0.05689462406276319,
+      0.08047385572691368
+    ],
+    "mean": 0.06874725169301156
+  },
+  "mechanics": {
+    "all_297_rows_replayed": true,
+    "all_actions_legal": true,
+    "deterministic_outcomes_match": true,
+    "every_recorded_action_is_independently_optimal": true,
+    "independent_planning_costs_match": true,
+    "no_llm_calls": true,
+    "paired_truths_match": true,
+    "posterior_metrics_match": true,
+    "stored_comparison_matches_replay": true,
+    "stored_states_match": true,
+    "truths_sampled_without_replacement": true
+  },
+  "passed": true,
+  "schema_version": 1,
+  "source_config": {
+    "bootstrap_replicates": 10000,
+    "num_rounds": 8,
+    "seed": 24133
+  },
+  "stage": "cleveland_heart_workup_depth_qualification_audit",
+  "truth_log_probability_auc_gain": {
+    "independent_ci95": [
+      0.0474520103112144,
+      0.09071735002108848
+    ],
+    "mean": 0.06874725169301156
+  }
+}
