@@ -1,0 +1,50 @@
+{
+  "audit_gates": {
+    "active_state_regret_better_than_immediate_eig": true,
+    "all_pass": false,
+    "at_least_fifteen_active_states": true,
+    "more_ranker_wins_than_losses": true,
+    "paired_bootstrap_lower_bound_positive": false,
+    "sixty_states_completed": true
+  },
+  "audit_paired_coverage_gain_bootstrap": {
+    "ci95": [
+      -0.018110104166666658,
+      0.09983260416666664
+    ],
+    "mean": 0.0412625,
+    "replicates": 10000,
+    "seed": 24273
+  },
+  "audit_ranking_summary": {
+    "mean_active_state_regret_belief_recall": 0.1484236111111111,
+    "mean_active_state_regret_immediate_eig": 0.25157986111111114,
+    "mean_coverage_regret_belief_recall": 0.05936944444444445,
+    "mean_coverage_regret_immediate_eig": 0.10063194444444444,
+    "mean_oracle_candidate_expected_truth_coverage": 0.2215763888888889,
+    "mean_paired_selected_coverage_gain": 0.0412625,
+    "mean_selected_expected_truth_coverage_belief_recall": 0.16220694444444445,
+    "mean_selected_expected_truth_coverage_immediate_eig": 0.12094444444444445,
+    "num_active_states": 24,
+    "num_candidate_rows": 180,
+    "num_states": 60,
+    "ranker_immediate_wins_ties_losses": [
+      8,
+      47,
+      5
+    ],
+    "spearman_belief_recall_score_vs_expected_truth_coverage": 0.008714371802389183,
+    "spearman_immediate_eig_vs_expected_truth_coverage": -0.027283322390674287
+  },
+  "checks": {
+    "all_model_visible_payloads_rebuilt_exactly": true,
+    "all_pass": false,
+    "all_raw_responses_reparse_exactly": true,
+    "audit_bootstrap_gates_pass": false,
+    "producer_gate_status_replays": true,
+    "ranking_summary_replays": true,
+    "sixty_distinct_measurement_targets": true
+  },
+  "schema_version": 1,
+  "status": "failed"
+}
