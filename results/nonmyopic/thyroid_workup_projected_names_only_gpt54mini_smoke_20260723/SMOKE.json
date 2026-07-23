@@ -1,0 +1,3686 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "history": [],
+      "menus": {
+        "collect:blood-sample": {
+          "none": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:age": {
+          "0": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ],
+          "1": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ],
+          "2": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ],
+          "3": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ],
+          "4": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ],
+          "5": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ]
+        },
+        "query:on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ]
+        },
+        "query:query-hypothyroid": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "collect:blood-sample"
+          ]
+        }
+      },
+      "raw_response": "{\"collect:blood-sample\":{\"none\":\"query:age\"},\"query:on-thyroxine\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:query-hypothyroid\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:age\":{\"0\":\"query:on-thyroxine\",\"1\":\"query:on-thyroxine\",\"2\":\"query:on-thyroxine\",\"3\":\"query:on-thyroxine\",\"4\":\"query:on-thyroxine\",\"5\":\"query:on-thyroxine\"}}",
+      "roots": [
+        "collect:blood-sample",
+        "query:on-thyroxine",
+        "query:query-hypothyroid",
+        "query:age"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ]
+      ],
+      "menus": {
+        "query:on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:t3": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:tsh": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:tt4": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:t4u"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:t4u"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:t4u"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:t4u"
+          ],
+          "5": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tsh",
+            "query:t3",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:tsh\":{\"0\":\"query:age\",\"1\":\"query:age\",\"2\":\"query:age\",\"3\":\"query:age\",\"4\":\"query:age\",\"5\":\"query:age\"},\"query:tt4\":{\"0\":\"query:age\",\"1\":\"query:age\",\"2\":\"query:age\",\"3\":\"query:age\",\"4\":\"query:age\",\"5\":\"query:age\"},\"query:t3\":{\"0\":\"query:age\",\"1\":\"query:age\",\"2\":\"query:age\",\"3\":\"query:age\",\"4\":\"query:age\",\"5\":\"query:age\"},\"query:on-thyroxine\":{\"0\":\"query:age\",\"1\":\"query:age\"}}",
+      "roots": [
+        "query:tsh",
+        "query:tt4",
+        "query:t3",
+        "query:on-thyroxine"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "3"
+        ]
+      ],
+      "menus": {
+        "query:on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:pregnant": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:sick": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:thyroid-surgery": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:on-thyroxine\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:sick\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:pregnant\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:thyroid-surgery\":{\"0\":\"query:t3\",\"1\":\"query:t3\"}}",
+      "roots": [
+        "query:on-thyroxine",
+        "query:sick",
+        "query:pregnant",
+        "query:thyroid-surgery"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "3"
+        ],
+        [
+          "query:on-thyroxine",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:age": {
+          "0": [
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:goitre": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:sick": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:t3": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:goitre\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:sick\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:age\":{\"0\":\"query:sex\",\"1\":\"query:sex\",\"2\":\"query:sex\",\"3\":\"query:sex\",\"4\":\"query:sex\",\"5\":\"query:sex\"},\"query:t3\":{\"0\":\"query:age\",\"1\":\"query:age\",\"2\":\"query:age\",\"3\":\"query:age\",\"4\":\"query:age\",\"5\":\"query:age\"}}",
+      "roots": [
+        "query:goitre",
+        "query:sick",
+        "query:age",
+        "query:t3"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "2"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:on-antithyroid-medication",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:hypopituitary": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:pregnant": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:sex": {
+          "0": [
+            "query:age",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:t3": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:hypopituitary\":{\"0\":\"query:t3\"},\"query:sex\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:t3\":{\"0\":\"query:sex\",\"1\":\"query:sex\",\"2\":\"query:sex\",\"3\":\"query:sex\",\"4\":\"query:sex\",\"5\":\"query:sex\"},\"query:pregnant\":{\"0\":\"query:t3\",\"1\":\"query:t3\"}}",
+      "roots": [
+        "query:hypopituitary",
+        "query:sex",
+        "query:t3",
+        "query:pregnant"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "1"
+        ],
+        [
+          "query:lithium",
+          "0"
+        ],
+        [
+          "query:pregnant",
+          "0"
+        ],
+        [
+          "query:psych",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:i131-treatment": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:query-on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:thyroid-surgery": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:i131-treatment\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:thyroid-surgery\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:on-thyroxine\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:query-on-thyroxine\":{\"0\":\"query:t3\",\"1\":\"query:t3\"}}",
+      "roots": [
+        "query:i131-treatment",
+        "query:thyroid-surgery",
+        "query:on-thyroxine",
+        "query:query-on-thyroxine"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "4"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:thyroid-surgery",
+          "0"
+        ],
+        [
+          "query:psych",
+          "0"
+        ],
+        [
+          "query:hypopituitary",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:i131-treatment": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:on-antithyroid-medication": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:pregnant": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:query-on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:i131-treatment\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:query-on-thyroxine\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:on-antithyroid-medication\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:pregnant\":{\"0\":\"query:t3\",\"1\":\"query:t3\"}}",
+      "roots": [
+        "query:i131-treatment",
+        "query:query-on-thyroxine",
+        "query:on-antithyroid-medication",
+        "query:pregnant"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 7,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "2"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:on-antithyroid-medication",
+          "0"
+        ],
+        [
+          "query:hypopituitary",
+          "0"
+        ],
+        [
+          "query:goitre",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:age": {
+          "0": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:pregnant": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:query-hypothyroid": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:thyroid-surgery": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:query-hypothyroid\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:thyroid-surgery\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:pregnant\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:age\":{\"0\":\"query:t3\",\"1\":\"query:t3\",\"2\":\"query:t3\",\"3\":\"query:t3\",\"4\":\"query:t3\",\"5\":\"query:t3\"}}",
+      "roots": [
+        "query:query-hypothyroid",
+        "query:thyroid-surgery",
+        "query:pregnant",
+        "query:age"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 8,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "4"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:thyroid-surgery",
+          "0"
+        ],
+        [
+          "query:psych",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:hypopituitary": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:i131-treatment": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:on-antithyroid-medication": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:query-on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:pregnant",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:hypopituitary\":{\"0\":\"query:t3\"},\"query:i131-treatment\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:query-on-thyroxine\":{\"0\":\"query:t3\",\"1\":\"query:t3\"},\"query:on-antithyroid-medication\":{\"0\":\"query:t3\",\"1\":\"query:t3\"}}",
+      "roots": [
+        "query:hypopituitary",
+        "query:i131-treatment",
+        "query:query-on-thyroxine",
+        "query:on-antithyroid-medication"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 9,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "5"
+        ],
+        [
+          "query:t3",
+          "1"
+        ],
+        [
+          "query:tt4",
+          "2"
+        ]
+      ],
+      "menus": {
+        "query:age": {
+          "0": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ],
+          "1": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ],
+          "2": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ],
+          "3": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ],
+          "4": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ],
+          "5": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ]
+        },
+        "query:on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t4u"
+          ]
+        },
+        "query:psych": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:t4u"
+          ]
+        },
+        "query:t4u": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych"
+          ],
+          "2": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych"
+          ],
+          "3": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych"
+          ],
+          "4": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych"
+          ],
+          "5": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych"
+          ]
+        }
+      },
+      "raw_response": "{\"query:t4u\":{\"0\":\"query:age\",\"1\":\"query:age\",\"2\":\"query:age\",\"3\":\"query:age\",\"4\":\"query:age\",\"5\":\"query:age\"},\"query:on-thyroxine\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:age\":{\"0\":\"query:on-thyroxine\",\"1\":\"query:on-thyroxine\",\"2\":\"query:on-thyroxine\",\"3\":\"query:on-thyroxine\",\"4\":\"query:on-thyroxine\",\"5\":\"query:on-thyroxine\"},\"query:psych\":{\"0\":\"query:age\",\"1\":\"query:age\"}}",
+      "roots": [
+        "query:t4u",
+        "query:on-thyroxine",
+        "query:age",
+        "query:psych"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 10,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "0"
+        ],
+        [
+          "query:pregnant",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:age": {
+          "0": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:goitre": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:on-thyroxine": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:sex": {
+          "0": [
+            "query:age",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:sex\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:goitre\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:age\":{\"0\":\"query:sex\",\"1\":\"query:sex\",\"2\":\"query:sex\",\"3\":\"query:sex\",\"4\":\"query:sex\",\"5\":\"query:sex\"},\"query:on-thyroxine\":{\"0\":\"query:age\",\"1\":\"query:age\"}}",
+      "roots": [
+        "query:sex",
+        "query:goitre",
+        "query:age",
+        "query:on-thyroxine"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 11,
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "0"
+        ]
+      ],
+      "menus": {
+        "query:age": {
+          "0": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "2": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "3": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "4": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "5": [
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:pregnant": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:query-hyperthyroid": {
+          "0": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:sex",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        },
+        "query:sex": {
+          "0": [
+            "query:age",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ],
+          "1": [
+            "query:age",
+            "query:on-thyroxine",
+            "query:query-on-thyroxine",
+            "query:on-antithyroid-medication",
+            "query:sick",
+            "query:pregnant",
+            "query:thyroid-surgery",
+            "query:i131-treatment",
+            "query:query-hypothyroid",
+            "query:query-hyperthyroid",
+            "query:lithium",
+            "query:goitre",
+            "query:tumor",
+            "query:hypopituitary",
+            "query:psych",
+            "query:t3",
+            "query:tt4",
+            "query:t4u"
+          ]
+        }
+      },
+      "raw_response": "{\"query:pregnant\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:query-hyperthyroid\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:sex\":{\"0\":\"query:age\",\"1\":\"query:age\"},\"query:age\":{\"0\":\"query:sex\",\"1\":\"query:sex\",\"2\":\"query:sex\",\"3\":\"query:sex\",\"4\":\"query:sex\",\"5\":\"query:sex\"}}",
+      "roots": [
+        "query:pregnant",
+        "query:query-hyperthyroid",
+        "query:sex",
+        "query:age"
+      ]
+    }
+  ],
+  "dry_run": false,
+  "invalid_responses": [],
+  "mechanics": {
+    "all_named_followups_legal": true,
+    "exactly_twelve_accepted_cells": true,
+    "no_policy_repeats_its_root_as_followup": true,
+    "no_utility_cards_in_requests": true,
+    "rollout_scoring_made_no_llm_calls": true,
+    "rounds_zero_through_six_covered": true,
+    "twelve_cells_completed": true,
+    "zero_forced_exits": true,
+    "zero_projected_cells": true,
+    "zero_reasoning_tokens": true
+  },
+  "passed": true,
+  "projected_responses": [],
+  "records": [
+    {
+      "cell_index": 0,
+      "followups": [
+        {
+          "none": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:on-thyroxine",
+          "1": "query:on-thyroxine",
+          "2": "query:on-thyroxine",
+          "3": "query:on-thyroxine",
+          "4": "query:on-thyroxine",
+          "5": "query:on-thyroxine"
+        }
+      ],
+      "history": [],
+      "roots": [
+        "collect:blood-sample",
+        "query:on-thyroxine",
+        "query:query-hypothyroid",
+        "query:age"
+      ],
+      "truth_index": 2284
+    },
+    {
+      "cell_index": 1,
+      "followups": [
+        {
+          "0": "query:age",
+          "1": "query:age",
+          "2": "query:age",
+          "3": "query:age",
+          "4": "query:age",
+          "5": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age",
+          "2": "query:age",
+          "3": "query:age",
+          "4": "query:age",
+          "5": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age",
+          "2": "query:age",
+          "3": "query:age",
+          "4": "query:age",
+          "5": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ]
+      ],
+      "roots": [
+        "query:tsh",
+        "query:tt4",
+        "query:t3",
+        "query:on-thyroxine"
+      ],
+      "truth_index": 6639
+    },
+    {
+      "cell_index": 2,
+      "followups": [
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "3"
+        ]
+      ],
+      "roots": [
+        "query:on-thyroxine",
+        "query:sick",
+        "query:pregnant",
+        "query:thyroid-surgery"
+      ],
+      "truth_index": 2477
+    },
+    {
+      "cell_index": 3,
+      "followups": [
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:sex",
+          "1": "query:sex",
+          "2": "query:sex",
+          "3": "query:sex",
+          "4": "query:sex",
+          "5": "query:sex"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age",
+          "2": "query:age",
+          "3": "query:age",
+          "4": "query:age",
+          "5": "query:age"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "3"
+        ],
+        [
+          "query:on-thyroxine",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:goitre",
+        "query:sick",
+        "query:age",
+        "query:t3"
+      ],
+      "truth_index": 1192
+    },
+    {
+      "cell_index": 4,
+      "followups": [
+        {
+          "0": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:sex",
+          "1": "query:sex",
+          "2": "query:sex",
+          "3": "query:sex",
+          "4": "query:sex",
+          "5": "query:sex"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "2"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:on-antithyroid-medication",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:hypopituitary",
+        "query:sex",
+        "query:t3",
+        "query:pregnant"
+      ],
+      "truth_index": 6961
+    },
+    {
+      "cell_index": 5,
+      "followups": [
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "1"
+        ],
+        [
+          "query:lithium",
+          "0"
+        ],
+        [
+          "query:pregnant",
+          "0"
+        ],
+        [
+          "query:psych",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:i131-treatment",
+        "query:thyroid-surgery",
+        "query:on-thyroxine",
+        "query:query-on-thyroxine"
+      ],
+      "truth_index": 694
+    },
+    {
+      "cell_index": 6,
+      "followups": [
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "4"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:thyroid-surgery",
+          "0"
+        ],
+        [
+          "query:psych",
+          "0"
+        ],
+        [
+          "query:hypopituitary",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:i131-treatment",
+        "query:query-on-thyroxine",
+        "query:on-antithyroid-medication",
+        "query:pregnant"
+      ],
+      "truth_index": 1653
+    },
+    {
+      "cell_index": 7,
+      "followups": [
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3",
+          "2": "query:t3",
+          "3": "query:t3",
+          "4": "query:t3",
+          "5": "query:t3"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "2"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:on-antithyroid-medication",
+          "0"
+        ],
+        [
+          "query:hypopituitary",
+          "0"
+        ],
+        [
+          "query:goitre",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:query-hypothyroid",
+        "query:thyroid-surgery",
+        "query:pregnant",
+        "query:age"
+      ],
+      "truth_index": 3925
+    },
+    {
+      "cell_index": 8,
+      "followups": [
+        {
+          "0": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        },
+        {
+          "0": "query:t3",
+          "1": "query:t3"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "4"
+        ],
+        [
+          "query:sick",
+          "0"
+        ],
+        [
+          "query:thyroid-surgery",
+          "0"
+        ],
+        [
+          "query:psych",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:hypopituitary",
+        "query:i131-treatment",
+        "query:query-on-thyroxine",
+        "query:on-antithyroid-medication"
+      ],
+      "truth_index": 7072
+    },
+    {
+      "cell_index": 9,
+      "followups": [
+        {
+          "0": "query:age",
+          "1": "query:age",
+          "2": "query:age",
+          "3": "query:age",
+          "4": "query:age",
+          "5": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:on-thyroxine",
+          "1": "query:on-thyroxine",
+          "2": "query:on-thyroxine",
+          "3": "query:on-thyroxine",
+          "4": "query:on-thyroxine",
+          "5": "query:on-thyroxine"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "5"
+        ],
+        [
+          "query:t3",
+          "1"
+        ],
+        [
+          "query:tt4",
+          "2"
+        ]
+      ],
+      "roots": [
+        "query:t4u",
+        "query:on-thyroxine",
+        "query:age",
+        "query:psych"
+      ],
+      "truth_index": 1518
+    },
+    {
+      "cell_index": 10,
+      "followups": [
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:sex",
+          "1": "query:sex",
+          "2": "query:sex",
+          "3": "query:sex",
+          "4": "query:sex",
+          "5": "query:sex"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "0"
+        ],
+        [
+          "query:pregnant",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:sex",
+        "query:goitre",
+        "query:age",
+        "query:on-thyroxine"
+      ],
+      "truth_index": 4477
+    },
+    {
+      "cell_index": 11,
+      "followups": [
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:age",
+          "1": "query:age"
+        },
+        {
+          "0": "query:sex",
+          "1": "query:sex",
+          "2": "query:sex",
+          "3": "query:sex",
+          "4": "query:sex",
+          "5": "query:sex"
+        }
+      ],
+      "history": [
+        [
+          "collect:blood-sample",
+          null
+        ],
+        [
+          "query:tsh",
+          "0"
+        ]
+      ],
+      "roots": [
+        "query:pregnant",
+        "query:query-hyperthyroid",
+        "query:sex",
+        "query:age"
+      ],
+      "truth_index": 1370
+    }
+  ],
+  "run_id": "thyroid-workup-projected-names-only-gpt54mini-smoke-20260723",
+  "schema_version": 1,
+  "seed": 24163,
+  "stage": "uci_thyroid_workup_projected_names_only_late_state_serving_smoke",
+  "strategy_config": {
+    "max_new_tokens": 1024,
+    "num_strategies": 4,
+    "project_invalid_after_retries": true,
+    "seed": 24163,
+    "temperature": 0.0,
+    "utility_summary_mode": "none",
+    "validation_retries": 1
+  },
+  "usage": {
+    "adapter_completion_tokens": 1254,
+    "adapter_cost_usd": 0.02240475,
+    "adapter_prompt_tokens": 22349,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 12,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 1254,
+    "forced_exits": 0,
+    "model": "openai/gpt-5.4-mini",
+    "model_usage": {
+      "openai/gpt-5.4-mini": {
+        "completion_tokens": 1254,
+        "cost_usd": 0.02240475,
+        "prompt_tokens": 22349,
+        "reasoning_tokens": 0,
+        "requests": 12
+      }
+    },
+    "prompt_tokens": 22349,
+    "reasoning_tokens": 0,
+    "remaining_usd": 73.78972774254,
+    "requests": 12,
+    "run_budget_usd": 6.0,
+    "run_cost_usd": 0.02240475,
+    "run_remaining_usd": 5.97759525,
+    "total_spent_usd": 36.210272257460005
+  }
+}
