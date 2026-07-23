@@ -70,7 +70,10 @@ def _policy_cost(
 
 
 def audit(payload: dict[str, Any]) -> dict[str, Any]:
-    if payload.get("stage") != "uci_thyroid_workup_26b_paired_trajectory_confirmation":
+    if payload.get("stage") not in {
+        "uci_thyroid_workup_26b_paired_trajectory_confirmation",
+        "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation",
+    }:
         raise ValueError("unexpected thyroid confirmation stage")
     model = ThyroidWorkupModel()
     checks = {

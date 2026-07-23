@@ -33,6 +33,7 @@ from scripts.nonmyopic_thyroid_workup_proposal_gate import (  # noqa: E402
 )
 from scripts.nonmyopic_thyroid_workup_strategy import (  # noqa: E402
     DeterministicNamedThyroidModel,
+    DeterministicUtilityThyroidModel,
     NamedThyroidProvider,
     ThyroidStrategyConfig,
     branch_menus,
@@ -307,9 +308,14 @@ def run_confirmation(
         "first_collection_rate_at_least_threshold": collection_rate
         >= config.collection_rate_threshold,
     }
+    stage = (
+        "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
+        if provider.config.utility_summary_mode == "branch_local_expected_entropy"
+        else "uci_thyroid_workup_26b_paired_trajectory_confirmation"
+    )
     return {
         "schema_version": 1,
-        "stage": "uci_thyroid_workup_26b_paired_trajectory_confirmation",
+        "stage": stage,
         "config": asdict(config),
         "truth_indices": [int(value) for value in truths],
         "mechanics": mechanics,
@@ -332,8 +338,13 @@ def _state_before(model: ThyroidWorkupModel, steps: list[dict[str, Any]], count:
 
 
 def render(result: dict[str, Any]) -> str:
+    title = (
+        "# UCI Thyroid Utility-Grounded Paired Trajectory Confirmation"
+        if result["stage"] == "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
+        else "# UCI Thyroid 26B Paired Trajectory Confirmation"
+    )
     lines = [
-        "# UCI Thyroid 26B Paired Trajectory Confirmation",
+        title,
         "",
         f"Gate passed: **{result['gate']['passed']}**.",
         "",
@@ -376,29 +387,49 @@ def main() -> None:
     )
     parser.add_argument("--run-id", default="thyroid-workup-26b-confirmation-20260723")
     parser.add_argument("--seed", type=int, default=24_156)
+    parser.add_argument(
+        "--utility-summary-mode",
+        choices=("none", "branch_local_expected_entropy"),
+        default="none",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     config = ThyroidConfirmationConfig(seed=args.seed)
-    strategy_config = ThyroidStrategyConfig(seed=args.seed)
+    strategy_config = ThyroidStrategyConfig(
+        seed=args.seed, utility_summary_mode=args.utility_summary_mode
+    )
+    strategy_config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     if args.dry_run:
-        chat_model: ChatModel = DeterministicNamedThyroidModel()
+        chat_model: ChatModel = (
+            DeterministicUtilityThyroidModel()
+            if args.utility_summary_mode == "branch_local_expected_entropy"
+            else DeterministicNamedThyroidModel()
+        )
     else:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
         runtime_config.location_max_new_tokens = strategy_config.max_new_tokens
         runtime_config.openrouter_max_output_tokens = strategy_config.max_new_tokens
-        chat_model = build_model_adapter(runtime_config.model_pairs[0].questioner, config=runtime_config)
+        chat_model = build_model_adapter(
+            runtime_config.model_pairs[0].questioner, config=runtime_config
+        )
     provider = NamedThyroidProvider(chat_model, strategy_config)
     try:
         result = run_confirmation(provider, config)
     except StrategyProposalError as exc:
+        stage = (
+            "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
+            if args.utility_summary_mode == "branch_local_expected_entropy"
+            else "uci_thyroid_workup_26b_paired_trajectory_confirmation"
+        )
         failure = {
             "schema_version": 1,
-            "stage": "uci_thyroid_workup_26b_paired_trajectory_confirmation",
+            "stage": stage,
             "status": "failed_closed",
             "error": str(exc),
             "config": asdict(config),
+            "strategy_config": asdict(strategy_config),
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
             "usage": _usage_snapshot(chat_model),
@@ -408,6 +439,7 @@ def main() -> None:
         )
         raise
     result["usage"] = _usage_snapshot(chat_model)
+    result["strategy_config"] = asdict(strategy_config)
     result["run_id"] = args.run_id
     result["dry_run"] = args.dry_run
     result["mechanics"]["zero_reasoning_tokens"] = (

@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 import sys
 import threading
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 
@@ -62,6 +62,7 @@ class ThyroidStrategyConfig:
     temperature: float = 0.0
     validation_retries: int = 1
     max_new_tokens: int = 1_024
+    utility_summary_mode: Literal["none", "branch_local_expected_entropy"] = "none"
 
     def validate(self) -> None:
         if self.num_strategies != 4:
@@ -70,6 +71,8 @@ class ThyroidStrategyConfig:
             raise ValueError("the frozen thyroid interface permits one validation retry")
         if self.max_new_tokens != 1_024:
             raise ValueError("the frozen thyroid interface uses a 1,024-token output cap")
+        if self.utility_summary_mode not in ("none", "branch_local_expected_entropy"):
+            raise ValueError("unsupported thyroid continuation utility summary mode")
 
 
 @dataclass(frozen=True)
@@ -146,6 +149,35 @@ def branch_menus(
     return menus
 
 
+def continuation_utility_cards(
+    model: ThyroidWorkupModel,
+    *,
+    belief: np.ndarray,
+    roots: tuple[str, ...],
+    menus: dict[str, dict[str, tuple[str, ...]]],
+) -> dict[str, dict[str, list[dict[str, float | str]]]]:
+    """Return leakage-free one-step utility summaries under each root outcome."""
+    cards: dict[str, dict[str, list[dict[str, float | str]]]] = {}
+    for root in roots:
+        cards[root] = {}
+        for outcome, choices in menus[root].items():
+            raw_outcome = None if outcome == "none" else outcome
+            posterior = model.posterior(belief, root, raw_outcome)
+            entropy = model.target_entropy(posterior)
+            action_cards = []
+            for action in choices:
+                expected_entropy = model.expected_target_entropy(posterior, action)
+                action_cards.append(
+                    {
+                        "action": action,
+                        "expected_class_entropy": round(expected_entropy, 8),
+                        "one_step_information_gain": round(entropy - expected_entropy, 8),
+                    }
+                )
+            cards[root][outcome] = action_cards
+    return cards
+
+
 def compile_named_cell(
     response: str,
     *,
@@ -198,6 +230,11 @@ class NamedThyroidProvider:
     ) -> list[dict[str, str]]:
         slots: list[dict[str, Any]] = []
         schema: dict[str, dict[str, str]] = {}
+        utility_cards = (
+            continuation_utility_cards(model, belief=belief, roots=roots, menus=menus)
+            if self.config.utility_summary_mode == "branch_local_expected_entropy"
+            else None
+        )
         for root in roots:
             root_menus = menus[root]
             choices = next(iter(root_menus.values()))
@@ -206,18 +243,19 @@ class NamedThyroidProvider:
             for outcome in root_menus:
                 raw_outcome = None if outcome == "none" else outcome
                 posterior = model.posterior(belief, root, raw_outcome)
-                branches.append(
-                    {
-                        "outcome": outcome,
-                        "probability": round(
-                            model.outcome_probability(belief, root, raw_outcome), 8
-                        ),
-                        "class_probabilities": {
-                            str(target): round(model.class_probability(posterior, target), 8)
-                            for target in (1, 2, 3)
-                        },
-                    }
-                )
+                branch: dict[str, Any] = {
+                    "outcome": outcome,
+                    "probability": round(
+                        model.outcome_probability(belief, root, raw_outcome), 8
+                    ),
+                    "class_probabilities": {
+                        str(target): round(model.class_probability(posterior, target), 8)
+                        for target in (1, 2, 3)
+                    },
+                }
+                if utility_cards is not None:
+                    branch["continuation_utility"] = utility_cards[root][outcome]
+                branches.append(branch)
                 schema[root][outcome] = "LEGAL_ACTION_NAME"
             slots.append(
                 {
@@ -230,12 +268,21 @@ class NamedThyroidProvider:
                     ],
                 }
             )
-        user = "\n".join(
-            [
+        instructions = [
                 "Choose one named legal second action for every outcome branch of every fixed root.",
                 "The goal is to reduce uncertainty among thyroid classes 1, 2, and 3 over two actions.",
                 "The exact verifier will score each complete branch policy and choose the root.",
                 "Blood collection has zero immediate information but unlocks four laboratory assays.",
+        ]
+        if self.config.utility_summary_mode == "branch_local_expected_entropy":
+            instructions.append(
+                "Each branch includes calibrated continuation_utility values from the empirical "
+                "prior. Prefer lower expected_class_entropy (equivalently higher "
+                "one_step_information_gain) within that branch."
+            )
+        user = "\n".join(
+            [
+                *instructions,
                 "Return JSON only. Copy action names exactly; never use menu indexes or add fields.",
                 "Required shape: " + json.dumps(schema, separators=(",", ":")),
                 "Blood already collected: " + str(state.blood_collected).lower(),
@@ -276,7 +323,7 @@ class NamedThyroidProvider:
             roots=roots,
             menus=menus,
         )
-        context = {
+        context: dict[str, Any] = {
             "cell_index": cell_index,
             "history": [list(item) for item in history],
             "roots": list(roots),
@@ -285,6 +332,11 @@ class NamedThyroidProvider:
                 for root, root_menus in menus.items()
             },
         }
+        if self.config.utility_summary_mode == "branch_local_expected_entropy":
+            context["utility_summary_mode"] = self.config.utility_summary_mode
+            context["continuation_utility_cards"] = continuation_utility_cards(
+                model, belief=belief, roots=roots, menus=menus
+            )
         error: Exception | None = None
         for attempt in range(self.config.validation_retries + 1):
             response = self.chat_model.chat_complete(
@@ -296,7 +348,12 @@ class NamedThyroidProvider:
                 error = exc
                 with self._lock:
                     self.invalid_responses.append(
-                        {**context, "attempt": attempt, "error": str(exc), "raw_response": response}
+                        {
+                            **context,
+                            "attempt": attempt,
+                            "error": str(exc),
+                            "raw_response": response,
+                        }
                     )
                 if attempt < self.config.validation_retries:
                     messages = [
@@ -312,7 +369,9 @@ class NamedThyroidProvider:
                     ]
                 continue
             with self._lock:
-                self.physical_requests.append({**context, "attempt": attempt, "raw_response": response})
+                self.physical_requests.append(
+                    {**context, "attempt": attempt, "raw_response": response}
+                )
             return ThyroidStrategyCell(strategies, response)
         raise StrategyProposalError(f"thyroid cell failed after two attempts: {error}")
 
@@ -336,6 +395,31 @@ class DeterministicNamedThyroidModel:
                 }
             )
         ]
+
+
+class DeterministicUtilityThyroidModel:
+    """Select the lowest predictive-entropy continuation from each branch card."""
+
+    def chat_complete(
+        self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1
+    ) -> list[str]:
+        del temperature
+        if num_responses != 1:
+            raise ValueError("deterministic thyroid model supports one response")
+        slots = json.loads(messages[-1]["content"].split("ROOTS=", 1)[1])
+        payload: dict[str, dict[str, str]] = {}
+        for slot in slots:
+            payload[slot["root_action"]] = {}
+            for branch in slot["branches"]:
+                cards = branch.get("continuation_utility")
+                if not cards:
+                    raise ValueError("utility-grounded deterministic model requires utility cards")
+                best = min(
+                    enumerate(cards),
+                    key=lambda item: (item[1]["expected_class_entropy"], item[0]),
+                )[1]
+                payload[slot["root_action"]][branch["outcome"]] = best["action"]
+        return [json.dumps(payload)]
 
 
 def _best_query(

@@ -25,6 +25,7 @@ from scripts.nonmyopic_gated_sensor_strategy_prior import (  # noqa: E402
 from scripts.nonmyopic_thyroid_workup_oracle import exact_action_costs  # noqa: E402
 from scripts.nonmyopic_thyroid_workup_strategy import (  # noqa: E402
     DeterministicNamedThyroidModel,
+    DeterministicUtilityThyroidModel,
     NamedThyroidProvider,
     ThyroidStrategyConfig,
 )
@@ -124,25 +125,44 @@ def main() -> None:
     )
     parser.add_argument("--run-id", default="thyroid-workup-gpt54mini-robust-smoke-20260723")
     parser.add_argument("--seed", type=int, default=24_157)
+    parser.add_argument(
+        "--utility-summary-mode",
+        choices=("none", "branch_local_expected_entropy"),
+        default="none",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    strategy_config = ThyroidStrategyConfig(seed=args.seed)
+    strategy_config = ThyroidStrategyConfig(
+        seed=args.seed, utility_summary_mode=args.utility_summary_mode
+    )
+    strategy_config.validate()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     if args.dry_run:
-        chat_model: ChatModel = DeterministicNamedThyroidModel()
+        chat_model: ChatModel = (
+            DeterministicUtilityThyroidModel()
+            if args.utility_summary_mode == "branch_local_expected_entropy"
+            else DeterministicNamedThyroidModel()
+        )
     else:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
         runtime_config.location_max_new_tokens = strategy_config.max_new_tokens
         runtime_config.openrouter_max_output_tokens = strategy_config.max_new_tokens
-        chat_model = build_model_adapter(runtime_config.model_pairs[0].questioner, config=runtime_config)
+        chat_model = build_model_adapter(
+            runtime_config.model_pairs[0].questioner, config=runtime_config
+        )
     provider = NamedThyroidProvider(chat_model, strategy_config)
     try:
         result = run_smoke(provider, seed=args.seed)
     except StrategyProposalError as exc:
+        stage = (
+            "uci_thyroid_workup_utility_grounded_late_state_serving_smoke"
+            if args.utility_summary_mode == "branch_local_expected_entropy"
+            else "uci_thyroid_workup_named_late_state_serving_smoke"
+        )
         failure = {
             "schema_version": 1,
-            "stage": "uci_thyroid_workup_named_late_state_serving_smoke",
+            "stage": stage,
             "status": "failed_closed",
             "error": str(exc),
             "strategy_config": asdict(strategy_config),
@@ -155,6 +175,8 @@ def main() -> None:
         )
         raise
     result["strategy_config"] = asdict(strategy_config)
+    if args.utility_summary_mode == "branch_local_expected_entropy":
+        result["stage"] = "uci_thyroid_workup_utility_grounded_late_state_serving_smoke"
     result["usage"] = _usage_snapshot(chat_model)
     result["run_id"] = args.run_id
     result["dry_run"] = args.dry_run

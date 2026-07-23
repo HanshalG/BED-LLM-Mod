@@ -26,8 +26,12 @@ from scripts.nonmyopic_thyroid_workup_confirmation import (
 )
 from scripts.nonmyopic_thyroid_workup_strategy import (
     DeterministicNamedThyroidModel,
+    DeterministicUtilityThyroidModel,
     NamedThyroidProvider,
     ThyroidStrategyConfig,
+    branch_menus,
+    continuation_utility_cards,
+    fixed_roots,
     run_smoke,
 )
 from scripts.nonmyopic_thyroid_workup_robust_smoke import (
@@ -155,6 +159,57 @@ def test_late_state_smoke_covers_shrinking_menus() -> None:
 
     assert {len(history) for _, _, _, history in cells} == set(range(7))
     assert all(result["mechanics"].values())
+
+
+def test_utility_cards_are_branch_local_and_select_best_continuations() -> None:
+    model = ThyroidWorkupModel()
+    state = model.initial_state
+    belief = model.initial_belief
+    roots = fixed_roots(model, state=state, belief=belief)
+    menus = branch_menus(model, state=state, belief=belief, roots=roots)
+    cards = continuation_utility_cards(
+        model, belief=belief, roots=roots, menus=menus
+    )
+    config = ThyroidStrategyConfig(utility_summary_mode="branch_local_expected_entropy")
+    provider = NamedThyroidProvider(DeterministicUtilityThyroidModel(), config)
+
+    cell = provider.propose(
+        model, cell_index=0, state=state, belief=belief, history=()
+    )
+
+    assert cell.strategies[0].root_action == COLLECT_BLOOD_ACTION
+    assert cell.strategies[0].followups == {"none": "query:tsh"}
+    for strategy in cell.strategies:
+        for outcome, followup in strategy.followups.items():
+            expected = min(
+                enumerate(cards[strategy.root_action][outcome]),
+                key=lambda item: (item[1]["expected_class_entropy"], item[0]),
+            )[1]["action"]
+            assert followup == expected
+    request = provider.physical_requests[0]
+    assert request["utility_summary_mode"] == "branch_local_expected_entropy"
+    assert request["continuation_utility_cards"] == cards
+    assert "truth_index" not in json.dumps(request)
+
+
+def test_utility_grounded_late_state_smoke_keeps_actions_legal() -> None:
+    config = ThyroidStrategyConfig(
+        seed=24_159, utility_summary_mode="branch_local_expected_entropy"
+    )
+    result = run_robust_smoke(
+        NamedThyroidProvider(DeterministicUtilityThyroidModel(), config), seed=24_159
+    )
+
+    assert all(result["mechanics"].values())
+
+
+def test_thyroid_strategy_rejects_unknown_utility_summary_mode() -> None:
+    config = ThyroidStrategyConfig(
+        utility_summary_mode="oracle"  # type: ignore[arg-type]
+    )
+
+    with pytest.raises(ValueError, match="utility summary mode"):
+        config.validate()
 
 
 def test_banked_gpt_confirmation_failure_replays_independently() -> None:
