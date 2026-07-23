@@ -391,8 +391,10 @@ blood-test group. On 1,000 fresh pairs, exact d2 collected then queried TSH, gai
 proposal gate recovered .984 of d2, but trajectory serving failed. Names-only
 GPT-5.4 Mini gained .0641 [.0205,.1046] over d1, lost .0339 [-.0739,.0073] to
 matched-random continuations, and exposed ungrounded empirical assay utility; a
-utility-card repair fixed eight starts but failed before endpoints. Fresh bounded
-legal projection changed only invalid branches after retry. Over 50 pairs, entropy AUC
+utility-card repair fixed eight starts but failed before endpoints. A fresh
+projection-only ablation completed 50 pairs but gained only .0890 over d1, lost .0129
+to random, recovered .432, and collected 0/50 with 2/3,765 branches projected. Fresh
+utility plus bounded legal projection changed only invalid branches after retry; entropy AUC
 gained .2026 [.1437,.2543] over d1 and .1185 [.0813,.1578] over random; truth-log
 intervals were positive, recovery was .994, and collection was 50/50. Only 17/4,338
 branches were projected, supporting machine-grounded rather than unaided LLM planning.
@@ -573,7 +575,7 @@ One-step semantic EIG can also improve information gathering. But depth is not a
 substitute for a valid joint model, deployment-matched branches, or a task in which
 greedy information gain is genuinely suboptimal. Calibrated summaries plus bounded
 legal projection repaired Thyroid transfer by moving explicit work into the machine
-component. These empirical gates should precede another non-monotonic depth sweep.
+component; projection-only failed random. These empirical gates should precede another non-monotonic depth sweep.
 
 {\scriptsize
 \setlength{\bibsep}{0pt}

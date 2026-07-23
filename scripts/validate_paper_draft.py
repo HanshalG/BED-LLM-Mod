@@ -48,6 +48,8 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"before\s+endpoints",
         r"projected\s+branches",
         r"not\s+unaided LLM planning",
+        r"projection-only",
+        r"collected\s+0/50",
     ),
     "range_gated_depth_scope": (
         r"range-gated",
