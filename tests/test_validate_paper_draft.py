@@ -12,7 +12,8 @@ paired. Paprika policy counts are endpoint-invalid. MediQ stops before a calibra
 policy comparison. We do not claim that non-myopic BED cannot work. The study uses
 one model family, and OpenRouter introduces provider nondeterminism. The iCRAFT
 profile-support gate failed before likelihood evaluation. Mushroom and Cleveland
-show exact d2 structure but failed proposal gates.
+show exact d2 structure but failed proposal gates. In a range-gated task, Exact d3 beat exact d2,
+but this is structural rather than LLM-policy evidence.
 """
 
 VALID_FIGURE_LABELS = "\\label{fig:validation-chain}\\label{fig:rock-entropy}"

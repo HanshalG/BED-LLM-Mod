@@ -39,6 +39,11 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"exact d2",
         r"failed proposal gates",
     ),
+    "range_gated_depth_scope": (
+        r"range-gated",
+        r"Exact d3 beat exact d2",
+        r"structural rather than LLM-policy evidence",
+    ),
 }
 
 REQUIRED_FIGURE_LABELS: dict[str, str] = {

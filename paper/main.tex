@@ -406,10 +406,14 @@ entropy-AUC nats, with 95\% interval [.1998, .2090] in favor of d2. It had
 check because its local value includes a promised later move and perfect check.
 Replanning restores the three-step window, so it repeats the check and postpones the
 continuation. A fresh endpoint-aligned repair weighted earlier gains by their remaining
-AUC exposure. It made d3 beat same-utility d2 by .2744 [.2689, .2799], 500/0/0, but
-exactly reproduced the prior best terminal-EIG d2 trajectory and score. Alignment
-therefore removes the rolling-horizon reversal without establishing a strict deeper
-oracle gain; we did not spend on an h3 LLM run.
+AUC exposure. D3 then beat same-utility d2 by .2744 [.2689, .2799], but exactly
+reproduced the prior best d2 trajectory, so alignment alone created no deeper oracle gain.
+
+A fresh range-gated variant made the extra step load-bearing: checks were .55 accurate
+remotely and .95 on site, two moves away. Exact d3 beat exact d2 by .4630 entropy-AUC nats
+[.4600, .4657], 500/0/0; it always moved twice while d2 weakly checked, and independent
+recursion verified every action. A frozen non-thinking 26B named-plan smoke failed its
+root-mix contract before scoring. Thus strict h3 opportunity exists, but only as structural rather than LLM-policy evidence.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
@@ -552,7 +556,8 @@ exact finite simulator and deliberately visible enabling structure; even the
 canonical RockSample[7,8] and standard RockSample[11,11] extensions are
 diagnosis-only adaptations without the benchmark's reward, sampling, or exit
 actions. Rock Diagnosis does not test robustness to learned likelihoods or
-open-ended responses. The Mushroom and Cleveland constructions use real tabular
+open-ended responses; the range-gated sensor is also a deliberate access-delay
+adaptation, and its failed serving smoke is not an h3 policy result. The Mushroom and Cleveland constructions use real tabular
 cohorts but impose artificial zero-information unlock actions; their exact d2
 gains are structural positives, and their failed proposal gates are not positive
 policy transfers. Animals establishes
