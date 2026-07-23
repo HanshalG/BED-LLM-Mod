@@ -1,0 +1,6 @@
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.00173598, "cumulative_cost_usd": 38.561891077459876, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-14b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3753, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.0008958, "cumulative_cost_usd": 38.56278687745988, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-14b", "prompt_tokens": 6953, "reasoning_enabled": true, "reasoning_tokens": 250, "temperature": 0.0, "total_tokens": 7209}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 4226, "cost_usd": 0.0054256475, "cumulative_cost_usd": 38.568212524959876, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-14b", "prompt_tokens": 6945, "reasoning_enabled": true, "reasoning_tokens": 4160, "temperature": 0.0, "total_tokens": 11171}

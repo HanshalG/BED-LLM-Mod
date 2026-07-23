@@ -1,0 +1,100 @@
+{
+  "candidate_requests": [],
+  "error": "depth-four fixed-root tail cell failed after two attempts: illegal action 'move-SOUTH' at plan step 3 from (5, 6)",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-3"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 0,
+      "error": "illegal action 'move-SOUTH' at plan step 3 from (5, 6)",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"],\"r1\":[\"move-WEST\",\"move-WEST\",\"check-7\"],\"r2\":[\"move-WEST\",\"move-SOUTH\",\"check-5\"],\"r3\":[\"move-SOUTH\",\"move-WEST\",\"check-6\"]}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-3"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "stage": "range_gated_rock_depth4_smoke",
+  "status": "failed_closed",
+  "strategy_config": {
+    "horizon": 4,
+    "max_new_tokens": 256,
+    "num_plans": 4,
+    "seed": 24212,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "usage": {
+    "adapter_completion_tokens": 8834,
+    "adapter_cost_usd": 0.0080574275,
+    "adapter_prompt_tokens": 20813,
+    "adapter_reasoning_tokens": 8163,
+    "adapter_requests": 3,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 8834,
+    "forced_exits": 2,
+    "forced_final_requests": 1,
+    "forced_final_successes": 0,
+    "model": "qwen/qwen3-14b",
+    "model_usage": {
+      "qwen/qwen3-14b": {
+        "completion_tokens": 8834,
+        "cost_usd": 0.0080574275,
+        "prompt_tokens": 20813,
+        "reasoning_tokens": 8163,
+        "requests": 3
+      }
+    },
+    "prompt_tokens": 20813,
+    "reasoning_tokens": 8163,
+    "remaining_usd": 71.43178747504012,
+    "requests": 3,
+    "run_budget_usd": 1.0,
+    "run_cost_usd": 0.0080574275,
+    "run_remaining_usd": 0.9919425725,
+    "total_spent_usd": 38.568212524959876
+  }
+}
