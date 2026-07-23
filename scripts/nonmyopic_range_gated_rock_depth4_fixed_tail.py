@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, replace
 import json
 from pathlib import Path
@@ -791,25 +792,49 @@ def run_proposal_gate(
     provider: Depth4FixedRootTailProvider,
     strategy_config: RangeGatedDepth4StrategyConfig,
     gate_config: RangeGatedDepth4ProposalConfig,
+    *,
+    cell_concurrency: int = 1,
 ) -> dict[str, Any]:
     strategy_config.validate()
     gate_config.validate()
+    if cell_concurrency <= 0:
+        raise ValueError("cell concurrency must be positive")
     model = build_depth4_model()
     position = model.map_spec.start_position
     exhaustive_plans = enumerate_legal_plans(
         model, position=position, horizon=4
     )
-    records: list[dict[str, Any]] = []
-    for cell_index, (belief, history) in enumerate(
-        build_belief_cells(model, count=gate_config.num_cells, seed=gate_config.seed)
-    ):
-        cell = provider.propose(
+    cells = build_belief_cells(
+        model, count=gate_config.num_cells, seed=gate_config.seed
+    )
+
+    def propose_cell(
+        item: tuple[int, tuple[np.ndarray, History]],
+    ) -> RangeGatedPlanCell:
+        cell_index, (belief, history) = item
+        return provider.propose(
             model,
             cell_index=cell_index,
             position=position,
             belief=belief,
             history=history,
         )
+
+    indexed_cells = list(enumerate(cells))
+    if cell_concurrency == 1:
+        proposals = [propose_cell(item) for item in indexed_cells]
+    else:
+        with ThreadPoolExecutor(max_workers=cell_concurrency) as executor:
+            proposals = list(executor.map(propose_cell, indexed_cells))
+
+    records: list[dict[str, Any]] = []
+    requests_by_cell = {
+        int(request["cell_index"]): request
+        for request in provider.physical_requests
+    }
+    for (cell_index, (belief, history)), cell in zip(
+        indexed_cells, proposals, strict=True
+    ):
         record = _score_cell(
             model,
             cell_index=cell_index,
@@ -820,7 +845,7 @@ def run_proposal_gate(
             exhaustive_plans=exhaustive_plans,
         )
         if isinstance(provider, ProjectedDepth4FixedRootTailProvider):
-            request = provider.physical_requests[-1]
+            request = requests_by_cell[cell_index]
             selected_plan = tuple(record["llm_selected_plan"])
             selected_index = cell.plans.index(selected_plan)
             record.update(
@@ -943,6 +968,7 @@ def run_proposal_gate(
     return {
         "schema_version": 1,
         "stage": "range_gated_rock_depth4_fixed_tail_proposal_gate",
+        "cell_concurrency": cell_concurrency,
         "strategy_config": asdict(strategy_config),
         "config": asdict(gate_config),
         "mechanics": mechanics,
@@ -1003,6 +1029,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--model-generation-tokens", type=int, default=4096)
+    parser.add_argument("--cell-concurrency", type=int, default=1)
     parser.add_argument("--project-invalid-branches", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -1036,7 +1063,12 @@ def main() -> None:
         if args.stage == "smoke":
             result = run_smoke(provider, strategy_config)
         else:
-            result = run_proposal_gate(provider, strategy_config, gate_config)
+            result = run_proposal_gate(
+                provider,
+                strategy_config,
+                gate_config,
+                cell_concurrency=args.cell_concurrency,
+            )
     except StrategyProposalError as exc:
         failure = {
             "schema_version": 1,

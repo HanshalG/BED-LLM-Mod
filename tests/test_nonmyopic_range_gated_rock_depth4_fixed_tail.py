@@ -172,7 +172,9 @@ def test_deterministic_projected_depth4_proposal_and_audit_pass() -> None:
         DeterministicDepth4TailModel(), strategy_config
     )
 
-    result = run_proposal_gate(provider, strategy_config, gate_config)
+    result = run_proposal_gate(
+        provider, strategy_config, gate_config, cell_concurrency=4
+    )
     result["usage"] = {}
     result["mechanics"]["usage_accounted"] = True
     result["gate"] = {
@@ -185,4 +187,5 @@ def test_deterministic_projected_depth4_proposal_and_audit_pass() -> None:
     assert result["comparisons"]["exact_h4_route_selection_rate"] == 1.0
     assert result["comparisons"]["recovery_fraction"]["mean"] == pytest.approx(1.0)
     assert result["projected_branch_count"] == 0
+    assert result["cell_concurrency"] == 4
     assert audit["gate"]["passed"]
