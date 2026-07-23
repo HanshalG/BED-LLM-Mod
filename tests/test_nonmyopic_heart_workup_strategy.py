@@ -10,8 +10,13 @@ from scripts.nonmyopic_heart_workup_proposal_gate import (
     build_proposal_cells,
     run_proposal_gate,
 )
+from scripts.nonmyopic_heart_workup_confirmation import (
+    HeartConfirmationConfig,
+    run_confirmation,
+)
 from scripts.nonmyopic_heart_workup_strategy import (
     DeterministicIndexedHeartModel,
+    DeterministicUtilityHeartModel,
     HeartStrategyConfig,
     IndexedHeartProvider,
     branch_menus,
@@ -21,6 +26,7 @@ from scripts.nonmyopic_heart_workup_strategy import (
     project_indexed_cell,
     run_smoke,
 )
+from scripts.audit_nonmyopic_heart_workup_confirmation import audit as audit_confirmation
 
 
 def test_heart_indexed_policy_compiles_workup_contingencies() -> None:
@@ -248,3 +254,31 @@ def test_deterministic_heart_dry_runs_pass_mechanics_only() -> None:
     assert all(gate["contribution_gate"].values())
     assert np.isfinite(gate["comparisons"]["matched_random_minus_llm_cost"]["mean"])
     assert gate["endpoint_gate"]["workup_rate_at_least_threshold"] is False
+
+
+def test_deterministic_grounded_heart_confirmation_replays_independently() -> None:
+    strategy_config = HeartStrategyConfig(
+        utility_summary_mode="branch_local_expected_entropy",
+        project_invalid_after_retries=True,
+        allow_fewer_roots_when_exhausted=True,
+    )
+    provider = IndexedHeartProvider(
+        DeterministicUtilityHeartModel(), strategy_config
+    )
+    result = run_confirmation(provider, HeartConfirmationConfig())
+    result["strategy_config"] = {
+        "num_strategies": 4,
+        "seed": 24_167,
+        "temperature": 0.0,
+        "validation_retries": 1,
+        "max_new_tokens": 128,
+        "utility_summary_mode": "branch_local_expected_entropy",
+        "project_invalid_after_retries": True,
+        "allow_fewer_roots_when_exhausted": True,
+    }
+    replay = audit_confirmation(result)
+
+    assert all(result["mechanics"].values())
+    assert all(result["endpoint_gate"].values())
+    assert replay["audit_valid"] is True
+    assert replay["registered_scientific_gate_recomputed"] is True

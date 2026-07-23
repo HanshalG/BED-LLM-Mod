@@ -66,6 +66,7 @@ class HeartStrategyConfig:
     max_new_tokens: int = 128
     utility_summary_mode: Literal["none", "branch_local_expected_entropy"] = "none"
     project_invalid_after_retries: bool = False
+    allow_fewer_roots_when_exhausted: bool = False
 
     def validate(self) -> None:
         if self.num_strategies != 4:
@@ -432,11 +433,16 @@ class IndexedHeartProvider:
         belief: np.ndarray,
         history: tuple[tuple[str, str | None], ...],
     ) -> HeartStrategyCell:
+        root_count = (
+            min(self.config.num_strategies, len(model.legal_actions(state)))
+            if self.config.allow_fewer_roots_when_exhausted
+            else self.config.num_strategies
+        )
         roots = fixed_roots(
             model,
             state=state,
             belief=belief,
-            count=self.config.num_strategies,
+            count=root_count,
         )
         menus = branch_menus(model, state=state, belief=belief, roots=roots)
         messages = self._messages(
@@ -536,6 +542,34 @@ class DeterministicIndexedHeartModel:
             json.dumps(
                 {
                     f"r{slot}": [0] * len(slot_payload["branches"])
+                    for slot, slot_payload in enumerate(slots)
+                }
+            )
+        ]
+
+
+class DeterministicUtilityHeartModel:
+    def chat_complete(
+        self, messages: list[dict[str, str]], temperature: float, num_responses: int = 1
+    ) -> list[str]:
+        del temperature
+        if num_responses != 1:
+            raise ValueError("deterministic Heart model supports one response")
+        slots_payload = messages[-1]["content"].split("ROOT_SLOTS=", 1)[1]
+        slots = json.loads(slots_payload.split("\nFINAL_OUTPUT_LIMITS=", 1)[0])
+        return [
+            json.dumps(
+                {
+                    f"r{slot}": [
+                        min(
+                            branch["continuation_utility"],
+                            key=lambda card: (
+                                card["expected_class_entropy"],
+                                card["index"],
+                            ),
+                        )["index"]
+                        for branch in slot_payload["branches"]
+                    ]
                     for slot, slot_payload in enumerate(slots)
                 }
             )
