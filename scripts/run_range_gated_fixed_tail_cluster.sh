@@ -10,6 +10,7 @@ set -euo pipefail
 
 CONFIG_PATH="${1:?usage: run_range_gated_fixed_tail_cluster.sh CONFIG [extra args]}"
 shift
+ENTRYPOINT="${BED_LLM_RANGE_GATED_ENTRYPOINT:-scripts/nonmyopic_range_gated_rock_fixed_tail.py}"
 
 export CONDA_ENVS_PATH=/scratch-ssd/$USER/conda_envs
 export CONDA_PKGS_DIRS=/scratch-ssd/$USER/conda_pkgs
@@ -54,7 +55,7 @@ if [ -n "${HUGGINGFACE_TOKEN:-}" ]; then
 fi
 
 echo "START TIME: $(date)"
-srun python scripts/nonmyopic_range_gated_rock_fixed_tail.py \
+srun python "$ENTRYPOINT" \
   --config "$CONFIG_PATH" \
   "$@"
 echo "END TIME: $(date)"
