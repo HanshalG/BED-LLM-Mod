@@ -10,6 +10,7 @@ from scripts.nonmyopic_thyroid_workup_oracle import (
     exact_action_costs,
     run_qualification,
 )
+from scripts.audit_nonmyopic_thyroid_workup_oracle import audit
 
 
 def test_thyroid_cohort_and_acquisition_contract() -> None:
@@ -53,3 +54,22 @@ def test_tiny_thyroid_qualification_has_complete_paired_traces() -> None:
     assert len(summary["traces"]["depth_one"]) == 4
     assert len(summary["traces"]["depth_two"]) == 4
     assert np.isfinite(summary["comparison"]["entropy_auc_gain"]["mean"])
+
+
+def test_independent_audit_replays_tiny_qualification() -> None:
+    summary = run_qualification(
+        ThyroidQualificationConfig(
+            num_trials=4,
+            num_rounds=2,
+            seed=123,
+            bootstrap_replicates=20,
+            trial_concurrency=1,
+        )
+    )
+
+    audited = audit(summary)
+
+    assert all(audited["mechanics"].values())
+    assert audited["entropy_auc_gain"]["mean"] == pytest.approx(
+        summary["comparison"]["entropy_auc_gain"]["mean"]
+    )

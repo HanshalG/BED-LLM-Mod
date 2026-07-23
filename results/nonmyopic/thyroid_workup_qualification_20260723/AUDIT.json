@@ -1,0 +1,41 @@
+{
+  "entropy_auc_gain": {
+    "independent_ci95": [
+      0.15222966365817717,
+      0.1790567310969568
+    ],
+    "mean": 0.16589757068224423
+  },
+  "mechanics": {
+    "all_actions_legal": true,
+    "all_registered_rows_replayed": true,
+    "deterministic_outcomes_match": true,
+    "every_recorded_action_is_independently_optimal": true,
+    "independent_planning_costs_match": true,
+    "no_llm_calls": true,
+    "paired_truths_match": true,
+    "posterior_metrics_match": true,
+    "stored_comparison_matches_replay": true,
+    "stored_states_match": true,
+    "truths_sampled_without_replacement": true
+  },
+  "passed": true,
+  "schema_version": 1,
+  "source_config": {
+    "bootstrap_replicates": 10000,
+    "minimum_first_collection_rate": 0.9,
+    "num_rounds": 8,
+    "num_trials": 1000,
+    "seed": 24148,
+    "trial_concurrency": 16
+  },
+  "stage": "uci_thyroid_workup_depth_qualification_audit",
+  "truth_log_probability_auc_gain": {
+    "independent_ci95": [
+      0.13552462502241397,
+      0.1996624375574324
+    ],
+    "mean": 0.16688327433081235
+  },
+  "unique_planning_subtrees_recomputed": 9497
+}
