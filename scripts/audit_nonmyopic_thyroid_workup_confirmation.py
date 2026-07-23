@@ -75,6 +75,7 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
         "uci_thyroid_workup_26b_paired_trajectory_confirmation",
         "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation",
         "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation",
+        "uci_thyroid_workup_projected_names_only_paired_trajectory_confirmation",
     }:
         raise ValueError("unexpected thyroid confirmation stage")
     model = ThyroidWorkupModel()
@@ -88,9 +89,18 @@ def audit(payload: dict[str, Any]) -> dict[str, Any]:
         "paired_truths_distinct_and_match": True,
         "no_llm_calls": True,
     }
-    projected_stage = payload.get("stage") == (
-        "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+    projected_stage = payload.get("stage") in {
+        "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation",
+        "uci_thyroid_workup_projected_names_only_paired_trajectory_confirmation",
+    }
+    names_only_projected_stage = payload.get("stage") == (
+        "uci_thyroid_workup_projected_names_only_paired_trajectory_confirmation"
     )
+    if names_only_projected_stage:
+        checks["no_utility_cards_in_model_requests"] = all(
+            "continuation_utility_cards" not in request
+            for request in payload["candidate_requests"]
+        )
     projection = {
         "projected_cells": 0,
         "projected_cell_rate": 0.0,

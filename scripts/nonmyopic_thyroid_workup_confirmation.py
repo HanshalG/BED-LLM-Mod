@@ -307,6 +307,14 @@ def run_confirmation(
         == config.num_trials * (config.num_rounds - 1),
         "rollout_scoring_made_no_llm_calls": True,
     }
+    if (
+        provider.config.project_invalid_after_retries
+        and provider.config.utility_summary_mode == "none"
+    ):
+        mechanics["no_utility_cards_in_model_requests"] = all(
+            "continuation_utility_cards" not in request
+            for request in provider.physical_requests
+        )
     endpoint_gate = {
         "entropy_vs_depth_one_lower_bound_positive": comparisons[
             "entropy_auc_gain_vs_depth_one"
@@ -343,7 +351,11 @@ def run_confirmation(
             }
         )
     stage = (
-        "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+        (
+            "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+            if provider.config.utility_summary_mode == "branch_local_expected_entropy"
+            else "uci_thyroid_workup_projected_names_only_paired_trajectory_confirmation"
+        )
         if provider.config.project_invalid_after_retries
         else (
             "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
@@ -382,10 +394,15 @@ def render(result: dict[str, Any]) -> str:
         "# UCI Thyroid Projected-Utility Paired Trajectory Confirmation"
         if result["stage"] == "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
         else (
-            "# UCI Thyroid Utility-Grounded Paired Trajectory Confirmation"
+            "# UCI Thyroid Projected Names-Only Paired Trajectory Confirmation"
             if result["stage"]
-            == "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
-            else "# UCI Thyroid 26B Paired Trajectory Confirmation"
+            == "uci_thyroid_workup_projected_names_only_paired_trajectory_confirmation"
+            else (
+                "# UCI Thyroid Utility-Grounded Paired Trajectory Confirmation"
+                if result["stage"]
+                == "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"
+                else "# UCI Thyroid 26B Paired Trajectory Confirmation"
+            )
         )
     )
     lines = [
@@ -415,7 +432,10 @@ def render(result: dict[str, Any]) -> str:
             "",
         ]
     )
-    if result["stage"] == "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation":
+    if result["stage"] in {
+        "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation",
+        "uci_thyroid_workup_projected_names_only_paired_trajectory_confirmation",
+    }:
         projection = result["projection"]
         lines.extend(
             [
@@ -479,7 +499,11 @@ def main() -> None:
         result = run_confirmation(provider, config)
     except StrategyProposalError as exc:
         stage = (
-            "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+            (
+                "uci_thyroid_workup_projected_utility_paired_trajectory_confirmation"
+                if args.utility_summary_mode == "branch_local_expected_entropy"
+                else "uci_thyroid_workup_projected_names_only_paired_trajectory_confirmation"
+            )
             if args.project_invalid_after_retries
             else (
                 "uci_thyroid_workup_utility_grounded_paired_trajectory_confirmation"

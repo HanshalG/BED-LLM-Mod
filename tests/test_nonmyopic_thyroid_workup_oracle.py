@@ -265,11 +265,22 @@ def test_projection_replaces_only_invalid_branches_with_best_legal_actions() -> 
             assert followup != strategy.root_action
 
 
-def test_projection_requires_utility_summaries() -> None:
+def test_projection_can_compile_names_only_invalid_responses() -> None:
     config = ThyroidStrategyConfig(project_invalid_after_retries=True)
+    config.validate()
+    model = ThyroidWorkupModel()
+    provider = NamedThyroidProvider(_RepeatingRootThyroidModel(), config)
 
-    with pytest.raises(ValueError, match="projection requires"):
-        config.validate()
+    provider.propose(
+        model,
+        cell_index=0,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+    )
+
+    assert len(provider.projected_responses) == 1
+    assert "continuation_utility_cards" not in provider.projected_responses[0]
 
 
 def test_projected_confirmation_audit_treats_machine_zero_entropies_as_ties() -> None:

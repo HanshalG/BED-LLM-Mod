@@ -74,10 +74,6 @@ class ThyroidStrategyConfig:
             raise ValueError("the frozen thyroid interface uses a 1,024-token output cap")
         if self.utility_summary_mode not in ("none", "branch_local_expected_entropy"):
             raise ValueError("unsupported thyroid continuation utility summary mode")
-        if self.project_invalid_after_retries and self.utility_summary_mode != (
-            "branch_local_expected_entropy"
-        ):
-            raise ValueError("thyroid projection requires branch-local utility summaries")
 
 
 @dataclass(frozen=True)
