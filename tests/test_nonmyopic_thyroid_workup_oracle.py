@@ -29,6 +29,10 @@ from scripts.nonmyopic_thyroid_workup_strategy import (
     ThyroidStrategyConfig,
     run_smoke,
 )
+from scripts.nonmyopic_thyroid_workup_robust_smoke import (
+    build_robust_cells,
+    run_smoke as run_robust_smoke,
+)
 
 
 def test_thyroid_cohort_and_acquisition_contract() -> None:
@@ -138,3 +142,15 @@ def test_confirmation_exact_arm_produces_complete_legal_trace() -> None:
     assert len(trace["steps"]) == 8
     assert trace["steps"][0]["action"] == COLLECT_BLOOD_ACTION
     assert np.isfinite(trace["entropy_auc"])
+
+
+def test_late_state_smoke_covers_shrinking_menus() -> None:
+    model = ThyroidWorkupModel()
+    cells = build_robust_cells(model, seed=24_157)
+    config = ThyroidStrategyConfig(seed=24_157)
+    result = run_robust_smoke(
+        NamedThyroidProvider(DeterministicNamedThyroidModel(), config), seed=24_157
+    )
+
+    assert {len(history) for _, _, _, history in cells} == set(range(7))
+    assert all(result["mechanics"].values())

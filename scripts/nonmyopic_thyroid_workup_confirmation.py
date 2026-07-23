@@ -387,6 +387,7 @@ def main() -> None:
         runtime_config: Config = load_config(args.config)
         runtime_config.run_id = args.run_id
         runtime_config.location_max_new_tokens = strategy_config.max_new_tokens
+        runtime_config.openrouter_max_output_tokens = strategy_config.max_new_tokens
         chat_model = build_model_adapter(runtime_config.model_pairs[0].questioner, config=runtime_config)
     provider = NamedThyroidProvider(chat_model, strategy_config)
     try:
