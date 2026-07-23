@@ -1,0 +1,4 @@
+{"backend": "openrouter", "completion_tokens": 33, "cost_usd": 2.016e-05, "cumulative_cost_usd": 40.291601172459835, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 58, "reasoning_enabled": true, "reasoning_tokens": 24, "temperature": 0.0, "total_tokens": 91}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 6, "cost_usd": 1.501e-05, "cumulative_cost_usd": 40.29161618245983, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "google/gemma-4-26b-a4b-it", "prompt_tokens": 97, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 103}

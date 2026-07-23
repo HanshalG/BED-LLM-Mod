@@ -1,0 +1,41 @@
+{
+  "model": "google/gemma-4-26b-a4b-it",
+  "parsed": {
+    "target": 4
+  },
+  "response": "{\"target\":4}",
+  "stage": "endpoint_free_openrouter_forced_final_calibration",
+  "thinking_final_max_new_tokens": 32,
+  "thinking_max_new_tokens": 1,
+  "usage": {
+    "adapter_completion_tokens": 39,
+    "adapter_cost_usd": 3.5170000000000004e-05,
+    "adapter_prompt_tokens": 155,
+    "adapter_reasoning_tokens": 24,
+    "adapter_requests": 2,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 39,
+    "forced_exits": 1,
+    "forced_final_requests": 1,
+    "forced_final_successes": 1,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 39,
+        "cost_usd": 3.5170000000000004e-05,
+        "prompt_tokens": 155,
+        "reasoning_tokens": 24,
+        "requests": 2
+      }
+    },
+    "prompt_tokens": 155,
+    "reasoning_tokens": 24,
+    "remaining_usd": 69.70838381754017,
+    "requests": 2,
+    "run_budget_usd": 0.05,
+    "run_cost_usd": 3.5170000000000004e-05,
+    "run_remaining_usd": 0.04996483,
+    "total_spent_usd": 40.29161618245983
+  }
+}
