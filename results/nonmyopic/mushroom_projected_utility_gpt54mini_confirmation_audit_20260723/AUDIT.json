@@ -1,0 +1,59 @@
+{
+  "audit_valid": true,
+  "comparisons": {
+    "entropy_auc_gain_vs_depth_one": {
+      "independent_ci95": [
+        0.061712934139344054,
+        0.14366382782369838
+      ],
+      "mean": 0.10228628365945208
+    },
+    "entropy_auc_gain_vs_random": {
+      "independent_ci95": [
+        0.03735106018261044,
+        0.10117851610655375
+      ],
+      "mean": 0.06851138295284459
+    },
+    "truth_log_auc_gain_vs_depth_one": {
+      "independent_ci95": [
+        0.05650795515871282,
+        0.19807644539988717
+      ],
+      "mean": 0.12009637887275765
+    },
+    "truth_log_auc_gain_vs_random": {
+      "independent_ci95": [
+        0.03840108639025504,
+        0.12097293642232161
+      ],
+      "mean": 0.07804070377553214
+    }
+  },
+  "exact_depth_two_entropy_gain_vs_depth_one": 0.10228628365945208,
+  "llm_first_collection_rate": 1.0,
+  "llm_recovery_fraction_of_exact_depth_two_gain": 1.0,
+  "mechanics": {
+    "all_aggregate_metrics_match": true,
+    "all_exact_control_actions_match": true,
+    "all_histories_states_and_observations_replayed": true,
+    "all_llm_policies_and_selections_match": true,
+    "all_posterior_metrics_match": true,
+    "all_projections_are_exact_legal_minima": true,
+    "all_random_policies_and_selections_match": true,
+    "no_llm_calls": true,
+    "paired_truths_distinct_and_match": true,
+    "projection_aggregates_match": true
+  },
+  "projection": {
+    "max_expected_entropy_excess": 0.0,
+    "projected_branch_rate": 0.0,
+    "projected_branches": 0,
+    "projected_cell_rate": 0.0,
+    "projected_cells": 0,
+    "total_branches": 5152
+  },
+  "registered_scientific_gate_recomputed": true,
+  "schema_version": 1,
+  "stage": "mushroom_projected_utility_confirmation_audit"
+}
