@@ -36,8 +36,14 @@ REQUIRED_LIMITATION_PATTERNS = {
     "semantic_unlock_scope": (
         r"Mushroom",
         r"Cleveland",
+        r"Thyroid",
         r"exact d2",
-        r"failed proposal gates",
+        r"partial",
+    ),
+    "thyroid_grounding_scope": (
+        r"native\s+delayed-assay metadata",
+        r"matched-random\s+continuations",
+        r"ungrounded\s+empirical assay utility",
     ),
     "range_gated_depth_scope": (
         r"range-gated",

@@ -54,8 +54,10 @@ fifteen-rock gains under shared root slots. The selected
 policies move to enable accurate future checks, whereas both myopic controls never
 move; an exact gate and three direct-vLLM seeds each at 26B and 12B
 preserve the planning gap at 32,768 latent states, while E4B fails. Two
-data-derived semantic unlock tasks reproduce exact d2 gains but fail frozen 26B
-proposal gates. Negative location, Paprika, and MediQ audits identify the boundary: depth
+data-derived semantic unlock tasks reproduce exact d2 gains; a UCI Thyroid task with
+native delayed-assay metadata further passes a 26B proposal gate, but sustained 26B
+serving fails and GPT-5.4 Mini does not beat matched-random continuations. Negative
+location, Paprika, and MediQ audits identify the boundary: depth
 needs both a deployment-matched generative model and verified non-greedy structure.
 The result supports an LLM-Modulo architecture for sequential BED---semantic policy
 generation coupled to exact external verification---rather than unverified LLM
@@ -193,7 +195,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
 Gated Sensor & Exact finite state & Zero-EIG activation & Exact d2 beats d1; LLM ties random & Structural positive \\
-Mushroom / Cleveland & Exact empirical & Zero-EIG acquisition/workup & Exact d2 wins; 26B proposals fail & Structural positive \\
+Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Exact d2 wins; LLM transfer is partial & Structural positive \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -366,38 +368,32 @@ each. Its K4 support captured 49.5--53.3\% of exhaustive d2 value across seeds.
 Different fresh seeds make the model-size contrast descriptive, but the replicated
 pass brackets a practical E4B-to-12B capacity boundary.
 
-We next constructed a non-spatial Gated Sensor diagnosis task. A zero-information
-panel activation unlocks precise bit and parity tests for a 32-state fault code. In
-a preregistered 500-pair exact gate, d2 beat d1 by 1.2459 entropy-AUC nats
-[1.2401, 1.2516], with 500/0/0 wins/ties/losses; the truth-log-AUC gain was
-1.2806 [1.1943, 1.3630]. The LLM extension exposed a boundary rather than a second
-policy success. A strict literal-action interface failed closed with 662 rejected
-attempts; a branch-local integer interface eliminated legality errors. Its strongest
-exploratory GPT-5.4 Mini probe beat both greedy controls but tied matched random
-policies: $-.0413$ [-.1854, .0795], with 5/0/3 wins/ties/losses. Exact verification
-cannot recover setup value when the proposed continuation itself is redundant. An
-exact same-state audit confirms that localization: fixed roots contained an
-exhaustive-optimal root on every audited state, but LLM continuations recovered .759
-of same-root oracle value versus .802 for matched random continuations. A frozen
-branch-conditioned retry also failed (.694 versus .783; random-policy entropy AUC
-$-.122$ [$-.268$, $-.008$]): 70/104 measurement-root continuations selected a
-terminal zero-EIG activation. Richer beliefs did not fix the indexed proposal
-bottleneck, so no formal confirmation followed.
+In a non-spatial Gated Sensor task, zero-information activation unlocks precise
+tests for a 32-state fault. Exact d2 beat d1 by 1.2459 entropy-AUC nats
+[1.2401, 1.2516] over 500 pairs. The LLM extension again exposed a proposal
+boundary: its strongest GPT-5.4 Mini probe tied matched random ($-.0413$
+[$-.1854,.0795$]). Same-state recovery was .759 for LLM versus .802 for random;
+a frozen retry fell to .694 versus .783 because 70/104 measurement-root
+continuations selected terminal zero-EIG activation. Exact verification cannot
+recover setup value from a redundant continuation, so no confirmation followed.
 
-Two data-derived semantic tasks independently reproduce the structural gap but
-not the LLM-policy gain. In UCI Mushroom, collecting a specimen has zero immediate
-EIG but unlocks detailed features; exact d2 improved entropy AUC by .1153
-[.1057, .1254] over d1 on 1,000 paired rows. The frozen 26B proposal gate beat
-matched random, but selected collection on only 10/16 opportunities and recovered
-.327 of exhaustive d2 value, failing the strong-d1 and recovery gates. In the
-independent UCI Cleveland cohort, a zero-information clinical workup unlocks eight
-tests. Exact d2 improved entropy AUC by .0687 [.0573, .0803] and ordered workup
-2.22 rounds earlier. Yet the 26B gate selected workup on only 1/16 exact d2
-opportunities and was worse than the strong d1 continuation by .0435
-[.0083, .0704]. Independent replay localized this to menu position: 15/16
-workup-root continuations chose age or sex, while every ordinary-query branch
-chose the setup action. Thus semantic task structure transfers more readily than
-the bounded proposal prior; no formal policy run followed either failed gate.
+Three data-derived tasks reproduce the structural gap with only partial LLM
+transfer. UCI Mushroom exact d2 gained .1153 [.1057,.1254] entropy AUC over d1,
+but 26B collected on 10/16 opportunities and recovered .327 of exhaustive d2.
+On UCI Cleveland, exact d2 gained .0687 [.0573,.0803] and ordered a workup 2.22
+rounds earlier; 26B selected workup on 1/16 opportunities and lost to the strong
+d1 continuation. Both gates failed.
+
+UCI Thyroid's release marks 16 variables immediate and TSH, T3, TT4, and T4U as
+one delayed blood-test group. On 1,000 fresh pairs, exact d2 collected despite
+zero immediate EIG, then queried TSH, gaining .1659 [.1523,.1791] entropy AUC and
+.1669 [.1359,.1998] truth-log AUC over d1. A 26B proposal gate selected collection
+32/32 times and recovered .984 of exact d2, but trajectory serving failed when it
+repeated the current T4U query after the menu shrank. GPT-5.4 Mini completed 50
+pairs and gained .0641 [.0205,.1046] over d1, but lost .0339 [-.0739,.0073] to
+matched-random continuations, recovered .308 of d2, and collected first 2/50 times.
+It proposed age after collection 48/50 times and TSH twice, localizing failure to
+ungrounded empirical assay utility rather than posterior or serving mechanics.
 
 More receding-horizon depth is not automatically better, even with the exact
 simulator. In a preregistered 500-pair gate, terminal-EIG d3 lost to d2 by .2044
@@ -409,11 +405,10 @@ continuation. A fresh endpoint-aligned repair weighted earlier gains by their re
 AUC exposure. D3 then beat same-utility d2 by .2744 [.2689, .2799], but exactly
 reproduced the prior best d2 trajectory, so alignment alone created no deeper oracle gain.
 
-A fresh range-gated variant made the extra step load-bearing: checks were .55 accurate
-remotely and .95 on site, two moves away. Exact d3 beat exact d2 by .4630 entropy-AUC nats
-[.4600, .4657], 500/0/0; it always moved twice while d2 weakly checked, and independent
-recursion verified every action. A frozen non-thinking 26B named-plan smoke failed its
-root-mix contract before scoring. Thus strict h3 opportunity exists, but only as structural rather than LLM-policy evidence.
+A range-gated variant made the extra step load-bearing: checks were .55 accurate
+remotely and .95 on site, two moves away. Exact d3 beat exact d2 by .4630
+[.4600,.4657] entropy-AUC nats over 500 pairs, always moving twice while d2 checked.
+A frozen 26B named-plan smoke failed before scoring; the h3 result is structural rather than LLM-policy evidence.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
@@ -557,10 +552,11 @@ canonical RockSample[7,8] and standard RockSample[11,11] extensions are
 diagnosis-only adaptations without the benchmark's reward, sampling, or exit
 actions. Rock Diagnosis does not test robustness to learned likelihoods or
 open-ended responses; the range-gated sensor is also a deliberate access-delay
-adaptation, and its failed serving smoke is not an h3 policy result. The Mushroom and Cleveland constructions use real tabular
-cohorts but impose artificial zero-information unlock actions; their exact d2
-gains are structural positives, and their failed proposal gates are not positive
-policy transfers. Animals establishes
+adaptation, and its failed serving smoke is not an h3 policy result. The Mushroom
+and Cleveland constructions use real tabular cohorts but impose artificial
+zero-information unlock actions. Thyroid uses released delayed/grouped acquisition
+metadata, but its exact gain remains structural: the 26B proposal pass did not
+survive trajectory serving, and GPT beat d1 but not matched random. Animals establishes
 one-step transfer, but its
 full depth-one and depth-two streams are only partially paired and have weaker
 code provenance than the newer audits. Natural location results use one model
@@ -579,7 +575,8 @@ an enabling-information gap, LLM proposals plus exact rollout-EIG verification
 produce a large, paired, non-myopic gain; both generation and verification matter.
 One-step semantic EIG can also improve information gathering. But depth is not a
 substitute for a valid joint model, deployment-matched branches, or a task in which
-greedy information gain is genuinely suboptimal. These are empirical gates, not
+greedy information gain is genuinely suboptimal; semantic action names also do not
+replace calibrated continuation-utility summaries. These are empirical gates, not
 implementation details. Testing them before scaling horizon is both cheaper and
 scientifically stronger than explaining another non-monotonic depth sweep after
 the fact.
