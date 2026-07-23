@@ -1,0 +1,60 @@
+{
+  "audit_valid": true,
+  "comparisons": {
+    "entropy_auc_gain_vs_depth_one": {
+      "independent_ci95": [
+        0.14556027128667876,
+        0.2551932486262197
+      ],
+      "mean": 0.20261819475335352
+    },
+    "entropy_auc_gain_vs_random": {
+      "independent_ci95": [
+        0.08004500002060912,
+        0.15825241954174263
+      ],
+      "mean": 0.1185302808042722
+    },
+    "truth_log_auc_gain_vs_depth_one": {
+      "independent_ci95": [
+        0.05312733063386954,
+        0.31953366511814724
+      ],
+      "mean": 0.17232683845963329
+    },
+    "truth_log_auc_gain_vs_random": {
+      "independent_ci95": [
+        0.01778091358275304,
+        0.13024117256404566
+      ],
+      "mean": 0.06538760605574756
+    }
+  },
+  "exact_depth_two_entropy_gain_vs_depth_one": 0.20375978496511984,
+  "llm_first_collection_rate": 1.0,
+  "llm_recovery_fraction_of_exact_depth_two_gain": 0.994397372317792,
+  "mechanics": {
+    "all_aggregate_metrics_match": true,
+    "all_exact_control_actions_match": true,
+    "all_histories_and_observations_replayed": true,
+    "all_llm_policies_and_selections_match": true,
+    "all_posterior_metrics_match": true,
+    "all_projections_are_exact_legal_minima": true,
+    "all_random_policies_and_selections_match": true,
+    "no_llm_calls": true,
+    "paired_truths_distinct_and_match": true,
+    "projection_aggregates_match": true
+  },
+  "projection": {
+    "max_expected_entropy_excess": 2.329054823398426e-16,
+    "projected_branch_rate": 0.003918856615952052,
+    "projected_branches": 17,
+    "projected_cell_rate": 0.022857142857142857,
+    "projected_cells": 8,
+    "total_branches": 4338
+  },
+  "registered_scientific_gate_recomputed": true,
+  "schema_version": 1,
+  "stage": "uci_thyroid_workup_paired_trajectory_confirmation_audit",
+  "unique_exact_subtrees_recomputed": 1976
+}
