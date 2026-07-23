@@ -1,0 +1,3565 @@
+{
+  "branch_quality": {
+    "advantage_over_uniform": 0.10169288645690822,
+    "exact_optimal_branches": 139,
+    "exact_optimal_fraction": 0.8081395348837209,
+    "total_branches": 172,
+    "uniform_menu_optimal_fraction": 0.7064466484268127
+  },
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "none": "query:odor"
+          },
+          "root_action": "collect:specimen"
+        },
+        {
+          "followups": {
+            "a": "query:habitat",
+            "c": "query:habitat",
+            "n": "query:habitat",
+            "s": "query:habitat",
+            "v": "query:habitat",
+            "y": "query:habitat"
+          },
+          "root_action": "query:population"
+        },
+        {
+          "followups": {
+            "d": "query:population",
+            "g": "query:population",
+            "l": "query:population",
+            "m": "query:population",
+            "p": "query:population",
+            "u": "query:population",
+            "w": "query:population"
+          },
+          "root_action": "query:habitat"
+        },
+        {
+          "followups": {
+            "b": "query:population",
+            "c": "query:population",
+            "f": "query:population",
+            "k": "query:population",
+            "s": "query:population",
+            "x": "query:population"
+          },
+          "root_action": "query:cap-shape"
+        }
+      ],
+      "history": [],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "a": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "v": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ]
+        },
+        {
+          "d": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "l": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "m": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "x": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:population",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[1],\"r1\":[3,3,3,3,3,3],\"r2\":[3,3,3,3,3,3,3],\"r3\":[2,2,2,2,2,2]}",
+      "roots": [
+        "collect:specimen",
+        "query:population",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "none": "query:odor"
+          },
+          "root_action": "collect:specimen"
+        },
+        {
+          "followups": {
+            "c": "query:habitat",
+            "e": "query:habitat",
+            "g": "query:habitat",
+            "n": "query:habitat",
+            "p": "query:habitat",
+            "r": "query:habitat",
+            "u": "query:habitat",
+            "w": "query:habitat",
+            "y": "query:habitat"
+          },
+          "root_action": "query:cap-color"
+        },
+        {
+          "followups": {
+            "d": "query:cap-color",
+            "g": "query:cap-color",
+            "p": "query:cap-color",
+            "u": "query:cap-color"
+          },
+          "root_action": "query:habitat"
+        },
+        {
+          "followups": {
+            "b": "query:cap-color",
+            "f": "query:habitat",
+            "k": "query:cap-color",
+            "s": "query:habitat",
+            "x": "query:cap-color"
+          },
+          "root_action": "query:cap-shape"
+        }
+      ],
+      "history": [
+        {
+          "action": "query:population",
+          "outcome": "y"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "r": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ]
+        },
+        {
+          "d": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "x": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[1],\"r1\":[2,2,2,2,2,2,2,2,2],\"r2\":[2,2,2,2],\"r3\":[1,2,1,2,1]}",
+      "roots": [
+        "collect:specimen",
+        "query:cap-color",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "none": "query:odor"
+          },
+          "root_action": "collect:specimen"
+        },
+        {
+          "followups": {
+            "c": "query:cap-surface",
+            "e": "query:cap-shape",
+            "g": "query:cap-shape",
+            "n": "query:cap-shape",
+            "p": "query:cap-shape",
+            "r": "query:cap-shape",
+            "u": "query:cap-shape",
+            "w": "query:cap-shape",
+            "y": "query:cap-shape"
+          },
+          "root_action": "query:cap-color"
+        },
+        {
+          "followups": {
+            "d": "query:cap-color",
+            "g": "query:cap-surface",
+            "p": "query:cap-shape",
+            "u": "query:cap-shape"
+          },
+          "root_action": "query:habitat"
+        },
+        {
+          "followups": {
+            "b": "query:cap-color",
+            "f": "query:cap-color",
+            "k": "query:cap-surface",
+            "s": "query:cap-surface",
+            "x": "query:cap-color"
+          },
+          "root_action": "query:cap-shape"
+        }
+      ],
+      "history": [
+        {
+          "action": "query:population",
+          "outcome": "y"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "r": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:habitat"
+          ]
+        },
+        {
+          "d": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "x": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[1],\"r1\":[1,0,0,0,0,0,0,0,0],\"r2\":[2,1,0,0],\"r3\":[1,1,0,0,1]}",
+      "roots": [
+        "collect:specimen",
+        "query:cap-color",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "none": "query:odor"
+          },
+          "root_action": "collect:specimen"
+        },
+        {
+          "followups": {
+            "d": "query:cap-shape",
+            "g": "query:cap-shape",
+            "p": "query:cap-shape",
+            "u": "query:cap-shape"
+          },
+          "root_action": "query:habitat"
+        },
+        {
+          "followups": {
+            "f": "query:habitat",
+            "s": "query:habitat",
+            "x": "query:habitat"
+          },
+          "root_action": "query:cap-shape"
+        },
+        {
+          "followups": {
+            "f": "query:habitat",
+            "s": "query:cap-shape",
+            "y": "query:habitat"
+          },
+          "root_action": "query:cap-surface"
+        }
+      ],
+      "history": [
+        {
+          "action": "query:population",
+          "outcome": "y"
+        },
+        {
+          "action": "query:cap-color",
+          "outcome": "g"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "d": [
+            "query:cap-shape",
+            "query:cap-surface"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface"
+          ]
+        },
+        {
+          "f": [
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "x": [
+            "query:cap-surface",
+            "query:habitat"
+          ]
+        },
+        {
+          "f": [
+            "query:cap-shape",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-shape",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[1],\"r1\":[0,0,0,0],\"r2\":[1,1,1],\"r3\":[1,0,1]}",
+      "roots": [
+        "collect:specimen",
+        "query:habitat",
+        "query:cap-shape",
+        "query:cap-surface"
+      ],
+      "specimen_collected": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "none": "query:spore-print-color"
+          },
+          "root_action": "collect:specimen"
+        },
+        {
+          "followups": {
+            "f": "query:habitat",
+            "s": "query:habitat"
+          },
+          "root_action": "query:cap-surface"
+        },
+        {
+          "followups": {
+            "g": "query:habitat",
+            "n": "query:cap-surface",
+            "w": "query:habitat"
+          },
+          "root_action": "query:cap-color"
+        },
+        {
+          "followups": {
+            "g": "query:cap-surface"
+          },
+          "root_action": "query:habitat"
+        }
+      ],
+      "history": [
+        {
+          "action": "query:population",
+          "outcome": "a"
+        },
+        {
+          "action": "query:cap-shape",
+          "outcome": "f"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "f": [
+            "query:cap-color",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-color",
+            "query:habitat"
+          ]
+        },
+        {
+          "g": [
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-surface",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-surface",
+            "query:habitat"
+          ]
+        },
+        {
+          "g": [
+            "query:cap-surface",
+            "query:cap-color"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[16],\"r1\":[1,1],\"r2\":[1,0,1],\"r3\":[0]}",
+      "roots": [
+        "collect:specimen",
+        "query:cap-surface",
+        "query:cap-color",
+        "query:habitat"
+      ],
+      "specimen_collected": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "none": "query:odor"
+          },
+          "root_action": "collect:specimen"
+        },
+        {
+          "followups": {
+            "c": "query:cap-shape",
+            "e": "query:cap-surface",
+            "n": "query:cap-shape"
+          },
+          "root_action": "query:cap-color"
+        },
+        {
+          "followups": {
+            "f": "query:cap-color",
+            "s": "query:cap-shape",
+            "y": "query:cap-color"
+          },
+          "root_action": "query:cap-surface"
+        },
+        {
+          "followups": {
+            "b": "query:cap-color",
+            "f": "query:cap-color",
+            "k": "query:cap-color",
+            "x": "query:cap-color"
+          },
+          "root_action": "query:cap-shape"
+        }
+      ],
+      "history": [
+        {
+          "action": "query:population",
+          "outcome": "v"
+        },
+        {
+          "action": "query:habitat",
+          "outcome": "l"
+        }
+      ],
+      "menus": [
+        {
+          "none": [
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color"
+          ]
+        },
+        {
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface"
+          ],
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface"
+          ]
+        },
+        {
+          "f": [
+            "query:cap-shape",
+            "query:cap-color"
+          ],
+          "s": [
+            "query:cap-shape",
+            "query:cap-color"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-color"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "f": [
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "k": [
+            "query:cap-surface",
+            "query:cap-color"
+          ],
+          "x": [
+            "query:cap-surface",
+            "query:cap-color"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[1],\"r1\":[0,1,0],\"r2\":[1,0,1],\"r3\":[1,1,1,1]}",
+      "roots": [
+        "collect:specimen",
+        "query:cap-color",
+        "query:cap-surface",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false
+    },
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "a": "query:spore-print-color",
+            "c": "query:spore-print-color",
+            "f": "query:habitat",
+            "l": "query:spore-print-color",
+            "m": "query:spore-print-color",
+            "n": "query:spore-print-color",
+            "p": "query:spore-print-color",
+            "s": "query:spore-print-color",
+            "y": "query:spore-print-color"
+          },
+          "root_action": "query:odor"
+        },
+        {
+          "followups": {
+            "b": "query:habitat",
+            "h": "query:odor",
+            "k": "query:ring-type",
+            "n": "query:stalk-surface-above-ring",
+            "o": "query:ring-type",
+            "r": "query:ring-type",
+            "u": "query:odor",
+            "w": "query:ring-type",
+            "y": "query:odor"
+          },
+          "root_action": "query:spore-print-color"
+        },
+        {
+          "followups": {
+            "b": "query:habitat",
+            "e": "query:odor",
+            "g": "query:spore-print-color",
+            "h": "query:spore-print-color",
+            "k": "query:spore-print-color",
+            "n": "query:spore-print-color",
+            "o": "query:odor",
+            "p": "query:spore-print-color",
+            "r": "query:odor",
+            "u": "query:spore-print-color",
+            "w": "query:spore-print-color",
+            "y": "query:spore-print-color"
+          },
+          "root_action": "query:gill-color"
+        },
+        {
+          "followups": {
+            "e": "query:spore-print-color",
+            "f": "query:spore-print-color",
+            "l": "query:spore-print-color",
+            "n": "query:spore-print-color",
+            "p": "query:spore-print-color"
+          },
+          "root_action": "query:ring-type"
+        }
+      ],
+      "history": [
+        {
+          "action": "collect:specimen",
+          "outcome": null
+        }
+      ],
+      "menus": [
+        {
+          "a": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "l": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "m": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "h": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "o": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "r": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "h": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "o": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "r": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "l": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:odor",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[18,18,20,18,18,18,18,18,18],\"r1\":[20,4,18,11,18,18,4,18,4],\"r2\":[20,4,18,18,18,18,4,18,4,18,18,18],\"r3\":[18,18,18,18,18]}",
+      "roots": [
+        "query:odor",
+        "query:spore-print-color",
+        "query:gill-color",
+        "query:ring-type"
+      ],
+      "specimen_collected": true
+    },
+    {
+      "attempt": 0,
+      "cell_index": 7,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "b": "query:bruises",
+            "h": "query:bruises",
+            "k": "query:bruises",
+            "n": "query:bruises",
+            "o": "query:bruises",
+            "r": "query:bruises",
+            "w": "query:bruises",
+            "y": "query:bruises"
+          },
+          "root_action": "query:spore-print-color"
+        },
+        {
+          "followups": {
+            "b": "query:spore-print-color",
+            "c": "query:spore-print-color",
+            "e": "query:spore-print-color",
+            "g": "query:spore-print-color",
+            "n": "query:spore-print-color",
+            "p": "query:spore-print-color",
+            "r": "query:spore-print-color",
+            "u": "query:spore-print-color",
+            "w": "query:spore-print-color",
+            "y": "query:spore-print-color"
+          },
+          "root_action": "query:cap-color"
+        },
+        {
+          "followups": {
+            "e": "query:ring-type",
+            "g": "query:ring-type",
+            "h": "query:ring-type",
+            "k": "query:ring-type",
+            "n": "query:ring-type",
+            "o": "query:ring-type",
+            "p": "query:ring-type",
+            "r": "query:ring-type",
+            "u": "query:ring-type",
+            "w": "query:ring-type",
+            "y": "query:ring-type"
+          },
+          "root_action": "query:gill-color"
+        },
+        {
+          "followups": {
+            "e": "query:population",
+            "t": "query:population"
+          },
+          "root_action": "query:stalk-shape"
+        }
+      ],
+      "history": [
+        {
+          "action": "collect:specimen",
+          "outcome": null
+        },
+        {
+          "action": "query:odor",
+          "outcome": "n"
+        }
+      ],
+      "menus": [
+        {
+          "b": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "h": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "o": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "r": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "c": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "r": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "g": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "h": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "k": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "o": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "p": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "r": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "u": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "e": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "t": [
+            "query:cap-shape",
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[3,3,3,3,3,3,3,3],\"r1\":[17,17,17,17,17,17,17,17,17,17],\"r2\":[16,16,16,16,16,16,16,16,16,16,16],\"r3\":[18,18]}",
+      "roots": [
+        "query:spore-print-color",
+        "query:cap-color",
+        "query:gill-color",
+        "query:stalk-shape"
+      ],
+      "specimen_collected": true
+    },
+    {
+      "attempt": 0,
+      "cell_index": 8,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "f": "query:cap-color",
+            "s": "query:cap-color",
+            "y": "query:cap-color"
+          },
+          "root_action": "query:cap-surface"
+        },
+        {
+          "followups": {
+            "b": "query:cap-surface",
+            "e": "query:cap-surface",
+            "g": "query:cap-surface",
+            "n": "query:cap-surface",
+            "w": "query:cap-surface",
+            "y": "query:cap-surface"
+          },
+          "root_action": "query:cap-color"
+        },
+        {
+          "followups": {
+            "f": "query:cap-surface",
+            "t": "query:cap-surface"
+          },
+          "root_action": "query:bruises"
+        },
+        {
+          "followups": {
+            "f": "query:cap-surface"
+          },
+          "root_action": "query:gill-attachment"
+        }
+      ],
+      "history": [
+        {
+          "action": "collect:specimen",
+          "outcome": null
+        },
+        {
+          "action": "query:odor",
+          "outcome": "f"
+        },
+        {
+          "action": "query:cap-shape",
+          "outcome": "x"
+        }
+      ],
+      "menus": [
+        {
+          "f": [
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "s": [
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "b": [
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "e": [
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "g": [
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "w": [
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "y": [
+            "query:cap-surface",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "f": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "t": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "f": [
+            "query:cap-surface",
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[0,0,0],\"r1\":[0,0,0,0,0,0],\"r2\":[0,0],\"r3\":[0]}",
+      "roots": [
+        "query:cap-surface",
+        "query:cap-color",
+        "query:bruises",
+        "query:gill-attachment"
+      ],
+      "specimen_collected": true
+    },
+    {
+      "attempt": 0,
+      "cell_index": 9,
+      "compiled_strategies": [
+        {
+          "followups": {
+            "c": "query:bruises",
+            "e": "query:bruises",
+            "n": "query:bruises"
+          },
+          "root_action": "query:cap-color"
+        },
+        {
+          "followups": {
+            "f": "query:cap-color"
+          },
+          "root_action": "query:bruises"
+        },
+        {
+          "followups": {
+            "a": "query:cap-color",
+            "f": "query:cap-color"
+          },
+          "root_action": "query:gill-attachment"
+        },
+        {
+          "followups": {
+            "c": "query:cap-color"
+          },
+          "root_action": "query:gill-spacing"
+        }
+      ],
+      "history": [
+        {
+          "action": "collect:specimen",
+          "outcome": null
+        },
+        {
+          "action": "query:odor",
+          "outcome": "m"
+        },
+        {
+          "action": "query:cap-shape",
+          "outcome": "f"
+        },
+        {
+          "action": "query:cap-surface",
+          "outcome": "y"
+        }
+      ],
+      "menus": [
+        {
+          "c": [
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "e": [
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "n": [
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "f": [
+            "query:cap-color",
+            "query:gill-attachment",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "a": [
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ],
+          "f": [
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-spacing",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        },
+        {
+          "c": [
+            "query:cap-color",
+            "query:bruises",
+            "query:gill-attachment",
+            "query:gill-size",
+            "query:gill-color",
+            "query:stalk-shape",
+            "query:stalk-root",
+            "query:stalk-surface-above-ring",
+            "query:stalk-surface-below-ring",
+            "query:stalk-color-above-ring",
+            "query:stalk-color-below-ring",
+            "query:veil-type",
+            "query:veil-color",
+            "query:ring-number",
+            "query:ring-type",
+            "query:spore-print-color",
+            "query:population",
+            "query:habitat"
+          ]
+        }
+      ],
+      "raw_response": "{\"r0\":[0,0,0],\"r1\":[0],\"r2\":[0,0],\"r3\":[0]}",
+      "roots": [
+        "query:cap-color",
+        "query:bruises",
+        "query:gill-attachment",
+        "query:gill-spacing"
+      ],
+      "specimen_collected": true
+    }
+  ],
+  "config": {
+    "allow_fewer_roots_when_exhausted": false,
+    "max_new_tokens": 128,
+    "num_strategies": 4,
+    "project_invalid_after_retries": false,
+    "seed": 24176,
+    "temperature": 0.0,
+    "utility_summary_mode": "branch_local_predictive_evidence",
+    "validation_retries": 1
+  },
+  "dry_run": false,
+  "gate": {
+    "passed": false
+  },
+  "invalid_responses": [],
+  "mechanics": {
+    "all_roots_and_followups_legal": true,
+    "collection_root_covered_in_uncollected_cells": true,
+    "exactly_ten_logical_calls": true,
+    "predictive_exact_optimal_branch_fraction_at_least_half": true,
+    "predictive_optimal_branch_fraction_beats_uniform_by_twenty_points": false,
+    "rollout_scoring_made_no_llm_calls": true,
+    "ten_cells_completed": true,
+    "zero_forced_exits": true,
+    "zero_projected_cells": true,
+    "zero_reasoning_tokens": true
+  },
+  "provider": {
+    "accepted_requests": 10,
+    "invalid_responses": 0,
+    "physical_requests": 10,
+    "projected_branches": 0,
+    "projected_cells": 0
+  },
+  "records": [
+    {
+      "cell_index": 0,
+      "followups": [
+        {
+          "none": "query:odor"
+        },
+        {
+          "a": "query:habitat",
+          "c": "query:habitat",
+          "n": "query:habitat",
+          "s": "query:habitat",
+          "v": "query:habitat",
+          "y": "query:habitat"
+        },
+        {
+          "d": "query:population",
+          "g": "query:population",
+          "l": "query:population",
+          "m": "query:population",
+          "p": "query:population",
+          "u": "query:population",
+          "w": "query:population"
+        },
+        {
+          "b": "query:population",
+          "c": "query:population",
+          "f": "query:population",
+          "k": "query:population",
+          "s": "query:population",
+          "x": "query:population"
+        }
+      ],
+      "history_length": 0,
+      "roots": [
+        "collect:specimen",
+        "query:population",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false,
+      "truth_index": 702
+    },
+    {
+      "cell_index": 1,
+      "followups": [
+        {
+          "none": "query:odor"
+        },
+        {
+          "c": "query:habitat",
+          "e": "query:habitat",
+          "g": "query:habitat",
+          "n": "query:habitat",
+          "p": "query:habitat",
+          "r": "query:habitat",
+          "u": "query:habitat",
+          "w": "query:habitat",
+          "y": "query:habitat"
+        },
+        {
+          "d": "query:cap-color",
+          "g": "query:cap-color",
+          "p": "query:cap-color",
+          "u": "query:cap-color"
+        },
+        {
+          "b": "query:cap-color",
+          "f": "query:habitat",
+          "k": "query:cap-color",
+          "s": "query:habitat",
+          "x": "query:cap-color"
+        }
+      ],
+      "history_length": 1,
+      "roots": [
+        "collect:specimen",
+        "query:cap-color",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false,
+      "truth_index": 4742
+    },
+    {
+      "cell_index": 2,
+      "followups": [
+        {
+          "none": "query:odor"
+        },
+        {
+          "c": "query:cap-surface",
+          "e": "query:cap-shape",
+          "g": "query:cap-shape",
+          "n": "query:cap-shape",
+          "p": "query:cap-shape",
+          "r": "query:cap-shape",
+          "u": "query:cap-shape",
+          "w": "query:cap-shape",
+          "y": "query:cap-shape"
+        },
+        {
+          "d": "query:cap-color",
+          "g": "query:cap-surface",
+          "p": "query:cap-shape",
+          "u": "query:cap-shape"
+        },
+        {
+          "b": "query:cap-color",
+          "f": "query:cap-color",
+          "k": "query:cap-surface",
+          "s": "query:cap-surface",
+          "x": "query:cap-color"
+        }
+      ],
+      "history_length": 1,
+      "roots": [
+        "collect:specimen",
+        "query:cap-color",
+        "query:habitat",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false,
+      "truth_index": 2033
+    },
+    {
+      "cell_index": 3,
+      "followups": [
+        {
+          "none": "query:odor"
+        },
+        {
+          "d": "query:cap-shape",
+          "g": "query:cap-shape",
+          "p": "query:cap-shape",
+          "u": "query:cap-shape"
+        },
+        {
+          "f": "query:habitat",
+          "s": "query:habitat",
+          "x": "query:habitat"
+        },
+        {
+          "f": "query:habitat",
+          "s": "query:cap-shape",
+          "y": "query:habitat"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "collect:specimen",
+        "query:habitat",
+        "query:cap-shape",
+        "query:cap-surface"
+      ],
+      "specimen_collected": false,
+      "truth_index": 4287
+    },
+    {
+      "cell_index": 4,
+      "followups": [
+        {
+          "none": "query:spore-print-color"
+        },
+        {
+          "f": "query:habitat",
+          "s": "query:habitat"
+        },
+        {
+          "g": "query:habitat",
+          "n": "query:cap-surface",
+          "w": "query:habitat"
+        },
+        {
+          "g": "query:cap-surface"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "collect:specimen",
+        "query:cap-surface",
+        "query:cap-color",
+        "query:habitat"
+      ],
+      "specimen_collected": false,
+      "truth_index": 913
+    },
+    {
+      "cell_index": 5,
+      "followups": [
+        {
+          "none": "query:odor"
+        },
+        {
+          "c": "query:cap-shape",
+          "e": "query:cap-surface",
+          "n": "query:cap-shape"
+        },
+        {
+          "f": "query:cap-color",
+          "s": "query:cap-shape",
+          "y": "query:cap-color"
+        },
+        {
+          "b": "query:cap-color",
+          "f": "query:cap-color",
+          "k": "query:cap-color",
+          "x": "query:cap-color"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "collect:specimen",
+        "query:cap-color",
+        "query:cap-surface",
+        "query:cap-shape"
+      ],
+      "specimen_collected": false,
+      "truth_index": 6161
+    },
+    {
+      "cell_index": 6,
+      "followups": [
+        {
+          "a": "query:spore-print-color",
+          "c": "query:spore-print-color",
+          "f": "query:habitat",
+          "l": "query:spore-print-color",
+          "m": "query:spore-print-color",
+          "n": "query:spore-print-color",
+          "p": "query:spore-print-color",
+          "s": "query:spore-print-color",
+          "y": "query:spore-print-color"
+        },
+        {
+          "b": "query:habitat",
+          "h": "query:odor",
+          "k": "query:ring-type",
+          "n": "query:stalk-surface-above-ring",
+          "o": "query:ring-type",
+          "r": "query:ring-type",
+          "u": "query:odor",
+          "w": "query:ring-type",
+          "y": "query:odor"
+        },
+        {
+          "b": "query:habitat",
+          "e": "query:odor",
+          "g": "query:spore-print-color",
+          "h": "query:spore-print-color",
+          "k": "query:spore-print-color",
+          "n": "query:spore-print-color",
+          "o": "query:odor",
+          "p": "query:spore-print-color",
+          "r": "query:odor",
+          "u": "query:spore-print-color",
+          "w": "query:spore-print-color",
+          "y": "query:spore-print-color"
+        },
+        {
+          "e": "query:spore-print-color",
+          "f": "query:spore-print-color",
+          "l": "query:spore-print-color",
+          "n": "query:spore-print-color",
+          "p": "query:spore-print-color"
+        }
+      ],
+      "history_length": 1,
+      "roots": [
+        "query:odor",
+        "query:spore-print-color",
+        "query:gill-color",
+        "query:ring-type"
+      ],
+      "specimen_collected": true,
+      "truth_index": 2685
+    },
+    {
+      "cell_index": 7,
+      "followups": [
+        {
+          "b": "query:bruises",
+          "h": "query:bruises",
+          "k": "query:bruises",
+          "n": "query:bruises",
+          "o": "query:bruises",
+          "r": "query:bruises",
+          "w": "query:bruises",
+          "y": "query:bruises"
+        },
+        {
+          "b": "query:spore-print-color",
+          "c": "query:spore-print-color",
+          "e": "query:spore-print-color",
+          "g": "query:spore-print-color",
+          "n": "query:spore-print-color",
+          "p": "query:spore-print-color",
+          "r": "query:spore-print-color",
+          "u": "query:spore-print-color",
+          "w": "query:spore-print-color",
+          "y": "query:spore-print-color"
+        },
+        {
+          "e": "query:ring-type",
+          "g": "query:ring-type",
+          "h": "query:ring-type",
+          "k": "query:ring-type",
+          "n": "query:ring-type",
+          "o": "query:ring-type",
+          "p": "query:ring-type",
+          "r": "query:ring-type",
+          "u": "query:ring-type",
+          "w": "query:ring-type",
+          "y": "query:ring-type"
+        },
+        {
+          "e": "query:population",
+          "t": "query:population"
+        }
+      ],
+      "history_length": 2,
+      "roots": [
+        "query:spore-print-color",
+        "query:cap-color",
+        "query:gill-color",
+        "query:stalk-shape"
+      ],
+      "specimen_collected": true,
+      "truth_index": 1791
+    },
+    {
+      "cell_index": 8,
+      "followups": [
+        {
+          "f": "query:cap-color",
+          "s": "query:cap-color",
+          "y": "query:cap-color"
+        },
+        {
+          "b": "query:cap-surface",
+          "e": "query:cap-surface",
+          "g": "query:cap-surface",
+          "n": "query:cap-surface",
+          "w": "query:cap-surface",
+          "y": "query:cap-surface"
+        },
+        {
+          "f": "query:cap-surface",
+          "t": "query:cap-surface"
+        },
+        {
+          "f": "query:cap-surface"
+        }
+      ],
+      "history_length": 3,
+      "roots": [
+        "query:cap-surface",
+        "query:cap-color",
+        "query:bruises",
+        "query:gill-attachment"
+      ],
+      "specimen_collected": true,
+      "truth_index": 6869
+    },
+    {
+      "cell_index": 9,
+      "followups": [
+        {
+          "c": "query:bruises",
+          "e": "query:bruises",
+          "n": "query:bruises"
+        },
+        {
+          "f": "query:cap-color"
+        },
+        {
+          "a": "query:cap-color",
+          "f": "query:cap-color"
+        },
+        {
+          "c": "query:cap-color"
+        }
+      ],
+      "history_length": 4,
+      "roots": [
+        "query:cap-color",
+        "query:bruises",
+        "query:gill-attachment",
+        "query:gill-spacing"
+      ],
+      "specimen_collected": true,
+      "truth_index": 7166
+    }
+  ],
+  "run_id": "mushroom-predictive-evidence-gpt54mini-smoke-20260723",
+  "schema_version": 1,
+  "stage": "mushroom_feature_acquisition_26b_serving_smoke",
+  "usage": {
+    "adapter_completion_tokens": 520,
+    "adapter_cost_usd": 0.17391344999999997,
+    "adapter_prompt_tokens": 238211,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 10,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 520,
+    "forced_exits": 0,
+    "model": "openai/gpt-5.4-mini",
+    "model_usage": {
+      "openai/gpt-5.4-mini": {
+        "completion_tokens": 520,
+        "cost_usd": 0.17391344999999997,
+        "prompt_tokens": 238211,
+        "reasoning_tokens": 0,
+        "requests": 10
+      }
+    },
+    "prompt_tokens": 238211,
+    "reasoning_tokens": 0,
+    "remaining_usd": 71.49275284254016,
+    "requests": 10,
+    "run_budget_usd": 6.0,
+    "run_cost_usd": 0.17391344999999997,
+    "run_remaining_usd": 5.82608655,
+    "total_spent_usd": 38.507247157459844
+  }
+}
