@@ -1,0 +1,676 @@
+{
+  "canonical_digest": "856105c321d99a4ea3da07d9a2b413b40a7331b55cc6edd952df10a218bf2f8b",
+  "gate": {
+    "passed": true
+  },
+  "mechanics": {
+    "all_exact_h3_routes_are_delayed_onsite": true,
+    "all_records_canonicalized": true,
+    "all_selection_gaps_exceed_100_tolerances": true,
+    "all_selections_stable_under_sub_tolerance_perturbations": true,
+    "no_llm_calls": true
+  },
+  "records": [
+    {
+      "cell_index": 0,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-1",
+        "check-6",
+        "check-4"
+      ],
+      "matched_random_value": 0.015025100539,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-0"
+      ],
+      "shared_d2_selected_full_value": 0.009966732859,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-2"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 1,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-0",
+        "check-3",
+        "check-4"
+      ],
+      "matched_random_value": 0.014975099706,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-2"
+      ],
+      "shared_d2_selected_full_value": 0.009966732859,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-3"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 2,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "move-SOUTH",
+        "check-1",
+        "check-7"
+      ],
+      "matched_random_value": 0.010016733693,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-2"
+      ],
+      "shared_d2_selected_full_value": 0.010016733693,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-2"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 3,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-1",
+        "check-0",
+        "check-5"
+      ],
+      "matched_random_value": 0.015025100539,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-0"
+      ],
+      "shared_d2_selected_full_value": 0.009966732859,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-3"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 4,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-2"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-2",
+        "check-4",
+        "check-4"
+      ],
+      "matched_random_value": 0.014975099706,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-2"
+      ],
+      "shared_d2_selected_full_value": 0.010016733693,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-2",
+        "check-3"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 5,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-2",
+        "check-3"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-2",
+        "check-7",
+        "check-3"
+      ],
+      "matched_random_value": 0.015025100539,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-2",
+        "move-EAST",
+        "check-3"
+      ],
+      "shared_d2_selected_full_value": 0.010016733693,
+      "strong_d2_h3_plan": [
+        "check-2",
+        "check-3",
+        "check-4"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-2"
+    },
+    {
+      "cell_index": 6,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-0",
+        "check-1",
+        "check-5"
+      ],
+      "matched_random_value": 0.015025100539,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "move-EAST"
+      ],
+      "shared_d2_selected_full_value": 0.005008366846,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-2"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 7,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-2"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-2",
+        "check-0",
+        "move-SOUTH"
+      ],
+      "matched_random_value": 0.010016733693,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "move-SOUTH"
+      ],
+      "shared_d2_selected_full_value": 0.005008366846,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-2",
+        "check-3"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 8,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-0",
+        "check-3",
+        "move-SOUTH"
+      ],
+      "matched_random_value": 0.010016733693,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-2"
+      ],
+      "shared_d2_selected_full_value": 0.010016733693,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-2"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 9,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-0",
+        "check-2",
+        "check-4"
+      ],
+      "matched_random_value": 0.014975099706,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-0"
+      ],
+      "shared_d2_selected_full_value": 0.009966732859,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-2"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 10,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-1",
+        "check-3"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-1",
+        "check-0",
+        "check-4"
+      ],
+      "matched_random_value": 0.014975099706,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-1",
+        "move-SOUTH",
+        "move-SOUTH"
+      ],
+      "shared_d2_selected_full_value": 0.005008366846,
+      "strong_d2_h3_plan": [
+        "check-1",
+        "check-3",
+        "check-4"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-1"
+    },
+    {
+      "cell_index": 11,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-1",
+        "check-2"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-1",
+        "move-NORTH",
+        "check-6"
+      ],
+      "matched_random_value": 0.010016733693,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-1",
+        "move-EAST",
+        "move-EAST"
+      ],
+      "shared_d2_selected_full_value": 0.005008366846,
+      "strong_d2_h3_plan": [
+        "check-1",
+        "check-2",
+        "check-3"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-1"
+    },
+    {
+      "cell_index": 12,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-0",
+        "check-2",
+        "check-5"
+      ],
+      "matched_random_value": 0.015025100539,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-2"
+      ],
+      "shared_d2_selected_full_value": 0.010016733693,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-2"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 13,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-2"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-0",
+        "check-6",
+        "check-5"
+      ],
+      "matched_random_value": 0.015025100539,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-2"
+      ],
+      "shared_d2_selected_full_value": 0.010016733693,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-2",
+        "check-4"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 14,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-1"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-1",
+        "check-5",
+        "check-2"
+      ],
+      "matched_random_value": 0.015025100539,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-2"
+      ],
+      "shared_d2_selected_full_value": 0.010016733693,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-1",
+        "check-2"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    },
+    {
+      "cell_index": 15,
+      "exact_h3_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "exact_h3_value": 0.494631937214,
+      "fixed_roots": [
+        "move-SOUTH",
+        "move-NORTH",
+        "check-0",
+        "check-2"
+      ],
+      "llm_selected_plan": [
+        "move-SOUTH",
+        "move-SOUTH",
+        "check-5"
+      ],
+      "llm_value": 0.494631937214,
+      "matched_random_selected_plan": [
+        "check-0",
+        "check-3",
+        "check-6"
+      ],
+      "matched_random_value": 0.014975099706,
+      "minimum_non_tie_gap": 5.0000833e-05,
+      "shared_d2_selected_full_plan": [
+        "check-0",
+        "move-EAST",
+        "check-0"
+      ],
+      "shared_d2_selected_full_value": 0.009966732859,
+      "strong_d2_h3_plan": [
+        "check-0",
+        "check-2",
+        "check-3"
+      ],
+      "strong_d2_h3_value": 0.015025100539,
+      "strong_d2_root": "check-0"
+    }
+  ],
+  "schema_version": 1,
+  "source_stage": "range_gated_rock_successor_grounded_proposal_gate",
+  "stage": "range_gated_rock_stable_control_qualification",
+  "value_digits": 12,
+  "value_tie_atol": 1e-12
+}
