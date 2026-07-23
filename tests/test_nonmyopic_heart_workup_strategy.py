@@ -62,6 +62,37 @@ def test_heart_indexed_policy_rejects_wrong_branch_length() -> None:
         )
 
 
+def test_heart_prompt_ends_with_root_local_index_limits() -> None:
+    model = HeartWorkupModel()
+    config = HeartStrategyConfig()
+    provider = IndexedHeartProvider(DeterministicIndexedHeartModel(), config)
+    roots = fixed_roots(
+        model, state=model.initial_state, belief=model.initial_belief, count=4
+    )
+    menus = branch_menus(
+        model, state=model.initial_state, belief=model.initial_belief, roots=roots
+    )
+
+    messages = provider._messages(
+        model,
+        state=model.initial_state,
+        belief=model.initial_belief,
+        history=(),
+        roots=roots,
+        menus=menus,
+    )
+    final_line = messages[-1]["content"].splitlines()[-1]
+    limits = json.loads(final_line.split("=", 1)[1])
+
+    assert final_line.startswith("FINAL_OUTPUT_LIMITS=")
+    assert limits["r0"] == {
+        "exact_items": 1,
+        "each_integer_min": 0,
+        "each_integer_max": 12,
+    }
+    assert limits["r1"]["each_integer_max"] == 4
+
+
 def test_heart_proposal_cells_are_balanced_distinct_workup_opportunities() -> None:
     model = HeartWorkupModel()
     cells = build_proposal_cells(model, HeartProposalGateConfig())

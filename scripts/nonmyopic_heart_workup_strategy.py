@@ -260,6 +260,14 @@ class IndexedHeartProvider:
             f"r{slot}": [0] * len(slot_payload["branches"])
             for slot, slot_payload in enumerate(slots)
         }
+        limits = {
+            f"r{slot}": {
+                "exact_items": len(slot_payload["branches"]),
+                "each_integer_min": 0,
+                "each_integer_max": len(slot_payload["menu"]) - 1,
+            }
+            for slot, slot_payload in enumerate(slots)
+        }
         user = "\n".join(
             [
                 "Choose one legal second action for every outcome branch of every fixed root.",
@@ -267,6 +275,7 @@ class IndexedHeartProvider:
                 "The exact verifier will score the complete branch policies and choose one root.",
                 "A clinical workup consumes a round and reveals nothing immediately, but unlocks stronger tests.",
                 "Return JSON only: one integer menu index per listed branch, in listed order.",
+                "Menu indexes are LOCAL to each root. Never reuse an r0 index as an r1/r2/r3 index.",
                 "Schema: " + json.dumps(schema, separators=(",", ":")),
                 "Never emit action names, explanations, scores, or extra fields.",
                 "Current workup ordered: " + str(state.workup_ordered).lower(),
@@ -274,6 +283,7 @@ class IndexedHeartProvider:
                 "Current p_no_disease: " + str(round(model.class_probability(belief, 0), 10)),
                 "History: " + json.dumps(history_payload, separators=(",", ":")),
                 "ROOT_SLOTS=" + json.dumps(slots, separators=(",", ":")),
+                "FINAL_OUTPUT_LIMITS=" + json.dumps(limits, separators=(",", ":")),
             ]
         )
         system = (
@@ -335,7 +345,11 @@ class IndexedHeartProvider:
                         {"role": "assistant", "content": response},
                         {
                             "role": "user",
-                            "content": f"Invalid indexed response: {exc}. Return corrected full JSON only.",
+                            "content": (
+                                f"Invalid indexed response: {exc}. Each root has its own local menu; "
+                                "do not copy index values between roots. Obey FINAL_OUTPUT_LIMITS and "
+                                "return corrected full JSON only."
+                            ),
                         },
                     ]
                 continue
@@ -354,7 +368,8 @@ class DeterministicIndexedHeartModel:
         del temperature
         if num_responses != 1:
             raise ValueError("deterministic Heart model supports one response")
-        slots = json.loads(messages[-1]["content"].split("ROOT_SLOTS=", 1)[1])
+        slots_payload = messages[-1]["content"].split("ROOT_SLOTS=", 1)[1]
+        slots = json.loads(slots_payload.split("\nFINAL_OUTPUT_LIMITS=", 1)[0])
         return [
             json.dumps(
                 {
