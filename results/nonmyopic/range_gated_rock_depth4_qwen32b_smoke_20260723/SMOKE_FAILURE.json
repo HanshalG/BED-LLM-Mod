@@ -1,0 +1,659 @@
+{
+  "candidate_requests": [
+    {
+      "attempt": 0,
+      "cell_index": 9,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-6"
+        ],
+        [
+          "check-1",
+          "check-1",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-2",
+          "check-2",
+          "move-WEST",
+          "check-6"
+        ]
+      ],
+      "history": [
+        [
+          "check-3",
+          "bad"
+        ],
+        [
+          "check-0",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"r0\": [\"move-NORTH\", \"move-WEST\", \"check-7\"],\n  \"r1\": [\"move-WEST\", \"move-NORTH\", \"check-6\"],\n  \"r2\": [\"check-1\", \"move-WEST\", \"check-7\"],\n  \"r3\": [\"check-2\", \"move-WEST\", \"check-6\"]\n}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 3,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-2"
+        ],
+        [
+          "check-0",
+          "check-0",
+          "move-WEST",
+          "check-3"
+        ],
+        [
+          "check-1",
+          "check-1",
+          "move-NORTH",
+          "check-0"
+        ]
+      ],
+      "history": [
+        [
+          "check-7",
+          "bad"
+        ],
+        [
+          "check-6",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"r0\": [\"move-NORTH\", \"move-WEST\", \"check-7\"],\n  \"r1\": [\"move-WEST\", \"move-WEST\", \"check-2\"],\n  \"r2\": [\"check-0\", \"move-WEST\", \"check-3\"],\n  \"r3\": [\"check-1\", \"move-NORTH\", \"check-0\"]\n}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 8,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ]
+      ],
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-3",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\"r0\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"],\"r1\":[\"move-WEST\",\"move-WEST\",\"check-6\"],\"r2\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"],\"r3\":[\"move-NORTH\",\"move-NORTH\",\"check-4\"]}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 4,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-0",
+          "check-0",
+          "move-WEST",
+          "check-5"
+        ],
+        [
+          "check-1",
+          "check-1",
+          "move-WEST",
+          "check-6"
+        ]
+      ],
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"r0\": [\"move-NORTH\", \"move-NORTH\", \"check-4\"],\n  \"r1\": [\"move-WEST\", \"move-WEST\", \"check-7\"],\n  \"r2\": [\"check-0\", \"move-WEST\", \"check-5\"],\n  \"r3\": [\"check-1\", \"move-WEST\", \"check-6\"]\n}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 2,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-NORTH",
+          "check-5"
+        ],
+        [
+          "check-0",
+          "check-0",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "check-2",
+          "check-2",
+          "move-WEST",
+          "check-3"
+        ]
+      ],
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "{\n  \"r0\": [\"move-NORTH\", \"move-WEST\", \"check-7\"],\n  \"r1\": [\"move-WEST\", \"move-NORTH\", \"check-5\"],\n  \"r2\": [\"check-0\", \"move-WEST\", \"check-6\"],\n  \"r3\": [\"check-2\", \"move-WEST\", \"check-3\"]\n}",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 7,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-1",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-2",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-0",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"r0\": [\"move-NORTH\", \"move-NORTH\", \"check-4\"],\n  \"r1\": [\"move-WEST\", \"move-WEST\", \"check-7\"],\n  \"r2\": [\"move-WEST\", \"move-WEST\", \"check-7\"],\n  \"r3\": [\"move-WEST\", \"move-WEST\", \"check-7\"]\n}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 5,
+      "compiled_plans": [
+        [
+          "move-NORTH",
+          "move-WEST",
+          "move-WEST",
+          "check-6"
+        ],
+        [
+          "move-WEST",
+          "move-WEST",
+          "move-WEST",
+          "check-7"
+        ],
+        [
+          "check-0",
+          "move-NORTH",
+          "move-NORTH",
+          "check-4"
+        ],
+        [
+          "check-1",
+          "move-NORTH",
+          "move-WEST",
+          "check-7"
+        ]
+      ],
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-4",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"r0\": [\"move-WEST\", \"move-WEST\", \"check-6\"],\n  \"r1\": [\"move-WEST\", \"move-WEST\", \"check-7\"],\n  \"r2\": [\"move-NORTH\", \"move-NORTH\", \"check-4\"],\n  \"r3\": [\"move-NORTH\", \"move-WEST\", \"check-7\"]\n}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    }
+  ],
+  "error": "depth-four fixed-root tail cell failed after two attempts: depth-four fixed-tail response is not valid JSON",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "cell_index": 1,
+      "error": "r0 must contain exactly three action strings",
+      "history": [
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"r0\": [\"move-NORTH\", \"move-NORTH\", \"move-NORTH\", \"check-4\"],\n  \"r1\": [\"move-WEST\", \"move-WEST\", \"move-WEST\", \"check-7\"],\n  \"r2\": [\"check-0\", \"move-WEST\", \"move-WEST\", \"check-7\"],\n  \"r3\": [\"check-2\", \"move-WEST\", \"move-WEST\", \"check-7\"]\n}\n```",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-0",
+          "good"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 6,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-6",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 7,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-0",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 0,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-0",
+          "good"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-1",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 5,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-4",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 4,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-3",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    },
+    {
+      "attempt": 0,
+      "cell_index": 2,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-7",
+          "good"
+        ],
+        [
+          "check-1",
+          "good"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 1,
+      "error": "response has an incomplete JSON fence",
+      "history": [
+        [
+          "check-1",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "```json\n{\n  \"r0\": [\"move-NORTH\", \"move-NORTH\", \"check",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-2"
+      ]
+    },
+    {
+      "attempt": 1,
+      "cell_index": 6,
+      "error": "depth-four fixed-tail response is not valid JSON",
+      "history": [
+        [
+          "check-2",
+          "bad"
+        ],
+        [
+          "check-6",
+          "bad"
+        ]
+      ],
+      "position": [
+        6,
+        6
+      ],
+      "raw_response": "",
+      "roots": [
+        "move-NORTH",
+        "move-WEST",
+        "check-0",
+        "check-1"
+      ]
+    }
+  ],
+  "projection_enabled": false,
+  "schema_version": 1,
+  "stage": "range_gated_rock_depth4_smoke",
+  "status": "failed_closed",
+  "strategy_config": {
+    "horizon": 4,
+    "max_new_tokens": 256,
+    "num_plans": 4,
+    "seed": 24220,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "usage": {
+    "adapter_completion_tokens": 134807,
+    "adapter_cost_usd": 0.07910875,
+    "adapter_prompt_tokens": 187441,
+    "adapter_reasoning_tokens": 125591,
+    "adapter_requests": 27,
+    "backend": "openrouter",
+    "budget_usd": 110.0,
+    "completion_tokens": 134807,
+    "forced_exits": 19,
+    "forced_final_requests": 10,
+    "forced_final_successes": 2,
+    "model": "qwen/qwen3-32b",
+    "model_usage": {
+      "qwen/qwen3-32b": {
+        "completion_tokens": 134807,
+        "cost_usd": 0.07910875,
+        "prompt_tokens": 187441,
+        "reasoning_tokens": 125591,
+        "requests": 27
+      }
+    },
+    "prompt_tokens": 187441,
+    "reasoning_tokens": 125591,
+    "remaining_usd": 71.29269885754016,
+    "requests": 27,
+    "run_budget_usd": 1.0,
+    "run_cost_usd": 0.07910875,
+    "run_remaining_usd": 0.9208912499999999,
+    "total_spent_usd": 38.70730114245984
+  }
+}

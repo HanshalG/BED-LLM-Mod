@@ -1,0 +1,56 @@
+{"backend": "openrouter", "completion_tokens": 3845, "cost_usd": 0.00162892, "cumulative_cost_usd": 38.62982131245988, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6904, "reasoning_enabled": true, "reasoning_tokens": 3192, "temperature": 0.0, "total_tokens": 10749}
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.00177176, "cumulative_cost_usd": 38.63159307245988, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3755, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.00177176, "cumulative_cost_usd": 38.633364832459876, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3686, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.00177176, "cumulative_cost_usd": 38.63513659245987, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3434, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.00177176, "cumulative_cost_usd": 38.63690835245987, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3513, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.00177176, "cumulative_cost_usd": 38.638680112459866, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3773, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 86, "cost_usd": 0.00102286, "cumulative_cost_usd": 38.639702972459865, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6956, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 7042}
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.00062792, "cumulative_cost_usd": 38.640330892459865, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6953, "reasoning_enabled": true, "reasoning_tokens": 272, "temperature": 0.0, "total_tokens": 7209}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 86, "cost_usd": 0.00102286, "cumulative_cost_usd": 38.641353752459864, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6956, "reasoning_enabled": true, "reasoning_tokens": 0, "temperature": 0.0, "total_tokens": 7042}
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.0007721, "cumulative_cost_usd": 38.64212585245986, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6953, "reasoning_enabled": true, "reasoning_tokens": 266, "temperature": 0.0, "total_tokens": 7209}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.0007721, "cumulative_cost_usd": 38.64289795245986, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6953, "reasoning_enabled": true, "reasoning_tokens": 275, "temperature": 0.0, "total_tokens": 7209}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 2047, "cost_usd": 0.0013056, "cumulative_cost_usd": 38.644203552459864, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 1648, "temperature": 0.0, "total_tokens": 8962}
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.00177416, "cumulative_cost_usd": 38.64597771245986, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6945, "reasoning_enabled": true, "reasoning_tokens": 3632, "temperature": 0.0, "total_tokens": 11297}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.00063032, "cumulative_cost_usd": 38.64660803245986, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6983, "reasoning_enabled": true, "reasoning_tokens": 280, "temperature": 0.0, "total_tokens": 7239}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.0019971, "cumulative_cost_usd": 38.648605132459856, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3529, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.0019971, "cumulative_cost_usd": 38.65060223245985, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3504, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.0007721, "cumulative_cost_usd": 38.65137433245985, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6953, "reasoning_enabled": true, "reasoning_tokens": 268, "temperature": 0.0, "total_tokens": 7209}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.0007721, "cumulative_cost_usd": 38.65214643245985, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6953, "reasoning_enabled": true, "reasoning_tokens": 270, "temperature": 0.0, "total_tokens": 7209}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 424, "cost_usd": 0.00067432, "cumulative_cost_usd": 38.65282075245985, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6945, "reasoning_enabled": true, "reasoning_tokens": 402, "temperature": 0.0, "total_tokens": 7369}
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.0019971, "cumulative_cost_usd": 38.65481785245985, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6915, "reasoning_enabled": true, "reasoning_tokens": 3872, "temperature": 0.0, "total_tokens": 11267}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.00062792, "cumulative_cost_usd": 38.65544577245985, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6953, "reasoning_enabled": true, "reasoning_tokens": 271, "temperature": 0.0, "total_tokens": 7209}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 402, "cost_usd": 0.00066816, "cumulative_cost_usd": 38.656113932459846, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6945, "reasoning_enabled": true, "reasoning_tokens": 370, "temperature": 0.0, "total_tokens": 7347}
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.0020094, "cumulative_cost_usd": 38.658123332459844, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 7038, "reasoning_enabled": true, "reasoning_tokens": 3805, "temperature": 0.0, "total_tokens": 11390}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 4352, "cost_usd": 0.0020001, "cumulative_cost_usd": 38.66012343245984, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6945, "reasoning_enabled": true, "reasoning_tokens": 3488, "temperature": 0.0, "total_tokens": 11297}
+Forced thinking exit (OpenRouter finish_reason=length)
+OpenRouter forced-final continuation request
+{"backend": "openrouter", "completion_tokens": 256, "cost_usd": 0.0007751, "cumulative_cost_usd": 38.66089853245984, "event": "llm_token_usage", "finish_reasons": ["length"], "model": "qwen/qwen3-32b", "prompt_tokens": 6983, "reasoning_enabled": true, "reasoning_tokens": 263, "temperature": 0.0, "total_tokens": 7239}
+Forced thinking exit (OpenRouter finish_reason=length)
+{"backend": "openrouter", "completion_tokens": 38998, "cost_usd": 0.02320102, "cumulative_cost_usd": 38.68409955245984, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6944, "reasoning_enabled": true, "reasoning_tokens": 38911, "temperature": 0.0, "total_tokens": 45942}
+{"backend": "openrouter", "completion_tokens": 38999, "cost_usd": 0.02320159, "cumulative_cost_usd": 38.70730114245984, "event": "llm_token_usage", "finish_reasons": ["stop"], "model": "qwen/qwen3-32b", "prompt_tokens": 6944, "reasoning_enabled": true, "reasoning_tokens": 38912, "temperature": 0.0, "total_tokens": 45943}
