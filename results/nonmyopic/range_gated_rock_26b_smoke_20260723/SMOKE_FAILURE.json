@@ -1,0 +1,77 @@
+{
+  "candidate_requests": [],
+  "config": {
+    "horizon": 3,
+    "max_new_tokens": 256,
+    "num_plans": 4,
+    "seed": 24145,
+    "temperature": 0.0,
+    "validation_retries": 1
+  },
+  "error": "range-gated plan cell failed after two attempts: all four plans must be distinct",
+  "invalid_responses": [
+    {
+      "attempt": 0,
+      "cell_index": 0,
+      "error": "plans must use exactly two distinct movement roots and two distinct check roots",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\"plans\":[[\"check-0\",\"move-EAST\",\"check-1\"],[\"check-1\",\"move-EAST\",\"check-4\"],[\"check-3\",\"move-SOUTH\",\"check-6\"],[\"check-5\",\"move-SOUTH\",\"check-7\"]]}\n```"
+    },
+    {
+      "attempt": 1,
+      "cell_index": 0,
+      "error": "all four plans must be distinct",
+      "history": [
+        [
+          "check-2",
+          "good"
+        ],
+        [
+          "check-4",
+          "bad"
+        ]
+      ],
+      "position": [
+        0,
+        3
+      ],
+      "raw_response": "```json\n{\"plans\":[[\"check-0\",\"move-EAST\",\"check-1\"],[\"check-0\",\"move-EAST\",\"check-1\"],[\"check-3\",\"move-SOUTH\",\"check-6\"],[\"check-3\",\"move-SOUTH\",\"check-6\"]]}\n```"
+    }
+  ],
+  "schema_version": 1,
+  "stage": "range_gated_rock_named_plan_serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "backend": "vllm",
+    "completion_tokens": 124,
+    "cost_usd": 0.0,
+    "forced_exits": 0,
+    "model": "google/gemma-4-26B-A4B-it",
+    "model_usage": {
+      "google/gemma-4-26B-A4B-it": {
+        "completion_tokens": 124,
+        "cost_usd": 0.0,
+        "prompt_tokens": 1103,
+        "reasoning_tokens": 0,
+        "requests": 2
+      }
+    },
+    "prompt_tokens": 1103,
+    "reasoning_tokens": 0,
+    "requests": 2,
+    "run_cost_usd": 0.0
+  }
+}
