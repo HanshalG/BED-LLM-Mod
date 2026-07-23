@@ -3,6 +3,7 @@ import json
 import pytest
 
 from environments.rock_diagnosis import RangeGatedRockDiagnosisModel, get_paper_map
+from scripts.audit_nonmyopic_range_gated_rock_fixed_tail_proposal import audit_result
 from scripts.nonmyopic_gated_sensor_strategy_prior import StrategyProposalError
 from scripts.nonmyopic_range_gated_rock_fixed_tail import (
     DeterministicFixedTailModel,
@@ -10,6 +11,13 @@ from scripts.nonmyopic_range_gated_rock_fixed_tail import (
     compile_fixed_tail_cell,
     fixed_roots,
     run_smoke,
+)
+from scripts.nonmyopic_range_gated_rock_fixed_tail_proposal_gate import (
+    matched_random_fixed_root_plans,
+    run_proposal_gate,
+)
+from scripts.nonmyopic_range_gated_rock_proposal_gate import (
+    RangeGatedProposalGateConfig,
 )
 from scripts.nonmyopic_range_gated_rock_strategy import RangeGatedStrategyConfig
 
@@ -140,3 +148,43 @@ def test_deterministic_fixed_tail_smoke_covers_delayed_route() -> None:
     assert all(result["mechanics"].values())
     assert result["delayed_onsite_route_count"] == 10
     assert result["provider"] == {"accepted_requests": 10, "invalid_responses": 0}
+
+
+def test_fixed_root_random_control_preserves_exact_machine_roots() -> None:
+    model = _model()
+    plans = matched_random_fixed_root_plans(
+        model,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        seed=17,
+    )
+    roots = fixed_roots(
+        model,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+    )
+
+    assert tuple(plan[0] for plan in plans) == roots
+    assert all(len(plan) == 3 for plan in plans)
+
+
+def test_deterministic_fixed_tail_proposal_passes_all_scientific_gates() -> None:
+    strategy_config = RangeGatedStrategyConfig(seed=24_184)
+    provider = FixedRootTailProvider(
+        DeterministicFixedTailModel(),
+        strategy_config,
+        include_successor_grounding=True,
+    )
+    result = run_proposal_gate(
+        provider,
+        RangeGatedProposalGateConfig(seed=24_184),
+    )
+
+    assert all(result["mechanics"].values())
+    assert all(result["endpoint_gate"].values())
+    assert result["comparisons"]["exact_d3_root_selection_rate"] == 1.0
+    assert result["comparisons"]["recovery_fraction"]["mean"] == pytest.approx(1.0)
+
+    result["gate"] = {"passed": True}
+    audit = audit_result(result)
+    assert audit["gate"]["passed"]
