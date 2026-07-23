@@ -19,6 +19,10 @@ from scripts.nonmyopic_thyroid_workup_proposal_gate import (
     ThyroidProposalGateConfig,
     build_proposal_cells,
 )
+from scripts.nonmyopic_thyroid_workup_confirmation import (
+    ThyroidConfirmationConfig,
+    _run_arm,
+)
 from scripts.nonmyopic_thyroid_workup_strategy import (
     DeterministicNamedThyroidModel,
     NamedThyroidProvider,
@@ -117,3 +121,20 @@ def test_banked_named_proposal_gate_passes_independent_replay() -> None:
     )
 
     assert audit_proposal_gate(payload)["passed"]
+
+
+def test_confirmation_exact_arm_produces_complete_legal_trace() -> None:
+    model = ThyroidWorkupModel()
+    config = ThyroidConfirmationConfig()
+    trace = _run_arm(
+        model,
+        arm="depth_two",
+        trial_index=0,
+        truth_index=0,
+        config=config,
+        provider=None,
+    )
+
+    assert len(trace["steps"]) == 8
+    assert trace["steps"][0]["action"] == COLLECT_BLOOD_ACTION
+    assert np.isfinite(trace["entropy_auc"])
