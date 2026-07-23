@@ -8,6 +8,7 @@ from scripts.nonmyopic_mushroom_proposal_gate import (
     run_proposal_gate,
     strategy_cost,
 )
+from scripts.nonmyopic_mushroom_confirmation import MushroomConfirmationConfig
 from scripts.nonmyopic_mushroom_strategy import (
     DeterministicIndexedMushroomModel,
     IndexedMushroomProvider,
@@ -74,3 +75,10 @@ def test_deterministic_proposal_gate_runs_all_exact_controls() -> None:
     assert len(provider.physical_requests) == 32
     assert len(provider.invalid_responses) == 0
     assert result["endpoint_gate"]["collection_rate_at_least_threshold"] is False
+
+
+def test_mushroom_confirmation_config_freezes_powered_design() -> None:
+    MushroomConfirmationConfig().validate(catalog_size=8_124)
+
+    with pytest.raises(ValueError, match="50 trials"):
+        MushroomConfirmationConfig(num_trials=49).validate(catalog_size=8_124)

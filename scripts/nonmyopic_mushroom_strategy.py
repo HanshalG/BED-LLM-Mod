@@ -41,6 +41,7 @@ class MushroomStrategyConfig:
     max_new_tokens: int = 128
     utility_summary_mode: Literal["none", "branch_local_expected_entropy"] = "none"
     project_invalid_after_retries: bool = False
+    allow_fewer_roots_when_exhausted: bool = False
 
     def validate(self) -> None:
         if self.num_strategies != 4:
@@ -397,11 +398,16 @@ class IndexedMushroomProvider:
         belief: np.ndarray,
         history: tuple[tuple[str, str | None], ...],
     ) -> MushroomStrategyCell:
+        root_count = (
+            min(self.config.num_strategies, len(model.legal_actions(state)))
+            if self.config.allow_fewer_roots_when_exhausted
+            else self.config.num_strategies
+        )
         roots = _fixed_roots(
             model,
             state=state,
             belief=belief,
-            count=self.config.num_strategies,
+            count=root_count,
         )
         menus = _branch_menus(model, state=state, belief=belief, roots=roots)
         messages = self._messages(
