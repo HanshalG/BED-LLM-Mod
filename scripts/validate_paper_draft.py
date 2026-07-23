@@ -81,6 +81,12 @@ REQUIRED_LIMITATION_PATTERNS = {
         r"provider\s+truncation",
         r"mechanism\s+evidence",
         r"not\s+an\s+LLM-policy\s+claim",
+        r"exact\s+h5",
+        r"500/500",
+        r"15/16",
+        r"\.937",
+        r"h5\s+proposal-quality\s+evidence",
+        r"no\s+h5\s+trajectory",
     ),
 }
 

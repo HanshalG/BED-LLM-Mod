@@ -28,6 +28,9 @@ An exact d4 gate beat d3 by .3484 with 500/0/0, but a frontier smoke returned
 reasoning-only responses. Semantic target selection recovered the route on 10/10
 smoke cells before provider truncation, so this is mechanism evidence, not an
 LLM-policy claim.
+An exact h5 gate wins 500/500 pairs. A hierarchical target gate selects the
+route on 15/16 cells and recovers .937 of the opportunity. This is h5
+proposal-quality evidence; no h5 trajectory has run.
 """
 
 VALID_FIGURE_LABELS = "\\label{fig:validation-chain}\\label{fig:rock-entropy}"

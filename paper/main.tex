@@ -53,8 +53,10 @@ GPT-5.4 Mini replicates the 8-, 11-, and 15-rock gains. The selected policies mo
 to enable accurate future checks while both myopic controls never move; exact and
 direct-vLLM gates at 26B and 12B preserve the gap at 32,768 latent states, while
 E4B fails. Range-gating yields exact d3 proposal recovery on 16/16 cells and an
-audited exact d4-over-d3 gain of $.3484$ (500/0/0), but h3 audit ties and h4
-serving failures block trajectories. Two
+audited exact d4-over-d3 gain of $.3484$ (500/0/0). A focused-prior exact h5
+gate wins 500/500 pairs; hierarchical semantic targets then select the exact h5
+route on 15/16 cells and recover 93.7\% of its gain, although no h5 trajectory
+has yet run. Two
 data-derived semantic unlock tasks reproduce exact d2 gains; a UCI Thyroid task with
 native delayed-assay metadata further passes a 26B proposal gate. Names-only transfer
 fails, but calibrated utility cards recover 100\% of exact d2 on UCI Mushroom with
@@ -198,7 +200,7 @@ Setting & Generative model & Greedy gap & Key result & Evidence status \\
 \midrule
 Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, greedy .561 & Positive control \\
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
-Range-gated Rock & Exact finite state & Two/three-step travel & h3 proposal 16/16; exact d4--d3 +.3484 & Proposal / oracle positive \\
+Range-gated Rock & Exact finite state & Two--four-step travel & h3 16/16; exact h5--h4 +.289; h5 targets 15/16 & Proposal / oracle positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
@@ -237,10 +239,9 @@ non-myopic improvement.
 
 Natural location experiments reinforce this distinction. In a 30-trial
 movement-constrained study using exact physical likelihoods but LLM-generated
-strategies, final RMSE was $0.412$ for greedy EIG and $0.929$, $1.127$, and
-$0.542$ for strategy horizons 1, 3, and 5. Without the movement constraint all
-horizons were effectively flat. More planning did not yield monotonic behavior,
-and the naive policy remained competitive.
+strategies, final RMSE was $0.412$ for greedy EIG versus $0.929$, $1.127$, and
+$0.542$ for horizons 1, 3, and 5. Unconstrained horizons were flat; depth was
+non-monotonic and naive remained competitive.
 
 \paragraph{LLM proposals plus exact lookahead work in enabling geometry.}
 The negative natural-location sweep did not test the architecture where depth
@@ -409,28 +410,31 @@ branches were projected, supporting machine-grounded rather than unaided LLM pla
 
 More receding-horizon depth is not automatically better. In 500 exact pairs,
 terminal-EIG d3 lost to d2 by .2044 [.1998,.2090] entropy-AUC nats, 0/0/500:
-replanning repeated a noisy check and postponed its promised move. Endpoint weighting
-beat same-utility d2 by .2744 [.2689,.2799] but reproduced the prior d2 trajectory,
-creating no deeper oracle gain.
+replanning repeated a noisy check. Endpoint weighting beat d2 by .2744
+[.2689,.2799] but reproduced its trajectory, creating no deeper oracle gain.
 
 A range-gated variant made the extra step load-bearing: .55-accurate remote checks
 became .95 accurate on site, two moves away. Exact d3 beat exact d2 by .4630
-[.4600,.4657] over 500 pairs. A successor-grounded 26B gate proposed the exact
-\textsc{South},\textsc{South},check-5 optimum on 16/16 fresh cells, gaining .4809
-[.4799,.4818] over identical-root random, .4859 [.4849,.4871] over shared d2, and
-.4796 over the strongest d2 root; exact-d3 recovery was 1.0. Replay matched all
-values, but two tied control identities differed across platforms. The frozen audit
-therefore failed and no trajectory ran: positive h3 proposal evidence only.
+[.4600,.4657] over 500 pairs. A 26B gate proposed
+\textsc{South}$\times2$,check-5 on 16/16 cells and recovered 1.0 of exact d3,
+but a tied-control identity mismatch failed the frozen audit. Thus no trajectory
+ran: positive h3 proposal evidence only.
 
-Moving only the start to $(6,6)$ made rock 4 three moves away. In an audited
-500-pair gate, exact d4 beat d3 by .3484 entropy-AUC nats (500/0/0) and .3424
-truth-log-AUC nats [.3021,.3809], always taking
-\textsc{North}$\times3$,check-4 on site. Score-free h4 smokes failed across
-Gemma/Qwen; frontier GPT-5.4 returned reasoning-only length stops. Replacing
-action tails with semantic target selection plus deterministic routing recovered
-the exact route on 10/10 smoke cells, but its 16-cell gate failed closed on
-provider truncation after 15 accepted cells. Thus h4 is exact structural and
-mechanism evidence, not an LLM-policy claim.
+At start $(6,6)$, exact d4 beat d3 by .3484 entropy-AUC nats (500/0/0), always
+taking three \textsc{North} moves followed by check-4. Score-free Gemma/Qwen smokes failed and
+frontier GPT-5.4 returned reasoning-only length stops. Semantic target selection
+plus deterministic routing recovered 10/10 smoke routes, but provider truncation
+stopped the gate after 15 accepted cells: mechanism evidence, not an LLM-policy
+claim.
+
+A separately preregistered focused prior extended the route to h5. Exact h5 beat
+d4 by .2890 [.2858,.2920] entropy-AUC nats (500/500 wins), with positive
+truth-log corroboration. The 26B target compiler selected
+\textsc{North},\textsc{West}$\times3$,check-6 on 15/16 cells and recovered
+.937 [.812,1] of the opportunity. It gained .3304 versus random targets, .4469
+versus shared h4 scoring, and .4407 versus the strongest exact-h4 root; all
+paired lower bounds were positive and independent replay passed. This is h5
+proposal-quality evidence; no h5 trajectory has run.
 
 \paragraph{Paprika fails before a horizon claim.}
 Paprika troubleshooting mixes information-gathering questions with corrective
@@ -565,22 +569,22 @@ not test robustness to learned likelihoods or open responses. Its range-gated h3
 result remains proposal-only: a tied-control identity mismatch failed the frozen
 cross-platform audit, so no trajectory ran. The range-gated h4 result is an exact
 oracle qualification; unaided score-free action-sequence smokes and the
-hierarchical target gate all failed before a policy endpoint. Mushroom and Cleveland
-use artificial unlocks and exact local summaries; Mushroom matched d2 without
-projection. Thyroid has native delayed/grouped metadata, but
-its 26B proposal pass failed trajectory serving and names-only GPT lost to random.
-Projected utility passed using exact local summaries and 17 projected branches, so
-it is not unaided LLM planning. Cleveland's grounded transfer likewise
-uses exact local summaries; it required no projection and passed the entropy endpoint,
-but its frozen independent truth-log interval against random crossed zero, so it is
-not an all-gates confirmation. Animals establishes one-step transfer,
+first hierarchical target gate all failed before a policy endpoint. The focused-prior
+h5 result adds an exact 500-pair qualification and an audited 15/16 hierarchical
+proposal pass, but no h5 trajectory has run. Mushroom and Cleveland use artificial
+unlocks and exact local summaries. Thyroid has native delayed/grouped metadata,
+but its 26B trajectory serving failed and names-only GPT lost to random. Projected
+utility used exact summaries and 17 branches, so it is not unaided LLM planning.
+Cleveland used no projection and passed entropy, but its independent truth-log
+interval against random crossed zero, so it is not an all-gates confirmation.
+Animals establishes one-step transfer,
 but its depth streams are only partially paired. Natural location uses one model
 family and environment. Paprika policy counts are endpoint-invalid, and MediQ
 stops before a calibrated policy comparison. We do not claim that non-myopic BED
 cannot work; the preregistered iCRAFT profile gate failed held-out calibration.
 
-Capacity, one model family, OpenRouter provider nondeterminism, finite supports,
-unpaired model sizes, and post-hoc synthesis limit generality.
+One model family, finite supports, post-hoc synthesis, and OpenRouter provider
+nondeterminism limit generality.
 
 The evidence supports a constructive conclusion. With a coherent simulator and
 an enabling-information gap, LLM proposals plus exact rollout-EIG verification
@@ -591,7 +595,6 @@ greedy information gain is genuinely suboptimal. Calibrated summaries plus bound
 legal projection repaired Thyroid transfer, and the same summaries yielded a
 zero-projection full Mushroom transfer and primary-endpoint Cleveland transfer;
 projection-only failed random.
-These empirical gates should precede another non-monotonic depth sweep.
 
 {\scriptsize
 \setlength{\bibsep}{0pt}
