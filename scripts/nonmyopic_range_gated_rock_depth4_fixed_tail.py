@@ -338,6 +338,173 @@ class Depth4FixedRootTailProvider:
         )
 
 
+def canonical_nonrouting_projection(root: str) -> Plan:
+    """Return a legal comparison tail that cannot create an on-site travel route."""
+
+    return (root, "check-0", "check-0", "check-0")
+
+
+def extract_valid_depth4_branches(
+    response: str,
+    *,
+    model: RangeGatedRockDiagnosisModel,
+    position: tuple[int, int],
+    roots: tuple[str, ...],
+    config: RangeGatedDepth4StrategyConfig,
+    accept_json_prefix: bool = True,
+) -> tuple[dict[int, Plan], dict[int, str]]:
+    normalized = _normalize_response(response)
+    try:
+        if accept_json_prefix:
+            payload, _end = json.JSONDecoder().raw_decode(normalized)
+        else:
+            payload = json.loads(normalized)
+    except json.JSONDecodeError:
+        return {}, {
+            index: "depth-four fixed-tail response is not valid JSON"
+            for index in range(len(roots))
+        }
+    if not isinstance(payload, dict):
+        return {}, {
+            index: "depth-four fixed-tail response must be an object"
+            for index in range(len(roots))
+        }
+    valid: dict[int, Plan] = {}
+    errors: dict[int, str] = {}
+    for index, root in enumerate(roots):
+        tail = payload.get(f"r{index}")
+        if (
+            not isinstance(tail, list)
+            or len(tail) != config.horizon - 1
+            or not all(isinstance(action, str) for action in tail)
+        ):
+            errors[index] = f"r{index} must contain exactly three action strings"
+            continue
+        plan = (root, *tail)
+        try:
+            validate_plan(
+                model,
+                position=position,
+                plan=plan,
+                horizon=config.horizon,
+            )
+        except StrategyProposalError as exc:
+            errors[index] = str(exc)
+            continue
+        valid[index] = plan
+    return valid, errors
+
+
+class ProjectedDepth4FixedRootTailProvider(Depth4FixedRootTailProvider):
+    """Preserve valid LLM branches and project only invalid branches after retry."""
+
+    def propose(
+        self,
+        model: RangeGatedRockDiagnosisModel,
+        *,
+        cell_index: int,
+        position: tuple[int, int],
+        belief: np.ndarray,
+        history: History,
+    ) -> RangeGatedPlanCell:
+        roots = fixed_roots(model, position=position, belief=belief)
+        messages = self._messages(
+            model,
+            position=position,
+            belief=belief,
+            history=history,
+            roots=roots,
+        )
+        context = {
+            "cell_index": cell_index,
+            "position": list(position),
+            "history": [list(item) for item in history],
+            "roots": list(roots),
+        }
+        valid_by_attempt: list[dict[int, Plan]] = []
+        responses: list[str] = []
+        for attempt in range(self.config.validation_retries + 1):
+            response = self.chat_model.chat_complete(
+                messages, self.config.temperature, num_responses=1
+            )[0]
+            responses.append(response)
+            valid, errors = extract_valid_depth4_branches(
+                response,
+                model=model,
+                position=position,
+                roots=roots,
+                config=self.config,
+                accept_json_prefix=self.accept_json_prefix,
+            )
+            valid_by_attempt.append(valid)
+            if errors:
+                with self._lock:
+                    self.invalid_responses.append(
+                        {
+                            **context,
+                            "attempt": attempt,
+                            "branch_errors": {
+                                str(index): error
+                                for index, error in errors.items()
+                            },
+                            "raw_response": response,
+                        }
+                    )
+            if len(valid) == len(roots):
+                break
+            if attempt < self.config.validation_retries:
+                messages = [
+                    *messages,
+                    {"role": "assistant", "content": response},
+                    {
+                        "role": "user",
+                        "content": (
+                            "Some tails were missing or illegal. Return corrected "
+                            "full JSON with exactly three legal tail actions for "
+                            "each r0 through r3 key."
+                        ),
+                    },
+                ]
+
+        plans: list[Plan] = []
+        branch_sources: list[str] = []
+        projected_indices: list[int] = []
+        for index, root in enumerate(roots):
+            selected_plan: Plan | None = None
+            selected_source: str | None = None
+            for attempt in range(len(valid_by_attempt) - 1, -1, -1):
+                if index in valid_by_attempt[attempt]:
+                    selected_plan = valid_by_attempt[attempt][index]
+                    selected_source = f"attempt_{attempt}"
+                    break
+            if selected_plan is None:
+                selected_plan = canonical_nonrouting_projection(root)
+                validate_plan(
+                    model,
+                    position=position,
+                    plan=selected_plan,
+                    horizon=self.config.horizon,
+                )
+                selected_source = "projected"
+                projected_indices.append(index)
+            plans.append(selected_plan)
+            branch_sources.append(selected_source)
+
+        accepted = {
+            **context,
+            "attempt": len(responses) - 1,
+            "attempt_responses": responses,
+            "raw_response": responses[-1],
+            "compiled_plans": [list(plan) for plan in plans],
+            "branch_sources": branch_sources,
+            "projected_indices": projected_indices,
+            "projection_rule": "fixed root followed by check-0 three times",
+        }
+        with self._lock:
+            self.physical_requests.append(accepted)
+        return RangeGatedPlanCell(tuple(plans), responses[-1])
+
+
 class DeterministicDepth4TailModel:
     def chat_complete(
         self,
@@ -540,17 +707,28 @@ def run_smoke(
         exact, _exact_value, _exact_values = stable_best_plan(
             model, position=position, belief=belief, plans=exhaustive_plans
         )
-        records.append(
-            {
-                "cell_index": cell_index,
-                "history": [list(item) for item in history],
-                "plans": [list(plan) for plan in cell.plans],
-                "critical_route_present": CRITICAL_ROUTE in cell.plans,
-                "selected_plan": list(selected),
-                "exact_h4_plan": list(exact),
-                "selected_root_matches_exact": selected[0] == exact[0],
-            }
-        )
+        record = {
+            "cell_index": cell_index,
+            "history": [list(item) for item in history],
+            "plans": [list(plan) for plan in cell.plans],
+            "critical_route_present": CRITICAL_ROUTE in cell.plans,
+            "selected_plan": list(selected),
+            "exact_h4_plan": list(exact),
+            "selected_root_matches_exact": selected[0] == exact[0],
+        }
+        if isinstance(provider, ProjectedDepth4FixedRootTailProvider):
+            request = provider.physical_requests[-1]
+            selected_index = cell.plans.index(selected)
+            record.update(
+                {
+                    "branch_sources": request["branch_sources"],
+                    "projected_indices": request["projected_indices"],
+                    "selected_branch_source": request["branch_sources"][
+                        selected_index
+                    ],
+                }
+            )
+        records.append(record)
     route_count = sum(row["critical_route_present"] for row in records)
     root_match_count = sum(row["selected_root_matches_exact"] for row in records)
     mechanics = {
@@ -567,6 +745,30 @@ def run_smoke(
         "exact_h4_root_selected_in_at_least_eight_cells": root_match_count >= 8,
         "scoring_made_no_llm_calls": True,
     }
+    if isinstance(provider, ProjectedDepth4FixedRootTailProvider):
+        projected_branches = sum(
+            len(row["projected_indices"]) for row in records
+        )
+        mechanics.update(
+            {
+                "at_least_one_llm_branch_preserved_per_cell": all(
+                    len(row["projected_indices"]) <= 3 for row in records
+                ),
+                "all_selected_plans_are_llm_authored": all(
+                    row["selected_branch_source"] != "projected"
+                    for row in records
+                ),
+                "projected_branch_fraction_at_most_three_quarters": (
+                    projected_branches <= 30
+                ),
+                "projection_cannot_create_critical_route": all(
+                    list(CRITICAL_ROUTE) != plan
+                    for row in records
+                    for index, plan in enumerate(row["plans"])
+                    if index in row["projected_indices"]
+                ),
+            }
+        )
     return {
         "schema_version": 1,
         "stage": "range_gated_rock_depth4_fixed_tail_serving_smoke",
@@ -574,6 +776,11 @@ def run_smoke(
         "mechanics": mechanics,
         "critical_route_count": route_count,
         "exact_root_match_count": root_match_count,
+        "projected_branch_count": (
+            sum(len(row["projected_indices"]) for row in records)
+            if isinstance(provider, ProjectedDepth4FixedRootTailProvider)
+            else 0
+        ),
         "records": records,
         "candidate_requests": provider.physical_requests,
         "invalid_responses": provider.invalid_responses,
@@ -603,17 +810,29 @@ def run_proposal_gate(
             belief=belief,
             history=history,
         )
-        records.append(
-            _score_cell(
-                model,
-                cell_index=cell_index,
-                belief=belief,
-                history=history,
-                llm_plans=cell.plans,
-                config=gate_config,
-                exhaustive_plans=exhaustive_plans,
-            )
+        record = _score_cell(
+            model,
+            cell_index=cell_index,
+            belief=belief,
+            history=history,
+            llm_plans=cell.plans,
+            config=gate_config,
+            exhaustive_plans=exhaustive_plans,
         )
+        if isinstance(provider, ProjectedDepth4FixedRootTailProvider):
+            request = provider.physical_requests[-1]
+            selected_plan = tuple(record["llm_selected_plan"])
+            selected_index = cell.plans.index(selected_plan)
+            record.update(
+                {
+                    "branch_sources": request["branch_sources"],
+                    "projected_indices": request["projected_indices"],
+                    "selected_branch_source": request["branch_sources"][
+                        selected_index
+                    ],
+                }
+            )
+        records.append(record)
     summary_kwargs = {
         "bootstrap_seed": gate_config.bootstrap_seed,
         "bootstrap_replicates": gate_config.bootstrap_replicates,
@@ -675,6 +894,30 @@ def run_proposal_gate(
         "all_controls_exactly_scored": True,
         "scoring_made_no_llm_calls": True,
     }
+    if isinstance(provider, ProjectedDepth4FixedRootTailProvider):
+        projected_branches = sum(
+            len(row["projected_indices"]) for row in records
+        )
+        mechanics.update(
+            {
+                "at_least_one_llm_branch_preserved_per_cell": all(
+                    len(row["projected_indices"]) <= 3 for row in records
+                ),
+                "all_selected_plans_are_llm_authored": all(
+                    row["selected_branch_source"] != "projected"
+                    for row in records
+                ),
+                "projected_branch_fraction_at_most_three_quarters": (
+                    projected_branches <= 3 * gate_config.num_cells
+                ),
+                "projection_cannot_create_critical_route": all(
+                    list(CRITICAL_ROUTE) != plan
+                    for row in records
+                    for index, plan in enumerate(row["llm_plans"])
+                    if index in row["projected_indices"]
+                ),
+            }
+        )
     endpoint_gate = {
         "matched_random_lower_bound_positive": comparisons[
             "llm_minus_matched_random"
@@ -705,6 +948,11 @@ def run_proposal_gate(
         "mechanics": mechanics,
         "comparisons": comparisons,
         "endpoint_gate": endpoint_gate,
+        "projected_branch_count": (
+            sum(len(row["projected_indices"]) for row in records)
+            if isinstance(provider, ProjectedDepth4FixedRootTailProvider)
+            else 0
+        ),
         "records": records,
         "candidate_requests": provider.physical_requests,
         "invalid_responses": provider.invalid_responses,
@@ -755,6 +1003,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--model-generation-tokens", type=int, default=4096)
+    parser.add_argument("--project-invalid-branches", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     default_seed = 24_208 if args.stage == "smoke" else 24_209
@@ -777,7 +1026,12 @@ def main() -> None:
             runtime_config.model_pairs[0].questioner,
             config=runtime_config,
         )
-    provider = Depth4FixedRootTailProvider(chat_model, strategy_config)
+    provider_class = (
+        ProjectedDepth4FixedRootTailProvider
+        if args.project_invalid_branches
+        else Depth4FixedRootTailProvider
+    )
+    provider = provider_class(chat_model, strategy_config)
     try:
         if args.stage == "smoke":
             result = run_smoke(provider, strategy_config)
@@ -792,6 +1046,7 @@ def main() -> None:
             "strategy_config": asdict(strategy_config),
             "candidate_requests": provider.physical_requests,
             "invalid_responses": provider.invalid_responses,
+            "projection_enabled": args.project_invalid_branches,
             "usage": usage_with_forced_events(chat_model, args.output_dir),
         }
         (args.output_dir / f"{args.stage.upper()}_FAILURE.json").write_text(
@@ -802,6 +1057,7 @@ def main() -> None:
     result["usage"] = usage_with_forced_events(chat_model, args.output_dir)
     result["run_id"] = args.run_id
     result["dry_run"] = args.dry_run
+    result["projection_enabled"] = args.project_invalid_branches
     result["mechanics"]["usage_accounted"] = args.dry_run or all(
         field in result["usage"]
         for field in ("requests", "completion_tokens", "forced_exits")

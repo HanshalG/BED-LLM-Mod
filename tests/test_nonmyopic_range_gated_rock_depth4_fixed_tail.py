@@ -2,14 +2,15 @@ import json
 
 import pytest
 
-from scripts.audit_nonmyopic_range_gated_rock_depth4_fixed_tail import (
-    audit_result,
+from scripts.audit_nonmyopic_range_gated_rock_depth4_projected import (
+    audit_projected_result,
 )
 from scripts.nonmyopic_gated_sensor_strategy_prior import StrategyProposalError
 from scripts.nonmyopic_range_gated_rock_depth4_fixed_tail import (
     CRITICAL_ROUTE,
     Depth4FixedRootTailProvider,
     DeterministicDepth4TailModel,
+    ProjectedDepth4FixedRootTailProvider,
     RangeGatedDepth4ProposalConfig,
     RangeGatedDepth4StrategyConfig,
     build_depth4_model,
@@ -111,10 +112,63 @@ def test_deterministic_depth4_smoke_recovers_critical_route() -> None:
     assert result["exact_root_match_count"] == 10
 
 
-def test_deterministic_depth4_proposal_and_audit_pass() -> None:
+class _ScriptedModel:
+    def __init__(self, responses: list[str]) -> None:
+        self.responses = responses
+
+    def chat_complete(
+        self,
+        messages: list[dict[str, str]],
+        temperature: float,
+        num_responses: int = 1,
+    ) -> list[str]:
+        del messages, temperature
+        assert num_responses == 1
+        return [self.responses.pop(0)]
+
+
+def test_projected_provider_preserves_valid_route_and_projects_only_invalid() -> None:
+    model = build_depth4_model()
+    config = RangeGatedDepth4StrategyConfig()
+    corrected = json.dumps(
+        {
+            "r0": ["move-NORTH", "move-NORTH", "check-4"],
+            "r1": ["move-WEST", "move-WEST", "check-7"],
+            "r2": ["move-WEST", "move-SOUTH", "check-5"],
+            "r3": ["move-SOUTH", "move-WEST", "check-6"],
+        }
+    )
+    provider = ProjectedDepth4FixedRootTailProvider(
+        _ScriptedModel(["", corrected]), config
+    )
+
+    cell = provider.propose(
+        model,
+        cell_index=0,
+        position=model.map_spec.start_position,
+        belief=model.initial_belief,
+        history=(),
+    )
+    request = provider.physical_requests[0]
+
+    assert cell.plans[0] == CRITICAL_ROUTE
+    assert request["branch_sources"] == [
+        "attempt_1",
+        "attempt_1",
+        "projected",
+        "projected",
+    ]
+    assert request["projected_indices"] == [2, 3]
+    assert all(
+        plan[1:] == ("check-0", "check-0", "check-0")
+        for plan in cell.plans[2:]
+    )
+
+
+def test_deterministic_projected_depth4_proposal_and_audit_pass() -> None:
     strategy_config = RangeGatedDepth4StrategyConfig(seed=24_209)
     gate_config = RangeGatedDepth4ProposalConfig(seed=24_209)
-    provider = Depth4FixedRootTailProvider(
+    provider = ProjectedDepth4FixedRootTailProvider(
         DeterministicDepth4TailModel(), strategy_config
     )
 
@@ -125,9 +179,10 @@ def test_deterministic_depth4_proposal_and_audit_pass() -> None:
         "passed": all(result["mechanics"].values())
         and all(result["endpoint_gate"].values())
     }
-    audit = audit_result(result)
+    audit = audit_projected_result(result)
 
     assert result["gate"]["passed"]
     assert result["comparisons"]["exact_h4_route_selection_rate"] == 1.0
     assert result["comparisons"]["recovery_fraction"]["mean"] == pytest.approx(1.0)
+    assert result["projected_branch_count"] == 0
     assert audit["gate"]["passed"]
