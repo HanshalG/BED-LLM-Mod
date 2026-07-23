@@ -20,3 +20,18 @@ Qwen 32B is selected for one separately preregistered h4 smoke. These generic
 responses do not enter the scientific proposal pool or any endpoint.
 
 Artifact: `spatial_horizon_model_calibration_20260723/CALIBRATION.json`.
+
+## Frontier Ceiling Calibration
+
+The selected Qwen 32B Rock smoke later failed closed and, as registered, ended
+the open-weight model search. A separate endpoint-free ceiling calibration then
+ran full GPT-5.4 with high reasoning on the same three generic cases:
+
+| Model | Correct route and bare JSON | Forced exits | Reasoning tokens | Cost |
+| --- | ---: | ---: | ---: | ---: |
+| GPT-5.4 high reasoning | `3/3` | `0` | `456` | `$0.00936750` |
+
+This authorizes one separately preregistered frontier h4 smoke on fresh Rock
+cells. It does not alter or pool with any open-weight result.
+
+Artifact: `spatial_horizon_gpt54_calibration_20260723/CALIBRATION.json`.
