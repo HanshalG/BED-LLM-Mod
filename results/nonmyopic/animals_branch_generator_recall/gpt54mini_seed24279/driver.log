@@ -1,0 +1,1321 @@
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 20 raw belief(s)
+[beliefs] 20 belief(s) remain after structural cleanup
+[beliefs] Validating 70 cleaned belief name(s)
+[beliefs] 70 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 20 belief(s) against 2 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 20 belief(s) remain after filtering
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] 20 belief(s) remain after filtering
+[beliefs] 3 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 18 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 9 raw belief(s)
+[beliefs] 9 belief(s) remain after structural cleanup
+[beliefs] Validating 9 cleaned belief name(s)
+[beliefs] 9 belief(s) remain after animal-name validation
+[beliefs] Filtering 9 belief(s) against 2 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 15 raw belief(s)
+[beliefs] 15 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 56 raw belief(s)
+[beliefs] 56 belief(s) remain after structural cleanup
+[beliefs] Validating 120 cleaned belief name(s)
+[beliefs] 119 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 14 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 56 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 41 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 5 raw belief(s)
+[beliefs] 5 belief(s) remain after structural cleanup
+[beliefs] Validating 5 cleaned belief name(s)
+[beliefs] 5 belief(s) remain after animal-name validation
+[beliefs] Filtering 5 belief(s) against 2 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 7 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 5 raw belief(s)
+[beliefs] 5 belief(s) remain after structural cleanup
+[beliefs] Validating 5 cleaned belief name(s)
+[beliefs] 5 belief(s) remain after animal-name validation
+[beliefs] Filtering 5 belief(s) against 2 answered round(s)
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 51 cleaned belief name(s)
+[beliefs] 51 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 17 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 3 cleaned belief name(s)
+[beliefs] 3 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] After retry 1, belief pool has 7 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 5 raw belief(s)
+[beliefs] 5 belief(s) remain after structural cleanup
+[beliefs] Validating 6 cleaned belief name(s)
+[beliefs] 6 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 5 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 36 cleaned belief name(s)
+[beliefs] 36 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] 19 belief(s) remain after filtering
+[beliefs] 3 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 9 raw belief(s)
+[beliefs] 9 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 12 cleaned belief name(s)
+[beliefs] 12 belief(s) remain after animal-name validation
+[beliefs] Filtering 9 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 11 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 66 cleaned belief name(s)
+[beliefs] 66 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Validating 8 cleaned belief name(s)
+[beliefs] 8 belief(s) remain after animal-name validation
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 10 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 2 cleaned belief name(s)
+[beliefs] 2 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 10 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 96 cleaned belief name(s)
+[beliefs] 96 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] Filtering 22 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 51 cleaned belief name(s)
+[beliefs] 50 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 15 belief(s) against 2 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] Filtering 21 belief(s) against 1 answered round(s)
+[beliefs] Filtering 21 belief(s) against 1 answered round(s)
+[beliefs] Filtering 21 belief(s) against 1 answered round(s)
+[beliefs] Filtering 21 belief(s) against 1 answered round(s)
+[beliefs] Filtering 21 belief(s) against 1 answered round(s)
+[beliefs] Filtering 21 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 6 cleaned belief name(s)
+[beliefs] 6 belief(s) remain after animal-name validation
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 66 cleaned belief name(s)
+[beliefs] 65 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 15 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 6 raw belief(s)
+[beliefs] 6 belief(s) remain after structural cleanup
+[beliefs] Validating 9 cleaned belief name(s)
+[beliefs] 9 belief(s) remain after animal-name validation
+[beliefs] Filtering 3 belief(s) against 2 answered round(s)
+[beliefs] Filtering 6 belief(s) against 2 answered round(s)
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] After retry 1, belief pool has 10 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 3 cleaned belief name(s)
+[beliefs] 3 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 11 candidate(s)
+[beliefs] After retry 2, belief pool has 10 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 14 raw belief(s)
+[beliefs] 14 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 64 cleaned belief name(s)
+[beliefs] 64 belief(s) remain after animal-name validation
+[beliefs] Filtering 14 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Validating 6 cleaned belief name(s)
+[beliefs] 6 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 10 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 2 cleaned belief name(s)
+[beliefs] 2 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 20 raw belief(s)
+[beliefs] 20 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 85 cleaned belief name(s)
+[beliefs] 85 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 20 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 17 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 10 raw belief(s)
+[beliefs] 10 belief(s) remain after structural cleanup
+[beliefs] Validating 10 cleaned belief name(s)
+[beliefs] 10 belief(s) remain after animal-name validation
+[beliefs] Filtering 10 belief(s) against 2 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 12 raw belief(s)
+[beliefs] 12 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 62 cleaned belief name(s)
+[beliefs] 62 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 12 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 5 raw belief(s)
+[beliefs] 5 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Validating 8 cleaned belief name(s)
+[beliefs] 8 belief(s) remain after animal-name validation
+[beliefs] Filtering 5 belief(s) against 2 answered round(s)
+[beliefs] Filtering 3 belief(s) against 2 answered round(s)
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 3 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 9 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Validating 3 cleaned belief name(s)
+[beliefs] 3 belief(s) remain after animal-name validation
+[beliefs] Filtering 3 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 10 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 66 cleaned belief name(s)
+[beliefs] 65 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 15 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] 17 belief(s) remain after filtering
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 5 raw belief(s)
+[beliefs] 5 belief(s) remain after structural cleanup
+[beliefs] Validating 5 cleaned belief name(s)
+[beliefs] 5 belief(s) remain after animal-name validation
+[beliefs] Filtering 5 belief(s) against 2 answered round(s)
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 51 cleaned belief name(s)
+[beliefs] 51 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] 19 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 20 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 7 raw belief(s)
+[beliefs] 7 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 7 raw belief(s)
+[beliefs] 7 belief(s) remain after structural cleanup
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Filtering 7 belief(s) against 2 answered round(s)
+[beliefs] Filtering 7 belief(s) against 2 answered round(s)
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 10 candidate(s)
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 2 cleaned belief name(s)
+[beliefs] 2 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 51 cleaned belief name(s)
+[beliefs] 51 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 7 raw belief(s)
+[beliefs] 7 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Validating 15 cleaned belief name(s)
+[beliefs] 15 belief(s) remain after animal-name validation
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] Filtering 7 belief(s) against 2 answered round(s)
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 11 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 66 cleaned belief name(s)
+[beliefs] 65 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 15 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] Filtering 30 belief(s) against 1 answered round(s)
+[beliefs] Filtering 30 belief(s) against 1 answered round(s)
+[beliefs] Filtering 30 belief(s) against 1 answered round(s)
+[beliefs] Filtering 30 belief(s) against 1 answered round(s)
+[beliefs] Filtering 30 belief(s) against 1 answered round(s)
+[beliefs] Filtering 30 belief(s) against 1 answered round(s)
+[beliefs] 23 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 17 belief(s) remain after filtering
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 22 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Validating 3 cleaned belief name(s)
+[beliefs] 3 belief(s) remain after animal-name validation
+[beliefs] Filtering 3 belief(s) against 2 answered round(s)
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 15 raw belief(s)
+[beliefs] 15 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 12 raw belief(s)
+[beliefs] 12 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 76 cleaned belief name(s)
+[beliefs] 76 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 15 belief(s) against 2 answered round(s)
+[beliefs] Filtering 12 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 19 belief(s) against 1 answered round(s)
+[beliefs] Filtering 19 belief(s) against 1 answered round(s)
+[beliefs] Filtering 19 belief(s) against 1 answered round(s)
+[beliefs] Filtering 19 belief(s) against 1 answered round(s)
+[beliefs] Filtering 19 belief(s) against 1 answered round(s)
+[beliefs] Filtering 19 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Validating 4 cleaned belief name(s)
+[beliefs] 4 belief(s) remain after animal-name validation
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] 3 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 12 raw belief(s)
+[beliefs] 12 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 47 cleaned belief name(s)
+[beliefs] 46 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 11 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 7 raw belief(s)
+[beliefs] 7 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 12 cleaned belief name(s)
+[beliefs] 12 belief(s) remain after animal-name validation
+[beliefs] Filtering 7 belief(s) against 2 answered round(s)
+[beliefs] Filtering 3 belief(s) against 2 answered round(s)
+[beliefs] Filtering 2 belief(s) against 2 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 11 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 66 cleaned belief name(s)
+[beliefs] 66 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 28 belief(s) against 1 answered round(s)
+[beliefs] Filtering 28 belief(s) against 1 answered round(s)
+[beliefs] Filtering 28 belief(s) against 1 answered round(s)
+[beliefs] Filtering 28 belief(s) against 1 answered round(s)
+[beliefs] Filtering 28 belief(s) against 1 answered round(s)
+[beliefs] Filtering 28 belief(s) against 1 answered round(s)
+[beliefs] 20 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 21 belief(s) remain after filtering
+[beliefs] 17 belief(s) remain after filtering
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 4 raw belief(s)
+[beliefs] 4 belief(s) remain after structural cleanup
+[beliefs] Validating 4 cleaned belief name(s)
+[beliefs] 4 belief(s) remain after animal-name validation
+[beliefs] Filtering 4 belief(s) against 2 answered round(s)
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 51 cleaned belief name(s)
+[beliefs] 51 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] Filtering 24 belief(s) against 1 answered round(s)
+[beliefs] 20 belief(s) remain after filtering
+[beliefs] 4 belief(s) remain after filtering
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] 21 belief(s) remain after filtering
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 8 raw belief(s)
+[beliefs] 8 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Validating 11 cleaned belief name(s)
+[beliefs] 11 belief(s) remain after animal-name validation
+[beliefs] Filtering 8 belief(s) against 2 answered round(s)
+[beliefs] Filtering 3 belief(s) against 2 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 3 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 12 candidate(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 51 cleaned belief name(s)
+[beliefs] 51 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] Filtering 16 belief(s) against 2 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] Filtering 23 belief(s) against 1 answered round(s)
+[beliefs] 18 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 17 belief(s) remain after filtering
+[beliefs] 5 belief(s) remain after filtering
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 7 raw belief(s)
+[beliefs] 7 belief(s) remain after structural cleanup
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 8 cleaned belief name(s)
+[beliefs] 8 belief(s) remain after animal-name validation
+[beliefs] Filtering 7 belief(s) against 2 answered round(s)
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] After retry 1, belief pool has 11 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 2 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 1 belief(s) remain after structural cleanup
+[beliefs] Validating 1 cleaned belief name(s)
+[beliefs] 1 belief(s) remain after animal-name validation
+[beliefs] Filtering 1 belief(s) against 2 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 11 candidate(s)
+{
+  "branch_union_truth_recall": 0.05,
+  "num_branches": 120,
+  "num_states": 20,
+  "states_with_nonzero_candidate_coverage": 1,
+  "states_with_truth_in_branch_union": 1
+}
