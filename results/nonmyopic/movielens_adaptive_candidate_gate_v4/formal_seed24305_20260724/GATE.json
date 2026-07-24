@@ -1,0 +1,771 @@
+{
+  "protocol": {
+    "candidate_outcomes_not_read": true,
+    "candidate_pool_size": 16,
+    "candidate_pool_uses_presence_and_popularity_only": true,
+    "committed_profile_text_omitted": true,
+    "formal_sensitivity_futility_stop": true,
+    "heldout_count": 8,
+    "heldout_ratings_not_read": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "22cc663475440167d8d83bee835fd64b2d5b9b3a78eb6a187d2885d1ba0c0e44",
+    "profile_count": 6,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "selected_candidate_count": 4,
+    "selection_seed": 24305,
+    "stage": "formal",
+    "user_ids": [
+      158,
+      194,
+      227,
+      234,
+      323,
+      468,
+      494,
+      551,
+      579,
+      679,
+      710,
+      854
+    ],
+    "v1_v2_v3_users_excluded": true
+  },
+  "records": [
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Comedy",
+            "Romance"
+          ],
+          "title": "Princess Bride, The (1987)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Monty Python and the Holy Grail (1974)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.0009564243751309931,
+        0.0008769389856984056,
+        0.0008127093029282051,
+        0.0008076291282026471
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "80aa532a947ab95f382dc329ae9f669925bb5767fd51265d609d09f05a0420d9",
+        "9d27655763f9e48114864c6677e54c90a0646a890779d048318087bcf571740e",
+        "8903f460bfd8babb001cf791a75bc898a5e1a841a6f7e9d149f6a21cc5650245",
+        "a1425dd64c015abff35aaf7948bc983c7c279fce019485a4a313fcde2e33946b",
+        "e352f5c7ccd9b76570a58cc27f9541efc430bf84b99617379287c861417b6dbd",
+        "cd0e2ab60a1dedebe313aa7845fc8d0a07564bb249f795e0ece6f7cddfb7f120"
+      ],
+      "user_id": 158
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Comedy",
+            "Sci-Fi"
+          ],
+          "title": "Back to the Future (1985)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.002528767559163425,
+        0.002293280566542988,
+        0.0022257937638581193,
+        0.002182027359888039
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "94c198e7aeb396e082dff5bf740f475e41f0780ce76ef3fedbbe5bc76cbad5b8",
+        "199d3dd824f3d3fac4ce19ea7ff7b387d422249ed7d06b2f7fb0e0979c95fe05",
+        "a8ccfd5b35d1fdba804281f228f4a010151aa17c13f1d4265bf21d1d7aae1da0",
+        "c4bcb89bb735e851bf7669d26233d29a698cd95e48bc93b6b3400b437f41b98c",
+        "04fa103880a9708859aafceb82cbe46247bafbaea919fe8c5aff1348b1250659",
+        "adda82c4b2fc61c3857322597f76295ce09986f2b7ef7b28dd16c1f139083192"
+      ],
+      "user_id": 194
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Trainspotting (1996)"
+        },
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Dead Man Walking (1995)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.06646551425565606,
+        0.015231825309451441,
+        0.01150399732086771,
+        0.003696104879847173
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4ca1a0f99c23efb7f78ae18d270630ff4e9d7287304f59c99962a6339515c6db",
+        "8ffb302b22412f65a54d41466a5124d7a13d560ff0384dc139c5bbd79161f79c",
+        "b5f8c21b18c1773ab95c45e90f88c5dda867f41799cce5b50e459c6c5960d40c",
+        "41b5ba67feeaf824ee515247cef01b0eaea97f31832ec0bc7558123d7d5c524e",
+        "62297b2eb276d4ee0ca831015a36fdf5f59164458ceeffe481b423a4080ff2b1",
+        "35eb29241f2a4eb93fc2b6f481a9f2b2251eb0f817b3477b26993d9856e5d450"
+      ],
+      "user_id": 227
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi"
+          ],
+          "title": "Star Trek: First Contact (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.009325884363635017,
+        0.006977394748518773,
+        0.0068702837993963595,
+        0.006837125488844187
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "85ace29006aedd7b737b4661cc191d797d4bf566bf8a8b4da451d8c7c0ff1c8a",
+        "933b95c7643d70691a3c7a468f85eec548180b5b6e8478ab537e694bab21d4c7",
+        "7459824ddb667dc4727b5229b714468dfc7ffe521f9f436766b71d3c3bcfaa1f",
+        "9db5e48ef253a825aa8e68633240888d632ca9f454724787ff56cee9581acddd",
+        "c1569f48f1b544236ebd89c62b7cebc50014ac6075a3f2bcae8d061edf2d20f7",
+        "adbc135b507ca9719e5e5b9476b522dde3461958c13192696282c5b6d6f8443f"
+      ],
+      "user_id": 234
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.040897857820378025,
+        0.028482807854558034,
+        0.027135174344652846,
+        0.02328341615747198
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "f3b5dd0fea04cc4ef06516c2d2b95a1d8d701e417ab130a17a984e32437def82",
+        "144f966b6995399d504aaaf05484e35b467a56799570d603bcc0b7c75c01cf9d",
+        "cbf3c6ef5fccac5b12062640205f0c9eb3cbe363d8dd0238a23023d42e4053b1",
+        "ca51d757d8394576d9b3f40867eaa01cb83ef4a5e82d8647299ada12002bbd83",
+        "8e813fe2facda1df98cec0ab05fa74879560b976370425e7a39b509cc5ae5228",
+        "1dbfa2dc03c08aa06ea8b67088714d7e6519272790f96ef5e82f81b0900c6baf"
+      ],
+      "user_id": 323
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Comedy",
+            "Sci-Fi"
+          ],
+          "title": "Back to the Future (1985)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Mystery"
+          ],
+          "title": "Mission: Impossible (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Thriller"
+          ],
+          "title": "Rock, The (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.010026360424115088,
+        0.009597149556330065,
+        0.007309441693666541,
+        0.006317124581599609
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "5f010b9d62caa81e79f3720475ca92fcc1d07a94f2245bdd90748dc392403fbf",
+        "97cbd267a9d82eb4f27024b1b7bc024f480dfd13ec035b51ebc9a98ce0bfb926",
+        "81dc1e32295448cd758c212088c6e7b8783d74881e461deac7b1751c26502c85",
+        "3324cecaf74dbba2722a1d0ba2c650650d60665800934e2ec8145ddd66a31038",
+        "16e1bcb4c4487d4f8f03d2980d0ba0a8761eeeb772806bbab7e61d61c143d84d",
+        "b0502649eb1a56a17ef0c3df62d64f2bce3fa4a49328ea2481db02d7f18d6412"
+      ],
+      "user_id": 468
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Horror",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "title": "Alien (1979)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.01086502749582774,
+        0.006009665676067533,
+        0.003575914396832802,
+        0.002723105655427327
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "6d5588c1c321925b62983da560a070290ababd08779dba458c34d908a2d39991",
+        "762f11d983137bdb2e1528919ae01f261a57c2d7fdc26de8ea5e81e78e9305c2",
+        "ba84c41493dbb7f031b44aefe155240fd2fcb9beaede9c6cb467974d5422c53b",
+        "4e93eeeed92e3a8b84a26ccc4cb00150e99ff3efc72dd1a375c0f776bf76bd7e",
+        "cc80cc0957c084696c7166167b1e65fe9daa2edd39740dcfb77e16268dd51cb9",
+        "2cf3bcbb8cef8d4d535c21397c5b4327fb574819c5723eb897c6009ddff97314"
+      ],
+      "user_id": 494
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure"
+          ],
+          "title": "Raiders of the Lost Ark (1981)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.1406465332304241,
+        0.1089044161185726,
+        0.0631374563374445,
+        0.04790700946677884
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "95f9ed1967219da9c658e59834e074dd400806be8212b2ccba31da4e885a0572",
+        "00e5540d3bc1b33e198ceb30f5de8892faef006a69751e5c19b0aa74966c3cf2",
+        "cc30b339259491ae09b15d3c58c3f2c14d6ff47f045e87b42c6d1ad40514049e",
+        "ac00e039553418f50538b51bb3671a63c581d20a3f76ecb348dccc5e161fa5e6",
+        "11017e54c08d737b148afe3602084a05a000c5ef90ce61d05f74405dddd85326",
+        "7ad449ba726846a44d6d94f17e6a2cb8b3b7fd5b048a7a73a4b863c587d130b2"
+      ],
+      "user_id": 551
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Birdcage, The (1996)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.01823086677766117,
+        0.013123515803975971,
+        0.013123515803975971,
+        0.010096305376048997
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "7a88bfd2d903893278e8febd7edb9c5cdb7bd8ac28ad6e29d44f0ce178214961",
+        "0c686dc722fa2b0bb7781c7f8ed7ae6e9524cfe28c65f72b1f2a8758cb7a3583",
+        "9b6806a523d3b033c3fa4ff7f1bbc9e618987ea45212c50ef68551bf43bc0aeb",
+        "6882ddaa19a385b227b73af1dab4ff0b2da4c98888f1285277de085c0428a476",
+        "302e0689be94c8b28b51d6f2931351f3bc9f9939877d02306a0c1cbd34111291",
+        "9d77f99f6f72b69cc8ed87a5d9096e5a62ccf976cef333d6ba13ffa6f0cba42a"
+      ],
+      "user_id": 579
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Shawshank Redemption, The (1994)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "War"
+          ],
+          "title": "Schindler's List (1993)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Comedy",
+            "Romance"
+          ],
+          "title": "Princess Bride, The (1987)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.0801944474506886,
+        0.07375924748174723,
+        0.007853354110532562,
+        0.004533208487244478
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "9a2dc3c69bd5c72a139b3a223b087a9cc7b61d74b76c0c29f0c9e81f772ad91f",
+        "142fc48d87cc13c3b3e54143b29cca92e6c18a45d54c508571bdb7e46e286a70",
+        "5a5a964be496a22d9de02c9cb93899e3c8211f8e43485ff4385dc5192b7b13a5",
+        "62a27ae77539b6d1846d693ec00e18d5bcd5b7c0bc9086d60a3655a4dec9970d",
+        "429c840fe11f9fb959e6ae357c5bcaca9b28940effadecabbf9fe7f4bd37a7d9",
+        "c4b38bf326aed6e7be8a21794b6bbb8336e7442f7d5cc57daf880867fbbedcc5"
+      ],
+      "user_id": 679
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "War"
+          ],
+          "title": "Schindler's List (1993)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.009164895375464388,
+        0.008401182517593586,
+        0.006395118100865238,
+        0.006305116945162004
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "428d7e8884a23b977b18379811ad11c0e83034b1cb739b86156eddf014a475da",
+        "7c17dd2ef814f24b9b6b5ec81c798a2f83227ef7a02a0e85547913c6ab2ca9fc",
+        "cd21cc884c72364530ea1a8f34d1f3d03e7fe59dfe1a64844f6a479002d4d4f1",
+        "9267bbdea294ab1cc2d7dc0bc9c80fd7d1d8fca1a19897609361df624dc2191d",
+        "d1124b8694018d6b07053c2debb8d59653811b360615b5dbbf6f6d4bfb39fc9a",
+        "8cf5f4a10b2c29905b1824fee61133b0491ce49cc2472d6ac9032d456368d574"
+      ],
+      "user_id": 710
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.0030633306175766872,
+        0.0029917768637022224,
+        0.0024725372368161747,
+        0.002320559803218325
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "7ea4f43299671ba95c90836616a581277458cd242dd3cca26cf03ab0bb758052",
+        "a8e3120c5376ea1d1a8759905fad93026656b913b9fa9bf26f80f97ae0821b84",
+        "e0dab333e38afc7f72c1825a01bd88e7d4fa51908d9d99e8330a5102f2cb1852",
+        "300b9dd8c878924579d5548967f5e15024aad4f304ad22a2658b0dd551faf543",
+        "1829c52d6d5504d807d46b719bd72c688c6a112a1a32135c57d57627ac8147ec",
+        "280c8714976528adab80bb1499c1746d8be5f78e3eacfaf0d12cea682816cdc2"
+      ],
+      "user_id": 854
+    }
+  ],
+  "schema_version": 4,
+  "status": "gate_failed",
+  "summary": {
+    "gates": {
+      "all_pass": false,
+      "all_users_completed": true,
+      "at_least_eight_users_have_max_eig_at_least_0_02": false,
+      "exact_sensitivity_screen_request_count": true,
+      "mean_max_immediate_eig_at_least_0_02": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_max_immediate_eig": 0.03269715914547677,
+    "num_branches": 0,
+    "num_users": 12,
+    "users_with_max_immediate_eig_at_least_0_02": 4
+  },
+  "usage": {
+    "adapter_cost_usd": 0.17247900000000002,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 4802,
+        "adapter_cost_usd": 0.0019168499999999999,
+        "adapter_prompt_tokens": 3516,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 12,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 40124,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 4802,
+            "cost_usd": 0.0019168499999999999,
+            "prompt_tokens": 3516,
+            "reasoning_tokens": 0,
+            "requests": 12
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 35322,
+            "cost_usd": 0.17056215000000002,
+            "prompt_tokens": 45897,
+            "reasoning_tokens": 0,
+            "requests": 12
+          }
+        },
+        "prompt_tokens": 49413,
+        "reasoning_tokens": 0,
+        "remaining_usd": 20.881994842999973,
+        "requests": 24,
+        "run_budget_usd": 0.9,
+        "run_cost_usd": 0.17247900000000002,
+        "run_remaining_usd": 0.727521,
+        "total_spent_usd": 49.50280785245718
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 35322,
+        "adapter_cost_usd": 0.17056215000000002,
+        "adapter_prompt_tokens": 45897,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 12,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 40124,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 4802,
+            "cost_usd": 0.0019168499999999999,
+            "prompt_tokens": 3516,
+            "reasoning_tokens": 0,
+            "requests": 12
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 35322,
+            "cost_usd": 0.17056215000000002,
+            "prompt_tokens": 45897,
+            "reasoning_tokens": 0,
+            "requests": 12
+          }
+        },
+        "prompt_tokens": 49413,
+        "reasoning_tokens": 0,
+        "remaining_usd": 20.881994842999973,
+        "requests": 24,
+        "run_budget_usd": 0.9,
+        "run_cost_usd": 0.17247900000000002,
+        "run_remaining_usd": 0.727521,
+        "total_spent_usd": 49.50280785245718
+      }
+    },
+    "physical_requests": 24,
+    "reasoning_tokens": 0
+  }
+}
