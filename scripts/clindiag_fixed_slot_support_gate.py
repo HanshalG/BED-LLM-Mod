@@ -108,8 +108,14 @@ def stability_audit_messages(
                 "duplicate semantically. For each direction, report the fraction of "
                 "diagnoses having a same-disease or standard-synonym match in the "
                 "other list; related diagnoses do not count. Return exactly "
-                '{"supports":[{"id":"initial","best_match_score":0.0,'
-                '"reason":"brief"}],"lab_to_duplicate_overlap":0.0,'
+                '{"supports":['
+                '{"id":"initial","best_match_score":0.0,"reason":"brief"},'
+                '{"id":"after_present_illness","best_match_score":0.0,'
+                '"reason":"brief"},'
+                '{"id":"after_lab_1","best_match_score":0.0,"reason":"brief"},'
+                '{"id":"after_lab_1_duplicate","best_match_score":0.0,'
+                '"reason":"brief"}],'
+                '"lab_to_duplicate_overlap":0.0,'
                 '"duplicate_to_lab_overlap":0.0,"overlap_reason":"brief"}; '
                 "preserve support IDs and order.\n"
                 + json.dumps(payload, ensure_ascii=True, separators=(",", ":"))
@@ -330,23 +336,76 @@ def run_smoke(
             strict=True,
         )
     ]
-    audits = complete_parsed_many(
-        models["judge"],
+    raw_audits = models["judge"].chat_complete_messages_batched(
         [
             stability_audit_messages(case.final_diagnosis, case_supports)
             for case, case_supports in zip(cases, support_sets, strict=True)
         ],
         temperature=0.0,
+        block_size=256,
         max_new_tokens=int(config.openrouter_max_output_tokens),
-        parser=parse_stability_audit,
-        stage="semantic_stability_audit",
-        retries=0,
     )
+    audits: list[dict[str, Any] | None] = []
+    audit_errors = []
+    for index, response in enumerate(raw_audits):
+        try:
+            audits.append(parse_stability_audit(response))
+        except ValueError as exc:
+            audits.append(None)
+            audit_errors.append(
+                {
+                    "row": index,
+                    "error": str(exc),
+                    "raw_response": response,
+                }
+            )
+
+    usage = _usage(models)
+    if audit_errors:
+        return {
+            "schema_version": 1,
+            "status": "runtime_failure",
+            "error_type": "StructuredAuditError",
+            "error": audit_errors[0]["error"],
+            "protocol": {
+                "selection_seed": SELECTION_SEED,
+                "smoke_ids": list(SMOKE_IDS),
+                "refresh_action_ids": list(REFRESH_ACTION_IDS),
+                "generator_model": generator_model,
+                "judge_model": judge_model,
+                "expected_requests": EXPECTED_REQUESTS,
+                "support_size": DIAGNOSIS_COUNT,
+                "reasoning_disabled": True,
+                "retries": 0,
+                "truth_hidden_from_generators": True,
+                "truth_enters_only_semantic_audit": True,
+            },
+            "summary": {
+                "physical_requests": usage["physical_requests"],
+                "reasoning_tokens": usage["reasoning_tokens"],
+                "structured_audit_errors": len(audit_errors),
+            },
+            "partial_records": [
+                {
+                    "source_id": case.source_id,
+                    "subset": case.subset,
+                    "supports": {
+                        support_id: support
+                        for support_id, support in case_supports
+                    },
+                }
+                for case, case_supports in zip(cases, support_sets, strict=True)
+            ],
+            "raw_audit_responses": raw_audits,
+            "audit_errors": audit_errors,
+            "usage": usage,
+        }
 
     records = []
     for case, case_slots, case_supports, audit in zip(
         cases, slots, support_sets, audits, strict=True
     ):
+        assert audit is not None
         scores = {
             row["id"]: row["best_match_score"] for row in audit["supports"]
         }
@@ -374,7 +433,6 @@ def run_smoke(
             }
         )
 
-    usage = _usage(models)
     summary = summarize(
         records,
         usage,
@@ -407,6 +465,7 @@ def run_smoke(
         },
         "summary": summary,
         "records": records,
+        "raw_audit_responses": raw_audits,
         "usage": usage,
     }
 

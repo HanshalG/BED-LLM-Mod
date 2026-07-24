@@ -13,6 +13,7 @@ from scripts.clindiag_fixed_slot_support_gate import (
     parse_stability_audit,
     refresh_differential_messages,
     source_evidence_contains_target,
+    stability_audit_messages,
     summarize,
 )
 from scripts.clindiag_staged_generator_gate import ClinDiagCase
@@ -100,6 +101,16 @@ def test_stability_audit_parser_uses_worse_direction_as_overlap() -> None:
     parsed = parse_stability_audit(json.dumps(_audit_payload()))
     assert parsed["duplicate_semantic_overlap"] == pytest.approx(0.8)
     assert [row["id"] for row in parsed["supports"]] == list(SUPPORT_IDS)
+
+
+def test_stability_audit_prompt_explicitly_lists_every_support_row() -> None:
+    messages = stability_audit_messages(
+        "Target syndrome",
+        [(support_id, ["Diagnosis"]) for support_id in SUPPORT_IDS],
+    )
+    schema = messages[1]["content"].split("preserve support IDs", 1)[0]
+    for support_id in SUPPORT_IDS:
+        assert f'"id":"{support_id}"' in schema
 
 
 @pytest.mark.parametrize(
