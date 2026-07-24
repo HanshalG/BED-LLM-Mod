@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: JSON field 'refined_hypotheses' must contain 8-8 unique strings",
+  "failing_coverage_row": null,
+  "raw_failing_coverage_response": null,
+  "schema_version": 1,
+  "status": "failed_closed"
+}

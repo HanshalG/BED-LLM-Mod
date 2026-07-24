@@ -24,7 +24,6 @@ from environments.paprika_customer_service.env import (
 )
 from environments.paprika_customer_service.parsing import (
     parse_json_object,
-    parse_string_list,
 )
 from environments.paprika_customer_service.prompts import (
     customer_messages,
@@ -51,6 +50,39 @@ class CoverageBatchError(RuntimeError):
         super().__init__(message)
         self.row = row
         self.response = response
+
+
+def parse_cause_remedy_list(
+    text: str,
+    key: str,
+    count: int,
+) -> list[str]:
+    """Normalize flat strings and explicit cause/remedy objects."""
+    raw = parse_json_object(text).get(key)
+    if not isinstance(raw, list):
+        raise ValueError(f"JSON field {key!r} must be a list")
+    values: list[str] = []
+    for item in raw:
+        if isinstance(item, str):
+            value = item.strip()
+        elif (
+            isinstance(item, dict)
+            and isinstance(item.get("cause"), str)
+            and isinstance(item.get("remedy"), str)
+        ):
+            cause = item["cause"].strip().rstrip(".")
+            remedy = item["remedy"].strip()
+            value = f"{cause}. Remedy: {remedy}" if cause and remedy else ""
+        else:
+            value = ""
+        if value:
+            values.append(value)
+    values = _dedupe(values)
+    if len(values) != count:
+        raise ValueError(
+            f"JSON field {key!r} must contain {count} unique cause-remedy hypotheses"
+        )
+    return values
 
 
 def diagnostic_candidate_messages(
@@ -251,6 +283,50 @@ def _generate_candidates_many(
     )
 
 
+def _initial_states_many(
+    env: PaprikaCustomerServiceEnvironment,
+    questioner: Any,
+    tasks: Sequence[Any],
+    config: Config,
+) -> list[BeliefState[str]]:
+    count = int(config.paprika_num_hypotheses)
+    messages = [
+        hypothesis_messages(task.scenario, count)
+        for task in tasks
+    ]
+    temperature = float(config.generation_temperature_diverse)
+    responses = env._cached_complete_many(
+        questioner,
+        messages,
+        temperature,
+        namespace="unlock:initial_hypotheses",
+    )
+    hypotheses_many = env._parse_many_with_retries(
+        questioner,
+        messages,
+        responses,
+        temperature,
+        namespace="unlock:initial_hypotheses",
+        parsers=[
+            (
+                lambda text: parse_cause_remedy_list(
+                    text,
+                    "hypotheses",
+                    count,
+                )
+            )
+            for _task in tasks
+        ],
+    )
+    states = [
+        BeliefState.uniform(hypotheses)
+        for hypotheses in hypotheses_many
+    ]
+    for task, state in zip(tasks, states, strict=True):
+        env._scenario_by_support[state.hypotheses] = task.scenario
+    return states
+
+
 def _observe_many(
     env: PaprikaCustomerServiceEnvironment,
     evaluator: Any,
@@ -364,11 +440,10 @@ def _refresh_supports_many(
         namespace="unlock:hypothesis_refinement",
         parsers=[
             (
-                lambda text: parse_string_list(
+                lambda text: parse_cause_remedy_list(
                     text,
                     "refined_hypotheses",
-                    minimum=count,
-                    maximum=count,
+                    count,
                 )
             )
             for _history in histories
@@ -505,11 +580,10 @@ def run_serving_smoke(
         max_new_tokens=config.openrouter_max_output_tokens,
     )
     hypotheses = [
-        parse_string_list(
+        parse_cause_remedy_list(
             response,
             "hypotheses",
-            minimum=hypothesis_count,
-            maximum=hypothesis_count,
+            hypothesis_count,
         )
         for response in hypothesis_responses
     ]
@@ -574,11 +648,10 @@ def run_serving_smoke(
         max_new_tokens=config.openrouter_max_output_tokens,
     )
     refined = [
-        parse_string_list(
+        parse_cause_remedy_list(
             response,
             "refined_hypotheses",
-            minimum=refresh_count,
-            maximum=refresh_count,
+            refresh_count,
         )
         for response in refinement_responses
     ]
@@ -655,10 +728,12 @@ def run_unlock(
         verify_official_hash=bool(config.paprika_verify_official_hash),
     )
     selected = [tasks[index] for index in DEVELOPMENT_INDICES]
-    initial_states = [
-        env._initial_for_task(task, questioner, config)
-        for task in selected
-    ]
+    initial_states = _initial_states_many(
+        env,
+        questioner,
+        selected,
+        config,
+    )
     candidates_many = _generate_candidates_many(
         env,
         questioner,

@@ -21,3 +21,19 @@ changed. The failed apparatus attempt used 229 requests, zero reasoning, and
 `$0.03862585`. Its only artifact is
 `paprika_structured_unlock/development_seed24287_20260724/DEVELOPMENT_FAILURE.json`.
 The rerun uses a new run ID and remains subject to the original `$2` cap.
+
+## Second Apparatus Failure
+
+The v2 execution also wrote no endpoint records. It stopped before semantic judging
+because one refreshed list still failed the eight-unique-string parser after bounded
+repairs. It used 171 Gemma requests, zero reasoning, and `$0.01201205`.
+
+Inspection of the earlier serving failure had already established the equivalent schema
+drift: Gemma sometimes expresses each requested hypothesis as
+`{"cause":"...","remedy":"..."}` instead of one combined string. Before another run,
+the unlock runner was changed to normalize either representation into the same
+cause-and-remedy sentence and still require exactly eight unique, nonempty hypotheses.
+This normalization is applied identically to initial and refreshed supports. It does
+not add, drop, judge, or rewrite semantic content and does not alter any endpoint or
+gate threshold. The v2 failure is preserved at
+`paprika_structured_unlock/development_v2_seed24287_20260724/DEVELOPMENT_FAILURE.json`.

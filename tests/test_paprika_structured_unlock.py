@@ -7,6 +7,7 @@ import pytest
 from scripts.paprika_structured_unlock import (
     SEMANTIC_COVERAGE_THRESHOLD,
     diagnostic_candidate_messages,
+    parse_cause_remedy_list,
     parse_coverage_response,
     semantic_coverage_messages,
     summarize,
@@ -23,6 +24,32 @@ def test_unlock_generation_prompt_excludes_private_solution() -> None:
     assert "private_solution" not in text
     assert "hidden cause and remedy" in text
     assert "Do not suggest, perform, identify, or name a remedy" in text
+
+
+def test_cause_remedy_parser_normalizes_flat_and_object_schemas() -> None:
+    flat = json.dumps({"hypotheses": ["Cause A. Remedy A.", "Cause B. Remedy B."]})
+    assert parse_cause_remedy_list(flat, "hypotheses", 2) == [
+        "Cause A. Remedy A.",
+        "Cause B. Remedy B.",
+    ]
+    objects = json.dumps(
+        {
+            "hypotheses": [
+                {"cause": "Cause A.", "remedy": "Remedy A."},
+                {"cause": "Cause B", "remedy": "Remedy B."},
+            ]
+        }
+    )
+    assert parse_cause_remedy_list(objects, "hypotheses", 2) == [
+        "Cause A. Remedy: Remedy A.",
+        "Cause B. Remedy: Remedy B.",
+    ]
+    with pytest.raises(ValueError, match="2 unique"):
+        parse_cause_remedy_list(
+            json.dumps({"hypotheses": [{"cause": "A"}]}),
+            "hypotheses",
+            2,
+        )
 
 
 def test_coverage_prompt_is_explicitly_measurement_only() -> None:
