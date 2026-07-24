@@ -10,7 +10,11 @@ import pytest
 from core.experiment import run_from_config
 from environments.paprika_customer_service import PaprikaAction, load_paprika_tasks
 from environments.paprika_customer_service.parsing import parse_distribution
-from environments.paprika_customer_service.prompts import candidate_messages
+from environments.paprika_customer_service.prompts import (
+    candidate_messages,
+    hypothesis_messages,
+    refinement_messages,
+)
 from helpers import Config, load_config
 from methods.categorical_eig import categorical_eig
 
@@ -211,6 +215,15 @@ def test_candidate_parser_always_adds_uncertainty_outcome() -> None:
     )[0]
     assert len(action.outcomes) == 4
     assert "Not attempted / cannot determine" in action.outcomes
+
+
+def test_hypothesis_prompt_requires_flat_cause_remedy_strings() -> None:
+    messages = hypothesis_messages("A device fails.", 8)
+    prompt = messages[-1]["content"]
+    assert '"one complete cause-and-remedy sentence"' in prompt
+    assert "Do not use nested objects" in prompt
+    refined = refinement_messages("A device fails.", ["cause and remedy"], [], 8)
+    assert '"one complete cause-and-remedy sentence"' in refined[-1]["content"]
 
 
 def test_explicit_observation_cannot_map_to_uncertainty_outcome() -> None:

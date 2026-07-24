@@ -18,11 +18,11 @@ def transcript_text(history: Sequence[tuple[PaprikaAction, object]]) -> str:
 
 
 def hypothesis_messages(scenario: str, count: int) -> list[dict[str, str]]:
-    return [{"role": "system", "content": "Generate plausible hidden causes for customer-service troubleshooting. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nReturn exactly {count} distinct hypotheses as {{\"hypotheses\":[...]}}. Each hypothesis must state a cause and remedy; do not assume access to the private benchmark solution."}]
+    return [{"role": "system", "content": "Generate plausible hidden causes for customer-service troubleshooting. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nReturn exactly {count} distinct hypotheses as {{\"hypotheses\":[\"one complete cause-and-remedy sentence\", ...]}}. Every list item must be one JSON string that states both a cause and remedy. Do not use nested objects, separate cause/remedy fields, or assume access to the private benchmark solution."}]
 
 
 def refinement_messages(scenario: str, beliefs: Sequence[str], history: Sequence[tuple[PaprikaAction, object]], count: int) -> list[dict[str, str]]:
-    return [{"role": "system", "content": "Refine a troubleshooting differential from new customer evidence. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nConversation:\n{transcript_text(history)}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nReturn exactly {count} additional or corrected cause-and-remedy hypotheses as {{\"refined_hypotheses\":[...]}}. Use only public scenario and conversation evidence."}]
+    return [{"role": "system", "content": "Refine a troubleshooting differential from new customer evidence. Return strict JSON only."}, {"role": "user", "content": f"Scenario: {scenario}\nConversation:\n{transcript_text(history)}\nCurrent hypotheses:\n- " + "\n- ".join(beliefs) + f"\nReturn exactly {count} additional or corrected hypotheses as {{\"refined_hypotheses\":[\"one complete cause-and-remedy sentence\", ...]}}. Every list item must be one JSON string that states both a cause and remedy. Do not use nested objects or separate cause/remedy fields. Use only public scenario and conversation evidence."}]
 
 
 def filtering_messages(scenario: str, hypotheses: Sequence[str], history: Sequence[tuple[PaprikaAction, object]]) -> list[dict[str, str]]:
