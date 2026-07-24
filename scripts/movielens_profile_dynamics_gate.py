@@ -152,7 +152,10 @@ def parse_rating_likelihoods(
     *,
     profile_count: int,
     movie_count: int,
+    sum_tolerance: float = 0.02,
 ) -> np.ndarray:
+    if not 0.0 <= sum_tolerance < 1.0:
+        raise ValueError("probability sum tolerance must be in [0,1)")
     rows = _parse_json_object(text).get("profiles")
     if not isinstance(rows, list) or len(rows) != profile_count:
         raise ValueError("likelihood response has the wrong profile count")
@@ -176,7 +179,10 @@ def parse_rating_likelihoods(
             if not np.all(np.isfinite(values)) or np.any(values < 0.0):
                 raise ValueError("rating probabilities must be finite and nonnegative")
             total = float(values.sum())
-            if total < 0.98 - 1e-12 or total > 1.02 + 1e-12:
+            if (
+                total < 1.0 - sum_tolerance - 1e-12
+                or total > 1.0 + sum_tolerance + 1e-12
+            ):
                 raise ValueError("rating probabilities must sum to one")
             matrix[profile_index, movie_index] = values / total
     return matrix

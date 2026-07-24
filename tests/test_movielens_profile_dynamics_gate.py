@@ -103,6 +103,20 @@ def test_profile_and_likelihood_parsers_fail_closed() -> None:
             profile_count=PROFILE_COUNT,
             movie_count=2,
         )
+    likelihood_rows[0]["ratings"][0] = [0.24, 0.3, 0.2, 0.1, 0.06]
+    with pytest.raises(ValueError, match="sum to one"):
+        parse_rating_likelihoods(
+            json.dumps({"profiles": likelihood_rows}),
+            profile_count=PROFILE_COUNT,
+            movie_count=2,
+        )
+    repaired = parse_rating_likelihoods(
+        json.dumps({"profiles": likelihood_rows}),
+        profile_count=PROFILE_COUNT,
+        movie_count=2,
+        sum_tolerance=0.10,
+    )
+    assert repaired[0, 0].sum() == pytest.approx(1.0)
 
 
 def test_json_parser_repairs_only_structural_trailing_commas() -> None:

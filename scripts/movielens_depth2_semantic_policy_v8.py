@@ -21,6 +21,7 @@ from scripts.movielens_profile_dynamics_gate import (
     PROFILE_COUNT,
     _history_payload,
     _movie_payload,
+    _parse_json_object,
     _usage,
     _write_raw_checkpoint,
     immediate_eig_values,
@@ -99,6 +100,13 @@ FORMAL_Q1_CANDIDATE_COUNT = 4
 SMOKE_Q1_CANDIDATE_COUNT = 1
 FORMAL_EXPECTED_REQUESTS = 1056
 SMOKE_EXPECTED_REQUESTS = 62
+RECOVERY_RAW_SHA256 = (
+    "11f1311024b559008db543d037b518f5e89a35b2d5b800c1b8ce7494ffc87cfb"
+)
+DEFAULT_PROBABILITY_SUM_TOLERANCE = 0.02
+RECOVERY_TERMINAL_SUM_TOLERANCE = 0.10
+RECOVERY_RELAXED_TERMINAL_ROWS = 2
+RECOVERY_COST_USD = 5.00894919
 
 
 def selected_user_ids(
@@ -217,6 +225,103 @@ def _normalized_mixture(
     return values / total
 
 
+def count_rows_outside_sum_tolerance(
+    responses: Sequence[str],
+    *,
+    profile_count: int,
+    movie_count: int,
+    tolerance: float,
+) -> int:
+    count = 0
+    for response in responses:
+        parse_rating_likelihoods(
+            response,
+            profile_count=profile_count,
+            movie_count=movie_count,
+            sum_tolerance=RECOVERY_TERMINAL_SUM_TOLERANCE,
+        )
+        rows = _parse_json_object(response)["profiles"]
+        for profile in rows:
+            for probabilities in profile["ratings"]:
+                total = float(np.sum(np.asarray(probabilities, dtype=float)))
+                if (
+                    total < 1.0 - tolerance - 1e-12
+                    or total > 1.0 + tolerance + 1e-12
+                ):
+                    count += 1
+    return count
+
+
+class _ReplayBatches:
+    def __init__(
+        self,
+        batches: Sequence[Sequence[str]],
+        usage: dict[str, Any],
+    ) -> None:
+        self._batches = [list(batch) for batch in batches]
+        self._usage = dict(usage)
+        self._index = 0
+
+    def chat_complete_messages_batched(
+        self,
+        batch_messages: Sequence[Sequence[dict[str, str]]],
+        **_kwargs: Any,
+    ) -> list[str]:
+        if self._index >= len(self._batches):
+            raise ValueError("replay requested an unexpected response batch")
+        responses = self._batches[self._index]
+        self._index += 1
+        if len(batch_messages) != len(responses):
+            raise ValueError("replay batch length does not match frozen responses")
+        return responses
+
+    def usage_snapshot(self) -> dict[str, Any]:
+        return dict(self._usage)
+
+    def assert_exhausted(self) -> None:
+        if self._index != len(self._batches):
+            raise ValueError("replay did not consume every frozen response batch")
+
+
+def _usage_by_model_from_log(path: Path) -> dict[str, dict[str, Any]]:
+    rows = [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    events = [row for row in rows if row.get("event") == "llm_token_usage"]
+    if len(events) != FORMAL_EXPECTED_REQUESTS:
+        raise ValueError("recovery log does not contain exactly 1,056 requests")
+    if sum(int(row["reasoning_tokens"]) for row in events) != 0:
+        raise ValueError("recovery log contains reasoning tokens")
+    if not np.isclose(
+        sum(float(row["cost_usd"]) for row in events),
+        RECOVERY_COST_USD,
+        atol=1e-9,
+        rtol=0.0,
+    ):
+        raise ValueError("recovery log cost does not match the frozen run")
+    result: dict[str, dict[str, Any]] = {}
+    for row in events:
+        model = str(row["model"])
+        usage = result.setdefault(
+            model,
+            {
+                "adapter_requests": 0,
+                "adapter_prompt_tokens": 0,
+                "adapter_completion_tokens": 0,
+                "adapter_reasoning_tokens": 0,
+                "adapter_cost_usd": 0.0,
+            },
+        )
+        usage["adapter_requests"] += 1
+        usage["adapter_prompt_tokens"] += int(row["prompt_tokens"])
+        usage["adapter_completion_tokens"] += int(row["completion_tokens"])
+        usage["adapter_reasoning_tokens"] += int(row["reasoning_tokens"])
+        usage["adapter_cost_usd"] += float(row["cost_usd"])
+    return result
+
+
 def _checkpoint(
     path: Path | None,
     *,
@@ -242,6 +347,8 @@ def run_gate(
     likelihood_model: str,
     stage: str,
     raw_checkpoint_path: Path | None = None,
+    terminal_sum_tolerance: float = DEFAULT_PROBABILITY_SUM_TOLERANCE,
+    expected_relaxed_terminal_rows: int = 0,
 ) -> dict[str, Any]:
     if stage not in {"serving_smoke", "formal"}:
         raise ValueError("stage must be serving_smoke or formal")
@@ -640,11 +747,22 @@ def run_gate(
         user_ids=user_ids,
         raw=raw,
     )
+    relaxed_terminal_rows = count_rows_outside_sum_tolerance(
+        q2_likelihood_raw,
+        profile_count=8,
+        movie_count=HELDOUT_COUNT,
+        tolerance=DEFAULT_PROBABILITY_SUM_TOLERANCE,
+    )
+    if relaxed_terminal_rows != expected_relaxed_terminal_rows:
+        raise ValueError(
+            "unexpected count of terminal rows outside the default tolerance"
+        )
     q2_likelihoods = [
         parse_rating_likelihoods(
             response,
             profile_count=len(support),
             movie_count=HELDOUT_COUNT,
+            sum_tolerance=terminal_sum_tolerance,
         )
         for response, support in zip(
             q2_likelihood_raw,
@@ -917,6 +1035,9 @@ def run_gate(
             "heldout_ratings_read_only_after_policy_paths_fixed": True,
             "source_ratings_omitted_from_persisted_artifacts": True,
             "raw_responses_private_and_untracked": True,
+            "terminal_probability_sum_tolerance": terminal_sum_tolerance,
+            "relaxed_terminal_probability_rows": relaxed_terminal_rows,
+            "parser_recovery_applied": expected_relaxed_terminal_rows > 0,
         },
         "summary": summary,
         "records": records,
@@ -933,6 +1054,8 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--likelihood-model", default="openai/gpt-5.4-mini")
     parser.add_argument("--stage", choices=("serving_smoke", "formal"), required=True)
+    parser.add_argument("--resume-raw", type=Path)
+    parser.add_argument("--resume-log", type=Path)
     args = parser.parse_args()
 
     config = load_config(str(args.config))
@@ -942,6 +1065,48 @@ def main() -> None:
     private_dir.mkdir(parents=True, exist_ok=True)
     config.log_path = args.output_dir / "run.log"
     raw_path = private_dir / "RAW_RESPONSES.json"
+    terminal_sum_tolerance = DEFAULT_PROBABILITY_SUM_TOLERANCE
+    expected_relaxed_terminal_rows = 0
+    replay_adapters: tuple[_ReplayBatches, _ReplayBatches] | None = None
+    global _build_models
+    if args.resume_raw or args.resume_log:
+        if args.stage != "formal":
+            raise ValueError("replay recovery is formal-only")
+        if not args.resume_raw or not args.resume_log:
+            raise ValueError("both replay paths are required")
+        if hashlib.sha256(args.resume_raw.read_bytes()).hexdigest() != RECOVERY_RAW_SHA256:
+            raise ValueError("recovery raw hash does not match the frozen run")
+        frozen = json.loads(args.resume_raw.read_text(encoding="utf-8"))
+        responses = frozen["responses"]
+        usage_by_model = _usage_by_model_from_log(args.resume_log)
+        generator_model = config.model_pairs[0].questioner.model
+        replay_adapters = (
+            _ReplayBatches(
+                [
+                    responses["initial_profiles"],
+                    responses["q1_profiles"],
+                    responses["q2_profiles"],
+                ],
+                usage_by_model[generator_model],
+            ),
+            _ReplayBatches(
+                [
+                    responses["initial_likelihoods"],
+                    responses["q1_likelihoods"],
+                    responses["q2_likelihoods"],
+                ],
+                usage_by_model[args.likelihood_model],
+            ),
+        )
+
+        def replay_builder(config: Config, likelihood_model: str):
+            del config, likelihood_model
+            assert replay_adapters is not None
+            return replay_adapters
+
+        _build_models = replay_builder
+        terminal_sum_tolerance = RECOVERY_TERMINAL_SUM_TOLERANCE
+        expected_relaxed_terminal_rows = RECOVERY_RELAXED_TERMINAL_ROWS
     output_name = "SERVING_SMOKE.json" if args.stage == "serving_smoke" else "GATE.json"
     failure_name = (
         "SERVING_SMOKE_FAILURE.json"
@@ -955,7 +1120,12 @@ def main() -> None:
             likelihood_model=args.likelihood_model,
             stage=args.stage,
             raw_checkpoint_path=raw_path,
+            terminal_sum_tolerance=terminal_sum_tolerance,
+            expected_relaxed_terminal_rows=expected_relaxed_terminal_rows,
         )
+        if replay_adapters is not None:
+            for adapter in replay_adapters:
+                adapter.assert_exhausted()
         payload["protocol"]["private_raw_sha256"] = hashlib.sha256(
             raw_path.read_bytes()
         ).hexdigest()

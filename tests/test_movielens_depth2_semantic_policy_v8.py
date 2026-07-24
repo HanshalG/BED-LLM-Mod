@@ -125,6 +125,40 @@ def test_depth_score_aggregation_matches_nested_expectation() -> None:
     )
 
 
+def test_terminal_recovery_counts_only_rows_outside_default_tolerance() -> None:
+    response = json.dumps(
+        {
+            "profiles": [
+                {
+                    "id": "p1",
+                    "ratings": [
+                        [0.24, 0.3, 0.2, 0.1, 0.06],
+                        [0.2, 0.2, 0.2, 0.2, 0.2],
+                    ],
+                }
+            ]
+        }
+    )
+    assert gate.count_rows_outside_sum_tolerance(
+        [response],
+        profile_count=1,
+        movie_count=2,
+        tolerance=gate.DEFAULT_PROBABILITY_SUM_TOLERANCE,
+    ) == 1
+
+
+def test_replay_adapter_requires_exact_batch_consumption() -> None:
+    adapter = gate._ReplayBatches(
+        [["a", "b"], ["c"]],
+        {"adapter_requests": 3},
+    )
+    assert adapter.chat_complete_messages_batched([[], []]) == ["a", "b"]
+    with pytest.raises(ValueError, match="consume every"):
+        adapter.assert_exhausted()
+    assert adapter.chat_complete_messages_batched([[]]) == ["c"]
+    adapter.assert_exhausted()
+
+
 def test_v8_smoke_routes_exact_common_tree_calls(monkeypatch) -> None:
     generator = _FakeGenerator()
     likelihood = _FakeLikelihood()

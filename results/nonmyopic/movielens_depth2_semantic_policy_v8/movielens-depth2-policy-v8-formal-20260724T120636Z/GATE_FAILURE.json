@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: rating probabilities must sum to one",
+  "raw_responses_path": "external/private_movielens_profile_dynamics/movielens-depth2-policy-v8-formal-20260724T120636Z/RAW_RESPONSES.json",
+  "schema_version": 8,
+  "stage": "formal",
+  "status": "failed_closed"
+}
