@@ -1,0 +1,222 @@
+{
+  "protocol": {
+    "ar_bench_commit": "9971322fe9e4d77cb4d303b7e279ab1d1cb5dba1",
+    "dataset_indices": [
+      11,
+      13
+    ],
+    "judge_model": "openai/gpt-5.4-mini",
+    "key_questions_unused": true,
+    "num_candidate_questions": 1,
+    "num_initial_explanations": 8,
+    "num_refreshed_explanations": 8,
+    "positions": [
+      10,
+      12
+    ],
+    "selection_seed": 24301,
+    "semantic_coverage_threshold": 0.8,
+    "stage": "serving_smoke",
+    "target_hidden_from_generation": true,
+    "target_used_only_for_oracle_and_measurement": true,
+    "test_sha256": "e3c34d58b8bad06d0152fee771f2ee19a01c17dd5ba65c3a6dfb69c02b52f485"
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "answer": "No",
+          "branch_index": 0,
+          "coverage": {
+            "best_explanation_index": 0,
+            "best_match_score": 0.95,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Best match is the medical-false-death explanation. It captures the essential causal chain: faint vital signs led to an incorrect death pronouncement, and he later recovered and showed up alive."
+          },
+          "question": "Was the person in the casket actually a different human being?",
+          "refreshed_support": [
+            "The man experienced a state of suspended animation, such as extreme hypothermia or a profound coma, which led doctors to incorrectly pronounce him dead.",
+            "The man was clinically dead for a period of time but was successfully resuscitated by medical professionals before the wake began.",
+            "The event was a staged production, such as a rehearsal for a film or a theater play, where the 'death' and 'wake' were scripted performances.",
+            "The man is an illusionist or magician who orchestrated a complex hoax to simulate his own death for the purpose of a grand performance.",
+            "The man had been missing or presumed dead for an extended period, leading his family to hold a memorial service in his absence.",
+            "The man was a victim of a massive medical error where his vital signs were misread or omitted during the initial pronouncement of death.",
+            "The man's 'wake' was actually a themed party or a social event for someone else with the same name, and he entered the room by mistake.",
+            "The man was participating in a social experiment or a prank where he intentionally allowed people to believe he had died."
+          ]
+        }
+      ],
+      "dataset_index": 11,
+      "initial": {
+        "best_explanation_index": 1,
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "initial",
+        "reason": "Matches the core mechanism: he was wrongly pronounced dead after a medical error/undetectable vital signs, then later revived and appeared at the wake. This explains the public puzzle directly."
+      },
+      "initial_support": [
+        "The man was a victim of a mistaken identity; the body in the casket was someone else who bore a striking resemblance to him.",
+        "The man was declared dead due to a medical error or a temporary state of suspended animation, such as a profound coma or extreme hypothermia, and he regained consciousness after the service began.",
+        "The event was not a real funeral, but a staged rehearsal for a play or a movie production, and the man walked in as part of the scene.",
+        "The man had been kidnapped or missing for a long time, and his family held a memorial service assuming he had perished, only for him to return unexpectedly.",
+        "The man is a professional prankster or illusionist who orchestrated his own 'death' and the subsequent wake as a grand social experiment or magic trick.",
+        "The man was actually a twin brother who had been living under the deceased brother's identity, and the mourners mistook the survivor for the man they thought was dead.",
+        "The 'wake' was actually a themed party or a celebration of life for a person with the same name, and the man walked in thinking it was a social gathering for himself.",
+        "The man had been clinically dead for several minutes during a medical emergency, was resuscitated by doctors, and walked into the service before the family had been officially notified of his survival."
+      ],
+      "position": 10,
+      "surface": "At his own wake, a man walked in, alive and well, shocking all the mourners who believed he was dead. How could this happen?"
+    },
+    {
+      "branches": [
+        {
+          "answer": "Yes",
+          "branch_index": 0,
+          "coverage": {
+            "best_explanation_index": 1,
+            "best_match_score": 0.9,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Medical misdiagnosis leading to a false death declaration aligns with the hidden story\u2019s main mechanism, even though it omits the rare syndrome and escape from burial specifics."
+          },
+          "question": "Was the person buried in the casket actually a human being?",
+          "refreshed_support": [
+            "The person buried was Emily's identical twin sister, who died and was buried in her place.",
+            "Emily was declared dead due to a medical error, such as a mistaken identity or a misdiagnosis of clinical death, and she was actually in a coma.",
+            "Emily staged her own death as part of an insurance fraud scheme or to enter a witness protection program, using a body double for the burial.",
+            "Emily experienced a state of suspended animation or a deep catatonic trance that mimicked death, leading to her being buried alive before regaining consciousness.",
+            "The event was a 'living funeral,' a ceremonial celebration of life held while the person is still alive, meaning no actual death occurred.",
+            "Emily is an actress performing in a film or play, and the funeral was a scripted scene involving a human actor playing a deceased character.",
+            "The funeral was for a different person who shared the same name as Emily, or the person found in the house is a different individual also named Emily.",
+            "The funeral was a symbolic ritual to mark the end of Emily's old identity or legal persona, while her physical body remained alive."
+          ]
+        }
+      ],
+      "dataset_index": 13,
+      "initial": {
+        "best_explanation_index": 1,
+        "best_match_score": 0.9,
+        "covered": true,
+        "id": "initial",
+        "reason": "Mistaken death from a medical error matches the key fact that Emily was declared dead while actually alive; the exact Lazarus Syndrome/burial details are not stated, but the core mechanism fits well."
+      },
+      "initial_support": [
+        "The person buried at the funeral was not Emily, but an identical twin sister or a lookalike hired to deceive people.",
+        "Emily was declared dead due to a medical error or a mistaken identity during a chaotic emergency situation, and she was actually in a coma or missing.",
+        "The funeral was a staged event for a witness protection program or a fraudulent insurance scam to fake her death.",
+        "Emily was in a state of suspended animation or a deep catatonic trance that mimicked death, and she regained consciousness after the burial.",
+        "The funeral was a symbolic or 'living funeral' ceremony held while she was still alive to celebrate her life.",
+        "Emily is an actress playing a role in a movie or a play, and the 'funeral' was a scripted scene within the production.",
+        "The person found in the house is a different person named Emily who happens to live in the same house, or the funeral was for a different person entirely.",
+        "The funeral was held for Emily's legal persona or a specific identity she was shedding, while her physical self remained alive."
+      ],
+      "position": 12,
+      "surface": "A week after Emily's funeral, she was found alive and well in her own home. How could this be possible?"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_answers_valid": true,
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_tasks_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "initial_covered": 2,
+    "initial_omitted": 0,
+    "initially_omitted_recovered_by_any_branch": 0,
+    "mean_branch_score_spread": 0.0,
+    "mean_oracle_best_match_gain": 0.0,
+    "num_branches": 2,
+    "num_tasks": 2,
+    "recovery_fraction_among_initial_omissions": 0.0,
+    "tasks_with_branch_score_spread_at_least_0_15": 0
+  },
+  "usage": {
+    "adapter_cost_usd": 0.00364724,
+    "by_role": {
+      "evaluator": {
+        "adapter_completion_tokens": 276,
+        "adapter_cost_usd": 0.002937,
+        "adapter_prompt_tokens": 2260,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1547,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 1271,
+            "cost_usd": 0.00071024,
+            "prompt_tokens": 1871,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 276,
+            "cost_usd": 0.002937,
+            "prompt_tokens": 2260,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 4131,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.702126482999958,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.00364724,
+        "run_remaining_usd": 0.49635276,
+        "total_spent_usd": 48.682676212457196
+      },
+      "generator": {
+        "adapter_completion_tokens": 1271,
+        "adapter_cost_usd": 0.00071024,
+        "adapter_prompt_tokens": 1871,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1547,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 1271,
+            "cost_usd": 0.00071024,
+            "prompt_tokens": 1871,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 276,
+            "cost_usd": 0.002937,
+            "prompt_tokens": 2260,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 4131,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.702126482999958,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.00364724,
+        "run_remaining_usd": 0.49635276,
+        "total_spent_usd": 48.682676212457196
+      }
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
