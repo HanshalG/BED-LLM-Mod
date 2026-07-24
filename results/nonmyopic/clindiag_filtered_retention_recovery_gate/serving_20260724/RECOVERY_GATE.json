@@ -1,0 +1,2404 @@
+{
+  "protocol": {
+    "action_id": "lab_2",
+    "audit_temperature": 0.0,
+    "candidate_generation_prompts_exact": true,
+    "candidate_rounds_per_path": 3,
+    "expected_requests": 30,
+    "filter_model": "openai/gpt-5.4-mini",
+    "filter_temperature": 0.0,
+    "filter_threshold": 0.2,
+    "generation_temperature": 0.5,
+    "generator_model": "openai/gpt-5.4",
+    "judge_model": "openai/gpt-5.4-mini",
+    "reasoning_disabled": true,
+    "retries": 0,
+    "selection_seed": 24300,
+    "set_identity_metrics_descriptive_only": true,
+    "smoke_ids": [
+      "27223150",
+      "rare130"
+    ],
+    "support_size": 12,
+    "truth_enters_only_semantic_audit": true,
+    "truth_hidden_from_generation_and_filtering": true
+  },
+  "raw_responses": {
+    "candidate": [
+      "{\"diagnoses\":[\"Acute chorioamnionitis\",\"Listeriosis in pregnancy\",\"Placental abruption\",\"Intrauterine fetal demise secondary to maternal infection\",\"Pyelonephritis in pregnancy\",\"Influenza infection in late pregnancy\",\"Acute viral hepatitis in pregnancy\",\"HELLP syndrome\",\"Sepsis of obstetric origin\",\"Parvovirus B19 infection in pregnancy\",\"Cytomegalovirus infection in pregnancy\",\"Acute fatty liver of pregnancy\"]}",
+      "{\"diagnoses\":[\"Acute chorioamnionitis\",\"Listeriosis in pregnancy\",\"Placental abruption\",\"Intra-amniotic infection due to Group B Streptococcus\",\"Pyelonephritis complicating pregnancy\",\"Influenza infection in late pregnancy\",\"COVID-19 infection in pregnancy\",\"Acute viral gastroenteritis with maternal dehydration\",\"HELLP syndrome\",\"Acute fatty liver of pregnancy\",\"Fetal-maternal hemorrhage\",\"Stillbirth secondary to umbilical cord accident\"]}",
+      "{\"diagnoses\":[\"Acute pyelonephritis in pregnancy\",\"Chorioamnionitis\",\"Listeriosis in pregnancy\",\"Influenza infection during pregnancy\",\"COVID-19 infection during pregnancy\",\"Placental abruption\",\"Acute fatty liver of pregnancy\",\"HELLP syndrome\",\"Preterm labor with intrauterine infection\",\"Fetal distress secondary to maternal sepsis\",\"Parvovirus B19 infection in pregnancy\",\"Cytomegalovirus infection in pregnancy\"]}",
+      "{\"diagnoses\":[\"Primary cytomegalovirus infection during pregnancy\",\"Cytomegalovirus mononucleosis syndrome\",\"CMV pneumonitis\",\"CMV myocarditis\",\"CMV pericarditis\",\"Acute viral syndrome due to primary CMV infection\",\"Primary Epstein-Barr virus infectious mononucleosis\",\"Acute HIV seroconversion illness\",\"Toxoplasma gondii primary infection during pregnancy\",\"Parvovirus B19 infection during pregnancy\",\"Coxsackievirus B viral myopericarditis\",\"Listeriosis during pregnancy\"]}",
+      "{\"diagnoses\":[\"Primary cytomegalovirus infection during pregnancy\",\"Cytomegalovirus mononucleosis syndrome\",\"Primary CMV pneumonitis\",\"Primary CMV myopericarditis\",\"Primary CMV hepatitis\",\"Infectious mononucleosis due to Epstein-Barr virus\",\"Acute human immunodeficiency virus infection\",\"Toxoplasmosis acquired during pregnancy\",\"Parvovirus B19 infection during pregnancy\",\"Atypical community-acquired pneumonia due to Mycoplasma pneumoniae\",\"Acute viral pericarditis\",\"Primary rubella infection during pregnancy\"]}",
+      "{\"diagnoses\":[\"Primary cytomegalovirus infection during pregnancy\",\"Cytomegalovirus mononucleosis syndrome\",\"Cytomegalovirus pneumonitis\",\"Primary Epstein-Barr virus infectious mononucleosis during pregnancy\",\"Acute HIV seroconversion illness\",\"Toxoplasmosis acquired during pregnancy\",\"Parvovirus B19 infection during pregnancy\",\"Acute viral pericarditis due to cytomegalovirus\",\"Viral myocarditis due to cytomegalovirus\",\"Community-acquired atypical pneumonia\",\"Influenza infection during pregnancy\",\"Acute rubella infection during pregnancy\"]}"
+    ],
+    "candidate_duplicate": [
+      "{\"diagnoses\":[\"Acute chorioamnionitis\",\"Listeriosis in pregnancy\",\"Pyelonephritis complicating pregnancy\",\"Placental abruption\",\"Intrauterine fetal demise secondary to maternal infection\",\"Acute fatty liver of pregnancy\",\"HELLP syndrome\",\"Severe preeclampsia with fetal compromise\",\"Parvovirus B19 infection in pregnancy causing fetal anemia\",\"Cytomegalovirus infection in pregnancy\",\"Influenza infection during pregnancy\",\"Maternal sepsis of unknown source\"]}",
+      "{\"diagnoses\":[\"Acute chorioamnionitis\",\"Listeriosis in pregnancy\",\"Placental abruption\",\"Acute pyelonephritis in pregnancy\",\"Influenza infection in pregnancy\",\"COVID-19 infection in pregnancy\",\"Acute fetal-maternal hemorrhage\",\"Preterm labor with intrauterine infection\",\"Acute viral gastroenteritis with maternal dehydration\",\"HELLP syndrome\",\"Acute appendicitis in pregnancy\",\"Intrauterine fetal demise secondary to maternal infection\"]}",
+      "{\"diagnoses\":[\"Acute chorioamnionitis (intra-amniotic infection)\",\"Placental abruption\",\"Listeriosis in pregnancy\",\"Acute pyelonephritis complicating pregnancy\",\"Influenza infection in late pregnancy\",\"COVID-19 infection in pregnancy\",\"Acute viral gastroenteritis with maternal dehydration\",\"Preeclampsia with severe features and placental insufficiency\",\"HELLP syndrome\",\"Acute fatty liver of pregnancy\",\"Fetal-maternal hemorrhage\",\"Stillbirth due to intrauterine fetal demise from maternal infection\"]}",
+      "{\"diagnoses\":[\"Primary cytomegalovirus infection during pregnancy\",\"Cytomegalovirus mononucleosis syndrome\",\"Acute CMV pneumonitis\",\"Acute CMV pericarditis\",\"Acute CMV myocarditis\",\"Primary Epstein-Barr virus infectious mononucleosis\",\"Acute HIV seroconversion syndrome\",\"Toxoplasmosis during pregnancy\",\"Parvovirus B19 infection during pregnancy\",\"Influenza with viral pleurodynia\",\"Atypical pneumonia due to Mycoplasma pneumoniae\",\"Viral pharyngitis due to adenovirus\"]}",
+      "{\"diagnoses\":[\"Primary cytomegalovirus infection during pregnancy\",\"Cytomegalovirus mononucleosis syndrome\",\"Primary maternal cytomegalovirus pneumonitis\",\"Primary maternal cytomegalovirus myopericarditis\",\"Primary maternal cytomegalovirus hepatitis\",\"Primary maternal cytomegalovirus pleuritis\",\"Acute Epstein-Barr virus infectious mononucleosis in pregnancy\",\"Acute HIV seroconversion syndrome during pregnancy\",\"Toxoplasma gondii primary infection during pregnancy\",\"Parvovirus B19 infection during pregnancy\",\"Acute viral myocarditis during pregnancy\",\"Community-acquired atypical pneumonia during pregnancy\"]}",
+      "{\"diagnoses\":[\"Primary cytomegalovirus infection during pregnancy\",\"Cytomegalovirus mononucleosis syndrome\",\"Acute cytomegalovirus pneumonitis\",\"Cytomegalovirus pericarditis\",\"Cytomegalovirus myocarditis\",\"Primary Epstein-Barr virus infectious mononucleosis\",\"Acute HIV seroconversion syndrome\",\"Toxoplasmosis acquired during pregnancy\",\"Parvovirus B19 infection during pregnancy\",\"Influenza viral respiratory infection during pregnancy\",\"Atypical community-acquired pneumonia due to Mycoplasma pneumoniae\",\"Viral pleurodynia due to enterovirus infection\"]}"
+    ],
+    "initial": [
+      "{\"diagnoses\":[\"Chorioamnionitis\",\"Listeriosis in pregnancy\",\"Placental abruption\",\"Preeclampsia with severe features\",\"Intrahepatic cholestasis of pregnancy\",\"Acute fatty liver of pregnancy\",\"Pyelonephritis in pregnancy\",\"Maternal influenza infection\",\"Cytomegalovirus infection in pregnancy\",\"Parvovirus B19 infection in pregnancy\",\"Congenital toxoplasmosis due to acute maternal infection\",\"Fetal-maternal hemorrhage\"]}",
+      "{\"diagnoses\":[\"Infectious mononucleosis due to Epstein-Barr virus\",\"Cytomegalovirus mononucleosis syndrome\",\"Acute HIV seroconversion syndrome\",\"Influenza with viral pleurisy or myopericarditis\",\"COVID-19 with viral pleurisy or myopericarditis\",\"Community-acquired pneumonia\",\"Pulmonary embolism in pregnancy\",\"Acute pericarditis\",\"Viral myocarditis\",\"Lemierre syndrome\",\"Primary toxoplasmosis in pregnancy\",\"Q fever\"]}"
+    ],
+    "new_filter": [
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.82,\"lab_2\":0.58},\"reason\":\"Fever with maternal symptoms and decreased fetal activity fits intra-amniotic infection; mild anemia is nonspecific.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.76,\"lab_2\":0.61},\"reason\":\"Maternal fever, nausea, and decreased fetal activity are compatible with listerial infection in late pregnancy; mild anemia can occur but is nonspecific.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.54},\"reason\":\"Abruption can present with fetal distress but fever and nausea are not typical; mild anemia could fit if there were bleeding, though not specific.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.67,\"lab_2\":0.57},\"reason\":\"Maternal infection with fetal compromise can lead to fetal demise; initial symptoms are compatible with an infectious process, while anemia is nonspecific.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.73,\"lab_2\":0.6},\"reason\":\"Fever and nausea are common in pyelonephritis during pregnancy, and decreased fetal activity can occur with maternal illness; anemia is incidental.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.55,\"lab_2\":0.63},\"reason\":\"Influenza can cause fever and nausea in pregnancy and may reduce perceived fetal movement, though it is less specifically obstetric; mild anemia is unrelated.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.32,\"lab_2\":0.59},\"reason\":\"Acute viral hepatitis often causes fever and nausea, but decreased fetal activity is less characteristic; mild anemia is nonspecific.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.12,\"lab_2\":0.46},\"reason\":\"HELLP usually presents with hypertension, RUQ pain, and lab abnormalities rather than fever; mild anemia may occur but the presentation is otherwise atypical.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.79,\"lab_2\":0.58},\"reason\":\"Sepsis from an obstetric source commonly presents with fever, nausea, and fetal compromise; mild anemia does not strongly affect likelihood.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.2,\"lab_2\":0.56},\"reason\":\"Parvovirus can cause fetal effects and maternal symptoms, but fever/nausea with decreased fetal activity is less classic; mild anemia is possible but nonspecific.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.25,\"lab_2\":0.56},\"reason\":\"CMV in pregnancy is often mild or asymptomatic; fever and nausea are possible but not strongly characteristic, and anemia is nonspecific.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.14,\"lab_2\":0.45},\"reason\":\"Acute fatty liver of pregnancy typically causes systemic illness with jaundice, liver dysfunction, and hypoglycemia rather than isolated fever; mild anemia is not a key feature.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.86,\"lab_2\":0.55},\"reason\":\"Fever with fetal distress is compatible with chorioamnionitis; mild anemia is nonspecific in pregnancy.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.74,\"lab_2\":0.55},\"reason\":\"Listeriosis commonly presents with fever and nonspecific GI symptoms in late pregnancy; mild anemia is nonspecific.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.50},\"reason\":\"Placental abruption can cause decreased fetal movement, but fever and nausea are less typical; mild anemia could be incidental.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.82,\"lab_2\":0.55},\"reason\":\"Intra-amniotic infection often presents with maternal fever and fetal compromise; hemoglobin of 10.1 is nonspecific.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.63,\"lab_2\":0.55},\"reason\":\"Pyelonephritis in pregnancy can cause fever and nausea; decreased fetal activity may occur from maternal illness, while mild anemia is nonspecific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.32,\"lab_2\":0.55},\"reason\":\"Influenza can cause fever and nausea, but decreased fetal activity is less specific; mild anemia is unrelated and common in pregnancy.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.55},\"reason\":\"COVID-19 may present with fever and GI symptoms, but decreased fetal movement is not a classic direct feature; mild anemia is nonspecific.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.58,\"lab_2\":0.55},\"reason\":\"Viral gastroenteritis can cause fever, nausea, and maternal dehydration with reduced fetal movement; mild anemia is unrelated.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.08,\"lab_2\":0.52},\"reason\":\"HELLP usually presents with hypertension, RUQ pain, and abnormal labs rather than isolated fever and nausea; mild anemia alone is not specific.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.10,\"lab_2\":0.52},\"reason\":\"Acute fatty liver of pregnancy typically causes malaise, nausea, and liver dysfunction, but fever and decreased fetal movement are less typical; mild anemia is nonspecific.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.22,\"lab_2\":0.70},\"reason\":\"Fetal-maternal hemorrhage can present with decreased fetal movement, but maternal fever and nausea are not typical; anemia could fit if blood loss were significant.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.20,\"lab_2\":0.40},\"reason\":\"Cord accident can cause decreased fetal movement, but maternal fever and nausea are not expected; mild anemia is not a characteristic finding.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.83,\"lab_2\":0.55},\"reason\":\"Fever, nausea, and decreased fetal activity can occur with pyelonephritis in pregnancy; mild anemia is nonspecific and commonly seen.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.78,\"lab_2\":0.55},\"reason\":\"Maternal fever with reduced fetal movement is compatible with chorioamnionitis; mild anemia does not strongly affect likelihood.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.72,\"lab_2\":0.58},\"reason\":\"Listeriosis often presents in pregnancy with fever and nonspecific GI symptoms such as nausea; mild anemia is nonspecific.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.42,\"lab_2\":0.55},\"reason\":\"Influenza can cause fever and nausea, but decreased fetal activity is less directly typical; mild anemia is incidental.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.44,\"lab_2\":0.55},\"reason\":\"COVID-19 may present with fever and nausea in pregnancy, while decreased fetal activity can occur in maternal illness; anemia is nonspecific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.45},\"reason\":\"Placental abruption usually presents with pain and bleeding rather than fever or nausea; mild anemia could occur if bleeding is present but is not specific.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.36,\"lab_2\":0.50},\"reason\":\"Acute fatty liver of pregnancy can present in late pregnancy with nausea and systemic symptoms, though fever is less typical; mild anemia can be seen but is nonspecific.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.22,\"lab_2\":0.50},\"reason\":\"HELLP may cause nausea and anemia, but fever and decreased fetal activity are not classic; the hemoglobin finding is compatible but not specific.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.75,\"lab_2\":0.55},\"reason\":\"Preterm labor with intrauterine infection commonly involves fever and reduced fetal movement in late pregnancy; mild anemia is nonspecific.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.65,\"lab_2\":0.55},\"reason\":\"Maternal sepsis can cause fever and decreased fetal activity due to fetal compromise; mild anemia does not strongly distinguish it.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.10,\"lab_2\":0.40},\"reason\":\"Parvovirus B19 in pregnancy more typically causes fetal anemia/hydrops than maternal fever and nausea; mild maternal anemia is possible but nonspecific.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.14,\"lab_2\":0.40},\"reason\":\"CMV infection in pregnancy is often nonspecific or asymptomatic in the mother; fever and nausea are possible but not strongly characteristic, and mild anemia is nonspecific.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.93,\"lab_2\":0.98},\"reason\":\"Fits acute CMV-like illness in pregnancy; positive CMV IgM/IgG with low avidity strongly supports primary infection.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.75,\"lab_2\":0.85},\"reason\":\"CMV mononucleosis can cause fever, fatigue, pharyngitis; serology is compatible, though low avidity specifically suggests primary infection.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.4,\"lab_2\":0.75},\"reason\":\"Cough and chest pain could occur with pneumonitis, but pharyngitis is less typical; CMV serology still supports CMV-related disease.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.7},\"reason\":\"Chest pain can occur with myocarditis, but fever/pharyngitis/cough are nonspecific; CMV serology is compatible but not specific for myocardial involvement.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.45,\"lab_2\":0.72},\"reason\":\"Acute chest pain with fever can fit pericarditis, though pharyngitis/cough are less characteristic; CMV serology supports recent CMV infection.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.9,\"lab_2\":0.97},\"reason\":\"A nonspecific acute viral syndrome is strongly consistent with fever, fatigue, pharyngitis, cough, and chest pain, and CMV serology supports an acute primary CMV infection.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.7,\"lab_2\":0.08},\"reason\":\"Initial mono-like illness is compatible, but CMV IgM/IgG with low avidity argues against EBV as the cause.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.55,\"lab_2\":0.05},\"reason\":\"Acute retroviral syndrome can mimic a viral illness, but the CMV serology specifically points away from HIV as the explanation.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.1,\"lab_2\":0.02},\"reason\":\"Toxoplasmosis in pregnancy usually does not present with this respiratory/chest-pain syndrome, and the CMV serology is not supportive.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.12,\"lab_2\":0.03},\"reason\":\"Parvovirus B19 can cause viral symptoms in pregnancy but this presentation is less typical, and CMV serology does not support it.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.5,\"lab_2\":0.78},\"reason\":\"Coxsackie B can cause myopericarditis with chest pain and fever, but pharyngitis/cough are nonspecific; CMV serology supports CMV instead of Coxsackie as the main cause.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.2,\"lab_2\":0.04},\"reason\":\"Listeriosis in pregnancy can cause fever and systemic symptoms, but pharyngitis/cough/chest pain are less typical, and CMV serology makes this unlikely.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.88,\"lab_2\":0.98},\"reason\":\"Pregnant patient with viral-like syndrome is compatible; positive CMV IgM/IgG with low avidity strongly supports primary CMV infection in pregnancy.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.86,\"lab_2\":0.90},\"reason\":\"Fever, fatigue, and pharyngitis fit CMV mononucleosis-like illness; serology strongly supports acute CMV infection.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.50,\"lab_2\":0.78},\"reason\":\"Cough and chest pain could occur with pneumonitis, but the presentation is nonspecific; CMV serology is compatible with primary CMV.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.42,\"lab_2\":0.80},\"reason\":\"Acute chest pain can fit myopericarditis, though pharyngitis/fatigue are less specific; acute CMV serology is compatible with CMV-related cardiac involvement.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.70},\"reason\":\"Systemic viral symptoms are possible but pharyngitis, cough, and chest pain are not typical hepatitis features; acute CMV serology is still compatible with primary CMV that could include hepatitis.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.75,\"lab_2\":0.10},\"reason\":\"Fever, fatigue, and pharyngitis are classic for EBV mononucleosis, but CMV IgM/IgG with low avidity argues against EBV as the explanation for this exact evidence.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.60,\"lab_2\":0.12},\"reason\":\"Acute HIV can present with fever, pharyngitis, and fatigue, though chest pain/cough are less typical; CMV serology is not supportive of HIV as the main diagnosis.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.10,\"lab_2\":0.08},\"reason\":\"Toxoplasmosis in pregnancy is usually more subclinical or causes lymphadenopathy rather than pharyngitis/cough/chest pain; CMV serology makes this unlikely.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.20,\"lab_2\":0.10},\"reason\":\"Parvovirus B19 in pregnancy can cause systemic symptoms but pharyngitis/cough/chest pain are not typical; CMV serology is not supportive.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.72,\"lab_2\":0.12},\"reason\":\"Atypical pneumonia can present with fever, cough, fatigue, and chest pain, but pharyngitis is less classic; CMV serology favors CMV over Mycoplasma.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.60,\"lab_2\":0.18},\"reason\":\"Acute viral pericarditis can cause chest pain with fever and viral prodrome, but pharyngitis/cough are nonspecific; CMV serology suggests CMV rather than generic viral pericarditis.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.14,\"lab_2\":0.05},\"reason\":\"Rubella can cause fever and pharyngitis in pregnancy but cough/chest pain are not a strong fit, and the CMV serology is contradictory to rubella.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.78,\"lab_2\":0.98},\"reason\":\"Pregnant patient with viral syndrome is compatible; positive CMV IgM/IgG with low avidity strongly supports primary CMV infection.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.72,\"lab_2\":0.45},\"reason\":\"CMV mononucleosis can present with fever, fatigue, pharyngitis, and sometimes cough; serology is somewhat compatible, though low-avidity IgG is more specific for primary infection than this syndrome label.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.25,\"lab_2\":0.22},\"reason\":\"Cough and chest pain could occur with pneumonitis, but pharyngitis/fatigue are nonspecific and the serology suggests CMV rather than proving lung involvement.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.76,\"lab_2\":0.03},\"reason\":\"Initial mononucleosis-like illness in pregnancy is compatible, but CMV IgM/IgG with low avidity strongly argues against primary EBV infection.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.55,\"lab_2\":0.01},\"reason\":\"Acute HIV seroconversion can cause fever, pharyngitis, fatigue, and cough, but CMV serology with low avidity is not what would be expected if HIV were the true diagnosis.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.08,\"lab_2\":0.01},\"reason\":\"Toxoplasmosis in pregnancy is usually not associated with this URI-like syndrome or CMV serology pattern.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.02},\"reason\":\"Parvovirus B19 in pregnancy can cause febrile illness, but pharyngitis/cough/chest pain are less typical and CMV serology is discordant.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.22,\"lab_2\":0.25},\"reason\":\"Acute chest pain during a viral illness could fit pericarditis, but the classic systemic/respiratory symptoms are nonspecific and CMV serology only indirectly supports a CMV-related cause.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.25},\"reason\":\"Chest pain with febrile viral syndrome could reflect myocarditis, but the presentation is not specific and CMV serology only modestly supports CMV as the trigger.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.7,\"lab_2\":0.08},\"reason\":\"Fever, cough, fatigue, and chest pain are compatible with atypical pneumonia, but positive CMV IgM/IgG with low avidity makes a nonspecific bacterial/other viral pneumonia less likely.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.65,\"lab_2\":0.05},\"reason\":\"Influenza can cause fever, fatigue, pharyngitis, cough, and chest discomfort in pregnancy, but the CMV serology pattern points away from influenza as the main diagnosis.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.32,\"lab_2\":0.02},\"reason\":\"Rubella can present with febrile pharyngitis-like illness in pregnancy, but cough/chest pain are not classic and CMV serology with low avidity is not supportive.\"}]}"
+    ],
+    "new_filter_duplicate": [
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.88,\"lab_2\":0.72},\"reason\":\"Fever with decreased fetal activity late in pregnancy is compatible with intrauterine infection; mild anemia is nonspecific and can be seen in pregnancy.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.84,\"lab_2\":0.7},\"reason\":\"Pregnancy-associated listeriosis commonly presents with fever and maternal gastrointestinal symptoms, with reduced fetal movement possible; mild anemia is nonspecific.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.6,\"lab_2\":0.68},\"reason\":\"Pyelonephritis in pregnancy often causes fever and nausea; decreased fetal activity can occur with maternal illness, and mild anemia is common but nonspecific.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.08,\"lab_2\":0.62},\"reason\":\"Placental abruption usually presents with bleeding and abdominal pain rather than fever or nausea; mild anemia could occur if bleeding is present but is not specific here.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.5,\"lab_2\":0.65},\"reason\":\"Fetal demise may be associated with decreased fetal movement, and maternal fever/nausea could occur if infection is the cause; mild anemia is nonspecific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.12,\"lab_2\":0.58},\"reason\":\"Acute fatty liver of pregnancy can cause nausea and systemic symptoms, but fever is less typical; mild anemia may be present but is not a key feature.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.6},\"reason\":\"HELLP syndrome may present with nausea and fetal compromise, but fever is not characteristic; mild anemia can fit hemolysis but this isolated hemoglobin is nonspecific.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.14,\"lab_2\":0.6},\"reason\":\"Severe preeclampsia may cause fetal compromise and nausea, but fever is atypical; mild anemia is nonspecific and not strongly supportive.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.07,\"lab_2\":0.56},\"reason\":\"Parvovirus B19 can cause fetal anemia and decreased fetal movement, but maternal fever/nausea are not classic; mild maternal anemia is nonspecific.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.09,\"lab_2\":0.57},\"reason\":\"CMV in pregnancy is often mild or asymptomatic; fever and nausea are possible but decreased fetal activity is less specific, and mild anemia is nonspecific.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.55,\"lab_2\":0.69},\"reason\":\"Influenza can cause fever and nausea in pregnancy, and maternal illness may reduce perceived fetal activity; mild anemia is common and nonspecific.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.82,\"lab_2\":0.71},\"reason\":\"Maternal sepsis often presents with fever and nausea, and fetal activity may decrease with maternal systemic illness; mild anemia is common and nonspecific.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.9,\"lab_2\":0.7},\"reason\":\"Classic presentation of intrauterine infection with maternal fever and decreased fetal activity; mild anemia is nonspecific.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.75,\"lab_2\":0.7},\"reason\":\"Maternal fever and nonspecific GI symptoms in late pregnancy fit listeriosis; hemoglobin is not diagnostic but can be mildly low.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.15,\"lab_2\":0.75},\"reason\":\"Abruption usually presents with pain and bleeding rather than fever/nausea; mild anemia could occur with blood loss but is nonspecific.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.45,\"lab_2\":0.7},\"reason\":\"Pyelonephritis in pregnancy can cause fever and nausea; decreased fetal activity can occur with maternal illness, and mild anemia is nonspecific.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.7},\"reason\":\"Influenza can cause fever and nausea, but decreased fetal activity is less typical; hemoglobin finding is nonspecific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.7},\"reason\":\"COVID-19 may present with fever and GI symptoms in pregnancy, though decreased fetal activity is indirect; mild anemia does not strongly affect likelihood.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.05,\"lab_2\":0.7},\"reason\":\"Fetal-maternal hemorrhage does not typically cause maternal fever or nausea; hemoglobin may be low but the pattern is otherwise discordant.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.8,\"lab_2\":0.7},\"reason\":\"Preterm labor with infection commonly presents with fever and decreased fetal activity in late gestation; mild anemia is nonspecific.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.25,\"lab_2\":0.7},\"reason\":\"Gastroenteritis can explain fever, nausea, and dehydration-related fetal distress, but decreased fetal activity is secondary and not specific.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.1,\"lab_2\":0.6},\"reason\":\"HELLP usually features hypertension, pain, and liver/platelet abnormalities rather than fever; anemia alone is not characteristic.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.2,\"lab_2\":0.7},\"reason\":\"Appendicitis can cause fever and nausea in pregnancy, but decreased fetal activity is indirect and the presentation lacks focal abdominal findings.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.4,\"lab_2\":0.65},\"reason\":\"Maternal infection can lead to fetal demise, but the initial symptoms are more typical of infection before demise; mild anemia is nonspecific.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.92,\"lab_2\":0.6},\"reason\":\"Classic maternal fever with fetal distress at term strongly fits intra-amniotic infection; mild anemia is nonspecific but common in pregnancy.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.55},\"reason\":\"Abruption can cause fetal compromise, but fever and nausea are not typical; mild anemia could be seen but is nonspecific.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.55,\"lab_2\":0.6},\"reason\":\"Listeriosis in pregnancy often presents with febrile GI/flu-like symptoms and fetal distress; mild anemia is nonspecific.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.45,\"lab_2\":0.6},\"reason\":\"Pyelonephritis in pregnancy commonly causes fever and nausea and can affect the fetus; anemia is nonspecific.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.22,\"lab_2\":0.6},\"reason\":\"Influenza may cause fever and nausea but decreased fetal activity is less characteristic; mild anemia is nonspecific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.2,\"lab_2\":0.6},\"reason\":\"COVID-19 can present with fever and GI symptoms, but decreased fetal activity is not especially specific; anemia is nonspecific.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.6},\"reason\":\"Gastroenteritis can explain fever, nausea, and maternal illness/dehydration, but decreased fetal activity is indirect; anemia is nonspecific.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.08,\"lab_2\":0.7},\"reason\":\"Preeclampsia usually presents with hypertension/proteinuria rather than fever; mild anemia may occur but is not a defining feature.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.05,\"lab_2\":0.5},\"reason\":\"HELLP is more associated with hypertension, RUQ pain, thrombocytopenia, and hemolysis than fever; mild anemia alone is not typical.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.03,\"lab_2\":0.4},\"reason\":\"Acute fatty liver of pregnancy usually presents with liver dysfunction, hypoglycemia, and jaundice rather than fever; anemia is not characteristic.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.12,\"lab_2\":0.3},\"reason\":\"Fetal-maternal hemorrhage can cause decreased fetal movement, but maternal fever and nausea are not typical; mild anemia could fit but is usually more pronounced.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.7,\"lab_2\":0.5},\"reason\":\"Maternal infection can lead to fetal demise, and decreased fetal activity can reflect fetal compromise; mild anemia is nonspecific.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.86,\"lab_2\":0.99},\"reason\":\"Pregnant patient with mononucleosis-like viral syndrome fits primary CMV; positive CMV IgM/IgG with low avidity strongly supports recent primary infection.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.65,\"lab_2\":0.45},\"reason\":\"CMV mononucleosis can cause fever, fatigue, pharyngitis, and cough, but acute chest pain is less typical; serology is compatible though low-avidity IgG specifically favors primary recent CMV infection.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.55},\"reason\":\"Fever, cough, and chest pain can occur with pneumonitis, and CMV can cause it in pregnancy, but pharyngitis/fatigue are nonspecific; CMV serology is compatible but not specific for lung involvement.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.25,\"lab_2\":0.55},\"reason\":\"Acute chest pain could reflect pericarditis, but the presentation lacks classic pericarditic features; CMV serology supports acute CMV infection, which can rarely involve the pericardium.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.2,\"lab_2\":0.55},\"reason\":\"Myocarditis may present with fever and chest pain, but pharyngitis/cough are less characteristic; positive acute CMV serology is compatible with CMV myocarditis but does not specifically indicate cardiac involvement.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.7,\"lab_2\":0.08},\"reason\":\"EBV mononucleosis can cause fever, fatigue, pharyngitis, and cough, but CMV IgM/IgG with low avidity strongly argues against EBV as the explanation for the laboratory evidence.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.45,\"lab_2\":0.05},\"reason\":\"Acute HIV can present with fever, pharyngitis, fatigue, and cough, but acute chest pain is less typical; CMV serology with low-avidity IgG is not what would be expected if HIV were the primary diagnosis.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.05,\"lab_2\":0.02},\"reason\":\"Toxoplasmosis in pregnancy is usually asymptomatic or mild and does not typically cause this respiratory/mononucleosis-like syndrome; CMV-specific serology is contradictory.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.08,\"lab_2\":0.02},\"reason\":\"Parvovirus B19 in pregnancy more often causes rash, arthralgia, or fetal issues than pharyngitis/cough/chest pain; CMV serology is not supportive.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.4,\"lab_2\":0.05},\"reason\":\"Influenza can cause fever, fatigue, cough, and chest discomfort, but pharyngitis is variable; CMV IgM/IgG with low avidity is not explained by influenza.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.04},\"reason\":\"Mycoplasma pneumoniae can cause fever, cough, pharyngitis, and chest pain, but the CMV serology points away from this as the primary explanation.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.55,\"lab_2\":0.06},\"reason\":\"Adenoviral pharyngitis can present with fever, pharyngitis, cough, and chest pain, but the positive CMV serology with low IgG avidity is inconsistent with adenovirus as the main diagnosis.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.92,\"lab_2\":0.98},\"reason\":\"Pregnant patient with mononucleosis-like febrile illness and CMV IgM/IgG plus low avidity strongly fit primary CMV infection.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.75,\"lab_2\":0.88},\"reason\":\"CMV can cause a mononucleosis syndrome with fever, fatigue, pharyngitis, and cough; serology is supportive.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.25,\"lab_2\":0.85},\"reason\":\"CMV pneumonitis could cause fever, cough, and chest pain, but pharyngitis/fatigue are less specific; CMV serology fits.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.2,\"lab_2\":0.86},\"reason\":\"Chest pain in a viral syndrome during pregnancy can occur with myopericarditis, though pharyngitis/cough are nonspecific; CMV serology is compatible.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.12,\"lab_2\":0.83},\"reason\":\"Hepatitis would not be suggested by the listed symptoms, though CMV serology would still be positive in primary infection.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.84},\"reason\":\"Pleuritis can present with acute chest pain and cough in a viral infection, but pharyngitis/fatigue are nonspecific; CMV serology fits.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.55,\"lab_2\":0.05},\"reason\":\"EBV infectious mononucleosis can mimic fever, fatigue, and pharyngitis, but CMV-specific IgM/IgG with low avidity argues against EBV as the cause.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.35,\"lab_2\":0.04},\"reason\":\"Acute HIV can present as a mononucleosis-like illness in pregnancy, but CMV serology is not expected and is discordant.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.08,\"lab_2\":0.02},\"reason\":\"Toxoplasmosis in pregnancy is usually not characterized by this respiratory/chest pain syndrome, and CMV serology is unrelated.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.1,\"lab_2\":0.03},\"reason\":\"Parvovirus B19 may cause viral symptoms in pregnancy but usually not pharyngitis/cough/chest pain; CMV serology is discordant.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.3,\"lab_2\":0.2},\"reason\":\"Acute viral myocarditis can present with fever and chest pain, but pharyngitis/cough are less central and CMV serology only indirectly supports a viral cause.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.65,\"lab_2\":0.08},\"reason\":\"Atypical pneumonia can explain fever, cough, and chest pain, but pharyngitis/fatigue are nonspecific and CMV serology points away from a nonspecific pneumonia diagnosis.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.88,\"lab_2\":0.98},\"reason\":\"Pregnancy with viral prodrome and CMV IgM/IgG positivity with low IgG avidity strongly fits primary CMV infection.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.72,\"lab_2\":0.75},\"reason\":\"CMV mononucleosis can present with fever, fatigue, pharyngitis, and cough; serology is compatible, though pregnancy is incidental.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.52,\"lab_2\":0.78},\"reason\":\"CMV can cause respiratory symptoms and chest pain if pneumonitis is present, but the initial syndrome is nonspecific; CMV serology supports infection.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.28,\"lab_2\":0.75},\"reason\":\"Pericarditis could explain acute chest pain with viral symptoms, and CMV serology is consistent, but pharyngitis/cough are less specific.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.22,\"lab_2\":0.75},\"reason\":\"Myocarditis may present with chest pain and viral prodrome, but the initial upper respiratory symptoms are nonspecific; CMV serology supports infection.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.82,\"lab_2\":0.08},\"reason\":\"EBV mononucleosis commonly causes fever, fatigue, and pharyngitis, but positive CMV IgM/IgG with low avidity is not expected and argues against EBV.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.7,\"lab_2\":0.12},\"reason\":\"Acute HIV can mimic a mononucleosis-like illness with fever, pharyngitis, and fatigue, but CMV serology pattern is not typical.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.18,\"lab_2\":0.2},\"reason\":\"Toxoplasmosis in pregnancy can cause flu-like illness, but pharyngitis/cough/chest pain are less typical and CMV serology would not be explained.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.2,\"lab_2\":0.18},\"reason\":\"Parvovirus B19 in pregnancy may cause viral symptoms, but pharyngitis and chest pain are not classic, and CMV serology is unrelated.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.78,\"lab_2\":0.12},\"reason\":\"Influenza commonly causes fever, fatigue, cough, and chest discomfort, but pharyngitis is less specific and CMV serology does not support influenza.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.62,\"lab_2\":0.12},\"reason\":\"Mycoplasma pneumoniae can cause fever, cough, pharyngitis, and chest pain, but the CMV serology pattern is not explained.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.44,\"lab_2\":0.14},\"reason\":\"Viral pleurodynia can cause acute chest pain with febrile viral symptoms, but pharyngitis/cough are less characteristic and CMV serology is unrelated.\"}]}"
+    ],
+    "old_filter": [
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"lab_2\":0.45},\"reason\":\"Mild anemia is common in pregnancy and can be seen with infection, though not specific for chorioamnionitis.\"},{\"id\":\"d01\",\"likelihoods\":{\"lab_2\":0.4},\"reason\":\"Listeriosis in pregnancy may be associated with nonspecific mild anemia, but hemoglobin is not a characteristic finding.\"},{\"id\":\"d02\",\"likelihoods\":{\"lab_2\":0.25},\"reason\":\"Placental abruption can be associated with blood loss anemia if significant, but this isolated mild anemia is nonspecific.\"},{\"id\":\"d03\",\"likelihoods\":{\"lab_2\":0.35},\"reason\":\"Preeclampsia may show hemodilution or anemia in pregnancy, but hemoglobin of 10.1 alone is not strongly indicative.\"},{\"id\":\"d04\",\"likelihoods\":{\"lab_2\":0.3},\"reason\":\"Intrahepatic cholestasis of pregnancy does not typically cause anemia, though mild anemia may coexist in pregnancy.\"},{\"id\":\"d05\",\"likelihoods\":{\"lab_2\":0.35},\"reason\":\"Acute fatty liver of pregnancy often has abnormal labs rather than isolated anemia; mild anemia is possible but nonspecific.\"},{\"id\":\"d06\",\"likelihoods\":{\"lab_2\":0.4},\"reason\":\"Pyelonephritis in pregnancy can coexist with mild anemia of pregnancy or inflammation, but hemoglobin is not a key feature.\"},{\"id\":\"d07\",\"likelihoods\":{\"lab_2\":0.5},\"reason\":\"Influenza may coincide with mild nonspecific anemia in pregnancy, though this lab does not especially support it.\"},{\"id\":\"d08\",\"likelihoods\":{\"lab_2\":0.45},\"reason\":\"CMV infection in pregnancy can be associated with mild nonspecific anemia, but hemoglobin is not diagnostic.\"},{\"id\":\"d09\",\"likelihoods\":{\"lab_2\":0.45},\"reason\":\"Parvovirus B19 classically causes fetal or maternal anemia, so a low hemoglobin is somewhat compatible.\"},{\"id\":\"d10\",\"likelihoods\":{\"lab_2\":0.35},\"reason\":\"Acute maternal toxoplasmosis usually does not cause maternal anemia; this finding is nonspecific.\"},{\"id\":\"d11\",\"likelihoods\":{\"lab_2\":0.75},\"reason\":\"Fetal-maternal hemorrhage can present with maternal anemia, making a hemoglobin of 10.1 reasonably compatible.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"lab_2\":0.02},\"reason\":\"EBV mononucleosis typically has positive EBV-specific serology, not CMV IgM/IgG with low avidity.\"},{\"id\":\"d01\",\"likelihoods\":{\"lab_2\":0.98},\"reason\":\"This serology is classic for acute primary CMV infection: CMV IgM and IgG positive with low IgG avidity.\"},{\"id\":\"d02\",\"likelihoods\":{\"lab_2\":0.01},\"reason\":\"Acute HIV would not usually produce this CMV-specific serologic pattern.\"},{\"id\":\"d03\",\"likelihoods\":{\"lab_2\":0.05},\"reason\":\"Influenza can cause viral syndromes and chest symptoms, but CMV serology would be incidental and unexpected.\"},{\"id\":\"d04\",\"likelihoods\":{\"lab_2\":0.05},\"reason\":\"COVID-19 may mimic viral illness, but CMV IgM/IgG with low avidity is not expected from COVID itself.\"},{\"id\":\"d05\",\"likelihoods\":{\"lab_2\":0.03},\"reason\":\"Community-acquired pneumonia does not explain acute CMV seroconversion serology.\"},{\"id\":\"d06\",\"likelihoods\":{\"lab_2\":0.01},\"reason\":\"Pulmonary embolism is unrelated to CMV IgM/IgG positivity with low avidity.\"},{\"id\":\"d07\",\"likelihoods\":{\"lab_2\":0.02},\"reason\":\"Pericarditis could cause chest pain, but CMV serology is not a typical diagnostic finding unless CMV is the cause.\"},{\"id\":\"d08\",\"likelihoods\":{\"lab_2\":0.08},\"reason\":\"Viral myocarditis can occasionally be due to CMV, so this serology is possible but not definitive.\"},{\"id\":\"d09\",\"likelihoods\":{\"lab_2\":0.01},\"reason\":\"Lemierre syndrome is usually bacterial and would not be expected to produce this CMV serology.\"},{\"id\":\"d10\",\"likelihoods\":{\"lab_2\":0.02},\"reason\":\"Primary toxoplasmosis in pregnancy would not cause CMV-specific IgM/IgG positivity with low avidity.\"},{\"id\":\"d11\",\"likelihoods\":{\"lab_2\":0.01},\"reason\":\"Q fever is unrelated to CMV serologic evidence.\"}]}"
+    ],
+    "semantic_audit": [
+      "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.76,\"reason\":\"Closest option is listeriosis in pregnancy, but this is not the same diagnosis as Listeria monocytogenes bacteremia and is a pregnancy-specific related presentation rather than an exact synonym.\"},{\"id\":\"filtered_retention\",\"best_match_score\":0.76,\"reason\":\"Closest option is listeriosis in pregnancy, which is related but not equivalent to Listeria monocytogenes bacteremia.\"},{\"id\":\"filtered_retention_duplicate\",\"best_match_score\":0.76,\"reason\":\"Closest option is listeriosis in pregnancy, but it is a related syndrome, not the exact bloodstream infection diagnosis.\"}]}",
+      "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.0,\"reason\":\"No fetal CMV syndrome option; listed CMV mononucleosis/infection are maternal or alternative CMV syndromes, not the fetal congenital diagnosis.\"},{\"id\":\"filtered_retention\",\"best_match_score\":0.0,\"reason\":\"Primary CMV infection during pregnancy is maternal infection, not fetal cytomegalovirus syndrome; other options are organ-specific CMV disease.\"},{\"id\":\"filtered_retention_duplicate\",\"best_match_score\":0.0,\"reason\":\"Contains maternal CMV infection and organ-specific CMV complications, but not the fetal congenital CMV syndrome diagnosis.\"}]}"
+    ]
+  },
+  "records": [
+    {
+      "action_id": "lab_2",
+      "duplicate_new_compatibility_batches": [
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.88,
+              "lab_2": 0.72
+            },
+            "minimum_likelihood": 0.72,
+            "reason": "Fever with decreased fetal activity late in pregnancy is compatible with intrauterine infection; mild anemia is nonspecific and can be seen in pregnancy."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.84,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.7,
+            "reason": "Pregnancy-associated listeriosis commonly presents with fever and maternal gastrointestinal symptoms, with reduced fetal movement possible; mild anemia is nonspecific."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.6,
+              "lab_2": 0.68
+            },
+            "minimum_likelihood": 0.6,
+            "reason": "Pyelonephritis in pregnancy often causes fever and nausea; decreased fetal activity can occur with maternal illness, and mild anemia is common but nonspecific."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.08,
+              "lab_2": 0.62
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "Placental abruption usually presents with bleeding and abdominal pain rather than fever or nausea; mild anemia could occur if bleeding is present but is not specific here."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.5,
+              "lab_2": 0.65
+            },
+            "minimum_likelihood": 0.5,
+            "reason": "Fetal demise may be associated with decreased fetal movement, and maternal fever/nausea could occur if infection is the cause; mild anemia is nonspecific."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.12,
+              "lab_2": 0.58
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Acute fatty liver of pregnancy can cause nausea and systemic symptoms, but fever is less typical; mild anemia may be present but is not a key feature."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "HELLP syndrome may present with nausea and fetal compromise, but fever is not characteristic; mild anemia can fit hemolysis but this isolated hemoglobin is nonspecific."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.14,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.14,
+            "reason": "Severe preeclampsia may cause fetal compromise and nausea, but fever is atypical; mild anemia is nonspecific and not strongly supportive."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.07,
+              "lab_2": 0.56
+            },
+            "minimum_likelihood": 0.07,
+            "reason": "Parvovirus B19 can cause fetal anemia and decreased fetal movement, but maternal fever/nausea are not classic; mild maternal anemia is nonspecific."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.09,
+              "lab_2": 0.57
+            },
+            "minimum_likelihood": 0.09,
+            "reason": "CMV in pregnancy is often mild or asymptomatic; fever and nausea are possible but decreased fetal activity is less specific, and mild anemia is nonspecific."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.55,
+              "lab_2": 0.69
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Influenza can cause fever and nausea in pregnancy, and maternal illness may reduce perceived fetal activity; mild anemia is common and nonspecific."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.82,
+              "lab_2": 0.71
+            },
+            "minimum_likelihood": 0.71,
+            "reason": "Maternal sepsis often presents with fever and nausea, and fetal activity may decrease with maternal systemic illness; mild anemia is common and nonspecific."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.9,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.7,
+            "reason": "Classic presentation of intrauterine infection with maternal fever and decreased fetal activity; mild anemia is nonspecific."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.75,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.7,
+            "reason": "Maternal fever and nonspecific GI symptoms in late pregnancy fit listeriosis; hemoglobin is not diagnostic but can be mildly low."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.15,
+              "lab_2": 0.75
+            },
+            "minimum_likelihood": 0.15,
+            "reason": "Abruption usually presents with pain and bleeding rather than fever/nausea; mild anemia could occur with blood loss but is nonspecific."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.45,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.45,
+            "reason": "Pyelonephritis in pregnancy can cause fever and nausea; decreased fetal activity can occur with maternal illness, and mild anemia is nonspecific."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.35,
+            "reason": "Influenza can cause fever and nausea, but decreased fetal activity is less typical; hemoglobin finding is nonspecific."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.35,
+            "reason": "COVID-19 may present with fever and GI symptoms in pregnancy, though decreased fetal activity is indirect; mild anemia does not strongly affect likelihood."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.05,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "Fetal-maternal hemorrhage does not typically cause maternal fever or nausea; hemoglobin may be low but the pattern is otherwise discordant."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.8,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.7,
+            "reason": "Preterm labor with infection commonly presents with fever and decreased fetal activity in late gestation; mild anemia is nonspecific."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.25,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.25,
+            "reason": "Gastroenteritis can explain fever, nausea, and dehydration-related fetal distress, but decreased fetal activity is secondary and not specific."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.1,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.1,
+            "reason": "HELLP usually features hypertension, pain, and liver/platelet abnormalities rather than fever; anemia alone is not characteristic."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.2,
+            "reason": "Appendicitis can cause fever and nausea in pregnancy, but decreased fetal activity is indirect and the presentation lacks focal abdominal findings."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.4,
+              "lab_2": 0.65
+            },
+            "minimum_likelihood": 0.4,
+            "reason": "Maternal infection can lead to fetal demise, but the initial symptoms are more typical of infection before demise; mild anemia is nonspecific."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.92,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.6,
+            "reason": "Classic maternal fever with fetal distress at term strongly fits intra-amniotic infection; mild anemia is nonspecific but common in pregnancy."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Abruption can cause fetal compromise, but fever and nausea are not typical; mild anemia could be seen but is nonspecific."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.55,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Listeriosis in pregnancy often presents with febrile GI/flu-like symptoms and fetal distress; mild anemia is nonspecific."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.45,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.45,
+            "reason": "Pyelonephritis in pregnancy commonly causes fever and nausea and can affect the fetus; anemia is nonspecific."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.22,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.22,
+            "reason": "Influenza may cause fever and nausea but decreased fetal activity is less characteristic; mild anemia is nonspecific."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.2,
+            "reason": "COVID-19 can present with fever and GI symptoms, but decreased fetal activity is not especially specific; anemia is nonspecific."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.35,
+            "reason": "Gastroenteritis can explain fever, nausea, and maternal illness/dehydration, but decreased fetal activity is indirect; anemia is nonspecific."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.08,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "Preeclampsia usually presents with hypertension/proteinuria rather than fever; mild anemia may occur but is not a defining feature."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.05,
+              "lab_2": 0.5
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "HELLP is more associated with hypertension, RUQ pain, thrombocytopenia, and hemolysis than fever; mild anemia alone is not typical."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.03,
+              "lab_2": 0.4
+            },
+            "minimum_likelihood": 0.03,
+            "reason": "Acute fatty liver of pregnancy usually presents with liver dysfunction, hypoglycemia, and jaundice rather than fever; anemia is not characteristic."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.12,
+              "lab_2": 0.3
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Fetal-maternal hemorrhage can cause decreased fetal movement, but maternal fever and nausea are not typical; mild anemia could fit but is usually more pronounced."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.7,
+              "lab_2": 0.5
+            },
+            "minimum_likelihood": 0.5,
+            "reason": "Maternal infection can lead to fetal demise, and decreased fetal activity can reflect fetal compromise; mild anemia is nonspecific."
+          }
+        ]
+      ],
+      "duplicate_truth_score": 0.76,
+      "duplicate_truth_score_gap": 0.0,
+      "exact_overlap": {
+        "intersection": 12,
+        "jaccard": 1.0,
+        "left_fraction": 1.0,
+        "right_fraction": 1.0
+      },
+      "final_truth_score": 0.76,
+      "initial_truth_score": 0.76,
+      "new_compatibility_batches": [
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.82,
+              "lab_2": 0.58
+            },
+            "minimum_likelihood": 0.58,
+            "reason": "Fever with maternal symptoms and decreased fetal activity fits intra-amniotic infection; mild anemia is nonspecific."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.76,
+              "lab_2": 0.61
+            },
+            "minimum_likelihood": 0.61,
+            "reason": "Maternal fever, nausea, and decreased fetal activity are compatible with listerial infection in late pregnancy; mild anemia can occur but is nonspecific."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.54
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Abruption can present with fetal distress but fever and nausea are not typical; mild anemia could fit if there were bleeding, though not specific."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.67,
+              "lab_2": 0.57
+            },
+            "minimum_likelihood": 0.57,
+            "reason": "Maternal infection with fetal compromise can lead to fetal demise; initial symptoms are compatible with an infectious process, while anemia is nonspecific."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.73,
+              "lab_2": 0.6
+            },
+            "minimum_likelihood": 0.6,
+            "reason": "Fever and nausea are common in pyelonephritis during pregnancy, and decreased fetal activity can occur with maternal illness; anemia is incidental."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.55,
+              "lab_2": 0.63
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Influenza can cause fever and nausea in pregnancy and may reduce perceived fetal movement, though it is less specifically obstetric; mild anemia is unrelated."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.32,
+              "lab_2": 0.59
+            },
+            "minimum_likelihood": 0.32,
+            "reason": "Acute viral hepatitis often causes fever and nausea, but decreased fetal activity is less characteristic; mild anemia is nonspecific."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.12,
+              "lab_2": 0.46
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "HELLP usually presents with hypertension, RUQ pain, and lab abnormalities rather than fever; mild anemia may occur but the presentation is otherwise atypical."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.79,
+              "lab_2": 0.58
+            },
+            "minimum_likelihood": 0.58,
+            "reason": "Sepsis from an obstetric source commonly presents with fever, nausea, and fetal compromise; mild anemia does not strongly affect likelihood."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.56
+            },
+            "minimum_likelihood": 0.2,
+            "reason": "Parvovirus can cause fetal effects and maternal symptoms, but fever/nausea with decreased fetal activity is less classic; mild anemia is possible but nonspecific."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.25,
+              "lab_2": 0.56
+            },
+            "minimum_likelihood": 0.25,
+            "reason": "CMV in pregnancy is often mild or asymptomatic; fever and nausea are possible but not strongly characteristic, and anemia is nonspecific."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.14,
+              "lab_2": 0.45
+            },
+            "minimum_likelihood": 0.14,
+            "reason": "Acute fatty liver of pregnancy typically causes systemic illness with jaundice, liver dysfunction, and hypoglycemia rather than isolated fever; mild anemia is not a key feature."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.86,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Fever with fetal distress is compatible with chorioamnionitis; mild anemia is nonspecific in pregnancy."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.74,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Listeriosis commonly presents with fever and nonspecific GI symptoms in late pregnancy; mild anemia is nonspecific."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.5
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Placental abruption can cause decreased fetal movement, but fever and nausea are less typical; mild anemia could be incidental."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.82,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Intra-amniotic infection often presents with maternal fever and fetal compromise; hemoglobin of 10.1 is nonspecific."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.63,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Pyelonephritis in pregnancy can cause fever and nausea; decreased fetal activity may occur from maternal illness, while mild anemia is nonspecific."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.32,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.32,
+            "reason": "Influenza can cause fever and nausea, but decreased fetal activity is less specific; mild anemia is unrelated and common in pregnancy."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.35,
+            "reason": "COVID-19 may present with fever and GI symptoms, but decreased fetal movement is not a classic direct feature; mild anemia is nonspecific."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.58,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Viral gastroenteritis can cause fever, nausea, and maternal dehydration with reduced fetal movement; mild anemia is unrelated."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.08,
+              "lab_2": 0.52
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "HELLP usually presents with hypertension, RUQ pain, and abnormal labs rather than isolated fever and nausea; mild anemia alone is not specific."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.1,
+              "lab_2": 0.52
+            },
+            "minimum_likelihood": 0.1,
+            "reason": "Acute fatty liver of pregnancy typically causes malaise, nausea, and liver dysfunction, but fever and decreased fetal movement are less typical; mild anemia is nonspecific."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.22,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.22,
+            "reason": "Fetal-maternal hemorrhage can present with decreased fetal movement, but maternal fever and nausea are not typical; anemia could fit if blood loss were significant."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.4
+            },
+            "minimum_likelihood": 0.2,
+            "reason": "Cord accident can cause decreased fetal movement, but maternal fever and nausea are not expected; mild anemia is not a characteristic finding."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.83,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Fever, nausea, and decreased fetal activity can occur with pyelonephritis in pregnancy; mild anemia is nonspecific and commonly seen."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.78,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Maternal fever with reduced fetal movement is compatible with chorioamnionitis; mild anemia does not strongly affect likelihood."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.72,
+              "lab_2": 0.58
+            },
+            "minimum_likelihood": 0.58,
+            "reason": "Listeriosis often presents in pregnancy with fever and nonspecific GI symptoms such as nausea; mild anemia is nonspecific."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.42,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.42,
+            "reason": "Influenza can cause fever and nausea, but decreased fetal activity is less directly typical; mild anemia is incidental."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.44,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.44,
+            "reason": "COVID-19 may present with fever and nausea in pregnancy, while decreased fetal activity can occur in maternal illness; anemia is nonspecific."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.45
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Placental abruption usually presents with pain and bleeding rather than fever or nausea; mild anemia could occur if bleeding is present but is not specific."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.36,
+              "lab_2": 0.5
+            },
+            "minimum_likelihood": 0.36,
+            "reason": "Acute fatty liver of pregnancy can present in late pregnancy with nausea and systemic symptoms, though fever is less typical; mild anemia can be seen but is nonspecific."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.22,
+              "lab_2": 0.5
+            },
+            "minimum_likelihood": 0.22,
+            "reason": "HELLP may cause nausea and anemia, but fever and decreased fetal activity are not classic; the hemoglobin finding is compatible but not specific."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.75,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Preterm labor with intrauterine infection commonly involves fever and reduced fetal movement in late pregnancy; mild anemia is nonspecific."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.65,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.55,
+            "reason": "Maternal sepsis can cause fever and decreased fetal activity due to fetal compromise; mild anemia does not strongly distinguish it."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.1,
+              "lab_2": 0.4
+            },
+            "minimum_likelihood": 0.1,
+            "reason": "Parvovirus B19 in pregnancy more typically causes fetal anemia/hydrops than maternal fever and nausea; mild maternal anemia is possible but nonspecific."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.14,
+              "lab_2": 0.4
+            },
+            "minimum_likelihood": 0.14,
+            "reason": "CMV infection in pregnancy is often nonspecific or asymptomatic in the mother; fever and nausea are possible but not strongly characteristic, and mild anemia is nonspecific."
+          }
+        ]
+      ],
+      "num_duplicate_new_introduced": 0,
+      "num_new_introduced": 0,
+      "num_old_pruned": 0,
+      "old_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "lab_2": 0.45
+          },
+          "minimum_likelihood": 0.45,
+          "reason": "Mild anemia is common in pregnancy and can be seen with infection, though not specific for chorioamnionitis."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "lab_2": 0.4
+          },
+          "minimum_likelihood": 0.4,
+          "reason": "Listeriosis in pregnancy may be associated with nonspecific mild anemia, but hemoglobin is not a characteristic finding."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "lab_2": 0.25
+          },
+          "minimum_likelihood": 0.25,
+          "reason": "Placental abruption can be associated with blood loss anemia if significant, but this isolated mild anemia is nonspecific."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "lab_2": 0.35
+          },
+          "minimum_likelihood": 0.35,
+          "reason": "Preeclampsia may show hemodilution or anemia in pregnancy, but hemoglobin of 10.1 alone is not strongly indicative."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "lab_2": 0.3
+          },
+          "minimum_likelihood": 0.3,
+          "reason": "Intrahepatic cholestasis of pregnancy does not typically cause anemia, though mild anemia may coexist in pregnancy."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "lab_2": 0.35
+          },
+          "minimum_likelihood": 0.35,
+          "reason": "Acute fatty liver of pregnancy often has abnormal labs rather than isolated anemia; mild anemia is possible but nonspecific."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "lab_2": 0.4
+          },
+          "minimum_likelihood": 0.4,
+          "reason": "Pyelonephritis in pregnancy can coexist with mild anemia of pregnancy or inflammation, but hemoglobin is not a key feature."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "lab_2": 0.5
+          },
+          "minimum_likelihood": 0.5,
+          "reason": "Influenza may coincide with mild nonspecific anemia in pregnancy, though this lab does not especially support it."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "lab_2": 0.45
+          },
+          "minimum_likelihood": 0.45,
+          "reason": "CMV infection in pregnancy can be associated with mild nonspecific anemia, but hemoglobin is not diagnostic."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "lab_2": 0.45
+          },
+          "minimum_likelihood": 0.45,
+          "reason": "Parvovirus B19 classically causes fetal or maternal anemia, so a low hemoglobin is somewhat compatible."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "lab_2": 0.35
+          },
+          "minimum_likelihood": 0.35,
+          "reason": "Acute maternal toxoplasmosis usually does not cause maternal anemia; this finding is nonspecific."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "lab_2": 0.75
+          },
+          "minimum_likelihood": 0.75,
+          "reason": "Fetal-maternal hemorrhage can present with maternal anemia, making a hemoglobin of 10.1 reasonably compatible."
+        }
+      ],
+      "semantic_audit": [
+        {
+          "best_match_score": 0.76,
+          "covered": false,
+          "id": "initial",
+          "reason": "Closest option is listeriosis in pregnancy, but this is not the same diagnosis as Listeria monocytogenes bacteremia and is a pregnancy-specific related presentation rather than an exact synonym."
+        },
+        {
+          "best_match_score": 0.76,
+          "covered": false,
+          "id": "filtered_retention",
+          "reason": "Closest option is listeriosis in pregnancy, which is related but not equivalent to Listeria monocytogenes bacteremia."
+        },
+        {
+          "best_match_score": 0.76,
+          "covered": false,
+          "id": "filtered_retention_duplicate",
+          "reason": "Closest option is listeriosis in pregnancy, but it is a related syndrome, not the exact bloodstream infection diagnosis."
+        }
+      ],
+      "source_id": "27223150",
+      "source_target_leak": false,
+      "stored_observation": {
+        "changes_over_time": "No change over time.",
+        "date": "Not specified",
+        "findings": "10.1 g/dl (reference range 12.0\u201316.0)",
+        "procedure_name": "Hemoglobin"
+      },
+      "subset": "challenging",
+      "supports": {
+        "candidate_batches": [
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Placental abruption",
+            "Intrauterine fetal demise secondary to maternal infection",
+            "Pyelonephritis in pregnancy",
+            "Influenza infection in late pregnancy",
+            "Acute viral hepatitis in pregnancy",
+            "HELLP syndrome",
+            "Sepsis of obstetric origin",
+            "Parvovirus B19 infection in pregnancy",
+            "Cytomegalovirus infection in pregnancy",
+            "Acute fatty liver of pregnancy"
+          ],
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Placental abruption",
+            "Intra-amniotic infection due to Group B Streptococcus",
+            "Pyelonephritis complicating pregnancy",
+            "Influenza infection in late pregnancy",
+            "COVID-19 infection in pregnancy",
+            "Acute viral gastroenteritis with maternal dehydration",
+            "HELLP syndrome",
+            "Acute fatty liver of pregnancy",
+            "Fetal-maternal hemorrhage",
+            "Stillbirth secondary to umbilical cord accident"
+          ],
+          [
+            "Acute pyelonephritis in pregnancy",
+            "Chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Influenza infection during pregnancy",
+            "COVID-19 infection during pregnancy",
+            "Placental abruption",
+            "Acute fatty liver of pregnancy",
+            "HELLP syndrome",
+            "Preterm labor with intrauterine infection",
+            "Fetal distress secondary to maternal sepsis",
+            "Parvovirus B19 infection in pregnancy",
+            "Cytomegalovirus infection in pregnancy"
+          ]
+        ],
+        "duplicate_candidate_batches": [
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Pyelonephritis complicating pregnancy",
+            "Placental abruption",
+            "Intrauterine fetal demise secondary to maternal infection",
+            "Acute fatty liver of pregnancy",
+            "HELLP syndrome",
+            "Severe preeclampsia with fetal compromise",
+            "Parvovirus B19 infection in pregnancy causing fetal anemia",
+            "Cytomegalovirus infection in pregnancy",
+            "Influenza infection during pregnancy",
+            "Maternal sepsis of unknown source"
+          ],
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Placental abruption",
+            "Acute pyelonephritis in pregnancy",
+            "Influenza infection in pregnancy",
+            "COVID-19 infection in pregnancy",
+            "Acute fetal-maternal hemorrhage",
+            "Preterm labor with intrauterine infection",
+            "Acute viral gastroenteritis with maternal dehydration",
+            "HELLP syndrome",
+            "Acute appendicitis in pregnancy",
+            "Intrauterine fetal demise secondary to maternal infection"
+          ],
+          [
+            "Acute chorioamnionitis (intra-amniotic infection)",
+            "Placental abruption",
+            "Listeriosis in pregnancy",
+            "Acute pyelonephritis complicating pregnancy",
+            "Influenza infection in late pregnancy",
+            "COVID-19 infection in pregnancy",
+            "Acute viral gastroenteritis with maternal dehydration",
+            "Preeclampsia with severe features and placental insufficiency",
+            "HELLP syndrome",
+            "Acute fatty liver of pregnancy",
+            "Fetal-maternal hemorrhage",
+            "Stillbirth due to intrauterine fetal demise from maternal infection"
+          ]
+        ],
+        "duplicate_filtered_candidate_batches": [
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Pyelonephritis complicating pregnancy",
+            "Intrauterine fetal demise secondary to maternal infection",
+            "Influenza infection during pregnancy",
+            "Maternal sepsis of unknown source"
+          ],
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Acute pyelonephritis in pregnancy",
+            "Influenza infection in pregnancy",
+            "COVID-19 infection in pregnancy",
+            "Preterm labor with intrauterine infection",
+            "Acute viral gastroenteritis with maternal dehydration",
+            "Acute appendicitis in pregnancy",
+            "Intrauterine fetal demise secondary to maternal infection"
+          ],
+          [
+            "Acute chorioamnionitis (intra-amniotic infection)",
+            "Listeriosis in pregnancy",
+            "Acute pyelonephritis complicating pregnancy",
+            "Influenza infection in late pregnancy",
+            "COVID-19 infection in pregnancy",
+            "Acute viral gastroenteritis with maternal dehydration",
+            "Stillbirth due to intrauterine fetal demise from maternal infection"
+          ]
+        ],
+        "filtered_candidate_batches": [
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Intrauterine fetal demise secondary to maternal infection",
+            "Pyelonephritis in pregnancy",
+            "Influenza infection in late pregnancy",
+            "Acute viral hepatitis in pregnancy",
+            "Sepsis of obstetric origin",
+            "Parvovirus B19 infection in pregnancy",
+            "Cytomegalovirus infection in pregnancy"
+          ],
+          [
+            "Acute chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Intra-amniotic infection due to Group B Streptococcus",
+            "Pyelonephritis complicating pregnancy",
+            "Influenza infection in late pregnancy",
+            "COVID-19 infection in pregnancy",
+            "Acute viral gastroenteritis with maternal dehydration",
+            "Fetal-maternal hemorrhage",
+            "Stillbirth secondary to umbilical cord accident"
+          ],
+          [
+            "Acute pyelonephritis in pregnancy",
+            "Chorioamnionitis",
+            "Listeriosis in pregnancy",
+            "Influenza infection during pregnancy",
+            "COVID-19 infection during pregnancy",
+            "Acute fatty liver of pregnancy",
+            "HELLP syndrome",
+            "Preterm labor with intrauterine infection",
+            "Fetal distress secondary to maternal sepsis"
+          ]
+        ],
+        "filtered_retention": [
+          "Chorioamnionitis",
+          "Listeriosis in pregnancy",
+          "Placental abruption",
+          "Preeclampsia with severe features",
+          "Intrahepatic cholestasis of pregnancy",
+          "Acute fatty liver of pregnancy",
+          "Pyelonephritis in pregnancy",
+          "Maternal influenza infection",
+          "Cytomegalovirus infection in pregnancy",
+          "Parvovirus B19 infection in pregnancy",
+          "Congenital toxoplasmosis due to acute maternal infection",
+          "Fetal-maternal hemorrhage"
+        ],
+        "filtered_retention_duplicate": [
+          "Chorioamnionitis",
+          "Listeriosis in pregnancy",
+          "Placental abruption",
+          "Preeclampsia with severe features",
+          "Intrahepatic cholestasis of pregnancy",
+          "Acute fatty liver of pregnancy",
+          "Pyelonephritis in pregnancy",
+          "Maternal influenza infection",
+          "Cytomegalovirus infection in pregnancy",
+          "Parvovirus B19 infection in pregnancy",
+          "Congenital toxoplasmosis due to acute maternal infection",
+          "Fetal-maternal hemorrhage"
+        ],
+        "initial": [
+          "Chorioamnionitis",
+          "Listeriosis in pregnancy",
+          "Placental abruption",
+          "Preeclampsia with severe features",
+          "Intrahepatic cholestasis of pregnancy",
+          "Acute fatty liver of pregnancy",
+          "Pyelonephritis in pregnancy",
+          "Maternal influenza infection",
+          "Cytomegalovirus infection in pregnancy",
+          "Parvovirus B19 infection in pregnancy",
+          "Congenital toxoplasmosis due to acute maternal infection",
+          "Fetal-maternal hemorrhage"
+        ],
+        "retained_old": [
+          "Chorioamnionitis",
+          "Listeriosis in pregnancy",
+          "Placental abruption",
+          "Preeclampsia with severe features",
+          "Intrahepatic cholestasis of pregnancy",
+          "Acute fatty liver of pregnancy",
+          "Pyelonephritis in pregnancy",
+          "Maternal influenza infection",
+          "Cytomegalovirus infection in pregnancy",
+          "Parvovirus B19 infection in pregnancy",
+          "Congenital toxoplasmosis due to acute maternal infection",
+          "Fetal-maternal hemorrhage"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Listeria monocytogenes bacteremia"
+    },
+    {
+      "action_id": "lab_2",
+      "duplicate_new_compatibility_batches": [
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.86,
+              "lab_2": 0.99
+            },
+            "minimum_likelihood": 0.86,
+            "reason": "Pregnant patient with mononucleosis-like viral syndrome fits primary CMV; positive CMV IgM/IgG with low avidity strongly supports recent primary infection."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.65,
+              "lab_2": 0.45
+            },
+            "minimum_likelihood": 0.45,
+            "reason": "CMV mononucleosis can cause fever, fatigue, pharyngitis, and cough, but acute chest pain is less typical; serology is compatible though low-avidity IgG specifically favors primary recent CMV infection."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.35,
+            "reason": "Fever, cough, and chest pain can occur with pneumonitis, and CMV can cause it in pregnancy, but pharyngitis/fatigue are nonspecific; CMV serology is compatible but not specific for lung involvement."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.25,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.25,
+            "reason": "Acute chest pain could reflect pericarditis, but the presentation lacks classic pericarditic features; CMV serology supports acute CMV infection, which can rarely involve the pericardium."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.55
+            },
+            "minimum_likelihood": 0.2,
+            "reason": "Myocarditis may present with fever and chest pain, but pharyngitis/cough are less characteristic; positive acute CMV serology is compatible with CMV myocarditis but does not specifically indicate cardiac involvement."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.7,
+              "lab_2": 0.08
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "EBV mononucleosis can cause fever, fatigue, pharyngitis, and cough, but CMV IgM/IgG with low avidity strongly argues against EBV as the explanation for the laboratory evidence."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.45,
+              "lab_2": 0.05
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "Acute HIV can present with fever, pharyngitis, fatigue, and cough, but acute chest pain is less typical; CMV serology with low-avidity IgG is not what would be expected if HIV were the primary diagnosis."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.05,
+              "lab_2": 0.02
+            },
+            "minimum_likelihood": 0.02,
+            "reason": "Toxoplasmosis in pregnancy is usually asymptomatic or mild and does not typically cause this respiratory/mononucleosis-like syndrome; CMV-specific serology is contradictory."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.08,
+              "lab_2": 0.02
+            },
+            "minimum_likelihood": 0.02,
+            "reason": "Parvovirus B19 in pregnancy more often causes rash, arthralgia, or fetal issues than pharyngitis/cough/chest pain; CMV serology is not supportive."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.4,
+              "lab_2": 0.05
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "Influenza can cause fever, fatigue, cough, and chest discomfort, but pharyngitis is variable; CMV IgM/IgG with low avidity is not explained by influenza."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.04
+            },
+            "minimum_likelihood": 0.04,
+            "reason": "Mycoplasma pneumoniae can cause fever, cough, pharyngitis, and chest pain, but the CMV serology points away from this as the primary explanation."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.55,
+              "lab_2": 0.06
+            },
+            "minimum_likelihood": 0.06,
+            "reason": "Adenoviral pharyngitis can present with fever, pharyngitis, cough, and chest pain, but the positive CMV serology with low IgG avidity is inconsistent with adenovirus as the main diagnosis."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.92,
+              "lab_2": 0.98
+            },
+            "minimum_likelihood": 0.92,
+            "reason": "Pregnant patient with mononucleosis-like febrile illness and CMV IgM/IgG plus low avidity strongly fit primary CMV infection."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.75,
+              "lab_2": 0.88
+            },
+            "minimum_likelihood": 0.75,
+            "reason": "CMV can cause a mononucleosis syndrome with fever, fatigue, pharyngitis, and cough; serology is supportive."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.25,
+              "lab_2": 0.85
+            },
+            "minimum_likelihood": 0.25,
+            "reason": "CMV pneumonitis could cause fever, cough, and chest pain, but pharyngitis/fatigue are less specific; CMV serology fits."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.86
+            },
+            "minimum_likelihood": 0.2,
+            "reason": "Chest pain in a viral syndrome during pregnancy can occur with myopericarditis, though pharyngitis/cough are nonspecific; CMV serology is compatible."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.12,
+              "lab_2": 0.83
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Hepatitis would not be suggested by the listed symptoms, though CMV serology would still be positive in primary infection."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.84
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Pleuritis can present with acute chest pain and cough in a viral infection, but pharyngitis/fatigue are nonspecific; CMV serology fits."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.55,
+              "lab_2": 0.05
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "EBV infectious mononucleosis can mimic fever, fatigue, and pharyngitis, but CMV-specific IgM/IgG with low avidity argues against EBV as the cause."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.04
+            },
+            "minimum_likelihood": 0.04,
+            "reason": "Acute HIV can present as a mononucleosis-like illness in pregnancy, but CMV serology is not expected and is discordant."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.08,
+              "lab_2": 0.02
+            },
+            "minimum_likelihood": 0.02,
+            "reason": "Toxoplasmosis in pregnancy is usually not characterized by this respiratory/chest pain syndrome, and CMV serology is unrelated."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.1,
+              "lab_2": 0.03
+            },
+            "minimum_likelihood": 0.03,
+            "reason": "Parvovirus B19 may cause viral symptoms in pregnancy but usually not pharyngitis/cough/chest pain; CMV serology is discordant."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.3,
+              "lab_2": 0.2
+            },
+            "minimum_likelihood": 0.2,
+            "reason": "Acute viral myocarditis can present with fever and chest pain, but pharyngitis/cough are less central and CMV serology only indirectly supports a viral cause."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.65,
+              "lab_2": 0.08
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "Atypical pneumonia can explain fever, cough, and chest pain, but pharyngitis/fatigue are nonspecific and CMV serology points away from a nonspecific pneumonia diagnosis."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.88,
+              "lab_2": 0.98
+            },
+            "minimum_likelihood": 0.88,
+            "reason": "Pregnancy with viral prodrome and CMV IgM/IgG positivity with low IgG avidity strongly fits primary CMV infection."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.72,
+              "lab_2": 0.75
+            },
+            "minimum_likelihood": 0.72,
+            "reason": "CMV mononucleosis can present with fever, fatigue, pharyngitis, and cough; serology is compatible, though pregnancy is incidental."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.52,
+              "lab_2": 0.78
+            },
+            "minimum_likelihood": 0.52,
+            "reason": "CMV can cause respiratory symptoms and chest pain if pneumonitis is present, but the initial syndrome is nonspecific; CMV serology supports infection."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.28,
+              "lab_2": 0.75
+            },
+            "minimum_likelihood": 0.28,
+            "reason": "Pericarditis could explain acute chest pain with viral symptoms, and CMV serology is consistent, but pharyngitis/cough are less specific."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.22,
+              "lab_2": 0.75
+            },
+            "minimum_likelihood": 0.22,
+            "reason": "Myocarditis may present with chest pain and viral prodrome, but the initial upper respiratory symptoms are nonspecific; CMV serology supports infection."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.82,
+              "lab_2": 0.08
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "EBV mononucleosis commonly causes fever, fatigue, and pharyngitis, but positive CMV IgM/IgG with low avidity is not expected and argues against EBV."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.7,
+              "lab_2": 0.12
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Acute HIV can mimic a mononucleosis-like illness with fever, pharyngitis, and fatigue, but CMV serology pattern is not typical."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.2
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Toxoplasmosis in pregnancy can cause flu-like illness, but pharyngitis/cough/chest pain are less typical and CMV serology would not be explained."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.18
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Parvovirus B19 in pregnancy may cause viral symptoms, but pharyngitis and chest pain are not classic, and CMV serology is unrelated."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.78,
+              "lab_2": 0.12
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Influenza commonly causes fever, fatigue, cough, and chest discomfort, but pharyngitis is less specific and CMV serology does not support influenza."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.62,
+              "lab_2": 0.12
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Mycoplasma pneumoniae can cause fever, cough, pharyngitis, and chest pain, but the CMV serology pattern is not explained."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.44,
+              "lab_2": 0.14
+            },
+            "minimum_likelihood": 0.14,
+            "reason": "Viral pleurodynia can cause acute chest pain with febrile viral symptoms, but pharyngitis/cough are less characteristic and CMV serology is unrelated."
+          }
+        ]
+      ],
+      "duplicate_truth_score": 0.0,
+      "duplicate_truth_score_gap": 0.0,
+      "exact_overlap": {
+        "intersection": 2,
+        "jaccard": 0.1,
+        "left_fraction": 0.18181818181818182,
+        "right_fraction": 0.18181818181818182
+      },
+      "final_truth_score": 0.0,
+      "initial_truth_score": 0.0,
+      "new_compatibility_batches": [
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.93,
+              "lab_2": 0.98
+            },
+            "minimum_likelihood": 0.93,
+            "reason": "Fits acute CMV-like illness in pregnancy; positive CMV IgM/IgG with low avidity strongly supports primary infection."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.75,
+              "lab_2": 0.85
+            },
+            "minimum_likelihood": 0.75,
+            "reason": "CMV mononucleosis can cause fever, fatigue, pharyngitis; serology is compatible, though low avidity specifically suggests primary infection."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.4,
+              "lab_2": 0.75
+            },
+            "minimum_likelihood": 0.4,
+            "reason": "Cough and chest pain could occur with pneumonitis, but pharyngitis is less typical; CMV serology still supports CMV-related disease."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.35,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.35,
+            "reason": "Chest pain can occur with myocarditis, but fever/pharyngitis/cough are nonspecific; CMV serology is compatible but not specific for myocardial involvement."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.45,
+              "lab_2": 0.72
+            },
+            "minimum_likelihood": 0.45,
+            "reason": "Acute chest pain with fever can fit pericarditis, though pharyngitis/cough are less characteristic; CMV serology supports recent CMV infection."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.9,
+              "lab_2": 0.97
+            },
+            "minimum_likelihood": 0.9,
+            "reason": "A nonspecific acute viral syndrome is strongly consistent with fever, fatigue, pharyngitis, cough, and chest pain, and CMV serology supports an acute primary CMV infection."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.7,
+              "lab_2": 0.08
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "Initial mono-like illness is compatible, but CMV IgM/IgG with low avidity argues against EBV as the cause."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.55,
+              "lab_2": 0.05
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "Acute retroviral syndrome can mimic a viral illness, but the CMV serology specifically points away from HIV as the explanation."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.1,
+              "lab_2": 0.02
+            },
+            "minimum_likelihood": 0.02,
+            "reason": "Toxoplasmosis in pregnancy usually does not present with this respiratory/chest-pain syndrome, and the CMV serology is not supportive."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.12,
+              "lab_2": 0.03
+            },
+            "minimum_likelihood": 0.03,
+            "reason": "Parvovirus B19 can cause viral symptoms in pregnancy but this presentation is less typical, and CMV serology does not support it."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.5,
+              "lab_2": 0.78
+            },
+            "minimum_likelihood": 0.5,
+            "reason": "Coxsackie B can cause myopericarditis with chest pain and fever, but pharyngitis/cough are nonspecific; CMV serology supports CMV instead of Coxsackie as the main cause."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.04
+            },
+            "minimum_likelihood": 0.04,
+            "reason": "Listeriosis in pregnancy can cause fever and systemic symptoms, but pharyngitis/cough/chest pain are less typical, and CMV serology makes this unlikely."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.88,
+              "lab_2": 0.98
+            },
+            "minimum_likelihood": 0.88,
+            "reason": "Pregnant patient with viral-like syndrome is compatible; positive CMV IgM/IgG with low avidity strongly supports primary CMV infection in pregnancy."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.86,
+              "lab_2": 0.9
+            },
+            "minimum_likelihood": 0.86,
+            "reason": "Fever, fatigue, and pharyngitis fit CMV mononucleosis-like illness; serology strongly supports acute CMV infection."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.5,
+              "lab_2": 0.78
+            },
+            "minimum_likelihood": 0.5,
+            "reason": "Cough and chest pain could occur with pneumonitis, but the presentation is nonspecific; CMV serology is compatible with primary CMV."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.42,
+              "lab_2": 0.8
+            },
+            "minimum_likelihood": 0.42,
+            "reason": "Acute chest pain can fit myopericarditis, though pharyngitis/fatigue are less specific; acute CMV serology is compatible with CMV-related cardiac involvement."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.7
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Systemic viral symptoms are possible but pharyngitis, cough, and chest pain are not typical hepatitis features; acute CMV serology is still compatible with primary CMV that could include hepatitis."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.75,
+              "lab_2": 0.1
+            },
+            "minimum_likelihood": 0.1,
+            "reason": "Fever, fatigue, and pharyngitis are classic for EBV mononucleosis, but CMV IgM/IgG with low avidity argues against EBV as the explanation for this exact evidence."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.6,
+              "lab_2": 0.12
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Acute HIV can present with fever, pharyngitis, and fatigue, though chest pain/cough are less typical; CMV serology is not supportive of HIV as the main diagnosis."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.1,
+              "lab_2": 0.08
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "Toxoplasmosis in pregnancy is usually more subclinical or causes lymphadenopathy rather than pharyngitis/cough/chest pain; CMV serology makes this unlikely."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.2,
+              "lab_2": 0.1
+            },
+            "minimum_likelihood": 0.1,
+            "reason": "Parvovirus B19 in pregnancy can cause systemic symptoms but pharyngitis/cough/chest pain are not typical; CMV serology is not supportive."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.72,
+              "lab_2": 0.12
+            },
+            "minimum_likelihood": 0.12,
+            "reason": "Atypical pneumonia can present with fever, cough, fatigue, and chest pain, but pharyngitis is less classic; CMV serology favors CMV over Mycoplasma."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.6,
+              "lab_2": 0.18
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Acute viral pericarditis can cause chest pain with fever and viral prodrome, but pharyngitis/cough are nonspecific; CMV serology suggests CMV rather than generic viral pericarditis."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.14,
+              "lab_2": 0.05
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "Rubella can cause fever and pharyngitis in pregnancy but cough/chest pain are not a strong fit, and the CMV serology is contradictory to rubella."
+          }
+        ],
+        [
+          {
+            "id": "d00",
+            "likelihoods": {
+              "initial": 0.78,
+              "lab_2": 0.98
+            },
+            "minimum_likelihood": 0.78,
+            "reason": "Pregnant patient with viral syndrome is compatible; positive CMV IgM/IgG with low avidity strongly supports primary CMV infection."
+          },
+          {
+            "id": "d01",
+            "likelihoods": {
+              "initial": 0.72,
+              "lab_2": 0.45
+            },
+            "minimum_likelihood": 0.45,
+            "reason": "CMV mononucleosis can present with fever, fatigue, pharyngitis, and sometimes cough; serology is somewhat compatible, though low-avidity IgG is more specific for primary infection than this syndrome label."
+          },
+          {
+            "id": "d02",
+            "likelihoods": {
+              "initial": 0.25,
+              "lab_2": 0.22
+            },
+            "minimum_likelihood": 0.22,
+            "reason": "Cough and chest pain could occur with pneumonitis, but pharyngitis/fatigue are nonspecific and the serology suggests CMV rather than proving lung involvement."
+          },
+          {
+            "id": "d03",
+            "likelihoods": {
+              "initial": 0.76,
+              "lab_2": 0.03
+            },
+            "minimum_likelihood": 0.03,
+            "reason": "Initial mononucleosis-like illness in pregnancy is compatible, but CMV IgM/IgG with low avidity strongly argues against primary EBV infection."
+          },
+          {
+            "id": "d04",
+            "likelihoods": {
+              "initial": 0.55,
+              "lab_2": 0.01
+            },
+            "minimum_likelihood": 0.01,
+            "reason": "Acute HIV seroconversion can cause fever, pharyngitis, fatigue, and cough, but CMV serology with low avidity is not what would be expected if HIV were the true diagnosis."
+          },
+          {
+            "id": "d05",
+            "likelihoods": {
+              "initial": 0.08,
+              "lab_2": 0.01
+            },
+            "minimum_likelihood": 0.01,
+            "reason": "Toxoplasmosis in pregnancy is usually not associated with this URI-like syndrome or CMV serology pattern."
+          },
+          {
+            "id": "d06",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.02
+            },
+            "minimum_likelihood": 0.02,
+            "reason": "Parvovirus B19 in pregnancy can cause febrile illness, but pharyngitis/cough/chest pain are less typical and CMV serology is discordant."
+          },
+          {
+            "id": "d07",
+            "likelihoods": {
+              "initial": 0.22,
+              "lab_2": 0.25
+            },
+            "minimum_likelihood": 0.22,
+            "reason": "Acute chest pain during a viral illness could fit pericarditis, but the classic systemic/respiratory symptoms are nonspecific and CMV serology only indirectly supports a CMV-related cause."
+          },
+          {
+            "id": "d08",
+            "likelihoods": {
+              "initial": 0.18,
+              "lab_2": 0.25
+            },
+            "minimum_likelihood": 0.18,
+            "reason": "Chest pain with febrile viral syndrome could reflect myocarditis, but the presentation is not specific and CMV serology only modestly supports CMV as the trigger."
+          },
+          {
+            "id": "d09",
+            "likelihoods": {
+              "initial": 0.7,
+              "lab_2": 0.08
+            },
+            "minimum_likelihood": 0.08,
+            "reason": "Fever, cough, fatigue, and chest pain are compatible with atypical pneumonia, but positive CMV IgM/IgG with low avidity makes a nonspecific bacterial/other viral pneumonia less likely."
+          },
+          {
+            "id": "d10",
+            "likelihoods": {
+              "initial": 0.65,
+              "lab_2": 0.05
+            },
+            "minimum_likelihood": 0.05,
+            "reason": "Influenza can cause fever, fatigue, pharyngitis, cough, and chest discomfort in pregnancy, but the CMV serology pattern points away from influenza as the main diagnosis."
+          },
+          {
+            "id": "d11",
+            "likelihoods": {
+              "initial": 0.32,
+              "lab_2": 0.02
+            },
+            "minimum_likelihood": 0.02,
+            "reason": "Rubella can present with febrile pharyngitis-like illness in pregnancy, but cough/chest pain are not classic and CMV serology with low avidity is not supportive."
+          }
+        ]
+      ],
+      "num_duplicate_new_introduced": 10,
+      "num_new_introduced": 10,
+      "num_old_pruned": 11,
+      "old_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "lab_2": 0.02
+          },
+          "minimum_likelihood": 0.02,
+          "reason": "EBV mononucleosis typically has positive EBV-specific serology, not CMV IgM/IgG with low avidity."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "lab_2": 0.98
+          },
+          "minimum_likelihood": 0.98,
+          "reason": "This serology is classic for acute primary CMV infection: CMV IgM and IgG positive with low IgG avidity."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "lab_2": 0.01
+          },
+          "minimum_likelihood": 0.01,
+          "reason": "Acute HIV would not usually produce this CMV-specific serologic pattern."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "lab_2": 0.05
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Influenza can cause viral syndromes and chest symptoms, but CMV serology would be incidental and unexpected."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "lab_2": 0.05
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "COVID-19 may mimic viral illness, but CMV IgM/IgG with low avidity is not expected from COVID itself."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "lab_2": 0.03
+          },
+          "minimum_likelihood": 0.03,
+          "reason": "Community-acquired pneumonia does not explain acute CMV seroconversion serology."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "lab_2": 0.01
+          },
+          "minimum_likelihood": 0.01,
+          "reason": "Pulmonary embolism is unrelated to CMV IgM/IgG positivity with low avidity."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "lab_2": 0.02
+          },
+          "minimum_likelihood": 0.02,
+          "reason": "Pericarditis could cause chest pain, but CMV serology is not a typical diagnostic finding unless CMV is the cause."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "lab_2": 0.08
+          },
+          "minimum_likelihood": 0.08,
+          "reason": "Viral myocarditis can occasionally be due to CMV, so this serology is possible but not definitive."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "lab_2": 0.01
+          },
+          "minimum_likelihood": 0.01,
+          "reason": "Lemierre syndrome is usually bacterial and would not be expected to produce this CMV serology."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "lab_2": 0.02
+          },
+          "minimum_likelihood": 0.02,
+          "reason": "Primary toxoplasmosis in pregnancy would not cause CMV-specific IgM/IgG positivity with low avidity."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "lab_2": 0.01
+          },
+          "minimum_likelihood": 0.01,
+          "reason": "Q fever is unrelated to CMV serologic evidence."
+        }
+      ],
+      "semantic_audit": [
+        {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "initial",
+          "reason": "No fetal CMV syndrome option; listed CMV mononucleosis/infection are maternal or alternative CMV syndromes, not the fetal congenital diagnosis."
+        },
+        {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "filtered_retention",
+          "reason": "Primary CMV infection during pregnancy is maternal infection, not fetal cytomegalovirus syndrome; other options are organ-specific CMV disease."
+        },
+        {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "filtered_retention_duplicate",
+          "reason": "Contains maternal CMV infection and organ-specific CMV complications, but not the fetal congenital CMV syndrome diagnosis."
+        }
+      ],
+      "source_id": "rare130",
+      "source_target_leak": false,
+      "stored_observation": {
+        "changes_over_time": "Not specified.",
+        "date": "Not specified",
+        "findings": "Positive for both CMV IgM and IgG with low IgG avidity test (< 10%).",
+        "procedure_name": "CMV IgM and IgG"
+      },
+      "subset": "rare",
+      "supports": {
+        "candidate_batches": [
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "CMV pneumonitis",
+            "CMV myocarditis",
+            "CMV pericarditis",
+            "Acute viral syndrome due to primary CMV infection",
+            "Primary Epstein-Barr virus infectious mononucleosis",
+            "Acute HIV seroconversion illness",
+            "Toxoplasma gondii primary infection during pregnancy",
+            "Parvovirus B19 infection during pregnancy",
+            "Coxsackievirus B viral myopericarditis",
+            "Listeriosis during pregnancy"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Primary CMV pneumonitis",
+            "Primary CMV myopericarditis",
+            "Primary CMV hepatitis",
+            "Infectious mononucleosis due to Epstein-Barr virus",
+            "Acute human immunodeficiency virus infection",
+            "Toxoplasmosis acquired during pregnancy",
+            "Parvovirus B19 infection during pregnancy",
+            "Atypical community-acquired pneumonia due to Mycoplasma pneumoniae",
+            "Acute viral pericarditis",
+            "Primary rubella infection during pregnancy"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Cytomegalovirus pneumonitis",
+            "Primary Epstein-Barr virus infectious mononucleosis during pregnancy",
+            "Acute HIV seroconversion illness",
+            "Toxoplasmosis acquired during pregnancy",
+            "Parvovirus B19 infection during pregnancy",
+            "Acute viral pericarditis due to cytomegalovirus",
+            "Viral myocarditis due to cytomegalovirus",
+            "Community-acquired atypical pneumonia",
+            "Influenza infection during pregnancy",
+            "Acute rubella infection during pregnancy"
+          ]
+        ],
+        "duplicate_candidate_batches": [
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Acute CMV pneumonitis",
+            "Acute CMV pericarditis",
+            "Acute CMV myocarditis",
+            "Primary Epstein-Barr virus infectious mononucleosis",
+            "Acute HIV seroconversion syndrome",
+            "Toxoplasmosis during pregnancy",
+            "Parvovirus B19 infection during pregnancy",
+            "Influenza with viral pleurodynia",
+            "Atypical pneumonia due to Mycoplasma pneumoniae",
+            "Viral pharyngitis due to adenovirus"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Primary maternal cytomegalovirus pneumonitis",
+            "Primary maternal cytomegalovirus myopericarditis",
+            "Primary maternal cytomegalovirus hepatitis",
+            "Primary maternal cytomegalovirus pleuritis",
+            "Acute Epstein-Barr virus infectious mononucleosis in pregnancy",
+            "Acute HIV seroconversion syndrome during pregnancy",
+            "Toxoplasma gondii primary infection during pregnancy",
+            "Parvovirus B19 infection during pregnancy",
+            "Acute viral myocarditis during pregnancy",
+            "Community-acquired atypical pneumonia during pregnancy"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Acute cytomegalovirus pneumonitis",
+            "Cytomegalovirus pericarditis",
+            "Cytomegalovirus myocarditis",
+            "Primary Epstein-Barr virus infectious mononucleosis",
+            "Acute HIV seroconversion syndrome",
+            "Toxoplasmosis acquired during pregnancy",
+            "Parvovirus B19 infection during pregnancy",
+            "Influenza viral respiratory infection during pregnancy",
+            "Atypical community-acquired pneumonia due to Mycoplasma pneumoniae",
+            "Viral pleurodynia due to enterovirus infection"
+          ]
+        ],
+        "duplicate_filtered_candidate_batches": [
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Acute CMV pneumonitis",
+            "Acute CMV pericarditis",
+            "Acute CMV myocarditis"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Primary maternal cytomegalovirus pneumonitis",
+            "Primary maternal cytomegalovirus myopericarditis",
+            "Acute viral myocarditis during pregnancy"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Acute cytomegalovirus pneumonitis",
+            "Cytomegalovirus pericarditis",
+            "Cytomegalovirus myocarditis"
+          ]
+        ],
+        "filtered_candidate_batches": [
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "CMV pneumonitis",
+            "CMV myocarditis",
+            "CMV pericarditis",
+            "Acute viral syndrome due to primary CMV infection",
+            "Coxsackievirus B viral myopericarditis"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Primary CMV pneumonitis",
+            "Primary CMV myopericarditis"
+          ],
+          [
+            "Primary cytomegalovirus infection during pregnancy",
+            "Cytomegalovirus mononucleosis syndrome",
+            "Cytomegalovirus pneumonitis",
+            "Acute viral pericarditis due to cytomegalovirus"
+          ]
+        ],
+        "filtered_retention": [
+          "Cytomegalovirus mononucleosis syndrome",
+          "Primary cytomegalovirus infection during pregnancy",
+          "CMV pneumonitis",
+          "CMV myocarditis",
+          "CMV pericarditis",
+          "Acute viral syndrome due to primary CMV infection",
+          "Coxsackievirus B viral myopericarditis",
+          "Primary CMV pneumonitis",
+          "Primary CMV myopericarditis",
+          "Cytomegalovirus pneumonitis",
+          "Acute viral pericarditis due to cytomegalovirus"
+        ],
+        "filtered_retention_duplicate": [
+          "Cytomegalovirus mononucleosis syndrome",
+          "Primary cytomegalovirus infection during pregnancy",
+          "Acute CMV pneumonitis",
+          "Acute CMV pericarditis",
+          "Acute CMV myocarditis",
+          "Primary maternal cytomegalovirus pneumonitis",
+          "Primary maternal cytomegalovirus myopericarditis",
+          "Acute viral myocarditis during pregnancy",
+          "Acute cytomegalovirus pneumonitis",
+          "Cytomegalovirus pericarditis",
+          "Cytomegalovirus myocarditis"
+        ],
+        "initial": [
+          "Infectious mononucleosis due to Epstein-Barr virus",
+          "Cytomegalovirus mononucleosis syndrome",
+          "Acute HIV seroconversion syndrome",
+          "Influenza with viral pleurisy or myopericarditis",
+          "COVID-19 with viral pleurisy or myopericarditis",
+          "Community-acquired pneumonia",
+          "Pulmonary embolism in pregnancy",
+          "Acute pericarditis",
+          "Viral myocarditis",
+          "Lemierre syndrome",
+          "Primary toxoplasmosis in pregnancy",
+          "Q fever"
+        ],
+        "retained_old": [
+          "Cytomegalovirus mononucleosis syndrome"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Fetal cytomegalovirus syndrome"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed",
+  "summary": {
+    "duplicate_new_introduced": [
+      0,
+      10
+    ],
+    "duplicate_truth_score_gaps": [
+      0.0,
+      0.0
+    ],
+    "exact_overlap_jaccards_descriptive": [
+      1.0,
+      0.1
+    ],
+    "gates": {
+      "all_final_supports_size_twelve": false,
+      "all_pass": false,
+      "at_least_one_substantive_transition": true,
+      "both_duplicate_truth_score_gaps_at_most_0_05": true,
+      "candidate_generation_prompts_exact": true,
+      "exactly_30_requests": true,
+      "no_hidden_target_in_source_evidence": true,
+      "truth_coverage_not_lost": true,
+      "zero_reasoning": true
+    },
+    "new_introduced": [
+      0,
+      10
+    ],
+    "old_pruned": [
+      0,
+      11
+    ],
+    "physical_requests": 30,
+    "reasoning_tokens": 0,
+    "substantive_transition_case_ids": [
+      "rare130"
+    ],
+    "truth_score_traces": [
+      [
+        0.76,
+        0.76,
+        0.76
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "usage": {
+    "physical_requests": 30,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "candidate": {
+        "adapter_completion_tokens": 653,
+        "adapter_cost_usd": 0.012772499999999999,
+        "adapter_prompt_tokens": 1191,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11245,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1565,
+            "cost_usd": 0.030012500000000004,
+            "prompt_tokens": 2615,
+            "reasoning_tokens": 0,
+            "requests": 14
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9680,
+            "cost_usd": 0.049569,
+            "prompt_tokens": 8012,
+            "reasoning_tokens": 0,
+            "requests": 16
+          }
+        },
+        "prompt_tokens": 10627,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.705773722999957,
+        "requests": 30,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0795815,
+        "run_remaining_usd": 0.42041850000000003,
+        "total_spent_usd": 48.679028972457196
+      },
+      "candidate_duplicate": {
+        "adapter_completion_tokens": 700,
+        "adapter_cost_usd": 0.013477499999999998,
+        "adapter_prompt_tokens": 1191,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11245,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1565,
+            "cost_usd": 0.030012500000000004,
+            "prompt_tokens": 2615,
+            "reasoning_tokens": 0,
+            "requests": 14
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9680,
+            "cost_usd": 0.049569,
+            "prompt_tokens": 8012,
+            "reasoning_tokens": 0,
+            "requests": 16
+          }
+        },
+        "prompt_tokens": 10627,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.705773722999957,
+        "requests": 30,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0795815,
+        "run_remaining_usd": 0.42041850000000003,
+        "total_spent_usd": 48.679028972457196
+      },
+      "initial": {
+        "adapter_completion_tokens": 212,
+        "adapter_cost_usd": 0.0037625000000000002,
+        "adapter_prompt_tokens": 233,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11245,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1565,
+            "cost_usd": 0.030012500000000004,
+            "prompt_tokens": 2615,
+            "reasoning_tokens": 0,
+            "requests": 14
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9680,
+            "cost_usd": 0.049569,
+            "prompt_tokens": 8012,
+            "reasoning_tokens": 0,
+            "requests": 16
+          }
+        },
+        "prompt_tokens": 10627,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.705773722999957,
+        "requests": 30,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0795815,
+        "run_remaining_usd": 0.42041850000000003,
+        "total_spent_usd": 48.679028972457196
+      },
+      "judge": {
+        "adapter_completion_tokens": 286,
+        "adapter_cost_usd": 0.00197775,
+        "adapter_prompt_tokens": 921,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11245,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1565,
+            "cost_usd": 0.030012500000000004,
+            "prompt_tokens": 2615,
+            "reasoning_tokens": 0,
+            "requests": 14
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9680,
+            "cost_usd": 0.049569,
+            "prompt_tokens": 8012,
+            "reasoning_tokens": 0,
+            "requests": 16
+          }
+        },
+        "prompt_tokens": 10627,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.705773722999957,
+        "requests": 30,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0795815,
+        "run_remaining_usd": 0.42041850000000003,
+        "total_spent_usd": 48.679028972457196
+      },
+      "new_filter": {
+        "adapter_completion_tokens": 4150,
+        "adapter_cost_usd": 0.02096925,
+        "adapter_prompt_tokens": 3059,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11245,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1565,
+            "cost_usd": 0.030012500000000004,
+            "prompt_tokens": 2615,
+            "reasoning_tokens": 0,
+            "requests": 14
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9680,
+            "cost_usd": 0.049569,
+            "prompt_tokens": 8012,
+            "reasoning_tokens": 0,
+            "requests": 16
+          }
+        },
+        "prompt_tokens": 10627,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.705773722999957,
+        "requests": 30,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0795815,
+        "run_remaining_usd": 0.42041850000000003,
+        "total_spent_usd": 48.679028972457196
+      },
+      "new_filter_duplicate": {
+        "adapter_completion_tokens": 4207,
+        "adapter_cost_usd": 0.02126025,
+        "adapter_prompt_tokens": 3105,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11245,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1565,
+            "cost_usd": 0.030012500000000004,
+            "prompt_tokens": 2615,
+            "reasoning_tokens": 0,
+            "requests": 14
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9680,
+            "cost_usd": 0.049569,
+            "prompt_tokens": 8012,
+            "reasoning_tokens": 0,
+            "requests": 16
+          }
+        },
+        "prompt_tokens": 10627,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.705773722999957,
+        "requests": 30,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0795815,
+        "run_remaining_usd": 0.42041850000000003,
+        "total_spent_usd": 48.679028972457196
+      },
+      "old_filter": {
+        "adapter_completion_tokens": 1037,
+        "adapter_cost_usd": 0.00536175,
+        "adapter_prompt_tokens": 927,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11245,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1565,
+            "cost_usd": 0.030012500000000004,
+            "prompt_tokens": 2615,
+            "reasoning_tokens": 0,
+            "requests": 14
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9680,
+            "cost_usd": 0.049569,
+            "prompt_tokens": 8012,
+            "reasoning_tokens": 0,
+            "requests": 16
+          }
+        },
+        "prompt_tokens": 10627,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.705773722999957,
+        "requests": 30,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0795815,
+        "run_remaining_usd": 0.42041850000000003,
+        "total_spent_usd": 48.679028972457196
+      }
+    }
+  }
+}
