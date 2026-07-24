@@ -55,6 +55,8 @@ from scripts.movielens_profile_dynamics_gate_v3 import (
 SELECTION_SEED = 24305
 SMOKE_USER_IDS = (113, 130)
 FORMAL_USER_IDS = (158, 194, 227, 234, 323, 468, 494, 551, 579, 679, 710, 854)
+FORMAL_SCREEN_USER_IDS = FORMAL_USER_IDS
+PROSPECTIVE_ENROLLMENT_COUNT: int | None = None
 ALL_SELECTED_USER_IDS = SMOKE_USER_IDS + FORMAL_USER_IDS
 CANDIDATE_POOL_SIZE = 16
 SELECTED_CANDIDATE_COUNT = 4
@@ -150,7 +152,9 @@ def run_gate(
         raise ValueError("stage must be serving_smoke or formal")
     ratings, items = load_movielens(data_dir)
     selected_user_ids(ratings)
-    user_ids = SMOKE_USER_IDS if stage == "serving_smoke" else FORMAL_USER_IDS
+    user_ids = (
+        SMOKE_USER_IDS if stage == "serving_smoke" else FORMAL_SCREEN_USER_IDS
+    )
     generator, likelihood = _build_models(config, likelihood_model)
     raw: dict[str, Any] = {}
 
@@ -228,12 +232,24 @@ def run_gate(
         max_eigs = [max(values) for values in all_pool_eigs]
         mean_max_eig = float(np.mean(max_eigs))
         users_above_threshold = sum(value >= 0.02 for value in max_eigs)
-        if mean_max_eig < 0.02 or users_above_threshold < 8:
+        enrollment_indices = [
+            index for index, value in enumerate(max_eigs) if value >= 0.02
+        ]
+        insufficient_enrollment = (
+            PROSPECTIVE_ENROLLMENT_COUNT is not None
+            and len(enrollment_indices) < PROSPECTIVE_ENROLLMENT_COUNT
+        )
+        population_gate_failed = (
+            PROSPECTIVE_ENROLLMENT_COUNT is None
+            and (mean_max_eig < 0.02 or users_above_threshold < 8)
+        )
+        if insufficient_enrollment or population_gate_failed:
             usage = _usage(generator, likelihood)
+            expected_screen_requests = 2 * len(user_ids)
             gates = {
-                "all_users_completed": len(user_ids) == 12,
+                "all_users_completed": len(user_ids) == len(FORMAL_SCREEN_USER_IDS),
                 "exact_sensitivity_screen_request_count": (
-                    int(usage["physical_requests"]) == 24
+                    int(usage["physical_requests"]) == expected_screen_requests
                 ),
                 "zero_reasoning_tokens": int(usage["reasoning_tokens"]) == 0,
                 "mean_max_immediate_eig_at_least_0_02": mean_max_eig >= 0.02,
@@ -241,6 +257,10 @@ def run_gate(
                     users_above_threshold >= 8
                 ),
             }
+            if PROSPECTIVE_ENROLLMENT_COUNT is not None:
+                gates["prospective_enrollment_complete"] = (
+                    len(enrollment_indices) >= PROSPECTIVE_ENROLLMENT_COUNT
+                )
             gates["all_pass"] = False
             return {
                 "schema_version": 4,
@@ -262,6 +282,7 @@ def run_gate(
                     "likelihood_history_hidden": True,
                     "v1_v2_v3_users_excluded": True,
                     "formal_sensitivity_futility_stop": True,
+                    "prospective_enrollment_count": PROSPECTIVE_ENROLLMENT_COUNT,
                     "candidate_outcomes_not_read": True,
                     "heldout_ratings_not_read": True,
                     "raw_responses_private_and_untracked": True,
@@ -298,6 +319,39 @@ def run_gate(
                 ],
                 "usage": usage,
             }
+        if PROSPECTIVE_ENROLLMENT_COUNT is not None:
+            enrollment_indices = enrollment_indices[:PROSPECTIVE_ENROLLMENT_COUNT]
+            screen_user_ids = tuple(user_ids)
+            user_ids = tuple(user_ids[index] for index in enrollment_indices)
+            histories = [histories[index] for index in enrollment_indices]
+            initial_profiles = [
+                initial_profiles[index] for index in enrollment_indices
+            ]
+            heldout_ids_many = [
+                heldout_ids_many[index] for index in enrollment_indices
+            ]
+            candidate_pools = [
+                candidate_pools[index] for index in enrollment_indices
+            ]
+            query_ids_many = [
+                query_ids_many[index] for index in enrollment_indices
+            ]
+            initial_likelihoods = [
+                initial_likelihoods[index] for index in enrollment_indices
+            ]
+            all_pool_eigs = [
+                all_pool_eigs[index] for index in enrollment_indices
+            ]
+            selected_indices = [
+                selected_indices[index] for index in enrollment_indices
+            ]
+            selected_movie_ids = [
+                selected_movie_ids[index] for index in enrollment_indices
+            ]
+        else:
+            screen_user_ids = tuple(user_ids)
+    else:
+        screen_user_ids = tuple(user_ids)
     branch_movie_ids_many = [
         movie_ids[:1] if stage == "serving_smoke" else movie_ids
         for movie_ids in selected_movie_ids
@@ -485,6 +539,18 @@ def run_gate(
 
     usage = _usage(generator, likelihood)
     summary = summarize(records, usage, stage=stage)
+    if stage == "formal" and PROSPECTIVE_ENROLLMENT_COUNT is not None:
+        expected_requests = (
+            2 * len(FORMAL_SCREEN_USER_IDS)
+            + 8 * PROSPECTIVE_ENROLLMENT_COUNT
+        )
+        summary["gates"]["exact_physical_request_count"] = (
+            int(usage["physical_requests"]) == expected_requests
+        )
+        summary["gates"]["prospective_enrollment_complete"] = (
+            len(records) == PROSPECTIVE_ENROLLMENT_COUNT
+        )
+        summary["gates"]["all_pass"] = all(summary["gates"].values())
     return {
         "schema_version": 4,
         "status": "passed" if summary["gates"]["all_pass"] else "gate_failed",
@@ -495,6 +561,8 @@ def run_gate(
             "items_sha256": ITEMS_SHA256,
             "readme_sha256": README_SHA256,
             "user_ids": list(user_ids),
+            "screen_user_ids": list(screen_user_ids),
+            "prospective_enrollment_count": PROSPECTIVE_ENROLLMENT_COUNT,
             "initial_movie_ids": list(INITIAL_MOVIE_IDS),
             "candidate_pool_size": CANDIDATE_POOL_SIZE,
             "selected_candidate_count": SELECTED_CANDIDATE_COUNT,
