@@ -57,6 +57,8 @@ SMOKE_USER_IDS = (113, 130)
 FORMAL_USER_IDS = (158, 194, 227, 234, 323, 468, 494, 551, 579, 679, 710, 854)
 FORMAL_SCREEN_USER_IDS = FORMAL_USER_IDS
 PROSPECTIVE_ENROLLMENT_COUNT: int | None = None
+SEMANTIC_RANKING_MESSAGES: Any | None = None
+SEMANTIC_RANKING_PARSE: Any | None = None
 ALL_SELECTED_USER_IDS = SMOKE_USER_IDS + FORMAL_USER_IDS
 CANDIDATE_POOL_SIZE = 16
 SELECTED_CANDIDATE_COUNT = 4
@@ -352,6 +354,37 @@ def run_gate(
             screen_user_ids = tuple(user_ids)
     else:
         screen_user_ids = tuple(user_ids)
+    semantic_scores_many: list[list[float]] | None = None
+    if SEMANTIC_RANKING_MESSAGES is not None:
+        ranking_prompts = [
+            SEMANTIC_RANKING_MESSAGES(
+                initial_profiles[user_index],
+                [
+                    items[selected_movie_ids[user_index][candidate_index]]
+                    for candidate_index in range(SELECTED_CANDIDATE_COUNT)
+                ],
+                [items[movie_id] for movie_id in heldout_ids_many[user_index]],
+                initial_likelihoods[user_index][
+                    :,
+                    list(selected_indices[user_index]),
+                    :,
+                ],
+            )
+            for user_index in range(len(user_ids))
+        ]
+        ranking_raw = generator.chat_complete_messages_batched(
+            ranking_prompts,
+            temperature=0.0,
+            block_size=config.batched_block_size,
+            max_new_tokens=config.openrouter_max_output_tokens,
+        )
+        raw["semantic_ranking"] = ranking_raw
+        _write_raw_checkpoint(
+            raw_checkpoint_path, stage=stage, user_ids=user_ids, raw=raw
+        )
+        semantic_scores_many = [
+            SEMANTIC_RANKING_PARSE(response) for response in ranking_raw
+        ]
     branch_movie_ids_many = [
         movie_ids[:1] if stage == "serving_smoke" else movie_ids
         for movie_ids in selected_movie_ids
@@ -530,6 +563,11 @@ def run_gate(
             ),
             "branches": branches,
         }
+        if semantic_scores_many is not None:
+            record["semantic_lookahead_scores"] = semantic_scores_many[user_index]
+            record["semantic_lookahead_selected_branch"] = int(
+                np.argmax(semantic_scores_many[user_index])
+            )
         if stage == "serving_smoke":
             record["replay_profiles"] = [
                 _text_hash(row["description"]) for row in replay_rows[user_index]
@@ -539,10 +577,24 @@ def run_gate(
 
     usage = _usage(generator, likelihood)
     summary = summarize(records, usage, stage=stage)
+    if stage == "serving_smoke" and SEMANTIC_RANKING_MESSAGES is not None:
+        summary["gates"]["exact_physical_request_count"] = (
+            int(usage["physical_requests"]) == 12
+        )
+        summary["gates"]["all_pass"] = all(
+            value
+            for name, value in summary["gates"].items()
+            if name != "all_pass"
+        )
     if stage == "formal" and PROSPECTIVE_ENROLLMENT_COUNT is not None:
         expected_requests = (
             2 * len(FORMAL_SCREEN_USER_IDS)
             + 8 * PROSPECTIVE_ENROLLMENT_COUNT
+            + (
+                PROSPECTIVE_ENROLLMENT_COUNT
+                if SEMANTIC_RANKING_MESSAGES is not None
+                else 0
+            )
         )
         summary["gates"]["exact_physical_request_count"] = (
             int(usage["physical_requests"]) == expected_requests
@@ -567,6 +619,7 @@ def run_gate(
             "user_ids": list(user_ids),
             "screen_user_ids": list(screen_user_ids),
             "prospective_enrollment_count": PROSPECTIVE_ENROLLMENT_COUNT,
+            "semantic_ranking_enabled": SEMANTIC_RANKING_MESSAGES is not None,
             "initial_movie_ids": list(INITIAL_MOVIE_IDS),
             "candidate_pool_size": CANDIDATE_POOL_SIZE,
             "selected_candidate_count": SELECTED_CANDIDATE_COUNT,
