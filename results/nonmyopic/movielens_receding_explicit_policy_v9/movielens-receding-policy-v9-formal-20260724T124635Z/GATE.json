@@ -1,0 +1,1191 @@
+{
+  "protocol": {
+    "candidate_count_per_state": 4,
+    "candidate_outcomes_read_only_after_each_round_tree_frozen": true,
+    "candidate_pool_size": 16,
+    "common_tree_for_identical_policy_states": true,
+    "heldout_count": 8,
+    "heldout_ratings_read_only_after_policy_paths_fixed": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      1,
+      98
+    ],
+    "likelihood_history_hidden": true,
+    "likelihood_sum_tolerance": 0.1,
+    "normalized_probability_rows": 4,
+    "operational_replacement_requests": 1,
+    "outcomes_per_candidate": 5,
+    "policies": [
+      "receding_explicit",
+      "immediate_eig",
+      "seeded_random"
+    ],
+    "private_raw_sha256": "ce32f025f2dc1120dbcd93564faefa71149845897c3847e820cc9f39a46d17b1",
+    "raw_responses_private_and_untracked": true,
+    "recovery_source_private_raw_sha256": "bec011754b9f7c90e01f484b1754a8ba86e53dac0b1e358536474febd6909ee0",
+    "scientific_expected_requests": 1256,
+    "screen_user_ids": [
+      880,
+      94,
+      868,
+      745,
+      301,
+      246,
+      59,
+      308,
+      184,
+      216,
+      465,
+      632,
+      497,
+      339,
+      121,
+      715,
+      295,
+      312,
+      457,
+      287,
+      913,
+      664,
+      458,
+      1,
+      23,
+      97,
+      561,
+      493,
+      311,
+      292,
+      806,
+      249,
+      896,
+      77,
+      274,
+      435,
+      344,
+      682,
+      363,
+      593,
+      883,
+      514,
+      222,
+      535,
+      343,
+      805,
+      330,
+      44
+    ],
+    "selection_seed": 24310,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "formal",
+    "user_ids": [
+      880,
+      246,
+      59,
+      308,
+      465,
+      632,
+      497,
+      339
+    ]
+  },
+  "records": [
+    {
+      "max_initial_immediate_eig": 0.07166572808091054,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.4251690590598733,
+          "query_movie_ids": [
+            258,
+            288
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            },
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.3212252259501458
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.3602475973404655,
+          "query_movie_ids": [
+            204,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy",
+                "Sci-Fi"
+              ],
+              "title": "Back to the Future (1985)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.4777982438795298
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.369245092588612,
+          "query_movie_ids": [
+            7,
+            174
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Twelve Monkeys (1995)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure"
+              ],
+              "title": "Raiders of the Lost Ark (1981)"
+            }
+          ],
+          "round1_heldout_nll": 1.3369323065277572
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Liar Liar (1997)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Sci-Fi"
+          ],
+          "title": "Back to the Future (1985)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.51934527532923,
+        1.5424690966834915,
+        1.5630616252068723,
+        1.5148409479687015
+      ],
+      "q1_immediate_eig_values": [
+        0.07166572808091054,
+        0.021452237575804833,
+        0.006357040036532036,
+        0.0053014959521033855
+      ],
+      "user_id": 880
+    },
+    {
+      "max_initial_immediate_eig": 0.038711137279842545,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.698978741783794,
+          "query_movie_ids": [
+            288,
+            56
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Crime",
+                "Drama"
+              ],
+              "title": "Pulp Fiction (1994)"
+            }
+          ],
+          "round1_heldout_nll": 1.7421278181621338
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.6803032553934705,
+          "query_movie_ids": [
+            151,
+            174
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Adventure",
+                "Children's",
+                "Comedy"
+              ],
+              "title": "Willy Wonka and the Chocolate Factory (1971)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure"
+              ],
+              "title": "Raiders of the Lost Ark (1981)"
+            }
+          ],
+          "round1_heldout_nll": 1.8430007899270977
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.622279014498575,
+          "query_movie_ids": [
+            69,
+            181
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy",
+                "Romance",
+                "War"
+              ],
+              "title": "Forrest Gump (1994)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Return of the Jedi (1983)"
+            }
+          ],
+          "round1_heldout_nll": 1.734076344974822
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Liar Liar (1997)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Romance",
+            "War"
+          ],
+          "title": "Forrest Gump (1994)"
+        },
+        {
+          "genres": [
+            "Adventure",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Willy Wonka and the Chocolate Factory (1971)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.5231079758748445,
+        1.5281925028518915,
+        1.555352101722446,
+        1.5149282303525646
+      ],
+      "q1_immediate_eig_values": [
+        0.038711137279842545,
+        0.03403577202247443,
+        0.014703135021643332,
+        0.013678190853055217
+      ],
+      "user_id": 246
+    },
+    {
+      "max_initial_immediate_eig": 0.03548543101280788,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.4368081917512523,
+          "query_movie_ids": [
+            258,
+            56
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            },
+            {
+              "genres": [
+                "Crime",
+                "Drama"
+              ],
+              "title": "Pulp Fiction (1994)"
+            }
+          ],
+          "round1_heldout_nll": 1.6579398388055262
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.4940087836276958,
+          "query_movie_ids": [
+            288,
+            286
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Romance",
+                "War"
+              ],
+              "title": "English Patient, The (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.5039373728923953
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.4903583960729172,
+          "query_movie_ids": [
+            286,
+            181
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Romance",
+                "War"
+              ],
+              "title": "English Patient, The (1996)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Return of the Jedi (1983)"
+            }
+          ],
+          "round1_heldout_nll": 1.4667329260013264
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Jerry Maguire (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance",
+            "War"
+          ],
+          "title": "English Patient, The (1996)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.582387121362873,
+        1.5436581633638449,
+        1.5667307242418598,
+        1.569462103432739
+      ],
+      "q1_immediate_eig_values": [
+        0.03548543101280788,
+        0.006342836625327086,
+        0.005218429874364938,
+        0.004119864518581817
+      ],
+      "user_id": 59
+    },
+    {
+      "max_initial_immediate_eig": 0.021342702275778613,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.4252730497922836,
+          "query_movie_ids": [
+            151,
+            56
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Adventure",
+                "Children's",
+                "Comedy"
+              ],
+              "title": "Willy Wonka and the Chocolate Factory (1971)"
+            },
+            {
+              "genres": [
+                "Crime",
+                "Drama"
+              ],
+              "title": "Pulp Fiction (1994)"
+            }
+          ],
+          "round1_heldout_nll": 1.5466143571491981
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.4234458377602333,
+          "query_movie_ids": [
+            288,
+            294
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Comedy"
+              ],
+              "title": "Liar Liar (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.6154271474618258
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.4853339507123842,
+          "query_movie_ids": [
+            288,
+            121
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Independence Day (ID4) (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.6154271474618258
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Adventure",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Willy Wonka and the Chocolate Factory (1971)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.569904770418905,
+        1.547136404373461,
+        1.5748331371256379,
+        1.5729194693010757
+      ],
+      "q1_immediate_eig_values": [
+        0.021342702275778613,
+        0.019300775321931862,
+        0.01855207076669596,
+        0.01692287591381314
+      ],
+      "user_id": 308
+    },
+    {
+      "max_initial_immediate_eig": 0.06136204671980039,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.4779768172347287,
+          "query_movie_ids": [
+            127,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.3759328076164217
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.4563724782754104,
+          "query_movie_ids": [
+            318,
+            216
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "War"
+              ],
+              "title": "Schindler's List (1993)"
+            },
+            {
+              "genres": [
+                "Comedy",
+                "Romance"
+              ],
+              "title": "When Harry Met Sally... (1989)"
+            }
+          ],
+          "round1_heldout_nll": 1.3216349353933787
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.484024157529736,
+          "query_movie_ids": [
+            56,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Crime",
+                "Drama"
+              ],
+              "title": "Pulp Fiction (1994)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.4439940066988441
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "War"
+          ],
+          "title": "Schindler's List (1993)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.5467214628848382,
+        1.5667228807233846,
+        1.5359415165653734,
+        1.5779205365702647
+      ],
+      "q1_immediate_eig_values": [
+        0.06136204671980039,
+        0.044794216629589156,
+        0.03340245657999219,
+        0.030327803282178545
+      ],
+      "user_id": 465
+    },
+    {
+      "max_initial_immediate_eig": 0.029177895519149066,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.5881974009728472,
+          "query_movie_ids": [
+            258,
+            181
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Return of the Jedi (1983)"
+            }
+          ],
+          "round1_heldout_nll": 1.6166570088129215
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.6119593731127058,
+          "query_movie_ids": [
+            288,
+            172
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Drama",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Empire Strikes Back, The (1980)"
+            }
+          ],
+          "round1_heldout_nll": 1.617020274418119
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.5298382908879442,
+          "query_movie_ids": [
+            258,
+            56
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            },
+            {
+              "genres": [
+                "Crime",
+                "Drama"
+              ],
+              "title": "Pulp Fiction (1994)"
+            }
+          ],
+          "round1_heldout_nll": 1.6166570088129215
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Fugitive, The (1993)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Romance",
+            "War"
+          ],
+          "title": "Forrest Gump (1994)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.56575933659823,
+        1.510948135582729,
+        1.5463511477938214,
+        1.5473475021766712
+      ],
+      "q1_immediate_eig_values": [
+        0.029177895519149066,
+        0.021753684515342542,
+        0.01905413361480357,
+        0.006976026953785963
+      ],
+      "user_id": 632
+    },
+    {
+      "max_initial_immediate_eig": 0.06267226089523592,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.534919678690288,
+          "query_movie_ids": [
+            127,
+            288
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            },
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.5166930227456212
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.5547112233810552,
+          "query_movie_ids": [
+            294,
+            288
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy"
+              ],
+              "title": "Liar Liar (1997)"
+            },
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.6513563074856172
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.546827399677984,
+          "query_movie_ids": [
+            294,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy"
+              ],
+              "title": "Liar Liar (1997)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.6513563074856172
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Liar Liar (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.5579766163279412,
+        1.548115911936194,
+        1.5792904637203753,
+        1.567139295682609
+      ],
+      "q1_immediate_eig_values": [
+        0.06267226089523592,
+        0.027053001476682548,
+        0.025549681567368365,
+        0.024294497529052883
+      ],
+      "user_id": 497
+    },
+    {
+      "max_initial_immediate_eig": 0.03960002233377469,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.4518453315299205,
+          "query_movie_ids": [
+            258,
+            288
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            },
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.4025894790964437
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.49389220935706,
+          "query_movie_ids": [
+            288,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.196526878342496
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.4254022446376962,
+          "query_movie_ids": [
+            79,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Thriller"
+              ],
+              "title": "Fugitive, The (1993)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.2671571554127539
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Fugitive, The (1993)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.490954025567598,
+        1.4966640950081438,
+        1.4441925297078708,
+        1.5361801253688991
+      ],
+      "q1_immediate_eig_values": [
+        0.03960002233377469,
+        0.013745489576504122,
+        0.013491447337224516,
+        0.013187849277030983
+      ],
+      "user_id": 339
+    }
+  ],
+  "schema_version": 9,
+  "status": "gate_failed",
+  "summary": {
+    "expected_physical_requests": 1257,
+    "explicit_mean_nll_improvement_vs_immediate": -0.004471560929138807,
+    "explicit_wins_vs_immediate": 4,
+    "gates": {
+      "all_pass": false,
+      "all_policy_paths_have_two_distinct_queries": true,
+      "exact_dynamic_request_count": true,
+      "explicit_improves_mean_nll_by_0_03_vs_immediate": false,
+      "explicit_no_worse_than_random": false,
+      "explicit_wins_on_five_vs_immediate": false,
+      "prospective_enrollment_complete": true,
+      "unique_round2_state_count_in_range": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_final_heldout_nll": {
+      "immediate_eig": 1.5048960338518733,
+      "receding_explicit": 1.5093675947810121,
+      "seeded_random": 1.4941635683257313
+    },
+    "num_enrolled_users": 8,
+    "num_screen_users": 48,
+    "num_unique_round2_policy_states": 21
+  },
+  "usage": {
+    "adapter_cost_usd": 5.939140910000003,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 238652,
+        "adapter_cost_usd": 0.12420685999999995,
+        "adapter_prompt_tokens": 303857,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 421,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1666178,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 351456,
+            "cost_usd": 0.1787606499999997,
+            "prompt_tokens": 426894,
+            "reasoning_tokens": 0,
+            "requests": 629
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 1314722,
+            "cost_usd": 6.497114400000006,
+            "prompt_tokens": 1739172,
+            "reasoning_tokens": 0,
+            "requests": 628
+          }
+        },
+        "prompt_tokens": 2166066,
+        "reasoning_tokens": 0,
+        "remaining_usd": 6.292031753000089,
+        "requests": 1257,
+        "run_budget_usd": 9.0,
+        "run_cost_usd": 6.675875050000004,
+        "run_remaining_usd": 2.3241249499999963,
+        "total_spent_usd": 64.09277094245707
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 1173440,
+        "adapter_cost_usd": 5.814934050000003,
+        "adapter_prompt_tokens": 1555639,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 580,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1666178,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 351456,
+            "cost_usd": 0.1787606499999997,
+            "prompt_tokens": 426894,
+            "reasoning_tokens": 0,
+            "requests": 629
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 1314722,
+            "cost_usd": 6.497114400000006,
+            "prompt_tokens": 1739172,
+            "reasoning_tokens": 0,
+            "requests": 628
+          }
+        },
+        "prompt_tokens": 2166066,
+        "reasoning_tokens": 0,
+        "remaining_usd": 6.292031753000089,
+        "requests": 1257,
+        "run_budget_usd": 9.0,
+        "run_cost_usd": 6.675875050000004,
+        "run_remaining_usd": 2.3241249499999963,
+        "total_spent_usd": 64.09277094245707
+      }
+    },
+    "formal_run_cost_usd": 6.675875050000004,
+    "operational_replacement_requests": 1,
+    "physical_requests": 1257,
+    "physical_requests_this_invocation": 1001,
+    "prior_physical_requests": 256,
+    "reasoning_tokens": 0
+  }
+}

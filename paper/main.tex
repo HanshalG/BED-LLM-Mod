@@ -512,8 +512,12 @@ $.0612$ and immediate-EIG regret was $.0587$. A fresh verbal scorer failed, but 
 one-step regeneration passed: Spearman $+.274$, regret $.117$ versus $.195$ for EIG,
 and 4/4 wins. A common-tree depth-two policy then failed: final NLL was $1.515$ versus
 $1.484$ for depth one and $1.515$ for EIG. Exploratory score fidelity reversed at
-depth two (Spearman $-.526$), showing useful path-dependent semantic value but unstable
-composition.
+depth two (Spearman $-.526$). A fresh two-round receding policy avoided composed
+lookahead by rerunning the passed one-step scorer after each real answer, but also
+failed: final NLL was $1.509$ versus $1.505$ for EIG and $1.494$ for random, with
+4/8 wins over EIG. The policies chose different first queries on 8/8 users, showing
+useful path-dependent semantic value but insufficient action-level fidelity rather
+than policy collapse.
 
 \section{Why Horizon Magnifies Model Error}
 
