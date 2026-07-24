@@ -1,0 +1,2802 @@
+{
+  "protocol": {
+    "candidate_movie_ids": [
+      258,
+      181,
+      288,
+      1
+    ],
+    "committed_profile_text_omitted": true,
+    "heldout_count": 8,
+    "heldout_ratings_hidden_from_all_model_prompts": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "386124b2d66f91456013c36bd07374e8c8b523c27ddf7ab34ea1f18b22186e22",
+    "profile_count": 6,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "recorded_ratings_are_only_outcomes": true,
+    "retained_profile_count": 2,
+    "selection_seed": 24303,
+    "smoke_user_ids_disjoint_from_formal": true,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "formal",
+    "user_ids": [
+      378,
+      387,
+      416,
+      450,
+      470,
+      488,
+      533,
+      537,
+      580,
+      650,
+      676,
+      699
+    ],
+    "user_ids_hidden_from_all_model_prompts": true,
+    "v1_users_excluded": true
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "6e63ec0548143c4e4eec215fb49b1eaab0f091ea5861accac546ebee2344c12c",
+            "3e6c7512d2a6e704f1b2a6acaffe3ecff3a73f007fc7da82e1eaa0fc159cf4f5",
+            "1714e146a2ab130d279905e66ad357ecbd3f0f38ef2df441d57b7d53c4ff76d1",
+            "05736efe59009474e385f47781e67506f7feed59d4b9d7d1b2faeebd5263cb86",
+            "6b9c14812845f041d65a9ebcd525212782cd76321ce882c72a0e48b4da1019a2",
+            "29625f84919713a1c3bab164d5a104d005f7ca0387478c78b1993149fff6b934"
+          ],
+          "heldout_nll": 1.6206387830274744,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "bb0ec7fe846e0f0e94393e76b534e5e9ee2c4122291074d354ad9fae8b3bbb0f",
+            "1935eb0464633cd1da2050c6b5ff09be07ae636f64e802683032f20bf12d4d97",
+            "553388499ac51aa4bcc5f4f36b5f6f4a569bdc1d3bc344fb11077f0f59e6c378",
+            "f9e127b42477dcc5e27b3c4acc94170746b8b456fe681a557ddc8fcf2975841c",
+            "d0de1b6365211055e43823d1df134387f5402ed5b9e8e9f7fa055137c45a4b97",
+            "d3bd7cbc9648ef8bbf9679673c205026e6b804ab3992f60a8e5bd68c4aedee56"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "6e63ec0548143c4e4eec215fb49b1eaab0f091ea5861accac546ebee2344c12c",
+            "3e6c7512d2a6e704f1b2a6acaffe3ecff3a73f007fc7da82e1eaa0fc159cf4f5",
+            "1714e146a2ab130d279905e66ad357ecbd3f0f38ef2df441d57b7d53c4ff76d1",
+            "05736efe59009474e385f47781e67506f7feed59d4b9d7d1b2faeebd5263cb86",
+            "6b9c14812845f041d65a9ebcd525212782cd76321ce882c72a0e48b4da1019a2",
+            "29625f84919713a1c3bab164d5a104d005f7ca0387478c78b1993149fff6b934",
+            "98f841aec7bb5c91368d49104d52e502914440826a93d2e0150410452c723405",
+            "c35d1c5036ca9fb9a2c5d2736d67b110d5b788341a9289781f08eecc1b555cdc"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "39ac38247c98b7c2b4bf3a8c84ce3c3380d178972f02e5290009cbe63d705f46",
+            "ed33cc58357f3560f1a15ec1af56f32dc45fae32d09a8163cbe426b7c8d3bc81",
+            "d0666c1df466c949926c6fa19f936f2d5417895ed5cec05497762e3e907ef70b",
+            "e514625ff9fedb5635686c300bb9e4991d38868c370c8ff54175a0058a9525a2",
+            "781b020360df041842c7bfc0755b763498b406a92ec15e90de4a6fa3ca700cbe",
+            "f962d82e518958cbf585f88c02e4b76d5a98c7015b27e97b6bba309a7eefb919"
+          ],
+          "heldout_nll": 1.6334847759557132,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "c7a4b141e45bd0609915ace94553e285febe418701c990f1c80e075e81d59c22",
+            "13dbaacdba0c47e7a6b3a22e1c8cbb2b8009402a66ba6a2225539320696e17f9",
+            "c27de3406742f97c752522d248f5a2ca4a0893a6c853fd700499b53b57d1fe47",
+            "e25a8f188bb900b1bb9e86246d37e98ab84d8db93edb882b26053e86b81cd462",
+            "fe251403020d99b1fca35a33f19455367a57c7df8648d4d52031321a6ad72695",
+            "0222c93402dfcb8d014dc69a5c846fa9cc4d8e7f837c9e509b2959c5735142fd"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "39ac38247c98b7c2b4bf3a8c84ce3c3380d178972f02e5290009cbe63d705f46",
+            "ed33cc58357f3560f1a15ec1af56f32dc45fae32d09a8163cbe426b7c8d3bc81",
+            "d0666c1df466c949926c6fa19f936f2d5417895ed5cec05497762e3e907ef70b",
+            "e514625ff9fedb5635686c300bb9e4991d38868c370c8ff54175a0058a9525a2",
+            "781b020360df041842c7bfc0755b763498b406a92ec15e90de4a6fa3ca700cbe",
+            "f962d82e518958cbf585f88c02e4b76d5a98c7015b27e97b6bba309a7eefb919",
+            "4a752e6d182bc26905fe593aacc64a76f3fbe0886612575236ebf8d2dc795fd6",
+            "98f841aec7bb5c91368d49104d52e502914440826a93d2e0150410452c723405"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "d60b672cb6d6ca4d42ecd1b47ad756c4d5b66cc34ebad0139ac227f1f2efb7e1",
+            "9689d5ba9fa48d42fc9427437183848b6f04d65bbe7c3dc2dbccddfccf2402a3",
+            "a832becbc18b9e8117e34d3c8d7fc52a1d50f4b60600c7c6d5f413e599d0f0b0",
+            "8ad50cef94f00bf9959f8a98094ecb0a3479068299264ad7bdadf55d71743a21",
+            "38d08d6a632d50c5e29141ec816086779a5b01a7b7604b9485c2d30716d45b94",
+            "fd61d875809a61be6b824a956f570099853fe5264604f1e190c7bf2e53310c85"
+          ],
+          "heldout_nll": 1.5910316689463044,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "1e8b1f4b5d530858b896b65ead9586eea3b23ae07969964c51737eaa447d1ac0",
+            "df1dbf01b4d0296ea55149f07febbaab38bf8d52d38c00419f5373f9b3d8fb1b",
+            "0e7482ebf9d5cf33a70be935a7f02d3a6bab12d4eab483f6ef284ef44f56913c",
+            "b9a9497fe3176a6b4f6945f5ead046a8c314158249cc2580ac173de4011c7db0",
+            "ed29cbcb5b43fad5266e7ad5d71e94fa384d66f61473654113d2b928c8d318d9",
+            "5ed54aa5eb00c1bb4fd728f1dcf80cbbca28eb8cd24d307d93354f069904a326"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "d60b672cb6d6ca4d42ecd1b47ad756c4d5b66cc34ebad0139ac227f1f2efb7e1",
+            "9689d5ba9fa48d42fc9427437183848b6f04d65bbe7c3dc2dbccddfccf2402a3",
+            "a832becbc18b9e8117e34d3c8d7fc52a1d50f4b60600c7c6d5f413e599d0f0b0",
+            "8ad50cef94f00bf9959f8a98094ecb0a3479068299264ad7bdadf55d71743a21",
+            "38d08d6a632d50c5e29141ec816086779a5b01a7b7604b9485c2d30716d45b94",
+            "fd61d875809a61be6b824a956f570099853fe5264604f1e190c7bf2e53310c85",
+            "4a752e6d182bc26905fe593aacc64a76f3fbe0886612575236ebf8d2dc795fd6",
+            "527ad4cc1cb70e4190de52115e129745c856276f31368dc67319a94af7434b84"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "083f134d5841edf24f70f69c674e91aeab604768a3f56c2a97c1b407b0d701a4",
+            "548def20bc14619eb57de0f0e8c23c9a7d424cecccd1ca5647f5a23e60b28766",
+            "db5331352a39eedb5109a07953cdf6bd9d65497c33ae111c3473721ba8010f7e",
+            "e0b2d5af7eec2b57856b72281021ce2d9ff15c2cbca9e85bc4b146884e9213fe",
+            "3bd3cc20f09227db81abf46687dccad70a4632bbdd47736723feaf688b63cddc",
+            "d372f54fc31efa99170ea6512305fde266fab8cedc116517b5678b0e62063fbe"
+          ],
+          "heldout_nll": 1.6929618911058693,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "855beb89c455ceea28e27e4d3f6c374d5371df38c28da991e659bdbebcf6d512",
+            "0faf71fc6836795bb60da734388246e0c083704184fe3b8fe443d732fc1e8901",
+            "264f34ac4f707dea4a81c039611012c47adee7285252567e2bca710b8813655b",
+            "26c06f81b5ff6e28b5b0a273b0bea139884b0bd62ec52c2c43ff4e25082087fa",
+            "f3353514e065c2240652e68e0c6c25547e44428285040e6f596fbf5646c2c5c2",
+            "e28a61965ba2fc33675e5823a8b7ad0d9b5d96430c23f5b737ae0157d88992cb"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "083f134d5841edf24f70f69c674e91aeab604768a3f56c2a97c1b407b0d701a4",
+            "548def20bc14619eb57de0f0e8c23c9a7d424cecccd1ca5647f5a23e60b28766",
+            "db5331352a39eedb5109a07953cdf6bd9d65497c33ae111c3473721ba8010f7e",
+            "e0b2d5af7eec2b57856b72281021ce2d9ff15c2cbca9e85bc4b146884e9213fe",
+            "3bd3cc20f09227db81abf46687dccad70a4632bbdd47736723feaf688b63cddc",
+            "d372f54fc31efa99170ea6512305fde266fab8cedc116517b5678b0e62063fbe",
+            "2d718b6eb365725cc1c6fcbdac97999c608a68dccc0bc9abd0f19e7760203652",
+            "4a752e6d182bc26905fe593aacc64a76f3fbe0886612575236ebf8d2dc795fd6"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 2,
+      "immediate_eig_values": [
+        0.021227773971530084,
+        0.0034741500749195797,
+        0.022224865944633576,
+        0.0014017795789191823
+      ],
+      "initial_heldout_nll": 1.9873753954334115,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4a752e6d182bc26905fe593aacc64a76f3fbe0886612575236ebf8d2dc795fd6",
+        "98f841aec7bb5c91368d49104d52e502914440826a93d2e0150410452c723405",
+        "2d718b6eb365725cc1c6fcbdac97999c608a68dccc0bc9abd0f19e7760203652",
+        "527ad4cc1cb70e4190de52115e129745c856276f31368dc67319a94af7434b84",
+        "c35d1c5036ca9fb9a2c5d2736d67b110d5b788341a9289781f08eecc1b555cdc",
+        "0e8bd3c586b4429950a1568308520af9ce0547d0644df196bca6ee6dd8a6a6f1"
+      ],
+      "user_id": 378
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "beb0b9152da1fe628f392934e81de16996f4e9f54b55a5e9498f7e26b3a289c0",
+            "ce324d0541efa35bc4da3b708d757b1ec94ae4cd7551417870afcf159532c5b4",
+            "198dc065a13393764bcc62ef2ddb295797aded7d813bab66c6da3fea22b5394c",
+            "cb1a7b81bb007561c13a6b878701ef0dc2ddf6bebc06ddc618a7a359777b7efc",
+            "1556649395343870fe6678f95e496993c927218679c71dffa9a89e9692ca53c9",
+            "7171017e6deec436d6071e86f3f041870e8e3138f918b729d22be8141ff0f902"
+          ],
+          "heldout_nll": 1.5786058251359854,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "d9527e7e9021f2c95726dbf820248ee5c88d49fdb1b4880db55c25d1e5033740",
+            "372e7ca932dd76522269b6f93413c0e2624811202c978c8a65c87573f73ccbf7",
+            "35e4eae41f46734a3612747913fe83c0294c5222f825a19ddfb7a94f97a417eb",
+            "d589cf502763aea3d81198a38abbcf44283e57f6ad91073ced5ec144ae00f23f",
+            "bd4df261edb382a59bab8dfa84686bc7bafd574db1eb5b7208d24ea45d556691",
+            "d7e3c9fa533d8a4aee3381f73da91526381241babef558866c97c2e56b869e86"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "beb0b9152da1fe628f392934e81de16996f4e9f54b55a5e9498f7e26b3a289c0",
+            "ce324d0541efa35bc4da3b708d757b1ec94ae4cd7551417870afcf159532c5b4",
+            "198dc065a13393764bcc62ef2ddb295797aded7d813bab66c6da3fea22b5394c",
+            "cb1a7b81bb007561c13a6b878701ef0dc2ddf6bebc06ddc618a7a359777b7efc",
+            "1556649395343870fe6678f95e496993c927218679c71dffa9a89e9692ca53c9",
+            "7171017e6deec436d6071e86f3f041870e8e3138f918b729d22be8141ff0f902",
+            "23b09ec48ca8de99a2fbd92ad01650b5323327fbaa95d1e4a7131fcf2cbc32e6",
+            "c6218b63c9f8ace1105bcdacc11281112caaa76ad5124fc2f20d1e95a4707a32"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "b261b2808ff72479080e922616ffa2532e6ab41f995d5da2e7aa25a4ab4088bd",
+            "5f6aa556c0451c3e6caec1c4f0d866eb83c734c248a29adff5d6943959eb8e18",
+            "5baf62711559417717aef33d5e3e80266a4bc1a7f8d01a5e01a6707fd3eaae31",
+            "eadf6bac37a0c87726941de8736f72ba9c340e3197370c19b9903b551f7fcb85",
+            "9587bf77d40bd46996d3a15eab3214b8b649a1c9264ed07f1374355d3a282cd4",
+            "ab2aed1bfac79f3961287980a9dd7885c42dfbe2351752c67a4cce646e979f5a"
+          ],
+          "heldout_nll": 1.4991520219302918,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "a6afda1e0c1bf77a0fba132b185faa701710c6575dcc33e8469c019e85748551",
+            "5ba1c44d19df1c4c99d2bd0f36ba2e85d34d3f000daf26ea0ef50da92acde1d7",
+            "4a450304043140266d992682b884b39431e6eff8d07167f5c3134b83bbae06df",
+            "7c22629960fc83c1d33838eb42c1e015f4c7cc45fc036ea0450e7168b1bc06f5",
+            "1e1ce63e3ca25a4a123ec525c052cd2ff8160af064c568431dc1fb166da091bb",
+            "75d972d347b4aa42cadf3cd774ae6124f8b801af6fed1ba88a0fe338b7c48518"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "b261b2808ff72479080e922616ffa2532e6ab41f995d5da2e7aa25a4ab4088bd",
+            "5f6aa556c0451c3e6caec1c4f0d866eb83c734c248a29adff5d6943959eb8e18",
+            "5baf62711559417717aef33d5e3e80266a4bc1a7f8d01a5e01a6707fd3eaae31",
+            "eadf6bac37a0c87726941de8736f72ba9c340e3197370c19b9903b551f7fcb85",
+            "9587bf77d40bd46996d3a15eab3214b8b649a1c9264ed07f1374355d3a282cd4",
+            "ab2aed1bfac79f3961287980a9dd7885c42dfbe2351752c67a4cce646e979f5a",
+            "c6218b63c9f8ace1105bcdacc11281112caaa76ad5124fc2f20d1e95a4707a32",
+            "23b09ec48ca8de99a2fbd92ad01650b5323327fbaa95d1e4a7131fcf2cbc32e6"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "0b3928ba5e6f2019a68a1d88e3d1c02afec69a1345abf8c5a09c32047ffb344c",
+            "74fd8330d0071429f6a0b1cddf9a22a7c056de191783aaf9925a3b7738bc7408",
+            "855ba6bc3041ca0a67ee77dc1f8f33ac7906bf765b991d5d46ea75ae32a6dbd5",
+            "cc0ce3c3269f92a7bdc8ed2b09d88eb662e476ffb2d7e9dcc5b79c0e42811d76",
+            "385b3db1c6d22dd27b85e9de41904555d154bcf3cacea5fb2b2464ccd5b5cd61",
+            "37ba002a5bc0fac3deccca57de45597666918273078f0e8712b8af2095d1b5b4"
+          ],
+          "heldout_nll": 1.602731864568129,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "64c1b0d0d5bca058dccb4e41751594b5168542b4a542e400ee7a7441e0850e1a",
+            "417a7ad55b47e724533f4c2a825ea16ac2028b10ba6b24f80797fc12e97bdfb2",
+            "3c1c3f53e6f495e5f65aa6236b30e87a6cd4456a912443d2c886fec83b112a67",
+            "8dc97e8bc503ec82ef49833ea2d3eb41ef4d44b8b35bcd725ae91bd6ed17398d",
+            "a5146184e75596c1af99e92ece5ef6ea4ca582c52f4fafde1ee82bf0d8fab4cf",
+            "901948b68bf4ee44fb77c752b2bcc173d393a82f1c7a8fa1cb543df35007defc"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "0b3928ba5e6f2019a68a1d88e3d1c02afec69a1345abf8c5a09c32047ffb344c",
+            "74fd8330d0071429f6a0b1cddf9a22a7c056de191783aaf9925a3b7738bc7408",
+            "855ba6bc3041ca0a67ee77dc1f8f33ac7906bf765b991d5d46ea75ae32a6dbd5",
+            "cc0ce3c3269f92a7bdc8ed2b09d88eb662e476ffb2d7e9dcc5b79c0e42811d76",
+            "385b3db1c6d22dd27b85e9de41904555d154bcf3cacea5fb2b2464ccd5b5cd61",
+            "37ba002a5bc0fac3deccca57de45597666918273078f0e8712b8af2095d1b5b4",
+            "23b09ec48ca8de99a2fbd92ad01650b5323327fbaa95d1e4a7131fcf2cbc32e6",
+            "c6218b63c9f8ace1105bcdacc11281112caaa76ad5124fc2f20d1e95a4707a32"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "5f118447fc9217c9713fd51d50abba5a22e7b3e58426cfb3a243dc471c20e54d",
+            "d94e40f861b18b22a5528e3064f218e5e11f1b1f01a338e1e75f55744be32d38",
+            "8ee60cb160ae925a09ccbd01cf747b39d275ab84097efd1bb727423619be8e3b",
+            "11b484a2b95335e7f8c024093f40e5f58de7b58dec94a3fd354e5a7201b46788",
+            "c470dcb16668518daa19efbee821c648f7e0003bec952f3a157f8008c0f11ced",
+            "90187a1fe11bb0b2e2fc7459c00435969a8ab6ebbb41bd6ac5436315ae2b8e88"
+          ],
+          "heldout_nll": 1.8353751304328214,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "7bb951d484eaabf5108f305faa5b802b9bd0e73d773d242e599ab9662e5f3e4d",
+            "9fbb60989b9091e9a648da529d78827760bc884e1dcc3973cfe755800d1a11b1",
+            "6dd0bd059b722dad47a9185472d9db4de4743e2fc9335059e092e9c6f0b32012",
+            "44aac50bffc5905536c74c3848c38b76cf48872954312af20bace9c5e5367aa4",
+            "3854f4e3fc246a30ab0c746b7cc55e5e77977b62c23d5da9b23c7e17ca0924f1",
+            "c68e7ffed07b7e77ffda151c8c81e003dd9b4cbaba1e39d4839263d9273314fa"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "5f118447fc9217c9713fd51d50abba5a22e7b3e58426cfb3a243dc471c20e54d",
+            "d94e40f861b18b22a5528e3064f218e5e11f1b1f01a338e1e75f55744be32d38",
+            "8ee60cb160ae925a09ccbd01cf747b39d275ab84097efd1bb727423619be8e3b",
+            "11b484a2b95335e7f8c024093f40e5f58de7b58dec94a3fd354e5a7201b46788",
+            "c470dcb16668518daa19efbee821c648f7e0003bec952f3a157f8008c0f11ced",
+            "90187a1fe11bb0b2e2fc7459c00435969a8ab6ebbb41bd6ac5436315ae2b8e88",
+            "23b09ec48ca8de99a2fbd92ad01650b5323327fbaa95d1e4a7131fcf2cbc32e6",
+            "a95d201c798109ee7f6a2625271745034256de58f358fb2314b8c890ab539107"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.01775522301478838,
+        0.004617085956250211,
+        0.004595319119636843,
+        0.002166493893445587
+      ],
+      "initial_heldout_nll": 1.7078580144021407,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "23b09ec48ca8de99a2fbd92ad01650b5323327fbaa95d1e4a7131fcf2cbc32e6",
+        "c6218b63c9f8ace1105bcdacc11281112caaa76ad5124fc2f20d1e95a4707a32",
+        "5f20c5bcf1ffce849a4ea294837cc516bba7947d208bfe1e4dadf6b64edeb276",
+        "271bebd331a8b94185b53393f56ba9b1f6286f21fefd2c718f808ce132ce5638",
+        "40491205a54b7569b1e3c25851eb8d1d15f434322d4f33497ca7f40d72d66b95",
+        "a95d201c798109ee7f6a2625271745034256de58f358fb2314b8c890ab539107"
+      ],
+      "user_id": 387
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "c32d578eeb2a709eb28eabf5b150deb0a6b09c190d6b461c213dda1bff58c261",
+            "99090fb59d4ddcb6946e088ecc3d5a4fdd5e55709a48c1fae0b902c1e530212b",
+            "b5a0c33ed7318b19cdbac77257b967b5aaf22476671257d95b3e06013a607b5e",
+            "5c22ca460accd6c4c9dc35ce6be82f9d2798bedeee8d5de3109c9f6184ba2e48",
+            "11f7066f6e4a878b47f9159673e0096ff963ae8f64813e8c73ec6338ce60d2af",
+            "10027c8b30f2e57aff607de10cead34b15ba9ce499cc0e5b17155197b36d38aa"
+          ],
+          "heldout_nll": 1.417097288143402,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "273388a4631c1d62c20ea4291aa9701724c5bb7b2c1b31cde84d9079116ffe20",
+            "72b390d45a7da5044597c1154fbd8a18eeded654f4fc7447579611cbe37f35dc",
+            "c3e5f016460af4561a9192a75446d2f3600c25607aec8d3fb446017fec1cfcd5",
+            "c75b726c3b3e7ea86012b272e357ee68ac1abe8d270ab5f65117976643de88e0",
+            "3413c72b85b306f183bd66b413af36376eeff2fce9b65dd9f1e260a37f0e120f",
+            "73084397c9caa486c16faa725c9f8ece61d85c0dde38027091801c7fd04551a4"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "c32d578eeb2a709eb28eabf5b150deb0a6b09c190d6b461c213dda1bff58c261",
+            "99090fb59d4ddcb6946e088ecc3d5a4fdd5e55709a48c1fae0b902c1e530212b",
+            "b5a0c33ed7318b19cdbac77257b967b5aaf22476671257d95b3e06013a607b5e",
+            "5c22ca460accd6c4c9dc35ce6be82f9d2798bedeee8d5de3109c9f6184ba2e48",
+            "11f7066f6e4a878b47f9159673e0096ff963ae8f64813e8c73ec6338ce60d2af",
+            "10027c8b30f2e57aff607de10cead34b15ba9ce499cc0e5b17155197b36d38aa",
+            "685d8799df687e358f8471204752d214dadb02d712d51df78e0c3807f451295c",
+            "cd9cb68610b6db4ef909e198eaf0bc44d1d24406f2cb310fdd2d000638d955e6"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "907826b1e03896126297d25fbca096864cc6e4eb1b6fee96ca399e7e16cd9a18",
+            "a3087632e926e4b787a849b18a7d935dc3145def8d824e8658cf02f4def232ab",
+            "9c07739e376f9cec5fa414295a18b0026497ab19fb4963d149ad50053eaa2771",
+            "f15c4583d101ee73abe8df661fd1b828d17109081062a52efbd65ab049a9611e",
+            "4ea85dd3df164604ee640cca0a12960c7836268af7bc8047f0890b06f32e8d63",
+            "8aca809d73f93d903671409a8bd4ba1b45e571b756b959a0e543059a50587327"
+          ],
+          "heldout_nll": 1.5270810153551362,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "3abbb0c13fbb074d8091a3e12002d479d719a6c13781013525eb83154e7356c4",
+            "cd832b60982e3dbbaeddb2c1de57ab00cb646b01fea369390531c875d281b57a",
+            "7bd545cacd9cb18b523a366f23b8654d64a701b05b4b48e6684f82dfd001d4c1",
+            "3d5d1fde11cb14ba9182ee2fa2e88786ec4df11b2f31e54ced495bfd75c4c626",
+            "01909dfc1a5e634001349c495e36210a71460e016a6e24088ee3ba978b0adc05",
+            "f7f21cf0708b62923f6b5d20b688e4b5ce842039d5fa62cbdea2d2eb094d4f66"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "907826b1e03896126297d25fbca096864cc6e4eb1b6fee96ca399e7e16cd9a18",
+            "a3087632e926e4b787a849b18a7d935dc3145def8d824e8658cf02f4def232ab",
+            "9c07739e376f9cec5fa414295a18b0026497ab19fb4963d149ad50053eaa2771",
+            "f15c4583d101ee73abe8df661fd1b828d17109081062a52efbd65ab049a9611e",
+            "4ea85dd3df164604ee640cca0a12960c7836268af7bc8047f0890b06f32e8d63",
+            "8aca809d73f93d903671409a8bd4ba1b45e571b756b959a0e543059a50587327",
+            "685d8799df687e358f8471204752d214dadb02d712d51df78e0c3807f451295c",
+            "cd9cb68610b6db4ef909e198eaf0bc44d1d24406f2cb310fdd2d000638d955e6"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "062b7c063c3d930a7090341d3a33fa22c75c4feb7b19d16413ad3d4533246a41",
+            "937fe72a8b588ddd1c190f6b0fb794554f951921033aae05f6323f2a70061328",
+            "fb1bcf0deba02297e5cc4344e27392097cd40739aeae1d4d4669451cba35280b",
+            "763e2fb21784efb02363ae3dc9ce9c7925304ea0176fb21832fc8dc77962f3c1",
+            "3c2c88dff282e832a140bc56017ed0d43b89e75ae27c94aeb3c033c39785c786",
+            "1b93bd2e90ad6926967035da6fbe6427e84178daf40bfe8b9b831881ddcf3490"
+          ],
+          "heldout_nll": 1.3671581257752727,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "90a72de4360f5128f69e40c1e9202fcc812ab231223c1bcf6a93a6c813d152f2",
+            "8c0bf54234c71f8f4116023f956ab3a4150c0da9e47d603d42c336366498c2be",
+            "cf5a99fb2ff4a94cbe49c65cb654bf085a0cc7d1f5dc6c8ed4e803c8f10a1e6e",
+            "57a14856c911ccb432ed81df4ec52a98b4fa0dc0c3b372a32d7dc995c84745ff",
+            "bbb711b92de8822a4c4eaae906235852bfc274a2286eb784debff30064979ecc",
+            "4d3142d87aec0574554f5fe13508eb0c56837e981a1aba0c9f9e87e20a7e0095"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "062b7c063c3d930a7090341d3a33fa22c75c4feb7b19d16413ad3d4533246a41",
+            "937fe72a8b588ddd1c190f6b0fb794554f951921033aae05f6323f2a70061328",
+            "fb1bcf0deba02297e5cc4344e27392097cd40739aeae1d4d4669451cba35280b",
+            "763e2fb21784efb02363ae3dc9ce9c7925304ea0176fb21832fc8dc77962f3c1",
+            "3c2c88dff282e832a140bc56017ed0d43b89e75ae27c94aeb3c033c39785c786",
+            "1b93bd2e90ad6926967035da6fbe6427e84178daf40bfe8b9b831881ddcf3490",
+            "2409abefbf7a253b312bf315568d3f7c2d9033f4aaf1b63012aa9034de6d954a",
+            "685d8799df687e358f8471204752d214dadb02d712d51df78e0c3807f451295c"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "be20b5f3832d0448fcb5a31955f452f98098f2c6414d885ac6d9df9c0eb5cbfd",
+            "79d7ad07e367fb61f0a0961f3bece7934bd75b500e03dfe779b29e28b43c6cdb",
+            "f295fd416dd68938bf3ab9a89c21468bfda1a2064bfc0f302d1a40f5b9c430b9",
+            "04ea4502c2193889162a4fc45e629c55c944762e7d4c226c364fe388936d42d3",
+            "dbe6147f18c3da0782f537dc324aee5383b19bc0ad19ec210f3914fe49b6365a",
+            "6022672d756ccac599b3dee4cdc09a2752317290e9b735fa327de22ec229e93e"
+          ],
+          "heldout_nll": 1.4338748690587753,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "433a7a925a4adb2d9f5afe2b8f617d4c87816e909ccca38d1c7b0877953f0ac9",
+            "baeb7d346f5d58e457faafd85601380d86baefa7ca277be91be0e03318c42359",
+            "896e5ab9d30498b17593605d77b1efd3fc8fccdfb038ffb32e121844da387400",
+            "795342a03b4c83f15b1c657a077d5e5cf179abe3311d7268496cea49d8ec7523",
+            "f1b4763624cb7ab73c68623c02ae2d772cd35fd95259d54449b7629e4161b61e",
+            "16dd065ac2096af234fe37c9653337f302ee2cd537cd002823a52da0a9b4838a"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "be20b5f3832d0448fcb5a31955f452f98098f2c6414d885ac6d9df9c0eb5cbfd",
+            "79d7ad07e367fb61f0a0961f3bece7934bd75b500e03dfe779b29e28b43c6cdb",
+            "f295fd416dd68938bf3ab9a89c21468bfda1a2064bfc0f302d1a40f5b9c430b9",
+            "04ea4502c2193889162a4fc45e629c55c944762e7d4c226c364fe388936d42d3",
+            "dbe6147f18c3da0782f537dc324aee5383b19bc0ad19ec210f3914fe49b6365a",
+            "6022672d756ccac599b3dee4cdc09a2752317290e9b735fa327de22ec229e93e",
+            "3fc4cc1ee0d0a1bcec3aa1d2cdfc1c27105715328d147583447f59e3a3f800f9",
+            "c3ff0ee42feb871858616a24af09c7c6f588a22ed267d51a67c4d0ec8c402e89"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 2,
+      "immediate_eig_values": [
+        0.005939809132686991,
+        0.005168288626196338,
+        0.01841044432932981,
+        0.004462573677416648
+      ],
+      "initial_heldout_nll": 1.318105812763817,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "3fc4cc1ee0d0a1bcec3aa1d2cdfc1c27105715328d147583447f59e3a3f800f9",
+        "cd9cb68610b6db4ef909e198eaf0bc44d1d24406f2cb310fdd2d000638d955e6",
+        "2409abefbf7a253b312bf315568d3f7c2d9033f4aaf1b63012aa9034de6d954a",
+        "c3ff0ee42feb871858616a24af09c7c6f588a22ed267d51a67c4d0ec8c402e89",
+        "685d8799df687e358f8471204752d214dadb02d712d51df78e0c3807f451295c",
+        "6d39dadcb7798c64f5841fd78394e11df810bd1d243e39d697b9a7d3d78d9c5d"
+      ],
+      "user_id": 416
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "1b19ecad0441abadc74bef10832bcea4eccdb61b5b22a26a625203baec6571fb",
+            "f25283c5f02a591930df1e2273aa4f2dff3a23c723c791090404918836c6c7ef",
+            "f0e9250cfeb2512aabf7e5c29f22b5c52cf44b4950da80793d84ad2b9fbb44c6",
+            "80f30242044a7b626e2f1a04127f7775cbf2939bf53912c1651bc2245dab0cfc",
+            "cfc38bf1e5e5f058510c0fd5e525deafbea5948491abfc8da1d1eaa91a04e792",
+            "55d347365372fa4d58f42553fdd7c593c54ebaf39832e97b93ad5cac18a7357c"
+          ],
+          "heldout_nll": 1.5005760904156884,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "35f07a65e39cba23df4aa84e84e4f853b8a24d42a3c92d6a3227bf53ca4d7668",
+            "201fcfab2d58769fb308f7a3122894d82ac15e9f6f2ba1b6906f558b6fa59085",
+            "db817d4538b2585776491738522241c5e00efa23319ec81ac8540988db738afc",
+            "7a997f3eaefa79b94eeae04f9857cebba3cc9b01d1b28f64c160fad7f9767757",
+            "3f18c298e0d9fc46d023d3099830c1357b78e04c652b468051875e0d9c08627f",
+            "7262cab725c2c8cc4d89d82044aff1350e9e70cb8ea2a45285a40eb92a5ad70a"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "1b19ecad0441abadc74bef10832bcea4eccdb61b5b22a26a625203baec6571fb",
+            "f25283c5f02a591930df1e2273aa4f2dff3a23c723c791090404918836c6c7ef",
+            "f0e9250cfeb2512aabf7e5c29f22b5c52cf44b4950da80793d84ad2b9fbb44c6",
+            "80f30242044a7b626e2f1a04127f7775cbf2939bf53912c1651bc2245dab0cfc",
+            "cfc38bf1e5e5f058510c0fd5e525deafbea5948491abfc8da1d1eaa91a04e792",
+            "55d347365372fa4d58f42553fdd7c593c54ebaf39832e97b93ad5cac18a7357c",
+            "b61bc748001655f58169fec4641e203beca86ef3fd495df8a115c1348133fcb1",
+            "d9260f50d62bbe64b50b50b47e2c00b37ef3524b3569d49ce7226b2ea46a70cc"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "1adc29e08ca03c53b97e2821f32369b526992d9066d13ec1398a8a0dff1b72e2",
+            "6e9a9f147f22073ce57c80e67c702295661d963a9f0a1a0d48643b73f326911c",
+            "b7a6d2b2995deb133c4f0302c8f0d2223bbf652e81dfc2ddb182598900b9dde9",
+            "9625c623a7628c1d13f2140a07445abe0eab6ef6709dd33ec468b8f9171b5b00",
+            "d9dd41d4c779d059148115107774ce627a6a22ea4a22a3b56eeca887f521da14",
+            "e0776a2faa486dd8bbfbb8b6ae6d0d1c322586412eb2784db57de12d5901b374"
+          ],
+          "heldout_nll": 1.571664606225411,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "672b243fe0cdb4115389f533fe1382e0ad428834da748a8aec5a593dcd035a02",
+            "b6ebd06bbb93afb6afe374ed731cbce075cc6efaaec5d6085e1b3a3b17eb5605",
+            "0ecaa7d0cc0b2c95360e62aee3de1e595e0c50edb9973b91a960da8b6bcfbd07",
+            "15c6d182e40fcc8b3aa0275f28c249f572d004ba3f82f8a35b81cc337624b310",
+            "fe6d70edcec68b4bc8d4b7f5ac97bf37647caaf8deff98f5be6e9d3d720c1d94",
+            "acb678b80e14b94e0472ff060057f579b75b6d0c7b5b3a2c806df00bcb5677a7"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "1adc29e08ca03c53b97e2821f32369b526992d9066d13ec1398a8a0dff1b72e2",
+            "6e9a9f147f22073ce57c80e67c702295661d963a9f0a1a0d48643b73f326911c",
+            "b7a6d2b2995deb133c4f0302c8f0d2223bbf652e81dfc2ddb182598900b9dde9",
+            "9625c623a7628c1d13f2140a07445abe0eab6ef6709dd33ec468b8f9171b5b00",
+            "d9dd41d4c779d059148115107774ce627a6a22ea4a22a3b56eeca887f521da14",
+            "e0776a2faa486dd8bbfbb8b6ae6d0d1c322586412eb2784db57de12d5901b374",
+            "d9260f50d62bbe64b50b50b47e2c00b37ef3524b3569d49ce7226b2ea46a70cc",
+            "e1d84a91c3b5b1b677727f390bdf64559028083b964ed08b54c372f8d8f16106"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "33708656930fe29356c3d254dee9b0c6cee6ef0c00a2d8266efe18d0901e88b2",
+            "bd6ef17917f64d9e4acf1c32094d696eb9d91eff4d770bb9461f0cc941856ea9",
+            "5733919c403fdb4fe15cae3ee8b64e3beb27bef7ce1d426c85645b56eb0bb081",
+            "23c384a14e70747ffd4aff3aac6a77b8bc775ae5e9c29f25ca36d810cfa3accd",
+            "929eb347fc0d99886ba9ce4f304a22649c325b953b284021a209f7480eaf8a1c",
+            "8db9266c935361aca3b761d49a1bb9daea941fee7e6f6d27e69ea288b2cbeacd"
+          ],
+          "heldout_nll": 1.5165499397125026,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "2f528ee3cbef964f452c24509d2d745a109caf8f6f88ae4b13f59c91644f4cf7",
+            "13bb03bd1093bcc8a9e43209733f626ad45970fc9b9f81b30cccc1e313a0215c",
+            "f19e883a07d2b3f8cf3a527be6b1a7aae38ce047c4c05cffd27a68420810bda7",
+            "a0026f3ece969f7299cef3ff86fa246899506833c3122696fa54031b957284af",
+            "53565e6294892cd2ec7e73db30142c2849569bcae8ed9b512a6300be8baf7594",
+            "76705bd9a1e2df1db5a27833f0d37eedd0c94421a3c543ce9eacbf602f5d9785"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "33708656930fe29356c3d254dee9b0c6cee6ef0c00a2d8266efe18d0901e88b2",
+            "bd6ef17917f64d9e4acf1c32094d696eb9d91eff4d770bb9461f0cc941856ea9",
+            "5733919c403fdb4fe15cae3ee8b64e3beb27bef7ce1d426c85645b56eb0bb081",
+            "23c384a14e70747ffd4aff3aac6a77b8bc775ae5e9c29f25ca36d810cfa3accd",
+            "929eb347fc0d99886ba9ce4f304a22649c325b953b284021a209f7480eaf8a1c",
+            "8db9266c935361aca3b761d49a1bb9daea941fee7e6f6d27e69ea288b2cbeacd",
+            "b61bc748001655f58169fec4641e203beca86ef3fd495df8a115c1348133fcb1",
+            "d9260f50d62bbe64b50b50b47e2c00b37ef3524b3569d49ce7226b2ea46a70cc"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "b9287a3eeb4178ccdf3d8c625fe712fbeff1cf2a4abd204765c63534c1edd4cf",
+            "80f0f0133e667aa5621c3a0406c139dc2af47d66fc0e489a6e595c4cd826528d",
+            "b9a4db9ae59e586191fd900aa419258d63997bc163918001aa7a7a3f1e7b7a60",
+            "0a44039e23bcf7691a8cb05f9f86bbfbcef1ac9415eb6605d1bf3e762797ab04",
+            "a26c9bb7e28dc3668ece8915bb6f01cb907d35619a64dab8f2e1c70716425c7b",
+            "7e86c6d49fd1cbac6a623d510d678f2fbae92dbd5e34e6c92f4ae3a658ce8d73"
+          ],
+          "heldout_nll": 1.530962795223685,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "34df7e3cb4216c24b8de1276557f348545f8e2ed6f0d4666c59d6313976d4ad7",
+            "1dd33954d9e88d891f6875d56b31c39f53efdf0bcec940a109f824f4321369a5",
+            "d6622bc65b98039e12389accbb6a52855571a75e62c95d8f01cc6895d9385779",
+            "c7819d38078fea243995aaa0a018562077be74f9dd1ef4887aa24ed2db9f3d77",
+            "0cb37d734b83808a639f2fa3e28ef4ed432a1e8c3dd158345888f0fcafd84cdf",
+            "5f3f6bfae87f6618ea7ede2703ecab2860b13df448010c1d577a8970dfb5b8c1"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "b9287a3eeb4178ccdf3d8c625fe712fbeff1cf2a4abd204765c63534c1edd4cf",
+            "80f0f0133e667aa5621c3a0406c139dc2af47d66fc0e489a6e595c4cd826528d",
+            "b9a4db9ae59e586191fd900aa419258d63997bc163918001aa7a7a3f1e7b7a60",
+            "0a44039e23bcf7691a8cb05f9f86bbfbcef1ac9415eb6605d1bf3e762797ab04",
+            "a26c9bb7e28dc3668ece8915bb6f01cb907d35619a64dab8f2e1c70716425c7b",
+            "7e86c6d49fd1cbac6a623d510d678f2fbae92dbd5e34e6c92f4ae3a658ce8d73",
+            "e1d84a91c3b5b1b677727f390bdf64559028083b964ed08b54c372f8d8f16106",
+            "0f2741be171cdbacc333b1efb3a7deb0d17add2e8f77848ff14e97e92e6afb48"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 3,
+      "immediate_eig_values": [
+        0.01785006780168752,
+        0.018099108798862007,
+        0.044896148901553135,
+        0.06850721647703084
+      ],
+      "initial_heldout_nll": 1.3877084796373,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "b61bc748001655f58169fec4641e203beca86ef3fd495df8a115c1348133fcb1",
+        "f63f71bf5971858738a07e1d58b547f580f05e8e10f6447236bbddf94c5668a4",
+        "d9260f50d62bbe64b50b50b47e2c00b37ef3524b3569d49ce7226b2ea46a70cc",
+        "e1d84a91c3b5b1b677727f390bdf64559028083b964ed08b54c372f8d8f16106",
+        "0f2741be171cdbacc333b1efb3a7deb0d17add2e8f77848ff14e97e92e6afb48",
+        "d0f0fe557f67da60e6d8b37efb6a82bf454fff170f29f15ac891fd34af585da6"
+      ],
+      "user_id": 450
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "acb60664ebb9408b8e03adfe765d5c019f07a13c8b3bfaab687123b502da20a4",
+            "1f6f666f5235f7a5bcdebecfea76a761b218d62823ed6f48bc33acedeee5fa2b",
+            "8a8620f8c892582d368586fc9e0d8b91f75fad8d25f9fb4352799aa9351a4ca7",
+            "1a82d31637fcab0350ec2c5ad0a3d5b7b27c87497d56e1e16bfe4361adc145bf",
+            "921508da154b5613d7445fa4ba94c72c99225ab583898803adbe1fbdadf78993",
+            "16ae99eb24124846aa989e8baebf44de9e3243352918914232c68c6f1269b75f"
+          ],
+          "heldout_nll": 1.6838873178292366,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "320ad8924139660eeca92afde6eeeec37543ee57ff65d3ce07c09231abc5094c",
+            "dcdf8f01520d6ea081287a4b26dad2029e324fc4afd11af12e8d77814958030f",
+            "f0b9ba7571eeefce15701bce32de48fd81095a42797f92fd8974a0b61b736016",
+            "d64973a76db474fe36aa2429162a0fb1581d29de6b38cdbbc64e9f566fb0b723",
+            "91ee50f99c145f4bee8b7fdda6aaddd0c843ce1c3e627d707d6988b88442c2c5",
+            "622e3760e5c07949582b0bd349fb5d79cd5000f326e6ced02f840353ed14cc91"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "acb60664ebb9408b8e03adfe765d5c019f07a13c8b3bfaab687123b502da20a4",
+            "1f6f666f5235f7a5bcdebecfea76a761b218d62823ed6f48bc33acedeee5fa2b",
+            "8a8620f8c892582d368586fc9e0d8b91f75fad8d25f9fb4352799aa9351a4ca7",
+            "1a82d31637fcab0350ec2c5ad0a3d5b7b27c87497d56e1e16bfe4361adc145bf",
+            "921508da154b5613d7445fa4ba94c72c99225ab583898803adbe1fbdadf78993",
+            "16ae99eb24124846aa989e8baebf44de9e3243352918914232c68c6f1269b75f",
+            "2f67091543f86a18e653436035bbec5535b4637128c789845a6e3e85d8424d11",
+            "b65bbe390317ff5232be87efd98f35dcd48dcef2ea6244568133fbfae9012ff2"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "af66d4baa6c9243c2f8e3df1c28ba1219b084d41cb7353f349da1386228aa72a",
+            "499ade2d55996988ad470747653c23a2201de82b1e02118f0ea74f2d03d6ae1f",
+            "552e1fcc9f2e44cf0cca0cc205bd792ce2689626b81d26b49beccf9c1bbf70d9",
+            "8fce377efee6ee35e2b24f4f1d8e634f74b9565a2f0bc64410a6ddfadd9a2a9a",
+            "0a6b7c41f96744dbf4e4ca32d62e704e847f3165317728770048156c260b1a48",
+            "523b5368a2da31e96168d7dfa6a3e1a312548b5857ac829457a35115ad6aec18"
+          ],
+          "heldout_nll": 1.742381162715617,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "34aff2ccf6a31997349f68d7cd331549d3c99348da354ed508dad74df5ea20d2",
+            "fb0af2ae36eeabd17476ac54a6d4fcf7aaa9126004efd7dbca4d0264f0ab1cb9",
+            "92058f5eb3fc4d6af5941aefb3e6f7623f6ab3f0a6a47b7c44e03ac06427f1ea",
+            "d944ffe19d14a03b46ec240338dad6778715eca617bb58f40efb6fddf8005085",
+            "c68017ad5ef1bb63a3c8cfab0fe96d267d68b7346fb16a0219a54eeb7503c163",
+            "2ed921f963eecee9bb098bf4356d14ba7fd093301d756b16334f8790ae29fc21"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "af66d4baa6c9243c2f8e3df1c28ba1219b084d41cb7353f349da1386228aa72a",
+            "499ade2d55996988ad470747653c23a2201de82b1e02118f0ea74f2d03d6ae1f",
+            "552e1fcc9f2e44cf0cca0cc205bd792ce2689626b81d26b49beccf9c1bbf70d9",
+            "8fce377efee6ee35e2b24f4f1d8e634f74b9565a2f0bc64410a6ddfadd9a2a9a",
+            "0a6b7c41f96744dbf4e4ca32d62e704e847f3165317728770048156c260b1a48",
+            "523b5368a2da31e96168d7dfa6a3e1a312548b5857ac829457a35115ad6aec18",
+            "6cf6dfb094bf1773bd7939872cfbdfc9d5caac2d9b8f75b28c402d6036ed0fc1",
+            "1f398ad418673133ef4eead7de0b3fb91d1803c66f108282321969f3036406ab"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "779b32645e44ba4806035be56d1d5dc524f18e479b0ff531c038bdd6e7dc585b",
+            "ab4cee91de77749a2ff2018c6dad16b5d05534411386d653a4c43e67af477a20",
+            "7f5833a33a61263cd9b989dc156201a47cad60b8aa7fe8119dd2b653d9843145",
+            "36cfcc4d46237ac79fce91e32216e10b27d822502b35412fcbc54c92fb7c3529",
+            "6719bc25f841953ef369a98a307503ecc5b42bc9473113607f64d5bb9020d089",
+            "df14f636a140cf275a8fdb157e4ab4f9801b8170c49c9a9cfdc0dd10cbe9e821"
+          ],
+          "heldout_nll": 1.6805220768560643,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "0aacf3eb325a4d2b6e13731a55f88f6d81ab6ac6c766fc55b735b59abd5918fd",
+            "658601ff6e930b3c8dee875d845eb62b26eaa6006432fec32049ed5544b73930",
+            "779a6cd7dd67111a2df1be38fd683e0112199295935ff16bddb371520fa94126",
+            "f44b2e1d69a218a64b9d9b1b0dce3f953f7806804cb913ca2dd8885807fdaa1f",
+            "c5c18df73408eab42c38ed6acf6d58b7c206353a3433498222b6986a4e6940b3",
+            "e09c6363abdaeaf7b57f0cb14448888562ec257b22de68a6cfd8137776551993"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "779b32645e44ba4806035be56d1d5dc524f18e479b0ff531c038bdd6e7dc585b",
+            "ab4cee91de77749a2ff2018c6dad16b5d05534411386d653a4c43e67af477a20",
+            "7f5833a33a61263cd9b989dc156201a47cad60b8aa7fe8119dd2b653d9843145",
+            "36cfcc4d46237ac79fce91e32216e10b27d822502b35412fcbc54c92fb7c3529",
+            "6719bc25f841953ef369a98a307503ecc5b42bc9473113607f64d5bb9020d089",
+            "df14f636a140cf275a8fdb157e4ab4f9801b8170c49c9a9cfdc0dd10cbe9e821",
+            "6cf6dfb094bf1773bd7939872cfbdfc9d5caac2d9b8f75b28c402d6036ed0fc1",
+            "b65bbe390317ff5232be87efd98f35dcd48dcef2ea6244568133fbfae9012ff2"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "6067b467e9ee682306811afd68c2ddc27756dd603561e7c6b5ab92508e23a639",
+            "8801215dff6cdfaaecf4d8b769131b9180383094938fdbfedae4543c0e750f4e",
+            "a479c46db16ee6ad88cdce76475cc3e552aa6d519865536af4adb2375e535cc8",
+            "8c65593375897f471809cb14a8d3a1aedcac8f02fdd080d3a2b613425324f2c4",
+            "6731e07b0dae9d7c8fce9f28ec0e2cd01a46a9de5cabc3769019e40758005b85",
+            "71a4d711322c879a5e5252ef4c0ab6eb72673b0ccca5f10315ff8a89c76cca85"
+          ],
+          "heldout_nll": 1.6475922800011262,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "b9628d8e0153622ed29e3f8e94774735fd070e8fbd86c46b18693077eca0f1a3",
+            "ee845b518e94dd96d80dbe83bc5f6ccefd20c5a253f9ba912c47aa32cc262373",
+            "3045e02eab2eb6533496afe43c0c70fae18708cecd400def646326beba44be30",
+            "6e239113dab07cb06676ba4c1deed806f982c2774d76ec7d4e237f2aa7e0b082",
+            "d2711bebc4f620df6a36bfdb3b9e77c56ac318c0e9b9d980b55f21b33872cc33",
+            "cbcdf647fcb89178849ffe522c9127bdd0c282ea95731469566134e17c92a321"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "6067b467e9ee682306811afd68c2ddc27756dd603561e7c6b5ab92508e23a639",
+            "8801215dff6cdfaaecf4d8b769131b9180383094938fdbfedae4543c0e750f4e",
+            "a479c46db16ee6ad88cdce76475cc3e552aa6d519865536af4adb2375e535cc8",
+            "8c65593375897f471809cb14a8d3a1aedcac8f02fdd080d3a2b613425324f2c4",
+            "6731e07b0dae9d7c8fce9f28ec0e2cd01a46a9de5cabc3769019e40758005b85",
+            "71a4d711322c879a5e5252ef4c0ab6eb72673b0ccca5f10315ff8a89c76cca85",
+            "b65bbe390317ff5232be87efd98f35dcd48dcef2ea6244568133fbfae9012ff2",
+            "6cf6dfb094bf1773bd7939872cfbdfc9d5caac2d9b8f75b28c402d6036ed0fc1"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 1,
+      "immediate_eig_values": [
+        0.023022541568522792,
+        0.035762603020949246,
+        0.019987211435652297,
+        0.007385244636616717
+      ],
+      "initial_heldout_nll": 1.5977290815335292,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "2f67091543f86a18e653436035bbec5535b4637128c789845a6e3e85d8424d11",
+        "6cf6dfb094bf1773bd7939872cfbdfc9d5caac2d9b8f75b28c402d6036ed0fc1",
+        "1f398ad418673133ef4eead7de0b3fb91d1803c66f108282321969f3036406ab",
+        "b65bbe390317ff5232be87efd98f35dcd48dcef2ea6244568133fbfae9012ff2",
+        "3d0929cd6be60a9939313a689de63509d8dfb7d9bd13f36e0945df6f9bca0b99",
+        "6f49b3abc683e866ed52de9b56cb91ce86556ebef9d74d8fd288a195d52d4be3"
+      ],
+      "user_id": 470
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "743dd68b18ed490020c3f12f9ae0f8ecd5fabab18ef4a3a1aeae1c56e321244e",
+            "f7b5abcf19d4eb688d0c62647ca58c3c0b128f91eca9d3cf6d8186fcee8578bc",
+            "c5bae7676805e96e87ec3e8fea91b1c8fd8b4e7f5daf615425f250f476ea1bd5",
+            "ccb83cbac954dbc7c26b56a51b620019b786287e805a68776317c44bbc1e60f1",
+            "a00def4fa79695dfc3db51cdd17507629c813792b3bacecd516b27b74cbad8b9",
+            "07ded74b1430a41a50806ed7a19ee0ca112c8c468649720bdcd76ffd3e9b9d03"
+          ],
+          "heldout_nll": 1.6574685287801918,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "1240defbd1ba5c0f4b19bba0652f8c72d0b72240ca8c4746e48560b15e33d34c",
+            "57db81480fb203c254b364bf03dd9f7ccb7ef2d37f3a5996602104f5ebceb99d",
+            "b95c7beafe4b6aeb555fffde1c071c4abf2b7e2b5e500f70e10502f3b9c3ee35",
+            "5d8d354f4a3dd66d34654df1b52807d44eee03da8b6ed195e6bf6ad632b9bbe6",
+            "5dbf868b418a9de61da8850d5e1eea77c2d37342019071d3b19c707efd8a2e52",
+            "24bc5bb30708a9520f318945e21a84a34b561f13107afa17fd2b2dd441c6f384"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "743dd68b18ed490020c3f12f9ae0f8ecd5fabab18ef4a3a1aeae1c56e321244e",
+            "f7b5abcf19d4eb688d0c62647ca58c3c0b128f91eca9d3cf6d8186fcee8578bc",
+            "c5bae7676805e96e87ec3e8fea91b1c8fd8b4e7f5daf615425f250f476ea1bd5",
+            "ccb83cbac954dbc7c26b56a51b620019b786287e805a68776317c44bbc1e60f1",
+            "a00def4fa79695dfc3db51cdd17507629c813792b3bacecd516b27b74cbad8b9",
+            "07ded74b1430a41a50806ed7a19ee0ca112c8c468649720bdcd76ffd3e9b9d03",
+            "0b51c54d01f5d362294cada0edb83c3e13103e821e75bc27319173d79972412a",
+            "5ccad1f29a7b19d664f09ce533c13c5e7407a41b70e1fe0bc3818d3fda3b6ff4"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "89d4682030d489f83848d2734388445b0221dcdeed8df71c10f77e7069491413",
+            "fd89921b122c5cd61ba315cbca679d1999e3a88847a7c9be82d39b74dea831cd",
+            "a31e96a5e0f4654b1fd9c83b17911d154803daf9be8f6b936ffed62d57f1829a",
+            "c3edd7f798b86afa39d8c390438d89b3176f1e84308cbe69acec429dc6b49105",
+            "ea5d6d7ded47cefcd27a3195d9e59ab0b081d5236e2de5d6acbe41f70103e123",
+            "480f87fd108a8b8abb5aeac01e67eef9b031a8a838562ffa23010f818180c803"
+          ],
+          "heldout_nll": 1.6095441023942962,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "47afbcbed905e213a7ffa741c6ab79b2db1714315c3394ff08234e06c32bf6bc",
+            "fc7a093831661ca212940f302b09f228d96783459ef3d33033b86b0f0c6339d5",
+            "20e81bc65cd5bcf828a3f71f95ceaafd952d3cb3b426616dcb9601fff2959f3f",
+            "21e5dd0948473cb0da40ee48bac5c7001ffa7a6e6819c107bcccbeb15d62ce92",
+            "b078d65438e5a397bbb38c69a317dc3f84f3e15743497abb07f638c8ebeb4f62",
+            "4691d12ff8b5a924cd4df8d34e0477059d8068299a3eb710f8e3b581187f3969"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "89d4682030d489f83848d2734388445b0221dcdeed8df71c10f77e7069491413",
+            "fd89921b122c5cd61ba315cbca679d1999e3a88847a7c9be82d39b74dea831cd",
+            "a31e96a5e0f4654b1fd9c83b17911d154803daf9be8f6b936ffed62d57f1829a",
+            "c3edd7f798b86afa39d8c390438d89b3176f1e84308cbe69acec429dc6b49105",
+            "ea5d6d7ded47cefcd27a3195d9e59ab0b081d5236e2de5d6acbe41f70103e123",
+            "480f87fd108a8b8abb5aeac01e67eef9b031a8a838562ffa23010f818180c803",
+            "36a888c8801b16e64b44455b748c8a1c5cc165e9d35c1b22af2caeab7148d17f",
+            "bb5847c005805a75cf0e3218e6a14946ff7430a51f4fc374c8db364fb5c54b8c"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "bdfe8313f35a30627bd7849068dfefc43df087b9546af9e9dcc7de4afb932354",
+            "fd0470c05389628aac80b7fcfc27c23653d762d1701dfb7f40bba2ad7ebd2801",
+            "2eaa2bfaa6f932583ed372e221c71573063928ef4e00ac4805d257173e84064e",
+            "47d292bb122bb54fecdcc84a2c51a4794ec3f9d84279014b4425c1f9209cd66c",
+            "4f9a326083b43a00ca72bbfe19bd5b7a53654c38601b531010ff3bb41659b8d5",
+            "3dad14b205346bc4f4c64513d2f73bce4f3ebb1c69c9c1b919e968f43c673219"
+          ],
+          "heldout_nll": 1.658748533379172,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "9b72d8c15824feb07d52f7f9edf6a44f98055637247d406c3dc139cc45076778",
+            "4c3109340e4d517c90ed1a6485f9c686ebc0cdcf127852d8756b8dd2982f48d8",
+            "07aa6bebceaf821eebe6a9140fb8de84d13a06e1c798455eef4864ddde7fa377",
+            "d3689bec786daa74d4e7d7bc119dd68b078f88474f8192816efc8b9cd42bcfc9",
+            "1de9b589f5b7b7922b04c15521fe2f7f858b6f5f548834f073de54a2d55df1b0",
+            "51e9ddf90189dabd4bd3b8a7313c88c9a19530154eff2d531c3e1d3a7f3b7839"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "bdfe8313f35a30627bd7849068dfefc43df087b9546af9e9dcc7de4afb932354",
+            "fd0470c05389628aac80b7fcfc27c23653d762d1701dfb7f40bba2ad7ebd2801",
+            "2eaa2bfaa6f932583ed372e221c71573063928ef4e00ac4805d257173e84064e",
+            "47d292bb122bb54fecdcc84a2c51a4794ec3f9d84279014b4425c1f9209cd66c",
+            "4f9a326083b43a00ca72bbfe19bd5b7a53654c38601b531010ff3bb41659b8d5",
+            "3dad14b205346bc4f4c64513d2f73bce4f3ebb1c69c9c1b919e968f43c673219",
+            "0b51c54d01f5d362294cada0edb83c3e13103e821e75bc27319173d79972412a",
+            "5ccad1f29a7b19d664f09ce533c13c5e7407a41b70e1fe0bc3818d3fda3b6ff4"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "3fdf595ba2ed1595d6074dc0e33f80fb276795b8b769995866e4ddda1af026dd",
+            "dbb4eb1190811e8abd29ca60165606b58d5f8f87190ca68b5c38762a058ef025",
+            "f7523993134b07bf7bcd01f9f55157b5977e03a371e5aaaa08a34b2701b98a9e",
+            "c2cb89012938d5e19313a597d3e44921431bd84ae9b52d545467c256c0304f10",
+            "f9696cd0479e19cac76695204dc6fd55dae62b33806f48c7347fa68063a05ac6",
+            "6d9d58e34b401bfae700da65dda0d7271f30bf97c8fc0bdad0ad0b3778fb5229"
+          ],
+          "heldout_nll": 1.6225691412665473,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "778475a48848f545016f13a0b079a89dd659e86ca0bd3dea2ec1f890c4a5f948",
+            "b7d537dcbbbc2d2512e693c075e39ef91b8a5545d4028cb291b0b8097a32f5bb",
+            "3866e51bdb360b428de32f5ca91d4659130b1e5f7e91bccc2e7491014b81cd64",
+            "c47a45b2353667b4e6b48d1892410c2439384b8362b077910b0bdb7012351366",
+            "bd9aa0ecacd7b230c484d08ec733fed30ecd289702c497e6749bc7053921e87d",
+            "6e80cbd5f6b25b5014498a41f753c59b6187b677c06fa80e0e1a267d5259bdb9"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "3fdf595ba2ed1595d6074dc0e33f80fb276795b8b769995866e4ddda1af026dd",
+            "dbb4eb1190811e8abd29ca60165606b58d5f8f87190ca68b5c38762a058ef025",
+            "f7523993134b07bf7bcd01f9f55157b5977e03a371e5aaaa08a34b2701b98a9e",
+            "c2cb89012938d5e19313a597d3e44921431bd84ae9b52d545467c256c0304f10",
+            "f9696cd0479e19cac76695204dc6fd55dae62b33806f48c7347fa68063a05ac6",
+            "6d9d58e34b401bfae700da65dda0d7271f30bf97c8fc0bdad0ad0b3778fb5229",
+            "0b51c54d01f5d362294cada0edb83c3e13103e821e75bc27319173d79972412a",
+            "5ccad1f29a7b19d664f09ce533c13c5e7407a41b70e1fe0bc3818d3fda3b6ff4"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 2,
+      "immediate_eig_values": [
+        0.0016635383881087318,
+        0.001362068951900941,
+        0.005120052083541271,
+        0.001694137116757366
+      ],
+      "initial_heldout_nll": 1.744221180851318,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "0b51c54d01f5d362294cada0edb83c3e13103e821e75bc27319173d79972412a",
+        "5ccad1f29a7b19d664f09ce533c13c5e7407a41b70e1fe0bc3818d3fda3b6ff4",
+        "36a888c8801b16e64b44455b748c8a1c5cc165e9d35c1b22af2caeab7148d17f",
+        "962acecd3588b56d1b323ad3f80cc79a74af77610b418c31ea258eff4d44cd4d",
+        "bb5847c005805a75cf0e3218e6a14946ff7430a51f4fc374c8db364fb5c54b8c",
+        "544d674e39fff10e859f0fb953c06596fdca45a17d17218ea22c2b2153db979e"
+      ],
+      "user_id": 488
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "1c013a2ffb107180d495fb33141f63025fcc27e54c14dc8fd44fd7d392fcbe90",
+            "85755a50dfe229a9177725474745d571d8e5dd35e62e5378e6c9128762d91a2a",
+            "811d15cf6bb2758f75f74362999c86e3e22c8c3a03c539ac0e108656f15492c9",
+            "486321d3a73fbe14eb755bf0fd04cdc77df0aecf4d8a0a0681ea68b8ce7882a6",
+            "e8d490e8e34575053c7d79f897d434d7e250c1245270f5f8773534d121a6552b",
+            "80af942258bf68bd795ebc389a070deae6674a07aa4cf87c23b7caacc8e3cb9a"
+          ],
+          "heldout_nll": 1.5705374169934776,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "20f5979c867db3aff16593b0b36e6f3663e54f6e04fc17ef31eb60ed26f1e099",
+            "d29ab4bc81f6ce09dcb583cfaa1b78d56d331fda347ce560678a386651508303",
+            "4e877ef9f4918d36cfd7f0b3000c37712071dfae5ed3c1271205b1628dd04e3b",
+            "358f7aa774ebe22b78328ef025efdd70ab16cf1f3ba416e4ca4e0586bd2eeb89",
+            "6d959a61e17889d326ddd5af5fa4066b3b3be702256f04e52152a65112c50e8f",
+            "a93ce1d259e845415184a047e8390842d30e798d7ce5f3b72d41847a9615b663"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "1c013a2ffb107180d495fb33141f63025fcc27e54c14dc8fd44fd7d392fcbe90",
+            "85755a50dfe229a9177725474745d571d8e5dd35e62e5378e6c9128762d91a2a",
+            "811d15cf6bb2758f75f74362999c86e3e22c8c3a03c539ac0e108656f15492c9",
+            "486321d3a73fbe14eb755bf0fd04cdc77df0aecf4d8a0a0681ea68b8ce7882a6",
+            "e8d490e8e34575053c7d79f897d434d7e250c1245270f5f8773534d121a6552b",
+            "80af942258bf68bd795ebc389a070deae6674a07aa4cf87c23b7caacc8e3cb9a",
+            "e69f6feb9ac4f821c6ed13a953f6207183740301439e880d8223da4d046ed5d0",
+            "5362fc4ca5267a35255f0e2d8b39c330a96a7ed5d39dff332067fb29ada1ba47"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "f66823e074be7bcc16e6ac3f52de6d919e4b5c611485d8002bda399e6338398f",
+            "8de94bab4db6ff79635bfd65580fa6ac1d31cdb8400f071d5ae5c4c4b0e0d1ca",
+            "7c78c8e79cc209ef6bfa4e1cac791c4a968c05772f7c8c3fb38bc98c99c40de1",
+            "0356fb4a25b898ac3bd9ac8da45858ccbf9521129f2fbbacee60c9227cfa187c",
+            "c65a37bcd4c9bda90dd58ae0fb225dd52f5fa6ec6837ca9ac387e1d28eb39074",
+            "6aa10cc54461621ccd00ee1729d2a0b6efe96ce403332c9eb0269f1dec56a057"
+          ],
+          "heldout_nll": 1.600258327268038,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "473d67e014f89b9846ac497bc1277c9d49f80b860eda18f3e4c02e4c4ac1087d",
+            "ef9633d59ce1d4f167a52b28fff9eddb3846470a918ad56b4461b405eaea670d",
+            "72d443f36fe53f78e67997aa05ac23deb0dcc2f3950b9ea3162135e049b5e068",
+            "9190d83c7d5d2bde991cd57bf84dd83ca84ca2552a2bd3bcf49ede698f895950",
+            "afb8f31b291d0e0bae9b4a582af5694f6ecd56a91a1be1af46bbdfd82fa4b5db",
+            "e0253f681f26c8ee71e5bd4062ef9b966218caa1ef811ec5feb40ea84da98fee"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "f66823e074be7bcc16e6ac3f52de6d919e4b5c611485d8002bda399e6338398f",
+            "8de94bab4db6ff79635bfd65580fa6ac1d31cdb8400f071d5ae5c4c4b0e0d1ca",
+            "7c78c8e79cc209ef6bfa4e1cac791c4a968c05772f7c8c3fb38bc98c99c40de1",
+            "0356fb4a25b898ac3bd9ac8da45858ccbf9521129f2fbbacee60c9227cfa187c",
+            "c65a37bcd4c9bda90dd58ae0fb225dd52f5fa6ec6837ca9ac387e1d28eb39074",
+            "6aa10cc54461621ccd00ee1729d2a0b6efe96ce403332c9eb0269f1dec56a057",
+            "0ff9b7201789a915593d9fc80f59455848e2e81a48100fca4c45fa988792c08b",
+            "f59ea82a5e41c9759593809655d9d11a98f7198ff928ffb4d8362694867ad50d"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "15b68701bdddff79eabdc7c2dfefeec228e7abcd88876d59748d51c7a1faf8c0",
+            "05ef18a76222c302166c30a1e4d5a3497a89a4c84c6cad1f1d3e87dd5d0cbc1e",
+            "fa74686a5610bc34dcc9808ccc80577eb90e4b8f65426704204fe4ec99acd88b",
+            "34d0032cfc6c7e156f984a50f55115aac52c337a6cade71c89be8149010d8642",
+            "44c0167f3d069bb6d2e22f0d481e588397b52223f752eb8efeb36b4fb215f309",
+            "514c3c6e0724f4dfd0648b2b511204bfc7fe63fb7b7cbfd69a2fc0233727981f"
+          ],
+          "heldout_nll": 1.5262056068762417,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "49574615e94fd0004c3e5cba2d6d3b1cd6b26437e253538fa80c9dec2a5c3486",
+            "29c60b6845032ba1f11e63ebc86a1e89df9ed2b53dbd5e84aa266b2ebd8b3942",
+            "c2fde4ec59ba647829448f71aecfbd93c47ac1e7ce6d7ece83bf3d2b61ba3078",
+            "758dd7cc1044a79de962b12b19a6bf20c3937fc7f057a9570b975e0da455d5e2",
+            "e2d313eabe86181536dc0ac84e152d42e2bcc90645fc1cbbf2985a706465da1a",
+            "b7e77bf6ac962c0fcfb581ea338abf6c78d4a4ea9c28ff210cb58b0f25a25a5d"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "15b68701bdddff79eabdc7c2dfefeec228e7abcd88876d59748d51c7a1faf8c0",
+            "05ef18a76222c302166c30a1e4d5a3497a89a4c84c6cad1f1d3e87dd5d0cbc1e",
+            "fa74686a5610bc34dcc9808ccc80577eb90e4b8f65426704204fe4ec99acd88b",
+            "34d0032cfc6c7e156f984a50f55115aac52c337a6cade71c89be8149010d8642",
+            "44c0167f3d069bb6d2e22f0d481e588397b52223f752eb8efeb36b4fb215f309",
+            "514c3c6e0724f4dfd0648b2b511204bfc7fe63fb7b7cbfd69a2fc0233727981f",
+            "06d2c58d1eccbdb6ee7116ebdd822bd04f5c34e9f901dae438da3fdb02080155",
+            "e69f6feb9ac4f821c6ed13a953f6207183740301439e880d8223da4d046ed5d0"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "7204975a3417cb135bbb5032c899e68bc9b79906b0fee6383f831aa7ebf65cc2",
+            "5281e2e9454713453f3886e60cbc3ae457d2bb0af4cb69da74873e64c566cb0c",
+            "b0b204ba955d6fc56fa5ca3227c456a509b1bfb852b1d5b0c634e4c1fe69a1e7",
+            "422d0084f5d38b8dbc4a22f9f45f599e54beff5709b5687e22b3c16db7f7504f",
+            "205241d09d97de6e275f758295d29d4e2f2171ed499a65364ef221240967f3a6",
+            "5109acf09bf604351c668c3233eeb0488208ed746579b086c624243d07d63f18"
+          ],
+          "heldout_nll": 1.5718765086747002,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "000079fe318cff51355c209d9cde84b5998a2ac2d690260941a31096a6bd3d7d",
+            "6568c82f46e30c80c568232cb388069ee2781d1791f04a461bac71ced2ea2dac",
+            "0049864b877a336bc915032115067bf399bf99151fd053595661e39814708346",
+            "2f2361400b9034cfd04bb78693dfb1ad5e7501a545aebe2ce6f0526c95590b3f",
+            "d5092f76a27ab1d7e7f361767b3db9491c91f220aa66891cc16e81177bdef966",
+            "66c0b1a5a7e60b3e87906e431407cce236369e09b783b7c9a91965f4a558ca48"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "7204975a3417cb135bbb5032c899e68bc9b79906b0fee6383f831aa7ebf65cc2",
+            "5281e2e9454713453f3886e60cbc3ae457d2bb0af4cb69da74873e64c566cb0c",
+            "b0b204ba955d6fc56fa5ca3227c456a509b1bfb852b1d5b0c634e4c1fe69a1e7",
+            "422d0084f5d38b8dbc4a22f9f45f599e54beff5709b5687e22b3c16db7f7504f",
+            "205241d09d97de6e275f758295d29d4e2f2171ed499a65364ef221240967f3a6",
+            "5109acf09bf604351c668c3233eeb0488208ed746579b086c624243d07d63f18",
+            "e69f6feb9ac4f821c6ed13a953f6207183740301439e880d8223da4d046ed5d0",
+            "5362fc4ca5267a35255f0e2d8b39c330a96a7ed5d39dff332067fb29ada1ba47"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 3,
+      "immediate_eig_values": [
+        0.0042286668050812715,
+        0.004750235331884012,
+        0.016442978453815593,
+        0.029219306196962558
+      ],
+      "initial_heldout_nll": 1.5378711082930179,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "06d2c58d1eccbdb6ee7116ebdd822bd04f5c34e9f901dae438da3fdb02080155",
+        "e69f6feb9ac4f821c6ed13a953f6207183740301439e880d8223da4d046ed5d0",
+        "5362fc4ca5267a35255f0e2d8b39c330a96a7ed5d39dff332067fb29ada1ba47",
+        "0ff9b7201789a915593d9fc80f59455848e2e81a48100fca4c45fa988792c08b",
+        "fc876d0256695710991b963f5528ed5e4a1f612bf5741a73c1b1400fab40356f",
+        "f59ea82a5e41c9759593809655d9d11a98f7198ff928ffb4d8362694867ad50d"
+      ],
+      "user_id": 533
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "88ccaf4dd1066bc0dd13bbf05cd0be1abcb07db049bc423320ed178210edc177",
+            "8ff2101c39377e3df8486d703425fa09d6c6ae1d21cd66d646d405645afd44e1",
+            "37d82a01bb21b5d92b0bf9c777eb8d3c9a1844b8343e3f686a0c1d03dc436e60",
+            "2edca669f9a3c4dba3d315419282a65351b3bea57ae69d19d1b05ec282455eb2",
+            "faed9ba61d59067399a5bae48929e2a6c8fbea3de80b3eda27499cde45006e3c",
+            "4305ff3544f046b3c30bcbbd8fe0da1dafdc934dd7d1c9c9851d3a728683fa07"
+          ],
+          "heldout_nll": 1.7077573048133883,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "e154ade5fa932c58854934973a3005e0d0761afd5beac2a11c5e09f0a522fb26",
+            "6d7d7668b822c886fdec8dc7898b3ebec923e75df114b939a63939e40ebe23f3",
+            "cf7007caa5bbdf0166208e9fa382c4dadd15ef2f1d08296ee183940b367cfbc3",
+            "60bfc44dee444d0fde1f53d3da7a80514e2cc95f5bc203343b883124bfc40017",
+            "222c1dcded35af392f67ae062bda35f83313da58e1579e7f5af164774f5391ac",
+            "48a6c6d70c6450c15e1ac4d0539b25bbd64e751f3d09475aeadd499dbc0056b4"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "88ccaf4dd1066bc0dd13bbf05cd0be1abcb07db049bc423320ed178210edc177",
+            "8ff2101c39377e3df8486d703425fa09d6c6ae1d21cd66d646d405645afd44e1",
+            "37d82a01bb21b5d92b0bf9c777eb8d3c9a1844b8343e3f686a0c1d03dc436e60",
+            "2edca669f9a3c4dba3d315419282a65351b3bea57ae69d19d1b05ec282455eb2",
+            "faed9ba61d59067399a5bae48929e2a6c8fbea3de80b3eda27499cde45006e3c",
+            "4305ff3544f046b3c30bcbbd8fe0da1dafdc934dd7d1c9c9851d3a728683fa07",
+            "3a9a66c9d721515c85f6eb07a17ff8743eb5d99d73d1ef10c591a3c95d535da1",
+            "c066925140eb80a8d7454125e096c008a5f28a8a802f6cbfec7d09282e4d86b2"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "356c7aa38ae7b3cef7e791b8d2332b2a0b2154e339eab1bec16e6576c307d052",
+            "64df4dacd9cc825ad9a568f3932ac08ffbe1430dae8634d6345699bdb89186dc",
+            "6d08ebd82835a9af7af9c6abf57361e36c5f1c43e3f1e715112f9caa82d548e6",
+            "081d7b3a1f7d7fdee32610a00b869b36324e21fe10f364eb49c2c226fefe77ab",
+            "4e29ac8a40f974de2c7d52fc42f1bc636d9653e585ac29c430e14d74e75a162b",
+            "460c3b864ef072277e6565f3e1fde5f992f4dc1957a9fbc220e80886c6694b5f"
+          ],
+          "heldout_nll": 1.7497661079201074,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "8e8c186c9d1e7c02a8d9b1c5d35fd52f63124666a2739c948fe5c6f393e8da2e",
+            "65cfd1215942b1bb10edaf2a82f805a158977d9e1b217ed089b56741c8c7167b",
+            "14b026aa1c096cdecee868d56424f3a4ff542fef164d1051163c9fe302b79a2d",
+            "b170c7e883de38965f2a0d0e766939b6c612d4f44495ca98253b859d1a6ad983",
+            "adfb0f07f1f8957f9d6300ad375812378eae727bab8bf196ed986930dfb7855e",
+            "5e78bbd5e596b7f9bafd21d0e6ed7e7620ffb9bf0a12d7ab4be891df065e1a7a"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "356c7aa38ae7b3cef7e791b8d2332b2a0b2154e339eab1bec16e6576c307d052",
+            "64df4dacd9cc825ad9a568f3932ac08ffbe1430dae8634d6345699bdb89186dc",
+            "6d08ebd82835a9af7af9c6abf57361e36c5f1c43e3f1e715112f9caa82d548e6",
+            "081d7b3a1f7d7fdee32610a00b869b36324e21fe10f364eb49c2c226fefe77ab",
+            "4e29ac8a40f974de2c7d52fc42f1bc636d9653e585ac29c430e14d74e75a162b",
+            "460c3b864ef072277e6565f3e1fde5f992f4dc1957a9fbc220e80886c6694b5f",
+            "c101e7c9f8b1423e50ebb5a6420b803ebe216339a8b2b388a9df87a7ab34f75e",
+            "c066925140eb80a8d7454125e096c008a5f28a8a802f6cbfec7d09282e4d86b2"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "9469937290defb0b745b131ac5d406b62d2b2bad87136635dd6c01545a4f0248",
+            "4b70fa07eefebeaf56bc5e00d3dbe65c668fec0cb0a0c3f163bf2f352f4b576d",
+            "543ff0c56a42ad6142b63451b614e8a24e6e9ed506cb734ab5511f1f7bdf11f4",
+            "1306f6026509e5b23aca1bc55e1879c9b96665322d55909ca6465957effceed1",
+            "f443758e8d92874b1e10f7109d4d09c2c82ba55f699e4187788e5d2f7f473e7f",
+            "955b4e356bbf73dfc65365528beb6b2d5adbc75b8f53a6cb023bc257ddd1cad7"
+          ],
+          "heldout_nll": 1.7427040315925402,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "4de1f5c2df58dbe1630a970cd4bf18400e45ff71e1d9ad70f04e320c64e8eb14",
+            "8df1814cb0bacc343d99de283d54673e76fce3448accdde13cde8c04870ebd47",
+            "80e5e119c6b58cbc7ecd4753e2e327fe3fffcc00460eef6263e0f96669c76426",
+            "0a1803a088cb3fcadcc8f506ae2f97f93230e1cf3f29ed30241a46ff543ce493",
+            "130ae29e22252d0a570ef7ce927aa422e86c9f0f2ae7998235b8d933a2172548",
+            "134d4dc7201defb9b5ae319e6d66e82bae49e49851b3f3907385baa970ab1af4"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "9469937290defb0b745b131ac5d406b62d2b2bad87136635dd6c01545a4f0248",
+            "4b70fa07eefebeaf56bc5e00d3dbe65c668fec0cb0a0c3f163bf2f352f4b576d",
+            "543ff0c56a42ad6142b63451b614e8a24e6e9ed506cb734ab5511f1f7bdf11f4",
+            "1306f6026509e5b23aca1bc55e1879c9b96665322d55909ca6465957effceed1",
+            "f443758e8d92874b1e10f7109d4d09c2c82ba55f699e4187788e5d2f7f473e7f",
+            "955b4e356bbf73dfc65365528beb6b2d5adbc75b8f53a6cb023bc257ddd1cad7",
+            "3a9a66c9d721515c85f6eb07a17ff8743eb5d99d73d1ef10c591a3c95d535da1",
+            "c101e7c9f8b1423e50ebb5a6420b803ebe216339a8b2b388a9df87a7ab34f75e"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "3fea36c3075abad8e2db34aa4fa438171d2e643c5581018343b98238deaff526",
+            "2cd84893ce823c27eee63cfa7811ba4cf6459d4e94e71d15a628d88c1dee3e84",
+            "7c8177a6d31ba7e2bf2a31d81d1ece0a8cdadb0aea4caff68947e0252ec389c3",
+            "784eb83c0d8f5477a8208f7bcd64f14ee6f77bc043cfe751f103f4d252df0c85",
+            "b81f1a69d9b297502ffebd5c2601e300ba653c9f1f41a7407c88d32c68c0d2a9",
+            "d7f7d015574d7c2b9f95d5e23b31751d0ef5c759cf711f8a2aebfcc99ac20d6b"
+          ],
+          "heldout_nll": 1.6580448299204447,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "ea15df34e92168d5edd5989e0789ac0ca4613e2422ff5a64e591347be5ef2d7b",
+            "143a33fe426abd098bb3d3feb5d795b68fce95eda1b2bc7cd3b71298daca18b4",
+            "4cbb59ce44c329ada7d192a71715bfa36142d61d39e2d50cf5debc05bc62f85b",
+            "f89e6335ffdedc05bff3c3cd4ac7bca9343b1e6792af9c9d95ab1b0f4ab70aff",
+            "c3ba69ba7318c3a3c914cb1cb454fc48f888fdd31bcd13beb5049006b1be2917",
+            "28a6876803af17f4aaa0c17fa623b0cd3061b722b3382f014d98dcd3408efda1"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "3fea36c3075abad8e2db34aa4fa438171d2e643c5581018343b98238deaff526",
+            "2cd84893ce823c27eee63cfa7811ba4cf6459d4e94e71d15a628d88c1dee3e84",
+            "7c8177a6d31ba7e2bf2a31d81d1ece0a8cdadb0aea4caff68947e0252ec389c3",
+            "784eb83c0d8f5477a8208f7bcd64f14ee6f77bc043cfe751f103f4d252df0c85",
+            "b81f1a69d9b297502ffebd5c2601e300ba653c9f1f41a7407c88d32c68c0d2a9",
+            "d7f7d015574d7c2b9f95d5e23b31751d0ef5c759cf711f8a2aebfcc99ac20d6b",
+            "3a9a66c9d721515c85f6eb07a17ff8743eb5d99d73d1ef10c591a3c95d535da1",
+            "c101e7c9f8b1423e50ebb5a6420b803ebe216339a8b2b388a9df87a7ab34f75e"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 3,
+      "immediate_eig_values": [
+        0.001444782336431194,
+        0.0015405164375845715,
+        0.0011776185104168668,
+        0.0035335292968052823
+      ],
+      "initial_heldout_nll": 1.8116325469509134,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "3a9a66c9d721515c85f6eb07a17ff8743eb5d99d73d1ef10c591a3c95d535da1",
+        "c066925140eb80a8d7454125e096c008a5f28a8a802f6cbfec7d09282e4d86b2",
+        "c101e7c9f8b1423e50ebb5a6420b803ebe216339a8b2b388a9df87a7ab34f75e",
+        "463908d027b755ff3ecbbf8bf30417a0889018edd5a072731956b6ea02e855a9",
+        "d4a106c3c441cfdbff92539e2e23846a21dd96efb2515edc1101c8ecce25a0eb",
+        "3a964e9b09e45534455754beddc6867c6982b0f3efd045ec0f29b2b1823554d7"
+      ],
+      "user_id": 537
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "5322c15e1c7feab96f3df50eaf3460ed9ac8becb68dd0d04796020587927d947",
+            "6acf533df354b61b6b6442742f663d67d1f18dd804cd675dd6e16e470c67b3af",
+            "c073080987f338d9d7d819d74612e2c404186852c8d5128882a826a6c08a6888",
+            "33dfaab859f97b94ff61d4e364d31c6aba23c42deb2c66882f80a429f9c2084c",
+            "7b14a9ff6e6a09d6464580c4dc88ea09d7cdfd238326f5c841c5bb5c47dd5075",
+            "5e370863c5a404b0c42fe97520bde61e395c2b16d5aa83f33a3d5f387f4e3eb7"
+          ],
+          "heldout_nll": 1.7160332300270962,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "b76a1de66bf5eacfa44d5b9a990b7b6be19d1f2206d01016fc2591bbe7d36a9e",
+            "f82c78acc8da05ebaa4f106cc02e79d599aff7cc1f3b0ddc4a98d9b67467db60",
+            "1a5b5475c14373cd9d4a9ab538b4f3120383c5b845887a157c626d4997eced3d",
+            "55c8923400be741006434c70c916a8fcb930bb2aa71b239ac2b5e58a39619f86",
+            "83dc0e8015d50649596dc1e65803b3ebc3633c86cbcceb48de18a7d37b0663ea",
+            "33d9b7486c5338dc6e20dc3003a7feb46d2282fc320fb1d988b5f970bc058993"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "5322c15e1c7feab96f3df50eaf3460ed9ac8becb68dd0d04796020587927d947",
+            "6acf533df354b61b6b6442742f663d67d1f18dd804cd675dd6e16e470c67b3af",
+            "c073080987f338d9d7d819d74612e2c404186852c8d5128882a826a6c08a6888",
+            "33dfaab859f97b94ff61d4e364d31c6aba23c42deb2c66882f80a429f9c2084c",
+            "7b14a9ff6e6a09d6464580c4dc88ea09d7cdfd238326f5c841c5bb5c47dd5075",
+            "5e370863c5a404b0c42fe97520bde61e395c2b16d5aa83f33a3d5f387f4e3eb7",
+            "8f7bf000fef77d67e9f1dd5d90fb1844b8eabb9c514754effa73aadfc470f50c",
+            "fc1719ecc1197aa141653dba8162ab67e9314cd8e622200a82e8a291bb165808"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "aec463b6fb0270afbea3ec71b9ec5c469e28b86e8cc5204fd06521b972f4580b",
+            "327266fb9eb82f6c1e673350af1fb3af93b73fb2feaab76730daf83e74e3521f",
+            "108df91a34ce4a228210085225e9e32fcd423b42d2e3ecf5bdbef8b70e484298",
+            "9460e03c77e07ae5e9c03bf51ee36e41c0b17472ff34507112ff71ddec2160c6",
+            "4e71dc876e955adee17734d8aa720d087bd7605cdb00f2b05b32e1ec985e00d4",
+            "a3f1018a302129efe12cdd47f5b94d5315276df3f2581186e822f76d4f2ad2e7"
+          ],
+          "heldout_nll": 1.7668075678472608,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "164f473376db1c3c801b2af3f78d9d67c76baeff685a4a4ffd22c88926606440",
+            "d37956d78b9c48a32670509837e02f0ea3ba42dd950f0ef73a06c2331189e275",
+            "81678e4d08f0250ffed1f69d098ebe122e6c086af031db81fe803ae0049a9ba3",
+            "d32e49d2413ba1c9294c4cf4756d72ffa0d187ad85cb69c97f3a175787480ae4",
+            "44aae8fa96418e41c6503764cfb0104ce2ba2bdfbcac9cac6bdd5898da37f53a",
+            "406d7ac81942da9461bb21bcf4a80cf4d56fa6465c18719e592c6be7aabae31f"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "aec463b6fb0270afbea3ec71b9ec5c469e28b86e8cc5204fd06521b972f4580b",
+            "327266fb9eb82f6c1e673350af1fb3af93b73fb2feaab76730daf83e74e3521f",
+            "108df91a34ce4a228210085225e9e32fcd423b42d2e3ecf5bdbef8b70e484298",
+            "9460e03c77e07ae5e9c03bf51ee36e41c0b17472ff34507112ff71ddec2160c6",
+            "4e71dc876e955adee17734d8aa720d087bd7605cdb00f2b05b32e1ec985e00d4",
+            "a3f1018a302129efe12cdd47f5b94d5315276df3f2581186e822f76d4f2ad2e7",
+            "8f7bf000fef77d67e9f1dd5d90fb1844b8eabb9c514754effa73aadfc470f50c",
+            "2520e650cc55a1ba81c7bcdc160768e4d1daaea9685316962ca01e5579ff65d1"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "89d5c8d2eca665892c0d968a38221700940bb64939e3221722b5f8dd0115e5d4",
+            "216c08656ccd1e3ea7d3faea013acb445dbe2453b05530b83337d3aef5316d05",
+            "4ba0dc442f5ad8650bb79f807260d4a567bbc3bac796ce9d80ae6a10b94e00cd",
+            "64d46c833118e210c831d4f8a7c40dc036dd1111b6dfd53a112d495502c471ae",
+            "f11bd06c106c7c436e36a880704e5551a29eda0165966a73d452611ea0064a51",
+            "8f838c783abd3c76d241ebd4f2bddce2f97204b6ac664f3f4fb1a5cbe69fcecd"
+          ],
+          "heldout_nll": 1.5865382928174143,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "39ccf6658d82bc5f1e4ad3e164d1ccb4cca203d55bb0c13bd57217f91a482df9",
+            "9832948bc9ec73df5d6a98b6664e6c16c82597a64e9d5b2d00520469d16a2fff",
+            "16a69ef806fabf2c62594c4565caa06dab3937df31015d8cdc7250ba5e685761",
+            "c639ce97f83440c215bd335d75ec8dc6984b04a2e7a5da07f28e138f4bd58307",
+            "8c174b0e101a919a348f5d5045d6301101a9ca447cfa87d84f8cde2a9fd8fafd",
+            "158d53cd6fe4ce54785dc7c1d394a6ab46fffb844e11a05bca08ecba1a8b1f2c"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "89d5c8d2eca665892c0d968a38221700940bb64939e3221722b5f8dd0115e5d4",
+            "216c08656ccd1e3ea7d3faea013acb445dbe2453b05530b83337d3aef5316d05",
+            "4ba0dc442f5ad8650bb79f807260d4a567bbc3bac796ce9d80ae6a10b94e00cd",
+            "64d46c833118e210c831d4f8a7c40dc036dd1111b6dfd53a112d495502c471ae",
+            "f11bd06c106c7c436e36a880704e5551a29eda0165966a73d452611ea0064a51",
+            "8f838c783abd3c76d241ebd4f2bddce2f97204b6ac664f3f4fb1a5cbe69fcecd",
+            "a83802ae480b85fdb2139b11a07e0d5b4ca11d240dc0d872e9aad46a3b8f7bf5",
+            "b120c02797f635a28c871b0a76f661584bb5ced67bfed903479255dd8abb1f87"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "3a35dd677a92d4dcb16df54294ff4068936c59372766b974515f58ad88078b7d",
+            "a13d0f69192379412551a42f71a3237454a27780bdbe8aa0b7a4130a0289ff20",
+            "551367829d90a7ed7f4efdda8f36676a93044aeb16f8dba91681547994eb42b1",
+            "2683e9f628cdb8eb2001010112fe635b45865f415e8f8efe98510d7c1ce9979a",
+            "76cb32a9403262485ead2887da108d41ef588cdefafaf54c4d647fda9d061371",
+            "6915a1e3f5454cd94d419b5e667514456f5521a3f7a8e17d9ad450faaf16758d"
+          ],
+          "heldout_nll": 1.664927844714796,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "84a4fac57d30ecc003e276801abbeede7155700b6482fa7ef2b2744fd1774134",
+            "bbbcf0bd005206268907e98a683b8a88e93f736b02ed5867c1c733123e85dadc",
+            "b9ba90dea5d085a683bc7e7fd15ffe81ea6e807d61b017e7f3ff103b22993e99",
+            "458f66b043ca5c1460e398daff94300a251abd9eb5923cd6e6a90b468d1e2b35",
+            "0b43471053254573700018a291025aa7e7d939f16fda2150a87c2aeb07350648",
+            "1b18e5a23e90c55ccc66424fd154e6f09c86ea172b6b4aded5029f19040df3b0"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "3a35dd677a92d4dcb16df54294ff4068936c59372766b974515f58ad88078b7d",
+            "a13d0f69192379412551a42f71a3237454a27780bdbe8aa0b7a4130a0289ff20",
+            "551367829d90a7ed7f4efdda8f36676a93044aeb16f8dba91681547994eb42b1",
+            "2683e9f628cdb8eb2001010112fe635b45865f415e8f8efe98510d7c1ce9979a",
+            "76cb32a9403262485ead2887da108d41ef588cdefafaf54c4d647fda9d061371",
+            "6915a1e3f5454cd94d419b5e667514456f5521a3f7a8e17d9ad450faaf16758d",
+            "dee62b85c221123071b6220bf71ba5325f08c03454fb97e28f91750d75301e58",
+            "fc1719ecc1197aa141653dba8162ab67e9314cd8e622200a82e8a291bb165808"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 1,
+      "immediate_eig_values": [
+        0.010297376725618257,
+        0.011853880714540077,
+        0.009047678936164871,
+        0.008015936379830668
+      ],
+      "initial_heldout_nll": 1.5828865989482173,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "8f7bf000fef77d67e9f1dd5d90fb1844b8eabb9c514754effa73aadfc470f50c",
+        "fc1719ecc1197aa141653dba8162ab67e9314cd8e622200a82e8a291bb165808",
+        "a83802ae480b85fdb2139b11a07e0d5b4ca11d240dc0d872e9aad46a3b8f7bf5",
+        "b120c02797f635a28c871b0a76f661584bb5ced67bfed903479255dd8abb1f87",
+        "dee62b85c221123071b6220bf71ba5325f08c03454fb97e28f91750d75301e58",
+        "2520e650cc55a1ba81c7bcdc160768e4d1daaea9685316962ca01e5579ff65d1"
+      ],
+      "user_id": 580
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "dd7a68e96c4f2c95f9fec84d0614c2b7cb8f554f207b2332df45c4b16d47890e",
+            "9bf19cfe10f3b840faf796e719869c55e24092c4bbfb03ed1d155f0f0eb9f5dd",
+            "5c136589d298568d1d260fbb252cd9c52a401eea6fc8bb45d78cae98f6ff8d49",
+            "5826db6f051331d14606e2870388ab9d05c7f87d07808ef31a677d783ae778c4",
+            "015b1ac7d198002dd32c2e3f0db204ef94d9915a559f4e190d508dbe75598361",
+            "93c0e2fad5a20b3eb148c4f6ae3b264782fe82ef94767828bd82eff4c9fc3e2b"
+          ],
+          "heldout_nll": 1.4983834373603238,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "b87fbf7b2c25ed4632a0a771e62be75380351935641ccf3ec08e2dd05b1e409d",
+            "296b8e648c4fed679fefe42c1ba8f501d30814569a5077b75249b4e43608fca7",
+            "386d25a260d1d1dda6100f8c95e778c7e357ffb589a3a827366f6ca35ee360ab",
+            "71d1b0af86440c7f542ebc94e411204780e2b34ff08f4fdf303061a71cee089a",
+            "3824e23b81b321a7c6c44c2567c6b2bfb893c866a7b912be2b68989337b3c338",
+            "70479fd2590c746aedbf8842c5b918aff8ff879194ad05b1af23ee723613a208"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "dd7a68e96c4f2c95f9fec84d0614c2b7cb8f554f207b2332df45c4b16d47890e",
+            "9bf19cfe10f3b840faf796e719869c55e24092c4bbfb03ed1d155f0f0eb9f5dd",
+            "5c136589d298568d1d260fbb252cd9c52a401eea6fc8bb45d78cae98f6ff8d49",
+            "5826db6f051331d14606e2870388ab9d05c7f87d07808ef31a677d783ae778c4",
+            "015b1ac7d198002dd32c2e3f0db204ef94d9915a559f4e190d508dbe75598361",
+            "93c0e2fad5a20b3eb148c4f6ae3b264782fe82ef94767828bd82eff4c9fc3e2b",
+            "96fb06429624536d6295e98e227da4611db4a41472be5df5d4c3be1b02a2a37f",
+            "ea839e686e5d31ba4d25d24a8e06d9a93869536b17b4c175ecb0e915b1037bed"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "451600a49e521b4bb94346abb58a61a5bcf032858b7e774552a384c0915763ce",
+            "90065650ca516fbbf49e25afcd2f9e4e7650710abf091791aa0c8a02e233e244",
+            "1628f1d673fa7f6aa30a8acd4f7af8691c45c6f38b86ebb65e93c03b3671bc96",
+            "eba051f4b8a45923a9f7f217b7f691cb24359468189ceb18472d0f95c5d15bbe",
+            "b7c5892ac783b9f81d3e0a78ad943703a11e9f7154a0be63538281de8719d0ed",
+            "5c7b2905bab2b799bca20a9a82c663bfb4e5547799c318237a76d5998dc065e7"
+          ],
+          "heldout_nll": 1.479458839343248,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "388adc938f7c3b8dfb60c7cd50c972930e7eb724f709a958d596145013958d07",
+            "7b4ab52fdd1254aeb87a494c6aa5a2bad2fb2f67d88b57d5a0cb9230898d8da8",
+            "3f030376c959c680a12f37fd678f04386ac631c249928d04bdf07af0d8da342d",
+            "4e33d5d3d20dc250e8af97e9758d47e3692ce115b2afb735d78a806106f339d8",
+            "8e69b905b6de67e3ce1fa5e1446740f0c9f7aee14abd6cc66c72121166eca7bf",
+            "3348da4d6a1bca8ca94c0de3540657d507746de6b9d43572837fb0fa73e675f7"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "451600a49e521b4bb94346abb58a61a5bcf032858b7e774552a384c0915763ce",
+            "90065650ca516fbbf49e25afcd2f9e4e7650710abf091791aa0c8a02e233e244",
+            "1628f1d673fa7f6aa30a8acd4f7af8691c45c6f38b86ebb65e93c03b3671bc96",
+            "eba051f4b8a45923a9f7f217b7f691cb24359468189ceb18472d0f95c5d15bbe",
+            "b7c5892ac783b9f81d3e0a78ad943703a11e9f7154a0be63538281de8719d0ed",
+            "5c7b2905bab2b799bca20a9a82c663bfb4e5547799c318237a76d5998dc065e7",
+            "b3aac247bedea4980f16c40752a98f8cf030e222997c4f2f8bea93c3cabb502c",
+            "288f7004770b5055302237bbcb858740037542f8e61dad4db46c84fe2718ced1"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "c89fa3ae1dbdb476676fc425989470dedd0e2d9f5746110838992ca75562ffdb",
+            "47f145f6a72a096cb33a7847b59863b248ab90a896510c89afcf507b0b5d8d93",
+            "1e3f6d3b76ca33c2b3f8c732ac8e37aebdc56841fdbe11f5689a176851d747ff",
+            "e047d7c43e6feda8d910e0d7073c914143a58bab93ab50dd3b07e9df3715e341",
+            "54fe146726741b55e5b4cded00e74795febd9f9fa66aadb1b4e9f56f613499a3",
+            "c3c031e3c87138eb666b66be5394196e0a51b68c076e8daab21b481f9c4f82dc"
+          ],
+          "heldout_nll": 1.4673420576455465,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "35e0b346dfdcd80574015ef890717f6cede68762959232cee7215379d07726ec",
+            "4bbfa3a1be31994ef9640f3a1d360dfbed5d39c79151552b5eb4b7295d2b8bb6",
+            "3ccc37f520ba2a71525bbd36ad8f146c6d75f20c6e99d5d4f303c37b257e5868",
+            "f021787b9a792fc6d09385269509600ee499c02c43cd7a96699e39f35c0cf63d",
+            "f956770e480574175a90ae590d8c491be902f442335e24c4abc544dfcc22f296",
+            "f7fde83c2fdb8b32eef78463082d0da81df8301f09168eab60f898a5e251adc7"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "c89fa3ae1dbdb476676fc425989470dedd0e2d9f5746110838992ca75562ffdb",
+            "47f145f6a72a096cb33a7847b59863b248ab90a896510c89afcf507b0b5d8d93",
+            "1e3f6d3b76ca33c2b3f8c732ac8e37aebdc56841fdbe11f5689a176851d747ff",
+            "e047d7c43e6feda8d910e0d7073c914143a58bab93ab50dd3b07e9df3715e341",
+            "54fe146726741b55e5b4cded00e74795febd9f9fa66aadb1b4e9f56f613499a3",
+            "c3c031e3c87138eb666b66be5394196e0a51b68c076e8daab21b481f9c4f82dc",
+            "b3aac247bedea4980f16c40752a98f8cf030e222997c4f2f8bea93c3cabb502c",
+            "a01fed7a235ce44450dbb36c822918edbbdb8ab57c69560024a024ddc9ec3c80"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "d8a3f5c7147d700534ed420f03d76d2e6879a5a3a8ea3be2b0ad9cb5838cd755",
+            "a99480c601e589e183614e73fc07145fdf71e13a62148745d8f4fd495616b352",
+            "1690e8cb1854e32ce9584348546a860fd8931ae9fa5a5010d0edd1ac8fa163ee",
+            "c730596f25309692a94fcec84fc2da1f87accc9b5ccafdd3bf88af0b61917711",
+            "bce9ceac00d325d53661c005e9a1beb33c3b00fe719696ea903c5b8b15394bb1",
+            "bb4354fc2e45261516f99a104c81d49f9c53238f11c876e0abd0543249376959"
+          ],
+          "heldout_nll": 1.4596198247639012,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "4fb13ae4f6bb620d6174a45c4b852a386a76675fb0803613bce6d7d6275c4502",
+            "33b19315dab865d044c35792c2e3abc08097f60fdd571dd36682a9ad1dae8b3d",
+            "47b2e5ba9b14a0d3027732b60d98595eb579b7c8ecf173dfeac474ad30997e5f",
+            "07a49fff2d6c9deafe962c22780f1400d37ea38cedd781002d14b91a728ae5e6",
+            "7dbe66bee861523140f64665d4b835207e7d147911fdbbffa1b4538a6bf9027d",
+            "9f97c65410cb58083bf4f6cd415738af110bf510ba80b6a881f6146116589a85"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "d8a3f5c7147d700534ed420f03d76d2e6879a5a3a8ea3be2b0ad9cb5838cd755",
+            "a99480c601e589e183614e73fc07145fdf71e13a62148745d8f4fd495616b352",
+            "1690e8cb1854e32ce9584348546a860fd8931ae9fa5a5010d0edd1ac8fa163ee",
+            "c730596f25309692a94fcec84fc2da1f87accc9b5ccafdd3bf88af0b61917711",
+            "bce9ceac00d325d53661c005e9a1beb33c3b00fe719696ea903c5b8b15394bb1",
+            "bb4354fc2e45261516f99a104c81d49f9c53238f11c876e0abd0543249376959",
+            "b3aac247bedea4980f16c40752a98f8cf030e222997c4f2f8bea93c3cabb502c",
+            "a01fed7a235ce44450dbb36c822918edbbdb8ab57c69560024a024ddc9ec3c80"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 2,
+      "immediate_eig_values": [
+        0.015128160331743468,
+        0.019817503749241405,
+        0.020060136871411727,
+        0.002522619118232816
+      ],
+      "initial_heldout_nll": 1.589570734065861,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "b3aac247bedea4980f16c40752a98f8cf030e222997c4f2f8bea93c3cabb502c",
+        "96fb06429624536d6295e98e227da4611db4a41472be5df5d4c3be1b02a2a37f",
+        "a01fed7a235ce44450dbb36c822918edbbdb8ab57c69560024a024ddc9ec3c80",
+        "288f7004770b5055302237bbcb858740037542f8e61dad4db46c84fe2718ced1",
+        "3e84c3eb8b28836d5fe4a9d3a87747af5a27562103d6ca2a8fcb0c638dbd9835",
+        "ea839e686e5d31ba4d25d24a8e06d9a93869536b17b4c175ecb0e915b1037bed"
+      ],
+      "user_id": 650
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "040022f56203c67dc7b69c31ae353795154d95f1cd19f233f617a39084a68cb1",
+            "b45531b13060f47ba80a53ca76b6a90d62853b3981618b53849abc63f83154e0",
+            "c955e94990fa40438f635a6567843c67e804cf14713777016087f1c812f9d67a",
+            "02d4b1db3e442edf676c1f978bec7e7e6cebd733b7f0ff9b8102031c6f3e12d3",
+            "d3d6209983a45427adad149453fa1b392b571ef4943188bb6b4a767bfba17da6",
+            "5841eb40c07b6e67854acd356358a8b039fd1d7fa0c3e02b695b5bcdd9ac55d6"
+          ],
+          "heldout_nll": 1.7718595581878072,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "cdfd32abd95dd8ea9961afb42bcb87cddc40fda35074553089ae8f1a4fe933e3",
+            "793ab4c60df125177b0892b1c145c602ce7f620a67974548db161b16fbfa6ceb",
+            "28dbc15cbf4dd8c4f78d692a10757a381f3689e370c6ef3f62fe3ec598fecd0a",
+            "adca2136904865851ff4554df43aaec2766a492a31fcaeccad3c05feae9c3569",
+            "f8647e6481f35951798ec201d3252af6cbc1b42c582eff8200b04760d64ee8cc",
+            "15f7cb0f0cea690b96d3534fd8dfc0f4191dbe7590219f5aee0be7a03241360a"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "040022f56203c67dc7b69c31ae353795154d95f1cd19f233f617a39084a68cb1",
+            "b45531b13060f47ba80a53ca76b6a90d62853b3981618b53849abc63f83154e0",
+            "c955e94990fa40438f635a6567843c67e804cf14713777016087f1c812f9d67a",
+            "02d4b1db3e442edf676c1f978bec7e7e6cebd733b7f0ff9b8102031c6f3e12d3",
+            "d3d6209983a45427adad149453fa1b392b571ef4943188bb6b4a767bfba17da6",
+            "5841eb40c07b6e67854acd356358a8b039fd1d7fa0c3e02b695b5bcdd9ac55d6",
+            "020583e5524e3d1c086e58d402d11e64bc014db0f06a74cb7d92f4c68c455af9",
+            "91f188125f1c313fe38d1808b6858b1028276aee6c396582e826e8d3ca591ec3"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "9ff894d49512339d30d44bf8f80729fd454438a846a60aeb91a30a0e398ad47c",
+            "66f32e321c68e6df4c16af7191b1300c77c791f8bf0a2105c9e9d0341f8e06af",
+            "1435871400007d0f056ed6fcc12eba4ee4245fee12ea7d1f12305038cd67392d",
+            "f7a7ae867267bcfdbb33a8087e961c4da25fad98f336562ce5d9cf6f9f606598",
+            "b20f74276be221336371313d99f0e6cb516b0d7a348565bda1ddb8fa08f71799",
+            "756b4fb08ba24a2972ec5183f19f281445360a4d6ebd620a0e8882af0b92a824"
+          ],
+          "heldout_nll": 1.5554714198641109,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "614acaf803f79cd3e3652a00e7a2e9cf6cf5b21c87ef5efcb4b860993c17c494",
+            "7c1b5ebb0aaca376461ddb7b51c5b4c3ae1f28f2e1466ea97e210899ae60a0cb",
+            "852a056921ef3b9e8677f1e51f0e60d33906c5ddddff323adf0f35626dcf7790",
+            "1c2e66332e70caa2050f31d0d5efb7c6b7b0203a825b1114d24e73437e046686",
+            "5b52c15ee954606b06fce5108b6254608b7e6a10e385f619d88fd669626982c1",
+            "2c631b3b8428ce6d874ea443f9f542388bd22417bb9afd90c228e17b4976d67e"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "9ff894d49512339d30d44bf8f80729fd454438a846a60aeb91a30a0e398ad47c",
+            "66f32e321c68e6df4c16af7191b1300c77c791f8bf0a2105c9e9d0341f8e06af",
+            "1435871400007d0f056ed6fcc12eba4ee4245fee12ea7d1f12305038cd67392d",
+            "f7a7ae867267bcfdbb33a8087e961c4da25fad98f336562ce5d9cf6f9f606598",
+            "b20f74276be221336371313d99f0e6cb516b0d7a348565bda1ddb8fa08f71799",
+            "756b4fb08ba24a2972ec5183f19f281445360a4d6ebd620a0e8882af0b92a824",
+            "91f188125f1c313fe38d1808b6858b1028276aee6c396582e826e8d3ca591ec3",
+            "0adfdbbf6ea07474dd5769f2a55b9b2468b5a6cafe44a702c1af6973e634fedd"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "e7693ba836166c81f5af8e61582d645335c500cec23f6a43f38d8a2d415dbc24",
+            "b9a20786c3447ad1717587628fc5edf5a40b9a7ebf509f863fdd0028cfdfc4b7",
+            "6316414f45ebbf45ac5318af88870e8291876c9f763986fa7038754657291cff",
+            "82ee45b59ff3955b7b3975ddd08b50466b1cb80c5a5f2bc94725c4287b1a302a",
+            "57c6cf71b5e64c627b9be2a9c2dabbb19cefc92928ad19ed9f15489ac21c943c",
+            "a5a605c20c0e5fa29bc99dd32679b47728c89e8d2f6cccad57d6a29398cb6425"
+          ],
+          "heldout_nll": 1.6118658852724663,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "e1c912ebbbbcb56c433eb57075737163091625c97e9744f5aaf749add72352a6",
+            "d70a94f5b5bcda4d2ce16fd62f10d0bd409ce61e1a547d2f96769d8ee4013c5d",
+            "04c0dcb959296b561b5e0f16a9a3062cdd12fb5dccda0e4ad9e6a4b55a5d7190",
+            "3cc56501941649470757237c0b7de854fb8e158d2af9233785c2e786e28a93ab",
+            "15fd9b480c044afe900f5ba479a92069953e1680756c400d4a87632205db36c0",
+            "344078e54b6c3df105c180bfdbed1f9f7a9c865381cdd79d6aaaa3f733a47106"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "e7693ba836166c81f5af8e61582d645335c500cec23f6a43f38d8a2d415dbc24",
+            "b9a20786c3447ad1717587628fc5edf5a40b9a7ebf509f863fdd0028cfdfc4b7",
+            "6316414f45ebbf45ac5318af88870e8291876c9f763986fa7038754657291cff",
+            "82ee45b59ff3955b7b3975ddd08b50466b1cb80c5a5f2bc94725c4287b1a302a",
+            "57c6cf71b5e64c627b9be2a9c2dabbb19cefc92928ad19ed9f15489ac21c943c",
+            "a5a605c20c0e5fa29bc99dd32679b47728c89e8d2f6cccad57d6a29398cb6425",
+            "b0ba3ace921bb9163ac71a90f258c7320bfc9b4f2978639fc8e7f14ee36bcd1c",
+            "0adfdbbf6ea07474dd5769f2a55b9b2468b5a6cafe44a702c1af6973e634fedd"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "59ca56d7dd77875678a8fc75fed60bfa9224003f43837ecda43a30df9ce2d0d7",
+            "c6e3159508232574229f6292480b22046c42be72d0bd802950e06c2da393423c",
+            "f21716e97191754cac263804c05e2a13aae08c80e537f0447f1a17eb78b19344",
+            "817ba713ff7a3faa348d5df9cc5d2c67ea11a1ec5bea60cb7026766ab1446e58",
+            "63d6e7a21a71b2ac75e04cfb7128358a3b7c90d6676d0630d662f925d190d973",
+            "8a41eb9969c91960b0330a6377dade212120aefdce7b77cc51a5beb0972fd86f"
+          ],
+          "heldout_nll": 1.6963204478811977,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "d54997071a7b1a289df4231e7253ba618fb719cefe53950e94824075a60bbc7d",
+            "8c7ee286426977cdc72935d16a4834ce261ef7e036e8cbcaf51c135050bbe460",
+            "ec9f965d7229eaf2c9f837101a443c7212f0ae1dd283f1a864c85e85e302f388",
+            "38c14fd7b31b10fe0e19c1cf7f3124d2adef0ff3b24cc1c3e417e4d063c62421",
+            "6df805ae29424c9fdf39451ed8694f6f255221834b0e635826b0df9958b8b488",
+            "768ec357cff0bbc1c3f090d1f10272792a23e84953cef78ba8bbb4f81fdaf70e"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "59ca56d7dd77875678a8fc75fed60bfa9224003f43837ecda43a30df9ce2d0d7",
+            "c6e3159508232574229f6292480b22046c42be72d0bd802950e06c2da393423c",
+            "f21716e97191754cac263804c05e2a13aae08c80e537f0447f1a17eb78b19344",
+            "817ba713ff7a3faa348d5df9cc5d2c67ea11a1ec5bea60cb7026766ab1446e58",
+            "63d6e7a21a71b2ac75e04cfb7128358a3b7c90d6676d0630d662f925d190d973",
+            "8a41eb9969c91960b0330a6377dade212120aefdce7b77cc51a5beb0972fd86f",
+            "91f188125f1c313fe38d1808b6858b1028276aee6c396582e826e8d3ca591ec3",
+            "6ea8b7c0eb3024261a06c137f20b34124b5499438a1d8a6fd29f373818050b2b"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 1,
+      "immediate_eig_values": [
+        0.005982938127937487,
+        0.016352820051808603,
+        0.0041640970353928886,
+        0.005813904983832607
+      ],
+      "initial_heldout_nll": 1.6002597386665158,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "43782cda25c2fc054419995c6bd6920a5d4c5cf06b4a059056b4433fbbb4d168",
+        "b0ba3ace921bb9163ac71a90f258c7320bfc9b4f2978639fc8e7f14ee36bcd1c",
+        "020583e5524e3d1c086e58d402d11e64bc014db0f06a74cb7d92f4c68c455af9",
+        "91f188125f1c313fe38d1808b6858b1028276aee6c396582e826e8d3ca591ec3",
+        "6ea8b7c0eb3024261a06c137f20b34124b5499438a1d8a6fd29f373818050b2b",
+        "0adfdbbf6ea07474dd5769f2a55b9b2468b5a6cafe44a702c1af6973e634fedd"
+      ],
+      "user_id": 676
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "49ce5f2774d462bb8f71e46c13792834eeac8526f75ccc9817e37d142c4eef29",
+            "d01c8a333689baeb3bdc77fae598793a739fd6e10a4ee5d777f06ffad71d89f5",
+            "d8d1aeb7cd5eb79fbd07b0b3c57a6679d40eafe2e3cf0f9d0fdedb22756462d4",
+            "8bb9d759fbe943fd12209eeb89bc7c2bd0ad6569c9d5125d17f60e3fc348e48e",
+            "a8af3dc4323169084451d6ce75acb3d7f104b7f516a0825e65807440f567f205",
+            "96cf5b8f7c7e5da7bf1002574d4723b8306159997c100f26295fcac3f95f3174"
+          ],
+          "heldout_nll": 1.7885583406931742,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "52a31a88e91930ce6aba4fca426bb8fefef22dd73196a2e7b1489d98f1e318b2",
+            "80d40770c096e2a732ab4676e3fc7aeda70b5f1ce58f735f5b1efe9fb888c3c9",
+            "6faa9a758091b58b608082c0d8b8bfef9d3b6111c456f91192cdb0b582213d0e",
+            "91f8a37998a9366c4b75b9d1f5abf6093cac5d7fdaf924e12004b97bbc6b3755",
+            "ba6758e2295b9c7504048568f35b8cb31dd6a5523df7a7f286953857d200187e",
+            "7eaa7498e5549f1bf232c554833a3784c20176a5b4d48d5f7841f325d564e250"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "49ce5f2774d462bb8f71e46c13792834eeac8526f75ccc9817e37d142c4eef29",
+            "d01c8a333689baeb3bdc77fae598793a739fd6e10a4ee5d777f06ffad71d89f5",
+            "d8d1aeb7cd5eb79fbd07b0b3c57a6679d40eafe2e3cf0f9d0fdedb22756462d4",
+            "8bb9d759fbe943fd12209eeb89bc7c2bd0ad6569c9d5125d17f60e3fc348e48e",
+            "a8af3dc4323169084451d6ce75acb3d7f104b7f516a0825e65807440f567f205",
+            "96cf5b8f7c7e5da7bf1002574d4723b8306159997c100f26295fcac3f95f3174",
+            "2296eca0e2c37b9ea6fbf507c0c08a1807bc3fa1818c15e3504d6c259aea6e67",
+            "1f9e4e4b68508638a03677ec81d3492efd89a9e3d19c7e1100bf57be7e8b96ac"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "57de425b938217e4cdf24e5ef63c5d5d7c8dcaa38211fd3917293a07d03a77e7",
+            "c15e7f92bbf644fd9e41a214268f3c9b76d178284f642f87121e492369010131",
+            "5d9adbe0d79a9c613a319e2df1ba11452ce90aa90c6ce72b908db4b2a6c6a0ff",
+            "5034636c0d4fb7e4a44667b25ddbd43053e76f63efa5627676c2e6c13188cea7",
+            "a5b1ede39effc3583004a2ede56c052c5daf14c017111d8d113a995a9ebc936d",
+            "db5879bcfc5fbacd5c3ca20a12ed626c601ae40518f9fafe13900445f4ca9bf1"
+          ],
+          "heldout_nll": 1.4309245097704646,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "ae790d003fad8d04c5b522f3cf4aefa204939d4366ca9b951cc4feac5812bc44",
+            "2c632c8fef483ff7e0f2eb5a5091970f209ee77126f915b118b32118bc00ea82",
+            "9293b2b8b606084114c1fce14abbfbb1cff117217cefa06e94ead8a58a28c2fd",
+            "aff563bf92bd0c5fd40fffa5df031b56c41f6ae708e7e0727544114db8c0235a",
+            "a4a2de3fcf31df5bb2f9a2d685a1003dd501ba3fbd71a750f4bb6a9dd5d2751e",
+            "0708da0a8293b72003e5f80bc9a97c8ea0cdf4a036f09a8e1d445c043b0116d7"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "57de425b938217e4cdf24e5ef63c5d5d7c8dcaa38211fd3917293a07d03a77e7",
+            "c15e7f92bbf644fd9e41a214268f3c9b76d178284f642f87121e492369010131",
+            "5d9adbe0d79a9c613a319e2df1ba11452ce90aa90c6ce72b908db4b2a6c6a0ff",
+            "5034636c0d4fb7e4a44667b25ddbd43053e76f63efa5627676c2e6c13188cea7",
+            "a5b1ede39effc3583004a2ede56c052c5daf14c017111d8d113a995a9ebc936d",
+            "db5879bcfc5fbacd5c3ca20a12ed626c601ae40518f9fafe13900445f4ca9bf1",
+            "1f9e4e4b68508638a03677ec81d3492efd89a9e3d19c7e1100bf57be7e8b96ac",
+            "597db56e93f96bc6042a9eab96e70fc1cbcc3f723a4acc7a48dd7f85370b57f2"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "4ab1d51429560c05ea3d643aaa2924ecc654584a252d66856a943f4ef89c54dc",
+            "e64c11ce0d9644e7c68362c59a33812653dc62623c89855d1d21ecfba91f59e2",
+            "0d48b30af0574b3e0569ecf2fdeebe0fa1bfe973060662bc78b6db7c8ae5cb75",
+            "128d55d02d03d5cd47de42e0bd93e903c415371fc71b58063966cc9216548e3f",
+            "e5f52c80d8d8c4fc01f023ff083c5e710f73fe66e7ebd37b38b1cbd144433bce",
+            "4b5d97c30a5f7037bcd8f0fc141ba3b4e5e07960bd4d51f40927c916322991ef"
+          ],
+          "heldout_nll": 1.5169277397748817,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "2f558386f329d6a8b9e7644107f98b6184569645fb25c222ea4051b5501f8589",
+            "d68e1a5cb69d6e5376d9d4a3ee89666707bf8bbcd2f121a98cb502c07a64ef2b",
+            "604a2999d873f6f9c660b3967f43e92248795873290d02e51a2a6b349519c15b",
+            "835d647733f15fdfaa7cb29a96d4c7cc3c1a489481a929d1f8fe3cc286d4c7e2",
+            "de1ec63fdbd88514be126c886103820f5c9ed478709ae488bc7b36995557eb5d",
+            "37761ca8cefc312412f9d74e3e37fd515b23a14ab53262ee7b47c6b58d0a7080"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "4ab1d51429560c05ea3d643aaa2924ecc654584a252d66856a943f4ef89c54dc",
+            "e64c11ce0d9644e7c68362c59a33812653dc62623c89855d1d21ecfba91f59e2",
+            "0d48b30af0574b3e0569ecf2fdeebe0fa1bfe973060662bc78b6db7c8ae5cb75",
+            "128d55d02d03d5cd47de42e0bd93e903c415371fc71b58063966cc9216548e3f",
+            "e5f52c80d8d8c4fc01f023ff083c5e710f73fe66e7ebd37b38b1cbd144433bce",
+            "4b5d97c30a5f7037bcd8f0fc141ba3b4e5e07960bd4d51f40927c916322991ef",
+            "496e99734dfeb3a3bb53346db259397e033c694b303a11c8b9e700c5fa9c36f6",
+            "2296eca0e2c37b9ea6fbf507c0c08a1807bc3fa1818c15e3504d6c259aea6e67"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "78abf9666360a589920139daa91a480323a5fa0c2adb679ba83e1e8c42f5a01b",
+            "6f0538cbb4a4c6e54bf4fed2710eb6e4c218730f6ab46a669f7ea0863a4e7948",
+            "8b05b9fe11b233b1b63ddd8bbddb038a99ed650af27293cd1f83664f206bc05e",
+            "ead77c9f6c1952c783546c3ca0a69d79cbf1ca112165fe6b18c5052cb897076e",
+            "30f39377d4294b2ab2b4e9105412ccc5af582bac774192c461a936f7ebf00990",
+            "1f2a9af7035840b0ba1bcd12a8cfa79983e44aa73210aef0ddcc99097a996997"
+          ],
+          "heldout_nll": 1.5647070705579618,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "3c0d3725e030fb2473844f029aa68c38ed21fe9bc511e8a2ab8b5f42a7b3950f",
+            "fd950325af17d1034b6b0b2ae115bc7c9e3210243babd58bc49adf59a4b1bc1c",
+            "1904d82c315ab5e7fd116684004e3e3389681687ee3d13fda6dbf6ecb00f26a3",
+            "cfd9894eaae5cdd341af65d645704c7fdf8abf40e1f78e373ef2d2dca31f8cf8",
+            "bc0317932543770bef9246501a89c1b6f12392381c59eed298014e1dd33767fa",
+            "d09af2272b52bd054e2de230685e0ed34be98dbb2851f9c8a3803e3274a95c79"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "78abf9666360a589920139daa91a480323a5fa0c2adb679ba83e1e8c42f5a01b",
+            "6f0538cbb4a4c6e54bf4fed2710eb6e4c218730f6ab46a669f7ea0863a4e7948",
+            "8b05b9fe11b233b1b63ddd8bbddb038a99ed650af27293cd1f83664f206bc05e",
+            "ead77c9f6c1952c783546c3ca0a69d79cbf1ca112165fe6b18c5052cb897076e",
+            "30f39377d4294b2ab2b4e9105412ccc5af582bac774192c461a936f7ebf00990",
+            "1f2a9af7035840b0ba1bcd12a8cfa79983e44aa73210aef0ddcc99097a996997",
+            "1f9e4e4b68508638a03677ec81d3492efd89a9e3d19c7e1100bf57be7e8b96ac",
+            "2296eca0e2c37b9ea6fbf507c0c08a1807bc3fa1818c15e3504d6c259aea6e67"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 2,
+      "immediate_eig_values": [
+        0.00824384415769841,
+        0.0024114729412807456,
+        0.010720174994366838,
+        0.0016573649507602983
+      ],
+      "initial_heldout_nll": 1.4344337650610057,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "1f9e4e4b68508638a03677ec81d3492efd89a9e3d19c7e1100bf57be7e8b96ac",
+        "2296eca0e2c37b9ea6fbf507c0c08a1807bc3fa1818c15e3504d6c259aea6e67",
+        "597db56e93f96bc6042a9eab96e70fc1cbcc3f723a4acc7a48dd7f85370b57f2",
+        "496e99734dfeb3a3bb53346db259397e033c694b303a11c8b9e700c5fa9c36f6",
+        "bc3d1108f14203547e17c9fdb9512f4808cff3989708d94640bdbcf6ec7b8a3d",
+        "2b667af2aece66968655d40fe21857db2367369c2baf516bec04a01858f2ea9b"
+      ],
+      "user_id": 699
+    }
+  ],
+  "schema_version": 2,
+  "status": "gate_failed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": false,
+      "all_users_completed": true,
+      "at_least_four_users_have_eig_regret": true,
+      "at_least_six_users_have_branch_spread": true,
+      "at_least_six_users_improve_by_0_05": false,
+      "exact_physical_request_count": true,
+      "mean_immediate_eig_regret_at_least_0_03": true,
+      "mean_oracle_improvement_at_least_0_05": true,
+      "semantic_profiles_affect_rating_likelihoods": false,
+      "zero_reasoning_tokens": true
+    },
+    "mean_immediate_eig_heldout_nll_regret": 0.04779162178561867,
+    "mean_max_immediate_eig": 0.021626687749680684,
+    "mean_oracle_heldout_nll_improvement": 0.0723161402609575,
+    "mean_within_user_branch_nll_spread": 0.14766557541793174,
+    "num_branches": 48,
+    "num_users": 12,
+    "spearman_immediate_eig_vs_negative_branch_nll": 0.24153278332609646,
+    "users_with_branch_nll_spread_at_least_0_10": 6,
+    "users_with_immediate_eig_regret_at_least_0_05": 4,
+    "users_with_max_immediate_eig_at_least_0_02": 5,
+    "users_with_oracle_improvement_at_least_0_05": 5
+  },
+  "usage": {
+    "adapter_cost_usd": 0.44975179999999976,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 31446,
+        "adapter_cost_usd": 0.014698549999999996,
+        "adapter_prompt_tokens": 34104,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 60,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 114822,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 31446,
+            "cost_usd": 0.014698549999999996,
+            "prompt_tokens": 34104,
+            "reasoning_tokens": 0,
+            "requests": 60
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 83376,
+            "cost_usd": 0.4350532499999998,
+            "prompt_tokens": 117831,
+            "reasoning_tokens": 0,
+            "requests": 60
+          }
+        },
+        "prompt_tokens": 151935,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.136568142999955,
+        "requests": 120,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.44975179999999976,
+        "run_remaining_usd": 0.30024820000000024,
+        "total_spent_usd": 49.2482345524572
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 83376,
+        "adapter_cost_usd": 0.4350532499999998,
+        "adapter_prompt_tokens": 117831,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 60,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 114822,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 31446,
+            "cost_usd": 0.014698549999999996,
+            "prompt_tokens": 34104,
+            "reasoning_tokens": 0,
+            "requests": 60
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 83376,
+            "cost_usd": 0.4350532499999998,
+            "prompt_tokens": 117831,
+            "reasoning_tokens": 0,
+            "requests": 60
+          }
+        },
+        "prompt_tokens": 151935,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.136568142999955,
+        "requests": 120,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.44975179999999976,
+        "run_remaining_usd": 0.30024820000000024,
+        "total_spent_usd": 49.2482345524572
+      }
+    },
+    "physical_requests": 120,
+    "reasoning_tokens": 0
+  }
+}
