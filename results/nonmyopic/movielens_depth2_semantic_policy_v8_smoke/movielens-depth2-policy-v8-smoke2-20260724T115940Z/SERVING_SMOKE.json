@@ -1,0 +1,227 @@
+{
+  "protocol": {
+    "candidate_outcomes_read_only_after_tree_frozen": true,
+    "candidate_pool_size": 16,
+    "common_transition_tree_for_all_policies": true,
+    "heldout_count": 8,
+    "heldout_ratings_read_only_after_policy_paths_fixed": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      1,
+      98
+    ],
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "da00b41cae0309b9533eda82f24fcd86763b4c9c3047aa5203dfaa0b506bd532",
+    "profile_count_initial": 6,
+    "profile_count_transition": 8,
+    "q1_candidate_count": 1,
+    "q1_outcomes_per_candidate": 5,
+    "q2_outcomes_per_q1_branch": 5,
+    "q2_rollout_policy": "immediate_eig",
+    "raw_responses_private_and_untracked": true,
+    "screen_user_ids": [
+      250
+    ],
+    "selection_seed": 24309,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "serving_smoke",
+    "user_ids": [
+      250
+    ]
+  },
+  "records": [
+    {
+      "max_initial_immediate_eig": 0.01234208690605687,
+      "policy_paths": {
+        "depth1": {
+          "final_heldout_nll": 1.7238133822369133,
+          "query_movie_ids": [
+            294,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy"
+              ],
+              "title": "Liar Liar (1997)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.6146861714995495
+        },
+        "depth2": {
+          "final_heldout_nll": 1.7238133822369133,
+          "query_movie_ids": [
+            294,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy"
+              ],
+              "title": "Liar Liar (1997)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.6146861714995495
+        },
+        "immediate_eig": {
+          "final_heldout_nll": 1.7238133822369133,
+          "query_movie_ids": [
+            294,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy"
+              ],
+              "title": "Liar Liar (1997)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.6146861714995495
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Liar Liar (1997)"
+        }
+      ],
+      "q1_depth1_expected_entropies": [
+        1.5826401734357392
+      ],
+      "q1_depth2_expected_terminal_entropies": [
+        1.572841264038915
+      ],
+      "q1_immediate_eig_values": [
+        0.01234208690605687
+      ],
+      "user_id": 250
+    }
+  ],
+  "schema_version": 8,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_five_q1_outcomes_completed": true,
+      "all_pass": true,
+      "all_policy_paths_have_two_distinct_queries": true,
+      "all_twenty_five_q2_outcomes_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_enrolled_users": 1,
+    "num_q1_branches": 5,
+    "num_q2_branches": 25,
+    "num_screen_users": 1
+  },
+  "usage": {
+    "adapter_cost_usd": 0.2837936900000001,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 16426,
+        "adapter_cost_usd": 0.008395789999999998,
+        "adapter_prompt_tokens": 19472,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 31,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 72199,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 16426,
+            "cost_usd": 0.008395789999999998,
+            "prompt_tokens": 19472,
+            "reasoning_tokens": 0,
+            "requests": 31
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 55773,
+            "cost_usd": 0.2753979000000001,
+            "prompt_tokens": 73340,
+            "reasoning_tokens": 0,
+            "requests": 31
+          }
+        },
+        "prompt_tokens": 92812,
+        "reasoning_tokens": 0,
+        "remaining_usd": 18.12499750300006,
+        "requests": 62,
+        "run_budget_usd": 8.0,
+        "run_cost_usd": 0.28379369000000004,
+        "run_remaining_usd": 7.71620631,
+        "total_spent_usd": 52.259805192457094
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 55773,
+        "adapter_cost_usd": 0.2753979000000001,
+        "adapter_prompt_tokens": 73340,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 31,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 72199,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 16426,
+            "cost_usd": 0.008395789999999998,
+            "prompt_tokens": 19472,
+            "reasoning_tokens": 0,
+            "requests": 31
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 55773,
+            "cost_usd": 0.2753979000000001,
+            "prompt_tokens": 73340,
+            "reasoning_tokens": 0,
+            "requests": 31
+          }
+        },
+        "prompt_tokens": 92812,
+        "reasoning_tokens": 0,
+        "remaining_usd": 18.12499750300006,
+        "requests": 62,
+        "run_budget_usd": 8.0,
+        "run_cost_usd": 0.28379369000000004,
+        "run_remaining_usd": 7.71620631,
+        "total_spent_usd": 52.259805192457094
+      }
+    },
+    "physical_requests": 62,
+    "reasoning_tokens": 0
+  }
+}
