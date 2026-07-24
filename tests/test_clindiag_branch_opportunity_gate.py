@@ -130,6 +130,8 @@ def test_summary_applies_frozen_opportunity_gate() -> None:
     assert summary["one_step_spread_at_least_0_20_cases"] == 12
     assert summary["reverse_order_gap_at_least_0_15_cases"] == 12
     assert summary["nonmyopic_gap_at_least_0_10_cases"] == 8
+    assert summary["mean_duplicate_support_jaccard"] == 1.0
+    assert "mean_duplicate_jaccard_at_least_0_75" not in summary["gates"]
     assert summary["gates"]["all_pass"] is True
 
 

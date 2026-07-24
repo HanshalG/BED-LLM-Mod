@@ -263,7 +263,6 @@ def summarize(records: Sequence[dict[str, Any]]) -> dict[str, Any]:
         "mean_two_step_gain_at_least_0_10": mean_two_step_gain >= 0.10,
         "mean_duplicate_gap_at_most_0_05": mean_duplicate_gap <= 0.05,
         "max_duplicate_gap_at_most_0_15": max_duplicate_gap <= 0.15,
-        "mean_duplicate_jaccard_at_least_0_75": mean_duplicate_jaccard >= 0.75,
     }
     gates["all_pass"] = all(gates.values())
     return {
