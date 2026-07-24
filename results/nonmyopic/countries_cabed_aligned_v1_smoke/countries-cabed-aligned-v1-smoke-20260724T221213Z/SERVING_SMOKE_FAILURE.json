@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: question is empty, duplicate, malformed, or direct",
+  "raw_responses_path": "external/countries_cabed_aligned_v1_raw/countries-cabed-aligned-v1-smoke-20260724T221213Z/RAW_RESPONSES.json",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed"
+}

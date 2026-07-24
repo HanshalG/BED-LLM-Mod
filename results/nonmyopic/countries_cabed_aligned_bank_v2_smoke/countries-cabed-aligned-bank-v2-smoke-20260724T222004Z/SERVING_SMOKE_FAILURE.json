@@ -1,0 +1,89 @@
+{
+  "error": "CountriesBankGateError: ValueError: tree 1 has fewer than 32 balanced bank rows",
+  "private_raw_sha256": "912a46e0cbc1a8a4f798877f2e174df6ed4996f616cd862eef56e95a89524274",
+  "raw_responses_path": "external/countries_cabed_aligned_bank_v2_raw/countries-cabed-aligned-bank-v2-smoke-20260724T222004Z/RAW_RESPONSES.json",
+  "schema_version": 2,
+  "stage": "serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.274117,
+    "physical_requests": 82,
+    "question_model": {
+      "adapter_completion_tokens": 799,
+      "adapter_cost_usd": 0.0149425,
+      "adapter_prompt_tokens": 1183,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 45783,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 799,
+          "cost_usd": 0.0149425,
+          "prompt_tokens": 1183,
+          "reasoning_tokens": 0,
+          "requests": 2
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 44984,
+          "cost_usd": 0.2591745,
+          "prompt_tokens": 75662,
+          "reasoning_tokens": 0,
+          "requests": 80
+        }
+      },
+      "prompt_tokens": 76845,
+      "reasoning_tokens": 0,
+      "remaining_usd": 40.315644353749875,
+      "requests": 82,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.27411699999999994,
+      "run_remaining_usd": 0.7258830000000001,
+      "total_spent_usd": 65.06915834170728
+    },
+    "reasoning_tokens": 0,
+    "semantic_model": {
+      "adapter_completion_tokens": 44984,
+      "adapter_cost_usd": 0.2591745,
+      "adapter_prompt_tokens": 75662,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 80,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 45783,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 799,
+          "cost_usd": 0.0149425,
+          "prompt_tokens": 1183,
+          "reasoning_tokens": 0,
+          "requests": 2
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 44984,
+          "cost_usd": 0.2591745,
+          "prompt_tokens": 75662,
+          "reasoning_tokens": 0,
+          "requests": 80
+        }
+      },
+      "prompt_tokens": 76845,
+      "reasoning_tokens": 0,
+      "remaining_usd": 40.315644353749875,
+      "requests": 82,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.27411699999999994,
+      "run_remaining_usd": 0.7258830000000001,
+      "total_spent_usd": 65.06915834170728
+    }
+  }
+}
