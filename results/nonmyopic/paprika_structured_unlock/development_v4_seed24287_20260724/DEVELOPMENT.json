@@ -1,0 +1,1975 @@
+{
+  "protocol": {
+    "judge_model": "openai/gpt-5.4-mini",
+    "selection_seed": 24287,
+    "semantic_coverage_threshold": 0.8,
+    "split": "train",
+    "target_hidden_from_generation": true,
+    "target_used_for_measurement_only": true,
+    "task_indices": [
+      92,
+      157,
+      199,
+      250,
+      398,
+      514,
+      556,
+      574,
+      584,
+      597,
+      602,
+      618
+    ]
+  },
+  "records": [
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Same safety-key cause with the correct fix of seating it firmly in place.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 0,
+          "outcomes": [
+            "Yes, it is firmly seated",
+            "No, it is missing or loose",
+            "The sensor area is damaged",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, it is inserted.",
+          "query": "Is the safety key inserted and magnetically engaged with the console?",
+          "refreshed_support": [
+            "The safety key is not properly seated in its magnetic sensor, so ensure it is clicked firmly into place.",
+            "The emergency stop clip has been dislodged from the console, so reattach it to complete the circuit.",
+            "The motor controller has tripped a thermal protection circuit, so unplug the unit for 30 minutes to allow cooling.",
+            "The drive belt has slipped off the motor pulley, so realign the belt and tighten the tension adjustment.",
+            "The motor brushes are worn out and failing to conduct electricity, so replace the motor assembly.",
+            "A blown fuse on the internal control board is preventing power delivery to the motor, so replace the fuse with the correct amperage.",
+            "The speed controller potentiometer is faulty and sending no signal, so replace the console control board.",
+            "The motor power cable has a loose connection at the terminal block, so tighten all wiring connections inside the motor housing."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.95,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Safety key not properly seated is the same underlying cause; remedy is compatible though slightly more specific than the private wording.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 1,
+          "outcomes": [
+            "Yes, it is securely attached",
+            "No, it is detached or dislodged",
+            "The clip is broken",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, it is attached to the console.",
+          "query": "Is the emergency stop clip attached to the console?",
+          "refreshed_support": [
+            "The safety key is not properly seated in its magnetic sensor, so ensure it is clicked firmly into place.",
+            "The motor controller has tripped a thermal protection circuit, so unplug the unit for 30 minutes to allow cooling.",
+            "The drive belt has slipped off the motor pulley, so realign the belt and tighten the tension adjustment.",
+            "The motor brushes are worn out and failing to conduct electricity, so replace the motor assembly.",
+            "A blown fuse on the internal control board is preventing power delivery to the motor, so replace the fuse with the correct amperage.",
+            "The speed controller potentiometer is faulty and sending no signal, so replace the console control board.",
+            "The motor power cable has a loose connection at the terminal block, so tighten all wiring connections inside the motor housing.",
+            "The motor controller has a blown MOSFET component preventing current flow to the motor, so replace the motor control board."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_2",
+            "reason": "Direct match to the safety key being out; inserting/seating it fixes the start issue.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 2,
+          "outcomes": [
+            "Displays a thermal/overheat error",
+            "Displays a communication/control error",
+            "No error messages are displayed",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, there aren't any error codes or anything like that. It just stays on the screen and won't go.",
+          "query": "Is the treadmill console displaying any error codes or warning messages?",
+          "refreshed_support": [
+            "The safety key is not properly seated in its magnetic sensor, so ensure it is clicked firmly into place.",
+            "The emergency stop clip has been dislodged from the console, so reattach it to complete the circuit.",
+            "The motor controller has tripped a thermal protection circuit, so unplug the unit for 30 minutes to allow cooling.",
+            "The drive belt has slipped off the motor pulley, so realign the belt and tighten the tension adjustment.",
+            "The motor brushes are worn out and failing to conduct electricity, so replace the motor assembly.",
+            "A blown fuse on the internal control board is preventing power delivery to the motor, so replace the fuse with the correct amperage.",
+            "The speed controller potentiometer is faulty and sending no signal, so replace the console control board.",
+            "The motor power cable has a loose connection at the terminal block, so tighten all wiring connections inside the motor housing."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "Same root cause and same remedy of ensuring the safety key is inserted/seated.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 3,
+          "outcomes": [
+            "A humming or clicking sound is heard",
+            "No sound is produced at all",
+            "A grinding or scraping sound is heard",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, it's completely silent. It's like nothing is happening at all.",
+          "query": "Does the treadmill motor make any sound when you attempt to increase the speed?",
+          "refreshed_support": [
+            "The safety key is not properly seated in its magnetic sensor, so ensure it is clicked firmly into place.",
+            "The emergency stop clip has been dislodged from the console, so reattach it to complete the circuit.",
+            "The motor controller has tripped a thermal protection circuit, so unplug the unit for 30 minutes to allow cooling.",
+            "The motor brushes are worn out and failing to conduct electricity, so replace the motor assembly.",
+            "A blown fuse on the internal control board is preventing power delivery to the motor, so replace the fuse with the correct amperage.",
+            "The speed controller potentiometer is faulty and sending no signal, so replace the console control board.",
+            "The motor power cable has a loose connection at the terminal block, so tighten all wiring connections inside the motor housing.",
+            "The motor itself has suffered a complete internal electrical failure, so replace the motor."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 0,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Safety key not seated matches the private cause and the remedy of inserting/seating it will fix the issue.",
+        "reported_best_hypothesis_index": 0
+      },
+      "initial_support": [
+        "The safety key is not properly seated in its magnetic sensor, so ensure it is clicked firmly into place.",
+        "The emergency stop clip has been dislodged from the console, so reattach it to complete the circuit.",
+        "The motor controller has tripped a thermal protection circuit, so unplug the unit for 30 minutes to allow cooling.",
+        "The drive belt has slipped off the motor pulley, so realign the belt and tighten the tension adjustment.",
+        "The motor brushes are worn out and failing to conduct electricity, so replace the motor assembly.",
+        "A blown fuse on the internal control board is preventing power delivery to the motor, so replace the fuse with the correct amperage.",
+        "The speed controller potentiometer is faulty and sending no signal, so replace the console control board.",
+        "The motor power cable has a loose connection at the terminal block, so tighten all wiring connections inside the motor housing."
+      ],
+      "private_solution_measurement_only": "The treadmill's safety key is not inserted, and inserting it will allow the machine to start.",
+      "scenario": "The customer's treadmill powers on but does not start moving.",
+      "task_id": "customer_service:train:0092",
+      "task_index": 92
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 8,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.5,
+            "covered": false,
+            "id": "candidate_0",
+            "reason": "Lacks data connectivity at the display is closer to the cause, but it targets the cellular router rather than reconnecting the arrival tracker to the central network.",
+            "reported_best_hypothesis_index": 8
+          },
+          "index": 0,
+          "outcomes": [
+            "Screen is black/unpowered",
+            "Screen is on but showing error message",
+            "Screen is on and showing static timetable",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, the screen is on, but it just shows the time and some advertisements. There are no bus times listed.",
+          "query": "Is the display screen currently powered on and showing any visual information?",
+          "refreshed_support": [
+            "The GPS module on the bus is malfunctioning, so the fleet management system should be rebooted to re-establish location telemetry.",
+            "The local area network at the bus stop has lost connectivity, requiring a technician to reset the cellular router.",
+            "The real-time data feed from the transit authority server is experiencing a timeout, necessitating a refresh of the API integration.",
+            "The display unit's onboard computer has frozen due to a memory leak, which can be resolved by a hard power cycle of the hardware.",
+            "The scheduled timetable database is corrupted, requiring a manual synchronization with the central dispatch server.",
+            "A firmware mismatch exists between the bus transponder and the stop display, necessitating a remote software update to the latest version.",
+            "The solar power battery at the stop is too low to support the data module, requiring a replacement of the backup power cell.",
+            "The timestamp synchronization between the bus and the stop is out of sync, requiring an NTP server reconfiguration to align the time protocols.",
+            "The display screen is receiving power but lacks data connectivity, requiring a technician to reset the cellular router.",
+            "The display unit's onboard computer is running advertisement software but has failed to load the data layer, requiring a hard power cycle of the hardware.",
+            "The local area network at the bus stop has lost connectivity, requiring a technician to inspect the cellular router.",
+            "The GPS module on the bus is malfunctioning, which prevents telemetry from reaching the display and requires a fleet management system reboot."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.55,
+            "covered": false,
+            "id": "candidate_1",
+            "reason": "API timeout is a similar data-feed issue, but the private solution is a physical/network disconnection of the arrival tracker, not a server-side refresh.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 1,
+          "outcomes": [
+            "Strong signal/connected",
+            "No signal/disconnected",
+            "Intermittent/low signal",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I don't see anything like that on the screen. It just shows the time and the bus route numbers, but no arrival times.",
+          "query": "Does the display unit show a signal strength indicator or network connection icon?",
+          "refreshed_support": [
+            "The GPS module on the bus is malfunctioning, so the fleet management system should be rebooted to re-establish location telemetry.",
+            "The real-time data feed from the transit authority server is experiencing a timeout, necessitating a refresh of the API integration.",
+            "The scheduled timetable database is corrupted, requiring a manual synchronization with the central dispatch server.",
+            "A firmware mismatch exists between the bus transponder and the stop display, necessitating a remote software update to the latest version.",
+            "The timestamp synchronization between the bus and the stop is out of sync, requiring an NTP server reconfiguration to align the time protocols.",
+            "The display unit's internal hardware is functional but the data rendering module has failed, requiring a diagnostic test of the onboard graphics processor.",
+            "The transit authority's API is returning valid data but the display unit's parser is failing to interpret the arrival time field, requiring a software patch for the data parser.",
+            "The local area network at the bus stop is active but the specific data port for real-time telemetry is blocked, requiring a firewall rule update on the router.",
+            "The display unit's onboard computer is partially operational but the real-time data process has crashed, requiring a service restart of the telemetry daemon.",
+            "The real-time data feed is being received but is being suppressed by a local error flag on the display unit, requiring a clear-cache command to the hardware.",
+            "The display unit is receiving time and route data but lacks the bandwidth for arrival times due to throttled connectivity, requiring a network bandwidth audit."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.78,
+            "covered": false,
+            "id": "candidate_2",
+            "reason": "This is the closest because loss of bus-stop network connectivity could prevent tracker updates, but it still specifies resetting a router rather than restoring the tracker's central-network connection.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 2,
+          "outcomes": [
+            "All nearby stops are working",
+            "All nearby stops are also failing",
+            "Some nearby stops are working",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, the other stops nearby seem to be working just fine. It's only this one that's blank.",
+          "query": "Are other smart bus stops in the same vicinity displaying real-time arrival data correctly?",
+          "refreshed_support": [
+            "The local area network at the bus stop has lost connectivity, requiring a technician to reset the cellular router.",
+            "The display unit's onboard computer has frozen due to a memory leak, which can be resolved by a hard power cycle of the hardware.",
+            "The solar power battery at the stop is too low to support the data module, requiring a replacement of the backup power cell.",
+            "The local area network at the specific bus stop has lost connectivity, requiring a technician to reset the cellular router.",
+            "The solar power battery at the specific bus stop is too low to support the data module, requiring a replacement of the backup power cell.",
+            "The display unit's internal antenna has become disconnected, necessitating a physical inspection and re-seating of the hardware component.",
+            "The specific bus stop's data processing module has encountered a software hang, requiring a remote restart of the local application service.",
+            "A hardware failure has occurred within the display unit's specific communication interface, requiring the replacement of the interface card.",
+            "The local stop's configuration file is corrupted, necessitating a re-upload of the station-specific parameters from the central server.",
+            "The display unit's backlight or screen driver has failed, requiring a hardware replacement of the display panel."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 14,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.35,
+            "covered": false,
+            "id": "candidate_3",
+            "reason": "It infers a real-time data feed problem from the symptom pattern, but the private solution is a disconnected arrival tracker and reconnection, not an API/data-layer fix.",
+            "reported_best_hypothesis_index": 14
+          },
+          "index": 3,
+          "outcomes": [
+            "Time is accurate",
+            "Time is significantly incorrect",
+            "Time is not displayed",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, the clock on the screen shows the correct time.",
+          "query": "Does the displayed time on the stop unit match the actual current time?",
+          "refreshed_support": [
+            "The GPS module on the bus is malfunctioning, so the fleet management system should be rebooted to re-establish location telemetry.",
+            "The local area network at the bus stop has lost connectivity, requiring a technician to reset the cellular router.",
+            "The real-time data feed from the transit authority server is experiencing a timeout, necessitating a refresh of the API integration.",
+            "The display unit's onboard computer has frozen due to a memory leak, which can be resolved by a hard power cycle of the hardware.",
+            "The scheduled timetable database is corrupted, requiring a manual synchronization with the central dispatch server.",
+            "A firmware mismatch exists between the bus transponder and the stop display, necessitating a remote software update to the latest version.",
+            "The solar power battery at the stop is too low to support the data module, requiring a replacement of the backup power cell.",
+            "The timestamp synchronization between the bus and the stop is out of sync, requiring an NTP server reconfiguration to align the time protocols.",
+            "The display unit's clock is functional, so the issue is not a local system time error, ruling out NTP synchronization issues.",
+            "Since the clock on the screen shows the correct time, the display unit's onboard computer is not frozen and does not require a hard power cycle.",
+            "The correct time display suggests the local hardware is powered, reducing the likelihood that the solar power battery is too low to run the system.",
+            "Because the internal clock is accurate, the problem likely lies in the data retrieval layer rather than a hardware-level timekeeping failure.",
+            "The issue is not a local display failure but a data processing error, as the screen is active and showing time information.",
+            "The discrepancy between the correct clock and missing arrival times points to a failure in the real-time data feed from the transit authority server.",
+            "The correct local time indicates the display unit's processor is active, suggesting the fault is in the API integration or data stream.",
+            "Since the unit is operational enough to show the time, the troubleshooting should focus on the cellular router or API connection rather than a total hardware shutdown."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 1,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 0.4,
+        "covered": false,
+        "id": "initial",
+        "reason": "Network connectivity loss at the stop is related, but the private solution is specifically a disconnected arrival tracker from the central network, so this is only a plausible partial match.",
+        "reported_best_hypothesis_index": 1
+      },
+      "initial_support": [
+        "The GPS module on the bus is malfunctioning, so the fleet management system should be rebooted to re-establish location telemetry.",
+        "The local area network at the bus stop has lost connectivity, requiring a technician to reset the cellular router.",
+        "The real-time data feed from the transit authority server is experiencing a timeout, necessitating a refresh of the API integration.",
+        "The display unit's onboard computer has frozen due to a memory leak, which can be resolved by a hard power cycle of the hardware.",
+        "The scheduled timetable database is corrupted, requiring a manual synchronization with the central dispatch server.",
+        "A firmware mismatch exists between the bus transponder and the stop display, necessitating a remote software update to the latest version.",
+        "The solar power battery at the stop is too low to support the data module, requiring a replacement of the backup power cell.",
+        "The timestamp synchronization between the bus and the stop is out of sync, requiring an NTP server reconfiguration to align the time protocols."
+      ],
+      "private_solution_measurement_only": "The smart bus stop's arrival tracker is disconnected from the central network, and reconnecting it will restore real-time updates.",
+      "scenario": "Passengers report that bus arrival times are not showing on the smart bus stop display.",
+      "task_id": "customer_service:train:0157",
+      "task_index": 157
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 2,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Same proxy-related cause and compatible fix.",
+            "reported_best_hypothesis_index": 2
+          },
+          "index": 0,
+          "outcomes": [
+            "Websites load normally",
+            "Websites fail to load",
+            "Websites load only via specific protocols",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, I can browse websites just fine on Chrome.",
+          "query": "Can you access other websites using a standard web browser on this same device?",
+          "refreshed_support": [
+            "The local firewall is blocking the installer's executable, so you should add an exception in the security settings.",
+            "The system's DNS settings are misconfigured, so you should switch to a public DNS provider like Google or Cloudflare.",
+            "A proxy server is intercepting the connection, so you should disable proxy settings in the network configuration.",
+            "The network adapter driver is outdated, so you should update the driver through the device manager.",
+            "The SSL/TLS certificate store is missing critical updates, so you should install the latest root certificate updates.",
+            "An antivirus software is performing deep packet inspection, so you should temporarily disable the real-time web protection.",
+            "The router's MAC address filtering is active, so you should whitelist the device's hardware address in the router settings.",
+            "The installer application lacks necessary administrative permissions to access network resources, so you should run the installer as an administrator.",
+            "The installer is attempting to use a specific port that is being blocked by the network, so you should verify and open the required ports in your firewall.",
+            "The system's SSL/TLS certificate store is missing critical updates, so you should install the latest root certificate updates."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 2,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Same proxy-related cause and compatible fix.",
+            "reported_best_hypothesis_index": 2
+          },
+          "index": 1,
+          "outcomes": [
+            "A security/firewall warning appears",
+            "No security warning appears",
+            "A generic connection error appears",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, I don't see any security warnings or pop-ups. It just says it can't connect.",
+          "query": "When you attempt to run the installer, does a security software notification appear on your screen?",
+          "refreshed_support": [
+            "The local firewall is blocking the installer's executable, so you should add an exception in the security settings.",
+            "The system's DNS settings are misconfigured, so you should switch to a public DNS provider like Google or Cloudflare.",
+            "A proxy server is intercepting the connection, so you should disable proxy settings in the network configuration.",
+            "The network adapter driver is outdated, so you should update the driver through the device manager.",
+            "The SSL/TLS certificate store is missing critical updates, so you should install the latest root certificate updates.",
+            "An antivirus software is performing deep packet inspection, so you should temporarily disable the real-time web protection.",
+            "The DHCP lease has expired or failed, so you should release and renew the IP address via the command line.",
+            "The router's MAC address filtering is active, so you should whitelist the device's hardware address in the router settings."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 2,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_2",
+            "reason": "Same proxy-related cause and compatible fix.",
+            "reported_best_hypothesis_index": 2
+          },
+          "index": 2,
+          "outcomes": [
+            "Proxy is enabled",
+            "Proxy is disabled",
+            "Auto-detect settings are active",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I'm not sure what that is. I haven't changed any settings, I just want to get this installer working.",
+          "query": "What is the current status of the proxy settings in your system's network configuration?",
+          "refreshed_support": [
+            "The local firewall is blocking the installer's executable, so you should add an exception in the security settings.",
+            "The system's DNS settings are misconfigured, so you should switch to a public DNS provider like Google or Cloudflare.",
+            "A proxy server is intercepting the connection, so you should disable proxy settings in the network configuration.",
+            "The network adapter driver is outdated, so you should update the driver through the device manager.",
+            "The SSL/TLS certificate store is missing critical updates, so you should install the latest root certificate updates.",
+            "An antivirus software is performing deep packet inspection, so you should temporarily disable the real-time web protection.",
+            "The DHCP lease has expired or failed, so you should release and renew the IP address via the command line.",
+            "The router's MAC address filtering is active, so you should whitelist the device's hardware address in the router settings."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 2,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "Same proxy-related cause and compatible fix.",
+            "reported_best_hypothesis_index": 2
+          },
+          "index": 3,
+          "outcomes": [
+            "A valid IP address is displayed",
+            "An APIPA address (169.254.x.x) is displayed",
+            "No IP address is displayed",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, it shows a valid IP address.",
+          "query": "Does the device show a valid IP address in the network connection details?",
+          "refreshed_support": [
+            "The local firewall is blocking the installer's executable, so you should add an exception in the security settings.",
+            "The system's DNS settings are misconfigured, so you should switch to a public DNS provider like Google or Cloudflare.",
+            "A proxy server is intercepting the connection, so you should disable proxy settings in the network configuration.",
+            "The network adapter driver is outdated, so you should update the driver through the device manager.",
+            "The SSL/TLS certificate store is missing critical updates, so you should install the latest root certificate updates.",
+            "An antivirus software is performing deep packet inspection, so you should temporarily disable the real-time web protection.",
+            "The router's MAC address filtering is active, so you should whitelist the device's hardware address in the router settings."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 2,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Proxy interception with disabling proxy settings directly matches the private cause and remedy.",
+        "reported_best_hypothesis_index": 2
+      },
+      "initial_support": [
+        "The local firewall is blocking the installer's executable, so you should add an exception in the security settings.",
+        "The system's DNS settings are misconfigured, so you should switch to a public DNS provider like Google or Cloudflare.",
+        "A proxy server is intercepting the connection, so you should disable proxy settings in the network configuration.",
+        "The network adapter driver is outdated, so you should update the driver through the device manager.",
+        "The SSL/TLS certificate store is missing critical updates, so you should install the latest root certificate updates.",
+        "An antivirus software is performing deep packet inspection, so you should temporarily disable the real-time web protection.",
+        "The DHCP lease has expired or failed, so you should release and renew the IP address via the command line.",
+        "The router's MAC address filtering is active, so you should whitelist the device's hardware address in the router settings."
+      ],
+      "private_solution_measurement_only": "The proxy settings are incorrect, and adjusting them will restore the installer's ability to download required files.",
+      "scenario": "The user reports that the installer cannot connect to the internet.",
+      "task_id": "customer_service:train:0199",
+      "task_index": 199
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Same underlying cause and remedy: neighboring networks congest the channel, and switching to a less crowded channel addresses it.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 0,
+          "outcomes": [
+            "Disconnection coincides with microwave use",
+            "Disconnection occurs independently of microwave use",
+            "Microwave usage is unknown",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, it doesn't seem to have anything to do with the microwave.",
+          "query": "Does the disconnection occur specifically when a microwave oven is being operated in the vicinity?",
+          "refreshed_support": [
+            "Automated cloud backups on smart devices occur during evening hours and saturate the bandwidth, so the customer should schedule backups for off-peak times.",
+            "Neighboring wireless networks activate high-traffic patterns in the evening causing channel congestion, so the customer should switch to a less crowded 5GHz channel.",
+            "The router undergoes an automatic firmware update cycle during late-night hours, so the customer should manually reschedule updates via the admin portal.",
+            "High ambient temperature during peak afternoon sun causes the router to thermal throttle, so the customer should relocate the device to a well-ventilated area.",
+            "Smart home security systems trigger high-bandwidth uploads at sunset, so the customer should implement Quality of Service (QoS) rules to prioritize streaming devices.",
+            "External electrical grid fluctuations during peak evening demand cause voltage drops, so the customer should plug the router into a high-quality surge protector or UPS.",
+            "Periodic heavy rain or weather patterns during specific times degrade the outdoor signal strength, so the customer should inspect the exterior coaxial connections for moisture ingress."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 2,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Best match is the neighboring Wi\u2011Fi congestion hypothesis with the same channel-change remedy.",
+            "reported_best_hypothesis_index": 2
+          },
+          "index": 1,
+          "outcomes": [
+            "Router casing feels excessively hot",
+            "Router casing feels normal/cool",
+            "Temperature cannot be accurately assessed",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It feels normal to me, not hot at all.",
+          "query": "What is the physical temperature of the router casing during the period of disconnection?",
+          "refreshed_support": [
+            "Local microwave oven usage during meal times causes electromagnetic interference, so the customer should move the router away from kitchen appliances.",
+            "Automated cloud backups on smart devices occur during evening hours and saturate the bandwidth, so the customer should schedule backups for off-peak times.",
+            "Neighboring wireless networks activate high-traffic patterns in the evening causing channel congestion, so the customer should switch to a less crowded 5GHz channel.",
+            "The router undergoes an automatic firmware update cycle during late-night hours, so the customer should manually reschedule updates via the admin portal.",
+            "Smart home security systems trigger high-bandwidth uploads at sunset, so the customer should implement Quality of Service (QoS) rules to prioritize streaming devices.",
+            "External electrical grid fluctuations during peak evening demand cause voltage drops, so the customer should plug the router into a high-quality surge protector or UPS.",
+            "Periodic heavy rain or weather patterns during specific times degrade the outdoor signal strength, so the customer should inspect the exterior coaxial connections for moisture ingress."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 2,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_2",
+            "reason": "The neighboring router on the same channel is directly represented here; changing to a less crowded channel is the correct fix.",
+            "reported_best_hypothesis_index": 2
+          },
+          "index": 2,
+          "outcomes": [
+            "Lights indicate a reboot/restart cycle",
+            "Lights indicate a loss of internet signal",
+            "Lights remain steady/normal",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "The lights stay on and look normal, they don't seem to change or blink when the internet drops out.",
+          "query": "What is the status of the router's LED indicator lights during the disconnection event?",
+          "refreshed_support": [
+            "Local microwave oven usage during meal times causes electromagnetic interference, so the customer should move the router away from kitchen appliances.",
+            "Automated cloud backups on smart devices occur during evening hours and saturate the bandwidth, so the customer should schedule backups for off-peak times.",
+            "Neighboring wireless networks activate high-traffic patterns in the evening causing channel congestion, so the customer should switch to a less crowded 5GHz channel.",
+            "The router undergoes an automatic firmware update cycle during late-night hours, so the customer should manually reschedule updates via the admin portal.",
+            "High ambient temperature during peak afternoon sun causes the router to thermal throttle, so the customer should relocate the device to a well-ventilated area.",
+            "Smart home security systems trigger high-bandwidth uploads at sunset, so the customer should implement Quality of Service (QoS) rules to prioritize streaming devices.",
+            "External electrical grid fluctuations during peak evening demand cause voltage drops, so the customer should plug the router into a high-quality surge protector or UPS.",
+            "Periodic heavy rain or weather patterns during specific times degrade the outdoor signal strength, so the customer should inspect the exterior coaxial connections for moisture ingress.",
+            "The router's internal hardware is functioning normally since the LEDs remain stable, so the issue is likely a wireless frequency or bandwidth problem rather than a power or system crash.",
+            "Since the router LEDs do not change or blink, the disconnection is likely occurring at the wireless signal or data layer rather than a complete loss of power or hardware reboot.",
+            "External electrical grid fluctuations during peak evening demand cause voltage drops without triggering a full reboot, so the customer should plug the router into a high-quality surge protector or UPS."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 2,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "This includes the same root cause class of nearby wireless channel congestion and a compatible channel-switch remedy.",
+            "reported_best_hypothesis_index": 2
+          },
+          "index": 3,
+          "outcomes": [
+            "Disconnections only occur during rain/storms",
+            "Disconnections occur during clear weather",
+            "Weather conditions are inconsistent with timing",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, the weather seems fine when it happens.",
+          "query": "Are the disconnections correlated with specific weather conditions like heavy rain?",
+          "refreshed_support": [
+            "Local microwave oven usage during meal times causes electromagnetic interference, so the customer should move the router away from kitchen appliances.",
+            "Automated cloud backups on smart devices occur during evening hours and saturate the bandwidth, so the customer should schedule backups for off-peak times.",
+            "Neighboring wireless networks activate high-traffic patterns in the evening causing channel congestion, so the customer should switch to a less crowded 5GHz channel.",
+            "The router undergoes an automatic firmware update cycle during late-night hours, so the customer should manually reschedule updates via the admin portal.",
+            "High ambient temperature during peak afternoon sun causes the router to thermal throttle, so the customer should relocate the device to a well-ventilated area.",
+            "Smart home security systems trigger high-bandwidth uploads at sunset, so the customer should implement Quality of Service (QoS) rules to prioritize streaming devices.",
+            "External electrical grid fluctuations during peak evening demand cause voltage drops, so the customer should plug the router into a high-quality surge protector or UPS.",
+            "The customer's specific daily routine involving heavy device usage during certain hours causes local network congestion, so the customer should audit connected devices and manage traffic."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 2,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Neighbor Wi\u2011Fi channel congestion matches the time-specific disconnections and the suggested channel change directly fixes it.",
+        "reported_best_hypothesis_index": 2
+      },
+      "initial_support": [
+        "Local microwave oven usage during meal times causes electromagnetic interference, so the customer should move the router away from kitchen appliances.",
+        "Automated cloud backups on smart devices occur during evening hours and saturate the bandwidth, so the customer should schedule backups for off-peak times.",
+        "Neighboring wireless networks activate high-traffic patterns in the evening causing channel congestion, so the customer should switch to a less crowded 5GHz channel.",
+        "The router undergoes an automatic firmware update cycle during late-night hours, so the customer should manually reschedule updates via the admin portal.",
+        "High ambient temperature during peak afternoon sun causes the router to thermal throttle, so the customer should relocate the device to a well-ventilated area.",
+        "Smart home security systems trigger high-bandwidth uploads at sunset, so the customer should implement Quality of Service (QoS) rules to prioritize streaming devices.",
+        "External electrical grid fluctuations during peak evening demand cause voltage drops, so the customer should plug the router into a high-quality surge protector or UPS.",
+        "Periodic heavy rain or weather patterns during specific times degrade the outdoor signal strength, so the customer should inspect the exterior coaxial connections for moisture ingress."
+      ],
+      "private_solution_measurement_only": "The customer's wireless network is being disrupted by a neighboring router on the same channel, and manually changing the router's channel will fix the issue.",
+      "scenario": "The customer experiences intermittent Wi-Fi disconnections only during certain times of the day.",
+      "task_id": "customer_service:train:0250",
+      "task_index": 250
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 3,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.95,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "This is the same missing dependency cause with the same fix of installing required redistributables.",
+            "reported_best_hypothesis_index": 3
+          },
+          "index": 0,
+          "outcomes": [
+            "More than 5GB available",
+            "Less than 1GB available",
+            "Disk is completely full",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I have plenty of space, at least 50GB free.",
+          "query": "How much free space is currently available on the drive where you are attempting to install the software?",
+          "refreshed_support": [
+            "Insufficient administrative privileges are blocking the installer from writing to system directories, so the user should run the installer as an administrator.",
+            "A third-party antivirus program is incorrectly flagging the installer as a threat, so the user should temporarily disable real-time scanning during installation.",
+            "Corrupted installer download files are causing checksum mismatches, so the user should delete the current package and download a fresh copy from the official website.",
+            "Missing .NET Framework or C++ Redistributable dependencies are causing runtime failures, so the user should install the latest Microsoft redistributable packages.",
+            "Conflicting background processes from a previous failed installation are locking registry keys, so the user should restart the computer and clear the temp folder.",
+            "An outdated operating system version lacks the necessary API support, so the user should check for and install all pending Windows or macOS updates.",
+            "Incompatible system locale or character encoding settings are preventing the installer from reading file paths, so the user should set the system region to a standard format."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 4,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.95,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Same dependency-missing hypothesis; installing the redistributable matches the private solution.",
+            "reported_best_hypothesis_index": 4
+          },
+          "index": 1,
+          "outcomes": [
+            "Access Denied / Permission error",
+            "Checksum / Hash mismatch error",
+            "Missing DLL / Runtime error",
+            "No error code displayed",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It just says \"Installation failed\" with a generic error message. It doesn't give me any numbers or anything helpful.",
+          "query": "What is the specific error code or message displayed when the installation fails?",
+          "refreshed_support": [
+            "Insufficient disk space on the target drive is preventing file extraction, so the user should clear temporary files to free up capacity.",
+            "Insufficient administrative privileges are blocking the installer from writing to system directories, so the user should run the installer as an administrator.",
+            "A third-party antivirus program is incorrectly flagging the installer as a threat, so the user should temporarily disable real-time scanning during installation.",
+            "Corrupted installer download files are causing checksum mismatches, so the user should delete the current package and download a fresh copy from the official website.",
+            "Missing .NET Framework or C++ Redistributable dependencies are causing runtime failures, so the user should install the latest Microsoft redistributable packages.",
+            "Conflicting background processes from a previous failed installation are locking registry keys, so the user should restart the computer and clear the temp folder.",
+            "An outdated operating system version lacks the necessary API support, so the user should check for and install all pending Windows or macOS updates.",
+            "Incompatible system locale or character encoding settings are preventing the installer from reading file paths, so the user should set the system region to a standard format."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 3,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.95,
+            "covered": true,
+            "id": "candidate_2",
+            "reason": "Same underlying cause and remedy: a missing component/dependency resolved by installing it.",
+            "reported_best_hypothesis_index": 3
+          },
+          "index": 2,
+          "outcomes": [
+            "Standard User",
+            "Administrator",
+            "Guest",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I'm using an Administrator account.",
+          "query": "Which user account type are you currently using to run the installer?",
+          "refreshed_support": [
+            "Insufficient disk space on the target drive is preventing file extraction, so the user should clear temporary files to free up capacity.",
+            "A third-party antivirus program is incorrectly flagging the installer as a threat, so the user should temporarily disable real-time scanning during installation.",
+            "Corrupted installer download files are causing checksum mismatches, so the user should delete the current package and download a fresh copy from the official website.",
+            "Missing .NET Framework or C++ Redistributable dependencies are causing runtime failures, so the user should install the latest Microsoft redistributable packages.",
+            "Conflicting background processes from a previous failed installation are locking registry keys, so the user should restart the computer and clear the temp folder.",
+            "An outdated operating system version lacks the necessary API support, so the user should check for and install all pending Windows or macOS updates.",
+            "Incompatible system locale or character encoding settings are preventing the installer from reading file paths, so the user should set the system region to a standard format."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 3,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.95,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "The hypothesis about missing .NET/C++ redistributables matches the log-indicated missing component and installation fix.",
+            "reported_best_hypothesis_index": 3
+          },
+          "index": 3,
+          "outcomes": [
+            "Third-party antivirus is active",
+            "Only native OS security is active",
+            "No security software is running",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, I don't have any antivirus software running right now.",
+          "query": "Are there any active third-party security suites or antivirus software running in the background?",
+          "refreshed_support": [
+            "Insufficient disk space on the target drive is preventing file extraction, so the user should clear temporary files to free up capacity.",
+            "Insufficient administrative privileges are blocking the installer from writing to system directories, so the user should run the installer as an administrator.",
+            "Corrupted installer download files are causing checksum mismatches, so the user should delete the current package and download a fresh copy from the official website.",
+            "Missing .NET Framework or C++ Redistributable dependencies are causing runtime failures, so the user should install the latest Microsoft redistributable packages.",
+            "Conflicting background processes from a previous failed installation are locking registry keys, so the user should restart the computer and clear the temp folder.",
+            "An outdated operating system version lacks the necessary API support, so the user should check for and install all pending Windows or macOS updates.",
+            "Incompatible system locale or character encoding settings are preventing the installer from reading file paths, so the user should set the system region to a standard format."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 4,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "initial",
+        "reason": "Missing dependency is directly aligned with the log-based diagnosis and install-the-dependency remedy.",
+        "reported_best_hypothesis_index": 4
+      },
+      "initial_support": [
+        "Insufficient disk space on the target drive is preventing file extraction, so the user should clear temporary files to free up capacity.",
+        "Insufficient administrative privileges are blocking the installer from writing to system directories, so the user should run the installer as an administrator.",
+        "A third-party antivirus program is incorrectly flagging the installer as a threat, so the user should temporarily disable real-time scanning during installation.",
+        "Corrupted installer download files are causing checksum mismatches, so the user should delete the current package and download a fresh copy from the official website.",
+        "Missing .NET Framework or C++ Redistributable dependencies are causing runtime failures, so the user should install the latest Microsoft redistributable packages.",
+        "Conflicting background processes from a previous failed installation are locking registry keys, so the user should restart the computer and clear the temp folder.",
+        "An outdated operating system version lacks the necessary API support, so the user should check for and install all pending Windows or macOS updates.",
+        "Incompatible system locale or character encoding settings are preventing the installer from reading file paths, so the user should set the system region to a standard format."
+      ],
+      "private_solution_measurement_only": "The installation log indicates a missing component, and reviewing the log will identify the specific dependency to install.",
+      "scenario": "The user reports that the software installer fails with an unspecified error.",
+      "task_id": "customer_service:train:0398",
+      "task_index": 398
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 6,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.72,
+            "covered": false,
+            "id": "candidate_0",
+            "reason": "Table tilt/perpendicularity is related to hole alignment, but it is a different cause and fix than spindle misalignment.",
+            "reported_best_hypothesis_index": 6
+          },
+          "index": 0,
+          "outcomes": [
+            "The bit remains perfectly centered",
+            "The bit shows visible wobbling",
+            "The movement is too subtle to see",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It looks pretty steady to me. I don't see any wobbling when I turn it.",
+          "query": "When you rotate the chuck by hand, does the drill bit appear to wobble or oscillate around its center axis?",
+          "refreshed_support": [
+            "The worktable is not level with the spindle, so adjust the leveling bolts to ensure a perpendicular orientation.",
+            "The drill bit is dull and deflecting upon contact, so replace the worn bit with a sharp one.",
+            "The workpiece is shifting during drilling because it is not clamped, so use a vise or clamps to stabilize the material.",
+            "The table fence is not square to the drill, so realign the fence using a machinist square.",
+            "The drill press belt is slipping on the pulley, so increase the tension on the belt.",
+            "The center punch mark is shallow or inaccurate, so use a center punch to create a deeper guide point before drilling.",
+            "The worktable is not perpendicular to the spindle, so use a square to adjust the table tilt mechanism.",
+            "The workpiece is moving because it is not properly clamped to the table, so use a vise or clamps to secure the material.",
+            "The drill bit is deflecting due to being dull, so replace the worn bit with a sharp one.",
+            "The center punch mark is too shallow to guide the bit, so use a center punch to create a deeper starting point.",
+            "The table fence is not square to the spindle axis, so realign the fence using a machinist square."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 3,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.78,
+            "covered": false,
+            "id": "candidate_1",
+            "reason": "Worn bearings causing spindle runout is the nearest underlying cause, but the proposed repair does not match the specific spindle realignment remedy.",
+            "reported_best_hypothesis_index": 3
+          },
+          "index": 1,
+          "outcomes": [
+            "The workpiece is clamped securely",
+            "The workpiece is resting loose on the table",
+            "The workpiece moves during drilling",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, I'm using a vise to hold it firmly in place.",
+          "query": "Is the workpiece secured to the table using clamps or a vise during the drilling process?",
+          "refreshed_support": [
+            "The drill bit is wobbling due to a loose chuck, so tighten the chuck key to secure the bit.",
+            "The worktable is not level with the spindle, so adjust the leveling bolts to ensure a perpendicular orientation.",
+            "The drill bit is dull and deflecting upon contact, so replace the worn bit with a sharp one.",
+            "The spindle runout is excessive due to worn bearings, so replace the spindle bearing assembly.",
+            "The table fence is not square to the drill, so realign the fence using a machinist square.",
+            "The drill press belt is slipping on the pulley, so increase the tension on the belt.",
+            "The center punch mark is shallow or inaccurate, so use a center punch to create a deeper guide point before drilling.",
+            "The vise itself is not secured tightly to the drill press table, so tighten the vise mounting bolts to prevent movement."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 3,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.78,
+            "covered": false,
+            "id": "candidate_2",
+            "reason": "Spindle runout due to worn bearings is closest to the private cause, though it suggests bearing replacement rather than adjusting spindle alignment.",
+            "reported_best_hypothesis_index": 3
+          },
+          "index": 2,
+          "outcomes": [
+            "The bit tip is sharp and clean",
+            "The bit tip is dull or rounded",
+            "The bit tip is burnt or discolored",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, the bit looks brand new. It's still very sharp.",
+          "query": "Does the drill bit show signs of wear, such as rounded edges or discoloration at the tip?",
+          "refreshed_support": [
+            "The drill bit is wobbling due to a loose chuck, so tighten the chuck key to secure the bit.",
+            "The worktable is not level with the spindle, so adjust the leveling bolts to ensure a perpendicular orientation.",
+            "The workpiece is shifting during drilling because it is not clamped, so use a vise or clamps to stabilize the material.",
+            "The spindle runout is excessive due to worn bearings, so replace the spindle bearing assembly.",
+            "The table fence is not square to the drill, so realign the fence using a machinist square.",
+            "The drill press belt is slipping on the pulley, so increase the tension on the belt.",
+            "The center punch mark is shallow or inaccurate, so use a center punch to create a deeper guide point before drilling.",
+            "The drill bit is not seated deeply enough in the chuck, so re-insert the bit and tighten the chuck firmly."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 3,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.78,
+            "covered": false,
+            "id": "candidate_3",
+            "reason": "This includes spindle runout from worn bearings, the closest match, but the remedy is a bearing replacement instead of spindle adjustment.",
+            "reported_best_hypothesis_index": 3
+          },
+          "index": 3,
+          "outcomes": [
+            "The table is perfectly square",
+            "The table is tilted/not square",
+            "The gap is inconsistent across the surface",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, I checked it with a square and the table seems perfectly level and square to the spindle.",
+          "query": "When using a machinist square, is the worktable perpendicular to the spindle axis?",
+          "refreshed_support": [
+            "The drill bit is wobbling due to a loose chuck, so tighten the chuck key to secure the bit.",
+            "The drill bit is dull and deflecting upon contact, so replace the worn bit with a sharp one.",
+            "The workpiece is shifting during drilling because it is not clamped, so use a vise or clamps to stabilize the material.",
+            "The spindle runout is excessive due to worn bearings, so replace the spindle bearing assembly.",
+            "The table fence is not square to the drill, so realign the fence using a machinist square.",
+            "The drill press belt is slipping on the pulley, so increase the tension on the belt.",
+            "The center punch mark is shallow or inaccurate, so use a center punch to create a deeper guide point before drilling."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 4,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 0.78,
+        "covered": false,
+        "id": "initial",
+        "reason": "Spindle runout from worn bearings is the closest listed cause, but the remedy repairs bearings rather than directly correcting spindle misalignment.",
+        "reported_best_hypothesis_index": 4
+      },
+      "initial_support": [
+        "The drill bit is wobbling due to a loose chuck, so tighten the chuck key to secure the bit.",
+        "The worktable is not level with the spindle, so adjust the leveling bolts to ensure a perpendicular orientation.",
+        "The drill bit is dull and deflecting upon contact, so replace the worn bit with a sharp one.",
+        "The workpiece is shifting during drilling because it is not clamped, so use a vise or clamps to stabilize the material.",
+        "The spindle runout is excessive due to worn bearings, so replace the spindle bearing assembly.",
+        "The table fence is not square to the drill, so realign the fence using a machinist square.",
+        "The drill press belt is slipping on the pulley, so increase the tension on the belt.",
+        "The center punch mark is shallow or inaccurate, so use a center punch to create a deeper guide point before drilling."
+      ],
+      "private_solution_measurement_only": "The drill press's spindle is misaligned, and adjusting it will restore accurate drilling.",
+      "scenario": "The user reports that their drill press holes are off-center.",
+      "task_id": "customer_service:train:0514",
+      "task_index": 514
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.8,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Resetting MFA profile and scanning a new QR code is the closest fix, but it implies a different fault than incomplete setup.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 0,
+          "outcomes": [
+            "Device time is accurate",
+            "Device time is out of sync",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It's 2:15 PM here, and it looks correct compared to my computer clock.",
+          "query": "What is the current time displayed on your device compared to a standard network clock?",
+          "refreshed_support": [
+            "The authentication app is using an expired seed, so the user needs to reset their MFA profile and scan a new QR code.",
+            "The user is entering an incorrect code due to a keyboard language mismatch, so they should verify their input method is set to English.",
+            "The SMS gateway is experiencing latency in the user's region, so the user should switch to an authenticator app for faster delivery.",
+            "The user's browser cache is storing an outdated session token, so they should clear their cookies and attempt the login again.",
+            "The account has been locked due to too many failed attempts, so the user must wait for the cooldown period or contact an administrator to unlock it.",
+            "The user is using a VPN that is flagging the login attempt as suspicious, so they should disable the VPN and try again.",
+            "The secondary device used for approval has lost its internet connection, so the user must ensure the device is online to receive push notifications."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.8,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Resetting MFA profile and scanning a new QR code is the closest remedy, but the cause is not specifically incomplete setup.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 1,
+          "outcomes": [
+            "SMS/Text message",
+            "Authenticator App (TOTP)",
+            "Push Notification",
+            "Hardware Security Key",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I'm using the authenticator app on my phone, but it keeps saying the code is invalid.",
+          "query": "Which method are you currently using to receive or generate your authentication code?",
+          "refreshed_support": [
+            "The user's device clock is out of sync with the server, so they should enable automatic time updates in their system settings.",
+            "The authentication app is using an expired seed, so the user needs to reset their MFA profile and scan a new QR code.",
+            "The user is entering an incorrect code due to a keyboard language mismatch, so they should verify their input method is set to English.",
+            "The user's browser cache is storing an outdated session token, so they should clear their cookies and attempt the login again.",
+            "The account has been locked due to too many failed attempts, so the user must wait for the cooldown period or contact an administrator to unlock it.",
+            "The user is using a VPN that is flagging the login attempt as suspicious, so they should disable the VPN and try again.",
+            "The authentication app is displaying a code for a different account than the one being accessed, so the user should verify they are selecting the correct profile in the app."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 8,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.8,
+            "covered": true,
+            "id": "candidate_2",
+            "reason": "The time-sync-related MFA fix is closest in effect, but it addresses clock mismatch rather than incomplete setup.",
+            "reported_best_hypothesis_index": 8
+          },
+          "index": 2,
+          "outcomes": [
+            "Account locked/Too many attempts",
+            "Invalid code/Incorrect token",
+            "Connection timeout/Network error",
+            "Suspicious activity/Blocked attempt",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It just says \"Authentication failed. Please check your code and try again.\"",
+          "query": "What specific error message is displayed on the screen after you enter your credentials?",
+          "refreshed_support": [
+            "The user's device clock is out of sync with the server, so they should enable automatic time updates in their system settings.",
+            "The authentication app is using an expired seed, so the user needs to reset their MFA profile and scan a new QR code.",
+            "The user is entering an incorrect code due to a keyboard language mismatch, so they should verify their input method is set to English.",
+            "The SMS gateway is experiencing latency in the user's region, so the user should switch to an authenticator app for faster delivery.",
+            "The user's browser cache is storing an outdated session token, so they should clear their cookies and attempt the login again.",
+            "The account has been locked due to too many failed attempts, so the user must wait for the cooldown period or contact an administrator to unlock it.",
+            "The user is using a VPN that is flagging the login attempt as suspicious, so they should disable the VPN and try again.",
+            "The secondary device used for approval has lost its internet connection, so the user must ensure the device is online to receive push notifications.",
+            "The user is entering an incorrect code due to a time synchronization issue between the device and the server, so they should enable automatic time updates in their system settings.",
+            "The authentication app is using an expired or desynchronized seed, so the user needs to reset their MFA profile and scan a new QR code."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.8,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "MFA seed reset is the nearest fit, but it does not directly state finishing an incomplete setup.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 3,
+          "outcomes": [
+            "VPN is enabled",
+            "VPN is disabled",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, I'm not using a VPN or any proxy services.",
+          "query": "Is a Virtual Private Network (VPN) or proxy service currently active on your device?",
+          "refreshed_support": [
+            "The user's device clock is out of sync with the server, so they should enable automatic time updates in their system settings.",
+            "The authentication app is using an expired seed, so the user needs to reset their MFA profile and scan a new QR code.",
+            "The user is entering an incorrect code due to a keyboard language mismatch, so they should verify their input method is set to English.",
+            "The SMS gateway is experiencing latency in the user's region, so the user should switch to an authenticator app for faster delivery.",
+            "The user's browser cache is storing an outdated session token, so they should clear their cookies and attempt the login again.",
+            "The account has been locked due to too many failed attempts, so the user must wait for the cooldown period or contact an administrator to unlock it.",
+            "The secondary device used for approval has lost its internet connection, so the user must ensure the device is online to receive push notifications."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 1,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 0.8,
+        "covered": true,
+        "id": "initial",
+        "reason": "Best option is MFA seed/profile reset, which can fix incomplete/invalid two-factor setup, but it is not as exact as completing setup.",
+        "reported_best_hypothesis_index": 1
+      },
+      "initial_support": [
+        "The user's device clock is out of sync with the server, so they should enable automatic time updates in their system settings.",
+        "The authentication app is using an expired seed, so the user needs to reset their MFA profile and scan a new QR code.",
+        "The user is entering an incorrect code due to a keyboard language mismatch, so they should verify their input method is set to English.",
+        "The SMS gateway is experiencing latency in the user's region, so the user should switch to an authenticator app for faster delivery.",
+        "The user's browser cache is storing an outdated session token, so they should clear their cookies and attempt the login again.",
+        "The account has been locked due to too many failed attempts, so the user must wait for the cooldown period or contact an administrator to unlock it.",
+        "The user is using a VPN that is flagging the login attempt as suspicious, so they should disable the VPN and try again.",
+        "The secondary device used for approval has lost its internet connection, so the user must ensure the device is online to receive push notifications."
+      ],
+      "private_solution_measurement_only": "The app's two-factor authentication setup is incomplete, and completing it will restore access.",
+      "scenario": "The user reports that they are unable to log in due to a two-factor authentication error.",
+      "task_id": "customer_service:train:0556",
+      "task_index": 556
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.98,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Same as the private solution: timer/schedule misconfiguration with reprogramming as the fix.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 0,
+          "outcomes": [
+            "Time and date are correct",
+            "Time and date are incorrect",
+            "Screen is blank/unresponsive",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It says it's 10:15 AM, Tuesday, May 14th.",
+          "query": "What is the current time and date displayed on the controller's screen?",
+          "refreshed_support": [
+            "The controller's internal clock is set to the wrong time zone, so you must adjust the time and date settings in the device menu.",
+            "A power surge caused the system to reset to factory defaults, requiring a full reprogramming of the watering schedule.",
+            "The Wi-Fi signal strength is too low for the smart controller to receive cloud-based schedule updates, so you should install a range extender.",
+            "The rain sensor is stuck in the 'active' position due to debris, which requires cleaning the sensor or bypassing it in the settings.",
+            "The scheduled start time conflicts with a manual override mode that was left on, so you must disable manual mode to resume automation.",
+            "The system's software requires a firmware update to resolve a scheduling bug, so you need to initiate an update via the mobile app.",
+            "The battery in the wireless transmitter is depleted, causing it to fail to trigger the solenoid valves, so you must replace the battery.",
+            "The user accidentally enabled a 'Vacation Mode' that suspends all programmed cycles, so you must toggle the mode back to 'Auto'."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.92,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Reprogramming after reset is compatible with a misconfigured timer, though the hypothesis is more specific about a reset cause.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 1,
+          "outcomes": [
+            "Sensor is dry/inactive",
+            "Sensor is wet/active",
+            "Sensor is physically obstructed by debris",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I'm not sure what that is. I haven't checked any sensors, and I don't think there's any rain right now.",
+          "query": "What is the current status of the rain sensor indicator or physical sensor state?",
+          "refreshed_support": [
+            "The controller's internal clock is set to the wrong time zone, so you must adjust the time and date settings in the device menu.",
+            "A power surge caused the system to reset to factory defaults, requiring a full reprogramming of the watering schedule.",
+            "The Wi-Fi signal strength is too low for the smart controller to receive cloud-based schedule updates, so you should install a range extender.",
+            "The rain sensor is stuck in the 'active' position due to debris, which requires cleaning the sensor or bypassing it in the settings.",
+            "The scheduled start time conflicts with a manual override mode that was left on, so you must disable manual mode to resume automation.",
+            "The system's software requires a firmware update to resolve a scheduling bug, so you need to initiate an update via the mobile app.",
+            "The battery in the wireless transmitter is depleted, causing it to fail to trigger the solenoid valves, so you must replace the battery.",
+            "The user accidentally enabled a 'Vacation Mode' that suspends all programmed cycles, so you must toggle the mode back to 'Auto'.",
+            "The rain sensor is active or malfunctioning, which prevents watering, so you should check the sensor status or bypass it in the settings."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.98,
+            "covered": true,
+            "id": "candidate_2",
+            "reason": "Factory-default reprogramming is the same remedy for a misconfigured controller timer.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 2,
+          "outcomes": [
+            "Automatic mode",
+            "Manual override mode",
+            "Vacation mode",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It says \"Auto,\" but nothing is actually happening when it's supposed to turn on.",
+          "query": "What is the current operational mode shown on the controller or mobile app?",
+          "refreshed_support": [
+            "The controller's internal clock is set to the wrong time zone, so you must adjust the time and date settings in the device menu.",
+            "A power surge caused the system to reset to factory defaults, requiring a full reprogramming of the watering schedule.",
+            "The Wi-Fi signal strength is too low for the smart controller to receive cloud-based schedule updates, so you should install a range extender.",
+            "The rain sensor is stuck in the 'active' position due to debris, which requires cleaning the sensor or bypassing it in the settings.",
+            "The scheduled start time conflicts with a manual override mode that was left on, so you must disable manual mode to resume automation.",
+            "The system's software requires a firmware update to resolve a scheduling bug, so you need to initiate an update via the mobile app.",
+            "The battery in the wireless transmitter is depleted, causing it to fail to trigger the solenoid valves, so you must replace the battery.",
+            "The user accidentally enabled a 'Vacation Mode' that suspends all programmed cycles, so you must toggle the mode back to 'Auto'."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.98,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "Reprogramming the schedule directly addresses a misconfigured control timer, matching the solution cause and remedy.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 3,
+          "outcomes": [
+            "Strong signal",
+            "Weak/Low signal",
+            "No signal/Disconnected",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I'm not sure how to check that. I don't really know much about the Wi-Fi settings on the box.",
+          "query": "What is the current Wi-Fi signal strength reported in the device settings?",
+          "refreshed_support": [
+            "The controller's internal clock is set to the wrong time zone, so you must adjust the time and date settings in the device menu.",
+            "A power surge caused the system to reset to factory defaults, requiring a full reprogramming of the watering schedule.",
+            "The Wi-Fi signal strength is too low for the smart controller to receive cloud-based schedule updates, so you should install a range extender.",
+            "The rain sensor is stuck in the 'active' position due to debris, which requires cleaning the sensor or bypassing it in the settings.",
+            "The scheduled start time conflicts with a manual override mode that was left on, so you must disable manual mode to resume automation.",
+            "The system's software requires a firmware update to resolve a scheduling bug, so you need to initiate an update via the mobile app.",
+            "The battery in the wireless transmitter is depleted, causing it to fail to trigger the solenoid valves, so you must replace the battery.",
+            "The user accidentally enabled a 'Vacation Mode' that suspends all programmed cycles, so you must toggle the mode back to 'Auto'."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 1,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 0.98,
+        "covered": true,
+        "id": "initial",
+        "reason": "Factory reset/reprogramming matches a misconfigured control timer and the remedy fixes the scheduling cause.",
+        "reported_best_hypothesis_index": 1
+      },
+      "initial_support": [
+        "The controller's internal clock is set to the wrong time zone, so you must adjust the time and date settings in the device menu.",
+        "A power surge caused the system to reset to factory defaults, requiring a full reprogramming of the watering schedule.",
+        "The Wi-Fi signal strength is too low for the smart controller to receive cloud-based schedule updates, so you should install a range extender.",
+        "The rain sensor is stuck in the 'active' position due to debris, which requires cleaning the sensor or bypassing it in the settings.",
+        "The scheduled start time conflicts with a manual override mode that was left on, so you must disable manual mode to resume automation.",
+        "The system's software requires a firmware update to resolve a scheduling bug, so you need to initiate an update via the mobile app.",
+        "The battery in the wireless transmitter is depleted, causing it to fail to trigger the solenoid valves, so you must replace the battery.",
+        "The user accidentally enabled a 'Vacation Mode' that suspends all programmed cycles, so you must toggle the mode back to 'Auto'."
+      ],
+      "private_solution_measurement_only": "The sprinkler system's control timer is misconfigured, and reprogramming it will restore proper operation.",
+      "scenario": "The customer's sprinkler system is not watering at the scheduled times.",
+      "task_id": "customer_service:train:0574",
+      "task_index": 574
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 4,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.9,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Same underlying issue as a blocked water path, and clearing the obstruction would restore water flow to the ice maker.",
+            "reported_best_hypothesis_index": 4
+          },
+          "index": 0,
+          "outcomes": [
+            "Set to 'On'",
+            "Set to 'Off'",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, it is set to 'On'.",
+          "query": "Is the ice maker setting on the control panel currently set to 'On'?",
+          "refreshed_support": [
+            "The water supply line is kinked or pinched, so you should inspect the tubing behind the appliance and straighten any bends.",
+            "The water filter is clogged with sediment, so you must replace the filter with a new genuine part to restore flow.",
+            "The ice maker mold is frozen solid due to low temperatures, so you should manually defrost the unit using a hair dryer on low heat.",
+            "The water inlet valve is malfunctioning or electrically failed, so you need to test the valve for continuity and replace it if necessary.",
+            "The fill tube is obstructed by ice buildup, so you should clear the blockage with warm water to allow flow to the tray.",
+            "The temperature in the freezer compartment is too high for ice formation, so you should adjust the thermostat to a lower setting.",
+            "The door switch is not fully engaging, preventing the ice maker from cycling, so you should clean the switch contact points."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 4,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.9,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Blocked fill tube is the closest match to a clogged line, with a remedy that clears the flow restriction.",
+            "reported_best_hypothesis_index": 4
+          },
+          "index": 1,
+          "outcomes": [
+            "Below freezing (0\u00b0F / -18\u00b0C or lower)",
+            "Above freezing (above 32\u00b0F / 0\u00b0C)",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It says it's set to 0 degrees, but I'm not really sure if that's normal.",
+          "query": "What is the current temperature reading displayed on the freezer compartment thermostat?",
+          "refreshed_support": [
+            "The water supply line is kinked or pinched, so you should inspect the tubing behind the appliance and straighten any bends.",
+            "The water filter is clogged with sediment, so you must replace the filter with a new genuine part to restore flow.",
+            "The ice maker mold is frozen solid due to low temperatures, so you should manually defrost the unit using a hair dryer on low heat.",
+            "The water inlet valve is malfunctioning or electrically failed, so you need to test the valve for continuity and replace it if necessary.",
+            "The fill tube is obstructed by ice buildup, so you should clear the blockage with warm water to allow flow to the tray.",
+            "The ice maker unit has been toggled to the 'off' position, so you should locate the control panel and ensure the ice maker setting is enabled.",
+            "The temperature in the freezer compartment is too high for ice formation, so you should adjust the thermostat to a lower setting.",
+            "The door switch is not fully engaging, preventing the ice maker from cycling, so you should clean the switch contact points.",
+            "The freezer temperature is set too high for ice production, so you should adjust the thermostat to a colder setting to ensure freezing.",
+            "The ice maker mold is frozen solid due to ice buildup, so you should manually defrost the unit using warm water."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.0,
+            "covered": false,
+            "id": "candidate_2",
+            "reason": "No hypothesis matches a clogged water line; the options are other causes or remedies.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 2,
+          "outcomes": [
+            "Kinked or pinched",
+            "Straight and unobstructed",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, the tubing looks straight and there aren't any kinks in it.",
+          "query": "When inspecting the water supply line behind the appliance, do you see any sharp bends or flat spots in the tubing?",
+          "refreshed_support": [
+            "The water filter is clogged with sediment, so you must replace the filter with a new genuine part to restore flow.",
+            "The ice maker mold is frozen solid due to low temperatures, so you should manually defrost the unit using a hair dryer on low heat.",
+            "The water inlet valve is malfunctioning or electrically failed, so you need to test the valve for continuity and replace it if necessary.",
+            "The fill tube is obstructed by ice buildup, so you should clear the blockage with warm water to allow flow to the tray.",
+            "The ice maker unit has been toggled to the 'off' position, so you should locate the control panel and ensure the ice maker setting is enabled.",
+            "The temperature in the freezer compartment is too high for ice formation, so you should adjust the thermostat to a lower setting.",
+            "The door switch is not fully engaging, preventing the ice maker from cycling, so you should clean the switch contact points."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 4,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.9,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "The fill-tube obstruction hypothesis best aligns with a clogged water line and clearing it would fix the cause.",
+            "reported_best_hypothesis_index": 4
+          },
+          "index": 3,
+          "outcomes": [
+            "Ice/frost present",
+            "No ice/frost present",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, I don't see any ice or frost buildup in there. It looks clear.",
+          "query": "Is there visible ice or frost buildup inside the fill tube that leads to the ice tray?",
+          "refreshed_support": [
+            "The water supply line is kinked or pinched, so you should inspect the tubing behind the appliance and straighten any bends.",
+            "The water filter is clogged with sediment, so you must replace the filter with a new genuine part to restore flow.",
+            "The ice maker mold is frozen solid due to low temperatures, so you should manually defrost the unit using a hair dryer on low heat.",
+            "The water inlet valve is malfunctioning or electrically failed, so you need to test the valve for continuity and replace it if necessary.",
+            "The ice maker unit has been toggled to the 'off' position, so you should locate the control panel and ensure the ice maker setting is enabled.",
+            "The temperature in the freezer compartment is too high for ice formation, so you should adjust the thermostat to a lower setting.",
+            "The door switch is not fully engaging, preventing the ice maker from cycling, so you should clean the switch contact points."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 4,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 0.9,
+        "covered": true,
+        "id": "initial",
+        "reason": "Fill tube blockage is closest to a clogged water line; clearing it is a compatible fix for the no-ice symptom.",
+        "reported_best_hypothesis_index": 4
+      },
+      "initial_support": [
+        "The water supply line is kinked or pinched, so you should inspect the tubing behind the appliance and straighten any bends.",
+        "The water filter is clogged with sediment, so you must replace the filter with a new genuine part to restore flow.",
+        "The ice maker mold is frozen solid due to low temperatures, so you should manually defrost the unit using a hair dryer on low heat.",
+        "The water inlet valve is malfunctioning or electrically failed, so you need to test the valve for continuity and replace it if necessary.",
+        "The fill tube is obstructed by ice buildup, so you should clear the blockage with warm water to allow flow to the tray.",
+        "The ice maker unit has been toggled to the 'off' position, so you should locate the control panel and ensure the ice maker setting is enabled.",
+        "The temperature in the freezer compartment is too high for ice formation, so you should adjust the thermostat to a lower setting.",
+        "The door switch is not fully engaging, preventing the ice maker from cycling, so you should clean the switch contact points."
+      ],
+      "private_solution_measurement_only": "The ice maker's water line is clogged, and clearing it will restore ice production.",
+      "scenario": "The user reports that their ice maker is not producing ice.",
+      "task_id": "customer_service:train:0584",
+      "task_index": 584
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 3,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.05,
+            "covered": false,
+            "id": "candidate_0",
+            "reason": "The closest is a power connection issue, but it does not match the safety-lid cause or the required fix.",
+            "reported_best_hypothesis_index": 3
+          },
+          "index": 0,
+          "outcomes": [
+            "Child lock icon is visible",
+            "No lights are visible on the panel",
+            "Indicator lights are flashing/on but buttons are unresponsive",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, nothing is lighting up on the panel.",
+          "query": "Does the control panel display any active icons or indicator lights?",
+          "refreshed_support": [
+            "The thermal protection fuse has tripped due to motor overheating, so the user needs to unplug the unit and let it cool for thirty minutes.",
+            "The power cord has internal wire damage preventing current flow, so the customer should replace the device or contact support for a cord replacement.",
+            "The electrical outlet is not providing power due to a tripped circuit breaker, so the user should check their home's breaker box.",
+            "The power cord is not fully plugged into the wall outlet, so the customer should ensure the plug is seated firmly in the socket.",
+            "The device is experiencing a complete internal electrical failure, so the customer should contact support for a repair or replacement."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 5,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_1",
+            "reason": "Directly matches the safety-lid/lid-interlock cause and the remedy of securing the lid.",
+            "reported_best_hypothesis_index": 5
+          },
+          "index": 1,
+          "outcomes": [
+            "The motor makes a humming or spinning sound",
+            "There is no sound at all from the motor",
+            "There is a clicking sound but no rotation",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, it's completely silent. It doesn't even make a humming sound.",
+          "query": "When you attempt to start the blender, do you hear any sound from the motor?",
+          "refreshed_support": [
+            "The safety interlock sensor is not engaged because the jar is improperly seated, so the customer should re-align the pitcher onto the base.",
+            "The thermal protection fuse has tripped due to motor overheating, so the user needs to unplug the unit and let it cool for thirty minutes.",
+            "The power cord has internal wire damage preventing current flow, so the customer should replace the device or contact support for a cord replacement.",
+            "The control panel is unresponsive because the child lock feature is active, so the user should hold the lock button for three seconds to deactivate it.",
+            "The electrical outlet is not providing power due to a tripped circuit breaker, so the user should check their home's breaker box.",
+            "The lid sensor is detecting that the lid is not securely fastened, so the customer should press down firmly on the lid to engage the mechanism.",
+            "The internal motor brushes have failed preventing electrical contact, so the customer should contact technical support for a motor replacement.",
+            "The main control board has suffered an electrical failure, so the user should seek professional repair or a replacement unit."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 6,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_2",
+            "reason": "Directly matches the private solution: the lid sensor detects an unsecured lid, and pressing down to engage it fixes the cause.",
+            "reported_best_hypothesis_index": 6
+          },
+          "index": 2,
+          "outcomes": [
+            "The pitcher and lid feel loose or misaligned",
+            "The pitcher and lid are securely and tightly fastened",
+            "The pitcher is seated but the lid is loose",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, the pitcher is in place and the lid seems to be on there, but it still won't turn on.",
+          "query": "Is the blender pitcher seated firmly and the lid pressed down tightly?",
+          "refreshed_support": [
+            "The safety interlock sensor is not engaged because the jar is improperly seated, so the customer should re-align the pitcher onto the base.",
+            "The thermal protection fuse has tripped due to motor overheating, so the user needs to unplug the unit and let it cool for thirty minutes.",
+            "The power cord has internal wire damage preventing current flow, so the customer should replace the device or contact support for a cord replacement.",
+            "The control panel is unresponsive because the child lock feature is active, so the user should hold the lock button for three seconds to deactivate it.",
+            "The motor coupling is stripped or worn down, preventing mechanical rotation, so the customer should replace the drive socket component.",
+            "The electrical outlet is not providing power due to a tripped circuit breaker, so the user should check their home's breaker box.",
+            "The lid sensor is detecting that the lid is not securely fastened, so the customer should press down firmly on the lid to engage the mechanism.",
+            "A buildup of dried residue is obstructing the blade assembly from spinning, so the user should clean the underside of the jar and the base coupling.",
+            "The safety interlock sensor is not engaged because the pitcher is improperly seated, so the customer should re-align the pitcher onto the base."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 5,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "Directly matches the private solution with the lid not securely fastened and the fix of securing it.",
+            "reported_best_hypothesis_index": 5
+          },
+          "index": 3,
+          "outcomes": [
+            "The other appliance works correctly",
+            "The other appliance does not work",
+            "The outlet appears damaged or discolored",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "Yes, my toaster works fine in that outlet.",
+          "query": "Does another small appliance work when plugged into the same electrical outlet?",
+          "refreshed_support": [
+            "The safety interlock sensor is not engaged because the jar is improperly seated, so the customer should re-align the pitcher onto the base.",
+            "The thermal protection fuse has tripped due to motor overheating, so the user needs to unplug the unit and let it cool for thirty minutes.",
+            "The power cord has internal wire damage preventing current flow, so the customer should replace the device or contact support for a cord replacement.",
+            "The control panel is unresponsive because the child lock feature is active, so the user should hold the lock button for three seconds to deactivate it.",
+            "The motor coupling is stripped or worn down, preventing mechanical rotation, so the customer should replace the drive socket component.",
+            "The lid sensor is detecting that the lid is not securely fastened, so the customer should press down firmly on the lid to engage the mechanism.",
+            "A buildup of dried residue is obstructing the blade assembly from spinning, so the user should clean the underside of the jar and the base coupling."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 6,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Matches the private cause: lid not securely locked; the remedy is to press/secure the lid so the safety interlock allows operation.",
+        "reported_best_hypothesis_index": 6
+      },
+      "initial_support": [
+        "The safety interlock sensor is not engaged because the jar is improperly seated, so the customer should re-align the pitcher onto the base.",
+        "The thermal protection fuse has tripped due to motor overheating, so the user needs to unplug the unit and let it cool for thirty minutes.",
+        "The power cord has internal wire damage preventing current flow, so the customer should replace the device or contact support for a cord replacement.",
+        "The control panel is unresponsive because the child lock feature is active, so the user should hold the lock button for three seconds to deactivate it.",
+        "The motor coupling is stripped or worn down, preventing mechanical rotation, so the customer should replace the drive socket component.",
+        "The electrical outlet is not providing power due to a tripped circuit breaker, so the user should check their home's breaker box.",
+        "The lid sensor is detecting that the lid is not securely fastened, so the customer should press down firmly on the lid to engage the mechanism.",
+        "A buildup of dried residue is obstructing the blade assembly from spinning, so the user should clean the underside of the jar and the base coupling."
+      ],
+      "private_solution_measurement_only": "The blender's safety lid is not securely locked, and securing it will allow the blender to operate.",
+      "scenario": "The customer's blender is not starting despite being powered on.",
+      "task_id": "customer_service:train:0597",
+      "task_index": 597
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 9,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Directly matches the private solution: cuff worn on wrist instead of upper arm, and the fix is to move it to the upper arm.",
+            "reported_best_hypothesis_index": 9
+          },
+          "index": 0,
+          "outcomes": [
+            "The cuff is too small for the arm circumference",
+            "The cuff is wrapped too loosely",
+            "The cuff is wrapped with a snug fit",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It's on my wrist, actually. It feels like it fits just fine.",
+          "query": "How would you describe the fit of the cuff on your upper arm?",
+          "refreshed_support": [
+            "The cuff size is too small for the user's arm circumference, so the customer should switch to a larger cuff size.",
+            "The user is crossing their legs during measurement, so they should sit with both feet flat on the floor.",
+            "The battery voltage is too low to power the pump consistently, so the customer should replace the batteries with fresh ones.",
+            "The user is talking or moving during the reading, so they should remain still and silent throughout the process.",
+            "The cuff is wrapped too loosely around the arm, so the customer should ensure a snug fit with two fingers of space underneath.",
+            "The user's arm position is not at heart level, so they should rest their arm on a table at the correct height.",
+            "The device is being used immediately after caffeine consumption, so the customer should wait thirty minutes before testing.",
+            "The air tube has a small leak or kink, so the customer should inspect the tubing for damage and ensure it is securely connected.",
+            "The user is using a wrist monitor instead of an upper arm monitor, so they should switch to an upper arm cuff device for more accurate readings.",
+            "The cuff is being worn on the wrist rather than the upper arm, so the user should move the device to the correct anatomical position on the upper arm.",
+            "The cuff size is inappropriate for the user's wrist circumference, so the customer should ensure the device is compatible with wrist measurements.",
+            "The user is using a wrist-style monitor which is sensitive to hand position, so they should ensure their wrist is supported at heart level.",
+            "The cuff is being applied to the wrist instead of the upper arm, so the customer should follow the specific placement instructions for a wrist-worn device.",
+            "The user is using the wrong device type for their intended measurement location, so they should switch to an upper arm monitor if they require standard blood pressure readings.",
+            "The cuff is not positioned correctly on the wrist, so the customer should ensure the device is snug and properly aligned according to the manual.",
+            "The user is misinterpreting the measurement technique for a wrist monitor, so they should ensure the wrist is held steady and at heart level during the reading."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 5,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.12,
+            "covered": false,
+            "id": "candidate_1",
+            "reason": "Heart-level arm positioning is only a generic reading-accuracy issue, not the wrist-vs-arm placement cause.",
+            "reported_best_hypothesis_index": 5
+          },
+          "index": 1,
+          "outcomes": [
+            "Feet are crossed",
+            "Feet are flat on the floor",
+            "Other posture",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I'm just sitting in a chair like I usually do.",
+          "query": "What is your physical posture during the measurement process?",
+          "refreshed_support": [
+            "The cuff size is too small for the user's arm circumference, so the customer should switch to a larger cuff size.",
+            "The user is crossing their legs during measurement, so they should sit with both feet flat on the floor.",
+            "The battery voltage is too low to power the pump consistently, so the customer should replace the batteries with fresh ones.",
+            "The user is talking or moving during the reading, so they should remain still and silent throughout the process.",
+            "The cuff is wrapped too loosely around the arm, so the customer should ensure a snug fit with two fingers of space underneath.",
+            "The user's arm position is not at heart level, so they should rest their arm on a table at the correct height.",
+            "The device is being used immediately after caffeine consumption, so the customer should wait thirty minutes before testing.",
+            "The air tube has a small leak or kink, so the customer should inspect the tubing for damage and ensure it is securely connected."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 5,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.12,
+            "covered": false,
+            "id": "candidate_2",
+            "reason": "Elevating the arm to heart level may help some readings, but it does not address incorrect wrist placement.",
+            "reported_best_hypothesis_index": 5
+          },
+          "index": 2,
+          "outcomes": [
+            "Arm is at heart level",
+            "Arm is above heart level",
+            "Arm is below heart level",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It's just resting on the table in front of me.",
+          "query": "Where is your arm positioned relative to your heart during the reading?",
+          "refreshed_support": [
+            "The cuff size is too small for the user's arm circumference, so the customer should switch to a larger cuff size.",
+            "The user is crossing their legs during measurement, so they should sit with both feet flat on the floor.",
+            "The battery voltage is too low to power the pump consistently, so the customer should replace the batteries with fresh ones.",
+            "The user is talking or moving during the reading, so they should remain still and silent throughout the process.",
+            "The cuff is wrapped too loosely around the arm, so the customer should ensure a snug fit with two fingers of space underneath.",
+            "The user's arm position is not at heart level, so they should rest their arm on a table at the correct height.",
+            "The device is being used immediately after caffeine consumption, so the customer should wait thirty minutes before testing.",
+            "The air tube has a small leak or kink, so the customer should inspect the tubing for damage and ensure it is securely connected.",
+            "The user's arm is positioned below heart level on the table, so they should elevate their arm to heart level during the reading."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 5,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.12,
+            "covered": false,
+            "id": "candidate_3",
+            "reason": "Arm-at-heart-level advice is plausible but unrelated to the specific cuff-on-wrist placement problem.",
+            "reported_best_hypothesis_index": 5
+          },
+          "index": 3,
+          "outcomes": [
+            "The tube is kinked or leaking",
+            "The tube is securely connected and undamaged",
+            "The tube is partially obstructed",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It looks fine to me. There are no cracks or holes in the tube.",
+          "query": "What is the physical condition of the air tube?",
+          "refreshed_support": [
+            "The cuff size is too small for the user's arm circumference, so the customer should switch to a larger cuff size.",
+            "The user is crossing their legs during measurement, so they should sit with both feet flat on the floor.",
+            "The battery voltage is too low to power the pump consistently, so the customer should replace the batteries with fresh ones.",
+            "The user is talking or moving during the reading, so they should remain still and silent throughout the process.",
+            "The cuff is wrapped too loosely around the arm, so the customer should ensure a snug fit with two fingers of space underneath.",
+            "The user's arm position is not at heart level, so they should rest their arm on a table at the correct height.",
+            "The device is being used immediately after caffeine consumption, so the customer should wait thirty minutes before testing."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 5,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 0.12,
+        "covered": false,
+        "id": "initial",
+        "reason": "Arm position at heart level can affect readings, but it does not match the wrist-vs-arm placement cause or the needed fix.",
+        "reported_best_hypothesis_index": 5
+      },
+      "initial_support": [
+        "The cuff size is too small for the user's arm circumference, so the customer should switch to a larger cuff size.",
+        "The user is crossing their legs during measurement, so they should sit with both feet flat on the floor.",
+        "The battery voltage is too low to power the pump consistently, so the customer should replace the batteries with fresh ones.",
+        "The user is talking or moving during the reading, so they should remain still and silent throughout the process.",
+        "The cuff is wrapped too loosely around the arm, so the customer should ensure a snug fit with two fingers of space underneath.",
+        "The user's arm position is not at heart level, so they should rest their arm on a table at the correct height.",
+        "The device is being used immediately after caffeine consumption, so the customer should wait thirty minutes before testing.",
+        "The air tube has a small leak or kink, so the customer should inspect the tubing for damage and ensure it is securely connected."
+      ],
+      "private_solution_measurement_only": "The blood pressure monitor's cuff is incorrectly placed on the wrist instead of the arm, and repositioning it will restore accuracy.",
+      "scenario": "The customer reports unusually high readings from their blood pressure monitor.",
+      "task_id": "customer_service:train:0602",
+      "task_index": 602
+    },
+    {
+      "candidates": [
+        {
+          "coverage": {
+            "best_hypothesis_index": 1,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_0",
+            "reason": "Exact match: re-pairing after lost wireless synchronization matches the private solution.",
+            "reported_best_hypothesis_index": 1
+          },
+          "index": 0,
+          "outcomes": [
+            "The controller shows lights/vibrates",
+            "The controller is completely dark/silent",
+            "The lights flash in a specific error pattern",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, it doesn't do anything at all. It's just completely dead.",
+          "query": "Does the controller show any light or vibration when you press the home button?",
+          "refreshed_support": [
+            "The controller's battery is depleted, so the customer should charge it using a compatible USB cable.",
+            "The wireless synchronization has been lost, so the customer needs to re-pair the device using the console's sync button.",
+            "The USB connection port on the console is faulty, so the customer should attempt to plug the controller into a different port.",
+            "The controller firmware is outdated, so the customer should connect it via cable to trigger a system update.",
+            "There is local wireless interference from other electronic devices, so the customer should move the console away from routers or microwaves.",
+            "The console's operating system is experiencing a temporary glitch, so the customer should perform a full power cycle of the hardware.",
+            "The controller's Bluetooth module has crashed, so the customer should reset the controller by pressing the small pinhole reset button on the back.",
+            "The controller's battery is completely depleted, so the customer should charge it using a compatible USB cable.",
+            "The controller's internal hardware has suffered a total power failure, so the customer should test the controller on a different console to confirm.",
+            "The USB charging cable is faulty and not delivering power, so the customer should try a different known-working cable.",
+            "The controller's wireless synchronization has been lost, so the customer needs to re-pair the device using the console's sync button.",
+            "The controller is not receiving a charge due to a faulty charging port, so the customer should inspect the port for debris or damage."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.12,
+            "covered": false,
+            "id": "candidate_1",
+            "reason": "Battery/USB-related fixes do not address the pairing cause; no compatible remedy for lost pairing.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 1,
+          "outcomes": [
+            "The controller works via cable",
+            "The controller does not work via cable",
+            "The connection is intermittent",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "No, it doesn't do anything at all. The light just stays off.",
+          "query": "Does the controller respond when connected to the console via a USB cable?",
+          "refreshed_support": [
+            "The controller's battery is depleted, so the customer should charge it using a compatible USB cable.",
+            "The USB connection port on the console is faulty, so the customer should attempt to plug the controller into a different port.",
+            "The controller firmware is outdated, so the customer should connect it via cable to trigger a system update.",
+            "The console's operating system is experiencing a temporary glitch, so the customer should perform a full power cycle of the hardware.",
+            "The controller's battery is completely dead, so the customer should charge it using a compatible USB cable to see if the light activates.",
+            "The USB cable being used is a power-only cable rather than a data cable, so the customer should try a different cable to enable communication.",
+            "The controller's internal battery has failed, so the customer should attempt to use the controller while it is plugged directly into the console.",
+            "The controller's charging port is damaged or obstructed, so the customer should inspect the port for debris or physical damage.",
+            "The controller's firmware is corrupted and preventing power-on, so the customer should connect it via cable to trigger a system update."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 13,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 0.72,
+            "covered": false,
+            "id": "candidate_2",
+            "reason": "Closest is a pairing-related re-initiation, but it is less directly the same cause/remedy than explicit re-pairing.",
+            "reported_best_hypothesis_index": 13
+          },
+          "index": 2,
+          "outcomes": [
+            "The sticks move the cursor accurately",
+            "The cursor moves on its own without touch",
+            "The sticks are unresponsive to movement",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "I can't even use them. Nothing happens when I move the sticks.",
+          "query": "How do the analog sticks behave when you are in the console's settings menu?",
+          "refreshed_support": [
+            "The controller's battery is depleted, so the customer should charge it using a compatible USB cable.",
+            "The wireless synchronization has been lost, so the customer needs to re-pair the device using the console's sync button.",
+            "The USB connection port on the console is faulty, so the customer should attempt to plug the controller into a different port.",
+            "The controller firmware is outdated, so the customer should connect it via cable to trigger a system update.",
+            "There is local wireless interference from other electronic devices, so the customer should move the console away from routers or microwaves.",
+            "The console's operating system is experiencing a temporary glitch, so the customer should perform a full power cycle of the hardware.",
+            "The controller's Bluetooth module has crashed, so the customer should reset the controller by pressing the small pinhole reset button on the back.",
+            "The controller is not powered on, so the customer should press the home button to activate the device.",
+            "The controller is not wirelessly paired to the console, so the customer needs to use a sync cable to establish a connection.",
+            "The controller's battery is completely dead, so the customer should connect it to a power source via USB to see if it responds.",
+            "The console is not recognizing the controller as an input device, so the customer should perform a hard reset of the console.",
+            "The USB charging cable being used is power-only and lacks data capabilities, so the customer should try a different data-sync cable.",
+            "The controller has entered a frozen state, so the customer should perform a hardware reset using the pinhole button on the back.",
+            "The console's USB port is not providing enough power to wake the controller, so the customer should test a different port on the console.",
+            "The controller is currently in a different pairing mode, so the customer should re-initiate the pairing process via the console settings."
+          ]
+        },
+        {
+          "coverage": {
+            "best_hypothesis_index": 0,
+            "best_hypothesis_index_valid": true,
+            "best_match_score": 1.0,
+            "covered": true,
+            "id": "candidate_3",
+            "reason": "Exact match: lost wireless synchronization and re-pairing via the sync button matches the solution.",
+            "reported_best_hypothesis_index": 0
+          },
+          "index": 3,
+          "outcomes": [
+            "The light is solid",
+            "The light is blinking rapidly",
+            "The light is blinking slowly",
+            "Not checked / cannot determine"
+          ],
+          "private_solution_conditioned_reply_measurement_only": "It's just blinking really fast, but it's not staying solid like it usually does.",
+          "query": "What is the status of the controller's connection indicator light?",
+          "refreshed_support": [
+            "The wireless synchronization has been lost, so the customer needs to re-pair the device using the console's sync button.",
+            "The USB connection port on the console is faulty, so the customer should attempt to plug the controller into a different port.",
+            "The controller firmware is outdated, so the customer should connect it via cable to trigger a system update.",
+            "There is local wireless interference from other electronic devices, so the customer should move the console away from routers or microwaves.",
+            "The console's operating system is experiencing a temporary glitch, so the customer should perform a full power cycle of the hardware.",
+            "The controller's Bluetooth module has crashed, so the customer should reset the controller by pressing the small pinhole reset button on the back.",
+            "The controller is in pairing mode due to a lost connection, so the customer should attempt to re-sync the device using the console's sync button.",
+            "The Bluetooth handshake has failed, so the customer should reset the controller by pressing the small pinhole reset button on the back.",
+            "The controller is failing to complete the wireless handshake, so the customer should connect it via a USB cable to establish a wired link.",
+            "The wireless signal is being interrupted by environmental factors, so the customer should move electronic devices like routers away from the console.",
+            "The console's wireless receiver is temporarily unresponsive, so the customer should perform a full power cycle of the hardware.",
+            "The controller is attempting to connect to a different device, so the customer should ensure no other consoles or PCs are in pairing mode nearby."
+          ]
+        }
+      ],
+      "initial": {
+        "best_hypothesis_index": 1,
+        "best_hypothesis_index_valid": true,
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact match: lost wireless sync/pairing is the underlying cause, and re-pairing fixes it.",
+        "reported_best_hypothesis_index": 1
+      },
+      "initial_support": [
+        "The controller's battery is depleted, so the customer should charge it using a compatible USB cable.",
+        "The wireless synchronization has been lost, so the customer needs to re-pair the device using the console's sync button.",
+        "The USB connection port on the console is faulty, so the customer should attempt to plug the controller into a different port.",
+        "The controller firmware is outdated, so the customer should connect it via cable to trigger a system update.",
+        "There is local wireless interference from other electronic devices, so the customer should move the console away from routers or microwaves.",
+        "The controller's analog sticks have developed hardware drift, so the customer needs to recalibrate the inputs in the system settings.",
+        "The console's operating system is experiencing a temporary glitch, so the customer should perform a full power cycle of the hardware.",
+        "The controller's Bluetooth module has crashed, so the customer should reset the controller by pressing the small pinhole reset button on the back."
+      ],
+      "private_solution_measurement_only": "The gaming controller is not paired with the console, and re-pairing it will restore functionality.",
+      "scenario": "The customer's gaming controller is not working with their console.",
+      "task_id": "customer_service:train:0618",
+      "task_index": 618
+    }
+  ],
+  "schema_version": 1,
+  "simulator_faithfulness": {
+    "simulator_faithfulness_checks": 48.0,
+    "simulator_faithfulness_failures": 0.0,
+    "simulator_faithfulness_final_inconsistency_rate": 0.0,
+    "simulator_faithfulness_observations": 48.0,
+    "simulator_faithfulness_raw_contradiction_rate": 0.0,
+    "simulator_faithfulness_raw_contradictions": 0.0,
+    "simulator_faithfulness_repairs": 0.0,
+    "simulator_terminal_checks": 0.0,
+    "simulator_terminal_claims": 0.0,
+    "simulator_terminal_rejections": 0.0
+  },
+  "status": "development_gate_failed",
+  "summary": {
+    "gates": {
+      "all_forty_eight_branches_completed": true,
+      "all_pass": false,
+      "all_twelve_tasks_completed": true,
+      "at_least_four_tasks_have_candidate_spread": true,
+      "at_least_three_omitted_solutions_recovered": false,
+      "initial_support_non_saturated": false,
+      "mean_oracle_best_match_gain_at_least_0_10": true
+    },
+    "initial_covered": 9,
+    "initial_omitted": 3,
+    "initially_omitted_recovered_by_any_candidate": 1,
+    "mean_candidate_score_spread": 0.35083333333333333,
+    "mean_oracle_best_match_gain": 0.105,
+    "num_candidate_branches": 48,
+    "num_tasks": 12,
+    "recovery_fraction_among_initial_omissions": 0.3333333333333333,
+    "tasks_with_candidate_score_spread_at_least_0_15": 5
+  },
+  "usage": {
+    "answerer": {
+      "adapter_completion_tokens": 886,
+      "adapter_cost_usd": 0.0015243800000000003,
+      "adapter_prompt_tokens": 13613,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 48,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 26102,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 23246,
+          "cost_usd": 0.014503970000000001,
+          "prompt_tokens": 66662,
+          "reasoning_tokens": 0,
+          "requests": 216
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2856,
+          "cost_usd": 0.02468775,
+          "prompt_tokens": 15781,
+          "reasoning_tokens": 0,
+          "requests": 12
+        }
+      },
+      "prompt_tokens": 82443,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.20144452754283,
+      "requests": 228,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.039191720000000006,
+      "run_remaining_usd": 1.96080828,
+      "total_spent_usd": 44.79855547245717
+    },
+    "judge": {
+      "adapter_completion_tokens": 2856,
+      "adapter_cost_usd": 0.02468775,
+      "adapter_prompt_tokens": 15781,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 12,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 26102,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 23246,
+          "cost_usd": 0.014503970000000001,
+          "prompt_tokens": 66662,
+          "reasoning_tokens": 0,
+          "requests": 216
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2856,
+          "cost_usd": 0.02468775,
+          "prompt_tokens": 15781,
+          "reasoning_tokens": 0,
+          "requests": 12
+        }
+      },
+      "prompt_tokens": 82443,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.20144452754283,
+      "requests": 228,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.039191720000000006,
+      "run_remaining_usd": 1.96080828,
+      "total_spent_usd": 44.79855547245717
+    },
+    "questioner": {
+      "adapter_completion_tokens": 22360,
+      "adapter_cost_usd": 0.012979590000000003,
+      "adapter_prompt_tokens": 53049,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 168,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 26102,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 23246,
+          "cost_usd": 0.014503970000000001,
+          "prompt_tokens": 66662,
+          "reasoning_tokens": 0,
+          "requests": 216
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2856,
+          "cost_usd": 0.02468775,
+          "prompt_tokens": 15781,
+          "reasoning_tokens": 0,
+          "requests": 12
+        }
+      },
+      "prompt_tokens": 82443,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.20144452754283,
+      "requests": 228,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.039191720000000006,
+      "run_remaining_usd": 1.96080828,
+      "total_spent_usd": 44.79855547245717
+    }
+  }
+}
