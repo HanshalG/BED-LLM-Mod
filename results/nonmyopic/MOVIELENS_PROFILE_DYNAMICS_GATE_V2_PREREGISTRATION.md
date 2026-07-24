@@ -52,8 +52,13 @@ enter model prompts.
 - Beliefs are uniform over each support, following BED-LLM's
   sample-filter-uniform construction.
 
-The dataset remains local under its research terms and is not redistributed. Persisted
-derived results omit source ratings and held-out item lists.
+The dataset remains local under its research terms and is not redistributed. Raw model
+responses are stored only under the ignored local `external/` data area because models
+may repeat observed ratings in prose. Committed derived results contain counts,
+SHA-256 text hashes, public movie metadata, and metrics, but no profile/evidence prose,
+source ratings, or held-out item lists. This privacy-only output amendment was frozen
+after the smoke exposed a numeric rating repeated in generated prose and before any
+formal response; it does not alter prompts, model outputs, metrics, or gates.
 
 OpenRouter project-ledger ceiling: `$70.38480269545715`. Per-run cap: `$0.75`;
 projected formal reservation: `$0.30`; concurrency: `64`. The live credit endpoint and

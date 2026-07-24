@@ -1,0 +1,346 @@
+{
+  "protocol": {
+    "candidate_movie_ids": [
+      258,
+      181,
+      288,
+      1
+    ],
+    "committed_profile_text_omitted": true,
+    "heldout_count": 8,
+    "heldout_ratings_hidden_from_all_model_prompts": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "af4e23e873554f4093e8377e6f07bfb40593622f57a1c377e36cc05d7ec5b7ee",
+    "profile_count": 6,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "recorded_ratings_are_only_outcomes": true,
+    "retained_profile_count": 2,
+    "selection_seed": 24303,
+    "smoke_user_ids_disjoint_from_formal": true,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "serving_smoke",
+    "user_ids": [
+      294,
+      327
+    ],
+    "user_ids_hidden_from_all_model_prompts": true,
+    "v1_users_excluded": true
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "c8aac5347360a4fbf6ebd79c4ffca42d5cf19082f53afcb1825556bc52949f4d",
+            "d3cb609b48686f5d343a39b85f68f52ed7b1fb3ef58d4887f50e63e66ef962e4",
+            "3d39b9a4a0d5495febc1430206d0b3ee726f6f8578847748debc5e25bb3fccbc",
+            "8e5342c241dfcaaf9540a06dba51a600960839e6fcbf99df608666b34bb43436",
+            "0056bff30939ec11386d8c09ccb60587be1a1243d843cb3023551a52543f7195",
+            "799c83a66a90194550e4bb522109437d9af74ba333671a49302364ba2afd0b86"
+          ],
+          "heldout_nll": 1.3618781808091638,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "4471e12a5253e859ebbdf5b5f6967b8d3e738f99225fbba27aa933ff6526dc92",
+            "701efe6e12ee5fee26187464430ab79436c2a4ae77b77f077d266270e9609ca9",
+            "8e75c1020a5482098e3b439d4a28eb1cf3da2736375e314e029145d2e9f18bd2",
+            "ad2643131dadebb4142cbd12e75239aec341c9cefa72ff2c0f05b314cfd6abc2",
+            "e3edaa5d3301e86ba88593b68f8b0b82e9da979f642bf515a62b3f32b9a23989",
+            "87e072afb5394cbd1ef3a16870b2f5792769d3cd4043e9dcd8333507a5d68d70"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "c8aac5347360a4fbf6ebd79c4ffca42d5cf19082f53afcb1825556bc52949f4d",
+            "d3cb609b48686f5d343a39b85f68f52ed7b1fb3ef58d4887f50e63e66ef962e4",
+            "3d39b9a4a0d5495febc1430206d0b3ee726f6f8578847748debc5e25bb3fccbc",
+            "8e5342c241dfcaaf9540a06dba51a600960839e6fcbf99df608666b34bb43436",
+            "0056bff30939ec11386d8c09ccb60587be1a1243d843cb3023551a52543f7195",
+            "799c83a66a90194550e4bb522109437d9af74ba333671a49302364ba2afd0b86",
+            "bdb21c4a73af9d0365b3c8404757c478d07901adc20ac2a783a2386feff85efe",
+            "a9cd838750d367ee691107d8205ac5670c2f37ed6e954a5064df2d58effda335"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 1,
+      "immediate_eig_values": [
+        0.01993808858614554,
+        0.040978302610653605,
+        0.008901721740911528,
+        0.010049995817296153
+      ],
+      "initial_heldout_nll": 1.418370829019457,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "f22e1a09e8c0fb21bea16586a498cb62fa3eced0dd366c5b287ebf8eecc7c07e",
+        "bdb21c4a73af9d0365b3c8404757c478d07901adc20ac2a783a2386feff85efe",
+        "e8d5b9c179470214e2365e38fbc8e2466034908357bb5f1c9fc33660c1afed14",
+        "ed9477eb4559c262313ef5d7382b0ffffe969d09f36b66050196e9826c356073",
+        "a9cd838750d367ee691107d8205ac5670c2f37ed6e954a5064df2d58effda335",
+        "5d0f49decc60cc90ee3b49898e8c7c55f1d201fc11db1760d9109c9cdd1dcf0e"
+      ],
+      "replay_profiles": [
+        "361cfbbfe6dedc12f97ebe8099b4c91f66f71a2f7f0d0020a085a13a0020b4b1",
+        "fadd9a7c74a763d446dd97dcc6f78abddd234bdf9e5433882e33f9afbfa995a9",
+        "5183ded351f7f0d7f58cce639acc4011eb8a2f0d2e8ff38de663c254afbb6e36",
+        "3ef66f188a79303b56b25a67353cbd198adff777bfd40e3c348fae552f391966",
+        "6cb680441f01cc6096ebbd39c0e5a518d0c471a33bed654cbfddb5c25058f9e7",
+        "4d2e8e1305cd5a3d75663e2a5ddd59ad3265383493b5ece749aa78dec20b8e46"
+      ],
+      "user_id": 294
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "c34f3520a7799c0096e54f1ba0876166567185da332753bee056c51d940e3068",
+            "be8bcfe949a3fc3892f4510a33994a507abadc792b8a4be9798a883f241e2b64",
+            "9cb703eb82c05a97a247161e77c753b632de936c133445dbcdea727f932d9d34",
+            "17f146af4bf81ce6d9086305d561acdc46188d96d10bd83e22a397bec8f175f8",
+            "ddc34e2679bbf6636f0ae33ea98833bba7149771b2aa583f0924b24259ce2efb",
+            "46a0fba6ef27addadf461f6391cd3279a22ff23ccdc205d7cc2dce232aa26160"
+          ],
+          "heldout_nll": 1.7488788753511457,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "31de32f4d4cba699f3e4602f30024834a8fa31fc86a6aff2e2744ebb733ff58b",
+            "eef17aadb4a6b542297e78686c309079127009e6cd16fda85df1d1a0facedcba",
+            "b32d62a1d555159d723142aaea53c1c81a64948bee509e4e5efb2a2a0cfd6aab",
+            "b9afa632b781f82c140cac7a3c869a705400c25333c7952aeb15ea1a50a98fe1",
+            "664442717c78a262004e31ce0dfe749ea8bad7003971c42bca1c5940a88e4466",
+            "8c0713892a13dc0b92455bd7398b22d9a9eb1e12fe73f174a0a7a7173ae9694b"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "c34f3520a7799c0096e54f1ba0876166567185da332753bee056c51d940e3068",
+            "be8bcfe949a3fc3892f4510a33994a507abadc792b8a4be9798a883f241e2b64",
+            "9cb703eb82c05a97a247161e77c753b632de936c133445dbcdea727f932d9d34",
+            "17f146af4bf81ce6d9086305d561acdc46188d96d10bd83e22a397bec8f175f8",
+            "ddc34e2679bbf6636f0ae33ea98833bba7149771b2aa583f0924b24259ce2efb",
+            "46a0fba6ef27addadf461f6391cd3279a22ff23ccdc205d7cc2dce232aa26160",
+            "184caff9f7002e2bf6efc7519a9ea6567580c0270cbda96363cf9a15025d3fdc",
+            "de430b1c61e0340528fc496b4bc218f38da3facafd471bd39926259475ea2ff5"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 3,
+      "immediate_eig_values": [
+        0.015870132907064294,
+        0.012980003095449,
+        0.011182243873106623,
+        0.024550842844508924
+      ],
+      "initial_heldout_nll": 1.65127293175327,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "5660818a2a1afa63ae837b54c8cbca012a617d2ac22093c322031a8052e7f0af",
+        "34075b84f43b3effa3fb1e8a817d41bd1693f6929d2d317132f03e7d11bc9525",
+        "1f47b560f0685e606f9a242b1e5168166b9b5dc58a6a103a5525409e171e74f5",
+        "de430b1c61e0340528fc496b4bc218f38da3facafd471bd39926259475ea2ff5",
+        "184caff9f7002e2bf6efc7519a9ea6567580c0270cbda96363cf9a15025d3fdc",
+        "c55ca0928eed35127cbd1bb538ffd3d6a0df3187736570211a4be119884c891b"
+      ],
+      "replay_profiles": [
+        "2a1eaf851c6cd7f57b627eb7b70e1304948f4b8eaf5ccb8ac263de146c93bf5d",
+        "ef4ced4a34e875db73fdefc6d8074dd0d056d8d3a2f52402aac0d01333a97d0b",
+        "eb2b6231f9982e6987d21cb3b238fd04569ae56a94485384c8fbcdaa3710fed5",
+        "6016dfb04c3faebf89165d9cc064263ddd5cfc94ac1f9ea782225ecbfe34966a",
+        "f834381e8f535cc16d22c27f8cde466cd68e81ab1c7fda71b0895785747e0982",
+        "d793ff66ce48d58a2cce85f2632dc31a12e7adb5f0fee4bdca2bec702d5ba7fa"
+      ],
+      "user_id": 327
+    }
+  ],
+  "schema_version": 2,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_replays_completed": true,
+      "all_users_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_branches": 2,
+    "num_users": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.03354118,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 3301,
+        "adapter_cost_usd": 0.00149368,
+        "adapter_prompt_tokens": 3430,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 9035,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3301,
+            "cost_usd": 0.00149368,
+            "prompt_tokens": 3430,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 5734,
+            "cost_usd": 0.0320475,
+            "prompt_tokens": 8326,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 11756,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.58631994299993,
+        "requests": 10,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.03354118,
+        "run_remaining_usd": 0.71645882,
+        "total_spent_usd": 48.798482752457225
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 5734,
+        "adapter_cost_usd": 0.0320475,
+        "adapter_prompt_tokens": 8326,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 9035,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3301,
+            "cost_usd": 0.00149368,
+            "prompt_tokens": 3430,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 5734,
+            "cost_usd": 0.0320475,
+            "prompt_tokens": 8326,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 11756,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.58631994299993,
+        "requests": 10,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.03354118,
+        "run_remaining_usd": 0.71645882,
+        "total_spent_usd": 48.798482752457225
+      }
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}

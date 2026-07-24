@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import replace
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -52,6 +53,10 @@ ALL_SELECTED_USER_IDS = SMOKE_USER_IDS + FORMAL_USER_IDS
 
 def _clean_text(value: str) -> str:
     return " ".join(value.strip().split())
+
+
+def _text_hash(value: str) -> str:
+    return hashlib.sha256(_clean_text(value).encode("utf-8")).hexdigest()
 
 
 def selected_user_ids(ratings: dict[int, dict[int, int]]) -> tuple[int, ...]:
@@ -448,12 +453,31 @@ def run_gate(
         branches = []
         for local_index, movie_id in enumerate(branch_movie_ids):
             flat_index = offset + local_index
+            generated = refreshed_rows[flat_index]
             branches.append(
                 {
                     "branch_index": local_index,
                     "movie": _movie_payload(items[movie_id]),
-                    "generated_profiles": refreshed_rows[flat_index],
-                    "retained_support": branch_profiles[flat_index],
+                    "generated_profile_count": len(generated),
+                    "generated_profile_hashes": [
+                        _text_hash(row["description"]) for row in generated
+                    ],
+                    "new_evidence_effect_hashes": [
+                        _text_hash(row["new_evidence_effect"]) for row in generated
+                    ],
+                    "retained_support_count": len(branch_profiles[flat_index]),
+                    "retained_support_hashes": [
+                        _text_hash(description)
+                        for description in branch_profiles[flat_index]
+                    ],
+                    "exact_initial_copy_count": sum(
+                        row["description"].casefold()
+                        in {
+                            description.casefold()
+                            for description in initial_profiles[user_index]
+                        }
+                        for row in generated
+                    ),
                     "heldout_nll": predictive_nll(
                         branch_likelihoods[flat_index],
                         heldout_ratings,
@@ -462,7 +486,11 @@ def run_gate(
             )
         record = {
             "user_id": user_id,
-            "initial_profiles": initial_profiles[user_index],
+            "initial_profile_count": len(initial_profiles[user_index]),
+            "initial_profile_hashes": [
+                _text_hash(description)
+                for description in initial_profiles[user_index]
+            ],
             "candidate_movies": [
                 _movie_payload(items[movie_id]) for movie_id in CANDIDATE_MOVIE_IDS
             ],
@@ -475,7 +503,9 @@ def run_gate(
             "branches": branches,
         }
         if stage == "serving_smoke":
-            record["replay_profiles"] = replay_rows[user_index]
+            record["replay_profiles"] = [
+                _text_hash(row["description"]) for row in replay_rows[user_index]
+            ]
         records.append(record)
         offset += len(branch_movie_ids)
 
@@ -503,6 +533,8 @@ def run_gate(
             "recorded_ratings_are_only_outcomes": True,
             "heldout_ratings_hidden_from_all_model_prompts": True,
             "user_ids_hidden_from_all_model_prompts": True,
+            "raw_responses_private_and_untracked": True,
+            "committed_profile_text_omitted": True,
             "source_ratings_omitted_from_persisted_artifacts": True,
         },
         "summary": summary,
@@ -516,6 +548,7 @@ def main() -> None:
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--data-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--private-raw-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--likelihood-model", default="openai/gpt-5.4-mini")
     parser.add_argument(
@@ -528,8 +561,10 @@ def main() -> None:
     config = load_config(str(args.config))
     config.run_id = args.run_id
     args.output_dir.mkdir(parents=True, exist_ok=True)
+    private_run_dir = args.private_raw_dir / args.run_id
+    private_run_dir.mkdir(parents=True, exist_ok=True)
     config.log_path = args.output_dir / "run.log"
-    raw_path = args.output_dir / "RAW_RESPONSES.json"
+    raw_path = private_run_dir / "RAW_RESPONSES.json"
     output_name = "SERVING_SMOKE.json" if args.stage == "serving_smoke" else "GATE.json"
     failure_name = (
         "SERVING_SMOKE_FAILURE.json"
@@ -544,6 +579,9 @@ def main() -> None:
             stage=args.stage,
             raw_checkpoint_path=raw_path,
         )
+        payload["protocol"]["private_raw_sha256"] = hashlib.sha256(
+            raw_path.read_bytes()
+        ).hexdigest()
     except Exception as exc:
         failure = {
             "schema_version": 2,

@@ -181,6 +181,15 @@ def test_v2_smoke_routes_exact_calls_without_likelihood_history(
     assert likelihood.requests == 4
     assert likelihood.saw_observed_history is False
     assert result["protocol"]["likelihood_history_hidden"] is True
+    serialized = json.dumps(result)
+    assert '"initial_profiles"' not in serialized
+    assert '"generated_profiles"' not in serialized
+    assert '"new_evidence_effect"' not in serialized
+    assert all(
+        branch["exact_initial_copy_count"] == 0
+        for record in result["records"]
+        for branch in record["branches"]
+    )
 
 
 def test_v2_formal_routes_all_branches_without_likelihood_history(
