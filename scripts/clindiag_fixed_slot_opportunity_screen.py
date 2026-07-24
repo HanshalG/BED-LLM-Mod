@@ -35,8 +35,32 @@ from scripts.icraft_staged_diagnosis_unlock import (
 
 SELECTION_SEED = 24295
 SCREEN_IDS = ("20220188", "11222813", "rare140", "rare122")
+PREVALENCE_SELECTION_SEED = 24296
+PREVALENCE_IDS = (
+    "14769677",
+    "31597024",
+    "15249641",
+    "22512486",
+    "16394081",
+    "24283228",
+    "4003602",
+    "22913686",
+    "20560906",
+    "20685884",
+    "rare185",
+    "rare287",
+    "rare267",
+    "rare79",
+    "rare66",
+    "rare160",
+    "rare207",
+    "rare74",
+    "rare243",
+    "rare59",
+)
 SUPPORT_IDS = ("initial", *(f"one_step__{action_id}" for action_id in ACTION_IDS))
 EXPECTED_REQUESTS = len(SCREEN_IDS) * (len(ACTION_IDS) + 2)
+PREVALENCE_EXPECTED_REQUESTS = len(PREVALENCE_IDS) * (len(ACTION_IDS) + 2)
 TRUTH_COVERAGE_THRESHOLD = 0.80
 
 
@@ -71,22 +95,28 @@ def summarize(
     *,
     all_supports_size_twelve: bool,
     source_target_leaks: int,
+    expected_requests: int = EXPECTED_REQUESTS,
+    required_room_cases: int = 2,
 ) -> dict[str, Any]:
     room_ids = [
         record["source_id"] for record in records if record["two_step_room"]
     ]
     gates = {
-        "exactly_40_requests": usage["physical_requests"] == EXPECTED_REQUESTS,
+        "expected_request_count": usage["physical_requests"] == expected_requests,
         "zero_reasoning": usage["reasoning_tokens"] == 0,
         "all_supports_size_twelve": all_supports_size_twelve,
         "no_full_target_in_source_evidence": source_target_leaks == 0,
-        "at_least_two_cases_have_two_step_room": len(room_ids) >= 2,
+        "required_cases_have_two_step_room": (
+            len(room_ids) >= required_room_cases
+        ),
     }
     gates["all_pass"] = all(gates.values())
     return {
         "physical_requests": usage["physical_requests"],
         "reasoning_tokens": usage["reasoning_tokens"],
         "source_target_leaks": source_target_leaks,
+        "expected_requests": expected_requests,
+        "required_room_cases": required_room_cases,
         "two_step_room_case_ids": room_ids,
         "num_cases_with_two_step_room": len(room_ids),
         "gates": gates,
@@ -110,14 +140,23 @@ def _complete_supports(
     )
 
 
-def _protocol(generator_model: str, judge_model: str) -> dict[str, Any]:
+def _protocol(
+    generator_model: str,
+    judge_model: str,
+    *,
+    source_ids: Sequence[str],
+    selection_seed: int,
+    expected_requests: int,
+    required_room_cases: int,
+) -> dict[str, Any]:
     return {
-        "selection_seed": SELECTION_SEED,
-        "screen_ids": list(SCREEN_IDS),
+        "selection_seed": selection_seed,
+        "screen_ids": list(source_ids),
         "action_ids": list(ACTION_IDS),
         "generator_model": generator_model,
         "judge_model": judge_model,
-        "expected_requests": EXPECTED_REQUESTS,
+        "expected_requests": expected_requests,
+        "required_room_cases": required_room_cases,
         "support_size": DIAGNOSIS_COUNT,
         "truth_coverage_threshold": TRUTH_COVERAGE_THRESHOLD,
         "reasoning_disabled": True,
@@ -133,13 +172,17 @@ def run_one_step_screen(
     *,
     generator_model: str,
     judge_model: str,
+    source_ids: Sequence[str] = SCREEN_IDS,
+    selection_seed: int = SELECTION_SEED,
+    required_room_cases: int = 2,
 ) -> dict[str, Any]:
+    expected_requests = len(source_ids) * (len(ACTION_IDS) + 2)
     models = {
         "initial": _build_role(config, generator_model),
         "one_step": _build_role(config, generator_model),
         "judge": _build_role(config, judge_model),
     }
-    cases = load_selected_cases(data_zip, SCREEN_IDS)
+    cases = load_selected_cases(data_zip, source_ids)
     slots = [fixed_evidence_slots(case) for case in cases]
     initial = _complete_supports(
         models["initial"],
@@ -169,7 +212,7 @@ def run_one_step_screen(
         "one_step_supports",
     )
     one_step_by_case: list[dict[str, list[str]]] = [
-        {} for _ in SCREEN_IDS
+        {} for _ in source_ids
     ]
     for (case_index, action_id), support in zip(
         one_step_keys, one_step_values, strict=True
@@ -221,7 +264,14 @@ def run_one_step_screen(
             "status": "runtime_failure",
             "error_type": "StructuredAuditError",
             "error": audit_errors[0]["error"],
-            "protocol": _protocol(generator_model, judge_model),
+            "protocol": _protocol(
+                generator_model,
+                judge_model,
+                source_ids=source_ids,
+                selection_seed=selection_seed,
+                expected_requests=expected_requests,
+                required_room_cases=required_room_cases,
+            ),
             "summary": {
                 "physical_requests": usage["physical_requests"],
                 "reasoning_tokens": usage["reasoning_tokens"],
@@ -300,11 +350,20 @@ def run_one_step_screen(
             source_evidence_contains_target(case, case_slots)
             for case, case_slots in zip(cases, slots, strict=True)
         ),
+        expected_requests=expected_requests,
+        required_room_cases=required_room_cases,
     )
     return {
         "schema_version": 1,
         "status": "passed" if summary["gates"]["all_pass"] else "failed",
-        "protocol": _protocol(generator_model, judge_model),
+        "protocol": _protocol(
+            generator_model,
+            judge_model,
+            source_ids=source_ids,
+            selection_seed=selection_seed,
+            expected_requests=expected_requests,
+            required_room_cases=required_room_cases,
+        ),
         "summary": summary,
         "records": records,
         "raw_audit_responses": raw_audits,
@@ -320,18 +379,34 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--generator-model", default="openai/gpt-5.4")
     parser.add_argument("--judge-model", default="openai/gpt-5.4-mini")
+    parser.add_argument(
+        "--stage",
+        choices=("pilot", "prevalence"),
+        default="pilot",
+    )
     args = parser.parse_args()
 
     config = load_config(str(args.config))
     config.run_id = args.run_id
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = args.output_dir / "ONE_STEP_SCREEN.json"
+    prevalence = args.stage == "prevalence"
+    source_ids = PREVALENCE_IDS if prevalence else SCREEN_IDS
+    selection_seed = (
+        PREVALENCE_SELECTION_SEED if prevalence else SELECTION_SEED
+    )
+    required_room_cases = 4 if prevalence else 2
+    output_path = args.output_dir / (
+        "PREVALENCE_SCREEN.json" if prevalence else "ONE_STEP_SCREEN.json"
+    )
     try:
         payload = run_one_step_screen(
             config,
             args.data_zip,
             generator_model=args.generator_model,
             judge_model=args.judge_model,
+            source_ids=source_ids,
+            selection_seed=selection_seed,
+            required_room_cases=required_room_cases,
         )
     except Exception as exc:
         output_path.write_text(
