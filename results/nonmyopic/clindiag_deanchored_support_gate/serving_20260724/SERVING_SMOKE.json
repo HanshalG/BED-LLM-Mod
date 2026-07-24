@@ -1,0 +1,453 @@
+{
+  "protocol": {
+    "expected_requests": 10,
+    "generator_model": "openai/gpt-5.4",
+    "judge_model": "openai/gpt-5.4-mini",
+    "reasoning_disabled": true,
+    "refresh_action_ids": [
+      "present_illness",
+      "lab_1"
+    ],
+    "refresh_mode": "deanchored_full_rebuild",
+    "retries": 0,
+    "selection_seed": 24297,
+    "smoke_ids": [
+      "21991897",
+      "rare70"
+    ],
+    "support_size": 12,
+    "truth_enters_only_semantic_audit": true,
+    "truth_hidden_from_generators": true
+  },
+  "raw_audit_responses": [
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis.\"},{\"id\":\"after_present_illness\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis.\"},{\"id\":\"after_lab_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis.\"},{\"id\":\"after_lab_1_duplicate\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis.\"}],\"lab_to_duplicate_overlap\":0.5,\"duplicate_to_lab_overlap\":0.5,\"overlap_reason\":\"Six of 12 after_lab_1 diagnoses have same-disease or standard-synonym matches in the duplicate; six of 12 duplicate diagnoses match diagnoses in after_lab_1. Related-but-not-identical formulations were not counted.\"}",
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":1.0,\"reason\":\"Exact diagnosis present\"},{\"id\":\"after_present_illness\",\"best_match_score\":1.0,\"reason\":\"Exact diagnosis present\"},{\"id\":\"after_lab_1\",\"best_match_score\":1.0,\"reason\":\"Exact diagnosis present\"},{\"id\":\"after_lab_1_duplicate\",\"best_match_score\":1.0,\"reason\":\"Exact diagnosis present\"}],\"lab_to_duplicate_overlap\":0.5,\"duplicate_to_lab_overlap\":0.5,\"overlap_reason\":\"Both lists share 6 of 12 diagnoses by exact disease or standard synonym: Rocky Mountain spotted fever, Ehrlichiosis, Leptospirosis, Disseminated gonococcal infection, Secondary syphilis, Acute HIV infection.\"}"
+  ],
+  "records": [
+    {
+      "duplicate_semantic_overlap": 0.5,
+      "duplicate_truth_score_gap": 0.0,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 0.5,
+        "duplicate_to_lab_overlap": 0.5,
+        "lab_to_duplicate_overlap": 0.5,
+        "overlap_reason": "Six of 12 after_lab_1 diagnoses have same-disease or standard-synonym matches in the duplicate; six of 12 duplicate diagnoses match diagnoses in after_lab_1. Related-but-not-identical formulations were not counted.",
+        "supports": [
+          {
+            "best_match_score": 1.0,
+            "id": "initial",
+            "reason": "Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_present_illness",
+            "reason": "Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_lab_1",
+            "reason": "Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_lab_1_duplicate",
+            "reason": "Exact same diagnosis appears: diffuse cutaneous systemic sclerosis with scleroderma renal crisis."
+          }
+        ]
+      },
+      "source_id": "21991897",
+      "stored_observations": {
+        "lab_1": {
+          "changes_over_time": "Significant decrease from 39.0% to 23.2% over time.",
+          "date": "Not specified",
+          "findings": "Initially 39.0%, then dropped to 23.2% upon admission at another hospital, and stabilized at 26.3% on the second day at this hospital.",
+          "procedure_name": "Hematocrit"
+        },
+        "present_illness": "The patient had been in her usual health until 6 weeks before admission, when she noted increasing skin tightness around her mouth, dry mouth, difficulty swallowing, worsening gastroesophageal reflux, hair loss, and discoloration of her fingers, which were ash-colored, painful, and cool. Prednisone was increased from 10 to 20 mg daily, without improvement. Four days before admission, she was found on the floor of her bathroom, confused and minimally conversant. She reported some weakness the day before admission."
+      },
+      "subset": "challenging",
+      "supports": {
+        "after_lab_1": [
+          "Diffuse cutaneous systemic sclerosis with scleroderma renal crisis",
+          "Mixed connective tissue disease with scleroderma-predominant overlap and renal crisis",
+          "Systemic sclerosis sine scleroderma with renal crisis",
+          "ANCA-associated small-vessel vasculitis",
+          "Systemic lupus erythematosus with lupus nephritis and secondary scleroderma overlap",
+          "Thrombotic thrombocytopenic purpura",
+          "Atypical hemolytic uremic syndrome",
+          "Antiphospholipid syndrome with thrombotic microangiopathy",
+          "Cryoglobulinemic vasculitis",
+          "POEMS syndrome",
+          "Scleromyxedema",
+          "Paraneoplastic scleroderma-like syndrome"
+        ],
+        "after_lab_1_duplicate": [
+          "Diffuse cutaneous systemic sclerosis with scleroderma renal crisis",
+          "Mixed connective tissue disease with scleroderma-predominant overlap and renal crisis",
+          "Thrombotic thrombocytopenic purpura",
+          "Complement-mediated thrombotic microangiopathy (atypical hemolytic uremic syndrome)",
+          "ANCA-associated pauci-immune crescentic glomerulonephritis",
+          "Systemic lupus erythematosus with lupus nephritis and secondary scleroderma overlap",
+          "Cryoglobulinemic vasculitis with glomerulonephritis",
+          "Antiphospholipid syndrome with renal thrombotic microangiopathy",
+          "Malignant hypertension causing thrombotic microangiopathy and acute kidney injury",
+          "POEMS syndrome with scleroderma-like skin changes",
+          "Scleromyxedema with systemic involvement",
+          "Paraneoplastic scleroderma-like syndrome"
+        ],
+        "after_present_illness": [
+          "Diffuse cutaneous systemic sclerosis with scleroderma renal crisis",
+          "Mixed connective tissue disease with scleroderma-predominant overlap and renal crisis",
+          "Systemic lupus erythematosus with nephritis and secondary scleroderma-like overlap",
+          "ANCA-associated small-vessel vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Thrombotic thrombocytopenic purpura",
+          "Atypical hemolytic uremic syndrome",
+          "Antiphospholipid syndrome with thrombotic microangiopathy",
+          "Nephrogenic systemic fibrosis",
+          "Scleromyxedema",
+          "Eosinophilic fasciitis",
+          "Paraneoplastic scleroderma-like syndrome"
+        ],
+        "initial": [
+          "Diffuse cutaneous systemic sclerosis with scleroderma renal crisis",
+          "ANCA-associated small-vessel vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Nephrogenic systemic fibrosis",
+          "Eosinophilic fasciitis",
+          "Scleromyxedema",
+          "Primary systemic AL amyloidosis",
+          "POEMS syndrome",
+          "Paraneoplastic scleroderma-like syndrome",
+          "Mixed connective tissue disease",
+          "Diabetic cheiroarthropathy with chronic kidney disease and uremic encephalopathy",
+          "Generalized morphea with coincident rapidly progressive glomerulonephritis"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Scleroderma renal crisis"
+    },
+    {
+      "duplicate_semantic_overlap": 0.5,
+      "duplicate_truth_score_gap": 0.0,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 0.5,
+        "duplicate_to_lab_overlap": 0.5,
+        "lab_to_duplicate_overlap": 0.5,
+        "overlap_reason": "Both lists share 6 of 12 diagnoses by exact disease or standard synonym: Rocky Mountain spotted fever, Ehrlichiosis, Leptospirosis, Disseminated gonococcal infection, Secondary syphilis, Acute HIV infection.",
+        "supports": [
+          {
+            "best_match_score": 1.0,
+            "id": "initial",
+            "reason": "Exact diagnosis present"
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_present_illness",
+            "reason": "Exact diagnosis present"
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_lab_1",
+            "reason": "Exact diagnosis present"
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_lab_1_duplicate",
+            "reason": "Exact diagnosis present"
+          }
+        ]
+      },
+      "source_id": "rare70",
+      "stored_observations": {
+        "lab_1": {
+          "changes_over_time": "Repeat laboratory testing showed new leukocytosis.",
+          "date": "Not specified",
+          "findings": "White blood cell count at the upper limit of normal with lymphopenia and normocytic anemia.",
+          "procedure_name": "Complete Blood Count (CBC)"
+        },
+        "present_illness": "Symptoms began five days after the fishing trip and included fever, myalgia, headache, and cough. The patient sought care three days after symptom onset, receiving a presumptive viral illness diagnosis. Symptoms progressively worsened, including the development of a rash on palms and lower extremity erythema and edema. At discharge, 14 days after onset, fever resolved but joint pain persisted, particularly in the right shoulder. Six days post-discharge, there was persistent joint pain and weakness in the right arm. Approximately five weeks after onset, energy returned to baseline levels but pain in the right shoulder, elbow, and wrist continued."
+      },
+      "subset": "rare",
+      "supports": {
+        "after_lab_1": [
+          "Rocky Mountain spotted fever",
+          "Ehrlichiosis",
+          "Leptospirosis",
+          "Rickettsia parkeri rickettsiosis",
+          "Murine typhus",
+          "Southern tick-associated rash illness (STARI)",
+          "Disseminated gonococcal infection",
+          "Parvovirus B19 infection",
+          "Secondary syphilis",
+          "Acute HIV infection",
+          "Meningococcemia",
+          "Rat-bite fever"
+        ],
+        "after_lab_1_duplicate": [
+          "Rocky Mountain spotted fever",
+          "Ehrlichiosis",
+          "Anaplasmosis",
+          "Leptospirosis",
+          "Acute parvovirus B19 infection",
+          "Disseminated gonococcal infection",
+          "Secondary syphilis",
+          "Meningococcemia",
+          "Coxsackievirus A6 infection",
+          "Acute HIV infection",
+          "Rat-bite fever",
+          "Chikungunya virus infection"
+        ],
+        "after_present_illness": [
+          "Rocky Mountain spotted fever",
+          "Ehrlichiosis",
+          "Leptospirosis",
+          "Disseminated gonococcal infection",
+          "Parvovirus B19 infection",
+          "Meningococcemia",
+          "Coxsackievirus A6 infection (hand-foot-and-mouth disease)",
+          "Secondary syphilis",
+          "Rat-bite fever",
+          "Murine typhus",
+          "Acute HIV infection",
+          "Serum sickness-like reaction"
+        ],
+        "initial": [
+          "Rocky Mountain spotted fever",
+          "Ehrlichiosis",
+          "Anaplasmosis",
+          "Leptospirosis",
+          "Acute Q fever",
+          "Tularemia",
+          "Histoplasmosis",
+          "Blastomycosis",
+          "Influenza",
+          "COVID-19",
+          "Babesiosis",
+          "Acute HIV infection"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Ehrlichiosis"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed",
+  "summary": {
+    "duplicate_semantic_overlaps": [
+      0.5,
+      0.5
+    ],
+    "duplicate_truth_score_gaps": [
+      0.0,
+      0.0
+    ],
+    "gates": {
+      "all_pass": false,
+      "all_supports_size_twelve": true,
+      "both_duplicate_semantic_overlaps_at_least_0_80": false,
+      "both_duplicate_truth_score_gaps_at_most_0_05": true,
+      "duplicate_prompts_exact": true,
+      "exactly_10_requests": true,
+      "no_hidden_target_in_source_evidence": true,
+      "zero_reasoning": true
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "source_target_leaks": 0
+  },
+  "usage": {
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "duplicate": {
+        "adapter_completion_tokens": 275,
+        "adapter_cost_usd": 0.00668,
+        "adapter_prompt_tokens": 1022,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1328,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 942,
+            "cost_usd": 0.021824999999999997,
+            "prompt_tokens": 3078,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 386,
+            "cost_usd": 0.0028515,
+            "prompt_tokens": 1486,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4564,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.853665222999965,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.024676499999999997,
+        "run_remaining_usd": 0.4753235,
+        "total_spent_usd": 48.53113747245719
+      },
+      "initial": {
+        "adapter_completion_tokens": 188,
+        "adapter_cost_usd": 0.0033975,
+        "adapter_prompt_tokens": 231,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1328,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 942,
+            "cost_usd": 0.021824999999999997,
+            "prompt_tokens": 3078,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 386,
+            "cost_usd": 0.0028515,
+            "prompt_tokens": 1486,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4564,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.853665222999965,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.024676499999999997,
+        "run_remaining_usd": 0.4753235,
+        "total_spent_usd": 48.53113747245719
+      },
+      "judge": {
+        "adapter_completion_tokens": 386,
+        "adapter_cost_usd": 0.0028515,
+        "adapter_prompt_tokens": 1486,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1328,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 942,
+            "cost_usd": 0.021824999999999997,
+            "prompt_tokens": 3078,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 386,
+            "cost_usd": 0.0028515,
+            "prompt_tokens": 1486,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4564,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.853665222999965,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.024676499999999997,
+        "run_remaining_usd": 0.4753235,
+        "total_spent_usd": 48.53113747245719
+      },
+      "lab": {
+        "adapter_completion_tokens": 239,
+        "adapter_cost_usd": 0.00614,
+        "adapter_prompt_tokens": 1022,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1328,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 942,
+            "cost_usd": 0.021824999999999997,
+            "prompt_tokens": 3078,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 386,
+            "cost_usd": 0.0028515,
+            "prompt_tokens": 1486,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4564,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.853665222999965,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.024676499999999997,
+        "run_remaining_usd": 0.4753235,
+        "total_spent_usd": 48.53113747245719
+      },
+      "present": {
+        "adapter_completion_tokens": 240,
+        "adapter_cost_usd": 0.0056075,
+        "adapter_prompt_tokens": 803,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1328,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 942,
+            "cost_usd": 0.021824999999999997,
+            "prompt_tokens": 3078,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 386,
+            "cost_usd": 0.0028515,
+            "prompt_tokens": 1486,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4564,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.853665222999965,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.024676499999999997,
+        "run_remaining_usd": 0.4753235,
+        "total_spent_usd": 48.53113747245719
+      }
+    }
+  }
+}
