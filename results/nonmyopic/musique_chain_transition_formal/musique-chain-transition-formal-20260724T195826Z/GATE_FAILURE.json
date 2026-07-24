@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: root title is not an exact available title",
+  "raw_responses_path": "external/musique_chain_transition_raw/musique-chain-transition-formal-20260724T195826Z/RAW_RESPONSES.json",
+  "schema_version": 1,
+  "stage": "formal",
+  "status": "failed_closed"
+}

@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: ordered title pairs must be unique",
+  "raw_responses_path": "external/musique_chain_transition_raw/musique-chain-transition-smoke-20260724T195354Z/RAW_RESPONSES.json",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed"
+}

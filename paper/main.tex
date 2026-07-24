@@ -556,6 +556,14 @@ between murderer and innocent roles, leaving four rankable cases and two depth
 changes. Calibration and non-myopic opportunity therefore traded off rather than
 combining into a usable policy.
 
+Connected multihop structure alone was also insufficient. On 12 fresh MuSiQue
+two-hop cases \citep{trivedi2022musique}, opening stored documents recovered four
+of eight initially omitted LLM-generated support chains, for $.333$ mean oracle
+coverage gain. Yet the same semantic generator placed the true first document
+first in 10/11 candidate sets; immediate EIG selected three of four recovering
+branches, leaving only $.083$ mean realized regret. Multiple steps were necessary
+to decode the answer, but not to choose the first experiment.
+
 DAD and RL-BED optimize total sequential utility via amortization or RL
 \citep{foster2021deep,blau2022rlbed}, but require a meaningful simulator; the
 current MediQ surrogate would amortize annotation artifacts, not recover missing state.

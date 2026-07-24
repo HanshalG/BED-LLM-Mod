@@ -1,0 +1,355 @@
+{
+  "protocol": {
+    "action_count": 6,
+    "chain_count": 8,
+    "data_sha256": "15fa63794d18a94ce12411aca6e2327e65b6e83b0b1490efab3f1962e48abf3b",
+    "gold_answer_hidden_from_all_prompts": true,
+    "gold_decomposition_hidden_from_all_prompts": true,
+    "no_llm_likelihood_or_answerer": true,
+    "opened_document_is_the_only_branch_observation": true,
+    "paragraph_support_flags_hidden_from_all_prompts": true,
+    "private_raw_sha256": "78fc36f33d7acf80b65f8d9a31f8eefe5916658fc3a2c30940fd24a93660812e",
+    "row_ids": [
+      "2hop__554167_451128",
+      "2hop__256336_714772"
+    ],
+    "selection_seed": 24313,
+    "stage": "serving_smoke",
+    "target_is_ordered_support_title_pair": true
+  },
+  "records": [
+    {
+      "branch_truth_coverage_spread": 1,
+      "branches": [
+        {
+          "action_index": 0,
+          "generated_pair_hashes": [
+            "1b94cc1720a7d8661159f4e04184f873caa2250a26cc400e6e295b477acaef03",
+            "3e0ec5711771371d4a74c1c8880eca54ceb7eac4d3cb687e300ef0cb0257628f",
+            "f6361dabd0314489e4146c96b5a0fd63233fb76d446a228439ec944c439b4239",
+            "e0ba5232f8f2ab575b35c2a1396af5137eac5d73f839a2e8ffb215f888e21a46",
+            "70d19cac240da7e50ec42655224eb9098d2b0d4ea4e819f9957ce240c6e22099",
+            "ed697e2494120cf6f9161612fd05dc682a6cc59104059ed1a2ff2434feb18843",
+            "8e15497ad3cac579cd8bbc34997871e63447ca5347d92de124f846b087568b15",
+            "c849201e2bf6ed3b2904fe6ec38127e3f9334b27fbb9bf5c27fab11aa52a996e"
+          ],
+          "opened_title": "Victim of Romance",
+          "opened_title_hash": "824707d9c0622c802aea1abb14eda5ff8d55f8b281bd9624f9f4bd8e76d15c46",
+          "truth_coverage": 1
+        },
+        {
+          "action_index": 1,
+          "generated_pair_hashes": [
+            "3e0ec5711771371d4a74c1c8880eca54ceb7eac4d3cb687e300ef0cb0257628f",
+            "dd3d3c7fd17ec935e8f6ab3bf1b001cd4f3e1e7ebbfb8b46b01c063c01358e67",
+            "f6361dabd0314489e4146c96b5a0fd63233fb76d446a228439ec944c439b4239",
+            "e0ba5232f8f2ab575b35c2a1396af5137eac5d73f839a2e8ffb215f888e21a46",
+            "70d19cac240da7e50ec42655224eb9098d2b0d4ea4e819f9957ce240c6e22099",
+            "ed697e2494120cf6f9161612fd05dc682a6cc59104059ed1a2ff2434feb18843",
+            "8e15497ad3cac579cd8bbc34997871e63447ca5347d92de124f846b087568b15",
+            "c849201e2bf6ed3b2904fe6ec38127e3f9334b27fbb9bf5c27fab11aa52a996e"
+          ],
+          "opened_title": "Josh LaBove",
+          "opened_title_hash": "6f4b344b2673b02c387591c8bd1c16bbc9fc77eb67d17acf2b1be452fd1a73f8",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 2,
+          "generated_pair_hashes": [
+            "3e0ec5711771371d4a74c1c8880eca54ceb7eac4d3cb687e300ef0cb0257628f",
+            "dd3d3c7fd17ec935e8f6ab3bf1b001cd4f3e1e7ebbfb8b46b01c063c01358e67",
+            "70d19cac240da7e50ec42655224eb9098d2b0d4ea4e819f9957ce240c6e22099",
+            "6edd37b483c8ac30bcab66471f4a6fa996791c497d4c792cbfc49dd4c8a35909",
+            "f6361dabd0314489e4146c96b5a0fd63233fb76d446a228439ec944c439b4239",
+            "ed697e2494120cf6f9161612fd05dc682a6cc59104059ed1a2ff2434feb18843",
+            "8e15497ad3cac579cd8bbc34997871e63447ca5347d92de124f846b087568b15",
+            "c849201e2bf6ed3b2904fe6ec38127e3f9334b27fbb9bf5c27fab11aa52a996e"
+          ],
+          "opened_title": "Heavy Rain",
+          "opened_title_hash": "a0b7b09fa95996e62af983b7b24d03a3f59aab1e9fb61dc36b439f5c3a0a0d62",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 3,
+          "generated_pair_hashes": [
+            "3e0ec5711771371d4a74c1c8880eca54ceb7eac4d3cb687e300ef0cb0257628f",
+            "dd3d3c7fd17ec935e8f6ab3bf1b001cd4f3e1e7ebbfb8b46b01c063c01358e67",
+            "f6361dabd0314489e4146c96b5a0fd63233fb76d446a228439ec944c439b4239",
+            "e0ba5232f8f2ab575b35c2a1396af5137eac5d73f839a2e8ffb215f888e21a46",
+            "40ef6901a872bc589fb1ccc58564863099ec013e2fa866fccafc0b48b35a1522",
+            "70d19cac240da7e50ec42655224eb9098d2b0d4ea4e819f9957ce240c6e22099",
+            "8e15497ad3cac579cd8bbc34997871e63447ca5347d92de124f846b087568b15",
+            "335b9a641f64e4359bb6cef1957ef09b389e5ab377022dcac9b46f9c34b13313"
+          ],
+          "opened_title": "Lucilla Andrews",
+          "opened_title_hash": "ba5e2d00c279d8e9e5ce64b85edfb73bbc3704da9690b2abdedfcf12a172a7d0",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 4,
+          "generated_pair_hashes": [
+            "3e0ec5711771371d4a74c1c8880eca54ceb7eac4d3cb687e300ef0cb0257628f",
+            "dd3d3c7fd17ec935e8f6ab3bf1b001cd4f3e1e7ebbfb8b46b01c063c01358e67",
+            "f6361dabd0314489e4146c96b5a0fd63233fb76d446a228439ec944c439b4239",
+            "e0ba5232f8f2ab575b35c2a1396af5137eac5d73f839a2e8ffb215f888e21a46",
+            "d89d97d450d669c76f1d853ab252af6c963eaf6263a68cf2ab142ed96fb36967",
+            "70d19cac240da7e50ec42655224eb9098d2b0d4ea4e819f9957ce240c6e22099",
+            "ed697e2494120cf6f9161612fd05dc682a6cc59104059ed1a2ff2434feb18843",
+            "c849201e2bf6ed3b2904fe6ec38127e3f9334b27fbb9bf5c27fab11aa52a996e"
+          ],
+          "opened_title": "Religion in ancient Rome",
+          "opened_title_hash": "7d647c1690f6ebb0437054288a8b62d08d14ffd0fd031dd2560def215dea761f",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 5,
+          "generated_pair_hashes": [
+            "3e0ec5711771371d4a74c1c8880eca54ceb7eac4d3cb687e300ef0cb0257628f",
+            "dd3d3c7fd17ec935e8f6ab3bf1b001cd4f3e1e7ebbfb8b46b01c063c01358e67",
+            "162f2c13fd61a7164e3b63e6bf5e931b551ad34ca66ea2971763a0a89a6606fb",
+            "c74ecf3d9278dd3d0882392a95b5f800d6b4f57d6af77816e2142db5bcc4bb11",
+            "f6361dabd0314489e4146c96b5a0fd63233fb76d446a228439ec944c439b4239",
+            "70d19cac240da7e50ec42655224eb9098d2b0d4ea4e819f9957ce240c6e22099",
+            "ed697e2494120cf6f9161612fd05dc682a6cc59104059ed1a2ff2434feb18843",
+            "8e15497ad3cac579cd8bbc34997871e63447ca5347d92de124f846b087568b15"
+          ],
+          "opened_title": "The Official Story",
+          "opened_title_hash": "33cd7338860f60ca5156bfc1a1268ebc93f5fdeca5e62ba86f63e27acd80548c",
+          "truth_coverage": 0
+        }
+      ],
+      "candidate_action_titles": [
+        "Victim of Romance",
+        "Josh LaBove",
+        "Heavy Rain",
+        "Lucilla Andrews",
+        "Religion in ancient Rome",
+        "The Official Story"
+      ],
+      "gold_root_is_candidate": true,
+      "immediate_eig_selected_index": 0,
+      "immediate_eig_truth_coverage_regret": 0,
+      "immediate_eig_values": [
+        0.5623351446188083,
+        0.5623351446188083,
+        0.37677016125643675,
+        0.37677016125643675,
+        0.37677016125643675,
+        0.37677016125643675
+      ],
+      "initial_pair_hashes": [
+        "3e0ec5711771371d4a74c1c8880eca54ceb7eac4d3cb687e300ef0cb0257628f",
+        "dd3d3c7fd17ec935e8f6ab3bf1b001cd4f3e1e7ebbfb8b46b01c063c01358e67",
+        "f6361dabd0314489e4146c96b5a0fd63233fb76d446a228439ec944c439b4239",
+        "e0ba5232f8f2ab575b35c2a1396af5137eac5d73f839a2e8ffb215f888e21a46",
+        "70d19cac240da7e50ec42655224eb9098d2b0d4ea4e819f9957ce240c6e22099",
+        "ed697e2494120cf6f9161612fd05dc682a6cc59104059ed1a2ff2434feb18843",
+        "8e15497ad3cac579cd8bbc34997871e63447ca5347d92de124f846b087568b15",
+        "c849201e2bf6ed3b2904fe6ec38127e3f9334b27fbb9bf5c27fab11aa52a996e"
+      ],
+      "initial_truth_coverage": 0,
+      "omission_recovered": true,
+      "oracle_truth_coverage": 1,
+      "oracle_truth_coverage_gain": 1,
+      "question_hash": "804b6de811fa656eb0970628be63ce9237ac3bab57a4b359af54ecdc15aa9069",
+      "random_selected_index": 5,
+      "random_truth_coverage_regret": 1,
+      "row_id": "2hop__554167_451128",
+      "truth_title_hashes": [
+        "824707d9c0622c802aea1abb14eda5ff8d55f8b281bd9624f9f4bd8e76d15c46",
+        "ec43a83ef065400c547504c77bcf41553d26c1e7c5aa1f4b33e65608948e3571"
+      ]
+    },
+    {
+      "branch_truth_coverage_spread": 0,
+      "branches": [
+        {
+          "action_index": 0,
+          "generated_pair_hashes": [
+            "22951890b25dbe2b0612a46094ff9d1f80d78a9072f00a7e91c5de9deb950254",
+            "3dc02bc4daefc2edb1989b5ec80a4de8826010dc9c6b1fac3bff81ae01bd43cb",
+            "88d031275af12870cc1dc0f992f709d11f46f1fdc2aa5834be960defd3fa8e88",
+            "807e650a7fc68da8ab9d3fdfa1bab14e8f0eef207d067dcecca8b3ad827e43ab",
+            "89efffd9ef07c698545c0e6bcb0695881c5d82ec3aeebb62cdb54e0c9db60a1c",
+            "65ca79d35f9731b4ddf8e33162f79a5d3f488e658e89ac5911b5677644bbef6b",
+            "87d557ec0fe02f8b09f7fbd3fbda24016b2a3a2d79146a169c7e07302093ec22",
+            "7995b1acfea990abfcb7c595e283d13910234fc457c1614b49d3aee4b2b187e5"
+          ],
+          "opened_title": "Christopher Masterson",
+          "opened_title_hash": "fcb921173b736f509b355b7a86ba15094e4c7eb476968c4629d62001c97bcc66",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 1,
+          "generated_pair_hashes": [
+            "807e650a7fc68da8ab9d3fdfa1bab14e8f0eef207d067dcecca8b3ad827e43ab",
+            "88d031275af12870cc1dc0f992f709d11f46f1fdc2aa5834be960defd3fa8e88",
+            "22951890b25dbe2b0612a46094ff9d1f80d78a9072f00a7e91c5de9deb950254",
+            "3dc02bc4daefc2edb1989b5ec80a4de8826010dc9c6b1fac3bff81ae01bd43cb",
+            "7995b1acfea990abfcb7c595e283d13910234fc457c1614b49d3aee4b2b187e5",
+            "89efffd9ef07c698545c0e6bcb0695881c5d82ec3aeebb62cdb54e0c9db60a1c",
+            "65ca79d35f9731b4ddf8e33162f79a5d3f488e658e89ac5911b5677644bbef6b",
+            "87d557ec0fe02f8b09f7fbd3fbda24016b2a3a2d79146a169c7e07302093ec22"
+          ],
+          "opened_title": "King of the Mountain (film)",
+          "opened_title_hash": "18b5d40887f3fcdba198c64bf31f72c02bb7677ef16eea028eec9325267c26e4",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 2,
+          "generated_pair_hashes": [
+            "22951890b25dbe2b0612a46094ff9d1f80d78a9072f00a7e91c5de9deb950254",
+            "55f9799e99aa1c3389deb126e721d2ff44857eb6136338a4d743514815165156",
+            "7995b1acfea990abfcb7c595e283d13910234fc457c1614b49d3aee4b2b187e5",
+            "7b8d1ed2f9fe7811f0b64fbbc293adeebab5b56a2104e63365ae0da04acbe8e4",
+            "89efffd9ef07c698545c0e6bcb0695881c5d82ec3aeebb62cdb54e0c9db60a1c",
+            "65ca79d35f9731b4ddf8e33162f79a5d3f488e658e89ac5911b5677644bbef6b",
+            "87d557ec0fe02f8b09f7fbd3fbda24016b2a3a2d79146a169c7e07302093ec22",
+            "651993678efb9e95b56d05d62979e8a9ccf35188e9dde73111e668bcb7b93c88"
+          ],
+          "opened_title": "Tina Cole",
+          "opened_title_hash": "a30ac945158f1809dc64a15d1dee5394cd6d482c9277c03a3f95c7c737533054",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 3,
+          "generated_pair_hashes": [
+            "89efffd9ef07c698545c0e6bcb0695881c5d82ec3aeebb62cdb54e0c9db60a1c",
+            "4c739e7a136bc60c7a955f22e357a674accd126a941c25e7c56b097d81644ae7",
+            "88d031275af12870cc1dc0f992f709d11f46f1fdc2aa5834be960defd3fa8e88",
+            "807e650a7fc68da8ab9d3fdfa1bab14e8f0eef207d067dcecca8b3ad827e43ab",
+            "3dc02bc4daefc2edb1989b5ec80a4de8826010dc9c6b1fac3bff81ae01bd43cb",
+            "65ca79d35f9731b4ddf8e33162f79a5d3f488e658e89ac5911b5677644bbef6b",
+            "87d557ec0fe02f8b09f7fbd3fbda24016b2a3a2d79146a169c7e07302093ec22",
+            "7995b1acfea990abfcb7c595e283d13910234fc457c1614b49d3aee4b2b187e5"
+          ],
+          "opened_title": "Catherine Jagiellon",
+          "opened_title_hash": "5e0b0069847707d6e54e56f5dc2046bc27786789e5de5d11798f216c348495bb",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 4,
+          "generated_pair_hashes": [
+            "22951890b25dbe2b0612a46094ff9d1f80d78a9072f00a7e91c5de9deb950254",
+            "55f9799e99aa1c3389deb126e721d2ff44857eb6136338a4d743514815165156",
+            "88d031275af12870cc1dc0f992f709d11f46f1fdc2aa5834be960defd3fa8e88",
+            "807e650a7fc68da8ab9d3fdfa1bab14e8f0eef207d067dcecca8b3ad827e43ab",
+            "65ca79d35f9731b4ddf8e33162f79a5d3f488e658e89ac5911b5677644bbef6b",
+            "7995b1acfea990abfcb7c595e283d13910234fc457c1614b49d3aee4b2b187e5",
+            "87d557ec0fe02f8b09f7fbd3fbda24016b2a3a2d79146a169c7e07302093ec22",
+            "89efffd9ef07c698545c0e6bcb0695881c5d82ec3aeebb62cdb54e0c9db60a1c"
+          ],
+          "opened_title": "Han dynasty",
+          "opened_title_hash": "a32ee0f65b258ed3ccc9a766eb2252b6ec334625e8e0964c5a4ab76c24645841",
+          "truth_coverage": 0
+        },
+        {
+          "action_index": 5,
+          "generated_pair_hashes": [
+            "22951890b25dbe2b0612a46094ff9d1f80d78a9072f00a7e91c5de9deb950254",
+            "55f9799e99aa1c3389deb126e721d2ff44857eb6136338a4d743514815165156",
+            "88d031275af12870cc1dc0f992f709d11f46f1fdc2aa5834be960defd3fa8e88",
+            "807e650a7fc68da8ab9d3fdfa1bab14e8f0eef207d067dcecca8b3ad827e43ab",
+            "87d557ec0fe02f8b09f7fbd3fbda24016b2a3a2d79146a169c7e07302093ec22",
+            "89efffd9ef07c698545c0e6bcb0695881c5d82ec3aeebb62cdb54e0c9db60a1c",
+            "65ca79d35f9731b4ddf8e33162f79a5d3f488e658e89ac5911b5677644bbef6b",
+            "7995b1acfea990abfcb7c595e283d13910234fc457c1614b49d3aee4b2b187e5"
+          ],
+          "opened_title": "Simba",
+          "opened_title_hash": "f9c552cca49d95db9e09a876bbd74eb833ee063e5ce058d121d53ad0271cedc4",
+          "truth_coverage": 0
+        }
+      ],
+      "candidate_action_titles": [
+        "Christopher Masterson",
+        "King of the Mountain (film)",
+        "Tina Cole",
+        "Catherine Jagiellon",
+        "Han dynasty",
+        "Simba"
+      ],
+      "gold_root_is_candidate": true,
+      "immediate_eig_selected_index": 0,
+      "immediate_eig_truth_coverage_regret": 0,
+      "immediate_eig_values": [
+        0.5623351446188083,
+        0.5623351446188083,
+        0.37677016125643675,
+        0.37677016125643675,
+        0.37677016125643675,
+        0.37677016125643675
+      ],
+      "initial_pair_hashes": [
+        "22951890b25dbe2b0612a46094ff9d1f80d78a9072f00a7e91c5de9deb950254",
+        "3dc02bc4daefc2edb1989b5ec80a4de8826010dc9c6b1fac3bff81ae01bd43cb",
+        "88d031275af12870cc1dc0f992f709d11f46f1fdc2aa5834be960defd3fa8e88",
+        "807e650a7fc68da8ab9d3fdfa1bab14e8f0eef207d067dcecca8b3ad827e43ab",
+        "7995b1acfea990abfcb7c595e283d13910234fc457c1614b49d3aee4b2b187e5",
+        "89efffd9ef07c698545c0e6bcb0695881c5d82ec3aeebb62cdb54e0c9db60a1c",
+        "65ca79d35f9731b4ddf8e33162f79a5d3f488e658e89ac5911b5677644bbef6b",
+        "87d557ec0fe02f8b09f7fbd3fbda24016b2a3a2d79146a169c7e07302093ec22"
+      ],
+      "initial_truth_coverage": 0,
+      "omission_recovered": false,
+      "oracle_truth_coverage": 0,
+      "oracle_truth_coverage_gain": 0,
+      "question_hash": "ca0e75ad1041b6c5a4cf78a6a8935d1ad2cd2337c0978dbaebd6c42e10756168",
+      "random_selected_index": 3,
+      "random_truth_coverage_regret": 0,
+      "row_id": "2hop__256336_714772",
+      "truth_title_hashes": [
+        "18b5d40887f3fcdba198c64bf31f72c02bb7677ef16eea028eec9325267c26e4",
+        "9ecd5d8c9a2ce156d153ecff9941f89469fdbf41ec5e673d8dc40ca6a1acdae4"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_rows_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_branches": 12,
+    "num_rows": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.00433163,
+    "model": {
+      "adapter_completion_tokens": 7819,
+      "adapter_cost_usd": 0.00433163,
+      "adapter_prompt_tokens": 13874,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 14,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 7819,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 7819,
+          "cost_usd": 0.00433163,
+          "prompt_tokens": 13874,
+          "reasoning_tokens": 0,
+          "requests": 14
+        }
+      },
+      "prompt_tokens": 13874,
+      "reasoning_tokens": 0,
+      "remaining_usd": 41.15473765374972,
+      "requests": 14,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.00433163,
+      "run_remaining_usd": 0.49566837,
+      "total_spent_usd": 64.23006504170743
+    },
+    "physical_requests": 14,
+    "reasoning_tokens": 0
+  }
+}
