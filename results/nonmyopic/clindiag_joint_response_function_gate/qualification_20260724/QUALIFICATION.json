@@ -1,0 +1,635 @@
+{
+  "protocol": {
+    "expected_requests": 10,
+    "model": "openai/gpt-5.4",
+    "qualification_ids": [
+      "24450895",
+      "rare214"
+    ],
+    "reasoning_disabled": true,
+    "retries": 0,
+    "selection_seed": 24293
+  },
+  "records": [
+    {
+      "audit": [
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q1",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q2",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q3",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q4",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q5",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q6",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        }
+      ],
+      "duplicate_label_matches": 6,
+      "duplicate_response_function": [
+        {
+          "answer": "no",
+          "finding": "Abdominal pain does not radiate to the back.",
+          "query_id": "q1",
+          "source": "synthetic"
+        },
+        {
+          "answer": "yes",
+          "finding": "Black, tarry stools are present.",
+          "query_id": "q2",
+          "source": "recorded"
+        },
+        {
+          "answer": "no",
+          "finding": "Scleral icterus is absent.",
+          "query_id": "q3",
+          "source": "synthetic"
+        },
+        {
+          "answer": "yes",
+          "finding": "Antibiotic use within the past 8 weeks is reported.",
+          "query_id": "q4",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Serum lipase is not above the laboratory upper limit of normal.",
+          "query_id": "q5",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Serum ketones are not elevated.",
+          "query_id": "q6",
+          "source": "synthetic"
+        }
+      ],
+      "fully_valid_audit_rows": 6,
+      "literal_leak_query_ids": [],
+      "original_response_function": [
+        {
+          "answer": "no",
+          "finding": "Abdominal pain does not radiate to the back.",
+          "query_id": "q1",
+          "source": "synthetic"
+        },
+        {
+          "answer": "yes",
+          "finding": "Black, tarry stools are present.",
+          "query_id": "q2",
+          "source": "recorded"
+        },
+        {
+          "answer": "no",
+          "finding": "Scleral icterus is absent.",
+          "query_id": "q3",
+          "source": "synthetic"
+        },
+        {
+          "answer": "yes",
+          "finding": "Antibiotic use within the past 8 weeks is reported.",
+          "query_id": "q4",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Serum lipase is not above the laboratory upper limit of normal.",
+          "query_id": "q5",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Serum ketones are not elevated.",
+          "query_id": "q6",
+          "source": "synthetic"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "history",
+          "negative_finding": "Abdominal pain does not radiate to the back.",
+          "positive_finding": "Abdominal pain is constant and radiates to the back.",
+          "request": "Has the abdominal pain been constant and radiating to the back?"
+        },
+        {
+          "id": "q2",
+          "kind": "history",
+          "negative_finding": "Black, tarry stools are absent.",
+          "positive_finding": "Black, tarry stools are present.",
+          "request": "Has she had black, tarry stools?"
+        },
+        {
+          "id": "q3",
+          "kind": "examination",
+          "negative_finding": "Scleral icterus is absent.",
+          "positive_finding": "Scleral icterus is present.",
+          "request": "Is scleral icterus present on examination?"
+        },
+        {
+          "id": "q4",
+          "kind": "history",
+          "negative_finding": "No antibiotic use within the past 8 weeks is reported.",
+          "positive_finding": "Antibiotic use within the past 8 weeks is reported.",
+          "request": "Has she taken antibiotics within the past 8 weeks?"
+        },
+        {
+          "id": "q5",
+          "kind": "test",
+          "negative_finding": "Serum lipase is not above the laboratory upper limit of normal.",
+          "positive_finding": "Serum lipase is above the laboratory upper limit of normal.",
+          "request": "Is the serum lipase above the laboratory upper limit of normal?"
+        },
+        {
+          "id": "q6",
+          "kind": "test",
+          "negative_finding": "Serum ketones are not elevated.",
+          "positive_finding": "Serum ketones are elevated.",
+          "request": "Are serum ketones elevated?"
+        }
+      ],
+      "source_id": "24450895",
+      "support": [
+        "Acute infectious gastroenteritis with prerenal acute kidney injury",
+        "Acute pancreatitis",
+        "Acute cholecystitis",
+        "Choledocholithiasis with ascending cholangitis",
+        "Peptic ulcer disease with gastric outlet obstruction",
+        "Mesenteric ischemia",
+        "Small bowel obstruction",
+        "Clostridioides difficile colitis",
+        "Diabetic ketoacidosis",
+        "Adrenal crisis",
+        "Acute intermittent porphyria",
+        "Thrombotic thrombocytopenic purpura"
+      ],
+      "true_diagnosis_measurement_only": "Type II cryoglobulinemia with acute glomerulonephritis and renal vasculitis"
+    },
+    {
+      "audit": [
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q1",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q2",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": false,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q3",
+          "original_case_consistent": false,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q4",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q5",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        },
+        {
+          "duplicate_case_consistent": true,
+          "duplicate_no_target_leak": true,
+          "duplicate_objective": true,
+          "duplicate_relevant": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q6",
+          "original_case_consistent": true,
+          "original_no_target_leak": true,
+          "original_objective": true,
+          "original_relevant": true,
+          "provenance_consistent": true
+        }
+      ],
+      "duplicate_label_matches": 6,
+      "duplicate_response_function": [
+        {
+          "answer": "yes",
+          "finding": "Persistent oral thrush lasting more than 2 weeks is present.",
+          "query_id": "q1",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Umbilical cord stump separation occurred within 30 days after birth.",
+          "query_id": "q2",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Eczema is absent on skin examination.",
+          "query_id": "q3",
+          "source": "recorded"
+        },
+        {
+          "answer": "no",
+          "finding": "Recurrent deep skin or organ abscesses have not occurred.",
+          "query_id": "q4",
+          "source": "synthetic"
+        },
+        {
+          "answer": "yes",
+          "finding": "Absolute lymphocyte count is below 3000 cells/\u03bcL on complete blood count.",
+          "query_id": "q5",
+          "source": "recorded"
+        },
+        {
+          "answer": "no",
+          "finding": "Chronic cough with bulky greasy stools is absent.",
+          "query_id": "q6",
+          "source": "synthetic"
+        }
+      ],
+      "fully_valid_audit_rows": 5,
+      "literal_leak_query_ids": [],
+      "original_response_function": [
+        {
+          "answer": "yes",
+          "finding": "Persistent oral thrush lasting more than 2 weeks is present.",
+          "query_id": "q1",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Umbilical cord stump separation occurred within 30 days after birth.",
+          "query_id": "q2",
+          "source": "synthetic"
+        },
+        {
+          "answer": "no",
+          "finding": "Eczema is absent on skin examination.",
+          "query_id": "q3",
+          "source": "recorded"
+        },
+        {
+          "answer": "no",
+          "finding": "Recurrent deep skin or organ abscesses have not occurred.",
+          "query_id": "q4",
+          "source": "synthetic"
+        },
+        {
+          "answer": "yes",
+          "finding": "Absolute lymphocyte count is below 3000 cells/\u00b5L on complete blood count.",
+          "query_id": "q5",
+          "source": "recorded"
+        },
+        {
+          "answer": "no",
+          "finding": "Chronic cough with bulky greasy stools is absent.",
+          "query_id": "q6",
+          "source": "synthetic"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "history",
+          "negative_finding": "Persistent oral thrush lasting more than 2 weeks is absent.",
+          "positive_finding": "Persistent oral thrush lasting more than 2 weeks is present.",
+          "request": "Has the infant had persistent oral thrush lasting more than 2 weeks?"
+        },
+        {
+          "id": "q2",
+          "kind": "history",
+          "negative_finding": "Umbilical cord stump separation occurred within 30 days after birth.",
+          "positive_finding": "Umbilical cord stump separation occurred later than 30 days after birth.",
+          "request": "Has the umbilical cord stump separation occurred later than 30 days after birth?"
+        },
+        {
+          "id": "q3",
+          "kind": "examination",
+          "negative_finding": "Eczema is absent on skin examination.",
+          "positive_finding": "Eczema is present on skin examination.",
+          "request": "Is eczema present on skin examination?"
+        },
+        {
+          "id": "q4",
+          "kind": "history",
+          "negative_finding": "Recurrent deep skin or organ abscesses have not occurred.",
+          "positive_finding": "Recurrent deep skin or organ abscesses have occurred.",
+          "request": "Has the infant had recurrent deep skin or organ abscesses?"
+        },
+        {
+          "id": "q5",
+          "kind": "test",
+          "negative_finding": "Absolute lymphocyte count is 3000 cells/\u00b5L or higher on complete blood count.",
+          "positive_finding": "Absolute lymphocyte count is below 3000 cells/\u00b5L on complete blood count.",
+          "request": "Is the absolute lymphocyte count below 3000 cells/\u00b5L on complete blood count?"
+        },
+        {
+          "id": "q6",
+          "kind": "history",
+          "negative_finding": "Chronic cough with bulky greasy stools is absent.",
+          "positive_finding": "Chronic cough with bulky greasy stools is present.",
+          "request": "Has the infant had chronic cough with bulky greasy stools?"
+        }
+      ],
+      "source_id": "rare214",
+      "support": [
+        "Severe combined immunodeficiency",
+        "X-linked agammaglobulinemia",
+        "Common variable immunodeficiency",
+        "Chronic granulomatous disease",
+        "Leukocyte adhesion deficiency type 1",
+        "Hyper-IgM syndrome",
+        "Wiskott-Aldrich syndrome",
+        "Cystic fibrosis",
+        "Human immunodeficiency virus infection",
+        "Mendelian susceptibility to mycobacterial disease",
+        "Interleukin-12 receptor deficiency",
+        "Shwachman-Diamond syndrome"
+      ],
+      "true_diagnosis_measurement_only": "T-B+ severe combined immunodeficiency"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed",
+  "summary": {
+    "duplicate_label_matches": 12,
+    "fully_valid_audit_rows": 11,
+    "gates": {
+      "all_12_audit_rows_pass": false,
+      "all_12_duplicate_labels_match": true,
+      "all_pass": false,
+      "all_query_sets_size_six": true,
+      "all_supports_size_twelve": true,
+      "exactly_10_requests": true,
+      "no_literal_target_leaks": true,
+      "zero_reasoning": true
+    },
+    "literal_target_leaks": 0
+  },
+  "usage": {
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "duplicate": {
+        "adapter_completion_tokens": 361,
+        "adapter_cost_usd": 0.0112055,
+        "adapter_prompt_tokens": 3929,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 2539,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 2539,
+            "cost_usd": 0.06769050000000001,
+            "prompt_tokens": 13455,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 13455,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.82953322299994,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.06769050000000001,
+        "run_remaining_usd": 1.4323095,
+        "total_spent_usd": 46.55526947245721
+      },
+      "environment": {
+        "adapter_completion_tokens": 364,
+        "adapter_cost_usd": 0.015282500000000001,
+        "adapter_prompt_tokens": 3929,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 2539,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 2539,
+            "cost_usd": 0.06769050000000001,
+            "prompt_tokens": 13455,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 13455,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.82953322299994,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.06769050000000001,
+        "run_remaining_usd": 1.4323095,
+        "total_spent_usd": 46.55526947245721
+      },
+      "judge": {
+        "adapter_completion_tokens": 918,
+        "adapter_cost_usd": 0.025625000000000002,
+        "adapter_prompt_tokens": 4742,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 2539,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 2539,
+            "cost_usd": 0.06769050000000001,
+            "prompt_tokens": 13455,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 13455,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.82953322299994,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.06769050000000001,
+        "run_remaining_usd": 1.4323095,
+        "total_spent_usd": 46.55526947245721
+      },
+      "query": {
+        "adapter_completion_tokens": 693,
+        "adapter_cost_usd": 0.0119425,
+        "adapter_prompt_tokens": 619,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 2539,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 2539,
+            "cost_usd": 0.06769050000000001,
+            "prompt_tokens": 13455,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 13455,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.82953322299994,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.06769050000000001,
+        "run_remaining_usd": 1.4323095,
+        "total_spent_usd": 46.55526947245721
+      },
+      "support": {
+        "adapter_completion_tokens": 203,
+        "adapter_cost_usd": 0.003635,
+        "adapter_prompt_tokens": 236,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 2539,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 2539,
+            "cost_usd": 0.06769050000000001,
+            "prompt_tokens": 13455,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 13455,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.82953322299994,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.06769050000000001,
+        "run_remaining_usd": 1.4323095,
+        "total_spent_usd": 46.55526947245721
+      }
+    }
+  }
+}
