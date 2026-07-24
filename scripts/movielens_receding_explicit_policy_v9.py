@@ -102,6 +102,11 @@ SMOKE_CANDIDATE_COUNT = 1
 SMOKE_EXPECTED_REQUESTS = 22
 LIKELIHOOD_SUM_TOLERANCE = 0.10
 POLICIES = ("receding_explicit", "immediate_eig", "seeded_random")
+FORMAL_RECOVERY_SOURCE_SHA256 = (
+    "bec011754b9f7c90e01f484b1754a8ba86e53dac0b1e358536474febd6909ee0"
+)
+FORMAL_RECOVERY_PRIOR_REQUESTS = 256
+FORMAL_RECOVERY_INVALID_Q1_INDICES = (13,)
 
 
 def selected_user_ids(
@@ -266,9 +271,13 @@ def run_gate(
     likelihood_model: str,
     stage: str,
     raw_checkpoint_path: Path | None = None,
+    resume_raw: dict[str, Any] | None = None,
+    recovery_source_sha256: str | None = None,
 ) -> dict[str, Any]:
     if stage not in {"serving_smoke", "formal"}:
         raise ValueError("stage must be serving_smoke or formal")
+    if resume_raw is not None and stage != "formal":
+        raise ValueError("raw recovery is only valid for the formal stage")
     ratings, items = load_movielens(data_dir)
     selected_user_ids(ratings)
     screen_user_ids = (
@@ -283,6 +292,14 @@ def run_gate(
     )
     generator, likelihood = _build_models(config, likelihood_model)
     raw: dict[str, Any] = {}
+    if resume_raw is not None:
+        raw["recovery"] = {
+            "source_private_raw_sha256": recovery_source_sha256,
+            "prior_physical_requests": FORMAL_RECOVERY_PRIOR_REQUESTS,
+            "replaced_q1_profile_indices": list(
+                FORMAL_RECOVERY_INVALID_Q1_INDICES
+            ),
+        }
     normalized_probability_rows = 0
 
     histories = [
@@ -293,11 +310,15 @@ def run_gate(
         )
         for user_id in screen_user_ids
     ]
-    initial_profile_raw = generator.chat_complete_messages_batched(
-        [profile_messages(history) for history in histories],
-        temperature=float(config.generation_temperature_diverse),
-        block_size=config.batched_block_size,
-        max_new_tokens=config.openrouter_max_output_tokens,
+    initial_profile_raw = (
+        list(resume_raw["initial_profiles"])
+        if resume_raw is not None
+        else generator.chat_complete_messages_batched(
+            [profile_messages(history) for history in histories],
+            temperature=float(config.generation_temperature_diverse),
+            block_size=config.batched_block_size,
+            max_new_tokens=config.openrouter_max_output_tokens,
+        )
     )
     raw["initial_profiles"] = initial_profile_raw
     _checkpoint(
@@ -321,21 +342,26 @@ def run_gate(
             strict=True,
         )
     ]
-    initial_likelihood_raw = likelihood.chat_complete_messages_batched(
-        [
-            profile_only_rating_likelihood_messages(
-                profiles,
-                [items[movie_id] for movie_id in query_ids],
-            )
-            for profiles, query_ids in zip(
-                initial_profiles,
-                initial_query_ids,
-                strict=True,
-            )
-        ],
-        temperature=0.0,
-        block_size=config.batched_block_size,
-        max_new_tokens=config.openrouter_max_output_tokens,
+    initial_likelihood_messages = [
+        profile_only_rating_likelihood_messages(
+            profiles,
+            [items[movie_id] for movie_id in query_ids],
+        )
+        for profiles, query_ids in zip(
+            initial_profiles,
+            initial_query_ids,
+            strict=True,
+        )
+    ]
+    initial_likelihood_raw = (
+        list(resume_raw["initial_likelihoods"])
+        if resume_raw is not None
+        else likelihood.chat_complete_messages_batched(
+            initial_likelihood_messages,
+            temperature=0.0,
+            block_size=config.batched_block_size,
+            max_new_tokens=config.openrouter_max_output_tokens,
+        )
     )
     raw["initial_likelihoods"] = initial_likelihood_raw
     _checkpoint(
@@ -437,22 +463,60 @@ def run_gate(
                         },
                     ]
                 )
-    q1_profile_raw = generator.chat_complete_messages_batched(
-        [
-            refreshed_profile_messages(
-                history,
-                initial_profiles[user_index],
+    q1_profile_messages = [
+        refreshed_profile_messages(
+            history,
+            initial_profiles[user_index],
+        )
+        for history, (user_index, _action_index, _rating) in zip(
+            q1_histories,
+            q1_keys,
+            strict=True,
+        )
+    ]
+    if resume_raw is None:
+        q1_profile_raw = generator.chat_complete_messages_batched(
+            q1_profile_messages,
+            temperature=float(config.generation_temperature_diverse),
+            block_size=config.batched_block_size,
+            max_new_tokens=config.openrouter_max_output_tokens,
+        )
+    else:
+        q1_profile_raw = list(resume_raw["q1_profiles"])
+        if len(q1_profile_raw) != len(q1_keys):
+            raise ValueError("recovery q1 profile count changed")
+        invalid_indices: list[int] = []
+        for index, (
+            response,
+            (user_index, _action_index, _rating),
+        ) in enumerate(zip(q1_profile_raw, q1_keys, strict=True)):
+            try:
+                parse_refreshed_profiles(
+                    response,
+                    initial_profiles[user_index],
+                )
+            except (ValueError, json.JSONDecodeError):
+                invalid_indices.append(index)
+        if tuple(invalid_indices) != FORMAL_RECOVERY_INVALID_Q1_INDICES:
+            raise ValueError(
+                "recovery invalid q1 profile indices changed: "
+                f"{invalid_indices}"
             )
-            for history, (user_index, _action_index, _rating) in zip(
-                q1_histories,
-                q1_keys,
-                strict=True,
-            )
-        ],
-        temperature=float(config.generation_temperature_diverse),
-        block_size=config.batched_block_size,
-        max_new_tokens=config.openrouter_max_output_tokens,
-    )
+        replacement_index = FORMAL_RECOVERY_INVALID_Q1_INDICES[0]
+        replacement = generator.chat_complete_messages_batched(
+            [q1_profile_messages[replacement_index]],
+            temperature=float(config.generation_temperature_diverse),
+            block_size=config.batched_block_size,
+            max_new_tokens=config.openrouter_max_output_tokens,
+        )
+        if len(replacement) != 1:
+            raise ValueError("recovery must produce exactly one replacement")
+        replacement_user_index = q1_keys[replacement_index][0]
+        parse_refreshed_profiles(
+            replacement[0],
+            initial_profiles[replacement_user_index],
+        )
+        q1_profile_raw[replacement_index] = replacement[0]
     raw["q1_profiles"] = q1_profile_raw
     _checkpoint(
         raw_checkpoint_path,
@@ -818,12 +882,23 @@ def run_gate(
             }
 
     usage = _usage(generator, likelihood)
+    if resume_raw is not None:
+        usage["physical_requests_this_invocation"] = usage["physical_requests"]
+        usage["prior_physical_requests"] = FORMAL_RECOVERY_PRIOR_REQUESTS
+        usage["operational_replacement_requests"] = 1
+        usage["physical_requests"] += FORMAL_RECOVERY_PRIOR_REQUESTS
+        snapshots = usage["by_role"]
+        usage["formal_run_cost_usd"] = max(
+            float(snapshot.get("run_cost_usd", 0.0))
+            for snapshot in snapshots.values()
+        )
     unique_state_count = len(unique_q2_branches)
-    expected_requests = (
+    scientific_expected_requests = (
         2 * len(screen_user_ids)
         + len(user_ids) * candidate_count * 10
         + unique_state_count * candidate_count * 10
     )
+    expected_requests = scientific_expected_requests + int(resume_raw is not None)
     final_nlls = {
         policy: [
             record["policy_paths"][policy]["final_heldout_nll"]
@@ -918,6 +993,9 @@ def run_gate(
             "normalized_probability_rows": normalized_probability_rows,
             "source_ratings_omitted_from_persisted_artifacts": True,
             "raw_responses_private_and_untracked": True,
+            "recovery_source_private_raw_sha256": recovery_source_sha256,
+            "scientific_expected_requests": scientific_expected_requests,
+            "operational_replacement_requests": int(resume_raw is not None),
         },
         "summary": summary,
         "records": records,
@@ -934,6 +1012,7 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--likelihood-model", default="openai/gpt-5.4-mini")
     parser.add_argument("--stage", choices=("serving_smoke", "formal"), required=True)
+    parser.add_argument("--resume-raw-path", type=Path)
     args = parser.parse_args()
 
     config = load_config(str(args.config))
@@ -942,7 +1021,26 @@ def main() -> None:
     private_dir = args.private_raw_dir / args.run_id
     private_dir.mkdir(parents=True, exist_ok=True)
     config.log_path = args.output_dir / "run.log"
-    raw_path = private_dir / "RAW_RESPONSES.json"
+    resume_raw = None
+    recovery_source_sha256 = None
+    if args.resume_raw_path is not None:
+        source_bytes = args.resume_raw_path.read_bytes()
+        recovery_source_sha256 = hashlib.sha256(source_bytes).hexdigest()
+        if recovery_source_sha256 != FORMAL_RECOVERY_SOURCE_SHA256:
+            raise ValueError("formal recovery source hash mismatch")
+        source_payload = json.loads(source_bytes)
+        if (
+            source_payload.get("protocol_stage") != "formal"
+            or source_payload.get("schema_version") != 1
+            or not isinstance(source_payload.get("responses"), dict)
+        ):
+            raise ValueError("formal recovery source envelope is invalid")
+        resume_raw = source_payload["responses"]
+    raw_path = private_dir / (
+        "RAW_RESPONSES_RECOVERY.json"
+        if resume_raw is not None
+        else "RAW_RESPONSES.json"
+    )
     output_name = "SERVING_SMOKE.json" if args.stage == "serving_smoke" else "GATE.json"
     failure_name = (
         "SERVING_SMOKE_FAILURE.json"
@@ -956,6 +1054,8 @@ def main() -> None:
             likelihood_model=args.likelihood_model,
             stage=args.stage,
             raw_checkpoint_path=raw_path,
+            resume_raw=resume_raw,
+            recovery_source_sha256=recovery_source_sha256,
         )
         payload["protocol"]["private_raw_sha256"] = hashlib.sha256(
             raw_path.read_bytes()
