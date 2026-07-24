@@ -1,0 +1,28 @@
+version: 0
+# Standalone Detective CA-BED shared-tree gate; task is used only for Config/model routing.
+task: animals
+model_pairs:
+  - questioner:
+      model: deepseek/deepseek-v3.2
+      backend: openrouter
+      max_model_len: 163840
+    answerer:
+      model: deepseek/deepseek-v3.2
+      backend: openrouter
+      max_model_len: 163840
+method_names:
+  - EIG
+batched_block_size: 64
+generation_temperature_diverse: 1.0
+generation_temperature_simple: 1.0
+answer_temperature: 1.0
+probability_parse_fallback_to_uniform: false
+openrouter_budget_usd: 105.38480269545715
+openrouter_projected_cost_usd: 1.20
+openrouter_run_budget_usd: 3.00
+openrouter_concurrency: 64
+openrouter_max_retries: 5
+openrouter_backoff_seconds: 1.0
+openrouter_request_timeout_seconds: 300.0
+openrouter_max_output_tokens: 2048
+openrouter_spend_path: results/path_e/openrouter_spend.json

@@ -1,0 +1,654 @@
+{
+  "protocol": {
+    "case_ids": [
+      31,
+      96,
+      91,
+      65,
+      99,
+      56,
+      2,
+      4,
+      50,
+      6,
+      87,
+      34
+    ],
+    "estimator_confidence": 0.7,
+    "fresh_cases_used": false,
+    "requests_per_question": 2,
+    "source_answers_reused": false,
+    "source_gate_sha256": "561e80787e88bf19c8c340a62fe61436aeccea91199616ab958fef65bbb9aca9",
+    "source_questions_reused": true,
+    "temperature": 0.0,
+    "unique_questions": 241
+  },
+  "records": [
+    {
+      "case_id": 31,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": null,
+      "hypotheses": [
+        "Professor Henry Collins",
+        "Dr. Margaret Whitfield",
+        "Mr. James Thornton",
+        "Ms. Clara Bennett"
+      ],
+      "random_selected_index": 0,
+      "root_plans": [
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Mr. James Thornton] Did you have any prior knowledge of the specific value or location of the ornate bookend used as the murder weapon?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Professor Henry Collins] Did you enter the restricted section with the intention of confronting Dr. Evelyn Harrington regarding your academic rivalry?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Henry Collins] Did you have any physical contact with Dr. Evelyn Harrington on the evening of the murder?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Dr. Margaret Whitfield] Did you possess any physical injuries or marks on your hands that could have resulted from a struggle or handling a heavy object?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Henry Collins] Did you have a heated professional disagreement with Dr. Evelyn Harrington regarding the ownership or authenticity of a specific manuscript recently?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. James Thornton] Were you in possession of any documentation or authentication papers that Dr. Evelyn Harrington had refused to sign or validate?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Professor Henry Collins"
+    },
+    {
+      "case_id": 96,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": 1.0,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": 0.8660254037844387,
+      "hypotheses": [
+        "Professor Richard Langley",
+        "Dr. Laura Bennett",
+        "Margaret Collins",
+        "Jonathan Reed"
+      ],
+      "random_selected_index": 1,
+      "root_plans": [
+        {
+          "depth_two_score": 0.4056571391309316,
+          "final_entropy": 0.8454181756119816,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Dr. Laura Bennett] Did you see Professor Langley leave the room for any period of time during the gathering?",
+          "immediate_eig": 0.20787194058002378,
+          "question": "[Target: Professor Richard Langley] Were you involved in a heated verbal altercation with Dr. Carter shortly before her death?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 1.0612565021243408
+        },
+        {
+          "depth_two_score": 0.20787194058002378,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Richard Langley] Did you have a heated disagreement with Dr. Carter regarding her new book's findings?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Margaret Collins] Did you handle the antique bronze statue at any point during the evening?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.9614111671546246
+        },
+        {
+          "depth_two_score": 0.1766911494930202,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Richard Langley] Did your argument with Dr. Carter involve the contents of her new book?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Jonathan Reed] Did you observe anyone other than Margaret Collins near the antique bronze statue after the guests arrived?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.9614111671546246
+        }
+      ],
+      "truth": "Professor Richard Langley"
+    },
+    {
+      "case_id": 91,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": 1.0,
+      "hypotheses": [
+        "Professor Margaret Hensley",
+        "Mr. Edward Thornton",
+        "Ms. Clara Pennington",
+        "Dr. Amelia Collins"
+      ],
+      "random_selected_index": 0,
+      "root_plans": [
+        {
+          "depth_two_score": 0.20787194058002378,
+          "final_entropy": 1.2521374278073973,
+          "followup_answer": "No",
+          "followup_question": "[Target: Mr. Edward Thornton] Did you see Ms. Clara Pennington carrying anything that could be used as a weapon?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Professor Margaret Hensley] Did you enter the library alone after your argument with Dr. Elmsworth?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.23052365861183222
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Margaret Hensley] Did you have any physical contact with Dr. Elmsworth during your argument?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. Edward Thornton] Were you carrying any heavy objects or items that could have been used as a weapon when you left the library?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Margaret Hensley] Did you have any physical contact with Dr. Elmsworth during your argument?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Ms. Clara Pennington] Was the piece of equipment you were carrying into the library large enough to be mistaken for a weapon?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Professor Margaret Hensley"
+    },
+    {
+      "case_id": 65,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": null,
+      "hypotheses": [
+        "Professor Jonathan Hughes",
+        "Ms. Clara Bennett",
+        "Mr. Thomas Carter",
+        "Dr. Evelyn Marshall"
+      ],
+      "random_selected_index": 1,
+      "root_plans": [
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Professor Jonathan Hughes] Did you leave the library before the time of Dr. Thornton's death?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Professor Jonathan Hughes] Did you have a physical altercation with Dr. Thornton during your meeting?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Ms. Clara Bennett] Did you see anyone else enter or leave the library after you entered?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Ms. Clara Bennett] Did you enter the library at any point after Professor Hughes left?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Jonathan Hughes] Did you see anyone else enter the library after you left the room?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. Thomas Carter] Did you see anyone else enter or exit the library after Dr. Evelyn Marshall arrived at the mansion?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Professor Jonathan Hughes"
+    },
+    {
+      "case_id": 99,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": 1.0,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": 1.0,
+      "hypotheses": [
+        "Professor Jonathan Whitaker",
+        "Ms. Clara Hastings",
+        "Mr. Edward Collins",
+        "Lady Margaret St. Clair"
+      ],
+      "random_selected_index": 0,
+      "root_plans": [
+        {
+          "depth_two_score": 0.20787194058002398,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Jonathan Whitaker] Did you enter the library after your argument with Dr. Montgomery to continue the confrontation?",
+          "immediate_eig": 0.20787194058002378,
+          "question": "[Target: Professor Jonathan Whitaker] Did you have a heated verbal altercation with Dr. Montgomery immediately before the murder occurred?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.9614111671546246
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Professor Jonathan Whitaker] Did you have a heated verbal disagreement with Dr. Montgomery during the celebration?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Ms. Clara Hastings] Do you possess any physical injuries or marks on your hands that could have resulted from a struggle?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Professor Jonathan Whitaker] Did you have a heated verbal disagreement with Dr. Montgomery prior to the discovery of her body?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. Edward Collins] Did you handle any heavy objects, such as the antique brass candlestick, during your meeting with Dr. Montgomery?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Professor Jonathan Whitaker"
+    },
+    {
+      "case_id": 56,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 2,
+      "depth_two_truth_gain_spearman": 1.0,
+      "hypotheses": [
+        "Catherine Blake",
+        "David Sinclair",
+        "Evelyn Harper",
+        "Marcus Reed"
+      ],
+      "random_selected_index": 1,
+      "root_plans": [
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: David Sinclair] Did you have a physical altercation with Jonathan Blake during your meeting?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Catherine Blake] Did you possess a key to the beach house at the time you entered the premises?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Catherine Blake] Did you possess a key to the beach house at the time of the incident?",
+          "immediate_eig": 0.0,
+          "question": "[Target: David Sinclair] Did you have a physical altercation with Jonathan Blake during your meeting?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.1766911494930202,
+          "final_entropy": 1.2521374278073973,
+          "followup_answer": "No",
+          "followup_question": "[Target: Evelyn Harper] Did you enter the beach house through a door that was already unlocked?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Marcus Reed] Were you present inside the beach house at the time the blunt force trauma was inflicted?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.23052365861183222
+        }
+      ],
+      "truth": "Catherine Blake"
+    },
+    {
+      "case_id": 2,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": null,
+      "hypotheses": [
+        "Eleanor Blackwood",
+        "Henry Caldwell",
+        "Charlotte Everly",
+        "Victor Langston"
+      ],
+      "random_selected_index": 0,
+      "root_plans": [
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Henry Caldwell] Did you see anyone enter the library after you entered it?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Eleanor Blackwood] Did you see anyone else enter the library after Henry Caldwell?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Eleanor Blackwood] Did you see anyone else in the library besides Henry Caldwell when you entered?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Henry Caldwell] Did you notice any bloodstains or signs of a struggle on your clothing when you left the library?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Henry Caldwell] Did you enter the library after Eleanor Blackwood had already left the area?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Charlotte Everly] Did you see anyone carrying a heavy object, such as the marble bust, near the library?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Eleanor Blackwood"
+    },
+    {
+      "case_id": 4,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 2,
+      "depth_two_truth_gain_spearman": 1.0,
+      "hypotheses": [
+        "Professor Harold Greene",
+        "Ms. Clara Thompson",
+        "Mr. Jonathan Reed",
+        "Ms. Vivian Clarke"
+      ],
+      "random_selected_index": 2,
+      "root_plans": [
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Mr. Jonathan Reed] Do you have access to the keys or security codes for the display cases where the antique marble busts are kept?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. Jonathan Reed] Did you notice anyone carrying or moving any heavy objects, such as a marble bust, near the crime scene during the gathering?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Mr. Jonathan Reed] Did you witness anyone handling or moving the antique marble bust shortly before the body was discovered?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Professor Harold Greene] Did your argument with Ms. Clara Thompson involve any mention of Dr. Blackwood's controversial research or professional rivalry?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.1766911494930202,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Harold Greene] Were you in the library section where the body was found at any point after your argument with Ms. Thompson?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Ms. Vivian Clarke] Did you observe anyone else, other than Professor Greene, appearing agitated or acting suspiciously near the library section where the body was found?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.9614111671546246
+        }
+      ],
+      "truth": "Professor Harold Greene"
+    },
+    {
+      "case_id": 50,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": null,
+      "hypotheses": [
+        "Professor Adrian Blackwood",
+        "Ms. Clara Hastings",
+        "Mr. Jonathan Reed",
+        "Lady Evelyn Sinclair"
+      ],
+      "random_selected_index": 2,
+      "root_plans": [
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Ms. Clara Hastings] Did you enter the library with the intention of discussing the acquisition of the specific artifact used as the murder weapon?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Professor Adrian Blackwood] Did you have a heated disagreement with Dr. Montgomery regarding the ownership or discovery of a specific artifact shortly before her death?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Adrian Blackwood] Did you have any physical contact with Dr. Montgomery during your argument?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Ms. Clara Hastings] Did you notice any bloodstains or signs of a struggle on your clothing or hands when you left the library?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Mr. Jonathan Reed] Did you see Dr. Montgomery alive when you entered the library?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. Jonathan Reed] Did you encounter Dr. Montgomery alone in the library after Ms. Hastings had already departed?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Professor Adrian Blackwood"
+    },
+    {
+      "case_id": 6,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": 1.0,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": 0.8660254037844387,
+      "hypotheses": [
+        "Evelyn Carter",
+        "Michael Turner",
+        "Sophia Bennett",
+        "Lucas Grant"
+      ],
+      "random_selected_index": 1,
+      "root_plans": [
+        {
+          "depth_two_score": 0.2460578333194567,
+          "final_entropy": 0.8454181756119816,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Michael Turner] Did you witness anyone else enter or leave the study after your encounter with Dr. Reed?",
+          "immediate_eig": 0.20787194058002378,
+          "question": "[Target: Evelyn Carter] Did you have a heated argument with Dr. Reed regarding the ownership or value of the Egyptian artifact before you left the study?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 1.0612565021243408
+        },
+        {
+          "depth_two_score": 0.1766911494930202,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Evelyn Carter] Did you see anyone else enter or leave the study after you left it in a distressed state?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Michael Turner] Was the recording device you were using positioned to capture audio from inside the study during the time of the murder?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.9614111671546246
+        },
+        {
+          "depth_two_score": 0.20787194058002378,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Evelyn Carter] Did you witness Dr. Reed holding the ancient ceremonial staff during your conversation with him?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Lucas Grant] Did you notice any bloodstains or signs of a struggle on your clothing or tools after your discussion with Dr. Reed?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.9614111671546246
+        }
+      ],
+      "truth": "Evelyn Carter"
+    },
+    {
+      "case_id": 87,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": null,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": 1.0,
+      "hypotheses": [
+        "Professor Edward Hastings",
+        "Ms. Eleanor Whitmore",
+        "Dr. Clara Mitchell",
+        "Mr. Henry Caldwell"
+      ],
+      "random_selected_index": 2,
+      "root_plans": [
+        {
+          "depth_two_score": 0.20787194058002378,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Edward Hastings] Did you have any professional rivalry or dispute with Dr. Blackwood regarding academic publications or prestige?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Professor Edward Hastings] Did you have any physical altercation or heated argument with Dr. Blackwood during the academic gathering?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.9614111671546246
+        },
+        {
+          "depth_two_score": 0.20787194058002378,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Edward Hastings] Did you have a heated professional disagreement with Dr. Blackwood regarding academic credit or research findings recently?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Ms. Eleanor Whitmore] Did you possess any knowledge of the specific value or historical significance of the antique marble bust used as the murder weapon?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.9614111671546246
+        },
+        {
+          "depth_two_score": 0.0,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Professor Edward Hastings] Did you have any physical contact with Dr. Blackwood during the academic gathering?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. Henry Caldwell] Were you carrying any heavy objects or tools in your possession when you were seen pacing outside the library?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Professor Edward Hastings"
+    },
+    {
+      "case_id": 34,
+      "depth_one_selected_index": 0,
+      "depth_one_truth_gain_spearman": 0.8660254037844387,
+      "depth_two_selected_index": 0,
+      "depth_two_truth_gain_spearman": 1.0,
+      "hypotheses": [
+        "Dr. Evelyn Carter",
+        "Professor Michael Bennett",
+        "Dr. Olivia Hartman",
+        "Mr. Charles Whitaker"
+      ],
+      "random_selected_index": 0,
+      "root_plans": [
+        {
+          "depth_two_score": 0.24965358838799728,
+          "final_entropy": 1.0253220208303797,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Dr. Olivia Hartman] Do you have any knowledge of how to handle or identify the specific antique bronze statue used as the murder weapon?",
+          "immediate_eig": 0.20787194058002378,
+          "question": "[Target: Dr. Evelyn Carter] Did you have any physical altercation or heated argument with Jonathan Archer during your private discussion?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.9614111671546246
+        },
+        {
+          "depth_two_score": 0.1766911494930202,
+          "final_entropy": 1.2521374278073973,
+          "followup_answer": "Yes",
+          "followup_question": "[Target: Mr. Charles Whitaker] Did you enter the study at any point during the evening?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Professor Michael Bennett] Do you have any knowledge of how to handle or identify the specific antique bronze statue used as the murder weapon?",
+          "root_answer": "Yes",
+          "truth_log_probability_gain": 0.23052365861183222
+        },
+        {
+          "depth_two_score": 0.031180791087003574,
+          "final_entropy": 1.3862943611198906,
+          "followup_answer": "No",
+          "followup_question": "[Target: Dr. Evelyn Carter] Did you have any physical contact with the antique bronze statue during your time in the study?",
+          "immediate_eig": 0.0,
+          "question": "[Target: Mr. Charles Whitaker] Were you carrying any object or item in your hands when you were seen pacing outside the study?",
+          "root_answer": "No",
+          "truth_log_probability_gain": 0.0
+        }
+      ],
+      "truth": "Dr. Evelyn Carter"
+    }
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "depth_two_distinct_root_count": 2,
+    "depth_two_win_count_vs_one": 2,
+    "gates": {
+      "all_pass": false,
+      "all_twelve_cases_complete": true,
+      "at_least_nine_rankable_cases": false,
+      "depth_two_distinct_at_least_four": false,
+      "depth_two_mean_gain_over_one_positive": true,
+      "depth_two_mean_gain_over_random_positive": true,
+      "depth_two_mean_spearman_at_least_point_two": true,
+      "depth_two_spearman_advantage_at_least_point_one": false,
+      "depth_two_wins_at_least_six": false,
+      "exact_request_count": true,
+      "role_distinction_at_least_quarter": false,
+      "zero_forced_exits": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_depth_one_truth_gain_spearman": 0.9665063509461097,
+    "mean_depth_two_spearman_advantage": -0.03349364905389032,
+    "mean_depth_two_truth_gain_spearman": 0.9330127018922194,
+    "mean_truth_gain_depth_two_vs_one": 0.09932790214720473,
+    "mean_truth_gain_depth_two_vs_random": 0.11596879130882409,
+    "num_cases": 12,
+    "rankable_case_count": 4,
+    "role_distinct_question_count": 23,
+    "role_distinction_fraction": 0.0954356846473029,
+    "unique_questions": 241
+  },
+  "usage": {
+    "adapter_completion_tokens": 3176,
+    "adapter_cost_usd": 0.056181349999999984,
+    "adapter_prompt_tokens": 601467,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 482,
+    "backend": "openrouter",
+    "budget_usd": 105.38480269545715,
+    "completion_tokens": 3176,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 3176,
+        "cost_usd": 0.056181349999999984,
+        "prompt_tokens": 601467,
+        "reasoning_tokens": 0,
+        "requests": 482
+      }
+    },
+    "prompt_tokens": 601467,
+    "reasoning_tokens": 0,
+    "remaining_usd": 41.15944309374974,
+    "requests": 482,
+    "run_budget_usd": 0.5,
+    "run_cost_usd": 0.056181349999999984,
+    "run_remaining_usd": 0.44381865000000004,
+    "total_spent_usd": 64.22535960170741
+  }
+}

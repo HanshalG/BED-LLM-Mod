@@ -1,1355 +1,540 @@
 # STATE — living project state
 
-Maintenance contract: at the end of every working session, update CURRENT STATE and NEXT
-ACTIONS below to reflect reality, and append a row to `EXPERIMENTS.md` for anything
-launched. A stale STATE.md is a bug. If this file conflicts with GOAL.md's design
-history, this file wins.
-
-## CURRENT STATE (updated 2026-07-14)
-
-Status: **Track 1 is complete and collapses as a credible non-myopic paper spine;
-Track 2 is permanently closed after its one authorized stronger-profile-generator
-retry failed the held-out availability gate; Track 3 is the final validation-first
-paper package.** The free
-banked animals audit made no model calls and is tracked in
-`results/path_e/ANIMALS_REANALYSIS.md`, with reproducible trial-level data in
-`results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json`. One-step EIG remains a
-strong paired result against both naive baselines, but the old apparent two-step gain
-does not survive the comparability audit: the full depth-2 versus depth-1 AUC delta is
-+0.027 with an unpaired 95% bootstrap CI [-0.076, 0.132], while the only exactly paired
-seed block reverses to -0.040 [-0.105, 0.025] (3/1/6 wins/ties/losses). Depth 3 is
-materially worse than depth 2 on 40 paired trials, -0.126 [-0.224, -0.035]. Q@80 is 9,
-8, and 12 for depths 1, 2, and 3 respectively. The EIG configurations are scientifically
-matched, but depth 1 shares only ten exact target/prior conditions with depths 2/3;
-the logs also lack Git-commit provenance and the depth-3 recursive implementation
-postdates the depth-1/2 runs. Animals can support one-step BED transfer, not the
-non-myopic claim. MediQ must carry that claim.
-
-MediQ Step 0 environment status (2026-07-14): **PASS, automated and manual. A newly
-registered likelihood-calibration gate must pass before Claim 1 is preregistered.**
-The adapter uses the exact released multiple-choice labels as the
-finite BED target, a temperature-zero judged initial distribution, option-conditioned
-categorical response likelihoods, recursive one-likelihood-at-a-time Bayes updates,
-grounded Fact-Select patient replies assembled verbatim from released atomic facts,
-and exact categorical depth-two branch expansion. The naive arm is belief-free and
-directly decodes from the complete observed conversation. Per-query artifacts now log
-all root likelihood tables plus predicted EIG, realized entropy drop, realized truth
-log-probability gain, predictive outcome probability, and true-label likelihood. The
-frozen analyzer independently reconstructs every EIG table and verifies data provenance,
-verbatim grounding, relevance, mapping coverage, parse failures, and runtime failures;
-manual semantic review remains mandatory.
-
-The hash-pinned official iMEDQA file has 1,272 rows. Three source rows (224, 298, 779)
-have both empty context and empty atomic facts and are static knowledge questions, so
-they violate MediQ's interactive patient-task definition. They are explicitly excluded,
-leaving 1,269 usable rows; every run writes a manifest with the raw hash, commit,
-excluded IDs, and selected source IDs. A zero-cost routing-model dry run over the exact
-five-case/two-round smoke shape initially passed every automated analyzer gate at 235
-logical requests. Cost projection is in
-`results/path_e/mediq_step0/COST_PROJECTION.md`: expected $0.02-$0.05 after repair,
-conservatively reserved at $0.12. The initial paid run
-`20260714T033819_mediq-step0-eig-nonthinking-26b-seed1304` completed at commit
-`7825898` in 208.93 seconds: 235 requests, 70,115 prompt tokens, 18,128 completion
-tokens, no reasoning or forced exits, and $0.01416921. It passed every frozen automated
-check (90% mapping coverage, 100% verbatim grounding and automatic relevance, zero
-terminal/runtime failures, all 50 EIG tables valid), but the mandatory manual review
-failed. Case 0 inferred new sexual partners from only "sexually active" after a compound
-query; case 2 inferred an unsupported symptom frequency; case 4 exposed a numeric
-outcome gap at glucose 450 mg/dL; and some candidates duplicated unavailable categories.
-This localizes the remaining validity issue to atomic query/outcome partition generation
-and explicit-entailment relevance mapping, not the finite-target EIG arithmetic. The run
-is diagnostic only; see `results/path_e/mediq_step0/INITIAL_SMOKE_MANUAL_REVIEW.md`.
-The repair now uses canonical atomic yes/no predicates with exactly one unavailable
-outcome, rejects compound/open-ended queries, retains validated candidates while
-regenerating only the deficit through a temperature-zero structural critic, checks
-selected facts for explicit entailment without exposing response categories, and only
-then maps relevant facts. It also forbids a relevant fact from being mapped to the
-unavailable bucket. The analyzer requires logged successful candidate validation and
-independently requires the canonical yes/no/unavailable support. The exact
-official-data zero-cost dry run passes at 305 requests (50 individual candidate audits,
-10 set-level dedup audits, and 10 separate relevance audits); 21 focused tests pass and
-the full suite is 595 passed, 1 skipped,
-with only the same unrelated stale Path A wording assertion failing.
-The first paid repeat attempt `20260714T035736` failed closed before likelihood or
-patient calls because only 3/5 compound-filtered candidates survived two opaque count-only
-repairs. It produced no result and cost $0.00117655 over 13 requests. Rejection feedback
-now names every failed query and reason, with a regression test covering the repair.
-The second attempt `20260714T040005` reached likelihood scoring but failed closed when
-the critic rejected a non-exhaustive synovial-fluid category set and a hallucinated
-`serum protein A` variable after bounded whole-set regeneration. It produced no complete
-item and cost $0.01065559 over 192 requests. This directly motivated the canonical
-binary observation support and deficit-only replenishment. The resulting complete run
-`20260714T041055` passed its initial automated gate at 10/10 clean mappings, 10/10
-grounding/relevance, and 50/50 finite-target EIG tables, with 288 requests, zero
-reasoning, and $0.01408867. Its mandatory manual audit still failed: case 0 used
-drug-class queries as disguised decodes of the medication target; case 2 repeated
-excessive worry under a paraphrase after unavailable; and unselected candidates included
-derived stability and management-status predicates. The hardened analyzer now catches
-all of these retrospectively. Generation and parsing now require pre-decision patient
-evidence, reject diagnosis/management/test-status queries and derived clinical summaries,
-and use content-token semantic deduplication against history and the accepted pool. The
-next complete run `20260714T042154` passed the hardened analyzer and every realized turn
-passed manual review, but its case-3 round-1 candidate pool contained both `renal calculi`
-and `nephrolithiasis`. This is a narrow proposal-diversity failure: both actions are valid
-alone, but per-candidate checks cannot see medical synonyms across a set. A new
-temperature-zero set-level auditor now retains one representative per duplicate group,
-replenishes only the deficit, logs its decision, and is required by the analyzer. The
-305-request exact-shape dry run passes this final set contract.
-The first paid set-dedup attempt `20260714T043240` failed closed during round-2
-replacement after correctly rejecting `feeling excessive worry` as a paraphrase of the
-deployed `feelings of excessive worry`; deterministic token matching missed the
-singular/plural form and one-at-a-time replacement then exhausted bounded retries. It
-produced no complete item and cost $0.01076385 over 212 requests. Content tokens now use
-light singular normalization, and deficit-one replenishment requests two alternatives
-so a repeated concept need not consume the only slot. Focused tests cover both paths.
-The exact replay `20260714T043855` then passed: 10/10 clean mappings, grounding, and
-relevance; 50/50 individually valid candidates; 10/10 semantically distinct candidate
-sets; zero terminal/runtime failures; and every selected interaction and final candidate
-passed manual review. It used 300 requests, 103,785 tokens, no reasoning, and $0.01402286.
-Its 3/5 endpoint is ignored as smoke-only. Canonical evidence is in
-`results/path_e/mediq_step0/FINAL_REPORT.json` and `FINAL_MANUAL_REVIEW.md`.
-Post-gate analysis found a separate model-specification failure in the legacy
-`joint_option` scorer. Across the ten selected turns, predicted EIG averaged 0.140 nats
-but realized true-label log-probability gain averaged -0.290 nats; the realized outcome
-was less likely under the true label than under the prior mixture on 6/10 turns. The
-failure is structural: an MCQ answer such as “treat hypoperfusion first” is a decision,
-not a mutually exclusive patient state, yet the scorer treated high glucose and acidosis
-as evidence against that true answer. It also let record unavailability vary by label,
-so four missing-record replies spuriously changed diagnosis beliefs. The registered
-repair, `factored_record`, predicts record answerability once without a label and then
-predicts Yes/No conditional on each option, explicitly allowing coexisting findings and
-priority decisions. Missingness is therefore exactly posterior-neutral. The frozen
-ten-turn replay and no-tuning decision rule are registered in
-`results/path_e/mediq_likelihood_calibration/PREREGISTRATION.md`; code/tests are complete,
-and the paid replay is the next action. OpenRouter now also receives `mediq_seed`, fixing
-an API reproducibility omission. The preregistered replay `20260714T050102` then failed:
-missingness was exactly label-independent/posterior-neutral and true-label favoring rose
-to 4/6 available turns, but available mean truth-log gain remained -0.118 nats (overall
--0.071). One treatment-priority case dominated: observing glucose >250 mg/dL still
-penalized the true “treat hypoperfusion first” option by 1.243 nats. The coarse option-as-
-world conditional is therefore rejected. Per the frozen decision rule, do not tune it on
-these cases or launch Claim 1; preregister the BED-LLM data-estimation fallback and test
-it on fresh held-out naive-policy interactions. Canonical failure evidence is in
-`results/path_e/mediq_likelihood_calibration/FACTORED_RECORD_REPORT.{json,md}`.
-The separately registered `data_estimation` fallback is now implemented and locally
-tested. It elicits a label-independent response marginal and hypothetical A-D posteriors
-for Yes/No, pins unavailable to the current prior, and uses iterative proportional
-fitting to recover an exactly coherent joint before deriving likelihoods. Raw elicited
-components and projection residuals are logged. Its held-out protocol is frozen in
-`DATA_ESTIMATION_PREREGISTRATION.md`: naive non-thinking creates 30 interactions on
-usable cases 5-14 before the scorer is evaluated once; cases 0-4 cannot be reused.
-The first bank invocation `20260714T051116` failed closed without metrics after 85
-requests when the critic rejected a paraphrase of an earlier unavailable sexual-advance
-query and one-concept replacement exhausted bounded retries. It cost $0.00518174; the
-scorer was never called and partial outcomes are unused. Naive repair now asks for two
-distinct alternatives after the first semantic rejection, with a focused regression
-test. That first repair was exercised by the v2 attempt below and was insufficient.
-The v2 bank `20260714T051431` also failed closed without metrics: two alternatives
-collapsed onto diagnosis synonyms (`gastrinoma` and `Zollinger-Ellison syndrome`) and
-were correctly rejected. It used 89 requests and cost $0.00510815; again no scorer calls
-or usable bank. Repair now requests four alternatives and explicitly requires distinct
-observable variables rather than diagnosis names. Partial outcomes remain unused.
-The v3 bank `20260714T051844` completed cleanly after that operational repair: 10 held-
-out cases, 30 canonical non-duplicate interactions, 30/30 clean mappings, 30/30 grounded
-and relevant final observations, zero runtime failures, and no scorer calls. It is
-nevertheless **INADEQUATE** under the frozen gate because only 8/30 outcomes were
-available Yes/No versus the preregistered minimum of 15; 22/30 were unavailable from
-the sparse static records. The run used 189 requests, 79,629 tokens, no reasoning, and
-cost $0.01013125. Per preregistration, do not run the data-estimation scorer, tune the
-bank, or launch Claim 1/depth 2. Canonical evidence is in
-`DATA_ESTIMATION_BANK_REPORT.{json,md}` and
-`DATA_ESTIMATION_BANK_MANUAL_AUDIT.md`.
-The cross-environment/code/literature synthesis is now recorded in
-`results/path_e/NON_MYOPIC_SEQUENTIAL_BED_DIAGNOSIS.md`. Its main conclusion is that
-depth works in the exact constrained oracle but compounds model error elsewhere. The
-iMEDQA A-D option is often not a sufficient patient state, the official FactSelect
-channel is too sparse, and the data-estimation projection repairs local algebra rather
-than the missing generative latent. The recommended discussion option is a fresh,
-explicitly authorized iCRAFT-MD diagnosis-only preregistration with concrete latent
-patient profiles, followed by prior, likelihood, branch-equivalence, oracle-gap, and
-ranking-fidelity gates before any policy/depth run. No such pivot is authorized yet.
-Track 3 has been revised to match this evidence. `paper/main.tex` is now a complete
-five-page validation-first workshop draft titled "When Does Non-Myopic Bayesian
-Experimental Design Work with Language Models?" It reports the exact constrained
-oracle as a correctness control, animals as one-step BED evidence, and Paprika/MediQ as
-explicitly diagnostic gate failures. It contains no stale sealed-outcome or arbitration
-claim. `scripts/validate_paper_draft.py` now enforces the new validity limitations and
-validation-chain figure, uses `pdfinfo` as a page-count fallback, and passes its focused
-tests. The compiled, visually inspected artifact is
-`output/pdf/non_myopic_bed_validation_draft.pdf` (5 pages, no undefined citations or
-overfull boxes). Further paper/result changes depend on the Track-2 decision.
-The requirement-by-requirement audit and decision contract are now in
-`results/path_e/TRACK2_COMPLETION_AUDIT_AND_DECISION.md`. A no-model-call inspection of
-the pinned iCRAFT-MD release verifies 140/140 usable four-option diagnosis cases and
-denser records (mean 14.82 facts, median 14, minimum 9), while also identifying the
-remaining structural risk: its static open question channel does not itself guarantee a
-non-myopic greedy gap. The memo therefore separates authorization to preregister and
-implement validation gates from authorization to run a policy comparison. The complete
-repository suite now passes at 604 passed, 1 skipped; the Path A preflight, package,
-paper, and ledger validators all pass under the project Python environment. No model
-call or experiment launch was made for this audit.
-OpenRouter ledger: $16.81168851 spent of the user-authorized $40 cap, leaving
-$23.18831149.
-
-iCRAFT profile-gate implementation status (2026-07-14): **READY, locally
-validated, and committed as `dc3baa8`**. The new `profile_support` MediQ
-likelihood mode creates three fixed, audited concrete patient profiles per
-diagnosis label; it distributes the judged diagnosis prior exactly across
-those profiles, scores canonical Yes/No likelihoods conditional on profile,
-and keeps record availability label-independent. Diagnosis-level metrics and
-artifacts are preserved, while source-ID selection and a shared-ledger,
-per-run OpenRouter hard cap are now enforced. The standalone preregistered
-gate runner is `scripts/run_icraft_profile_gates.py`; it supports only the
-one-case smoke, calibration/FactSelect/branch-equivalence gate, and exact
-structural value gate, not a policy comparison. The complete local suite is
-`609 passed, 1 skipped`; deterministic routing-model tests now execute all three
-gate-runner paths, including actual FactSelect branch-equivalence and exact depth-two
-expansion. The smoke-path task-association defect found by that test was fixed in
-`614e9cb`. Gate 1 then **PASSED** using the repository `.env` credential: source
-125 produced 12 fixed profiles, two candidates, and two 12x3 likelihood tables with
-no parse/runtime failure. It spent $0.00272729 (50 requests; 13,927 prompt and 3,297
-completion tokens; zero reasoning/forced exits), below the $0.05 smoke ceiling. The
-hash-pinned iCRAFT release has two raw answer-text/index disagreements (IDs 112 and
-129); the official benchmark scores `answer_idx`, so the loader now preserves both
-strings, uses the released index as target, and records the disagreements in manifests.
-This is parser transparency, not outcome tuning. Gate 2/3 calibration remains the next
-authorized action under the existing $0.50 hard cap; no policy/depth run is authorized.
-The first calibration process was interrupted by the local interactive execution wrapper
-after 288 requests and $0.02535745, and a detached recovery was reaped after 3 requests
-and $0.00012947; neither wrote a report and neither is used. The exact persistent
-foreground recovery then completed and **FAILED the profile-support gate**: its 296
-requests ($0.02559221; 100,904 prompt and 41,936 completion tokens; zero reasoning or
-forced exits) exhausted bounded repairs before it could construct three valid fixed
-profiles per diagnosis. This is an upstream model-validity failure, not a partial
-likelihood result. Per preregistration there will be no tuning/retry and no likelihood,
-FactSelect, branch-equivalence, structural, ranking-fidelity, policy, or depth run.
-The canonical 26B closure record is
-`results/path_e/icraft_profile_gates/FINAL_REPORT.md`; total iCRAFT gate spend was
-$0.05380642 and the OpenRouter ledger is $16.86549493 of $40. After the Track-1 audit,
-Hanshal authorized one distinct apparatus retry with a stronger OpenRouter model for
-profile narrative generation only, while every questioner, validator, likelihood,
-patient, and policy role remained 26B. That retry used `openai/gpt-5.4`, reasoning
-off, unchanged prompts/partitions/thresholds, and a hard $2 cap. It successfully
-constructed fixed profiles and reached calibration, but failed the terminal FactSelect
-availability criterion at 14/48 outcomes versus the frozen minimum of 24. It spent
-$0.44032225 (55 GPT-5.4 authoring calls and 945 26B calls; zero reasoning/forced
-exits). A post-run numerical audit fixed profile-posterior smoothing after neutral
-unavailable replies; the availability failure is independent and sufficient, so no
-rerun is valid or authorized. The external non-myopic empirical claim is permanently
-closed. Canonical evidence is
-`results/path_e/icraft_profile_gates/STRONGER_GENERATOR_RETRY_FINAL_REPORT.md`; total
-iCRAFT spend is $0.49412867 and the OpenRouter ledger is $17.30581718 of $40.
-
-Path E remains stopped at the Paprika invalid-endpoint/method-claim gate. Its research
-target was non-myopic LLM experimental design on external interactive benchmarks
-(GOAL.md): Paprika customer-service troubleshooting exposed the boundary failure;
-MediQ (arXiv:2406.00922) is the aligned primary environment now. The attempted Paprika
-method was BED-LLM-style beliefs plus lookahead/arbitration, and it failed to beat naive
-and one-step EIG on paired external-benchmark endpoints. Wordle/Mastermind are
-harness/unit-test only; location finding is closed. The animals/20Q result is banked
-corroboration under the target-decode contract, not the non-myopic headline. All Path
-A/B/C/D location and 20Q material is banked history below.
-
-The explicitly authorized post-stop method investigation is complete. The tracked
-report is
-`results/path_e/arbitration_headline/NON_MYOPIC_BED_FAILURE_ANALYSIS.md`, with
-reproducible descriptive output in `METHOD_FAILURE_DIAGNOSTICS.json` generated by
-`scripts/analyze_paprika_method_failure.py`. It used accepted artifacts only, made no
-model calls, spent no API budget, and did not rerun the frozen headline analyzer. The
-diagnosis is that the current method is non-myopic information acquisition over an
-unstable free-text support, not non-myopic task planning: its EIG target omits terminal
-resolution/turn cost, its simulated branches do not match deployed belief refresh or
-terminal behavior, its JSON likelihoods and one-SE rule are uncalibrated, and Paprika
-does not enforce the assumed prerequisite/gating gap. The recommended new method is a
-goal-oriented Bayes-adaptive planner over typed diagnostic and remedy actions, using
-task return, a calibrated deployment-matched world model, and an oracle-verified
-planning gap. This is analysis, not authorization to implement or launch that new path;
-the stop-and-discuss boundary below remains active.
-
-Path E Step 0 implementation status (2026-07-11): **terminal-repaired Step 0a and Step
-0b are passed**. The canonical real-model Paprika smoke is
-`20260711T130833_paprika-step0a-terminal-faithfulness-repaired-tasks0-4-seed1304` from
-implementation commit `a5da29a`. Across five official eval tasks and nine realized
-turns it achieved 9/9 = 100% answer-set coverage, zero terminal structured failures,
-zero runtime failures, zero raw/final simulator inconsistencies, and one exact-remedy
-resolution. The specialized terminal gate logged one claim, one check, and zero
-rejections. Manual review passed all five transcripts, including dishwasher alternatives
-that correctly remained non-terminal. It used OpenRouter
-`google/gemma-4-26b-a4b-it` without reasoning: 669 requests, 210,536 tokens, no forced
-exits, and $0.04443824. Evidence is tracked in
-`results/path_e/step0a_terminal_repaired/`. All earlier endpoint results remain invalid. The
-exact-posterior Mastermind depth-1/depth-2 harness remains green.
-
-The Paprika implementation is pushed. The
-Paprika customer-service adapter now loads the hash-pinned official release, preserves
-the released public `agent` scenario and private `env` solution verbatim, uses the
-native semantic success rule, generates 3--5 outcome answer spaces, scores categorical
-one-step EIG, judge-maps free-text replies, logs mapping coverage, and writes per-turn
-artifacts. Full depth-two categorical EIG now branches over each root outcome,
-recomputes the posterior, generates branch-conditioned follow-ups, and optimizes the
-expected second-step gain. Paired method runs share prompt-scoped generated hypotheses, root candidates, and
-simulator replies whenever their states are identical. Categorical likelihoods are
-batched by action. After each mapped observation, the adapter generates history-conditioned
-refinements, explicitly filters them for consistency, recomputes full-history posterior
-weights, and prunes to the configured support cap. Focused adapter/config/registry/runner
-tests pass. A deterministic five-task, two-round mechanics smoke against the official
-pinned file has 100% mapping coverage;
-it is explicitly labeled NOT LLM EVIDENCE in
-`results/path_e/step0a_adapter_smoke/REPORT.json`. The exact-posterior Mastermind harness
-for depth 1/2 is implemented and tested. The required real 26B A4B five-task coverage
-smoke originally waited on the unavailable cluster and was completed through the
-authorized OpenRouter bridge instead.
-The naive arm is now truly belief-free while retaining native early stopping and endpoint
-metrics. Full two-step execution batches the complete root/branch/follow-up tree rather
-than issuing serial calls; its integration test requires four logical batches including
-the deployed posterior refresh.
-Strict JSON/schema parsing now has two bounded repair attempts by default. Failed items
-inside batched likelihood/candidate calls are retried together, and cumulative retry and
-terminal-failure counts are emitted as metrics. Tests cover recovery for malformed
-single and batched responses.
-`scripts/analyze_paprika_smoke.py` implements the real-smoke automated gate: five tasks,
-nonempty turns, coverage >= 0.85, zero terminal structured failures, and no runtime-error
-signatures. It also reports forced-exit rate and surfaces all queries/replies, while
-requiring a separate manual semantic transcript review before Step 0a can pass.
-
-Phases 1–4 are DONE for the Path A workshop package. The ranking-fidelity gate, constrained
-oracle, constrained support-grid MPP30 sweep, unconstrained contrast arm, paper-facing
-package, 6-page paper draft, ledger, commit, push, and tag are complete. The user has
-asked to use only `msc` and `llm` for any future cluster launches for now; keep
-`--exclude=oat12` on new Slurm jobs.
-
-Minimum Publishable Package status:
-
-1. Ranking-fidelity gate: PASSED. Evidence is in
-   `results/ranking_fidelity/PHASE1_26B_A4B_GATE.md` and
-   `results/ranking_fidelity/REPORT.md`. The 26B A4B gate had entropy Spearman rho
-   around 0.38–0.44, truth-log-prob rho positive around 0.37, top-1 regret improving with
-   depth, and RMSE rho near zero.
-2. Constrained oracle: DONE. Evidence is in `results/constrained_oracle/REPORT.md` and
-   the robustness heatmap artifacts. This remains the non-LLM yardstick showing the
-   locality-constrained branch-decoy task can have a planning gap.
-3. Headline constrained LLM depth sweep: COMPLETED for the support-grid constrained MPP30
-   variant. Jobs `102226`, `102227`, and `102228` ran on `msc` / `oat11` with
-   `BED_LLM_SKIP_ENV_SETUP=1` and `--exclude=oat12`. They were combined locally into
-   `runs/loc_branch_decoy_local_constrained_supportgrid_mpp30_26b_a4b_split/`.
-   A tracked summary is in
-   `results/location_depth_sweeps/constrained_supportgrid_mpp30_26b_a4b_summary.md`.
-4. Unconstrained contrast arm: COMPLETED for the support-grid path. Jobs `102238`,
-   `102239`, and `102240` ran on `msc` nodes with `BED_LLM_SKIP_ENV_SETUP=1`,
-   `--partition=msc,llm`, and `--exclude=oat12`. They were rsynced locally and combined
-   into `runs/loc_branch_decoy_local_unconstrained_supportgrid_mpp30_26b_a4b_split/`.
-5. Paper package: VALIDATED and SUBMITTED/AWAITING. `scripts/build_path_a_package.py` produced the final
-   constrained/unconstrained comparison artifacts under `results/location_depth_sweeps/`,
-   `plots/location_depth_sweeps/`, `results/cost_vs_depth/`, and
-   `results/location_qualitative/`. `scripts/validate_path_a_package.py --root .` and
-   `scripts/validate_experiments_ledger.py` pass. `python scripts/validate_paper_draft.py`
-   passes with a 6-page draft and no TODO markers. The current branch is pushed and the
-   latest submitted/awaiting state is tagged `path-a-package-20260709`.
-
-Completed constrained support-grid MPP30 result:
-
-- Config/run shape: seed 1304, 30 paired trials, 6 rounds, branch-decoy/local-bump source,
-  max step radius 0.5, 26B A4B thinking, analytical posterior, fixed-support deployed
-  beliefs, analytic rollout future queries, support-grid candidate generation, depths
-  1/3/5 plus matched-compute myopic controls.
-- Cost: 1008 LLM calls and 3,869,520 total tokens across the three split jobs.
-- Hidden-path sanity: combined block counters had zero LLM candidate-generation calls,
-  zero strategy-location rollout calls, support-grid active, and belief refresh disabled.
-- Final RMSE means: naive 0.166, EIG 0.412, StrategyEIG-d5 0.542, StrategyEIG-d1 0.929,
-  StrategyEIG-d3 1.127, naive+belief 1.137. Standard deviations are large; see the
-  tracked summary for the full table.
-- Final truth-log-prob means: naive -1.484, EIG -1.672, d5 -1.982, d1 -2.532, d3 -2.590,
-  naive+belief -2.578.
-- Interpretation: this is NOT evidence that StrategyEIG beats greedy EIG or naive. It
-  does show a depth/objective effect within StrategyEIG: d5 is materially better than
-  d1/d3 and the matched-compute myopic controls on RMSE, entropy, truth log-prob, selected
-  EIG, and realized entropy drop. The honest framing is "non-myopic scoring improves over
-  myopic/short-horizon StrategyEIG under constraints, but the LLM strategy scaffold still
-  trails the analytic greedy/naive baselines in this run."
-
-Completed unconstrained support-grid MPP30 contrast:
-
-- Config/run shape mirrors the constrained sweep, except `location_max_step_radius` is
-  unset. Seed 1304, 30 paired trials, 6 rounds, branch-decoy/local-bump source, 26B A4B
-  thinking, analytical posterior, fixed-support deployed beliefs, analytic rollout future
-  queries, support-grid candidate generation, depths 1/3/5 plus matched-compute myopic
-  controls.
-- Cost: 1023 LLM calls and 3,757,774 total tokens across the three split jobs.
-- Final RMSE means: naive 0.0889, naive+belief 0.0951, EIG 0.1014, StrategyEIG-d5 0.1028,
-  StrategyEIG-d1 0.1029, StrategyEIG-d3 0.1077.
-- Interpretation: the unconstrained arm is flat across StrategyEIG depths and all methods
-  are tightly clustered; naive slightly beats EIG on final RMSE in this run. This supports
-  the intended contrast that removing the movement constraint removes the measurable depth
-  effect, while also reinforcing that StrategyEIG does not beat the simple baselines here.
-
-Latest cluster state:
-
-- Live jobs: none as of the latest `squeue -u hanyal` check. Jobs `102238`, `102239`, and
-  `102240` all completed with metrics/report/plot artifacts, 480 decision rows each, and
-  zero traceback/runtime/OOM/killed/location-parse errors. Token usage events are logged
-  as lowercase `llm_token_usage`, not uppercase `LLM_USAGE`.
-- For any additional launch, use `--partition=msc,llm --exclude=oat12` unless the user
-  changes this again. Do not use GH200 unless explicitly requested again.
-
-## NEXT ACTIONS (in order)
-
-**CURRENT PAPER STATUS (2026-07-14):** Track 1 is audited and collapsed for the
-non-myopic claim; Track 2 is permanently closed after the one stronger-author retry;
-the five-page validation-first package is frozen at commit `ec66dce`. Do not launch
-another experiment. Individual workshop calls are now live, and the ranked targets,
-format constraints, and venue-specific abstracts are in
-`paper/VENUE_SUBMISSION_PLAN.md`: (1) Verification in the Age of AI Scientists
-(abstract Aug. 22; paper Aug. 25), (2) Scaling Environments for Agents (Aug. 29), and
-(3) Science for Artificial Intelligence (Aug. 29). The remaining work is submission
-mechanics only: recheck each OpenReview policy, anonymize the relevant source tree,
-and make the Sci-fAI variant four pages excluding references. The project is
-**submission-ready in substance**, not awaiting another method or simulator repair.
-
-**DECISION (2026-07-12, per Hanshal, on the iCRAFT profile-gate failure):**
-
-1. **BLOCKING — Track 1 animals re-analysis lands FIRST.** Third consecutive update
-   without it. It is free, takes hours, and is now plausibly the paper's only
-   non-myopic evidence; its outcome also weights the iCRAFT retry decision. No further
-   iCRAFT or policy work until `results/path_e/ANIMALS_REANALYSIS.md` exists with the
-   comparability check and Q@80% / accuracy-AUC CIs.
-2. **One bounded apparatus retry completed (after Track 1):** profile generation only
-   used `openai/gpt-5.4`; questioner/policy and every other simulator role remained 26B
-   A4B. It constructed fixed supports but failed the preregistered availability gate at
-   14/48 observed outcomes versus the required 24, using $0.44032225 of the $2 cap.
-   This closes the external claim permanently. No third attempt, model-shopping,
-   likelihood retry, policy run, or depth run is authorized.
-3. Paper (Track 3) continues in parallel; the closure records just written are kept
-   accurate either way.
-
-
-**AUTHORIZATION (2026-07-12, per Hanshal): ICRAFT GATES authorized** — pre-registration
-+ validation implementation only, $0.50 initial cap, no policy/depth runs without
-subsequent approval. Conditions:
-1. Pre-register gate consequences BEFORE running them: oracle greedy-vs-depth-2 gap
-   present (pre-registered margin) -> policy runs authorized (claim 1 then gated
-   claim 2, with cost caps). Gap absent -> NOT a failure: claim 1 still runs on iCRAFT
-   (1-step EIG vs naive asking vs native baseline); the non-myopic claim then rests on
-   the animals re-analysis; no rescue attempts on FactSelect structure.
-2. Fence: patient profiles may repair likelihood semantics only — they must NOT be
-   tuned to create lookahead structure (no branch-decoy-in-scrubs).
-3. **Track 1 (banked animals re-analysis) is OVERDUE and must land before or alongside
-   the gate work** — it is free, and if the iCRAFT oracle is gap-less it becomes the
-   paper's only non-myopic evidence. Deliverable unchanged:
-   `results/path_e/ANIMALS_REANALYSIS.md`.
-4. Track 3 (paper) continues in parallel regardless; the gates do not block writing.
-CLOSE EXTERNAL CLAIM is rejected for now — one bounded, gated attempt at the external
-result is worth more than immediate closure, precisely because the gates make its cost
-knowable in advance.
-
-
-**EXECUTION PLAN (2026-07-12, per Hanshal — three tracks, this order):**
-
-Track 1 (COMPLETE, FREE): the banked animals depth re-analysis. Result: **COLLAPSES**.
-The analyzer reconstructed all 200 trial-level 20-round traces, verified their aggregate
-curves exactly against the banked metrics, audited scientific configs and target/prior
-pairing, and computed deterministic 20,000-replicate bootstrap intervals. The old
-depth-2 advantage was an unpaired point estimate driven by easier restarted seed blocks;
-the only paired block reverses, and paired depth 3 is worse than depth 2. Deliverables:
-`scripts/analyze_animals_depth_reanalysis.py`,
-`results/path_e/ANIMALS_REANALYSIS.md`, and
-`results/path_e/animals_reanalysis/ANIMALS_REANALYSIS.json`. Consequence: retain
-animals for the one-step BED-transfer claim; the non-myopic claim rides entirely on
-the MediQ claim-2 pilot.
-
-Track 2 (STOP; requires Hanshal): MediQ iMEDQA Step 0 passes, but the model-validation
-ladder does not. `factored_record` failed on available-outcome truth gain, and the fresh
-data-estimation bank is inadequate at 8/30 available outcomes versus the frozen minimum
-of 15. The scorer was not run. Do not tune/reuse the bank, launch Claim 1, launch depth
-2, or increase rollouts/thinking. Discuss one explicit decision: (a) authorize a fresh
-iCRAFT-MD diagnosis-only preregistration inside MediQ using a concrete patient-profile
-latent and the gates in `results/path_e/NON_MYOPIC_SEQUENTIAL_BED_DIAGNOSIS.md`, or (b)
-close the non-myopic empirical claim and retain the cross-environment boundary result.
-The exact evidence audit, implementation delta, structural-gap risk, recommended $0.50
-gate-only cap, and consequences of each choice are in
-`results/path_e/TRACK2_COMPLETION_AUDIT_AND_DECISION.md`. The two unambiguous responses
-are `AUTHORIZE ICRAFT GATES` and `CLOSE EXTERNAL CLAIM`. The first authorizes only a
-fresh preregistration and validation implementation; it does not authorize a policy or
-depth run.
-
-Track 3 (COMPLETE FOR CURRENT EVIDENCE): the rewritten five-page paper and stable PDF
-are in `paper/` and `output/pdf/non_myopic_bed_validation_draft.pdf`. The validator and
-focused tests pass, and all five rendered pages have been visually inspected. Do not
-restore the stale arbitration/sealed-outcome framing. Revise the results and positioning
-only after Hanshal chooses the Track-2 path and any newly preregistered gate is resolved.
-
-NON-MOVES (fences): no Paprika reruns (guess-rule variant = future work), no
-Bayes-adaptive build, no new environments beyond MediQ, no further endpoint-repair
-campaigns on Paprika. Timeline anchor: NeurIPS 2026 workshop author notifications are
-mandated by Sept 29; expect paper deadlines late Aug - early Sep; watch for the
-accepted-workshop list and pick 2-3 targets when it drops.
-
-
-**DIRECTION (2026-07-12, per Hanshal — supersedes the task-value probe and the
-Bayes-adaptive proposal): the project's identity is non-myopic sequential BED with
-LLMs; EIG is the acquisition objective.** Refined contract (per Hanshal): EIG need not
-be the literal benchmark reward — the task must expose a latent target with ground
-truth, and success must be a monotone readout of posterior quality via an explicit
-DECODE rule (BED-LLM's guess protocol: acquisition maximizes EIG about the target; a
-separate belief->action rule — argmax guess at confidence threshold or at budget —
-produces the scored output; winning stats proxy information gain).
-
-**MediQ is the primary environment** (in-contract by construction): target = the
-answer variable, decode = argmax option at budget (or MediQ's native answer/abstain
-decision), acquisition = EIG over patient questions.
-
-**Paprika architectural note (from the autopsy, via the refined contract):** the
-deployed agent conflated experiments and decodes — remedies competed inside EIG
-scoring, where a cure is correctly a poor experiment. In-contract design: remedies are
-DECODES (execute argmax remedy when top-hypothesis mass > tau, tau pre-registered),
-never EIG candidates; acquisition ranks diagnostic questions only. This is recorded as
-an optional boundary experiment ONLY IF the (third) endpoint invalidity is resolved
-and time permits after MediQ — it is not the primary path. The autopsy remains the
-paper's boundary-of-applicability evidence either way.
-
-MediQ design requirements (the autopsy's fixes, applied as BED-LLM prescribes):
-1. EIG TARGETS THE FINITE ANSWER VARIABLE (the MedQA option set), never free-form
-   hypothesis prose. Intermediate finding-hypotheses, if used, support likelihoods only.
-2. Calibrated likelihoods over the small categorical target: temperature-0 judged
-   distributions (or logprobs if available); no single-shot JSON probability guesses
-   over open text. Log a calibration check (reliability of P(answer|findings) against
-   outcomes) as a pre-registered diagnostic.
-3. No history double-use in updates; semantic dedup of any generated finding
-   hypotheses; acquisition and update must use the same model of the answer.
-4. Patient simulator faithfulness gate + answer-mapping coverage gate as on Paprika;
-   manual transcript review before any claims run (the endpoint discipline carries
-   over unchanged).
-5. Arms and ladder (pre-register before launch): naive asking, MediQ native Expert
-   baseline(s), 1-step EIG (claim 1: EIG > naive AND >= native baselines — MediQ's own
-   naive-asking-hurts result implies headroom), then 2-step vs 1-step pilot (claim 2 —
-   the non-myopic bet, gated: 10-case pilot, >=6/10 or clear accuracy@budget edge
-   before scaling; full 2-step cost cap learned from Paprika applies).
-6. Endpoint: accuracy @ question budget, paired per case, frozen censoring rules;
-   analyzer finalized before results are viewed; outcome blindness until complete.
-7. Budget: $23.18831149 remains of $40. Integration smoke complete, claim-1 study ~$2-4, claim-2
-   pilot ~$1-2. Project before each launch as usual.
-8. Paper identity: "Non-myopic sequential BED with LLMs: where EIG works, and where it
-   cannot" — MediQ as the aligned demonstration (claims 1, and 2 if it holds), Paprika
-   autopsy as the misalignment boundary, 20Q/animals banked data as corroboration of
-   the aligned regime. The Bayes-adaptive goal-oriented planner is parked as the
-   documented conference follow-up for goal-directed tasks.
-
-
-**STOP-AND-DISCUSS BOUNDARY REACHED (2026-07-12): do not execute the historical
-mid-headline reminders below.** The frozen 50-task analyzer ran exactly once and did
-not confirm Claim B. Arbitration resolved 16/50 (32%) with mean censored turns 5.12,
-versus thinking naive 20/50 (40%) and 4.68 turns, and candidate 0 20/50 (40%) and 4.96
-turns. Arbitration-vs-thinking-naive was 6/16/28 wins/losses/ties with mean paired
-delta +0.44 turns and 95% bootstrap CI [0.0, 0.9]; arbitration-vs-candidate0 was
-6/12/32 with delta +0.16 and CI [-0.2405, 0.56]. Positive deltas mean arbitration was
-slower, so neither preregistered comparison supports Claim B. Best-N EIG also resolved
-16/50 (32%), with 4.96 mean censored turns; versus thinking naive it was 11/12/27,
-delta +0.28, CI [-0.14, 0.74].
-
-The mandatory manual audit then found a fatal endpoint contradiction on task 13:
-the private remedy says the receipt printer is out of paper and replacing/refilling the
-roll restores printing, but best-N instructed replacement of the current paper roll and
-the simulator replied that changing it did not help. This is exactly the frozen
-"correct performed remedy claimed to fail" invalidation case. Tasks 10 and 12 passed;
-review stopped at the first fatal contradiction as required. The complete five-arm
-headline is endpoint-invalid and cannot be used as policy evidence. Do not drop the
-task/arm, rerun the analyzer, launch MediQ, or launch another rescue autonomously.
-Discuss with Hanshal whether to end Path E as an endpoint-validity/negative diagnostic
-paper, redesign the simulator/evaluation under a new preregistration, or stop the paper.
-The current `paper/` draft predates this read and is not submission-ready.
-A cost/scope decision memo is tracked at
-`results/path_e/arbitration_headline/STOP_DECISION_MEMO.md`. It recommends closing Path
-E as a method-claims project because the frozen effect points against the method even
-before endpoint invalidation. The two alternatives requiring explicit authorization
-are a no-new-LLM endpoint-validity paper (complete the remaining manual audit) or a
-fresh preregistered simulator/evaluation study. No option has been selected yet.
-
-Post-stop diagnostic work requested by Hanshal is complete. Before any implementation
-or launch, review
-`results/path_e/arbitration_headline/NON_MYOPIC_BED_FAILURE_ANALYSIS.md` and choose
-whether to authorize its proposed fresh preregistered path. The minimum sequence for
-that path is endpoint/action-credit repair, typed task-aligned utility, calibrated
-world-model and belief-update gates, one-step task-value ranking fidelity, and an
-oracle-verified depth-two gap. Increasing current EIG depth/rollouts or tuning the
-one-SE margin is explicitly not a next action.
-
-**MID-HEADLINE REMINDERS (2026-07-11, per Hanshal):**
-1. The pre-registered BEST-N ELICITATION PROBE (10 canonical tasks 0-9, disjoint from
-   the held-out 10-59, ~$0.6) has not run — launch it IN PARALLEL with the remaining
-   waves. It settles the paper's method framing (generate-and-select vs calibrated
-   arbitration) and whether a design-(ii) arm joins the held-out comparison later.
-   The hypothesis-elicitation micro-probe stays queued strictly after it.
-2. OUTCOME BLINDNESS: no headline resolution/turn metrics are viewed until all 50 tasks
-   and all arms are complete; analyzer runs ONCE. Operational monitoring (coverage,
-   gate failures, pairing, cost) remains allowed and required.
-3. PAPER REWRITE STARTS NOW (parallel to waves): motivation (faithful transfer fails),
-   method, environment + endpoint-validation section (the audit chain is methods
-   content), related work, limitations — everything except results. The Path B draft's
-   salvageable parts fold into motivation.
-
-
-**PRE-REGISTERED PROBE (2026-07-11, per Hanshal, run BEFORE or alongside the scale-up):
-best-n elicitation for plain EIG.** Hanshal identified an uncontrolled variable: the
-plain-EIG candidate prompt ("Propose concise customer-service diagnostic questions or
-corrective solution attempts...") never asks for GOOD actions — it elicits
-schema-shaped candidates with no goal anchoring, while the arbitration prompt is
-goal-anchored. The generation-thinking rescue changed reasoning effort but never the
-instruction content, so this is untested. Probe: ONE run, 10 canonical tasks, frozen
-design/endpoint, plain argmax 1-step EIG with the candidate prompt changed to
-best-n elicitation (e.g. "Propose your N best next actions to resolve this customer's
-issue as quickly as possible", N matching the current candidate count; discrete answer
-spaces unchanged; no natural-action anchor — plain EIG has no default slot). Thinking
-per the rescue config. Projected <= ~$0.6. Pre-registered reads:
-- Best-n EIG still loses to thinking naive -> Claim A is robust to elicitation; the
-  arbitration structure (default + margin) is demonstrated load-bearing; say so in the
-  paper.
-- Best-n EIG matches/beats arbitration -> the honest story shifts to "goal-anchored
-  elicitation + EIG selection"; arbitration's default/margin is reported as a
-  robustness variant; scale-up arms are reconsidered WITH Hanshal before launch.
-The ARBITRATION prompt is NOT changed (its natural-action anchor is load-bearing for
-the margin rule and the candidate-0 control). Any elicitation change to arbitration is
-a post-scale-up ablation only.
-
-**FRAMING NOTE (per Hanshal, 2026-07-11):** the preferred method identity is "generate
-n good action candidates, use EIG to select among them" — not "naive with a fallback
-override". The best-n probe above IS that method (design (ii) in the ladder: (i) bland
-elicitation + argmax = failed BED-LLM transfer; (ii) best-n elicitation + argmax = the
-probe; (iii) anchored elicitation + default/margin = pilot-validated arbitration).
-Resolution rule: if (ii) ~ (iii) on the probe read, the paper adopts the clean
-generate-and-select framing with the margin rule reported as an optional safety knob;
-if (ii) < (iii), the margin rule is load-bearing and is framed as CALIBRATED selection
-(act only on score differences exceeding scoring noise — a statistical decision rule,
-not a hedge). If (ii) is competitive, the scale-up carries BOTH (ii) and (iii) as arms
-(same candidate costs; the selection-rule contrast is the ablation reviewers will ask
-for anyway).
-
-**SECOND MICRO-PROBE (queued AFTER the candidate probe, never simultaneously — one
-change at a time for attribution):** goal-anchored hypothesis elicitation. Current
-hypothesis prompts ask for plausible issues; probe variant asks for "the n most likely
-root causes given this conversation so far, ranked". 10 canonical tasks, one arm,
-<= ~$0.6, pre-registered read before launch. Prompt sensitivity is acknowledged as a
-finding-in-itself: log every prompt variant in the ledger and report the elicitation
-sensitivity honestly in the paper.
-
-
-**AUTHORIZATION AT THE STOP-AND-DISCUSS BOUNDARY (2026-07-11, per Hanshal): the
-arbitration scale-up is approved.** The revised Path E claim structure supersedes the
-original GOAL.md claims (STATE precedence):
-
-- Claim A (honest negative, kept): faithful 1-step BED/EIG scaffolding does not beat
-  naive on Paprika; full 2-step failed and is closed.
-- Claim B (the method claim): belief-guided EIG arbitration over native thinking-LLM
-  proposals improves interactive troubleshooting (pilot: 6/0/4 vs thinking naive,
-  +1.2 censored turns, CI [0.4, 2.2], resolution 40%->60%).
-- Claim C (generality, pending): the same arbitration transfers to MediQ.
-
-**Scale-up design (pre-register in the runbook BEFORE launch, then do not deviate):**
-
-1. Tasks: the next N unseen Paprika customer-service eval tasks in released order (no
-   selection). N from a power calc on the pilot effect (assume the win margin shrinks;
-   target ~80% power for a halved effect) subject to the eval pool size and budget —
-   expect N in the 30-50 range. Seed 1304, 5 rounds, frozen censoring/tie rules.
-2. Arms (paired per task): (i) thinking naive; (ii) **candidate-0 control — MANDATORY:
-   identical 3-proposal generation, always execute candidate 0, no EIG scoring** (this
-   isolates the override's causal effect from the effect of eliciting 3 proposals);
-   (iii) arbitration with the FROZEN 1-SE margin rule (no threshold retuning);
-   (iv) naive non-thinking (cheap context arm). Generation-thinking EIG is NOT rerun at
-   scale (its pilot read stands as Claim A evidence).
-3. Primary endpoint: paired censored turns-to-resolution, arbitration vs thinking
-   naive; co-primary: arbitration vs candidate-0 control (the causal read).
-   Secondary: resolution@5, win/tie/loss, cost per resolution. Bootstrap CIs; Wilcoxon
-   supporting.
-4. Pre-registered mechanism analyses (from logs, no extra spend): override rate,
-   per-override outcome, score-margin distribution for good vs bad overrides
-   (calibration of the 1-SE rule — descriptive only, no post-hoc threshold change).
-5. Manual endpoint review: ALL transcripts of any task where arms disagree on success;
-   spot-check 10 random others. Same INVALID-ENDPOINT discipline if anything surfaces.
-6. Budget check before launch (~$10 remains; projected all-arms cost at N=40 is ~$3-4,
-   verify from pilot per-task costs). MediQ port (arbitration arm, native baselines) is
-   authorized AFTER the scale-up read, conditional on Claim B holding: if it holds,
-   MediQ is the generality experiment; if it collapses at scale, stop-and-discuss.
-7. Paper reframe per playbook: the paper is now Claims A+B(+C), i.e. "beliefs select,
-   they don't generate: EIG arbitration over native LLM proposals" with the transfer
-   negative honestly reported as motivation. Lookahead remains closed this cycle.
-
-Scale-up pre-launch status: **READY AND FROZEN, NOT YET LAUNCHED.** The prompt-matched
-belief-free `NaivePrimaryCandidate0` control is implemented and registered only for
-Paprika. Tests prove it always executes candidate 0, writes full selection artifacts,
-and shares the exact ordered proposal set with arbitration whenever public histories
-match. `PATH_E_ARBITRATION_RUNBOOK.md` freezes N=50, eval offsets 10--59, method order,
-pairing checks, endpoints, claim reads, mechanism analysis, manual audit, canonical
-recovery, budget, and concurrency. The pilot power calculation is tracked at
-`results/path_e/arbitration_headline/POWER.json`; N=50 gives approximately 78.2% normal
-power at half the pilot effect (53 would give 80%). The generic combiner now supports
-both 50 one-task thinking shards and five 10-task non-thinking blocks. The frozen
-headline analyzer and configs are implemented. Pre-launch verification: 143 focused
-tests pass; ledger and existing paper validators pass. Commit and push this complete
-design before launching, then record every launch in `EXPERIMENTS.md`.
-Headline launch status: wave 1 is running from frozen commit `7bc2263`, timestamp
-`20260711T163517`, offsets 10--19, as ten isolated thinking-triplet shards at aggregate
-configured concurrency 250. Do not overlap the non-thinking wave. Monitor only health,
-spend, and completion; apply the frozen whole-triplet recovery rule on failures.
-Hanshal added $10 during wave 1, so the authorized OpenRouter total is now $30 and the
-remaining authorization from the pre-wave spend is $19.61803. Wave 1 retains its
-already-instantiated $20 tracker cap; future frozen configs change only the operational
-budget cap to $30. No scientific or concurrency parameter changes.
-Wave-1 original offset 12 failed after its arbitration item because the candidate-0
-customer simulator contradicted the private solution after bounded repairs. The whole
-invocation is noncanonical; do not reuse its arbitration artifact. Exact full-triplet
-recovery 1 launched at `20260711T164811`, using the unchanged scientific design and the
-documented $30 administrative cap. With nine original shards still active, aggregate
-triplet concurrency remains 250.
-Offset-12 recovery 1 failed closed with the same bounded simulator-faithfulness error
-during arbitration and banked no item. Exact full-triplet recovery 2 launched at
-`20260711T170138`; no task artifact from either failed attempt is canonical.
-Wave 1 is complete and canonical for offsets 10--19. Recovery 2 is the accepted offset
-12 artifact. The combined health validation found exact task coverage, three complete
-methods per task, and 21/21 matching proposal sets at every identical-history
-arbitration/candidate-0 turn. Accepted cost was $0.578927 over 3,576 requests;
-operational spend including failed attempts was $0.619374. Cumulative spend is
-$11.001346/$30. Canonical provenance is tracked in
-`results/path_e/arbitration_headline/CANONICAL_RUNS.json`. Wave 2 (offsets 20--29) is
-next under the same frozen scientific design and aggregate concurrency 250.
-Wave 2 launched at `20260711T180556`, offsets 20--29, as ten isolated full-triplet
-shards at aggregate configured concurrency 250. Same canonical and health-only
-monitoring rules apply.
-Wave-2 original offset 25 failed after arbitration because candidate 0 hit the strict
-bounded simulator-faithfulness failure. The complete invocation is noncanonical. Exact
-full-triplet recovery 1 launched at `20260711T185350`; no artifact from the failed
-attempt may enter the headline.
-Wave 2 is complete and canonical for offsets 20--29, with recovery 1 as the accepted
-offset-25 source. Proposal pairing passed 15/15 eligible identical-history turns.
-Accepted cost was $0.577599 over 3,475 requests; operational spend including the failed
-attempt was $0.630444. Cumulative spend is $11.631791/$30. Wave 3 (offsets 30--39) is
-next under the unchanged design.
-Wave 3 launched at `20260711T195210`, offsets 30--39, as ten isolated triplets at
-aggregate configured concurrency 250. Health-only monitoring remains in force.
-Wave-3 original offset 30 failed closed during arbitration on the strict bounded
-simulator-faithfulness check and banked no item. Exact full-triplet recovery 1 launched
-at `20260711T195708`; the failed invocation is noncanonical.
-Wave-3 original offset 35 also failed closed during arbitration on the strict bounded
-simulator-faithfulness check and banked no item. Exact full-triplet recovery 1 launched
-at `20260711T200209`; both wave-3 recoveries preserve aggregate concurrency 250.
-The preregistered best-N EIG candidate-elicitation probe is implemented at commit
-`4708cbe`. The `standard` prompt mode preserves the faithful-EIG prompt; `best_n` adds
-only the frozen goal anchor requesting the five best next actions for resolving the
-issue quickly. The config uses canonical tasks 0--9, seed 1304, five rounds, thinking
-26B A4B, EIG argmax, 25 OpenRouter concurrency, and a $0.60 projection. Its initial
-`20260711T201520` process was terminated by the local launch wrapper before any API
-request and is noncanonical. Exact recovery 1 launched in a managed session at
-`20260711T201603`. With nine active wave-3 processes, aggregate configured concurrency
-is 250. The probe remains outcome-blind until completion and does not overlap the
-held-out headline task set.
-Wave-3 original offset 32 failed closed during candidate 0 after arbitration had
-completed. The complete invocation is noncanonical and its first item is discarded.
-Exact full-triplet recovery 1 launched unchanged at `20260711T202059`. During exception
-triage, a context-bearing grep command inadvertently printed the failed invocation's
-arbitration metric line. This was a noncanonical artifact already quarantined before
-inspection; no canonical task outcome was viewed, no comparison was made, and no design,
-recovery, or analysis decision changed. Subsequent health checks must extract only the
-final exception line without surrounding log context.
-The Path E paper's outcome-independent rewrite is now a compiling five-page draft. It
-covers the external benchmark, native-primary EIG arbitration, candidate-0 causal
-control, answer-space and endpoint audit, frozen analysis, outcome blindness, and
-limitations. Its Path E validator passes. The results section explicitly remains sealed
-until the canonical 50-task analyzer and manual audit.
-Wave-3 original offset 38 failed closed during candidate 0 after arbitration completed.
-The whole invocation is noncanonical. Exact full-triplet recovery 1 launched unchanged
-at `20260711T202641`; exception-only triage confirmed the same bounded simulator
-faithfulness failure without exposing another metric line.
-Wave 3 is complete and canonical for offsets 30--39. Recoveries 1 are the accepted
-sources for offsets 30, 32, 35, and 38; all other offsets use their original invocation.
-The health-only combination has exact task/method coverage and 19/19 matching ordered
-proposal sets at eligible identical-history turns. Accepted canonical cost was
-$0.483515 over 3,368 requests; operational wave cost including four failed attempts was
-$0.585700 over 4,238 requests. Actual cumulative spend, including the concurrently
-running best-N probe, was $12.304248/$30 at banking time. No canonical policy outcome
-was inspected. Wave 4 offsets 40--49 is next; while the 25-concurrency probe remains
-active, launch at most nine 25-concurrency shards and fill the tenth slot only after one
-process completes, keeping aggregate configured concurrency at or below 250.
-While closing completed managed tool sessions after Wave 3 had already been fixed, the
-session flush printed terminal metric lines for the naive arm of canonical offsets 32
-and 38. This was an additional outcome-blindness protocol deviation: two single-arm
-canonical task outcomes were inadvertently visible, but no arbitration/candidate-0
-outcome or cross-arm comparison was inspected, and the sample, design, analyzer,
-recovery sources, and launch decisions were already frozen and remain unchanged. Do not
-flush completed run sessions again; use metadata-only polling.
-Wave 4 began at `20260711T205544` with offsets 40--48 as nine isolated unchanged
-thinking triplets. Together with the still-running 25-concurrency best-N probe, aggregate
-configured concurrency is 250. Offset 49 remains intentionally unlaunched and will fill
-the first released 25-concurrency slot. Health-only and whole-triplet recovery rules are
-unchanged.
-Wave-4A original offset 44 failed closed during thinking naive after arbitration and
-candidate 0 completed. The entire invocation is noncanonical. Exact full-triplet
-recovery 1 launched unchanged at `20260711T210824` into the released slot; offset 49
-remains queued and aggregate configured concurrency remains 250.
-Original offsets 40 and 46 completed, releasing two slots. The queued original offset
-49 launched unchanged at `20260711T211424`. With six other original shards, recovery
-44, and the best-N probe still active, aggregate configured concurrency is 225.
-Offset-44 recovery 1 failed closed during arbitration and banked no item. Exact
-full-triplet recovery 2 launched unchanged at `20260711T211909`; both earlier attempts
-remain noncanonical. Aggregate configured concurrency is 225.
-Offset-44 recovery 2 also failed closed during arbitration and banked no item. Exact
-full-triplet recovery 3 launched unchanged at `20260711T212925`; all three earlier
-attempts remain noncanonical.
-Offset-44 recovery 3 also failed closed during arbitration and banked no item. Exact
-full-triplet recovery 4 launched unchanged at `20260711T213901`; all four earlier
-attempts remain noncanonical.
-Offset-44 recovery 4 cleared arbitration but failed closed during candidate 0. Exact
-full-triplet recovery 5 launched unchanged at `20260711T214607`; all five earlier
-attempts remain noncanonical.
-Wave 4 is complete and canonical for offsets 40--49. Recovery 5 is the accepted source
-for offset 44; all other offsets use their first invocation. The health-only combination
-has exact task/method coverage and 16/16 matching ordered proposal sets at eligible
-identical-history turns. Accepted cost was $0.521274 over 3,359 requests; operational
-wave cost including five failed offset-44 attempts was $0.614086 over 4,155 requests.
-Actual cumulative spend, including the still-running best-N probe, was $13.090964/$30 at
-banking time. No additional canonical policy outcome was inspected. Wave 5 offsets
-50--59 is next under the same frozen design and concurrency rule.
-Wave 5 began at `20260711T220534` with offsets 50--58 as nine isolated unchanged
-thinking triplets. Together with the still-running 25-concurrency best-N probe,
-aggregate configured concurrency is 250. Offset 59 remains intentionally queued and
-will fill the first released slot. This is the final thinking-headline wave.
-Wave-5A original offset 51 failed closed during candidate 0 after arbitration completed.
-The whole invocation is noncanonical. Exact full-triplet recovery 1 launched unchanged
-at `20260711T221626` into the released slot; offset 59 remains queued and aggregate
-configured concurrency remains 250.
-Original offset 58 completed and released a slot. The queued original offset 59 launched
-unchanged at `20260711T222015`; aggregate configured concurrency returned to 250.
-Wave 5 is complete and canonical for offsets 50--59. Recovery 1 is the accepted source
-for offset 51; all other offsets use their first invocation. The health-only combination
-has exact task/method coverage and 17/17 matching ordered proposal sets at eligible
-identical-history turns. Accepted cost was $0.566552 over 3,817 requests; operational
-wave cost including the failed offset-51 attempt was $0.589193 over 3,994 requests.
-Actual cumulative spend, including the still-running best-N probe, was $13.849445/$30 at
-banking time. The complete 50-task thinking headline is now fixed. Next: combine all 50
-thinking triplets, finish and bank the best-N probe, then launch the five frozen
-non-thinking blocks without overlapping another large wave.
-The 50 canonical thinking triplets are combined at
-`runs/paprika-headline-triplet-combined-seed1304`. Structural validation found exactly
-50 records per arm over tasks 10--59 and 88/88 matching proposal sets at all eligible
-identical-history turns. Canonical thinking evaluation totals are $2.727867, 17,595
-requests, 5,188,570 prompt tokens, 5,712,603 completion tokens, 4,525,450 reasoning
-tokens, and 64 forced exits. No policy endpoint comparison has been computed.
-The non-thinking headline wave began at `20260711T230647` with 10-task blocks starting
-at offsets 10, 20, 30, and 40. Four 51-concurrency blocks plus the still-running
-25-concurrency best-N probe give aggregate configured concurrency 229. The final block
-at offset 50 remains queued and will fill the first released 51-concurrency slot. No
-thinking-headline process overlaps this wave.
-The best-N EIG probe completed at `20260711T201603`: one 10-task EIG item, zero structured
-or simulator-faithfulness failures, $0.435815, 3,698 requests, 596,195 reasoning tokens,
-and 10 forced exits. Its development-task outcome read is now allowed and remains
-separate from the sealed headline.
-Non-thinking original block 40 failed closed before banking an item. Exact block-40
-recovery 1 and the queued original block 50 launched at `20260711T230931`. Together with
-original blocks 10, 20, and 30, aggregate configured non-thinking concurrency is 255.
-The preregistered best-N outcome read is complete. Best-N EIG resolved 5/10 tasks with
-mean censored turns 4.0, versus thinking naive 4/10 and 4.9 turns (4/1/5 paired
-wins/losses/ties, delta -0.9, bootstrap CI [-2.2, 0.4]) and arbitration 6/10 and 3.7
-turns (2/4/4, delta +0.3, CI [-1.2, 1.6]). It is directionally better than thinking
-naive and statistically indistinguishable from arbitration. Per the decision rule
-written before launch, this is competitive: the paper adopts goal-anchored
-generate-and-select as the clean method identity, arbitration remains the calibrated
-robustness variant, and a best-N EIG arm must run on held-out tasks 10--59 before the
-headline analyzer. This arm addition is triggered solely by the preregistered
-development probe; no held-out comparison has been computed. Evidence is in
-`results/path_e/best_n_probe/`.
-Non-thinking blocks 10, 20, 30, and 50 completed. Block-40 recovery 1 also failed closed
-before banking an item. Exact block-40 recovery 2 launched at `20260711T231618` with
-best-N held-out offsets 10--17 as eight isolated one-task shards. The recovery uses 51
-concurrency and best-N uses 8 x 25 = 200, for aggregate configured concurrency 251.
-Remaining best-N offsets 18--59 fill released slots in canonical order.
-Best-N offsets 10 and 11 completed. Their two released slots were filled by offsets 18
-and 19 at `20260711T232014`; aggregate configured concurrency remains 251.
-Non-thinking block-40 recovery 2 completed and is canonical, completing all five
-non-thinking blocks over tasks 10--59. Its released capacity was filled by best-N
-offsets 20 and 21 at `20260711T232220`; eight best-N shards remain live at aggregate
-configured concurrency 200, plus the two new shards at 50, for 250 total.
-The five canonical non-thinking blocks were structurally combined as
-`runs/paprika-headline-nonthinking-combined-seed1304`: 50 records, exact task IDs
-10--59, one `naive` item per task. Outcomes remain sealed until the frozen joint
-analyzer runs after the best-N arm completes.
-Best-N offset 12 completed and is canonical. Its released slot was filled by offset 22
-at `20260711T233549`; ten best-N shards remain live at aggregate configured concurrency
-250. Canonical best-N offsets 10--12 are recorded in the headline manifest.
-Best-N offset 18 completed and is canonical. Its released slot was filled by offset 23
-at `20260711T233747`; aggregate configured concurrency remains 250.
-Best-N offset 15 completed and is canonical. Its released slot was filled by offset 24
-at `20260711T234011`; aggregate configured concurrency remains 250.
-Best-N offsets 17 and 19 completed and are canonical. Their released slots were filled
-by offsets 25 and 26 at `20260711T234258`; aggregate configured concurrency remains 250.
-Best-N offset 14 completed and is canonical. Its released slot was filled by offset 27
-at `20260711T234542`; aggregate configured concurrency remains 250.
-Best-N offset 13 completed and is canonical. Its released slot was filled by offset 28
-at `20260711T234628`; aggregate configured concurrency remains 250.
-Best-N offset 21 completed and is canonical. Its released slot was filled by offset 29
-at `20260711T234839`; aggregate configured concurrency remains 250.
-Best-N offset 20 completed and is canonical. Its released slot was filled by offset 30
-at `20260711T235510`; aggregate configured concurrency remains 250.
-Best-N offset 22 completed and is canonical. Its released slot was filled by offset 31
-at `20260711T235622`; aggregate configured concurrency remains 250.
-Best-N offset 16 completed and is canonical, completing the contiguous canonical block
-10--22. Its released slot was filled by offset 32 at `20260711T235943`; aggregate
-configured concurrency remains 250.
-Best-N offsets 28 and 30 completed and are canonical. Their released slots were filled
-by offsets 33 and 34 at `20260712T000300`; aggregate configured concurrency remains 250.
-Best-N offset 23 completed and is canonical, extending the contiguous canonical block
-to 10--23. Its released slot was filled by offset 35 at `20260712T000713`; aggregate
-configured concurrency remains 250.
-Best-N offset 24 completed and is canonical, extending the contiguous canonical block
-to 10--24. Its released slot was filled by offset 36 at `20260712T000928`; aggregate
-configured concurrency remains 250.
-Best-N offset 26 completed and is canonical. Its released slot was filled by offset 37
-at `20260712T001304`; aggregate configured concurrency remains 250. Offset 25 remains
-live, so the contiguous canonical prefix remains 10--24.
-Best-N offsets 34 and 36 completed and are canonical. Their released slots were filled
-by offsets 38 and 39 at `20260712T001354`; aggregate configured concurrency remains 250.
-Best-N offset 25 failed after exhausting structured parsing repairs with
-`Model response did not contain a JSON object`; the whole shard is noncanonical. Exact
-unchanged recovery 1 launched at `20260712T001510` in the released slot. Aggregate
-configured concurrency remains 250; offset 40 remains queued until another slot clears.
-Best-N offset 29 completed and is canonical while offset-25 recovery 1 remains live.
-Its independent released slot was filled by offset 40 at `20260712T001627`; aggregate
-configured concurrency remains 250.
-Best-N offset 27 completed and is canonical while offset-25 recovery 1 remains live.
-Its independent released slot was filled by offset 41 at `20260712T001723`; aggregate
-configured concurrency remains 250.
-Best-N offset 33 completed and is canonical while offset-25 recovery 1 remains live.
-Its independent released slot was filled by offset 42 at `20260712T001947`; aggregate
-configured concurrency remains 250.
-Best-N offset 31 failed after transport retries on a transient DNS resolution error;
-the whole shard is noncanonical. Exact unchanged recovery 1 launched in its released
-slot at `20260712T022747`. Offset-25 recovery 1 remains live, and aggregate configured
-concurrency remains 250.
-Best-N offset 38 completed and is canonical while both recoveries remain live. Its
-independent released slot was filled by offset 43 at `20260712T030151`; aggregate
-configured concurrency remains 250.
-Local DNS resolution recovered and provider spend resumed. Best-N offset 32 completed
-and is canonical while both recoveries remain live. Its released slot was filled by
-offset 44 at `20260712T030346`; aggregate configured concurrency remains 250.
-Best-N offset 37 completed and is canonical while both recoveries remain live. Its
-released slot was filled by offset 45 at `20260712T030648`; aggregate configured
-concurrency remains 250.
-Best-N offset 39 completed and is canonical while both recoveries remain live. Its
-released slot was filled by offset 46 at `20260712T030923`; aggregate configured
-concurrency remains 250.
-Best-N offsets 35 and 41 completed and are canonical while both recoveries remain live.
-Their released slots were filled by offsets 47 and 48 at `20260712T031446`; aggregate
-configured concurrency remains 250.
-Best-N offset 44 completed and is canonical while both recoveries remain live. Its
-released slot was filled by offset 49 at `20260712T031549`; aggregate configured
-concurrency remains 250.
-Best-N offset 46 completed and is canonical while both recoveries remain live. Its
-released slot was filled by offset 50 at `20260712T031713`, beginning the final ten
-held-out offsets; aggregate configured concurrency remains 250.
-Best-N offset 49 completed and is canonical while both recoveries remain live. Its
-released slot was filled by offset 51 at `20260712T031915`; aggregate configured
-concurrency remains 250.
-Best-N offset 43 completed and is canonical while both recoveries remain live. Its
-released slot was filled by offset 52 at `20260712T032935`; aggregate configured
-concurrency remains 250.
-Best-N offset 40 completed and is canonical while both recoveries remain live. Its
-released slot was filled by offset 53 at `20260712T033111`; aggregate configured
-concurrency remains 250.
-Hanshal added another $10 of OpenRouter authorization during the held-out best-N run.
-The authorized total is now $40; at the amendment point tracked spend was $16.325627,
-leaving $23.674373. This changes only the administrative budget cap. Active shards keep
-their instantiated cap, while future launches use $40; no scientific or concurrency
-parameter changes.
-Best-N offset-31 recovery 1 and original offsets 47--48 completed and passed the sealed
-structural check (one metrics item each). They are canonical, bringing the held-out arm
-to 37/50 tasks. Their three slots were filled by offsets 54--56 at
-`20260712T034447`, `20260712T034449`, and `20260712T034451`. Ten one-task shards are
-again live at aggregate configured concurrency 250. The new shards use the $40 cap;
-the seven older live shards retain their instantiated $30 cap.
-Best-N offset 50 completed and passed the sealed one-item structural check, becoming
-canonical task 38/50. Its slot was filled by offset 57 at `20260712T034827`; ten shards
-remain live at aggregate configured concurrency 250.
-Best-N offset-25 recovery 1 completed and passed the sealed one-item structural check,
-becoming canonical task 39/50. Its slot was filled by offset 58 at
-`20260712T035044`; ten shards remain live at aggregate configured concurrency 250.
-Best-N offsets 42, 45, 51, and 58 completed and passed sealed one-item structural
-checks, bringing the held-out arm to 43/50 canonical tasks. Offset 59, the final
-regular shard, launched at `20260712T035514`. Seven shards remain live at aggregate
-configured concurrency 175; no additional tasks are queued.
-Best-N offset 59 completed and passed the sealed one-item structural check, becoming
-canonical task 44/50. Six shards remain live at aggregate configured concurrency 150;
-all intended task IDs have been launched and no additional work is queued.
-Best-N offset 55 completed and passed the sealed one-item structural check, becoming
-canonical task 45/50. Five shards remain live at aggregate configured concurrency 125.
-Best-N offsets 52, 53, and 57 completed and passed sealed one-item structural checks,
-bringing the arm to 48/50 canonical tasks. Only offsets 54 and 56 remain live, at
-aggregate configured concurrency 50.
-Best-N offset 56 completed and passed the sealed one-item structural check, bringing
-the arm to 49/50 canonical tasks. Offset 54 is the sole remaining live shard at
-configured concurrency 25.
-Best-N offset 54 completed and passed the sealed one-item structural check. The held-out
-best-N arm is now 50/50 canonical across exact offsets 10--59, with no live OpenRouter
-processes. Operational cumulative spend is $16.710100/$40. Next: combine the 50
-canonical shards and structurally validate the combined arm before running the frozen
-headline analyzer exactly once.
-The 50 canonical best-N shards are combined at
-`runs/paprika-headline-best-n-combined-seed1304`. Structural validation found one EIG
-item, 50 unique sources, exact task IDs 10--59, and 50 records. Canonical best-N usage
-is $2.672365, 23,570 requests, 3,488,175 reasoning tokens, and 55 forced exits. No
-endpoint outcome was inspected. All five arms are now fixed; next run the frozen joint
-headline analyzer exactly once, then perform the preregistered manual endpoint audit.
-The frozen analyzer then ran exactly once and returned
-`claim_b_not_confirmed_requires_manual_review`. Automated endpoint and candidate
-pairing checks passed, but both preregistered policy comparisons failed to favor
-arbitration. The manual audit found the fatal task-13 paper-roll false failure described
-in NEXT ACTIONS and marked the complete headline INVALID. Authoritative artifacts are
-`results/path_e/arbitration_headline/PAPRIKA_HEADLINE.{json,md}` and
-`results/path_e/arbitration_headline/MANUAL_REVIEW.md`. No MediQ run was launched.
-
-
-**AUTHORIZATION (2026-07-11, per Hanshal): Option 2 — the repaired-endpoint path is
-authorized.** Do NOT stop Path E on the invalid measurement. Conditions, all mandatory:
-
-1. **Quarantine first.** All prior Step 1 + rescue results (canonical run, rescue waves)
-   are endpoint-invalid: mark their artifacts INVALID-ENDPOINT, keep them as diagnostics
-   in `results/path_e/step1_invalid/`, and never cite them as policy evidence. The
-   PAPRIKA_ENDPOINT_AUDIT.md stays as the record of why.
-2. **Endpoint repair mirrors Paprika's native complete-conversation success protocol
-   exactly** — no house variant. Every discrepancy example in the audit (trailer
-   connector, kiosk cleaning inconsistency, kiosk remedy contradiction) becomes a
-   committed regression test that must pass.
-3. **Simulator-faithfulness gate (new, required).** The audit shows the simulator can
-   contradict the hidden ground truth — that corrupts the interaction itself, not just
-   scoring, and it biased AGAINST arms that proposed correct remedies. Add a
-   faithfulness check to the revalidation smoke: rate of simulator replies inconsistent
-   with the private solution must be ~0; contradictions are adapter/prompt bugs to fix,
-   not noise to average over.
-4. **Revalidate Step 0a from scratch**: fresh 5-task real-model smoke under the repaired
-   protocol — coverage >= 85%, zero terminal failures, faithfulness ~0, manual
-   transcript review, tracked report. Step 0a's previous pass is void until this runs.
-5. **Fresh paired Step 1** under the same frozen design (10 canonical tasks, 5 rounds,
-   seed 1304, frozen censoring/tie rules): arms = naive non-thinking, naive thinking,
-   EIG with thinking-generation (the authorized rescue config — candidate quality was
-   the diagnosed bottleneck, so it is the primary scaffold arm). NO full 2-step (stays
-   dropped). Projected cost <= ~$3; check against remaining budget before launch.
-6. **The decision-boundary addendum carries over unchanged** to the fresh Step 1:
-   claim-1 pass -> scale claim 1 (more tasks, then MediQ); claim-1 fail under VALID
-   endpoints -> the one pre-registered naive-primary arbitration variant -> then
-   stop-and-discuss regardless.
-7. No other scope changes; no new environments; no new method variants beyond the
-   above.
-
-Repaired-endpoint implementation status: prior Step 1 evidence is quarantined under
-`results/path_e/step1_invalid/` with explicit INVALID-ENDPOINT labels and a source-run
-manifest. The adapter now uses the released customer role instructions, checks every
-simulator reply against the private solution, regenerates contradictions within the
-bounded repair budget, fails closed if a contradiction survives, and applies the
-authorized complete-conversation success judge every turn with Paprika's
-`Goal reached OR judge` rule. It logs raw contradiction and final inconsistency rates.
-All audited trailer/kiosk discrepancies are committed regressions. Focused verification:
-117 tests pass; the project-wide suite is 536 passed / 1 skipped with four unrelated
-stale Path A validator assertions. Fresh Step 0a config is
-`configs/config_paprika_step0a_repaired_endpoint_openrouter.yaml` (eval tasks 5-9,
-including both audited task families). Do not launch until this implementation commit
-is pushed.
-Fresh repaired-endpoint Step 0a run `20260711T095626` initially passed on eval tasks
-5-9, but is now superseded by a terminal-faithfulness discrepancy found during the
-required Step 1 transcript review. The first fresh Step 1 attempt is INVALID-ENDPOINT
-and quarantined in `results/path_e/step1_invalid/PAPRIKA_STEP1_REPAIRED_ATTEMPT.md`;
-its automated policy comparison must not be cited. The exact dishwasher mismatch is a
-committed regression. Literal `Goal reached` replies now receive a second strict check
-that requires the latest action to directly match the private cause/remedy; merely
-plausible alternatives are rejected and regenerated. Fresh five-task real-model
-revalidation on tasks 0-4 is the active gate. No arbitration or policy scaling is
-allowed before that gate and a fully fresh Step 1 pass manual review.
-The terminal-gate smoke `20260711T130833` passed from implementation commit `a5da29a`
-with 100% coverage, zero failures/inconsistencies, terminal metrics present, and manual
-review passed. Fresh Step 1 is authorized again, but every arm must rerun from scratch
-under the terminal-repaired endpoint; no artifact from the invalid attempt can be reused.
-The fully fresh three-arm Step 1 launched as timestamp `20260711T133046` from commit
-`2c290dc`: one batched naive non-thinking process, ten isolated naive-thinking tasks,
-and ten isolated generation-thinking EIG tasks. Effective aggregate concurrency is near
-250. All 21 processes completed with zero failures, and manual review passed all 30
-transcripts. This is the first valid Step 1 result. Resolution@5 was 0.30 naive
-non-thinking, 0.40 naive thinking, and 0.30 generation-thinking EIG. EIG versus matched
-naive non-thinking was 2 wins / 3 losses / 5 ties with +0.5 mean censored-turn delta,
-so Claim 1 failed. Evidence is tracked under `results/path_e/step1_terminal/`.
-
-Per the unchanged pre-registration, exactly one final variant is now authorized:
-`NaivePrimaryArbitration`. One thinking-native prompt proposes exactly three ordered
-actions; candidate 0 is the native default. Beliefs score only those three with
-categorical one-step EIG, and an alternative overrides candidate 0 only when its score
-gap exceeds one combined standard error. The SE is deterministic from weighted
-per-hypothesis expected information contributions and adds no LLM calls. The frozen
-analyzer compares arbitration primarily against thinking naive and requires endpoint
-validity. After this run, stop-and-discuss regardless of outcome.
-The frozen arbitration run launched at `20260711T143605` from commit `542dfc3` as ten
-one-task shards (offsets 0--9), with aggregate configured OpenRouter concurrency 230.
-Do not change its settings in flight. The user permits concurrency up to 256 for future
-work when healthy and useful, but this run remains frozen for comparability.
-Nine original arbitration shards completed. Original offset 8 exhausted its bounded
-structured repairs during the round-4 analytical belief refresh and produced only an
-empty error-metrics artifact. The identical offset-8-only recovery `20260711T153606`
-completed and is the only accepted offset-8 artifact.
-
-**ARBITRATION RESULT: PASS, THEN STOP-AND-DISCUSS.** Manual endpoint review passed all
-10 transcripts. Resolution@5 was 0.60 arbitration versus 0.40 thinking naive and 0.30
-non-thinking naive. Against thinking naive, arbitration had 6 wins / 0 losses / 4 ties,
-mean censored-turn delta -1.2, bootstrap CI [-2.2, -0.4]. EIG overrode candidate 0 on
-12/33 turns; four overrides immediately selected the exact remedy, but several were
-unhelpful. This is a strong 10-task pilot signal, not a definitive effect estimate:
-candidate generation is stochastic and the accepted arm cost 2.52x thinking naive.
-Per the frozen rule, DO NOT launch scaling, MediQ, or another rescue automatically.
-Discuss the paper direction with Hanshal first. Evidence is under
-`results/path_e/arbitration_terminal/`.
-
-**STOP-AND-DISCUSS NEXT DECISION:** a costed decision memo is now tracked at
-`results/path_e/arbitration_terminal/DECISION_MEMO.md`. The recommended path is a
-pre-registered 50-task held-out Paprika headline on eval offsets 10--59. A
-prompt-matched candidate-0 arm is scientifically required at scale because the pilot's
-thinking-naive baseline used a different one-action prompt; without that control, the
-gain cannot be attributed specifically to EIG overrides rather than three-candidate
-generation. Proposed arms are arbitration, prompt-matched candidate 0, thinking naive,
-and non-thinking naive. Nominal OpenRouter projection is about $2.67, with a conservative
-2x envelope of $5.34; current cumulative spend is $10.38197/$20. This launch is NOT
-authorized yet. Await Hanshal's explicit choice; do not start scaling or MediQ.
-The initial batched thinking-naive process was terminated after 39 minutes because one
-provider response held the entire ten-task batch after nine first-round completions.
-It produced no artifact and is not used. The exact same arm is being recovered as ten
-one-task shards; model, thinking budget, prompts, seed, task set, rounds, and endpoint
-are unchanged. Recovery timestamp is `20260711T105624`, launched from commit `fbddab9`.
-Original EIG offset 5 also exhausted its bounded structured-repair budget on malformed
-hypothesis-refresh JSON and produced no artifact. The identical isolated offset-5 shard
-was relaunched as timestamp `20260711T110229` from commit `882c93f`; only the successful
-recovery artifact will enter the paired result.
-Original EIG offset 8 likewise exhausted the bounded structured-repair budget because
-refresh responses lacked six unique hypotheses. Both EIG recovery shards and all ten
-thinking-naive recovery shards completed, but the assembled result is quarantined due
-to the manual endpoint failure above.
-
-
-**DECISION BOUNDARY ADDENDUM (pre-registered 2026-07-11, BEFORE rescue results are
-combined — Hanshal-reviewed):**
-
-Context: canonical Step 1 failed both claims (naive 0.40 > EIG 0.30 > full2 0.20;
-full2 vs EIG 0/1/9). Diagnosis: scaffold-generated candidates/hypotheses are
-off-target; EIG selection and answer mapping are functioning. Third environment with
-the same scaffold<naive inversion. Consequences regardless of rescue outcome:
-- Full 2-step is DROPPED from all further Path E runs (failed its gate; $5.16/10 tasks
-  is unaffordable at $20 scale). The lookahead claim is closed for this cycle.
-- Reminder: all 10-task reads are +/-1 task from flipping; treat as directional.
-
-**If the combined rescue PASSES matched Claim 1** (thinking-generation EIG >= naive
-under the frozen rules): continue the plan with 1-step EIG as the method arm —
-Step 2 selective lookahead is NOT revived (claim 2 is closed); instead proceed to a
-larger Paprika task set to firm up claim 1, then MediQ transfer.
-
-**If the combined rescue FAILS or TIES**: exactly ONE further pre-authorized variant,
-then stop-and-discuss regardless of anything else:
-- **Naive-primary arbitration**: each round, the thinking-naive policy proposes k=3
-  candidate actions (its natural next action plus two alternatives, from one prompt);
-  the belief state scores ONLY these by categorical 1-step EIG; select naive's top
-  choice unless another proposal beats it by the margin rule (score gap > 1 SE).
-  Everything else (mapping, likelihoods, refresh) as in the canonical EIG arm.
-  Same 10 canonical tasks, same seed, frozen censoring/tie rules, projected <= $2.
-  Rationale (pre-registered): candidates from the 0.40-resolution native policy remove
-  the demonstrated candidate-quality bottleneck; beliefs do selection only; regret vs
-  naive bounded by the default rule.
-- READ: arbitration > naive on the frozen rules -> this becomes the Path E method claim
-  ("belief-guided selection over native LLM proposals") and the paper pivots
-  accordingly; scale it on more tasks before MediQ.
-- Arbitration ties/loses -> STOP. No further variants. Discussion covers the honest
-  remaining options (including the cross-environment characterization: scaffolding
-  helps only when the hypothesis space exceeds native reasoning capacity — 20Q yes,
-  Paprika no, location no).
-Budget note: ~$11 remains; reserve >= $6 for whichever endgame is chosen.
-
-
-**PRE-LAUNCH AMENDMENTS TO STEP 1 (Hanshal-reviewed, 2026-07-11 — apply BEFORE launching
-the Step 1 configs):**
-
-A. **Extend the horizon: >= 4 rounds (prefer 5), not 2.** With a 2-turn budget the
-   second action has no future, so 2-step lookahead can influence exactly one decision
-   per task, prerequisite chains cannot manifest, and most tasks will be censored —
-   claim 2 could read null purely from horizon truncation (false negative at the key
-   gate). Re-project cost from the micro-pilot (~$0.084/task/round for full2 =>
-   ~$8-10 scaffolded at 5 rounds); the full $20 is authorized and a correct Step 1
-   read outranks the savings. Update both YAML configs before committing them.
-
-B. **Add a non-thinking naive arm** (same tasks/seed; ~$0.50). The thinking-naive arm is
-   the adversarial headline comparator, but if the non-thinking scaffold loses to
-   thinking naive alone, "scaffolding fails" is confounded with "thinking wins".
-   Claim-1 then has two pre-registered readings: matched (EIG vs naive-nonthinking —
-   the clean comparison; this is the gate) and adversarial (EIG vs naive-thinking —
-   the headline if it holds; report honestly either way).
-
-C. **Pre-planned rescue variant (decided now, not post-hoc):** if the matched claim-1
-   read fails, ONE authorized variant may run before the STOP-and-discuss: enable
-   thinking on the scaffold's generation calls only (hypothesis generation + candidate
-   generation — a handful of calls per round), keeping likelihood/mapper/judge calls
-   non-thinking. Anything beyond that single variant is a stop-and-discuss.
-
-D. Analyzer must be finalized (censoring rule, tie handling in the 6/10 count — ties
-   count for neither side, and mostly-tie outcomes are 'insufficient signal' not
-   'fail') BEFORE any Step 1 results are viewed. Watch forced-exit rate on the
-   thinking-naive arm (8k budget).
-
-
-Path E reset (2026-07-10): external benchmarks with structural sequential gaps. See
-GOAL.md for the six environment requirements (R1-R6) and the full validation chain.
-
-1. **Step 1 gap pilot (active gate):** 10 paired customer-service tasks, five rounds,
-   with non-thinking naive, thinking naive, one-step EIG, and full two-step. Belief-
-   scaffolded EIG/full2 and matched naive run without reasoning; 8k-thinking naive is
-   the adversarial comparator. Use OpenRouter for the whole paired set, seed 1304, and
-   the same non-thinking answerer. EIG/full2 share root candidates and prompt cache;
-   provider seed 1304 is sent on every API request.
-   The one-task/one-round full2 cost micro-pilot completed with 1,235 requests, 419,382
-   tokens, $0.08430807, zero terminal failures, and 236.7 seconds at concurrency 24.
-   The two premature two-round launches were canceled with no metrics after spending
-   $0.02221529 total. The five-round scaffolded run reserves a conservative $12
-   projection to cover support/prompt growth; concurrency is 128.
-   Matched Claim-1 gate: EIG > naive non-thinking. Adversarial read: EIG vs naive
-   thinking, reported but not substituted for the matched gate. A majority-tie result
-   is insufficient signal, not failure. If the matched gate truly fails, the single
-   pre-planned rescue is thinking only for hypothesis/candidate generation; otherwise
-   stop and discuss.
-   The first concurrent five-round launch set exposed a spend-ledger interprocess race
-   and produced no metrics. All processes were stopped; provider usage was reconciled
-   exactly to $0.31118538. Relaunch only after the `flock`/atomic-write stress test and
-   focused suite pass.
-   The repaired scaffolded run was launched. Serial naive throughput was diagnosed before
-   evidence landed; both naive configs now use trial batch size 10 and Paprika batches
-   policy generation across public scenarios without exposing private solutions.
-   Matched non-thinking naive completed in 155 seconds for $0.00534679. The scaffolded
-   relaunch stopped with no metrics after a repaired likelihood response still omitted
-   one outcome key; omitted outcomes now receive zero mass (as explicit null already
-   did), while all-zero rows remain invalid. Relaunch scaffolded from the parser fix.
-   Manual review then rejected the first completed matched-naive artifact: coverage was
-   31/37 = 83.78%, and one failed connectivity attempt was falsely resolved. The whole
-   companion set was stopped. Final semantics now guarantee an uncertainty outcome,
-   treat prospective "I'll try/check" replies as uncertainty, reject failed corrective
-   attempts before success judging, recognize embedded "Goal reached", and require
-   atomic candidate actions. All arms must rerun from this shared behavior.
-   The next matched run reached 39/46 = 84.78% coverage. Audit showed five of seven
-   misses had a direct listed outcome, but a mapper `null` did not trigger the bounded
-   remap. Explicit non-uncertain replies now get the same non-forcing repair whether the
-   first mapper chose uncertainty or returned null. Relaunch all arms from that fix.
-   Final matched naive now passes coverage at 35/40 = 87.5%. The first final thinking
-   attempt lost its tenth long response to `http.client.IncompleteRead`; bounded
-   transport retries now include `HTTPException`/connection errors. Relaunch only the
-   thinking arm from that transport fix; scaffolded remains valid and active.
-   Audit of the retry revealed mapper/judge calls also inherited questioner thinking.
-   Thinking is now isolated to naive policy generation: likelihood, mapping, and success
-   evaluation route through the common non-thinking answerer adapter. The scaffolded
-   run is unaffected (both adapters are non-thinking); relaunch thinking naive only.
-   Both naive controls are now complete and pass coverage: matched 87.5% / 4 resolved;
-   policy-only thinking 85.0% / 4 resolved, with one forced exit. Scaffolded EIG later
-   hit one empty response after exhausting two repairs at request 2,602; Step 1 configs
-   now use five bounded structured repairs. The repair-five EIG arm completed with
-   42/45 = 93.3% answer coverage and 2/10 resolutions, but Full2 later exhausted all
-   five repairs on a likelihood response whose listed outcomes had zero total mass.
-   The failed invocation spent $1.59969375 over 22,333 requests; no paired gate result
-   is used. Because every Paprika candidate now has a guaranteed uncertainty outcome,
-   an all-zero row deterministically assigns its residual mass to that outcome (rows
-   without a guaranteed uncertainty outcome remain invalid). The canonical rerun is
-   isolated into ten one-task paired EIG+Full2 shards so each shard preserves exact
-   shared root candidates and any future terminal failure loses at most one task. Run
-   at most five shards concurrently with per-shard OpenRouter concurrency 24, then
-   combine only ten completed canonical task IDs with
-   `scripts/combine_paprika_step1_splits.py` before the frozen analyzer.
-   The first offsets-0-4 launch wave was canceled after 42 combined requests /
-   $0.00380851 because second-resolution run IDs collided in the spend ledger. No
-   result is used. Concurrent shard launches must now be staggered by at least two
-   seconds so every run retains independently auditable usage.
-   Split wave A completed for offsets 0-4 with distinct run IDs `20260711T033611`,
-   `20260711T033613`, `20260711T033615`, `20260711T033617`, and
-   `20260711T033619`. All five contain paired EIG+Full2 artifacts for canonical task
-   IDs 0000-0004 with zero terminal/parse failures. EIG coverage is 20/23 and Full2
-   coverage is 21/23; wave cost $2.49816920 over 33,641 requests. Launch offsets 5-9
-   under the same staggered protocol, then combine all ten completed shards.
-   Split wave B completed for offsets 5-9 with run IDs `20260711T042601`,
-   `20260711T042603`, `20260711T042605`, `20260711T042607`, and
-   `20260711T042609`. All five paired artifacts cover canonical tasks 0005-0009;
-   EIG coverage is 18/22 and Full2 coverage 23/25. There were zero terminal/parse
-   failures; two offset-6 non-thinking responses reached the output-length limit but
-   repaired successfully. Wave cost $2.91180721 over 39,728 requests.
-   The frozen analyzer has now run once on the deterministic ten-shard combination.
-   Matched Claim 1 FAILS: EIG resolved 3/10 versus non-thinking naive 4/10,
-   wins/losses/ties 3/3/4, mean censored-turn delta +0.6. Adversarial EIG versus
-   thinking naive is 1/4/5, also +0.6. Claim 2 also fails: Full2 resolved 2/10 versus
-   EIG 3/10, 0/1/9, delta +0.4. EIG coverage is 38/45 = 84.4% (just below the pilot
-   threshold); Full2 is 44/48 = 91.7%. Per the predeclared playbook, launch exactly
-   ONE rescue: EIG with thinking on hypothesis/refinement/candidate generation only;
-   likelihood/filter/mapper/judge/customer remain non-thinking. If that matched read
-   does not pass, STOP and discuss with Hanshal; do not implement Step 2 or pivot.
-   The first sole-rescue invocation `20260711T052319` failed without metrics when an
-   OpenRouter HTTP body was truncated inside JSON; it spent $0.16261849 over 1,298
-   requests, with 235,506 reasoning tokens and 6/41 generation forced exits. This is
-   an operational failure, not a second scientific read. JSON decode failures are now
-   included in bounded transport retries. Relaunch the exact same rescue policy as ten
-   isolated one-task shards (five at a time, concurrency 24 each, staggered run IDs)
-   using `config_paprika_step1_eig_generation_thinking_rescue_split_openrouter.yaml`.
-   Combine only ten completed EIG artifacts, then compare once against the canonical
-   matched naive. If that read does not pass, STOP and discuss with Hanshal.
-   Rescue split wave A completed for offsets 0-4 as run IDs `20260711T071533`,
-   `20260711T071535`, `20260711T071537`, `20260711T071539`, and
-   `20260711T071541`. All five canonical tasks completed with zero parse/terminal
-   failures, 19/20 clean turns, 2 resolutions, and 2/55 generation forced exits.
-   Wave cost $0.22756252 over 2,031 requests and 260,153 reasoning tokens. Launch
-   rescue offsets 5-9 under the identical protocol, then combine and analyze once.
-   Rescue split wave B completed as run IDs `20260711T075742`, `20260711T075744`,
-   `20260711T075746`, `20260711T075748`, and `20260711T075750`: zero terminal/parse
-   failures, 18/21 clean turns, 1 resolution, 11/67 generation forced exits,
-   2,190 requests, 367,005 reasoning tokens, and $0.27236181.
-   The frozen rescue analyzer has run once. Result: **INSUFFICIENT SIGNAL; STOP AND
-   DISCUSS**. Rescue EIG resolved 3/10 versus matched naive 4/10, but paired outcomes
-   are 1 win / 1 loss / 8 ties, so the majority-tie rule prevents calling this a
-   directional failure. Mean censored-turn delta is +0.2; coverage improved to 37/41
-   = 90.2%. Against thinking naive it is 2/2/6, also +0.2. Total rescue usage is
-   4,221 requests, 627,158 reasoning tokens, 13/122 generation forced exits (10.7%),
-   and $0.49992433. Authoritative artifacts are
-   `results/path_e/step1_invalid/PAPRIKA_STEP1_RESCUE.{json,md}` and is quarantined
-   as INVALID-ENDPOINT diagnostic evidence only.
-   A post-gate endpoint audit identified a deeper validity problem: the adapter
-   does not implement Paprika's released complete-conversation success protocol.
-   It can label a prospective `I'll try that` reply as solved, miss explicit
-   `that fixed it` replies, and accept simulator replies that contradict the
-   released private remedy. See
-   `results/path_e/step1_invalid/PAPRIKA_ENDPOINT_AUDIT.md`.
-   Therefore these Step 1 numbers are endpoint-integration diagnostics plus an
-   insufficient policy comparison, not valid evidence that EIG loses on Paprika.
-   **NEXT ACTION REQUIRES HANSHAL:** choose whether to (a) stop Path E and write the
-   honest negative/insufficient external-benchmark result, or (b) explicitly authorize
-   a new pre-registered path. Do not implement selective Step 2, scale Paprika, add
-   another rescue, or pivot to MediQ autonomously.
-   Claim-2 check: 2-step > 1-step (>=6/10 or clear edge). Claim-2 fail -> descope to the
-   claim-1 transfer study and continue. Claim-1 fail -> STOP and discuss with Hanshal.
-2. **Step 2:** implement selective lookahead (tie test epsilon = scoring-noise SE +
-   availability-gating trigger; CRN across tied set; depth cap 2; trigger/token
-   logging); 10-task four-arm pilot; calibrate then FREEZE epsilon; check selective
-   lookahead tokens <= ~40% of full 2-step.
-3. **Step 3:** pre-register endpoints/analysis/epsilon/canonical-run rule in the runbook,
-   then 50-100 paired customer-service tasks (powered from Step 2), four arms; then
-   AgentClinic 50+ cases if on schedule. `--partition=msc,llm --exclude=oat12`.
-4. **Step 4:** paper per GOAL.md playbook; location-finding saga = one honest paragraph.
-
-## OPERATIONAL KNOWLEDGE
-
-- **OpenRouter (while cluster is down)**: base_url https://openrouter.ai/api/v1,
-  key in `OPENROUTER_API_KEY` (never commit). $40 total budget, FULLY authorized;
-  refuse runs projected past remaining budget; flag Hanshal before the remaining
-  authorization becomes tight; track
-  spend per run in `EXPERIMENTS.md`. Cost-project every run from
-  smoke tokens first (Path A reference: a 30-trial 3-arm location sweep used ~3.9M
-  tokens; Paprika turns are longer — measure, don't assume). Cluster ops notes below
-  still apply once `ssh oat0` recovers.
-
-- Remote checkout: `/users/hanyal/BED-LLM-Mod-qwen-strategy-b500-noeager-20260601T210610Z`.
-- Use `ssh oat0` for cluster access. Use `PYTHONNOUSERSITE=1` for remote login-node Python
-  when importing scientific packages; add `PYTHONPATH=.` for repo imports.
-- `runs/` is gitignored. Copy paper-facing summaries into `results/` or `plots/` if they
-  must be tracked.
-- For `msc`/`llm` launches of the fixed-root sweep, use
-  `BED_LLM_SKIP_ENV_SETUP=1 sbatch --partition=msc,llm --exclude=oat12 ...`.
-- Keep at most 8 active jobs. Count running and pending jobs before new submissions.
-- `location_candidate_generation_mode: support_grid` removes LLM candidate generation for
-  EIG/root candidate sets. It does not remove strategy generation calls.
-- Total EIG bounds for LLM policies must compute from primary histories unless the user
-  explicitly requests held-out rollouts; bounds evaluation should not trigger extra LLM
-  calls.
+A few lines per session: what you did, found, doing next. Ledger spends in
+`EXPERIMENTS.md`. This file is NOW; history is in git. Full autonomy — see GOAL.md.
+The result is positive and open-ended now: keep strengthening it, don't stop.
+
+2026-07-21: Next loop frozen before outcomes: independent GPT-5.4 Mini non-thinking
+replication on RockSample 7-8, fresh seed 24073, 30 paired ten-round trials and the
+same shared-d1/width/random controls. A ten-cell actual-prompt gate must pass first;
+projected full cost $3 with a $4 hard cap.
+
+2026-07-21: GPT-5.4 Mini passed the first 10/10 smoke, but the seed-24073 formal run
+failed closed before metrics after 741 accepted cells: different target plans again
+collapsed to duplicate physical move roots. Registered a root-slot interface repair,
+new ten-cell gate, and fresh seed 24074; the failed run remains diagnostic only.
+
+2026-07-21: The preregistered canonical RockSample 7-8 scale extension passed both
+stages. Exact d2 beat exhaustive d1 by +1.6775 final-entropy nats over 1,000 pairs.
+Over 30 paid paired trials, StrategyEIG entropy-AUC gains were +.7502 vs shared d1,
++.7297 vs exhaustive d1 width, and +.6735 vs random; all three entropy and truth-log
+CIs are positive, 30/0/0 each. StrategyEIG moved 193/300 times vs 0/300 for both d1
+controls and captured 85.8% of exhaustive d2 value. The fail-closed run resumed from
+validated accepted-cell caches; 904 cumulative requests cost $0.21575537. Audit,
+summary, plot, ledger, and paper update are in progress.
+
+## Where things stand (2026-07-20)
+
+**Positive result banked.** StrategyEIG (LLM proposes branch-policy strategies via the
+`branch_policy_v2` schema — explicit root action + per-outcome legal followups; exact
+Rock enumeration scores them; only the selected root executes) beats every
+preregistered control on both Rock maps:
+
+| Map | vs shared d1 | vs d1 width | vs random |
+|---|---:|---:|---:|
+| 3–6 | +0.5205 | +0.5205 | +0.3748 |
+| 5–7 | +0.4751 | +0.4517 | +0.3622 |
+
+Paired entropy-AUC nats; all six 95% CIs exclude zero; all six truth-log-posterior CIs
+also positive. Mechanism visible: StrategyEIG takes zero-immediate-EIG enabling moves
+140/240 and 128/240 decisions vs 0/240 for both myopic controls. Gemma-4-26B
+non-thinking. Cost $0.329; cumulative $20.40 of $40 (~$19.6 left). Package:
+`results/nonmyopic/rock_branch_strategy_v2_confirmation_20260720/`; summary
+`ROCK_BRANCH_STRATEGY_V2_CONFIRMATION_RESULT.md`; plot under `plots/nonmyopic/`. Paper
+draft at `output/pdf/nonmyopic_bed_strategy_eig_workshop_draft.pdf` (7pp, LLM-Modulo
+framing). `692 passed, 1 skipped`; validators pass. Committed at `306a1d6`.
+
+## PRIMARY OBJECTIVE (2026-07-21, per Hanshal): the LLM must do the irreducible work
+
+RockSample is demoted to a supporting result — there the LLM only approximates a
+runnable exhaustive search, so it's ornamental. The headline must be a task where the
+LLM owns what classical BED cannot (hypothesis generation and/or likelihoods in a
+semantic, non-enumerable space) and non-myopia still wins. See GOAL.md.
+
+**Lead experiment — model-aware lookahead on real BED-LLM 20Q machinery** (unrun, the
+whole point): the belief state is the LLM regenerating+filtering hypotheses each turn.
+- First look (~$0.5): across ~10–20 20Q states, per candidate question, simulate the
+  answer, run the REAL regenerate+filter pipeline, measure truth-coverage of the induced
+  next-turn hypothesis set. Read: is there spread across questions, and does 1-step EIG
+  fail to track it? Spread + low correlation = the invisible non-myopic signal exists.
+- If it exists, build the policy: depth-2 over the LLM's epistemic dynamics vs 1-step
+  EIG at matched compute, paired, exact guess-accuracy endpoint, induced-coverage as
+  the pre-registered mediator. LLM does everything; non-myopia is irreducibly about it.
+- Vanilla 20Q is myopic-optimal on the FLAT axis — the non-myopia here is over belief-
+  regeneration quality, not question-splitting, so it is not blocked by that. But if
+  needed, add semantic structure (cost/prerequisite questions, richer answer spaces).
+- Keep scoring as clean as possible (categorical, small answer space) so the noise
+  headwind isn't fatal; controls as always (paired, matched-compute myopic, honest
+  endpoints, criteria before looking).
+
+## Supporting / opportunistic (not the headline)
+
+Good candidates — choose by what most strengthens the paper:
+- **Scale within Rock-class**: bigger maps, longer horizons, more rocks/targets — does
+  the gap grow with horizon (the headline non-myopia curve)?
+- **Second environment** with enabling structure (ρ-POMDP-family, gated-sensor, dynamic
+  source) — generality beyond one task family.
+- **Robustness**: multiple seeds and a second questioner model (incl. thinking/frontier)
+  — does the effect hold across models?
+- **Deeper mechanism / qualitative**: verbatim winning strategies vs myopic traces; how
+  much exhaustive-d2 value the LLM prior captures per horizon.
+- **Model-aware lookahead** on 20Q machinery (~$0.5 coverage-spread look): a second,
+  LLM-native source of non-myopia untouched by prior negatives.
+
+Keep the standard controls on every measured claim (paired CRN, compute-matched width,
+random-strategy, AUC + truth-log-posterior, criteria before looking). Machinery ready:
+Rock exact enumeration + `branch_policy_v2`; animals/20Q BED-LLM machinery; paired
+runners; spend ledger.
+
+## Operational
+
+OpenRouter base_url https://openrouter.ai/api/v1, key from `OPENROUTER_API_KEY`
+(never commit/log); backoff 429/5xx; fail closed; serving-smoke before paid runs; swap
+models freely (`deepseek/deepseek-v4-flash` cheap+verified, `google/gemma-4-26b-a4b-it`
+non-thinking works, thinking models need generous max_tokens). Project cost from smokes;
+don't launch what you can't finish; note thin budget. Cluster if `ssh oat0` returns:
+`--partition=msc,llm --exclude=oat12`, ≤8 jobs, `BED_LLM_SKIP_ENV_SETUP=1`, GH200 needs
+Singularity launchers, `runs/` gitignored (tracked summaries → `results/`). Commit/push
+code + results; keep tests green.
+
+2026-07-21: cross-model RockSample[7,8] replication passed with GPT-5.4 Mini; next
+registered gate is a zero-LLM 500-pair exact d3-vs-d2 entropy-AUC qualification
+(seed 24075) before any paid depth-three grammar work.
+
+2026-07-21: terminal-EIG exact d3 gate failed deterministically through rolling
+horizon procrastination. Next registered repair aligns Bellman weights to entropy AUC
+and tests exact d3 vs same-utility d2 on fresh seed 24076 before any paid LLM work.
+
+2026-07-21: AUC-aligned exact d3 restored same-utility monotonicity but only matched
+the prior best d2 curve. Next zero-call gate tests whether exact second-action closure
+on banked Gemma K6 roots recovers enough proposal headroom to justify a paid run.
+
+2026-07-21: follow-up closure reached .9963 exhaustive fraction but missed the frozen
+90% optimal-root gate by one of 270 states, so no paid closure run. Next is a fresh
+seed-24077 Gemma slot-interface replication to remove the GPT/Gemma interface confound.
+
+2026-07-21: Gemma root-slot replication passed all paired gates with zero rejects and
+narrowed the exact-d2 AUC gap to .0814; same-interface Gemma/GPT evidence is now clean.
+Next screen is a zero-LLM structural qualification on canonical RockSample[11,11]
+before any larger-map serving spend.
+
+2026-07-21: exact RockSample[11,11] d2 beats d1 by +1.1042 entropy-AUC nats
+([1.1015,1.1068], 500/0/0) and +1.1129 truth-log AUC; all mechanics pass with zero
+LLM calls. The structural gate authorizes a fresh root-slot serving smoke before a
+paid eleven-rock confirmation.
+
+2026-07-21: the preregistered Gemma RockSample[11,11] confirmation passed all
+primary and truth-log gates (+.9412 vs shared d1, +.9387 vs width, +.8867 vs
+random; 30/0/0 each), with zero terminal or rollout-LLM failures. The independently
+audited four-map scale result is now in the seven-page paper draft.
+
+2026-07-21: the zero-call 11-rock follow-up closure gate failed as frozen: Gemma
+rose .7390->.9686 with .9606 optimal-root coverage, but closed random roots reached
+.9669, leaving only +.0017 separation. Scale headroom is continuation quality, not
+exclusive root coverage; no paid closure run follows.
+
+2026-07-21: all-map scorer accounting shows K6 StrategyEIG at 13.7--14.2 exact
+action nodes/decision versus exhaustive d2 at 64.3--354.2, a monotonic relative
+reduction from 4.7x to 24.9x. This is tree-width, not wall-clock, evidence.
+
+2026-07-21: next paid gate is a fresh seed-24080 GPT-5.4 Mini replication on
+RockSample[11,11] under the identical root-slot interface. Smoke must pass 10/10;
+all entropy-AUC and truth-log paired lower bounds must be positive before the
+hardest-map cross-family claim is promoted.
+2026-07-21: Fresh GPT-5.4 Mini RockSample[11,11] root-slot replication (seed 24080, n=30) passed all three entropy-AUC and all three truth-log-AUC gates. Entropy gains were +.5811 shared, +.5528 width, +.4688 random; h2 exhaustive fraction .626 and exact-d2 gap -.5459. The fail-closed resume reused 1,038 accepted cells, retained 20 rejects, and completed at 1,069 cumulative requests / $2.54133255 with zero reasoning, forced exits, or rollout LLM calls. Independent cross-model audit passes.
+2026-07-21: Next gate frozen before responses: Gemma RockSample[11,11] seeds 24081--24083, 30 paired trials each under the identical K6/h2 root-slot policy. Every seed must independently clear all three entropy-AUC and all three truth-log-AUC lower bounds (18 intervals total); no seed replacement. Fresh smoke first, projected formal cost $0.95.
+2026-07-21: Gemma RockSample[11,11] seeds 24081--24083 passed all 18 preregistered per-seed entropy/truth gates. Pooled fresh-seed entropy gains were +.9470 shared, +.9440 width, +.8727 random with 90/0/0 each; exact-d2 gaps stayed -.186 to -.146. The three runs cost $0.92354428 with zero reasoning or rollout LLM calls. Four independent Gemma seeds now support the hardest-map result.
+2026-07-22: Next gate frozen before seed-24085 responses: RockSample[11,11] proposal-width robustness at K2/K4/K6, 30 paired trials each. Every K must independently clear shared-d1, matched-width, and random on entropy AUC and truth-log AUC (18 intervals). Cross-K monotonicity is secondary because K2 already contains the oracle-preferred NORTH root; projected formal cost $0.75.
+2026-07-22: RockSample[11,11] K2/K4/K6 passed all 18 width-robustness gates. K4 beat K2 by +.5655 entropy AUC [.4974,.6418], while K6-K4 was +.0102 [-.0156,.0337]: quality saturates at K4. Verifier nodes/decision were 4.75/9.49/14.24 versus exact d2 354.17. Formal cost $0.79891053, zero rollout LLM calls.
+2026-07-22: Frozen POBAX RockSample[15,15] exact qualification passed: d2-d1
+entropy-AUC +.58884 [.58006,.59706] and truth-log AUC +.59301
+[.54702,.63960], 100/0/0, on 32,768 states with zero LLM calls. The K4 Gemma
+serving smoke passed 10/10, but the formal attempt produced no endpoint after a
+rare-positive posterior guard failure; the guard and all-exception resumable
+checkpointing are now tested. The unchanged replay is pending because the active
+OpenRouter account reports $40.00 credits against $40.20881 usage (HTTP 402).
+2026-07-22: Fresh backend-robustness gate preregistered for RockSample[15,15]:
+Gemma 4 26B A4B direct vLLM on one A100, non-thinking, seed 24101, K4/h2,
+30 paired 15-round trials, with the same entropy/truth and compute-matched controls.
+The first 10-cell smoke allocation (106098) failed before model load because its
+secret symlink target was stale; the corrected identical smoke is job 106101 on
+`msc,llm` excluding oat12 and is pending for an A100. Explicit 2,048-token
+generation budgets are now honored by config.
+2026-07-22: Direct-vLLM RockSample[15,15] smoke job 106109 passed 10/10 on
+oat10 with zero rejects, reasoning, or forced exits (41,976 prompt / 2,900
+completion tokens). The frozen 30-pair seed-24101 formal replication is job
+106113 on `msc,llm`, excluding oat12; submit only this one formal stream.
+2026-07-22: Direct-vLLM RockSample[15,15] formal job 106113 passed all six
+registered entropy/truth gates: +.6723 shared d1, +.6700 width, +.6345 random,
+30/0/0 each. StrategyEIG moved 150/450 versus zero for both myopic controls;
+rollout scoring made zero LLM calls. The independently reconstructed 32,768-state
+endpoint, five-map figure, result report, and six-page paper are complete.
+2026-07-22: Next gate frozen before any fresh response: two direct-vLLM
+RockSample[15,15] replications at seeds 24102 and 24103, 30 paired trials each,
+identical K4/h2 root-slot settings. Both seeds must independently pass all six
+entropy/truth gates; pooled 90-trial estimates are secondary and cannot rescue a
+failed seed. The established serving gate applies unchanged.
+2026-07-22: Frozen 15-rock direct-vLLM robustness jobs 106122 (seed 24102) and
+106123 (seed 24103) launched from commit 6fc23ee on separate A100s of oat14 via
+`msc,llm`, with oat12 excluded. Both Gemma engines loaded and warmed successfully;
+no endpoint has been read yet.
+2026-07-22: RockSample[15,15] direct-vLLM seeds 24102 and 24103 passed all 12
+fresh-seed entropy/truth gates. Across all three direct-vLLM seeds, pooled gains
+are +.6839 shared d1, +.6815 width, +.6760 random with 90/0/0 each; zero rollout
+LLM calls and $0 API cost. The independent per-seed and stratified pooled audits
+pass.
+2026-07-22: Zero-call exact-scorer scaling audit extended through the confirmed
+15-rock run. Registered StrategyEIG uses 9.60 action nodes/decision versus
+exhaustive d2's 616.94, a 64.26x tree-width reduction at 32,768 states. The audit
+exposes the preregistered K4 versus earlier K6 and makes no fixed-K or wall-clock
+claim.
+2026-07-22: Next model-breadth gate frozen before any response: a ten-cell
+RockSample[15,15] actual-prompt smoke with Gemma 4 E4B direct vLLM, non-thinking,
+K4/h2, and the exact verifier unchanged. The registered decision is mechanics only;
+exact-score quality is descriptive, and no formal paired run is authorized until a
+fresh statistical protocol is committed after a pass.
+2026-07-22: Gemma 4 E4B 15-rock mechanics smoke job 106127 passed 10/10 with two
+bounded repairs, zero terminal failures/reasoning/forced exits, and complete branch
+coverage. Its descriptive h2 best/exhaustive fraction was only .0962 versus ~1.0 for
+26B. A fresh seed-24105 30-pair transfer test is now frozen with the same six
+entropy/truth gates; one run, no seed replacement or cross-model pooling rescue.
+2026-07-22: Gemma 4 E4B 15-rock transfer job 106129 completed cleanly but failed
+the frozen gate: entropy gains +.0687 shared, +.0408 width (CI crosses zero), +.0518
+random; truth-log also failed shared and width. E4B K4 covered only 6.8% of exact d2
+versus 41.1--47.6% for 26B, localizing the boundary to missing proposals rather than
+verifier noise. No seed replacement or cross-model pooling was used.
+2026-07-22: Next gate frozen before any 12B response: ten-cell Gemma 4 12B dense,
+non-thinking, direct-vLLM 15-rock smoke. Beyond the established mechanics, formal
+authorization now requires mean h2 best/exact coverage >=.40 and at least 6/8 cells
+>=.20; successful 26B was 1.00/8-of-8 and failed E4B .096/0-of-8.
+2026-07-22: 12B smoke job 106170 failed before model initialization or any response:
+node-local vLLM lacks the new Gemma4 Unified architecture. Frozen serving-only repair
+uses the official Gemma4 Singularity image on A100 with isolated dependencies; no
+prompt, model, K, probe, or quality threshold changes.
+2026-07-22: 12B serving repair job 106187 also failed before any response because
+the cached mutable Gemma4 image was vLLM .19. Official Unified support begins in
+vLLM .23; launcher now pins v0.23.0 and isolates only three no-deps repo packages,
+leaving its Transformers/numpy/pydantic stack intact. Scientific gate unchanged.
+2026-07-22: Pinned-vLLM-.23 job 106206 built/cached the correct image, then stopped
+in preflight before model creation/response because pomdp-py imports SciPy. Add only
+no-deps scipy==1.17.1 to the isolated layer; scientific gate remains unchanged.
+2026-07-22: Job 106215 resolved Unified under vLLM .23 but CUDA13 could not initialize
+against oat14's 12.5 driver, still before weights/responses. Switch to official pinned
+v0.23.0-cu129 with CUDA compatibility and a fresh pydeps path; gate unchanged.
+2026-07-22: Gemma 4 12B non-thinking 15-rock proposal-quality smoke job 106220 passed the frozen gate on msc/oat14: 10/10 mechanics, mean best/exhaustive d2 0.4217, 7/8 h2 probes >=0.20, zero reasoning/forced exits. Fresh formal seed 24106 preregistered before formal responses.
+2026-07-22: 12B formal job 106227 failed closed before endpoint after 373 requests: exact Rock verifier saw complementary scalar probability >0 but joint likelihood 0. Froze joint-normalizer repair plus regression test; same seed 24106 will resume from 372 accepted cells, with no endpoint/config change.
+2026-07-22: Frozen cumulative resume accounting for 12B verifier repair: prior crash request remains in usage even though it has no replayable cell, so final usage must equal physical cell log +1. Added generic disjoint-process merge and cumulative-snapshot guard.
+2026-07-22: Gemma 4 12B non-thinking formal seed24106 passed all six 15-rock gates after transparent same-seed verifier resume. Entropy gains: shared +.6186 [.5843,.6565], width +.5792 [.5411,.6202], random +.5946 [.5628,.6276], all 30/0/0; all truth-log lower bounds >0. K4 coverage 49.5%, 173/450 moves, zero rollout LLM. This brackets E4B failure and 26B success.
+2026-07-22: Frozen 12B 15-rock robustness gate before seeds24107/24108 responses: two independent 30-pair non-thinking K4/h2 runs, each must pass all six entropy/truth intervals; no seed replacement. Equal-seed 90-pair bootstrap seed24109 is secondary and cannot rescue a seed.
+2026-07-22: Gemma 4 12B seeds24107/24108 independently passed all 12 fresh-seed
+entropy/truth intervals, with 30/0/0 entropy wins for every control on both seeds.
+Across all three seeds, pooled entropy-AUC gains are +.6417 shared d1, +.6075
+width, and +.6194 random, all 90/0/0; K4 captures 49.5--53.3% of exhaustive d2.
+All runs used non-thinking proposals and exact rollout scoring with zero rollout LLM
+calls. The three-seed 12B robustness claim passes without pooled rescue.
+2026-07-22: Next positive-environment loop targets the existing Gated Sensor exact
+gap. Exploratory direct-vLLM jobs 106324/106325 compare non-thinking 12B/26B on the
+unchanged indexed-v2 prompt at the same four-trial seed; no formal endpoint is
+authorized. Add exact same-root continuation-closure diagnostics before deciding
+whether a fresh paired gate is scientifically justified.
+2026-07-22: Gated Sensor continuation audit localizes the prior GPT-5.4 Mini miss:
+root coverage 1.000 for both arms, but LLM continuation efficiency .759 versus
+random .818. Commit fe05655 freezes indexed-v3 branch-conditioned predicate
+marginals and a >=.90 / >=+.05 smoke gate before responses. Direct-vLLM v2/v3
+12B/26B matrix jobs 106332--106335 are queued on msc,llm excluding oat12.
+2026-07-22: Tightened the pre-response Gated Sensor fidelity audit to compare
+matched-random continuations on the exact LLM-reached beliefs. The banked GPT-5.4
+Mini deficit is -.0429 (.7591 vs .8020); the earlier -.0591 used separately reached
+random states. Local marginal-only ceiling reaches 1.000 and +.203, so v3 contains
+enough information to pass without exposing EIG or truth.
+2026-07-22: A one-minute 1-CPU/1-GB A100 scheduler probe also remained pending,
+confirming the Gated v2/v3 matrix is externally queue-blocked rather than oversized.
+Around twenty equal-priority GPU jobs precede it; Gemma 4 cannot use idle Turing GPUs
+because its attention shared-memory requirement exceeds that hardware. Packaged the
+shared-state .7591-vs-.8020 continuation audit and added it to the six-page paper.
+2026-07-22: User added OpenRouter credit; authenticated balance is $80.00 credits
+versus $40.208810965 lifetime usage. Before any GPT-5.4 Mini v3 response, froze a
+non-thinking ten-cell S0 serving smoke (seed24111) and conditional four-trial S1
+proposal gate (seed24112). Existing >=.90 and >=+.05 same-state continuation
+thresholds remain fixed; neither smoke can enter a later policy endpoint.
+2026-07-22: GPT-5.4 Mini Gated v3 S0 passed exactly: 10/10 accepted cells, zero
+invalid/reasoning/forced/rollout-LLM, all mechanics true, $0.02478720. Did not run or
+inspect S0 continuation fidelity. Frozen fresh-seed S1 is authorized unchanged.
+2026-07-22: Frozen Gated v3 GPT-5.4 Mini S1 failed both proposal gates despite
+52/52 valid non-thinking cells: continuation efficiency .6938 versus .7834
+same-state random (gap -.0896), with root coverage 1.0. Secondary StrategyEIG-minus-
+random entropy AUC was -.1219 [-.2683,-.0078]. No formal/model swap is authorized.
+2026-07-22: Zero-call indexed-choice audit localizes v3 failure to measurement-root
+continuations: only .0784 exact immediate-EIG efficiency and 1/104 optimal; 70/104
+selected terminal zero-EIG panel activations. Activation-root followups remained
+strong (.8628). Richer branch marginals did not fix the indexed proposal bottleneck.
+2026-07-22: User added another $40 OpenRouter credit. Conservatively raised the
+project ledger ceiling $40->$70 (registered headroom $39.2677). Rejected Mastermind
+as the next positive task after a zero-call exact screen found receding h2 worse
+than greedy on every tested size via the already-known postponement reversal.
+2026-07-22: Froze a fresh-seed GPT-5.4 Mini RockSample[15,15] cross-family
+replication before responses: non-thinking, K4 h2, 30x15 paired, seed24114, exact
+verifier, same six gates, $0.10 smoke then $6 hard formal cap. This is the missing
+hardest-scale model-family test; prior 12B/26B/GPT results are not pooled.
+2026-07-22: Fresh GPT-5.4 Mini 15-rock serving smoke passed exactly at $0.03948225:
+10/10 accepted, zero rejects/reasoning/forced/terminal, all move/check and
+move-then-check mechanics true. No proposal-quality score inspected for the gate;
+the unchanged fresh-seed 30-pair formal is authorized.
+2026-07-22: GPT-5.4 Mini RockSample[15,15] formal passed all six frozen gates at
+fresh seed24114. Entropy AUC +.4716 [.3762,.5601] shared, +.4562 [.3653,.5482]
+width, +.4410 [.3245,.5483] random; truth-log lower bounds all >.396. It moved
+233/450, captured 45.7% of exact d2, zero rollout/reasoning/forced/terminal calls,
+1372 requests/60 bounded rejects, $3.68507010. Hardest-scale cross-family pass.
+2026-07-22: Direct-vLLM Gated 26B smokes localized and repaired the terminal-action
+pathology. V2/v3 lost to matched random by -.4313/-.1579 entropy AUC while choosing
+49%/24% zero-EIG terminal activations. Preregistered v4 removed those actions and job
+106342 used exactly 2 activations + 6 precise tests, beat d1 by +1.1945, and matched
+exact d2 (+.0039 [0,.0117]); however it was -.0352 [-.1173,.0167] versus matched
+random. Frozen gate failed, so the Gated interface line stops with no formal run.
+2026-07-23: Zero-call screens selected UCI Mushroom semantic feature acquisition as
+the next non-spatial candidate. A one-time zero-EIG specimen collection unlocks 17
+features after five field features. Endpoint-aligned exact d2 gained +.1138 entropy
+AUC [.0992,.1283] over d1; an odor-aware fixed-root K4 proxy gained +.0626
+[.0534,.0724] over matched random. Fresh 1000-row seed24123 qualification is frozen
+and committed before execution; no Mushroom LLM response has been requested.
+2026-07-23: Fresh seed24123 Mushroom exact qualification passed both gates over
+1000 paired rows: entropy-AUC +.115348 [.105676,.125362], truth-log AUC +.117191
+[.102234,.132444]. D2 always collects then queries odor; d1 always starts with
+population. All mechanics and independent catalog-posterior replay pass; zero LLM
+calls. A separately preregistered 10-cell non-thinking 26B serving smoke is authorized.
+2026-07-23: User added $40 OpenRouter credit. Raised the conservative project ledger
+ceiling $70->$110; recorded spend remains $34.45685431, leaving $75.54314569 in
+project headroom. The immediate Mushroom 26B S0 remains direct-vLLM and zero-cost.
+2026-07-23: Mushroom 26B S0 v1 job 106344 failed closed before one accepted cell.
+Both first-cell attempts repeated nested zero rows to the exact 2,048-token cap and
+left incomplete JSON fences: 2 requests, 7,979 prompt, 4,096 completion, zero
+reasoning/forced, $0. No proposal endpoint was inspected. Registered a format-only
+v2 at fresh seed24128: one fixed-length base-32 code string and 128-token cap.
+2026-07-23: Mushroom S0 v2 job 106348 accepted all six uncollected cells first
+attempt, then twice returned 62 codes for the first collected cell's required 35.
+No score inspected; 8 requests, 41,867 prompt, 218 completion, zero reasoning/forced,
+$0. Registered v3 seed24129: factor each root's identical menu once and use four
+separately length-checked root strings; semantics and 128-token cap unchanged.
+2026-07-23: Mushroom S0 v3 job 106351 accepted seven cells, including the hardest
+collected cell after one corrected length retry, then cell7 returned correctly shaped
+strings with 11--12 lowercase and 6--7 still-out-of-range codes on both attempts.
+Case normalization is ambiguous, so v3 failed closed: 10 requests, 20,988 prompt,
+401 completion, zero reasoning/forced, $0. Registered v4 seed24130 using root-keyed
+integer arrays over the same factored menus; all semantics/gates unchanged.
+2026-07-23: Mushroom S0 v4 job 106352 passed every frozen serving/mechanics gate:
+10/10 accepted after two bounded corrected retries, all policies complete/legal,
+collection root covered, zero reasoning/forced/rollout calls. 12 requests, 24,423
+prompt, 740 completion, $0. Proposal quality remained quarantined; a separately
+preregistered fresh-seed quality gate is now authorized.
+2026-07-23: Froze Mushroom 26B S1 before proposal scores: seed24131, 32 balanced
+distinct posterior cells, v4 K4 integer policies, exact h2 verifier, matched random on
+identical roots, strong d1-root/exact-continuation and exhaustive-d2 controls, 5k
+bootstrap. Gates: random/shared lower CIs >0, collection >=75%, recovery >=.60, all
+mechanics. Deterministic 32-cell dry run resolves fully and correctly fails quality.
+2026-07-23: Mushroom S1 job106367 failed import before model init; unchanged recovery
+106368 completed and failed 3/4 frozen proposal gates. LLM beat matched random +.03998
+[.00897,.07715], but shared-d1 lower CI was -.00267, collection 10/16=62.5%, recovery
+.327<.60. All mechanics passed; 37 requests, zero reasoning/forced/rollout, $0.
+Mechanism: collect followup bruises 9, odor 6, spore 1; uncollected index0 63.1%,
+collected spore 70.6%. Stop Mushroom LLM policy line; no 30-trial formal.
+2026-07-23: Zero-call UCI Statlog Heart screen selected a compact semantic workup
+task: initial age/sex/chest-pain/resting-BP/fasting-sugar, zero-info workup unlocks 8
+tests, Statlog q3 thresholds, 8 rounds. Exploratory d2-d1 entropy AUC +.06754
+[.05504,.07942], d2 orders workup after chest pain while d1 delays to round6. Froze
+independent processed-Cleveland 297-row qualification seed24133 before endpoints.
+2026-07-23 Heart workup continuation: the preregistered independent Cleveland exact qualification passed. D2-minus-d1 entropy AUC +0.068747 CI [+0.057311,+0.080303], truth-log AUC +0.068747 CI [+0.047312,+0.090220], and workup 2.222 rounds earlier with 210/87/0 paired wins/ties/losses. Independent raw-cohort posterior replay and separate planner recursion passed every check. This authorizes only a separately preregistered compact non-thinking Gemma 4 26B serving/proposal gate; no Heart LLM endpoint has been run yet.
+2026-07-23 Heart LLM policy boundary: compact Gemma 4 26B non-thinking indexed h2 interface and exact proposal gate are implemented and dry-tested. Frozen before live use: S0 seed24136 ten mechanics cells; if pass, S1 seed24137 with 16 distinct unworked d2-workup opportunities plus 16 worked cells, K4, matched random, exact d1 continuation, exhaustive d2, 5k bootstraps, gates random/d1 lower CIs >0, >=75% workup selection, >=.60 recovery. No Heart LLM response has been observed yet.
+2026-07-23 Heart S0 v1: jobs106369-106371 failed before model init due incomplete deployment; 106372 initialized 26B and failed closed after 3 accepted cells. Both cell3 attempts used r0 indices 9/10 inside r1-r3 local menus limited 0..3. Usage 5 requests, 7549 prompt,192 completion, zero reasoning/forced/rollout,$0. V2 prompt-only repair registered: root-local warning plus final exact limits, fresh seed24138; another failure stops interface. S1 remains frozen/unrun seed24137.
+2026-07-23 Heart S0 v2: job106373 on oat14 passed all mechanics. Fresh seed24138, 10/10 accepted first attempt, zero invalid/reasoning/forced/rollout calls, 19305 prompt +452 completion, $0. This is serving only; no S0 choices used as quality. Already-frozen S1 seed24137 is now authorized.
+2026-07-23 Heart S1: job106374 failed all frozen proposal gates and stops Heart LLM line. 32/32 accepted first attempt, zero invalid/reasoning/forced/rollout,$0; random-minus-LLM -.007814 CI[-.033967,.023341], strong-d1-minus-LLM -.043493 CI[-.070362,-.008328], recovery -1.5626, workup 1/16. Audit exact. Mechanism: workup-root index0 15/16 => age9/sex6 instead of exact major-vessels12/thal3/st-slope1; all 120 ordinary-root branches chose index0 workup. No formal Heart run.
+2026-07-23: Integrated the Mushroom/Cleveland exact positives and failed proposal-transfer boundary into the six-page paper; validator and 820-test suite pass, commit 2c97a37. User raised the OpenRouter project ceiling to $110, leaving $75.5431 registered headroom. A zero-call seed24140 screen found a strict delayed-inspection opportunity on standard RockSample[7,8]: weak .55 remote checks versus .95 on-site checks make exhaustive d3 move twice and inspect while d2 keeps weakly checking. Fresh 500-pair seed24141 exact d3-over-d2 qualification, mechanics, and independent-audit requirements are frozen before formal endpoints or LLM responses.
+2026-07-23: Fresh seed24141 range-gated RockSample[7,8] exact qualification passes: d3-minus-d2 entropy AUC +.462960 [.459983,.465734], 500/0/0; truth-log AUC +.470138 [.450752,.489263]. D1/d2 weakly check from the start; every d3 trajectory moves twice and inspects on site. Independent recursion re-solves every stored action and replays all positions, seeded observations, posteriors, metrics, and comparison; independent intervals remain positive. This is the first strict d3-over-d2 structural result and authorizes only a separately frozen non-thinking LLM proposal gate.
+2026-07-23: Range-gated named-plan 26B interface is implemented and locally smoke-tested without quality inspection. It uses K4 explicit three-action strings with two distinct movement roots and two distinct check roots, exact legality and EIG, one proposal call/cell, and no menu indices or rollout LLM. Frozen before live responses: S0 seed24145 ten mechanics cells; conditional S1 fresh seed24146 sixteen strict d3 opportunities with matched-random, shared-plan d2, strong exact d2-root, and exhaustive-h3 controls. Gates are three positive paired lower bounds, >=75% exact route-root selection, >=.60 recovery, and all mechanics; failure stops the line.
+2026-07-23: Range-gated named-plan S0 job106376 failed closed on cell0, so S1 was not launched. Attempt1 returned four legal check-root plans instead of the frozen 2-move/2-check mix; the one correction attempt duplicated two check plans twice. Zero accepted cells and no quality endpoint. Two direct-vLLM requests, 1103 prompt+124 completion, zero reasoning/forced/rollout,$0. The preregistered no-repair rule stops this interface. The exact d3 structural positive remains banked, but there is no LLM-policy claim.
+2026-07-23: Paper updated to contrast ordinary-sensor receding-horizon reversal with the strict range-gated d3-over-d2 exact gain, while explicitly recording the failed 26B serving gate as structural rather than LLM-policy evidence. Validator now enforces this scope.
+2026-07-23: New external-task screen selected UCI ann-thyroid because the archive supplies native acquisition metadata: 16 immediate history variables, four delayed assays in one shared blood group, and costs/discounts. Zero-call seed24147 exploratory screen on a 1000-row prior/50 truths gave d2-d1 entropy AUC +.1590, truth-log +.1453, 44/0/6, with d2 collecting blood first 50/50 and d1 querying on-thyroxine 50/50. Official files/hashes, exact finite-population environment, and fresh seed24148 1000-pair/8-round qualification plus independent-audit gate are frozen before formal endpoints or LLM responses.
+2026-07-23: Fresh UCI ann-thyroid seed24148 exact qualification and independent audit pass every frozen gate. D2-minus-d1 entropy AUC +.165898 CI[+.152285,+.179069], 810/0/190; truth-log AUC +.166883 CI[+.135923,+.199760]. D2 collects blood first 1000/1000 despite zero immediate EIG, then queries TSH; final entropy .0276 vs .2699 and class accuracy 98.3% vs 92.4%. Independent replay verifies all 16,000 decisions and 9,497 unique planning subtrees; fresh CIs remain positive. This authorizes only a separately preregistered machine-rooted non-thinking LLM continuation gate.
+2026-07-23: Froze UCI thyroid 26B named-continuation transfer before live responses. Machine fixes K4 roots (collection plus top-three immediate queries); Gemma supplies explicit named follow-ups per branch, with no indexes or root-diversity burden. S0 seed24151 has ten mechanics cells and no repair rerun. Conditional S1 fresh seed24152 has 32 distinct exact d2 collection opportunities, matched random/shared-d1/exhaustive-d2 controls, 5k bootstrap, and gates positive random/shared lower CIs, collection >=75%, recovery >=.60, and all mechanics. Direct vLLM, non-thinking, zero OpenRouter spend.
+2026-07-23: Thyroid named-continuation S0 job106377 and S1 job106378 pass every frozen gate on msc/oat14. S0 10/10 first-attempt valid. S1 random-minus-LLM +.126507 CI[+.112514,+.137224],30/2/0; exact-d1-root-minus-LLM +.129688 CI[+.120230,+.136457],32/0/0; recovery 98.35%; collection 32/32. Gemma chose TSH after collection 32/32; one cell recovered .473 and all others 1.0. Three first-response errors corrected by frozen retry. Independent replay verifies every policy/control and fresh CIs remain positive. Total S0/S1 45 requests,93879 prompt+5429 completion,zero reasoning/forced/rollout,$0. This authorizes a separately preregistered paired trajectory confirmation.
+2026-07-23: Froze thyroid 26B paired trajectory confirmation before responses/endpoints: fresh seed24156, 50 patients without replacement, 8 paired rounds, LLM named h2 vs matched-random named h2 vs exact d1 vs exhaustive d2, common exact d1 final action, 10k bootstrap. Gates require positive entropy/truth-log lower CIs vs both d1 and random, >=60% exact-d2 gain recovery, >=75% first collection, complete legal pairing, exactly350 accepted LLM cells, zero reasoning/forced/rollout, then independent full replay. Direct vLLM, non-thinking, no OpenRouter spend.
+2026-07-23: Thyroid 26B trajectory job106379 failed closed before endpoints and stops the 26B confirmation line. Five logical cells accepted; at cell5 after collect/TSH/T3/TT4/age, root query:t4u had shrinking follow-up menus excluding t4u, but both first and retry responses proposed query:t4u again for outcomes2-5. Seven requests,16251 prompt+1005 completion,zero reasoning/forced,$0. No entropy/truth/control/recovery/accuracy endpoint exists. Per frozen registration no repair, alternate seed, replacement, or 26B rerun. Exact qualification and passed 32-cell proposal gate remain valid; sustained 26B execution is unsupported.
+2026-07-23: Froze a separate non-thinking GPT-5.4 Mini thyroid transfer before GPT responses. S0 seed24157 has 12 late-state mechanics cells spanning exact-d2 history lengths0-6 and explicitly requires no root-repeat under shrinking menus. Conditional S1 fresh seed24158 has 50 paired patients/8 rounds with unchanged named h2, matched-random, exact d1/d2 controls and the same positive entropy/truth lower-CI, >=60% recovery, >=75% collection, complete350-cell, zero-reasoning/forced/rollout gates. OpenRouter per-run cap $6; expected far below $75.54 remaining headroom. Any S0/S1 failure stops without repair/replacement.
+2026-07-23: GPT-5.4 Mini thyroid S0 passed all 12 late-state mechanics; S1 completed but failed 4/6 scientific gates. Vs exact d1: entropy +.064092 CI[+.020485,+.104630], truth +.088291 CI[+.019775,+.177269]. Vs matched random: entropy -.033888 CI[-.073944,+.007266], truth +.009711 CI[-.047183,+.087825]. Recovery30.79%; first collect2/50. Mechanism: on identical initial belief GPT proposed age after collection48/50 and TSH2/50, so verifier selected on-thyroxine48/50; random sometimes sampled better assays. Independent replay of1600 decisions/2519 exact subtrees valid. S0+S1 373 requests,685236 prompt+41588 completion,zero reasoning/forced,$.466929. Project spend34.92378331, remaining75.07621669. No rerun; stronger model alone does not ground empirical assay utility.
+2026-07-23: Integrated the UCI Thyroid structural qualification and LLM transfer boundary into the six-page workshop paper. The draft now separates exact native-metadata evidence, the passed 26B bounded proposal gate, failed 26B trajectory serving, and GPT-5.4 Mini's positive d1 but negative matched-random result. Validator coverage was extended to require native delayed-assay metadata, matched-random continuations, and ungrounded empirical assay utility. Final PDF visually inspected; validator and full suite pass (839 passed,1 skipped).
+2026-07-23: Froze a utility-grounded GPT-5.4 Mini thyroid mechanism ablation before live responses/endpoints. The only treatment adds leakage-free branch-local expected class entropy and one-step information gain for every legal continuation; roots and exact depth-two verifier are unchanged. S0 seed24159 repeats 12 late-state mechanics cells. Conditional S1 fresh seed24160 uses 50 paired patients/8 rounds and retains positive lower-CI gates versus both d1 and matched random, >=60% exact-d2 recovery, >=75% collection, complete350-cell mechanics, and independent replay. No repair, replacement, or alternate seed; expected OpenRouter cost <$0.60.
+2026-07-23: Utility-grounded thyroid S0 seed24159 passed every frozen mechanic: 12/12 late-state cells first-attempt valid, all continuations legal, no root repeats, zero reasoning/forced/scoring calls. GPT followed the minimum-entropy utility card on98/154 branches and selected TSH after initial collection. Usage12 requests,92691 prompt+1383 completion,$.07176735. Card-expanded prompts revise the operational S1 projection to about$2.1, still inside the preregistered$6 run cap and$75.00445 project headroom; unchanged S1 seed24160 is authorized.
+2026-07-23: Utility-grounded thyroid S1 seed24160 failed closed before endpoints and stops this exact line. It accepted55 cells; at cell62 after collect/TSH/pregnant/goitre/T4U/thyroid-surgery, query:age branches were near-zero-entropy ties and GPT repeated the illegal current root on outcomes2/3. The one correction fixed outcome2 but repeated age on outcome3. Prefix-only diagnostics: card adherence493/708, collection8/8 initial cells, TSH8/8 collection followups. S1 59 requests,458656 prompt+7177 completion,zero reasoning/forced,$.21921330; S0+S1$.29098065. Spend35.21476396,remaining74.78523604. No rerun or policy endpoint; utility grounding helped early choices but free-form shrinking-menu serialization remained load-bearing.
+2026-07-23: Froze a distinct projected-utility GPT-5.4 Mini thyroid architecture before live projected-interface responses/endpoints. After the same one retry, valid branches are preserved and only invalid/missing branches are compiled to the exact legal minimum-entropy continuation. Fresh S0 seed24161 requires 12/12 late-state cells and zero projection. Conditional S1 seed24162 retains 50 paired patients/8 rounds and all prior scientific gates, plus <=5% projected logical cells and <=1% projected branches. Independent audit recomputes every projection. No repair/replacement; expected cost about$2.2 within$6 cap and$74.78524 headroom.
+2026-07-23: Projected-utility thyroid S0 seed24161 passed every frozen mechanic:12/12 late-state cells, all legal/no root repeats, zero projected cells, zero reasoning/forced/scoring calls. One invalid first response corrected on registered retry. Card adherence118/140=84.3%. Usage13 requests,92524 prompt+1422 completion,$.04537920. Unchanged fresh S1 seed24162 is authorized; spend35.26014316,remaining74.73985684.
+2026-07-23: Projected-utility thyroid S1 seed24162 passed all frozen scientific/contribution gates and independent replay. Entropy AUC gain +.202618 CI[+.143734,+.254275] vs exact d1 and +.118530[+.081343,+.157828] vs matched random; truth-log lower CIs positive; recovery99.44%; collection50/50. Projection8/350 cells=2.29% and17/4338 branches=.392%, both below gates; 99.61% branches remained LLM-authored. Independent audit replayed1600 actions/1976 subtrees. Initial raw-float audit mismatch affected9 zero-entropy ties only; existing EPSILON tie audit passes, max excess2.33e-16, no endpoint/policy changed. S0+S1 397 requests,3049175 prompt+46891 completion,zero reasoning/forced,$.97310355. Spend36.18786751,remaining73.81213249. This is positive machine-grounded LLM-Modulo evidence, not unaided LLM planning.
+2026-07-23: Integrated the projected-utility Thyroid confirmation into the six-page paper as the first positive native-metadata semantic transfer against both exact d1 and matched random. Abstract/results report 99.4% d2 recovery and paired gains; limitations state that exact local utility summaries and17/4338 projected branches make this machine-grounded LLM-Modulo evidence, not unaided planning. Final pages4-6 visually inspected; validator and scope checks pass.
+2026-07-23: Froze the missing projected names-only Thyroid factorial cell before live responses/endpoints. It retains bounded legal projection but removes all expected-entropy/information-gain cards from the LLM prompt. Fresh S0 seed24163 requires12/12 late-state cells, zero projection, and no utility cards. Conditional S1 seed24164 keeps 50 paired patients/8 rounds, positive d1/random endpoint CIs,>=60% recovery,>=75% collection,<=5% projected cells,<=1% projected branches, and independent replay. No repair/replacement; expected cost<$.60 with$73.81213 headroom.
+2026-07-23: Projected names-only Thyroid S0 seed24163 passed all frozen mechanics:12/12 first-attempt valid, zero projected cells, no utility cards, zero reasoning/forced/scoring calls. Usage12 requests,22349 prompt+1254 completion,$.02240475. Unchanged S1 seed24164 is authorized; spend36.21027226,remaining73.78972774.
+2026-07-23: Projected names-only Thyroid S1 seed24164 completed and failed4/6 scientific gates; independent audit valid. Vs d1 entropy +.089037 CI[+.067381,+.110521],truth +.020717[+.012035,+.028640]; vs random entropy -.012867[-.049014,+.025084],truth -.105416[-.263922,-.002346]. Recovery43.15%,collection0/50. Projection1/350 cells and2/3765 branches; no utility cards. This isolates utility grounding as quality-causal and projection as serving-only: projected utility had +.1185 vs random,99.4% recovery,50/50 collection. S0+S1 372 requests,676678 prompt+41148 completion,zero reasoning/forced,$.45559290. Spend36.64346041,remaining73.35653959.
+2026-07-23: Added the projected names-only factorial to the six-page paper. Results now contrast projection-only (+.0890 vs d1,-.0129 vs random,.432 recovery,0/50 collection,2/3765 projected branches) with utility+projection (+.2026,+.1185,.994,50/50,17/4338), explicitly isolating utility as quality-causal and projection as serving-causal. Validator passes and affected pages visually inspected.
+2026-07-23: Ported the thyroid utility-grounded bounded-projection architecture to the independently qualified Cleveland Heart workup task and froze a fresh GPT-5.4 Mini gate before responses. Machine-fixed K4 roots and indexed menus are unchanged; each branch now receives exact empirical continuation entropy/EIG cards, and exhausted-invalid branches alone may be projected. S0 seed24165 requires10/10 cells with zero projection. Conditional S1 seed24166 reuses the balanced32-cell exact proposal gate and requires positive random/d1 lower CIs,>=75% workup,>=.60 recovery,<=5% projected cells,<=1% projected branches, and independent replay. Expected cost<$.50 with$73.35654 headroom.
+2026-07-23: Cleveland projected-utility GPT-5.4 Mini S0/S1 passed every frozen gate and independent replay. S0 seed24165:10/10 first-attempt valid, zero projection; every pre-workup cell paired workup with major-vessels/thal. S1 seed24166: random-minus-GPT cost +.073289 CI[+.049263,+.099572], exact-d1-root-minus-GPT +.065947[+.044101,+.091941], exact-d2 recovery1.0, workup16/16. All32 first-attempt valid,0/307 projected branches,zero reasoning/forced/scoring. S0+S1 42 requests,168904 prompt+1550 completion,$.125013. Spend36.76847341,remaining73.23152659. This authorizes a separately frozen paired Heart trajectory confirmation.
+2026-07-23: Froze the Cleveland projected-utility paired trajectory confirmation before fresh responses/endpoints. Seed24167 samples50 rows without replacement for8 paired rounds: GPT h2, matched-random continuations, exact d1, exhaustive d2; common exact d1 final action and350 logical GPT cells. Late unworked states use every remaining legal root when fewer than K4, fixed before registration. Gates: positive entropy/truth lower CIs vs d1 and random,>=.60 exact-d2 recovery, positive workup-round advance CI vs d1,<=5% projected cells,<=1% branches, complete mechanics and independent full replay. Deterministic exact-utility dry run and independent audit pass; expected cost<$1.50 with$73.23153 headroom.
+2026-07-23: Cleveland projected-utility seed24167 trajectory is a strong partial confirmation but fails one frozen independent corroboration gate, so no rerun. Registered results: entropy +.063140 CI[+.034180,+.092438] vs d1 and +.028906[+.006715,+.052096] vs random; truth +.071701[+.027721,+.122076] vs d1 and +.029052[+.000110,+.062868] vs random; recovery100.89%; workup2.14 rounds earlier. Independent mechanical replay all true and entropy intervals remain positive, but fresh truth-vs-random CI[-.000682,+.062253], narrowly crossing zero; overall frozen confirmation not full pass. All350 first-attempt valid,0/3028 projected branches,zero reasoning/forced,1.244M prompt+11871 completion,$.460556. Spend37.22902951,remaining72.77097049.
+2026-07-23: Integrated Cleveland utility grounding into the six-page paper with exact scope: zero-projection 100.9% recovery and positive primary entropy endpoints versus d1/random, but the independent truth-log/random interval is marginal and therefore not an all-gates confirmation. The abstract, evidence table, semantic-transfer results, limitations, and validator now encode this boundary. Final pages4-6 visually inspected with no clipping/overlap.
+2026-07-23: Ported utility grounding and bounded branch-only projection to the third semantic unlock task, UCI Mushroom, and froze fresh GPT-5.4 Mini tests before responses. The old names-only 26B result still independently replays under defaults. S0 seed24173 requires10/10 legal cells and zero projection. Conditional S1 seed24174 reuses the balanced32-cell exact proposal gate and requires positive random/d1 lower CIs,>=75% collection,>=.60 recovery,<=5% projected cells,<=1% projected branches, and independent replay. Expected cost<$.60 with$72.77097 headroom.
+2026-07-23: Mushroom projected-utility GPT-5.4 Mini S0/S1 passed every frozen gate and independent replay. S0 seed24173:10/10 complete, one corrected first response,zero projection. S1 seed24174: random-minus-GPT +.094542 CI[+.059130,+.134653], exact-d1-root-minus-GPT +.135419[+.095849,+.174593], recovery.9100[.7576,1], collection15/16. All32 first-attempt valid,0/601 projected branches,zero reasoning/forced/scoring. Collection continuations odor11,bruises2,ring-type2,spore1 versus old bruises9/odor6/spore1. S0+S1 43 requests,384049 prompt+2337 completion,$.258636. Spend37.48766596,remaining72.51233404. This authorizes a separately frozen paired trajectory confirmation.
+2026-07-23: Froze Mushroom projected-utility paired trajectory confirmation before responses/endpoints. Seed24175 samples50 rows without replacement for8 paired rounds: GPT h2, matched-random, exact d1/d2;350 logical GPT cells,10k paired bootstraps. Pre-registered late-state controls use all remaining roots and random exact-d1 only when no complete h2 policy exists. Gates: positive entropy/truth lower CIs vs d1/random in producer and fresh audit,>=.60 recovery,>=75% first collection,<=5% projected cells,<=1% branches,complete mechanics and independent replay. Deterministic utility run/audit pass all gates. Expected cost<$3 with$72.51233 headroom.
+2026-07-23: Mushroom projected-utility seed24175 trajectory passed every producer and independent gate. Entropy AUC +.102286 CI[+.061366,+.144053] vs d1 and +.068511[+.037556,+.100558] vs random; truth +.120096[+.057205,+.196254] and +.078041[+.038581,+.122511]. Fresh audit intervals all positive. GPT exactly matched exhaustive d2: recovery1.0, collection50/50, identical mean entropy trace. All350 logical cells completed in361 requests (11 corrected first responses),0/5152 projected branches,zero reasoning/forced. Confirmation$.845668; full Mushroom line$1.104304. Spend38.33333371,remaining71.66666629. This is a full zero-projection machine-grounded semantic confirmation.
+2026-07-23: Integrated the full zero-projection Mushroom confirmation into the six-page paper. The abstract, evidence table, semantic-transfer results, limitations, conclusion, and validator now distinguish Mushroom's exact d2 match and positive entropy/truth intervals from Cleveland's narrower primary-endpoint confirmation and Thyroid's bounded-projection result. Paper validator and six tests pass; final pages4-6 were visually inspected with no clipping or overlap.
+2026-07-23: Froze a no-answer-card Mushroom ablation before responses. Fresh seed24176 gives GPT-5.4 Mini only branch-local predictive observation probabilities and post-observation class probabilities, with no expected entropy, EIG, rank, or preferred action and projection disabled. Ten-cell S0 requires clean mechanics,>=50% exact-optimal branch choices, and>=20-point advantage over uniform-menu chance. Passing authorizes only a separately frozen proposal gate. Expected cost<$.50 with$71.66667 headroom.
+2026-07-23: Predictive-evidence Mushroom S0 seed24176 failed the frozen relative-quality gate and the line stopped without rerun. Mechanics were perfect:10/10 first-attempt legal,zero projection/reasoning/forced/scoring calls. Exact-optimal branches139/172=.8081 passed the absolute half gate, but uniform-menu=.7064 because104/172 branches were all tied, so advantage=.1017<.20. Descriptively on68 informative branches GPT was35/68=.5147 vs uniform=.2575; entropy-regret recovery53.66% unweighted and72.99% root-probability-weighted, but only11/40 roots were branch-contingent. Cost$.173913; spend38.50724716,remaining71.49275284. This indicates useful raw predictive signal but unreliable branch aggregation.
+2026-07-23: Froze a fresh fixed-root-tail Range-Gated Rock h3 interface before responses, leaving the failed 26B named-plan line untouched. Code fixes two geometry-selected move roots and two exact-d1 check roots; GPT-5.4 Mini supplies only each root's legal two-action tail from coordinates, sensor law, and marginals, with no plan values. S0 seed24177 requires10 legal cells and the South,South,check5 delayed route in>=8. Conditional S1 seed24178 uses16 strict opportunities, identical-root random tails, shared-plan d2, strong d2, exhaustive h3, and the prior positive-CI/.75-root/.60-recovery gates. Expected cost<$.20 with$71.49275 headroom.
+2026-07-23: Range-Gated fixed-tail Mini S0 seed24177 failed the frozen route gate and S1 was not launched. Serving was clean:10/10 first-attempt legal cells,zero reasoning/forced/scoring calls. The load-bearing South,South,check5 plan appeared only1/10; nine south-root plans moved east from(0,4) then remotely checked a rock not at(1,4). Cost$.008189; spend38.51543566,remaining71.48456434. This isolates spatial transition composition, not schema or exact scoring, and motivates a separately frozen successor-grounded larger-thinking-model line rather than relaxing this gate.
+2026-07-23: Froze the distinct successor-grounded Range-Gated h3 line before responses. Gemma4-26B-A4B gets4k thinking plus deterministic successor coordinates for every legal second action, but no utility/rank/preferred action; it must cross-reference separately listed rock coordinates. S0 seed24179 keeps the10-cell/>=8 delayed-route gate and requires zero forced exits. Conditional S1 seed24180 keeps16 strict cells, identical-root random tails, shared d2, strong d2, exhaustive h3, and positive-CI/.75-root/.60-recovery gates with independent replay. Expected cost<$.50 with$71.48456 headroom.
+2026-07-23: Successor-grounded Gemma4-26B-thinking S0 seed24179 failed closed on cell0 before scoring and S1 was not run. Both bounded responses hit forced finalization and returned literal `None`;0 accepted cells,2 forced exits,6505 reasoning of8704 completion tokens,3253 prompt,$.003313. Spend38.51874830,remaining71.48125170. This is a serving-budget failure rather than route evidence; the frozen line stops without budget repair. A new model-selection smoke may use Qwen3-14B dual-mode, currently available on OpenRouter, while keeping endpoints quarantined.
+2026-07-23: Endpoint-free Qwen3-14B thinking calibration returned exact four-key JSON after155 reasoning tokens,zero forced exits,$.000046. Froze a fresh successor-grounded Qwen line before any map/policy response: S0 seed24181 keeps10 cells and the unchanged>=8 South,South,check5 gate; conditional S1 seed24182 keeps16 strict cells and identical random/shared-d2/strong-d2/exhaustive-h3 controls plus independent replay. No prior cells enter. Expected cost<$.50; spend38.51879448,remaining71.48120552.
+2026-07-23: Successor-grounded Qwen3-14B-thinking S0 seed24181 also failed closed on cell0 before scoring. Unlike its155-token generic calibration, both environment responses exhausted4352 tokens, hit forced exit, and returned literal `None`;0 accepted,8329 reasoning of8704 completion,2945 prompt,$.002383. Spend38.52117794,remaining71.47882206. The OpenRouter single-call adapter is the shared failure; this is not h3 policy evidence. Stop OpenRouter swaps and move the same question to the cluster's proven two-stage forced-finalization path on msc/llm.
+2026-07-23: Froze the direct-vLLM successor-grounded Gemma4-26B cluster line before responses. New launcher targets msc,llm excluding oat12 and uses the tested two-stage path:4096 first-pass thinking then512-token forced final when needed, with full trace/event accounting. S0 seed24183 keeps10 cells and unchanged>=8 delayed routes; valid bounded forced finals are allowed, empty/invalid finals fail. Conditional S1 seed24184 keeps16 strict cells and all random/shared-d2/strong-d2/exhaustive-h3 controls plus independent replay. Local inference adds no API spend.
+2026-07-23: Cluster successor-grounded26B S0 job106384 seed24183 failed the frozen full-string JSON gate at cell6; S1 not run. Crucially,6/6 accepted first attempts and both rejected JSON prefixes contained exact South,South,check5. Rejections were parser-only: Gemma appended self-correction prose after a complete valid object on both bounded attempts. Provider6 accepted+2 invalid; vLLM16 physical generations,59664 prompt+34068 completion,$0. Standalone config lacked log_path so first-stage traces were not retained despite requested env logging; raw finals/compiled policies are retained. This authorizes only a fresh preregistered strict first-object parser line, never reuse of seed24183.
+2026-07-23: Froze fresh JSON-prefix cluster26B line before responses. Opt-in raw_decode accepts exactly one object from character0, then applies unchanged exact keys/lengths/fixed roots/dynamic legality; trailing text is ignored only for compilation and retained verbatim. Added run.log so reasoning/forced-final traces are actually captured. S0 seed24185 keeps10 cells and>=8 delayed routes; conditional S1 seed24186 keeps all16-cell positive-CI/.75-root/.60-recovery controls and independent replay. Same prompt/model/4096+512 budgets; local$0.
+2026-07-23: JSON-prefix cluster26B S0 job106385 seed24185 passed every frozen gate.10/10 first-attempt accepted cells,0 invalid,10/10 exact South,South,check5 routes;2/10 finals exercised trailing-text prefix parsing. Every cell used bounded two-stage finalization:20 physical generations,10 forced-final events,73182 prompt+42363 completion tokens,zero scoring calls,$0. Full137863-byte run.log retained. This authorizes fresh S1 seed24186 exactly as preregistered.
+2026-07-23: JSON-prefix cluster26B S1 job106386 seed24186 producer passed every scientific/mechanical gate:16/16 exact h3 route selections; +.480875[+.479935,+.481823] vs identical-root random,+.485883[+.484944,+.487119] vs shared d2,+.479607 point CI vs strong d2,recovery1.0.16 accepted,0 invalid,32 physical generations,16 forced-final events,117154 prompt+67204 completion,$0. Fresh local replay reproduced all plans, values, aggregates and records modulo tied control identity, but exact all_record_fields failed: one strong-d2 root check0/check5 and one random selected plan swapped under ~1e-17 value ties. Frozen exact-identity audit therefore fails; no trajectory launch or rerun. This is strong h3 proposal evidence with a narrow cross-platform tie-stability boundary.
+2026-07-23: Integrated the positive range-gated h3 proposal result into the six-page paper without promoting it to a trajectory claim. The abstract/table/results now report 16/16 exact-route recovery and paired gains versus identical-root random, shared d2, and strong d2; limitations preserve the tied-control identity audit failure and no-trajectory boundary. Condensed older negative evidence to retain six pages. Validator, scope tests, compilation, and visual QA of pages4-6 pass with no layout warnings.
+2026-07-23: Fresh cross-platform stable-control qualification passes without changing the failed seed24186 audit. Registered rule treats values within1e-12 as equivalent and chooses canonical first order. Local and msc/oat14 job106394 artifacts match exactly across16 cells/96 selector vectors, including digest856105c321d99a4ea3da07d9a2b413b40a7331b55cc6edd952df10a218bf2f8b; all non-tie gaps exceed100 tolerances and deterministic perturbation checks pass. Jobs106392/106393 failed before Python due node-local conda and produced no artifact. This authorizes only a separately preregistered fresh trajectory protocol.
+2026-07-23: Froze a fresh cached-h3 range-gated trajectory line before live late-state/trajectory responses. S0 seed24187 uses12 fixed trajectory-prefix cells and requires all legal/accounted, exact South/South/check5 roots on early prefixes, and>=75% overall exact-d3 root match. Conditional S1 seed24193 uses50 paired truths/8 rounds: cached26B h3 vs identical-root random h3, exhaustive d2, exhaustive d3; exact prompt-digest cache,300 logical cells,hard64 physical cap, common observation uniforms. Gates require positive entropy/truth lower CIs vs d2/random,>=.60 d3 recovery,>=75% two-south/on-site rates, complete mechanics, and fresh independent replay/CIs. Deterministic full run uses17 physical cells, recovers.996 d3 gain, and passes producer/audit; no live endpoint observed.
+2026-07-23: Repaired the OpenRouter thinking adapter's reasoning-only length-stop path while cached-h3 S0 waits for msc/llm capacity. Null content now stays empty; the adapter preserves one documented reasoning block and makes one bounded non-reasoning final call, with request/cost/success accounting.98 adapter/config tests pass. A synthetic real Gemma4-26B tight calibration exercised the path:2 requests,1 forced exit,1/1 forced-final success,exact JSON,$.00005187. Ordinary calibration cost$.00009386. Spend38.52132367,remaining71.47867633. This is endpoint-free serving evidence, not a Rock policy result.
+2026-07-23: Pre-response trajectory amendment: after freezing S1 seed24193 as unused by deterministic dry runs, I accidentally ran a zero-LLM deterministic reference on it. It passed and showed exact gain.45875/17 unique prompts, but seed24193 is quarantined despite no LLM response or protocol change. Before S0 started, froze sole amendment live S1 seed24195; S0 seed24187, audit seeds24189-192, all endpoints/thresholds/code remain unchanged.
+2026-07-23: While direct-vLLM cached-h3 S0 job106401 remains pending for llm A100 capacity, froze a separately reported OpenRouter provider replication before any repaired-adapter Rock response. Same26B/interface/gates, fresh S0 seed24196 and conditional S1 seed24197, caps$.25/$1. Both provider outcomes must be reported; OpenRouter cannot replace/relabel/cancel the cluster line.
+2026-07-23: OpenRouter cached-h3 S0 seed24196 failed before cell0 acceptance and stops without rerun. One26B request used4352 completion/4129 reasoning tokens,$.00153156, then live-only logging raised AttributeError because new CLI stored log_path as str rather than Path. Zero plan entered provider; no route/trajectory endpoint. Spend38.52285523,remaining71.47714477. Pending response-free cluster job106401 was canceled before start; froze prospective cluster-only implementation amendment changing the same path value to Path, with model/prompt/seed/budgets/gates unchanged.21 focused tests pass.
+2026-07-23: Fresh exact corner-start Range-Gated Rock h4 qualification seed24201 passes producer and independent audit. Standard7-8 rocks/sensor unchanged; start(6,6) makes rock4 three moves away. D4-minus-d3 entropy AUC +.348436 point CI,500/0/0; truth-log +.342417 producer[+.302366,+.380107],audit[+.302054,+.380858],470/0/30. D3 always remotely checks/never onsite; d4 always Northx3,onsite check4,then begins a second North,North,West,check1 route. All1000 eight-round traces/8000 decisions independently re-solved/replayed,zero LLM. This authorizes only a separately preregistered h4 proposal gate.
+2026-07-23: Froze a separate corner-start h4 fixed-tail LLM gate before any live h4 response. Zero-LLM development screens on excluded seeds24204/5 confirmed the strict Northx3,check4 opportunity; fresh S0 seed24208 and conditional S1 seed24209 remain untouched. Gemma4-26B-thinking gets machine-fixed K4 roots and a score-free reachable-position graph, then supplies three legal tail actions. S0 requires the critical route and exact root in>=8/10. S1 requires positive paired lower CIs versus identical-root random h4, shared-plan h3, and strongest exact-d3 root,>=75% full exact-route selection,>=.60 recovery, and fresh seed24211 independent audit. Deterministic smoke/gate/audit pass; OpenRouter cap$.25/stage.
+2026-07-23: H4 Gemma4-26B-A4B S0 seed24208 completed legal serving but failed both route gates, so S1 is not run. Critical North,North,North,check4 appeared0/10 and exact h4 root was selected0/10. Characteristic north-root plan was North,West,West,check6, which stops at(4,5), one west of rock6; other plans similarly treated an initial check as if it did not consume the four-action horizon.10/10 accepted,2 corrected invalids,23 physical requests,12 forced exits,11/11 forced finals,175575 prompt+52977 completion/41829 reasoning,$.03729987. Spend38.56015510,remaining71.43984490. This is clean multi-step spatial-composition failure in the4B-active MoE, not parser/scoring failure.
+2026-07-23: Froze a separately reported dense Qwen3-14B-thinking h4 replication before any Qwen h4 response. It keeps the exact committed Gemma interface/gates byte-for-byte and changes only model/seeds: S0 seed24212; conditional16-cell S1 seed24213; producer/audit bootstrap seeds24214/15. The repaired reasoning-only adapter is allowed; every physical request is accounted. S0 still requires critical Northx3,check4 and exact root>=8/10. This cannot replace or pool with the failed Gemma line; failure stops Qwen without repair, pass authorizes only proposal quality.
+2026-07-23: Dense Qwen3-14B h4 S0 seed24212 failed closed at cell0, so S1 is not run. First reasoning pass+256 final returned no usable JSON; registered correction returned the exact critical North,North,North,check4 for r0 but two other root tails were illegal (e.g. check0,West,South from y6). All-or-nothing compiler therefore accepted0 cells and scored no endpoint.3 requests,2 forced exits,1/0 forced-final success,20813 prompt+8834 completion/8163 reasoning,$.00805743. Spend38.56821252,remaining71.43178748. Unlike Gemma's spatial miss, dense Qwen composed the load-bearing route but failed comparison-branch serialization; this motivates separately frozen branch-only non-routing projection, never retroactive scoring.
+2026-07-23: Froze fresh bounded-projection Qwen h4 line before projected-interface responses. After the same one retry, each valid branch is retained exactly; only still-invalid branches become fixed-root,check0,check0,check0, which cannot create any travel route. Fresh S0 seed24216 requires critical/exact route>=8/10, every selected plan LLM-authored,>=1 LLM branch/cell,<=75% projected branches, full usage. Conditional16-cell S1 seed24217 keeps random/shared-h3/strong-d3/exact-h4 controls, positive lower CIs,.75 route,.60 recovery; producer/audit bootstraps24218/19. Audit recovers every branch source/projection. Deterministic producer/audit and6 focused tests pass. This is explicitly bounded-projection LLM-Modulo evidence if successful.
+2026-07-23: Bounded-projection Qwen h4 S0 seed24216 completed but failed route/contribution gates, so S1 is not run. Critical route0/10, exact root0/10, selected plan LLM-authored6/10,>=1 LLM branch8/10;15/40 branches projected within cap and projection never created route. Typical north tails again stopped one cell short; two cells projected all4. The prior failed-seed exact route did not replicate.32 requests,16 forced exits,12/8 forced finals,223293 prompt+87444 completion/79192 reasoning,$.05902517. Spend38.62723769,remaining71.37276231. Stop Gemma/Qwen<=14B score-free h4 line; exact structural h4 remains.
+2026-07-23: Endpoint-free 3-case spatial-horizon calibration selected dense Qwen3-32B for one final open-weight h4 scale line. Qwen returned3/3 exact bare JSON routes,zero forced,$.00030824. Dense Gemma4-31B also had3/3 correct route content but fenced every object, so strict bare parser0/3,$.00064646. No Rock map/belief/EIG/endpoint was exposed. Froze Qwen32 S0 seed24220 before Rock responses: unchanged all-or-nothing score-free K4 interface,10 concurrent cells,critical/exact route>=8/10. Conditional S1 seed24221 uses16 concurrent cells and unchanged random/shared-h3/strong-d3/exact-h4 gates, bootstraps24222/23. Failure stops further open-weight score-free h4 model search.
+2026-07-23: Dense Qwen3-32B h4 S0 seed24220 failed closed; S1 not run and registered open-weight search stops.7/10 cells accepted,3 never produced valid full object after retry; exact critical route appeared3/7 accepted. One rejected response had critical route content but repeated the fixed root as a fourth tail action, then correction truncated.27 requests,19 forced exits,10/2 forced finals,187441 prompt+134807 completion/125591 reasoning,$.07910875. Spend38.70730114,remaining71.29269886. Exact h4 structural effect is strong, but4B-active Gemma and dense Qwen14/32B do not reliably compose/serve the score-free K4 h4 set.
+2026-07-23: After closing open-weight h4 search, full GPT-5.4-high passed a separate endpoint-free ceiling calibration3/3 exact bare JSON,zero forced,456 reasoning,$.0093675. Froze one final frontier h4 line before Rock responses: unchanged unaided all-or-nothing K4 interface; concurrent S0 seed24224 requires10 legal cells and critical/exact route>=8/10; conditional16-cell S1 seed24225 keeps random/shared-h3/strong-d3/exact-h4 positive-CI,.75-route,.60-recovery gates and audit bootstraps24226/27. No GPT variant/prompt/projection/alternate seed after failure. This is separately reported frontier capacity, never pooled with open weights.
+2026-07-23: GPT-5.4-high h4 S0 seed24224 failed closed before any accepted cell, so S1 and further h4 model lines stop. All10 concurrent cells used both initial+retry; all20 responses hit4352 length with empty final and87040/87040 completion/reasoning tokens. Adapter finalization is currently gated on thinking:true, not native reasoning_effort, so0 forced finals and0 plans/routes/scores. Cost$1.522765; spend40.23943364,remaining69.76056636. Per frozen boundary no adapter/budget/model/prompt/projection/seed repair. This is serving-budget failure, not GPT policy evidence. Bank exact audited h4 plus open-weight transfer-capacity boundary.
+2026-07-23: Integrated the independently audited corner-start h4 structural result and the score-free LLM serving/capacity boundary into the six-page workshop paper. The abstract, environment table, results, limitations, README, and validator now preserve the distinction between exact d4 evidence and an absent LLM-policy claim. Reflowed floats and tightened heading whitespace without changing body/reference font sizes; all six rendered pages visually pass. Paper validator and full suite pass (884 passed,1 skipped). OpenRouter ceiling is now$110; registered spend remains$40.23943364, leaving$69.76056636.
+2026-07-23: Froze a distinct hierarchical h4 target-compiler gate before live responses. Gemma4-26B-thinking assigns four distinct rock targets to machine-fixed roots; a deterministic two-transit-slot shortest-path compiler creates actions and exact h4 scoring selects the root. The prompt exposes coordinates, root successors, distances, and p_good but no EIG/value/rank/route/actions; projection is disabled. S0 seed24228 requires10 clean cells, rock4 on North and exact Northx3/check4 in>=8/10. Conditional S1 seed24229 uses16 strict cells, random-target/shared-h3/strong-d3 controls, positive paired lower CIs,.75 route,.60 recovery, producer/audit bootstraps24230/31. Deterministic producer/audit pass; random-goal gain+.423281[+.332666,+.484111]. OpenRouter caps$.25/stage; spend before responses$40.23943364.
+2026-07-23: Hierarchical h4 Gemma4-26B-thinking S0 seed24228 passed every frozen gate. Rock4 was assigned to the North root10/10, the compiler generated Northx3/check4 10/10, and exact h4 selected it10/10; all plans legal/distinct and scoring made zero calls. Three initial provider truncation notices recovered on the one registered correction.22 physical requests,12 forced exits,9/9 forced finals,31173 prompt+54161 completion/37616 reasoning,$.02324779. Spend40.26268143,remaining69.73731857. This confirms semantic target selection once routing is externalized and authorizes unchanged S1 seed24229 only.
+2026-07-23: Hierarchical h4 S1 seed24229 failed closed before scoring and stops without rerun.15/16 cells accepted legal distinct targets; prefix rock4-on-North13/15. Cell11 returned the literal nonempty Wafer reasoning-truncation notice on both initial and registered correction, so the adapter's empty-content forced-final path did not activate. No random/shared-h3/strong-d3/recovery endpoint exists.31 physical requests,16 forced exits,14/14 forced finals on other calls,43456 prompt+67953 completion/46070 reasoning,$.02883590. Spend40.29151733,remaining69.70848267. This is serving failure, not negative target-quality evidence; a generic future adapter repair must never relabel/rerun this seed.
+2026-07-23: Hardened the generic OpenRouter forced-final path after closing h4. Exact Wafer reasoning-truncation notices are now normalized to empty provider control content, while reasoning metadata is preserved; any configured reasoning mode (thinking, effort, or token budget) may use bounded non-reasoning finalization on an empty/notice length stop. Focused19-test adapter suite and full suite892 passed(1 skipped), including Wafer and native reasoning_effort regressions. No closed h4 model/seed was rerun or relabeled.
+2026-07-23: Endpoint-free live Gemma4-26B calibration validates the repaired generic finalization path. An ordinary160-token combined allowance returned exact JSON natively. A deliberately tiny33-token allowance length-stopped, then one32-token reasoning-disabled continuation returned exact{"target":4};1 forced exit,1/1 forced final,2 requests,155 prompt+39 completion/24 reasoning,$.00003517. Total calibration spend$.00009885; project spend40.29161618,remaining69.70838382. No Rock belief/policy/closed seed was used.
+2026-07-23: Integrated the hierarchical h4 mechanism boundary into the six-page paper without promoting it to policy evidence. Results now contrast failed free-form action tails with semantic target selection+deterministic routing recovering the exact route10/10, followed by the frozen16-cell provider-truncation failure after15 accepted cells; limitations preserve no h4 policy endpoint. Validator enforces semantic-target/10-of-10/provider-truncation/mechanism scope. Final pages5-6 visually pass with no warnings or overflow.
+2026-07-23: Zero-LLM deeper-horizon screen found and froze a genuine focused-prior h5 opportunity on corner-start RockSample7-8. Rejected excluded seed24232/q=.10 because d4 and d5 receding-horizon trajectories were identical despite an open-loop value gap. Excluded seed24234/q=.005 gave20-pair d5-d4 entropy AUC+.269001,20/0/0,truth+.171382; d4 remotely check6 repeatedly while d5 takes North,Westx3,onsite check6. Fresh exact qualification seed24235 is frozen at500 pairs/8 rounds/10k bootstrap, secondary p_good=.005(initial entropy.913501), with positive entropy/truth lower CIs,>=450 wins, full mechanics and audit seed24236 required before any LLM h5 gate. Exact cached producer/audit instrument tests pass.
+2026-07-23: Fresh focused-prior h5 exact qualification seed24235 and independent audit pass every frozen gate. D5-over-d4 entropy AUC +.288994, producer CI[+.285778,+.292045], audit CI[+.285770,+.292033],500/0/0; truth-log AUC +.284228 with both lower bounds positive. D5 follows North,Westx3,onsite check6 in all500 trials, reaches final entropy.2267 and MAP accuracy97.2%; d4 remotely checks rock6, ends at entropy.8799 and accuracy61.4%. Audit replayed all1000 trajectories and exact values. The only repair canonicalized tuple/list JSON representations for the source-prior equality check; no scientific value changed. This authorizes only a separately preregistered hierarchical h5 LLM target-selection gate.
+2026-07-23: Froze the hierarchical focused-prior h5 target-compiler gate before any live response. Gemma4-26B-thinking assigns four distinct rock targets to machine-fixed roots; a deterministic three-transit-slot shortest-path compiler creates h5 plans, and exact scoring makes zero LLM calls. S0 fresh seed24239 requires rock6 on North, the North-Westx3-check6 route, and exact selection >=8/10. Conditional S1 seed24240 has16 strict cells, random-target/shared-h4/strong-exact-h4 controls, positive lower CIs,.75 route,.60 recovery, producer/audit bootstraps24241/42. Zero-call deterministic reference passes: +.359851 vs random[+.241132,+.450778],+.480620 vs shared h4,+.470080 vs strong h4,16/16 route,recovery1.0. OpenRouter caps$.25/stage; spend40.29161618/110.
+2026-07-23: Hierarchical focused-prior h5 S0 seed24239 passed every frozen gate.10/10 cells returned legal distinct targets first attempt; rock6-on-North, compiled North-Westx3-check6, and exact route selection were9/10. The remaining cell assigned rock4 North and rock6 to a check root. All10 reasoning passes length-stopped and the repaired adapter recovered10/10 bounded finals; zero validation retries or scoring calls.20 requests,29876 prompt+42495 completion/26453 reasoning,$.01897481. Spend40.31059099,remaining69.68940901. This authorizes unchanged S1 seed24240 only.
+2026-07-23: Hierarchical focused-prior h5 S1 seed24240 and audit24242 pass every frozen gate. Exact route selected15/16; opportunity recovery.937398 audit CI[.812193,1]. LLM-minus-random targets +.330423 audit CI[+.181306,+.450274],12/3/1; minus shared-h4 scoring +.446940[+.387222,+.477018],15/1/0; minus strongest exact-h4 root +.440652[+.381796,+.470080],15/0/1. Sole retained miss assigned rock4 North after check7 bad/good and had recovery-.00164.16/16 first-attempt valid;16 forced exits,16/16 finals,32 requests,47787 prompt+67971 completion/42955 reasoning,$.03263012. Spend40.34322111,remaining69.65677889. This is audited h5 proposal-quality evidence, not yet a trajectory claim.
+2026-07-23: Integrated the exact and hierarchical h5 results into the six-page workshop paper. The abstract/table/results now report exact d5-d4 +.2890 with500/500 wins and the audited 26B target gate selecting15/16 routes with.937 recovery and positive random/shared-h4/strong-h4 controls. Limitations explicitly preserve no h5 trajectory. Final PDF has6 pages, no layout warnings, changed pages visually pass, validator passes, and full suite is901 passed/1 skipped.
+2026-07-23: Froze a fresh focused-prior hierarchical h5 paired trajectory confirmation before live trajectory responses/endpoints. Excluded zero-call seed24243 passes: deterministic targets equal exact d5, entropy wins50/50 vs shared h4/exact d4 and48/2/0 vs random h5, positive truth intervals, full recovery/route,18 physical prompts/400 logical. Fresh S0 seed24244 has12 route/check-prefix mechanics cells. Conditional S1 seed24245 has50 paired truths/8 rounds, cached LLM h5 vs identical-plan shared h4/random targets/exact d4/d5, six positive entropy/truth lower-CI gates,>=.60 recovery,>=.75 route/onsite,64-prompt cap, and independent audit24246. Caps$.25/$.50; spend40.34322111/110.
+2026-07-23: Focused hierarchical h5 trajectory S0 seed24244 passed every frozen gate. All12 movement/repeated-check prefix cells returned four legal distinct-target plans first attempt; selected roots matched exhaustive h5 12/12 and the empty cell selected North-Westx3-check6.12 forced exits,12/12 bounded finals,24 requests,34974 prompt+50982 completion/34730 reasoning,$.02126545; zero invalid/retry/projection/scoring calls. Spend40.36448656,remaining69.63551344. This authorizes unchanged formal trajectory seed24245 only.
+2026-07-23: Fresh focused-prior hierarchical h5 trajectory S1 seed24245 and independent audit24246 pass every frozen gate. LLM h5 exactly matches exhaustive d5: entropy gain+.283217 vs shared h4/exact d4,50/0/0,audit CI[+.27109,+.29391]; +.204126 vs random-target h5,49/1/0,[+.18479,+.22301]. All truth-log audit lower bounds positive. Recovery1.0, route/onsite50/50, final entropy.2242 vs d4.8751, MAP96% vs62%. Cache used18 physical cells for400 logical decisions. One duplicate-target first response corrected on frozen retry;19 forced exits/finals,38 requests,55553 prompt+80719 completion/63770 reasoning,$.03407972. Spend40.39856628,remaining69.60143372. This is positive realized h5 non-myopic LLM-Modulo trajectory evidence on an engineered exact task.
+2026-07-23: Integrated the audited hierarchical h5 trajectory confirmation into the six-page workshop paper. The abstract, evidence table, results, and limitations now report +.2832 versus identical h4-scored plans (50/0/0), +.2041 versus matched-random h5 targets (49/1/0), positive truth-log corroboration, exact d5 matching, and 18 physical prompts for 400 logical decisions, while preserving the engineered exact-task and external-verification limitation. The validator now requires these trajectory endpoints instead of proposal-only wording. Final PDF has six pages, no LaTeX warnings, changed pages visually pass, and the full suite passes (905 passed,1 skipped). OpenRouter ceiling is $110; spend remains $40.39856628, leaving $69.60143372.
+2026-07-23: Froze a three-seed robustness replication of the unchanged hierarchical h5 trajectory protocol before any new response, truth, observation, or endpoint. Fresh trajectory/audit seeds are24250/24251,24252/24253,24254/24255; pooled producer/audit bootstraps24256/24257. Primary pool excludes the original seed and stratifies 10k paired bootstraps across150 fresh cases. Pass requires all three original producer/audit gates, every per-seed metric mean positive, six positive pooled producer/audit lower bounds,>=.60 recovery,>=.75 route/onsite,1200 logical decisions, usage/cache/no-scoring-call invariants. No replacement or model/prompt/budget/threshold repair. Package cap$1.50; spend40.39856628/110.
+2026-07-23: All three fresh hierarchical h5 trajectory replications and every independent audit pass. Fresh-only pooled entropy AUC gains: +.272658 vs identical-plan h4,audit CI[+.264946,+.280007],150/0/0; +.211757 vs random h5,[+.201538,+.221822],148/2/0; +.284980 vs exact d4,[+.279040,+.290491],150/0/0. Pooled truth gains +.279295,+.212503,+.297432 with all audit lower bounds positive. Every per-seed six-metric interval passed; pooled recovery/route/onsite1.0.1200 logical decisions used51 physical prompts,zero invalids,51/51 forced finals,seven normalized Wafer notices,no scoring calls,$.09689739. Spend40.49546367,remaining69.50453633. The pooled audit CLI initially lacked the standard repo-root import shim and failed before reading/scoring artifacts; adding only that shim made the unchanged audit pass.
+2026-07-23: Froze a cross-model dense Qwen3-14B-thinking h5 trajectory gate before any Qwen h5 response/truth/endpoint. It changes only the target compiler model from Gemma26B; focused prior,prompt,K4 roots,deterministic routing,exact h5 verifier,cache,4096+128 serving,controls,thresholds,and no projection remain unchanged. Fresh S0 seed24260 repeats12 registered prefix cells and requires all original smoke gates. Conditional S1 seed24261/audit24262 uses50 paired trials/8 rounds and all six positive-CI,.60 recovery,.75 route/onsite,400-logical/64-physical,full-audit gates. Failure stops without repair/replacement. Excluded deterministic seed24259 smoke passes12/12 and23 focused tests pass. Caps$1/stage; spend40.49546367/110.
+2026-07-23: Canceled the superseded dense-Qwen h5 Rock smoke when the headline
+objective changed to non-myopia over path-dependent LLM belief regeneration. The
+partial seed24260 run wrote no SMOKE/trajectory artifact and evaluated no gate:
+12 requests,14859 prompt+38658 completion/34422 reasoning,2 forced exits,
+$.01979838. Spend40.51526205,remaining69.48473795. This is an objective-change
+cancellation, not positive or negative Qwen evidence; S1 was never launched.
+2026-07-23: Target-blind Animals belief-recall ranker development is promising on
+the two already-inspected coverage traces. Non-thinking Gemma26B selected expected
+truth coverage.202346 vs immediate EIG.127050, paired gain+.075296,4/14/2;
+active-state regret.119407 vs.286731 and direction positive on seeds1304/1305.
+Expected support size alone reached only.144613. Strict v1 failed on fences; frozen
+format-only v2 passed.40 requests,zero reasoning/forced,$.00219648. Spend40.51745853,
+remaining69.48254147. Development only; next is a fresh30-animal no-intermediate-read
+holdout of the exact prompt before policy integration.
+2026-07-23: Fresh60-target Animals ungated belief-recall holdout seed24271 fails
+the positive-CI gate despite directional improvement. Selected coverage.162207 vs
+EIG.120944,gain+.041263,8/47/5; producer CI[-.017140,+.102098],independent
+CI[-.018110,+.099833]. Active regret.148424 vs.251580. All60 target-blind payloads,
+raw responses, summaries, and distinct targets replay exactly.31859 coverage+60
+ranker requests,zero reasoning,$.56437927; spend41.08183780,remaining68.91816220.
+Exact ungated line stops. Post-hoc mechanism: at support<=generation cap16 ranker
+was4/56/0 with CI[+.008472,+.083610]; freeze only a new capacity-gated selector
+on wholly fresh targets, never relabel this null.
+2026-07-23: Fresh60-target Animals capacity-gated belief-recall holdout seed24275 failed the strict positive-CI gate and the line stops. Capacity selector coverage.091671 vs EIG.081918,gain+.009753,1/59/0; producer/audit CI[0,+.029258]. All integrity checks replay. Only3/60 supports were<=generation capacity16 and only2 selections differed, producing one+.585167 win and one tie; the gate removed prior losses but became nearly identical to EIG. Ungated same-record gain+.030753,5/53/2 is diagnostic only.32184 coverage+60 ranker requests,zero reasoning,$.56143761; spend41.64327541,remaining68.35672459. No threshold tuning or replacement holdout on these targets.
+2026-07-23: Target-blind dynamic-Brier development seed24278 failed and gets no fresh holdout. Coverage.087533 vs EIG.108117,gain-.020583,0/19/1; candidate Spearman-.1646 vs EIG+.1233. It changed7 choices; the only consequential loss was omitted-truth Echidna, where EIG's Australia question regenerated truth with.411667 coverage while pseudo-truth Brier preferred current-support retention. Only2/20 truths were initially present. This identifies the core closed-support flaw: a score integrating only current hypotheses cannot value open-world truth recovery.10084 requests,zero reasoning,$.18178257; spend41.82505798,remaining68.17494202.
+2026-07-23: Target-blind actual-branch-support ranker development seed24279 improves selected coverage.0505 vs EIG.0250,gain+.0255,1/19/0, but fails frozen positive-rank gate: Spearman-.0865 vs EIG-.1005. Ten choices changed; only one mattered, recovering omitted Meerkat for+.51. Only3/20 truths appeared in any six-branch union, so actual content exposes rare genuine recovery but remains too sparse/miscalibrated for a fresh holdout. All payload allowlists replay and exclude target/truth/EIG fields.10032 requests,zero reasoning,$.17914535; spend42.00420333,remaining67.99579667.
+2026-07-23: Fixed-history GPT-5.4 Mini branch-generator screen fails: truth recovered in only1/20 unions vs fixed Gemma3/20 and frozen gate8/20; only one state has any candidate coverage. All20 states/120 branches complete,zero reasoning. Frequent one-item parsed generations/retries suggest production list-interface mismatch, but this frozen model-only swap cannot be repaired or relabeled.6916 requests,$1.17985425; spend43.18405758,remaining66.81594242. A distinct next line must qualify a broader hypothesis-generation interface before policy scoring.
+2026-07-23: Four independent diverse Gemma26B hypothesis lists per branch pass the fixed-history generator gate exactly: truth in8/20 branch unions(40%) vs single-list Gemma3/20 and GPT Mini1/20; all8 have candidate coverage variation.120 branches complete,zero reasoning,11399 requests,$.21086924; spend43.39492682,remaining66.60507318. Independent sampling, not model scale, is the effective upstream change and authorizes target-blind scorer development on these inspected broader supports.
+2026-07-23: Unchanged target-blind branch-content ranker passes development on broader four-list supports: coverage.189246 vs EIG.095833,gain+.093413,3/17/0; candidate Spearman+.1610 vs EIG-.0887; active regret.166146 vs.399677. All100 payload checks pass,20 nonthinking requests,$.00214169; spend43.39706851,remaining66.60293149. Inspected targets mean development only; authorize one fresh sealed exact-stack holdout.
+2026-07-23: Fresh60-target multi-sample branch-ranker holdout seed24281 fails decisively and exact line stops. Union truth recovery6/60,coverage-spread states5; ranker coverage.008472 vs EIG.022667,gain-.014194,0/58/2,producer/audit CI[-.038542,0],Spearman-.0535. Independent audit passes every integrity replay. The disjoint obscure target distribution lies too far into the LLM's exact-name prior tail; development8/20 did not generalize.41465 requests,zero reasoning,$.76779429; spend44.16486280,remaining65.83513720. Next principled line must draw hidden targets from an independently sampled implicit LLM prior, not tune these failed names.
+2026-07-24: Frozen iid implicit-prior target sampler fails breadth before any policy response:16 temperature1 Gemma calls collapse to34 unique validated names vs required80. No20/60 split or endpoint exists.50 requests,zero reasoning,$.00077886; spend44.16564166,remaining65.83435834. Repeated identical prompts do not cover semantic modes; next distinct protocol must define a stratum mixture shared by target sampling and branch belief generation.
+2026-07-24: Eight-component stratified implicit-prior sampler passes before policy responses:126 unique validated names, fixed by seed24285 into20 development/60 untouched holdout/46 unused; each stratum yields15-16 cleaned names.135 requests,zero reasoning,$.00104036; spend44.16668202,remaining65.83331798. Next branch generation must use the identical mixture components.
+2026-07-24: Shared-stratified-prior Animals development seed24286 fails and untouched60-target split remains unused. Union coverage14/20 but initial coverage13/20, so only one omitted truth is recovered vs required6. Ranker coverage.366667 vs EIG.41905,gain-.052383,3/14/3,Spearman-.2167. Narrow/tail supports cannot recover truth; broad matched supports erase path dependence.28350 requests,zero reasoning,$.52711392; spend44.69379594,remaining65.30620406. Close exact-name Animals route and move to a task where observations unlock structured semantic hypotheses rather than merely expanding a name list.
+2026-07-24: OpenRouter project ceiling increased by $40 from $110 to $150. Recorded spend remains $44.69379594; available budget is now $105.30620406.
+2026-07-24: Exact-name Animals is closed; selected Paprika structured cause-remedy recovery as the next irreducible-LLM gate. Preregistered a development-only unlock diagnostic on 12 seed24287 train tasks: 8 initial hypotheses, 4 diagnostic-only realized branches, 8 refreshed hypotheses, target hidden from all generation/filtering and used only by the faithful customer plus GPT-5.4 Mini semantic measurement. Frozen pass requires non-saturation, >=3 omitted-solution recoveries, mean oracle match gain >=.10, and candidate-dependent spread. No policy or holdout is authorized unless this mechanism gate passes.
+2026-07-24: Paprika structured-unlock development seed24287 fails and line stops. Initial semantic support already covers9/12 private solutions, leaving only3 omissions; only1 is recovered. Secondary dynamics exist: mean oracle best-match gain+.105, candidate spread>=.15 on5/12, mean spread.351, but frozen non-saturation/recovery gates fail. All12 tasks/48 branches complete; faithful replies48/48 with zero repairs/inconsistencies; all semantic indices valid. Successful run228 requests,$.03919172; complete line including failed-closed apparatus/diagnostic calls$.10475953,zero reasoning. Spend44.79855547,remaining105.20144453. Next task must deliberately stage guaranteed structured evidence while hiding diagnosis options, not tune Paprika support width.
+2026-07-24: Preregistered distinct iCRAFT staged open-world diagnosis unlock gate seed24288. Excluded all13 source IDs with prior model calls, fixed20 development/60 untouched holdout/47 reserve. Generator sees only first2 atomic facts initially, then guaranteed remaining workup facts; answer options/true diagnosis hidden from both 8-diagnosis generation stages and used only by GPT-5.4 Mini semantic measurement. Frozen pass: initial<=10/20, workup>=14/20, >=8 recoveries, recovery>=.60, mean match gain>=.25. This is not a retry of closed official FactSelect; no planner/holdout unless mechanism passes.
+2026-07-24: Staged iCRAFT diagnosis development seed24288 fails reliability gate; 60-case holdout untouched and no planner. Initial coverage5/20 avoids saturation; guaranteed remaining facts raise workup-generated coverage to11/20, recover6/15 omissions(.40), mean semantic match gain+.3375. Exact recoveries include Toxicodendron, pellagra, lichen planus, IgA vasculitis, tuberous sclerosis, and poison ivy; rare tail remains missed. Smoke10 req,$.00123355; development60 req,$.01746645; zero reasoning. Spend44.81725547,remaining105.18274453. Strongest open-world unlock mechanism so far, but not reliable enough for policy.
+2026-07-24: OpenRouter project ceiling increased by $40 from $150 to $190. Confirmed spend remains $44.81725547; available budget is now $145.18274453.
+2026-07-24: Corrected budget bookkeeping from the live OpenRouter `/credits` endpoint: account has $80 credited, $54.43245278 used, and $25.56754722 remaining. Project ledger tracks $44.81725547, so its fail-closed ceiling is reset to $70.38480270 to expose the same remaining balance. The prior $190/$145.18 state line was an incorrect cumulative-cap inference and is superseded.
+2026-07-24: Selected the released Apache-2.0 ClinDiag-Benchmark as a distinct staged open-world route before any response. Pinned source commit f9b5c181 and archive SHA256 a9ea339f; static audit found2010 structurally complete and1347 no-lexical-leak eligible cases. Seed24289 fixes disjoint4 smoke/20 development/60 untouched holdout, with dev10 challenging+10 rare. GPT-5.4 nonreasoning generates12 diagnoses from initial-only and full native workup; GPT-5.4 Mini measures post-generation. Frozen dev pass requires initial<=8,full>=16,recoveries>=10,recovery>=.70,gain>=.30,challenging>=8,rare>=7. No branch/policy/holdout unless all pass.
+2026-07-24: ClinDiag staged-generator serving smoke passes exactly:4 initial+4 full+2 semantic physical requests,all8 supports size12,no retries/runtime failures,zero reasoning. Full evidence retained left trigeminal neuralgia and recovered fulminant viral hepatitis(.62->.95).7851 prompt+1451 completion,$.03608825. Project-ledger spend44.85334372,remaining25.53145897; provider credits endpoint lagged and still showed the pre-smoke balance. Frozen20-case development gate is authorized unchanged.
+2026-07-24: ClinDiag staged-generator development seed24289 passes every frozen gate, the first external open-world mechanism pass. Initial support covers6/20; native full workup17/20;12/14 omissions recovered(.8571); mean match gain+.4125; challenging10/10,rare7/10. Three full misses are rare-tail distinctions: RNF13 encephalopathy, Micro syndrome subtype, keratocystic odontogenic tumor. Exactly60 requests,40881 prompt+8106 completion,zero retries/reasoning/forced exits/runtime failures,$.17443725; complete line$.21052550. Spend45.02778097,conservative remaining25.35702172. Authorize only a fresh target-blind branch-opportunity/mechanics gate;60-case holdout and policy remain sealed.
+2026-07-24: Preregistered fresh ClinDiag oracle branch-opportunity gate seed24290 before responses. Twelve unused cases(6 challenging/6 rare) each have nonempty history,exam,labs,imaging,other-test actions. Exhaustively generate five one-step and20 ordered two-step supports at temp0, plus one exact identity replicate/case; truth enters only GPT Mini post-generation measurement. Frozen pass requires initial<=5,spread>=.20 on8,reverse-order>=.15 on5,nonmyopic oracle-vs-greedy-continuation gap>=.10 on4 and mean>=.05,two-step gain>=.10,identity gap/jaccard controls. Expected336 calls,cap$3/projected$2. No target-blind planner or holdout unless all pass.
+2026-07-24: ClinDiag branch-opportunity serving smoke passes interface:exact10 requests,all8 supports size12,zero retries/reasoning/runtime failures,$.02974350. Exact duplicate prompts have semantic truth-score gap0 on both cases but lexical Jaccard.60/.4118 due clinically equivalent paraphrase/subtype wording. Before any formal response, amended only the invalid exact-name Jaccard gate to descriptive; mean<=.05/max<=.15 duplicate semantic-score gates remain, directly controlling the measured order endpoint. Spend45.05752447,remaining25.32727822. Formal cases untouched.
+2026-07-24: ClinDiag five-action oracle opportunity gate seed24290 fails; no planner/holdout. Initial2/12,one-step spread>=.20 on9 and reverse-order>=.15 on7 pass, but best one-step already equals oracle two-step in11/12. Only fetal alcohol has nonmyopic gap+.30; count1 vs4,mean gap/two-step gain both+.025 fail. Identity semantic gap mean.0917,max1.0 fail: identical lab->exam prompts for delayed HIT include vs omit truth, proving some order effects are serving noise.336 exact requests,260306 prompt+58119 completion,zero retries/reasoning/runtime failures,$1.30918475; opportunity line$1.33892825; total ClinDiag$1.54945375. Spend46.36670922,conservative remaining24.01809347. Close exact native-block route. Any next line must use fresh finer evidence actions and replicated/aggregated stable support, not repair this null.
+2026-07-24: Deterministic ClinDiag test-card audit rejects the direct finer-action construction before calls. Of1249 fresh eligible cases,808 retain>=6 cards after fixed confirmatory/intervention filters, but retrospective card availability is target-selected and unperformed tests have no counterfactual outcomes. Card scarcity is not the issue; the action/outcome model is invalid. Banked in8eaf03c.
+2026-07-24: ClinDiag four-way MC joint-model smoke seed24291 fails the hidden-environment gate and stops exact Mini-gatekeeper line. All36 requests parse,zero reasoning/retries; duplicate outcomes/semantics4/4; likelihood passes with mean p(realized|truth).5663,10/16 positive true-vs-generated margins,mean margin+.1743. Only10/16 behavioral audits pass:5 case-consistency failures and1 frozen no-leak failure. Cost$.08538475; spend46.45209397,conservative remaining23.93270872. Retain enumerable likelihood idea only; next distinct route should use binary propositions, ban confirmatory actions, and qualify a stronger nonreasoning gatekeeper before lookahead.
+2026-07-24: ClinDiag binary per-query interface smoke seed24292 fails frozen semantic content despite automated green summary; no44-call joint smoke. Exactly10 GPT-5.4 nonreasoning calls,2 size12 supports,2 safe six-query sets,all answers parse,duplicate labels2/2. Manual pre-escalation audit catches “external genitalia were not reported as ambiguous,” which exposes chart missingness instead of synthesizing a patient fact; duplicate provenance also recorded->synthetic. Regex omitted “not reported,” so automated pass is an instrument false positive, not authorization. Cost$.035485; spend46.48757897,remaining23.89722372. Next distinct route: generate and duplicate the complete six-answer patient response function jointly, then independently audit it.
+2026-07-24: ClinDiag joint six-answer response-function qualification seed24293 fails 11/12 frozen audit rows; no likelihood stage. Exactly10 GPT-5.4 nonreasoning calls,all supports/queries parse,no missingness/leaks,all12 original/duplicate labels+semantics+provenance stable. Both functions stably assert recorded eczema absence for rare214 T-B+ SCID; independent audit marks both case-inconsistent. Cost$.06769050; spend46.55526947,remaining23.82953322. After three environment failures, stop LLM-generated patient outcomes. Pivot to fixed generic evidence slots with deterministic stored observations; retain LLM only for open-world support/filter/semantic likelihood.
+2026-07-24: Deterministic ClinDiag fixed-slot audit passes construction before calls. Every case offers the same8 generic labels(present illness,prior history,family/social,exam1,lab1,lab2,imaging1,other1); names/findings remain hidden until selection; all slots nonempty; confirmatory/intervention entries filtered; observations copied from archive. After excluding114 prior IDs including sealed holdout,452 fresh cases remain(416 challenging,36 rare). This fixes target-shaped menu leakage and patient-simulator hallucination. Next gate must validate stable path-dependent support, semantic likelihood against stored chunks, and a truth-anchored two-step gap before policy.
+2026-07-24: Correct live OpenRouter remainder is $23.82953322($80 credits-$56.17046678 provider usage), agreeing with the project ledger; use the live endpoint before every paid stage. Preregistered a fail-closed10-call fixed-slot support-refresh stability smoke seed24294 on fresh challenging25992750+rare167: initial->stored present_illness->stored lab1 plus exact final-prompt replay,12 diagnoses each, GPT-5.4 nonreasoning generation and GPT Mini audit. Frozen pass requires semantic duplicate overlap>=.80 and truth-score gap<=.05 on both; cap$.50/projected$.15. No opportunity or policy run unless it passes.
+2026-07-24: Fixed-slot support smoke v1 fails closed at semantic parser after exactly10 requests,zero reasoning,$.03129325; remaining23.79823997. Audit prose requested4 rows but JSON exemplar showed only initial, and raw response was not persisted. Bank v1 as interface failure. Freeze one format-only v2 before calls: enumerate all4 IDs in schema and always persist raw audits/supports; same cases/models/path/thresholds/call count/cap. If v2 fails, stop exact interface.
+2026-07-24: Fixed-slot support smoke v2 passes all frozen gates:exact10 requests,zero reasoning/retries,all8 supports size12,exact prompt replay overlaps.8333/.9167 and truth-score gaps0/0,no source target leaks. Manual audit: coherent lists, but both paths remain truth score0 at every stage, so mechanics only, not opportunity. V2$.02651550; complete line$.05780875; ledger spend46.61307822,remaining23.77172447(provider endpoint lagged one run). Authorize only a small fresh all8-action replicated truth-anchored structural screen before any scorer/policy.
+2026-07-24: Preregistered staged fixed-slot opportunity screen seed24295 on fresh challenging20220188/11222813+rare140/rare122. Stage1 generates initial+all8 independent one-step 12-diagnosis supports and4 truth-only semantic measurements:exact40 calls,GPT-5.4/GPT Mini nonreasoning,zero retries,cap$.50/projected$.25. Pair generation is forbidden unless >=2/4 cases have both initial and max one-step truth score<.80; this cheaply tests necessary two-step headroom before a 56-pair/case expansion.
+2026-07-24: Fixed-slot stage1 structural gate fails; no pairs. Exact40 requests,zero reasoning/retries,all36 supports size12,but0/4 retain two-step room. POEMS+Buerger start truth-saturated; LHON family_social explicitly says LHON; Alagille lab1 alone recovers truth. Cost$.09775475; ledger spend46.71083297,remaining23.67396972(provider usage again lagged). Coarse retrospective chunks are myopically sufficient here. Next route must measure natural all-one-step-omission prevalence under a frozen rule or atomize evidence; no likelihood/scorer/policy from this null.
+2026-07-24: Preregistered 20-case fixed-slot all-one-step-omission prevalence screen seed24296,balanced10 challenging/10 rare and disjoint from all6 fixed-slot cases. Unchanged protocol: initial+8 one-step supports+1 truth-only measurement/case,exact200 calls,zero retries/reasoning,GPT-5.4/GPT Mini,cap$1.50/projected$.75. Coarse route survives only if >=4/20 have initial and max one-step score<.80; otherwise close it with no pairs/likelihood/policy.
+2026-07-24: Fixed-slot room prevalence passes:7/20(35%) retain truth omission after all8 one-step actions vs frozen>=4. IDs31597024,24283228,rare287,rare79,rare66,rare207,rare243; first5 score0,rare207.15,rare243.70. Exact200 requests,zero reasoning/retries,all180 supports size12,$.49397575; ledger spend47.20480872,remaining23.17999397(provider lower usage still lags). Authorize exhaustive ordered pairs only on these7, with exact-prompt validation of selected oracle paths before likelihood/scorer.
+2026-07-24: Preregistered exhaustive fixed-slot ordered-pair gate on exact7 qualifiers and pinned prevalence SHA a66bbef...b74. Generate392 ordered terminal supports; measure in28 fixed chunks; select max pair by frozen order; exact-replay7 winners and jointly validate truth+semantic overlap. Exact434 calls,zero retries/reasoning,GPT-5.4/GPT Mini,cap$3/projected$2.20. Pass requires >=3 validated unlocks(score>=.80,gain>=.30,overlap>=.80,gap<=.05) and mean gain>=.20. No likelihood/scorer unless pass.
+2026-07-24: Exhaustive fixed-slot pair gate fails decisively; exact prior-retaining coarse line closes. Exact434 calls,zero reasoning/retries,all399 pair+replay supports size12,but0/7 validated unlocks and mean gain-.1214. Adenovirus batch.92 was judge false positive(no truth in support); BPD truth appeared in9 originals incl selected1.0 but exact replay dropped it(score gap1); others never equivalent(Hurler-Scheie only broad MPS-I.78). Cost$1.30165225; ledger spend48.50646097,remaining21.87834172(provider usage differs, ledger stricter). No likelihood/scorer/policy. Diagnostic: current prompt says retain earlier diagnoses and outputs show strong support inertia; any de-anchored full-refresh line must be fresh and separately gated.
+2026-07-24: Preregistered distinct de-anchored full-refresh serving gate seed24297 on fresh challenging21991897+rare70. Single change: prior support is context only; rebuild12 diagnoses from all visible evidence, replace unsupported items, introduce combined-evidence diagnoses. Same present->lab path,exact final replay,GPT-5.4/GPT Mini nonreasoning,10 calls,zero retries,overlap>=.80/gap<=.05,cap$.50/projected$.15. Pass authorizes only fresh small headroom screen.
+2026-07-24: De-anchored temp.5 serving gate fails stability:exact10 requests,zero reasoning/retries,all8 supports size12,truth gaps0/0,but both exact-prompt semantic overlaps.50 vs.80. Lists stay coherent/truth-retaining but half membership changes; de-anchoring trades inertia for variance. Cost$.02467650; ledger spend48.53113747,remaining21.85366522(provider lagged). No efficacy run. Freeze at most one fresh temperature0 calibration with unchanged thresholds; failure closes de-anchoring.
+2026-07-24: Preregistered sole de-anchored deterministic calibration seed24298 on fresh challenging23697517+rare216. Same prompt/models/present->lab path/10 calls/overlap>=.80/gap<=.05; only support generation temperature changes.5->0. Zero retries/reasoning,cap$.50/projected$.15. Pass permits one small fresh headroom screen; failure closes de-anchored family with no more tuning.
+2026-07-24: De-anchored temperature0 calibration also fails:exact10 requests,zero reasoning/retries,all8 supports size12,truth gaps0/0,but exact-prompt overlaps.1667/.50. Manual related overlap is somewhat higher but still below frozen same-disease.80; no threshold change. Cost$.02516650; ledger spend48.55630397,remaining21.82849872. De-anchored family closes. ClinDiag tradeoff: prior-retaining stable but two-step-inert; full rebuild responsive but set-unstable. Move environment/belief representation, no more ClinDiag prompt/temperature tuning.
+2026-07-24: Live OpenRouter endpoint confirms only $21.82849872 remains($80 credits-$58.171501277 usage); check live before every paid gate and use the stricter live/ledger remainder. Literature review identifies the missing representation: BED-LLM filters new hypotheses against full history and old hypotheses against latest evidence at threshold.20, while LLM-SMC selectively revises low-likelihood particles. Preregistered a distinct14-call filtered-retention ClinDiag gate seed24299 on fresh11388546+rare203 with actual pruning/replacement and exact-path semantic stability required; no paid call before commit/push.
+2026-07-24: Filtered-retention zero-retry gate fails frozen mechanics but yields first positive ClinDiag transition signal. Exact14 calls,zero reasoning/retries,$.04314350. Weak-BP case retained12/12 old and admitted0 new; adrenal panel pruned12/12, recovered omitted CYP17A1 truth0->1 in both paths, but only8/6 valid candidates survived so final sizes failed. LLM audit falsely called unequal8/6 sets overlap1 because one shared truth; do not use that instrument. Exact interface closed. A distinct fresh follow-up may use BED-LLM's preregistered repeated generate-filter cycle and deterministic overlap/matching; no policy yet. Ledger spend48.59944747,remaining21.78535522.
+2026-07-24: Preregistered distinct BED-LLM recovery gate seed24300 on fresh27223150+rare130 with common stored lab2. Same .20 filter/12-target, but three fixed independent candidate batches per original/replay path as literature recovery mechanism; exact30 calls,GPT-5.4 temp.5 generation,GPT Mini filtering/truth audit,zero reasoning/retries,cap$.50/projected$.15. Pass requires full supports,>=1 substantive4-pruned/4-refilled transition,truth gap<=.05/no truth loss. Exact lexical overlap descriptive; broken aggregate overlap judge removed. No likelihood/policy unless pass.
+2026-07-24: Three-batch filtered-retention recovery gate fails and closes ClinDiag line. Exact30 calls,zero reasoning/retries,$.07958150. Weak anemia case retained12/12 unchanged. CMV serology pruned11/12 and introduced10 new in both paths but final sizes only11,exact Jaccard.10,truth stayed0: batches collapsed onto maternal-CMV pneumonitis/myocarditis/pericarditis variants and missed fetal-CMV syndrome. Target/evidence granularity is misaligned; no fourth batch,threshold/cardinality relaxation,likelihood,ranker,or policy. Next route needs target-aligned semantic observations and category-diverse generation. Ledger spend48.67902897,remaining21.70577372.
+2026-07-24: Preregistered AR-Bench Situation Puzzle support-recovery gate seed24301 on a frozen target-blind12-case sample. Gemma4-26B nonthinking generates8 initial explanations,4 binary questions,and8 branch-refreshed explanations; GPT-5.4 Mini nonreasoning provides hidden-story Yes/No/Unknown answers and post-generation coverage only. Released key questions unused. Exact10-call two-case serving smoke precedes exact132-call formal gate; no likelihood/ranker/policy unless omissions,truth recovery,mean gain,and branch-spread gates all pass. Live OpenRouter remainder21.70577372 before launch.
+2026-07-24: AR-Bench Situation Puzzle serving smoke passes exact mechanics:2 tasks/2 branches,10 requests,zero reasoning/retries/forced/runtime failures,$.00364724. Both false-death cases are initially truth-saturated(score.95/.90) and branch gain0,an early saturation warning but not a frozen serving failure. Bank unchanged and proceed only to the preregistered12-case formal gate; its >=6 omissions,>=3 recoveries,mean gain>=.10,and4 branch-spread thresholds remain fail-closed. Ledger remaining21.70212648.
+2026-07-24: AR-Bench Situation Puzzle formal gate fails and closes apparatus before likelihood/policy. Exact132 calls,zero reasoning/retries/forced/runtime failures,$.05350195; complete line$.05714919. Initial omission3/12<6,recovery1<3,mean oracle gain+.0575<+.10; spread passes9/12 but is mostly destructive(mean all-branch delta-.1154,20/48 worsen,10 improve). Sole nominal recovery repeats the same coma/misdiagnosis mechanism while judge score changes. No support-size tuning,post-hoc subset,likelihood,ranker,or policy. Ledger remaining21.64862453; live endpoint showed21.68033762 and ledger is stricter.
+2026-07-24: Preregistered distinct MovieLens semantic-profile dynamics gate seed24302. Twelve target-blind anonymous users are selected from47 who rated the same fixed4 public-history and4 candidate films;8 seeded other ratings/user are sealed endpoints. Gemma4-26B nonthinking generates6 profiles and refreshes after each recorded rating; GPT-5.4 Mini nonreasoning supplies profile-conditioned five-rating likelihoods. No LLM answerer/judge,user ID,or hidden rating in prompts. Exact10-call smoke then120-call formal gate; require profile mutual information,heldout-NLL improvement/branch spread,and immediate-EIG regret before any scorer/policy/depth run. MovieLens files remain local under research/no-redistribution terms.
+2026-07-24: MovieLens v1 serving smoke passes mechanics but fails the load-bearing semantic-representation audit; formal canceled before launch. Exact10 requests,zero reasoning/retries/forced/runtime failures,$.02876341. Both refreshed six-profile sets copied their initial sets exactly. Branch NLL nevertheless changed because the likelihood prompt directly saw the new rating history, proving a bypass around profile regeneration. Initial max EIGs .00399/.07365. Bank v1 and use a fresh preregistered sample for any successor; likelihood must hide raw history so updates flow only through semantic profiles. Ledger remaining21.61986112 versus live21.63214070; use stricter ledger and recheck live before calls.
+2026-07-24: Preregistered MovieLens load-bearing profile-dynamics v2 seed24303 before responses. Fresh target-blind users exclude all v1 users; smoke-only294/327 and formal378,387,416,450,470,488,533,537,580,650,676,699 are disjoint. Single identification repair: GPT Mini likelihood sees profiles+movie metadata only,never observed history; all predictive update must flow through Gemma's semantic support. Refresh requires6 non-copy replacements with explicit newest-evidence effects. Exact10 smoke then unchanged120-call NLL/EIG opportunity gates; no policy/depth unless all pass.
+2026-07-24: MovieLens v2 smoke passes frozen mechanics and shows first positive load-bearing profile signal:exact10 requests,zero reasoning/retries/forced/runtime,$.03354118; both max EIG>.02,supports6->8,zero exact old copies; Contact branch heldout NLL change +.0565 improvement for user294 and -.0976 worsening for327. Likelihood prompts are history-free. Manual privacy audit caught Gemma prose repeating Fargo(4)/Contact(1),so before formal froze output-only amendment:raw model responses stay ignored under external/,committed derived results use text hashes/counts/metrics only. No prompt,metric,gate,or endpoint change. Ledger/live remaining21.586319943.
+2026-07-24: MovieLens v2 formal mechanism gate is an informative near miss but fails frozen conjunction; no v2 policy/depth. Exact120 requests,zero reasoning/retries/forced/runtime,$.44975180. Mean oracle heldout-NLL improvement+.07232 passes; only5/12 improve>=.05 vs6. Branch-spread count6/12 passes. Mean immediate-EIG regret.04779 and count4/12 pass; global Spearman EIG vs negative branch NLL+.2415. Mean max EIG.02163 passes but only5/12>=.02 vs8. All48 supports are non-copy6->8 and likelihood is history-free,so semantic regeneration is genuinely load-bearing but concentrated and insufficiently discriminative. Close exact v2/no posthoc subset. Live+ledger remaining21.136568143.
+2026-07-24: Preregistered distinct MovieLens candidate-contrastive v3 seed24304 before responses. Private v2 audit shows low-EIG users have lexically varied but semantically repetitive profiles and compressed candidate distributions(pairwise L1 .058-.071). Fresh smoke26/63 and formal144,178,268,293,303,345,417,425,486,487,624,663 exclude all v1-v2 users. Each hypothesis must label all4 fixed candidates appeal/avoid/uncertain with within-profile and across-support disagreement; parsed contrast text enters history-free likelihood. All v2 numerical gates unchanged. Exact10 smoke then120 formal; no policy/depth unless all pass.
+2026-07-24: MovieLens free-form candidate-contrastive v3 smoke fails closed; no formal/policy. Exact10 requests,zero reasoning/retries/forced/runtime,$.03587022. Both initial and original refresh supports plus user63 replay pass. User26 exact replay collapses Toy Story to avoid in all6 profiles while other movies vary,violating frozen every-movie support-diversity. This is exact-prompt stochastic global-constraint instability; no retry/parser relaxation. Close exact v3. Any distinct successor must allocate contrast patterns structurally before generation. Ledger remaining21.100697923(live endpoint lagged21.117164693).
+2026-07-24: Preregistered principled MovieLens adaptive-candidate v4 seed24305 before responses. Avoid forcing contrast labels: restore stable v2 broad semantic profiles/history-free likelihood. Among79 fresh eligible users after excluding v1-v3, smoke113/130 and formal158,194,227,234,323,468,494,551,579,679,710,854 frozen. Per user choose16 rated non-history movies by global presence popularity only,score profile EIG before reading outcomes,branch top4;8 heldout from remaining. Same v2 numerical gates/exact10 smoke/120 formal. This tests adaptive legal queries where natural semantic belief disagrees.
+2026-07-24: V4 smoke passes exact10 mechanics,zero reasoning/retries/forced/runtime,$.04622408,but max-of16 EIG only.01454/.00553; top branch NLL changes +.05535 improvement/-.21335 worsening. Before any formal-user response froze cost-only futility stop:make required12 initial profile+12 initial likelihood calls,apply unchanged mean>=.02/count>=8 sensitivity gate without reading candidate/heldout outcomes;fail at exact24 if absent,otherwise same process continues to120. Ledger remaining21.054473843,live endpoint lagged21.070010753.
+2026-07-24: V4 formal sensitivity screen fails and stops before outcomes/branches. Exact24 requests(12 profile+12 likelihood),zero reasoning/retries/forced/runtime,$.172479. Mean best-of16 EIG.03270 passes but only4/12>=.02 vs8; responsive maxima.14065,.08019,.06647,.04090,others.00096-.01823. Adaptive search raises upper tail but semantic uncertainty remains concentrated. No posthoc4-user branches; exact v4 closes. A future distinct route may prospectively enroll fresh high-uncertainty users before outcomes. Live+ledger remaining20.881994843.
+2026-07-24: Preregistered prospective uncertainty-enriched MovieLens v5 seed24306 before responses. Fresh smoke123/781; frozen ordered48-user screen excludes v1-v4. Screen broad v2 profiles+history-free likelihood over16 candidates,read no outcomes; enroll first12 with max EIG>=.02. Fewer12 stops exact96; otherwise preserve exact beliefs and run48 branches,exact192. Conditional gates retain oracle-NLL improvement/count,branch spread,and immediate-EIG regret/count; no post-outcome replacement/exclusion and no policy unless all pass.
+2026-07-24: V5 uncertainty-enriched serving smoke passes:exact10 requests,zero reasoning/retries/forced/runtime,$.04380478. Both24-movie likelihoods,top-EIG branches,non-copy refreshes,8-supports,replays complete. Max EIG.01040/.02570; branch NLL changes+.05199/-.09781 descriptive only. Frozen48-user prospective screen authorized unchanged. Ledger remaining20.838190063.
+2026-07-24: V5 prospective uncertainty-enriched formal gate PASSES every scientific mechanism gate:first12/48 max-EIG>=.02 enrolled before outcomes IDs318,864,459,145,21,401,236,825,764,680,653,758;exact192 requests,zero reasoning/retries/forced/runtime,$1.03085638. Mean oracle heldout-NLL improvement+.06121,count6/12;branch spread count7/12;mean immediate-EIG regret.05871,count6/12;all12 sensitive;Spearman EIG vs negative branch NLL+.28137. History-free likelihood means updates flow only through regenerated semantic profiles:first clean external load-bearing LLM belief opportunity. Initial gate_failed string was self-referential all_pass reducer bug;all substantive gates true,code/test+derived status corrected,no call/metric change. Authorize only fresh target-blind ranking fidelity,not policy/depth. Remaining19.807333683.
+2026-07-24: Preregistered v6 semantic lookahead ranking gate seed24307 before responses on final15 untouched users;prospectively enroll first4 maxEIG>=.02. Nonthinking Gemma scorer sees generated profiles,profile-conditioned candidate likelihoods,4 candidate+8 downstream metadata,no outcomes;controls immediate EIG+seeded random. Full66 calls. Require Spearman>=.25,mean top1 regret improvement>=.02,semantic beats immediate>=2/4,and no worse than random. Passage only authorizes fresh policy test.
+2026-07-24: V6 semantic ranking smoke passes exact12 requests,zero reasoning/retries/runtime,$.04375481. Both scorer rows nonconstant(.30,.60,.90,.50 and .65,.40,.85,.75);complete branch/replay paths pass. Frozen15-user formal ranking gate authorized;remaining19.763578873.
+2026-07-24: V6 first formal attempt stops after exact30 initial calls,before enrollment/scorer/outcomes,on floating boundary bug:valid row [.42,.24,.16,.08,.08] mathematical sum.98 becomes.9799999999999999 and strict parser rejects. Freeze format-only 1e-12 tolerance+resume using exact raw15 profile/15 likelihood responses and original usage;no resampling/user/threshold/endpoint change. Remaining19.548092233.
+2026-07-24: V6 resumed exact responses and completes exact66 accounting,zero reasoning,$.32814070,but semantic lookahead fails decisively:no policy. Four prospective users540,500,456,379;semantic Spearman vs negative branch NLL-.345;mean semantic top1 regret.14094 vs immediate EIG.06254 and seeded random.13728;semantic beats immediate0/4. Scorer ranks opportunity backwards;close exact prompt/no tuning. Remaining19.435438173.
+2026-07-24: Preregistered v7 explicit regeneration-rollout ranking design seed24308 before responses. Replace failed verbal scorer with actual hypothetical transition:for each4 candidates x ratings1..5,regenerate profiles,retain compatible old,compute history-free downstream predictive entropy,average under current p(rating). Fresh diverse history movies50/100/1/98;exclude v1-v6;smoke253/654;ordered20-user screen frozen,first4 maxEIG>=.02 enroll. Same ranking gates vs immediate/random. Projected232 formal calls,$3 cap/$1.5 projection;implementation+smoke next.
+2026-07-24: V7 explicit regeneration ranking passes all frozen gates on prospective users201,910,747,313:exact232 requests,zero reasoning,$.95915395;score-vs-negative-NLL Spearman+.2735,mean top1 regret.1170 vs immediate.1948 and random.1381,explicit beats immediate4/4. This is the first positive ranking of a load-bearing semantic transition and authorizes sequential policy testing.
+2026-07-24: Preregistered true depth2 common-tree v8 seed24309:48-user fresh screen,first4 EIG>=.02,three policies share4x5x5 semantic branches;depth2 integrates terminal entropy after branch-specific greedy q2,depth1 stops after q1,immediate is greedy. Smoke passes exact62 calls after a transparent7-call trailing-comma failure/parser repair.
+2026-07-24: V8 paid formal completes exact1056 calls,zero reasoning,$5.00894919,then fails before outcomes on2/25600 terminal rows summing.90/.94. Hash-locked zero-call recovery normalized only those rows under preregistered[.90,1.10] rule. Depth2 fails:mean final NLL1.5155 vs depth1 1.4838 and immediate1.5147;wins3/4 and1/4. No larger confirmation.
+2026-07-24: Frozen-tree diagnosis localizes horizon failure upstream:depth2 expected value vs realized terminal entropy rho+.1618,terminal entropy vs NLL+.2941,but depth2 score vs NLL-.5265(depth1-.5500). Rollout MI,risk penalties,44-user temperature calibration,and lineage Bayesian weights all fail. Repeated semantic regeneration is not coherent enough to compose twice; close MovieLens depth2 entropy planner.
+2026-07-24: Next best gate is a fresh two-round receding explicit-regeneration policy:reuse the v7 one-transition scorer at each real round and replan,versus immediate EIG on common branch trees. This preserves the positive transition mechanism while avoiding a second simulated regeneration. Live+ledger balance after v8 is$13.116048313; check both before any paid stage.
+2026-07-24: V9 receding explicit policy fails despite clean adaptive separation. Smoke passed exact22. Formal source stopped at256 calls on one truncated hypothetical profile before endpoints; hash-locked recovery replaced only index13 and completed exact1257 combined calls,zero reasoning,$6.67587505. On prospective users880,246,59,308,465,632,497,339,final NLL explicit1.5094 vs immediate1.5049 vs random1.4942; explicit wins4/8. Q1 differed explicit-v-immediate8/8,Q2 7/8,U=21,so not policy collapse. Q1 explicit score rho with realized negative NLL+.370 but selected Q1 mean advantage-.00587; all arms improve similarly at round2. Close exact v9. Live+ledger remaining$6.292031753; pause paid work and propose what additional funds would buy.
+2026-07-24: Closed the MovieLens shortcut after zero-call replay showed fixed-profile exact d2 improves final NLL over greedy by only.00040 and changes q1 on2/8; epsilon smoothing leaves every v9 root unchanged. Preregistered Animals CA-BED shared-tree V10 seed24310 before responses:fixed64 support,24 formal targets,d1/d2/random share4 roots,3 followups/branch,and Gemma4-26B nonthinking prompt-logprob Yes/No likelihoods softened epsilon.7. Implemented opt-in bayes_fixed_support updates, static likelihood caching/batching, strict invalid-row failure,paired truth-NLL/entropy rank gate,and msc/llm launcher. Zero-cost smoke passes;180 focused tests pass;full suite1079 pass/1 skip with only the known unrelated paper6-vs7-page preflight failure. No paid calls;live/ledger remain$6.292031753. ssh oat0 still fails public-key authentication,so formal targets remain untouched.
+2026-07-24: Research-priority note: try CA-BED Detective Cases as a cleaner fixed-support semantic benchmark after the current gate. Concentrate the headline on an LLM-native result where semantic question generation and/or likelihood inference is indispensable, with paired d1/d2 and matched-compute controls; exact environments where the LLM is replaceable remain supporting evidence only.
+2026-07-24: OpenRouter live `/credits` confirms $140 total credits, $73.707968247 usage, and $66.292031753 remaining. Budget must last through Monday 2026-07-27: reserve $25, cap pre-Monday paid spend at $41.292031753, retain staged smoke/gate escalation, and check live balance before every paid stage. OatML cluster work is paused until Hanshal explicitly re-enables it; do not launch or pursue cluster jobs meanwhile.
+2026-07-24: Preregistered the OpenRouter-only Detective CA-BED shared-tree depth-ranking gate at seed24312 before any response. Exact released CA-BED four-suspect artifact, DeepSeek-V3.2 nonthinking textual likelihoods, width3/3, epsilon.7, four hidden-role answer rollouts/root, two smoke+12 ranking+24 sealed confirmation cases. Ranking requires positive truth-gain Spearman and paired d2 gains over d1/random; smoke104 calls cap$.75, ranking624 calls cap$3. OatML remains paused.
+2026-07-24: Detective CA-BED smoke v1 failed serving-only after8 requests/$0.0028929176, before followups/answers/endpoints: all six root-likelihood completions spent the 512-token cap on the paper-requested explanation and omitted numerical rows. Frozen one format-only v2 before responses: max output512->2048; everything else including prompts/parser/cases/gates/cap unchanged, no reuse or repair. V2 failure closes this interface.
+2026-07-24: Detective DeepSeek published-prompt v2 also fails serving-only after8 calls/$0.00265787165: one likelihood completion used bold prose without markers and another omitted one suspect. DeepSeek/published-prompt interface closes with zero endpoints. Preregistered distinct concise Gemma4-26B nonthinking temp0 interface before responses: no explanations, exact marker rows, same released data/splits/tree/epsilon/four answer rollouts and unchanged scientific gates; smoke104 cap$.50, ranking624 cap$2.
+2026-07-24: Detective concise Gemma smoke passes exactly:2 cases,104/104 requests,zero reasoning/forced exits,complete3x2x3 trees/four stable answer rollouts,$.00982681. Questions are coherent suspect-targeted interrogations. Descriptive smoke score-vs-truth Spearman d2 .500 vs d1 .433, but roots match2/2; efficacy unread. Frozen12-case ranking gate is authorized unchanged after live-balance check.
+2026-07-24: Detective concise Gemma ranking fails decisively; no24-case confirmation. Exact624 calls,zero reasoning/forced,$.06102971. D2 changes6/12 and tracks realized entropy strongly(rho.750 vs d1.182),but truth-gain rho-.208 vs d1+.045;truth-NLL d2-d1-.2618,90%CI[-.5444,-.0127],2/12 wins;vs random-.3120 CI[-.5887,-.0709]. D2 final entropy improves. Mechanism is confident-wrong likelihood/answer mismatch,not collapse:direct numerical likelihood sees public context while answerer sees private story/role. Next only principled Detective step is development-only same-response-function likelihood alignment on cached trees before any fresh case.
+2026-07-24: Preregistered Detective aligned-likelihood development diagnostic before responses. Freeze the failed gate's hash-locked241 unique questions; for each, Gemma26B temp0 answers the exact private-story prompt as target-murderer and target-innocent. These two labels define the four-hypothesis .85/.15 likelihood and deployed truth response identically. Exact482 calls,cap$.50; requires >=25% role distinction,positive d2 truth-rank rho/advantage,positive d2-d1/random gains. No fresh case or claim unless it passes.
+2026-07-24: Detective aligned-likelihood diagnostic fails opportunity and closes line. Exact482 calls,zero reasoning/forced,$.05618135. Alignment repairs d2 truth-rank rho from-.208 to+.933 and mean gains turn +.099 vs d1/+.116 random, proving prior mismatch. But only23/241 questions(9.5%) distinguish murderer-vs-innocent role,only4/12 rankable,d2 changes/wins2/12. Released task lacks rich counterfactual worlds; direct probabilities invented unsupported variation. No fresh case used;24 reserve untouched;no Detective tuning.

@@ -544,9 +544,17 @@ the gain to useful LLM search bias plus external lookahead, not either alone.
 
 UoT reports depth gains on explicit sets of 5 or 15 diseases \citep{hu2024uot}.
 CA-BED uses finite hypotheses, soft LLM likelihoods, binary questions, and d2
-\citep{arnould2026cabed}, but lacks a causal d1/d2 ablation and its categorical
-extension hurts Detective. Thus structured planning can help, without showing
-that horizon survives an insufficient latent or incompatible answers.
+\citep{arnould2026cabed}, but lacks a causal d1/d2 ablation. In our 12-case
+shared-tree Detective audit, d2 score tracked realized entropy reduction
+($\rho=.750$) while ranking truth-posterior gain backwards ($\rho=-.208$);
+d2 lost $.262$ truth-NLL nats to d1 despite lower final entropy. Thus deeper
+semantic planning can amplify likelihood--answerer mismatch into confident-wrong
+beliefs even when its nominal information objective behaves as designed.
+Replacing numerical introspection by the exact role-conditioned answer function
+restored truth-rank correlation to $.933$, but only 23/241 questions changed
+between murderer and innocent roles, leaving four rankable cases and two depth
+changes. Calibration and non-myopic opportunity therefore traded off rather than
+combining into a usable policy.
 
 DAD and RL-BED optimize total sequential utility via amortization or RL
 \citep{foster2021deep,blau2022rlbed}, but require a meaningful simulator; the

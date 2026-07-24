@@ -1,0 +1,6 @@
+{
+  "error": "ValueError: likelihood response is missing rows: ['dr. marcus langford', 'mr. oliver hastings', 'ms. clara bennett', 'professor charles wainwright']",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed"
+}

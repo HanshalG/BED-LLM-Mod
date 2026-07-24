@@ -1,0 +1,786 @@
+{
+  "protocol": {
+    "answer_rollouts_per_root": 4,
+    "bootstrap_seed": 24314,
+    "case_ids": [
+      27,
+      94
+    ],
+    "confirmation_case_ids": [
+      75,
+      70,
+      89,
+      98,
+      86,
+      88,
+      8,
+      74,
+      82,
+      19,
+      78,
+      72,
+      18,
+      97,
+      76,
+      46,
+      24,
+      67,
+      42,
+      3,
+      80,
+      1,
+      79,
+      14
+    ],
+    "data_sha256": "049ea3003753b15e3319483d15993591b5d50ac7eedb3187dca6ef3951cd2a57",
+    "estimator_confidence": 0.7,
+    "followup_width": 3,
+    "prompt_style": "concise",
+    "random_control_seed": 24313,
+    "raw_reasoning_requested": false,
+    "root_width": 3,
+    "selection_seed": 24312,
+    "shared_tree": true,
+    "stage": "serving_smoke",
+    "textual_likelihoods": true
+  },
+  "records": [
+    {
+      "case_id": 27,
+      "depth_one_selected_index": 1,
+      "depth_one_selected_question": "[Target: Mr. Oliver Hastings] Was the notepad you were carrying containing notes or sketches specifically related to the antique bronze statue found at the crime scene?",
+      "depth_one_truth_gain_spearman": 0.8660254037844387,
+      "depth_two_selected_index": 1,
+      "depth_two_selected_question": "[Target: Mr. Oliver Hastings] Was the notepad you were carrying containing notes or sketches specifically related to the antique bronze statue found at the crime scene?",
+      "depth_two_truth_gain_spearman": 0.5,
+      "hypotheses": [
+        "Professor Charles Wainwright",
+        "Ms. Clara Bennett",
+        "Mr. Oliver Hastings",
+        "Dr. Marcus Langford"
+      ],
+      "location": "Victorian Manor Library",
+      "random_selected_index": 0,
+      "random_selected_question": "[Target: Professor Charles Wainwright] Did you enter the library with any object in your hands that could have been used as a weapon?",
+      "root_plans": [
+        {
+          "branches": [
+            {
+              "eig_scores": [
+                0.0,
+                0.0,
+                0.12651023336232148
+              ],
+              "observation": "Yes",
+              "probability": 0.15000000000000002,
+              "questions": [
+                "[Target: Professor Charles Wainwright] Was the object you were carrying the antique bronze statue?",
+                "[Target: Mr. Oliver Hastings] Did you enter the library alone?",
+                "[Target: Dr. Marcus Langford] Did you see anyone else enter or exit the library after you were near it?"
+              ],
+              "selected_index": 2,
+              "selected_question": "[Target: Dr. Marcus Langford] Did you see anyone else enter or exit the library after you were near it?"
+            },
+            {
+              "eig_scores": [
+                0.0,
+                0.12651023336232148,
+                0.0
+              ],
+              "observation": "No",
+              "probability": 0.85,
+              "questions": [
+                "[Target: Mr. Oliver Hastings] Did you have any physical contact with Dr. Eleanor Blackwood during the evening?",
+                "[Target: Ms. Clara Bennett] Did you possess any knowledge of the specific value or historical significance of the antique bronze statue found at the scene?",
+                "[Target: Dr. Marcus Langford] Were you carrying any heavy or blunt objects when you were seen near the library?"
+              ],
+              "selected_index": 1,
+              "selected_question": "[Target: Ms. Clara Bennett] Did you possess any knowledge of the specific value or historical significance of the antique bronze statue found at the scene?"
+            }
+          ],
+          "depth_two_score": 0.12651023336232148,
+          "immediate_eig": 0.0,
+          "mean_final_entropy": 1.1932015606632438,
+          "mean_realized_truth_log_probability_gain": -0.49247648509779407,
+          "question": "[Target: Professor Charles Wainwright] Did you enter the library with any object in your hands that could have been used as a weapon?",
+          "rollouts": [
+            {
+              "final_entropy": 1.1932015606632438,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.1527777777777778,
+                "Mr. Oliver Hastings": 0.1527777777777778,
+                "Ms. Clara Bennett": 0.5416666666666666,
+                "Professor Charles Wainwright": 0.1527777777777778
+              },
+              "final_truth_nll": 1.8787708462176846,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Ms. Clara Bennett] Did you possess any knowledge of the specific value or historical significance of the antique bronze statue found at the scene?",
+              "root_answer": "No",
+              "truth_log_probability_gain": -0.49247648509779407
+            },
+            {
+              "final_entropy": 1.1932015606632438,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.1527777777777778,
+                "Mr. Oliver Hastings": 0.1527777777777778,
+                "Ms. Clara Bennett": 0.5416666666666666,
+                "Professor Charles Wainwright": 0.1527777777777778
+              },
+              "final_truth_nll": 1.8787708462176846,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Ms. Clara Bennett] Did you possess any knowledge of the specific value or historical significance of the antique bronze statue found at the scene?",
+              "root_answer": "No",
+              "truth_log_probability_gain": -0.49247648509779407
+            },
+            {
+              "final_entropy": 1.1932015606632438,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.1527777777777778,
+                "Mr. Oliver Hastings": 0.1527777777777778,
+                "Ms. Clara Bennett": 0.5416666666666666,
+                "Professor Charles Wainwright": 0.1527777777777778
+              },
+              "final_truth_nll": 1.8787708462176846,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Ms. Clara Bennett] Did you possess any knowledge of the specific value or historical significance of the antique bronze statue found at the scene?",
+              "root_answer": "No",
+              "truth_log_probability_gain": -0.49247648509779407
+            },
+            {
+              "final_entropy": 1.1932015606632438,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.1527777777777778,
+                "Mr. Oliver Hastings": 0.1527777777777778,
+                "Ms. Clara Bennett": 0.5416666666666666,
+                "Professor Charles Wainwright": 0.1527777777777778
+              },
+              "final_truth_nll": 1.8787708462176846,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Ms. Clara Bennett] Did you possess any knowledge of the specific value or historical significance of the antique bronze statue found at the scene?",
+              "root_answer": "No",
+              "truth_log_probability_gain": -0.49247648509779407
+            }
+          ],
+          "yes_probabilities": {
+            "Dr. Marcus Langford": 0.15000000000000002,
+            "Mr. Oliver Hastings": 0.15000000000000002,
+            "Ms. Clara Bennett": 0.15000000000000002,
+            "Professor Charles Wainwright": 0.15000000000000002
+          }
+        },
+        {
+          "branches": [
+            {
+              "eig_scores": [
+                0.0,
+                1.1102230246251565e-16,
+                0.02933780460026647
+              ],
+              "observation": "Yes",
+              "probability": 0.16750000000000004,
+              "questions": [
+                "[Target: Mr. Oliver Hastings] Did you notice any bloodstains or signs of a struggle on the notepad you were carrying when you left the library?",
+                "[Target: Professor Charles Wainwright] Did you see anyone else enter or exit the library after you entered it?",
+                "[Target: Dr. Marcus Langford] Did you see Mr. Oliver Hastings enter the library before you saw him leaving it?"
+              ],
+              "selected_index": 2,
+              "selected_question": "[Target: Dr. Marcus Langford] Did you see Mr. Oliver Hastings enter the library before you saw him leaving it?"
+            },
+            {
+              "eig_scores": [
+                0.21052985701678112,
+                0.0030099313895440294,
+                0.003033366377213964
+              ],
+              "observation": "No",
+              "probability": 0.8325,
+              "questions": [
+                "[Target: Professor Charles Wainwright] Did you enter the library before Ms. Clara Bennett left?",
+                "[Target: Mr. Oliver Hastings] Did you have any physical contact with the antique bronze statue during your visit to the library?",
+                "[Target: Dr. Marcus Langford] Were you in the immediate vicinity of the library at the time the blunt force trauma occurred?"
+              ],
+              "selected_index": 0,
+              "selected_question": "[Target: Professor Charles Wainwright] Did you enter the library before Ms. Clara Bennett left?"
+            }
+          ],
+          "depth_two_score": 0.18332129247595236,
+          "immediate_eig": 0.003141104238937431,
+          "mean_final_entropy": 1.365002726867242,
+          "mean_realized_truth_log_probability_gain": -0.22846271279180974,
+          "question": "[Target: Mr. Oliver Hastings] Was the notepad you were carrying containing notes or sketches specifically related to the antique bronze statue found at the crime scene?",
+          "rollouts": [
+            {
+              "final_entropy": 1.365002726867242,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3103448275862069,
+                "Mr. Oliver Hastings": 0.2917771883289124,
+                "Ms. Clara Bennett": 0.1989389920424403,
+                "Professor Charles Wainwright": 0.1989389920424403
+              },
+              "final_truth_nll": 1.6147570739117003,
+              "followup_answer": "No",
+              "followup_question": "[Target: Dr. Marcus Langford] Did you see Mr. Oliver Hastings enter the library before you saw him leaving it?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.22846271279180974
+            },
+            {
+              "final_entropy": 1.365002726867242,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3103448275862069,
+                "Mr. Oliver Hastings": 0.2917771883289124,
+                "Ms. Clara Bennett": 0.1989389920424403,
+                "Professor Charles Wainwright": 0.1989389920424403
+              },
+              "final_truth_nll": 1.6147570739117003,
+              "followup_answer": "No",
+              "followup_question": "[Target: Dr. Marcus Langford] Did you see Mr. Oliver Hastings enter the library before you saw him leaving it?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.22846271279180974
+            },
+            {
+              "final_entropy": 1.365002726867242,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3103448275862069,
+                "Mr. Oliver Hastings": 0.2917771883289124,
+                "Ms. Clara Bennett": 0.1989389920424403,
+                "Professor Charles Wainwright": 0.1989389920424403
+              },
+              "final_truth_nll": 1.6147570739117003,
+              "followup_answer": "No",
+              "followup_question": "[Target: Dr. Marcus Langford] Did you see Mr. Oliver Hastings enter the library before you saw him leaving it?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.22846271279180974
+            },
+            {
+              "final_entropy": 1.365002726867242,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3103448275862069,
+                "Mr. Oliver Hastings": 0.2917771883289124,
+                "Ms. Clara Bennett": 0.1989389920424403,
+                "Professor Charles Wainwright": 0.1989389920424403
+              },
+              "final_truth_nll": 1.6147570739117003,
+              "followup_answer": "No",
+              "followup_question": "[Target: Dr. Marcus Langford] Did you see Mr. Oliver Hastings enter the library before you saw him leaving it?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.22846271279180974
+            }
+          ],
+          "yes_probabilities": {
+            "Dr. Marcus Langford": 0.15000000000000002,
+            "Mr. Oliver Hastings": 0.22000000000000003,
+            "Ms. Clara Bennett": 0.15000000000000002,
+            "Professor Charles Wainwright": 0.15000000000000002
+          }
+        },
+        {
+          "branches": [
+            {
+              "eig_scores": [
+                0.0036643553043183563,
+                0.0027647139232083173,
+                1.1102230246251565e-16
+              ],
+              "observation": "Yes",
+              "probability": 0.16750000000000004,
+              "questions": [
+                "[Target: Ms. Clara Bennett] Did your professional disagreement with Dr. Blackwood involve the specific controversial artifact she was currently researching?",
+                "[Target: Mr. Oliver Hastings] Did you have any intention of acquiring the antique bronze statue from the library for your own collection or a client?",
+                "[Target: Professor Charles Wainwright] Did you witness anyone else enter or exit the library besides Ms. Bennett and yourself?"
+              ],
+              "selected_index": 0,
+              "selected_question": "[Target: Ms. Clara Bennett] Did your professional disagreement with Dr. Blackwood involve the specific controversial artifact she was currently researching?"
+            },
+            {
+              "eig_scores": [
+                0.21052985701678112,
+                0.003182885291443227,
+                0.034122566213177774
+              ],
+              "observation": "No",
+              "probability": 0.8325,
+              "questions": [
+                "[Target: Mr. Oliver Hastings] Did you have any professional or financial interest in the controversial historical artifact Dr. Blackwood was researching?",
+                "[Target: Professor Charles Wainwright] Did you have any academic rivalry or disagreement with Dr. Blackwood regarding her recent findings?",
+                "[Target: Dr. Marcus Langford] Did you have any personal or professional connection to Dr. Blackwood prior to this event?"
+              ],
+              "selected_index": 0,
+              "selected_question": "[Target: Mr. Oliver Hastings] Did you have any professional or financial interest in the controversial historical artifact Dr. Blackwood was researching?"
+            }
+          ],
+          "depth_two_score": 0.17902098971888106,
+          "immediate_eig": 0.003141104238937431,
+          "mean_final_entropy": 1.2539230241866044,
+          "mean_realized_truth_log_probability_gain": 0.2567915854324425,
+          "question": "[Target: Ms. Clara Bennett] Did you have any prior professional disagreement or conflict with Dr. Blackwood regarding her recent controversial research?",
+          "rollouts": [
+            {
+              "final_entropy": 1.2539230241866044,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3231939163498099,
+                "Mr. Oliver Hastings": 0.057034220532319393,
+                "Ms. Clara Bennett": 0.2965779467680609,
+                "Professor Charles Wainwright": 0.3231939163498099
+              },
+              "final_truth_nll": 1.129502775687448,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Hastings] Did you have any professional or financial interest in the controversial historical artifact Dr. Blackwood was researching?",
+              "root_answer": "No",
+              "truth_log_probability_gain": 0.2567915854324425
+            },
+            {
+              "final_entropy": 1.2539230241866044,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3231939163498099,
+                "Mr. Oliver Hastings": 0.057034220532319393,
+                "Ms. Clara Bennett": 0.2965779467680609,
+                "Professor Charles Wainwright": 0.3231939163498099
+              },
+              "final_truth_nll": 1.129502775687448,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Hastings] Did you have any professional or financial interest in the controversial historical artifact Dr. Blackwood was researching?",
+              "root_answer": "No",
+              "truth_log_probability_gain": 0.2567915854324425
+            },
+            {
+              "final_entropy": 1.2539230241866044,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3231939163498099,
+                "Mr. Oliver Hastings": 0.057034220532319393,
+                "Ms. Clara Bennett": 0.2965779467680609,
+                "Professor Charles Wainwright": 0.3231939163498099
+              },
+              "final_truth_nll": 1.129502775687448,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Hastings] Did you have any professional or financial interest in the controversial historical artifact Dr. Blackwood was researching?",
+              "root_answer": "No",
+              "truth_log_probability_gain": 0.2567915854324425
+            },
+            {
+              "final_entropy": 1.2539230241866044,
+              "final_probabilities": {
+                "Dr. Marcus Langford": 0.3231939163498099,
+                "Mr. Oliver Hastings": 0.057034220532319393,
+                "Ms. Clara Bennett": 0.2965779467680609,
+                "Professor Charles Wainwright": 0.3231939163498099
+              },
+              "final_truth_nll": 1.129502775687448,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Hastings] Did you have any professional or financial interest in the controversial historical artifact Dr. Blackwood was researching?",
+              "root_answer": "No",
+              "truth_log_probability_gain": 0.2567915854324425
+            }
+          ],
+          "yes_probabilities": {
+            "Dr. Marcus Langford": 0.15000000000000002,
+            "Mr. Oliver Hastings": 0.15000000000000002,
+            "Ms. Clara Bennett": 0.22000000000000003,
+            "Professor Charles Wainwright": 0.15000000000000002
+          }
+        }
+      ],
+      "truth": "Professor Charles Wainwright",
+      "victim": "Dr. Eleanor Blackwood"
+    },
+    {
+      "case_id": 94,
+      "depth_one_selected_index": 1,
+      "depth_one_selected_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+      "depth_one_truth_gain_spearman": 0.0,
+      "depth_two_selected_index": 1,
+      "depth_two_selected_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+      "depth_two_truth_gain_spearman": 0.5,
+      "hypotheses": [
+        "Professor Evelyn Harper",
+        "Mr. Oliver Grant",
+        "Ms. Clara Dawson",
+        "Ms. Abigail Winters"
+      ],
+      "location": "Victorian Manor Library",
+      "random_selected_index": 1,
+      "random_selected_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+      "root_plans": [
+        {
+          "branches": [
+            {
+              "eig_scores": [
+                0.1937390666941839,
+                0.02933780460026647,
+                0.0027647139232083173
+              ],
+              "observation": "Yes",
+              "probability": 0.16750000000000004,
+              "questions": [
+                "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+                "[Target: Ms. Clara Dawson] Did you use any tools or chemicals on the marble bust during your restoration work earlier that day?",
+                "[Target: Ms. Abigail Winters] Did you witness anyone else entering or leaving the library besides the people you have already mentioned?"
+              ],
+              "selected_index": 0,
+              "selected_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?"
+            },
+            {
+              "eig_scores": [
+                0.08130306159871714,
+                0.21052985701678112,
+                0.059166973264982325
+              ],
+              "observation": "No",
+              "probability": 0.8325,
+              "questions": [
+                "[Target: Mr. Oliver Grant] Did you have a verbal argument with Professor Evelyn Harper before you entered the library?",
+                "[Target: Ms. Clara Dawson] Did you notice any damage or blood on the marble bust after you finished your work with it?",
+                "[Target: Ms. Abigail Winters] Did you witness Dr. Blackwood and Professor Harper arguing before you saw her leave the library?"
+              ],
+              "selected_index": 1,
+              "selected_question": "[Target: Ms. Clara Dawson] Did you notice any damage or blood on the marble bust after you finished your work with it?"
+            }
+          ],
+          "depth_two_score": 0.21085850387668353,
+          "immediate_eig": 0.003141104238937431,
+          "mean_final_entropy": 1.2226815178197625,
+          "mean_realized_truth_log_probability_gain": 0.47644141972058407,
+          "question": "[Target: Professor Evelyn Harper] Did you have a heated verbal disagreement with Dr. Blackwood immediately before leaving the library?",
+          "rollouts": [
+            {
+              "final_entropy": 1.2226815178197625,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.048439181916038763,
+                "Ms. Abigail Winters": 0.2744886975242196,
+                "Ms. Clara Dawson": 0.2744886975242196,
+                "Professor Evelyn Harper": 0.4025834230355221
+              },
+              "final_truth_nll": 0.9098529413993065,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.47644141972058407
+            },
+            {
+              "final_entropy": 1.2226815178197625,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.048439181916038763,
+                "Ms. Abigail Winters": 0.2744886975242196,
+                "Ms. Clara Dawson": 0.2744886975242196,
+                "Professor Evelyn Harper": 0.4025834230355221
+              },
+              "final_truth_nll": 0.9098529413993065,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.47644141972058407
+            },
+            {
+              "final_entropy": 1.2226815178197625,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.048439181916038763,
+                "Ms. Abigail Winters": 0.2744886975242196,
+                "Ms. Clara Dawson": 0.2744886975242196,
+                "Professor Evelyn Harper": 0.4025834230355221
+              },
+              "final_truth_nll": 0.9098529413993065,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.47644141972058407
+            },
+            {
+              "final_entropy": 1.2226815178197625,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.048439181916038763,
+                "Ms. Abigail Winters": 0.2744886975242196,
+                "Ms. Clara Dawson": 0.2744886975242196,
+                "Professor Evelyn Harper": 0.4025834230355221
+              },
+              "final_truth_nll": 0.9098529413993065,
+              "followup_answer": "Yes",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.47644141972058407
+            }
+          ],
+          "yes_probabilities": {
+            "Mr. Oliver Grant": 0.15000000000000002,
+            "Ms. Abigail Winters": 0.15000000000000002,
+            "Ms. Clara Dawson": 0.15000000000000002,
+            "Professor Evelyn Harper": 0.22000000000000003
+          }
+        },
+        {
+          "branches": [
+            {
+              "eig_scores": [
+                0.0035890998087183545,
+                0.0,
+                0.12622313695947518
+              ],
+              "observation": "Yes",
+              "probability": 0.675,
+              "questions": [
+                "[Target: Professor Evelyn Harper] Did you have a heated argument with Dr. Blackwood regarding his recent archaeological findings before you left the library?",
+                "[Target: Ms. Clara Dawson] Did you notice any blood or signs of a struggle on the marble bust while you were working on it earlier in the evening?",
+                "[Target: Ms. Abigail Winters] Did you witness anyone else entering or exiting the library besides Professor Harper during your time there?"
+              ],
+              "selected_index": 2,
+              "selected_question": "[Target: Ms. Abigail Winters] Did you witness anyone else entering or exiting the library besides Professor Harper during your time there?"
+            },
+            {
+              "eig_scores": [
+                0.001735141310076238,
+                0.001735141310076238,
+                0.001608468540829855
+              ],
+              "observation": "No",
+              "probability": 0.325,
+              "questions": [
+                "[Target: Professor Evelyn Harper] Did you have a heated argument with Dr. Blackwood before you left the library?",
+                "[Target: Ms. Clara Dawson] Did you use any tools or chemicals on the marble bust during your restoration work earlier that day?",
+                "[Target: Ms. Abigail Winters] Did you witness anyone else entering or leaving the library besides the people you have already mentioned?"
+              ],
+              "selected_index": 0,
+              "selected_question": "[Target: Professor Evelyn Harper] Did you have a heated argument with Dr. Blackwood before you left the library?"
+            }
+          ],
+          "depth_two_score": 0.2936364789534443,
+          "immediate_eig": 0.20787194058002378,
+          "mean_final_entropy": 1.1685989167641677,
+          "mean_realized_truth_log_probability_gain": 0.5306282510621704,
+          "question": "[Target: Mr. Oliver Grant] Did you enter the library with the intention of discussing funding rather than confronting Dr. Blackwood about his research?",
+          "rollouts": [
+            {
+              "final_entropy": 1.1685989167641677,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.06826923076923078,
+                "Ms. Abigail Winters": 0.11987179487179485,
+                "Ms. Clara Dawson": 0.3868589743589743,
+                "Professor Evelyn Harper": 0.425
+              },
+              "final_truth_nll": 0.8556661100577202,
+              "followup_answer": "No",
+              "followup_question": "[Target: Ms. Abigail Winters] Did you witness anyone else entering or exiting the library besides Professor Harper during your time there?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.5306282510621704
+            },
+            {
+              "final_entropy": 1.1685989167641677,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.06826923076923078,
+                "Ms. Abigail Winters": 0.11987179487179485,
+                "Ms. Clara Dawson": 0.3868589743589743,
+                "Professor Evelyn Harper": 0.425
+              },
+              "final_truth_nll": 0.8556661100577202,
+              "followup_answer": "No",
+              "followup_question": "[Target: Ms. Abigail Winters] Did you witness anyone else entering or exiting the library besides Professor Harper during your time there?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.5306282510621704
+            },
+            {
+              "final_entropy": 1.1685989167641677,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.06826923076923078,
+                "Ms. Abigail Winters": 0.11987179487179485,
+                "Ms. Clara Dawson": 0.3868589743589743,
+                "Professor Evelyn Harper": 0.425
+              },
+              "final_truth_nll": 0.8556661100577202,
+              "followup_answer": "No",
+              "followup_question": "[Target: Ms. Abigail Winters] Did you witness anyone else entering or exiting the library besides Professor Harper during your time there?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.5306282510621704
+            },
+            {
+              "final_entropy": 1.1685989167641677,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.06826923076923078,
+                "Ms. Abigail Winters": 0.11987179487179485,
+                "Ms. Clara Dawson": 0.3868589743589743,
+                "Professor Evelyn Harper": 0.425
+              },
+              "final_truth_nll": 0.8556661100577202,
+              "followup_answer": "No",
+              "followup_question": "[Target: Ms. Abigail Winters] Did you witness anyone else entering or exiting the library besides Professor Harper during your time there?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": 0.5306282510621704
+            }
+          ],
+          "yes_probabilities": {
+            "Mr. Oliver Grant": 0.15000000000000002,
+            "Ms. Abigail Winters": 0.85,
+            "Ms. Clara Dawson": 0.85,
+            "Professor Evelyn Harper": 0.85
+          }
+        },
+        {
+          "branches": [
+            {
+              "eig_scores": [
+                0.001735141310076238,
+                0.01709241931001182,
+                0.01709241931001182
+              ],
+              "observation": "Yes",
+              "probability": 0.325,
+              "questions": [
+                "[Target: Professor Evelyn Harper] Did you have a heated verbal disagreement with Dr. Blackwood during the gathering?",
+                "[Target: Mr. Oliver Grant] Did you enter the library alone after your conversation with Professor Harper?",
+                "[Target: Ms. Abigail Winters] Did you witness anyone else in the library besides Dr. Blackwood before the body was discovered?"
+              ],
+              "selected_index": 1,
+              "selected_question": "[Target: Mr. Oliver Grant] Did you enter the library alone after your conversation with Professor Harper?"
+            },
+            {
+              "eig_scores": [
+                0.0035890998087183545,
+                0.06065591670545878,
+                0.03671285998074514
+              ],
+              "observation": "No",
+              "probability": 0.675,
+              "questions": [
+                "[Target: Professor Evelyn Harper] Did you have a heated verbal disagreement with Dr. Blackwood shortly before the murder occurred?",
+                "[Target: Mr. Oliver Grant] Did you enter the library alone after your argument with Professor Harper?",
+                "[Target: Ms. Abigail Winters] Did you witness anyone else in the library besides Dr. Blackwood during your meeting?"
+              ],
+              "selected_index": 1,
+              "selected_question": "[Target: Mr. Oliver Grant] Did you enter the library alone after your argument with Professor Harper?"
+            }
+          ],
+          "depth_two_score": 0.2543697206319623,
+          "immediate_eig": 0.20787194058002378,
+          "mean_final_entropy": 1.0815867299028412,
+          "mean_realized_truth_log_probability_gain": -0.8358034809614685,
+          "question": "[Target: Ms. Clara Dawson] Did you move or handle the marble bust for the purpose of inspecting its structural integrity earlier in the evening?",
+          "rollouts": [
+            {
+              "final_entropy": 1.0815867299028412,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.16907514450867053,
+                "Ms. Abigail Winters": 0.1083815028901734,
+                "Ms. Clara Dawson": 0.6141618497109826,
+                "Professor Evelyn Harper": 0.1083815028901734
+              },
+              "final_truth_nll": 2.222097842081359,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library alone after your conversation with Professor Harper?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.8358034809614685
+            },
+            {
+              "final_entropy": 1.0815867299028412,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.16907514450867053,
+                "Ms. Abigail Winters": 0.1083815028901734,
+                "Ms. Clara Dawson": 0.6141618497109826,
+                "Professor Evelyn Harper": 0.1083815028901734
+              },
+              "final_truth_nll": 2.222097842081359,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library alone after your conversation with Professor Harper?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.8358034809614685
+            },
+            {
+              "final_entropy": 1.0815867299028412,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.16907514450867053,
+                "Ms. Abigail Winters": 0.1083815028901734,
+                "Ms. Clara Dawson": 0.6141618497109826,
+                "Professor Evelyn Harper": 0.1083815028901734
+              },
+              "final_truth_nll": 2.222097842081359,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library alone after your conversation with Professor Harper?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.8358034809614685
+            },
+            {
+              "final_entropy": 1.0815867299028412,
+              "final_probabilities": {
+                "Mr. Oliver Grant": 0.16907514450867053,
+                "Ms. Abigail Winters": 0.1083815028901734,
+                "Ms. Clara Dawson": 0.6141618497109826,
+                "Professor Evelyn Harper": 0.1083815028901734
+              },
+              "final_truth_nll": 2.222097842081359,
+              "followup_answer": "No",
+              "followup_question": "[Target: Mr. Oliver Grant] Did you enter the library alone after your conversation with Professor Harper?",
+              "root_answer": "Yes",
+              "truth_log_probability_gain": -0.8358034809614685
+            }
+          ],
+          "yes_probabilities": {
+            "Mr. Oliver Grant": 0.15000000000000002,
+            "Ms. Abigail Winters": 0.15000000000000002,
+            "Ms. Clara Dawson": 0.85,
+            "Professor Evelyn Harper": 0.15000000000000002
+          }
+        }
+      ],
+      "truth": "Professor Evelyn Harper",
+      "victim": "Dr. Jonathan Blackwood"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "depth_two_distinct_root_count": 0,
+    "depth_two_win_count_vs_one": 0,
+    "expected_requests": 104,
+    "gates": {
+      "all_cases_complete": true,
+      "all_endpoints_finite": true,
+      "all_pass": true,
+      "all_tree_shapes_complete": true,
+      "exact_request_count": true,
+      "zero_forced_exits": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_depth_one_truth_gain_spearman": 0.43301270189221935,
+    "mean_depth_two_spearman_advantage": 0.06698729810778065,
+    "mean_depth_two_truth_gain_spearman": 0.5,
+    "mean_final_entropy_depth_two_minus_one": 0.0,
+    "mean_truth_nll_improvement_depth_two_vs_one": 0.0,
+    "mean_truth_nll_improvement_depth_two_vs_random": 0.13200688615299216,
+    "num_cases": 2,
+    "rankable_case_count": 2,
+    "truth_nll_improvement_depth_two_vs_one_bootstrap_90_ci": [
+      0.0,
+      0.0
+    ],
+    "truth_nll_improvement_depth_two_vs_random_bootstrap_90_ci": [
+      0.0,
+      0.26401377230598433
+    ]
+  },
+  "usage": {
+    "adapter_completion_tokens": 3500,
+    "adapter_cost_usd": 0.00982681,
+    "adapter_prompt_tokens": 99751,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 104,
+    "backend": "openrouter",
+    "budget_usd": 105.38480269545715,
+    "completion_tokens": 3500,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 3500,
+        "cost_usd": 0.00982681,
+        "prompt_tokens": 99751,
+        "reasoning_tokens": 0,
+        "requests": 104
+      }
+    },
+    "prompt_tokens": 99751,
+    "reasoning_tokens": 0,
+    "remaining_usd": 41.27665415374989,
+    "requests": 104,
+    "run_budget_usd": 0.5,
+    "run_cost_usd": 0.00982681,
+    "run_remaining_usd": 0.49017319,
+    "total_spent_usd": 64.10814854170727
+  }
+}
