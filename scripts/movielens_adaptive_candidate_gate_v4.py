@@ -550,7 +550,11 @@ def run_gate(
         summary["gates"]["prospective_enrollment_complete"] = (
             len(records) == PROSPECTIVE_ENROLLMENT_COUNT
         )
-        summary["gates"]["all_pass"] = all(summary["gates"].values())
+        summary["gates"]["all_pass"] = all(
+            value
+            for name, value in summary["gates"].items()
+            if name != "all_pass"
+        )
     return {
         "schema_version": 4,
         "status": "passed" if summary["gates"]["all_pass"] else "gate_failed",

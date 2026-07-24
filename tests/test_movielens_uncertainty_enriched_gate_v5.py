@@ -99,3 +99,4 @@ def test_v5_discriminative_screen_executes_full_enrolled_path(monkeypatch) -> No
     assert len(result["records"]) == gate.ENROLLMENT_COUNT
     assert len(result["protocol"]["screen_user_ids"]) == 48
     assert result["summary"]["gates"]["prospective_enrollment_complete"] is True
+    assert result["summary"]["gates"]["exact_physical_request_count"] is True

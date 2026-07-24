@@ -1,0 +1,2860 @@
+{
+  "protocol": {
+    "candidate_pool_size": 16,
+    "candidate_pool_uses_presence_and_popularity_only": true,
+    "committed_profile_text_omitted": true,
+    "enrollment_threshold_max_eig": 0.02,
+    "heldout_count": 8,
+    "heldout_ratings_hidden_from_all_model_prompts": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "64a4acc3a9814386298860cf795e4f69786ea9351cd2dbf181fb5af697c75457",
+    "profile_count": 6,
+    "prospective_enrollment_count": 12,
+    "prospective_uncertainty_enrichment": true,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "recorded_ratings_are_only_outcomes": true,
+    "screen_user_ids": [
+      176,
+      318,
+      296,
+      864,
+      459,
+      145,
+      548,
+      21,
+      288,
+      907,
+      401,
+      629,
+      236,
+      825,
+      764,
+      680,
+      6,
+      43,
+      653,
+      665,
+      758,
+      104,
+      406,
+      232,
+      634,
+      796,
+      881,
+      7,
+      834,
+      28,
+      936,
+      666,
+      430,
+      82,
+      328,
+      452,
+      119,
+      280,
+      608,
+      347,
+      299,
+      717,
+      10,
+      625,
+      789,
+      474,
+      940,
+      271
+    ],
+    "selected_candidate_count": 4,
+    "selection_seed": 24306,
+    "smoke_user_ids_disjoint_from_formal": true,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "formal",
+    "user_ids": [
+      318,
+      864,
+      459,
+      145,
+      21,
+      401,
+      236,
+      825,
+      764,
+      680,
+      653,
+      758
+    ],
+    "user_ids_hidden_from_all_model_prompts": true,
+    "v1_v2_v3_v4_users_excluded": true
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "28d420e7240aaca161aa20deef716da02fe2b66fa4cef18fcb36f2914d4ca215",
+            "37622ebf2b9ff001d02f8ca14421796cd50ebeab2a04ee85c69c62c95c559ddb",
+            "ff9776b47a57eab31b25fea82a5d9037b69c67f4f0a06b5fc73dda7573774bb1",
+            "a5bdc275aa59790caa85fc0b370e3013b42717fda5a9f0ab364494fcb21c7adb",
+            "fd54919e9fa99b83bd087066d39759d608e2534abc4f83061606bfea5481d51e",
+            "d488bbe23bd661293f1ae78aa58ac1b4bb0184f112d6cee0892545a45dca9657"
+          ],
+          "heldout_nll": 1.443384849985118,
+          "movie": {
+            "genres": [
+              "Action",
+              "Crime",
+              "Drama"
+            ],
+            "title": "Godfather, The (1972)"
+          },
+          "new_evidence_effect_hashes": [
+            "16456c9e100cd2669662dfbdbbd8cac62a207351ae15ecb71862f35773eee646",
+            "e4fe4860222240cda1b38d85dd3692b81cf6e4555fcf1ce45d4bf710e0a0d6ec",
+            "4fe9533e97760c468c48b350304469ab44968e8008dfaffb3d288cf7cddc5fb7",
+            "626f1484eb61ff9c4934601b217e895974909d125f66b171ea5a9cdeb9c181a7",
+            "2f513c7bc92cb8b2291f777ad4bdb601036c5f92e1663b975d30507a408c4413",
+            "c25525f4b28e65632c2dcfbc79598152634182a9ada72409d1f1366301cbea2c"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "28d420e7240aaca161aa20deef716da02fe2b66fa4cef18fcb36f2914d4ca215",
+            "37622ebf2b9ff001d02f8ca14421796cd50ebeab2a04ee85c69c62c95c559ddb",
+            "ff9776b47a57eab31b25fea82a5d9037b69c67f4f0a06b5fc73dda7573774bb1",
+            "a5bdc275aa59790caa85fc0b370e3013b42717fda5a9f0ab364494fcb21c7adb",
+            "fd54919e9fa99b83bd087066d39759d608e2534abc4f83061606bfea5481d51e",
+            "d488bbe23bd661293f1ae78aa58ac1b4bb0184f112d6cee0892545a45dca9657",
+            "8a7990f132ece9b604890d6cef1f417f03f71e4886f2cd76b8bd336813dc6a4f",
+            "7d13f47939a0ab391ef6905a87ba061b00d1a2c7f0f8c6ec76052f4e96ef5596"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "f382804e2d6696cb81357a99921d2f995fd85f133225889001130a3c8abe3f96",
+            "73090d78b42e6840eb1db456ff53922a297ec938c4333fa30e249ab05fa56c05",
+            "a215d9c57d30f43e1cfe6522f00fbed8d69f42b3c37f3eae6b4620a075d68088",
+            "885aa78b410b48f013c45945b301fcac11703a759cd9b3a1010b0e237c8c12fa",
+            "669b22608894eb6aa3e3d5f7dd155879594cd670d296a040e0534f17ad4da58a",
+            "608b4c689a64dbc4475b637929644727d2c8af2b37772dc9505723cf2f9f5d09"
+          ],
+          "heldout_nll": 1.7143180362815582,
+          "movie": {
+            "genres": [
+              "Crime",
+              "Drama"
+            ],
+            "title": "Pulp Fiction (1994)"
+          },
+          "new_evidence_effect_hashes": [
+            "1a021eda14586e543b0605e8f2540274ab74dbe8253186e3b1a9e6cc064f0cf6",
+            "d57326baf938011a01ae9327d227600bb1c9197f098dace5369e55f0aa3056b9",
+            "f895552e0fe030127cfb6425cb2b9ce42b23283df214541d8df54adecc27ee46",
+            "ff8c4f03e0a4eb16468dbeb59171443fe51273fae6ab2613775138933fb4d1ca",
+            "3bf422f1e2266e87e610c1f77f507e7b6d84e6ca9b5899bef6f4d4df3a19a0e8",
+            "0bf61a582edea2df33122a1b88f4a980f878ba9b26bec14ddfc809f72025e8b6"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "f382804e2d6696cb81357a99921d2f995fd85f133225889001130a3c8abe3f96",
+            "73090d78b42e6840eb1db456ff53922a297ec938c4333fa30e249ab05fa56c05",
+            "a215d9c57d30f43e1cfe6522f00fbed8d69f42b3c37f3eae6b4620a075d68088",
+            "885aa78b410b48f013c45945b301fcac11703a759cd9b3a1010b0e237c8c12fa",
+            "669b22608894eb6aa3e3d5f7dd155879594cd670d296a040e0534f17ad4da58a",
+            "608b4c689a64dbc4475b637929644727d2c8af2b37772dc9505723cf2f9f5d09",
+            "9a2425baf945af4e9bb745be4378f6bbdb2827c35f6918b0e9ed52ba7612310c",
+            "ac41e57ca17729c7cde3f71ddc572228ac0860d4c9925cbe834d413655d11500"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "69c5b4e9feb7b357fd322f37858b693207fe962f7a6d632a63abcedee034c6e7",
+            "54ccc27f7a76578cbf6aa7f5ec991d4695b4c4f5748a6067ed625b4e51609878",
+            "6b5381f9358dbb7de1ea49fe7fdae013eeb07e84ce5f49f9333ac31292c2e2b7",
+            "7dc0bd1e3c8d28c769c708cd3a9c8bd916c9580c5d9d2845a4c542b01b8c572d",
+            "9608044bc88660cf591e6e92ba17123b98ba1e0640255ab79787018bef046f23",
+            "1f62764c0743a01e8364749a91f659132b25b0b1b0be2c290adb1b307c044d7c"
+          ],
+          "heldout_nll": 1.5019624046405078,
+          "movie": {
+            "genres": [
+              "Action",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Independence Day (ID4) (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "ecc0e021caf6ba4dbbd357888464b7b763fd6915f8d9624fd4b5442f907d27c8",
+            "f750e521640d1b5f53e8b895245157cfac1bbed3d80a7c19a2ad8b72cd8da984",
+            "307646b5d9ce9032f197da4e16cb3af9ec601443d3a6addf284ab1b63af279d1",
+            "6141f60e68a06a15f9a4accd01d6ae15765c4654fd05b5c48e43aa057006d33a",
+            "d440355170cf13c44a3f368fc47ac718b408206110dbedec06143a1409a12427",
+            "6f3d48da8f3ac342ccf96178d40dd8aff30efa1230d0f8e58fd8183295e01ca0"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "69c5b4e9feb7b357fd322f37858b693207fe962f7a6d632a63abcedee034c6e7",
+            "54ccc27f7a76578cbf6aa7f5ec991d4695b4c4f5748a6067ed625b4e51609878",
+            "6b5381f9358dbb7de1ea49fe7fdae013eeb07e84ce5f49f9333ac31292c2e2b7",
+            "7dc0bd1e3c8d28c769c708cd3a9c8bd916c9580c5d9d2845a4c542b01b8c572d",
+            "9608044bc88660cf591e6e92ba17123b98ba1e0640255ab79787018bef046f23",
+            "1f62764c0743a01e8364749a91f659132b25b0b1b0be2c290adb1b307c044d7c",
+            "7d13f47939a0ab391ef6905a87ba061b00d1a2c7f0f8c6ec76052f4e96ef5596",
+            "57c7b90861d3d5d882ec714b253930b9f2036f71f1586e5a3bfc99f3dd28f1ae"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "07fee89b68fd791b7ce1c1d504735c41cc9e451dbc63f22d744c0562581a62db",
+            "7a68756e73468aaf51ce6d03efd3064d951ffe847d815c6a9d7e08980664a384",
+            "66abb490a3ca5ec44e1ef3c84612fdf2b3319c19a3f1aeea0a120627f256207c",
+            "920ebc965c72697cca266e912ce92929843d918f65ed2e549f04f32b708767a7",
+            "88409561351466ffec45d7455627b1062f453c26364142be2901d916e334f14b",
+            "7651070716e8cdda4788e236157f3d7e7eeb705fc930e318bd7dfae5fb374557"
+          ],
+          "heldout_nll": 1.5167981436833182,
+          "movie": {
+            "genres": [
+              "Drama",
+              "War"
+            ],
+            "title": "Schindler's List (1993)"
+          },
+          "new_evidence_effect_hashes": [
+            "a581dcb368fd7cbcbd96287e1f49affc8f09848bf9a23a446db7fe0de562f030",
+            "c7d06ff9ce446873c4cede7ff267f88c6ddf7b24ddad34f53908f8a451bfb740",
+            "6218b42daaff0f659a27ace2ea2a98b1c1b51180eb4280b83d4f29e52090717a",
+            "60b362423e6a4144dc362a51dd376b3878ba1fdcf3925b8ba340d438fc6851e1",
+            "302d1cd50cb1da4dd1fdcf09b8656a39b11643b07f8eba3138cdb57cdf6d61e9",
+            "c35063deaa425064983c3bb8eec503a6006020372e4bbe2acb7ead64eef5ec61"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "07fee89b68fd791b7ce1c1d504735c41cc9e451dbc63f22d744c0562581a62db",
+            "7a68756e73468aaf51ce6d03efd3064d951ffe847d815c6a9d7e08980664a384",
+            "66abb490a3ca5ec44e1ef3c84612fdf2b3319c19a3f1aeea0a120627f256207c",
+            "920ebc965c72697cca266e912ce92929843d918f65ed2e549f04f32b708767a7",
+            "88409561351466ffec45d7455627b1062f453c26364142be2901d916e334f14b",
+            "7651070716e8cdda4788e236157f3d7e7eeb705fc930e318bd7dfae5fb374557",
+            "7d13f47939a0ab391ef6905a87ba061b00d1a2c7f0f8c6ec76052f4e96ef5596",
+            "57c7b90861d3d5d882ec714b253930b9f2036f71f1586e5a3bfc99f3dd28f1ae"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "War"
+          ],
+          "title": "Schindler's List (1993)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.042649045059064195,
+        0.03652189188175026,
+        0.031168350093578656,
+        0.0215409665534938
+      ],
+      "initial_heldout_nll": 1.5089706494644934,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "7d13f47939a0ab391ef6905a87ba061b00d1a2c7f0f8c6ec76052f4e96ef5596",
+        "57c7b90861d3d5d882ec714b253930b9f2036f71f1586e5a3bfc99f3dd28f1ae",
+        "ac41e57ca17729c7cde3f71ddc572228ac0860d4c9925cbe834d413655d11500",
+        "8a7990f132ece9b604890d6cef1f417f03f71e4886f2cd76b8bd336813dc6a4f",
+        "9a2425baf945af4e9bb745be4378f6bbdb2827c35f6918b0e9ed52ba7612310c",
+        "3314bcb6194037bfef74b17d527dc96723eede685594a2b421068f9be9e70369"
+      ],
+      "user_id": 318
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "20f5b57c828e41ea91cd09d0bed6a3bc882ca95e77fb40025c3c6498d07ad85e",
+            "067e828f450c63229192b1593a5983fe009e09067851233a9902773e278832db",
+            "b0a0ca6b7a0d0e6522b68796c372858459e089be3fd2fb2d27173ec7e7b30366",
+            "21e4ec648712098de5957bad93a7c43106377a0b5d3069d6ec527b91fe3604dd",
+            "ecdf942b6217049d4d673739c534ceced5079f5148baafe0e1b5c36bf743fce1",
+            "d22b1b455676d3657e0cb282afc4a2781fccc56189a84d977edf23d391a4448c"
+          ],
+          "heldout_nll": 1.5185843751488746,
+          "movie": {
+            "genres": [
+              "Action",
+              "Crime",
+              "Drama"
+            ],
+            "title": "Godfather, The (1972)"
+          },
+          "new_evidence_effect_hashes": [
+            "986fc47e2a5c9d481e087ae53fc79382585f732197c9031640e8d93badde0118",
+            "7a727aa0026db1d1ea9b89fc9f1efa16c88cdc80de90eed6b5601503f31601da",
+            "7f3b6fa353c4c9e2ac631a85d85efa0f8b6f64b00726fe4a3f380a43542e08bd",
+            "ea1ec17df8c570aa438d54f35820518f5d777f0301c3441473d10bd1cee58b75",
+            "0d0196f684b78d6f91dd56ba7e63f85206a6462ba95871b6d1c2e10eb229a4e0",
+            "c277bbad1499a86adb402ed4602c9cf1f1d6f8afd4e683fd36ffb27ae6640543"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "20f5b57c828e41ea91cd09d0bed6a3bc882ca95e77fb40025c3c6498d07ad85e",
+            "067e828f450c63229192b1593a5983fe009e09067851233a9902773e278832db",
+            "b0a0ca6b7a0d0e6522b68796c372858459e089be3fd2fb2d27173ec7e7b30366",
+            "21e4ec648712098de5957bad93a7c43106377a0b5d3069d6ec527b91fe3604dd",
+            "ecdf942b6217049d4d673739c534ceced5079f5148baafe0e1b5c36bf743fce1",
+            "d22b1b455676d3657e0cb282afc4a2781fccc56189a84d977edf23d391a4448c",
+            "5519a5a924b358da64cb26651a2c3a21bbde778888bb488b7258b0e4ea7ad625",
+            "9c896e1fce0e697da216c671193e42f91ed1f938ce12417a20b882311191f478"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "6a861169c8a847ad53e8508a2ec066ddaa37c2e8fec5a770f80cd2173146fc8b",
+            "7717d62328b053e4368e565182dc20e89bb56b6df9da7efe60820a260d9aab00",
+            "6a721cfd6110f3ec9ad9617ca4f1438663a24e41995751ac4fa31be350e07260",
+            "9e4d50acf1502ff2e5ed0b5fad2d516e6943e4bc79db0db53cbf77b9575fff03",
+            "dae00691a676544a6ae7822a35b73d929c3ae5e79cbd8188404db13f73c917fb",
+            "022f161c6d1529a28f891c0d65dddbdb3e8719af96bfa593b211d7cacb2b7884"
+          ],
+          "heldout_nll": 1.5205879514512581,
+          "movie": {
+            "genres": [
+              "Crime",
+              "Drama"
+            ],
+            "title": "Pulp Fiction (1994)"
+          },
+          "new_evidence_effect_hashes": [
+            "b26c003a8f9fce3831fa8646f199e59d517006c3bbc223d3653ceb7fbbaee066",
+            "242ed32487dc9652ba790cbac92f7204a11178d32d2d07697fe13282cedd8d40",
+            "0a4d6e10993c539d1a9f451e358f518038f67d314dc01bcb692dbce3cac1d3f6",
+            "e1a72f439ea8716ca4c00eb90c7261483c52913436120d80c9ff870e81168dd5",
+            "e73796baf4b2351255e2852753d48ad561a3b630bf80b909365ffee01ff78e34",
+            "13936ab6c8971b7a414ed5353b1b71ea0841c0fb2e0e61eba2c61f97f92ce40c"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "6a861169c8a847ad53e8508a2ec066ddaa37c2e8fec5a770f80cd2173146fc8b",
+            "7717d62328b053e4368e565182dc20e89bb56b6df9da7efe60820a260d9aab00",
+            "6a721cfd6110f3ec9ad9617ca4f1438663a24e41995751ac4fa31be350e07260",
+            "9e4d50acf1502ff2e5ed0b5fad2d516e6943e4bc79db0db53cbf77b9575fff03",
+            "dae00691a676544a6ae7822a35b73d929c3ae5e79cbd8188404db13f73c917fb",
+            "022f161c6d1529a28f891c0d65dddbdb3e8719af96bfa593b211d7cacb2b7884",
+            "3658897182abca4da78f65d33d4b17da5586eed02c19ac0aa27fbb3815beabd0",
+            "9c896e1fce0e697da216c671193e42f91ed1f938ce12417a20b882311191f478"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "6d832aeec865dcb7f9877e770edf640e6a6a5bdfcc310ce651de7ce486a4e5ac",
+            "84218355eeb59fbfa1bf50ab896a4f24ba62e2655edb9b022c40d7ceba72258c",
+            "8921ab7b9b017a5f9900560bb1a77a30790bbe6c1febbe8effba1c36f594564d",
+            "942f9f7d6bb0c7dae1a7670b501c141fd8b290f07d2f7d7983989c7158ae298a",
+            "dbec0bb07cdfac878924d1f2365fe28b77a49867967674862c7965287c66263b",
+            "6ba47fbd02d8b1718f6503d6f2bbf3e2b5d3cffcd78ccb261fcb43d9e015af6e"
+          ],
+          "heldout_nll": 1.4771180820887444,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "da808c0947a98ad73b08ad65dee819a96b2bb92975a366f25fdeefc2d20883fc",
+            "cb001839368fb4d78ccd0e61a20f0140afed7b81e697c9ecfeeb28c25e877c86",
+            "8474eaa2213f2eb772e830846cfd576d61bb5cf8627482886a27d2c69df810ba",
+            "e35ece130084f4153e8166e7c6f1ac45cd289afecf08a7badbf5d1912ad7a433",
+            "cf282d987f05608a1312ac679d847cdbf580fbdae0e1cf0cf3a448c21d77759d",
+            "2803f4069aac71ce6630d2edca46930bbfe392792d74db1788c7208fa3843e19"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "6d832aeec865dcb7f9877e770edf640e6a6a5bdfcc310ce651de7ce486a4e5ac",
+            "84218355eeb59fbfa1bf50ab896a4f24ba62e2655edb9b022c40d7ceba72258c",
+            "8921ab7b9b017a5f9900560bb1a77a30790bbe6c1febbe8effba1c36f594564d",
+            "942f9f7d6bb0c7dae1a7670b501c141fd8b290f07d2f7d7983989c7158ae298a",
+            "dbec0bb07cdfac878924d1f2365fe28b77a49867967674862c7965287c66263b",
+            "6ba47fbd02d8b1718f6503d6f2bbf3e2b5d3cffcd78ccb261fcb43d9e015af6e",
+            "5519a5a924b358da64cb26651a2c3a21bbde778888bb488b7258b0e4ea7ad625",
+            "9c896e1fce0e697da216c671193e42f91ed1f938ce12417a20b882311191f478"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "83caa60f81a7543f07231fb5e8e2b28db1234392fad2502380889d475b8a8a00",
+            "d869c0d0118def8ad416ed4b3591c284cdb8200274cdbdc41fb9cc552d1b25a5",
+            "c505059528701320ef174d6f5ff678cc85a62dd8586fbf97b7261c3cf0c941d8",
+            "1c7cbffebc83a40b3a0d84fe744a8cccdfa331d077022134de822fd88d6b19c5",
+            "ec44ce688c58ba63ae3058bc13e465f9d54b374cb2792a32dd644d972d2e3f5f",
+            "62d4bca20d350bc1cbd514b5a4ed32fe803e38b577074901fc8a039c3e2ae00b"
+          ],
+          "heldout_nll": 1.5518786086843699,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Twelve Monkeys (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "222de30819f62e4b3babde9484f2fb5aa3ab3985c8f3379c84beb2a34b2e0458",
+            "502dc954cb7a9acb0129edd649dc69cebe49b31b234025a4640f217b937e15ca",
+            "f99479f8c6022726ab5aeaa8bf53c358baa61a5f9015debea676572567c45461",
+            "5ad02aa4279b6c4b899c87e25ed7eb509c75ab2f93a05b00a1c2e634274968f3",
+            "0b06a63c87a5a73cd51ec7677e03eb4f139e3aa058aaad9996523bed965a68bc",
+            "4ff0fe5086b4a21037f82869f41a47bd05ce3e4a9bb0e5241b9d61c51e8d7a78"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "83caa60f81a7543f07231fb5e8e2b28db1234392fad2502380889d475b8a8a00",
+            "d869c0d0118def8ad416ed4b3591c284cdb8200274cdbdc41fb9cc552d1b25a5",
+            "c505059528701320ef174d6f5ff678cc85a62dd8586fbf97b7261c3cf0c941d8",
+            "1c7cbffebc83a40b3a0d84fe744a8cccdfa331d077022134de822fd88d6b19c5",
+            "ec44ce688c58ba63ae3058bc13e465f9d54b374cb2792a32dd644d972d2e3f5f",
+            "62d4bca20d350bc1cbd514b5a4ed32fe803e38b577074901fc8a039c3e2ae00b",
+            "5519a5a924b358da64cb26651a2c3a21bbde778888bb488b7258b0e4ea7ad625",
+            "c889eb1153ffee062dfa143163eb7475a9033c20da26148961eb29ea2c7c3fd8"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.0685403300041727,
+        0.05198150265706469,
+        0.033360088160864,
+        0.02883627862033422
+      ],
+      "initial_heldout_nll": 1.4831446140035025,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "3658897182abca4da78f65d33d4b17da5586eed02c19ac0aa27fbb3815beabd0",
+        "c889eb1153ffee062dfa143163eb7475a9033c20da26148961eb29ea2c7c3fd8",
+        "5d6c84ec9bd21736f1e0449cb0e2b1ed551fef1f74d86d61a627a69f89f3496e",
+        "5519a5a924b358da64cb26651a2c3a21bbde778888bb488b7258b0e4ea7ad625",
+        "9c896e1fce0e697da216c671193e42f91ed1f938ce12417a20b882311191f478",
+        "28b7a97136dc95552bab0e2fceda35e31862a74bf2405f3fccc03f4dc31929ed"
+      ],
+      "user_id": 864
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "59decf1e6910bb6af01145835fb69cd7b188437101d6c4b844ba01e6bda84615",
+            "6b739e5e6400a1a6a508333582ba532fc84873c1e0584e27745ec930568cc9bd",
+            "3b951206658f6b440f67282f3c990a2451713d9cadd5c9814c17f658e0897cf0",
+            "9624fc158ebd85c590a309735539bf99a6326c0b85a8dffd95653a2e9165a0e8",
+            "eb24a35736d6b9450890d115e31c6e48a0a9b28681f5aa4524b50295f532c6e1",
+            "7dd78c86660cfc493eb8c95d035f03ecdd461063298e4bc8b4e3bb8f98f09f02"
+          ],
+          "heldout_nll": 1.7112642752865659,
+          "movie": {
+            "genres": [
+              "Action",
+              "Thriller"
+            ],
+            "title": "Air Force One (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "51d075e72b2a3967c12a6152e13a51ae7fd97ed31b951b89c1247811e6d170b8",
+            "025c1c6e78b85d441c4e3af37230aece18170c6e2adad10494f487a05d9b5d87",
+            "c3cf02d0a6e3583f9b91d70f70e6b65e0fa967fd30938088b435ea2845b9c0f7",
+            "d2def6e5118b79c6b2b8bc200e1b30c6da6d7ce871ae50beb7654bede875d499",
+            "aa3760cc620a35bd43f468a4fba6bff69bac8e035c729d101982c84b89bcf843",
+            "2f40bb6986f605372499ecc6c8acf5bcc946ed1823f65d0875d882158f4a1b73"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "59decf1e6910bb6af01145835fb69cd7b188437101d6c4b844ba01e6bda84615",
+            "6b739e5e6400a1a6a508333582ba532fc84873c1e0584e27745ec930568cc9bd",
+            "3b951206658f6b440f67282f3c990a2451713d9cadd5c9814c17f658e0897cf0",
+            "9624fc158ebd85c590a309735539bf99a6326c0b85a8dffd95653a2e9165a0e8",
+            "eb24a35736d6b9450890d115e31c6e48a0a9b28681f5aa4524b50295f532c6e1",
+            "7dd78c86660cfc493eb8c95d035f03ecdd461063298e4bc8b4e3bb8f98f09f02",
+            "3be055fd6cd1e0fe51294f4152ee288ccc28604718d5b89c7829afc9100dba4f",
+            "9a511a0ad83482639f45f3a643d7bd594627e7ce40331f11461a8f71726c6626"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "4aa3460bebcc13f7545ceb77b77c2f6f4983e68a512f00bc21fbc233e0b75088",
+            "30f290f49077c7c464e195d38378977d1236895810eb178b7c59006bfcbcb364",
+            "2ef59716a6aaff327748fca80b6c31a4ccf54bb1ca3e8390cf1904b896cd48c4",
+            "3042be74f0274538684809b40e7c816d6ee8e9d40a5c65f9298b0fdda3fedbd5",
+            "1f1feff2f7f996878fbc79c90eafc2c5f48ff543ccbf66345752d8a44dedb60d",
+            "9c56212a4efc0a5367a3946bf6b0fd70df4f5d63a9c5202b3e0c282078f5c828"
+          ],
+          "heldout_nll": 1.58982286956895,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "60e58a607034c7bdf329c38560d4e925f9d6d1f43bc741835f39215dc9ed9ebe",
+            "767aefc60090dfb55ac1273cc52ab952e25d5c30b972f537f56fab950559a531",
+            "8970fd081bd6dd1ac4853440275693f1741aa513b017dfd1b058d6530d115b91",
+            "c0742945919d7e7091dcf2b831c36df58bbed62e853631aff4c442d5b36ba844",
+            "c287df8ce6241f46f5734358ea4e9b30f114b7e49e19cf904ab7d5d160e1a2e8",
+            "5ddc64f132e50eff8f46585de58ad0a1a0e8e345c464315de613290a00bec1c4"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "4aa3460bebcc13f7545ceb77b77c2f6f4983e68a512f00bc21fbc233e0b75088",
+            "30f290f49077c7c464e195d38378977d1236895810eb178b7c59006bfcbcb364",
+            "2ef59716a6aaff327748fca80b6c31a4ccf54bb1ca3e8390cf1904b896cd48c4",
+            "3042be74f0274538684809b40e7c816d6ee8e9d40a5c65f9298b0fdda3fedbd5",
+            "1f1feff2f7f996878fbc79c90eafc2c5f48ff543ccbf66345752d8a44dedb60d",
+            "9c56212a4efc0a5367a3946bf6b0fd70df4f5d63a9c5202b3e0c282078f5c828",
+            "9a511a0ad83482639f45f3a643d7bd594627e7ce40331f11461a8f71726c6626",
+            "ce9fcaf3fb7e5846348fa898bdf0a98e0b5f19499d0af07fc96025f3038b62d0"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "98590a3b9ef266b79048eff00281d81db41ed232a930cc1674161089ec766bfe",
+            "d104aeeccc9f743b0d65e5177146d78c915ad0dc64f7739ee9cc76fc301af083",
+            "e8eef2ca4196d9de06725b10bbc1a54e533482b9a3068e11c99b8d9fbecccb23",
+            "c34c18e09ed4a951e8da0462f2afef48311759dc0f7a355207373936397d8fbf",
+            "63f9f544b4a184d32bf624f13c3ef3a53f5717b9a982cf418ad42500da140365",
+            "42637a500578d9f8548b6cb5561c178273f79433d1ac6b0fc2a2e04e674a9316"
+          ],
+          "heldout_nll": 1.6527662858151244,
+          "movie": {
+            "genres": [
+              "Action",
+              "Thriller"
+            ],
+            "title": "Fugitive, The (1993)"
+          },
+          "new_evidence_effect_hashes": [
+            "5edae2d57ef9280ea0352c076c6e2ea8df2c51486586b16aac07beadc86f7a7c",
+            "abe5f491a9dbb181d632bd9de6bd3d37340af6ebfc54bc2a7e38dd99b26087c7",
+            "0ac4541c14f0493803f4a53842a708a0215e5cdca26a8a67edf5bdd9837a0125",
+            "f2ed6743c7dba5440d6b32f9eb70cb4202ab09cc41e0236255dfd7c487e1541b",
+            "25eeccb1bc72746fc897276c3add69eb7a232d285d2b0ab7fc61f41423222fbd",
+            "01bdc6f033dcc99ea01209485804de6acf152d37ff2824d31060770f458081a6"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "98590a3b9ef266b79048eff00281d81db41ed232a930cc1674161089ec766bfe",
+            "d104aeeccc9f743b0d65e5177146d78c915ad0dc64f7739ee9cc76fc301af083",
+            "e8eef2ca4196d9de06725b10bbc1a54e533482b9a3068e11c99b8d9fbecccb23",
+            "c34c18e09ed4a951e8da0462f2afef48311759dc0f7a355207373936397d8fbf",
+            "63f9f544b4a184d32bf624f13c3ef3a53f5717b9a982cf418ad42500da140365",
+            "42637a500578d9f8548b6cb5561c178273f79433d1ac6b0fc2a2e04e674a9316",
+            "ce9fcaf3fb7e5846348fa898bdf0a98e0b5f19499d0af07fc96025f3038b62d0",
+            "e38d67561b8f60b339902c9a142a98f0ac2d7cfb4931b566e7044d490118acc5"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "b98f0101e6aa1a4e80e5c166a8be4ce91b3de8e20226f84cf0b219aa09bf44a4",
+            "8d79a61cee1bf6bded5ced51062f5f792e2e3d1881d2ccfba66f168f2d0d518c",
+            "019fbb04a24a83f4df836e03e648881a3e1a4683d120549f7688d456c6d99663",
+            "4b20fb42a2a13dc6a1315dee55e48465818fbc4852e7b5e8920ce8f9f0728bd5",
+            "992988a24eb89072c97047ccff4d7171ef8045345a55a3a711ebc77696178c91",
+            "c9c06dbd01e56d0631cfb90244d5260bcb4009821d3dfb98d95f4ba0877fda88"
+          ],
+          "heldout_nll": 1.550166597889271,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Thriller"
+            ],
+            "title": "Rock, The (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "8b8b6fd561726364c902f65ff764ba822700f317e9a4813947bfd75b556e2da8",
+            "069edf856e709af6640f2e80f37bafed3f337dae07af5fca299d844388ba90c2",
+            "90233220b7a114c60d365a9e8b0eb55138beb6975bd1acd5d54818f7972194ed",
+            "e0edd9b36becc985a3161b5e9616abdea2689b2d19e84c449b851443bd1d8f97",
+            "e5523e217d14b47b4ff7e9fea2d04cc11d8384089b1168c29d6b0552903d4514",
+            "e7d5fc7ed9bdfb0c6859879d96aff52f2f4fd97270e96a4d335cd16c647c15b5"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "b98f0101e6aa1a4e80e5c166a8be4ce91b3de8e20226f84cf0b219aa09bf44a4",
+            "8d79a61cee1bf6bded5ced51062f5f792e2e3d1881d2ccfba66f168f2d0d518c",
+            "019fbb04a24a83f4df836e03e648881a3e1a4683d120549f7688d456c6d99663",
+            "4b20fb42a2a13dc6a1315dee55e48465818fbc4852e7b5e8920ce8f9f0728bd5",
+            "992988a24eb89072c97047ccff4d7171ef8045345a55a3a711ebc77696178c91",
+            "c9c06dbd01e56d0631cfb90244d5260bcb4009821d3dfb98d95f4ba0877fda88",
+            "9a511a0ad83482639f45f3a643d7bd594627e7ce40331f11461a8f71726c6626",
+            "22e037046cae7e91947c78c9d9ee912e59d06c6d1ee2819210d18062a703668d"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Fugitive, The (1993)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Thriller"
+          ],
+          "title": "Rock, The (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.021147928487882384,
+        0.01299639955288967,
+        0.012956559061169104,
+        0.009187853355439035
+      ],
+      "initial_heldout_nll": 1.7170654567258452,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "3be055fd6cd1e0fe51294f4152ee288ccc28604718d5b89c7829afc9100dba4f",
+        "ce9fcaf3fb7e5846348fa898bdf0a98e0b5f19499d0af07fc96025f3038b62d0",
+        "e38d67561b8f60b339902c9a142a98f0ac2d7cfb4931b566e7044d490118acc5",
+        "9a511a0ad83482639f45f3a643d7bd594627e7ce40331f11461a8f71726c6626",
+        "22e037046cae7e91947c78c9d9ee912e59d06c6d1ee2819210d18062a703668d",
+        "5fbef1f360a6663e6ccdf7ed9fa5cda90436e3a123ddaefcb9857a13570b056f"
+      ],
+      "user_id": 459
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "6380204165b81f5ebd47df12fcdf07c114292e8d9800ba5f1f2fbb3dec539d16",
+            "2a1c827b6fbc28a562dba1d9df636a601000575ab435ba97490655c8493ca1fb",
+            "912b52a815796736757ccc187b4b317502337e76cb7d5ac10b2ec772ee23abf6",
+            "98933b804a7cb7f65ff24caaea781cfc024c43df268afa2033ef16062e36dbbe",
+            "1d6f3087581f29bde205df5aebb60b0f2d7b89652463e34ce0cf0b0cf843cdf2",
+            "d16bc2abb03148ee90505e6018fcdd25c7a9fc5b9ed45db7a4ed80bc902af3a1"
+          ],
+          "heldout_nll": 1.4167881433253633,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "9093a7cd5ed339280dba9ad482b6e41a87ecdabff3306a0bce53d19348ff5886",
+            "328b8e8111a09d187cb294785120dbccc54a90d11b944cf550d273f241deda1a",
+            "de7c96a50139d7bcda50d6ae282955554c091207c6c47690d840a555eb2a9738",
+            "7dd0d34d99dbf4bf2e957958f3d1b8d3f591370cbcb04a305167d1988b6109b9",
+            "d8af10eafd6cb0aaf9e6d231bfcbfdfa9a8c504ee39e8932c9970f1a3814ae1c",
+            "4f8ac8f37079983516664618f94f883de6e402f3d05a49941afd74df4d519be6"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "6380204165b81f5ebd47df12fcdf07c114292e8d9800ba5f1f2fbb3dec539d16",
+            "2a1c827b6fbc28a562dba1d9df636a601000575ab435ba97490655c8493ca1fb",
+            "912b52a815796736757ccc187b4b317502337e76cb7d5ac10b2ec772ee23abf6",
+            "98933b804a7cb7f65ff24caaea781cfc024c43df268afa2033ef16062e36dbbe",
+            "1d6f3087581f29bde205df5aebb60b0f2d7b89652463e34ce0cf0b0cf843cdf2",
+            "d16bc2abb03148ee90505e6018fcdd25c7a9fc5b9ed45db7a4ed80bc902af3a1",
+            "c00a8ed9a3b0d712c79adebaf9cec0e03f8dda3842966ba019ef5d45f64fec74",
+            "4b70cbc14dbb445f747c9a3a289ddb2f757dd68cbc3b5c164233840ac9a46e51"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "d32d6c4fb0f6d774f6bd25a58550ce5f3b0d18504ee0e7fd05cb7aa5945bb21d",
+            "a42623d3cd34017505b8612179dd5144115b72c741e325538bc4c9ec413b3b5b",
+            "b4e171b34b9832898d83bc403c0fb4e54b3d90b6b98b11b4ee6b284d185b0f38",
+            "c9a34262fcfe1ff4b2ae308d0c2ea445890cb36c5ee6806d53f9269c768eb42b",
+            "2af95226420811dbc66f4ff9eb4aaa57268af34b58743e7cd9a70cba69a19118",
+            "bc31a261439938b2d5baedc10e368fd2139daeac5f5bf7634c1fe5522d3e6e56"
+          ],
+          "heldout_nll": 1.5291147987141347,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Drama",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Empire Strikes Back, The (1980)"
+          },
+          "new_evidence_effect_hashes": [
+            "307cf75f693f07374efdc0c4adca4a3fd03cbe4946ad5ec8957426a46cc0a18d",
+            "085c18c87436b6c78100f88d4703a8ad2c6a3a0b9ae7c93627f0af556cafd1b5",
+            "2c9fae981d3d956f4da83cfcb74b4f18b87b03529993bac390e59e4fc33e6660",
+            "587469ae8a9c30f84ac9f7584e1391703d161079cbac95c9b0eb8cab239b3088",
+            "a9be70afa7557adedc00df53213599504bde684dcd3038c54cd97c5cb9487432",
+            "95914f4a9a94b59a7d03d2325869352c61f4e2717f28ec0027c04c6fbd5724ec"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "d32d6c4fb0f6d774f6bd25a58550ce5f3b0d18504ee0e7fd05cb7aa5945bb21d",
+            "a42623d3cd34017505b8612179dd5144115b72c741e325538bc4c9ec413b3b5b",
+            "b4e171b34b9832898d83bc403c0fb4e54b3d90b6b98b11b4ee6b284d185b0f38",
+            "c9a34262fcfe1ff4b2ae308d0c2ea445890cb36c5ee6806d53f9269c768eb42b",
+            "2af95226420811dbc66f4ff9eb4aaa57268af34b58743e7cd9a70cba69a19118",
+            "bc31a261439938b2d5baedc10e368fd2139daeac5f5bf7634c1fe5522d3e6e56",
+            "6ae7a9c3345089b1b397963e8fd409da8564e2fb9c69a8d3fd56953d273a7813",
+            "cd11d46d3fe3ff8f1f2f6625559256b585a7f5dc9ac2c4c3eed2993129b60345"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "8db3dc91065b738958158c6ac18c7cc082cf4bd3947556d0a731a106e432c71d",
+            "a8b127c18a61f44c10107027fb9906bca7ada06e44aeff3fbe3e244f99edd865",
+            "19c76d8945d3d33f1f39b09bcbce836cac61e578e288722ffac56f656b2beced",
+            "ca9bdeb0654ccaba0b775878420e171c7b3768b43c423cffeb9638f1d75f0ea9",
+            "f954333caa072ce16ed9c5ba955bd80d9c575e9221bf39933c9908a701e59a5f",
+            "7396808408061f82b557d73c245845fbb84a5e445ae0f72457b344503557c91e"
+          ],
+          "heldout_nll": 1.3776974169017135,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "43d2e62672c4ec3ec6076ba4430bfe7efb697c77ace39601881b65532b08f934",
+            "46aa1fb66707f218dd2e08113ef849f0915e029f2f135e3263e13bb25cc00e8c",
+            "f1b969ef47f728c8b1875ce19c4603791dc20d3d336f0122e868244c1062d0ae",
+            "cd45b6d961d799bef1fa4e9cdc826ccd7e010665895b63b981f12a4912844c4a",
+            "262e0f00e685e289927dbd54c1a92e01aa1aabd3cd7572a94824763a564d49f5",
+            "52ea6a9bffea906983ed3beb1d3ac2c51d6da5eb2d23dd63267b4893e79e9623"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "8db3dc91065b738958158c6ac18c7cc082cf4bd3947556d0a731a106e432c71d",
+            "a8b127c18a61f44c10107027fb9906bca7ada06e44aeff3fbe3e244f99edd865",
+            "19c76d8945d3d33f1f39b09bcbce836cac61e578e288722ffac56f656b2beced",
+            "ca9bdeb0654ccaba0b775878420e171c7b3768b43c423cffeb9638f1d75f0ea9",
+            "f954333caa072ce16ed9c5ba955bd80d9c575e9221bf39933c9908a701e59a5f",
+            "7396808408061f82b557d73c245845fbb84a5e445ae0f72457b344503557c91e",
+            "6ae7a9c3345089b1b397963e8fd409da8564e2fb9c69a8d3fd56953d273a7813",
+            "cd11d46d3fe3ff8f1f2f6625559256b585a7f5dc9ac2c4c3eed2993129b60345"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "3028a0a66dc3d2f98f2bc013e118c6f32cba7f171f27ab80ee5c9f30503adbbf",
+            "61554e69ced3405eb8fef9816f64dd9041d639d3882d2132e23685598fbd239a",
+            "72fd6ad2617d6c79cd739d6d92bc1c225726300d66b020f767a5863f54704aa0",
+            "28c43002c5077254bef57bab716b3858bbc6b5a8a18a252fd5973fbcd4d5bcd0",
+            "7f5cbf7972d07a3b1c49f309ede99140f4a1577abd195c395ab3ec7943c22e0a",
+            "592ae43254e6b11d30f158a011655bd53d83840a0d55695f99d444cfc34be29e"
+          ],
+          "heldout_nll": 1.3174658206200025,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure"
+            ],
+            "title": "Raiders of the Lost Ark (1981)"
+          },
+          "new_evidence_effect_hashes": [
+            "d195728a28d7dda9c74761920986764e533fc6707a78e07fce0773f3f453a41d",
+            "aeb8d38b09cff5f12cd1ebb6bfe6ec05765bb457dfd7acfbd095d5aaa31336f1",
+            "01e5ebe49e78826807ff0c4b9ed18686b52250f188429051a929ea1ad7723362",
+            "dcd45cf9b12beccf9b2587a4d7c2ea8f05a491cd1c0d1227688f15ed9d2cce47",
+            "463fb239aeea113fc854ae2b4e1035df72fda8c5e3adc20fe378f29982d5f8c2",
+            "509b57cde470fa6add3c465f5b961b2b90db851b2f1e782ab39eba14098e0e48"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "3028a0a66dc3d2f98f2bc013e118c6f32cba7f171f27ab80ee5c9f30503adbbf",
+            "61554e69ced3405eb8fef9816f64dd9041d639d3882d2132e23685598fbd239a",
+            "72fd6ad2617d6c79cd739d6d92bc1c225726300d66b020f767a5863f54704aa0",
+            "28c43002c5077254bef57bab716b3858bbc6b5a8a18a252fd5973fbcd4d5bcd0",
+            "7f5cbf7972d07a3b1c49f309ede99140f4a1577abd195c395ab3ec7943c22e0a",
+            "592ae43254e6b11d30f158a011655bd53d83840a0d55695f99d444cfc34be29e",
+            "6ae7a9c3345089b1b397963e8fd409da8564e2fb9c69a8d3fd56953d273a7813",
+            "cd11d46d3fe3ff8f1f2f6625559256b585a7f5dc9ac2c4c3eed2993129b60345"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure"
+          ],
+          "title": "Raiders of the Lost Ark (1981)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.04075388669232627,
+        0.0380904578896164,
+        0.02190102491621193,
+        0.019063295908601452
+      ],
+      "initial_heldout_nll": 1.320048173875454,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "6ae7a9c3345089b1b397963e8fd409da8564e2fb9c69a8d3fd56953d273a7813",
+        "c00a8ed9a3b0d712c79adebaf9cec0e03f8dda3842966ba019ef5d45f64fec74",
+        "cd11d46d3fe3ff8f1f2f6625559256b585a7f5dc9ac2c4c3eed2993129b60345",
+        "4b70cbc14dbb445f747c9a3a289ddb2f757dd68cbc3b5c164233840ac9a46e51",
+        "f638acabad60ec6e45bc9ca021fe08634921f72cc91908ba8983881211781536",
+        "619359440da402782c8f40c7b9f33c094b307d244b33933d80921b30c2a8e4be"
+      ],
+      "user_id": 145
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "e5b440ca31c0faad9189c11d807003c157d37202a13996cea8df0d161a48f246",
+            "b5305c302f61a4cbbb20830fc9efa5e34f99a48a89622ac9a761e0d3d2e6d096",
+            "106eed95088c8f8af8a6209ad32ab8c6fd29e48db9ea4470383de04de5910227",
+            "831af404ccbfc64db8c8bc14ca48d56d3ef2a0e272f4982427a194b6d27cac16",
+            "c6fe35fdf58a76a79fb4f6956e18e0f59a0c3e5275821405b2601247fe59c603",
+            "be36901afb20fff5a1ba3dfd918fd2c30978b11db252623c7b35ee3dd998b4e0"
+          ],
+          "heldout_nll": 1.5651203573886006,
+          "movie": {
+            "genres": [
+              "Crime",
+              "Drama"
+            ],
+            "title": "Pulp Fiction (1994)"
+          },
+          "new_evidence_effect_hashes": [
+            "1454e91969c4310dda696918c17f78ee24143bb90e1a4b45de8163c81f9d5835",
+            "c1eb8d0754dbb4726444b06dcf8d91e4dd00ff6be3aa93cebc222e3f15ef8bc5",
+            "ec3f4479bc2c67e3d2d6b8b35474cdd91325238b77efaaf7cde617daa37dedb0",
+            "2bd40c51b0f9278730fc742ec2adde38ab18afebcbeb46f1a34b78b1bf12f2e0",
+            "f5554c2330e956b14b969e18416bc4c2e2e7c1c402e4eb05ddbe720dec573c11",
+            "1120079e465f3af589eef282ecdc1a878380161bde73692d8ce29cd3914ef66b"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "e5b440ca31c0faad9189c11d807003c157d37202a13996cea8df0d161a48f246",
+            "b5305c302f61a4cbbb20830fc9efa5e34f99a48a89622ac9a761e0d3d2e6d096",
+            "106eed95088c8f8af8a6209ad32ab8c6fd29e48db9ea4470383de04de5910227",
+            "831af404ccbfc64db8c8bc14ca48d56d3ef2a0e272f4982427a194b6d27cac16",
+            "c6fe35fdf58a76a79fb4f6956e18e0f59a0c3e5275821405b2601247fe59c603",
+            "be36901afb20fff5a1ba3dfd918fd2c30978b11db252623c7b35ee3dd998b4e0",
+            "d3b096db753418674c9662c0e1b3be4f4ee10b6f049b30df5715b01a530b3772",
+            "1bebd7923c7a33a53a415455c83a6b44129afa031bf45865a3cfefd57a1f7534"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "bcd2533c3b394f5ddd63d57ffcd67fab86e5e156a3b5511cb24d1459af015710",
+            "e5b74a55e463a29c7f17c5743885ca4da9ff0321ad61d41bc6e1774061391b79",
+            "b8678aaa1d9e5f191f054b19bcefcaa14c6e68a6b97d1340177c4bf86efabff9",
+            "6c479c74188dfb485b57b9d9dcb3cef69e67a3fe60b4e32ed3ed4967d6db40de",
+            "cec4456a315b64957b3a929b61a61e6ec0b6d175eeb05d2b0b78a6f7eb2e36c8",
+            "4b27f9da047ad10fafbb4e46a0f9977ece15ace5ce40377144bc01d2bd56d1ab"
+          ],
+          "heldout_nll": 1.5148103003737592,
+          "movie": {
+            "genres": [
+              "Action",
+              "Crime",
+              "Drama"
+            ],
+            "title": "Godfather, The (1972)"
+          },
+          "new_evidence_effect_hashes": [
+            "fa8b044ef748291e0011a7e43a626d6526c77f4686066b864b7abe789ee6dca3",
+            "990cf3f35a0934350b91219391e03ca02ff01c69e1e0d305ca2d9850e27b08e3",
+            "2fd6635e08fd93a595fa0266f8e13092bd690b0d206027ed63d7e1f1abc5c18a",
+            "326435531f3efa2aabbbecc967155dfab48292c7b555caadb3ca0fca6f30a0d0",
+            "7c33bf463e6d35435576900f5142fcf38762e757b26315a1168cf1009c43c943",
+            "23298769bab8d2747961b0a36ca4d5c3e24e0a550ae5c523cad96520ac7d38d6"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "bcd2533c3b394f5ddd63d57ffcd67fab86e5e156a3b5511cb24d1459af015710",
+            "e5b74a55e463a29c7f17c5743885ca4da9ff0321ad61d41bc6e1774061391b79",
+            "b8678aaa1d9e5f191f054b19bcefcaa14c6e68a6b97d1340177c4bf86efabff9",
+            "6c479c74188dfb485b57b9d9dcb3cef69e67a3fe60b4e32ed3ed4967d6db40de",
+            "cec4456a315b64957b3a929b61a61e6ec0b6d175eeb05d2b0b78a6f7eb2e36c8",
+            "4b27f9da047ad10fafbb4e46a0f9977ece15ace5ce40377144bc01d2bd56d1ab",
+            "d3b096db753418674c9662c0e1b3be4f4ee10b6f049b30df5715b01a530b3772",
+            "1bebd7923c7a33a53a415455c83a6b44129afa031bf45865a3cfefd57a1f7534"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "7c57659fe177b20972d70d0c716ea201b8347a76b3e4b61fdfa107e54648cbde",
+            "d26f06163a2f5e5d4a119160fe37b3a5f682018d22b4c06639f972c63d0b414a",
+            "37dc37f5efc5605d3aee93be741388357e30b6ae9dc0c852779de86129e7fe61",
+            "ccd32c30f6b68ec736f96fe1e0f6edf1d30149de7641f4710015c0113c6756e8",
+            "cb279351e098996e480748bd43eccf5b12445cc863d87b7a41d7780b54cf2010",
+            "2198684dade10790b45c1492cf51a0f7965ba47263552acb5eb850e42d9a828b"
+          ],
+          "heldout_nll": 1.5955140764776221,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "f910de44bcfe630bdd6127e196ff2b2a013276c79118c0dd1aca88c4c7ac5ec4",
+            "a4507138b8bdf829321b889929fc024b6ab5581ce2966fdee359809e442fd8e5",
+            "bb08ea2d9f9f4bf787b5e39e7841f1de009851cd4e1d7362da8d4a69cea8b297",
+            "5ae76df611846526e1aaf051778f832aa7818ae5564c0310b36dc6bcea517650",
+            "1e886e9a6cda39babcf5bac25f7d7ed1b1eb673098ee6f56cbb1e3904019fac6",
+            "85d4835db66b217dac388df16a078a4b4d20168d2921f5c2b4c7d9322f43246c"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "7c57659fe177b20972d70d0c716ea201b8347a76b3e4b61fdfa107e54648cbde",
+            "d26f06163a2f5e5d4a119160fe37b3a5f682018d22b4c06639f972c63d0b414a",
+            "37dc37f5efc5605d3aee93be741388357e30b6ae9dc0c852779de86129e7fe61",
+            "ccd32c30f6b68ec736f96fe1e0f6edf1d30149de7641f4710015c0113c6756e8",
+            "cb279351e098996e480748bd43eccf5b12445cc863d87b7a41d7780b54cf2010",
+            "2198684dade10790b45c1492cf51a0f7965ba47263552acb5eb850e42d9a828b",
+            "c90e01057ea911425c8f0ea07875c110c87e257742bef4b4a34a99ac8732339f",
+            "32bdc6d7e9f3365780f11bcfeb46223cff4fa01fc470ec347cef4da6a79a9aa5"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "90dddfd32a44ad01c6dd9bb30f4c40857c52b4791a19a0f57d9eee4b2929d5d2",
+            "6b7d2d3e1766b23e114839e97a3b658a33a2caf2eb62d3efbf684d80b2571d7b",
+            "c7d9eb6c7c295bdf6b066c00ee7c1c79342e5d9bc75e5e83afa2e9d3a6525a1f",
+            "cd246fbe7a5f9c8cabf6bbd2344adae0ad6b5b3669afad40bd83491682644f79",
+            "f94111b691bad03afe8e4d3a400a912e9e74b9fe5cee65a01343fdb757934d93",
+            "4489ec621468f2721813cd14c80df4ffda4a253c504f715c42860d137c91f7a7"
+          ],
+          "heldout_nll": 1.5634277905029683,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "50e4fc07bc3953511682a96ed6a91c40d7337480cdaf957c061579ba0ee3908d",
+            "f50ec8ea5e306cfb06759d1ee190dac4ebbc8cafda0ac95175e315907e884d48",
+            "1d5f4e6b5228cd6829a8cf48062adb62072fe9540e0f2efa6b2b3eb4a4f4eaea",
+            "fda45d5a4c2d203ca07d95102b4a9f7c8350dcb49c4c115425c0bc36ec33dde1",
+            "9edea057b1e8f25662ae673a98967e0d5bda555961c03c5bb1d8fd51f6bb7950",
+            "10fdda13660c6d3deae220500cd22d941a2860b6a4648f839e70eaf6338706a3"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "90dddfd32a44ad01c6dd9bb30f4c40857c52b4791a19a0f57d9eee4b2929d5d2",
+            "6b7d2d3e1766b23e114839e97a3b658a33a2caf2eb62d3efbf684d80b2571d7b",
+            "c7d9eb6c7c295bdf6b066c00ee7c1c79342e5d9bc75e5e83afa2e9d3a6525a1f",
+            "cd246fbe7a5f9c8cabf6bbd2344adae0ad6b5b3669afad40bd83491682644f79",
+            "f94111b691bad03afe8e4d3a400a912e9e74b9fe5cee65a01343fdb757934d93",
+            "4489ec621468f2721813cd14c80df4ffda4a253c504f715c42860d137c91f7a7",
+            "32bdc6d7e9f3365780f11bcfeb46223cff4fa01fc470ec347cef4da6a79a9aa5",
+            "56f17471317f27e85aa44388879e256732cf7a8e6b46c488a245c9874b1cccb5"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.050639981719529326,
+        0.025160738273584338,
+        0.012539218226995663,
+        0.010485106409507505
+      ],
+      "initial_heldout_nll": 1.6649163241926093,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "d3b096db753418674c9662c0e1b3be4f4ee10b6f049b30df5715b01a530b3772",
+        "32bdc6d7e9f3365780f11bcfeb46223cff4fa01fc470ec347cef4da6a79a9aa5",
+        "56f17471317f27e85aa44388879e256732cf7a8e6b46c488a245c9874b1cccb5",
+        "93553a704c5b8f5504c26135f6bbb9927a1a8e997b1c71b60936d4062ccf2338",
+        "c90e01057ea911425c8f0ea07875c110c87e257742bef4b4a34a99ac8732339f",
+        "1bebd7923c7a33a53a415455c83a6b44129afa031bf45865a3cfefd57a1f7534"
+      ],
+      "user_id": 21
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "47f0aba9b83c4690921e406f0c91b5416cd60b768bdce5051dc00a97be0e8ea6",
+            "6db402819bd848b857c8027286730f51e0764c96160d4be0d4b8c0a475cb0f19",
+            "982d990891ea0b20ab4a612eda5df76efa2a6df925f7b9f7eeabe29299f17646",
+            "0569bfa667cc0e1aead78de0691c8c1761c7ecdd007cf898b08569a78f2f9eee",
+            "b6ea85655e228e939f07c3c735d5a848cd5208a32f85f3b49ecccec5b2c7c381",
+            "ffe9b613aff385a2767ddd538bc19ae893a52b8fcda1e5f9494b941162e8a087"
+          ],
+          "heldout_nll": 1.543181469065661,
+          "movie": {
+            "genres": [
+              "Action",
+              "Crime",
+              "Drama"
+            ],
+            "title": "Godfather, The (1972)"
+          },
+          "new_evidence_effect_hashes": [
+            "4e319a45a14b8f797aadb87b6f4f1ab13d6784d1670f6910b5ea5ce8fab656de",
+            "f6e0d57c7874f1e85fe8c50d77bb9f8409c9e785b19fa7e0cf484e0f0a9bbbd0",
+            "3425efb29be622984030096a51e97e44d56b581dd35e0526c4ec28eff5460e3a",
+            "e18055f0d9ac8c5dd335c93e267c1bf38cb0345e20d07bb16b9694c9be29bfe0",
+            "3c288b5026fe78a3dceb598bd7aea2a9f7119ebf2700ebb7c24097fdc4a9515b",
+            "cbbc576bb36abefe34ac103bcb1d34e447a9d578342893853fb942612e7d0f37"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "47f0aba9b83c4690921e406f0c91b5416cd60b768bdce5051dc00a97be0e8ea6",
+            "6db402819bd848b857c8027286730f51e0764c96160d4be0d4b8c0a475cb0f19",
+            "982d990891ea0b20ab4a612eda5df76efa2a6df925f7b9f7eeabe29299f17646",
+            "0569bfa667cc0e1aead78de0691c8c1761c7ecdd007cf898b08569a78f2f9eee",
+            "b6ea85655e228e939f07c3c735d5a848cd5208a32f85f3b49ecccec5b2c7c381",
+            "ffe9b613aff385a2767ddd538bc19ae893a52b8fcda1e5f9494b941162e8a087",
+            "f3fd4ec136a186bc14a713a2747767a69080881e6b374254d5f444ba011b72b4",
+            "da9c84d00d0eb1dc837cffc2a2ce0cf80754b0d33631d358db3eb4d00fd988bb"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "6e1d60d10821217ec1d506a13d0a93764d71b94c04fd5640668a56d03c570fc7",
+            "2f43c99d03ca9ddcdfac3f76e4492021b3ca272a3e429b38418a17c8900754e9",
+            "63aff7561375c2dc91bb4f111ca0b44cde19920a1135df07df4bd73aec6ffa6e",
+            "c3bd88b8ef40052fbc3dfd3be1dd72a8d370538e0f9d4fd079c274c8b2cc0050",
+            "e4f684339e600d1498a7ecd39daa90506630d3bf5d122dec31ed86fe37438680",
+            "c41780bd81c89fb729ead5299dd472eb9d00a76efb92dd276f213ad9a466db37"
+          ],
+          "heldout_nll": 1.6192778187257986,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "2748957081e61daba91cd42ce418070a915871ae7371bd781a7efb3f77a1e96c",
+            "e0bf243ba64e820893c4e37d2df9bd593b10eb70a93235566a14197e58e675f1",
+            "02c9201da215fa3a83b1749567618a4721274053c6d5010d5c53574c717eb74b",
+            "ff35650b6863736c129b93924ec5b32ec64f3493ac8c67a83aaae086eeda4b9d",
+            "90ccaf2b6be68ea071aff85b48988100e7800d322dd1765c6908f8b6d055b2f7",
+            "1c41427f96d4b8d00e6db79445cf35b88f55fd142c0c8000814ebd44f2dd7399"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "6e1d60d10821217ec1d506a13d0a93764d71b94c04fd5640668a56d03c570fc7",
+            "2f43c99d03ca9ddcdfac3f76e4492021b3ca272a3e429b38418a17c8900754e9",
+            "63aff7561375c2dc91bb4f111ca0b44cde19920a1135df07df4bd73aec6ffa6e",
+            "c3bd88b8ef40052fbc3dfd3be1dd72a8d370538e0f9d4fd079c274c8b2cc0050",
+            "e4f684339e600d1498a7ecd39daa90506630d3bf5d122dec31ed86fe37438680",
+            "c41780bd81c89fb729ead5299dd472eb9d00a76efb92dd276f213ad9a466db37",
+            "9bca025af2a9c8b3693be40ceefbec03434ed74bc2b374dad70e33ebf8f23317",
+            "97d0b8107777327fba273a04791527e798323b9bc084fe1152d4799411763ed3"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "a4b0e72205169d08edd75d8f15b0da80cd9af9861eb770b65a16a06a8200f105",
+            "0da01032f67cb513a6468a877b4f1577d2e8dcec0830770b8d57cc1559f13a06",
+            "feb8fce192a3b986923cf5db58e79a48962a710e02a91045cb331ae4f6bfffcf",
+            "8b015aa841171db9bc6456ef696fbfe60bd3b11ce50f898a21814c4f2bc8b97d",
+            "bbf538a34e01c5d0dd8181735e8493b76eae7e4af04f11ff7e265c4e849b9545",
+            "7a7dc509113d4ba5061498d35df90cb796c7c42bc214e8d4caa24bd6893eb337"
+          ],
+          "heldout_nll": 1.5042064279728657,
+          "movie": {
+            "genres": [
+              "Action",
+              "Romance",
+              "Thriller"
+            ],
+            "title": "Saint, The (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "3c8a6dc0d85a69497095c0df16938829b4ab42035431b146b2b8b45021dfbd16",
+            "c5a56150b4468495529e4a0ab3d6ded7a1444da265eca044e496d84787aa826d",
+            "2c0dc861f05a21e20c2efa8bc624cf9180cdc0e0693f183ed49e62fdf4a60816",
+            "45ded7a47e9010ca8f39c8a34acdfc9ada3df3fb35974fe99cd0c00f9265c34c",
+            "9cce3dcfc753c897694c41022022fbce00a966df4607b7be1a7c95a6a5a959ec",
+            "16c5d27e2daaa55ba07d03a7c6aae3102b2c15a71f219e41601e7bed0460db59"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "a4b0e72205169d08edd75d8f15b0da80cd9af9861eb770b65a16a06a8200f105",
+            "0da01032f67cb513a6468a877b4f1577d2e8dcec0830770b8d57cc1559f13a06",
+            "feb8fce192a3b986923cf5db58e79a48962a710e02a91045cb331ae4f6bfffcf",
+            "8b015aa841171db9bc6456ef696fbfe60bd3b11ce50f898a21814c4f2bc8b97d",
+            "bbf538a34e01c5d0dd8181735e8493b76eae7e4af04f11ff7e265c4e849b9545",
+            "7a7dc509113d4ba5061498d35df90cb796c7c42bc214e8d4caa24bd6893eb337",
+            "99f0476591f45e66d1495373be301c2c69241519e8c013919a30d5eb4e18e49d",
+            "da9c84d00d0eb1dc837cffc2a2ce0cf80754b0d33631d358db3eb4d00fd988bb"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "29378ca744279d8eedfa47891f1aba989c7213cc228225016fb3fe1204753688",
+            "7c49d5124c96aa3adbc5e7229928d35d1e082b96437109dd03d4b5b61e66c218",
+            "1f90f5aa00c9252ca6adf927a1dad7d454099782b33d1ad554c2a853e38183ba",
+            "393e530ae366632adb2080284648e56c6eeb0d6b462447a6c82fe08512a70bf1",
+            "911f8a6d2025249b631d3d8d6ecb2353ba99fb3e64e30668cdfbbf8581571ffb",
+            "7ce94cb4e32f94f89c8d75da356820bb9a4cb9f4adaaf883b7efce2bb5f53b55"
+          ],
+          "heldout_nll": 1.5723235806188818,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Romance"
+            ],
+            "title": "Jerry Maguire (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "ecfefa92190b8755f740f2eb2d6a4f530a86f035d7b2f4ba5210903d0e4127ef",
+            "23394eb2003fb9933aadcef07d993af359052a12d2dfeaa72ecd9a9835e2e917",
+            "ad68b23e7573149e3dd06058aca30504544ffdd3e6d67fe844243e1e6b53500e",
+            "44c192b2b0a0218111e0e067ecfc0540a5ba15d64d31af2d93ee652ee79e9d4b",
+            "ffff58b347ccd8d719d0ec22c06e98d8f5ba1bb716fa031a372e881183c8cfde",
+            "5e9ac993070b4fa9346a4f538c838f6fb9a474ef75a20d3e03619129200d33c6"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "29378ca744279d8eedfa47891f1aba989c7213cc228225016fb3fe1204753688",
+            "7c49d5124c96aa3adbc5e7229928d35d1e082b96437109dd03d4b5b61e66c218",
+            "1f90f5aa00c9252ca6adf927a1dad7d454099782b33d1ad554c2a853e38183ba",
+            "393e530ae366632adb2080284648e56c6eeb0d6b462447a6c82fe08512a70bf1",
+            "911f8a6d2025249b631d3d8d6ecb2353ba99fb3e64e30668cdfbbf8581571ffb",
+            "7ce94cb4e32f94f89c8d75da356820bb9a4cb9f4adaaf883b7efce2bb5f53b55",
+            "f3fd4ec136a186bc14a713a2747767a69080881e6b374254d5f444ba011b72b4",
+            "99f0476591f45e66d1495373be301c2c69241519e8c013919a30d5eb4e18e49d"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Jerry Maguire (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.02222526808988734,
+        0.021928360547865955,
+        0.014791919800971387,
+        0.012446814849332188
+      ],
+      "initial_heldout_nll": 1.4784805557125957,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "99f0476591f45e66d1495373be301c2c69241519e8c013919a30d5eb4e18e49d",
+        "f3fd4ec136a186bc14a713a2747767a69080881e6b374254d5f444ba011b72b4",
+        "97d0b8107777327fba273a04791527e798323b9bc084fe1152d4799411763ed3",
+        "da9c84d00d0eb1dc837cffc2a2ce0cf80754b0d33631d358db3eb4d00fd988bb",
+        "9bca025af2a9c8b3693be40ceefbec03434ed74bc2b374dad70e33ebf8f23317",
+        "a644a8d955141c3db2e51be00ef3e5d5632e86846e10ceb5af09926577b24d51"
+      ],
+      "user_id": 401
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "b7343812663241ab33d702bf98a92a660e04765c94812568cde047378fba5cf0",
+            "93705d95755159a5f9ca033a8d2dfbc2f27f4cd8c35b0596880904749ef59d7c",
+            "638bee4b25ea985e083e3dd9e5764aa4116867de49a5c98d75906c42e516f794",
+            "88e3d84362d25340ced1a642943c99eb39739aadb6b847e52f8d62104e5989f9",
+            "4344dfa0fc62601c9c8c451770a1decac8047235215baae448f5b566af337615",
+            "77075e01b6481f0cda96534e147bd954c4cb9574c62fdef403acef22720b9f98"
+          ],
+          "heldout_nll": 1.4503868819348795,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "780dc100a758cef31eef0a0f29f82af11f9a92af3b92b674789f8ec4ac9456c9",
+            "e84e9be0b4df847053546e0a791d19a0121a155641e4f5718f154dc02fc25767",
+            "96bca383f3f65cf6601b693eb356b71362b3dc0acf18bcf7e027b3174c28e98e",
+            "e8e0b8486d0cc2f0bca8fa92a087804a377a5cb783056272c037215fa3474bb1",
+            "4e0605d87707f008a26dfcf5af209695d41313446b433d7d06929bd42a82f8dc",
+            "392cad1a7bd2e7c28c20d125b0358f330698d2bffc6edee1152993ebbf5e07a4"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "b7343812663241ab33d702bf98a92a660e04765c94812568cde047378fba5cf0",
+            "93705d95755159a5f9ca033a8d2dfbc2f27f4cd8c35b0596880904749ef59d7c",
+            "638bee4b25ea985e083e3dd9e5764aa4116867de49a5c98d75906c42e516f794",
+            "88e3d84362d25340ced1a642943c99eb39739aadb6b847e52f8d62104e5989f9",
+            "4344dfa0fc62601c9c8c451770a1decac8047235215baae448f5b566af337615",
+            "77075e01b6481f0cda96534e147bd954c4cb9574c62fdef403acef22720b9f98",
+            "be9140e6f47c61b6438884d77620b182f3f3539ba67a5ad742dd5abc70ad69b2",
+            "5e2783a13ed1b920e075013ea3eda62942166165c6d4e97c1f18a54efc82395d"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "3127dfce8d095c39ee48b214294d460fd5794dfe480166bc793e580227f7e0d4",
+            "6fc74f6741e322a8d05625b9cf7106625a3afff450434aa1a1dde592d88cd0dc",
+            "1811712f76366e37d7bc1f7e81d21f5ff1f0c77f893dc3fc9c531a38cfc925dd",
+            "009107447c770e6d66521ae6f2e982005436a224f2a403b721eced4a2a1bdcfe",
+            "fe2c082cc8f19e6c0179faf366f9345ae2aec488048141f2c0e9d405f0d68bab",
+            "5dead485109bb6b65982747c24bb32731427367983507dc50608e5b367f5a2a7"
+          ],
+          "heldout_nll": 1.4327510660825482,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Drama",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Empire Strikes Back, The (1980)"
+          },
+          "new_evidence_effect_hashes": [
+            "9ef40ea99ddb80c3f136432b30b7e7f8d264a73205dd9374eccfc71ed6172138",
+            "aa15de2e15d95efe29caf8243fdd25de7e5b5df9dbf6b64725ddadf9a895e199",
+            "44fca1729c4486c32cd3db40d4f3af5230478bccd20034618e5a364690afb676",
+            "28dd4f770635704b52cfddd726986989a70b3742c0db4903f09271d01516b13c",
+            "01d0de9f845d5dfccd5ef3421c7bc657af7f4673c97bf14e269aec4f9e9feaa8",
+            "e8518f3d2d623431e89de4e870d9eef2d541a34baf23954a9857b4087403d3d5"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "3127dfce8d095c39ee48b214294d460fd5794dfe480166bc793e580227f7e0d4",
+            "6fc74f6741e322a8d05625b9cf7106625a3afff450434aa1a1dde592d88cd0dc",
+            "1811712f76366e37d7bc1f7e81d21f5ff1f0c77f893dc3fc9c531a38cfc925dd",
+            "009107447c770e6d66521ae6f2e982005436a224f2a403b721eced4a2a1bdcfe",
+            "fe2c082cc8f19e6c0179faf366f9345ae2aec488048141f2c0e9d405f0d68bab",
+            "5dead485109bb6b65982747c24bb32731427367983507dc50608e5b367f5a2a7",
+            "1b01c5dea869fbc99ac11306a902d6b6a30e98c3e26828883fe62653b14528c5",
+            "ae20330327739336e640f9f8f25b5e19869b0399bfdad0119a17bf00b2a3335f"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "389e9159c17115a65d75adee90576dd10bf0714272f461dd27e16b0bd7e3eb74",
+            "434b05c47c2acb3a85341512efe2ab9d3ed06fa780db63bd0b733d403ebf5445",
+            "c40e53544e3cd838155ee558d18d23588285902e23feec01c8432b3e0ea79ba9",
+            "322c6935903765a0e14a1175dbbb33f4991d190410ff634f56a4544505f87ba7",
+            "e6d7a4d9c1e72d60bbb9b489fb76387fd51dca8edeff2bc45ec351e09ce208c3",
+            "150cbe4c59455fc0f60d0b1f7c2eafc779207bfed3bd01d1374a830215b3e1ae"
+          ],
+          "heldout_nll": 1.4999555067242403,
+          "movie": {
+            "genres": [
+              "Action",
+              "Drama",
+              "Romance"
+            ],
+            "title": "Titanic (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "28bdac6e15bddd2941b85e5e0b135db4375b6c424a5e3de02e0bc5c10f5e6aaf",
+            "7340f9790cf40d29ccc2c6a1e07aa55cfa479877aeb41c096f95c2fed647b6e2",
+            "6ade0cc311c10e20c40856111358c66b292ea9689133cc85362bce2be3c756ce",
+            "0e74c8547c1a9b430f6986d360e3ebe7c93f51b74182257a046c364b2b137b4b",
+            "c546f94e692a32d3e5886a214e74d5ccd1c0f8aed93f77c2a90f07add58cac64",
+            "229c7ac768777e66d0c19db4ee52d186148af7fc09cf14d8bee637073dc05cb1"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "389e9159c17115a65d75adee90576dd10bf0714272f461dd27e16b0bd7e3eb74",
+            "434b05c47c2acb3a85341512efe2ab9d3ed06fa780db63bd0b733d403ebf5445",
+            "c40e53544e3cd838155ee558d18d23588285902e23feec01c8432b3e0ea79ba9",
+            "322c6935903765a0e14a1175dbbb33f4991d190410ff634f56a4544505f87ba7",
+            "e6d7a4d9c1e72d60bbb9b489fb76387fd51dca8edeff2bc45ec351e09ce208c3",
+            "150cbe4c59455fc0f60d0b1f7c2eafc779207bfed3bd01d1374a830215b3e1ae",
+            "be9140e6f47c61b6438884d77620b182f3f3539ba67a5ad742dd5abc70ad69b2",
+            "1b01c5dea869fbc99ac11306a902d6b6a30e98c3e26828883fe62653b14528c5"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "49a40ff8d93f490069437ce7217661cdae4a10a720355a66861072b0a28324e8",
+            "0816ac32bf5f102ac4af2cb09a6e63109e722a5e02be4c590b1377c548a785a1",
+            "360efe8f78de7ea6bb82e7609317eddcefc6dc45adbf2b53465d6c2a18ea59f9",
+            "a5191b90bc12a2c4b2785252f9217a6ea9886261a35895c3a14e3cb7fcc16d8e",
+            "58a79b4f5b0c19bb29cbd41f35acdf1753e445f112696e9fdc2194749fd32744",
+            "5589c857da4711e8d462e074ba390f42d82665f472719eee5c6a72fb76fb0ab2"
+          ],
+          "heldout_nll": 1.3836428662806464,
+          "movie": {
+            "genres": [
+              "Comedy",
+              "Romance",
+              "War"
+            ],
+            "title": "Forrest Gump (1994)"
+          },
+          "new_evidence_effect_hashes": [
+            "9e8cdb8241545ab2eeda95c4d9d084f8b5df6da418b7505d92cedb21b30ef125",
+            "fb5d1754e8588c2132dac91f972202ca1972056da861a4cfd9fbec90780cb7de",
+            "da974afc705eafc88779dae3561d90b31f87e5703e012f160d76a5f248229a71",
+            "2e2bb45cedd7da2bee7539983eb5a9a69b392f03822fd2dad50dd2891ff6ac6a",
+            "e953c4d5b420e98d0cadb26154553fc5ed1e9ff660e6da34880690e39e283e41",
+            "8a492ea8b708d936ba871dcd25bf537fc4f47a4f1d317fd4301ba9112153ec74"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "49a40ff8d93f490069437ce7217661cdae4a10a720355a66861072b0a28324e8",
+            "0816ac32bf5f102ac4af2cb09a6e63109e722a5e02be4c590b1377c548a785a1",
+            "360efe8f78de7ea6bb82e7609317eddcefc6dc45adbf2b53465d6c2a18ea59f9",
+            "a5191b90bc12a2c4b2785252f9217a6ea9886261a35895c3a14e3cb7fcc16d8e",
+            "58a79b4f5b0c19bb29cbd41f35acdf1753e445f112696e9fdc2194749fd32744",
+            "5589c857da4711e8d462e074ba390f42d82665f472719eee5c6a72fb76fb0ab2",
+            "1b01c5dea869fbc99ac11306a902d6b6a30e98c3e26828883fe62653b14528c5",
+            "4cdc57ad88c76800c639ad5389f9bf4e19f198b0707945b3295e8d316ebb9f07"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Romance",
+            "War"
+          ],
+          "title": "Forrest Gump (1994)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.027762314612906236,
+        0.020558498611878306,
+        0.01662673581943186,
+        0.016527425013537878
+      ],
+      "initial_heldout_nll": 1.268220913914453,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "be9140e6f47c61b6438884d77620b182f3f3539ba67a5ad742dd5abc70ad69b2",
+        "1b01c5dea869fbc99ac11306a902d6b6a30e98c3e26828883fe62653b14528c5",
+        "3ff7c7edb7aa4b0051bd41493a02e990ad2a9d75501b398e7348a8b38cb2607f",
+        "ae20330327739336e640f9f8f25b5e19869b0399bfdad0119a17bf00b2a3335f",
+        "5e2783a13ed1b920e075013ea3eda62942166165c6d4e97c1f18a54efc82395d",
+        "4cdc57ad88c76800c639ad5389f9bf4e19f198b0707945b3295e8d316ebb9f07"
+      ],
+      "user_id": 236
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "fa06bb8ef649b6c93da202b1c4d3730236ca39341f6dbe476b433e7370f98774",
+            "73acc217a7af87c68be95855b591406b8ca558763fde5133c4e6b635b226f554",
+            "3b2f0ef1527e9208e6803cd0a3f9ffb5f7ef37387ac70ff664b2561318f582ff",
+            "9113b5f9299174e5d09cda0f670ea18f63830009459deb724893dae2981fd076",
+            "49a29a5cd218443d297d7fd88e860c1030f55f9ab3bebf56c4d729fe0d6f206b",
+            "f098fab215fe41878b11a6f7da20b593212aa25e864ad4c5120e32cc695d7ac3"
+          ],
+          "heldout_nll": 1.3799447431276275,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "7e089f2748598545028776eb1fe6d731d671d711b31869cbcdc185a46ea01f18",
+            "6ec2d67c3ea2dd0f6fbe8d76ed573bd4190f54df58b36564a76e77ab0ed57485",
+            "6f4758337b345a6097f0a6be4688f85c0202763a1b65126202034981c9a9cac0",
+            "2c1fe040143947f49ca248f3ef954bbc522607b3b95cc992219b91b64cdf07f9",
+            "419eb5ce5aa2847635fe5986e2b5b63ba73b1a07f7169e52b6ea42827528edd7",
+            "28cc0cd6a2dc7583907bac6558a9a4f63480abf666eb818a70625014c26aaba9"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "fa06bb8ef649b6c93da202b1c4d3730236ca39341f6dbe476b433e7370f98774",
+            "73acc217a7af87c68be95855b591406b8ca558763fde5133c4e6b635b226f554",
+            "3b2f0ef1527e9208e6803cd0a3f9ffb5f7ef37387ac70ff664b2561318f582ff",
+            "9113b5f9299174e5d09cda0f670ea18f63830009459deb724893dae2981fd076",
+            "49a29a5cd218443d297d7fd88e860c1030f55f9ab3bebf56c4d729fe0d6f206b",
+            "f098fab215fe41878b11a6f7da20b593212aa25e864ad4c5120e32cc695d7ac3",
+            "4ee888d0d750c0ac7b7c6d9576022f43de39029ec45402b05ec293ac4ee58974",
+            "754815bb3b35a04313d1496dd9334c2ee464df24f159ab1c2be5ec43ab66c599"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "a905bf1d5171eece34d9ea8e42e9cac081cd43444cae9e5fb0e1823a98322bfc",
+            "6f29d59398704315d8f69b1c8c4206b22699714c7531478c5786d19f6dbd417f",
+            "c7efaf9078c08e47031be2b6790d5c96f6038f3c30a435c3746cca69108db168",
+            "f0f4acc162d18ff70f7f0e0135ae802c1cfcb647290f8215290bd90a3a672dea",
+            "c5b4b8cedc180759f02262d7d1c6a4334938b3fbc21ebd6350ed29994dbe88cd",
+            "dfb89a3a73c7ff42cbf57ea9c75acad307e69b22e352b0ccb5e459fed4346b15"
+          ],
+          "heldout_nll": 1.412220811888028,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "43c5055c222c5e8b3c5d8e7ddb939480d500f491e5871ed1bd8a016eff3a9772",
+            "0a242923668cdc77b1fd540d536d1fe2744ce6b42d6d41a8b46e1c16207d3d45",
+            "8b1dfb76bf7cf74d519d9fd335ce76a3248879ea5b32292c684e885316135590",
+            "38cc74431affff6a12d233022ac4454cf96e55984fdbaea282c4d4d336522d46",
+            "3fea1b61135a48d11511f24d462185f8379e06e99a9b4e44121611eff1671ee5",
+            "7ad1b78fd564a3a7fe9c35218675fefcd3de94fc1d87c101bd1d8ce0a828b81b"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "a905bf1d5171eece34d9ea8e42e9cac081cd43444cae9e5fb0e1823a98322bfc",
+            "6f29d59398704315d8f69b1c8c4206b22699714c7531478c5786d19f6dbd417f",
+            "c7efaf9078c08e47031be2b6790d5c96f6038f3c30a435c3746cca69108db168",
+            "f0f4acc162d18ff70f7f0e0135ae802c1cfcb647290f8215290bd90a3a672dea",
+            "c5b4b8cedc180759f02262d7d1c6a4334938b3fbc21ebd6350ed29994dbe88cd",
+            "dfb89a3a73c7ff42cbf57ea9c75acad307e69b22e352b0ccb5e459fed4346b15",
+            "754815bb3b35a04313d1496dd9334c2ee464df24f159ab1c2be5ec43ab66c599",
+            "c3dcdd54cb74d6cae73e707309de15fc366f0a2fdf8cf2811648343f10e450b0"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "3a8d697f969f5325de04b52e1d1507152890379a3c31307cae985964a02f6cc7",
+            "733ec7dd4414d845ef6f8541a73e4ec4ce1773119833377df4000e0d62934a2f",
+            "3642ca90a7a84161168e7f405a706018432e08341b24fdadf400af5d4df591bb",
+            "22eeec5b534b4239d6773fb46eca0cfc758b98addfbcaebb498da5c3aae75be4",
+            "128c560dba657ef8d0c933132175bc16c5af6b5d7eac177a0e0e626854f1e1d7",
+            "716273ea35d255b91a789fda6c5eb0de7c0968458828d1725a5527ca906a3e67"
+          ],
+          "heldout_nll": 1.3736098731945257,
+          "movie": {
+            "genres": [
+              "Children's",
+              "Drama",
+              "Fantasy",
+              "Sci-Fi"
+            ],
+            "title": "E.T. the Extra-Terrestrial (1982)"
+          },
+          "new_evidence_effect_hashes": [
+            "d84cd675746e71fe18806992d4f2dda8604aef86d3a321236e74d64c2b75e7c7",
+            "ef592b8dfabf9f48705869b4a386b76b011c4269498987fc8db19a76b8b7e784",
+            "6cd3b97a6799f861313de02b0a044f8cb90fb230b5868c25a825187ab97f7963",
+            "e5817118c02f5435d089d8fa9e3f99b51fb2171df47d235169e1bed62286c424",
+            "d1875c4f885ff121b93610c4035b1feb97ef4b9bf0557fb69721c040ca96ac1b",
+            "4b5c496b91538aaf9efa58fb206fd94cb19f8e11c4032353d51704b062ae791e"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "3a8d697f969f5325de04b52e1d1507152890379a3c31307cae985964a02f6cc7",
+            "733ec7dd4414d845ef6f8541a73e4ec4ce1773119833377df4000e0d62934a2f",
+            "3642ca90a7a84161168e7f405a706018432e08341b24fdadf400af5d4df591bb",
+            "22eeec5b534b4239d6773fb46eca0cfc758b98addfbcaebb498da5c3aae75be4",
+            "128c560dba657ef8d0c933132175bc16c5af6b5d7eac177a0e0e626854f1e1d7",
+            "716273ea35d255b91a789fda6c5eb0de7c0968458828d1725a5527ca906a3e67",
+            "4ee888d0d750c0ac7b7c6d9576022f43de39029ec45402b05ec293ac4ee58974",
+            "c3dcdd54cb74d6cae73e707309de15fc366f0a2fdf8cf2811648343f10e450b0"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "902ccbbff8e2d45813fa6ea853d0c39a9eda591773785c03c6e3f5074bcdce6a",
+            "c4932c453f0ce39fef75591b54d7c510ddff76abff773495c463a6356c9ed331",
+            "11bd964130fb2bc860ea2f356aa3bd163a6683439b14c827085048bd90685b8a",
+            "db840cb44059413927b3e5024c47786d0fcf4ee28f84375725d12f0a39d0e44d",
+            "6376ca49fd193b7be0a125b4aab90301c56905b495e2cab502aeef354b381d3f",
+            "8abd814133c8eebf08fab4810c2ecc95d39d6b2cfb0845b1a38e4c4abd79ff1a"
+          ],
+          "heldout_nll": 1.4167122382349029,
+          "movie": {
+            "genres": [
+              "Action",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Independence Day (ID4) (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "ab1a4677168974307f69378c8a73a3fa6be06f4165284db135369ecc9b6f5268",
+            "e28d1349567541044729d470c0c703c42a4bb6248875fbc63c0633694acea702",
+            "b786ea4a0a7ae68fc4f30d8753fb94762587e76b6dc402b281113d6a5c7fdb71",
+            "af1d9decfa81424a7c7eb30a26da5a2de646fa7bdf7f1a9f238f76bc6c163dfd",
+            "fe12039d80e316da3d91103cc1248e68e77bfe58c230b8650c4e4a966558813f",
+            "a37d06f3d1e30263645178e9cd1f5e4b5dd1756f5322c13a0b7546e6525e18c8"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "902ccbbff8e2d45813fa6ea853d0c39a9eda591773785c03c6e3f5074bcdce6a",
+            "c4932c453f0ce39fef75591b54d7c510ddff76abff773495c463a6356c9ed331",
+            "11bd964130fb2bc860ea2f356aa3bd163a6683439b14c827085048bd90685b8a",
+            "db840cb44059413927b3e5024c47786d0fcf4ee28f84375725d12f0a39d0e44d",
+            "6376ca49fd193b7be0a125b4aab90301c56905b495e2cab502aeef354b381d3f",
+            "8abd814133c8eebf08fab4810c2ecc95d39d6b2cfb0845b1a38e4c4abd79ff1a",
+            "754815bb3b35a04313d1496dd9334c2ee464df24f159ab1c2be5ec43ab66c599",
+            "ede96260775ecd2d9d9b112b15a5a7124489a57b8d2023a97d076e87c67c2a43"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Children's",
+            "Drama",
+            "Fantasy",
+            "Sci-Fi"
+          ],
+          "title": "E.T. the Extra-Terrestrial (1982)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.05843809533925892,
+        0.020479127517848195,
+        0.018167407373979705,
+        0.009813053882508083
+      ],
+      "initial_heldout_nll": 1.416717900919581,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "ab60326962e202070fc2007e18ef03d24a2c6417a3a20a3f618ea8aa9b4ba044",
+        "4ee888d0d750c0ac7b7c6d9576022f43de39029ec45402b05ec293ac4ee58974",
+        "c3dcdd54cb74d6cae73e707309de15fc366f0a2fdf8cf2811648343f10e450b0",
+        "754815bb3b35a04313d1496dd9334c2ee464df24f159ab1c2be5ec43ab66c599",
+        "3c0966dae360e8bdb60d93ac0d02559bd4fce527a73b8f9a896eea1d41860e45",
+        "ede96260775ecd2d9d9b112b15a5a7124489a57b8d2023a97d076e87c67c2a43"
+      ],
+      "user_id": 825
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "d83874c498730807a4bddba253d2ae9d9d1d43f667e014ef73a499b646a5902f",
+            "c553c856f5a7889b0c9234ec43b93c0655989303155933b69418f458f7666e54",
+            "cfdd145cbe19516d637ab9e7fe0b4e1883a3d9a943e302f8601c49b33fa23ef9",
+            "ee25912f9c29e2ba4a67e4e13b634353086e04bc0c02cfb9887b2d688b946177",
+            "b88204b10a973e13395cdde69bfaea85162201b97b796440dc1c0b201a327b29",
+            "4b6eb3b9ee22f9a7d99abacb1680996cdc1c335f61097351b974dd15c5411e8a"
+          ],
+          "heldout_nll": 1.4946862004112749,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "26f606af063bfdd241d14cec1df1cca7cc07d803d417d1746a2e08ea97a6ed58",
+            "788e0b24876339ca30f5ccb1f906a64e03857d5312596c187075bf5ceffaee4a",
+            "e0914cc683e360a7430f042a8ce1dc4a92a281aa6bf850f767f09c146e439a53",
+            "4618fcfc0f4f535b92f554949cc9c5d4c6cced860f699b2c565519af9d7d8002",
+            "dc3d2852c6833485d95c6a14f9ccf189d44931bff2e8b7d8b7e40fb64ab7a253",
+            "7e91bc0491a773abaac40ba4ccaaee2a61065fc02038975169aed12ab5a296f1"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "d83874c498730807a4bddba253d2ae9d9d1d43f667e014ef73a499b646a5902f",
+            "c553c856f5a7889b0c9234ec43b93c0655989303155933b69418f458f7666e54",
+            "cfdd145cbe19516d637ab9e7fe0b4e1883a3d9a943e302f8601c49b33fa23ef9",
+            "ee25912f9c29e2ba4a67e4e13b634353086e04bc0c02cfb9887b2d688b946177",
+            "b88204b10a973e13395cdde69bfaea85162201b97b796440dc1c0b201a327b29",
+            "4b6eb3b9ee22f9a7d99abacb1680996cdc1c335f61097351b974dd15c5411e8a",
+            "c23ff2df5fcf199bd27aec4ce5a2a71b562bad6356d626a77c5f40c4e4c94dca",
+            "d388195051cc9cead361af021de150f228df4e8625381ec1109ba19c108649de"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "594e2eaca92734fbb2b9346f8b0a287203ec5f427a414eaef92cfa343a391ef3",
+            "a4890a43247bea342281d4d275dc8ff1e8563a68d314bfb0fa83636526ef4e28",
+            "5bab09418371f2ac1137a0b602ca4a22cef4a5d52d96d7fe8c005f8c89ea0b12",
+            "1d142700777f35fb4d3e2b5d32e1c1e2f2069b9e4295b2ede2a91dcd86cc6462",
+            "fbdaf8a1cc7e2496815e40e86f29facc7ecb9d3002d826de7f20e6b089462145",
+            "56bbc82c2cda1ddcc417fdd225341f62e3f2f48967b1b6b635c8bc58652750ec"
+          ],
+          "heldout_nll": 1.5290361616810884,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Twelve Monkeys (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "51af1bf5ed7b0b7a5339dbb1a228192deb145449cf03ebdba072f7141cdb1f77",
+            "2fac7ea457c1abff73ef31f92ce1675e8a972cf02847c723f0bdaf7dcc77f5a5",
+            "e1966e14587040da387ae128d8c673e8c5454d52899393387abd4eaeb16fa51b",
+            "9ccfe2c781d400ab7700faf619332ef3dc51d67e16158e08b8d6bfc797143384",
+            "9acbde13886a1613621ef1c7c503c74210474cbcf7d74e60129939280ad07478",
+            "48f04ef45d60a3a983dfaa1aff822845ebf4d12bc13c697fdbde406d1fa8b4f8"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "594e2eaca92734fbb2b9346f8b0a287203ec5f427a414eaef92cfa343a391ef3",
+            "a4890a43247bea342281d4d275dc8ff1e8563a68d314bfb0fa83636526ef4e28",
+            "5bab09418371f2ac1137a0b602ca4a22cef4a5d52d96d7fe8c005f8c89ea0b12",
+            "1d142700777f35fb4d3e2b5d32e1c1e2f2069b9e4295b2ede2a91dcd86cc6462",
+            "fbdaf8a1cc7e2496815e40e86f29facc7ecb9d3002d826de7f20e6b089462145",
+            "56bbc82c2cda1ddcc417fdd225341f62e3f2f48967b1b6b635c8bc58652750ec",
+            "c23ff2df5fcf199bd27aec4ce5a2a71b562bad6356d626a77c5f40c4e4c94dca",
+            "d1c0b73f6d24007034117cf482600200a2a3b2282efded4d6794c82e58fff844"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "0df63bfe534ad11c5b2a092e7fb1cef47dfa6af1202a0341998ecb9cb5ecaf87",
+            "35901c812f02acbde7b1784f351741c3de178f31bc37a9f16f1a36b6e4049cd5",
+            "0a86f846173b53dce1e3825fcee22f3b06c3388bcfb2e7616f9a8e5956c41b92",
+            "e8c2544ad91cf9542f6f01986220efb46cb7afebf82ac2f9ce80bb8329ecfabd",
+            "335f73d7edf0b8796fcd50d378fbe9fe8518c0ad3f1b3787cd8ab25853a2e34a",
+            "bdcabbf2649d897846ff6e49dcd495ea620d6c886e3f354ec21cc49b5665c083"
+          ],
+          "heldout_nll": 1.6039852503680507,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Sci-Fi"
+            ],
+            "title": "Star Trek: First Contact (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "288e24067a8b0b56be439407d17caa2b6e5d26ef2146054867d8799187299d46",
+            "3e1b22e114fbaa39044c4890d8565c7b7371fd8deff0e987ffb5a53cf55a10dd",
+            "132839a1cf4993715d4f0377def5e56f50ed65bc610d7a40f3ae183df79920a4",
+            "b4dd076dd44f997fe5ec8b8b58a28dd31a2015533b027ee17bf4859a4f862567",
+            "2a06a1bd86d8ef49dd60b2997c2904a5a91d008c57c2290fcde1c610cb925792",
+            "00a6301fb537751013e7d679bcfdb9979bbddecaa63f81fccf3e0312cb416a4e"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "0df63bfe534ad11c5b2a092e7fb1cef47dfa6af1202a0341998ecb9cb5ecaf87",
+            "35901c812f02acbde7b1784f351741c3de178f31bc37a9f16f1a36b6e4049cd5",
+            "0a86f846173b53dce1e3825fcee22f3b06c3388bcfb2e7616f9a8e5956c41b92",
+            "e8c2544ad91cf9542f6f01986220efb46cb7afebf82ac2f9ce80bb8329ecfabd",
+            "335f73d7edf0b8796fcd50d378fbe9fe8518c0ad3f1b3787cd8ab25853a2e34a",
+            "bdcabbf2649d897846ff6e49dcd495ea620d6c886e3f354ec21cc49b5665c083",
+            "0dd122057224bbf0909b62da8450aef34440121deea7f76bb5eddf4c26eeb8a0",
+            "c23ff2df5fcf199bd27aec4ce5a2a71b562bad6356d626a77c5f40c4e4c94dca"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "2e3e45e700eb8a5db911aeacd21fac61e020c92a4b734b750c5de0359bf4e360",
+            "f604616f57793db7b53b7c585d1482a396fe3302fc4fe56d744af0738a5834f8",
+            "43ec13cfc6e4aab4e493de8528e5d05cd8e012fcbd4502db4a0fd14bb58ebbf2",
+            "6a44e2e476a2547b58a6edd8f6938d1bd53413cbf337e2cc7f84a136b8dc32c0",
+            "9d4d7620c62bd3bae38bbaf7245bccf41e3f87e87467ec844281bd0cc7e782bc",
+            "ff509ef99eaf2b8b3fcc3ff70c7fe042ce9f01320a013ee0de056e22091a8ecb"
+          ],
+          "heldout_nll": 1.5140772243541187,
+          "movie": {
+            "genres": [
+              "Action",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Independence Day (ID4) (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "04c2c377461e9a0c62a3a89e80aa0467e4959ed9b846848b248c78d0df425eab",
+            "bbcdefc6bc0bed0e20981174cf1c80bd2109695fd100eab816497ed0f76c19d7",
+            "7531564c968cb60829c8818f33363c8846010bfd270d31ceadab28d37eca2d73",
+            "c258a4d9055a2281fc0437a8b00fca1ce385a22bdc6588f4a933166465b29270",
+            "a5cf5c6aadaa58525c8d76a73da50f9e0183c62d7b5bf1f994f024fc5f1be5de",
+            "c4d8c39ef12f10d0154956f4b6aa08603e6f20acbc7249253aa7eeb48354d784"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "2e3e45e700eb8a5db911aeacd21fac61e020c92a4b734b750c5de0359bf4e360",
+            "f604616f57793db7b53b7c585d1482a396fe3302fc4fe56d744af0738a5834f8",
+            "43ec13cfc6e4aab4e493de8528e5d05cd8e012fcbd4502db4a0fd14bb58ebbf2",
+            "6a44e2e476a2547b58a6edd8f6938d1bd53413cbf337e2cc7f84a136b8dc32c0",
+            "9d4d7620c62bd3bae38bbaf7245bccf41e3f87e87467ec844281bd0cc7e782bc",
+            "ff509ef99eaf2b8b3fcc3ff70c7fe042ce9f01320a013ee0de056e22091a8ecb",
+            "c23ff2df5fcf199bd27aec4ce5a2a71b562bad6356d626a77c5f40c4e4c94dca",
+            "d1c0b73f6d24007034117cf482600200a2a3b2282efded4d6794c82e58fff844"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi"
+          ],
+          "title": "Star Trek: First Contact (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.07986440387166627,
+        0.023093178001125425,
+        0.018615532375582555,
+        0.007364324211201145
+      ],
+      "initial_heldout_nll": 1.5039793533415755,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "7206a383a91e558951d16af7a725569bc7a9a21bcadb9f25d41e0a3998ca20d8",
+        "0dd122057224bbf0909b62da8450aef34440121deea7f76bb5eddf4c26eeb8a0",
+        "c23ff2df5fcf199bd27aec4ce5a2a71b562bad6356d626a77c5f40c4e4c94dca",
+        "9f8e6e7b32efb574021b90fdf23ae0aaafccc9201445e3baad67c0d5875c0c91",
+        "d388195051cc9cead361af021de150f228df4e8625381ec1109ba19c108649de",
+        "d1c0b73f6d24007034117cf482600200a2a3b2282efded4d6794c82e58fff844"
+      ],
+      "user_id": 764
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "e85a8aa1e70f7cc5312b455a11381434f77025c64c9741e14658944dc0f97ac5",
+            "52156dbccd4aafa01de89db278f81e20a1115d92e8321fa2099978d18a8e064d",
+            "2c17da741efb00e3b98ee3bcfa8a4ac5cdb7e3c886a7877c7310cad51730e4bf",
+            "e1271a50f66779851562b3b0ca305efc59b4287102b92fdb4933b2ce3cce6b73",
+            "3dee537c6a50f557559256a9ba00ce6637089028623bd266cd133181d78d78ae",
+            "098ee61a326bb96d8c1f1b09ba39de3ef3e676653cc38af3f6853fc16f86a296"
+          ],
+          "heldout_nll": 1.434851968684605,
+          "movie": {
+            "genres": [
+              "Drama",
+              "War"
+            ],
+            "title": "Schindler's List (1993)"
+          },
+          "new_evidence_effect_hashes": [
+            "bc207b6826fa28e27f04ec7ef5a1cc7f041f0a9bef1208797a2435bb6d1cf87f",
+            "967d3522eb1e05f4a1111d90c25741165a02f73c4628fa32b3409d053b944f28",
+            "6c8457e7054444a7772b9a44c626f3efd685340aa333eedc8145225d7907d41e",
+            "4e2f799cb76515fa6629cd09484f6a2f25088f8dd15730c0479909382761b51f",
+            "f8ceff6917842adabd9c221fdf2f8edec996b5eb7a8720ac850e6f57b1d87d3f",
+            "83552f95cdae6687d3dce0a236e43f6331aaeec9135593ac5b9699a033d38234"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "e85a8aa1e70f7cc5312b455a11381434f77025c64c9741e14658944dc0f97ac5",
+            "52156dbccd4aafa01de89db278f81e20a1115d92e8321fa2099978d18a8e064d",
+            "2c17da741efb00e3b98ee3bcfa8a4ac5cdb7e3c886a7877c7310cad51730e4bf",
+            "e1271a50f66779851562b3b0ca305efc59b4287102b92fdb4933b2ce3cce6b73",
+            "3dee537c6a50f557559256a9ba00ce6637089028623bd266cd133181d78d78ae",
+            "098ee61a326bb96d8c1f1b09ba39de3ef3e676653cc38af3f6853fc16f86a296",
+            "109e09d6ebba93e52b3c03d355642fa03db6a742b2fe7e9e4fd4743d4e3eb705",
+            "23ca381e03b86245d26b565c84e6f0cdb4065f2fbac23fc31cf28330e71460d4"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "88017400abab858dcb985bbec4eb861239d0ac6be2e71e398c1ed4956b917d68",
+            "330b3bc3f917f1fa878815255f2bc5796aa8403fc9420d665ba9df2ed75320e5",
+            "75bec57cc5d45dd7fc4e55435b9e9b91eed7798cf9d698456dc55fbd9146e98f",
+            "11c4534eca55b8b4823780416e94851664643c8b3ac5345ac23ee96e90d6903a",
+            "ee54e7bac49cd81384ec1a5c193600282390feb63e7859e8d805ffc28e0ddce7",
+            "b696081c90dd6b42c817994b7fdf39d46e469da24fcba1efdad0a650e0c98655"
+          ],
+          "heldout_nll": 1.4733630708996883,
+          "movie": {
+            "genres": [
+              "Comedy"
+            ],
+            "title": "Full Monty, The (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "b9b52fbabec94fa5ce7ab313b54e31936ec923c23bf8e634d29330105aa23e19",
+            "702a18576ad5e4f85323645dfe1555e3bbf473845599d7585b5674442fd2fd33",
+            "cd14001d101fcab3b9c52c4f9f90c9aaeaa63363fa1f2e76418ac106472b8900",
+            "5cb4b0488600b37ba1d4dad589d43f6e03c88088788613f5d3ecccc37d9a4981",
+            "c95e5c682f4172426bf781ca5c63e7f5e16aec35aeb2cfaa50fe2c865c18be69",
+            "0b43ef53489f02ed5fba9773e3e0c1412fc72345ada6ec0fe83ef9fd8a70dbeb"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "88017400abab858dcb985bbec4eb861239d0ac6be2e71e398c1ed4956b917d68",
+            "330b3bc3f917f1fa878815255f2bc5796aa8403fc9420d665ba9df2ed75320e5",
+            "75bec57cc5d45dd7fc4e55435b9e9b91eed7798cf9d698456dc55fbd9146e98f",
+            "11c4534eca55b8b4823780416e94851664643c8b3ac5345ac23ee96e90d6903a",
+            "ee54e7bac49cd81384ec1a5c193600282390feb63e7859e8d805ffc28e0ddce7",
+            "b696081c90dd6b42c817994b7fdf39d46e469da24fcba1efdad0a650e0c98655",
+            "93da4bd3ef9e6580843706e80fbf3b148602c4811b5cb3204d114bb185ca8063",
+            "37c8766200d4847ddc6ebb53c75b41cfe8f3f093283376d9917d36f21af24d91"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "549899ad9e4b9a60d0846d44916d9e11e0cc53bf5d44e77d3e5302cbff970f04",
+            "2cf3d9dbe652b8d07d06811a93a96e7c4f35307ef8da4f12cf3b161a164a6432",
+            "6b4b41853eae2db7aba4cc9d67923a42798ad1ee93530e0a0b2713f6b9df1bea",
+            "ea0b14362b47e5218ad0a65a7b686e763eae69a015cddd11a30a09d4fd326bdd",
+            "cb335ad253fe297d4f82c9586ef879ae154599a795c18ae1a4cc309fa979e9bd",
+            "f4027c6a48d5b0d16462a6c42d5e92dbf0c80147e44352a3499238ab7fa287e0"
+          ],
+          "heldout_nll": 1.516000524874542,
+          "movie": {
+            "genres": [
+              "Comedy"
+            ],
+            "title": "Birdcage, The (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "55ec1d47520d89c46e4584ab7d56886e46802dede800775a7fa4b8f2a0c2270d",
+            "105bb3b304c07d188fe3012e2d2c57804de7b2c73f1874459ab27899eff07175",
+            "aea6ddef79f5c3cc6e9bccbc3c4db7903c07481a536354429c3fb60173855289",
+            "ee7c2ec59d9821a21286a516307c1c09c2d90ca47955730433ff8683c65f0478",
+            "5710e7fab969265307326f8bda7cb2cc42c261f2bc625f6f1e202255bc929332",
+            "cf11f89436167bf591661b23cb42ec172d5cd094f50e4cc453bfd4d48c24f978"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "549899ad9e4b9a60d0846d44916d9e11e0cc53bf5d44e77d3e5302cbff970f04",
+            "2cf3d9dbe652b8d07d06811a93a96e7c4f35307ef8da4f12cf3b161a164a6432",
+            "6b4b41853eae2db7aba4cc9d67923a42798ad1ee93530e0a0b2713f6b9df1bea",
+            "ea0b14362b47e5218ad0a65a7b686e763eae69a015cddd11a30a09d4fd326bdd",
+            "cb335ad253fe297d4f82c9586ef879ae154599a795c18ae1a4cc309fa979e9bd",
+            "f4027c6a48d5b0d16462a6c42d5e92dbf0c80147e44352a3499238ab7fa287e0",
+            "93da4bd3ef9e6580843706e80fbf3b148602c4811b5cb3204d114bb185ca8063",
+            "23ca381e03b86245d26b565c84e6f0cdb4065f2fbac23fc31cf28330e71460d4"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "0996c6a830bef80e5a6f3d3668bddb5d0f02beb831fbff468097703f1d973079",
+            "bd2a96da594792cb250517b9e498df7f57ce61bfa51ddfce47f9e98bfa76b37d",
+            "ec1dfd3eed7945868cfaefab27b27375e0778751a800992035c43766bd0bb0ac",
+            "f9758c3ccea76868e38f8d96b6f72b75207bc0f2fe9425ea88741fef74dc78b0",
+            "1e5f08f98ce55034a7c61dc1f259517775ae6a3349df425e46d449056d3e0178",
+            "dd30fe4ed34474985ab85029b542c7cad4d6e11f9eaa3b0a8988ae43b49e57ca"
+          ],
+          "heldout_nll": 1.486773344642565,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Thriller"
+            ],
+            "title": "Silence of the Lambs, The (1991)"
+          },
+          "new_evidence_effect_hashes": [
+            "776c54b3caeb81ef94d7f85842a95bd8524585b116e71fb3afe7016ecbb1bdda",
+            "d72ddc4af579d54a93dec140284f39b92807589f52b8193b6d97231d95f53697",
+            "4e0cf97b437e2e0eb372de0596bc5d4d7d1364236a089f80e31913d054bfd6a4",
+            "3c9afe7c985ce46801528c7a6db43635c35294805cf28e6658627b2fb6a3dd2d",
+            "4503d708538aa8c9e9f14ff06dff7ad0a17de007de4e004c00c6f46130f1ac20",
+            "ac57c56d8aa597f0ccb1840de739d0e277603b3abf4c6a4fb8b4f14bd7760150"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "0996c6a830bef80e5a6f3d3668bddb5d0f02beb831fbff468097703f1d973079",
+            "bd2a96da594792cb250517b9e498df7f57ce61bfa51ddfce47f9e98bfa76b37d",
+            "ec1dfd3eed7945868cfaefab27b27375e0778751a800992035c43766bd0bb0ac",
+            "f9758c3ccea76868e38f8d96b6f72b75207bc0f2fe9425ea88741fef74dc78b0",
+            "1e5f08f98ce55034a7c61dc1f259517775ae6a3349df425e46d449056d3e0178",
+            "dd30fe4ed34474985ab85029b542c7cad4d6e11f9eaa3b0a8988ae43b49e57ca",
+            "23ca381e03b86245d26b565c84e6f0cdb4065f2fbac23fc31cf28330e71460d4",
+            "9513083b0c4292271dcde44c81ed35808a9deb5abb1db034f865371b2aa9bdfa"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "War"
+          ],
+          "title": "Schindler's List (1993)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Birdcage, The (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Silence of the Lambs, The (1991)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.0483650077757376,
+        0.04532632671901049,
+        0.027054104801119472,
+        0.014304971049131199
+      ],
+      "initial_heldout_nll": 1.536438447396466,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "37c8766200d4847ddc6ebb53c75b41cfe8f3f093283376d9917d36f21af24d91",
+        "93da4bd3ef9e6580843706e80fbf3b148602c4811b5cb3204d114bb185ca8063",
+        "23ca381e03b86245d26b565c84e6f0cdb4065f2fbac23fc31cf28330e71460d4",
+        "9513083b0c4292271dcde44c81ed35808a9deb5abb1db034f865371b2aa9bdfa",
+        "e5ac538eedc22b057633209e8bad601b83a8bccdacddae24d480a985bc94c897",
+        "109e09d6ebba93e52b3c03d355642fa03db6a742b2fe7e9e4fd4743d4e3eb705"
+      ],
+      "user_id": 680
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "43da0c8b1cce3ba8b16d5cfb422ed9ba9308dae616c1784f35d4c830571b8b23",
+            "6fb1ee4f3dfc90811b6169aa4b0ccf5365548b572ee1b000fea963c8cfe4d41f",
+            "06e3af8c5cc85fa1a3fe1a12e20041242d9728e93ccbee41dd0dd0f5b33f906c",
+            "9d1bb2e6852e9afcc0e256b880c88200af629f13c45d31f64721032edd965b70",
+            "0c1df09b75726bdeaa127d7ebe6248cbe4d16c7e60372257916b6e19a407e21f",
+            "da3ed34c47b43848405ca7b22fe133bf74ec0e91fe53c645134af74325e44bc4"
+          ],
+          "heldout_nll": 1.54332761668619,
+          "movie": {
+            "genres": [
+              "Animation",
+              "Children's",
+              "Comedy"
+            ],
+            "title": "Toy Story (1995)"
+          },
+          "new_evidence_effect_hashes": [
+            "dd04a3625c918c86d12a3c09425dcfde0b752f3bd431a36931f22beb43b27365",
+            "33e6181c24bee6d07eb555da58242b46e52f0037d561b88296ffaff0419543e7",
+            "bdb2225023c459ed58ea915fd39f0165567252c8156fd8dcaf0a46c3aa5d5e9a",
+            "02ce4ca2afe31ee94a29253d9b78a32250b96d4b453fe33cac7944f7bc48c7ad",
+            "4a5fed15934d61708f44ac352131c6cd468c9a69f9387d717a77f8b16823ed07",
+            "2ddfdaef72fc6c7152ce9eef516b431c5523c803ac755213da0492f0e83c5492"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "43da0c8b1cce3ba8b16d5cfb422ed9ba9308dae616c1784f35d4c830571b8b23",
+            "6fb1ee4f3dfc90811b6169aa4b0ccf5365548b572ee1b000fea963c8cfe4d41f",
+            "06e3af8c5cc85fa1a3fe1a12e20041242d9728e93ccbee41dd0dd0f5b33f906c",
+            "9d1bb2e6852e9afcc0e256b880c88200af629f13c45d31f64721032edd965b70",
+            "0c1df09b75726bdeaa127d7ebe6248cbe4d16c7e60372257916b6e19a407e21f",
+            "da3ed34c47b43848405ca7b22fe133bf74ec0e91fe53c645134af74325e44bc4",
+            "3b4b77e29463853956dfc843201dc11213924b0c9a6c98bc17a0a0eaff36d9fb",
+            "5d0a3d8295231414af9dd66afaebf6725d3886ecc8d11636ebdbae432d060c54"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "4c6b2477ba339c4f4669293ec72a0100748bda20118c8e6bfb2b08b4918483a5",
+            "36f4d1fd5ba15b0b0e8a98ca42872d0d9c1f393785b5ad50b898c3e691bbdd29",
+            "90ea25fd398655ea28496de7f4cc78244a9d795c39b1974f592ff157658a7d61",
+            "e332f5080ab29b5e932cfe48fc539848ce4e54da965247e27c696e3d8418e657",
+            "26a7f70a8160a6e188aaed5d755d5ea5ce63fb0daaa177ba9c4f97a949e51bec",
+            "841ea58c58d4fc4ada55b816a1f107c6a7aa24076f4c51948e80541a73952934"
+          ],
+          "heldout_nll": 1.463938314926674,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Return of the Jedi (1983)"
+          },
+          "new_evidence_effect_hashes": [
+            "1f7dea20425d88621fa43746518ee344c5018f81c0c4a36a8ee713fb4d22a39f",
+            "a8533326ba68b8d498798b7788f0e97a1acc4008818c216a7d4aa5a439a8e939",
+            "5534f4b1beb6fcdfda9988275b508dfde6fea50351520d99e96ea0a0aacc9e68",
+            "edbf36f8353cb5476ef9a743ed176e25d2d06e716b242a06c41a73f3126536c0",
+            "5b3bc48d92cf118788b351752abee8189a7ef6b0758bad85a9b6b36d87123d7c",
+            "839bfd5c45a83a310db035394c0783466e4be42cb9b9fd1c0b6610bfa0a953fa"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "4c6b2477ba339c4f4669293ec72a0100748bda20118c8e6bfb2b08b4918483a5",
+            "36f4d1fd5ba15b0b0e8a98ca42872d0d9c1f393785b5ad50b898c3e691bbdd29",
+            "90ea25fd398655ea28496de7f4cc78244a9d795c39b1974f592ff157658a7d61",
+            "e332f5080ab29b5e932cfe48fc539848ce4e54da965247e27c696e3d8418e657",
+            "26a7f70a8160a6e188aaed5d755d5ea5ce63fb0daaa177ba9c4f97a949e51bec",
+            "841ea58c58d4fc4ada55b816a1f107c6a7aa24076f4c51948e80541a73952934",
+            "f4c259afca1255c97a4729e9f49c012cd64d797db010f97a7f3e9c8f1131ae10",
+            "5d0a3d8295231414af9dd66afaebf6725d3886ecc8d11636ebdbae432d060c54"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "17f029366b26f5a2acaf3c370470c80517f9aeba8af8697d4c8b73228e417b09",
+            "c56d2531249d8c72beb62a23c4a7a31b691a5fbb7c81841a3a7cc0cce6e552aa",
+            "d0378e946d88ec3bd0de4d9790fdd67ad2720cad13631546af095bd1f62d5c1a",
+            "5737dd61a76571cb2cf871835227a2b2eeb53bfeb4c5b003e621401cbae1bb30",
+            "e1af45798d7d65a0b1a839be38d0c33518ab26a216ab43ccb58ea91ffe49f62e",
+            "16a67fb7dc163fb1bd7908d9bb99c82b29784ffaa5e28df8d2f198c6f2164f18"
+          ],
+          "heldout_nll": 1.543057335785719,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Drama",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Empire Strikes Back, The (1980)"
+          },
+          "new_evidence_effect_hashes": [
+            "0020e48fe05e90e77c0a0c5d5c22d8f61201a4d884fadf46f65129de34e1a70c",
+            "4bb8b16ad8608fb0aa738ce7c380815c7588496c82ed39007aaa3ee1d183064e",
+            "7a10b6fd58cb2b04710cd5944e97b9658ff37ff49f90313df158d1132a629fb8",
+            "5f2e25b7c3e39a55b9fb77ecacd691104f56dcd0ff72aeab279c2634a8eb8525",
+            "05c1672bee60fff06f4de4fd9f64be026da854917f1e3e340b69268ca79cff35",
+            "7c6ea694552ed2bd0d6d23bf18281a0baa171ea554f92283bcd345d8a5613094"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "17f029366b26f5a2acaf3c370470c80517f9aeba8af8697d4c8b73228e417b09",
+            "c56d2531249d8c72beb62a23c4a7a31b691a5fbb7c81841a3a7cc0cce6e552aa",
+            "d0378e946d88ec3bd0de4d9790fdd67ad2720cad13631546af095bd1f62d5c1a",
+            "5737dd61a76571cb2cf871835227a2b2eeb53bfeb4c5b003e621401cbae1bb30",
+            "e1af45798d7d65a0b1a839be38d0c33518ab26a216ab43ccb58ea91ffe49f62e",
+            "16a67fb7dc163fb1bd7908d9bb99c82b29784ffaa5e28df8d2f198c6f2164f18",
+            "5d0a3d8295231414af9dd66afaebf6725d3886ecc8d11636ebdbae432d060c54",
+            "3b4b77e29463853956dfc843201dc11213924b0c9a6c98bc17a0a0eaff36d9fb"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "ce8e3eeceed052c4df8761b962ad5e5c3173ec8c0cb4176c81bba0139ae475fd",
+            "f722f8bb47516e807acb1a0809cd68b0e59650f3c9c6d427f5ea8a748e98f4a9",
+            "2bcdc8bc6a9af3c268f3a729491ebed07c1be59c23db0bbc68239e83eef811f7",
+            "42b4c3ff39bb925427f81725fb518a92a35fa7fbcb224a8aef1a635ed789a590",
+            "0d8529389e2d5c59bdf33c6881266bd78a7799d4977e45b8f49ece88da6e3452",
+            "b0cdc1a00b7fb8e9cde9f39b398d2b29f94cccd9482a7b7b9a0b5f6ddf528e08"
+          ],
+          "heldout_nll": 1.541075778337068,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure"
+            ],
+            "title": "Raiders of the Lost Ark (1981)"
+          },
+          "new_evidence_effect_hashes": [
+            "466f9f33392acc80b490fcf5132ccfeddfc279b4d34d576f24e9e4f6182f9ba5",
+            "fd2c67eefe378e7eace76c04b2dcc39ef256a627799304a0484a8f2f1e36c848",
+            "0730c47afd97cee19a10be6ac0a6166b080d9ed8841fc93b040ffaad272991b9",
+            "1e57074a2bc87b98824969e19deff9d05f3c646708478f725154a764a6ea750f",
+            "266f39b9cd007a82710b164d5b216fde20a53b9a6230a6b747e33cb7a8f863ec",
+            "2174c5164da0397c1d6ef3830c7cd9396139aeb0ab2ced8794fbdd30c1134de7"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "ce8e3eeceed052c4df8761b962ad5e5c3173ec8c0cb4176c81bba0139ae475fd",
+            "f722f8bb47516e807acb1a0809cd68b0e59650f3c9c6d427f5ea8a748e98f4a9",
+            "2bcdc8bc6a9af3c268f3a729491ebed07c1be59c23db0bbc68239e83eef811f7",
+            "42b4c3ff39bb925427f81725fb518a92a35fa7fbcb224a8aef1a635ed789a590",
+            "0d8529389e2d5c59bdf33c6881266bd78a7799d4977e45b8f49ece88da6e3452",
+            "b0cdc1a00b7fb8e9cde9f39b398d2b29f94cccd9482a7b7b9a0b5f6ddf528e08",
+            "f4c259afca1255c97a4729e9f49c012cd64d797db010f97a7f3e9c8f1131ae10",
+            "26dc5b57eb8b55cad92a963e329f5aeaeed5f47678bd8fa1a777fbb1d9f7377f"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure"
+          ],
+          "title": "Raiders of the Lost Ark (1981)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.044888543662887415,
+        0.013790980620344895,
+        0.013692601910638924,
+        0.013623974466512312
+      ],
+      "initial_heldout_nll": 1.57703895465745,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "f4c259afca1255c97a4729e9f49c012cd64d797db010f97a7f3e9c8f1131ae10",
+        "5d0a3d8295231414af9dd66afaebf6725d3886ecc8d11636ebdbae432d060c54",
+        "3b4b77e29463853956dfc843201dc11213924b0c9a6c98bc17a0a0eaff36d9fb",
+        "c940173048dff5138a2e8e32a75100f5e1479f3515a6fcf2d58037c09db64ace",
+        "26dc5b57eb8b55cad92a963e329f5aeaeed5f47678bd8fa1a777fbb1d9f7377f",
+        "e42ea99b273c12523bae7b09a44f33b1c2f567e66afe4aacae8f698e7739745a"
+      ],
+      "user_id": 653
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "44950251704c631c392c20882183ca9e7b8f1ba87432ee0f5e47d9f725bc04c7",
+            "52ade3ed040cb8dac025144ac6b7e34f5c45c548d742e1239c23a03d647bfe85",
+            "98e8ae860566e62f376d6bdbe1ec2be0611c9b45653a067b36a05b22243d4265",
+            "e78d29fb5d9ea631596b54fe742f16ac2764e58f0fd77c3669b610b6b4cfec56",
+            "d59a6808629d26a5b6875ef3de49689b336da8489dbbcef32ba55363fb52bde5",
+            "33385808641fcc49812e59cd0913ecd7bf4e2378d3cc5408888961ef2b2a5d04"
+          ],
+          "heldout_nll": 1.4169711146792698,
+          "movie": {
+            "genres": [
+              "Crime",
+              "Drama"
+            ],
+            "title": "Pulp Fiction (1994)"
+          },
+          "new_evidence_effect_hashes": [
+            "46b84939299ffd3edf4a72e768113bf8f948769951fad5981bc2421be4039ec4",
+            "77a1a020a7030039bb63f8726b724385cc01581087f6c0d93b3659836feab78e",
+            "b7db7035732ba9477de2fbab6ece324fc022aafd541d8acf0e9a0dd87b142c21",
+            "1add2a119e7b009cf80e44a48c133d1b247900b7400155cd4341a623bf850a7e",
+            "178a80b399c3d6f51c325715565d7feb60a5e08b77f9b79a3465c21afa268bc6",
+            "2900c0aefa22ebc25e4bc020b8e5d53ef04a739335b1e1893fbebbae759b8c72"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "44950251704c631c392c20882183ca9e7b8f1ba87432ee0f5e47d9f725bc04c7",
+            "52ade3ed040cb8dac025144ac6b7e34f5c45c548d742e1239c23a03d647bfe85",
+            "98e8ae860566e62f376d6bdbe1ec2be0611c9b45653a067b36a05b22243d4265",
+            "e78d29fb5d9ea631596b54fe742f16ac2764e58f0fd77c3669b610b6b4cfec56",
+            "d59a6808629d26a5b6875ef3de49689b336da8489dbbcef32ba55363fb52bde5",
+            "33385808641fcc49812e59cd0913ecd7bf4e2378d3cc5408888961ef2b2a5d04",
+            "1272a5b05d3bfd4faed12c40a107e422df17bd83a8582036c88edbbc143991bc",
+            "44d0fdc323a4576c4c7cda8fe080ef172c8d71a71a6a677f825f22cce3769e93"
+          ]
+        },
+        {
+          "branch_index": 1,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "ad1accb09de80e29a94ac772b2d3daf1b7b15270de85f1a1a151fcda58b064a3",
+            "71435261d4688b7e9545cc7677c45261be34b04d22927fb5724359086820cfcb",
+            "5b16f06fd2eee58f461413d77a8a8d53096389d88707cc933e860f9617b3f37c",
+            "174aeca8fa3928f6b4defff012b4fdd3d5c2d31c176923b9da9db38866f1a27a",
+            "02c67a6b909e2f7904d3852084066a94d373923c40b37048a3e6b4f1f5f439b1",
+            "604692f9fff3d29cbf633cf52777304395ac51abfdd75e216f300ebc57498922"
+          ],
+          "heldout_nll": 1.3442953077828856,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "27dc31107358498a886ffe62338c311de9c917538cd094ecc196dc42accaf690",
+            "a125ae6e588b2040399dc096efc4165c0b6c216a45c047935cbce56f51caa9b7",
+            "2f70e3d340a71d4465e920d799c7122202a630da1e7dcd185788ddf279b53fff",
+            "1ed472900dda2b2ff070bd426b9c6722b56521da923a80a215453378fa5bd2b9",
+            "9060ed36e65f255c1c97a9f110b252191649a648e3be79909eab16143c4032d2",
+            "d6012ecc07b349ac03f11e3fa7ba8ed14192a4181384f34f2daf41f5b294144a"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "ad1accb09de80e29a94ac772b2d3daf1b7b15270de85f1a1a151fcda58b064a3",
+            "71435261d4688b7e9545cc7677c45261be34b04d22927fb5724359086820cfcb",
+            "5b16f06fd2eee58f461413d77a8a8d53096389d88707cc933e860f9617b3f37c",
+            "174aeca8fa3928f6b4defff012b4fdd3d5c2d31c176923b9da9db38866f1a27a",
+            "02c67a6b909e2f7904d3852084066a94d373923c40b37048a3e6b4f1f5f439b1",
+            "604692f9fff3d29cbf633cf52777304395ac51abfdd75e216f300ebc57498922",
+            "f7b0a0999bfd64cdd8775ccd6aeebdca6fe028deafcac1b55c464ba4a94c981e",
+            "2ae650a9804de850d80d636c795699f110d70801233659b49295e691d72e0d9e"
+          ]
+        },
+        {
+          "branch_index": 2,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "70e9d91f7b4bc1f6e995d437f4bc6b65cb25f4dfe90a6e76add8f0db02b7fc8b",
+            "5ec49eda1eda9018f3a3892d7c2706ad16db8be0e99409d73f848d1b728023ff",
+            "07b8332ee62e8df1437ac830f54c8685e085a1894d44a9195b5833b64d752d36",
+            "ed32442b806e7ab19ce00ce50c0ccc5135332f8036636ab6e20245082cebd8dd",
+            "f09931878a31274f1d9497a147919d94b8e8526ceb344ecaea428f32e108e3a9",
+            "5f445bf08f068934d78563bf0fe37df3b5ea2f924fb723132598991d2a17dc31"
+          ],
+          "heldout_nll": 1.2561393623020396,
+          "movie": {
+            "genres": [
+              "Action",
+              "Crime",
+              "Drama"
+            ],
+            "title": "Godfather, The (1972)"
+          },
+          "new_evidence_effect_hashes": [
+            "bf873f9addc7f1fa4a17303230aeb912ef4d82cfc316ef22be5cc26e1cb6334c",
+            "ea9e5d79256ffe1e0b31730d940bbd9af3620bd1726daf7e261b9effc1743359",
+            "fc206fdb3b1c42b50a724275bba71d47227fda42278c7ec5153f1b58fea57202",
+            "278e771a3e1af3fa77b6758ded3bfb98ae6e6cddb39ef94d1d101475ca7908d6",
+            "0b818e4a84fd9bbd3402870099ff3498eccbeef36c81ad339ff825cb88497538",
+            "8ae36b0cad1935e84e0d1402c6a6beb7622be31ce7fac6f22dcf2cdde2dd7a5a"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "70e9d91f7b4bc1f6e995d437f4bc6b65cb25f4dfe90a6e76add8f0db02b7fc8b",
+            "5ec49eda1eda9018f3a3892d7c2706ad16db8be0e99409d73f848d1b728023ff",
+            "07b8332ee62e8df1437ac830f54c8685e085a1894d44a9195b5833b64d752d36",
+            "ed32442b806e7ab19ce00ce50c0ccc5135332f8036636ab6e20245082cebd8dd",
+            "f09931878a31274f1d9497a147919d94b8e8526ceb344ecaea428f32e108e3a9",
+            "5f445bf08f068934d78563bf0fe37df3b5ea2f924fb723132598991d2a17dc31",
+            "1272a5b05d3bfd4faed12c40a107e422df17bd83a8582036c88edbbc143991bc",
+            "44d0fdc323a4576c4c7cda8fe080ef172c8d71a71a6a677f825f22cce3769e93"
+          ]
+        },
+        {
+          "branch_index": 3,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "a764b980a35deceeca03882de60e174b84df28a34f78ad002850d0fe83096bb4",
+            "0027a5fb8b8dbf3a8457c781884126f0afd034e6835c15c87bbb6978bc7e4db8",
+            "ee9ecb7ae9abbf0131b291005450494b1553f7b147f2997388e8a73fd600d8c0",
+            "b0a9e270b0f06a0a3836092d2530217a797b6f3a8f95c88a750e5c8966f807a9",
+            "e4c87bf53cb770067c2facd5ad6d861066ddea03b94409500eb32ceb2886e18f",
+            "78591bdbe0c2c106734bfe29cba33b7584e9e55b37ece9e6c36995c9be533047"
+          ],
+          "heldout_nll": 1.3217037554907234,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Drama",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Empire Strikes Back, The (1980)"
+          },
+          "new_evidence_effect_hashes": [
+            "3532053ecae8e9379e07e03f57f1ff5ff98d91b5e2cf02eceeaae12ff047d0de",
+            "b0d54a441f5089f5d1382357b13a5fff03a71bb5d3709a227695284e8c81f6a4",
+            "8a533fdbfde52a724df3afa4c0d9dddcc1187c10e72e4bedd22317fc7fba5132",
+            "d4c1499777ca9d8bf85ac427bf95663a79939b536a8123fb4fed438991bafd8a",
+            "50e98b753fad06e237ef113387c1ef9612473359d05a73b47c636d47e47cdfa9",
+            "4d0197ddbbfb68235f2f5ec88432dbf0465af73b4e80bd7188a84842bbbe73b7"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "a764b980a35deceeca03882de60e174b84df28a34f78ad002850d0fe83096bb4",
+            "0027a5fb8b8dbf3a8457c781884126f0afd034e6835c15c87bbb6978bc7e4db8",
+            "ee9ecb7ae9abbf0131b291005450494b1553f7b147f2997388e8a73fd600d8c0",
+            "b0a9e270b0f06a0a3836092d2530217a797b6f3a8f95c88a750e5c8966f807a9",
+            "e4c87bf53cb770067c2facd5ad6d861066ddea03b94409500eb32ceb2886e18f",
+            "78591bdbe0c2c106734bfe29cba33b7584e9e55b37ece9e6c36995c9be533047",
+            "1272a5b05d3bfd4faed12c40a107e422df17bd83a8582036c88edbbc143991bc",
+            "045096c7755bae7192fd81e05b0822ab64d53bb095195a6632f55669fdbea370"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.09044850920768921,
+        0.07390776653815267,
+        0.04830316485104613,
+        0.03516478043034921
+      ],
+      "initial_heldout_nll": 1.4735267490089246,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "1272a5b05d3bfd4faed12c40a107e422df17bd83a8582036c88edbbc143991bc",
+        "f7b0a0999bfd64cdd8775ccd6aeebdca6fe028deafcac1b55c464ba4a94c981e",
+        "44d0fdc323a4576c4c7cda8fe080ef172c8d71a71a6a677f825f22cce3769e93",
+        "2ae650a9804de850d80d636c795699f110d70801233659b49295e691d72e0d9e",
+        "e3e40fed0587c799c560f8fa02d8b5daed829da82d592847405ab6f848b4312a",
+        "045096c7755bae7192fd81e05b0822ab64d53bb095195a6632f55669fdbea370"
+      ],
+      "user_id": 758
+    }
+  ],
+  "schema_version": 5,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_users_completed": true,
+      "at_least_four_users_have_eig_regret": true,
+      "at_least_six_users_have_branch_spread": true,
+      "at_least_six_users_improve_by_0_05": true,
+      "exact_physical_request_count": true,
+      "mean_immediate_eig_regret_at_least_0_03": true,
+      "mean_oracle_improvement_at_least_0_05": true,
+      "prospective_enrollment_complete": true,
+      "semantic_profiles_affect_rating_likelihoods": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_immediate_eig_heldout_nll_regret": 0.05870594424954197,
+    "mean_max_immediate_eig": 0.04964360954358399,
+    "mean_oracle_heldout_nll_improvement": 0.0612106190402853,
+    "mean_within_user_branch_nll_spread": 0.12535826675064324,
+    "num_branches": 48,
+    "num_users": 12,
+    "spearman_immediate_eig_vs_negative_branch_nll": 0.2813721233174121,
+    "users_with_branch_nll_spread_at_least_0_10": 7,
+    "users_with_immediate_eig_regret_at_least_0_05": 6,
+    "users_with_max_immediate_eig_at_least_0_02": 12,
+    "users_with_oracle_improvement_at_least_0_05": 6
+  },
+  "usage": {
+    "adapter_cost_usd": 1.0308563800000008,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 43958,
+        "adapter_cost_usd": 0.01901128,
+        "adapter_prompt_tokens": 43960,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 96,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 250592,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 43958,
+            "cost_usd": 0.01901128,
+            "prompt_tokens": 43960,
+            "reasoning_tokens": 0,
+            "requests": 96
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 206634,
+            "cost_usd": 1.0118451000000008,
+            "prompt_tokens": 273598,
+            "reasoning_tokens": 0,
+            "requests": 96
+          }
+        },
+        "prompt_tokens": 317558,
+        "reasoning_tokens": 0,
+        "remaining_usd": 19.807333683000003,
+        "requests": 192,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 1.0308563800000006,
+        "run_remaining_usd": 0.9691436199999994,
+        "total_spent_usd": 50.57746901245715
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 206634,
+        "adapter_cost_usd": 1.0118451000000008,
+        "adapter_prompt_tokens": 273598,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 96,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 250592,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 43958,
+            "cost_usd": 0.01901128,
+            "prompt_tokens": 43960,
+            "reasoning_tokens": 0,
+            "requests": 96
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 206634,
+            "cost_usd": 1.0118451000000008,
+            "prompt_tokens": 273598,
+            "reasoning_tokens": 0,
+            "requests": 96
+          }
+        },
+        "prompt_tokens": 317558,
+        "reasoning_tokens": 0,
+        "remaining_usd": 19.807333683000003,
+        "requests": 192,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 1.0308563800000006,
+        "run_remaining_usd": 0.9691436199999994,
+        "total_spent_usd": 50.57746901245715
+      }
+    },
+    "physical_requests": 192,
+    "reasoning_tokens": 0
+  }
+}
