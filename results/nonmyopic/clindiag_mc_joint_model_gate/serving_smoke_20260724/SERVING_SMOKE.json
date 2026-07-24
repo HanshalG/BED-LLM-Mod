@@ -1,0 +1,2337 @@
+{
+  "protocol": {
+    "environment_model": "openai/gpt-5.4-mini",
+    "expected_requests": 36,
+    "generator_model": "openai/gpt-5.4",
+    "judge_model": "openai/gpt-5.4-mini",
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "likelihood_support_size": 6,
+    "outcome_ids": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "query_ids": [
+      "q1",
+      "q2",
+      "q3",
+      "q4"
+    ],
+    "reasoning_disabled": true,
+    "retries": 0,
+    "selection_seed": 24291,
+    "smoke_ids": [
+      "22704279",
+      "13424741",
+      "rare126",
+      "rare82"
+    ],
+    "truth_hidden_until_queries_and_outcomes_frozen": true
+  },
+  "records": [
+    {
+      "duplicate_response": {
+        "finding": "Regular sinus rhythm with heart rate 100-130/min and visible P wave before each QRS",
+        "outcome_id": "B",
+        "source": "recorded"
+      },
+      "initial_diagnoses": [
+        "Pulmonary arterial hypertension associated with Sj\u00f6gren syndrome",
+        "Autoimmune myocarditis related to Sj\u00f6gren syndrome",
+        "Lymphocytic interstitial pneumonitis associated with Sj\u00f6gren syndrome",
+        "Non-Hodgkin lymphoma involving the mediastinum or heart in Sj\u00f6gren syndrome",
+        "Autoimmune autonomic neuropathy causing inappropriate sinus tachycardia in Sj\u00f6gren syndrome",
+        "Atrial fibrillation secondary to autoimmune atrial involvement",
+        "Dilated cardiomyopathy",
+        "Constrictive bronchiolitis associated with Sj\u00f6gren syndrome",
+        "Interstitial lung disease associated with Sj\u00f6gren syndrome",
+        "Cardiac amyloidosis secondary to chronic autoimmune disease",
+        "Chronic thromboembolic pulmonary hypertension",
+        "Arrhythmogenic right ventricular cardiomyopathy"
+      ],
+      "initial_information": "A 39-year-old male presented with palpitation and breathlessness on exertion with a history of Sj\u00f6gren syndrome.",
+      "likelihood_hypotheses": [
+        {
+          "id": "h1",
+          "name": "Pulmonary arterial hypertension associated with Sj\u00f6gren syndrome"
+        },
+        {
+          "id": "h2",
+          "name": "Autoimmune myocarditis related to Sj\u00f6gren syndrome"
+        },
+        {
+          "id": "h3",
+          "name": "Lymphocytic interstitial pneumonitis associated with Sj\u00f6gren syndrome"
+        },
+        {
+          "id": "h4",
+          "name": "Non-Hodgkin lymphoma involving the mediastinum or heart in Sj\u00f6gren syndrome"
+        },
+        {
+          "id": "h5",
+          "name": "Autoimmune autonomic neuropathy causing inappropriate sinus tachycardia in Sj\u00f6gren syndrome"
+        },
+        {
+          "id": "h6",
+          "name": "Atrial fibrillation secondary to autoimmune atrial involvement"
+        },
+        {
+          "id": "hT",
+          "name": "True aneurysm of anterior mitral leaflet causing mitral regurgitation"
+        }
+      ],
+      "likelihood_rows": [
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.08,
+            "B": 0.18,
+            "C": 0.68,
+            "D": 0.06
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.84,
+            "B": 0.04,
+            "C": 0.09,
+            "D": 0.03
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.03,
+            "C": 0.9,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.86,
+            "B": 0.03,
+            "C": 0.08,
+            "D": 0.03
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.04,
+            "B": 0.12,
+            "C": 0.08,
+            "D": 0.76
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.08,
+            "B": 0.72,
+            "C": 0.1,
+            "D": 0.1
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.04,
+            "C": 0.08,
+            "D": 0.85
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.1,
+            "C": 0.1,
+            "D": 0.75
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.14,
+            "C": 0.05,
+            "D": 0.78
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.04,
+            "B": 0.05,
+            "C": 0.08,
+            "D": 0.83
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.72,
+            "B": 0.1,
+            "C": 0.12,
+            "D": 0.06
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.2,
+            "C": 0.12,
+            "D": 0.65
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.12,
+            "B": 0.18,
+            "C": 0.05,
+            "D": 0.65
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.08,
+            "C": 0.12,
+            "D": 0.7
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.08,
+            "B": 0.05,
+            "C": 0.07,
+            "D": 0.8
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.06,
+            "B": 0.05,
+            "C": 0.08,
+            "D": 0.81
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.72,
+            "C": 0.1,
+            "D": 0.13
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.07,
+            "C": 0.12,
+            "D": 0.78
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.05,
+            "C": 0.08,
+            "D": 0.85
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.06,
+            "C": 0.08,
+            "D": 0.83
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.82,
+            "B": 0.08,
+            "C": 0.05,
+            "D": 0.05
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.1,
+            "C": 0.75,
+            "D": 0.1
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.04,
+            "C": 0.08,
+            "D": 0.85
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.04,
+            "B": 0.05,
+            "C": 0.06,
+            "D": 0.85
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.1,
+            "C": 0.05,
+            "D": 0.82
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.04,
+            "B": 0.08,
+            "C": 0.78,
+            "D": 0.1
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.04,
+            "C": 0.07,
+            "D": 0.86
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.04,
+            "C": 0.05,
+            "D": 0.88
+          },
+          "query_id": "q4"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Atrial fibrillation with irregularly irregular rhythm and absent discrete P waves"
+            },
+            {
+              "id": "B",
+              "label": "Regular sinus rhythm with heart rate 100-130/min and visible P wave before each QRS"
+            },
+            {
+              "id": "C",
+              "label": "Sinus rhythm with right axis deviation and right ventricular strain pattern in V1-V3"
+            },
+            {
+              "id": "D",
+              "label": "Low-voltage QRS in limb leads with pseudo-infarct Q waves in precordial leads"
+            }
+          ],
+          "request": "Obtain a 12-lead electrocardiogram during symptoms."
+        },
+        {
+          "id": "q2",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Estimated right ventricular systolic pressure >50 mmHg with right ventricular enlargement"
+            },
+            {
+              "id": "B",
+              "label": "Left ventricular ejection fraction <40% with global hypokinesis"
+            },
+            {
+              "id": "C",
+              "label": "Biatrial enlargement with normal ventricular size and preserved left ventricular ejection fraction"
+            },
+            {
+              "id": "D",
+              "label": "Normal chamber sizes and normal biventricular systolic function"
+            }
+          ],
+          "request": "Perform transthoracic echocardiography with Doppler."
+        },
+        {
+          "id": "q3",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Diffuse thin-walled pulmonary cysts with ground-glass opacities"
+            },
+            {
+              "id": "B",
+              "label": "Mosaic attenuation with patchy air trapping on expiratory images"
+            },
+            {
+              "id": "C",
+              "label": "Basal-predominant reticulation with traction bronchiectasis"
+            },
+            {
+              "id": "D",
+              "label": "Bulky mediastinal or hilar soft-tissue mass"
+            }
+          ],
+          "request": "Obtain high-resolution CT chest."
+        },
+        {
+          "id": "q4",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "One or more segmental mismatched perfusion defects"
+            },
+            {
+              "id": "B",
+              "label": "Matched ventilation and perfusion defects only"
+            },
+            {
+              "id": "C",
+              "label": "Diffuse homogeneous reduction in perfusion without segmental defects"
+            },
+            {
+              "id": "D",
+              "label": "Normal ventilation and normal perfusion"
+            }
+          ],
+          "request": "Perform ventilation-perfusion lung scintigraphy."
+        }
+      ],
+      "response_audit": [
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q1",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": false,
+          "duplicate_semantically_consistent": true,
+          "id": "q2",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q3",
+          "no_target_leak": false,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": false,
+          "duplicate_semantically_consistent": true,
+          "id": "q4",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        }
+      ],
+      "responses": [
+        {
+          "finding": "Regular sinus rhythm with heart rate 100-130/min and visible P wave before each QRS",
+          "outcome_id": "B",
+          "query_id": "q1",
+          "source": "recorded"
+        },
+        {
+          "finding": "Biatrial enlargement with normal ventricular size and preserved left ventricular ejection fraction",
+          "outcome_id": "C",
+          "query_id": "q2",
+          "source": "synthetic"
+        },
+        {
+          "finding": "Diffuse thin-walled pulmonary cysts with ground-glass opacities",
+          "outcome_id": "A",
+          "query_id": "q3",
+          "source": "recorded"
+        },
+        {
+          "finding": "Normal ventilation and normal perfusion",
+          "outcome_id": "D",
+          "query_id": "q4",
+          "source": "synthetic"
+        }
+      ],
+      "source_id": "22704279",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "True aneurysm of anterior mitral leaflet causing mitral regurgitation"
+    },
+    {
+      "duplicate_response": {
+        "finding": "No alcohol use in the past 72 hours or no relation between stopping alcohol and symptoms",
+        "outcome_id": "D",
+        "source": "synthetic"
+      },
+      "initial_diagnoses": [
+        "Major depressive disorder with psychotic features",
+        "Bipolar I disorder, current manic episode with mixed features",
+        "Schizoaffective disorder, bipolar type",
+        "Substance-induced psychotic disorder",
+        "Alcohol withdrawal delirium",
+        "Cocaine intoxication with psychotic features",
+        "Borderline personality disorder",
+        "Delirium due to another medical condition",
+        "Anti-NMDA receptor encephalitis",
+        "Hyperthyroidism",
+        "Pheochromocytoma",
+        "Acute intermittent porphyria"
+      ],
+      "initial_information": "A 42-year-old male presented with agitation and suicidal ideation, following concerning behavior noticed by his wife.",
+      "likelihood_hypotheses": [
+        {
+          "id": "h1",
+          "name": "Major depressive disorder with psychotic features"
+        },
+        {
+          "id": "h2",
+          "name": "Bipolar I disorder, current manic episode with mixed features"
+        },
+        {
+          "id": "h3",
+          "name": "Schizoaffective disorder, bipolar type"
+        },
+        {
+          "id": "h4",
+          "name": "Substance-induced psychotic disorder"
+        },
+        {
+          "id": "h5",
+          "name": "Alcohol withdrawal delirium"
+        },
+        {
+          "id": "h6",
+          "name": "Cocaine intoxication with psychotic features"
+        },
+        {
+          "id": "hT",
+          "name": "diffused infiltrating glioma of the pons"
+        }
+      ],
+      "likelihood_rows": [
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.1,
+            "C": 0.1,
+            "D": 0.7
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.65,
+            "B": 0.15,
+            "C": 0.1,
+            "D": 0.1
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.2,
+            "B": 0.5,
+            "C": 0.15,
+            "D": 0.15
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.08,
+            "B": 0.84,
+            "C": 0.05,
+            "D": 0.03
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.1,
+            "C": 0.1,
+            "D": 0.7
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.7,
+            "B": 0.1,
+            "C": 0.08,
+            "D": 0.12
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.08,
+            "B": 0.12,
+            "C": 0.35,
+            "D": 0.45
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.88,
+            "C": 0.04,
+            "D": 0.03
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.1,
+            "C": 0.1,
+            "D": 0.7
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.72,
+            "B": 0.1,
+            "C": 0.08,
+            "D": 0.1
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.25,
+            "B": 0.35,
+            "C": 0.2,
+            "D": 0.2
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.06,
+            "B": 0.87,
+            "C": 0.04,
+            "D": 0.03
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.1,
+            "C": 0.1,
+            "D": 0.7
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.12,
+            "B": 0.2,
+            "C": 0.28,
+            "D": 0.4
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.45,
+            "B": 0.15,
+            "C": 0.2,
+            "D": 0.2
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.78,
+            "C": 0.08,
+            "D": 0.04
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.17,
+            "C": 0.55,
+            "D": 0.25
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.9,
+            "B": 0.03,
+            "C": 0.02,
+            "D": 0.05
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.35,
+            "B": 0.25,
+            "C": 0.2,
+            "D": 0.2
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.9,
+            "C": 0.03,
+            "D": 0.02
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.1,
+            "C": 0.1,
+            "D": 0.75
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.15,
+            "B": 0.2,
+            "C": 0.25,
+            "D": 0.4
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.1,
+            "C": 0.4,
+            "D": 0.4
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.06,
+            "B": 0.88,
+            "C": 0.03,
+            "D": 0.03
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.05,
+            "D": 0.85
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.85,
+            "B": 0.05,
+            "C": 0.05,
+            "D": 0.05
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.6,
+            "B": 0.2,
+            "C": 0.1,
+            "D": 0.1
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.07,
+            "B": 0.86,
+            "C": 0.04,
+            "D": 0.03
+          },
+          "query_id": "q4"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "history",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Last alcohol intake within 8 hours and no tremor, sweating, or nausea since then"
+            },
+            {
+              "id": "B",
+              "label": "Last alcohol intake 8-24 hours ago with new tremor and sweating after stopping"
+            },
+            {
+              "id": "C",
+              "label": "Last alcohol intake 24-72 hours ago with new tremor, sweating, and nausea after stopping"
+            },
+            {
+              "id": "D",
+              "label": "No alcohol use in the past 72 hours or no relation between stopping alcohol and symptoms"
+            }
+          ],
+          "request": "Establish the timing of the most recent alcohol intake and onset of autonomic symptoms by asking when he last drank alcohol and whether tremor, sweating, or nausea began afterward."
+        },
+        {
+          "id": "q2",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Benzoylecgonine not detected"
+            },
+            {
+              "id": "B",
+              "label": "Benzoylecgonine detected at low concentration"
+            },
+            {
+              "id": "C",
+              "label": "Benzoylecgonine detected at moderate concentration"
+            },
+            {
+              "id": "D",
+              "label": "Benzoylecgonine detected at high concentration"
+            }
+          ],
+          "request": "Obtain a urine cocaine metabolite screen."
+        },
+        {
+          "id": "q3",
+          "kind": "examination",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Speech normal in rate and quantity"
+            },
+            {
+              "id": "B",
+              "label": "Speech slowed with reduced quantity"
+            },
+            {
+              "id": "C",
+              "label": "Speech increased in rate and quantity but interruptible"
+            },
+            {
+              "id": "D",
+              "label": "Speech markedly pressured and difficult to interrupt"
+            }
+          ],
+          "request": "Perform a mental status examination focused on speech rate and quantity during the interview."
+        },
+        {
+          "id": "q4",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "TSH below reference range"
+            },
+            {
+              "id": "B",
+              "label": "TSH within reference range"
+            },
+            {
+              "id": "C",
+              "label": "TSH above reference range"
+            },
+            {
+              "id": "D",
+              "label": "TSH result unavailable due to insufficient sample or assay failure"
+            }
+          ],
+          "request": "Measure serum thyroid-stimulating hormone (TSH)."
+        }
+      ],
+      "response_audit": [
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q1",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": false,
+          "duplicate_semantically_consistent": true,
+          "id": "q2",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q3",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": false,
+          "duplicate_semantically_consistent": true,
+          "id": "q4",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        }
+      ],
+      "responses": [
+        {
+          "finding": "No alcohol use in the past 72 hours or no relation between stopping alcohol and symptoms",
+          "outcome_id": "D",
+          "query_id": "q1",
+          "source": "synthetic"
+        },
+        {
+          "finding": "Benzoylecgonine not detected",
+          "outcome_id": "A",
+          "query_id": "q2",
+          "source": "synthetic"
+        },
+        {
+          "finding": "Speech slowed with reduced quantity",
+          "outcome_id": "B",
+          "query_id": "q3",
+          "source": "synthetic"
+        },
+        {
+          "finding": "TSH not measured in the record",
+          "outcome_id": "D",
+          "query_id": "q4",
+          "source": "recorded"
+        }
+      ],
+      "source_id": "13424741",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "diffused infiltrating glioma of the pons"
+    },
+    {
+      "duplicate_response": {
+        "finding": "Brown papillomatous papules coalescing into a reticulated pattern",
+        "outcome_id": "D",
+        "source": "recorded"
+      },
+      "initial_diagnoses": [
+        "Lichen amyloidosis",
+        "Prurigo nodularis",
+        "Lichen simplex chronicus",
+        "Papular mucinosis (lichen myxedematosus)",
+        "Hypertrophic lichen planus",
+        "Confluent and reticulated papillomatosis",
+        "Darier disease",
+        "Hailey-Hailey disease",
+        "Fox-Fordyce disease",
+        "Papular granuloma annulare",
+        "Nodular cutaneous amyloidosis",
+        "Epidermolytic acanthoma"
+      ],
+      "initial_information": "A 33-year-old male presented with itching brown papules and plaques on the gluteal cleft and buttocks for 7 years.",
+      "likelihood_hypotheses": [
+        {
+          "id": "h1",
+          "name": "Lichen amyloidosis"
+        },
+        {
+          "id": "h2",
+          "name": "Prurigo nodularis"
+        },
+        {
+          "id": "h3",
+          "name": "Lichen simplex chronicus"
+        },
+        {
+          "id": "h4",
+          "name": "Papular mucinosis (lichen myxedematosus)"
+        },
+        {
+          "id": "h5",
+          "name": "Hypertrophic lichen planus"
+        },
+        {
+          "id": "h6",
+          "name": "Confluent and reticulated papillomatosis"
+        },
+        {
+          "id": "hT",
+          "name": "Porokeratosis of Mibelli"
+        }
+      ],
+      "likelihood_rows": [
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.15,
+            "B": 0.15,
+            "C": 0.05,
+            "D": 0.65
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.12,
+            "C": 0.1,
+            "D": 0.68
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.08,
+            "B": 0.07,
+            "C": 0.8,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.88,
+            "B": 0.02,
+            "C": 0.03,
+            "D": 0.07
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.8,
+            "B": 0.15,
+            "C": 0.03,
+            "D": 0.02
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.2,
+            "B": 0.25,
+            "C": 0.25,
+            "D": 0.3
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.8,
+            "C": 0.08,
+            "D": 0.02
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.05,
+            "D": 0.85
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.8,
+            "C": 0.1,
+            "D": 0.05
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.25,
+            "B": 0.2,
+            "C": 0.15,
+            "D": 0.4
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.15,
+            "B": 0.75,
+            "C": 0.08,
+            "D": 0.02
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.03,
+            "C": 0.02,
+            "D": 0.9
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.05,
+            "D": 0.85
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.1,
+            "D": 0.8
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.1,
+            "C": 0.75,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.02,
+            "C": 0.02,
+            "D": 0.93
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.08,
+            "C": 0.82,
+            "D": 0.05
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.15,
+            "C": 0.55,
+            "D": 0.2
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.85,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.85,
+            "D": 0.05
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.05,
+            "C": 0.02,
+            "D": 0.9
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.45,
+            "B": 0.3,
+            "C": 0.1,
+            "D": 0.15
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.85,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.02,
+            "C": 0.03,
+            "D": 0.93
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.1,
+            "D": 0.8
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.05,
+            "C": 0.05,
+            "D": 0.85
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.1,
+            "B": 0.1,
+            "C": 0.75,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.85,
+            "B": 0.03,
+            "C": 0.04,
+            "D": 0.08
+          },
+          "query_id": "q4"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "examination",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Discrete dome-shaped hyperkeratotic papules/nodules with excoriations"
+            },
+            {
+              "id": "B",
+              "label": "Lichenified thick plaques with accentuated skin markings and minimal discrete papules"
+            },
+            {
+              "id": "C",
+              "label": "Flat-topped violaceous hyperkeratotic plaques/papules"
+            },
+            {
+              "id": "D",
+              "label": "Brown papillomatous papules coalescing into a reticulated pattern"
+            }
+          ],
+          "request": "Examine the lesions closely for their surface morphology and pattern on the buttocks and gluteal cleft."
+        },
+        {
+          "id": "q2",
+          "kind": "history",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Itch consistently worsens with heat or sweating"
+            },
+            {
+              "id": "B",
+              "label": "Itch occasionally worsens with heat or sweating"
+            },
+            {
+              "id": "C",
+              "label": "No change in itch with heat or sweating"
+            },
+            {
+              "id": "D",
+              "label": "Patient has not noticed any relation to heat or sweating"
+            }
+          ],
+          "request": "Ask whether sweating or heat reproducibly worsens the itch or triggers new lesions in the affected area."
+        },
+        {
+          "id": "q3",
+          "kind": "examination",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Moist erosions/fissures with maceration are present"
+            },
+            {
+              "id": "B",
+              "label": "Dry crusted erosions without maceration are present"
+            },
+            {
+              "id": "C",
+              "label": "Only intact papules/plaques without erosions or fissures are present"
+            },
+            {
+              "id": "D",
+              "label": "Malodor is present from the involved area"
+            }
+          ],
+          "request": "Assess for erosions, fissuring, maceration, or malodor within and around the gluteal cleft lesions."
+        },
+        {
+          "id": "q4",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Amorphous eosinophilic material is present in the papillary dermis"
+            },
+            {
+              "id": "B",
+              "label": "Localized epidermolytic hyperkeratosis is present"
+            },
+            {
+              "id": "C",
+              "label": "Intercellular acantholysis with dyskeratotic keratinocytes is present"
+            },
+            {
+              "id": "D",
+              "label": "Dermal mucin deposition is present"
+            }
+          ],
+          "request": "Perform a punch biopsy of a representative papule/plaque for routine histopathology."
+        }
+      ],
+      "response_audit": [
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q1",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q2",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q3",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": false,
+          "duplicate_semantically_consistent": true,
+          "id": "q4",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        }
+      ],
+      "responses": [
+        {
+          "finding": "Large well-defined reddish brown verrucous plaques on both buttocks with numerous well-defined discrete reddish brown papules at the inner thigh, coalescing into a reticulated pattern",
+          "outcome_id": "D",
+          "query_id": "q1",
+          "source": "recorded"
+        },
+        {
+          "finding": "Patient has not noticed any relation to heat or sweating",
+          "outcome_id": "D",
+          "query_id": "q2",
+          "source": "synthetic"
+        },
+        {
+          "finding": "Only intact papules/plaques without erosions or fissures are present",
+          "outcome_id": "C",
+          "query_id": "q3",
+          "source": "synthetic"
+        },
+        {
+          "finding": "Localized epidermolytic hyperkeratosis is present",
+          "outcome_id": "B",
+          "query_id": "q4",
+          "source": "synthetic"
+        }
+      ],
+      "source_id": "rare126",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Porokeratosis of Mibelli"
+    },
+    {
+      "duplicate_response": {
+        "finding": "Solitary peripheral solid mass without fat, calcification, or chest wall invasion",
+        "outcome_id": "D",
+        "source": "synthetic"
+      },
+      "initial_diagnoses": [
+        "Primary lung adenocarcinoma",
+        "Pulmonary hamartoma",
+        "Pulmonary carcinoid tumor",
+        "Pulmonary metastasis from hereditary breast and ovarian cancer syndrome-associated breast carcinoma",
+        "Pulmonary metastasis from Li-Fraumeni syndrome-associated soft tissue sarcoma",
+        "Pancoast (superior sulcus) lung carcinoma",
+        "Granulomatous infection such as tuberculosis",
+        "Pulmonary histoplasmosis",
+        "IgG4-related inflammatory pseudotumor of the lung",
+        "Pulmonary sclerosing pneumocytoma",
+        "Lymphangioleiomyomatosis",
+        "Birt-Hogg-Dube syndrome-associated pulmonary neoplasm"
+      ],
+      "initial_information": "A 40-year-old female presented with the discovery of a right upper lobe mass and a significant cancer family history.",
+      "likelihood_hypotheses": [
+        {
+          "id": "h1",
+          "name": "Primary lung adenocarcinoma"
+        },
+        {
+          "id": "h2",
+          "name": "Pulmonary hamartoma"
+        },
+        {
+          "id": "h3",
+          "name": "Pulmonary carcinoid tumor"
+        },
+        {
+          "id": "h4",
+          "name": "Pulmonary metastasis from hereditary breast and ovarian cancer syndrome-associated breast carcinoma"
+        },
+        {
+          "id": "h5",
+          "name": "Pulmonary metastasis from Li-Fraumeni syndrome-associated soft tissue sarcoma"
+        },
+        {
+          "id": "h6",
+          "name": "Pancoast (superior sulcus) lung carcinoma"
+        },
+        {
+          "id": "hT",
+          "name": "Essential thrombocythemia"
+        }
+      ],
+      "likelihood_rows": [
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.18,
+            "C": 0.01,
+            "D": 0.8
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.96
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.03,
+            "C": 0.45,
+            "D": 0.5
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h1",
+          "probabilities": {
+            "A": 0.9,
+            "B": 0.02,
+            "C": 0.03,
+            "D": 0.05
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.8,
+            "B": 0.02,
+            "C": 0.01,
+            "D": 0.17
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.97
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.02,
+            "C": 0.92,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h2",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.9,
+            "C": 0.03,
+            "D": 0.05
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.03,
+            "C": 0.35,
+            "D": 0.6
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.97
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.65,
+            "B": 0.1,
+            "C": 0.2,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h3",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.02,
+            "C": 0.03,
+            "D": 0.9
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.05,
+            "C": 0.01,
+            "D": 0.93
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.75,
+            "B": 0.05,
+            "C": 0.05,
+            "D": 0.15
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.04,
+            "C": 0.9,
+            "D": 0.05
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h4",
+          "probabilities": {
+            "A": 0.03,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.95
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.25,
+            "C": 0.01,
+            "D": 0.73
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.05,
+            "B": 0.8,
+            "C": 0.05,
+            "D": 0.1
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.05,
+            "C": 0.85,
+            "D": 0.08
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h5",
+          "probabilities": {
+            "A": 0.02,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.96
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.85,
+            "C": 0.01,
+            "D": 0.13
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.97
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.04,
+            "C": 0.05,
+            "D": 0.9
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "h6",
+          "probabilities": {
+            "A": 0.92,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.06
+          },
+          "query_id": "q4"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.02,
+            "C": 0.01,
+            "D": 0.96
+          },
+          "query_id": "q1"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.97
+          },
+          "query_id": "q2"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.01,
+            "C": 0.97,
+            "D": 0.01
+          },
+          "query_id": "q3"
+        },
+        {
+          "hypothesis_id": "hT",
+          "probabilities": {
+            "A": 0.01,
+            "B": 0.01,
+            "C": 0.01,
+            "D": 0.97
+          },
+          "query_id": "q4"
+        }
+      ],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Well-circumscribed intraparenchymal nodule containing macroscopic fat"
+            },
+            {
+              "id": "B",
+              "label": "Spiculated apical mass with chest wall or first-rib invasion"
+            },
+            {
+              "id": "C",
+              "label": "Smooth or lobulated endobronchial lesion causing focal airway narrowing"
+            },
+            {
+              "id": "D",
+              "label": "Solitary peripheral solid mass without fat, calcification, or chest wall invasion"
+            }
+          ],
+          "request": "Obtain contrast-enhanced chest CT with thin-section evaluation of the right upper lobe mass and adjacent thoracic inlet/chest wall."
+        },
+        {
+          "id": "q2",
+          "kind": "history",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Prior invasive breast carcinoma documented; no prior soft tissue sarcoma"
+            },
+            {
+              "id": "B",
+              "label": "Prior soft tissue sarcoma documented; no prior invasive breast carcinoma"
+            },
+            {
+              "id": "C",
+              "label": "Both prior invasive breast carcinoma and prior soft tissue sarcoma documented"
+            },
+            {
+              "id": "D",
+              "label": "Neither prior invasive breast carcinoma nor prior soft tissue sarcoma documented"
+            }
+          ],
+          "request": "Ask whether she has had prior biopsy-proven invasive breast carcinoma or soft tissue sarcoma before discovery of the lung mass."
+        },
+        {
+          "id": "q3",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Visible hypervascular polypoid endobronchial mass"
+            },
+            {
+              "id": "B",
+              "label": "Extrinsic compression of the right upper lobe bronchus without visible intraluminal tumor"
+            },
+            {
+              "id": "C",
+              "label": "Normal endobronchial mucosa with no visible lesion"
+            },
+            {
+              "id": "D",
+              "label": "Necrotic or ulcerated endobronchial lesion with irregular mucosal destruction"
+            }
+          ],
+          "request": "Perform bronchoscopy with direct inspection of the right upper lobe bronchial tree."
+        },
+        {
+          "id": "q4",
+          "kind": "test",
+          "outcomes": [
+            {
+              "id": "A",
+              "label": "Malignant epithelial cells forming glands with mucin production"
+            },
+            {
+              "id": "B",
+              "label": "Mature cartilage with entrapped benign respiratory epithelium"
+            },
+            {
+              "id": "C",
+              "label": "Necrotizing granulomatous inflammation with acid-fast bacilli or fungal yeasts identified"
+            },
+            {
+              "id": "D",
+              "label": "Bland spindle or epithelioid cells with dense lymphoplasmacytic infiltrate"
+            }
+          ],
+          "request": "Obtain CT-guided core biopsy of the right upper lobe mass for histopathology."
+        }
+      ],
+      "response_audit": [
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q1",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q2",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q3",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        },
+        {
+          "case_consistent": true,
+          "duplicate_semantically_consistent": true,
+          "id": "q4",
+          "no_target_leak": true,
+          "objective": true,
+          "relevant": true
+        }
+      ],
+      "responses": [
+        {
+          "finding": "Solitary peripheral solid mass without fat, calcification, or chest wall invasion",
+          "outcome_id": "D",
+          "query_id": "q1",
+          "source": "synthetic"
+        },
+        {
+          "finding": "Neither prior invasive breast carcinoma nor prior soft tissue sarcoma documented",
+          "outcome_id": "D",
+          "query_id": "q2",
+          "source": "recorded"
+        },
+        {
+          "finding": "Normal endobronchial mucosa with no visible lesion",
+          "outcome_id": "C",
+          "query_id": "q3",
+          "source": "synthetic"
+        },
+        {
+          "finding": "Malignant epithelial cells forming glands with mucin production",
+          "outcome_id": "A",
+          "query_id": "q4",
+          "source": "synthetic"
+        }
+      ],
+      "source_id": "rare82",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Essential thrombocythemia"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed",
+  "summary": {
+    "case_metrics": [
+      {
+        "audit_valid_queries": 1,
+        "distractor_realized_probabilities": [
+          0.23666666666666666,
+          0.21,
+          0.15,
+          0.6533333333333334
+        ],
+        "duplicate_outcome_match": true,
+        "duplicate_semantically_consistent": true,
+        "lexical_target_leak_query_ids": [],
+        "margins": [
+          -0.13666666666666666,
+          0.5700000000000001,
+          -0.12,
+          0.22666666666666657
+        ],
+        "mean_distractor_realized_probability": 0.3125,
+        "mean_true_minus_distractor_margin": 0.135,
+        "mean_true_realized_probability": 0.4475,
+        "positive_margin_queries": 2,
+        "source_id": "22704279",
+        "true_realized_probabilities": [
+          0.1,
+          0.78,
+          0.03,
+          0.88
+        ]
+      },
+      {
+        "audit_valid_queries": 2,
+        "distractor_realized_probabilities": [
+          0.6333333333333333,
+          0.54,
+          0.245,
+          0.03
+        ],
+        "duplicate_outcome_match": true,
+        "duplicate_semantically_consistent": true,
+        "lexical_target_leak_query_ids": [],
+        "margins": [
+          0.21666666666666667,
+          0.30999999999999994,
+          -0.044999999999999984,
+          0.0
+        ],
+        "mean_distractor_realized_probability": 0.36208333333333337,
+        "mean_true_minus_distractor_margin": 0.12041666666666666,
+        "mean_true_realized_probability": 0.4825,
+        "positive_margin_queries": 2,
+        "source_id": "13424741",
+        "true_realized_probabilities": [
+          0.85,
+          0.85,
+          0.2,
+          0.03
+        ]
+      },
+      {
+        "audit_valid_queries": 3,
+        "distractor_realized_probabilities": [
+          0.42,
+          0.42166666666666663,
+          0.5683333333333334,
+          0.03166666666666667
+        ],
+        "duplicate_outcome_match": true,
+        "duplicate_semantically_consistent": true,
+        "lexical_target_leak_query_ids": [],
+        "margins": [
+          0.38000000000000006,
+          0.42833333333333334,
+          0.18166666666666664,
+          -0.0016666666666666705
+        ],
+        "mean_distractor_realized_probability": 0.36041666666666666,
+        "mean_true_minus_distractor_margin": 0.24708333333333332,
+        "mean_true_realized_probability": 0.6074999999999999,
+        "positive_margin_queries": 3,
+        "source_id": "rare126",
+        "true_realized_probabilities": [
+          0.8,
+          0.85,
+          0.75,
+          0.03
+        ]
+      },
+      {
+        "audit_valid_queries": 4,
+        "distractor_realized_probabilities": [
+          0.5599999999999999,
+          0.6866666666666666,
+          0.5616666666666666,
+          0.3233333333333333
+        ],
+        "duplicate_outcome_match": true,
+        "duplicate_semantically_consistent": true,
+        "lexical_target_leak_query_ids": [],
+        "margins": [
+          0.4,
+          0.2833333333333333,
+          0.4083333333333333,
+          -0.3133333333333333
+        ],
+        "mean_distractor_realized_probability": 0.5329166666666666,
+        "mean_true_minus_distractor_margin": 0.19458333333333339,
+        "mean_true_realized_probability": 0.7274999999999999,
+        "positive_margin_queries": 3,
+        "source_id": "rare82",
+        "true_realized_probabilities": [
+          0.96,
+          0.97,
+          0.97,
+          0.01
+        ]
+      }
+    ],
+    "duplicate_outcome_matches": 4,
+    "duplicate_semantic_matches": 4,
+    "gates": {
+      "all_four_duplicate_outcomes_match": true,
+      "all_four_duplicates_semantically_consistent": true,
+      "all_pass": false,
+      "all_queries_and_options_valid": true,
+      "all_sixteen_responses_pass_audit": false,
+      "all_supports_size_twelve": true,
+      "exactly_36_physical_requests": true,
+      "exactly_four_cases": true,
+      "mean_margin_at_least_0_05": true,
+      "mean_true_probability_at_least_0_35": true,
+      "no_lexical_target_leaks": true,
+      "positive_margin_on_at_least_eight_queries": true,
+      "zero_reasoning_tokens": true
+    },
+    "lexical_target_leaks": 0,
+    "mean_true_minus_generated_margin": 0.17427083333333332,
+    "mean_true_realized_outcome_probability": 0.5662499999999999,
+    "num_cases": 4,
+    "physical_requests": 36,
+    "positive_true_minus_generated_margin_queries": 10,
+    "reasoning_tokens": 0,
+    "valid_response_audits": 10
+  },
+  "usage": {
+    "gatekeeper": {
+      "adapter_completion_tokens": 657,
+      "adapter_cost_usd": 0.0161085,
+      "adapter_prompt_tokens": 17536,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 20,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 8193,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2316,
+          "cost_usd": 0.03916,
+          "prompt_tokens": 1768,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 5877,
+          "cost_usd": 0.046224749999999995,
+          "prompt_tokens": 26371,
+          "reasoning_tokens": 0,
+          "requests": 28
+        }
+      },
+      "prompt_tokens": 28139,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.932708722999934,
+      "requests": 36,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.08538475000000002,
+      "run_remaining_usd": 0.66461525,
+      "total_spent_usd": 46.45209397245722
+    },
+    "judge": {
+      "adapter_completion_tokens": 596,
+      "adapter_cost_usd": 0.0070605,
+      "adapter_prompt_tokens": 5838,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 4,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 8193,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2316,
+          "cost_usd": 0.03916,
+          "prompt_tokens": 1768,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 5877,
+          "cost_usd": 0.046224749999999995,
+          "prompt_tokens": 26371,
+          "reasoning_tokens": 0,
+          "requests": 28
+        }
+      },
+      "prompt_tokens": 28139,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.932708722999934,
+      "requests": 36,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.08538475000000002,
+      "run_remaining_usd": 0.66461525,
+      "total_spent_usd": 46.45209397245722
+    },
+    "likelihood": {
+      "adapter_completion_tokens": 4624,
+      "adapter_cost_usd": 0.02305575,
+      "adapter_prompt_tokens": 2997,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 4,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 8193,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2316,
+          "cost_usd": 0.03916,
+          "prompt_tokens": 1768,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 5877,
+          "cost_usd": 0.046224749999999995,
+          "prompt_tokens": 26371,
+          "reasoning_tokens": 0,
+          "requests": 28
+        }
+      },
+      "prompt_tokens": 28139,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.932708722999934,
+      "requests": 36,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.08538475000000002,
+      "run_remaining_usd": 0.66461525,
+      "total_spent_usd": 46.45209397245722
+    },
+    "query_generator": {
+      "adapter_completion_tokens": 1824,
+      "adapter_cost_usd": 0.03061,
+      "adapter_prompt_tokens": 1300,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 4,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 8193,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2316,
+          "cost_usd": 0.03916,
+          "prompt_tokens": 1768,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 5877,
+          "cost_usd": 0.046224749999999995,
+          "prompt_tokens": 26371,
+          "reasoning_tokens": 0,
+          "requests": 28
+        }
+      },
+      "prompt_tokens": 28139,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.932708722999934,
+      "requests": 36,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.08538475000000002,
+      "run_remaining_usd": 0.66461525,
+      "total_spent_usd": 46.45209397245722
+    },
+    "support_generator": {
+      "adapter_completion_tokens": 492,
+      "adapter_cost_usd": 0.00855,
+      "adapter_prompt_tokens": 468,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 4,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 8193,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2316,
+          "cost_usd": 0.03916,
+          "prompt_tokens": 1768,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 5877,
+          "cost_usd": 0.046224749999999995,
+          "prompt_tokens": 26371,
+          "reasoning_tokens": 0,
+          "requests": 28
+        }
+      },
+      "prompt_tokens": 28139,
+      "reasoning_tokens": 0,
+      "remaining_usd": 23.932708722999934,
+      "requests": 36,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.08538475000000002,
+      "run_remaining_usd": 0.66461525,
+      "total_spent_usd": 46.45209397245722
+    }
+  }
+}
