@@ -46,6 +46,13 @@ DEVELOPMENT_INDICES = (92, 157, 199, 250, 398, 514, 556, 574, 584, 597, 602, 618
 SEMANTIC_COVERAGE_THRESHOLD = 0.80
 
 
+class CoverageBatchError(RuntimeError):
+    def __init__(self, message: str, *, row: int, response: str) -> None:
+        super().__init__(message)
+        self.row = row
+        self.response = response
+
+
 def diagnostic_candidate_messages(
     scenario: str,
     hypotheses: Sequence[str],
@@ -142,15 +149,19 @@ def parse_coverage_response(
         if not 0.0 <= score <= 1.0:
             raise ValueError("best_match_score must be in [0, 1]")
         index = row.get("best_hypothesis_index")
+        index_valid = True
+        reported_index = index
         if support_size == 0:
             if index is not None:
-                raise ValueError("empty support requires a null best index")
+                index_valid = False
+                index = None
         elif (
             isinstance(index, bool)
             or not isinstance(index, int)
             or not 0 <= index < support_size
         ):
-            raise ValueError("best_hypothesis_index is outside its support")
+            index_valid = False
+            index = None
         reason = row.get("reason")
         if not isinstance(reason, str) or not reason.strip():
             raise ValueError("coverage response requires a brief reason")
@@ -159,6 +170,8 @@ def parse_coverage_response(
                 "id": expected_id,
                 "best_match_score": score,
                 "best_hypothesis_index": index,
+                "reported_best_hypothesis_index": reported_index,
+                "best_hypothesis_index_valid": index_valid,
                 "reason": reason.strip(),
                 "covered": score >= SEMANTIC_COVERAGE_THRESHOLD,
             }
@@ -712,12 +725,20 @@ def run_unlock(
         block_size=config.batched_block_size,
         max_new_tokens=config.openrouter_max_output_tokens,
     )
-    coverage_rows = [
-        parse_coverage_response(response, ids, sizes)
-        for response, (ids, sizes) in zip(
-            coverage_responses, support_metadata, strict=True
-        )
-    ]
+    coverage_rows = []
+    for row, (response, (ids, sizes)) in enumerate(
+        zip(coverage_responses, support_metadata, strict=True)
+    ):
+        try:
+            coverage_rows.append(
+                parse_coverage_response(response, ids, sizes)
+            )
+        except ValueError as exc:
+            raise CoverageBatchError(
+                str(exc),
+                row=row,
+                response=response,
+            ) from exc
     offset = 0
     for task, state, candidates, rows in zip(
         selected, initial_states, candidates_many, coverage_rows, strict=True
@@ -802,6 +823,8 @@ def main() -> None:
             "schema_version": 1,
             "status": "failed_closed",
             "error": f"{type(exc).__name__}: {exc}",
+            "failing_coverage_row": getattr(exc, "row", None),
+            "raw_failing_coverage_response": getattr(exc, "response", None),
         }
         filename = (
             "SERVING_SMOKE_FAILURE.json"

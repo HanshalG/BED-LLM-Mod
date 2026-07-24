@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: best_hypothesis_index is outside its support",
+  "schema_version": 1,
+  "status": "failed_closed"
+}

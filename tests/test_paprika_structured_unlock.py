@@ -62,12 +62,33 @@ def test_parse_coverage_response_preserves_ids_bounds_and_threshold() -> None:
     )
     assert parsed[0]["covered"] is True
     assert parsed[1]["covered"] is False
+    assert parsed[0]["best_hypothesis_index_valid"] is True
     with pytest.raises(ValueError, match="IDs or order"):
         parse_coverage_response(
             response,
             ["candidate_0", "initial"],
             [2, 1],
         )
+
+
+def test_coverage_parser_records_invalid_explanatory_index_without_changing_score() -> None:
+    response = json.dumps(
+        {
+            "supports": [
+                {
+                    "id": "initial",
+                    "best_match_score": 0.9,
+                    "best_hypothesis_index": 8,
+                    "reason": "same cause and remedy",
+                }
+            ]
+        }
+    )
+    parsed = parse_coverage_response(response, ["initial"], [8])
+    assert parsed[0]["best_match_score"] == 0.9
+    assert parsed[0]["best_hypothesis_index"] is None
+    assert parsed[0]["reported_best_hypothesis_index"] == 8
+    assert parsed[0]["best_hypothesis_index_valid"] is False
 
 
 def test_unlock_summary_applies_frozen_gate() -> None:
