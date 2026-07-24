@@ -1,0 +1,210 @@
+{
+  "expected_physical_requests": 10,
+  "parsed_full_sizes": [
+    12,
+    12,
+    12,
+    12
+  ],
+  "parsed_initial_sizes": [
+    12,
+    12,
+    12,
+    12
+  ],
+  "physical_requests": 10,
+  "reasoning_tokens": 0,
+  "records": [
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Facial pain\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"Intermittent facial pain developed eight months ago, described as sharp, electrical pain triggered by eating, talking, or touching the moustache, primarily affecting the left side of the face, particularly the maxilla, lips, and lower jaw. This was accompanied by a dull, throbbing pain that has been relatively unremitting since onset. The pain induced weight loss of 6.8 kg (15 lb) due to eating discomfort.\", \"past_medical_history\": \"Hypertension, hypercholesterolemia, sleep apnea, and multiple minor facial surgeries including gum surgery and a tonsillectomy.\", \"social_history\": \"Worked as an engineer, rarely consumed alcohol, and quit smoking 25 years prior after a 30-pack-year history.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": {\"general\": \"Patient appeared well but uncomfortable owing to facial pain. Neck was supple, lungs clear, heart rate and rhythm normal, abdomen soft and nontender.\", \"neurologic\": {\"awareness\": \"Awake, alert, and oriented\", \"extraocular_muscle_movement\": \"Intact\", \"facial_sensation\": \"Intact and symmetric to light touch, with sensitivity to light touch over left maxillary and mandibular distribution.\", \"muscle_strength\": {\"masseter\": \"Equal in symmetry and strength\", \"temporal\": \"Equal in symmetry and strength\"}, \"pupils\": \"Equal and reactive to light\", \"visual_fields\": \"Full\"}}, \"vital_signs\": {\"blood_pressure\": \"140/88 mm Hg\", \"heart_rate\": \"66 bpm\", \"respiratory_rate\": \"Not specified\", \"temperature\": \"36.3\\u00b0C\"}}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [], \"other_examinations\": [{\"changes_over_time\": \"At three months\\u2019 follow-up, he had no facial pain and required no medication.\", \"date\": \"Not specified.\", \"findings\": \"A loop of the superior cerebellar artery was found to be compressing the trigeminal nerve.\", \"procedure_name\": \"Microvascular Decompression\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"No intracranial masses or other abnormalities; contact between the superior cerebellar artery and the left trigeminal nerve.\", \"procedure_name\": \"Magnetic Resonance Imaging (MRI)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Small, healed infarct in the right pons; normal enhancement of the venous plexus around the fibers of the ganglion in Meckel's cave; linear enhancement suggestive of a crossing vessel along the left fifth cranial nerve.\", \"procedure_name\": \"MRI of the brain (with gadolinium)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"No abnormality of the bone found.\", \"procedure_name\": \"Computed Tomography (CT) and bone scanning\"}]}",
+      "full_generated_diagnoses": [
+        "Classical trigeminal neuralgia due to superior cerebellar artery neurovascular compression of the left trigeminal nerve",
+        "Painful trigeminal neuropathy with concomitant persistent facial pain",
+        "Secondary trigeminal neuralgia due to pontine infarction",
+        "Idiopathic trigeminal neuralgia",
+        "Glossopharyngeal neuralgia",
+        "Temporomandibular disorder",
+        "Persistent idiopathic facial pain",
+        "Painful post-traumatic trigeminal neuropathy after prior dental or facial procedures",
+        "Perineural spread of head and neck malignancy involving the trigeminal nerve",
+        "Skull base tumor involving Meckel cave or the trigeminal root entry zone",
+        "Postherpetic trigeminal neuralgia",
+        "Eagle syndrome"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Idiopathic trigeminal neuralgia is a standard synonym/closely equivalent label for trigeminal neuralgia when no secondary cause is specified; laterality is still compatible."
+      },
+      "initial_diagnoses": [
+        "Trigeminal neuralgia",
+        "Glossopharyngeal neuralgia",
+        "Temporomandibular disorder",
+        "Trigeminal neuropathy secondary to skull base neoplasm",
+        "Nasopharyngeal carcinoma with perineural spread",
+        "Parotid gland malignancy involving the auriculotemporal nerve",
+        "Maxillary sinus carcinoma",
+        "Oropharyngeal squamous cell carcinoma",
+        "Giant cell arteritis",
+        "Postherpetic trigeminal neuralgia",
+        "Atypical odontalgia",
+        "Eagle syndrome"
+      ],
+      "initial_information": "A 61-year-old male presented with left-sided facial pain that developed eight months ago, causing significant eating discomfort.",
+      "initial_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "initial",
+        "reason": "Trigeminal neuralgia is the same diagnosis as left trigeminal neuralgia; laterality does not change the core diagnosis."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "merged",
+        "reason": "Trigeminal neuralgia is the same diagnosis as left trigeminal neuralgia; laterality does not alter the underlying condition."
+      },
+      "source_id": "16837683",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Left trigeminal neuralgia"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Abdominal discomfort, lethargy, and jaundice.\", \"family_history\": \"Not specified\", \"history_of_present_illness\": \"The patient presented with a two-week history of symptoms. Two days prior to admission, he began experiencing altered mental status and disorientation. Upon admission, he displayed severe jaundice and grade 2 hepatic encephalopathy.\", \"past_medical_history\": \"Not specified\", \"social_history\": \"The patient's wife denied any history of alcoholism or recent drug intake.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Condition deteriorated from grade 2 encephalopathy to severe grade 4 encephalopathy and hyperammonemia, prompting initiation of dialysis.\", \"date\": \"Not specified\", \"relevant_findings\": \"Tender abdomen, palpable liver, severe jaundice (yellow discoloration of sclera and skin), grade 2 hepatic encephalopathy, disorientation, confusion, GCS score of 10.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"AST: 2,100 U/L (normal range: 8-48 U/L); ALT: 2,200 U/L (normal range: 7-55 U/L); total bilirubin: 28 mg/dL (normal range: 0.3-1.2 mg/dL); INR: 2.4.\", \"procedure_name\": \"Liver function test (LFT)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"HAV IgM: Positive, titre of 1:2560; HEV IgM: Positive, titre of 1:640.\", \"procedure_name\": \"Serologic tests for hepatitis\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Detected hepatitis E virus (HEV) ribonucleic acid (RNA) in the patient's serum, indicating active viral replication.\", \"procedure_name\": \"Polymerase chain reaction (PCR)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Serial monitoring of prothrombin time and platelets.\", \"procedure_name\": \"Coagulation parameters monitoring\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Serial complete blood counts performed.\", \"procedure_name\": \"Complete blood counts (CBC)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Metabolic panels performed serially.\", \"procedure_name\": \"Metabolic panels\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Arterial blood gases were monitored.\", \"procedure_name\": \"Arterial blood gases (ABG)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Every 12 hours\", \"findings\": \"Liver function tests performed every 12 hours.\", \"procedure_name\": \"Liver function tests (including ALT, AST, and bilirubin)\"}], \"other_examinations\": [{\"changes_over_time\": \"Lactulose was tapered off.\", \"date\": \"Not specified\", \"findings\": \"Lactulose was administered but showed no improvement.\", \"procedure_name\": \"Lactulose administration\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Increased intracranial pressure (ICP). Confirmed increased intracranial pressure (ICP).\", \"procedure_name\": \"Cranial Doppler ultrasound\"}]}",
+      "full_generated_diagnoses": [
+        "Fulminant acute liver failure due to hepatitis A and hepatitis E coinfection",
+        "Acute hepatitis E virus infection causing fulminant hepatic failure",
+        "Acute hepatitis A virus infection causing fulminant hepatic failure",
+        "Subacute hepatic encephalopathy secondary to acute liver failure with hyperammonemia",
+        "Acute liver failure with cerebral edema and intracranial hypertension",
+        "Seronegative autoimmune hepatitis presenting as fulminant hepatic failure",
+        "Wilson disease presenting as acute liver failure",
+        "Acetaminophen-induced acute liver failure",
+        "Herpes simplex virus hepatitis causing fulminant hepatic failure",
+        "Budd-Chiari syndrome causing acute liver failure",
+        "Amanita phalloides mushroom poisoning causing fulminant hepatic necrosis",
+        "Leptospirosis with Weil syndrome causing jaundice and hepatic encephalopathy"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Includes direct viral hepatitis causes of fulminant hepatic failure; this is clinically equivalent to fulminant viral hepatitis."
+      },
+      "initial_diagnoses": [
+        "Acute liver failure due to hepatitis B virus infection",
+        "Fulminant autoimmune hepatitis",
+        "Wilson disease presenting with acute liver failure",
+        "Acute alcoholic hepatitis with hepatic encephalopathy",
+        "Acetaminophen-induced acute liver failure",
+        "Amanita phalloides mushroom poisoning",
+        "Budd-Chiari syndrome causing acute liver failure",
+        "Herpes simplex virus hepatitis",
+        "Hemophagocytic lymphohistiocytosis with hepatic failure",
+        "Acute intermittent porphyria",
+        "Leptospirosis with Weil syndrome",
+        "Severe falciparum malaria with hepatic encephalopathy"
+      ],
+      "initial_information": "A 38-year-old male presented with abdominal discomfort, lethargy, jaundice, and altered mental status over two weeks.",
+      "initial_measurement": {
+        "best_match_score": 0.62,
+        "covered": false,
+        "id": "initial",
+        "reason": "Generated options are specific causes of fulminant/acute liver failure; closest is viral hepatitis-related acute liver failure, but not the same diagnosis as fulminant viral hepatitis."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.62,
+        "covered": false,
+        "id": "merged",
+        "reason": "Closest matches are specific viral hepatitis etiologies, but the set mostly contains distinct causes of acute liver failure rather than the general diagnosis fulminant viral hepatitis."
+      },
+      "source_id": "rare297",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Fulminant viral hepatitis"
+    }
+  ],
+  "schema_version": 1,
+  "stage_counts": {
+    "full": 4,
+    "initial": 4,
+    "semantic": 2
+  },
+  "status": "passed",
+  "usage": {
+    "generator": {
+      "adapter_completion_tokens": 1165,
+      "adapter_cost_usd": 0.033815,
+      "adapter_prompt_tokens": 6536,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 8,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 1451,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 1165,
+          "cost_usd": 0.033815,
+          "prompt_tokens": 6536,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 286,
+          "cost_usd": 0.00227325,
+          "prompt_tokens": 1315,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 7851,
+      "reasoning_tokens": 0,
+      "remaining_usd": 25.531458972999992,
+      "requests": 10,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.036088249999999995,
+      "run_remaining_usd": 0.96391175,
+      "total_spent_usd": 44.85334372245716
+    },
+    "judge": {
+      "adapter_completion_tokens": 286,
+      "adapter_cost_usd": 0.00227325,
+      "adapter_prompt_tokens": 1315,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 1451,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 1165,
+          "cost_usd": 0.033815,
+          "prompt_tokens": 6536,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 286,
+          "cost_usd": 0.00227325,
+          "prompt_tokens": 1315,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 7851,
+      "reasoning_tokens": 0,
+      "remaining_usd": 25.531458972999992,
+      "requests": 10,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.036088249999999995,
+      "run_remaining_usd": 0.96391175,
+      "total_spent_usd": 44.85334372245716
+    }
+  }
+}
