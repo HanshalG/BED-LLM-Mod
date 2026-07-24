@@ -786,6 +786,100 @@ belief_distribution_permute_history: "sometimes"
         load_config(str(config_path))
 
 
+def test_load_config_parses_animals_fixed_support_bayes_aliases(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+task: animals
+model_pairs: []
+belief_generation_enabled: false
+belief_filtering_enabled: false
+belief_prior_mode: uniform
+environment:
+  belief_update_mode: bayes_fixed_support
+  likelihood_confidence: 0.7
+""".strip(),
+        encoding="utf-8",
+    )
+
+    config = load_config(str(config_path))
+
+    assert config.animals_belief_update_mode == "bayes_fixed_support"
+    assert config.animals_likelihood_confidence == pytest.approx(0.7)
+
+
+@pytest.mark.parametrize("mode", ["static", "bayes", "refresh"])
+def test_load_config_rejects_invalid_animals_belief_update_mode(tmp_path, mode):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        f"""
+task: animals
+model_pairs: []
+animals_belief_update_mode: {mode}
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="animals_belief_update_mode"):
+        load_config(str(config_path))
+
+
+@pytest.mark.parametrize("confidence", [-0.1, 1.1, "high"])
+def test_load_config_rejects_invalid_animals_likelihood_confidence(
+    tmp_path,
+    confidence,
+):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        f"""
+task: animals
+model_pairs: []
+animals_likelihood_confidence: {confidence!r}
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="animals_likelihood_confidence"):
+        load_config(str(config_path))
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "message"),
+    [
+        ("belief_generation_enabled", "true", "belief_generation_enabled=false"),
+        ("belief_filtering_enabled", "true", "belief_filtering_enabled=false"),
+        ("belief_prior_mode", "none", "configured belief prior"),
+    ],
+)
+def test_load_config_rejects_incompatible_fixed_support_bayes_options(
+    tmp_path,
+    field,
+    value,
+    message,
+):
+    values = {
+        "belief_generation_enabled": "false",
+        "belief_filtering_enabled": "false",
+        "belief_prior_mode": "uniform",
+    }
+    values[field] = value
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        f"""
+task: animals
+model_pairs: []
+animals_belief_update_mode: bayes_fixed_support
+belief_generation_enabled: {values['belief_generation_enabled']}
+belief_filtering_enabled: {values['belief_filtering_enabled']}
+belief_prior_mode: {values['belief_prior_mode']}
+""".strip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match=message):
+        load_config(str(config_path))
+
+
 @pytest.mark.parametrize(
     ("field", "value", "message"),
     [

@@ -71,6 +71,11 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
     target_animals: list[str] | None = None
     observation_labels: tuple[str, str] = ("Yes", "No")
     _animal_pool: list[str] = field(init=False, repr=False)
+    _likelihood_cache: dict[tuple[str, str], tuple[float, float]] = field(
+        default_factory=dict,
+        init=False,
+        repr=False,
+    )
 
     def __post_init__(self) -> None:
         pool = self.target_animals
@@ -212,6 +217,16 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
         action: str,
         observation: str,
     ) -> np.ndarray:
+        if self._uses_fixed_support_bayes():
+            if observation not in self.observation_labels:
+                return np.zeros(len(hypotheses), dtype=float)
+            yes_probabilities = self._cached_yes_probabilities(hypotheses, action)
+            probabilities = (
+                yes_probabilities
+                if observation == self.observation_labels[0]
+                else 1.0 - yes_probabilities
+            )
+            return np.log(np.clip(probabilities, 1.0e-300, 1.0))
         return log_likelihood_many_llm_binary(
             self,
             hypotheses,
@@ -222,7 +237,13 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
 
     def set_questioner(self, questioner: Any) -> None:
         """Attach the questioner Model so likelihood batching can call into it."""
+        if getattr(self, "_questioner", None) is not questioner:
+            self._likelihood_cache.clear()
         self._questioner = questioner
+
+    def clear_likelihood_cache(self) -> None:
+        """Discard cached semantic likelihoods, primarily for paired experiments."""
+        self._likelihood_cache.clear()
 
     def set_active_method(self, method_name: str) -> None:
         self._active_method_name = method_name
@@ -255,6 +276,21 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
         config: Any,
     ) -> BeliefState[str]:
         self.set_questioner(model)
+        if self._uses_fixed_support_bayes(config):
+            if not history:
+                return belief_state
+            action, observation = history[-1]
+            if observation not in self.observation_labels:
+                return belief_state
+            yes_probabilities = self._cached_yes_probabilities(
+                belief_state.hypotheses,
+                action,
+            )
+            return _bayes_update_binary_belief(
+                belief_state,
+                yes_probabilities,
+                observation,
+            )
         history_messages = _history_to_messages(history)
         deterministic = False  # categorical/EIG path; deterministic mode is method-controlled
         return update_beliefs_batched(
@@ -538,6 +574,11 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
     def _yes_probabilities(self, belief_state: BeliefState[str], question: str) -> np.ndarray:
         if not belief_state.hypotheses:
             return np.empty(0, dtype=float)
+        if self._uses_fixed_support_bayes():
+            return self._cached_yes_probabilities(
+                belief_state.hypotheses,
+                question,
+            )
         questioner = self.get_questioner()
         positive_label, negative_label = self.observation_labels
         conversations = [
@@ -556,6 +597,121 @@ class AnimalsBEDEnvironment(Environment[str, str, str, str]):
                 for row in rows
             ],
             dtype=float,
+        )
+
+    def _uses_fixed_support_bayes(self, config: Any | None = None) -> bool:
+        active_config = self.config if config is None else config
+        return (
+            getattr(
+                active_config,
+                "animals_belief_update_mode",
+                "regenerate_filter",
+            )
+            == "bayes_fixed_support"
+        )
+
+    def _cached_yes_probabilities(
+        self,
+        hypotheses: Sequence[str],
+        question: str,
+    ) -> np.ndarray:
+        rows = self.semantic_yes_probabilities_many(
+            hypotheses,
+            [question],
+        )
+        return rows[0] if len(rows) else np.empty(0, dtype=float)
+
+    def semantic_yes_probabilities_many(
+        self,
+        hypotheses: Sequence[str],
+        questions: Sequence[str],
+    ) -> np.ndarray:
+        """Return a cached ``question x hypothesis`` semantic likelihood table."""
+        if not questions:
+            return np.empty((0, len(hypotheses)), dtype=float)
+        if not hypotheses:
+            return np.empty((len(questions), 0), dtype=float)
+
+        keyed_items = [
+            (
+                (hypothesis.strip().casefold(), question.strip().casefold()),
+                hypothesis,
+                question,
+            )
+            for question in questions
+            for hypothesis in hypotheses
+        ]
+        missing_keys: list[tuple[str, str]] = []
+        missing_hypotheses: list[str] = []
+        missing_questions: list[str] = []
+        seen_missing: set[tuple[str, str]] = set()
+        for key, hypothesis, question in keyed_items:
+            if key in self._likelihood_cache or key in seen_missing:
+                continue
+            seen_missing.add(key)
+            missing_keys.append(key)
+            missing_hypotheses.append(hypothesis)
+            missing_questions.append(question)
+
+        if missing_hypotheses:
+            questioner = self.get_questioner()
+            positive_label, negative_label = self.observation_labels
+            conversations = [
+                self.build_likelihood_messages(hypothesis, missing_question)
+                for hypothesis, missing_question in zip(
+                    missing_hypotheses,
+                    missing_questions,
+                )
+            ]
+            rows = questioner.chat_probabilities_messages_batched(
+                conversations,
+                [positive_label, negative_label],
+                temperature=self.config.answer_temperature,
+                block_size=self.config.batched_block_size,
+            )
+            if len(rows) != len(missing_hypotheses):
+                raise ValueError(
+                    "Expected one semantic likelihood row per missing hypothesis"
+                )
+            confidence = float(
+                getattr(self.config, "animals_likelihood_confidence", 1.0)
+            )
+            for key, row in zip(missing_keys, rows):
+                raw_yes = float(row.get(positive_label, 0.0))
+                raw_no = float(row.get(negative_label, 0.0))
+                total = raw_yes + raw_no
+                if (
+                    not math.isfinite(raw_yes)
+                    or not math.isfinite(raw_no)
+                    or raw_yes < 0.0
+                    or raw_no < 0.0
+                    or total <= 0.0
+                ):
+                    raise ValueError(
+                        "semantic likelihood rows must contain finite, "
+                        "non-negative Yes/No probabilities with positive mass"
+                    )
+                raw_yes /= total
+                yes_probability = (
+                    confidence * raw_yes
+                    + (1.0 - confidence) * 0.5
+                )
+                yes_probability = min(
+                    max(yes_probability, 1.0e-9),
+                    1.0 - 1.0e-9,
+                )
+                self._likelihood_cache[key] = (
+                    yes_probability,
+                    1.0 - yes_probability,
+                )
+
+        values = [
+            self._likelihood_cache[key][0]
+            for key, _hypothesis, _question in keyed_items
+        ]
+        return np.asarray(values, dtype=float).reshape(
+            len(questions),
+            len(hypotheses),
         )
 
     def _generate_strategies(

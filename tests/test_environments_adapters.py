@@ -296,6 +296,149 @@ def test_animals_adapter_log_likelihood_many_returns_log_probability_of_observed
     assert result[1] == pytest.approx(math.log(0.1))
 
 
+def test_animals_fixed_support_bayes_softens_caches_and_updates_incrementally():
+    questioner = _StubLLM()
+    questioner.probability_responses = [
+        [
+            {"Yes": 0.9, "No": 0.1},
+            {"Yes": 0.1, "No": 0.9},
+        ]
+    ]
+    config = _animals_config(
+        belief_state_mode="categorical",
+        belief_prior_mode="uniform",
+        animals_belief_update_mode="bayes_fixed_support",
+        animals_likelihood_confidence=0.7,
+    )
+    env = AnimalsBEDEnvironment(
+        config=config,
+        answerer=_StubLLM(),
+        target_animals=["dog", "cat"],
+    )
+    env.set_questioner(questioner)
+    belief = BeliefState.uniform(["dog", "cat"])
+
+    first = env.log_likelihood_many(
+        belief.hypotheses,
+        "Is it commonly kept as a pet?",
+        "Yes",
+    )
+    second = env.log_likelihood_many(
+        belief.hypotheses,
+        "Is it commonly kept as a pet?",
+        "No",
+    )
+    updated = env.update_belief_state(
+        belief,
+        [("Is it commonly kept as a pet?", "Yes")],
+        questioner,
+        config,
+    )
+
+    np.testing.assert_allclose(np.exp(first), [0.78, 0.22])
+    np.testing.assert_allclose(np.exp(second), [0.22, 0.78])
+    assert len(questioner.probability_calls) == 1
+    assert updated.hypotheses == ("dog", "cat")
+    assert updated.probabilities == pytest.approx((0.78, 0.22))
+
+
+def test_animals_fixed_support_likelihood_cache_is_cleared_for_new_questioner():
+    config = _animals_config(
+        belief_state_mode="categorical",
+        belief_prior_mode="uniform",
+        animals_belief_update_mode="bayes_fixed_support",
+        animals_likelihood_confidence=1.0,
+    )
+    first_questioner = _StubLLM()
+    first_questioner.probability_responses = [
+        [{"Yes": 0.9, "No": 0.1}],
+    ]
+    second_questioner = _StubLLM()
+    second_questioner.probability_responses = [
+        [{"Yes": 0.2, "No": 0.8}],
+    ]
+    env = AnimalsBEDEnvironment(
+        config=config,
+        answerer=_StubLLM(),
+        target_animals=["dog"],
+    )
+
+    env.set_questioner(first_questioner)
+    first = env.log_likelihood_many(["dog"], "Is it domestic?", "Yes")
+    env.set_questioner(second_questioner)
+    second = env.log_likelihood_many(["dog"], "Is it domestic?", "Yes")
+
+    assert np.exp(first[0]) == pytest.approx(0.9)
+    assert np.exp(second[0]) == pytest.approx(0.2)
+    assert len(first_questioner.probability_calls) == 1
+    assert len(second_questioner.probability_calls) == 1
+
+
+def test_animals_fixed_support_batches_question_by_hypothesis_table():
+    config = _animals_config(
+        belief_state_mode="categorical",
+        belief_prior_mode="uniform",
+        animals_belief_update_mode="bayes_fixed_support",
+        animals_likelihood_confidence=1.0,
+    )
+    questioner = _StubLLM()
+    questioner.probability_responses = [
+        [
+            {"Yes": 0.9, "No": 0.1},
+            {"Yes": 0.2, "No": 0.8},
+            {"Yes": 0.3, "No": 0.7},
+            {"Yes": 0.8, "No": 0.2},
+        ]
+    ]
+    env = AnimalsBEDEnvironment(
+        config=config,
+        answerer=_StubLLM(),
+        target_animals=["dog", "cat"],
+    )
+    env.set_questioner(questioner)
+
+    table = env.semantic_yes_probabilities_many(
+        ["dog", "cat"],
+        ["Is it domestic?", "Is it nocturnal?"],
+    )
+    cached = env.semantic_yes_probabilities_many(
+        ["cat", "dog"],
+        ["Is it nocturnal?"],
+    )
+
+    np.testing.assert_allclose(table, [[0.9, 0.2], [0.3, 0.8]])
+    np.testing.assert_allclose(cached, [[0.8, 0.3]])
+    assert len(questioner.probability_calls) == 1
+    assert len(questioner.probability_calls[0]) == 4
+
+
+@pytest.mark.parametrize(
+    "row",
+    [
+        {"Yes": float("nan"), "No": 0.5},
+        {"Yes": -0.1, "No": 1.1},
+        {"Yes": 0.0, "No": 0.0},
+    ],
+)
+def test_animals_fixed_support_rejects_invalid_semantic_likelihood_rows(row):
+    config = _animals_config(
+        belief_state_mode="categorical",
+        belief_prior_mode="uniform",
+        animals_belief_update_mode="bayes_fixed_support",
+    )
+    questioner = _StubLLM()
+    questioner.probability_responses = [[row]]
+    env = AnimalsBEDEnvironment(
+        config=config,
+        answerer=_StubLLM(),
+        target_animals=["dog"],
+    )
+    env.set_questioner(questioner)
+
+    with pytest.raises(ValueError, match="semantic likelihood"):
+        env.semantic_yes_probabilities_many(["dog"], ["Is it domestic?"])
+
+
 def test_animals_adapter_log_likelihood_returns_zero_for_correct_observation():
     env = AnimalsBEDEnvironment(
         config=_animals_config(),

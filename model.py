@@ -540,7 +540,15 @@ class BaseVLLMAdapter(Model):
                     block_response_log_scores[response_idx][convo_idx]
                     for response_idx in range(len(responses))
                 ]
-                scaled_scores = [score / temperature for score in log_scores]
+                probability_temperature = (
+                    float(temperature)
+                    if float(temperature) > 0.0
+                    else 1.0
+                )
+                scaled_scores = [
+                    score / probability_temperature
+                    for score in log_scores
+                ]
                 max_score = max(scaled_scores)
                 exp_scores = [math.exp(score - max_score) for score in scaled_scores]
                 normalization = sum(exp_scores)

@@ -80,6 +80,8 @@ class AnimalsConfig:
     belief_prior_exponential_rate: float = 0.0
     belief_generation_enabled: bool = True
     belief_filtering_enabled: bool = True
+    belief_update_mode: str = "regenerate_filter"
+    likelihood_confidence: float = 1.0
     belief_guess_threshold: float | None = 0.99
     answerer_sample_from_prior: bool = False
     answerer_prior_mode: str = "inherit"
@@ -246,6 +248,16 @@ def animals_view(config: Any) -> AnimalsConfig:
         belief_prior_exponential_rate=getattr(config, "belief_prior_exponential_rate", 0.0),
         belief_generation_enabled=getattr(config, "belief_generation_enabled", True),
         belief_filtering_enabled=getattr(config, "belief_filtering_enabled", True),
+        belief_update_mode=getattr(
+            config,
+            "animals_belief_update_mode",
+            "regenerate_filter",
+        ),
+        likelihood_confidence=getattr(
+            config,
+            "animals_likelihood_confidence",
+            1.0,
+        ),
         belief_guess_threshold=getattr(config, "belief_guess_threshold", 0.99),
         answerer_sample_from_prior=getattr(config, "answerer_sample_from_prior", False),
         answerer_prior_mode=getattr(config, "answerer_prior_mode", "inherit"),

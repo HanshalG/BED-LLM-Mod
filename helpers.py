@@ -25,6 +25,7 @@ TaskMode = Literal["animals", "location_finding", "paprika_customer_service", "m
 BeliefStateMode = Literal["uniform", "categorical"]
 BeliefPriorMode = Literal["none", "uniform", "exponential_rank"]
 AnswererPriorMode = Literal["inherit", "none", "uniform", "exponential_rank"]
+AnimalsBeliefUpdateMode = Literal["regenerate_filter", "bayes_fixed_support"]
 LocationPosteriorMode = Literal["analytical_likelihood", "llm_distribution"]
 LocationStrategyRolloutScoringSupportMode = Literal["union", "truth_plus_sampled", "truth_start_end", "fixed_common"]
 LocationStrategyRolloutScoreMode = Literal["start_final_entropy_drop", "future_step_support_sum"]
@@ -87,6 +88,8 @@ class Config:
     belief_prior_exponential_rate: float = 0.0
     belief_generation_enabled: bool = True
     belief_filtering_enabled: bool = True
+    animals_belief_update_mode: AnimalsBeliefUpdateMode = "regenerate_filter"
+    animals_likelihood_confidence: float = 1.0
     belief_guess_threshold: float | None = 0.99
     answerer_sample_from_prior: bool = False
     answerer_prior_mode: AnswererPriorMode = "inherit"
@@ -536,6 +539,7 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     is_qwen = model_name.lower().startswith("qwen/")
     is_qwen25 = model_name.startswith("Qwen/Qwen2.5")
     is_gemma = model_name.startswith("google/gemma-4")
+    supports_logprobs = is_qwen25 or is_gemma
     is_harmony = model_name.startswith("openai/gpt-oss")
     if is_harmony:
         if thinking is not None:
@@ -545,7 +549,10 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
         if reasoning_max_tokens is not None and backend != "openrouter":
             raise ValueError(f"{side_name}.reasoning_max_tokens is only supported for OpenRouter models")
         if use_logprobs:
-            raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
+            raise ValueError(
+                f"{side_name}.use_logprobs is only supported for "
+                "Qwen2.5 and Gemma 4 models"
+            )
         return ModelSpec(
             model=model_name,
             backend=backend,
@@ -557,8 +564,11 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if is_qwen or is_gemma:
         if reasoning_effort is not None:
             raise ValueError(f"{side_name}.reasoning_effort is not supported for {model_name}")
-        if use_logprobs and not is_qwen25:
-            raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
+        if use_logprobs and not supports_logprobs:
+            raise ValueError(
+                f"{side_name}.use_logprobs is only supported for "
+                "Qwen2.5 and Gemma 4 models"
+            )
         normalized_thinking = False if thinking is None else thinking
         if not normalized_thinking and (
             thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None
@@ -596,7 +606,10 @@ def _normalize_model_spec(raw_spec: object, side_name: str) -> ModelSpec:
     if thinking_max_new_tokens is not None or thinking_final_max_new_tokens is not None:
         raise ValueError(f"{side_name}.thinking budgets are only supported for Qwen and Gemma 4 models")
     if use_logprobs:
-        raise ValueError(f"{side_name}.use_logprobs is only supported for Qwen2.5 models")
+        raise ValueError(
+            f"{side_name}.use_logprobs is only supported for "
+            "Qwen2.5 and Gemma 4 models"
+        )
 
     return ModelSpec(
         model=model_name,
@@ -671,6 +684,8 @@ def _environment_aliases(task: str) -> dict[str, str]:
         "strategy_num_rollouts": "animals_strategy_num_rollouts",
         "strategy_planning_depth": "animals_strategy_planning_depth",
         "strategy_belief_summary_top_k": "animals_strategy_belief_summary_top_k",
+        "belief_update_mode": "animals_belief_update_mode",
+        "likelihood_confidence": "animals_likelihood_confidence",
     }
     common_location = {
         "num_rounds": "location_num_rounds",
@@ -835,6 +850,39 @@ def load_config(path: str) -> Config:
     belief_filtering_enabled = raw.get("belief_filtering_enabled", True)
     if not isinstance(belief_filtering_enabled, bool):
         raise ValueError("belief_filtering_enabled must be a boolean")
+    animals_belief_update_mode = raw.get(
+        "animals_belief_update_mode",
+        "regenerate_filter",
+    )
+    if animals_belief_update_mode not in {
+        "regenerate_filter",
+        "bayes_fixed_support",
+    }:
+        raise ValueError(
+            "animals_belief_update_mode must be one of: "
+            "regenerate_filter, bayes_fixed_support"
+        )
+    animals_likelihood_confidence = _read_probability(
+        raw,
+        "animals_likelihood_confidence",
+        1.0,
+    )
+    if animals_belief_update_mode == "bayes_fixed_support":
+        if belief_generation_enabled:
+            raise ValueError(
+                "animals_belief_update_mode='bayes_fixed_support' requires "
+                "belief_generation_enabled=false"
+            )
+        if belief_filtering_enabled:
+            raise ValueError(
+                "animals_belief_update_mode='bayes_fixed_support' requires "
+                "belief_filtering_enabled=false"
+            )
+        if belief_prior_mode == "none":
+            raise ValueError(
+                "animals_belief_update_mode='bayes_fixed_support' requires "
+                "a configured belief prior"
+            )
     belief_guess_threshold = raw.get("belief_guess_threshold", 0.99)
     if belief_guess_threshold is not None:
         if not isinstance(belief_guess_threshold, (int, float)) or isinstance(belief_guess_threshold, bool):
@@ -1100,6 +1148,8 @@ def load_config(path: str) -> Config:
         belief_prior_exponential_rate = belief_prior_exponential_rate,
         belief_generation_enabled = belief_generation_enabled,
         belief_filtering_enabled = belief_filtering_enabled,
+        animals_belief_update_mode = animals_belief_update_mode,
+        animals_likelihood_confidence = animals_likelihood_confidence,
         belief_guess_threshold = belief_guess_threshold,
         answerer_sample_from_prior = answerer_sample_from_prior,
         answerer_prior_mode = answerer_prior_mode,

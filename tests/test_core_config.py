@@ -36,6 +36,8 @@ def test_animals_view_extracts_animals_fields():
         belief_generation_num_calls=4,
         belief_generation_strata=[],
         belief_distribution_num_calls=3,
+        animals_belief_update_mode="bayes_fixed_support",
+        animals_likelihood_confidence=0.7,
     )
 
     view = animals_view(config)
@@ -49,6 +51,8 @@ def test_animals_view_extracts_animals_fields():
     assert view.belief_generation_num_calls == 4
     assert view.belief_generation_strata == []
     assert view.belief_distribution_num_calls == 3
+    assert view.belief_update_mode == "bayes_fixed_support"
+    assert view.likelihood_confidence == pytest.approx(0.7)
 
 
 def test_location_view_extracts_location_fields():

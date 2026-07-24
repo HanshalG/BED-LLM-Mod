@@ -1,0 +1,98 @@
+version: 0
+task: animals
+animals:
+  -
+    - Aardvark
+    - African elephant
+    - African grey parrot
+    - Alpaca
+    - Axolotl
+    - Bald eagle
+    - Bengal tiger
+    - Blue whale
+    - Bottlenose dolphin
+    - Camel
+    - Capybara
+    - Chameleon
+    - Cheetah
+    - Chimpanzee
+    - Coyote
+    - Emperor penguin
+    - Flamingo
+    - Giant panda
+    - Giraffe
+    - Gorilla
+    - Great white shark
+    - Green sea turtle
+    - Hippopotamus
+    - Honey badger
+    - Horseshoe crab
+    - Hummingbird
+    - Jaguar
+    - Kangaroo
+    - Kiwi
+    - Koala
+    - Komodo dragon
+    - Llama
+    - Manatee
+    - Meerkat
+    - Moose
+    - Narwhal
+    - Octopus
+    - Orangutan
+    - Ostrich
+    - Platypus
+    - Polar bear
+    - Praying mantis
+    - Red fox
+    - Reindeer
+    - Rhinoceros beetle
+    - Saltwater crocodile
+    - Sand cat
+    - Sea otter
+    - Sloth
+    - Snow leopard
+    - Spotted hyena
+    - Tasmanian devil
+    - Tiger shark
+    - Toucan
+    - Vampire bat
+    - Walrus
+    - Wolverine
+    - Wombat
+    - Yak
+    - Zebra
+    - Poison dart frog
+    - King cobra
+    - Giant squid
+    - Pangolin
+model_pairs:
+  - questioner:
+      model: google/gemma-4-26b-a4b-it
+      thinking: false
+      use_logprobs: true
+      max_model_len: 32768
+    answerer:
+      model: google/gemma-4-26b-a4b-it
+      thinking: false
+      use_logprobs: true
+      max_model_len: 32768
+method_names:
+  - EIG
+batched_block_size: 256
+generation_temperature_diverse: 0.0
+generation_temperature_simple: 0.0
+answer_temperature: 0.0
+target_num_questions: 4
+num_mc_samples: 64
+belief_state_mode: categorical
+belief_generation_enabled: false
+belief_filtering_enabled: false
+belief_prior_mode: uniform
+belief_guess_threshold: null
+probability_parse_fallback_to_uniform: false
+environment:
+  belief_update_mode: bayes_fixed_support
+  likelihood_confidence: 0.7
+  search_depth: 2
+  forward_search_verbose: false

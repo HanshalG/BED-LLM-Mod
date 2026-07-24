@@ -659,7 +659,7 @@ def test_base_vllm_adapter_uses_chat_template_for_non_harmony_models(monkeypatch
     ]
 
 
-def test_normalize_model_spec_allows_logprobs_for_qwen25_only():
+def test_normalize_model_spec_allows_logprobs_for_qwen25_and_gemma4():
     supported = helpers._normalize_model_spec(
         {"model": "Qwen/Qwen2.5-7B-Instruct", "use_logprobs": True},
         "model_pairs[0].questioner",
@@ -671,7 +671,20 @@ def test_normalize_model_spec_allows_logprobs_for_qwen25_only():
         use_logprobs=True,
     )
 
-    with pytest.raises(ValueError, match="use_logprobs is only supported for Qwen2.5 models"):
+    gemma = helpers._normalize_model_spec(
+        {"model": "google/gemma-4-26b-a4b-it", "use_logprobs": True},
+        "model_pairs[0].questioner",
+    )
+    assert gemma == helpers.ModelSpec(
+        model="google/gemma-4-26b-a4b-it",
+        thinking=False,
+        use_logprobs=True,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="use_logprobs is only supported for Qwen2.5 and Gemma 4 models",
+    ):
         helpers._normalize_model_spec(
             {"model": "Qwen/Qwen3.5-4B", "use_logprobs": True},
             "model_pairs[0].questioner",
@@ -739,6 +752,44 @@ def test_base_vllm_adapter_uses_prompt_logprobs_when_enabled():
         {"temperature": 0.0, "max_tokens": 1, "prompt_logprobs": 1},
         {"temperature": 0.0, "max_tokens": 1, "prompt_logprobs": 1},
     ]
+
+
+def test_base_vllm_adapter_logprobs_uses_unit_scale_at_zero_temperature():
+    adapter = model.BaseVLLMAdapter.__new__(model.BaseVLLMAdapter)
+    adapter.model_name = "google/gemma-4-26b-a4b-it"
+    adapter.use_logprobs = True
+    adapter.tokenizer = _TokenizerWithIds()
+
+    def fake_generate(prompts, sampling_params):
+        outputs = []
+        for prompt in prompts:
+            response = "Yes" if prompt.endswith("Yes") else "No"
+            question = prompt[: -len(response)]
+            response_token_ids = [ord(char) for char in response]
+            logprob = -0.1 if response == "Yes" else -0.5
+            prompt_logprobs = [None] * len(prompt)
+            for offset, token_id in enumerate(
+                response_token_ids,
+                start=len(question),
+            ):
+                prompt_logprobs[offset] = {
+                    token_id: _FakePromptLogprob(logprob)
+                }
+            outputs.append(types.SimpleNamespace(prompt_logprobs=prompt_logprobs))
+        return outputs
+
+    adapter.llm = types.SimpleNamespace(generate=fake_generate)
+
+    probabilities = adapter.chat_probabilities_messages_batched(
+        [[{"role": "user", "content": "Question?"}]],
+        ["Yes", "No"],
+        temperature=0.0,
+        block_size=1,
+    )
+
+    expected_yes = math.exp(-0.3) / (math.exp(-0.3) + math.exp(-1.0))
+    assert probabilities[0]["Yes"] == pytest.approx(expected_yes)
+    assert probabilities[0]["No"] == pytest.approx(1.0 - expected_yes)
 
 
 def test_normalize_completion_output_extracts_final_harmony_message():
