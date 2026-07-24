@@ -59,6 +59,9 @@ FORMAL_SCREEN_USER_IDS = FORMAL_USER_IDS
 PROSPECTIVE_ENROLLMENT_COUNT: int | None = None
 SEMANTIC_RANKING_MESSAGES: Any | None = None
 SEMANTIC_RANKING_PARSE: Any | None = None
+EXPLICIT_ROLLOUT_SCORER: Any | None = None
+EXPLICIT_ROLLOUT_REQUESTS_PER_USER = 0
+INITIAL_HISTORY_MOVIE_IDS = INITIAL_MOVIE_IDS
 ALL_SELECTED_USER_IDS = SMOKE_USER_IDS + FORMAL_USER_IDS
 CANDIDATE_POOL_SIZE = 16
 SELECTED_CANDIDATE_COUNT = 4
@@ -74,8 +77,11 @@ def selected_user_ids(ratings: dict[int, dict[int, int]]) -> tuple[int, ...]:
         user_id
         for user_id, user_ratings in ratings.items()
         if user_id not in excluded
-        and all(movie_id in user_ratings for movie_id in INITIAL_MOVIE_IDS)
-        and sum(movie_id not in INITIAL_MOVIE_IDS for movie_id in user_ratings)
+        and all(movie_id in user_ratings for movie_id in INITIAL_HISTORY_MOVIE_IDS)
+        and sum(
+            movie_id not in INITIAL_HISTORY_MOVIE_IDS
+            for movie_id in user_ratings
+        )
         >= CANDIDATE_POOL_SIZE + HELDOUT_COUNT
     )
     chosen = tuple(
@@ -105,7 +111,7 @@ def candidate_and_heldout_ids(
     available = [
         movie_id
         for movie_id in user_ratings
-        if movie_id not in INITIAL_MOVIE_IDS
+        if movie_id not in INITIAL_HISTORY_MOVIE_IDS
     ]
     candidate_pool = tuple(
         sorted(available, key=lambda movie_id: (-popularity[movie_id], movie_id))[
@@ -161,7 +167,7 @@ def run_gate(
     raw: dict[str, Any] = {}
 
     histories = [
-        _history_payload(INITIAL_MOVIE_IDS, ratings[user_id], items)
+        _history_payload(INITIAL_HISTORY_MOVIE_IDS, ratings[user_id], items)
         for user_id in user_ids
     ]
     initial_raw = generator.chat_complete_messages_batched(
@@ -274,7 +280,7 @@ def run_gate(
                     "items_sha256": ITEMS_SHA256,
                     "readme_sha256": README_SHA256,
                     "user_ids": list(user_ids),
-                    "initial_movie_ids": list(INITIAL_MOVIE_IDS),
+                    "initial_movie_ids": list(INITIAL_HISTORY_MOVIE_IDS),
                     "candidate_pool_size": CANDIDATE_POOL_SIZE,
                     "selected_candidate_count": SELECTED_CANDIDATE_COUNT,
                     "candidate_pool_uses_presence_and_popularity_only": True,
@@ -355,7 +361,29 @@ def run_gate(
     else:
         screen_user_ids = tuple(user_ids)
     semantic_scores_many: list[list[float]] | None = None
-    if SEMANTIC_RANKING_MESSAGES is not None:
+    if EXPLICIT_ROLLOUT_SCORER is not None:
+        semantic_scores_many, explicit_rollout_raw = EXPLICIT_ROLLOUT_SCORER(
+            generator=generator,
+            likelihood=likelihood,
+            config=config,
+            histories=histories,
+            initial_profiles=initial_profiles,
+            candidate_pools=candidate_pools,
+            selected_indices=selected_indices,
+            selected_movie_ids=selected_movie_ids,
+            heldout_ids_many=heldout_ids_many,
+            initial_likelihoods=initial_likelihoods,
+            user_ids=user_ids,
+            items=items,
+            stage=stage,
+            raw=raw,
+            raw_checkpoint_path=raw_checkpoint_path,
+        )
+        raw["explicit_rollouts"] = explicit_rollout_raw
+        _write_raw_checkpoint(
+            raw_checkpoint_path, stage=stage, user_ids=user_ids, raw=raw
+        )
+    elif SEMANTIC_RANKING_MESSAGES is not None:
         ranking_prompts = [
             SEMANTIC_RANKING_MESSAGES(
                 initial_profiles[user_index],
@@ -595,6 +623,8 @@ def run_gate(
                 if SEMANTIC_RANKING_MESSAGES is not None
                 else 0
             )
+            + EXPLICIT_ROLLOUT_REQUESTS_PER_USER
+            * PROSPECTIVE_ENROLLMENT_COUNT
         )
         summary["gates"]["exact_physical_request_count"] = (
             int(usage["physical_requests"]) == expected_requests
@@ -620,7 +650,11 @@ def run_gate(
             "screen_user_ids": list(screen_user_ids),
             "prospective_enrollment_count": PROSPECTIVE_ENROLLMENT_COUNT,
             "semantic_ranking_enabled": SEMANTIC_RANKING_MESSAGES is not None,
-            "initial_movie_ids": list(INITIAL_MOVIE_IDS),
+            "explicit_rollout_ranking_enabled": EXPLICIT_ROLLOUT_SCORER is not None,
+            "explicit_rollout_requests_per_user": (
+                EXPLICIT_ROLLOUT_REQUESTS_PER_USER
+            ),
+            "initial_movie_ids": list(INITIAL_HISTORY_MOVIE_IDS),
             "candidate_pool_size": CANDIDATE_POOL_SIZE,
             "selected_candidate_count": SELECTED_CANDIDATE_COUNT,
             "candidate_pool_uses_presence_and_popularity_only": True,
