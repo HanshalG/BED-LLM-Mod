@@ -144,7 +144,9 @@ def test_v4_formal_routes_four_adaptive_branches(monkeypatch) -> None:
         likelihood_model="fake",
         stage="formal",
     )
-    assert result["usage"]["physical_requests"] == FORMAL_EXPECTED_REQUESTS
-    assert generator.requests == 60
-    assert likelihood.requests == 60
-    assert all(len(record["branches"]) == 4 for record in result["records"])
+    assert result["status"] == "gate_failed"
+    assert result["usage"]["physical_requests"] == 24
+    assert generator.requests == 12
+    assert likelihood.requests == 12
+    assert result["protocol"]["formal_sensitivity_futility_stop"] is True
+    assert result["protocol"]["candidate_outcomes_not_read"] is True

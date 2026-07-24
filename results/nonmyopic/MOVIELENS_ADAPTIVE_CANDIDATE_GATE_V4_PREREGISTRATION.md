@@ -52,6 +52,15 @@ numerical gate is unchanged: mean oracle NLL improvement `>=0.05`; improvement c
 `>=6/12`; branch-spread count `>=6/12`; mean immediate-EIG regret `>=0.03`; regret
 count `>=4/12`; mean maximum EIG `>=0.02`; and maximum-EIG count `>=8/12`.
 
+After the serving smoke but before any formal-user response, a cost-only futility stop
+was frozen because both smoke users remained below `0.02` maximum EIG. The formal
+process first makes the already-required 12 profile-generation and 12 initial-
+likelihood requests. It computes the unchanged sensitivity condition without reading
+any candidate or held-out rating. If mean maximum EIG is below `0.02` or fewer than
+8/12 users reach `0.02`, the gate fails after exactly 24 requests and no branches run.
+If both pass, the same in-memory process continues unchanged to all 120 requests. This
+does not alter the sample, profiles, candidate pools, likelihoods, or thresholds.
+
 Passage authorizes only a fresh target-blind ranking-fidelity gate. Failure closes this
 exact adaptive-candidate apparatus before policy/depth. No threshold tuning, pool-size
 change, post-hoc subset, alternate split, or history bypass is allowed after responses.

@@ -1,0 +1,345 @@
+{
+  "protocol": {
+    "candidate_pool_size": 16,
+    "candidate_pool_uses_presence_and_popularity_only": true,
+    "committed_profile_text_omitted": true,
+    "heldout_count": 8,
+    "heldout_ratings_hidden_from_all_model_prompts": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "d13b0b6e689493f5769c54a1c59dfb5a1aebde04a4d9abac1b016f7cbc6448d6",
+    "profile_count": 6,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "recorded_ratings_are_only_outcomes": true,
+    "selected_candidate_count": 4,
+    "selection_seed": 24305,
+    "smoke_user_ids_disjoint_from_formal": true,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "serving_smoke",
+    "user_ids": [
+      113,
+      130
+    ],
+    "user_ids_hidden_from_all_model_prompts": true,
+    "v1_v2_v3_users_excluded": true
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "d0b78aee0f2db9728d2c46454b4ce2fdd6ce8510c6030e09f525797e9deab663",
+            "52d4794e24883db246c2e0532a7a5bdbfb35b37b6734b5fc524ab4e2542a40b5",
+            "87aa632c88192c902124001cb1dbcdfa37950825ac771c8c526f472b64f92488",
+            "6ada8cfd21839bc09cafe45effcd8391081b27af0b7fca844e0c5e0bf08b21a3",
+            "ea0cfdcdcd65f7fc8bd2192755c045ae07c5613b4cd98a4b36b748eb549ceae2",
+            "a54eb5cd65c54fb7d427132c4985d82bf14de301fbcefe9f3dfe24816c09bd1c"
+          ],
+          "heldout_nll": 1.5752406379824944,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "ef04b1a54f4f472fcba30fe27fe8f26f6fe4984bbdd99b1936cf280b6464c67b",
+            "857169a7da057a4dd25e718ff335e15c9dd03de039a054cafc9ae302194ac4c5",
+            "5ddf6c995be6be42a8e1d63831ea96c27bc4fed9a9de6aa09947893ed92cce8f",
+            "2cef784adc61d04240ec0f74c621f0e983588c5af9a13e456b71b44b5f8955b6",
+            "d60543d212d084214dcf1ba9411b3e49a4668a4193edaaf9de51933159c60bdb",
+            "94a6d054377beb11de3c61467025cdfcbeb41c10bdc590505515e0063841dc15"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "d0b78aee0f2db9728d2c46454b4ce2fdd6ce8510c6030e09f525797e9deab663",
+            "52d4794e24883db246c2e0532a7a5bdbfb35b37b6734b5fc524ab4e2542a40b5",
+            "87aa632c88192c902124001cb1dbcdfa37950825ac771c8c526f472b64f92488",
+            "6ada8cfd21839bc09cafe45effcd8391081b27af0b7fca844e0c5e0bf08b21a3",
+            "ea0cfdcdcd65f7fc8bd2192755c045ae07c5613b4cd98a4b36b748eb549ceae2",
+            "a54eb5cd65c54fb7d427132c4985d82bf14de301fbcefe9f3dfe24816c09bd1c",
+            "5360e2371e4a981a0fa9a9652cf94c5b5835c479e0c4eb0a53083eae49dd1013",
+            "e4b9f77790bfe9fa70bcf7a108420de7b364f2381d10de0508bb238cd36279a5"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Musical"
+          ],
+          "title": "Evita (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.014543440547868824,
+        0.009395393028004184,
+        0.00856670045190544,
+        0.007506281302708251
+      ],
+      "initial_heldout_nll": 1.6305930618850002,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "46141d0f4721f5c1a2286215188cd3bfe65cb34ccabe42ce5252f1acabc3ae34",
+        "5360e2371e4a981a0fa9a9652cf94c5b5835c479e0c4eb0a53083eae49dd1013",
+        "e4b9f77790bfe9fa70bcf7a108420de7b364f2381d10de0508bb238cd36279a5",
+        "67b023513ffb5e298a71ec36c765d2cfa61080234316e993eea910e0deedd017",
+        "6b9b04af023949d6e4d0b15dfdd14968ecdee62e803958474c889c4e4b382c1b",
+        "e720295031a707549757b35bc474e9c662c245a6e71c2cc249d3a5e091e01edc"
+      ],
+      "replay_profiles": [
+        "7cecf280eb9258705f4b1dcb5191e24a6214bc65a5859529ecff49244273e562",
+        "d627c186eb36e76e1af088dd8c98d3e0362bc7dab95835f5361680019015a2f6",
+        "07f76418e9ea197e404dddf74c39c5b4a33336ed995c8836592f39c79d659589",
+        "6ca77903f34e0bce61fae67221bff0dd5bd61ea3babbc08987570e3975754fe4",
+        "b7c999413e4711a52313f4b29f5c1edbf6d76e6088cf35f20ccc184dacbe35b9",
+        "67ef8fcd7d21fae182d505f8420a3349b19ee23607e5b407031cf075163b8de8"
+      ],
+      "user_id": 113
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "96e2219225cd11711d0f78993aa791a2274ab57dc9b523655781ead3ab74fe08",
+            "d999c3a9f520da84b385db1f1ffdb43e3a139c540327404e6cf0dd40ff340d6b",
+            "2aed6afe853bc59f6d30bac9db6f83defeb5b396a388c34ad4a519cb66711fb9",
+            "2f5c24890a9126d3e39eef99257d3a32db395e753130e30e7b5dcf3146fb23c6",
+            "6d9ab49b618b4f8d308dcaa630db585c0a8536c72505e5f2d2ab0074e63fb1f1",
+            "1ffb6a8a9512f001295f206def3781be53316bea10019aef5ca2905b96d19851"
+          ],
+          "heldout_nll": 1.7999785458837532,
+          "movie": {
+            "genres": [
+              "Action",
+              "Adventure",
+              "Drama",
+              "Romance",
+              "Sci-Fi",
+              "War"
+            ],
+            "title": "Empire Strikes Back, The (1980)"
+          },
+          "new_evidence_effect_hashes": [
+            "c2ba0314da22b9ef2ed4e1eb51ac849b8aa6908467da5e3d3ed8527d1b20bbd9",
+            "4f91457eae724fe087e7a8a23ee8ec0bba1013521cb524a95218f7529370a6d7",
+            "5e5b11f5198626d8815c5d11e6636f680d9e30ffc2c2844d053534bff3b647d8",
+            "092ba7fabcd28e6689bd10ef634174905205a36180e4724113e49ce0facf7a88",
+            "12f72949ba75234df1a31bf33fe9fc20729dfec3e961145178cd9981074ae376",
+            "3234ff97990546bcab30a7fe32596e7424a507748fc04cb1bb6b92747b323224"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "96e2219225cd11711d0f78993aa791a2274ab57dc9b523655781ead3ab74fe08",
+            "d999c3a9f520da84b385db1f1ffdb43e3a139c540327404e6cf0dd40ff340d6b",
+            "2aed6afe853bc59f6d30bac9db6f83defeb5b396a388c34ad4a519cb66711fb9",
+            "2f5c24890a9126d3e39eef99257d3a32db395e753130e30e7b5dcf3146fb23c6",
+            "6d9ab49b618b4f8d308dcaa630db585c0a8536c72505e5f2d2ab0074e63fb1f1",
+            "1ffb6a8a9512f001295f206def3781be53316bea10019aef5ca2905b96d19851",
+            "bd1ebc9fecd393515384f32fe37ac8a4a58d202e98062ce13a963145de431799",
+            "39522cc0f075ea1ec9a67df42efae25cbb3418be3c484362d472bace8e88b572"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.005529836903671814,
+        0.005417249035376992,
+        0.00467765242155882,
+        0.004005870865030792
+      ],
+      "initial_heldout_nll": 1.5866273852872068,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "254bee0674b07c7c67ab00d04ae6e01fcd51e7614c4a5174d830129aa6e51040",
+        "9eef1297fe3c98493e24fa3cea4f037bc5015547176bcc2df902cc18940fa8e1",
+        "39522cc0f075ea1ec9a67df42efae25cbb3418be3c484362d472bace8e88b572",
+        "bd1ebc9fecd393515384f32fe37ac8a4a58d202e98062ce13a963145de431799",
+        "e74b7fda6f88e131aed75952e5cb5e5fd8c3957170440dc26c3e71aea2a8b15d",
+        "f77a6ff018446aa96a0bbc935ec1387e44b51b07c24893feb2614cf2b0725eef"
+      ],
+      "replay_profiles": [
+        "0d39a29e3c297fc3c072318eda2dfecc6246859c4fac782e98b310efd45d191d",
+        "00855faaa5572bb15852a90f39dbbb5428cd4f9a250d67cb6bcfc9877b7e6185",
+        "9473f2b367ebd82c211cf52765baf486c124be2843fea0def4a325023849f043",
+        "2a53b72d409b46bd9db08b872842e802f16e0d9be482819319078563d73a0e8c",
+        "61f54f9fb0922721cd8cd81d118db0338b8017f190c40e64b93678ec9ca68915",
+        "e852c6c6cb35a62cdb5bad9b2e4f6e6efd06b6823bb7a6605824bb2e6c85722d"
+      ],
+      "user_id": 130
+    }
+  ],
+  "schema_version": 4,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_replays_completed": true,
+      "all_users_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_branches": 2,
+    "num_users": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.04622408,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 3231,
+        "adapter_cost_usd": 0.0015288800000000003,
+        "adapter_prompt_tokens": 3357,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11839,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3231,
+            "cost_usd": 0.0015288800000000003,
+            "prompt_tokens": 3357,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 8608,
+            "cost_usd": 0.0446952,
+            "prompt_tokens": 11632,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 14989,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.05447384299996,
+        "requests": 10,
+        "run_budget_usd": 0.9,
+        "run_cost_usd": 0.04622408,
+        "run_remaining_usd": 0.85377592,
+        "total_spent_usd": 49.33032885245719
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 8608,
+        "adapter_cost_usd": 0.0446952,
+        "adapter_prompt_tokens": 11632,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11839,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3231,
+            "cost_usd": 0.0015288800000000003,
+            "prompt_tokens": 3357,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 8608,
+            "cost_usd": 0.0446952,
+            "prompt_tokens": 11632,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 14989,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.05447384299996,
+        "requests": 10,
+        "run_budget_usd": 0.9,
+        "run_cost_usd": 0.04622408,
+        "run_remaining_usd": 0.85377592,
+        "total_spent_usd": 49.33032885245719
+      }
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}

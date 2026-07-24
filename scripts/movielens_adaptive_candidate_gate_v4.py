@@ -224,6 +224,80 @@ def run_gate(
         tuple(candidate_pools[user_index][index] for index in indices)
         for user_index, indices in enumerate(selected_indices)
     ]
+    if stage == "formal":
+        max_eigs = [max(values) for values in all_pool_eigs]
+        mean_max_eig = float(np.mean(max_eigs))
+        users_above_threshold = sum(value >= 0.02 for value in max_eigs)
+        if mean_max_eig < 0.02 or users_above_threshold < 8:
+            usage = _usage(generator, likelihood)
+            gates = {
+                "all_users_completed": len(user_ids) == 12,
+                "exact_sensitivity_screen_request_count": (
+                    int(usage["physical_requests"]) == 24
+                ),
+                "zero_reasoning_tokens": int(usage["reasoning_tokens"]) == 0,
+                "mean_max_immediate_eig_at_least_0_02": mean_max_eig >= 0.02,
+                "at_least_eight_users_have_max_eig_at_least_0_02": (
+                    users_above_threshold >= 8
+                ),
+            }
+            gates["all_pass"] = False
+            return {
+                "schema_version": 4,
+                "status": "gate_failed",
+                "protocol": {
+                    "stage": stage,
+                    "selection_seed": SELECTION_SEED,
+                    "ratings_sha256": RATINGS_SHA256,
+                    "items_sha256": ITEMS_SHA256,
+                    "readme_sha256": README_SHA256,
+                    "user_ids": list(user_ids),
+                    "initial_movie_ids": list(INITIAL_MOVIE_IDS),
+                    "candidate_pool_size": CANDIDATE_POOL_SIZE,
+                    "selected_candidate_count": SELECTED_CANDIDATE_COUNT,
+                    "candidate_pool_uses_presence_and_popularity_only": True,
+                    "heldout_count": HELDOUT_COUNT,
+                    "profile_count": PROFILE_COUNT,
+                    "likelihood_model": likelihood_model,
+                    "likelihood_history_hidden": True,
+                    "v1_v2_v3_users_excluded": True,
+                    "formal_sensitivity_futility_stop": True,
+                    "candidate_outcomes_not_read": True,
+                    "heldout_ratings_not_read": True,
+                    "raw_responses_private_and_untracked": True,
+                    "committed_profile_text_omitted": True,
+                },
+                "summary": {
+                    "num_users": len(user_ids),
+                    "num_branches": 0,
+                    "mean_max_immediate_eig": mean_max_eig,
+                    "users_with_max_immediate_eig_at_least_0_02": (
+                        users_above_threshold
+                    ),
+                    "gates": gates,
+                },
+                "records": [
+                    {
+                        "user_id": user_id,
+                        "initial_profile_count": len(initial_profiles[user_index]),
+                        "initial_profile_hashes": [
+                            _text_hash(value)
+                            for value in initial_profiles[user_index]
+                        ],
+                        "candidate_pool_size": CANDIDATE_POOL_SIZE,
+                        "candidate_movies": [
+                            _movie_payload(items[movie_id])
+                            for movie_id in selected_movie_ids[user_index]
+                        ],
+                        "immediate_eig_values": [
+                            all_pool_eigs[user_index][index]
+                            for index in selected_indices[user_index]
+                        ],
+                    }
+                    for user_index, user_id in enumerate(user_ids)
+                ],
+                "usage": usage,
+            }
     branch_movie_ids_many = [
         movie_ids[:1] if stage == "serving_smoke" else movie_ids
         for movie_ids in selected_movie_ids
