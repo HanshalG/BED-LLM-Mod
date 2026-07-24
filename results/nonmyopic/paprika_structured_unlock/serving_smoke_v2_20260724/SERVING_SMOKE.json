@@ -1,0 +1,177 @@
+{
+  "coverage_parser_rows": [
+    [
+      {
+        "best_hypothesis_index": 0,
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Safety key not seated matches the private cause and the remedy (insert/fix key) would resolve it."
+      },
+      {
+        "best_hypothesis_index": 0,
+        "best_match_score": 0.7,
+        "covered": false,
+        "id": "refreshed",
+        "reason": "Close on the safety-key system, but it assumes a bad magnet/sensor rather than the key simply not being inserted; the remedy is not the exact cause."
+      }
+    ],
+    [
+      {
+        "best_hypothesis_index": 1,
+        "best_match_score": 0.35,
+        "covered": false,
+        "id": "initial",
+        "reason": "Lost connectivity at the smart stop is somewhat related, but the hypothesis targets a cellular modem/router rather than the central network link described in the solution."
+      },
+      {
+        "best_hypothesis_index": 7,
+        "best_match_score": 0.82,
+        "covered": true,
+        "id": "refreshed",
+        "reason": "This matches a connectivity loss at the stop and the remedy restores the link, which is closest to reconnecting the tracker to the central network."
+      }
+    ]
+  ],
+  "expected_physical_requests": 10,
+  "parsed_support_sizes": [
+    {
+      "initial": 8,
+      "refreshed": 8
+    },
+    {
+      "initial": 8,
+      "refreshed": 8
+    }
+  ],
+  "physical_requests": 10,
+  "schema_version": 1,
+  "stage_counts": {
+    "coverage_judgments": 2,
+    "customer_replies": 2,
+    "diagnostic_candidates": 2,
+    "initial_hypotheses": 2,
+    "refinements": 2
+  },
+  "status": "passed",
+  "task_indices": [
+    92,
+    157
+  ],
+  "usage": {
+    "answerer": {
+      "adapter_completion_tokens": 70,
+      "adapter_cost_usd": 6.772000000000001e-05,
+      "adapter_prompt_tokens": 568,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 1884,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 1654,
+          "cost_usd": 0.0007920700000000002,
+          "prompt_tokens": 2191,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 230,
+          "cost_usd": 0.0018825,
+          "prompt_tokens": 1130,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 3321,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.30310830754294,
+      "requests": 10,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.0026745700000000002,
+      "run_remaining_usd": 1.99732543,
+      "total_spent_usd": 44.696891692457065
+    },
+    "judge": {
+      "adapter_completion_tokens": 230,
+      "adapter_cost_usd": 0.0018825,
+      "adapter_prompt_tokens": 1130,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 1884,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 1654,
+          "cost_usd": 0.0007920700000000002,
+          "prompt_tokens": 2191,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 230,
+          "cost_usd": 0.0018825,
+          "prompt_tokens": 1130,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 3321,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.30310830754294,
+      "requests": 10,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.0026745700000000002,
+      "run_remaining_usd": 1.99732543,
+      "total_spent_usd": 44.696891692457065
+    },
+    "questioner": {
+      "adapter_completion_tokens": 1584,
+      "adapter_cost_usd": 0.0007243500000000001,
+      "adapter_prompt_tokens": 1623,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 6,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 1884,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 1654,
+          "cost_usd": 0.0007920700000000002,
+          "prompt_tokens": 2191,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 230,
+          "cost_usd": 0.0018825,
+          "prompt_tokens": 1130,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 3321,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.30310830754294,
+      "requests": 10,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.0026745700000000002,
+      "run_remaining_usd": 1.99732543,
+      "total_spent_usd": 44.696891692457065
+    }
+  }
+}

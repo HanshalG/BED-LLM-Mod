@@ -29,6 +29,7 @@ from environments.paprika_customer_service.parsing import (
 from environments.paprika_customer_service.prompts import (
     customer_messages,
     faithfulness_messages,
+    faithfulness_repair_messages,
     filtering_messages,
     hypothesis_messages,
     refinement_messages,
@@ -254,23 +255,52 @@ def _observe_many(
         temperature,
         namespace="unlock:customer",
     )
-    check_messages = [
-        faithfulness_messages(action, solution, reply)
-        for action, solution, reply in zip(actions, solutions, replies, strict=True)
-    ]
-    checks = env._cached_complete_many(
-        evaluator,
-        check_messages,
-        0.0,
-        namespace="unlock:faithfulness",
-    )
-    consistent = [
-        _parse_consistency(text)
-        for text in checks
-    ]
-    if not all(consistent):
-        failed = [index for index, value in enumerate(consistent) if not value]
-        raise ValueError(f"customer simulator failed faithfulness at rows {failed}")
+    env._simulator_faithfulness_observations += len(actions)
+    active = list(range(len(actions)))
+    maximum = int(env.config.paprika_structured_max_retries)
+    for attempt in range(maximum + 1):
+        check_messages = [
+            faithfulness_messages(actions[index], solutions[index], replies[index])
+            for index in active
+        ]
+        checks = env._cached_complete_many(
+            evaluator,
+            check_messages,
+            0.0,
+            namespace=f"unlock:faithfulness:{attempt}",
+        )
+        env._simulator_faithfulness_checks += len(active)
+        failed = [
+            index
+            for index, response in zip(active, checks, strict=True)
+            if not _parse_consistency(response)
+        ]
+        if not failed:
+            break
+        if attempt == 0:
+            env._simulator_faithfulness_raw_contradictions += len(failed)
+        if attempt >= maximum:
+            env._simulator_faithfulness_failures += len(failed)
+            raise ValueError(
+                f"customer simulator failed faithfulness at rows {failed}"
+            )
+        repair_messages = [
+            faithfulness_repair_messages(reply_messages[index], replies[index])
+            for index in failed
+        ]
+        repaired = env._cached_complete_many(
+            env.answerer,
+            repair_messages,
+            temperature,
+            namespace=f"unlock:customer_faithfulness_retry:{attempt + 1}",
+        )
+        env._simulator_faithfulness_repairs += len(failed)
+        for index, response, messages in zip(
+            failed, repaired, repair_messages, strict=True
+        ):
+            replies[index] = response
+            reply_messages[index] = messages
+        active = failed
     if any("goal reached" in reply.casefold() for reply in replies):
         raise ValueError("diagnostic-only probe unexpectedly reached a terminal remedy")
     observations = []
@@ -737,6 +767,7 @@ def run_unlock(
             "answerer": answerer.usage_snapshot(),
             "judge": judge.usage_snapshot(),
         },
+        "simulator_faithfulness": env._simulator_faithfulness_metrics(),
     }
 
 
@@ -772,7 +803,11 @@ def main() -> None:
             "status": "failed_closed",
             "error": f"{type(exc).__name__}: {exc}",
         }
-        filename = "DEVELOPMENT_FAILURE.json"
+        filename = (
+            "SERVING_SMOKE_FAILURE.json"
+            if args.stage == "serving_smoke"
+            else "DEVELOPMENT_FAILURE.json"
+        )
         (args.output_dir / filename).write_text(
             json.dumps(payload, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",

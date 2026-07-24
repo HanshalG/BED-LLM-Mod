@@ -1,0 +1,5 @@
+{
+  "error": "ValueError: JSON field 'hypotheses' must contain 8-8 unique strings",
+  "schema_version": 1,
+  "status": "failed_closed"
+}
