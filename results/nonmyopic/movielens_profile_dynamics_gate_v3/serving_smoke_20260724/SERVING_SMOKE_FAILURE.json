@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: every design movie must vary across profile reactions",
+  "raw_responses_path": "external/private_movielens_profile_dynamics/v3/movielens-profile-dynamics-v3-serving-smoke-seed24304-20260724/RAW_RESPONSES.json",
+  "schema_version": 3,
+  "stage": "serving_smoke",
+  "status": "failed_closed"
+}
