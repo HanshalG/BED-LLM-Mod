@@ -65,24 +65,43 @@ def parse_cause_remedy_list(
     for item in raw:
         if isinstance(item, str):
             value = item.strip()
-        elif (
-            isinstance(item, dict)
-            and isinstance(item.get("cause"), str)
-            and isinstance(item.get("remedy"), str)
-        ):
-            cause = item["cause"].strip().rstrip(".")
-            remedy = item["remedy"].strip()
-            value = f"{cause}. Remedy: {remedy}" if cause and remedy else ""
+        elif isinstance(item, dict):
+            cause = next(
+                (
+                    item[key].strip().rstrip(".")
+                    for key in ("cause", "problem", "hypothesis")
+                    if isinstance(item.get(key), str) and item[key].strip()
+                ),
+                "",
+            )
+            remedy = next(
+                (
+                    item[key].strip()
+                    for key in ("remedy", "solution", "fix", "recommended_action")
+                    if isinstance(item.get(key), str) and item[key].strip()
+                ),
+                "",
+            )
+            if cause and remedy:
+                value = f"{cause}. Remedy: {remedy}"
+            else:
+                strings = [
+                    item[name].strip()
+                    for name in ("text", "cause_and_remedy")
+                    if isinstance(item.get(name), str) and item[name].strip()
+                ]
+                value = strings[0] if len(strings) == 1 else ""
         else:
             value = ""
         if value:
             values.append(value)
     values = _dedupe(values)
-    if len(values) != count:
+    if len(values) < count:
         raise ValueError(
-            f"JSON field {key!r} must contain {count} unique cause-remedy hypotheses"
+            f"JSON field {key!r} produced {len(values)} usable unique hypotheses; "
+            f"requires at least {count}; raw_items={len(raw)}"
         )
-    return values
+    return values[:count]
 
 
 def diagnostic_candidate_messages(

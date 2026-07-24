@@ -44,7 +44,20 @@ def test_cause_remedy_parser_normalizes_flat_and_object_schemas() -> None:
         "Cause A. Remedy: Remedy A.",
         "Cause B. Remedy: Remedy B.",
     ]
-    with pytest.raises(ValueError, match="2 unique"):
+    synonyms = json.dumps(
+        {
+            "hypotheses": [
+                {"problem": "Cause A", "solution": "Remedy A"},
+                {"hypothesis": "Cause B", "fix": "Remedy B"},
+                "Cause C. Remedy C.",
+            ]
+        }
+    )
+    assert parse_cause_remedy_list(synonyms, "hypotheses", 2) == [
+        "Cause A. Remedy: Remedy A",
+        "Cause B. Remedy: Remedy B",
+    ]
+    with pytest.raises(ValueError, match="produced 0 usable"):
         parse_cause_remedy_list(
             json.dumps({"hypotheses": [{"cause": "A"}]}),
             "hypotheses",

@@ -37,3 +37,14 @@ This normalization is applied identically to initial and refreshed supports. It 
 not add, drop, judge, or rewrite semantic content and does not alter any endpoint or
 gate threshold. The v2 failure is preserved at
 `paprika_structured_unlock/development_v2_seed24287_20260724/DEVELOPMENT_FAILURE.json`.
+
+The v3 execution reached the same pre-judge refinement stage and again produced no
+endpoint records. It used 171 Gemma requests, zero reasoning, and `$0.01183416`. The
+normalizer still required exactly eight returned items and recognized only literal
+`cause`/`remedy` keys. Before v4 it was extended, without changing retained support
+size, to accept common equivalent field names (`problem`, `hypothesis`, `solution`,
+`fix`, and `recommended_action`) and to retain the first eight unique hypotheses when
+an over-complete list is returned. Fewer than eight usable semantic hypotheses still
+trigger bounded repair and then fail closed with parsed-count telemetry. The v3 failure
+is preserved at
+`paprika_structured_unlock/development_v3_seed24287_20260724/DEVELOPMENT_FAILURE.json`.
