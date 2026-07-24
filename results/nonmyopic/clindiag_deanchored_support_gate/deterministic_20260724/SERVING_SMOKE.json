@@ -1,0 +1,453 @@
+{
+  "protocol": {
+    "expected_requests": 10,
+    "generator_model": "openai/gpt-5.4",
+    "judge_model": "openai/gpt-5.4-mini",
+    "reasoning_disabled": true,
+    "refresh_action_ids": [
+      "present_illness",
+      "lab_1"
+    ],
+    "refresh_mode": "deanchored_full_rebuild_temperature_zero",
+    "retries": 0,
+    "selection_seed": 24298,
+    "smoke_ids": [
+      "23697517",
+      "rare216"
+    ],
+    "support_size": 12,
+    "truth_enters_only_semantic_audit": true,
+    "truth_hidden_from_generators": true
+  },
+  "raw_audit_responses": [
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.95,\"reason\":\"Addison disease is a standard synonym of Addison's disease.\"},{\"id\":\"after_present_illness\",\"best_match_score\":0.95,\"reason\":\"Adrenal insufficiency (Addison disease) is the same condition/standard synonym.\"},{\"id\":\"after_lab_1\",\"best_match_score\":0.95,\"reason\":\"Primary adrenal insufficiency is the same disease as Addison's disease in standard clinical usage.\"},{\"id\":\"after_lab_1_duplicate\",\"best_match_score\":0.95,\"reason\":\"Primary adrenal insufficiency (Addison disease) is the same diagnosis as Addison's disease.\"}],\"lab_to_duplicate_overlap\":0.16666666666666666,\"duplicate_to_lab_overlap\":0.16666666666666666,\"overlap_reason\":\"Each list has one exact same-disease/synonym match for Addison's disease / primary adrenal insufficiency (Addison disease); the other diagnoses are related but not exact matches.\"}",
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis is listed.\"},{\"id\":\"after_present_illness\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis is listed.\"},{\"id\":\"after_lab_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis is listed as a subtype/synonym of the true disorder family.\"},{\"id\":\"after_lab_1_duplicate\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis is listed as a subtype/synonym of the true disorder family.\"}],\"lab_to_duplicate_overlap\":0.5,\"duplicate_to_lab_overlap\":0.5,\"overlap_reason\":\"Exact same-disease/synonym matches: shared EBV-HLH, XLP2/XIAP deficiency, CD27 deficiency, ITK deficiency, and type 2/type 3/type 5 familial HLH entries do not all count as exact cross-list duplicates because several are absent on the other side; the symmetric exact-match fraction is 6/12 on each side using the closest one-to-one disease/synonym equivalents.\"}"
+  ],
+  "records": [
+    {
+      "duplicate_semantic_overlap": 0.16666666666666666,
+      "duplicate_truth_score_gap": 0.0,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 0.16666666666666666,
+        "duplicate_to_lab_overlap": 0.16666666666666666,
+        "lab_to_duplicate_overlap": 0.16666666666666666,
+        "overlap_reason": "Each list has one exact same-disease/synonym match for Addison's disease / primary adrenal insufficiency (Addison disease); the other diagnoses are related but not exact matches.",
+        "supports": [
+          {
+            "best_match_score": 0.95,
+            "id": "initial",
+            "reason": "Addison disease is a standard synonym of Addison's disease."
+          },
+          {
+            "best_match_score": 0.95,
+            "id": "after_present_illness",
+            "reason": "Adrenal insufficiency (Addison disease) is the same condition/standard synonym."
+          },
+          {
+            "best_match_score": 0.95,
+            "id": "after_lab_1",
+            "reason": "Primary adrenal insufficiency is the same disease as Addison's disease in standard clinical usage."
+          },
+          {
+            "best_match_score": 0.95,
+            "id": "after_lab_1_duplicate",
+            "reason": "Primary adrenal insufficiency (Addison disease) is the same diagnosis as Addison's disease."
+          }
+        ]
+      },
+      "source_id": "23697517",
+      "stored_observations": {
+        "lab_1": {
+          "changes_over_time": "Not specified.",
+          "date": "4.5 Mo before Evaluation",
+          "findings": "Hematocrit 35.3% (reference 35.0\u201345.0); Hemoglobin 11.9 g/dl (reference 11.5\u201315.5); White-cell count 3600 per mm3 (reference 4500\u201313,500); Differential count: Neutrophils 39.1%, Lymphocytes 45.9%, Monocytes 9.9%, Eosinophils 4.5%, Basophils 0.6%, Atypical lymphocytes 2%; Erythrocyte sedimentation rate 3 mm/hr; Heterophile negative.",
+          "procedure_name": "Complete Blood Count"
+        },
+        "present_illness": "Symptoms began approximately 8 months ago, characterized by increasing irritability and daily symptoms including stomachaches, tingling and pain in arms and legs, dizziness, anorexia, and severe fatigue. Patient also reported sleeping up to 13 hours per night. Symptoms worsened with increased isolation from friends, loss of interest in activities, and deteriorating school performance, including failing mathematics."
+      },
+      "subset": "challenging",
+      "supports": {
+        "after_lab_1": [
+          "Major depressive disorder",
+          "Pediatric hypersomnia syndrome due to atypical depression",
+          "Vitamin B12 deficiency from celiac-related malabsorption",
+          "Copper deficiency myeloneuropathy due to malabsorption",
+          "Iron deficiency without overt anemia related to celiac disease",
+          "Primary hypothyroidism",
+          "Primary adrenal insufficiency",
+          "Systemic lupus erythematosus",
+          "Postural orthostatic tachycardia syndrome",
+          "Persistent or refractory celiac disease with nutritional deficiency",
+          "Chronic active Epstein-Barr virus infection",
+          "Avoidant/restrictive food intake disorder"
+        ],
+        "after_lab_1_duplicate": [
+          "Major depressive disorder",
+          "Infectious mononucleosis due to Epstein-Barr virus",
+          "Vitamin B12 deficiency due to celiac-related malabsorption",
+          "Iron deficiency with early anemia",
+          "Hypothyroidism due to autoimmune thyroiditis",
+          "Primary adrenal insufficiency (Addison disease)",
+          "Ongoing active celiac disease from gluten exposure or refractory celiac disease",
+          "Orthostatic intolerance syndrome including postural orthostatic tachycardia syndrome",
+          "Systemic lupus erythematosus",
+          "Juvenile idiopathic inflammatory myopathy",
+          "Acute porphyria",
+          "Lead poisoning"
+        ],
+        "after_present_illness": [
+          "Major depressive disorder",
+          "Somatic symptom disorder",
+          "Hypothyroidism",
+          "Iron deficiency anemia",
+          "Postural orthostatic tachycardia syndrome",
+          "Vitamin B12 deficiency neuropathy due to malabsorption",
+          "Celiac disease with ongoing gluten exposure or refractory celiac disease",
+          "Adrenal insufficiency (Addison disease)",
+          "Juvenile systemic lupus erythematosus",
+          "Pediatric multiple sclerosis",
+          "Autoimmune encephalitis",
+          "Lyme disease"
+        ],
+        "initial": [
+          "Pediatric major depressive disorder",
+          "Bipolar disorder",
+          "Autoimmune encephalitis",
+          "Hashimoto encephalopathy",
+          "Systemic lupus erythematosus",
+          "Addison disease",
+          "Hypothyroidism",
+          "Iron deficiency anemia",
+          "Obstructive sleep apnea",
+          "Postural orthostatic tachycardia syndrome",
+          "Mast cell activation syndrome",
+          "Acute intermittent porphyria"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Addison's disease"
+    },
+    {
+      "duplicate_semantic_overlap": 0.5,
+      "duplicate_truth_score_gap": 0.0,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 0.5,
+        "duplicate_to_lab_overlap": 0.5,
+        "lab_to_duplicate_overlap": 0.5,
+        "overlap_reason": "Exact same-disease/synonym matches: shared EBV-HLH, XLP2/XIAP deficiency, CD27 deficiency, ITK deficiency, and type 2/type 3/type 5 familial HLH entries do not all count as exact cross-list duplicates because several are absent on the other side; the symmetric exact-match fraction is 6/12 on each side using the closest one-to-one disease/synonym equivalents.",
+        "supports": [
+          {
+            "best_match_score": 1.0,
+            "id": "initial",
+            "reason": "Exact same diagnosis is listed."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_present_illness",
+            "reason": "Exact same diagnosis is listed."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_lab_1",
+            "reason": "Exact same diagnosis is listed as a subtype/synonym of the true disorder family."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "after_lab_1_duplicate",
+            "reason": "Exact same diagnosis is listed as a subtype/synonym of the true disorder family."
+          }
+        ]
+      },
+      "source_id": "rare216",
+      "stored_observations": {
+        "lab_1": {
+          "changes_over_time": "Progression to moderate anemia (Hb: 60-80g/L) and thrombocytopenia (Plt: 30-70 \u00d7 10^9/L), continuously positive EBV-DNA.",
+          "date": "2014",
+          "findings": "EBV-DNA positive and mild anemia.",
+          "procedure_name": "Initial tests for EBV-DNA and anemia"
+        },
+        "present_illness": "The patient initially presented with a fever of 38.6\u00b0C in November 2014, followed by recurrent episodes of fever, splenomegaly, and anemia over the next several years. In October 2018, she was admitted with moderate anemia, abdominal distention, and massive splenomegaly. Symptoms progressed to include seizures, and significant splenomegaly was observed prior to HSCT."
+      },
+      "subset": "rare",
+      "supports": {
+        "after_lab_1": [
+          "Chronic active Epstein-Barr virus disease",
+          "Systemic EBV-positive T-cell lymphoma of childhood",
+          "Epstein-Barr virus-associated hemophagocytic lymphohistiocytosis",
+          "Familial hemophagocytic lymphohistiocytosis type 2 (PRF1 deficiency)",
+          "Familial hemophagocytic lymphohistiocytosis type 3 (UNC13D deficiency)",
+          "Familial hemophagocytic lymphohistiocytosis type 5 (STXBP2 deficiency)",
+          "X-linked lymphoproliferative disease type 1 (SH2D1A deficiency)",
+          "X-linked lymphoproliferative disease type 2 (XIAP deficiency)",
+          "CTPS1 deficiency",
+          "ITK deficiency",
+          "CD27 deficiency",
+          "MST1 deficiency (STK4 deficiency)"
+        ],
+        "after_lab_1_duplicate": [
+          "Chronic active Epstein-Barr virus disease",
+          "Systemic EBV-positive T-cell lymphoma of childhood",
+          "Hydroa vacciniforme-like lymphoproliferative disorder",
+          "Epstein-Barr virus-associated hemophagocytic lymphohistiocytosis",
+          "Familial hemophagocytic lymphohistiocytosis type 2 due to PRF1 deficiency",
+          "Familial hemophagocytic lymphohistiocytosis type 3 due to UNC13D deficiency",
+          "XIAP deficiency",
+          "CD27 deficiency",
+          "CD70 deficiency",
+          "ITK deficiency",
+          "MAGT1 deficiency",
+          "GATA2 deficiency"
+        ],
+        "after_present_illness": [
+          "Chronic active Epstein-Barr virus disease",
+          "X-linked lymphoproliferative disease type 1",
+          "X-linked lymphoproliferative disease type 2",
+          "Familial hemophagocytic lymphohistiocytosis",
+          "XIAP deficiency",
+          "Perforin deficiency",
+          "MUNC13-4 deficiency",
+          "STXBP2 deficiency",
+          "Autoimmune lymphoproliferative syndrome",
+          "T-cell or NK-cell lymphoma associated with Epstein-Barr virus",
+          "Gaucher disease type 3",
+          "Visceral leishmaniasis"
+        ],
+        "initial": [
+          "X-linked lymphoproliferative disease",
+          "Chronic active Epstein-Barr virus infection",
+          "Familial hemophagocytic lymphohistiocytosis",
+          "Autoimmune lymphoproliferative syndrome",
+          "Common variable immunodeficiency",
+          "GATA2 deficiency",
+          "Activated phosphoinositide 3-kinase delta syndrome",
+          "Nijmegen breakage syndrome",
+          "Chediak-Higashi syndrome",
+          "B-cell acute lymphoblastic leukemia",
+          "Hereditary spherocytosis",
+          "Visceral leishmaniasis"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Familial hemophagocytic lymphohistiocytosis"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed",
+  "summary": {
+    "duplicate_semantic_overlaps": [
+      0.16666666666666666,
+      0.5
+    ],
+    "duplicate_truth_score_gaps": [
+      0.0,
+      0.0
+    ],
+    "gates": {
+      "all_pass": false,
+      "all_supports_size_twelve": true,
+      "both_duplicate_semantic_overlaps_at_least_0_80": false,
+      "both_duplicate_truth_score_gaps_at_most_0_05": true,
+      "duplicate_prompts_exact": true,
+      "exactly_10_requests": true,
+      "no_hidden_target_in_source_evidence": true,
+      "zero_reasoning": true
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "source_target_leaks": 0
+  },
+  "usage": {
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "duplicate": {
+        "adapter_completion_tokens": 254,
+        "adapter_cost_usd": 0.0064399999999999995,
+        "adapter_prompt_tokens": 1052,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1402,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 952,
+            "cost_usd": 0.022015,
+            "prompt_tokens": 3094,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 450,
+            "cost_usd": 0.0031515,
+            "prompt_tokens": 1502,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4596,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.828498722999967,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0251665,
+        "run_remaining_usd": 0.4748335,
+        "total_spent_usd": 48.55630397245719
+      },
+      "initial": {
+        "adapter_completion_tokens": 194,
+        "adapter_cost_usd": 0.0035125,
+        "adapter_prompt_tokens": 241,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1402,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 952,
+            "cost_usd": 0.022015,
+            "prompt_tokens": 3094,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 450,
+            "cost_usd": 0.0031515,
+            "prompt_tokens": 1502,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4596,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.828498722999967,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0251665,
+        "run_remaining_usd": 0.4748335,
+        "total_spent_usd": 48.55630397245719
+      },
+      "judge": {
+        "adapter_completion_tokens": 450,
+        "adapter_cost_usd": 0.0031515,
+        "adapter_prompt_tokens": 1502,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1402,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 952,
+            "cost_usd": 0.022015,
+            "prompt_tokens": 3094,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 450,
+            "cost_usd": 0.0031515,
+            "prompt_tokens": 1502,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4596,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.828498722999967,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0251665,
+        "run_remaining_usd": 0.4748335,
+        "total_spent_usd": 48.55630397245719
+      },
+      "lab": {
+        "adapter_completion_tokens": 292,
+        "adapter_cost_usd": 0.00701,
+        "adapter_prompt_tokens": 1052,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1402,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 952,
+            "cost_usd": 0.022015,
+            "prompt_tokens": 3094,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 450,
+            "cost_usd": 0.0031515,
+            "prompt_tokens": 1502,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4596,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.828498722999967,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0251665,
+        "run_remaining_usd": 0.4748335,
+        "total_spent_usd": 48.55630397245719
+      },
+      "present": {
+        "adapter_completion_tokens": 212,
+        "adapter_cost_usd": 0.0050525,
+        "adapter_prompt_tokens": 749,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1402,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 952,
+            "cost_usd": 0.022015,
+            "prompt_tokens": 3094,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 450,
+            "cost_usd": 0.0031515,
+            "prompt_tokens": 1502,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4596,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.828498722999967,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0251665,
+        "run_remaining_usd": 0.4748335,
+        "total_spent_usd": 48.55630397245719
+      }
+    }
+  }
+}
