@@ -1,0 +1,345 @@
+{
+  "protocol": {
+    "candidate_pool_size": 16,
+    "candidate_pool_uses_presence_and_popularity_only": true,
+    "committed_profile_text_omitted": true,
+    "enrollment_threshold_max_eig": 0.02,
+    "heldout_count": 8,
+    "heldout_ratings_hidden_from_all_model_prompts": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "92b2131074c4bc419e2cf110f256b41a431f567de02ed41763699e67c014ba5d",
+    "profile_count": 6,
+    "prospective_enrollment_count": 12,
+    "prospective_uncertainty_enrichment": true,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "recorded_ratings_are_only_outcomes": true,
+    "screen_user_ids": [
+      123,
+      781
+    ],
+    "selected_candidate_count": 4,
+    "selection_seed": 24306,
+    "smoke_user_ids_disjoint_from_formal": true,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "serving_smoke",
+    "user_ids": [
+      123,
+      781
+    ],
+    "user_ids_hidden_from_all_model_prompts": true,
+    "v1_v2_v3_v4_users_excluded": true
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "712527862c2f5951847bb9a1338134b4426c008e62081bd661e489d2efc888b5",
+            "e2cbf1ac68f88a4a487b60638578a0c9eaf39068a6ccefba1e64e38b60dea757",
+            "23fc4acf5a70a94ac739c63978972c583990cf51491665cc60fea634d2fc1505",
+            "56b1b0d4f06668221741a13256c8d742b96eabd88be6091dc9efe69e067b8620",
+            "37a9411b515804e83ff68705006e59667a53c6eaec68c061cd8fec3b56d8d351",
+            "05eb4d82f4a3f6040c1c352939a3219a3e9f8257fd02b106df2abc1cd2d6b972"
+          ],
+          "heldout_nll": 1.5501883649681507,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "7cf6b09e11ef833db07ad8784c14c746974d5778ff19d5d888c2605d616f76eb",
+            "f32799ae6c9cb8b5a652da6db342c888ab885436a05aad0c57dc32ff2f1efd08",
+            "62518cc786f0094d6a441c4c9eacc1d833315b8755a2b24e4efe5a5310297ec3",
+            "177e8933320561671c575b1b98c27fbae404f6e4f35b4356d15ac0833ac143a1",
+            "cce0f649720360e46c63386e14f550c5c37c4419722ad883724d02d532a91227",
+            "e7ce68b8ac95ebd76ae438e6ee975fea1246245f889b64f681f0b082dc123ecb"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "712527862c2f5951847bb9a1338134b4426c008e62081bd661e489d2efc888b5",
+            "e2cbf1ac68f88a4a487b60638578a0c9eaf39068a6ccefba1e64e38b60dea757",
+            "23fc4acf5a70a94ac739c63978972c583990cf51491665cc60fea634d2fc1505",
+            "56b1b0d4f06668221741a13256c8d742b96eabd88be6091dc9efe69e067b8620",
+            "37a9411b515804e83ff68705006e59667a53c6eaec68c061cd8fec3b56d8d351",
+            "05eb4d82f4a3f6040c1c352939a3219a3e9f8257fd02b106df2abc1cd2d6b972",
+            "bc78f39a085329937d07cbb104b99aa3d0b713f04f10d585765b73ac7434b557",
+            "d691c3e93647e6a4fa008b1b5f325635a4ff51c77ca37323f238d02dd59a839b"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Musical"
+          ],
+          "title": "Evita (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "War"
+          ],
+          "title": "Braveheart (1995)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Silence of the Lambs, The (1991)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.010404609262463227,
+        0.006185107712746163,
+        0.005578921784320734,
+        0.0049219096152663955
+      ],
+      "initial_heldout_nll": 1.6021804535325859,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4b339e80a2a5a06c828eb06747b1a9c7ade50a962523269b2b57df1e8ad6f473",
+        "bc78f39a085329937d07cbb104b99aa3d0b713f04f10d585765b73ac7434b557",
+        "21cfbc23cb36cc170941ef66970551abdbf11324d98f9636b8a5da28595f37a5",
+        "613ec60b741b0bd0fe5913c224d30e923d30cd8236a515cc1f7631f6c0a9f9f1",
+        "c1d43d69142c19544707255fe98446f923473afe51a547edbbd0efb5099b520a",
+        "d691c3e93647e6a4fa008b1b5f325635a4ff51c77ca37323f238d02dd59a839b"
+      ],
+      "replay_profiles": [
+        "712527862c2f5951847bb9a1338134b4426c008e62081bd661e489d2efc888b5",
+        "e2cbf1ac68f88a4a487b60638578a0c9eaf39068a6ccefba1e64e38b60dea757",
+        "23fc4acf5a70a94ac739c63978972c583990cf51491665cc60fea634d2fc1505",
+        "56b1b0d4f06668221741a13256c8d742b96eabd88be6091dc9efe69e067b8620",
+        "37a9411b515804e83ff68705006e59667a53c6eaec68c061cd8fec3b56d8d351",
+        "05eb4d82f4a3f6040c1c352939a3219a3e9f8257fd02b106df2abc1cd2d6b972"
+      ],
+      "user_id": 123
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "6a2f6cc44c20de92626ffc07400fc918543216c347a8c7d9aadd5aba44135c5c",
+            "243a8352d4b188393d2e982136c15ff847d193f806fd6e021f6bc392fbf5ac7f",
+            "bc8291e82fdd44c5a9f926b8cb3fa1c7b6365695a4eae7d94664e8359f4eea08",
+            "8a3a564c681e9c29a4217825b439ac08a68076f061646cc30b9d8f96a035eef8",
+            "84de6c77cde292bb137a9dc48a04cf65bd63f753a6438597b5657b40722bb558",
+            "3335a4c3a50d32864644d3e2a3e8aa7dcf1a754e821ac8c1b8e07b4b2b1872be"
+          ],
+          "heldout_nll": 1.618517049868689,
+          "movie": {
+            "genres": [
+              "Horror",
+              "Thriller"
+            ],
+            "title": "Scream (1996)"
+          },
+          "new_evidence_effect_hashes": [
+            "a59cb850e56dbe09e72956fa633ce06a90c8deace2ef636723a4cbff1b38051f",
+            "0b4609b4b36e78326a07986a1e318cd6f08d067c32fd92d6ae27969526c35811",
+            "afa3a5ac88f6bcd317647ff5b7265f48d6e55e078cd2e345e03c7f7dc25f250a",
+            "9e28388d73f0c99c7fb98794edf02142c7c1c612c5642243b2e56fddf885b416",
+            "29a053d756ad33a9eda1e1574cd493a43815bc6c60c172c452b86cda090d6550",
+            "d8ab5cf3893fc62127a15cac960c60a366cc21bc548772eff0ca2744d09e047f"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "6a2f6cc44c20de92626ffc07400fc918543216c347a8c7d9aadd5aba44135c5c",
+            "243a8352d4b188393d2e982136c15ff847d193f806fd6e021f6bc392fbf5ac7f",
+            "bc8291e82fdd44c5a9f926b8cb3fa1c7b6365695a4eae7d94664e8359f4eea08",
+            "8a3a564c681e9c29a4217825b439ac08a68076f061646cc30b9d8f96a035eef8",
+            "84de6c77cde292bb137a9dc48a04cf65bd63f753a6438597b5657b40722bb558",
+            "3335a4c3a50d32864644d3e2a3e8aa7dcf1a754e821ac8c1b8e07b4b2b1872be",
+            "67ae18a151e4d88c0b2e8e76471926bc3482519a07ddd5146163410f54182b2b",
+            "95f5c410c9e9e79cdc4c140b384e21458a878d9bc22585a091e7a36b3e290e35"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Romance",
+            "War"
+          ],
+          "title": "Forrest Gump (1994)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Sci-Fi"
+          ],
+          "title": "Back to the Future (1985)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Mystery"
+          ],
+          "title": "Amadeus (1984)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.02569772682313265,
+        0.004180281239668737,
+        0.0038375787867233058,
+        0.0024111333820300285
+      ],
+      "initial_heldout_nll": 1.5207064370392012,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "67ae18a151e4d88c0b2e8e76471926bc3482519a07ddd5146163410f54182b2b",
+        "d4e54d7107e1c18d01d9d06c9eab4dd4a59610ebd34807600b365c10843982db",
+        "92300e118607e44199c2c90bb6c801f6923f9e07b48ae20a1cbfcfe5f79a2347",
+        "95f5c410c9e9e79cdc4c140b384e21458a878d9bc22585a091e7a36b3e290e35",
+        "e6f0be5e9844b78a1ece61242c084b12a33dafff17a87cdd9c1de794ebc68c9a",
+        "f9619e1c3fa74bd6ebf76c2377df513983f27630ca2c2cd67f61ae0049dcdc4f"
+      ],
+      "replay_profiles": [
+        "d83131ff36d6b235ed87ad6c0b7348c4f545b6b30f4e161901b4a40b3d5946b2",
+        "07ddbfce52979f0891fa849c2dd4893785b32cc9f21a7042a7790a38e81f27dd",
+        "f83aecc2e794f009e60164f36c8f3489b4f328d9b095a42639c9659e8984e226",
+        "9b42dbf2a066d1bffdfc9fe04d064d688cc4bfcd19aeb9d0b29cd3457596a4c3",
+        "5cb74881768685139bdfd2c2fe2f44facd8da704b099ae93c3e40bdb3a40964d",
+        "ef89917cb2519ab41d5d0db3e84214a93549bba51609399b760b3e2f2ece0d5b"
+      ],
+      "user_id": 781
+    }
+  ],
+  "schema_version": 5,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_replays_completed": true,
+      "all_users_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_branches": 2,
+    "num_users": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.04380478000000001,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 2889,
+        "adapter_cost_usd": 0.0011948800000000002,
+        "adapter_prompt_tokens": 2987,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11497,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 2889,
+            "cost_usd": 0.0011948800000000002,
+            "prompt_tokens": 2987,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 8608,
+            "cost_usd": 0.042609900000000006,
+            "prompt_tokens": 11386,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 14373,
+        "reasoning_tokens": 0,
+        "remaining_usd": 20.83819006299997,
+        "requests": 10,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 0.04380478000000001,
+        "run_remaining_usd": 1.95619522,
+        "total_spent_usd": 49.54661263245718
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 8608,
+        "adapter_cost_usd": 0.042609900000000006,
+        "adapter_prompt_tokens": 11386,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 11497,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 2889,
+            "cost_usd": 0.0011948800000000002,
+            "prompt_tokens": 2987,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 8608,
+            "cost_usd": 0.042609900000000006,
+            "prompt_tokens": 11386,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 14373,
+        "reasoning_tokens": 0,
+        "remaining_usd": 20.83819006299997,
+        "requests": 10,
+        "run_budget_usd": 2.0,
+        "run_cost_usd": 0.04380478000000001,
+        "run_remaining_usd": 1.95619522,
+        "total_spent_usd": 49.54661263245718
+      }
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
