@@ -1,0 +1,1272 @@
+{
+  "protocol": {
+    "action_id": "lab_1",
+    "candidate_generation_prompts_exact": true,
+    "expected_requests": 14,
+    "filter_model": "openai/gpt-5.4-mini",
+    "filter_threshold": 0.2,
+    "generator_model": "openai/gpt-5.4",
+    "judge_model": "openai/gpt-5.4-mini",
+    "reasoning_disabled": true,
+    "retries": 0,
+    "selection_seed": 24299,
+    "smoke_ids": [
+      "11388546",
+      "rare203"
+    ],
+    "support_size": 12,
+    "temperatures": {
+      "audit": 0.0,
+      "candidate": 0.0,
+      "filter": 0.0,
+      "initial": 0.0
+    },
+    "truth_enters_only_semantic_audit": true,
+    "truth_hidden_from_generation_and_filtering": true
+  },
+  "raw_responses": {
+    "candidate": [
+      "{\"diagnoses\":[\"Rapacuronium-induced bronchospasm\",\"Perioperative anaphylaxis to rapacuronium\",\"IgE-mediated neuromuscular blocking agent allergy\",\"Non-IgE-mediated mast cell degranulation from rapacuronium\",\"Status asthmaticus triggered by anesthetic exposure\",\"Anaphylactoid reaction with predominant bronchospasm\",\"Latex-induced intraoperative anaphylaxis\",\"Perioperative anaphylaxis to antibiotic prophylaxis\",\"Occult reactive airway disease with severe peri-intubation bronchospasm\",\"Mechanical airway obstruction from endotracheal tube malposition causing desaturation and wheeze\",\"Negative-pressure pulmonary edema after laryngospasm\",\"Aspiration-induced acute bronchospasm and hypoxemia\"]}",
+      "{\"diagnoses\":[\"17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency\",\"Combined 17alpha-hydroxylase and 17,20-lyase deficiency from cytochrome b5 deficiency\",\"Isolated 17,20-lyase deficiency\",\"P450 oxidoreductase deficiency causing congenital adrenal hyperplasia\",\"11beta-hydroxylase deficiency with hypogonadism\",\"Apparent mineralocorticoid excess syndrome\",\"11beta-hydroxysteroid dehydrogenase type 2 deficiency\",\"DOC-producing adrenal adenoma\",\"Familial hyperaldosteronism with suppressed renin and hypokalemia\",\"Primary ovarian insufficiency with coincident mineralocorticoid excess disorder\",\"Kallmann syndrome with coincident adrenal steroidogenesis defect\",\"Steroidogenic acute regulatory protein deficiency with atypical partial adrenal insufficiency\"]}"
+    ],
+    "candidate_duplicate": [
+      "{\"diagnoses\":[\"Rapacuronium-induced anaphylaxis\",\"Rapacuronium-induced non-IgE-mediated anaphylactoid reaction\",\"Neuromuscular blocking agent hypersensitivity due to quaternary ammonium sensitization\",\"Severe rapacuronium-triggered bronchospasm\",\"Perioperative latex-induced anaphylaxis\",\"Perioperative antibiotic-induced anaphylaxis\",\"Undiagnosed allergic asthma with bronchospasm precipitated by anesthesia\",\"Mast cell activation syndrome presenting with peri-anesthetic anaphylaxis\",\"Systemic mastocytosis with exaggerated perioperative mediator release\",\"Hereditary alpha-tryptasemia with severe perioperative hypersensitivity reaction\",\"Vocal cord dysfunction or laryngospasm mimicking bronchospasm after induction\",\"Anesthesia-associated aspiration pneumonitis causing acute hypoxemic bronchospasm\"]}",
+      "{\"diagnoses\":[\"17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency\",\"Combined 17alpha-hydroxylase and 17,20-lyase deficiency with partial residual enzyme activity\",\"Isolated 17,20-lyase deficiency due to CYP17A1 defect\",\"Cytochrome b5 deficiency causing isolated 17,20-lyase deficiency\",\"P450 oxidoreductase deficiency with disordered steroidogenesis\",\"Lipoid congenital adrenal hyperplasia due to STAR deficiency\",\"Congenital adrenal hyperplasia due to 3beta-hydroxysteroid dehydrogenase type 2 deficiency\",\"Familial hyperaldosteronism with coexisting hypogonadotropic hypogonadism\",\"11-deoxycorticosterone-producing adrenal adenoma with primary amenorrhea\",\"Adrenocortical carcinoma producing deoxycorticosterone and suppressing adrenal androgens\",\"46,XY disorder of sex development due to complete gonadal dysgenesis with concomitant mineralocorticoid excess\",\"Pseudohypoaldosteronism type 2 with coincidental congenital hypogonadotropic hypogonadism\"]}"
+    ],
+    "initial": [
+      "{\"diagnoses\":[\"Rapacuronium-induced anaphylaxis\",\"Perioperative IgE-mediated neuromuscular blocking agent hypersensitivity\",\"Non-IgE-mediated mast cell activation syndrome triggered by rapacuronium\",\"Severe rapacuronium-induced bronchospasm due to direct muscarinic M2 receptor blockade\",\"Latex-induced perioperative anaphylaxis\",\"Perioperative anaphylaxis due to chlorhexidine exposure\",\"Occult asthma with extreme peri-anesthetic bronchial hyperreactivity\",\"Exercise-induced or viral-triggered status asthmaticus coincident with anesthesia\",\"Hereditary alpha-tryptasemia with severe perioperative mediator release\",\"Systemic mastocytosis presenting with anesthetic-triggered anaphylaxis\",\"Anaphylaxis associated with undiagnosed food allergy and perioperative exposure\",\"Complement activation-related pseudoallergy to perioperative medications\"]}",
+      "{\"diagnoses\":[\"Turner syndrome\",\"46,XY complete gonadal dysgenesis (Swyer syndrome)\",\"Congenital hypogonadotropic hypogonadism\",\"Kallmann syndrome\",\"Combined pituitary hormone deficiency\",\"Septo-optic dysplasia\",\"Functional gonadotroph adenoma causing pituitary apoplexy\",\"Craniopharyngioma with hypopituitarism\",\"Adrenomyeloneuropathy due to X-linked adrenoleukodystrophy\",\"Mitochondrial cytopathy such as MELAS syndrome\",\"Congenital myotonic dystrophy\",\"Lamin A/C-related muscular dystrophy with primary ovarian insufficiency\"]}"
+    ],
+    "new_filter": [
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.99,\"lab_1\":0.55},\"reason\":\"Directly matches the reported rapacuronium-associated severe bronchospasm and desaturation; modest blood pressure fluctuation is compatible but nonspecific.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.92,\"lab_1\":0.65},\"reason\":\"Perioperative anaphylaxis to rapacuronium commonly presents with bronchospasm and hypoxemia; mild BP variability is plausible, though frank hypotension is not documented.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.88,\"lab_1\":0.60},\"reason\":\"IgE-mediated NMBA allergy can present with immediate bronchospasm and desaturation after exposure; blood pressure changes may occur but are not required.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.90,\"lab_1\":0.62},\"reason\":\"Non-IgE mast cell activation from rapacuronium can cause abrupt bronchospasm and oxygen desaturation; fluctuating BP fits a possible peri-anesthetic hypersensitivity reaction.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.35,\"lab_1\":0.30},\"reason\":\"Anesthetic exposure can trigger bronchospasm in an asthmatic patient, but the tight temporal relationship to rapacuronium makes this less typical; BP fluctuation is nonspecific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.86,\"lab_1\":0.63},\"reason\":\"An anaphylactoid reaction with predominant bronchospasm fits immediate respiratory compromise after rapacuronium and may show variable hemodynamics.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.05,\"lab_1\":0.20},\"reason\":\"Latex anaphylaxis is possible intraoperatively but is not suggested by the specific trigger rapacuronium; BP variation alone does not support it.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.08,\"lab_1\":0.20},\"reason\":\"Antibiotic prophylaxis could cause perioperative anaphylaxis, but the evidence specifically implicates rapacuronium rather than an antibiotic.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.25,\"lab_1\":0.25},\"reason\":\"Occult reactive airway disease could lead to severe peri-intubation bronchospasm, but immediate onset after rapacuronium is less characteristic.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.10,\"lab_1\":0.15},\"reason\":\"ET tube malposition can cause desaturation and wheeze, but the presentation after rapacuronium and severe bronchospasm is more suggestive of a drug reaction.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.05,\"lab_1\":0.10},\"reason\":\"Negative-pressure pulmonary edema follows laryngospasm and usually causes hypoxemia with different exam findings; bronchospasm after rapacuronium is not typical.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.12,\"lab_1\":0.18},\"reason\":\"Aspiration can cause acute bronchospasm and hypoxemia, but the evidence centers on rapacuronium administration rather than a witnessed aspiration event.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.95,\"lab_1\":0.98},\"reason\":\"Classic adrenal and gonadal steroid deficiency causes primary amenorrhea, absent secondary sex traits, hypokalemia, low androgens, low renin, and later correction with treatment can raise potassium and sex steroids.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.9,\"lab_1\":0.96},\"reason\":\"Cytochrome b5 deficiency causes combined 17alpha-hydroxylase/17,20-lyase impairment with sexual infantilism and adrenal steroid abnormalities similar to this presentation.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.75,\"lab_1\":0.45},\"reason\":\"Isolated 17,20-lyase deficiency can explain absent puberty and low androgens, but hypokalemia/low cortisol-mineralocorticoid pattern is less typical.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.8,\"lab_1\":0.75},\"reason\":\"POR deficiency can cause disorders of sex development and adrenal steroid synthesis defects, though the exact phenotype varies and may fit partially.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.25,\"lab_1\":0.2},\"reason\":\"11beta-hydroxylase deficiency usually causes hypertension and androgen excess rather than absent secondary sex characteristics and hypokalemia with low androgens.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.15,\"lab_1\":0.6},\"reason\":\"Apparent mineralocorticoid excess explains hypokalemia and suppressed renin, but not amenorrhea/lack of sexual development unless there is a coincident separate disorder.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.15,\"lab_1\":0.55},\"reason\":\"11beta-HSD2 deficiency can produce mineralocorticoid excess with hypokalemia and low renin, but does not directly explain absent puberty.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.05,\"lab_1\":0.1},\"reason\":\"A DOC-producing adrenal adenoma could cause hypokalemia and low renin, but is unlikely at age 24 and does not account for absent menarche/secondary sex characteristics.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.1,\"lab_1\":0.55},\"reason\":\"Familial hyperaldosteronism explains hypokalemia with suppressed renin, but the sexual development findings are not explained and aldosterone physiology is not directly supported.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.35,\"lab_1\":0.4},\"reason\":\"Primary ovarian insufficiency explains amenorrhea and absent secondary sex traits, but does not fit the adrenal/mineralocorticoid abnormalities unless coincidental.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.45,\"lab_1\":0.3},\"reason\":\"Kallmann syndrome can explain absent puberty and primary amenorrhea, but the low androgens with hypokalemic low-renin picture suggests an additional adrenal defect not inherent to Kallmann.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.2,\"lab_1\":0.25},\"reason\":\"STAR deficiency can impair adrenal and gonadal steroid production, but complete or severe forms usually present earlier with adrenal insufficiency; the biochemical pattern is not a strong match.\"}]}"
+    ],
+    "new_filter_duplicate": [
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.98,\"lab_1\":0.65},\"reason\":\"Presentation is classic for immediate rapacuronium anaphylaxis with bronchospasm and desaturation; modest BP fluctuation is compatible.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.95,\"lab_1\":0.7},\"reason\":\"Non-IgE anaphylactoid reactions to rapacuronium can present identically with severe bronchospasm and oxygen desaturation; BP variability fits.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.85,\"lab_1\":0.6},\"reason\":\"Quaternary ammonium\u2013mediated NMBA hypersensitivity commonly causes peri-induction bronchospasm and hypoxemia; BP changes are plausible but nonspecific.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.99,\"lab_1\":0.75},\"reason\":\"The exact event described is severe rapacuronium-triggered bronchospasm with desaturation, making this highly likely; BP fluctuation is compatible.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.05,\"lab_1\":0.2},\"reason\":\"Latex anaphylaxis can occur perioperatively, but the immediate trigger after rapacuronium makes it less consistent; BP changes are nonspecific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.05,\"lab_1\":0.2},\"reason\":\"Antibiotic anaphylaxis is possible perioperatively, but the temporal association with rapacuronium argues against it; BP fluctuation is not specific.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.3,\"lab_1\":0.15},\"reason\":\"Underlying asthma could cause severe bronchospasm around induction, but the clear rapacuronium trigger makes this less likely; BP findings are not supportive.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.25,\"lab_1\":0.5},\"reason\":\"Mast cell activation can present as peri-anesthetic anaphylaxis with bronchospasm and hemodynamic variability, though the single drug trigger is more direct.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.15,\"lab_1\":0.4},\"reason\":\"Systemic mastocytosis can predispose to severe perioperative mediator release, but there is no supporting history here; BP variability is possible.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.12,\"lab_1\":0.35},\"reason\":\"Hereditary alpha-tryptasemia can increase perioperative hypersensitivity risk, but this presentation lacks prior suggestive history; BP fluctuation is compatible but nonspecific.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.08,\"lab_1\":0.1},\"reason\":\"Vocal cord dysfunction or laryngospasm can mimic respiratory distress, but severe bronchospasm and the drug-linked timing are less consistent; BP changes do not help.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.1,\"lab_1\":0.15},\"reason\":\"Aspiration pneumonitis can cause acute hypoxemia and bronchospasm, but the immediate onset after rapacuronium is less typical; BP findings are nonspecific.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"initial\":0.95,\"lab_1\":0.9},\"reason\":\"Classic presentation of 17alpha-hydroxylase/17,20-lyase deficiency: absent puberty/amenorrhea, low androgens, low cortisol with mineralocorticoid excess causing hypokalemia and suppressed renin.\"},{\"id\":\"d01\",\"likelihoods\":{\"initial\":0.92,\"lab_1\":0.88},\"reason\":\"Partial residual CYP17A1 activity can still cause sexual infantilism with hypokalemia and low adrenal androgens/cortisol; slightly less complete than classic deficiency.\"},{\"id\":\"d02\",\"likelihoods\":{\"initial\":0.7,\"lab_1\":0.55},\"reason\":\"Isolated 17,20-lyase deficiency explains absent secondary sex characteristics and low androgens, but does not usually cause cortisol deficiency or hypokalemic mineralocorticoid excess.\"},{\"id\":\"d03\",\"likelihoods\":{\"initial\":0.68,\"lab_1\":0.5},\"reason\":\"Cytochrome b5 deficiency causes isolated 17,20-lyase deficiency with undervirilization and amenorrhea, but mineralocorticoid/cortisol findings are not typical.\"},{\"id\":\"d04\",\"likelihoods\":{\"initial\":0.85,\"lab_1\":0.65},\"reason\":\"POR deficiency can cause disordered steroidogenesis with sexual development abnormalities and variable cortisol/androgen defects, though the strong mineralocorticoid pattern is less specific.\"},{\"id\":\"d05\",\"likelihoods\":{\"initial\":0.4,\"lab_1\":0.15},\"reason\":\"STAR deficiency usually causes severe adrenal insufficiency and undervirilization, but surviving to age 24 with this phenotype and later labs is less typical; mineralocorticoid excess pattern is not characteristic.\"},{\"id\":\"d06\",\"likelihoods\":{\"initial\":0.55,\"lab_1\":0.35},\"reason\":\"3beta-HSD2 deficiency can cause ambiguous genital/amenorrhea and adrenal steroid abnormalities, but the pattern of very low androgens with hypokalemic low-renin hypertension is less classic.\"},{\"id\":\"d07\",\"likelihoods\":{\"initial\":0.15,\"lab_1\":0.05},\"reason\":\"Familial hyperaldosteronism explains hypokalemia and low renin but not absent menarche or absent secondary sex characteristics.\"},{\"id\":\"d08\",\"likelihoods\":{\"initial\":0.12,\"lab_1\":0.08},\"reason\":\"A DOC-producing adrenal adenoma could cause hypokalemia and low renin, but does not explain longstanding absent puberty and low adrenal androgens as well.\"},{\"id\":\"d09\",\"likelihoods\":{\"initial\":0.08,\"lab_1\":0.05},\"reason\":\"Adrenocortical carcinoma can rarely produce DOC and alter steroids, but the overall adolescent/pubertal failure phenotype is not a good fit.\"},{\"id\":\"d10\",\"likelihoods\":{\"initial\":0.05,\"lab_1\":0.02},\"reason\":\"Complete gonadal dysgenesis causes primary amenorrhea and absent secondary sex characteristics, but mineralocorticoid excess and low adrenal androgen findings are not explained.\"},{\"id\":\"d11\",\"likelihoods\":{\"initial\":0.03,\"lab_1\":0.01},\"reason\":\"Pseudohypoaldosteronism type 2 causes hyperkalemia rather than hypokalemia, and does not account for absent puberty/secondary sex characteristics.\"}]}"
+    ],
+    "old_filter": [
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"lab_1\":0.72},\"reason\":\"Mildly fluctuating blood pressure is compatible with rapacuronium-induced anaphylaxis, though not specific.\"},{\"id\":\"d01\",\"likelihoods\":{\"lab_1\":0.7},\"reason\":\"IgE-mediated NMBA hypersensitivity commonly causes hemodynamic instability, so this BP pattern is plausible.\"},{\"id\":\"d02\",\"likelihoods\":{\"lab_1\":0.63},\"reason\":\"Non-IgE mast-cell activation can produce variable hypotension or preserved blood pressure during a reaction.\"},{\"id\":\"d03\",\"likelihoods\":{\"lab_1\":0.28},\"reason\":\"A direct bronchospastic mechanism could occur without major blood pressure effects, making this BP pattern less informative.\"},{\"id\":\"d04\",\"likelihoods\":{\"lab_1\":0.33},\"reason\":\"Latex anaphylaxis can cause BP changes, but this isolated mild fluctuation is only moderately supportive.\"},{\"id\":\"d05\",\"likelihoods\":{\"lab_1\":0.33},\"reason\":\"Chlorhexidine anaphylaxis may present with BP variability, though the evidence is nonspecific.\"},{\"id\":\"d06\",\"likelihoods\":{\"lab_1\":0.52},\"reason\":\"Occult asthma with peri-anesthetic hyperreactivity can occur with relatively stable or mildly fluctuating blood pressure.\"},{\"id\":\"d07\",\"likelihoods\":{\"lab_1\":0.45},\"reason\":\"Status asthmaticus from another trigger may show limited BP changes, so this is plausible but nonspecific.\"},{\"id\":\"d08\",\"likelihoods\":{\"lab_1\":0.62},\"reason\":\"Hereditary alpha-tryptasemia can predispose to perioperative mediator symptoms with variable hemodynamics.\"},{\"id\":\"d09\",\"likelihoods\":{\"lab_1\":0.58},\"reason\":\"Systemic mastocytosis can cause mediator release and BP variability during anesthetic reactions.\"},{\"id\":\"d10\",\"likelihoods\":{\"lab_1\":0.31},\"reason\":\"Food-allergy-related perioperative anaphylaxis can alter blood pressure, but the specific BP range is not distinctive.\"},{\"id\":\"d11\",\"likelihoods\":{\"lab_1\":0.57},\"reason\":\"CARPA can produce transient BP fluctuations during exposure to perioperative agents, fitting this pattern moderately well.\"}]}",
+      "{\"diagnoses\":[{\"id\":\"d00\",\"likelihoods\":{\"lab_1\":0.05},\"reason\":\"Turner syndrome can cause primary amenorrhea and absent secondary sex characteristics, but the specific adrenal findings (hypokalemia, low renin, low cortisol/androgens, later estradiol rise) are not typical.\"},{\"id\":\"d01\",\"likelihoods\":{\"lab_1\":0.12},\"reason\":\"Swyer syndrome fits primary amenorrhea with absent secondary sex characteristics, but the electrolyte/endocrine pattern is not characteristic and would be unexpected.\"},{\"id\":\"d02\",\"likelihoods\":{\"lab_1\":0.08},\"reason\":\"Congenital hypogonadotropic hypogonadism can explain absent puberty and amenorrhea, but the cortisol/mineralocorticoid abnormalities are not a usual feature.\"},{\"id\":\"d03\",\"likelihoods\":{\"lab_1\":0.06},\"reason\":\"Kallmann syndrome explains absent menarche and secondary sex characteristics, but does not \u0639\u0627\u062f\u0629 include hypokalemia, low renin, or low adrenal steroids.\"},{\"id\":\"d04\",\"likelihoods\":{\"lab_1\":0.18},\"reason\":\"Combined pituitary hormone deficiency could produce hypogonadism and low cortisol-related abnormalities, making some endocrine findings plausible, though the potassium/renin pattern is still not classic.\"},{\"id\":\"d05\",\"likelihoods\":{\"lab_1\":0.15},\"reason\":\"Septo-optic dysplasia may cause multiple pituitary hormone deficits including hypogonadism and adrenal insufficiency, but the specific lab pattern is nonspecific and other classic features are absent from the evidence.\"},{\"id\":\"d06\",\"likelihoods\":{\"lab_1\":0.03},\"reason\":\"A functional gonadotroph adenoma with pituitary apoplexy is unlikely to present with long-standing absent puberty and the reported adrenal/electrolyte profile.\"},{\"id\":\"d07\",\"likelihoods\":{\"lab_1\":0.14},\"reason\":\"Craniopharyngioma can cause hypopituitarism with amenorrhea and low sex steroids/cortisol, but hypokalemia and low renin are not typical and there is no mass-effect evidence.\"},{\"id\":\"d08\",\"likelihoods\":{\"lab_1\":0.02},\"reason\":\"Adrenomyeloneuropathy usually causes adrenal insufficiency and neurologic symptoms, but primary amenorrhea and absent secondary sex characteristics are not expected, and hypokalemia is not typical.\"},{\"id\":\"d09\",\"likelihoods\":{\"lab_1\":0.03},\"reason\":\"Mitochondrial cytopathy can be multisystemic and sometimes affect endocrine function, but this exact reproductive/endocrine/electrolyte pattern is unusual.\"},{\"id\":\"d10\",\"likelihoods\":{\"lab_1\":0.01},\"reason\":\"Congenital myotonic dystrophy is incompatible with a 24-year-old initial presentation of absent puberty as the main syndrome, and the lab abnormalities do not fit well.\"},{\"id\":\"d11\",\"likelihoods\":{\"lab_1\":0.06},\"reason\":\"LMNA-related muscular dystrophy with primary ovarian insufficiency can cause amenorrhea and absent secondary sexual development, but the adrenal/electrolyte findings are not a typical accompaniment.\"}]}"
+    ],
+    "semantic_audit": [
+      "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.92,\"reason\":\"Closest diagnosis is severe rapacuronium-induced bronchospasm; same drug-associated bronchospasm as the truth, only phrasing differs.\"},{\"id\":\"filtered_retention\",\"best_match_score\":0.92,\"reason\":\"Same best match as initial: severe rapacuronium-induced bronchospasm, a direct synonym of the truth.\"},{\"id\":\"filtered_retention_duplicate\",\"best_match_score\":0.92,\"reason\":\"Same list as filtered_retention; closest diagnosis matches the truth by standard synonym.\"}],\"final_to_duplicate_overlap\":1.0,\"duplicate_to_final_overlap\":1.0,\"overlap_reason\":\"The filtered_retention and its duplicate have identical diagnosis sets, so every item in each list has an exact same-disease/synonym match in the other list.\"}",
+      "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.0,\"reason\":\"No close diagnosis; listed different disorders unrelated to CAH 17-alpha-hydroxylase deficiency.\"},{\"id\":\"filtered_retention\",\"best_match_score\":1.0,\"reason\":\"Exact standard synonym of the true diagnosis: 17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency.\"},{\"id\":\"filtered_retention_duplicate\",\"best_match_score\":1.0,\"reason\":\"Exact standard synonym of the true diagnosis: 17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency.\"}],\"final_to_duplicate_overlap\":1.0,\"duplicate_to_final_overlap\":1.0,\"overlap_reason\":\"The filtered_retention and duplicate lists both share the same exact diagnosis/synonym for 17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency, so overlap is complete in both directions.\"}"
+    ]
+  },
+  "records": [
+    {
+      "action_id": "lab_1",
+      "duplicate_new_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "initial": 0.98,
+            "lab_1": 0.65
+          },
+          "minimum_likelihood": 0.65,
+          "reason": "Presentation is classic for immediate rapacuronium anaphylaxis with bronchospasm and desaturation; modest BP fluctuation is compatible."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "initial": 0.95,
+            "lab_1": 0.7
+          },
+          "minimum_likelihood": 0.7,
+          "reason": "Non-IgE anaphylactoid reactions to rapacuronium can present identically with severe bronchospasm and oxygen desaturation; BP variability fits."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "initial": 0.85,
+            "lab_1": 0.6
+          },
+          "minimum_likelihood": 0.6,
+          "reason": "Quaternary ammonium\u2013mediated NMBA hypersensitivity commonly causes peri-induction bronchospasm and hypoxemia; BP changes are plausible but nonspecific."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "initial": 0.99,
+            "lab_1": 0.75
+          },
+          "minimum_likelihood": 0.75,
+          "reason": "The exact event described is severe rapacuronium-triggered bronchospasm with desaturation, making this highly likely; BP fluctuation is compatible."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "initial": 0.05,
+            "lab_1": 0.2
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Latex anaphylaxis can occur perioperatively, but the immediate trigger after rapacuronium makes it less consistent; BP changes are nonspecific."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "initial": 0.05,
+            "lab_1": 0.2
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Antibiotic anaphylaxis is possible perioperatively, but the temporal association with rapacuronium argues against it; BP fluctuation is not specific."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "initial": 0.3,
+            "lab_1": 0.15
+          },
+          "minimum_likelihood": 0.15,
+          "reason": "Underlying asthma could cause severe bronchospasm around induction, but the clear rapacuronium trigger makes this less likely; BP findings are not supportive."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "initial": 0.25,
+            "lab_1": 0.5
+          },
+          "minimum_likelihood": 0.25,
+          "reason": "Mast cell activation can present as peri-anesthetic anaphylaxis with bronchospasm and hemodynamic variability, though the single drug trigger is more direct."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "initial": 0.15,
+            "lab_1": 0.4
+          },
+          "minimum_likelihood": 0.15,
+          "reason": "Systemic mastocytosis can predispose to severe perioperative mediator release, but there is no supporting history here; BP variability is possible."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "initial": 0.12,
+            "lab_1": 0.35
+          },
+          "minimum_likelihood": 0.12,
+          "reason": "Hereditary alpha-tryptasemia can increase perioperative hypersensitivity risk, but this presentation lacks prior suggestive history; BP fluctuation is compatible but nonspecific."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "initial": 0.08,
+            "lab_1": 0.1
+          },
+          "minimum_likelihood": 0.08,
+          "reason": "Vocal cord dysfunction or laryngospasm can mimic respiratory distress, but severe bronchospasm and the drug-linked timing are less consistent; BP changes do not help."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "initial": 0.1,
+            "lab_1": 0.15
+          },
+          "minimum_likelihood": 0.1,
+          "reason": "Aspiration pneumonitis can cause acute hypoxemia and bronchospasm, but the immediate onset after rapacuronium is less typical; BP findings are nonspecific."
+        }
+      ],
+      "duplicate_semantic_overlap": 1.0,
+      "duplicate_truth_score_gap": 0.0,
+      "new_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "initial": 0.99,
+            "lab_1": 0.55
+          },
+          "minimum_likelihood": 0.55,
+          "reason": "Directly matches the reported rapacuronium-associated severe bronchospasm and desaturation; modest blood pressure fluctuation is compatible but nonspecific."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "initial": 0.92,
+            "lab_1": 0.65
+          },
+          "minimum_likelihood": 0.65,
+          "reason": "Perioperative anaphylaxis to rapacuronium commonly presents with bronchospasm and hypoxemia; mild BP variability is plausible, though frank hypotension is not documented."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "initial": 0.88,
+            "lab_1": 0.6
+          },
+          "minimum_likelihood": 0.6,
+          "reason": "IgE-mediated NMBA allergy can present with immediate bronchospasm and desaturation after exposure; blood pressure changes may occur but are not required."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "initial": 0.9,
+            "lab_1": 0.62
+          },
+          "minimum_likelihood": 0.62,
+          "reason": "Non-IgE mast cell activation from rapacuronium can cause abrupt bronchospasm and oxygen desaturation; fluctuating BP fits a possible peri-anesthetic hypersensitivity reaction."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "initial": 0.35,
+            "lab_1": 0.3
+          },
+          "minimum_likelihood": 0.3,
+          "reason": "Anesthetic exposure can trigger bronchospasm in an asthmatic patient, but the tight temporal relationship to rapacuronium makes this less typical; BP fluctuation is nonspecific."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "initial": 0.86,
+            "lab_1": 0.63
+          },
+          "minimum_likelihood": 0.63,
+          "reason": "An anaphylactoid reaction with predominant bronchospasm fits immediate respiratory compromise after rapacuronium and may show variable hemodynamics."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "initial": 0.05,
+            "lab_1": 0.2
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Latex anaphylaxis is possible intraoperatively but is not suggested by the specific trigger rapacuronium; BP variation alone does not support it."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "initial": 0.08,
+            "lab_1": 0.2
+          },
+          "minimum_likelihood": 0.08,
+          "reason": "Antibiotic prophylaxis could cause perioperative anaphylaxis, but the evidence specifically implicates rapacuronium rather than an antibiotic."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "initial": 0.25,
+            "lab_1": 0.25
+          },
+          "minimum_likelihood": 0.25,
+          "reason": "Occult reactive airway disease could lead to severe peri-intubation bronchospasm, but immediate onset after rapacuronium is less characteristic."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "initial": 0.1,
+            "lab_1": 0.15
+          },
+          "minimum_likelihood": 0.1,
+          "reason": "ET tube malposition can cause desaturation and wheeze, but the presentation after rapacuronium and severe bronchospasm is more suggestive of a drug reaction."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "initial": 0.05,
+            "lab_1": 0.1
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Negative-pressure pulmonary edema follows laryngospasm and usually causes hypoxemia with different exam findings; bronchospasm after rapacuronium is not typical."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "initial": 0.12,
+            "lab_1": 0.18
+          },
+          "minimum_likelihood": 0.12,
+          "reason": "Aspiration can cause acute bronchospasm and hypoxemia, but the evidence centers on rapacuronium administration rather than a witnessed aspiration event."
+        }
+      ],
+      "num_duplicate_new_introduced": 0,
+      "num_new_introduced": 0,
+      "num_old_pruned": 0,
+      "old_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "lab_1": 0.72
+          },
+          "minimum_likelihood": 0.72,
+          "reason": "Mildly fluctuating blood pressure is compatible with rapacuronium-induced anaphylaxis, though not specific."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "lab_1": 0.7
+          },
+          "minimum_likelihood": 0.7,
+          "reason": "IgE-mediated NMBA hypersensitivity commonly causes hemodynamic instability, so this BP pattern is plausible."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "lab_1": 0.63
+          },
+          "minimum_likelihood": 0.63,
+          "reason": "Non-IgE mast-cell activation can produce variable hypotension or preserved blood pressure during a reaction."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "lab_1": 0.28
+          },
+          "minimum_likelihood": 0.28,
+          "reason": "A direct bronchospastic mechanism could occur without major blood pressure effects, making this BP pattern less informative."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "lab_1": 0.33
+          },
+          "minimum_likelihood": 0.33,
+          "reason": "Latex anaphylaxis can cause BP changes, but this isolated mild fluctuation is only moderately supportive."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "lab_1": 0.33
+          },
+          "minimum_likelihood": 0.33,
+          "reason": "Chlorhexidine anaphylaxis may present with BP variability, though the evidence is nonspecific."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "lab_1": 0.52
+          },
+          "minimum_likelihood": 0.52,
+          "reason": "Occult asthma with peri-anesthetic hyperreactivity can occur with relatively stable or mildly fluctuating blood pressure."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "lab_1": 0.45
+          },
+          "minimum_likelihood": 0.45,
+          "reason": "Status asthmaticus from another trigger may show limited BP changes, so this is plausible but nonspecific."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "lab_1": 0.62
+          },
+          "minimum_likelihood": 0.62,
+          "reason": "Hereditary alpha-tryptasemia can predispose to perioperative mediator symptoms with variable hemodynamics."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "lab_1": 0.58
+          },
+          "minimum_likelihood": 0.58,
+          "reason": "Systemic mastocytosis can cause mediator release and BP variability during anesthetic reactions."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "lab_1": 0.31
+          },
+          "minimum_likelihood": 0.31,
+          "reason": "Food-allergy-related perioperative anaphylaxis can alter blood pressure, but the specific BP range is not distinctive."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "lab_1": 0.57
+          },
+          "minimum_likelihood": 0.57,
+          "reason": "CARPA can produce transient BP fluctuations during exposure to perioperative agents, fitting this pattern moderately well."
+        }
+      ],
+      "row": 0,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 1.0,
+        "duplicate_to_final_overlap": 1.0,
+        "final_to_duplicate_overlap": 1.0,
+        "overlap_reason": "The filtered_retention and its duplicate have identical diagnosis sets, so every item in each list has an exact same-disease/synonym match in the other list.",
+        "supports": [
+          {
+            "best_match_score": 0.92,
+            "id": "initial",
+            "reason": "Closest diagnosis is severe rapacuronium-induced bronchospasm; same drug-associated bronchospasm as the truth, only phrasing differs."
+          },
+          {
+            "best_match_score": 0.92,
+            "id": "filtered_retention",
+            "reason": "Same best match as initial: severe rapacuronium-induced bronchospasm, a direct synonym of the truth."
+          },
+          {
+            "best_match_score": 0.92,
+            "id": "filtered_retention_duplicate",
+            "reason": "Same list as filtered_retention; closest diagnosis matches the truth by standard synonym."
+          }
+        ]
+      },
+      "source_id": "11388546",
+      "source_target_leak": false,
+      "stored_observation": {
+        "changes_over_time": "Blood pressure fluctuated during the event, but specific changes are not noted.",
+        "date": "Not specified",
+        "findings": "Ranged between 90/60 mmHg and 110/50 mmHg.",
+        "procedure_name": "Blood pressure"
+      },
+      "subset": "challenging",
+      "supports": {
+        "filtered_new": [
+          "Rapacuronium-induced bronchospasm",
+          "Perioperative anaphylaxis to rapacuronium",
+          "IgE-mediated neuromuscular blocking agent allergy",
+          "Non-IgE-mediated mast cell degranulation from rapacuronium",
+          "Status asthmaticus triggered by anesthetic exposure",
+          "Anaphylactoid reaction with predominant bronchospasm",
+          "Occult reactive airway disease with severe peri-intubation bronchospasm"
+        ],
+        "filtered_new_duplicate": [
+          "Rapacuronium-induced anaphylaxis",
+          "Rapacuronium-induced non-IgE-mediated anaphylactoid reaction",
+          "Neuromuscular blocking agent hypersensitivity due to quaternary ammonium sensitization",
+          "Severe rapacuronium-triggered bronchospasm",
+          "Mast cell activation syndrome presenting with peri-anesthetic anaphylaxis"
+        ],
+        "filtered_retention": [
+          "Rapacuronium-induced anaphylaxis",
+          "Perioperative IgE-mediated neuromuscular blocking agent hypersensitivity",
+          "Non-IgE-mediated mast cell activation syndrome triggered by rapacuronium",
+          "Severe rapacuronium-induced bronchospasm due to direct muscarinic M2 receptor blockade",
+          "Latex-induced perioperative anaphylaxis",
+          "Perioperative anaphylaxis due to chlorhexidine exposure",
+          "Occult asthma with extreme peri-anesthetic bronchial hyperreactivity",
+          "Exercise-induced or viral-triggered status asthmaticus coincident with anesthesia",
+          "Hereditary alpha-tryptasemia with severe perioperative mediator release",
+          "Systemic mastocytosis presenting with anesthetic-triggered anaphylaxis",
+          "Anaphylaxis associated with undiagnosed food allergy and perioperative exposure",
+          "Complement activation-related pseudoallergy to perioperative medications"
+        ],
+        "filtered_retention_duplicate": [
+          "Rapacuronium-induced anaphylaxis",
+          "Perioperative IgE-mediated neuromuscular blocking agent hypersensitivity",
+          "Non-IgE-mediated mast cell activation syndrome triggered by rapacuronium",
+          "Severe rapacuronium-induced bronchospasm due to direct muscarinic M2 receptor blockade",
+          "Latex-induced perioperative anaphylaxis",
+          "Perioperative anaphylaxis due to chlorhexidine exposure",
+          "Occult asthma with extreme peri-anesthetic bronchial hyperreactivity",
+          "Exercise-induced or viral-triggered status asthmaticus coincident with anesthesia",
+          "Hereditary alpha-tryptasemia with severe perioperative mediator release",
+          "Systemic mastocytosis presenting with anesthetic-triggered anaphylaxis",
+          "Anaphylaxis associated with undiagnosed food allergy and perioperative exposure",
+          "Complement activation-related pseudoallergy to perioperative medications"
+        ],
+        "generated_new": [
+          "Rapacuronium-induced bronchospasm",
+          "Perioperative anaphylaxis to rapacuronium",
+          "IgE-mediated neuromuscular blocking agent allergy",
+          "Non-IgE-mediated mast cell degranulation from rapacuronium",
+          "Status asthmaticus triggered by anesthetic exposure",
+          "Anaphylactoid reaction with predominant bronchospasm",
+          "Latex-induced intraoperative anaphylaxis",
+          "Perioperative anaphylaxis to antibiotic prophylaxis",
+          "Occult reactive airway disease with severe peri-intubation bronchospasm",
+          "Mechanical airway obstruction from endotracheal tube malposition causing desaturation and wheeze",
+          "Negative-pressure pulmonary edema after laryngospasm",
+          "Aspiration-induced acute bronchospasm and hypoxemia"
+        ],
+        "generated_new_duplicate": [
+          "Rapacuronium-induced anaphylaxis",
+          "Rapacuronium-induced non-IgE-mediated anaphylactoid reaction",
+          "Neuromuscular blocking agent hypersensitivity due to quaternary ammonium sensitization",
+          "Severe rapacuronium-triggered bronchospasm",
+          "Perioperative latex-induced anaphylaxis",
+          "Perioperative antibiotic-induced anaphylaxis",
+          "Undiagnosed allergic asthma with bronchospasm precipitated by anesthesia",
+          "Mast cell activation syndrome presenting with peri-anesthetic anaphylaxis",
+          "Systemic mastocytosis with exaggerated perioperative mediator release",
+          "Hereditary alpha-tryptasemia with severe perioperative hypersensitivity reaction",
+          "Vocal cord dysfunction or laryngospasm mimicking bronchospasm after induction",
+          "Anesthesia-associated aspiration pneumonitis causing acute hypoxemic bronchospasm"
+        ],
+        "initial": [
+          "Rapacuronium-induced anaphylaxis",
+          "Perioperative IgE-mediated neuromuscular blocking agent hypersensitivity",
+          "Non-IgE-mediated mast cell activation syndrome triggered by rapacuronium",
+          "Severe rapacuronium-induced bronchospasm due to direct muscarinic M2 receptor blockade",
+          "Latex-induced perioperative anaphylaxis",
+          "Perioperative anaphylaxis due to chlorhexidine exposure",
+          "Occult asthma with extreme peri-anesthetic bronchial hyperreactivity",
+          "Exercise-induced or viral-triggered status asthmaticus coincident with anesthesia",
+          "Hereditary alpha-tryptasemia with severe perioperative mediator release",
+          "Systemic mastocytosis presenting with anesthetic-triggered anaphylaxis",
+          "Anaphylaxis associated with undiagnosed food allergy and perioperative exposure",
+          "Complement activation-related pseudoallergy to perioperative medications"
+        ],
+        "retained_old": [
+          "Rapacuronium-induced anaphylaxis",
+          "Perioperative IgE-mediated neuromuscular blocking agent hypersensitivity",
+          "Non-IgE-mediated mast cell activation syndrome triggered by rapacuronium",
+          "Severe rapacuronium-induced bronchospasm due to direct muscarinic M2 receptor blockade",
+          "Latex-induced perioperative anaphylaxis",
+          "Perioperative anaphylaxis due to chlorhexidine exposure",
+          "Occult asthma with extreme peri-anesthetic bronchial hyperreactivity",
+          "Exercise-induced or viral-triggered status asthmaticus coincident with anesthesia",
+          "Hereditary alpha-tryptasemia with severe perioperative mediator release",
+          "Systemic mastocytosis presenting with anesthetic-triggered anaphylaxis",
+          "Anaphylaxis associated with undiagnosed food allergy and perioperative exposure",
+          "Complement activation-related pseudoallergy to perioperative medications"
+        ]
+      },
+      "true_diagnosis_measurement_only": "severe bronchospasm associated with rapacuronium administration"
+    },
+    {
+      "action_id": "lab_1",
+      "duplicate_new_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "initial": 0.95,
+            "lab_1": 0.9
+          },
+          "minimum_likelihood": 0.9,
+          "reason": "Classic presentation of 17alpha-hydroxylase/17,20-lyase deficiency: absent puberty/amenorrhea, low androgens, low cortisol with mineralocorticoid excess causing hypokalemia and suppressed renin."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "initial": 0.92,
+            "lab_1": 0.88
+          },
+          "minimum_likelihood": 0.88,
+          "reason": "Partial residual CYP17A1 activity can still cause sexual infantilism with hypokalemia and low adrenal androgens/cortisol; slightly less complete than classic deficiency."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "initial": 0.7,
+            "lab_1": 0.55
+          },
+          "minimum_likelihood": 0.55,
+          "reason": "Isolated 17,20-lyase deficiency explains absent secondary sex characteristics and low androgens, but does not usually cause cortisol deficiency or hypokalemic mineralocorticoid excess."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "initial": 0.68,
+            "lab_1": 0.5
+          },
+          "minimum_likelihood": 0.5,
+          "reason": "Cytochrome b5 deficiency causes isolated 17,20-lyase deficiency with undervirilization and amenorrhea, but mineralocorticoid/cortisol findings are not typical."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "initial": 0.85,
+            "lab_1": 0.65
+          },
+          "minimum_likelihood": 0.65,
+          "reason": "POR deficiency can cause disordered steroidogenesis with sexual development abnormalities and variable cortisol/androgen defects, though the strong mineralocorticoid pattern is less specific."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "initial": 0.4,
+            "lab_1": 0.15
+          },
+          "minimum_likelihood": 0.15,
+          "reason": "STAR deficiency usually causes severe adrenal insufficiency and undervirilization, but surviving to age 24 with this phenotype and later labs is less typical; mineralocorticoid excess pattern is not characteristic."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "initial": 0.55,
+            "lab_1": 0.35
+          },
+          "minimum_likelihood": 0.35,
+          "reason": "3beta-HSD2 deficiency can cause ambiguous genital/amenorrhea and adrenal steroid abnormalities, but the pattern of very low androgens with hypokalemic low-renin hypertension is less classic."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "initial": 0.15,
+            "lab_1": 0.05
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Familial hyperaldosteronism explains hypokalemia and low renin but not absent menarche or absent secondary sex characteristics."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "initial": 0.12,
+            "lab_1": 0.08
+          },
+          "minimum_likelihood": 0.08,
+          "reason": "A DOC-producing adrenal adenoma could cause hypokalemia and low renin, but does not explain longstanding absent puberty and low adrenal androgens as well."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "initial": 0.08,
+            "lab_1": 0.05
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Adrenocortical carcinoma can rarely produce DOC and alter steroids, but the overall adolescent/pubertal failure phenotype is not a good fit."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "initial": 0.05,
+            "lab_1": 0.02
+          },
+          "minimum_likelihood": 0.02,
+          "reason": "Complete gonadal dysgenesis causes primary amenorrhea and absent secondary sex characteristics, but mineralocorticoid excess and low adrenal androgen findings are not explained."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "initial": 0.03,
+            "lab_1": 0.01
+          },
+          "minimum_likelihood": 0.01,
+          "reason": "Pseudohypoaldosteronism type 2 causes hyperkalemia rather than hypokalemia, and does not account for absent puberty/secondary sex characteristics."
+        }
+      ],
+      "duplicate_semantic_overlap": 1.0,
+      "duplicate_truth_score_gap": 0.0,
+      "new_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "initial": 0.95,
+            "lab_1": 0.98
+          },
+          "minimum_likelihood": 0.95,
+          "reason": "Classic adrenal and gonadal steroid deficiency causes primary amenorrhea, absent secondary sex traits, hypokalemia, low androgens, low renin, and later correction with treatment can raise potassium and sex steroids."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "initial": 0.9,
+            "lab_1": 0.96
+          },
+          "minimum_likelihood": 0.9,
+          "reason": "Cytochrome b5 deficiency causes combined 17alpha-hydroxylase/17,20-lyase impairment with sexual infantilism and adrenal steroid abnormalities similar to this presentation."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "initial": 0.75,
+            "lab_1": 0.45
+          },
+          "minimum_likelihood": 0.45,
+          "reason": "Isolated 17,20-lyase deficiency can explain absent puberty and low androgens, but hypokalemia/low cortisol-mineralocorticoid pattern is less typical."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "initial": 0.8,
+            "lab_1": 0.75
+          },
+          "minimum_likelihood": 0.75,
+          "reason": "POR deficiency can cause disorders of sex development and adrenal steroid synthesis defects, though the exact phenotype varies and may fit partially."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "initial": 0.25,
+            "lab_1": 0.2
+          },
+          "minimum_likelihood": 0.2,
+          "reason": "11beta-hydroxylase deficiency usually causes hypertension and androgen excess rather than absent secondary sex characteristics and hypokalemia with low androgens."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "initial": 0.15,
+            "lab_1": 0.6
+          },
+          "minimum_likelihood": 0.15,
+          "reason": "Apparent mineralocorticoid excess explains hypokalemia and suppressed renin, but not amenorrhea/lack of sexual development unless there is a coincident separate disorder."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "initial": 0.15,
+            "lab_1": 0.55
+          },
+          "minimum_likelihood": 0.15,
+          "reason": "11beta-HSD2 deficiency can produce mineralocorticoid excess with hypokalemia and low renin, but does not directly explain absent puberty."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "initial": 0.05,
+            "lab_1": 0.1
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "A DOC-producing adrenal adenoma could cause hypokalemia and low renin, but is unlikely at age 24 and does not account for absent menarche/secondary sex characteristics."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "initial": 0.1,
+            "lab_1": 0.55
+          },
+          "minimum_likelihood": 0.1,
+          "reason": "Familial hyperaldosteronism explains hypokalemia with suppressed renin, but the sexual development findings are not explained and aldosterone physiology is not directly supported."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "initial": 0.35,
+            "lab_1": 0.4
+          },
+          "minimum_likelihood": 0.35,
+          "reason": "Primary ovarian insufficiency explains amenorrhea and absent secondary sex traits, but does not fit the adrenal/mineralocorticoid abnormalities unless coincidental."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "initial": 0.45,
+            "lab_1": 0.3
+          },
+          "minimum_likelihood": 0.3,
+          "reason": "Kallmann syndrome can explain absent puberty and primary amenorrhea, but the low androgens with hypokalemic low-renin picture suggests an additional adrenal defect not inherent to Kallmann."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "initial": 0.2,
+            "lab_1": 0.25
+          },
+          "minimum_likelihood": 0.2,
+          "reason": "STAR deficiency can impair adrenal and gonadal steroid production, but complete or severe forms usually present earlier with adrenal insufficiency; the biochemical pattern is not a strong match."
+        }
+      ],
+      "num_duplicate_new_introduced": 6,
+      "num_new_introduced": 8,
+      "num_old_pruned": 12,
+      "old_compatibility": [
+        {
+          "id": "d00",
+          "likelihoods": {
+            "lab_1": 0.05
+          },
+          "minimum_likelihood": 0.05,
+          "reason": "Turner syndrome can cause primary amenorrhea and absent secondary sex characteristics, but the specific adrenal findings (hypokalemia, low renin, low cortisol/androgens, later estradiol rise) are not typical."
+        },
+        {
+          "id": "d01",
+          "likelihoods": {
+            "lab_1": 0.12
+          },
+          "minimum_likelihood": 0.12,
+          "reason": "Swyer syndrome fits primary amenorrhea with absent secondary sex characteristics, but the electrolyte/endocrine pattern is not characteristic and would be unexpected."
+        },
+        {
+          "id": "d02",
+          "likelihoods": {
+            "lab_1": 0.08
+          },
+          "minimum_likelihood": 0.08,
+          "reason": "Congenital hypogonadotropic hypogonadism can explain absent puberty and amenorrhea, but the cortisol/mineralocorticoid abnormalities are not a usual feature."
+        },
+        {
+          "id": "d03",
+          "likelihoods": {
+            "lab_1": 0.06
+          },
+          "minimum_likelihood": 0.06,
+          "reason": "Kallmann syndrome explains absent menarche and secondary sex characteristics, but does not \u0639\u0627\u062f\u0629 include hypokalemia, low renin, or low adrenal steroids."
+        },
+        {
+          "id": "d04",
+          "likelihoods": {
+            "lab_1": 0.18
+          },
+          "minimum_likelihood": 0.18,
+          "reason": "Combined pituitary hormone deficiency could produce hypogonadism and low cortisol-related abnormalities, making some endocrine findings plausible, though the potassium/renin pattern is still not classic."
+        },
+        {
+          "id": "d05",
+          "likelihoods": {
+            "lab_1": 0.15
+          },
+          "minimum_likelihood": 0.15,
+          "reason": "Septo-optic dysplasia may cause multiple pituitary hormone deficits including hypogonadism and adrenal insufficiency, but the specific lab pattern is nonspecific and other classic features are absent from the evidence."
+        },
+        {
+          "id": "d06",
+          "likelihoods": {
+            "lab_1": 0.03
+          },
+          "minimum_likelihood": 0.03,
+          "reason": "A functional gonadotroph adenoma with pituitary apoplexy is unlikely to present with long-standing absent puberty and the reported adrenal/electrolyte profile."
+        },
+        {
+          "id": "d07",
+          "likelihoods": {
+            "lab_1": 0.14
+          },
+          "minimum_likelihood": 0.14,
+          "reason": "Craniopharyngioma can cause hypopituitarism with amenorrhea and low sex steroids/cortisol, but hypokalemia and low renin are not typical and there is no mass-effect evidence."
+        },
+        {
+          "id": "d08",
+          "likelihoods": {
+            "lab_1": 0.02
+          },
+          "minimum_likelihood": 0.02,
+          "reason": "Adrenomyeloneuropathy usually causes adrenal insufficiency and neurologic symptoms, but primary amenorrhea and absent secondary sex characteristics are not expected, and hypokalemia is not typical."
+        },
+        {
+          "id": "d09",
+          "likelihoods": {
+            "lab_1": 0.03
+          },
+          "minimum_likelihood": 0.03,
+          "reason": "Mitochondrial cytopathy can be multisystemic and sometimes affect endocrine function, but this exact reproductive/endocrine/electrolyte pattern is unusual."
+        },
+        {
+          "id": "d10",
+          "likelihoods": {
+            "lab_1": 0.01
+          },
+          "minimum_likelihood": 0.01,
+          "reason": "Congenital myotonic dystrophy is incompatible with a 24-year-old initial presentation of absent puberty as the main syndrome, and the lab abnormalities do not fit well."
+        },
+        {
+          "id": "d11",
+          "likelihoods": {
+            "lab_1": 0.06
+          },
+          "minimum_likelihood": 0.06,
+          "reason": "LMNA-related muscular dystrophy with primary ovarian insufficiency can cause amenorrhea and absent secondary sexual development, but the adrenal/electrolyte findings are not a typical accompaniment."
+        }
+      ],
+      "row": 1,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 1.0,
+        "duplicate_to_final_overlap": 1.0,
+        "final_to_duplicate_overlap": 1.0,
+        "overlap_reason": "The filtered_retention and duplicate lists both share the same exact diagnosis/synonym for 17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency, so overlap is complete in both directions.",
+        "supports": [
+          {
+            "best_match_score": 0.0,
+            "id": "initial",
+            "reason": "No close diagnosis; listed different disorders unrelated to CAH 17-alpha-hydroxylase deficiency."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "filtered_retention",
+            "reason": "Exact standard synonym of the true diagnosis: 17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency."
+          },
+          {
+            "best_match_score": 1.0,
+            "id": "filtered_retention_duplicate",
+            "reason": "Exact standard synonym of the true diagnosis: 17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency."
+          }
+        ]
+      },
+      "source_id": "rare203",
+      "source_target_leak": false,
+      "stored_observation": {
+        "changes_over_time": "Increased levels of blood potassium, estradiol (E2), and 24h-UFC three months after discharge.",
+        "date": "Not specified",
+        "findings": "Hypokalemia, Androstenedione less than 0.3 ng/ml, serum DHEA less than 15.0 \u03bcg/dL, 24-h urinary free cortisol (24h-UFC) less than 10 \u03bcg/24h, renin 0.24 pg/ml.",
+        "procedure_name": "Blood biochemistry"
+      },
+      "subset": "rare",
+      "supports": {
+        "filtered_new": [
+          "17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency",
+          "Combined 17alpha-hydroxylase and 17,20-lyase deficiency from cytochrome b5 deficiency",
+          "Isolated 17,20-lyase deficiency",
+          "P450 oxidoreductase deficiency causing congenital adrenal hyperplasia",
+          "11beta-hydroxylase deficiency with hypogonadism",
+          "Primary ovarian insufficiency with coincident mineralocorticoid excess disorder",
+          "Kallmann syndrome with coincident adrenal steroidogenesis defect",
+          "Steroidogenic acute regulatory protein deficiency with atypical partial adrenal insufficiency"
+        ],
+        "filtered_new_duplicate": [
+          "17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency",
+          "Combined 17alpha-hydroxylase and 17,20-lyase deficiency with partial residual enzyme activity",
+          "Isolated 17,20-lyase deficiency due to CYP17A1 defect",
+          "Cytochrome b5 deficiency causing isolated 17,20-lyase deficiency",
+          "P450 oxidoreductase deficiency with disordered steroidogenesis",
+          "Congenital adrenal hyperplasia due to 3beta-hydroxysteroid dehydrogenase type 2 deficiency"
+        ],
+        "filtered_retention": [
+          "17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency",
+          "Combined 17alpha-hydroxylase and 17,20-lyase deficiency from cytochrome b5 deficiency",
+          "Isolated 17,20-lyase deficiency",
+          "P450 oxidoreductase deficiency causing congenital adrenal hyperplasia",
+          "11beta-hydroxylase deficiency with hypogonadism",
+          "Primary ovarian insufficiency with coincident mineralocorticoid excess disorder",
+          "Kallmann syndrome with coincident adrenal steroidogenesis defect",
+          "Steroidogenic acute regulatory protein deficiency with atypical partial adrenal insufficiency"
+        ],
+        "filtered_retention_duplicate": [
+          "17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency",
+          "Combined 17alpha-hydroxylase and 17,20-lyase deficiency with partial residual enzyme activity",
+          "Isolated 17,20-lyase deficiency due to CYP17A1 defect",
+          "Cytochrome b5 deficiency causing isolated 17,20-lyase deficiency",
+          "P450 oxidoreductase deficiency with disordered steroidogenesis",
+          "Congenital adrenal hyperplasia due to 3beta-hydroxysteroid dehydrogenase type 2 deficiency"
+        ],
+        "generated_new": [
+          "17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency",
+          "Combined 17alpha-hydroxylase and 17,20-lyase deficiency from cytochrome b5 deficiency",
+          "Isolated 17,20-lyase deficiency",
+          "P450 oxidoreductase deficiency causing congenital adrenal hyperplasia",
+          "11beta-hydroxylase deficiency with hypogonadism",
+          "Apparent mineralocorticoid excess syndrome",
+          "11beta-hydroxysteroid dehydrogenase type 2 deficiency",
+          "DOC-producing adrenal adenoma",
+          "Familial hyperaldosteronism with suppressed renin and hypokalemia",
+          "Primary ovarian insufficiency with coincident mineralocorticoid excess disorder",
+          "Kallmann syndrome with coincident adrenal steroidogenesis defect",
+          "Steroidogenic acute regulatory protein deficiency with atypical partial adrenal insufficiency"
+        ],
+        "generated_new_duplicate": [
+          "17alpha-hydroxylase/17,20-lyase deficiency due to CYP17A1 deficiency",
+          "Combined 17alpha-hydroxylase and 17,20-lyase deficiency with partial residual enzyme activity",
+          "Isolated 17,20-lyase deficiency due to CYP17A1 defect",
+          "Cytochrome b5 deficiency causing isolated 17,20-lyase deficiency",
+          "P450 oxidoreductase deficiency with disordered steroidogenesis",
+          "Lipoid congenital adrenal hyperplasia due to STAR deficiency",
+          "Congenital adrenal hyperplasia due to 3beta-hydroxysteroid dehydrogenase type 2 deficiency",
+          "Familial hyperaldosteronism with coexisting hypogonadotropic hypogonadism",
+          "11-deoxycorticosterone-producing adrenal adenoma with primary amenorrhea",
+          "Adrenocortical carcinoma producing deoxycorticosterone and suppressing adrenal androgens",
+          "46,XY disorder of sex development due to complete gonadal dysgenesis with concomitant mineralocorticoid excess",
+          "Pseudohypoaldosteronism type 2 with coincidental congenital hypogonadotropic hypogonadism"
+        ],
+        "initial": [
+          "Turner syndrome",
+          "46,XY complete gonadal dysgenesis (Swyer syndrome)",
+          "Congenital hypogonadotropic hypogonadism",
+          "Kallmann syndrome",
+          "Combined pituitary hormone deficiency",
+          "Septo-optic dysplasia",
+          "Functional gonadotroph adenoma causing pituitary apoplexy",
+          "Craniopharyngioma with hypopituitarism",
+          "Adrenomyeloneuropathy due to X-linked adrenoleukodystrophy",
+          "Mitochondrial cytopathy such as MELAS syndrome",
+          "Congenital myotonic dystrophy",
+          "Lamin A/C-related muscular dystrophy with primary ovarian insufficiency"
+        ],
+        "retained_old": []
+      },
+      "true_diagnosis_measurement_only": "Congenital adrenal hyperplasia due to 17-alpha-hydroxylase deficiency"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed",
+  "summary": {
+    "duplicate_new_introduced": [
+      0,
+      6
+    ],
+    "duplicate_semantic_overlaps": [
+      1.0,
+      1.0
+    ],
+    "duplicate_truth_score_gaps": [
+      0.0,
+      0.0
+    ],
+    "gates": {
+      "all_final_supports_size_twelve": false,
+      "all_pass": false,
+      "both_cases_introduce_filtered_new_hypotheses": false,
+      "both_cases_prune_old_hypotheses": false,
+      "both_duplicate_semantic_overlaps_at_least_0_80": true,
+      "both_duplicate_truth_score_gaps_at_most_0_05": true,
+      "candidate_generation_prompts_exact": true,
+      "exactly_14_requests": true,
+      "no_hidden_target_in_source_evidence": true,
+      "zero_reasoning": true
+    },
+    "new_introduced": [
+      0,
+      8
+    ],
+    "old_pruned": [
+      0,
+      12
+    ],
+    "physical_requests": 14,
+    "reasoning_tokens": 0
+  },
+  "usage": {
+    "physical_requests": 14,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "candidate": {
+        "adapter_completion_tokens": 342,
+        "adapter_cost_usd": 0.0063025,
+        "adapter_prompt_tokens": 469,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5577,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1080,
+            "cost_usd": 0.0191225,
+            "prompt_tokens": 1169,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 4497,
+            "cost_usd": 0.024020999999999997,
+            "prompt_tokens": 5046,
+            "reasoning_tokens": 0,
+            "requests": 8
+          }
+        },
+        "prompt_tokens": 6215,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.78535522299996,
+        "requests": 14,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0431435,
+        "run_remaining_usd": 0.4568565,
+        "total_spent_usd": 48.59944747245719
+      },
+      "candidate_duplicate": {
+        "adapter_completion_tokens": 418,
+        "adapter_cost_usd": 0.0074425,
+        "adapter_prompt_tokens": 469,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5577,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1080,
+            "cost_usd": 0.0191225,
+            "prompt_tokens": 1169,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 4497,
+            "cost_usd": 0.024020999999999997,
+            "prompt_tokens": 5046,
+            "reasoning_tokens": 0,
+            "requests": 8
+          }
+        },
+        "prompt_tokens": 6215,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.78535522299996,
+        "requests": 14,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0431435,
+        "run_remaining_usd": 0.4568565,
+        "total_spent_usd": 48.59944747245719
+      },
+      "initial": {
+        "adapter_completion_tokens": 320,
+        "adapter_cost_usd": 0.0053775,
+        "adapter_prompt_tokens": 231,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5577,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1080,
+            "cost_usd": 0.0191225,
+            "prompt_tokens": 1169,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 4497,
+            "cost_usd": 0.024020999999999997,
+            "prompt_tokens": 5046,
+            "reasoning_tokens": 0,
+            "requests": 8
+          }
+        },
+        "prompt_tokens": 6215,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.78535522299996,
+        "requests": 14,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0431435,
+        "run_remaining_usd": 0.4568565,
+        "total_spent_usd": 48.59944747245719
+      },
+      "judge": {
+        "adapter_completion_tokens": 398,
+        "adapter_cost_usd": 0.002868,
+        "adapter_prompt_tokens": 1436,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5577,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1080,
+            "cost_usd": 0.0191225,
+            "prompt_tokens": 1169,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 4497,
+            "cost_usd": 0.024020999999999997,
+            "prompt_tokens": 5046,
+            "reasoning_tokens": 0,
+            "requests": 8
+          }
+        },
+        "prompt_tokens": 6215,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.78535522299996,
+        "requests": 14,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0431435,
+        "run_remaining_usd": 0.4568565,
+        "total_spent_usd": 48.59944747245719
+      },
+      "new_filter": {
+        "adapter_completion_tokens": 1444,
+        "adapter_cost_usd": 0.0074085,
+        "adapter_prompt_tokens": 1214,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5577,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1080,
+            "cost_usd": 0.0191225,
+            "prompt_tokens": 1169,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 4497,
+            "cost_usd": 0.024020999999999997,
+            "prompt_tokens": 5046,
+            "reasoning_tokens": 0,
+            "requests": 8
+          }
+        },
+        "prompt_tokens": 6215,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.78535522299996,
+        "requests": 14,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0431435,
+        "run_remaining_usd": 0.4568565,
+        "total_spent_usd": 48.59944747245719
+      },
+      "new_filter_duplicate": {
+        "adapter_completion_tokens": 1459,
+        "adapter_cost_usd": 0.007533,
+        "adapter_prompt_tokens": 1290,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5577,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1080,
+            "cost_usd": 0.0191225,
+            "prompt_tokens": 1169,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 4497,
+            "cost_usd": 0.024020999999999997,
+            "prompt_tokens": 5046,
+            "reasoning_tokens": 0,
+            "requests": 8
+          }
+        },
+        "prompt_tokens": 6215,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.78535522299996,
+        "requests": 14,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0431435,
+        "run_remaining_usd": 0.4568565,
+        "total_spent_usd": 48.59944747245719
+      },
+      "old_filter": {
+        "adapter_completion_tokens": 1196,
+        "adapter_cost_usd": 0.0062115,
+        "adapter_prompt_tokens": 1106,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5577,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1080,
+            "cost_usd": 0.0191225,
+            "prompt_tokens": 1169,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 4497,
+            "cost_usd": 0.024020999999999997,
+            "prompt_tokens": 5046,
+            "reasoning_tokens": 0,
+            "requests": 8
+          }
+        },
+        "prompt_tokens": 6215,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.78535522299996,
+        "requests": 14,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0431435,
+        "run_remaining_usd": 0.4568565,
+        "total_spent_usd": 48.59944747245719
+      }
+    }
+  }
+}
