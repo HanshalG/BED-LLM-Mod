@@ -17,7 +17,7 @@ class _ModelBase:
 fake_model_module.Model = _ModelBase
 sys.modules.setdefault("model", fake_model_module)
 
-from helpers import Config
+from helpers import Config, generate_original_beliefs
 from environments.animals.beliefs import (
     _generate_new_beliefs_many,
     build_belief_state,
@@ -98,6 +98,48 @@ def test_generate_new_beliefs_many_merges_independent_calls_per_branch():
 
     assert generated == [["Cat", "Dog", "Fox"], ["Eagle", "Owl", "Hawk"]]
     assert len(model.batched_calls[0]["batch_messages"]) == 4
+
+
+def test_generate_new_beliefs_many_adds_one_prompt_per_stratum():
+    config = Config(
+        belief_generation_strata=["mammals", "birds"],
+        batched_block_size=16,
+    )
+    model = FakeBeliefScoringModel(
+        batched_completions=[["Cat", "Eagle"]]
+    )
+
+    generated = _generate_new_beliefs_many(
+        [{"role": "system", "content": "base"}],
+        [[]],
+        model,
+        0.7,
+        config,
+    )
+
+    messages = model.batched_calls[0]["batch_messages"]
+    assert generated == [["Cat", "Eagle"]]
+    assert "mammals" in messages[0][0]["content"]
+    assert "birds" in messages[1][0]["content"]
+
+
+def test_generate_original_beliefs_uses_same_strata():
+    config = Config(
+        belief_generation_strata=["mammals", "birds"],
+        max_num_samples=8,
+        min_num_samples=4,
+        batched_block_size=16,
+    )
+    model = FakeBeliefScoringModel(
+        batched_completions=[["Cat\nDog", "Eagle\nOwl"]]
+    )
+
+    generated = generate_original_beliefs(model, config)
+
+    messages = model.batched_calls[0]["batch_messages"]
+    assert generated == ["Cat", "Dog", "Eagle", "Owl"]
+    assert "mammals" in messages[0][0]["content"]
+    assert "birds" in messages[1][0]["content"]
 
 
 class FakeBeliefGenerationModel(_ModelBase):

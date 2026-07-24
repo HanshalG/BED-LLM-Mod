@@ -87,11 +87,30 @@ def _generate_new_beliefs_many(system_prompts: list[dict[str, str]], histories_q
     if not system_prompts:
         return []
 
-    num_calls = config.belief_generation_num_calls
+    strata = list(config.belief_generation_strata)
+    call_labels: list[str | None] = (
+        strata if strata else [None] * config.belief_generation_num_calls
+    )
+    num_calls = len(call_labels)
     batch_messages = [
-        [system_prompt] + reverse_history(history_questioner) + [generate_animals_user_prompt()]
+        [
+            (
+                {
+                    **system_prompt,
+                    "content": (
+                        system_prompt["content"]
+                        + "\nFor this call, generate only animals in the "
+                        f"taxonomic stratum: {call_label}."
+                    ),
+                }
+                if call_label is not None
+                else system_prompt
+            )
+        ]
+        + reverse_history(history_questioner)
+        + [generate_animals_user_prompt()]
         for system_prompt, history_questioner in zip(system_prompts, histories_questioner)
-        for _call_index in range(num_calls)
+        for call_label in call_labels
     ]
     completions = questioner.chat_complete_messages_batched(
         batch_messages=batch_messages,

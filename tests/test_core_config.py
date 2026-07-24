@@ -34,6 +34,7 @@ def test_animals_view_extracts_animals_fields():
         num_mc_samples=5,
         belief_state_mode="categorical",
         belief_generation_num_calls=4,
+        belief_generation_strata=[],
         belief_distribution_num_calls=3,
     )
 
@@ -46,6 +47,7 @@ def test_animals_view_extracts_animals_fields():
     assert view.num_mc_samples == 5
     assert view.belief_state_mode == "categorical"
     assert view.belief_generation_num_calls == 4
+    assert view.belief_generation_strata == []
     assert view.belief_distribution_num_calls == 3
 
 

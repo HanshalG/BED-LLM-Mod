@@ -740,6 +740,23 @@ belief_generation_num_calls: {raw_value}
         load_config(str(config_path))
 
 
+def test_load_config_parses_belief_generation_strata(tmp_path):
+    config_path = tmp_path / "config.yaml"
+    config_path.write_text(
+        """
+model_pairs: []
+belief_generation_strata:
+  - mammals
+  - birds
+""".strip(),
+        encoding="utf-8",
+    )
+
+    config = load_config(str(config_path))
+
+    assert config.belief_generation_strata == ["mammals", "birds"]
+
+
 @pytest.mark.parametrize("raw_value", [0, -1])
 def test_load_config_rejects_non_positive_belief_distribution_num_calls(tmp_path, raw_value):
     config_path = tmp_path / "config.yaml"

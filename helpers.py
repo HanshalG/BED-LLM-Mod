@@ -79,6 +79,7 @@ class Config:
     belief_state_mode: BeliefStateMode = "uniform"
     belief_probability_temperature: float = 0.0
     belief_generation_num_calls: int = 1
+    belief_generation_strata: list[str] = field(default_factory=list)
     belief_distribution_num_calls: int = 1
     belief_distribution_permute_history: bool = False
     probability_parse_fallback_to_uniform: bool = True
@@ -788,6 +789,23 @@ def load_config(path: str) -> Config:
         raise ValueError("belief_generation_num_calls must be an integer")
     if belief_generation_num_calls < 1:
         raise ValueError("belief_generation_num_calls must be at least 1")
+    belief_generation_strata = raw.get("belief_generation_strata", [])
+    if (
+        not isinstance(belief_generation_strata, list)
+        or any(
+            not isinstance(value, str) or not value.strip()
+            for value in belief_generation_strata
+        )
+    ):
+        raise ValueError("belief_generation_strata must be a list of non-empty strings")
+    if len({value.strip().casefold() for value in belief_generation_strata}) != len(
+        belief_generation_strata
+    ):
+        raise ValueError("belief_generation_strata must not contain duplicates")
+    if belief_generation_strata and belief_generation_num_calls != 1:
+        raise ValueError(
+            "belief_generation_num_calls must be 1 when belief_generation_strata is set"
+        )
     belief_distribution_num_calls = raw.get("belief_distribution_num_calls", 1)
     if not isinstance(belief_distribution_num_calls, int) or isinstance(belief_distribution_num_calls, bool):
         raise ValueError("belief_distribution_num_calls must be an integer")
@@ -1074,6 +1092,7 @@ def load_config(path: str) -> Config:
         belief_state_mode = belief_state_mode,
         belief_probability_temperature = raw.get("belief_probability_temperature", 0.0),
         belief_generation_num_calls = belief_generation_num_calls,
+        belief_generation_strata = belief_generation_strata,
         belief_distribution_num_calls = belief_distribution_num_calls,
         belief_distribution_permute_history = belief_distribution_permute_history,
         probability_parse_fallback_to_uniform = probability_parse_fallback_to_uniform,
@@ -1908,6 +1927,35 @@ def generate_original_beliefs(questioner: Model, config: Config) -> list[str]:
     generation_temperature, max_num_samples, min_num_samples = config.generation_temperature_diverse, config.max_num_samples, config.min_num_samples
     user_question = {"role": "user", "content": f"Let\'s start the game of 20 questions. Generate a diverse "
                                                 f"set of animals, at least {min_num_samples}."}
-    messages = [generate_original_animals_system_prompt(max_num_samples), user_question]
-    new_beliefs = questioner.chat_complete(messages=messages, temperature=generation_temperature)[0]
+    system_prompt = generate_original_animals_system_prompt(max_num_samples)
+    if config.belief_generation_strata:
+        batch_messages = [
+            [
+                {
+                    **system_prompt,
+                    "content": (
+                        system_prompt["content"]
+                        + "\nFor this call, generate only animals in the "
+                        f"taxonomic stratum: {stratum}."
+                    ),
+                },
+                user_question,
+            ]
+            for stratum in config.belief_generation_strata
+        ]
+        completions = questioner.chat_complete_messages_batched(
+            batch_messages,
+            temperature=generation_temperature,
+            block_size=config.batched_block_size,
+        )
+        return [
+            belief
+            for completion in completions
+            for belief in convert_string_to_array(completion)
+        ]
+    messages = [system_prompt, user_question]
+    new_beliefs = questioner.chat_complete(
+        messages=messages,
+        temperature=generation_temperature,
+    )[0]
     return convert_string_to_array(new_beliefs)
