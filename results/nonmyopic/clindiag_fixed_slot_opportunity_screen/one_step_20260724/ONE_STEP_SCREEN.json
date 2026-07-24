@@ -1,0 +1,1173 @@
+{
+  "protocol": {
+    "action_ids": [
+      "present_illness",
+      "prior_history",
+      "family_social",
+      "exam_1",
+      "lab_1",
+      "lab_2",
+      "imaging_1",
+      "other_1"
+    ],
+    "expected_requests": 40,
+    "generator_model": "openai/gpt-5.4",
+    "judge_model": "openai/gpt-5.4-mini",
+    "reasoning_disabled": true,
+    "retries": 0,
+    "screen_ids": [
+      "20220188",
+      "11222813",
+      "rare140",
+      "rare122"
+    ],
+    "selection_seed": 24295,
+    "support_size": 12,
+    "truth_coverage_threshold": 0.8,
+    "truth_enters_only_semantic_measurement": true,
+    "truth_hidden_from_generators": true
+  },
+  "raw_audit_responses": [
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis; true diagnosis is a subtype description of POEMS syndrome.\"},{\"id\":\"one_step__present_illness\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"},{\"id\":\"one_step__prior_history\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"},{\"id\":\"one_step__family_social\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"},{\"id\":\"one_step__exam_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"},{\"id\":\"one_step__lab_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"},{\"id\":\"one_step__lab_2\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"},{\"id\":\"one_step__imaging_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"},{\"id\":\"one_step__other_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis among candidates.\"}]}",
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.12,\"reason\":\"Only mitochondrial/ophthalmologic differentials listed; none are LHON or a clinically equivalent synonym.\"},{\"id\":\"one_step__present_illness\",\"best_match_score\":0.12,\"reason\":\"Chronic progressive external ophthalmoplegia and other mitochondrial diseases are related, but not equivalent to LHON.\"},{\"id\":\"one_step__prior_history\",\"best_match_score\":0.12,\"reason\":\"Contains mitochondrial disorders and PEO-related entities, but no LHON synonym or same diagnosis.\"},{\"id\":\"one_step__family_social\",\"best_match_score\":0.95,\"reason\":\"Leber hereditary optic neuropathy plus syndrome is a standard LHON-spectrum synonym/closely named equivalent.\"},{\"id\":\"one_step__exam_1\",\"best_match_score\":0.12,\"reason\":\"Listed diagnoses are mitochondrial or neuro-ophthalmic differentials, not LHON itself.\"},{\"id\":\"one_step__lab_1\",\"best_match_score\":0.12,\"reason\":\"Progressive external ophthalmoplegia and other differentials are related mitochondrial disorders, not LHON.\"},{\"id\":\"one_step__lab_2\",\"best_match_score\":0.12,\"reason\":\"Contains PEO and other mitochondrial differentials, but no LHON-equivalent diagnosis.\"},{\"id\":\"one_step__imaging_1\",\"best_match_score\":0.12,\"reason\":\"Mitochondrial and inflammatory neuro-ophthalmic conditions are differentials, not LHON.\"},{\"id\":\"one_step__other_1\",\"best_match_score\":0.12,\"reason\":\"Mitochondrial differentials listed, but none are LHON or a standard synonym.\"}]}",
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"},{\"id\":\"one_step__present_illness\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"},{\"id\":\"one_step__prior_history\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"},{\"id\":\"one_step__family_social\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"},{\"id\":\"one_step__exam_1\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"},{\"id\":\"one_step__lab_1\",\"best_match_score\":1.0,\"reason\":\"Alagille syndrome is explicitly listed.\"},{\"id\":\"one_step__lab_2\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"},{\"id\":\"one_step__imaging_1\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"},{\"id\":\"one_step__other_1\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis is Alagille syndrome or a standard synonym.\"}]}",
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__present_illness\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__prior_history\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__family_social\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__exam_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__lab_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__lab_2\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__imaging_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"},{\"id\":\"one_step__other_1\",\"best_match_score\":1.0,\"reason\":\"Exact same diagnosis (standard synonym listed).\"}]}"
+  ],
+  "records": [
+    {
+      "best_one_step_action_ids": [
+        "present_illness",
+        "prior_history",
+        "family_social",
+        "exam_1",
+        "lab_1",
+        "lab_2",
+        "imaging_1",
+        "other_1"
+      ],
+      "best_one_step_truth_score": 1.0,
+      "initial_truth_score": 1.0,
+      "one_step_truth_scores": {
+        "exam_1": 1.0,
+        "family_social": 1.0,
+        "imaging_1": 1.0,
+        "lab_1": 1.0,
+        "lab_2": 1.0,
+        "other_1": 1.0,
+        "present_illness": 1.0,
+        "prior_history": 1.0
+      },
+      "semantic_measurements": {
+        "initial": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "initial",
+          "reason": "Exact same diagnosis; true diagnosis is a subtype description of POEMS syndrome."
+        },
+        "one_step__exam_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__exam_1",
+          "reason": "Exact same diagnosis among candidates."
+        },
+        "one_step__family_social": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__family_social",
+          "reason": "Exact same diagnosis among candidates."
+        },
+        "one_step__imaging_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__imaging_1",
+          "reason": "Exact same diagnosis among candidates."
+        },
+        "one_step__lab_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__lab_1",
+          "reason": "Exact same diagnosis among candidates."
+        },
+        "one_step__lab_2": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__lab_2",
+          "reason": "Exact same diagnosis among candidates."
+        },
+        "one_step__other_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__other_1",
+          "reason": "Exact same diagnosis among candidates."
+        },
+        "one_step__present_illness": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__present_illness",
+          "reason": "Exact same diagnosis among candidates."
+        },
+        "one_step__prior_history": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__prior_history",
+          "reason": "Exact same diagnosis among candidates."
+        }
+      },
+      "source_id": "20220188",
+      "stored_observations": {
+        "exam_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "relevant_findings": {
+            "abdominal": "Distended and tense abdomen, nontender.",
+            "contractures": "Contractures of the hands.",
+            "edema": "3+ pitting edema of the legs to the waist.",
+            "lung": "Crackles at the lung bases.",
+            "strength": "Decreased strength in the arms and legs."
+          },
+          "vital_signs": {
+            "blood_pressure": "122/76 mm Hg",
+            "oxygen_saturation": "99%",
+            "pulse": "72 bpm",
+            "respiratory_rate": "20 breaths per minute",
+            "temperature": "36.3\u00b0C"
+          }
+        },
+        "family_social": {
+          "family_history": "Not specified.",
+          "social_history": "The patient lived with his wife and children, rarely consumed alcohol, and did not smoke. He was a businessman and used leg braces and a walker to ambulate."
+        },
+        "imaging_1": {
+          "changes_over_time": "Not specified.",
+          "date": "Six weeks before admission",
+          "findings": "Pachymeningeal enhancement along the calvaria and the falx cerebri, enhancement of the dura and multiple cranial nerves, and arachnoid granulation that narrowed the right transverse sinus.",
+          "procedure_name": "MRI"
+        },
+        "lab_1": {
+          "changes_over_time": "Decreased to 29.0% six weeks before admission, increased to 34.1% on admission, and slightly increased to 34.6% four weeks after discharge.",
+          "date": "2 Years before Admission",
+          "findings": "47.1% (normal range: 41.0\u201353.0 for men)",
+          "procedure_name": "Hematocrit"
+        },
+        "lab_2": {
+          "changes_over_time": "Decreased to 10.0 g/dL six weeks before admission, increased to 11.8 g/dL on admission, and decreased to 11.5 g/dL four weeks after discharge.",
+          "date": "2 Years before Admission",
+          "findings": "16.7 g/dL (normal range: 13.5\u201317.5 for men)",
+          "procedure_name": "Hemoglobin"
+        },
+        "other_1": {
+          "changes_over_time": "EMG and nerve-conduction studies showed decreased sensory responses, absent sural-nerve responses, prolonged F-wave latencies, and more prominent denervation in the tibialis anterior and medial gastrocnemius muscles compared to the previous study.",
+          "date": "Not specified",
+          "findings": "Prolonged F responses in both feet, normal motor and sensory responses in the distal segments of the arms, and no motor responses in the intrinsic foot muscles.",
+          "procedure_name": "Electromyography (EMG)"
+        },
+        "present_illness": "The patient had been well until approximately 4 years earlier when paresthesias of both feet, weakness of the lower legs, and bilateral foot drop developed gradually. Symptoms worsened over time, with increasing weakness in the legs and arms and the development of intermittent stabbing pain in the lower legs.",
+        "prior_history": "Chronic inflammatory demyelinating polyneuropathy (CIDP) diagnosed 4 years earlier. The patient had a history of knee surgery and erectile dysfunction for the past year. He also had dyslipidemia and hypercholesterolemia controlled by diet."
+      },
+      "subset": "challenging",
+      "supports": {
+        "initial": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Lymphoma-associated paraneoplastic neuropathy",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Systemic lupus erythematosus",
+          "Sarcoidosis",
+          "Castleman disease",
+          "Waldenstrom macroglobulinemia",
+          "Multiple myeloma",
+          "Hereditary transthyretin amyloidosis",
+          "Chronic liver disease with portal hypertension",
+          "Peritoneal tuberculosis"
+        ],
+        "one_step__exam_1": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Castleman disease",
+          "Multiple myeloma",
+          "Waldenstrom macroglobulinemia",
+          "Non-Hodgkin lymphoma with paraneoplastic neuropathy",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Systemic light-chain deposition disease",
+          "Hereditary transthyretin amyloidosis",
+          "Chronic liver disease with portal hypertension",
+          "Peritoneal tuberculosis",
+          "Sarcoidosis"
+        ],
+        "one_step__family_social": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Castleman disease",
+          "Lymphoma-associated paraneoplastic neuropathy",
+          "Waldenstrom macroglobulinemia",
+          "Multiple myeloma",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Hereditary transthyretin amyloidosis",
+          "Sarcoidosis",
+          "Systemic lupus erythematosus",
+          "Chronic liver disease with portal hypertension",
+          "Peritoneal tuberculosis"
+        ],
+        "one_step__imaging_1": [
+          "POEMS syndrome",
+          "Neurosarcoidosis",
+          "Hypertrophic pachymeningitis due to IgG4-related disease",
+          "Neurolymphomatosis from non-Hodgkin lymphoma",
+          "Leptomeningeal or dural plasmacytoma in multiple myeloma",
+          "AL amyloidosis",
+          "Castleman disease with paraneoplastic demyelinating neuropathy",
+          "Granulomatosis with polyangiitis-associated hypertrophic pachymeningitis",
+          "Tuberculous hypertrophic pachymeningitis",
+          "Neurosyphilis with hypertrophic pachymeningitis",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "ANCA-negative eosinophilic granulomatosis with polyangiitis"
+        ],
+        "one_step__lab_1": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Castleman disease",
+          "Multiple myeloma",
+          "Waldenstrom macroglobulinemia",
+          "Lymphoma-associated paraneoplastic neuropathy",
+          "Hereditary transthyretin amyloidosis",
+          "Chronic liver disease with portal hypertension",
+          "Peritoneal tuberculosis",
+          "Sarcoidosis",
+          "Systemic lupus erythematosus"
+        ],
+        "one_step__lab_2": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Castleman disease associated with POEMS syndrome",
+          "Lymphoma-associated paraneoplastic demyelinating neuropathy",
+          "Waldenstrom macroglobulinemia",
+          "Multiple myeloma",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Light-chain deposition disease",
+          "Hereditary transthyretin amyloidosis",
+          "Chronic liver disease with portal hypertension",
+          "Peritoneal tuberculosis",
+          "Systemic amyloidosis secondary to plasma cell dyscrasia"
+        ],
+        "one_step__other_1": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Castleman disease",
+          "Waldenstrom macroglobulinemia",
+          "Multiple myeloma",
+          "Lymphoma-associated paraneoplastic neuropathy",
+          "Systemic light-chain amyloidosis due to plasma cell dyscrasia",
+          "Hereditary transthyretin amyloidosis",
+          "Chronic liver disease with portal hypertension",
+          "Peritoneal tuberculosis",
+          "Sarcoidosis"
+        ],
+        "one_step__present_illness": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Castleman disease",
+          "Lymphoma-associated paraneoplastic demyelinating neuropathy",
+          "Waldenstrom macroglobulinemia with IgM paraproteinemic neuropathy",
+          "Multiple myeloma with paraproteinemic neuropathy",
+          "Hereditary transthyretin amyloidosis",
+          "Systemic light-chain deposition disease",
+          "Sarcoidosis with neurosarcoidosis",
+          "Systemic lupus erythematosus",
+          "Peritoneal tuberculosis"
+        ],
+        "one_step__prior_history": [
+          "POEMS syndrome",
+          "AL amyloidosis",
+          "Castleman disease",
+          "Lymphoma-associated paraneoplastic neuropathy",
+          "Waldenstrom macroglobulinemia",
+          "Multiple myeloma",
+          "Hereditary transthyretin amyloidosis",
+          "Chronic inflammatory demyelinating polyradiculoneuropathy",
+          "Chronic liver disease with portal hypertension",
+          "Peritoneal tuberculosis",
+          "Systemic lupus erythematosus",
+          "Sarcoidosis"
+        ]
+      },
+      "true_diagnosis_measurement_only": "POEMS syndrome with demyelinating neuropathy and solitary plasmacytoma of bone",
+      "two_step_room": false
+    },
+    {
+      "best_one_step_action_ids": [
+        "family_social"
+      ],
+      "best_one_step_truth_score": 0.95,
+      "initial_truth_score": 0.12,
+      "one_step_truth_scores": {
+        "exam_1": 0.12,
+        "family_social": 0.95,
+        "imaging_1": 0.12,
+        "lab_1": 0.12,
+        "lab_2": 0.12,
+        "other_1": 0.12,
+        "present_illness": 0.12,
+        "prior_history": 0.12
+      },
+      "semantic_measurements": {
+        "initial": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "initial",
+          "reason": "Only mitochondrial/ophthalmologic differentials listed; none are LHON or a clinically equivalent synonym."
+        },
+        "one_step__exam_1": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "one_step__exam_1",
+          "reason": "Listed diagnoses are mitochondrial or neuro-ophthalmic differentials, not LHON itself."
+        },
+        "one_step__family_social": {
+          "best_match_score": 0.95,
+          "covered": true,
+          "id": "one_step__family_social",
+          "reason": "Leber hereditary optic neuropathy plus syndrome is a standard LHON-spectrum synonym/closely named equivalent."
+        },
+        "one_step__imaging_1": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "one_step__imaging_1",
+          "reason": "Mitochondrial and inflammatory neuro-ophthalmic conditions are differentials, not LHON."
+        },
+        "one_step__lab_1": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "one_step__lab_1",
+          "reason": "Progressive external ophthalmoplegia and other differentials are related mitochondrial disorders, not LHON."
+        },
+        "one_step__lab_2": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "one_step__lab_2",
+          "reason": "Contains PEO and other mitochondrial differentials, but no LHON-equivalent diagnosis."
+        },
+        "one_step__other_1": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "one_step__other_1",
+          "reason": "Mitochondrial differentials listed, but none are LHON or a standard synonym."
+        },
+        "one_step__present_illness": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "one_step__present_illness",
+          "reason": "Chronic progressive external ophthalmoplegia and other mitochondrial diseases are related, but not equivalent to LHON."
+        },
+        "one_step__prior_history": {
+          "best_match_score": 0.12,
+          "covered": false,
+          "id": "one_step__prior_history",
+          "reason": "Contains mitochondrial disorders and PEO-related entities, but no LHON synonym or same diagnosis."
+        }
+      },
+      "source_id": "11222813",
+      "stored_observations": {
+        "exam_1": {
+          "changes_over_time": "At age 24, mild spastic left hemiparesis was observed and evolved into severe bilateral ptosis and nystagmus by age 26. There was no improvement in ptosis with edrophonium. Initial normal visual acuity and optic fundi were maintained with no optic nerve abnormalities.",
+          "date": "Not specified",
+          "relevant_findings": "At age 24, there was mild spastic left hemiparesis, brisk reflexes except for absent ankle jerks, both toes up-going on plantar stimulation. No rigidity, bradykinesia, or tremor was noted. Sensation was normal. At age 26, the patient had severe bilateral ptosis, prominent gaze-evoked nystagmus, and some extraocular motor paresis.",
+          "vital_signs": "Not specified"
+        },
+        "family_social": {
+          "family_history": "Family history includes maternal grandfather diagnosed with LHON and was blind, and a maternal great aunt who was also blind with a relative who experienced subacute blindness.",
+          "social_history": "Attended special education classes; never employed; continued to live at home."
+        },
+        "imaging_1": {
+          "changes_over_time": "Not specified.",
+          "date": "7 days after the onset of deafness",
+          "findings": "Bilateral gadolinium enhancement of the intracanalicular portions of the seventh and eighth nerve complexes, consistent with inflammatory neuritis.",
+          "procedure_name": "MRI"
+        },
+        "lab_1": {
+          "changes_over_time": "Not specified.",
+          "date": "Not specified",
+          "findings": "94 mm/h",
+          "procedure_name": "Erythrocyte sedimentation rate"
+        },
+        "lab_2": {
+          "changes_over_time": "Not specified.",
+          "date": "Not specified",
+          "findings": "142 mg/dL",
+          "procedure_name": "Complement C3 level"
+        },
+        "other_1": {
+          "changes_over_time": "Hearing loss progressed to total deafness over two days.",
+          "date": "Not specified",
+          "findings": "No measurable hearing bilaterally.",
+          "procedure_name": "Audiometry"
+        },
+        "present_illness": "The patient developed abrupt onset of severe bilateral ptosis at age 26. Nystagmus and extraocular motor paresis were also noted. The ptosis did not improve with edrophonium. The patient had a history of developmental milestones until age 8, followed by gait, speech, and intellectual abnormalities.",
+        "prior_history": "Undefined progressive multisystem neurodegenerative disorder; cognitive dysfunction since age 13; mild spastic gait and bilateral hyperreflexia; previous cognitive evaluations showed low IQ scores."
+      },
+      "subset": "challenging",
+      "supports": {
+        "initial": [
+          "Mitochondrial neurogastrointestinal encephalomyopathy",
+          "Kearns-Sayre syndrome",
+          "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+          "Progressive external ophthalmoplegia due to mitochondrial disease",
+          "Myasthenia gravis",
+          "Miller Fisher syndrome",
+          "Wernicke encephalopathy",
+          "Niemann-Pick disease type C",
+          "Wilson disease",
+          "Ataxia with oculomotor apraxia type 1",
+          "Whipple disease",
+          "Juvenile-onset Huntington disease"
+        ],
+        "one_step__exam_1": [
+          "Kearns-Sayre syndrome",
+          "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+          "POLG-related mitochondrial disease",
+          "Leigh syndrome",
+          "Mitochondrial neurogastrointestinal encephalomyopathy",
+          "Progressive external ophthalmoplegia due to mitochondrial disease",
+          "Myasthenia gravis",
+          "Miller Fisher syndrome",
+          "Niemann-Pick disease type C",
+          "Wilson disease",
+          "Spinocerebellar ataxia type 28",
+          "Whipple disease"
+        ],
+        "one_step__family_social": [
+          "Leber hereditary optic neuropathy plus syndrome (LHON-MS spectrum mitochondrial disease)",
+          "Kearns-Sayre syndrome",
+          "Chronic progressive external ophthalmoplegia due to mitochondrial DNA deletion syndrome",
+          "MELAS syndrome",
+          "MERRF syndrome",
+          "POLG-related mitochondrial disease",
+          "Mitochondrial neurogastrointestinal encephalomyopathy",
+          "Myasthenia gravis",
+          "Miller Fisher syndrome",
+          "Wernicke encephalopathy",
+          "Niemann-Pick disease type C",
+          "Wilson disease"
+        ],
+        "one_step__imaging_1": [
+          "Kearns-Sayre syndrome",
+          "Progressive external ophthalmoplegia due to mitochondrial disease",
+          "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+          "POLG-related mitochondrial disease",
+          "Leigh syndrome",
+          "Mitochondrial neurogastrointestinal encephalomyopathy",
+          "Miller Fisher syndrome",
+          "Myasthenia gravis",
+          "Wernicke encephalopathy",
+          "Neurosarcoidosis",
+          "Susac syndrome",
+          "Chronic lymphocytic inflammation with pontine perivascular enhancement responsive to steroids"
+        ],
+        "one_step__lab_1": [
+          "Progressive external ophthalmoplegia due to mitochondrial disease",
+          "Kearns-Sayre syndrome",
+          "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+          "Myasthenia gravis",
+          "Miller Fisher syndrome",
+          "Wernicke encephalopathy",
+          "Whipple disease",
+          "Neurosarcoidosis",
+          "Behcet disease",
+          "Systemic lupus erythematosus with neuro-ophthalmic involvement",
+          "Wilson disease",
+          "Niemann-Pick disease type C"
+        ],
+        "one_step__lab_2": [
+          "Chronic progressive external ophthalmoplegia due to mitochondrial disease",
+          "Kearns-Sayre syndrome",
+          "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+          "Mitochondrial neurogastrointestinal encephalomyopathy",
+          "Myasthenia gravis",
+          "Miller Fisher syndrome",
+          "Wernicke encephalopathy",
+          "Niemann-Pick disease type C",
+          "Wilson disease",
+          "Ataxia with oculomotor apraxia type 1",
+          "Whipple disease",
+          "Joubert syndrome and related disorders"
+        ],
+        "one_step__other_1": [
+          "Kearns-Sayre syndrome",
+          "POLG-related mitochondrial disease",
+          "Leigh syndrome",
+          "MELAS syndrome",
+          "MERRF syndrome",
+          "Progressive external ophthalmoplegia due to mitochondrial disease",
+          "Wernicke encephalopathy",
+          "Miller Fisher syndrome",
+          "Myasthenia gravis",
+          "Susac syndrome",
+          "Cogan syndrome",
+          "Niemann-Pick disease type C"
+        ],
+        "one_step__present_illness": [
+          "Kearns-Sayre syndrome",
+          "Chronic progressive external ophthalmoplegia due to mitochondrial disease",
+          "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+          "Mitochondrial neurogastrointestinal encephalomyopathy",
+          "POLG-related mitochondrial disease",
+          "Myasthenia gravis",
+          "Miller Fisher syndrome",
+          "Wernicke encephalopathy",
+          "Niemann-Pick disease type C",
+          "Wilson disease",
+          "Ataxia with oculomotor apraxia type 1",
+          "Juvenile-onset Huntington disease"
+        ],
+        "one_step__prior_history": [
+          "Kearns-Sayre syndrome",
+          "POLG-related mitochondrial disease",
+          "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+          "Mitochondrial neurogastrointestinal encephalomyopathy",
+          "Progressive external ophthalmoplegia due to mitochondrial disease",
+          "Niemann-Pick disease type C",
+          "Wilson disease",
+          "Juvenile-onset Huntington disease",
+          "Ataxia with oculomotor apraxia type 1",
+          "Dentatorubral-pallidoluysian atrophy",
+          "Myasthenia gravis",
+          "Wernicke encephalopathy"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Leber\u2019s hereditary optic neuropathy (LHON)",
+      "two_step_room": false
+    },
+    {
+      "best_one_step_action_ids": [
+        "lab_1"
+      ],
+      "best_one_step_truth_score": 1.0,
+      "initial_truth_score": 0.0,
+      "one_step_truth_scores": {
+        "exam_1": 0.0,
+        "family_social": 0.0,
+        "imaging_1": 0.0,
+        "lab_1": 1.0,
+        "lab_2": 0.0,
+        "other_1": 0.0,
+        "present_illness": 0.0,
+        "prior_history": 0.0
+      },
+      "semantic_measurements": {
+        "initial": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "initial",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        },
+        "one_step__exam_1": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "one_step__exam_1",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        },
+        "one_step__family_social": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "one_step__family_social",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        },
+        "one_step__imaging_1": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "one_step__imaging_1",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        },
+        "one_step__lab_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__lab_1",
+          "reason": "Alagille syndrome is explicitly listed."
+        },
+        "one_step__lab_2": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "one_step__lab_2",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        },
+        "one_step__other_1": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "one_step__other_1",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        },
+        "one_step__present_illness": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "one_step__present_illness",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        },
+        "one_step__prior_history": {
+          "best_match_score": 0.0,
+          "covered": false,
+          "id": "one_step__prior_history",
+          "reason": "No listed diagnosis is Alagille syndrome or a standard synonym."
+        }
+      },
+      "source_id": "rare140",
+      "stored_observations": {
+        "exam_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "relevant_findings": "Dysmorphic facial features including a characteristic triangular appearance, a broad forehead, a pointed chin, a bulbous tip of the nose, sparse hair and eyebrows.",
+          "vital_signs": "Not specified"
+        },
+        "family_social": {
+          "family_history": "The patient's parents and elder brother are healthy. His parents are not close relatives.",
+          "social_history": "Not specified."
+        },
+        "imaging_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "findings": "Bilateral hypodysplastic kidneys.",
+          "procedure_name": "abdominal ultrasound"
+        },
+        "lab_1": {
+          "changes_over_time": "At 1 month, elevated alanine transaminase 61 U/L, aspartate aminotransferase 86 U/L, total bile acid 109 \u00b5mol/L, and phosphorus 3.22 mmol/L were evident. At 3 months, elevated triglycerides 2.21 mmol/L were noted, and at 6 months, elevated cholesterol 8.88 mmol/L was observed.",
+          "date": "Day 3 after birth",
+          "findings": "Increased total bilirubin 131.2 \u00b5mol/L, direct bilirubin 22.2 \u00b5mol/L, glutamyl transpeptidase 598 U/L, and alkaline phosphatase 324 U/L.",
+          "procedure_name": "Liver function test"
+        },
+        "lab_2": {
+          "changes_over_time": "Not specified",
+          "date": "1 month",
+          "findings": "Alanine transaminase 61 U/L, aspartate aminotransferase 86 U/L, total bile acid 109 \u00b5mol/L, and phosphorus 3.22 mmol/L.",
+          "procedure_name": "Liver function test"
+        },
+        "other_1": {
+          "changes_over_time": "Not specified",
+          "date": "3 months",
+          "findings": "Gross Motor Quotient (GMQ) 87, Fine Motor Quotient (FMQ) 82, Total Motor Quotient (TMQ) 83, Psychomotor Development Index (PDI) 84.",
+          "procedure_name": "Bayley Scales of Infant Development II (BSID-II)"
+        },
+        "present_illness": "Symptoms began after birth, with prenatal oligohydramnios discovered at 28+4 weeks of gestation. The infant experienced poor weight gain that was initially unresponsive to an amino acid formula at 1 month, and later improved on a high calorific formula from 4 to 6 months. However, deterioration in appetite and weight gain occurred again from 7 months. At 9 months, the infant weighed 7.4 kg and showed impaired motor development. By 1.5 years, weight was recorded at 8.2 kg, indicating failure to thrive.",
+        "prior_history": "The infant suffered from chronic renal function damage since birth, characterized by elevated serum creatinine and stage 5 chronic kidney disease (CKD) at birth, improving to stage 3 from 9 months to 1.5 years."
+      },
+      "subset": "rare",
+      "supports": {
+        "initial": [
+          "Autosomal recessive renal tubular dysgenesis",
+          "Congenital nephrotic syndrome of the Finnish type",
+          "Nephropathic cystinosis",
+          "Infantile nephropathic cystinosis with renal Fanconi syndrome",
+          "Autosomal recessive polycystic kidney disease",
+          "Primary hyperoxaluria type 1",
+          "Denys-Drash syndrome",
+          "Renal-coloboma syndrome",
+          "PAX2-related papillorenal syndrome",
+          "Mitochondrial cytopathy with renal tubulopathy",
+          "Pierson syndrome",
+          "Congenital anomalies of the kidney and urinary tract due to HNF1B-related disease"
+        ],
+        "one_step__exam_1": [
+          "Silver-Russell syndrome",
+          "Mulibrey nanism",
+          "SHORT syndrome",
+          "Dubowitz syndrome",
+          "Russell-Silver syndrome with congenital renal anomalies",
+          "Nephropathic cystinosis",
+          "Autosomal recessive renal tubular dysgenesis",
+          "Pierson syndrome",
+          "Congenital nephrotic syndrome of the Finnish type",
+          "HNF1B-related renal disease",
+          "PAX2-related papillorenal syndrome",
+          "Autosomal recessive polycystic kidney disease"
+        ],
+        "one_step__family_social": [
+          "Autosomal recessive renal tubular dysgenesis",
+          "Infantile nephropathic cystinosis",
+          "Congenital nephrotic syndrome of the Finnish type",
+          "Autosomal recessive polycystic kidney disease",
+          "Pierson syndrome",
+          "HNF1B-related renal disease",
+          "PAX2-related papillorenal syndrome",
+          "Denys-Drash syndrome",
+          "Primary hyperoxaluria type 1",
+          "Mitochondrial cytopathy with renal tubulopathy",
+          "Renal Fanconi syndrome due to EHHADH deficiency",
+          "Senior-Loken syndrome"
+        ],
+        "one_step__imaging_1": [
+          "HNF1B-related renal developmental disease",
+          "PAX2-related renal coloboma syndrome",
+          "Autosomal dominant tubulointerstitial kidney disease due to REN mutation",
+          "Autosomal recessive renal tubular dysgenesis",
+          "Schimke immuno-osseous dysplasia",
+          "Nephronophthisis-related ciliopathy",
+          "Mainzer-Saldino syndrome",
+          "Jeune asphyxiating thoracic dystrophy with nephronophthisis",
+          "Fraser syndrome",
+          "Townes-Brocks syndrome",
+          "Pierson syndrome",
+          "Branchio-oto-renal syndrome"
+        ],
+        "one_step__lab_1": [
+          "Infantile nephropathic cystinosis",
+          "HNF1B-related disease (renal cysts and diabetes syndrome)",
+          "Autosomal recessive polycystic kidney disease",
+          "Congenital hepatic fibrosis with ciliopathy-related nephropathy",
+          "Mitochondrial hepatopathy with renal tubulopathy",
+          "ARC syndrome (VPS33B/VIPAR deficiency)",
+          "Peroxisomal biogenesis disorder (Zellweger spectrum disorder)",
+          "Alagille syndrome",
+          "Progressive familial intrahepatic cholestasis",
+          "TJP2-related familial intrahepatic cholestasis",
+          "Congenital disorders of glycosylation with hepatorenal involvement",
+          "Bile acid synthesis defect with renal tubular dysfunction"
+        ],
+        "one_step__lab_2": [
+          "Infantile nephropathic cystinosis",
+          "HNF4A-related Fanconi renotubular syndrome with neonatal hyperinsulinism",
+          "OCRL-related Lowe syndrome",
+          "Dent disease type 2",
+          "Mitochondrial cytopathy with renal Fanconi syndrome",
+          "Autosomal recessive polycystic kidney disease",
+          "HNF1B-related renal cysts and diabetes syndrome",
+          "Autosomal recessive renal tubular dysgenesis",
+          "Primary hyperoxaluria type 1",
+          "Pierson syndrome",
+          "Congenital Finnish-type nephrotic syndrome",
+          "ARC syndrome (VPS33B- or VIPAS39-related)"
+        ],
+        "one_step__other_1": [
+          "Autosomal recessive renal tubular dysgenesis",
+          "Infantile nephropathic cystinosis",
+          "Congenital nephrotic syndrome of the Finnish type",
+          "Autosomal recessive polycystic kidney disease",
+          "Pierson syndrome",
+          "HNF1B-related renal disease",
+          "PAX2-related papillorenal syndrome",
+          "Primary hyperoxaluria type 1",
+          "Coenzyme Q10 deficiency nephropathy",
+          "Mitochondrial cytopathy with renal tubulopathy",
+          "Dent disease 1",
+          "Lowe syndrome"
+        ],
+        "one_step__present_illness": [
+          "Autosomal recessive renal tubular dysgenesis",
+          "Autosomal recessive polycystic kidney disease",
+          "HNF1B-related renal cysts and diabetes syndrome",
+          "Infantile nephropathic cystinosis",
+          "Congenital nephrotic syndrome due to NPHS1",
+          "Pierson syndrome",
+          "Primary hyperoxaluria type 1",
+          "Schimke immuno-osseous dysplasia",
+          "Mitochondrial cytopathy with renal tubulopathy",
+          "Bartter syndrome with antenatal onset",
+          "Renal coloboma syndrome due to PAX2",
+          "Branchio-oto-renal syndrome"
+        ],
+        "one_step__prior_history": [
+          "Autosomal recessive renal tubular dysgenesis",
+          "Infantile nephropathic cystinosis",
+          "Congenital nephrotic syndrome of the Finnish type",
+          "Autosomal recessive polycystic kidney disease",
+          "HNF1B-related renal disease",
+          "PAX2-related papillorenal syndrome",
+          "Pierson syndrome",
+          "Primary hyperoxaluria type 1",
+          "Denys-Drash syndrome",
+          "Congenital obstructive uropathy with renal dysplasia",
+          "Coenzyme Q10 deficiency nephropathy",
+          "Schimke immuno-osseous dysplasia"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Alagille syndrome",
+      "two_step_room": false
+    },
+    {
+      "best_one_step_action_ids": [
+        "present_illness",
+        "prior_history",
+        "family_social",
+        "exam_1",
+        "lab_1",
+        "lab_2",
+        "imaging_1",
+        "other_1"
+      ],
+      "best_one_step_truth_score": 1.0,
+      "initial_truth_score": 1.0,
+      "one_step_truth_scores": {
+        "exam_1": 1.0,
+        "family_social": 1.0,
+        "imaging_1": 1.0,
+        "lab_1": 1.0,
+        "lab_2": 1.0,
+        "other_1": 1.0,
+        "present_illness": 1.0,
+        "prior_history": 1.0
+      },
+      "semantic_measurements": {
+        "initial": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "initial",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__exam_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__exam_1",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__family_social": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__family_social",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__imaging_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__imaging_1",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__lab_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__lab_1",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__lab_2": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__lab_2",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__other_1": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__other_1",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__present_illness": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__present_illness",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        },
+        "one_step__prior_history": {
+          "best_match_score": 1.0,
+          "covered": true,
+          "id": "one_step__prior_history",
+          "reason": "Exact same diagnosis (standard synonym listed)."
+        }
+      },
+      "source_id": "rare122",
+      "stored_observations": {
+        "exam_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "relevant_findings": "Dorsalis pedis artery hardly palpable; poor blood flow confirmed through handheld Doppler examination.",
+          "vital_signs": "Not specified"
+        },
+        "family_social": {
+          "family_history": "Not specified.",
+          "social_history": "Smoking history of more than 20 packs per year."
+        },
+        "imaging_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "findings": "Abrupt occlusion of the right popliteal artery and both ulnar arteries with corkscrew collaterals.",
+          "procedure_name": "Upper- and lower-extremity computed tomography angiography"
+        },
+        "lab_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "findings": "ESR = 5 mm/h (normal range not provided)",
+          "procedure_name": "Erythrocyte Sedimentation Rate (ESR)"
+        },
+        "lab_2": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "findings": "CRP = 0.1 mg/dL (normal range 0.1\u20130.5 mg/dL)",
+          "procedure_name": "C-reactive protein (CRP)"
+        },
+        "other_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "findings": "Poor blood flow was confirmed through handheld Doppler examination.",
+          "procedure_name": "Doppler examination"
+        },
+        "present_illness": "After the surgery, wound healing was delayed for over a month, with wound disruption and skin necrosis occurring.",
+        "prior_history": "Patient has a smoking history of more than 20 packs per year."
+      },
+      "subset": "rare",
+      "supports": {
+        "initial": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Peripheral arterial disease due to premature atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "ANCA-associated vasculitis",
+          "Polyarteritis nodosa",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ],
+        "one_step__exam_1": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Peripheral arterial disease due to premature atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "Polyarteritis nodosa",
+          "ANCA-associated vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ],
+        "one_step__family_social": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Peripheral arterial disease due to premature atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "Polyarteritis nodosa",
+          "ANCA-associated vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ],
+        "one_step__imaging_1": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Polyarteritis nodosa",
+          "Antiphospholipid syndrome",
+          "ANCA-associated vasculitis",
+          "Systemic sclerosis",
+          "Cryoglobulinemic vasculitis",
+          "Premature atherosclerotic peripheral arterial disease",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Sneddon syndrome",
+          "Fibromuscular dysplasia",
+          "Segmental arterial mediolysis",
+          "Cholesterol embolization syndrome"
+        ],
+        "one_step__lab_1": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Peripheral arterial disease due to premature atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "Polyarteritis nodosa",
+          "ANCA-associated vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ],
+        "one_step__lab_2": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Premature peripheral arterial disease due to accelerated atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "Polyarteritis nodosa",
+          "ANCA-associated vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ],
+        "one_step__other_1": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Peripheral arterial disease due to premature atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "Polyarteritis nodosa",
+          "ANCA-associated vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ],
+        "one_step__present_illness": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Peripheral arterial disease due to premature atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "Polyarteritis nodosa",
+          "ANCA-associated vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ],
+        "one_step__prior_history": [
+          "Thromboangiitis obliterans (Buerger disease)",
+          "Peripheral arterial disease due to premature atherosclerosis",
+          "Diabetes mellitus with peripheral arterial disease",
+          "Antiphospholipid syndrome",
+          "Systemic sclerosis",
+          "Polyarteritis nodosa",
+          "ANCA-associated vasculitis",
+          "Cryoglobulinemic vasculitis",
+          "Sneddon syndrome",
+          "Cholesterol embolization syndrome",
+          "Calciphylaxis",
+          "M\u00f6nckeberg medial calcific sclerosis"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Buerger's Disease",
+      "two_step_room": false
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed",
+  "summary": {
+    "gates": {
+      "all_pass": false,
+      "all_supports_size_twelve": true,
+      "at_least_two_cases_have_two_step_room": false,
+      "exactly_40_requests": true,
+      "no_full_target_in_source_evidence": true,
+      "zero_reasoning": true
+    },
+    "num_cases_with_two_step_room": 0,
+    "physical_requests": 40,
+    "reasoning_tokens": 0,
+    "source_target_leaks": 0,
+    "two_step_room_case_ids": []
+  },
+  "usage": {
+    "physical_requests": 40,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "initial": {
+        "adapter_completion_tokens": 451,
+        "adapter_cost_usd": 0.007945,
+        "adapter_prompt_tokens": 472,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5198,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 4041,
+            "cost_usd": 0.0889775,
+            "prompt_tokens": 11345,
+            "reasoning_tokens": 0,
+            "requests": 36
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 1157,
+            "cost_usd": 0.00877725,
+            "prompt_tokens": 4761,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 16106,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.673969722999942,
+        "requests": 40,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.09775474999999999,
+        "run_remaining_usd": 0.40224525,
+        "total_spent_usd": 46.71083297245721
+      },
+      "judge": {
+        "adapter_completion_tokens": 1157,
+        "adapter_cost_usd": 0.00877725,
+        "adapter_prompt_tokens": 4761,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5198,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 4041,
+            "cost_usd": 0.0889775,
+            "prompt_tokens": 11345,
+            "reasoning_tokens": 0,
+            "requests": 36
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 1157,
+            "cost_usd": 0.00877725,
+            "prompt_tokens": 4761,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 16106,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.673969722999942,
+        "requests": 40,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.09775474999999999,
+        "run_remaining_usd": 0.40224525,
+        "total_spent_usd": 46.71083297245721
+      },
+      "one_step": {
+        "adapter_completion_tokens": 3590,
+        "adapter_cost_usd": 0.0810325,
+        "adapter_prompt_tokens": 10873,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 32,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 5198,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 4041,
+            "cost_usd": 0.0889775,
+            "prompt_tokens": 11345,
+            "reasoning_tokens": 0,
+            "requests": 36
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 1157,
+            "cost_usd": 0.00877725,
+            "prompt_tokens": 4761,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 16106,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.673969722999942,
+        "requests": 40,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.09775474999999999,
+        "run_remaining_usd": 0.40224525,
+        "total_spent_usd": 46.71083297245721
+      }
+    }
+  }
+}
