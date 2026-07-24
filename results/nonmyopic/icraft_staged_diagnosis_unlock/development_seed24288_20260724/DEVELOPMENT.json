@@ -1,0 +1,1423 @@
+{
+  "protocol": {
+    "answer_options_hidden_from_generation": true,
+    "coverage_threshold": 0.8,
+    "dataset": "icraft_md",
+    "development_ids": [
+      8,
+      13,
+      14,
+      29,
+      37,
+      38,
+      46,
+      55,
+      66,
+      81,
+      84,
+      85,
+      88,
+      98,
+      105,
+      109,
+      110,
+      114,
+      121,
+      138
+    ],
+    "diagnosis_count": 8,
+    "holdout_ids": [
+      0,
+      1,
+      4,
+      5,
+      6,
+      12,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      24,
+      26,
+      28,
+      31,
+      32,
+      36,
+      39,
+      41,
+      48,
+      49,
+      51,
+      52,
+      53,
+      54,
+      56,
+      57,
+      58,
+      61,
+      63,
+      72,
+      73,
+      74,
+      75,
+      79,
+      80,
+      83,
+      86,
+      87,
+      89,
+      91,
+      92,
+      94,
+      97,
+      104,
+      106,
+      112,
+      119,
+      120,
+      122,
+      124,
+      127,
+      128,
+      130,
+      134,
+      135,
+      136,
+      139
+    ],
+    "judge_model": "openai/gpt-5.4-mini",
+    "prior_model_call_ids": [
+      2,
+      23,
+      40,
+      60,
+      62,
+      64,
+      96,
+      99,
+      100,
+      117,
+      125,
+      132,
+      137
+    ],
+    "selection_seed": 24288,
+    "truth_used_for_measurement_only": true
+  },
+  "records": [
+    {
+      "initial_diagnoses": [
+        "Cutaneous horn",
+        "Squamous cell carcinoma",
+        "Actinic keratosis",
+        "Seborrheic keratosis",
+        "Verruca vulgaris",
+        "Bowen's disease",
+        "Keratoacanthoma",
+        "Hypertrophic eczema"
+      ],
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact diagnosis match: Cutaneous horn."
+      },
+      "initial_visible_facts": [
+        "A 60-year-old man presents to the clinic.",
+        "The man has a 1-cm long horn-like projection."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact diagnosis match: Cutaneous horn."
+      },
+      "source_id": 8,
+      "true_diagnosis_measurement_only": "Cutaneous horn",
+      "workup_generated_diagnoses": [
+        "Cutaneous horn",
+        "Squamous cell carcinoma",
+        "Keratoacanthoma",
+        "Seborrheic keratosis",
+        "Verruca vulgaris",
+        "Bowen's disease",
+        "Actinic keratosis",
+        "Amelanotic melanoma"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact diagnosis match: Cutaneous horn."
+      },
+      "workup_revealed_facts": [
+        "The projection is coming from the skin on the superior aspect of the skull.",
+        "The projection is located just lateral to midline.",
+        "The structure is yellowish-white in color.",
+        "The structure feels very firm to the touch.",
+        "The man noticed a small, hard lesion a few months ago.",
+        "The lesion has grown progressively larger from the time of initial presentation to now.",
+        "The patient denies any pain at rest.",
+        "The patient experiences pain when the lesion is struck accidentally."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Acne vulgaris",
+        "Rosacea",
+        "Hidradenitis suppurativa",
+        "Folliculitis decalvans",
+        "Discoid lupus erythematosus",
+        "Lupus erythematosus erythematosus",
+        "Gram-negative folliculitis",
+        "Acne conglobata"
+      ],
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact match to the true diagnosis: Acne vulgaris."
+      },
+      "initial_visible_facts": [
+        "The patient is a 24-year-old Caucasian woman.",
+        "The patient presented with intermittent inflammatory papulopustules."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact match to the true diagnosis: Acne vulgaris appears in the list."
+      },
+      "source_id": 13,
+      "true_diagnosis_measurement_only": "Acne vulgaris",
+      "workup_generated_diagnoses": [
+        "Acne conglobata",
+        "Acne fulminans",
+        "Hormonal acne",
+        "Rosacea",
+        "Acne vulgaris",
+        "Folliculitis decalvans",
+        "Hidradenitis suppurativa",
+        "Gram-negative folliculitis"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact match to the true diagnosis: Acne vulgaris appears in the list."
+      },
+      "workup_revealed_facts": [
+        "The patient presented with nodules.",
+        "The lesions are located on the face, neck, chest, and back.",
+        "The lesions appear 1 week premenstrually.",
+        "The lesions resolve 1 week postmenstrually.",
+        "The patient has normal menstrual cycles.",
+        "The patient has a history of adolescent acne.",
+        "The patient's acne was only responsive to isotretinoin.",
+        "The isotretinoin treatment occurred 6 years ago.",
+        "Examination revealed scarring on the patient's face.",
+        "Examination revealed postinflammatory hyperpigmentation on the patient's face."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Epidermolysis bullosa simplex",
+        "Junctional epidermolysis bullosa",
+        "Dystrophic epidermolysis bullosa",
+        "Pemphigus vulgaris",
+        "Linear IgA bullous dermatosis",
+        "Bullous impetigo",
+        "Epidermolysis bullosa acquisita",
+        "Bart syndrome"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.75,
+        "covered": false,
+        "id": "initial",
+        "reason": "Closest is epidermolysis bullosa simplex, but EBS-Dowling Meara is a specific subtype, not the same diagnosis or a standard synonym."
+      },
+      "initial_visible_facts": [
+        "The patient is a 15-month-old boy.",
+        "The boy has a history of skin blistering since birth."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.75,
+        "covered": false,
+        "id": "merged",
+        "reason": "Closest is epidermolysis bullosa simplex, but EBS-Dowling Meara is only a subtype of EBS and should score below synonym-level equivalence."
+      },
+      "source_id": 14,
+      "true_diagnosis_measurement_only": "EBS-Dowling Meara",
+      "workup_generated_diagnoses": [
+        "Dystrophic epidermolysis bullosa",
+        "Junctional epidermolysis bullosa",
+        "Epidermolysis bullosa simplex",
+        "Linear IgA bullous dermatosis",
+        "Pemphigus foliaceus",
+        "Bullous impetigo",
+        "Epidermolysis bullosa acquisita",
+        "Bart syndrome"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.75,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "Closest is epidermolysis bullosa simplex; Dowling-Meara is a specific EBS subtype, so this is related but not equivalent."
+      },
+      "workup_revealed_facts": [
+        "The blistering primarily occurs on his hands, feet, and the perioral face.",
+        "Blisters and erosions also affect the boy's trunk.",
+        "Some blisters on the trunk are in an annular configuration.",
+        "There is no family history of neonatal blistering.",
+        "There is no family history of skin fragility.",
+        "The number of new vesicles and bullae has decreased over time.",
+        "The decrease in new vesicles and bullae is associated with trauma and friction.",
+        "The boy has developed thicker skin on the soles of his feet.",
+        "The boy has developed dystrophic nails."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Scabies",
+        "Contact dermatitis",
+        "Atopic dermatitis",
+        "Bullous pemphigoid",
+        "Asteatotic eczema",
+        "Tinea corporis",
+        "Urticaria",
+        "Psoriasis"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No Grover disease or equivalent; listed options are different pruritic dermatoses/differentials."
+      },
+      "initial_visible_facts": [
+        "A 72-year-old man presents to the clinic.",
+        "The man has an intensely itchy rash."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "merged",
+        "reason": "No Grover disease or equivalent appears in the merged list."
+      },
+      "source_id": 29,
+      "true_diagnosis_measurement_only": "Grover disease",
+      "workup_generated_diagnoses": [
+        "Bullous pemphigoid",
+        "Contact dermatitis",
+        "Scabies",
+        "Atopic dermatitis",
+        "Nummular eczema",
+        "Tinea corporis",
+        "Pityriasis rosea",
+        "Psoriasis"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "No Grover disease or standard synonym present; closest choices are unrelated differentials."
+      },
+      "workup_revealed_facts": [
+        "The rash is located on his abdomen and chest.",
+        "The rash appeared 2 months prior.",
+        "The man denies starting any new medications before the rash appeared.",
+        "The man denies having any systemic symptoms.",
+        "The man recently traveled and stayed in hotels.",
+        "The man's wife does not exhibit any similar symptoms.",
+        "Physical examination reveals numerous discrete papules on the man's chest, abdomen, and mid-back.",
+        "Physical examination reveals crusted papules on the man's chest, abdomen, and mid-back.",
+        "Physical examination reveals papulovesicles on the man's chest, abdomen, and mid-back.",
+        "The man's upper and lower extremities are unaffected.",
+        "The man's face is unaffected.",
+        "The man's groin is unaffected."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Pityriasis rosea",
+        "Contact dermatitis",
+        "Atopic dermatitis",
+        "Scabies",
+        "Folliculitis",
+        "Drug eruption",
+        "Lichen planus",
+        "Nummular eczema"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "None of the listed diagnoses is scleromyxedema or a standard synonym; they are unrelated dermatologic differentials."
+      },
+      "initial_visible_facts": [
+        "A 56-year-old man presents with diffuse pruritic papules.",
+        "The papules are on the upper body."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.3,
+        "covered": false,
+        "id": "merged",
+        "reason": "Contains related differentials such as cutaneous/systemic amyloidosis and myeloma/MGUS, but no exact scleromyxedema synonym."
+      },
+      "source_id": 37,
+      "true_diagnosis_measurement_only": "Scleromyxedema",
+      "workup_generated_diagnoses": [
+        "AL Amyloidosis",
+        "Macroglossia",
+        "Systemic Amyloidosis",
+        "Monoclonal Gammopathy of Undetermined Significance",
+        "Multiple Myeloma",
+        "Light Chain Deposition Disease",
+        "Cutaneous Amyloidosis",
+        "Hypertrophic Lichen Planus"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.3,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "The closest is cutaneous amyloidosis or a plasma-cell dyscrasia, but these are related conditions rather than the same diagnosis or a clinically equivalent synonym."
+      },
+      "workup_revealed_facts": [
+        "The man has nose and forehead thickening.",
+        "Over the past 2 years, the man has been evaluated for dysphagia.",
+        "Over the past 2 years, the man has been evaluated for reflux.",
+        "Over the past 2 years, the man has been evaluated for chronic kidney disease.",
+        "Over the past 2 years, the man has been evaluated for hypertension.",
+        "Over the past 2 years, the man has been evaluated for dyspnea on exertion.",
+        "Examination results show generalized firm, fleshy, dome-shaped papules.",
+        "The papules are several millimeters in diameter.",
+        "The papules are located on his forehead, ears, neck, trunk, back, proximal upper extremities, and dorsal hands.",
+        "There is induration on the forehead, glabella, and nose.",
+        "Laboratory findings include monoclonal gammopathy on serum immunofixation.",
+        "The gammopathy consists of immunoglobulin G_ and IgA_.",
+        "Thyroid panel findings are unremarkable."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Atopic dermatitis",
+        "Contact dermatitis",
+        "Tinea corporis",
+        "Urticaria",
+        "Scabies",
+        "Psoriasis",
+        "Nummular eczema",
+        "Lichen planus"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.2,
+        "covered": false,
+        "id": "initial",
+        "reason": "Contact dermatitis is related but not a specific synonym for Toxicodendron dermatitis."
+      },
+      "initial_visible_facts": [
+        "A 34-year-old man presents with an itchy rash.",
+        "The rash is primarily on his arms."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "merged",
+        "reason": "Allergic contact dermatitis (Rhus dermatitis) is a standard clinical synonym for Toxicodendron dermatitis."
+      },
+      "source_id": 38,
+      "true_diagnosis_measurement_only": "Toxicodendron dermatitis",
+      "workup_generated_diagnoses": [
+        "Allergic contact dermatitis (Rhus dermatitis)",
+        "Irritant contact dermatitis",
+        "Phytophotodermatitis",
+        "Atopic dermatitis",
+        "Tinea corporis",
+        "Urticaria",
+        "Scabies",
+        "Nummular eczema"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Allergic contact dermatitis (Rhus dermatitis) is a standard clinical synonym for Toxicodendron dermatitis."
+      },
+      "workup_revealed_facts": [
+        "The rash is also on his face, but to a lesser extent.",
+        "The man denies having a fever.",
+        "The man denies having malaise.",
+        "The man's medical history is unremarkable.",
+        "The man does not take any medications.",
+        "The man spent the previous weekend doing yardwork on his property.",
+        "The rash appeared 4 days after doing yardwork.",
+        "Physical examination reveals several linear arrangements of papulovesicles.",
+        "The papulovesicles are on the dorsal aspects of his forearms.",
+        "The papulovesicles are on the ventral aspects of his forearms.",
+        "There is surrounding erythema around the papulovesicles."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Seborrheic keratosis",
+        "Acanthosis nigricans",
+        "Disseminated superficial actinic keratosis",
+        "Cutaneous lymphoma",
+        "Tinea corporis",
+        "Psoriasis",
+        "Sebaceous carcinoma",
+        "Erythrasma"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.1,
+        "covered": false,
+        "id": "initial",
+        "reason": "No generated diagnosis is synonymous with cutaneous Langerhans cell histiocytosis; listed options are only broad or different skin disorders."
+      },
+      "initial_visible_facts": [
+        "A 60-year-old man presents with rapidly growing lesions.",
+        "The lesions are located on his face, trunk, axillae, flexural areas, and groin."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.1,
+        "covered": false,
+        "id": "merged",
+        "reason": "Contains only unrelated or broader differentials; none match cutaneous Langerhans cell histiocytosis or its standard synonym."
+      },
+      "source_id": 46,
+      "true_diagnosis_measurement_only": "Cutaneous Langerhans cell histiocytosis",
+      "workup_generated_diagnoses": [
+        "Mycosis fungoides",
+        "Sebaceous carcinoma",
+        "Cutaneous T-cell lymphoma",
+        "Granuloma annulare",
+        "Disseminated superficial actinic keratosis",
+        "Sarcoidosis",
+        "Lupus erythematosus",
+        "Pityriasis rubra pilaris"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.1,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "Closest options are other cutaneous infiltrative/lymphoproliferative diseases, but none are clinically equivalent to Langerhans cell histiocytosis."
+      },
+      "workup_revealed_facts": [
+        "The lesions first appeared 3 months earlier in his perianal area.",
+        "The lesions extended rapidly to other areas.",
+        "The man was previously treated with topical agents.",
+        "He was treated for atopic dermatitis.",
+        "He was treated for seborrheic dermatitis.",
+        "Previous treatments did not improve his condition.",
+        "Examination reveals disseminated violaceous papules and plaques.",
+        "The papules and plaques are on the face, trunk, axillae, and perianal area.",
+        "Some lesions were confluent.",
+        "Some lesions were ulcerated.",
+        "Yellowish-red to skin-colored papules are present on the scalp.",
+        "He has no palpable lymphadenopathy.",
+        "He has no organomegaly."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Contact dermatitis",
+        "Urticaria",
+        "Tinea corporis",
+        "Cellulitis",
+        "Drug eruption",
+        "Psoriasis",
+        "Eczema",
+        "Herpes zoster"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.1,
+        "covered": false,
+        "id": "initial",
+        "reason": "No diagnosis here is equivalent to levamisole-induced ANCA vasculitis; closest is drug eruption but that is not the same disease."
+      },
+      "initial_visible_facts": [
+        "A 50-year-old woman presents with a rash.",
+        "The rash has been progressing for 5 days."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.7,
+        "covered": false,
+        "id": "merged",
+        "reason": "Contains vasculitis/leukocytoclastic vasculitis, which are related but not the same as levamisole-induced ANCA vasculitis."
+      },
+      "source_id": 55,
+      "true_diagnosis_measurement_only": "Levamisole-induced antineutrophil cytoplasmic antibody vasculitis",
+      "workup_generated_diagnoses": [
+        "Vasculitis",
+        "Stevens-Johnson Syndrome",
+        "Toxic Epidermal Necrolysis",
+        "Disseminated Herpes Zoster",
+        "Calciphylaxis",
+        "Leukocytoclastic vasculitis",
+        "Systemic Lupus Erythematosus",
+        "Erythema Multiforme"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.7,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "Leukocytoclastic vasculitis and vasculitis are related but not equivalent; levamisole-induced ANCA vasculitis is a specific drug-induced small-vessel vasculitis subtype."
+      },
+      "workup_revealed_facts": [
+        "The rash is painful.",
+        "The rash involves the woman's face.",
+        "The rash involves the woman's trunk.",
+        "The rash involves the woman's extremities.",
+        "The rash involves the woman's nasal tip.",
+        "The rash involves the woman's ears.",
+        "The woman has a fever.",
+        "The woman has arthralgia.",
+        "The woman admits to a history of polysubstance use.",
+        "The woman's last substance use was one week before symptom onset.",
+        "The woman denies a history of autoimmune disease.",
+        "The woman denies recent travel.",
+        "Examination reveals retiform purpura.",
+        "Examination reveals areas of necrosis.",
+        "Examination reveals bullae formation.",
+        "The woman's urine toxicology screening is positive for cocaine.",
+        "The woman has leukopenia.",
+        "The woman has an elevated erythrocyte sedimentation rate of 70 mm/h."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Psoriasis",
+        "Atopic dermatitis",
+        "Seborrheic dermatitis",
+        "Tinea corporis",
+        "Contact dermatitis",
+        "Eczema",
+        "Lichen planus",
+        "Pityriasis rosea"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No listed diagnosis is equivalent to pellagra."
+      },
+      "initial_visible_facts": [
+        "A man is 42 years old.",
+        "The man presents with a 6-month history of a skin rash."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Pellagra is explicitly listed and is the exact diagnosis."
+      },
+      "source_id": 66,
+      "true_diagnosis_measurement_only": "Pellagra",
+      "workup_generated_diagnoses": [
+        "Dermatomyositis",
+        "Pellagra",
+        "Chronic Alcoholism-related Dermatitis",
+        "Systemic Lupus Erythematosus",
+        "Psoriasis",
+        "Atopic dermatitis",
+        "Seborrheic dermatitis",
+        "Contact dermatitis"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Pellagra is explicitly listed and is the exact diagnosis."
+      },
+      "workup_revealed_facts": [
+        "The skin rash is painful.",
+        "The skin rash is scaly.",
+        "The rash is symmetrically distributed.",
+        "The rash affects photosensitive areas.",
+        "The affected areas include the man's face.",
+        "The affected areas include the man's neck.",
+        "The affected areas include the man's upper back.",
+        "The affected areas include the man's forearms.",
+        "The affected areas include the man's hands.",
+        "The dorsal surfaces of the man's hands exhibit a dusky brown coloration.",
+        "The dorsal surfaces of the man's forearms exhibit a dusky brown coloration.",
+        "The man's skin on his hands and forearms is rough.",
+        "The man's skin on his hands and forearms is cracked.",
+        "The man complains of itching.",
+        "The man complains of burning.",
+        "The man reports intermittent vomiting.",
+        "The man reports intermittent diarrhea.",
+        "The man admits to heavy alcohol intake for the last 20 years.",
+        "The man denies taking any medications.",
+        "Neuropsychiatric evaluation reveals the man has short-term memory loss.",
+        "Neuropsychiatric evaluation reveals the man has speech problems.",
+        "Neuropsychiatric evaluation reveals the man has poor concentration."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Alopecia areata",
+        "Tinea capitis",
+        "Trichotillomania",
+        "Alopecia totalis",
+        "Lichen planopilaris",
+        "Discoid lupus erythematosus",
+        "Alopecia etagen",
+        "Syphilitic alopecia"
+      ],
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact diagnosis match: Alopecia areata."
+      },
+      "initial_visible_facts": [
+        "The patient is a 15-year-old girl.",
+        "The patient presents with patches of hair loss on her scalp."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact diagnosis match: Alopecia areata."
+      },
+      "source_id": 81,
+      "true_diagnosis_measurement_only": "Alopecia areata",
+      "workup_generated_diagnoses": [
+        "Alopecia areata",
+        "Trichotillomania",
+        "Tinea capitis",
+        "Alopecia etagen",
+        "Discoid lupus erythematosus",
+        "Lichen planopilaris",
+        "Alopecia totalis",
+        "Syphilitic alopecia"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact diagnosis match: Alopecia areata."
+      },
+      "workup_revealed_facts": [
+        "The hair loss has been present for the last 6 months.",
+        "The patient reports that her scalp is not itchy.",
+        "The patient reports that her scalp is not painful.",
+        "The patient denies any recent illnesses.",
+        "The patient denies any recent diet changes.",
+        "The patient denies any recent stressful life events.",
+        "The patient does not have any other medical conditions.",
+        "The patient takes no medications.",
+        "The patient's uncle had a similar condition.",
+        "The patient's uncle's condition started when he was in his 20s.",
+        "No one else in the patient's family has experienced hair loss.",
+        "The patient has not tried any treatments for her condition.",
+        "On examination, the patient has several well-demarcated patches of hair loss.",
+        "The patches of hair loss are located on the patient's frontal scalp.",
+        "The patches of hair loss are located on the patient's parietal scalp.",
+        "There is no perifollicular erythema on the patient's scalp.",
+        "There is no scale on the patient's scalp."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Psoriasis",
+        "Contact dermatitis",
+        "Tinea corporis",
+        "Discoid lupus erythematosus",
+        "Bowen's disease",
+        "Granuloma annulare",
+        "Eczema",
+        "Basal cell carcinoma"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "initial",
+        "reason": "Granuloma annulare is the same diagnosis; 'localized' is a common subtype/descriptor."
+      },
+      "initial_visible_facts": [
+        "The patient is a 61-year-old man.",
+        "The patient has a 7-month history of lesions on his hands and arms."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "merged",
+        "reason": "Granuloma annulare matches the true diagnosis; localized is a subtype/descriptor."
+      },
+      "source_id": 84,
+      "true_diagnosis_measurement_only": "Localized granuloma annulare",
+      "workup_generated_diagnoses": [
+        "Granuloma annulare",
+        "Tinea corporis",
+        "Psoriasis",
+        "Discoid lupus erythematosus",
+        "Bowen's disease",
+        "Eczema",
+        "Basal cell carcinoma",
+        "Lichen planus"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Granuloma annulare matches the true diagnosis; localized is a subtype/descriptor."
+      },
+      "workup_revealed_facts": [
+        "The patient's medical history includes depression.",
+        "The patient's medical history includes hypertension.",
+        "The patient's medical history includes hyperlipidemia.",
+        "The patient has no personal history of skin problems.",
+        "The patient has no family history of skin problems.",
+        "The patient's skin lesions are not painful.",
+        "The patient's skin lesions are not itchy.",
+        "The patient is not bothered by the appearance of his skin lesions.",
+        "The patient has not tried any treatments for the lesions.",
+        "Physical examination reveals pink, annular plaques on the patient\u2019s dorsal forearms and hands.",
+        "The plaques have smooth raised borders.",
+        "Small discrete papules are seen within the plaques on close inspection."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Atopic dermatitis",
+        "Contact dermatitis",
+        "Urticaria",
+        "Tinea corporis",
+        "Scabies",
+        "Psoriasis",
+        "Eczema",
+        "Dyshidrotic eczema"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No lichen planus option present; only related eczematous/psoriasiform differentials listed."
+      },
+      "initial_visible_facts": [
+        "The patient is a 32-year-old woman.",
+        "The patient presents with an itchy rash."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact same diagnosis: Lichen planus."
+      },
+      "source_id": 85,
+      "true_diagnosis_measurement_only": "Lichen planus",
+      "workup_generated_diagnoses": [
+        "Lichen planus",
+        "Psoriasis",
+        "Atopic dermatitis",
+        "Contact dermatitis",
+        "Lichen simplex chronicus",
+        "Tinea corporis",
+        "Scabies",
+        "Dyshidrotic eczema"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact same diagnosis: Lichen planus."
+      },
+      "workup_revealed_facts": [
+        "The rash began 3 months ago.",
+        "The patient has a history of anxiety.",
+        "The patient has no other known medical conditions.",
+        "The patient has used over-the-counter hydrocortisone cream for the rash.",
+        "The hydrocortisone cream provided some relief from itchiness.",
+        "The rash continues to spread despite treatment.",
+        "The patient has no known allergies.",
+        "The patient has not changed her skin care products recently.",
+        "The patient has not changed her medications recently.",
+        "On examination, the patient has dark purple and gray flat-topped papules.",
+        "The papules have fine gray-white streaks.",
+        "The papules are located on the patient's flexural wrists.",
+        "The papules are located on the patient's dorsal hands.",
+        "The papules are located on the patient's elbows.",
+        "The papules are located on the patient's ankles.",
+        "The papules are located on the patient's dorsal feet."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Shingles",
+        "Cellulitis",
+        "Folliculitis",
+        "Contact dermatitis",
+        "Impetigo",
+        "Varicella",
+        "Herpes simplex virus infection",
+        "Granuloma annulare"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No close match; all options are infections or inflammatory skin conditions, not IgA-mediated small vessel vasculitis."
+      },
+      "initial_visible_facts": [
+        "A 50-year-old woman presents with a crop of lesions.",
+        "The lesions recently appeared on her buttocks and legs."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Contains IgA vasculitis, which is a standard synonym of IgA-mediated small vessel vasculitis."
+      },
+      "source_id": 88,
+      "true_diagnosis_measurement_only": "IgA-mediated small vessel vasculitis",
+      "workup_generated_diagnoses": [
+        "Henoch-Sch\u00f6nlein purpura",
+        "IgA vasculitis",
+        "Leukocytoclastic vasculitis",
+        "Hypersensitivity vasculitis",
+        "Post-infectious vasculitis",
+        "Cutaneous small vessel vasculitis",
+        "Sch\u00f6nlein-Henoch purpura",
+        "Allergic vasculitis"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "IgA vasculitis is a standard clinical synonym of IgA-mediated small vessel vasculitis; Henoch-Sch\u00f6nlein purpura / Sch\u00f6nlein-Henoch purpura are equivalent terms."
+      },
+      "workup_revealed_facts": [
+        "The lesions are red macules and papules.",
+        "The size of the lesions ranges from a few millimeters to a few centimeters.",
+        "When pressed, the lesions do not blanch or partially blanch.",
+        "The patient reports joint pain.",
+        "The joint pain is over her ankles and knees.",
+        "The patient also reports malaise.",
+        "The patient had a \"cold\" a few weeks earlier.",
+        "The patient's primary care provider prescribed an antibiotic for the cold.",
+        "Direct immunofluorescence of the lesions was performed.",
+        "Immunoglobulin A (IgA) deposits were found around the small vessels in the papillary dermis."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Acne vulgaris",
+        "Atopic dermatitis",
+        "Tinea corporis",
+        "Alopecia areata",
+        "Psoriasis vulgaris",
+        "Impetigo",
+        "Verruca vulgaris",
+        "Seborrheic dermatitis"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.31,
+        "covered": false,
+        "id": "initial",
+        "reason": "No generated diagnosis is a synonym of confluent and reticulated papillomatosis; the closest is psoriasis or tinea corporis as a rash differential, but not equivalent."
+      },
+      "initial_visible_facts": [
+        "The patient is a 15-year-old white adolescent.",
+        "The patient presents to the dermatology clinic."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.42,
+        "covered": false,
+        "id": "merged",
+        "reason": "The closest option remains pityriasis versicolor, which overlaps clinically but is not a standard synonym or equivalent diagnosis."
+      },
+      "source_id": 98,
+      "true_diagnosis_measurement_only": "Confluent and reticulated papillomatosis",
+      "workup_generated_diagnoses": [
+        "Pseudoxanthoma elasticum",
+        "Darier disease",
+        "Pityriasis versicolor",
+        "Psoriasis vulgaris",
+        "Seborrheic dermatitis",
+        "Tinea corporis",
+        "Acanthosis nigricans",
+        "Verruca vulgaris"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.42,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "Pityriasis versicolor is a common clinical differential for confluent and reticulated papillomatosis, but it is a distinct fungal condition, not the same diagnosis."
+      },
+      "workup_revealed_facts": [
+        "The patient has a rash on his upper back.",
+        "The rash is asymptomatic.",
+        "The rash has persisted for 4 months.",
+        "Physical examination was conducted.",
+        "The examination reveals hyperpigmented scaly papules.",
+        "The papules are coalescing into confluent plaques.",
+        "The plaques have peripheral reticulated papillomatosis.",
+        "The boy is overweight.",
+        "The boy has no history of any other medical conditions."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Chronic Pruritus",
+        "Atopic Dermatitis",
+        "Scabies",
+        "Chronic Kidney Disease",
+        "Diabetes Mellitus",
+        "Polycythemia Vera",
+        "Hypothyroidism",
+        "Psoriasis"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No listed diagnosis is Hodgkin lymphoma or a standard synonym; all are unrelated differentials or symptom/condition categories."
+      },
+      "initial_visible_facts": [
+        "The patient is a 67-year-old male.",
+        "The patient has experienced unrelenting itch for the last 6 months."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.7,
+        "covered": false,
+        "id": "merged",
+        "reason": "Closest match is lymphoma, which is a broader category rather than the exact diagnosis Hodgkin lymphoma."
+      },
+      "source_id": 105,
+      "true_diagnosis_measurement_only": "Hodgkin lymphoma",
+      "workup_generated_diagnoses": [
+        "Lymphoma",
+        "Polycythemia Vera",
+        "Chronic Pruritus",
+        "Atopic Dermatitis",
+        "Psoriasis",
+        "Diabetes Mellitus",
+        "Hypothyroidism",
+        "Scabies"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.7,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "Closest match is lymphoma, but it is only a broad parent category, not specifically Hodgkin lymphoma."
+      },
+      "workup_revealed_facts": [
+        "The patient endorses weight loss.",
+        "The patient endorses fatigue.",
+        "The patient denies any liver disease.",
+        "The patient denies any kidney disease.",
+        "The patient denies exacerbation of itch with water.",
+        "A KOH scraping was performed on the patient.",
+        "The KOH scraping is negative for scabies.",
+        "The physical examination shows numerous punctate and linear erosions.",
+        "The erosions are consistent with excoriations.",
+        "The physical examination shows diffuse shoddy lymphadenopathy."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Irritant contact diaper dermatitis",
+        "Candida albicans diaper dermatitis",
+        "Seborrheic dermatitis",
+        "Atopic dermatitis",
+        "Scabies",
+        "Perioral dermatitis",
+        "Langerhans cell histiocytosis",
+        "Streptococcal diaper dermatitis"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No generated diagnosis is acrodermatitis enteropathica or a clinically equivalent synonym; all are diaper dermatitis or other differentials."
+      },
+      "initial_visible_facts": [
+        "A 2-month-old male infant presents with a rash in the diaper area.",
+        "The rash has been present for the last month."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "merged",
+        "reason": "No generated diagnosis is acrodermatitis enteropathica or an equivalent synonym."
+      },
+      "source_id": 109,
+      "true_diagnosis_measurement_only": "Acrodermatitis enteropathica",
+      "workup_generated_diagnoses": [
+        "Candida albicans diaper dermatitis",
+        "Streptococcal diaper dermatitis",
+        "Seborrheic dermatitis",
+        "Atopic dermatitis",
+        "Langerhans cell histiocytosis",
+        "Scabies",
+        "Perioral dermatitis",
+        "Irritant contact diaper dermatitis"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "No generated diagnosis matches acrodermatitis enteropathica; listed diagnoses are unrelated differential diagnoses."
+      },
+      "workup_revealed_facts": [
+        "The infant was seen by his pediatrician.",
+        "The pediatrician prescribed topical triamcinolone for the infant.",
+        "The pediatrician also prescribed zinc oxide paste for the infant.",
+        "The topical triamcinolone did not help the rash.",
+        "The zinc oxide paste did not help the rash.",
+        "The infant's mom was unable to make enough breastmilk.",
+        "The infant has recently been fed a new formula.",
+        "Physical exam reveals erythematous erosions in the diaper area.",
+        "Physical exam reveals peri-oral scaling.",
+        "Physical exam reveals a shiny tongue.",
+        "There is no rash on the infant's scalp."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Atopic dermatitis",
+        "Psoriasis vulgaris",
+        "Nummular eczema",
+        "Tinea corporis",
+        "Lichen simplex chronicus",
+        "Pityriasis rosea",
+        "Allergic contact dermatitis",
+        "Seborrheic dermatitis"
+      ],
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact same diagnosis: Psoriasis vulgaris."
+      },
+      "initial_visible_facts": [
+        "The patient is a 25-year-old male.",
+        "The patient has had pruriginous erythematous plaques for 2 years."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact same diagnosis: Psoriasis vulgaris."
+      },
+      "source_id": 110,
+      "true_diagnosis_measurement_only": "Psoriasis vulgaris",
+      "workup_generated_diagnoses": [
+        "Psoriasis vulgaris",
+        "Psoriatic arthritis",
+        "Psoriasis pustulosa",
+        "Guttate psoriasis",
+        "Inverse psoriasis",
+        "Nummular eczema",
+        "Tinea corporis",
+        "Lichen simplex chronicus"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact same diagnosis: Psoriasis vulgaris."
+      },
+      "workup_revealed_facts": [
+        "The plaques have silver scales.",
+        "The plaques are located on the patient's elbows.",
+        "The plaques are located on the patient's knees.",
+        "The plaques are located on the patient's buttocks.",
+        "The patient's father has hand arthritis.",
+        "The patient's father has back arthritis.",
+        "The patient denies a personal history of dermatology conditions.",
+        "The patient denies a family history of dermatology conditions.",
+        "The patient denies a personal history of atopy.",
+        "The patient denies a family history of atopy.",
+        "Physical exam reveals pitting on all 10 of the patient's fingernails."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Molluscum contagiosum",
+        "Acne vulgaris",
+        "Sebaceous hyperplasia",
+        "Verruca plana",
+        "Sarcoidosis",
+        "Granuloma faciale",
+        "Lupus erythematosus discoid",
+        "Syringoma"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No tuberous sclerosis complex option present; closest choices are unrelated skin lesions/dermatoses."
+      },
+      "initial_visible_facts": [
+        "The patient is a 16-year-old male.",
+        "The patient presents with an increased number of perinasal dome-shaped smooth flesh-colored papules."
+      ],
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact same diagnosis appears in the list: Tuberous sclerosis complex."
+      },
+      "source_id": 114,
+      "true_diagnosis_measurement_only": "Tuberous sclerosis complex",
+      "workup_generated_diagnoses": [
+        "Neurofibromatosis type 1",
+        "Tuberous sclerosis complex",
+        "Legius syndrome",
+        "Cowden syndrome",
+        "Juvenile xanthogranuloma",
+        "Molluscum contagiosum",
+        "Sebaceous hyperplasia",
+        "Syringoma"
+      ],
+      "workup_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact same diagnosis: Tuberous sclerosis complex."
+      },
+      "workup_revealed_facts": [
+        "The patient has epilepsy.",
+        "The patient denies family history of cancer.",
+        "The physical exam reveals hypopigmented macules on the patient's back.",
+        "The physical exam reveals three caf\u00e9-au-lait patches on the patient.",
+        "The physical exam reveals flesh-colored papules emerging from the patient's nail folds.",
+        "A biopsy of the facial lesions was performed.",
+        "The biopsy shows dermal proliferation of fibroblasts.",
+        "The biopsy shows a collagenous stroma.",
+        "The biopsy shows increased dilated blood vessels."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Aplasia cutis congenita",
+        "Lipodystrophy",
+        "Scleroderma en coup de sabre",
+        "Atrophoderma vermiculatum",
+        "Localized scleroderma",
+        "Lipoatrophy",
+        "Connective tissue disease",
+        "Epidermolysis bullosa"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.12,
+        "covered": false,
+        "id": "initial",
+        "reason": "No listed diagnosis is the same as Conradi-H\u00fcnermann-Happle syndrome; at best these are superficial or differential overlaps."
+      },
+      "initial_visible_facts": [
+        "A 6-month-old male presents to a dermatology clinic.",
+        "The patient has skin depressions on the arms and legs."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.18,
+        "covered": false,
+        "id": "merged",
+        "reason": "Contains related lipodystrophy/skin disorders, but none is a standard synonym or the same diagnosis as Conradi-H\u00fcnermann-Happle syndrome."
+      },
+      "source_id": 121,
+      "true_diagnosis_measurement_only": "Conradi-H\u00fcnermann-Happle syndrome",
+      "workup_generated_diagnoses": [
+        "Atrophoderma vermiculatum",
+        "Aplasia cutis congenita",
+        "Mandibuloacral dysplasia",
+        "Congenital generalized lipodystrophy",
+        "Proteus syndrome",
+        "Gorlin syndrome",
+        "Epidermolysis bullosa",
+        "Localized scleroderma"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.18,
+        "covered": false,
+        "id": "workup_generated",
+        "reason": "Mandibuloacral dysplasia and congenital generalized lipodystrophy are related lipodystrophy disorders but not equivalent to Conradi-H\u00fcnermann-Happle syndrome."
+      },
+      "workup_revealed_facts": [
+        "The skin depressions have been present for a few months.",
+        "The patient's mother denies any trauma that may have caused the depressions.",
+        "The lesions are not painful to the patient.",
+        "The lesions are not itchy to the patient.",
+        "The patient's mother denies any recent travel.",
+        "The patient's mother denies any recent treatments.",
+        "The patient's past medical history includes a full-term prenatal course.",
+        "At birth, the patient was red across the entire body.",
+        "At birth, the patient had thin flaky yellow skin attached to the back and chest.",
+        "The skin condition at birth slowly healed.",
+        "The patient was recently evaluated by orthopedics.",
+        "The patient completed a hand x-ray.",
+        "The hand x-ray showed epiphyseal stippling.",
+        "Physical examination shows multiple follicular-based depressions.",
+        "The depressions have a curvilinear distribution.",
+        "The depressions are located on the hands, legs, and feet."
+      ]
+    },
+    {
+      "initial_diagnoses": [
+        "Stasis dermatitis",
+        "Atopic dermatitis",
+        "Contact dermatitis",
+        "Nummular eczema",
+        "Lichen simplex chronicus",
+        "Cellulitis",
+        "Tinea corporis",
+        "Psoriasis"
+      ],
+      "initial_measurement": {
+        "best_match_score": 0.74,
+        "covered": false,
+        "id": "initial",
+        "reason": "Closest option is contact dermatitis, but this is a broader category rather than the specific poison ivy (Rhus) allergic subtype."
+      },
+      "initial_visible_facts": [
+        "A 34-year-old woman presents with a severely itchy rash.",
+        "The rash affects both lower legs."
+      ],
+      "merged_measurement": {
+        "best_match_score": 0.97,
+        "covered": true,
+        "id": "merged",
+        "reason": "Contains allergic contact dermatitis (Rhus dermatitis), which is the same diagnosis as poison ivy allergic contact dermatitis."
+      },
+      "source_id": 138,
+      "true_diagnosis_measurement_only": "Poison ivy allergic contact dermatitis",
+      "workup_generated_diagnoses": [
+        "Allergic contact dermatitis (Rhus dermatitis)",
+        "Irritant contact dermatitis",
+        "Atopic dermatitis",
+        "Nummular eczema",
+        "Tinea corporis",
+        "Cellulitis",
+        "Scabies",
+        "Insect bite reaction"
+      ],
+      "workup_measurement": {
+        "best_match_score": 0.97,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Allergic contact dermatitis (Rhus dermatitis) is a standard clinical synonym for poison ivy allergic contact dermatitis."
+      },
+      "workup_revealed_facts": [
+        "The rash developed three days ago.",
+        "The woman returned from camping six days ago.",
+        "During the camping trip, they often hiked for several hours a day.",
+        "The woman wore shorts during the camping trip.",
+        "The weather during the camping trip was humid and hot.",
+        "The rash began as small red bumps.",
+        "The small red bumps formed larger fluid-filled bumps.",
+        "The woman has tried over-the-counter cortisone.",
+        "The cortisone helps with the itch a little bit.",
+        "The woman denies using any new topical lotions.",
+        "The woman denies using new laundry detergents.",
+        "The woman denies using new body washes.",
+        "Physical exam reveals multiple streaks of yellow vesicles.",
+        "The yellow vesicles are on bright pink erythematous bases.",
+        "The vesicles are in a linear distribution.",
+        "The vesicles are located on the bilateral lower extremities."
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "status": "development_gate_failed",
+  "summary": {
+    "gates": {
+      "all_pass": false,
+      "all_twenty_tasks_completed": true,
+      "at_least_eight_initial_omissions_recovered": false,
+      "initial_support_not_saturated": true,
+      "mean_match_gain_at_least_0_25": true,
+      "recovery_fraction_at_least_0_60": false,
+      "workup_support_covers_at_least_fourteen": false
+    },
+    "initial_covered": 5,
+    "initial_omitted": 15,
+    "initially_omitted_recovered_by_workup": 6,
+    "mean_workup_best_match_gain": 0.3375,
+    "num_tasks": 20,
+    "recovery_fraction_among_initial_omissions": 0.4,
+    "workup_generated_covered": 11
+  },
+  "usage": {
+    "generator": {
+      "adapter_completion_tokens": 3314,
+      "adapter_cost_usd": 0.00207645,
+      "adapter_prompt_tokens": 9241,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 40,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 5664,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 3314,
+          "cost_usd": 0.00207645,
+          "prompt_tokens": 9241,
+          "reasoning_tokens": 0,
+          "requests": 40
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2350,
+          "cost_usd": 0.015390000000000001,
+          "prompt_tokens": 6420,
+          "reasoning_tokens": 0,
+          "requests": 20
+        }
+      },
+      "prompt_tokens": 15661,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.18274452754284,
+      "requests": 60,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.017466449999999998,
+      "run_remaining_usd": 0.98253355,
+      "total_spent_usd": 44.817255472457155
+    },
+    "judge": {
+      "adapter_completion_tokens": 2350,
+      "adapter_cost_usd": 0.015390000000000001,
+      "adapter_prompt_tokens": 6420,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 20,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 5664,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 3314,
+          "cost_usd": 0.00207645,
+          "prompt_tokens": 9241,
+          "reasoning_tokens": 0,
+          "requests": 40
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2350,
+          "cost_usd": 0.015390000000000001,
+          "prompt_tokens": 6420,
+          "reasoning_tokens": 0,
+          "requests": 20
+        }
+      },
+      "prompt_tokens": 15661,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.18274452754284,
+      "requests": 60,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.017466449999999998,
+      "run_remaining_usd": 0.98253355,
+      "total_spent_usd": 44.817255472457155
+    }
+  }
+}
