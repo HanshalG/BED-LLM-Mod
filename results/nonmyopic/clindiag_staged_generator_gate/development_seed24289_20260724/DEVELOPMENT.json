@@ -1,0 +1,1271 @@
+{
+  "protocol": {
+    "archive_sha256": "a9ea339fc3a6ded91f5c1769589c5c374dd32c266072511260d4102e544539c1",
+    "coverage_threshold": 0.8,
+    "dataset": "ClinDiag-Benchmark",
+    "development_ids": [
+      "rare27",
+      "11232006",
+      "rare26",
+      "rare197",
+      "rare238",
+      "rare145",
+      "rare93",
+      "14715828",
+      "23802518",
+      "rare164",
+      "30044928",
+      "20068123",
+      "rare245",
+      "19213685",
+      "rare151",
+      "17845596",
+      "23071170",
+      "24104373",
+      "25210096",
+      "rare42"
+    ],
+    "diagnosis_count": 12,
+    "generator_model": "openai/gpt-5.4",
+    "holdout_ids": [
+      "rare103",
+      "15705922",
+      "23866852",
+      "11096017",
+      "rare117",
+      "16798335",
+      "rare111",
+      "rare227",
+      "11772594",
+      "rare274",
+      "rare224",
+      "30231229",
+      "12894069",
+      "12350194",
+      "11396442",
+      "21776542",
+      "24491977",
+      "rare291",
+      "15583598",
+      "rare244",
+      "17484731",
+      "rare239",
+      "29878124",
+      "24423348",
+      "rare163",
+      "21289269",
+      "rare96",
+      "rare67",
+      "rare31",
+      "rare40",
+      "rare251",
+      "rare182",
+      "rare191",
+      "20494731",
+      "11900499",
+      "25555030",
+      "20554986",
+      "rare240",
+      "rare253",
+      "10987731",
+      "15010448",
+      "374752",
+      "655289",
+      "rare60",
+      "rare218",
+      "rare127",
+      "rare210",
+      "11423847",
+      "17035606",
+      "rare90",
+      "rare12",
+      "12444199",
+      "rare91",
+      "31216403",
+      "rare80",
+      "28240659",
+      "rare75",
+      "rare299",
+      "rare114",
+      "10698822"
+    ],
+    "judge_model": "openai/gpt-5.4-mini",
+    "lexical_target_leaks_excluded": true,
+    "reasoning_disabled": true,
+    "selection_seed": 24289,
+    "smoke_ids": [
+      "16837683",
+      "rare297",
+      "21506744",
+      "rare28"
+    ],
+    "source_commit": "f9b5c181e8d120d6a244accba9422ffb89d1f319",
+    "truth_used_for_measurement_only": true
+  },
+  "records": [
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"The patient presents with a history of seizures since the age of 2.\", \"family_history\": \"There is no history of epilepsy or seizures in the family. The patient's parents were non-consanguineous.\", \"history_of_present_illness\": \"The first epileptic event involved sudden loss of awareness, generalized clonic movements, and sialorrhea, with no fever or other symptoms. From age 20 to the present, the patient experienced focal onset impaired awareness seizures characterized by coughing aura, staring, mouth automatisms, bimanual automatisms, and head shift to the left. These seizures lasted about 1 minute, with secondary generalizations occurring rarely (four times in lifetime). The awake seizures occurred two to three times per week and worsened premenstrually. A second type of event included sleep episodes of agitation and frenetic rubbing of the left ear, averaging one to two times per week.\", \"past_medical_history\": \"The patient has had several antiseizure drug trials with medications including valproate, phenytoin, lamotrigine, and phenobarbital, with seizure control being variable. Current medications include carbamazepine and clobazam, which have not achieved seizure freedom.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": \"Not specified\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Genetic testing showed a heterozygous mutation in exon 15 of the NSD1 gene [c.5146G>A, p.(Gly1716Arg)], classified as pathologic in Leiden Open Variation Database (LOVD) and not found in The Genome Aggregation Database (gnomAD).\", \"procedure_name\": \"Genetic testing\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Prolonged (62 h) non-invasive video-EEG monitoring showed symmetrical and slightly disorganized base activity, with 778 bilateral interictal epileptic discharges (84.1% in the left anterior temporal region and 15.9% in the right anterior temporal region). Six electroclinical seizures were recorded: five focal onset impaired awareness motor seizures during the awake period and one during sleep. All recorded seizures had the ictal onset and symptomatogenic area in the left temporal lobe.\", \"procedure_name\": \"Video-EEG monitoring\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Neuropsychological testing found low scores in episodic memory (verbal and non-verbal), language, speech, constructive praxis, and working memory.\", \"procedure_name\": \"Neuropsychological testing\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Pre-operative score was 45.4.\", \"procedure_name\": \"Quality of Life in Epilepsy Inventory-31 (QOLIE-31)\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Brain MRI showed left hippocampus atrophy and right hippocampus malrotation.\", \"procedure_name\": \"Brain MRI\"}]}",
+      "full_generated_diagnoses": [
+        "Left mesial temporal lobe epilepsy due to hippocampal sclerosis",
+        "Drug-resistant left temporal lobe epilepsy",
+        "NSD1-related epilepsy syndrome",
+        "Sotos syndrome due to pathogenic NSD1 mutation",
+        "Dual pathology temporal lobe epilepsy with left hippocampal sclerosis and contralateral hippocampal malrotation",
+        "Bilateral temporal lobe epileptogenicity with dominant left temporal seizure onset",
+        "Focal impaired awareness seizures of left mesial temporal origin",
+        "Sleep-related hypermotor focal seizures of temporal lobe origin",
+        "Focal cortical dysplasia involving the left temporal lobe",
+        "Low-grade epilepsy-associated tumor of the left temporal lobe",
+        "Remote developmental-temporal epileptogenesis associated with congenital hippocampal malrotation",
+        "Genetic developmental and epileptic encephalopathy associated with NSD1"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Sotos syndrome due to pathogenic NSD1 mutation is a clinically equivalent synonym of Sotos syndrome."
+      },
+      "initial_diagnoses": [
+        "Tuberous sclerosis complex",
+        "Sturge-Weber syndrome",
+        "Focal cortical dysplasia",
+        "Mesial temporal sclerosis",
+        "Perinatal hypoxic-ischemic brain injury",
+        "Rasmussen encephalitis",
+        "Dysembryoplastic neuroepithelial tumor",
+        "Ganglioglioma",
+        "Neurocysticercosis",
+        "Mitochondrial encephalomyopathy with lactic acidosis and stroke-like episodes",
+        "Unverricht-Lundborg disease",
+        "Progressive myoclonic epilepsy due to Lafora disease"
+      ],
+      "initial_information": "A 47-year-old female presented with a history of seizures since age 2, currently managing ongoing epilepsy.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No Sotos syndrome or close synonym listed; all options are unrelated epilepsy/structural differentials."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Sotos syndrome due to pathogenic NSD1 mutation is a clinically equivalent synonym of Sotos syndrome."
+      },
+      "source_id": "rare27",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Sotos syndrome"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Congenital hypothyroidism (CH) due to thyroid hypoplasia.\", \"family_history\": \"The case involves a familial occurrence of congenital hypothyroidism with mother and daughter affected, suggesting autosomal dominant inheritance.\", \"history_of_present_illness\": \"Patient 1 was diagnosed during neonatal screening for CH with a TSH level of about 200 mU/mL. Symptoms developed in the immediate neonatal period, with persistent jaundice noted. At day 32, TSH levels remained elevated above 100 mU/L, with very low free T4 and T3.\", \"past_medical_history\": \"Patient 2, the mother of patient 1, was diagnosed with athyreosis at 9 months of age and has been on l-thyroxine therapy since. She has a history of deafness due to meningitis but does not exhibit signs of mental retardation.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"relevant_findings\": \"Very hypoplastic thyroid gland in normal cervical position.\", \"vital_signs\": \"TSH level: 200 mU/mL; Day 32 TSH level: >100 mU/L; Free T4: 2.8 pmol/L; (Normal value: 10\\u201323); Free T3: 1.5 pmol/L; (Normal value: 3.4\\u20137.5); Thyroglobulin: 2.8 mg/L; (Normal value: <25)\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"relevant_findings\": \"Ultrasonography showed severe thyroid hypoplasia with cystic thyroid rudiments.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Decrease from about 200 mU/mL to above 100 mU/L.\", \"date\": \"Not specified\", \"findings\": \"Initial TSH level of about 200 mU/mL; above 100 mU/L at day 32.\", \"procedure_name\": \"TSH\"}, {\"changes_over_time\": \"TSH level decreased from about 200 mU/mL at diagnosis to above 100 mU/L.\", \"date\": \"Day 32\", \"findings\": \"TSH level was still above 100 mU/L, with very low free T4 [2.8 pmol/L; normal value (N), 10\\u201323] and free T3 (1.5 pmol/L; N, 3.4\\u20137.5); thyroglobulin was at 2.8 mg/L (N, <25).\", \"procedure_name\": \"blood test\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Not specified\", \"procedure_name\": \"ECG\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Not specified\", \"procedure_name\": \"biopsy\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Not specified\", \"procedure_name\": \"lumbar puncture\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Very hypoplastic thyroid gland in normal cervical position.\", \"procedure_name\": \"99mTc scintigraphy\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Severe thyroid hypoplasia with cystic thyroid rudiments.\", \"procedure_name\": \"Ultrasonography\"}]}",
+      "full_generated_diagnoses": [
+        "PAX8-related congenital hypothyroidism due to thyroid hypoplasia",
+        "Familial thyroid dysgenesis with autosomal dominant inheritance",
+        "Congenital hypothyroidism due to thyroid hypoplasia in situ",
+        "TSH receptor loss-of-function causing thyroid hypoplasia and congenital hypothyroidism",
+        "NKX2-1-related congenital hypothyroidism with thyroid dysgenesis",
+        "FOXE1-related thyroid dysgenesis causing congenital hypothyroidism",
+        "GLIS3-related congenital hypothyroidism with thyroid hypoplasia",
+        "CDCA8-related syndromic thyroid hypoplasia causing congenital hypothyroidism",
+        "JAG1-related congenital hypothyroidism with thyroid gland hypoplasia",
+        "TBX1-related congenital hypothyroidism associated with thyroid hypoplasia",
+        "Borealinopathy (CDCA8 deficiency) with congenital thyroid dysgenesis",
+        "Thyroid dyshormonogenesis with hypoplastic gland due to TG gene defect"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Congenital hypothyroidism due to thyroid hypoplasia in situ is a standard clinically equivalent wording for congenital hypothyroidism due to thyroid hypoplasia."
+      },
+      "initial_diagnoses": [
+        "Thyroid dysgenesis",
+        "Thyroid dyshormonogenesis",
+        "TSH receptor resistance",
+        "PAX8-related congenital hypothyroidism",
+        "NKX2-1-related congenital hypothyroidism",
+        "FOXE1-related congenital hypothyroidism",
+        "Pendred syndrome",
+        "DUOX2 deficiency",
+        "TG gene-related congenital hypothyroidism",
+        "TPO deficiency",
+        "Iodide transport defect due to SLC5A5 mutation",
+        "Central congenital hypothyroidism"
+      ],
+      "initial_information": "A 32-year-old female presented with congenital hypothyroidism detected by neonatal screening with elevated TSH levels.",
+      "initial_measurement": {
+        "best_match_score": 0.6,
+        "covered": false,
+        "id": "initial",
+        "reason": "Closest is thyroid dysgenesis, but this is broader than congenital hypothyroidism due to thyroid hypoplasia and not the same diagnosis."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "merged",
+        "reason": "Same as above: congenital hypothyroidism due to thyroid hypoplasia in situ is the closest and clinically equivalent diagnosis."
+      },
+      "source_id": "11232006",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Congenital Hypothyroidism due to Thyroid Hypoplasia"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"The child began experiencing seizures one hour after birth.\", \"family_history\": \"The family is described as a normal couple without close relatives; family history is negative.\", \"history_of_present_illness\": \"Seizures started one hour after birth, occurring 5-6 times a day and lasting around 10 seconds each. Seizures were characterized by head tilting back, upper left eyes staring, hands clenching, upper limbs flexing and shaking, treadmill movements of lower limbs, and purple coloration around the mouth. These seizures continued with the same presentation on the 18th day after birth. Seizures were gradually controlled after one and a half years. Following a cold, the child developed pneumonia and respiratory failure accompanied by seizures, leading to her admission to the emergency intensive care unit.\", \"past_medical_history\": \"Global developmental delay and hypertonia; no history of asphyxia, hypoglycemia, or pathological jaundice during the perinatal period.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"At 2 years and 10 months\", \"relevant_findings\": \"Head circumference: 45 cm; narrow forehead, wide eye distance, round nose, thick lips; muscle strength of limbs: level IV; muscle tone: increased; pathological signs: negative.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Trio sequencing at 2 years and 5 months revealed a compound heterozygous variant of the ACTL6B gene.\", \"date\": \"5 months\", \"findings\": \"No pathogenic variants found that were extremely consistent with the phenotype.\", \"procedure_name\": \"Whole-exome sequencing, copy number variation, and mitochondrial gene testing\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"2 years and 5 months\", \"findings\": \"Compound heterozygous variant of the ACTL6B gene: a heterozygous deletion of exons 1-4 inherited from the father, and a c.1017 + 3G > T mutation in the intron region inherited from the mother.\", \"procedure_name\": \"Trio sequencing using whole-exon next-generation sequencing (NGS)\"}], \"other_examinations\": [{\"changes_over_time\": \"At 8 months: extensive, multifocal epileptic discharges between seizures; at 1 year and 2 months: slow background activity, no occipital-dominated rhythm, interictal multifocal epileptiform discharges; at 1 year and 6 months: no occipital dominant rhythm, bilateral occipital spikes, slow waves, no seizures detected.\", \"date\": \"1 month and 15 days after birth\", \"findings\": \"Interictal multifocal epileptiform discharges, noticeable bilaterally in the occipital region.\", \"procedure_name\": \"Video electroencephalogram (VEEG)\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"8 months\", \"findings\": \"Extensive, multifocal epileptic discharges between seizures.\", \"procedure_name\": \"Video electroencephalogram (VEEG)\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"1 year and 2 months\", \"findings\": \"Slow background activity, no occipital-dominated rhythm, interictal multifocal epileptiform discharges.\", \"procedure_name\": \"Video electroencephalogram (VEEG)\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"1 year and 6 months\", \"findings\": \"No occipital dominant rhythm, bilateral occipital spikes, slow waves, no seizures detected.\", \"procedure_name\": \"Video electroencephalogram (VEEG)\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"At 6 months: deep sulci, delayed myelination, little white matter, and thin corpus callosum; brain atrophy observed at 2 years and 10 months.\", \"date\": \"27th day after birth\", \"findings\": \"Blurred T1 high signal in the hindlimb of the internal capsule, lack of white matter, high T2 signal.\", \"procedure_name\": \"Brain MRI\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"6 months\", \"findings\": \"Deep sulci, delayed myelination, little white matter, and thin corpus callosum.\", \"procedure_name\": \"Brain MRI\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"2 years and 10 months\", \"findings\": \"Demonstrated brain atrophy.\", \"procedure_name\": \"Brain CT\"}]}",
+      "full_generated_diagnoses": [
+        "ACTL6B-related developmental and epileptic encephalopathy",
+        "ACTL6B-associated intellectual developmental disorder with severe speech and ambulation impairment",
+        "Pyridoxine-dependent epilepsy due to ALDH7A1 deficiency",
+        "Pyridox(am)ine 5'-phosphate oxidase deficiency",
+        "Molybdenum cofactor deficiency",
+        "Nonketotic hyperglycinemia",
+        "KCNQ2-related developmental and epileptic encephalopathy",
+        "STXBP1-related developmental and epileptic encephalopathy",
+        "SCN2A-related developmental and epileptic encephalopathy",
+        "WWOX-related epileptic encephalopathy",
+        "BRAT1-related rigidity and multifocal seizure syndrome, lethal neonatal",
+        "Early infantile developmental and epileptic encephalopathy due to GRIN2B deficiency"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.05,
+        "covered": false,
+        "id": "full_generated",
+        "reason": "Contains several genetic epileptic encephalopathies, but none are RNF13-related or standard synonyms."
+      },
+      "initial_diagnoses": [
+        "Pyridoxine-dependent epilepsy due to ALDH7A1 deficiency",
+        "Pyridox(am)ine 5'-phosphate oxidase deficiency",
+        "Molybdenum cofactor deficiency",
+        "Nonketotic hyperglycinemia",
+        "Early infantile epileptic encephalopathy due to KCNQ2-related neonatal epileptic encephalopathy",
+        "STXBP1-related developmental and epileptic encephalopathy",
+        "SCN2A-related developmental and epileptic encephalopathy",
+        "CDKL5 deficiency disorder",
+        "Aicardi syndrome",
+        "Glucose transporter type 1 deficiency syndrome",
+        "Menkes disease",
+        "Perinatal hypoxic-ischemic encephalopathy"
+      ],
+      "initial_information": "A 2-year-and-10-month-old female presented with severe seizures starting one hour after birth and developmental delay.",
+      "initial_measurement": {
+        "best_match_score": 0.05,
+        "covered": false,
+        "id": "initial",
+        "reason": "No RNF13-related diagnosis present; closest options are other genetic developmental/epileptic encephalopathies, but not clinically equivalent."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.05,
+        "covered": false,
+        "id": "merged",
+        "reason": "Broader list still lacks RNF13-related severe early-onset epileptic encephalopathy; only related differential epilepsies are present."
+      },
+      "source_id": "rare26",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "RNF13-related severe early-onset epileptic encephalopathy"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"The patient presented with nystagmus and whitish pupils noted at birth.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"The symptoms were observed at birth, specifically the whitish pupils, and the patient showed developmental delay by not being able to lift his head at three months old. Severe posterior capsular opacification was noticed in his right eye at the three-month follow-up.\", \"past_medical_history\": \"The patient has a history of corpus callosum hypoplasia, increased blood pressure in the intracranial artery, patent foramen ovale, cryptorchidism, and congenital membranous cataracts.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"At three-month follow-up, severe posterior capsular opacification noticed in the right eye, a second surgery prescribed to remove opacities.\", \"date\": \"Not specified\", \"relevant_findings\": \"No facial dysmorphia detected, bilateral microcornea, microphthalmos, congenital membranous cataracts, persistent pupillary membranes, P2 latency of visual evoked potential delayed in both eyes.\", \"vital_signs\": \"Head circumference: 35.5 cm, Height: 56 cm (<97% of boys at the same age), Intraocular pressure: 16 mmHg (right eye), 12 mmHg (left eye)\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Identified a c.178_182del variant in RAB3GAP1 and a deletion in chromosome 2q21.3, both classified as likely pathogenic.\", \"procedure_name\": \"Whole-exome sequencing (WES)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Deletion in chromosome 2q21.3 (maternal origin).\", \"procedure_name\": \"CNV analysis\"}], \"other_examinations\": [{\"changes_over_time\": \"Severe posterior capsular opacification was noted in the right eye at the three-month follow-up after cataract surgery. A second surgery was prescribed to remove the opacities.\", \"date\": \"Not specified\", \"findings\": \"Bilateral microcornea, microphthalmos, congenital membranous cataracts, and persistent pupillary membranes. Corneal diameter was 8 mm in both eyes. Axial lens (AL) was 16.93 mm in the right eye and 16.68 mm in the left eye. Intraocular pressure (IOP) was 16 mmHg in the right eye and 12 mmHg in the left eye. The P2 latency of visual evoked potential was delayed in both eyes.\", \"procedure_name\": \"Ocular examination\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Corpus callosum hypoplasia.\", \"procedure_name\": \"Magnetic Resonance Imaging (MRI)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Increased blood pressure in the intracranial artery. High blood pressure in the intracranial artery.\", \"procedure_name\": \"Transcranial Doppler\"}]}",
+      "full_generated_diagnoses": [
+        "Warburg micro syndrome 1",
+        "Martsolf syndrome",
+        "RAB3GAP1-related developmental eye disorder",
+        "2q21.3 microdeletion syndrome",
+        "Congenital cataracts-microcornea syndrome",
+        "Persistent fetal vasculature syndrome",
+        "Norrie disease",
+        "Lenz microphthalmia syndrome",
+        "Cerebro-oculo-facio-skeletal syndrome",
+        "Zellweger spectrum disorder",
+        "Lowe syndrome",
+        "Congenital rubella syndrome"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.78,
+        "covered": false,
+        "id": "full_generated",
+        "reason": "Closest match is Warburg micro syndrome 1 / RAB3GAP1-related developmental eye disorder, but not the same diagnosis and not a strict synonym."
+      },
+      "initial_diagnoses": [
+        "Bilateral congenital cataracts",
+        "Persistent fetal vasculature syndrome",
+        "Norrie disease",
+        "Familial exudative vitreoretinopathy",
+        "Leber congenital amaurosis",
+        "Retinoblastoma",
+        "Aicardi syndrome",
+        "Lowe syndrome",
+        "Peroxisomal biogenesis disorder (Zellweger spectrum disorder)",
+        "Congenital rubella syndrome",
+        "Galactosemia",
+        "Warburg micro syndrome"
+      ],
+      "initial_information": "A 3-month-old male presented with nystagmus and whitish pupils noted at birth with developmental delay.",
+      "initial_measurement": {
+        "best_match_score": 0.85,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact same diagnosis listed."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.85,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact same diagnosis listed."
+      },
+      "source_id": "rare197",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Micro syndrome"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"The patient has experienced seizures for the past 6 years.\", \"family_history\": \"There is no reported family history of epilepsy.\", \"history_of_present_illness\": \"Initially, the patient experienced seizures without any discernible trigger in three primary forms. Seizure type 1 includes tightness in the chest, palpitations, and flushing of the cheeks without any loss of awareness, lasting for tens of seconds and occurring several times a day. Seizure type 2 adds impaired responsiveness, blank staring, and loss of awareness, lasting for dozens of seconds to a minute and occurring 5-6 times a year. Seizure type 3 includes head and eye version, tonic and clonic movements, lasting tens of seconds and occurring once a year. The patient has been taking lamotrigine and valproic acid regularly for approximately 5 years, but seizure types 1 and 2 are still not well controlled.\", \"past_medical_history\": \"Not specified.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": \"Neurological function assessments revealed a Mini-Mental State Examination (MMSE) score of 29, a Montreal Cognitive Assessment (MoCA) score of 25 (indicative of mild cognitive dysfunction), a Hamilton Depression Scale (HAMD) score of 12 (suggestive of possible anxiety), and a Hamilton Anxiety Scale (HAMA) score of 3 (within normal range). No notable facial features or positive signs were observed during cardiac, pulmonary, abdominal, or neurological examinations.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Identified a heterozygous missense mutation: RELN c.331G>A, amino acid alteration: p.G111R, present in the patient and also found in the asymptomatic mother. The father had a wild-type genotype.\", \"procedure_name\": \"Whole-exome sequencing\"}], \"other_examinations\": [{\"changes_over_time\": \"At the 2 months follow-up, EEG registered occasional epileptiform discharges in bilateral temporal lobes during the interictal period. At the 11 months follow-up, there was only one focal impaired awareness behavior arrest seizure due to stopping medication.\", \"date\": \"Initial Test\", \"findings\": \"Interictal EEG showed slow spike-wave discharges originating from bilateral temporal lobes. EEG registered three seizures during the ictal period, with epileptiform discharges originating from the left temporal-occipital junction and gradually generalizing to the bilateral cerebral hemispheres. Ictal period recordings included focal impaired awareness behavior and focal to bilateral tonic-clonic seizures.\", \"procedure_name\": \"EEG\"}, {\"changes_over_time\": \"Post-coagulation SEEG registered a significant reduction in epileptiform discharges during the interictal period.\", \"date\": \"Not specified\", \"findings\": \"SEEG registered epileptiform discharges mainly originating from heterotopic nodes in the left occipital lobe, temporal-occipital junctions (both left and right), right superior temporal gyrus, and middle temporal gyrus posterior during the interictal period. Ictal onset was registered from the left temporal-occipital junction heterotopic nodes.\", \"procedure_name\": \"SEEG\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Heterotopic nodules of grey matter in the bilateral temporal and occipital lobes adjacent to posterior horns of the lateral ventricles, and thick bands of heterotopic grey matter extending along the posterior horns of the lateral ventricles.\", \"procedure_name\": \"MRI\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"PET/MRI revealed unevenly attenuated glucose metabolism in heterotopic nodules.\", \"procedure_name\": \"PET/MRI\"}]}",
+      "full_generated_diagnoses": [
+        "RELN-associated bilateral posterior periventricular nodular heterotopia with band heterotopia causing drug-resistant focal epilepsy",
+        "Bilateral posterior periventricular nodular heterotopia syndrome with focal to bilateral tonic-clonic seizures",
+        "Temporal-occipital heterotopia-related focal epilepsy",
+        "Malformation of cortical development due to abnormal neuronal migration (grey matter heterotopia syndrome)",
+        "Subependymal band heterotopia associated epilepsy",
+        "Posterior periventricular grey matter heterotopia with autonomic focal seizures",
+        "Dual-zone temporal-occipital epileptogenic network from bilateral heterotopic nodules",
+        "Nonlesional mesial temporal lobe epilepsy",
+        "Focal cortical dysplasia-related epilepsy",
+        "POLR3A-associated posterior periventricular nodular heterotopia",
+        "FLNA-negative bilateral periventricular nodular heterotopia",
+        "Genetic focal epilepsy due to RELN missense variant p.G111R"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Direct exact match via multiple synonymous/specifically equivalent periventricular nodular heterotopia entries, including bilateral posterior periventricular nodular heterotopia and FLNA-negative bilateral periventricular nodular heterotopia."
+      },
+      "initial_diagnoses": [
+        "Juvenile myoclonic epilepsy",
+        "Dravet syndrome",
+        "Lennox-Gastaut syndrome",
+        "Progressive myoclonic epilepsy",
+        "Focal cortical dysplasia-related epilepsy",
+        "Mesial temporal lobe epilepsy with hippocampal sclerosis",
+        "Tuberous sclerosis complex",
+        "Neurocysticercosis",
+        "Autoimmune encephalitis-associated epilepsy",
+        "Mitochondrial encephalopathy with epilepsy",
+        "Glucose transporter type 1 deficiency syndrome",
+        "Unverricht-Lundborg disease"
+      ],
+      "initial_information": "A 20-year-old male presented with seizures for 6 years, with multiple uncontrolled seizure types despite ongoing treatment.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No exact periventricular nodular heterotopia diagnosis listed; closest options are only broad epilepsy or malformation categories."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Contains exact/clinically equivalent periventricular nodular heterotopia diagnoses, especially bilateral posterior periventricular nodular heterotopia and FLNA-negative bilateral periventricular nodular heterotopia."
+      },
+      "source_id": "rare238",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Periventricular nodular heterotopia"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Progressive right knee pain and severe genu valgum.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"The patient had progressive right knee pain with limited ambulation due to pain and instability requiring bilateral knee braces and T-canes. Symptoms were uncorrected by manual stress. She was unaware of her bilateral dislocation condition.\", \"past_medical_history\": \"The patient underwent orthotic treatment for left congenital dislocation of the hip at birth, total hip arthroplasty for ipsilateral hip osteoarthritis at age 55, and revision surgery for aseptic loosening of the cup at age 69. No history of trauma or knee surgery.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"At postoperative day 21, the ROM was 10\\u00b0-110\\u00b0 and HKAa was corrected to valgus 16\\u00b0 on the right and left knees. At 1-year follow-up, the knee ROM was 5\\u00b0-125\\u00b0 with HKAa of valgus 13\\u00b0 and 17\\u00b0. Annual follow-ups showed almost fixed-knee ROM (10\\u00b0-125\\u00b0) with HKAa of valgus 11\\u00b0 and 16\\u00b0. At the latest follow-up (5 years), the ROM improved to 10\\u00b0-135\\u00b0 with an extension lag of 10\\u00b0, and no evidence of loosening or fracture was observed.\", \"date\": \"Not specified\", \"relevant_findings\": \"Manual muscle testing showed grade 3/4 on the right and left knees. The range of motion (ROM) was 20\\u00b0-150\\u00b0, and the patella was laterally dislocated during knee flexion. Severe genu valgum of the right knee with a hip-knee-ankle angle (HKAa) of valgus 29.0\\u00b0, grade IV osteoarthritic changes in the lateral femorotibial compartment, and laterally dislocated patella. Dysplasia of the lateral femoral condyle, dysplasia of the trochlea with a sulcus angle of 150\\u00b0, laterally located patella, and a tibial tuberosity to trochlear groove distance of 41.3 mm.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"There were no remarkable laboratory tests, suggesting the absence of rheumatoid arthritis.\", \"procedure_name\": \"Initial Test Results\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Postoperative day 21\", \"findings\": \"The ROM was 10\\u00b0-110\\u00b0; HKAa of valgus 16\\u00b0 on the right knee and 16\\u00b0 on the left knee.\", \"procedure_name\": \"Postoperative ROM Assessment\"}, {\"changes_over_time\": \"Decreased ROM from 10\\u00b0-110\\u00b0 at postoperative day 21 to 5\\u00b0-125\\u00b0.\", \"date\": \"1 year follow-up\", \"findings\": \"The knee ROM was 5\\u00b0-125\\u00b0; HKAa of valgus 13\\u00b0 on the right knee and 17\\u00b0 on the left knee.\", \"procedure_name\": \"1-Year Follow-Up ROM Assessment\"}, {\"changes_over_time\": \"No significant change in ROM compared to the 1-year follow-up; HKAa improved from 13\\u00b0 to 11\\u00b0 on the right knee.\", \"date\": \"Annual follow-up\", \"findings\": \"Fixed-knee ROM (10\\u00b0-125\\u00b0); HKAa of valgus 11\\u00b0 on the right knee and 16\\u00b0 on the left knee.\", \"procedure_name\": \"Annual Follow-Up ROM Assessment\"}, {\"changes_over_time\": \"Improved ROM from 10\\u00b0-125\\u00b0 at the annual follow-up to 10\\u00b0-135\\u00b0.\", \"date\": \"5 years follow-up\", \"findings\": \"The ROM of the affected knee was 10\\u00b0-135\\u00b0 with an extension lag of 10\\u00b0; HKAa of valgus 11\\u00b0 on the right knee and 17\\u00b0 on the left knee.\", \"procedure_name\": \"5-Year Follow-Up ROM Assessment\"}, {\"changes_over_time\": \"Improved from 20/30 preoperatively to 60/50 postoperatively on the right knee and from 60/60 preoperatively to 85/85 on the left knee at the latest follow-up.\", \"date\": \"Not specified\", \"findings\": \"Preoperative knee score was 20/30, and functional score was 60/60 on the right and left knees, respectively; improved to 60/50 and 85/85 on the right and left knees, respectively, at 5 years.\", \"procedure_name\": \"Knee Society Knee score and Function score assessment\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Manual muscle testing showed grade 3/4 on both knees, range of motion (ROM) was 20\\u00b0-150\\u00b0, patella was laterally dislocated during knee flexion.\", \"procedure_name\": \"Physical examination\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Postoperative day 21: HKAa of valgus 16\\u00b0 on the right and left knees. At 1-year follow-up: HKAa of valgus 13\\u00b0 (right) and 17\\u00b0 (left). Annual follow-up: HKAa of valgus 11\\u00b0 (right) and 16\\u00b0 (left). Latest follow-up (5 years): HKAa of valgus 11\\u00b0 (right) and 17\\u00b0 (left).\", \"date\": \"Not specified\", \"findings\": \"Severe genu valgum of the right knee with a hip-knee-ankle angle (HKAa) of valgus 29.0\\u00b0, grade IV osteoarthritic changes in the lateral femorotibial compartment according to the Kellgren-Lawrence classification, and laterally dislocated patella.\", \"procedure_name\": \"long-leg anteroposterior weight-bearing radiographs\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Tibial tuberosity to trochlear groove distance of 41.3 mm.\", \"procedure_name\": \"Computed tomography of the knee\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Dysplasia of the trochlea with a sulcus angle of 150\\u00b0 and laterally located patella.\", \"procedure_name\": \"skyline view radiographs\"}]}",
+      "full_generated_diagnoses": [
+        "Bilateral congenital permanent lateral patellar dislocation",
+        "Right knee valgus gonarthrosis secondary to chronic congenital patellar dislocation",
+        "Trochlear dysplasia",
+        "Lateral femoral condyle hypoplasia/dysplasia",
+        "Excessive tibial tubercle lateralization with patellar maltracking",
+        "Nail-patella syndrome",
+        "Small patella syndrome (ischiopatellar dysplasia)",
+        "Meier-Gorlin syndrome",
+        "Larsen syndrome",
+        "Patella aplasia-hypoplasia spectrum disorder",
+        "Down syndrome\u2013associated chronic patellar instability",
+        "Skeletal dysplasia with congenital dislocation syndrome involving hip and patella"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact diagnosis match: Nail-patella syndrome."
+      },
+      "initial_diagnoses": [
+        "Severe primary lateral compartment knee osteoarthritis with valgus deformity",
+        "Rheumatoid arthritis",
+        "Calcium pyrophosphate deposition disease",
+        "Neuropathic arthropathy due to diabetes mellitus",
+        "Charcot-Marie-Tooth disease",
+        "Multiple epiphyseal dysplasia",
+        "Spondyloepiphyseal dysplasia tarda",
+        "Mucopolysaccharidosis type IV (Morquio syndrome)",
+        "Hypophosphatasia",
+        "Renal osteodystrophy",
+        "Paget disease of bone",
+        "Osteomalacia due to vitamin D deficiency"
+      ],
+      "initial_information": "A 75-year-old female presented with progressive right knee pain and severe genu valgum requiring bilateral knee braces.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No listed diagnosis is a synonym for nail-patella syndrome; the options are different arthropathies, dysplasias, or metabolic bone diseases."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact diagnosis match: Nail-patella syndrome."
+      },
+      "source_id": "rare145",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Nail-patella syndrome"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"The patient visited the hospital with uncorrected vision.\", \"family_history\": \"There was no previous family history of ocular, systemic, or chromosomal disorders.\", \"history_of_present_illness\": \"The patient had been wearing glasses for several years, with his best-corrected visual acuity measured at 20/200 in both eyes. Symptoms included mild hyperopic refractive error of +1.5 diopters, photophobia, and slow pendular nystagmus. Changes over time are not specified.\", \"past_medical_history\": \"Not specified.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": \"Fundus examination revealed a normal-looking optic disc and macula. The patient had brown discolorations in his permanent maxillary central incisors and enamel hypoplasia in his permanent first molars.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Compound heterozygous missense variants of c.1511T>G, p.(Ile504Ser), and c.344T>C, p.(Leu115Pro) in the CNNM4 gene were identified. The c.1511T>G variant was classified as likely pathogenic.\", \"procedure_name\": \"Next-generation sequencing (NGS)\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Severely reduced responses in the cone and rod systems in both eyes.\", \"procedure_name\": \"Full-field electroretinogram\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Blurring of ellipsoid zone.\", \"procedure_name\": \"Optical coherence tomography\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Pulp obliteration of the remaining primary teeth.\", \"procedure_name\": \"Panoramic radiograph\"}]}",
+      "full_generated_diagnoses": [
+        "Jalili syndrome",
+        "Cone-rod dystrophy with amelogenesis imperfecta",
+        "CNNM4-related cone-rod dystrophy with amelogenesis imperfecta",
+        "Amelogenesis imperfecta and cone-rod dystrophy syndrome",
+        "Hypoplastic amelogenesis imperfecta with retinal dystrophy syndrome",
+        "Leber congenital amaurosis",
+        "Achromatopsia",
+        "Heimler syndrome",
+        "Tricho-dento-osseous syndrome",
+        "Enamel-renal syndrome",
+        "Oculodentodigital dysplasia",
+        "Alstr\u00f6m syndrome"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact match present."
+      },
+      "initial_diagnoses": [
+        "Jalili syndrome",
+        "Cone-rod dystrophy with amelogenesis imperfecta",
+        "Heimler syndrome",
+        "Tricho-dento-osseous syndrome",
+        "Enamel-renal syndrome",
+        "Amelogenesis imperfecta and cone-rod dystrophy syndrome",
+        "Hypoplastic amelogenesis imperfecta with retinal dystrophy syndrome",
+        "Usher syndrome",
+        "Oculodentodigital dysplasia",
+        "Weyers acrofacial dysostosis",
+        "Axenfeld-Rieger syndrome",
+        "Alstr\u00f6m syndrome"
+      ],
+      "initial_information": "A 7-year-old male presented with uncorrected vision, photophobia, and dental anomalies including enamel hypoplasia.",
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact match present."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact match present."
+      },
+      "source_id": "rare93",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Jalili syndrome"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Persistent linear growth and diffuse bone pain.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"The patient presented at age 25 with continuous linear growth and diffuse bone pain, particularly at the appendicular skeleton. Symptoms became more evident after the age of 23.\", \"past_medical_history\": \"Bilateral cryptorchidism treated surgically at age 6 without success; history of diabetes mellitus type 2 and insulin resistance.\", \"social_history\": \"The patient is a Roman Catholic priest and denied sexual intercourse according to his religious belief.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Eunuchoid body proportions became rapidly more evident after the age of 23.\", \"date\": \"1996\", \"relevant_findings\": {\"acanthosis_nigricans\": \"present at the end of high-dose testosterone treatment\", \"bilateral_cryptorchidism\": {\"status\": \"treated surgically at age 6 without success\", \"testes_volume\": {\"consistency\": \"very soft\", \"left\": \"11 ml\", \"right\": \"10 ml\"}}, \"eunuchoid_skeleton\": {\"evidence\": \"The ratio of the upper to the lower segment of the skeleton was 0.84; average for men is 0.92.\", \"status\": \"evident at age 23\"}, \"genu_valgum\": \"present\", \"gynecomastia\": \"absent\"}, \"vital_signs\": {\"age\": \"25 years\", \"height\": \"177 cm\", \"weight\": \"79.6 kg\"}}, {\"changes_over_time\": \"Height increased slightly after starting estradiol treatment.\", \"date\": \"After 6 months of estradiol administration\", \"relevant_findings\": {\"acanthosis_nigricans\": {\"evidence\": \"characterized by epidermal hyperplasia and irregular hyperkeratosis before treatment\", \"status\": \"improved\"}, \"liver_function\": {\"status\": \"improved; liver biopsy showed improvement of liver NASH\"}}, \"vital_signs\": {\"height\": \"184.5 cm\"}}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"During transdermal estradiol treatment, glucose levels decreased with values of 156 mg/dL in phase 6 and 144 mg/dL in phase 7.\", \"date\": \"Not specified\", \"findings\": \"Serum glucose concentrations in phase 1, 2, and 3 were in the normal range. In phase 4, serum glucose was elevated with a value of 154 mg/dL.\", \"procedure_name\": \"Blood glucose\"}, {\"changes_over_time\": \"Insulin levels increased during testosterone treatments in phases 2 and 4 and decreased during estradiol treatment.\", \"date\": \"Not specified\", \"findings\": \"Insulin levels were 31 U/ml in phase 1, 56 U/ml in phase 2, 45 U/ml in phase 3, and 112 U/ml in phase 4. Phase 5 showed insulin at 94 U/ml, decreasing to 75 U/ml in phase 6 and 53 U/ml in phase 7.\", \"procedure_name\": \"Serum insulin\"}, {\"changes_over_time\": \"HbA1c levels improved during estradiol treatment.\", \"date\": \"Not specified\", \"findings\": \"Not measured in phases 1, 2, and 3. Phase 5 recorded 8.3%, decreasing to 8.1% in phase 6 and 7.6% in phase 7.\", \"procedure_name\": \"HbA1c\"}, {\"changes_over_time\": \"Progressive improvement noted after starting estrogen therapy.\", \"date\": \"Not specified\", \"findings\": \"GPT levels were elevated at 225 U/L in phase 1, 218 U/L in phase 2, and 210 U/L in phase 3, decreasing to 165 U/L in phase 4 and 125 U/L in phase 6 and further to 70 U/L in phase 7. GOT levels were also elevated at 188 U/L in phase 1 and improved to 45 U/L in phase 7.\", \"procedure_name\": \"Liver function test (GOT, GPT, gamma GT)\"}, {\"changes_over_time\": \"Serum estradiol levels rose significantly upon administration of estradiol in phases 6 and 7.\", \"date\": \"Not specified\", \"findings\": \"Serum estradiol was below the assay detection limit (<1.5 pg/ml) before estradiol treatment. After starting treatment in phase 6, levels increased with values reaching 41 pg/ml in phase 7.\", \"procedure_name\": \"Estradiol measurement\"}, {\"changes_over_time\": \"Testosterone levels fluctuated with treatment changes, peaking during testosterone treatments then declining after estradiol treatment.\", \"date\": \"Not specified\", \"findings\": \"Testosterone levels were at 3.8 ng/ml in phase 1, hitting 9.1 ng/ml in phase 4, and then dropping to 2.7 ng/ml in phase 5 and further to 0.8 ng/ml by phase 7.\", \"procedure_name\": \"Total testosterone\"}, {\"changes_over_time\": \"Lipid profile improved significantly during estradiol treatment.\", \"date\": \"Not specified\", \"findings\": \"Total cholesterol was 180 mg/dL in phase 1, peaking at 220 mg/dL in phase 3, and reducing to 110 mg/dL by phase 7. HDL cholesterol decreased to 28 mg/dL by phase 4 but improved to 41 mg/dL by phase 7.\", \"procedure_name\": \"Lipid profile (cholesterol, triglycerides)\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Pattern of total germ cell depletion.\", \"procedure_name\": \"Testis Biopsy\"}, {\"changes_over_time\": \"Improvement of liver function and morphology was observed during estradiol treatment; improvement of liver NASH after estrogen treatment.\", \"date\": \"Not specified\", \"findings\": \"Pattern of nonalcoholic steatohepatitis (NASH).\", \"procedure_name\": \"Liver Biopsy\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Bone age did not show any change until phase 5, where it was observed to increase to 16 years after 6 months of transdermal estradiol treatment.\", \"date\": \"Not specified\", \"findings\": \"Bone age of 15 years with unfused metacarpal and phalangeal epiphyses.\", \"procedure_name\": \"X-ray of the hand\"}, {\"changes_over_time\": \"BMD increased slightly at the lumbar spine after 14 months of testosterone treatment, and significantly after 6 months of estradiol treatment, reaching values that were maintained during the subsequent treatment. Substantial increase in BMD at L2\\u2013L4 after estradiol treatment.\", \"date\": \"Not specified\", \"findings\": \"BMD at L2\\u2013L4 was 0.843 g/cm\\u00b2 in phase 1, increasing over time to 1.018 g/cm\\u00b2 in phase 7. BMD at the femoral neck remained relatively unchanged across phases. Phase 1 showed a pattern of osteoporosis.\", \"procedure_name\": \"Bone densitometry (Bone mineral density, BMD)\"}, {\"changes_over_time\": \"Plaque sizes reduced to 2.5 mm and 2 mm after 6 months of transdermal estradiol treatment, followed by complete disappearance of the plaques.\", \"date\": \"Phase 5\", \"findings\": \"Two lipid plaques in the left common and internal carotid of 4 mm and 3 mm thickness, respectively.\", \"procedure_name\": \"Echo-Doppler study of the carotid arteries\"}]}",
+      "full_generated_diagnoses": [
+        "Aromatase deficiency due to CYP19A1 mutation",
+        "Estrogen resistance due to ESR1 (estrogen receptor alpha) mutation",
+        "Klinefelter syndrome (47,XXY)",
+        "46,XY disorder of sex development due to partial androgen insensitivity syndrome",
+        "Congenital hypogonadotropic hypogonadism with bilateral cryptorchidism",
+        "Primary testicular failure with Sertoli-cell-only syndrome/germ cell aplasia",
+        "Mosaic sex chromosome disorder (46,XY/47,XXY or related gonosomal mosaicism)",
+        "17-beta-hydroxysteroid dehydrogenase type 3 deficiency",
+        "5-alpha-reductase type 2 deficiency",
+        "Pituitary gigantism due to growth hormone excess",
+        "Marfan syndrome",
+        "Homocystinuria"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Aromatase deficiency due to CYP19A1 mutation is the same diagnosis as aromatase deficiency due to a CYP19 gene mutation."
+      },
+      "initial_diagnoses": [
+        "Klinefelter syndrome",
+        "Aromatase deficiency",
+        "Estrogen receptor alpha deficiency",
+        "Congenital hypogonadotropic hypogonadism",
+        "Functional eunuchoidism due to primary testicular failure",
+        "Pituitary macroadenoma with hypogonadotropic hypogonadism",
+        "Mosaic sex chromosome disorder",
+        "Partial androgen insensitivity syndrome",
+        "17-beta-hydroxysteroid dehydrogenase type 3 deficiency",
+        "5-alpha-reductase type 2 deficiency",
+        "Multiple endocrine neoplasia type 2B",
+        "Marfan syndrome"
+      ],
+      "initial_information": "A 29-year-old male presented with persistent linear growth and diffuse bone pain, with a history of bilateral cryptorchidism.",
+      "initial_measurement": {
+        "best_match_score": 0.7,
+        "covered": false,
+        "id": "initial",
+        "reason": "Aromatase deficiency is the closest option, but it is a broader diagnosis than the specified CYP19 novel homozygous mutation."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Aromatase deficiency due to CYP19A1 mutation is the same diagnosis as aromatase deficiency due to a CYP19 gene mutation."
+      },
+      "source_id": "14715828",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Aromatase deficiency due to a novel homozygous mutation in the CYP19 gene"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Anemia and jaundice.\", \"family_history\": \"His mother had osteopenia; his father and four other siblings were healthy. His 14-year-old brother died of an unspecified disease.\", \"history_of_present_illness\": \"The patient had been in his usual health until 4 days before admission, when he developed increasing fatigue, malaise, headache, intermittent testicular discomfort, yellowed eyes, dark urine, nausea, and diffuse body aches. Chronic leg pain also worsened. No fever, rash, hematuria, dysuria, melena, or neurologic symptoms were present.\", \"past_medical_history\": \"Intermittent asthma, acne, chronic leg pain. A history of fractures of the right leg after a motor vehicle accident requiring internal fixation of the tibia for nonunion and bone and skin grafting. A previous episode of acute anemia occurred after tibial surgery. No known allergies to medication.\", \"social_history\": \"The patient emigrated from North Africa to the United States 9 years earlier. He was a student, smoked marijuana and cigarettes, and reported no current alcohol or intravenous drug use. He was sexually active with his girlfriend. During his trip to North Africa, he was exposed to sheep and drank unpasteurized cow\\u2019s milk.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Jaundice gradually improved during the next 2 days.\", \"date\": \"Not specified\", \"relevant_findings\": {\"observations\": [\"Conjunctival icterus\", \"Jaundiced skin\", \"Diffuse tenderness in abdomen, greatest in right lower and left upper quadrants\", \"Diffusely tender testicles without masses\", \"Mild tenderness over right knee and anterior shin with healed surgical scars\"]}, \"vital_signs\": {\"blood_pressure\": \"123/85 mm Hg\", \"oxygen_saturation\": \"Normal\", \"pulse\": \"115 bpm\", \"respiratory_rate\": \"Normal\", \"temperature\": \"Normal\"}}, {\"changes_over_time\": \"Not specified.\", \"date\": \"20 days before admission\", \"relevant_findings\": {\"observations\": [\"Mild acne\", \"Boggy and pale nasal turbinates with clear secretions\", \"Slight tonsillar enlargement\", \"Inspiratory crackles in right lung base\", \"Expiratory wheezes in both lung apexes\"]}, \"vital_signs\": {\"blood_pressure\": \"Not specified\", \"pulse\": \"101 bpm\", \"respiratory_rate\": \"Not specified\", \"weight\": \"92.7 kg\"}}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Day of admission\", \"relevant_findings\": {\"observations\": [\"Loud second heart sounds without murmurs\", \"Normal results in platelet count, white-cell differential count, and red-cell indexes\", \"Negative results for malaria antigen, antibodies to HIV, and heterophile antibodies\"]}, \"vital_signs\": {\"blood_pressure\": \"123/85 mm Hg\", \"oxygen_saturation\": \"Not specified\", \"pulse\": \"115 bpm\", \"respiratory_rate\": \"Not specified\", \"temperature\": \"Not specified\"}}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Decreased to 31.3% on admission, then to 29.4% on 2nd day, and 28.7% on 3rd day.\", \"date\": \"20 Days before Presentation\", \"findings\": \"45.3% (normal range: 41.0\\u201353.0)\", \"procedure_name\": \"Hematocrit\"}, {\"changes_over_time\": \"Decreased to 10.2 g/dl on admission, 9.5 g/dl on 2nd day and 9.3 g/dl on 3rd day.\", \"date\": \"20 Days before Presentation\", \"findings\": \"14.8 g/dl (normal range: 13.5\\u201317.5)\", \"procedure_name\": \"Hemoglobin\"}, {\"changes_over_time\": \"Decreased to 13,800 on admission, 9600 on 2nd day, and 8900 on 3rd day.\", \"date\": \"20 Days before Presentation\", \"findings\": \"16,500 per mm3 (normal range: 4500\\u201311,000)\", \"procedure_name\": \"White-cell count\"}, {\"changes_over_time\": \"Decreased to 3,800,000 on admission, then to 3,540,000 on 2nd day and 3,510,000 on 3rd day.\", \"date\": \"20 Days before Presentation\", \"findings\": \"5,630,000 per mm3 (normal range: 4,500,000\\u20135,900,000)\", \"procedure_name\": \"Erythrocyte count\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"On Admission\", \"findings\": \"3.3% (normal range: 0.5\\u20132.5)\", \"procedure_name\": \"Reticulocytes\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"On Admission\", \"findings\": \"<6 mg/dl (normal range: 16\\u2013199)\", \"procedure_name\": \"Haptoglobin\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"On Admission\", \"findings\": \"16 mm/hr (normal range: 0\\u201311)\", \"procedure_name\": \"Erythrocyte sedimentation rate\"}, {\"changes_over_time\": \"Decreased to 3.2 mg/dl on 2nd day, then to 0.5 mg/dl on 3rd day.\", \"date\": \"On Admission\", \"findings\": \"4.7 mg/dl (normal range: 0.0\\u20131.0)\", \"procedure_name\": \"Bilirubin (Total)\"}, {\"changes_over_time\": \"Remained at 0.3 mg/dl on 2nd day, decreased to 0.1 mg/dl on 3rd day.\", \"date\": \"On Admission\", \"findings\": \"0.3 mg/dl (normal range: 0.0\\u20130.4)\", \"procedure_name\": \"Bilirubin (Direct)\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"On Admission\", \"findings\": \"354 U/liter (normal range: 110\\u2013210)\", \"procedure_name\": \"Lactate dehydrogenase\"}, {\"changes_over_time\": \"Decreased to 52 \\u00b5g/dl on admission.\", \"date\": \"20 Days before Presentation\", \"findings\": \"206 \\u00b5g/dl (normal range: 45\\u2013160)\", \"procedure_name\": \"Iron\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Hospital Day 4\", \"findings\": \"1.9 U/g hemoglobin (normal range: 8.8\\u201313.4), indicating G6PD deficiency.\", \"procedure_name\": \"G6PD Level\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"On Admission\", \"findings\": \"32.5 mg/liter (normal range: <8)\", \"procedure_name\": \"C-reactive protein\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"20 Days before Presentation\", \"findings\": \"29 mg/dl (normal range: 35\\u2013100)\", \"procedure_name\": \"High-density lipoprotein cholesterol\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Day of admission\", \"findings\": \"Mostly normal morphologic features of red cells, with a few target cells, possible bite cells, and irregularly contracted cells.\", \"procedure_name\": \"Peripheral-blood smear\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Clear lungs.\", \"procedure_name\": \"chest radiograph\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Mild hepatic steatosis; ultrasonography of the scrotum was normal.\", \"procedure_name\": \"ultrasound examination\"}, {\"changes_over_time\": \"Follow-up imaging is scheduled to further assess the nodules.\", \"date\": \"Not specified\", \"findings\": \"Mild upper-lobe emphysema and several pulmonary nodules in the right upper lobe, measuring 2 mm to 4 mm.\", \"procedure_name\": \"computed tomography (CT) scan\"}]}",
+      "full_generated_diagnoses": [
+        "Glucose-6-phosphate dehydrogenase deficiency with acute oxidant-induced hemolytic anemia",
+        "Favism causing acute hemolysis in glucose-6-phosphate dehydrogenase deficiency",
+        "Drug-induced oxidative hemolysis in glucose-6-phosphate dehydrogenase deficiency",
+        "Warm autoimmune hemolytic anemia",
+        "Paroxysmal nocturnal hemoglobinuria",
+        "Hereditary spherocytosis with hemolytic crisis",
+        "Pyruvate kinase deficiency with episodic hemolysis",
+        "Unstable hemoglobinopathy causing Heinz body hemolysis",
+        "Sickle cell disease or sickle-beta thalassemia with acute hemolytic crisis",
+        "Wilson disease with Coombs-negative hemolytic anemia",
+        "Severe falciparum malaria",
+        "Babesiosis causing nonimmune hemolytic anemia"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.99,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact clinical equivalent of the true diagnosis, just more specific about oxidant-induced/favored trigger."
+      },
+      "initial_diagnoses": [
+        "Acute brucellosis with autoimmune hemolytic anemia",
+        "Brucellosis-associated thrombotic microangiopathy",
+        "Glucose-6-phosphate dehydrogenase deficiency with oxidant-triggered hemolytic anemia",
+        "Warm autoimmune hemolytic anemia",
+        "Cold agglutinin disease secondary to Coxiella burnetii infection",
+        "Babesiosis",
+        "Severe falciparum malaria",
+        "Leptospirosis",
+        "Acute Q fever hepatitis",
+        "Wilson disease presenting with Coombs-negative hemolytic anemia",
+        "Paroxysmal nocturnal hemoglobinuria",
+        "Sickle cell disease with hyperhemolytic crisis"
+      ],
+      "initial_information": "A 29-year-old male presented with anemia and jaundice after recent exposure to sheep and unpasteurized milk in North Africa.",
+      "initial_measurement": {
+        "best_match_score": 0.97,
+        "covered": true,
+        "id": "initial",
+        "reason": "Same diagnosis; wording is a direct equivalent of G6PD deficiency causing acute hemolytic anemia."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.99,
+        "covered": true,
+        "id": "merged",
+        "reason": "Contains the exact equivalent diagnosis among the generated options."
+      },
+      "source_id": "23802518",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Acute hemolytic anemia due to glucose-6-phosphate dehydrogenase deficiency"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Suspicion of cardiac amyloidosis and preparation for carotid endarterectomy.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"The patient's symptoms began with the diagnosis of right carotid artery stenosis that progressed over three years. Notable findings included decreased left ventricular ejection fraction and left atrial dilatation, which were assessed during presurgical preparations.\", \"past_medical_history\": \"Past medical history includes acute cardiac infarction.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": \"An echocardiogram showed a decreased left ventricular ejection fraction accompanied by bright myocardium and left atrial dilatation.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Diagnosed with ATTRwt amyloidosis; Confirmed diagnosis of ATTRwt amyloidosis.\", \"procedure_name\": \"Myocardial biopsy\"}], \"other_examinations\": [], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Decreased left ventricular ejection fraction accompanied by bright myocardium and left atrial dilatation.\", \"procedure_name\": \"Echocardiogram\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Vulnerable plaque showing high signal intensity, suggesting intraplaque hemorrhage; Suggests a vulnerable plaque containing intraplaque hemorrhage.\", \"procedure_name\": \"T1-weighted image\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"93% internal carotid artery stenosis starting at the carotid bifurcation.\", \"procedure_name\": \"Digital subtraction angiogram\"}]}",
+      "full_generated_diagnoses": [
+        "Wild-type transthyretin cardiac amyloidosis (ATTRwt amyloid cardiomyopathy)",
+        "Localized atrial transthyretin amyloidosis",
+        "Systemic AL amyloidosis with cardiac involvement",
+        "Hereditary transthyretin amyloidosis (variant ATTR amyloid cardiomyopathy)",
+        "Ischemic cardiomyopathy after prior myocardial infarction",
+        "Restrictive cardiomyopathy secondary to infiltrative amyloidosis",
+        "Heart failure with reduced ejection fraction due to amyloid cardiomyopathy",
+        "Severe atherosclerotic right internal carotid artery stenosis with vulnerable intraplaque hemorrhage",
+        "Symptomatic carotid atherosclerotic disease requiring carotid endarterectomy",
+        "Hypertensive heart disease with left atrial enlargement",
+        "Aortic valve stenosis with low-flow cardiomyopathy",
+        "Hypertrophic cardiomyopathy phenocopy due to cardiac amyloidosis"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact diagnosis match: wild-type transthyretin cardiac amyloidosis (ATTRwt amyloid cardiomyopathy)."
+      },
+      "initial_diagnoses": [
+        "Transthyretin cardiac amyloidosis",
+        "Light-chain (AL) systemic amyloidosis with cardiac involvement",
+        "Ischemic cardiomyopathy due to coronary artery disease",
+        "Hypertensive heart disease with left ventricular hypertrophy",
+        "Aortic stenosis with secondary left ventricular hypertrophy",
+        "Hypertrophic cardiomyopathy",
+        "Sarcoidosis with cardiac involvement",
+        "Fabry disease with cardiomyopathy",
+        "Constrictive pericarditis",
+        "Hemochromatosis cardiomyopathy",
+        "Senile systemic amyloidosis",
+        "Cardiac lymphoma"
+      ],
+      "initial_information": "A 77-year-old male presented with suspicion of cardiac amyloidosis and preparation for carotid endarterectomy following acute cardiac infarction.",
+      "initial_measurement": {
+        "best_match_score": 0.78,
+        "covered": false,
+        "id": "initial",
+        "reason": "Closest is transthyretin cardiac amyloidosis / senile systemic amyloidosis, but not the exact subtype; wild-type ATTR is a specific form."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact diagnosis present: wild-type transthyretin cardiac amyloidosis (ATTRwt amyloid cardiomyopathy)."
+      },
+      "source_id": "rare164",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Wild type ATTR amyloidosis"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Episodes of altered mental status.\", \"family_history\": \"Two paternal uncles had alcohol-use disorder. Father had melanoma, mother had an arteriovenous malformation involving the CNS, and a younger brother had lung cancer. No family history of heart, pancreatic, or autoimmune disease.\", \"history_of_present_illness\": \"The patient had been well until 6 years prior to admission when he first exhibited unusual behavior characterized by wandering, confusion, nonsensical speech, and blurry vision. This episode lasted about 30 minutes and he did not seek medical care. Similar episodes occurred one or two times per year starting two years before admission, increasing to one or two times per month four months prior to admission. The episodes often followed alcohol consumption, despite the patient reducing intake. On the day before admission, he had confusion and nonsensical speech after a stressful event. The episodes and symptoms escalated and included vomiting and altered mental status prior to admission.\", \"past_medical_history\": \"Eosinophilic esophagitis diagnosed 13 years before admission, with complications requiring esophageal dilation. Sternotomy and laparotomy for repair of an inferior vena cava injury from an abdominal stab wound 11 years prior.\", \"social_history\": \"Lives with wife and two children. Works as a firefighter. Consumes two to four beers twice a week. Quit smoking 14 years ago. No illicit drug use.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": {\"asterixis\": \"present\", \"neurological_exam\": {\"cognitive_impairment\": \"poor attention, concentration, abstract reasoning, and memory\", \"date\": \"Not specified\", \"motor_findings\": \"agitated, rocking back and forth; intermittently placed head between side rails\", \"orientation\": \"oriented to person and place\"}, \"other_examination_results\": \"the remainder of the neurologic and general examination was normal\", \"vertical_nystagmus\": \"present\"}, \"vital_signs\": {\"BMI\": \"22.5\", \"blood_pressure\": \"135/85 mm Hg\", \"heart_rate\": \"103 bpm\", \"oxygen_saturation\": \"98%\", \"respiratory_rate\": \"16 breaths per minute\", \"temperature\": \"36.5\\u00b0C\", \"weight\": \"69 kg\"}}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Ninety minutes after the initial blood glucose level, the glucose level was 20 mg/dL (1.1 mmol/L). After administration of a 20% dextrose solution, the glucose level rose to 257 mg/dL (14.3 mmol/L).\", \"date\": \"Not specified\", \"findings\": \"38 mg/dL (2.1 mmol/L; reference range, 70-110 mg/dL)\", \"procedure_name\": \"Blood Glucose\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"48 mg/L (reference range, <8.0 mg/L)\", \"procedure_name\": \"C-Reactive Protein\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"38 mm/hour (reference range, 0-20 mm/hour)\", \"procedure_name\": \"Erythrocyte Sedimentation Rate\"}, {\"changes_over_time\": \"The patient reported weakness and fatigue at 8 hours. Following administration of orange juice and dextrose, the glucose level rose to 200 mg/dL (11.1 mmol/L) and the weakness and fatigue resolved.\", \"date\": \"Not specified\", \"findings\": \"At 6 hours, blood glucose level was 48 mg/dL (2.7 mmol/L); at 8 hours, blood glucose level was 29 mg/dL (1.6 mmol/L).\", \"procedure_name\": \"Supervised Fast Blood Glucose Level\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Cellular pattern with moderately cohesive clusters of relatively monomorphic tumor cells and approximately 2% of tumor cells stained positive for Ki-67, consistent with a grade 1 tumor.\", \"procedure_name\": \"Biopsy\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"The lesion was difficult to identify on initial review due to its proximity to the duodenum.\", \"date\": \"Not specified\", \"findings\": \"A hypodense lesion in the pancreatic head on arterial phase imaging, not seen on portal venous phase imaging.\", \"procedure_name\": \"CT scan\"}, {\"changes_over_time\": \"No significant changes described over time.\", \"date\": \"Not specified\", \"findings\": \"Hypointense lesion on T1-weighted imaging, hyperintense on T2-weighted imaging, and hyperintense on diffusion-weighted imaging, but no lesion seen on images obtained after contrast administration.\", \"procedure_name\": \"MRI\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Revealed a hypoechoic, homogeneous, well-defined, nearly spherical lesion (1.6 cm) located in the head of the pancreas.\", \"procedure_name\": \"Endoscopic ultrasonography\"}]}",
+      "full_generated_diagnoses": [
+        "Pancreatic insulinoma causing endogenous hyperinsulinemic hypoglycemia",
+        "Grade 1 well-differentiated pancreatic neuroendocrine tumor (functional insulin-secreting PanNET)",
+        "Multiple endocrine neoplasia type 1 with pancreatic neuroendocrine tumor",
+        "Noninsulinoma pancreatogenous hypoglycemia syndrome (adult nesidioblastosis)",
+        "Factitious hypoglycemia from surreptitious insulin administration",
+        "Sulfonylurea- or meglitinide-induced hypoglycemia",
+        "Alcohol-exacerbated fasting hypoglycemia",
+        "IGF-2-mediated non-islet-cell tumor hypoglycemia",
+        "Insulin autoimmune syndrome",
+        "Adrenal insufficiency causing recurrent hypoglycemia",
+        "Postprandial hyperinsulinemic hypoglycemia after upper gastrointestinal surgery",
+        "Seizure disorder secondary to recurrent neuroglycopenia"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Pancreatic insulinoma causing endogenous hyperinsulinemic hypoglycemia is the same diagnosis as insulinoma."
+      },
+      "initial_diagnoses": [
+        "Hepatic encephalopathy due to alcohol-associated liver disease",
+        "Wernicke encephalopathy",
+        "Alcohol-related hypoglycemia",
+        "Alcohol intoxication",
+        "Toxic alcohol ingestion",
+        "Hyponatremic encephalopathy from beer potomania",
+        "Subdural hematoma",
+        "Herpes simplex encephalitis",
+        "Autoimmune encephalitis",
+        "Temporal lobe focal impaired-awareness seizures",
+        "Urea cycle disorder with hyperammonemic encephalopathy",
+        "Acute intermittent porphyria"
+      ],
+      "initial_information": "A 36-year-old male presented with episodes of altered mental status and nonsensical speech following alcohol consumption.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No listed diagnosis is insulinoma or a standard clinically equivalent synonym; the options are only related differentials or causes of hypoglycemia/encephalopathy."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Pancreatic insulinoma causing endogenous hyperinsulinemic hypoglycemia is the same diagnosis as insulinoma."
+      },
+      "source_id": "30044928",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Insulinoma"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Persistent auditory hallucinations and paranoid delusions.\", \"family_history\": \"One second-degree relative (paternal uncle) with bipolar disorder; no family history of psychiatric disorder in first-degree relatives.\", \"history_of_present_illness\": \"Mr. A first developed auditory hallucinations in August 2006, which progressed to a nearly constant voice by November 2006. The symptoms persisted despite stopping illicit drug use in February 2007, and he experienced worsening depression, difficulties with concentration, and suicidal ideation. Following his first treatment, he had symptom remission but relapsed into methamphetamine use, leading to a recurrence of psychotic symptoms in May 2008.\", \"past_medical_history\": \"Ulcerative colitis and genital herpes.\", \"social_history\": \"Mr. A reported usage of methamphetamine starting in 2003, gradually increasing to daily use by 2005, alongside infrequent alcohol consumption. He had a graduate education, stable employment, and lived a sober lifestyle after treatment.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"February 2007\", \"relevant_findings\": \"Initial medical evaluations were normal.\", \"vital_signs\": \"Not specified\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"June 2007\", \"relevant_findings\": \"Mr. A was experiencing command auditory hallucinations and paranoid delusions.\", \"vital_signs\": \"Not specified\"}, {\"changes_over_time\": \"By hospital day 30, he was euthymic and completely free of psychotic symptoms.\", \"date\": \"Hospital day 18 (approximately July 2007)\", \"relevant_findings\": \"Started on right unilateral ECT with some improvement noted.\", \"vital_signs\": \"Not specified\"}, {\"changes_over_time\": \"Mr. A attended only one additional session of ECT after discharge.\", \"date\": \"Hospital day 32 (July 2007)\", \"relevant_findings\": \"Discharged on olanzapine, at 20 mg/day, with planned maintenance ECT.\", \"vital_signs\": \"Not specified\"}, {\"changes_over_time\": \"Crucial progression in symptoms noted with re-exposure to methamphetamine.\", \"date\": \"June 2008\", \"relevant_findings\": \"Re-admitted with auditory hallucinations and persecutory delusions after relapsing into methamphetamine use.\", \"vital_signs\": \"Not specified\"}, {\"changes_over_time\": \"Discharged maintaining baseline functioning, remained abstinent from methamphetamine.\", \"date\": \"Hospital day 11 (approximately July 2008)\", \"relevant_findings\": \"First five sessions of ECT resolved symptoms entirely.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Normal.\", \"procedure_name\": \"Routine laboratory studies\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Normal.\", \"procedure_name\": \"Serology for syphilis and HIV\"}], \"other_examinations\": [{\"changes_over_time\": \"Progressed positively, with rapid improvement over the course of treatment. Responded to ECT on two separate occasions. Symptoms resolved rapidly during both hospitalizations.\", \"date\": \"Hospital day 18 after admission in June 2007 and June 2008\", \"findings\": \"Immediate improvement after the first treatment; by the sixth ECT on hospital day 30, the patient was euthymic and free of psychotic symptoms. Some improvement after the first treatment; complete remission of symptoms by the sixth treatment.\", \"procedure_name\": \"Electroconvulsive Therapy (ECT) - Initial ECT treatments\"}, {\"changes_over_time\": \"Progressed positively, with symptom resolution after ECT. Patient returned to baseline functioning after the course of ECT.\", \"date\": \"Hospital day 3 during the second admission in June 2008.\", \"findings\": \"Symptoms resolved entirely after four treatments.\", \"procedure_name\": \"Electroconvulsive Therapy (ECT) - Second course of ECT\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Normal.\", \"procedure_name\": \"Non-contrast brain MRI\"}]}",
+      "full_generated_diagnoses": [
+        "Methamphetamine-induced psychotic disorder",
+        "Schizophrenia",
+        "Schizoaffective disorder, depressive type",
+        "Major depressive disorder with psychotic features",
+        "Bipolar I disorder with psychotic features",
+        "Persistent substance-induced psychotic disorder",
+        "Substance/medication-induced depressive disorder",
+        "Delusional disorder, persecutory type",
+        "Psychotic disorder due to another medical condition",
+        "Anti-NMDA receptor encephalitis",
+        "Wilson disease",
+        "Temporal lobe epilepsy with interictal psychosis"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact match: methamphetamine-induced psychotic disorder is the same diagnosis as methamphetamine-induced psychosis."
+      },
+      "initial_diagnoses": [
+        "Methamphetamine-induced psychotic disorder",
+        "Schizophrenia",
+        "Schizophreniform disorder",
+        "Brief psychotic disorder",
+        "Bipolar I disorder with psychotic features",
+        "Major depressive disorder with psychotic features",
+        "Delusional disorder, persecutory type",
+        "Substance/medication-induced bipolar and related disorder",
+        "Schizoaffective disorder",
+        "Psychotic disorder due to another medical condition",
+        "Anti-NMDA receptor encephalitis",
+        "Wilson disease"
+      ],
+      "initial_information": "A 37-year-old male presented with persistent auditory hallucinations and paranoid delusions following methamphetamine use.",
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact match: methamphetamine-induced psychotic disorder is a standard synonym for methamphetamine-induced psychosis."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact match: methamphetamine-induced psychotic disorder is the same diagnosis as methamphetamine-induced psychosis."
+      },
+      "source_id": "20068123",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "methamphetamine-induced psychosis"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Throbbing pain in the lower left back tooth region for 5 days.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"Symptoms began 5 days prior to presentation, characterized by night pain that did not subside with analgesics.\", \"past_medical_history\": \"History of an odontogenic keratocystic (OKC) lesion in the anterior mandible managed by surgical intervention; no other relevant medical history noted.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Mobility of tooth 36 was reduced following endodontic therapy; this indicates an improvement after treatment.\", \"date\": \"Not specified\", \"relevant_findings\": \"Intraoral examination revealed a class II composite restoration present with respect to tooth 36. The tooth was tender on percussion. Teeth 35 and 36 exhibited grade II mobility. Pulp sensibility testing gave an exaggerated lingering response. Mobility of tooth 36 was reduced following endodontic therapy.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [], \"other_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Exaggerated lingering response\", \"procedure_name\": \"Pulp sensibility testing\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Well-defined radio opacity involving enamel, dentin, and pulp with periapical radiolucency, suggestive of deep restoration; depicted resected OKC in the anterior mandible reconstituted with reconstruction plates\", \"procedure_name\": \"full mouth orthopantomogram (OPG) / panoramic radiograph (OPG)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Well-defined radio opacity involving enamel, dentin, and pulp with periapical radiolucency, suggestive of deep restoration\", \"procedure_name\": \"intraoral periapical radiograph (IOPA)\"}]}",
+      "full_generated_diagnoses": [
+        "Symptomatic irreversible pulpitis with symptomatic apical periodontitis of tooth 36",
+        "Acute apical abscess of tooth 36",
+        "Chronic apical periodontitis of tooth 36 secondary to pulpal necrosis",
+        "Phoenix abscess of tooth 36",
+        "Combined endodontic-periodontal lesion involving teeth 35-36",
+        "Localized periodontal abscess in the left mandibular molar region",
+        "Vertical root fracture or cracked tooth involving tooth 36",
+        "Occlusal trauma\u2013associated secondary mobility of teeth 35-36",
+        "Condensing osteitis associated with chronic pulpal inflammation of tooth 36",
+        "Chronic suppurative osteomyelitis of the left posterior mandible of odontogenic origin",
+        "Recurrent odontogenic keratocyst of the mandible",
+        "Primary intraosseous squamous cell carcinoma of the left mandible"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "full_generated",
+        "reason": "Closest item is recurrent odontogenic keratocyst, but it is not the same diagnosis as keratocystic odontogenic tumor under the strict equivalence rule."
+      },
+      "initial_diagnoses": [
+        "Symptomatic apical periodontitis of a mandibular left molar",
+        "Acute apical abscess of a mandibular left molar",
+        "Symptomatic irreversible pulpitis of a mandibular left molar",
+        "Cracked tooth syndrome involving a mandibular left molar",
+        "Acute pericoronitis around a partially erupted mandibular left third molar",
+        "Periodontal abscess of a mandibular left molar region",
+        "Suppurative osteomyelitis of the left posterior mandible",
+        "Odontogenic cellulitis arising from a left mandibular molar infection",
+        "Odontogenic maxillary sinusitis with referred lower posterior dental pain",
+        "Atypical odontalgia affecting the lower left molar region",
+        "Trigeminal neuralgia involving the left mandibular division",
+        "Primary intraosseous squamous cell carcinoma of the left mandible"
+      ],
+      "initial_information": "A 37-year-old male presented with throbbing pain in the lower left back tooth region lasting five days.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No diagnosis is keratocystic odontogenic tumor or exact synonymous odontogenic keratocyst."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "merged",
+        "reason": "Contains recurrent odontogenic keratocyst, but this is not a strict synonym/equivalent match to keratocystic odontogenic tumor."
+      },
+      "source_id": "rare245",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Keratocystic odontogenic tumor"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Numbness and pain in the legs and a rash.\", \"family_history\": \"Mother with Sj\\u00f6gren\\u2019s syndrome, autoimmune hepatitis, and interstitial lung disease; father with elderly neuropathy; older sister reported to have vasculitis; maternal relative with a history of Sj\\u00f6gren\\u2019s syndrome.\", \"history_of_present_illness\": \"Symptoms began approximately 2 years prior, with numbness initially on the left leg, ankle, and foot, followed by similar symptoms in the right leg. About 3 months later, pain developed in the left foot, then in the right foot, leading to diffuse pain in both lower legs over 9 months. Acute swelling in the distal left leg occurred after an airplane trip one year before presentation, which subsided in 2 weeks. Mottled discoloration appeared on the feet, ankles, and lower legs 6 to 8 months prior, with intermittent swelling.\", \"past_medical_history\": \"Mild hypertension for 10 years, and ruptured appendix with peritonitis 15 years earlier.\", \"social_history\": \"Works as a consultant, drinks alcohol socially, does not smoke.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": {\"additional_findings\": \"no nodules observed; remainder of examination normal\", \"crepitus\": \"mild on flexion and extension of the knees without effusions\", \"skin\": {\"decreased_sensation\": \"to light touch over the medial aspects of both feet\", \"mottled_discoloration\": \"suggestive of livedo reticularis\", \"no_capillary_dilatation\": true, \"no_joint_swelling\": true, \"porcelain_colored_areas\": \"on both lower legs\", \"smaller_less_tender_lesions\": \"2 in the same area\", \"tender_nodule_diameter\": \"3 cm just below the left lateral malleolus\"}}, \"vital_signs\": {\"blood_pressure\": \"126/80 mm Hg\", \"heart_rate\": \"Not specified\", \"height\": \"163.2 cm\", \"respiratory_rate\": \"Not specified\", \"temperature\": \"Not specified\", \"weight\": \"57.8 kg\"}}, {\"changes_over_time\": \"Not specified\", \"date\": \"Three weeks before presentation\", \"relevant_findings\": {\"ankle\": {\"erythema\": \"rounded, 1-cm area\", \"increased_pain_and_swelling_duration\": \"3 to 4 days\", \"no_enthesopathy\": true, \"no_tenderness\": \"in plantar fasciae\", \"normal_range_of_motion\": \"in both ankles\", \"tenderness\": \"mild tenderness to touch\", \"warmth\": \"slight around the left lateral malleolus\"}, \"erythrocyte_sedimentation_rate\": \"normal\", \"sensation\": \"no sensation to pinprick over either medial malleolus\"}, \"vital_signs\": {\"blood_pressure\": \"Not specified\", \"heart_rate\": \"Not specified\", \"height\": \"Not specified\", \"respiratory_rate\": \"Not specified\", \"temperature\": \"Not specified\", \"weight\": \"Not specified\"}}, {\"changes_over_time\": \"Not specified\", \"date\": \"Two weeks before presentation\", \"relevant_findings\": {\"general_health\": {\"alopecia\": false, \"change_in_weight\": false, \"chest_pain\": false, \"fevers\": false, \"joint_pain_or_swelling\": false, \"lymphadenopathy\": false, \"malar_rash\": false, \"night_sweats\": false, \"oral_or_tongue_ulcers\": false, \"shortness_of_breath\": false, \"weakness\": false, \"xerostomia\": false}}, \"vital_signs\": {\"blood_pressure\": \"Not specified\", \"heart_rate\": \"Not specified\", \"height\": \"Not specified\", \"respiratory_rate\": \"Not specified\", \"temperature\": \"Not specified\", \"weight\": \"Not specified\"}}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"White cell count: 6-8 months before: 2400; 6-8 weeks before: 2000; 3 weeks before: 2100. Platelet count: 6-8 months before: 196000; 6-8 weeks before: 177000; 3 weeks before: 161000. Erythrocyte sedimentation rate: 6-8 months before: 29; 6-8 weeks before: 6; 3 weeks before: 12.\", \"date\": \"Not specified\", \"findings\": \"White cell count: 2400 per mm3 (normal range 4,000\\u201310,500), status: low. Platelet count: 196000 per mm3 (normal range 140,000\\u2013415,000), status: within normal range. Erythrocyte sedimentation rate: 29 mm/hr (normal range 0\\u201320), status: high.\", \"procedure_name\": \"Complete Blood Count (CBC)\"}, {\"changes_over_time\": \"Detected ANAs at the hospital later on.\", \"date\": \"Not specified\", \"findings\": \"Value: <1:20 dilution, status: negative.\", \"procedure_name\": \"Antinuclear Antibody Test (ANA)\"}, {\"changes_over_time\": \"Anticardiolipin IgG level was later detected as elevated at 42.3.\", \"date\": \"Not specified\", \"findings\": \"IgG: <11 GPL units, status: negative. IgM: <10 MPL units, status: negative. IgA: 18 APL units, status: elevated.\", \"procedure_name\": \"Anticardiolipin Antibody Test\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Serum protein: normal. Urine protein: normal.\", \"procedure_name\": \"Electrophoresis\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"01/08/09\", \"findings\": \"Pathological examination showed perivascular and perifollicular inflammation with telangiectasias, consistent with rosacea-like dermatitis.\", \"procedure_name\": \"Skin biopsy\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified.\", \"findings\": \"Reportedly revealed a focal lymphohistiocytic infiltrate around a small muscular artery in the subcutis, with no evidence of vasculitis or erythema nodosum.\", \"procedure_name\": \"Biopsy of cutaneous nodule\"}, {\"changes_over_time\": \"The livedoid appearance of the legs has resolved after treatment.\", \"date\": \"Not specified.\", \"findings\": \"Showed thickening and hyalinization of small vessels in the dermis, with foci suggestive of microthrombi and a perivascular lymphocytic infiltrate; diagnostic of livedoid vasculopathy.\", \"procedure_name\": \"Skin biopsy from left lateral malleolus\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified.\", \"findings\": \"Showed extensive deposition of dermal mucin and lymphocytic infiltrate around middle and deep dermal vessels.\", \"procedure_name\": \"Skin biopsy from left ankle\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified.\", \"findings\": \"Showed deposition of mucin in the dermis, interface dermatitis at the dermoepidermal junction, and periadnexal and perineural lymphocytic inflammation.\", \"procedure_name\": \"Skin biopsy from left temple\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"No lymphadenopathy or pulmonary infiltrates.\", \"procedure_name\": \"Computed tomographic (CT) scan\"}]}",
+      "full_generated_diagnoses": [
+        "Systemic lupus erythematosus with livedoid vasculopathy and peripheral neuropathy",
+        "Primary antiphospholipid syndrome with livedoid vasculopathy",
+        "Sj\u00f6gren syndrome with vasculitic or sensory peripheral neuropathy",
+        "Undifferentiated connective tissue disease with lupus/Sj\u00f6gren overlap",
+        "Livedoid vasculopathy associated with antiphospholipid antibodies",
+        "Sneddon syndrome",
+        "Cutaneous polyarteritis nodosa",
+        "Cryoglobulinemic vasculitis",
+        "Monogenic interferonopathy causing familial chilblain lupus",
+        "Aicardi-Gouti\u00e8res syndrome spectrum due to TREX1 mutation",
+        "Deficiency of adenosine deaminase 2",
+        "Systemic small-vessel vasculitis affecting vasa nervorum"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact diagnosis match: cutaneous polyarteritis nodosa."
+      },
+      "initial_diagnoses": [
+        "Cryoglobulinemic vasculitis",
+        "Eosinophilic granulomatosis with polyangiitis",
+        "Polyarteritis nodosa",
+        "Microscopic polyangiitis",
+        "Systemic lupus erythematosus",
+        "Sj\u00f6gren syndrome with vasculitic neuropathy",
+        "Sarcoidosis",
+        "Leprosy",
+        "Lyme neuroborreliosis",
+        "Hepatitis C-associated mixed cryoglobulinemia",
+        "Paraneoplastic vasculitic neuropathy",
+        "Cutaneous T-cell lymphoma"
+      ],
+      "initial_information": "A 47-year-old female presented with numbness, pain in the legs, and a rash, with onset two years prior.",
+      "initial_measurement": {
+        "best_match_score": 0.78,
+        "covered": false,
+        "id": "initial",
+        "reason": "Polyarteritis nodosa is the closest listed diagnosis, but cutaneous polyarteritis nodosa is a distinct limited cutaneous subtype rather than the same diagnosis."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact diagnosis match: cutaneous polyarteritis nodosa."
+      },
+      "source_id": "19213685",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Cutaneous polyarteritis nodosa"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"The patient initially presented with urinary retention and perianal pain.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"The patient had a history of faecal incontinence since childhood. She returned to the ED with intense perineal pain lasting 24 hours after neurostimulator removal. Two weeks later, she presented with abdominal pain for 2 days without symptoms such as fever, nausea, vomiting, or change in bowel habits. After discharge, she returned to the ED with abdominal pain and urinary retention. Following surgery, her symptoms disappeared, and she remained asymptomatic at 6 months follow-up.\", \"past_medical_history\": \"The patient had a history of imperforate anus repaired during the neonatal period and underwent dynamic graciloplasty in her 40s after conservative treatments for incontinence failed.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Three months later, examination revealed a perianal orifice compatible with the external opening of a fistula-in-ano. Two weeks later, hypogastric tenderness was noted. Three days after that, physical examination was unremarkable except for continued hypogastric tenderness.\", \"date\": \"Not specified\", \"relevant_findings\": \"Initial perineal inspection revealed induration of the perianal skin. Digital rectal examination showed anal stenosis without tenderness or bulging. Pelvic examination showed posterior vaginal wall tenderness and a small opening draining purulent exudate.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Normal results on multiple occasions.\", \"procedure_name\": \"Complete Blood Count (CBC)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Normal results on multiple occasions.\", \"procedure_name\": \"Blood Chemistry Tests\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"No bacterial growth.\", \"procedure_name\": \"Microbiological Culture\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Negative for malignancy.\", \"procedure_name\": \"Cytologic Analysis\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Confirmed the diagnosis based on the surgical specimen; specifics were not mentioned.\", \"procedure_name\": \"Histopathological Analysis\"}], \"other_examinations\": [{\"changes_over_time\": \"Three months later, examination revealed a perianal orifice compatible with the external opening of a fistula-in-ano.\", \"date\": \"Not specified\", \"findings\": \"Anal stenosis without tenderness or bulging.\", \"procedure_name\": \"Digital rectal examination\"}, {\"changes_over_time\": \"Two weeks later, she showed hypogastric tenderness. Three days later, apart from hypogastric tenderness, physical examination was unremarkable.\", \"date\": \"Not specified\", \"findings\": \"Posterior vaginal wall tenderness and a small opening draining purulent exudate.\", \"procedure_name\": \"Pelvic examination\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Cystic lesion in the pelvis, filled with serous fluid and lined with colonic mucosa.\", \"procedure_name\": \"Diagnostic laparoscopy\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"A subsequent CT scan showed a pelvic fluid collection posterior to the vagina and the uterus measuring 13x9 cm. Two weeks later, another CT scan showed recurrence of the fluid collection posterior to the vagina and the uterus, measuring 11.5x8x7 cm.\", \"date\": \"Not specified\", \"findings\": \"Initial scan revealed a fluid collection extending from the electrostimulator to the left side of the rectouterine pouch.\", \"procedure_name\": \"Abdominal CT scan\"}]}",
+      "full_generated_diagnoses": [
+        "Rectal duplication cyst",
+        "Tailgut cyst (retrorectal cystic hamartoma)",
+        "Enteric duplication cyst of the hindgut with rectovaginal fistulization",
+        "M\u00fcllerian duct cyst of the rectouterine pouch",
+        "Chronic postoperative pelvic abscess related to dynamic graciloplasty/neurostimulator",
+        "Fistula-in-ano with supralevator pelvic extension",
+        "Rectovaginal fistula secondary to congenital anorectal malformation repair",
+        "Hydrosalpinx or tubo-ovarian abscess",
+        "Peritoneal inclusion cyst",
+        "Anterior sacral meningocele",
+        "Presacral epidermoid or dermoid cyst",
+        "Currarino syndrome with presacral cystic mass"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Rectal duplication cyst is the same diagnosis as rectal duplication."
+      },
+      "initial_diagnoses": [
+        "Tethered cord syndrome due to occult spinal dysraphism",
+        "Sacral agenesis (caudal regression syndrome)",
+        "Currarino syndrome",
+        "Anterior sacral meningocele",
+        "Presacral teratoma",
+        "Sacral schwannoma",
+        "Conus medullaris ependymoma",
+        "Spinal lipoma involving the lumbosacral cord",
+        "Pudendal neuralgia due to Alcock canal entrapment",
+        "Cauda equina syndrome from lumbosacral disc herniation",
+        "Fowler syndrome",
+        "Congenital anorectal malformation with neurogenic bowel and bladder dysfunction"
+      ],
+      "initial_information": "A 50-year-old female presented with urinary retention and perianal pain, with a history of fecal incontinence since childhood.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No rectal duplication diagnosis among candidates; closest options are related anorectal/spinal conditions but not equivalent."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Rectal duplication cyst is the same diagnosis as rectal duplication."
+      },
+      "source_id": "rare151",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Rectal duplication"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Severe bronchoconstriction following inhalation of short-acting b2-agonists.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"The patient, a 41-year-old farmer with a 40-pack-year smoking history, experienced asthma symptoms for 3 years. Two weeks prior to admission, he had an asthma exacerbation and increased the use of formoterol. Before admission, he felt breathless and inhaled two puffs of formoterol followed by several puffs of salbutamol, resulting in acute respiratory distress within minutes.\", \"past_medical_history\": \"Chronic asthma; treated with methylprednisolone and formoterol.\", \"social_history\": \"40-pack-year smoking history; occupation as a farmer.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"At three days post-admission, the patient's asthma was prescribed medications including formoterol and methylprednisolone. On day 5, FEV1 was 3.22 l (85% predicted) and FVC 4.8 l (105% predicted), showing improvement. However, three minutes after a puff of salbutamol, there was a 25% drop in FEV1.\", \"date\": \"Not specified\", \"relevant_findings\": \"Acute respiratory distress, cyanosis, respiratory arrest requiring non-invasive ventilation. Chest auscultation was normal one hour later; Peak expiratory flow rate was 500 l/min.\", \"vital_signs\": \"Not specified\"}, {\"changes_over_time\": \"Patient's condition improved with stabilized medications and respiratory function, specifically regarding FEV1 and FVC measurements.\", \"date\": \"Day 3\", \"relevant_findings\": \"Post-admission treatment included nebulized terbutaline\\u2013ipratropium q.i.d. and methylprednisolone 2 mg/kg/day.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Histamine release from basophils was 54% for the patient and 0% for the control. Histamine-releasing autoantibodies detected in patient serum. HR was 22%, 10%, and 7% for salbutamol, terbutaline, and formoterol respectively; negative with prednisolone and ipratropium.\", \"procedure_name\": \"Basophil histamine release test\"}], \"other_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Positive for house dust mite and birch; positive for salbutamol, terbutaline, and pirbuterol; negative for formoterol, salmeterol, bambuterol, ipratropium, and methylprednisolone.\", \"procedure_name\": \"Skin prick tests (SPTs)\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Day 5\", \"findings\": \"FEV1 was 3.22 L (85% predicted); a drop to 2.41 L after salbutamol inhalation indicated a 25% drop.\", \"procedure_name\": \"Forced expiratory volume in 1 second (FEV1)\"}, {\"changes_over_time\": \"At 3-year follow-up, asthma is controlled with specific medications.\", \"date\": \"Not specified\", \"findings\": \"Symptomatic decrease in FEV1 from 3.15 to 1.94 L (38% drop) after inhalation of terbutaline dry powder.\", \"procedure_name\": \"Bronchial provocation challenge\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Not specified\", \"procedure_name\": \"Not specified\"}]}",
+      "full_generated_diagnoses": [
+        "IgE-mediated immediate hypersensitivity to short-acting beta2-agonists causing paradoxical bronchospasm",
+        "Salbutamol-induced paradoxical bronchoconstriction",
+        "Terbutaline-induced paradoxical bronchoconstriction",
+        "Pirbuterol allergy with cross-reactive short-acting beta2-agonist hypersensitivity",
+        "Autoimmune chronic spontaneous urticaria-type basophil-activating autoantibody syndrome associated with drug hypersensitivity",
+        "Excipient-induced bronchospasm from benzalkonium chloride or sulfite in inhaled bronchodilator formulations",
+        "Severe asthma with smoking-related chronic obstructive airway disease overlap",
+        "House dust mite-driven allergic asthma",
+        "Birch pollen-associated atopic asthma",
+        "Beta2-adrenergic receptor pharmacogenetic paradoxical bronchodilator response",
+        "Inducible laryngeal obstruction mimicking bronchodilator intolerance",
+        "Allergic bronchopulmonary aspergillosis"
+      ],
+      "full_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "IgE-mediated immediate hypersensitivity to short-acting beta2-agonists causing paradoxical bronchospasm is a clinically equivalent formulation of allergy to short-acting beta-agonists."
+      },
+      "initial_diagnoses": [
+        "Paradoxical bronchospasm induced by short-acting beta2-agonist inhalation",
+        "Benzalkonium chloride excipient-induced bronchoconstriction",
+        "Sulfite preservative sensitivity causing bronchospasm",
+        "Severe uncontrolled asthma with beta2-agonist nonresponse",
+        "Allergic bronchopulmonary aspergillosis",
+        "Aspirin-exacerbated respiratory disease",
+        "Eosinophilic granulomatosis with polyangiitis",
+        "Vocal cord dysfunction (inducible laryngeal obstruction)",
+        "Mast cell activation syndrome",
+        "Hereditary alpha tryptasemia",
+        "Tracheobronchomalacia",
+        "Beta2-adrenergic receptor polymorphism-associated bronchodilator paradoxical response"
+      ],
+      "initial_information": "A 41-year-old male presented with severe bronchoconstriction after inhaling short-acting b2-agonists due to chronic asthma.",
+      "initial_measurement": {
+        "best_match_score": 0.74,
+        "covered": false,
+        "id": "initial",
+        "reason": "Closest matches describe paradoxical bronchospasm or beta2-agonist nonresponse, but the true diagnosis is specifically allergy to short-acting beta-agonists, which is related but not identical."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.95,
+        "covered": true,
+        "id": "merged",
+        "reason": "Contains the same clinically equivalent diagnosis: IgE-mediated immediate hypersensitivity to short-acting beta2-agonists causing paradoxical bronchospasm."
+      },
+      "source_id": "17845596",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Allergy to short-acting beta-agonists"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Episodes of gait imbalance.\", \"family_history\": \"The patient's mother has mild episodes of gait instability and dysarthria, occurring several times per month since age 11. The patient's sister has severe vertigo, nausea, and inability to walk starting at age 12, with a history of frequent migraines.\", \"history_of_present_illness\": \"The patient experienced episodic unsteadiness beginning in his early 20s. The episodes lasted several hours, occurred 1 to 2 times per month until his 30s, and were often precipitated by emotional stress. After stopping acetazolamide due to cancer treatment, ataxic attacks recurred several times per week and were associated with slurred speech and severe pounding headaches.\", \"past_medical_history\": \"The patient had a trial of acetazolamide at age 38, which rendered him attack-free until months after stopping the medication for treatment of squamous cell cancer of the neck.\", \"social_history\": \"No history of alcohol use.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Ataxic attacks recurred after stopping acetazolamide, initially occurring once or twice per month and later several times per week, lasting several hours, and associated with slurred speech.\", \"date\": \"Not specified\", \"relevant_findings\": \"Neurologic examination between episodes was normal; absence of nystagmus, dysarthria, gait ataxia, or dysmetria.\", \"vital_signs\": \"Not specified\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"The patient was restarted on acetazolamide with titration up to 750 mg/day. He has had only 1 episode of ataxia over the next year and his headache has not recurred.\", \"date\": \"Not specified\", \"findings\": \"Sequencing of CACNA1A gene revealed a previously undescribed non-sense mutation at arginine 1346 (i.e., R1346X, corresponding to nucleotide C4036T).\", \"procedure_name\": \"Genetic Testing\"}], \"other_examinations\": [], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Normal\", \"procedure_name\": \"MRI\"}]}",
+      "full_generated_diagnoses": [
+        "Episodic ataxia type 2 due to CACNA1A nonsense mutation",
+        "Familial hemiplegic migraine type 1 (CACNA1A-related disorder)",
+        "Spinocerebellar ataxia type 6",
+        "Episodic ataxia type 1 (KCNA1-related)",
+        "Spinocerebellar ataxia type 27B (FGF14-related ataxia)",
+        "PRRT2-related episodic ataxia",
+        "RFC1-related cerebellar ataxia, neuropathy, and vestibular areflexia syndrome",
+        "Fragile X-associated tremor/ataxia syndrome",
+        "Multiple sclerosis with paroxysmal ataxia",
+        "Vertebrobasilar insufficiency causing transient ischemic ataxia",
+        "Paraneoplastic cerebellar degeneration",
+        "Mitochondrial episodic ataxia syndrome"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact same diagnosis as the true diagnosis, stated as a CACNA1A-specific variant."
+      },
+      "initial_diagnoses": [
+        "Spinocerebellar ataxia type 27B (FGF14-related ataxia)",
+        "Episodic ataxia type 2 (CACNA1A-related disorder)",
+        "RFC1-related cerebellar ataxia, neuropathy, and vestibular areflexia syndrome",
+        "Fragile X-associated tremor/ataxia syndrome",
+        "Spinocerebellar ataxia type 6",
+        "Multiple sclerosis",
+        "Vertebrobasilar transient ischemia",
+        "Paraneoplastic cerebellar degeneration",
+        "Mitochondrial ataxia syndrome",
+        "Adult-onset Niemann-Pick disease type C",
+        "Wilson disease",
+        "Normal pressure hydrocephalus"
+      ],
+      "initial_information": "A 47-year-old male presented with episodes of gait imbalance and a newly found genetic mutation.",
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact same diagnosis as the true diagnosis, just with a gene association in parentheses."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Exact same diagnosis as the true diagnosis, with a gene association in parentheses."
+      },
+      "source_id": "23071170",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Episodic Ataxia Type 2 (EA2)"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Mild shortness of breath while walking up an incline.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"Symptoms began 2 months ago and have been inconsistent. The patient can walk on level surfaces and perform normal daily activities without difficulty. No progression of symptoms reported.\", \"past_medical_history\": \"History of hypertension, aortic stenosis, recurrent skin cancers, restless leg syndrome, chronic constipation, and hyperlipidemia.\", \"social_history\": \"Lives with wife, has 2 grown children, consumes 1 to 2 glasses of wine per week, no history of cigarette smoking.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"March 12, 2009\", \"relevant_findings\": {\"carotid_upstroke\": \"slightly delayed with no bruits\", \"heart_sounds\": \"normal S1, fixed split S2, no S3 or S4\", \"point_of_maximal_impulse\": \"not displaced\", \"systolic_ejection_murmur\": \"grade 3/4, loudest at right upper sternal border radiating toward the carotids\"}, \"vital_signs\": {\"blood_pressure\": \"124/78 mm Hg\", \"jugular_venous_pressure\": \"6 cm\", \"pulse\": \"64 bpm\"}}, {\"changes_over_time\": \"Severity of aortic stenosis increased from 67 mm Hg peak gradient 7 months prior to 97 mm Hg.\", \"date\": \"Not specified\", \"relevant_findings\": {\"echocardiograph\": {\"aortic_valve_area\": \"0.7 cm2\", \"ejection_fraction\": \">60%\", \"mitral_regurgitation\": \"mild\", \"peak_gradient\": \"97 mm Hg\"}}, \"vital_signs\": {\"blood_pressure\": {\"final\": \"122/68 mm Hg\", \"initial\": \"148/84 mm Hg\"}}}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [], \"other_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"2008-12\", \"findings\": \"Showed ST segment depression that changed from upsloping-horizontal to downsloping during recovery.\", \"procedure_name\": \"Electrocardiogram (ECG)\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"March 18, 2003\", \"findings\": \"Peak gradient 46 mm Hg; aortic valve area 1.0 cm2; ejection fraction not specified.\", \"procedure_name\": \"Transthoracic Echocardiography\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"September 19, 2005\", \"findings\": \"Peak gradient 44 mm Hg; aortic valve area 0.9 cm2; ejection fraction not specified.\", \"procedure_name\": \"Transthoracic Echocardiography\"}, {\"changes_over_time\": \"Demonstrated an increase in peak gradient from 67 mm Hg in August 2008 to 97 mm Hg in January 2009.\", \"date\": \"2008-08-06\", \"findings\": \"Mild concentric left ventricular hypertrophy; ejection fraction >60% (normal ejection fraction, 55%-70%); peak gradient 67 mm Hg (normal peak gradient, <15 mm Hg); calculated aortic valve area 0.7 cm2 (normal aortic valve area, >3.0 cm2); mild mitral regurgitation; no aortic regurgitation.\", \"procedure_name\": \"Transthoracic Echocardiography\"}, {\"changes_over_time\": \"Peak gradient increased from 67 mm Hg (August 2008) to 97 mm Hg (January 2009).\", \"date\": \"2009-01-21\", \"findings\": \"Mild concentric left ventricular hypertrophy with normal cavity size and normal regional-global systolic function (ejection fraction, >60%); peak gradient across the aortic valve 97 mm Hg (normal peak gradient, <15 mm Hg); calculated aortic valve area 0.7 cm2; no aortic regurgitation; mild mitral regurgitation.\", \"procedure_name\": \"Transthoracic Echocardiography\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"2008-12\", \"findings\": \"Stopped after 6.75 minutes of modified Bruce protocol due to fatigue; asymptomatic reduction in blood pressure from 148/84 mm Hg to 122/68 mm Hg; ECG showed ST segment depression (2 to 2.5 mm upsloping-horizontal during exercise, downsloping in recovery) suggestive of ischemia; interpreted as probably normal myocardial perfusion.\", \"procedure_name\": \"Stress Nuclear Study\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"2009-01-21\", \"findings\": \"The study was stopped early due to fatigue; hypotension was observed during the test; interpreted as probably normal myocardial perfusion.\", \"procedure_name\": \"Stress Nuclear Study\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"2009-04\", \"findings\": \"Demonstrated 90% stenoses of the first and second obtuse marginal arteries.\", \"procedure_name\": \"Coronary Angiography\"}]}",
+      "full_generated_diagnoses": [
+        "Severe symptomatic calcific aortic valve stenosis",
+        "Obstructive coronary artery disease involving the obtuse marginal branches",
+        "Exertional anginal equivalent due to myocardial ischemia",
+        "Paradoxical exercise-induced hypotension from severe aortic stenosis",
+        "Heart failure with preserved ejection fraction from pressure-overload left ventricular hypertrophy",
+        "Degenerative senile tricuspid aortic valve calcification",
+        "Mild concentric left ventricular hypertrophy secondary to chronic pressure overload",
+        "Mild nonrheumatic mitral regurgitation",
+        "Stable exertional dyspnea due to fixed left ventricular outflow obstruction",
+        "Low-flow reserve impairment despite preserved ejection fraction in severe aortic stenosis",
+        "Hypertensive heart disease",
+        "Chronic coronary syndrome with normal perfusion imaging but ischemic ECG changes"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact diagnosis match: severe symptomatic calcific aortic valve stenosis is a standard synonym of severe aortic stenosis."
+      },
+      "initial_diagnoses": [
+        "Severe calcific aortic stenosis",
+        "Heart failure with preserved ejection fraction",
+        "Coronary artery disease with exertional angina equivalent",
+        "Cardiac amyloidosis",
+        "Hypertrophic cardiomyopathy",
+        "Mitral regurgitation",
+        "Pulmonary hypertension",
+        "Chronic obstructive pulmonary disease",
+        "Interstitial lung disease",
+        "Anemia",
+        "Atrial fibrillation",
+        "Constrictive pericarditis"
+      ],
+      "initial_information": "An 85-year-old male presented with mild shortness of breath while walking up an incline, with a history of aortic stenosis.",
+      "initial_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact diagnosis match: severe calcific aortic stenosis is a standard synonym of severe aortic stenosis."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Contains exact diagnosis match via severe calcific aortic stenosis / severe symptomatic calcific aortic valve stenosis, both standard synonyms of severe aortic stenosis."
+      },
+      "source_id": "24104373",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "severe aortic stenosis"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"A 44-year-old woman presented with chest and jaw pain after a day of nausea, fatigue, and fever.\", \"family_history\": \"Her mother was diagnosed with factor V Leiden.\", \"history_of_present_illness\": \"Symptoms began 1 day prior to presentation with nausea, fatigue, and a fever of 101\\u00b0F. The following day, she developed persistent, aching chest and jaw pain, leading to her visiting her primary care physician. The pain was aggravated by positioning.\", \"past_medical_history\": \"Obesity, depression, hyperlipidemia, and antiphospholipid antibody syndrome (APLAS) initially diagnosed in 1989, complicated by 4 miscarriages, pulmonary emboli, and deep vein thrombosis for which she underwent inferior vena cava filter placement in 1997.\", \"social_history\": \"She worked as a nurse, lived with her husband and 4 adopted children, and had never smoked.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Initial ECG was normal; subsequent ECG showed new ST-segment elevations in inferior and apical leads. Troponin I levels increased from 19 ng/mL to 26 ng/mL. Echocardiogram showed ejection fraction decline from 40% to 30%.\", \"date\": \"Not specified\", \"relevant_findings\": \"Mild dyspnea, flushed, mildly diaphoretic, jugular venous pressure 12 cm H2O, bibasilar rales, tachycardia with normal S1, narrowly split S2, I/VI systolic murmur radiating from apex to base, abdomen obese without ascites/hepatomegaly/bruit, slightly cool distal lower extremities with 1+ symmetrical pulses and trace bipedal edema.\", \"vital_signs\": \"Temperature: 101\\u00b0F; Heart rate: 107 bpm; Blood pressure: 105/74 mmHg; Respiratory rate: 24 breaths per minute; Oxygen saturation: 97% on 2 L oxygen.\"}, {\"changes_over_time\": \"Continued clinical decline with persistent tachycardia, dyspnea, and worsened ejection fraction (from 30% to 15%-20%).\", \"date\": \"Not specified\", \"relevant_findings\": \"Cyanotic left distal index finger and mild cyanosis of the third to fifth fingers; neurological examination normal.\", \"vital_signs\": \"Heart rate: 105 bpm; Blood pressure: 100/70 mmHg; Respiratory rate: 22 breaths per minute; Oxygen saturation: 95% on 4 L oxygen.\"}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Rising levels from 19 ng/mL to 26 ng/mL.\", \"date\": \"Not specified\", \"findings\": \"Initial level of 19 ng/mL; increased to 26 ng/mL after catheterization.\", \"procedure_name\": \"Troponin I\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"4.39 ng/mL at transfer.\", \"procedure_name\": \"Troponin T\"}, {\"changes_over_time\": \"Platelet count dropped to 77\\u00d710^9/L at transfer.\", \"date\": \"Not specified\", \"findings\": \"WBC count of 12.2\\u00d710^9 cells/L, hematocrit of 34.7%, platelets 150\\u00d710^9 cells/L.\", \"procedure_name\": \"Complete Blood Count\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Aspartate aminotransferase 194 U/L, alanine aminotransferase 66 U/L, alkaline phosphatase 92 U/L, total bilirubin 0.2 mg/dL.\", \"procedure_name\": \"Liver Function Tests\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"0.92 mg/dL at transfer.\", \"procedure_name\": \"Creatinine\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"291 mg/L (normal < 3 mg/L) at transfer.\", \"procedure_name\": \"C-reactive protein\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"115 mm/h (normal < 18 mm/h) at transfer.\", \"procedure_name\": \"Erythrocyte sedimentation rate\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \">150 seconds while on unfractionated heparin; 85 seconds at transfer.\", \"procedure_name\": \"PTT\"}], \"other_examinations\": [{\"changes_over_time\": \"Within 24 hours, repeat ECG showed ST-segment elevations in the inferior and apical leads.\", \"date\": \"Not specified\", \"findings\": \"Initial ECG was reportedly normal.\", \"procedure_name\": \"ECG\"}, {\"changes_over_time\": \"Progression from prior normal ECG within 24 hours.\", \"date\": \"Not specified\", \"findings\": \"Repeat ECG showed ST-segment elevations in the inferior and apical leads.\", \"procedure_name\": \"ECG\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Normal epicardial coronary arteries; TIMI grade 2 flow; moderate systolic dysfunction with LV ejection fraction of 40%; midanterior wall and apical wall hypokinesis; inferior wall akinesis.\", \"procedure_name\": \"Cardiac catheterization\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Focally confluent areas of myocyte necrosis consistent with ischemic microvascular injury; microthrombi in arterioles.\", \"procedure_name\": \"Myocardial biopsy\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Right atrium at 12 mm Hg; right ventricle at 45/12 mm Hg; pulmonary artery at 46/30/37 mm Hg; pulmonary capillary wedge pressure at 27 mm Hg.\", \"procedure_name\": \"Right heart catheterization\"}], \"radiographic_examinations\": [{\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Mild pulmonary edema.\", \"procedure_name\": \"Chest Radiograph\"}, {\"changes_over_time\": \"Progressive decline in ejection fraction to 15%-20% on subsequent echocardiogram.\", \"date\": \"Not specified\", \"findings\": \"Ejection fraction of 30% with multiple wall motion abnormalities, most notable inferiorly.\", \"procedure_name\": \"Transthoracic Echocardiogram\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Severe systolic dysfunction with LV ejection fraction of 15%-20%.\", \"procedure_name\": \"Transthoracic Echocardiogram\"}, {\"changes_over_time\": \"Not specified.\", \"date\": \"Not specified\", \"findings\": \"Negative for pulmonary emboli or any arterial filling defects.\", \"procedure_name\": \"Computed Tomography (CT) Scan\"}, {\"changes_over_time\": \"Demonstrated worsening systolic dysfunction over time.\", \"date\": \"Not specified\", \"findings\": \"Mildly dilated LV; severe biventricular systolic dysfunction (LV ejection fraction, 20%; RV ejection fraction, 19%); diffuse myocardial edema with patchy subendocardial perfusion defects; diffuse late gadolinium enhancement consistent with myocarditis, microvascular obstruction, or vasculitis; no LV thrombus.\", \"procedure_name\": \"Cardiac MRI\"}]}",
+      "full_generated_diagnoses": [
+        "Catastrophic antiphospholipid syndrome with coronary microvascular thrombosis causing ischemic cardiomyopathy",
+        "Antiphospholipid antibody syndrome with diffuse thrombotic microangiopathy of the myocardium",
+        "Antiphospholipid syndrome\u2013associated coronary microvascular dysfunction syndrome",
+        "Antiphospholipid syndrome\u2013associated Libman-Sacks endocarditis with coronary microembolization",
+        "Microvascular myocardial infarction with nonobstructive coronary arteries due to antiphospholipid syndrome",
+        "Fulminant lymphocytic myocarditis",
+        "Eosinophilic myocarditis",
+        "Small-vessel coronary vasculitis associated with systemic lupus erythematosus and secondary antiphospholipid syndrome",
+        "Heparin-induced thrombocytopenia with arterial microthrombosis",
+        "Thrombotic thrombocytopenic purpura with cardiac involvement",
+        "Disseminated intravascular coagulation with myocardial microthrombi",
+        "Embolic myocardial infarction from paradoxical or systemic thromboembolism in inherited thrombophilia"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Exact clinically equivalent diagnosis of catastrophic antiphospholipid syndrome (C-APLAS/CAPS)."
+      },
+      "initial_diagnoses": [
+        "Acute coronary syndrome",
+        "Spontaneous coronary artery dissection",
+        "Myopericarditis",
+        "Viral myocarditis",
+        "Aortic dissection",
+        "Pulmonary embolism",
+        "Infective endocarditis",
+        "Pheochromocytoma",
+        "Takayasu arteritis",
+        "Mediastinitis",
+        "Esophageal rupture",
+        "Adult-onset Still disease"
+      ],
+      "initial_information": "A 44-year-old female presented with chest and jaw pain after nausea, fatigue, and fever of 101\u00b0F.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No listed diagnosis matches catastrophic antiphospholipid syndrome; options are only unrelated differentials."
+      },
+      "merged_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "merged",
+        "reason": "Contains the exact clinically equivalent diagnosis of catastrophic antiphospholipid syndrome (C-APLAS/CAPS)."
+      },
+      "source_id": "25210096",
+      "subset": "challenging",
+      "true_diagnosis_measurement_only": "Catastrophic Antiphospholipid Antibody Syndrome (C-APLAS)"
+    },
+    {
+      "full_evidence": "Medical history:\n{\"medical_history\": {\"chief_complaint\": \"Recurrent fever with no apparent cause for more than 10 months.\", \"family_history\": \"Not specified.\", \"history_of_present_illness\": \"The patient was first referred to the department in 2020 with recurrent fever episodes lasting about 1-5 days, with intervals of approximately 15 days between episodes. During fever episodes, the temperature was about 37.5\\u00b0C with occasional increases up to 39\\u00b0C, accompanied by bilateral conjunctival congestion and urticarial-like rash.\", \"past_medical_history\": \"Not specified.\", \"social_history\": \"Not specified.\"}}\n\nPhysical examination:\n{\"physical_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"relevant_findings\": \"Not specified\", \"vital_signs\": {\"blood_pressure\": \"Not specified\", \"heart_rate\": \"Not specified\", \"respiratory_rate\": \"Not specified\", \"temperature\": {\"average\": \"37.5\\u00b0C\", \"maximum\": \"39\\u00b0C\"}}}]}\n\nDiagnostic tests:\n{\"laboratory_examinations\": [{\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Elevation in leukocyte count, neutrophil count, erythrocyte sedimentation rate (ESR), C-reactive protein (CRP), and serum amyloid protein (SAA) levels. Specific numerical values for these tests were not provided.\", \"procedure_name\": \"Routine blood examination\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Identified a heterozygous variation of NLRP3 gene (c.784-786delinsTGG) resulting in amino acid substitution of arginine for tryptophan at codon 262 (p.R262W). Predicted to be probably damaging with a PolyPhen-2 score of 1.000 and disease-causing with a MutationTaster score of 0.999. The mutation was preliminarily determined to be pathogenic according to ACMG guidelines.\", \"procedure_name\": \"Whole exome sequencing\"}, {\"changes_over_time\": \"Not specified\", \"date\": \"Not specified\", \"findings\": \"Validated the identified mutation in the NLRP3 gene.\", \"procedure_name\": \"Sanger sequencing\"}], \"other_examinations\": [], \"radiographic_examinations\": []}",
+      "full_generated_diagnoses": [
+        "Cryopyrin-associated periodic syndrome due to NLRP3-associated autoinflammatory disease",
+        "Familial cold autoinflammatory syndrome 1",
+        "Muckle-Wells syndrome",
+        "Neonatal-onset multisystem inflammatory disease (NOMID/CINCA syndrome)",
+        "NLRP3-related autoinflammatory disease with p.R262W variant",
+        "Mevalonate kinase deficiency (hyper-IgD syndrome)",
+        "Tumor necrosis factor receptor-associated periodic syndrome",
+        "NLRP12-associated autoinflammatory disease",
+        "PLCG2-associated antibody deficiency and immune dysregulation (APLAID)",
+        "Deficiency of interleukin-1 receptor antagonist",
+        "Systemic juvenile idiopathic arthritis",
+        "Urticarial vasculitis syndrome"
+      ],
+      "full_measurement": {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "full_generated",
+        "reason": "Familial cold autoinflammatory syndrome 1 is the standard clinical synonym for familial cold urticaria."
+      },
+      "initial_diagnoses": [
+        "Cryopyrin-associated periodic syndrome (FCAS/Muckle-Wells/NOMID spectrum)",
+        "Mevalonate kinase deficiency (hyper-IgD syndrome)",
+        "Tumor necrosis factor receptor-associated periodic syndrome (TRAPS)",
+        "Systemic juvenile idiopathic arthritis (Still disease)",
+        "Deficiency of interleukin-1 receptor antagonist (DIRA)",
+        "PLC\u03b32-associated antibody deficiency and immune dysregulation (APLAID)",
+        "NLRP12-associated autoinflammatory disease",
+        "Schnitzler syndrome",
+        "Systemic lupus erythematosus",
+        "Urticarial vasculitis syndrome",
+        "Juvenile dermatomyositis",
+        "Chronic infantile neurologic cutaneous and articular syndrome (NOMID/CINCA)"
+      ],
+      "initial_information": "A 3-year-old male presented with recurrent fever lasting over 10 months and an urticarial-like rash.",
+      "initial_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "initial",
+        "reason": "No exact synonym for familial cold urticaria; listed items are broader CAPS or different autoinflammatory diseases."
+      },
+      "merged_measurement": {
+        "best_match_score": 0.0,
+        "covered": false,
+        "id": "merged",
+        "reason": "No exact synonym listed; closest options are broader CAPS entities or related disorders, not the same diagnosis."
+      },
+      "source_id": "rare42",
+      "subset": "rare",
+      "true_diagnosis_measurement_only": "Familial cold urticaria"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "full_coverage_by_subset": {
+      "challenging": 10,
+      "rare": 7
+    },
+    "full_generated_covered": 17,
+    "gates": {
+      "all_pass": true,
+      "all_twenty_tasks_completed": true,
+      "at_least_ten_initial_omissions_recovered": true,
+      "challenging_coverage_at_least_eight": true,
+      "full_support_covers_at_least_sixteen": true,
+      "initial_support_not_saturated": true,
+      "mean_match_gain_at_least_0_30": true,
+      "rare_coverage_at_least_seven": true,
+      "recovery_fraction_at_least_0_70": true
+    },
+    "initial_covered": 6,
+    "initial_omitted": 14,
+    "initially_omitted_recovered_by_full_evidence": 12,
+    "mean_full_best_match_gain": 0.4125,
+    "num_tasks": 20,
+    "recovery_fraction_among_initial_omissions": 0.8571428571428571
+  },
+  "usage": {
+    "generator": {
+      "adapter_completion_tokens": 5663,
+      "adapter_cost_usd": 0.153285,
+      "adapter_prompt_tokens": 27336,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 40,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 8106,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 5663,
+          "cost_usd": 0.153285,
+          "prompt_tokens": 27336,
+          "reasoning_tokens": 0,
+          "requests": 40
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2443,
+          "cost_usd": 0.021152250000000004,
+          "prompt_tokens": 13545,
+          "reasoning_tokens": 0,
+          "requests": 20
+        }
+      },
+      "prompt_tokens": 40881,
+      "reasoning_tokens": 0,
+      "remaining_usd": 25.357021722999995,
+      "requests": 60,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.17443725000000002,
+      "run_remaining_usd": 0.82556275,
+      "total_spent_usd": 45.02778097245716
+    },
+    "judge": {
+      "adapter_completion_tokens": 2443,
+      "adapter_cost_usd": 0.021152250000000004,
+      "adapter_prompt_tokens": 13545,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 20,
+      "backend": "openrouter",
+      "budget_usd": 70.38480269545715,
+      "completion_tokens": 8106,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 5663,
+          "cost_usd": 0.153285,
+          "prompt_tokens": 27336,
+          "reasoning_tokens": 0,
+          "requests": 40
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2443,
+          "cost_usd": 0.021152250000000004,
+          "prompt_tokens": 13545,
+          "reasoning_tokens": 0,
+          "requests": 20
+        }
+      },
+      "prompt_tokens": 40881,
+      "reasoning_tokens": 0,
+      "remaining_usd": 25.357021722999995,
+      "requests": 60,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.17443725000000002,
+      "run_remaining_usd": 0.82556275,
+      "total_spent_usd": 45.02778097245716
+    }
+  }
+}
