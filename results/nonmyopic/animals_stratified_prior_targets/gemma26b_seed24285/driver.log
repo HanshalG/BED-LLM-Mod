@@ -1,0 +1,16 @@
+[beliefs] Validating 127 cleaned belief name(s)
+[beliefs] 126 belief(s) remain after animal-name validation
+{
+  "per_stratum_cleaned_counts": {
+    "amphibians": 16,
+    "arachnids and myriapods": 15,
+    "birds": 16,
+    "fish": 16,
+    "insects": 16,
+    "mammals": 16,
+    "mollusks, crustaceans, echinoderms, and cnidarians": 16,
+    "reptiles": 16
+  },
+  "status": "fixed_before_policy_responses",
+  "unique_validated_name_count": 126
+}
