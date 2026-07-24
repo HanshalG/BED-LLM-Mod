@@ -1,0 +1,155 @@
+{
+  "protocol": {
+    "candidate_and_heldout_outcomes_not_read": true,
+    "candidate_pool_size": 16,
+    "heldout_count": 8,
+    "initial_movie_ids": [
+      50,
+      100,
+      1,
+      98
+    ],
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "243c964ac99e99117d98a86b8bcb6833349611dc33d67481dd53660f8054c564",
+    "raw_responses_private_and_untracked": true,
+    "reserve_smoke_user_ids": [
+      654
+    ],
+    "selected_candidate_count": 1,
+    "selection_seed": 24308,
+    "stage": "serving_smoke",
+    "user_ids": [
+      253
+    ]
+  },
+  "records": [
+    {
+      "candidate_movie": {
+        "genres": [
+          "Action",
+          "Sci-Fi",
+          "Thriller"
+        ],
+        "title": "Terminator 2: Judgment Day (1991)"
+      },
+      "explicit_rollout_score": -1.5349680507949346,
+      "immediate_eig": 0.014748130666955461,
+      "initial_profile_hashes": [
+        "128753c979e12f21dde77e10045659fce70ab496ba71a5cdc8f3d0530e0865f7",
+        "295abf8fa07109c97eabc742aba729ef6eef0d4fd3ce0219810dc4443d669206",
+        "1227d49c77294eedda11e3ed6ab9615df94205687bd5e29aa22b4914ca50dac7",
+        "d624a00cff2ba03f796607791b19fd97889b0d2572d819f9dc6fec05f26f20af",
+        "744c0fea6d5c79d420b2af8067ff254e60d86b3f0dbc2f4814bb424254af6dfe",
+        "5c67f230bd3f3ae68e8efba88377c5111d5e06ef8c30640835ed0c6333f98611"
+      ],
+      "user_id": 253
+    }
+  ],
+  "schema_version": 7,
+  "status": "passed",
+  "summary": {
+    "branch_mean_predictive_entropies": [
+      1.4661708116767964,
+      1.493936372931231,
+      1.5555459834600331,
+      1.5250537610690484,
+      1.5421571838511408
+    ],
+    "explicit_rollout_score": -1.5349680507949346,
+    "gates": {
+      "all_five_hypothetical_paths_completed": true,
+      "all_pass": true,
+      "exact_physical_request_count": true,
+      "explicit_score_is_finite": true,
+      "initial_profile_count_is_six": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_candidates": 1,
+    "num_hypothetical_branches": 5,
+    "num_users": 1
+  },
+  "usage": {
+    "adapter_cost_usd": 0.05171916,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 3084,
+        "adapter_cost_usd": 0.00134766,
+        "adapter_prompt_tokens": 3457,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 12832,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3084,
+            "cost_usd": 0.00134766,
+            "prompt_tokens": 3457,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9748,
+            "cost_usd": 0.0503715,
+            "prompt_tokens": 13282,
+            "reasoning_tokens": 0,
+            "requests": 6
+          }
+        },
+        "prompt_tokens": 16739,
+        "reasoning_tokens": 0,
+        "remaining_usd": 19.383719013000032,
+        "requests": 12,
+        "run_budget_usd": 3.0,
+        "run_cost_usd": 0.05171916,
+        "run_remaining_usd": 2.94828084,
+        "total_spent_usd": 51.00108368245712
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 9748,
+        "adapter_cost_usd": 0.0503715,
+        "adapter_prompt_tokens": 13282,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 12832,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3084,
+            "cost_usd": 0.00134766,
+            "prompt_tokens": 3457,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9748,
+            "cost_usd": 0.0503715,
+            "prompt_tokens": 13282,
+            "reasoning_tokens": 0,
+            "requests": 6
+          }
+        },
+        "prompt_tokens": 16739,
+        "reasoning_tokens": 0,
+        "remaining_usd": 19.383719013000032,
+        "requests": 12,
+        "run_budget_usd": 3.0,
+        "run_cost_usd": 0.05171916,
+        "run_remaining_usd": 2.94828084,
+        "total_spent_usd": 51.00108368245712
+      }
+    },
+    "physical_requests": 12,
+    "reasoning_tokens": 0
+  }
+}
