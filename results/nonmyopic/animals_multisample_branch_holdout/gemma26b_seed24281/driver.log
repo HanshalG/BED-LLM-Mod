@@ -1,0 +1,1025 @@
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 26 unique belief(s) remain after merge
+[beliefs] Belief update complete with 26 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] 23 unique belief(s) remain after merge
+[beliefs] Belief update complete with 23 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 0 belief(s) remain after structural cleanup
+[beliefs] Skipping belief filtering: beliefs=0, history_pairs=1
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 6 unique belief(s) remain after merge
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 6 raw belief(s)
+[beliefs] 6 belief(s) remain after structural cleanup
+[beliefs] Validating 6 cleaned belief name(s)
+[beliefs] 6 belief(s) remain after animal-name validation
+[beliefs] Filtering 6 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Belief update complete with 12 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 15 raw belief(s)
+[beliefs] 14 belief(s) remain after structural cleanup
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 22 unique belief(s) remain after merge
+[beliefs] Belief update complete with 22 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 34 raw belief(s)
+[beliefs] 33 belief(s) remain after structural cleanup
+[beliefs] Validating 33 cleaned belief name(s)
+[beliefs] 33 belief(s) remain after animal-name validation
+[beliefs] Filtering 33 belief(s) against 1 answered round(s)
+[beliefs] 31 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] 23 unique belief(s) remain after merge
+[beliefs] Belief update complete with 23 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 20 unique belief(s) remain after merge
+[beliefs] Belief update complete with 20 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 0 belief(s) remain after structural cleanup
+[beliefs] Skipping belief filtering: beliefs=0, history_pairs=1
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 6 unique belief(s) remain after merge
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 6 raw belief(s)
+[beliefs] 6 belief(s) remain after structural cleanup
+[beliefs] Validating 6 cleaned belief name(s)
+[beliefs] 6 belief(s) remain after animal-name validation
+[beliefs] Filtering 6 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Belief update complete with 12 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 14 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 21 unique belief(s) remain after merge
+[beliefs] Belief update complete with 21 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 14 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 0 belief(s) remain after structural cleanup
+[beliefs] Skipping belief filtering: beliefs=0, history_pairs=1
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 6 unique belief(s) remain after merge
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 6 raw belief(s)
+[beliefs] 6 belief(s) remain after structural cleanup
+[beliefs] Validating 6 cleaned belief name(s)
+[beliefs] 6 belief(s) remain after animal-name validation
+[beliefs] Filtering 6 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 12 candidate(s)
+[beliefs] Belief update complete with 12 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 16 unique belief(s) remain after merge
+[beliefs] Belief update complete with 16 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 21 unique belief(s) remain after merge
+[beliefs] Belief update complete with 21 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 16 unique belief(s) remain after merge
+[beliefs] Belief update complete with 16 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 21 unique belief(s) remain after merge
+[beliefs] Belief update complete with 21 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 17 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 15 belief(s) remain after animal-name validation
+[beliefs] Filtering 15 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] 21 unique belief(s) remain after merge
+[beliefs] Belief update complete with 21 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 21 unique belief(s) remain after merge
+[beliefs] Belief update complete with 21 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 14 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 25 unique belief(s) remain after merge
+[beliefs] Belief update complete with 25 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 6 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 3 belief(s) remain after filtering
+[beliefs] 16 unique belief(s) remain after merge
+[beliefs] Belief update complete with 16 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 18 unique belief(s) remain after merge
+[beliefs] Belief update complete with 18 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 14 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 15 belief(s) remain after animal-name validation
+[beliefs] Filtering 15 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 11 belief(s) remain after filtering
+[beliefs] 25 unique belief(s) remain after merge
+[beliefs] Belief update complete with 25 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 22 unique belief(s) remain after merge
+[beliefs] Belief update complete with 22 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 10 unique belief(s) remain after merge
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 2 cleaned belief name(s)
+[beliefs] 2 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 1 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 10 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 2 cleaned belief name(s)
+[beliefs] 2 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 1 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 10 candidate(s)
+[beliefs] Belief update complete with 10 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 14 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 2 belief(s) remain after filtering
+[beliefs] 16 unique belief(s) remain after merge
+[beliefs] Belief update complete with 16 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 22 unique belief(s) remain after merge
+[beliefs] Belief update complete with 22 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 3 belief(s) remain after filtering
+[beliefs] 16 unique belief(s) remain after merge
+[beliefs] Belief update complete with 16 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 12 cleaned belief name(s)
+[beliefs] 12 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 12 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 29 unique belief(s) remain after merge
+[beliefs] Belief update complete with 29 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 19 unique belief(s) remain after merge
+[beliefs] Belief update complete with 19 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 22 unique belief(s) remain after merge
+[beliefs] Belief update complete with 22 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 14 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 12 belief(s) remain after filtering
+[beliefs] 26 unique belief(s) remain after merge
+[beliefs] Belief update complete with 26 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 8 belief(s) remain after filtering
+[beliefs] 16 unique belief(s) remain after merge
+[beliefs] Belief update complete with 16 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 0 belief(s) remain after structural cleanup
+[beliefs] Skipping belief filtering: beliefs=0, history_pairs=1
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 10 belief(s) remain after filtering
+[beliefs] 10 unique belief(s) remain after merge
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Validating 3 cleaned belief name(s)
+[beliefs] 3 belief(s) remain after animal-name validation
+[beliefs] Filtering 3 belief(s) against 1 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 10 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 2 raw belief(s)
+[beliefs] 2 belief(s) remain after structural cleanup
+[beliefs] Validating 2 cleaned belief name(s)
+[beliefs] 2 belief(s) remain after animal-name validation
+[beliefs] Filtering 2 belief(s) against 1 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 10 candidate(s)
+[beliefs] Belief update complete with 10 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 26 unique belief(s) remain after merge
+[beliefs] Belief update complete with 26 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 16 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 20 unique belief(s) remain after merge
+[beliefs] Belief update complete with 20 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 0 belief(s) remain after structural cleanup
+[beliefs] Skipping belief filtering: beliefs=0, history_pairs=1
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 9 belief(s) remain after filtering
+[beliefs] 9 unique belief(s) remain after merge
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Validating 3 cleaned belief name(s)
+[beliefs] 3 belief(s) remain after animal-name validation
+[beliefs] Filtering 3 belief(s) against 1 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 9 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 3 raw belief(s)
+[beliefs] 3 belief(s) remain after structural cleanup
+[beliefs] Validating 3 cleaned belief name(s)
+[beliefs] 3 belief(s) remain after animal-name validation
+[beliefs] Filtering 3 belief(s) against 1 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 9 candidate(s)
+[beliefs] Belief update complete with 9 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 21 unique belief(s) remain after merge
+[beliefs] Belief update complete with 21 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 14 cleaned belief name(s)
+[beliefs] 14 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 14 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 15 belief(s) remain after filtering
+[beliefs] Filtering 14 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 17 unique belief(s) remain after merge
+[beliefs] Belief update complete with 17 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 12 cleaned belief name(s)
+[beliefs] 12 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 12 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 1 raw belief(s)
+[beliefs] 0 belief(s) remain after structural cleanup
+[beliefs] Skipping belief filtering: beliefs=0, history_pairs=1
+[beliefs] Filtering 12 belief(s) against 1 answered round(s)
+[beliefs] 7 belief(s) remain after filtering
+[beliefs] 7 unique belief(s) remain after merge
+[beliefs] Retry 1/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 5 raw belief(s)
+[beliefs] 5 belief(s) remain after structural cleanup
+[beliefs] Validating 5 cleaned belief name(s)
+[beliefs] 5 belief(s) remain after animal-name validation
+[beliefs] Filtering 5 belief(s) against 1 answered round(s)
+[beliefs] 1 belief(s) remain after filtering
+[beliefs] After retry 1, belief pool has 7 candidate(s)
+[beliefs] Retry 2/2 to reach minimum of 12 belief(s)
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 5 raw belief(s)
+[beliefs] 5 belief(s) remain after structural cleanup
+[beliefs] Validating 5 cleaned belief name(s)
+[beliefs] 5 belief(s) remain after animal-name validation
+[beliefs] Filtering 5 belief(s) against 1 answered round(s)
+[beliefs] 0 belief(s) remain after filtering
+[beliefs] After retry 2, belief pool has 7 candidate(s)
+[beliefs] Belief update complete with 7 candidate(s)
+[beliefs] Initializing uniform belief state
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Updating beliefs with 16 prior belief(s); deterministic=False
+[beliefs] Generating beliefs from 1 answered round(s)
+[beliefs] Generated 16 raw belief(s)
+[beliefs] 16 belief(s) remain after structural cleanup
+[beliefs] Validating 16 cleaned belief name(s)
+[beliefs] 16 belief(s) remain after animal-name validation
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 14 belief(s) remain after filtering
+[beliefs] Filtering 16 belief(s) against 1 answered round(s)
+[beliefs] 13 belief(s) remain after filtering
+[beliefs] 20 unique belief(s) remain after merge
+[beliefs] Belief update complete with 20 candidate(s)
+{
+  "gates": {
+    "active_state_regret_better_than_immediate_eig": false,
+    "all_pass": false,
+    "at_least_twenty_active_states": false,
+    "at_least_twenty_union_covered_states": false,
+    "more_ranker_wins_than_losses": false,
+    "paired_bootstrap_lower_bound_positive": false,
+    "ranker_spearman_exceeds_immediate_eig": true,
+    "ranker_spearman_positive": false,
+    "sixty_states_completed": true
+  },
+  "paired_coverage_gain_bootstrap": {
+    "ci95": [
+      -0.03854166666666667,
+      0.0
+    ],
+    "mean": -0.014194444444444445,
+    "replicates": 10000,
+    "seed": 24282
+  },
+  "ranking_summary": {
+    "mean_active_state_regret_belief_recall": 0.41600000000000004,
+    "mean_active_state_regret_immediate_eig": 0.24566666666666664,
+    "mean_coverage_regret_belief_recall": 0.034666666666666665,
+    "mean_coverage_regret_immediate_eig": 0.02047222222222222,
+    "mean_oracle_candidate_expected_truth_coverage": 0.043138888888888886,
+    "mean_paired_selected_coverage_gain": -0.014194444444444445,
+    "mean_selected_expected_truth_coverage_belief_recall": 0.008472222222222221,
+    "mean_selected_expected_truth_coverage_immediate_eig": 0.022666666666666665,
+    "num_active_states": 5,
+    "num_candidate_rows": 180,
+    "num_states": 60,
+    "ranker_immediate_wins_ties_losses": [
+      0,
+      58,
+      2
+    ],
+    "spearman_belief_recall_score_vs_expected_truth_coverage": -0.05353771557568107,
+    "spearman_immediate_eig_vs_expected_truth_coverage": -0.08359830606097342
+  },
+  "states_with_truth_in_branch_union": 6,
+  "status": "scientific_gate_failed"
+}

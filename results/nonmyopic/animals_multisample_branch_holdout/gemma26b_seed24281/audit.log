@@ -1,0 +1,57 @@
+{
+  "audit_gates": {
+    "active_state_regret_better_than_immediate_eig": false,
+    "all_pass": false,
+    "at_least_twenty_active_states": false,
+    "at_least_twenty_union_covered_states": false,
+    "more_ranker_wins_than_losses": false,
+    "paired_bootstrap_lower_bound_positive": false,
+    "ranker_spearman_exceeds_immediate_eig": true,
+    "ranker_spearman_positive": false,
+    "sixty_states_completed": true
+  },
+  "audit_paired_coverage_gain_bootstrap": {
+    "ci95": [
+      -0.03854166666666667,
+      0.0
+    ],
+    "mean": -0.014194444444444445,
+    "replicates": 10000,
+    "seed": 24283
+  },
+  "audit_ranking_summary": {
+    "mean_active_state_regret_belief_recall": 0.41600000000000004,
+    "mean_active_state_regret_immediate_eig": 0.24566666666666664,
+    "mean_coverage_regret_belief_recall": 0.034666666666666665,
+    "mean_coverage_regret_immediate_eig": 0.02047222222222222,
+    "mean_oracle_candidate_expected_truth_coverage": 0.043138888888888886,
+    "mean_paired_selected_coverage_gain": -0.014194444444444445,
+    "mean_selected_expected_truth_coverage_belief_recall": 0.008472222222222221,
+    "mean_selected_expected_truth_coverage_immediate_eig": 0.022666666666666665,
+    "num_active_states": 5,
+    "num_candidate_rows": 180,
+    "num_states": 60,
+    "ranker_immediate_wins_ties_losses": [
+      0,
+      58,
+      2
+    ],
+    "spearman_belief_recall_score_vs_expected_truth_coverage": -0.05353771557568107,
+    "spearman_immediate_eig_vs_expected_truth_coverage": -0.08359830606097342
+  },
+  "audit_union_covered_states": 6,
+  "checks": {
+    "all_model_visible_payloads_rebuilt_exactly": true,
+    "all_pass": false,
+    "all_raw_responses_reparse_exactly": true,
+    "audit_scientific_gates_pass": false,
+    "four_generation_calls_registered": true,
+    "integrity_pass": true,
+    "producer_gates_replay": true,
+    "ranking_summary_replays": true,
+    "sixty_distinct_targets": true,
+    "union_coverage_replays": true
+  },
+  "schema_version": 1,
+  "status": "failed"
+}
