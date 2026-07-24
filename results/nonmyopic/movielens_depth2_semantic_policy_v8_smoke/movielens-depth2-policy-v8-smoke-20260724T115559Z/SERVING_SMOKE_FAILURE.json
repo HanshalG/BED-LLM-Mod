@@ -1,0 +1,7 @@
+{
+  "error": "JSONDecodeError: Expecting property name enclosed in double quotes: line 27 column 5 (char 1911)",
+  "raw_responses_path": "external/private_movielens_profile_dynamics/movielens-depth2-policy-v8-smoke-20260724T115559Z/RAW_RESPONSES.json",
+  "schema_version": 8,
+  "stage": "serving_smoke",
+  "status": "failed_closed"
+}

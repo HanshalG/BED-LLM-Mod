@@ -105,6 +105,17 @@ def test_profile_and_likelihood_parsers_fail_closed() -> None:
         )
 
 
+def test_json_parser_repairs_only_structural_trailing_commas() -> None:
+    payload = gate_module._parse_json_object(
+        '{"profiles":[{"description":"literal,} text",},],}'
+    )
+    assert payload == {
+        "profiles": [{"description": "literal,} text"}],
+    }
+    with pytest.raises(json.JSONDecodeError):
+        gate_module._parse_json_object('{"profiles":[not-json]}')
+
+
 def test_prompts_do_not_expose_user_id_or_unobserved_ratings() -> None:
     history = [{"title": "Observed", "genres": ["Drama"], "rating": 4}]
     profiles = [f"Profile {index}" for index in range(PROFILE_COUNT)]

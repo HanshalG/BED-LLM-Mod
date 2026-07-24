@@ -59,6 +59,44 @@ GENRES = (
 )
 
 
+def _remove_json_trailing_commas(text: str) -> str:
+    repaired: list[str] = []
+    in_string = False
+    escaped = False
+    for index, char in enumerate(text):
+        if in_string:
+            repaired.append(char)
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+            repaired.append(char)
+            continue
+        if char == ",":
+            lookahead = index + 1
+            while lookahead < len(text) and text[lookahead].isspace():
+                lookahead += 1
+            if lookahead < len(text) and text[lookahead] in "}]":
+                continue
+        repaired.append(char)
+    return "".join(repaired)
+
+
+def _loads_json_with_trailing_comma_repair(text: str) -> Any:
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        repaired = _remove_json_trailing_commas(text)
+        if repaired == text:
+            raise
+        return json.loads(repaired)
+
+
 def _parse_json_object(text: str) -> dict[str, Any]:
     stripped = text.strip()
     fenced = re.fullmatch(
@@ -69,13 +107,15 @@ def _parse_json_object(text: str) -> dict[str, Any]:
     if fenced:
         stripped = fenced.group(1)
     try:
-        payload = json.loads(stripped)
+        payload = _loads_json_with_trailing_comma_repair(stripped)
     except json.JSONDecodeError:
         start = stripped.find("{")
         end = stripped.rfind("}")
         if start < 0 or end <= start:
             raise ValueError("response does not contain a JSON object")
-        payload = json.loads(stripped[start : end + 1])
+        payload = _loads_json_with_trailing_comma_repair(
+            stripped[start : end + 1]
+        )
     if not isinstance(payload, dict):
         raise ValueError("response JSON must be an object")
     return payload
