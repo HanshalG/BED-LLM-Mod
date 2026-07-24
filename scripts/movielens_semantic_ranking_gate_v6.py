@@ -7,9 +7,13 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import sys
 from typing import Any, Sequence
 
 import numpy as np
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from helpers import load_config
 from scripts.movielens_profile_dynamics_gate import INITIAL_MOVIE_IDS
