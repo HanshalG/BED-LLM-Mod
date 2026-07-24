@@ -10,6 +10,7 @@ from scripts.clindiag_fixed_slot_support_gate import (
     REFRESH_ACTION_IDS,
     SMOKE_IDS,
     SUPPORT_IDS,
+    deanchored_refresh_differential_messages,
     parse_stability_audit,
     refresh_differential_messages,
     source_evidence_contains_target,
@@ -84,6 +85,19 @@ def test_refresh_prompt_is_ordered_deterministic_and_hides_truth() -> None:
     assert payload.index("present_illness") < payload.index("lab_1")
     assert "Target syndrome" not in payload
     assert "Viral infection" in payload
+
+
+def test_deanchored_refresh_rebuilds_without_prior_inclusion_constraint() -> None:
+    messages = deanchored_refresh_differential_messages(
+        _case(),
+        [("present_illness", "Symptoms progressed.")],
+        ["Viral infection"],
+    )
+    content = messages[1]["content"]
+    assert "Rebuild the differential from scratch" in content
+    assert "not as an inclusion constraint" in content
+    assert "retain plausible earlier diagnoses" not in content
+    assert "Target syndrome" not in content
 
 
 def test_source_target_check_only_reads_visible_source_evidence() -> None:

@@ -7,7 +7,7 @@ import argparse
 import json
 from pathlib import Path
 import sys
-from typing import Any, Sequence
+from typing import Any, Callable, Sequence
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -73,6 +73,48 @@ def refresh_differential_messages(
                 "visible evidence, retain plausible earlier diagnoses, and include "
                 "rare conditions when warranted. No answer options, case title, "
                 "final diagnosis, or hidden benchmark label is provided."
+            ),
+        },
+    ]
+
+
+def deanchored_refresh_differential_messages(
+    case: ClinDiagCase,
+    acquired_observations: Sequence[tuple[str, Any]],
+    previous_support: Sequence[str],
+    count: int = DIAGNOSIS_COUNT,
+) -> list[dict[str, str]]:
+    evidence = [
+        {"action_id": action_id, "stored_observation": observation}
+        for action_id, observation in acquired_observations
+    ]
+    return [
+        {
+            "role": "system",
+            "content": (
+                "Rebuild an open-world clinical differential from the full visible "
+                "patient evidence. The previous list may be anchored or incomplete. "
+                "Return strict JSON only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Initial presentation:\n{case.initial_information}\n\n"
+                "Acquired evidence in order:\n"
+                + json.dumps(evidence, ensure_ascii=True, sort_keys=True)
+                + "\n\nPrevious generated differential, provided only as context "
+                "and not as an inclusion constraint:\n- "
+                + "\n- ".join(previous_support)
+                + f"\n\nRebuild the differential from scratch using all visible "
+                f"evidence. Return exactly {count} distinct, specific, unifying "
+                "diagnoses as "
+                '{"diagnoses":["diagnosis name", ...]}. Each item must be one '
+                "diagnosis-name string, not an explanation or object. Replace "
+                "unsupported prior items and introduce diagnoses newly suggested by "
+                "the combination of findings. Include rare conditions when "
+                "warranted. No answer options, case title, final diagnosis, or "
+                "hidden benchmark label is provided."
             ),
         },
     ]
@@ -257,6 +299,13 @@ def run_smoke(
     *,
     generator_model: str,
     judge_model: str,
+    source_ids: Sequence[str] = SMOKE_IDS,
+    selection_seed: int = SELECTION_SEED,
+    refresh_message_builder: Callable[
+        [ClinDiagCase, Sequence[tuple[str, Any]], Sequence[str], int],
+        list[dict[str, str]],
+    ] = refresh_differential_messages,
+    refresh_mode: str = "prior_retaining",
 ) -> dict[str, Any]:
     models = {
         "initial": _build_role(config, generator_model),
@@ -265,7 +314,7 @@ def run_smoke(
         "duplicate": _build_role(config, generator_model),
         "judge": _build_role(config, judge_model),
     }
-    cases = load_selected_cases(data_zip, SMOKE_IDS)
+    cases = load_selected_cases(data_zip, source_ids)
     slots = [fixed_evidence_slots(case) for case in cases]
 
     initial = _complete_supports(
@@ -275,7 +324,7 @@ def run_smoke(
         "initial_support",
     )
     present_messages = [
-        refresh_differential_messages(
+        refresh_message_builder(
             case,
             [("present_illness", case_slots["present_illness"])],
             support,
@@ -289,7 +338,7 @@ def run_smoke(
         "present_illness_refresh",
     )
     lab_messages = [
-        refresh_differential_messages(
+        refresh_message_builder(
             case,
             [
                 ("present_illness", case_slots["present_illness"]),
@@ -302,7 +351,7 @@ def run_smoke(
         )
     ]
     duplicate_messages = [
-        refresh_differential_messages(
+        refresh_message_builder(
             case,
             [
                 ("present_illness", case_slots["present_illness"]),
@@ -368,9 +417,10 @@ def run_smoke(
             "error_type": "StructuredAuditError",
             "error": audit_errors[0]["error"],
             "protocol": {
-                "selection_seed": SELECTION_SEED,
-                "smoke_ids": list(SMOKE_IDS),
+                "selection_seed": selection_seed,
+                "smoke_ids": list(source_ids),
                 "refresh_action_ids": list(REFRESH_ACTION_IDS),
+                "refresh_mode": refresh_mode,
                 "generator_model": generator_model,
                 "judge_model": judge_model,
                 "expected_requests": EXPECTED_REQUESTS,
@@ -451,9 +501,10 @@ def run_smoke(
         "schema_version": 1,
         "status": "passed" if summary["gates"]["all_pass"] else "failed",
         "protocol": {
-            "selection_seed": SELECTION_SEED,
-            "smoke_ids": list(SMOKE_IDS),
+            "selection_seed": selection_seed,
+            "smoke_ids": list(source_ids),
             "refresh_action_ids": list(REFRESH_ACTION_IDS),
+            "refresh_mode": refresh_mode,
             "generator_model": generator_model,
             "judge_model": judge_model,
             "expected_requests": EXPECTED_REQUESTS,
