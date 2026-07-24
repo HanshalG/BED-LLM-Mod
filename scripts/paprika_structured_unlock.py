@@ -30,6 +30,7 @@ from environments.paprika_customer_service.prompts import (
     customer_messages,
     faithfulness_messages,
     filtering_messages,
+    hypothesis_messages,
     refinement_messages,
 )
 from environments.paprika_customer_service.types import (
@@ -414,11 +415,10 @@ def summarize(records: Sequence[dict[str, Any]]) -> dict[str, Any]:
     return {**summary, "gates": gates}
 
 
-def run_unlock(
+def _build_models(
     config: Config,
-    *,
     judge_model: str,
-) -> dict[str, Any]:
+) -> tuple[Any, Any, Any]:
     pair = config.model_pairs[0]
     questioner = build_model_adapter(pair.questioner, config)
     answerer = build_model_adapter(pair.answerer, config)
@@ -432,6 +432,178 @@ def run_unlock(
         thinking_final_max_new_tokens=None,
     )
     judge = build_model_adapter(judge_spec, config)
+    return questioner, answerer, judge
+
+
+def run_serving_smoke(
+    config: Config,
+    *,
+    judge_model: str,
+) -> dict[str, Any]:
+    """Exercise ten representative physical requests without running the gate."""
+    questioner, answerer, judge = _build_models(config, judge_model)
+    env = PaprikaCustomerServiceEnvironment(config, answerer)
+    env.set_questioner(questioner)
+    tasks = load_paprika_tasks(
+        config.paprika_data_path,
+        split="train",
+        verify_official_hash=bool(config.paprika_verify_official_hash),
+    )
+    selected = [tasks[index] for index in DEVELOPMENT_INDICES[:2]]
+    hypothesis_count = int(config.paprika_num_hypotheses)
+    hypothesis_prompts = [
+        hypothesis_messages(task.scenario, hypothesis_count)
+        for task in selected
+    ]
+    hypothesis_responses = questioner.chat_complete_messages_batched(
+        hypothesis_prompts,
+        temperature=float(config.generation_temperature_diverse),
+        block_size=config.batched_block_size,
+        max_new_tokens=config.openrouter_max_output_tokens,
+    )
+    hypotheses = [
+        parse_string_list(
+            response,
+            "hypotheses",
+            minimum=hypothesis_count,
+            maximum=hypothesis_count,
+        )
+        for response in hypothesis_responses
+    ]
+    candidate_count = int(config.paprika_num_candidates)
+    candidate_prompts = [
+        diagnostic_candidate_messages(task.scenario, support, candidate_count)
+        for task, support in zip(selected, hypotheses, strict=True)
+    ]
+    candidate_responses = questioner.chat_complete_messages_batched(
+        candidate_prompts,
+        temperature=float(config.generation_temperature_diverse),
+        block_size=config.batched_block_size,
+        max_new_tokens=config.openrouter_max_output_tokens,
+    )
+    candidates = [
+        _parse_diagnostic_candidates(
+            env,
+            response,
+            task.scenario,
+            candidate_count,
+        )
+        for task, response in zip(selected, candidate_responses, strict=True)
+    ]
+    actions = [cell[0] for cell in candidates]
+    customer_prompts = [
+        customer_messages(action, task.solution)
+        for action, task in zip(actions, selected, strict=True)
+    ]
+    replies = answerer.chat_complete_messages_batched(
+        customer_prompts,
+        temperature=float(config.answer_temperature),
+        block_size=config.batched_block_size,
+        max_new_tokens=config.openrouter_max_output_tokens,
+    )
+    if any(not reply.strip() for reply in replies):
+        raise ValueError("serving smoke returned an empty customer reply")
+    observations = [
+        PaprikaObservation(
+            reply=reply.strip(),
+            mapped_outcome="diagnostic observation",
+            mapped_cleanly=True,
+            goal_reached=False,
+        )
+        for reply in replies
+    ]
+    refresh_count = int(config.paprika_num_refresh_hypotheses)
+    refinement_prompts = [
+        refinement_messages(
+            task.scenario,
+            support,
+            [(action, observation)],
+            refresh_count,
+        )
+        for task, support, action, observation in zip(
+            selected, hypotheses, actions, observations, strict=True
+        )
+    ]
+    refinement_responses = questioner.chat_complete_messages_batched(
+        refinement_prompts,
+        temperature=float(config.generation_temperature_diverse),
+        block_size=config.batched_block_size,
+        max_new_tokens=config.openrouter_max_output_tokens,
+    )
+    refined = [
+        parse_string_list(
+            response,
+            "refined_hypotheses",
+            minimum=refresh_count,
+            maximum=refresh_count,
+        )
+        for response in refinement_responses
+    ]
+    coverage_prompts = [
+        semantic_coverage_messages(
+            task.scenario,
+            task.solution,
+            [("initial", support), ("refreshed", new_support)],
+        )
+        for task, support, new_support in zip(
+            selected, hypotheses, refined, strict=True
+        )
+    ]
+    coverage_responses = judge.chat_complete_messages_batched(
+        coverage_prompts,
+        temperature=0.0,
+        block_size=config.batched_block_size,
+        max_new_tokens=config.openrouter_max_output_tokens,
+    )
+    coverage = [
+        parse_coverage_response(
+            response,
+            ["initial", "refreshed"],
+            [len(support), len(new_support)],
+        )
+        for response, support, new_support in zip(
+            coverage_responses, hypotheses, refined, strict=True
+        )
+    ]
+    usages = {
+        "questioner": questioner.usage_snapshot(),
+        "answerer": answerer.usage_snapshot(),
+        "judge": judge.usage_snapshot(),
+    }
+    physical_requests = sum(
+        int(usage["adapter_requests"]) for usage in usages.values()
+    )
+    return {
+        "schema_version": 1,
+        "status": "passed" if physical_requests == 10 else "failed",
+        "physical_requests": physical_requests,
+        "expected_physical_requests": 10,
+        "task_indices": list(DEVELOPMENT_INDICES[:2]),
+        "stage_counts": {
+            "initial_hypotheses": 2,
+            "diagnostic_candidates": 2,
+            "customer_replies": 2,
+            "refinements": 2,
+            "coverage_judgments": 2,
+        },
+        "parsed_support_sizes": [
+            {
+                "initial": len(support),
+                "refreshed": len(new_support),
+            }
+            for support, new_support in zip(hypotheses, refined, strict=True)
+        ],
+        "coverage_parser_rows": coverage,
+        "usage": usages,
+    }
+
+
+def run_unlock(
+    config: Config,
+    *,
+    judge_model: str,
+) -> dict[str, Any]:
+    questioner, answerer, judge = _build_models(config, judge_model)
     env = PaprikaCustomerServiceEnvironment(config, answerer)
     env.set_questioner(questioner)
     tasks = load_paprika_tasks(
@@ -574,14 +746,26 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--judge-model", default="openai/gpt-5.4-mini")
+    parser.add_argument(
+        "--stage",
+        choices=("serving_smoke", "development"),
+        default="development",
+    )
     args = parser.parse_args()
 
     config = load_config(str(args.config))
     config.run_id = args.run_id
     args.output_dir.mkdir(parents=True, exist_ok=True)
     try:
-        payload = run_unlock(config, judge_model=args.judge_model)
-        filename = "DEVELOPMENT.json"
+        if args.stage == "serving_smoke":
+            payload = run_serving_smoke(
+                config,
+                judge_model=args.judge_model,
+            )
+            filename = "SERVING_SMOKE.json"
+        else:
+            payload = run_unlock(config, judge_model=args.judge_model)
+            filename = "DEVELOPMENT.json"
     except Exception as exc:
         payload = {
             "schema_version": 1,
@@ -598,7 +782,12 @@ def main() -> None:
         json.dumps(payload, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-    print(json.dumps({"status": payload["status"], **payload["summary"]}, indent=2))
+    report = (
+        {"status": payload["status"], **payload["summary"]}
+        if "summary" in payload
+        else payload
+    )
+    print(json.dumps(report, indent=2))
 
 
 if __name__ == "__main__":
