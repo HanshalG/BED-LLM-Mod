@@ -41,6 +41,12 @@ the two old profiles most compatible with the observed rating, with uniform supp
 and history-free GPT-5.4 Mini likelihoods. No v8 depth-two score, parser-recovered
 response, fitted temperature, MI correction, risk penalty, or lineage weight is used.
 
+The parser policy is frozen prospectively from the v8 serving audit. Structural
+trailing commas are removed only outside strings immediately before `}` or `]`.
+Every finite nonnegative five-number likelihood row with total in `[.90,1.10]` is
+normalized and counted; any row outside that interval fails closed. This avoids a
+post-endpoint recovery and does not alter relative probabilities within a row.
+
 ## Fresh Cohort
 
 The history remains *Star Wars*, *Fargo*, *Toy Story*, and *The Silence of the
