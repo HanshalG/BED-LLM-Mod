@@ -505,6 +505,13 @@ had score spread on 9/12 cases but a non-myopic gap on only 1/12 (mean $+.025$);
 one identical prompt also swung by 1.0. Thus ClinDiag validates observation-driven
 belief recovery, not non-myopic planning.
 
+\paragraph{MovieLens isolates a load-bearing semantic opportunity, but not a scorer.}
+With raw history hidden from the likelihood, a prospective recorded-rating gate
+enrolled 12/48 users with EIG$\geq.02$. Regenerated profiles improved held-out NLL by
+$.0612$ and immediate-EIG regret was $.0587$. A fresh semantic scorer nevertheless had
+Spearman $-.345$ and regret $.141$ versus $.063$ for EIG and $.137$ random (0/4 wins):
+path-dependent semantic value exists conditionally, but verbal lookahead misses it.
+
 \section{Why Horizon Magnifies Model Error}
 
 Let an estimated continuation score be $\widehat V_j=V_j+\epsilon_j$ for branch
