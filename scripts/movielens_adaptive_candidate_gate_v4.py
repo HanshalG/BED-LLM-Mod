@@ -57,6 +57,7 @@ SMOKE_USER_IDS = (113, 130)
 FORMAL_USER_IDS = (158, 194, 227, 234, 323, 468, 494, 551, 579, 679, 710, 854)
 FORMAL_SCREEN_USER_IDS = FORMAL_USER_IDS
 PROSPECTIVE_ENROLLMENT_COUNT: int | None = None
+SENSITIVITY_EIG_THRESHOLD = 0.02
 SEMANTIC_RANKING_MESSAGES: Any | None = None
 SEMANTIC_RANKING_PARSE: Any | None = None
 EXPLICIT_ROLLOUT_SCORER: Any | None = None
@@ -241,7 +242,9 @@ def run_gate(
         mean_max_eig = float(np.mean(max_eigs))
         users_above_threshold = sum(value >= 0.02 for value in max_eigs)
         enrollment_indices = [
-            index for index, value in enumerate(max_eigs) if value >= 0.02
+            index
+            for index, value in enumerate(max_eigs)
+            if value >= SENSITIVITY_EIG_THRESHOLD
         ]
         insufficient_enrollment = (
             PROSPECTIVE_ENROLLMENT_COUNT is not None
@@ -249,7 +252,10 @@ def run_gate(
         )
         population_gate_failed = (
             PROSPECTIVE_ENROLLMENT_COUNT is None
-            and (mean_max_eig < 0.02 or users_above_threshold < 8)
+            and (
+                mean_max_eig < SENSITIVITY_EIG_THRESHOLD
+                or users_above_threshold < 8
+            )
         )
         if insufficient_enrollment or population_gate_failed:
             usage = _usage(generator, likelihood)

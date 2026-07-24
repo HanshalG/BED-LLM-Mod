@@ -1,0 +1,155 @@
+{
+  "protocol": {
+    "candidate_and_heldout_outcomes_not_read": true,
+    "candidate_pool_size": 16,
+    "confidence_gate_not_scored_in_smoke": true,
+    "heldout_count": 8,
+    "initial_movie_ids": [
+      258,
+      294,
+      286,
+      288
+    ],
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "490acfbf4dab8842bbef55ae03c5ad659e47a3df62100c901c994cf62353b9cb",
+    "raw_responses_private_and_untracked": true,
+    "reserve_smoke_user_ids": [
+      782
+    ],
+    "selected_candidate_count": 1,
+    "selection_seed": 24326,
+    "stage": "serving_smoke",
+    "user_ids": [
+      750
+    ],
+    "v1_through_v9_users_excluded": true
+  },
+  "records": [
+    {
+      "candidate_movie": {
+        "genres": [
+          "Comedy"
+        ],
+        "title": "Full Monty, The (1997)"
+      },
+      "explicit_rollout_score": -1.5266950267790815,
+      "immediate_eig": 0.004143785038934533,
+      "initial_profile_hashes": [
+        "13bab802ce2a0f25b619f665e41ec85755891ca483a8e2a0c8223ee75a6b140e",
+        "c9ac1784bf412b5799721654c9f9c03403841be4d82069e94f805a9d13899528",
+        "0831ad1787e0ec7b964176db916343e1da8284838cf57fd3e5f9029d5dded183",
+        "6cf2712d01cd0107a64faae73d40f396cb2ca1770ecdaa4f5373cc6090bb89e7",
+        "87d0af78c5a2661aff77bbd2f3862493dba22b0741fe8b5d34b9d56b018b0327",
+        "1289014c32551e62ebe0c392befb1d644838d337fd3aec46f3f29d41923a0b8c"
+      ],
+      "user_id": 750
+    }
+  ],
+  "schema_version": 10,
+  "status": "passed",
+  "summary": {
+    "branch_mean_predictive_entropies": [
+      1.5103138138444043,
+      1.5002685031792788,
+      1.540561621266857,
+      1.5700984956540864,
+      1.4878333201516347
+    ],
+    "explicit_rollout_score": -1.5266950267790815,
+    "gates": {
+      "all_five_hypothetical_paths_completed": true,
+      "all_pass": true,
+      "exact_physical_request_count": true,
+      "explicit_score_is_finite": true,
+      "initial_profile_count_is_six": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_candidates": 1,
+    "num_hypothetical_branches": 5,
+    "num_users": 1
+  },
+  "usage": {
+    "adapter_cost_usd": 0.053828509999999996,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 3210,
+        "adapter_cost_usd": 0.0016090099999999997,
+        "adapter_prompt_tokens": 3629,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 105.38480269545715,
+        "completion_tokens": 12958,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3210,
+            "cost_usd": 0.0016090099999999997,
+            "prompt_tokens": 3629,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9748,
+            "cost_usd": 0.052219499999999995,
+            "prompt_tokens": 13442,
+            "reasoning_tokens": 0,
+            "requests": 6
+          }
+        },
+        "prompt_tokens": 17071,
+        "reasoning_tokens": 0,
+        "remaining_usd": 38.80387884375,
+        "requests": 12,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.05382851,
+        "run_remaining_usd": 0.69617149,
+        "total_spent_usd": 66.58092385170715
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 9748,
+        "adapter_cost_usd": 0.052219499999999995,
+        "adapter_prompt_tokens": 13442,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 105.38480269545715,
+        "completion_tokens": 12958,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3210,
+            "cost_usd": 0.0016090099999999997,
+            "prompt_tokens": 3629,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 9748,
+            "cost_usd": 0.052219499999999995,
+            "prompt_tokens": 13442,
+            "reasoning_tokens": 0,
+            "requests": 6
+          }
+        },
+        "prompt_tokens": 17071,
+        "reasoning_tokens": 0,
+        "remaining_usd": 38.80387884375,
+        "requests": 12,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.05382851,
+        "run_remaining_usd": 0.69617149,
+        "total_spent_usd": 66.58092385170715
+      }
+    },
+    "physical_requests": 12,
+    "reasoning_tokens": 0
+  }
+}

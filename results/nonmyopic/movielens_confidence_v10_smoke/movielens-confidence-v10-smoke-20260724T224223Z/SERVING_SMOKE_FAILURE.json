@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: a cannot be empty unless no samples are taken",
+  "raw_responses_path": "external/private_movielens_profile_dynamics/movielens-confidence-v10-smoke-20260724T224223Z/RAW_RESPONSES.json",
+  "schema_version": 10,
+  "stage": "serving_smoke",
+  "status": "failed_closed"
+}

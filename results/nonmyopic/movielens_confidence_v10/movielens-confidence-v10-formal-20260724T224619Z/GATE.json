@@ -1,0 +1,2465 @@
+{
+  "protocol": {
+    "candidate_outcomes_not_read": true,
+    "candidate_pool_size": 16,
+    "candidate_pool_uses_presence_and_popularity_only": true,
+    "committed_profile_text_omitted": true,
+    "confidence_gated_explicit_rollout": true,
+    "confidence_margin_threshold": 0.02,
+    "formal_sensitivity_futility_stop": true,
+    "heldout_count": 8,
+    "heldout_ratings_not_read": true,
+    "initial_movie_ids": [
+      258,
+      294,
+      286,
+      288
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "81fc5b2bf9a110a2d0efe1741c176948fdebbb338fb516b2659c1bb7171d5bfc",
+    "profile_count": 6,
+    "prospective_enrollment_count": 16,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "selected_candidate_count": 4,
+    "selection_seed": 24326,
+    "source_outcomes_hidden_until_tree_frozen": true,
+    "stage": "formal",
+    "user_ids": [
+      200,
+      755,
+      66,
+      587,
+      100,
+      743,
+      787,
+      102,
+      193,
+      451,
+      646,
+      875,
+      489,
+      724,
+      529,
+      853,
+      223,
+      683,
+      116,
+      589,
+      515,
+      752,
+      324,
+      893,
+      673,
+      126,
+      159,
+      783,
+      721,
+      24,
+      404,
+      863,
+      626,
+      733,
+      197,
+      181,
+      544,
+      464,
+      668,
+      460,
+      802,
+      510,
+      827,
+      392
+    ],
+    "v1_through_v9_users_excluded": true,
+    "v1_v2_v3_users_excluded": true
+  },
+  "records": [
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.039033458662621534,
+        0.012516265110072533,
+        0.010185343324904172,
+        0.009864425082672934
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "dfcae4285f5c4efee4162d8c5f057267bd3b888772faa882462bc71047ddf0d1",
+        "6e4de3ad614a5f1692b7c033c1f9def2f4d414876dfd2291d64b0d312dd601b8",
+        "0a0a9fda694446674c6677cb39cc1504d38d5f4cb06a30b24ad23742691e4dde",
+        "91ba36ad2d26982a79406e12da8a836a0257eb41fadf7446d1169347a9f31ca1",
+        "3b9c1ce9868dec61880e190f3e3a3ef782b6d1e7e7deaa8d2aa9d1d150a6bfb9",
+        "2748ae9c38b778ccce45c2a39b27b33df4b9f047a6fc28895c953a72e7007d56"
+      ],
+      "user_id": 200
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Children's",
+            "Comedy"
+          ],
+          "title": "George of the Jungle (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Thriller",
+            "War"
+          ],
+          "title": "Devil's Own, The (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "In & Out (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.012567958070878626,
+        0.010489660572143622,
+        0.00745516573618854,
+        0.0072451138288260886
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4c6678d9cd205454e16a0fbc5525743e81636fa50af0d8741780a020e259935b",
+        "34e6622c2a4a09359031756dc750cc17a16e22c1a60e84f2acc6a1fae59af935",
+        "d554b4f6b34b22ed48244e120e871e1d678fa609950f246387bd55cff9e4c469",
+        "18f6b13b030f5c617bf93d568aacd983cdbe0d7a6bb8ebfc1a2d90702b30895e",
+        "80dcfc7e4148b61e836e01b20e968496e07b68517b16e9ce873cb03e0c437668",
+        "67d67fd88c2301e129ffa8e75603e70a56c382b3195a58fa8f6b7b954ea0bab2"
+      ],
+      "user_id": 755
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Mr. Holland's Opus (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.0017323114068454881,
+        0.0016467986420152236,
+        0.001616621425803988,
+        0.0016150608406182432
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "89a577cea25ef179ad0288608deaf7022ff2d234b15cb7bfa11d855695ac402b",
+        "45358f64d5796d35b2fc39fc8add29725fc64b2141f64d9ab2269f90b759661f",
+        "eeedaad2ff79cc6303613eede10267db0465e9452ad8285971942ebe9403a25f",
+        "6768fe73d11d9a134cb9bea41280f8b8aedb861b133112f8fc9965aec947538f",
+        "b76c4e93b8efc4ba66f4bbd510ae789a19663ed901ceab0bf12ca71000c8e49b",
+        "17fb84bbddd86942d34ce27b637ae8d2558dd04899b0ef0b5f9d9271d281fe69"
+      ],
+      "user_id": 66
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        },
+        {
+          "genres": [
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Game, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.02229802842510953,
+        0.01852575032649839,
+        0.00880858757341274,
+        0.008725043260466636
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "a6dcfeb6fbd9bdcd9c7b38e82824bafbdd5271c26b8b28a53797619442256510",
+        "357b360722ee83c143f7fbceeea636b71dbcbdece14ab2862cf741c7bab781e4",
+        "dd02995f80289c4e4898e52499435c7728f46cf7d8a3252f9ba0cef65989827b",
+        "053ac4c1bdb26355e122c567dd539668d676578da2ab5877cff33eac8d13d727",
+        "28ec5b5f98c655c49803dca4598b93478a4eba4b6288329f94aafbbfcd4d78a1",
+        "2d9dd2589e6e39ee2c447095fb2a2f8ba6d48e905afe2f701b3b826a2cbfd39f"
+      ],
+      "user_id": 587
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Chasing Amy (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Musical"
+          ],
+          "title": "Evita (1996)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Mother (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.017734040854948674,
+        0.013981472554035035,
+        0.01242531204608377,
+        0.008867105301717304
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "9e9cc5a4888198607c995330d57d0bf22f8e5f584722f22e024b24fed84e26dc",
+        "fe55c3673bfb7b86ee48a6ca7e45d03b4e3d614de3998aabe0b8e65bc52486c3",
+        "fea53fe80421fe74c545025a82678bdb59ed6743b3a186fac49bd6316a10b869",
+        "b1e7a8dc500da1c823deed644181bb22147c98c475b340addc9fb35b83fd8d68",
+        "4ce7142338b64b994b9d0728440032fa899e809d66c0972e8e3639d5979df6de",
+        "023f41d506efad57c4f7735b7aeb3fe52bd8b197fe207689b359153d4d3143c5"
+      ],
+      "user_id": 100
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Leaving Las Vegas (1995)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Chasing Amy (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi"
+          ],
+          "title": "Star Trek: First Contact (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.006988777943954583,
+        0.0035063262695513853,
+        0.0028847163002672094,
+        0.00216229235974863
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "efb5098f057d2ac1826dc90a3ac9935be4d1d6ee7543abc607d58f47e674910e",
+        "d50074f4263c0977162c9fb04f475152c9726ffd411fbff79249fe7d5c54fd63",
+        "ece0370fb49232eece33318e4e2cd06b29c37ca88b0055639156a85aac313642",
+        "a83d269306d0cb46b46e0976e47a46cbbd3e92e33e292a055a58ef3d3c038453",
+        "32a1ba90794819c9699ba74989198c449b8d51f7588e9076f54245813bc19205",
+        "bb426fd1bd6061516177491f877af0a66a868d4f62ea0eaeb46c3d877184dae9"
+      ],
+      "user_id": 743
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Mystery",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Conspiracy Theory (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.016251681228622195,
+        0.011969000078488667,
+        0.01086622058897202,
+        0.007227407813479303
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "fd12348a0cdc4e36ea14f7fd88f3bca4dcee853a903bd36c4a6b16d16846c28d",
+        "cca2e5af86a7c91df9139466123318ce6a857d1066dc8b974ced77d408400e91",
+        "04885d3c7b82a1c34f02236bfcc4fe88337e197bd2b4a465579f815cf3fbb1e7",
+        "3f7e13bab3ec598a6ede14ad4cb5210bf8a9613d2a4763fdc978f2c4497789cd",
+        "43985f345a3874edd5e91add9b54f078627918e8f0bf6d16c52a404855d5212a",
+        "b8555bf616444d0957c955bc154fd97477b88d0d9742a747a3b65405c9dba609"
+      ],
+      "user_id": 787
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.004245215166225336,
+        0.0027235111248313792,
+        0.0027235111248313792,
+        0.0024694025945117826
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "6ac5624c5a0087b9b183b826929cb799a87b96d011d7e487072bfe3a2baa34ec",
+        "2c94f7984fd72eb1ec476302e818820284578b3bc6b3506f580bddf71bc0a9bb",
+        "9db3b7d5384e2564d2668da067f1cd2232ffa02a3ba103c14bf4cb7b27edd201",
+        "fc1968ffeb0555d3cf1b38fe827218c438a6b6dbba3978f54fc69b99510965cc",
+        "3098bf9e38444db59988226a8ec598a33744d99d37070399bc2d21d22e17e7a7",
+        "89a3c128169c1206b8af5612c74fcf0e605da52925247fbfd35027be688881ad"
+      ],
+      "user_id": 102
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Fargo (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Jerry Maguire (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.02548690477429494,
+        0.018693297692441435,
+        0.018117572040287078,
+        0.01624810390107312
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "29412b7bfd4a24696e3ff8b95cc7c19da9e43787b74c23219754d0c727394227",
+        "2173a0cca6338542f6198cde49112056b3f3b1bfcf9f869914051e818b601629",
+        "c89eb1a7ae05e4f343d783fafc66046eb2b4cac49765094ccf4e54d50b1b8d46",
+        "b4dc8bcc28e30979974528a668610d1dce14e72c7d3a2a3346ea55488e9e02bb",
+        "35ae2bd059f97b42ff6f4bad16d469bc9432bf6753b2a5eaf95d16da3f0e30aa",
+        "cfd6460eac4742bc3ac4d2d3a510226507cdbd981fb00903df5e971bc4b96efc"
+      ],
+      "user_id": 193
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Murder at 1600 (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Horror",
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Devil's Advocate, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.008625325174745457,
+        0.00568362448657056,
+        0.005448979998581516,
+        0.004718506907244402
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "90ffeeffb7960c71a13f0a3cc18303283bb9e74f590ddf1c2b51f980d05fff2d",
+        "68ce12b8a3584f1f979e50826672c10c044b2a033bb5172b691aa391ca0b0611",
+        "ea32135a7f735eb6896a3ee93590063b6cb0f98716d3f8d1d94844e2d4d1c44d",
+        "9df623c188eb5dc213e4bde518cf3c0aae4fac4571f7ee2dbfb695a53654be19",
+        "df3098548f3c7291c8ac7659f3a186a7657a696b6c1231635d4f6eddd7906548",
+        "ad4cb20163090482b4fc70876f75f245bddd7bb50f750461b62847d1e765ac63"
+      ],
+      "user_id": 451
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Children's",
+            "Comedy"
+          ],
+          "title": "George of the Jungle (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Musical",
+            "Romance"
+          ],
+          "title": "Everyone Says I Love You (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.016272605718144595,
+        0.01172567368293187,
+        0.01172567368293187,
+        0.011113015864725684
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "d62f7c04e605c9bee34585b119327184ec73ba3b57649a39212f2c39f3294d2e",
+        "5e372eb0ba8c47f2c4fbe1222a9036c371689f40863e38c69347e2dbd047ed4e",
+        "0cb7dc32b4d37d80933590f97195c3c0cbf4b3645b65b93b630714476808607f",
+        "934a76c64587dc4a668eb9ccb95a103c1d217c452e2a85d5676373e596621f91",
+        "9721d29003b6ff37f0c68f98616699e26c679a0aecf6088743e35541dc2ec35a",
+        "77becf36dd8520f8761aa2719014bb4342fa854c96e8ba01af0e03c727ff842e"
+      ],
+      "user_id": 646
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Children's",
+            "Drama",
+            "Fantasy",
+            "Sci-Fi"
+          ],
+          "title": "E.T. the Extra-Terrestrial (1982)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Film-Noir",
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "L.A. Confidential (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.006271283856945198,
+        0.003625973459787213,
+        0.002287690424016997,
+        0.002175843620810358
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "c10155d6808588bc677119f23320c8d8864c71953b09c99628abb1d8a38a1a04",
+        "34d35d1d47e3e8f7cbf493524f2515bdd43e53c0c7b65fa6238fe8c7686b0023",
+        "fd3852b983df2c62d5b360187b1bbfdbad56620bebe0a587caa6b25a5891efdd",
+        "6b9f1431f3a51ab86b98f0a82f575a2ac7049a70bd87fc66b6a5887d2a34313c",
+        "a93071039ebf06986b1ed4b08aae9929709c9bb889bc707e112e8859acc59f50",
+        "85fa72740a1724857bb63f3ef3e104a9848476d3e7de226cad3823413148d2df"
+      ],
+      "user_id": 875
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Murder at 1600 (1997)"
+        },
+        {
+          "genres": [
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Game, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.010983670633470721,
+        0.009692671583098056,
+        0.00929609874230386,
+        0.0075932318428622025
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "b6503956b201855abcd3f73a48b4b815d60a23b3e151449cf937c47fbaccfaf1",
+        "15ac0cdff056b6fbb3fd4815754720b5beb041502030eff3786caa999ac18da4",
+        "d40b0b2d4b0d143f9c39a458bbbbb526cf77711b8bc312f16cb36533584ffbb9",
+        "4c5b84971d551bf8ee77d3f9e20e26588cae0a5bdaba2c29ce13ec2329bc8b08",
+        "377d8e24655d8295be6cf7f639231d20238a1e9b4b2d93b26c7e7348cc51d550",
+        "ba6707e649d3f752468051203ae8ae28765ca804bef3641944d96df71ade292e"
+      ],
+      "user_id": 489
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Mystery",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Conspiracy Theory (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.004459500461352794,
+        0.003942824488052166,
+        0.0029262717714404474,
+        0.0029262717714404474
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "89a577cea25ef179ad0288608deaf7022ff2d234b15cb7bfa11d855695ac402b",
+        "45358f64d5796d35b2fc39fc8add29725fc64b2141f64d9ab2269f90b759661f",
+        "eeedaad2ff79cc6303613eede10267db0465e9452ad8285971942ebe9403a25f",
+        "6768fe73d11d9a134cb9bea41280f8b8aedb861b133112f8fc9965aec947538f",
+        "b76c4e93b8efc4ba66f4bbd510ae789a19663ed901ceab0bf12ca71000c8e49b",
+        "17fb84bbddd86942d34ce27b637ae8d2558dd04899b0ef0b5f9d9271d281fe69"
+      ],
+      "user_id": 724
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Boogie Nights (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama",
+            "Mystery"
+          ],
+          "title": "Cop Land (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Horror",
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Devil's Advocate, The (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Chasing Amy (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.01409380278455119,
+        0.007768725523055853,
+        0.005520836380464411,
+        0.0050532204783790835
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "102ade2554c8e1406b6238c88fd26cabb73f35d8bde3434f287b65bf99f119d6",
+        "d8eaf87990a4d23ec0322788494d9523d2dd7a5dbe3e25b7d7ef88e55e40d52b",
+        "ca2f9c713802d244cf84e975aea04a74dfaead13e5adf5fa8c261322077dc992",
+        "d5e20c44e9e176d011b6fa39098f42bdd52c2eef71b54cae641c848c5a79674e",
+        "3ad80b0cc44e0406123e715532d3ef3907dc2d240c718e3807b5b18aff081fd1",
+        "ac58e027b19ffd48257a779eff64539a3815b6f6aad0f12455a20a96ad714be0"
+      ],
+      "user_id": 529
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Thriller",
+            "War"
+          ],
+          "title": "Devil's Own, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.004836092886887355,
+        0.00473958656501372,
+        0.0043323447964151995,
+        0.004115574315879611
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "8beeec58d321bc818a05110808a4ea556e9da6eac07b306a4276b0fe0131be8e",
+        "d6d27322033d2d4fad508a30471fbd4679832bbdbb3724cf581cc7ada6393f6f",
+        "b2d7a53317bb7982af2e72a19013f2b1a71d9f478c41a09fcaec7b5a46d3adf5",
+        "5f023e89e34357e166a5c8fefe995e06a4943b6e730953ab926ab7914de5fb02",
+        "a37ee8fcb32d4dd82a10cc0b673babe377e2f410ea35e9f6ebb30c3ccb91babf",
+        "a590c2bd269f0599f50468351417bb16d12c90244be577ddf8dd00dafdd0c40a"
+      ],
+      "user_id": 853
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Thriller"
+          ],
+          "title": "Rock, The (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Comedy",
+            "Romance"
+          ],
+          "title": "Princess Bride, The (1987)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Mystery"
+          ],
+          "title": "Mission: Impossible (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.008050928376767574,
+        0.007955568100175059,
+        0.005056261611514401,
+        0.004277808894883162
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "88a4c051e5d14821a5426415ecb45c6d6afdc76bb2494f832856de87ec02e4f8",
+        "6ae5e16f2ac4e9731fe212eccc16e9634cc62f6daf8332967b12e666594399d0",
+        "b465093c2261a3ba41286c099c68b57f2937eb4d67367e3c778aec69eb24dcd1",
+        "2e4047d1643a835befcf9082e633d3fe4f8f83b4908e549374fa48dd189aca48",
+        "55c812a1d4382d70c083133738f2583c49375818f5c3e37cbac49ae69d467953",
+        "eccd136004242c004c7101e5d05a5a805d2787442f96374aaedaf9333a355e8d"
+      ],
+      "user_id": 223
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.020969541107401568,
+        0.013322686874271072,
+        0.011300235068748554,
+        0.008052682827211166
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "867216cf4831e1bc5f0a86265aa000695c9127413dceec67088beacbdd581bc5",
+        "60f7127238f00a843fa027ea71ed63d2047e44b8b2e249179d4856fe25e21b73",
+        "f03de7b57be77cfe79c24f33cdbdffff969093a93ae903eb5cf26eec89cd849c",
+        "714df90b7896307a461aadbe6e236408f4597c23de1d82563400b569bf1ef4c4",
+        "b0bd42d6ec4a44a56ea2fa3565b5c106253a43750aa1acabb0d8ff39abbf4429",
+        "9c5dbe4f860181ebb9aa4ffcda661ee04628d3325cf0523d46ee557ba8a34e74"
+      ],
+      "user_id": 683
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "title": "Terminator, The (1984)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Sense and Sensibility (1995)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.008555362101395403,
+        0.007432683515921301,
+        0.006156736121962769,
+        0.0035393145385602676
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "c5037048dce66a583d882e96b6e09e888106f70e714173f8579e6b040e900055",
+        "2de1f319311dbc000321e0baf8d9276700333f414decff75faa458e2536bf1f2",
+        "ba346ccc92bc4cb06fd91b0ea7080693efe92d6f62bf79cb8d9c138938561349",
+        "b037084533f65c9e424f35bd44917f385099e5c2027635fcba72c5fbaf632e42",
+        "959e2a2d3a552f9f50cf3e0007e984020c40c1f2c981f34cda835e0711b70d1d",
+        "06280baec78f36ca1850ae57e7b621aa6f65b53726dc90d99465d6f9744f7fc3"
+      ],
+      "user_id": 116
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "In & Out (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.0040370864439653875,
+        0.0037404709150461457,
+        0.003649580609369707,
+        0.003568877277823068
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "87b50a16ad4a97506bbcf77b3671322319e62af369c26ea823bc160340a7bf42",
+        "dcbc906c16374582e31c7cf51c1180e0cbd7815b0ff41af53d76685814d1370c",
+        "8437559d1e0c4b3b74094a224054ebc54751b88822c04ab08dda96f4a1225dc9",
+        "f503f86e93e79b23defd1a068d330fabbacb6f8c475e0205515071f7ccbd02f5",
+        "741d41d68737f5eb4af70c7e4ae5f1c0085bac54eb240ad48ba2455a7b4adf96",
+        "503e6351c45c6f6d702ccd2c220f351ed812109743b6c70aa185cde7d7807d50"
+      ],
+      "user_id": 589
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Film-Noir",
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "L.A. Confidential (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Children's",
+            "Comedy"
+          ],
+          "title": "George of the Jungle (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.001814366836681236,
+        0.001792934528618506,
+        0.0015175708341446104,
+        0.0014456800761843969
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "33544337b0f54d4664803b35731654fb80b4deff65cb3e89ace18dcb9b7551ca",
+        "85183f0106b129f7ff20e0465b937722694441339189df1f3311caa357a52a81",
+        "d17312154b0a2bde7d61f479ef18f61186874dd7f7fd1d533650c7c2b3b51d21",
+        "2b0408f5683df0fae9e3588c9dedac9fdc368a05cad1968250debd88b1184746",
+        "f72de435003b6b825a64a6611cdcafaac34a863f236f62a3e08f9ebcac6f137f",
+        "89e25a4a9966640e934ac0852502e8ddf103018318a0f684b022cd9386c3e8f8"
+      ],
+      "user_id": 515
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Good Will Hunting (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.009560634146278169,
+        0.008614771131729038,
+        0.004672633585066421,
+        0.004303707481279728
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "b47ddf2d412afaa727fcbddad2e8fc10165fc6d3c22d1d0e029d4912552ced32",
+        "f30725d4aa7ecc1de220fbfd8d009c04a9558f9afe796eb1249068d11f0a63b1",
+        "5bcfda3ef247ef21d6af8b471cd455e9e2aee796303d830f5a5b7d4c9e2e8a8a",
+        "6f937561cfac2aa55cda6337621899505fb83a030afa163c9e1a452b92a84101",
+        "a3fc1afca944ff4a8b5309a9edca6a669e71caf2d4b6502170e7027d188b7773",
+        "f345f43f21dc5627481e5ee252fb19f5c6f17e2073aded3c9f0ee9ffbc6a864d"
+      ],
+      "user_id": 752
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.029207561280629513,
+        0.020157904585813124,
+        0.018698301059868916,
+        0.018656520089877837
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "ec845f3d6cf7f0144652ae4aae698bbf01d52092f7e2ab6a462ca94ad09bc39b",
+        "ede2bec59e8d2a9947bbcf833ef9b2f95108715c41ac63393e71ee44543d6990",
+        "693a62adb69da6ad9d20a9109a488862c96898cfa4035d71e4b7526c4d589087",
+        "16cbb2deec3855eb9029781928639e9cad814e9b11e884deef0a6c2ade2e3a50",
+        "6660bab58e845d1ea3a6bdbd52a334d9c82c6c7b8435d3ef39f7a2adfc2206c7",
+        "e87d66798de03db199fcebbbd0b9e69159935f1afea4e1efe4558a1b5d71dfbf"
+      ],
+      "user_id": 324
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Jerry Maguire (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Phenomenon (1996)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Romance",
+            "War"
+          ],
+          "title": "Forrest Gump (1994)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.050459697148364624,
+        0.050459697148364624,
+        0.04030769604544382,
+        0.029418288649084356
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "eb264cd3e95cde540b2a3f42e857a8863913fbaae03ff4327c180390f8a550da",
+        "61b8270237b29f54d5ec1a3656aad1da6b74001acf9258948892e22a1e8805ce",
+        "bb7a3fa2e8cfe1e4b63954144237904905554a7e2ca90f17130682b1bc39f9ce",
+        "0edc52039c415e82871a971c65e81312302f4fa6eb62229158b6e813c761185e",
+        "3e13e612d4a0c70c5aef0d23b9ecc21c039f16ebc8ccdbe8425ca17e8df79e31",
+        "9c73554b7a2b6c16854ec339a4e63898e56cbf5d8392d238564bc18485dff112"
+      ],
+      "user_id": 893
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Fugitive, The (1993)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.005196836390986448,
+        0.005196836390986448,
+        0.005108424034530712,
+        0.004097642038794369
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4cf1c4446737942458fc63238faf1b1294e0c578f7ce19de8d4f19c5509ab52d",
+        "cb13ddc9af6a1f20c2f8fc39209eea46547f257764709f7429e91b46f378d9c0",
+        "f4db567197c197e9add0abe374e5c96a2f3a5fa5faef80fb8ba37e55f641cca4",
+        "f1f67baf2523a4c6396ef9f9b7fefa63e3c50556806864168ee703bc5e1853b6",
+        "7be7f48c3155f434b43683fc545c52d76ed62eca2126629f0ee6af36eca743cb",
+        "4fa73b1e0fb9387e982ef690b63fdb6f52b94c4a2b038edc801e6d1a7b215332"
+      ],
+      "user_id": 673
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        },
+        {
+          "genres": [
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Murder at 1600 (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.003870314632826277,
+        0.0025380855244043765,
+        0.0025380855244043765,
+        0.002152880443091698
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "8d3bd2e8463fb0a264798aff261d84aa02e8e8b58e64c9adf33fc01757bb196c",
+        "1cfdb87c247bd07339727203d1e35e50dbfa561550ad6f4506f0804bec8f3f0a",
+        "bb9501785336bfb44658e7afe7019984a5e0942c6e64c859a27fc857a60e22d4",
+        "db4b0cef5aab4641be4054db3350cb7c621d9801f799e46f990728288fd2490e",
+        "08a958a311983c40088ec7a6fbb280987ca03fc43593c74224d2df12db0244b7",
+        "47405310fcb9532c3466c6bcceac5afb4e6b4b2cc7ce5749fdb44c9f1b6149d0"
+      ],
+      "user_id": 126
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Thriller"
+          ],
+          "title": "Rock, The (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Thriller"
+          ],
+          "title": "Twister (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.011588727818085509,
+        0.008695169781784085,
+        0.007733474769984872,
+        0.005392968192120096
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "a317e943d8623aca4626190e21d0b8e2e052be8bb0f12c7619269bfbcd54d79a",
+        "ff0b892c822e6bc2f4af67d2b9c594eee7a78ae88f6f7319d7269d6783228f17",
+        "3a0c099b27c68571acf575d72510ad3192db1623f12469000b8a1f69eda05e2f",
+        "184a4064329dbf34f013030868afc23113983bec67d683ea55e1124754aebb0e",
+        "8b659b7b81a049b8ff9a37687f53380b3474d5b723558324ec1eabacd11a1083",
+        "2decb947fc9a1cdfa913f5ee75007329cfcd91c09f1c0d3abb764aad3fd607ff"
+      ],
+      "user_id": 159
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Rosewood (1997)"
+        },
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Amistad (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "In & Out (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.0340082769029979,
+        0.0340082769029979,
+        0.016281653483725123,
+        0.013661579340146668
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "da674e1e8fb5dd95aa35546043847d066618c2dc32dd3295d720b60f5477517e",
+        "167b4dfb5f93cb975659a9ba6ec11ed73205b1050938b76041fbaf670b543fe8",
+        "35b67b73af71b2b89e6fc86667e03c5e43d7bc1df636c284cd1243b797eb4967",
+        "5fcea407d3aeeeae8857adc4e4f019d32d920e6f7f4f47221c52dc013122dfec",
+        "599842f0cebb736496e8643f2e04ed7536632da833a438df6f82c99372c3aeae",
+        "1d195388a7b92b2512df93b02cb76757f85d198fb4e03dfba96073d9232d8c1a"
+      ],
+      "user_id": 783
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Children's",
+            "Drama",
+            "Fantasy",
+            "Sci-Fi"
+          ],
+          "title": "E.T. the Extra-Terrestrial (1982)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.11885546177136397,
+        0.11415523135855277,
+        0.07089269269058529,
+        0.059666987595765164
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "54a315a194d2b094e3c3905d035b1c1fafadffe79f197e09a23b05e5c4e24f14",
+        "b19fe5740911b157548adc5407da53d6e1b135a21946a4b5cc54fd2eeeed9b0a",
+        "76fcd46181a3dc507cfb5d5fa59897eda8ccf9dd4f3f5abdccfbd599c9028f59",
+        "2437b80450861b24da039dcf654c929b33dfb080a56d12f98c782de2a1a1e5a9",
+        "e520b86030d5958587836ef944e32396388ee1a54121533ac6a2ea920f8d5aaf",
+        "6d681a2d0c1f4b180a5a39f13cfba2c19115563d27f2456090ba39c58c32d651"
+      ],
+      "user_id": 721
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Fargo (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "War"
+          ],
+          "title": "Schindler's List (1993)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.02880683470933043,
+        0.01964220037075992,
+        0.01847321611002073,
+        0.016120711051606396
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "0614b5aa67daa8029fb9893590e66fdf70bef4126444d6f0b1f3fddf05189955",
+        "4c9b7e490a15f314612dd063a50eab4c2f685281bddfac94c2f37c0eac16345f",
+        "d37532292a417929dadfa86f22656bdf663aa440629d819d869930456eac4ee4",
+        "be96e70516887489948d521026b48d77cfe485f73aab1afe56a1e5b073395696",
+        "bdb5438ff5ce2178a6a4d6e7c695d8c034a88bbcfd41253e37ac2fd0de0d8a4d",
+        "28bfd415856ab1712f38446d33da09914c7985c4241fa144e9e6abbe6924400f"
+      ],
+      "user_id": 24
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.007606717687529185,
+        0.0026073385522524806,
+        0.002063568182947284,
+        0.0018638079798782847
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4c3004ef579ee01759e73f61b4da51ee6c64a19f75aeec1ac675bc7fda25a589",
+        "472979f674d1a522d14f357ff45f6ba9665b412cbcad074931949c8eb7432ffb",
+        "63722fa75237ceb79576447154d672b62c5ea89bd46d2187c177d8c2041a670f",
+        "61a4a866165519b266f9bbaef3e604cbe2cce9b1e38003ee5d20e63e245597dd",
+        "f5ce55a8254fff594cdff53a94db1da9a0ff5f3660af3aaa9254891f25894918",
+        "b885a5d705e80694d6b62566a5a8c90aae69d2bb9fa62fdeed2151f8b4864b0e"
+      ],
+      "user_id": 404
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Good Will Hunting (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.013726670866784696,
+        0.010130297377267006,
+        0.009698173033463098,
+        0.008022522515898745
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "b8c269c4f8264ac22837d04bcf445e9b94a5878ac43a2b298956a3ac7aeea3cb",
+        "23d829bdb79bcabbe38e706b727fe9f51407072498ceed59888134a423040192",
+        "ca36f92d90baa9be446f97860f01ff6adc9ed2af024489c908a039d7808980bd",
+        "a85621a46304f95d443b5bee96658e0faa95b185673157db2afec756f08e8d28",
+        "8774d8b001e63361775129a6e7831b6deecf15a4061f1b6cef7c953398de4b8c",
+        "02ea7489737e259a2045cce7e287daec4eddddf939676e22c3eba065f17d371f"
+      ],
+      "user_id": 863
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Musical"
+          ],
+          "title": "Evita (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Drama",
+            "Romance"
+          ],
+          "title": "Titanic (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Film-Noir",
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "L.A. Confidential (1997)"
+        },
+        {
+          "genres": [
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "Game, The (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.031060657972561856,
+        0.013195835995090777,
+        0.010714595389605508,
+        0.009930144859858547
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4028e27d2a862cf04505e672c8798c1dd7eeaf07c992297122cb85d60cb95689",
+        "08d7ade5b4da326aa60dd338e9b5451a4d5541b6a75d8060ac51c3a9747cd227",
+        "69184dcde193a8501261a955f5373561530bf719cc8afab1f1de87a9d2b23a12",
+        "0256966c4085e0623f482cf4b10fc9e2c399c1f0fc7c5460105c255bfd6e9d18",
+        "ab01201c826799a6062bacaad837979eb8275a3d60c7101be7b6002655970ac4",
+        "89826aeccbb8ccfc27daf662169f5089ed20a3cb353be899a17b9b7994901b9f"
+      ],
+      "user_id": 626
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Fargo (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Independence Day (ID4) (1996)"
+        },
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Dead Man Walking (1995)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.012728442763670023,
+        0.0037237413727277957,
+        0.00204733875578178,
+        0.0015178102185753328
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "29412b7bfd4a24696e3ff8b95cc7c19da9e43787b74c23219754d0c727394227",
+        "6b225ee00ba2bb1d825d3d5e2a40dd432c82b1a1bc42e4e37614d976919249a1",
+        "568cbd87c38537ae20de64321e9ddb049cfd61316f03b9f00cf3498afcf1549a",
+        "a1d222d4aa78ead3c45a0395e8a9665d0faffcd0e15bb1605b84decef357c3e8",
+        "c730cdae5a2e14cb5996ca706c00e5a17d8ffcb78e8ba41f89b5f5f9030edf18",
+        "fa6048343814a982f9a0ea78921cc8084b64cc60b05ea36ea4e18fdcf3cead38"
+      ],
+      "user_id": 733
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Fugitive, The (1993)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.00705652002296997,
+        0.0061531403264498685,
+        0.0020764215032924582,
+        0.0018904432464417198
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "cf34689b7368c794c4838814ebb9dbb163f2eb764dee16d38575bdc8f33e97fb",
+        "1127331917e95b8eb65188b7fc6478b972e30e551e1e778fb7a977d8ee235870",
+        "87942bea2e011db931e6b2d4783b48ace7cc1240419f4fcc8215bccee7cb62ff",
+        "e323c9d3b2b62126091ad76a5f18b8412a110e25fed05c122a232b537c4d124c",
+        "92eb224f50385a62ffe26d1a1e4a257857dc0bffa8a0df1ca9b176187158bd87",
+        "6afd5b549e10799a2c091e8ef6e21226cd3c8099ca9b6e7edf8783702b19c325"
+      ],
+      "user_id": 197
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Fargo (1996)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Adventure",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Willy Wonka and the Chocolate Factory (1971)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.012761866073266237,
+        0.0036809257266954276,
+        0.002535720067661229,
+        0.0024326361930315787
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "9d8a1dffc5e685078c59da2bf965753821049e952158f749e3ae8dbb9c89b844",
+        "71118d3cb8ed8b1392f17895ce19d3cf9c14cb65d54d7179de16d9630ba10f83",
+        "0c04e77ca7b8f867ec2605d07b5a6bd59bc7b7266702ba4b9d50ee1e95b10c1f",
+        "2e97edc564364d4192d035211ff62ec9dc08d2fd3fa89ecf310c6ad9b3e090ac",
+        "6f4452c5d05cfd1e77e908fa58ef95f9f64adeb56a9f9d74fd243cdeca0c4e9d",
+        "17579601831b5b1d96ea6e9b00203cde29e1dc81bb9e2a8d559c69457bab5740"
+      ],
+      "user_id": 181
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "title": "Gattaca (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Romance",
+            "Thriller"
+          ],
+          "title": "Saint, The (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.006835917511618161,
+        0.006143745831348024,
+        0.005799379464275001,
+        0.004974822855535965
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "f980ae68ed500dc28b7cfa2a23fe547b7d43d443071d7ccdffcc94341fe57b13",
+        "b6f7a83c6094a80b2f1c65da0bb91419ed337e186a8200f3fc9a3d90858597bd",
+        "5af5aced862f92e201e521e9832de35c04028aabcbfe1f0f757ce7e06fb45fa3",
+        "3921ebbe002f6c362665ff5ff5bc87532d87c42d6d6aadad41242b41f649f7f5",
+        "36e1714235e59a52d94d148099ddcaea78ee50c21f15ad511393bbed8aa433f9",
+        "44e1af86a3aa780d8f9c3588286d12a6a858eab1675f5d701a87814651354e6b"
+      ],
+      "user_id": 544
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "In & Out (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.042828720996087366,
+        0.042828720996087366,
+        0.03986396748200827,
+        0.037891169741641306
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "7010e384e3d167eac6263d8c075416484b6e45786b6eb1cef1540020a8e3e08c",
+        "68bfcd18abee5260a741feef1b228c92d20d049dbfc0948d9f027e7f1064a737",
+        "018b53ba69dbffe83bdedf8688d3ae21aa08e646419f763c949f116d32ccc5e5",
+        "85e442e480d79712736a46a5c92b34a1d183ec6660dbe903eb0511127d6a0832",
+        "6dfcc1ee81961985e7edee6d3ee1e10c36a35a3b2e36a44a2b734cf882b1b3a2",
+        "c53ae9f5cfa886f520bf67645d54169af7f78dcb6011790bf6d926ab982ec832"
+      ],
+      "user_id": 464
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Crime",
+            "Film-Noir",
+            "Mystery",
+            "Thriller"
+          ],
+          "title": "L.A. Confidential (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi"
+          ],
+          "title": "Jurassic Park (1993)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Starship Troopers (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.011429691041373147,
+        0.0033794805278655193,
+        0.002355893264745168,
+        0.0022012772201753794
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "229c0b013f6883ed0a42ef894ecb2d27f0174df3f18fcf41699963b9e9131676",
+        "a9d9b1f677815cfbba685cb368778cc786e1047b0dcb1a88c16575fb43fe4ccf",
+        "38a24a28b68e2ec47f3db24dc03d6064ea503aa84bf5bc88cbd78a68b0946aff",
+        "b833b469c7737f41f6dbf80bd97e699ad5c5bf6d70fdda0694a97238529cf40c",
+        "6fcb4724529bef11898de6ef37f695df68396bddd909ace5332e902ccf3d915e",
+        "07ad540f554fcd3ab70ad64eb46b79ca925de7ff5f80659bb445f0cd254213f7"
+      ],
+      "user_id": 668
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Fargo (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.02882297820025026,
+        0.016139801587885083,
+        0.008673220261866676,
+        0.006976578688460799
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "7b26a84c66d958bc760a23b62630091a10abc94481f3447ce9240bb0c048bf3b",
+        "3744df35de8afd47c2c521dd5dd6ac0b7ae6149dc40903c36cd08be21f9e2ba2",
+        "4860d4b611b2bf29e5679867b5a7f052fbffd9f21390494f2f417f22a79638e8",
+        "3731b4b342e4a61d266bee626f6e44fa3c9cf6c8efb6831b8554952be6f6e4db",
+        "8925442010de478fd305c3983312dc2c6895b29b876bff8275521f79e3a0cd0d",
+        "5c69a0fceabe73eee54b9682dabfd203b622dd30e742a855ebcf4db6c572c1d4"
+      ],
+      "user_id": 460
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Comedy",
+            "Crime"
+          ],
+          "title": "Sting, The (1973)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "title": "2001: A Space Odyssey (1968)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "Thriller",
+            "War"
+          ],
+          "title": "Aliens (1986)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Horror",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "title": "Alien (1979)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.016149908757795872,
+        0.015143121234591161,
+        0.009218340764578725,
+        0.009059874830566583
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "abcba0203b769005d91b72168ea87055c66dc9aa01ef7ad00a7bb6cd37392d2e",
+        "1d78ef633967c8321ef26d5fedef66cb6a352af45523d5b08c909ab837d8e659",
+        "5fab012f8558cf6d8311198319e436c97570a3da7f208042b52e66d7794ac248",
+        "3013c7caa12f7ae94957dd96cc5741145d27bb965e8e80eaf8bb1dc3e97bfc09",
+        "82997dc79b050fc4f0820c3ef216d655ea852c74322d78e2e6d00c64f4c8ec75",
+        "0d743970a14a11fa11e396af8280724cc038a1b8ff64e33d90da093f5f425385"
+      ],
+      "user_id": 802
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Dante's Peak (1997)"
+        },
+        {
+          "genres": [
+            "Children's",
+            "Comedy"
+          ],
+          "title": "George of the Jungle (1997)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Thriller"
+          ],
+          "title": "Volcano (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.0391152854858412,
+        0.033172330650446336,
+        0.0174847508189393,
+        0.015039672520444247
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "e171d2b4d42150cba446e232fee06d54593f52d8f0b97aa28163d5fbf8e4fd7c",
+        "445f53e8ee3f14b9d296af25854aa19b3b40c7af7f323f5085f82b2da25116b3",
+        "ee3052227f0c3442133ef52ceeacb7a7f8d2860069e2f7b14de7f0ac07af6383",
+        "4037db26718b162e66cf99890b34ded5acd77dc79762349e684eda699cfb786a",
+        "21cb15ff4d4ac57b12b90658b90041efc5f5454e1430d1a47dbda1a513d6e2b4",
+        "ee4553a8cd67b5485793f731aa7cf309cf6a44c92202a74962d7edbaf0fb15b1"
+      ],
+      "user_id": 510
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "Full Monty, The (1997)"
+        },
+        {
+          "genres": [
+            "Comedy"
+          ],
+          "title": "In & Out (1997)"
+        },
+        {
+          "genres": [
+            "Comedy",
+            "Drama"
+          ],
+          "title": "Wag the Dog (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Air Force One (1997)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.037115871826207014,
+        0.035902088179470715,
+        0.011409994228244402,
+        0.010625771480253343
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "e18b2fe87a8b8da4988a2a9f84abab4673af71a539c569e587d278b490fb4a39",
+        "a847703582553d4bed3643a572143ee62f743a7ac75c4d44f92e1aed0608d789",
+        "12260419a1aef7e7ecfe565d7aaaf91246c716b630bc309be2ffea0857fba504",
+        "6652cb929c0691ac08e0ebc680932dc24b6baec835e81e3e80c6131b7311cff8",
+        "c006ff347b7b537974f31f182165cedc10f1a960bc5f537a9594c20c1e18b98e",
+        "9e06447c12f9b248208ff9853906045354b36761509b0d601b24ad1291c36434"
+      ],
+      "user_id": 827
+    },
+    {
+      "candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Star Wars (1977)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure"
+          ],
+          "title": "Raiders of the Lost Ark (1981)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_values": [
+        0.007722839129418402,
+        0.005271757538068078,
+        0.005271757538068078,
+        0.004571588316283348
+      ],
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "32e2cdde8d863f4433fcdee75c70c4afaf5168085c409f353eafbb88408f1a54",
+        "136785fbfa9e8f1a5048400896e85fe995e89d972403a49ef77ac5b85382e1bc",
+        "10647e1c7505be124bda5af8c6b4530dca83bc5c55a794f48f2b3b1b6a8bfedd",
+        "7ef2813d35a127b7079be88e86eda105c3954e230d881b1b1b19231a4defc637",
+        "038a10a8f05f86ccd75a8e8b04dd4b214ad0261899abdd178aa94a1cafe7a5ff",
+        "c7d9cbe309fe61b1078f406a14dc9179248cfd1ef55f166c84b627a42505f3c1"
+      ],
+      "user_id": 392
+    }
+  ],
+  "schema_version": 10,
+  "status": "gate_failed",
+  "summary": {
+    "gates": {
+      "all_pass": false,
+      "all_users_completed": true,
+      "at_least_eight_users_have_max_eig_at_least_0_02": true,
+      "exact_sensitivity_screen_request_count": true,
+      "mean_max_immediate_eig_at_least_0_02": false,
+      "prospective_enrollment_complete": false,
+      "zero_reasoning_tokens": true
+    },
+    "mean_max_immediate_eig": 0.018677826728455582,
+    "num_branches": 0,
+    "num_users": 44,
+    "users_with_max_immediate_eig_at_least_0_02": 14
+  },
+  "usage": {
+    "adapter_cost_usd": 0.6309468099999999,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 16288,
+        "adapter_cost_usd": 0.006978009999999998,
+        "adapter_prompt_tokens": 12533,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 44,
+        "backend": "openrouter",
+        "budget_usd": 105.38480269545715,
+        "completion_tokens": 145798,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 16288,
+            "cost_usd": 0.006978009999999998,
+            "prompt_tokens": 12533,
+            "reasoning_tokens": 0,
+            "requests": 44
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 129510,
+            "cost_usd": 0.6239687999999999,
+            "prompt_tokens": 166412,
+            "reasoning_tokens": 0,
+            "requests": 44
+          }
+        },
+        "prompt_tokens": 178945,
+        "reasoning_tokens": 0,
+        "remaining_usd": 38.17293203375,
+        "requests": 88,
+        "run_budget_usd": 7.0,
+        "run_cost_usd": 0.6309468099999999,
+        "run_remaining_usd": 6.36905319,
+        "total_spent_usd": 67.21187066170715
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 129510,
+        "adapter_cost_usd": 0.6239687999999999,
+        "adapter_prompt_tokens": 166412,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 44,
+        "backend": "openrouter",
+        "budget_usd": 105.38480269545715,
+        "completion_tokens": 145798,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 16288,
+            "cost_usd": 0.006978009999999998,
+            "prompt_tokens": 12533,
+            "reasoning_tokens": 0,
+            "requests": 44
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 129510,
+            "cost_usd": 0.6239687999999999,
+            "prompt_tokens": 166412,
+            "reasoning_tokens": 0,
+            "requests": 44
+          }
+        },
+        "prompt_tokens": 178945,
+        "reasoning_tokens": 0,
+        "remaining_usd": 38.17293203375,
+        "requests": 88,
+        "run_budget_usd": 7.0,
+        "run_cost_usd": 0.6309468099999999,
+        "run_remaining_usd": 6.36905319,
+        "total_spent_usd": 67.21187066170715
+      }
+    },
+    "physical_requests": 88,
+    "reasoning_tokens": 0
+  }
+}

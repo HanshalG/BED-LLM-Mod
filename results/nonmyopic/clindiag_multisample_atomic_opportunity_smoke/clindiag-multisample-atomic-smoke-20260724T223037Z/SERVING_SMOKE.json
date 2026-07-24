@@ -1,0 +1,278 @@
+{
+  "gates": {
+    "all_pass": true,
+    "all_supports_size_12": true,
+    "both_cases_complete": true,
+    "exactly_26_physical_requests": true,
+    "replay_soft_gaps_finite": true,
+    "zero_reasoning_tokens": true
+  },
+  "protocol": {
+    "actions": [
+      "present_illness",
+      "family_social",
+      "exam_1",
+      "lab_1",
+      "imaging_1",
+      "other_1"
+    ],
+    "archive_sha256": "a9ea339fc3a6ded91f5c1769589c5c374dd32c266072511260d4102e544539c1",
+    "coverage_threshold": 0.8,
+    "dataset": "ClinDiag-Benchmark",
+    "deanchored_full_refresh": true,
+    "diagnosis_count": 12,
+    "expected_physical_requests": 26,
+    "formal_ids": [
+      "17700107_1",
+      "20921516",
+      "rare269",
+      "rare295"
+    ],
+    "ordered_sequences": [
+      "present_illness>family_social",
+      "present_illness>exam_1",
+      "present_illness>lab_1",
+      "present_illness>imaging_1",
+      "present_illness>other_1",
+      "family_social>present_illness",
+      "family_social>exam_1",
+      "family_social>lab_1",
+      "family_social>imaging_1",
+      "family_social>other_1",
+      "exam_1>present_illness",
+      "exam_1>family_social",
+      "exam_1>lab_1",
+      "exam_1>imaging_1",
+      "exam_1>other_1",
+      "lab_1>present_illness",
+      "lab_1>family_social",
+      "lab_1>exam_1",
+      "lab_1>imaging_1",
+      "lab_1>other_1",
+      "imaging_1>present_illness",
+      "imaging_1>family_social",
+      "imaging_1>exam_1",
+      "imaging_1>lab_1",
+      "imaging_1>other_1",
+      "other_1>present_illness",
+      "other_1>family_social",
+      "other_1>exam_1",
+      "other_1>lab_1",
+      "other_1>imaging_1"
+    ],
+    "private_raw_sha256": "2df0513de35a25500159bc49027c3cf3d175a383cb8e511c70ea38c01a520b64",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "reserve_ids": [
+      "23252529",
+      "27783909",
+      "rare257",
+      "rare153"
+    ],
+    "samples_per_state": 3,
+    "selection_seed": 24325,
+    "smoke_ids": [
+      "26933852",
+      "rare129"
+    ],
+    "source_commit": "f9b5c181e8d120d6a244accba9422ffb89d1f319",
+    "stage": "serving_smoke",
+    "stored_observations_not_generated": true,
+    "truth_used_for_post_generation_measurement_only": true
+  },
+  "records": [
+    {
+      "initial": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      },
+      "one_step": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      },
+      "path": "present_illness>lab_1",
+      "replay": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      },
+      "source_id": "26933852",
+      "subset": "challenging",
+      "support_sizes": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "two_step": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      }
+    },
+    {
+      "initial": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      },
+      "one_step": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      },
+      "path": "family_social>imaging_1",
+      "replay": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      },
+      "source_id": "rare129",
+      "subset": "rare",
+      "support_sizes": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "two_step": {
+        "coverage_probability": 0.0,
+        "sample_scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "soft_value": 0.0
+      }
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.05909625000000001,
+    "generator": {
+      "adapter_completion_tokens": 2504,
+      "adapter_cost_usd": 0.05287500000000001,
+      "adapter_prompt_tokens": 6126,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 24,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 3409,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2504,
+          "cost_usd": 0.05287500000000001,
+          "prompt_tokens": 6126,
+          "reasoning_tokens": 0,
+          "requests": 24
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 905,
+          "cost_usd": 0.00622125,
+          "prompt_tokens": 2865,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 8991,
+      "reasoning_tokens": 0,
+      "remaining_usd": 40.256548103749864,
+      "requests": 26,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.05909625000000002,
+      "run_remaining_usd": 0.6909037499999999,
+      "total_spent_usd": 65.12825459170729
+    },
+    "judge": {
+      "adapter_completion_tokens": 905,
+      "adapter_cost_usd": 0.00622125,
+      "adapter_prompt_tokens": 2865,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 3409,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2504,
+          "cost_usd": 0.05287500000000001,
+          "prompt_tokens": 6126,
+          "reasoning_tokens": 0,
+          "requests": 24
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 905,
+          "cost_usd": 0.00622125,
+          "prompt_tokens": 2865,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 8991,
+      "reasoning_tokens": 0,
+      "remaining_usd": 40.256548103749864,
+      "requests": 26,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.05909625000000002,
+      "run_remaining_usd": 0.6909037499999999,
+      "total_spent_usd": 65.12825459170729
+    },
+    "physical_requests": 26,
+    "reasoning_tokens": 0
+  }
+}
