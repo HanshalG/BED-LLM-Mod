@@ -1,0 +1,131 @@
+{
+  "expected_physical_requests": 10,
+  "parsed_initial_sizes": [
+    8,
+    8,
+    8,
+    8
+  ],
+  "parsed_workup_sizes": [
+    8,
+    8,
+    8,
+    8
+  ],
+  "physical_requests": 10,
+  "schema_version": 1,
+  "semantic_rows": [
+    [
+      {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact same diagnosis: cutaneous horn."
+      },
+      {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact same diagnosis: cutaneous horn."
+      }
+    ],
+    [
+      {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "initial",
+        "reason": "Exact same diagnosis."
+      },
+      {
+        "best_match_score": 1.0,
+        "covered": true,
+        "id": "workup_generated",
+        "reason": "Exact same diagnosis."
+      }
+    ]
+  ],
+  "stage_counts": {
+    "initial": 4,
+    "semantic": 2,
+    "workup": 4
+  },
+  "status": "passed",
+  "usage": {
+    "generator": {
+      "adapter_completion_tokens": 713,
+      "adapter_cost_usd": 0.00037555,
+      "adapter_prompt_tokens": 1757,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 8,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 819,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 713,
+          "cost_usd": 0.00037555,
+          "prompt_tokens": 1757,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 106,
+          "cost_usd": 0.000858,
+          "prompt_tokens": 508,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 2265,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.20021097754284,
+      "requests": 10,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.00123355,
+      "run_remaining_usd": 0.99876645,
+      "total_spent_usd": 44.79978902245716
+    },
+    "judge": {
+      "adapter_completion_tokens": 106,
+      "adapter_cost_usd": 0.000858,
+      "adapter_prompt_tokens": 508,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 150.0,
+      "completion_tokens": 819,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 713,
+          "cost_usd": 0.00037555,
+          "prompt_tokens": 1757,
+          "reasoning_tokens": 0,
+          "requests": 8
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 106,
+          "cost_usd": 0.000858,
+          "prompt_tokens": 508,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 2265,
+      "reasoning_tokens": 0,
+      "remaining_usd": 105.20021097754284,
+      "requests": 10,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.00123355,
+      "run_remaining_usd": 0.99876645,
+      "total_spent_usd": 44.79978902245716
+    }
+  }
+}
