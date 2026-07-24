@@ -1,0 +1,2039 @@
+{
+  "completed_semantic_batches": [
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "No"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Koala",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Moose",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "No"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Yak",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "Yes"
+        }
+      ],
+      "question": "Is it warm-blooded?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "No"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "No"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "No"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "No"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "No"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "No"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "No"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "No"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "No"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "No"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "No"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "No"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "No"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "No"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "No"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "No"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "No"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "No"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "No"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "No"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "No"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "No"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "No"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "No"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "No"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "No"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "No"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "No"
+        }
+      ],
+      "question": "Is it an invertebrate?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "No"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "No"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "No"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "No"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "No"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "No"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "No"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "No"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "No"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "No"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "No"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "No"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "No"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "No"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "No"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "No"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "No"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "No"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "No"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "Yes"
+        }
+      ],
+      "question": "Does it live in the water?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "No"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "No"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "No"
+        },
+        {
+          "animal": "Koala",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Llama",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Moose",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Yak",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "No"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "No"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "No"
+        }
+      ],
+      "question": "Is it a mammal?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "No"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "No"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "No"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "No"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "No"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "No"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "No"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "No"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "No"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "No"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "No"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "No"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "No"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "No"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "No"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "No"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "No"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "No"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "No"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "No"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "No"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "No"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "No"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "No"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "No"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "No"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "No"
+        }
+      ],
+      "question": "Does it have feathers?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "No"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "No"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "No"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "Yes"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "Yes"
+        }
+      ],
+      "question": "Is it a carnivore?"
+    }
+  ],
+  "error": "ValueError: required 3 valid questions, received 1",
+  "generation_records": [
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: Aardvark: 0.019, African elephant: 0.019, African grey parrot: 0.019, Alpaca: 0.019, Bald eagle: 0.019, Bengal tiger: 0.019, Blue whale: 0.019, Bottlenose dolphin: 0.019, Camel: 0.019, Capybara: 0.019, Cheetah: 0.019, Chimpanzee: 0.019, Coyote: 0.019, Emperor penguin: 0.019, Flamingo: 0.019, Giant panda: 0.019, Giraffe: 0.019, Gorilla: 0.019, Hippopotamus: 0.019, Honey badger: 0.019, Hummingbird: 0.019, Jaguar: 0.019, Kangaroo: 0.019, Kiwi: 0.019, Koala: 0.019, Llama: 0.019, Manatee: 0.019, Meerkat: 0.019, Moose: 0.019, Narwhal: 0.019, Orangutan: 0.019, Ostrich: 0.019, Platypus: 0.019, Polar bear: 0.019, Red fox: 0.019, Reindeer: 0.019, Sand cat: 0.019, Sea otter: 0.019, Sloth: 0.019, Snow leopard: 0.019, Spotted hyena: 0.019, Tasmanian devil: 0.019, Toucan: 0.019, Vampire bat: 0.019, Walrus: 0.019, Wolverine: 0.019, Wombat: 0.019, Yak: 0.019, Zebra: 0.019, Pangolin: 0.019, Axolotl: 0.003, Chameleon: 0.003, Great white shark: 0.003, Green sea turtle: 0.003, Komodo dragon: 0.003, Saltwater crocodile: 0.003, Tiger shark: 0.003, Poison dart frog: 0.003, King cobra: 0.003, Horseshoe crab: 0.001, Octopus: 0.001, Praying mantis: 0.001, Rhinoceros beetle: 0.001, Giant squid: 0.001 and all previous questions and answers:\n\nGenerate up to 6 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it live in the water?\nIs it a mammal?\nDoes it have feathers?\nIs it a carnivore?\nIs it larger than a medium-sized dog?\nDoes it live in Africa?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Does it live in the water?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: Blue whale: 0.061, Bottlenose dolphin: 0.061, Hippopotamus: 0.061, Manatee: 0.061, Narwhal: 0.061, Platypus: 0.061, Sea otter: 0.061, Walrus: 0.061, Aardvark: 0.011, African elephant: 0.011, African grey parrot: 0.011, Alpaca: 0.011, Bald eagle: 0.011, Bengal tiger: 0.011, Camel: 0.011, Capybara: 0.011, Cheetah: 0.011, Chimpanzee: 0.011, Coyote: 0.011, Emperor penguin: 0.011, Flamingo: 0.011, Giant panda: 0.011, Giraffe: 0.011, Gorilla: 0.011, Honey badger: 0.011, Hummingbird: 0.011, Jaguar: 0.011, Kangaroo: 0.011, Kiwi: 0.011, Koala: 0.011, Llama: 0.011, Meerkat: 0.011, Moose: 0.011, Orangutan: 0.011, Ostrich: 0.011, Polar bear: 0.011, Red fox: 0.011, Reindeer: 0.011, Sand cat: 0.011, Sloth: 0.011, Snow leopard: 0.011, Spotted hyena: 0.011, Tasmanian devil: 0.011, Toucan: 0.011, Vampire bat: 0.011, Wolverine: 0.011, Wombat: 0.011, Yak: 0.011, Zebra: 0.011, Pangolin: 0.011, Axolotl: 0.011, Great white shark: 0.011, Green sea turtle: 0.011, Saltwater crocodile: 0.011, Tiger shark: 0.011, Chameleon: 0.002, Komodo dragon: 0.002, Poison dart frog: 0.002, King cobra: 0.002, Horseshoe crab: 0.002, Octopus: 0.002, Giant squid: 0.002, Praying mantis: 0.000, Rhinoceros beetle: 0.000 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Is it a mammal?\nIs it a cetacean?\nIs it larger than a human?\nDoes it have fins?\nIs it a predator?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Does it live in the water?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: Aardvark: 0.023, African elephant: 0.023, African grey parrot: 0.023, Alpaca: 0.023, Bald eagle: 0.023, Bengal tiger: 0.023, Camel: 0.023, Capybara: 0.023, Cheetah: 0.023, Chimpanzee: 0.023, Coyote: 0.023, Emperor penguin: 0.023, Flamingo: 0.023, Giant panda: 0.023, Giraffe: 0.023, Gorilla: 0.023, Honey badger: 0.023, Hummingbird: 0.023, Jaguar: 0.023, Kangaroo: 0.023, Kiwi: 0.023, Koala: 0.023, Llama: 0.023, Meerkat: 0.023, Moose: 0.023, Orangutan: 0.023, Ostrich: 0.023, Polar bear: 0.023, Red fox: 0.023, Reindeer: 0.023, Sand cat: 0.023, Sloth: 0.023, Snow leopard: 0.023, Spotted hyena: 0.023, Tasmanian devil: 0.023, Toucan: 0.023, Vampire bat: 0.023, Wolverine: 0.023, Wombat: 0.023, Yak: 0.023, Zebra: 0.023, Pangolin: 0.023, Blue whale: 0.004, Bottlenose dolphin: 0.004, Hippopotamus: 0.004, Manatee: 0.004, Narwhal: 0.004, Platypus: 0.004, Sea otter: 0.004, Walrus: 0.004, Chameleon: 0.004, Komodo dragon: 0.004, Poison dart frog: 0.004, King cobra: 0.004, Axolotl: 0.001, Great white shark: 0.001, Green sea turtle: 0.001, Saltwater crocodile: 0.001, Tiger shark: 0.001, Praying mantis: 0.001, Rhinoceros beetle: 0.001, Horseshoe crab: 0.000, Octopus: 0.000, Giant squid: 0.000 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it fly?\nIs it a mammal?\nIs it a carnivore?\nIs it larger than a dog?\nDoes it live in Africa?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Is it a mammal?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: Aardvark: 0.023, African elephant: 0.023, Alpaca: 0.023, Bengal tiger: 0.023, Blue whale: 0.023, Bottlenose dolphin: 0.023, Camel: 0.023, Capybara: 0.023, Cheetah: 0.023, Chimpanzee: 0.023, Coyote: 0.023, Giant panda: 0.023, Giraffe: 0.023, Gorilla: 0.023, Hippopotamus: 0.023, Honey badger: 0.023, Jaguar: 0.023, Kangaroo: 0.023, Koala: 0.023, Llama: 0.023, Manatee: 0.023, Meerkat: 0.023, Moose: 0.023, Narwhal: 0.023, Orangutan: 0.023, Platypus: 0.023, Polar bear: 0.023, Red fox: 0.023, Reindeer: 0.023, Sand cat: 0.023, Sea otter: 0.023, Sloth: 0.023, Snow leopard: 0.023, Spotted hyena: 0.023, Tasmanian devil: 0.023, Vampire bat: 0.023, Walrus: 0.023, Wolverine: 0.023, Wombat: 0.023, Yak: 0.023, Zebra: 0.023, Pangolin: 0.023, African grey parrot: 0.004, Bald eagle: 0.004, Emperor penguin: 0.004, Flamingo: 0.004, Hummingbird: 0.004, Kiwi: 0.004, Ostrich: 0.004, Toucan: 0.004, Axolotl: 0.001, Chameleon: 0.001, Great white shark: 0.001, Green sea turtle: 0.001, Komodo dragon: 0.001, Saltwater crocodile: 0.001, Tiger shark: 0.001, Poison dart frog: 0.001, King cobra: 0.001, Horseshoe crab: 0.000, Octopus: 0.000, Praying mantis: 0.000, Rhinoceros beetle: 0.000, Giant squid: 0.000 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it live in the ocean?\nIs it a carnivore?\nIs it larger than a human?\nDoes it live in Africa?\nDoes it have fur?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Is it a mammal?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: African grey parrot: 0.058, Bald eagle: 0.058, Emperor penguin: 0.058, Flamingo: 0.058, Hummingbird: 0.058, Kiwi: 0.058, Ostrich: 0.058, Toucan: 0.058, Aardvark: 0.010, African elephant: 0.010, Alpaca: 0.010, Bengal tiger: 0.010, Blue whale: 0.010, Bottlenose dolphin: 0.010, Camel: 0.010, Capybara: 0.010, Cheetah: 0.010, Chimpanzee: 0.010, Coyote: 0.010, Giant panda: 0.010, Giraffe: 0.010, Gorilla: 0.010, Hippopotamus: 0.010, Honey badger: 0.010, Jaguar: 0.010, Kangaroo: 0.010, Koala: 0.010, Llama: 0.010, Manatee: 0.010, Meerkat: 0.010, Moose: 0.010, Narwhal: 0.010, Orangutan: 0.010, Platypus: 0.010, Polar bear: 0.010, Red fox: 0.010, Reindeer: 0.010, Sand cat: 0.010, Sea otter: 0.010, Sloth: 0.010, Snow leopard: 0.010, Spotted hyena: 0.010, Tasmanian devil: 0.010, Vampire bat: 0.010, Walrus: 0.010, Wolverine: 0.010, Wombat: 0.010, Yak: 0.010, Zebra: 0.010, Pangolin: 0.010, Axolotl: 0.010, Chameleon: 0.010, Great white shark: 0.010, Green sea turtle: 0.010, Komodo dragon: 0.010, Saltwater crocodile: 0.010, Tiger shark: 0.010, Poison dart frog: 0.010, King cobra: 0.010, Horseshoe crab: 0.002, Octopus: 0.002, Praying mantis: 0.002, Rhinoceros beetle: 0.002, Giant squid: 0.002 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it have feathers?\nCan it fly?\nDoes it live in the water?\nIs it a bird?\nIs it a reptile?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Does it have feathers?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: African grey parrot: 0.064, Bald eagle: 0.064, Emperor penguin: 0.064, Flamingo: 0.064, Hummingbird: 0.064, Kiwi: 0.064, Ostrich: 0.064, Toucan: 0.064, Aardvark: 0.011, African elephant: 0.011, Alpaca: 0.011, Bengal tiger: 0.011, Blue whale: 0.011, Bottlenose dolphin: 0.011, Camel: 0.011, Capybara: 0.011, Cheetah: 0.011, Chimpanzee: 0.011, Coyote: 0.011, Giant panda: 0.011, Giraffe: 0.011, Gorilla: 0.011, Hippopotamus: 0.011, Honey badger: 0.011, Jaguar: 0.011, Kangaroo: 0.011, Koala: 0.011, Llama: 0.011, Manatee: 0.011, Meerkat: 0.011, Moose: 0.011, Narwhal: 0.011, Orangutan: 0.011, Platypus: 0.011, Polar bear: 0.011, Red fox: 0.011, Reindeer: 0.011, Sand cat: 0.011, Sea otter: 0.011, Sloth: 0.011, Snow leopard: 0.011, Spotted hyena: 0.011, Tasmanian devil: 0.011, Vampire bat: 0.011, Walrus: 0.011, Wolverine: 0.011, Wombat: 0.011, Yak: 0.011, Zebra: 0.011, Pangolin: 0.011, Axolotl: 0.002, Chameleon: 0.002, Great white shark: 0.002, Green sea turtle: 0.002, Komodo dragon: 0.002, Saltwater crocodile: 0.002, Tiger shark: 0.002, Poison dart frog: 0.002, King cobra: 0.002, Horseshoe crab: 0.000, Octopus: 0.000, Praying mantis: 0.000, Rhinoceros beetle: 0.000, Giant squid: 0.000 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Can it fly?\nIs it found in the wild in Africa?\nIs it a flightless bird?\nIs it a bird of prey?\nIs it colorful?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Does it have feathers?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: Aardvark: 0.022, African elephant: 0.022, Alpaca: 0.022, Bengal tiger: 0.022, Blue whale: 0.022, Bottlenose dolphin: 0.022, Camel: 0.022, Capybara: 0.022, Cheetah: 0.022, Chimpanzee: 0.022, Coyote: 0.022, Giant panda: 0.022, Giraffe: 0.022, Gorilla: 0.022, Hippopotamus: 0.022, Honey badger: 0.022, Jaguar: 0.022, Kangaroo: 0.022, Koala: 0.022, Llama: 0.022, Manatee: 0.022, Meerkat: 0.022, Moose: 0.022, Narwhal: 0.022, Orangutan: 0.022, Platypus: 0.022, Polar bear: 0.022, Red fox: 0.022, Reindeer: 0.022, Sand cat: 0.022, Sea otter: 0.022, Sloth: 0.022, Snow leopard: 0.022, Spotted hyena: 0.022, Tasmanian devil: 0.022, Vampire bat: 0.022, Walrus: 0.022, Wolverine: 0.022, Wombat: 0.022, Yak: 0.022, Zebra: 0.022, Pangolin: 0.022, African grey parrot: 0.004, Bald eagle: 0.004, Emperor penguin: 0.004, Flamingo: 0.004, Hummingbird: 0.004, Kiwi: 0.004, Ostrich: 0.004, Toucan: 0.004, Axolotl: 0.004, Chameleon: 0.004, Great white shark: 0.004, Green sea turtle: 0.004, Komodo dragon: 0.004, Saltwater crocodile: 0.004, Tiger shark: 0.004, Poison dart frog: 0.004, King cobra: 0.004, Horseshoe crab: 0.001, Octopus: 0.001, Praying mantis: 0.001, Rhinoceros beetle: 0.001, Giant squid: 0.001 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it live in the water?\nIs it a carnivore?\nIs it larger than a dog?\nDoes it live in Africa?\nDoes it have fur?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Is it a carnivore?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: Aardvark: 0.032, Bald eagle: 0.032, Bengal tiger: 0.032, Bottlenose dolphin: 0.032, Cheetah: 0.032, Chimpanzee: 0.032, Coyote: 0.032, Emperor penguin: 0.032, Honey badger: 0.032, Jaguar: 0.032, Kiwi: 0.032, Meerkat: 0.032, Narwhal: 0.032, Platypus: 0.032, Polar bear: 0.032, Red fox: 0.032, Sand cat: 0.032, Sea otter: 0.032, Snow leopard: 0.032, Spotted hyena: 0.032, Tasmanian devil: 0.032, Vampire bat: 0.032, Walrus: 0.032, Wolverine: 0.032, Pangolin: 0.032, African elephant: 0.006, African grey parrot: 0.006, Alpaca: 0.006, Blue whale: 0.006, Camel: 0.006, Capybara: 0.006, Flamingo: 0.006, Giant panda: 0.006, Giraffe: 0.006, Gorilla: 0.006, Hippopotamus: 0.006, Hummingbird: 0.006, Kangaroo: 0.006, Koala: 0.006, Llama: 0.006, Manatee: 0.006, Moose: 0.006, Orangutan: 0.006, Ostrich: 0.006, Reindeer: 0.006, Sloth: 0.006, Toucan: 0.006, Wombat: 0.006, Yak: 0.006, Zebra: 0.006, Axolotl: 0.006, Chameleon: 0.006, Great white shark: 0.006, Komodo dragon: 0.006, Saltwater crocodile: 0.006, Tiger shark: 0.006, Poison dart frog: 0.006, King cobra: 0.006, Green sea turtle: 0.001, Horseshoe crab: 0.001, Octopus: 0.001, Praying mantis: 0.001, Giant squid: 0.001, Rhinoceros beetle: 0.000 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it live in the water?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Is it a carnivore?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: Aardvark: 0.032, Bald eagle: 0.032, Bengal tiger: 0.032, Bottlenose dolphin: 0.032, Cheetah: 0.032, Chimpanzee: 0.032, Coyote: 0.032, Emperor penguin: 0.032, Honey badger: 0.032, Jaguar: 0.032, Kiwi: 0.032, Meerkat: 0.032, Narwhal: 0.032, Platypus: 0.032, Polar bear: 0.032, Red fox: 0.032, Sand cat: 0.032, Sea otter: 0.032, Snow leopard: 0.032, Spotted hyena: 0.032, Tasmanian devil: 0.032, Vampire bat: 0.032, Walrus: 0.032, Wolverine: 0.032, Pangolin: 0.032, African elephant: 0.006, African grey parrot: 0.006, Alpaca: 0.006, Blue whale: 0.006, Camel: 0.006, Capybara: 0.006, Flamingo: 0.006, Giant panda: 0.006, Giraffe: 0.006, Gorilla: 0.006, Hippopotamus: 0.006, Hummingbird: 0.006, Kangaroo: 0.006, Koala: 0.006, Llama: 0.006, Manatee: 0.006, Moose: 0.006, Orangutan: 0.006, Ostrich: 0.006, Reindeer: 0.006, Sloth: 0.006, Toucan: 0.006, Wombat: 0.006, Yak: 0.006, Zebra: 0.006, Axolotl: 0.006, Chameleon: 0.006, Great white shark: 0.006, Komodo dragon: 0.006, Saltwater crocodile: 0.006, Tiger shark: 0.006, Poison dart frog: 0.006, King cobra: 0.006, Green sea turtle: 0.001, Horseshoe crab: 0.001, Octopus: 0.001, Praying mantis: 0.001, Giant squid: 0.001, Rhinoceros beetle: 0.000, the current candidate questions: ['Does it live in the water?'], and all previous questions and answers:\n\nGenerate exactly 4 candidate Yes/No questions to identify the target animal while respecting the remaining probability mass. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it live in the water?\nIs it a mammal?\nIs it a feline?\nIs it larger than a dog?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Is it a carnivore?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: African elephant: 0.033, African grey parrot: 0.033, Alpaca: 0.033, Blue whale: 0.033, Camel: 0.033, Capybara: 0.033, Flamingo: 0.033, Giant panda: 0.033, Giraffe: 0.033, Gorilla: 0.033, Hippopotamus: 0.033, Hummingbird: 0.033, Kangaroo: 0.033, Koala: 0.033, Llama: 0.033, Manatee: 0.033, Moose: 0.033, Orangutan: 0.033, Ostrich: 0.033, Reindeer: 0.033, Sloth: 0.033, Toucan: 0.033, Wombat: 0.033, Yak: 0.033, Zebra: 0.033, Aardvark: 0.006, Bald eagle: 0.006, Bengal tiger: 0.006, Bottlenose dolphin: 0.006, Cheetah: 0.006, Chimpanzee: 0.006, Coyote: 0.006, Emperor penguin: 0.006, Honey badger: 0.006, Jaguar: 0.006, Kiwi: 0.006, Meerkat: 0.006, Narwhal: 0.006, Platypus: 0.006, Polar bear: 0.006, Red fox: 0.006, Sand cat: 0.006, Sea otter: 0.006, Snow leopard: 0.006, Spotted hyena: 0.006, Tasmanian devil: 0.006, Vampire bat: 0.006, Walrus: 0.006, Wolverine: 0.006, Pangolin: 0.006, Green sea turtle: 0.006, Axolotl: 0.001, Chameleon: 0.001, Great white shark: 0.001, Komodo dragon: 0.001, Saltwater crocodile: 0.001, Tiger shark: 0.001, Poison dart frog: 0.001, King cobra: 0.001, Rhinoceros beetle: 0.001, Horseshoe crab: 0.000, Octopus: 0.000, Praying mantis: 0.000, Giant squid: 0.000 and all previous questions and answers:\n\nGenerate up to 5 strong candidate Yes/No questions that help identify the target animal. Use the belief probabilities as context, but focus on asking good, discriminative questions. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it live in the water?"
+      ],
+      "temperature": 0.0
+    },
+    {
+      "messages": [
+        {
+          "content": "You are playing a game of 20 Questions to guess an animal. When asked, you must produce Yes/No questions. You must not add any explanation or extra text: only return the strict format requested by the user.",
+          "role": "system"
+        },
+        {
+          "content": "Is it a carnivore?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it an invertebrate?",
+          "role": "assistant"
+        },
+        {
+          "content": "No",
+          "role": "user"
+        },
+        {
+          "content": "Is it warm-blooded?",
+          "role": "assistant"
+        },
+        {
+          "content": "Yes",
+          "role": "user"
+        },
+        {
+          "content": "Using the beliefs list with probabilities: African elephant: 0.033, African grey parrot: 0.033, Alpaca: 0.033, Blue whale: 0.033, Camel: 0.033, Capybara: 0.033, Flamingo: 0.033, Giant panda: 0.033, Giraffe: 0.033, Gorilla: 0.033, Hippopotamus: 0.033, Hummingbird: 0.033, Kangaroo: 0.033, Koala: 0.033, Llama: 0.033, Manatee: 0.033, Moose: 0.033, Orangutan: 0.033, Ostrich: 0.033, Reindeer: 0.033, Sloth: 0.033, Toucan: 0.033, Wombat: 0.033, Yak: 0.033, Zebra: 0.033, Aardvark: 0.006, Bald eagle: 0.006, Bengal tiger: 0.006, Bottlenose dolphin: 0.006, Cheetah: 0.006, Chimpanzee: 0.006, Coyote: 0.006, Emperor penguin: 0.006, Honey badger: 0.006, Jaguar: 0.006, Kiwi: 0.006, Meerkat: 0.006, Narwhal: 0.006, Platypus: 0.006, Polar bear: 0.006, Red fox: 0.006, Sand cat: 0.006, Sea otter: 0.006, Snow leopard: 0.006, Spotted hyena: 0.006, Tasmanian devil: 0.006, Vampire bat: 0.006, Walrus: 0.006, Wolverine: 0.006, Pangolin: 0.006, Green sea turtle: 0.006, Axolotl: 0.001, Chameleon: 0.001, Great white shark: 0.001, Komodo dragon: 0.001, Saltwater crocodile: 0.001, Tiger shark: 0.001, Poison dart frog: 0.001, King cobra: 0.001, Rhinoceros beetle: 0.001, Horseshoe crab: 0.000, Octopus: 0.000, Praying mantis: 0.000, Giant squid: 0.000, the current candidate questions: ['Does it live in the water?'], and all previous questions and answers:\n\nGenerate exactly 4 candidate Yes/No questions to identify the target animal while respecting the remaining probability mass. Each question should be phrased so the answer is Yes or No. Do not repeat questions. List each question on its own line - no numbering, punctuation, or extra text.",
+          "role": "user"
+        }
+      ],
+      "outputs": [
+        "Does it live in the water?"
+      ],
+      "temperature": 0.0
+    }
+  ],
+  "schema_version": 13,
+  "stage": "serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 4029,
+    "adapter_cost_usd": 0.00296441,
+    "adapter_prompt_tokens": 15823,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 17,
+    "backend": "openrouter",
+    "budget_usd": 105.38480269545715,
+    "completion_tokens": 4029,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 4029,
+        "cost_usd": 0.00296441,
+        "prompt_tokens": 15823,
+        "reasoning_tokens": 0,
+        "requests": 17
+      }
+    },
+    "prompt_tokens": 15823,
+    "reasoning_tokens": 0,
+    "remaining_usd": 41.06803462374961,
+    "requests": 17,
+    "run_budget_usd": 0.75,
+    "run_cost_usd": 0.00296441,
+    "run_remaining_usd": 0.74703559,
+    "total_spent_usd": 64.31676807170754
+  }
+}

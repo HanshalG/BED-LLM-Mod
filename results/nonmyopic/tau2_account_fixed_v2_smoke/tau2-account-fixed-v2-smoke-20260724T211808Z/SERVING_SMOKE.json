@@ -1,0 +1,2109 @@
+{
+  "protocol": {
+    "expected_physical_requests": 12,
+    "fixed_support": true,
+    "llm_predicts_two_step_likelihood_partitions": true,
+    "llm_receives_no_eig_or_entropy_values": true,
+    "no_reasoning": true,
+    "official_simulator_outputs_hidden_until_scoring": true,
+    "private_raw_sha256": "e4a9ef40c5f6165a428987a2dbb7d65eea7b1f9bb2145b60f878f91e0f5f8ce8",
+    "prompt_variants_share_one_physical_support_family": true,
+    "raw_responses_private_and_untracked": true,
+    "root_actions": [
+      "status_bar",
+      "network_status",
+      "speed_test",
+      "payment_request",
+      "sim_status",
+      "customer_lookup"
+    ],
+    "selection_seed": 24319,
+    "stage": "serving_smoke",
+    "standard_bed_support_visible_to_policy": true,
+    "support_size": 6
+  },
+  "records": [
+    {
+      "actions": [
+        {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "sim_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "no_sim_detected"
+                }
+              ],
+              "root_outcome": "hardware_failure"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "account_roaming_disabled"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "hardware_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "sim_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "no_sim_detected"
+                }
+              ],
+              "root_outcome": "hardware_failure"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "account_roaming_disabled"
+                }
+              ],
+              "root_outcome": "roaming_configuration_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "hardware_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "roaming_configuration_issue"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_configuration_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_locked"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane_mode_locked"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "zero_balance"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "zero_balance"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "zero_balance"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_active"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_active"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled"
+                }
+              ],
+              "root_outcome": "account_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_locked"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled_on_account"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled_on_account"
+                }
+              ],
+              "root_outcome": "account_setting_issue"
+            },
+            {
+              "followup_action": "data_usage",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        }
+      ],
+      "actions_by_id": {
+        "customer_lookup": {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_locked"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled_on_account"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled_on_account"
+                }
+              ],
+              "root_outcome": "account_setting_issue"
+            },
+            {
+              "followup_action": "data_usage",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        "network_status": {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "sim_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "no_sim_detected"
+                }
+              ],
+              "root_outcome": "hardware_failure"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "account_roaming_disabled"
+                }
+              ],
+              "root_outcome": "roaming_configuration_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "hardware_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "roaming_configuration_issue"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_configuration_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        "payment_request": {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_active"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        "sim_status": {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_active"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled"
+                }
+              ],
+              "root_outcome": "account_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_setting_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        "speed_test": {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane_mode_locked"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane_mode_locked"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "zero_balance"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "zero_balance"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "zero_balance"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        "status_bar": {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "sim_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "no_sim_detected"
+                }
+              ],
+              "root_outcome": "hardware_failure"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_roaming_disabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "account_roaming_disabled"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "hardware_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        }
+      },
+      "hypotheses": [
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h1"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h2"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h3"
+        },
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h4"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h5"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h6"
+        }
+      ],
+      "official_signature_coverage": 6,
+      "prompt_variant": 0,
+      "ticket": "The customer's cellular service and mobile data are unavailable."
+    },
+    {
+      "actions": [
+        {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_disabled_on_device"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled_on_account"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled_on_account"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhausted"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0986122886681096,
+          "predicted_d2_information": 1.0986122886681096,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_disabled_on_device"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled_on_device"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled_on_account"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "roaming_disabled_on_account"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0986122886681096,
+          "predicted_d2_information": 1.0986122886681096,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "configuration_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhaustion"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_exhaustion"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhaustion"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "configuration_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "configuration_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhausted"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0986122886681096,
+          "predicted_d2_information": 1.0986122886681096,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "data_usage",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhausted"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        }
+      ],
+      "actions_by_id": {
+        "customer_lookup": {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "data_usage",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhausted"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        "network_status": {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhausted"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0986122886681096,
+          "predicted_d2_information": 1.0986122886681096,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        "payment_request": {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "configuration_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhaustion"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_exhaustion"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhaustion"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "configuration_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "configuration_issue"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        },
+        "sim_status": {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_mismatch"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_mismatch"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "account_restriction"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "account_restriction"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_exhausted"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0986122886681096,
+          "predicted_d2_information": 1.0986122886681096,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        "speed_test": {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_disabled_on_device"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled_on_device"
+                }
+              ],
+              "root_outcome": "roaming_mismatch"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled_on_account"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "roaming_disabled_on_account"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhausted"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0986122886681096,
+          "predicted_d2_information": 1.0986122886681096,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "roaming_mismatch"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhausted"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhausted"
+            }
+          ]
+        },
+        "status_bar": {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming_disabled_on_device"
+                }
+              ],
+              "root_outcome": "device_setting_issue"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming_disabled_on_account"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming_disabled_on_account"
+                }
+              ],
+              "root_outcome": "account_restriction"
+            },
+            {
+              "followup_action": "customer_lookup",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "data_limit_reached"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "data_limit_reached"
+                }
+              ],
+              "root_outcome": "data_exhaustion"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 1.0114042647073518,
+          "predicted_d2_information": 1.0114042647073518,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "device_setting_issue"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "account_restriction"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "data_exhaustion"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "data_exhaustion"
+            }
+          ]
+        }
+      },
+      "hypotheses": [
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h1"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h2"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h3"
+        },
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h4"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h5"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h6"
+        }
+      ],
+      "official_signature_coverage": 6,
+      "prompt_variant": 1,
+      "ticket": "The phone cannot obtain usable carrier service or mobile internet."
+    }
+  ],
+  "schema_version": 2,
+  "status": "gate_failed",
+  "summary": {
+    "gates": {
+      "all_pass": false,
+      "all_prompt_variants_completed": true,
+      "all_scores_finite": true,
+      "exact_physical_request_count": true,
+      "mean_signature_coverage_at_least_4": true,
+      "setup_uses_line_details_both": false,
+      "zero_reasoning_tokens": true
+    },
+    "mean_official_signature_coverage": 6.0,
+    "num_prompt_variants": 2,
+    "setup_uses_line_details_count": 0
+  },
+  "usage": {
+    "adapter_cost_usd": 0.00330527,
+    "model": {
+      "adapter_completion_tokens": 6022,
+      "adapter_cost_usd": 0.00330527,
+      "adapter_prompt_tokens": 8403,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 12,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 6022,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 6022,
+          "cost_usd": 0.00330527,
+          "prompt_tokens": 8403,
+          "reasoning_tokens": 0,
+          "requests": 12
+        }
+      },
+      "prompt_tokens": 8403,
+      "reasoning_tokens": 0,
+      "remaining_usd": 41.0647293537496,
+      "requests": 12,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.00330527,
+      "run_remaining_usd": 0.49669473,
+      "total_spent_usd": 64.32007334170756
+    },
+    "physical_requests": 12,
+    "reasoning_tokens": 0
+  }
+}

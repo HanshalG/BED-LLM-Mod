@@ -1,0 +1,1833 @@
+{
+  "protocol": {
+    "capability_test_model": "openai/gpt-5.4",
+    "expected_physical_requests": 12,
+    "fixed_support": true,
+    "llm_predicts_two_step_likelihood_partitions": true,
+    "llm_receives_no_eig_or_entropy_values": true,
+    "no_reasoning": true,
+    "observational_equivalence_gated": true,
+    "official_simulator_outputs_hidden_until_scoring": true,
+    "private_raw_sha256": "97fefd92e49f2266d76d9b2555eadffcbf47bb683ea0e8247f31da0dcd89f635",
+    "prompt_variants_share_one_physical_support_family": true,
+    "raw_responses_private_and_untracked": true,
+    "root_actions": [
+      "status_bar",
+      "network_status",
+      "speed_test",
+      "payment_request",
+      "sim_status",
+      "customer_lookup"
+    ],
+    "schema_version": 3,
+    "selection_seed": 24319,
+    "stage": "serving_smoke",
+    "standard_bed_support_visible_to_policy": true,
+    "support_size": 6,
+    "zero_information_roots": [
+      "customer_lookup",
+      "status_bar",
+      "speed_test",
+      "payment_request",
+      "sim_status"
+    ]
+  },
+  "records": [
+    {
+      "actions": [
+        {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        },
+        {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane indicator on"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        },
+        {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no connection"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no connection"
+            }
+          ]
+        },
+        {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no payment request"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no payment request"
+            }
+          ]
+        },
+        {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "SIM present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "SIM present"
+            }
+          ]
+        },
+        {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "line active roaming enabled data available"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "line active roaming disabled data available"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "line active roaming disabled data available"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "line active roaming enabled data exhausted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "line active roaming disabled data exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "line active roaming disabled data exhausted"
+                }
+              ],
+              "root_outcome": "customer identified"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 1.3296613488547582,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "customer identified"
+            }
+          ]
+        }
+      ],
+      "actions_by_id": {
+        "customer_lookup": {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "line active roaming enabled data available"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "line active roaming disabled data available"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "line active roaming disabled data available"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "line active roaming enabled data exhausted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "line active roaming disabled data exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "line active roaming disabled data exhausted"
+                }
+              ],
+              "root_outcome": "customer identified"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 1.3296613488547582,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "customer identified"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "customer identified"
+            }
+          ]
+        },
+        "network_status": {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane indicator on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane indicator on"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        },
+        "payment_request": {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no payment request"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no payment request"
+            }
+          ]
+        },
+        "sim_status": {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "SIM present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "SIM present"
+            }
+          ]
+        },
+        "speed_test": {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no connection"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no connection"
+            }
+          ]
+        },
+        "status_bar": {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        }
+      },
+      "hypotheses": [
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h1"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h2"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h3"
+        },
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h4"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h5"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h6"
+        }
+      ],
+      "official_signature_coverage": 6,
+      "prompt_variant": 0,
+      "ticket": "The customer's cellular service and mobile data are unavailable."
+    },
+    {
+      "actions": [
+        {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode enabled"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        },
+        {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode shown"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        },
+        {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no connection"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no connection"
+            }
+          ]
+        },
+        {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no payment request"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no payment request"
+            }
+          ]
+        },
+        {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "Airplane mode on"
+                }
+              ],
+              "root_outcome": "SIM present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "SIM present"
+            }
+          ]
+        },
+        {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming enabled on account; data available"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming disabled on account; data available"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming disabled on account; data available"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "roaming enabled on account; data exhausted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "roaming disabled on account; data exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "roaming disabled on account; data exhausted"
+                }
+              ],
+              "root_outcome": "customer and line IDs found"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 1.3296613488547582,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "customer and line IDs found"
+            }
+          ]
+        }
+      ],
+      "actions_by_id": {
+        "customer_lookup": {
+          "action_id": "customer_lookup",
+          "branches": [
+            {
+              "followup_action": "line_details",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "roaming enabled on account; data available"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "roaming disabled on account; data available"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "roaming disabled on account; data available"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "roaming enabled on account; data exhausted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "roaming disabled on account; data exhausted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "roaming disabled on account; data exhausted"
+                }
+              ],
+              "root_outcome": "customer and line IDs found"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "customer_id='C1001' full_name='John Smith' date_of_birth='1985-06-15' email='john.smith@example.com' phone_number='555-123-2002' address=Address(street='123 Main St', city='Anytown', state='CA', zip_code='90210') account_status=<AccountStatus.ACTIVE: 'Active'> payment_methods=[PaymentMethod(method_type=<PaymentMethodType.CREDIT_CARD: 'Credit Card'>, account_number_last_4='1235', expiration_date='12/2026')] line_ids=['L1001', 'L1002', 'L1003'] bill_ids=['B1001', 'B1002', 'B1003'] created_at=datetime.datetime(2025, 1, 15, 10, 30) last_extension_date=None goodwill_credit_used_this_year=25.0": "line_details"
+          },
+          "exact_d2_information": 1.3296613488547582,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 1.3296613488547582,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "customer and line IDs found"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "customer and line IDs found"
+            }
+          ]
+        },
+        "network_status": {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode shown"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode shown"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.6365141682948128,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar",
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: Yes\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        },
+        "payment_request": {
+          "action_id": "payment_request",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no payment request"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "No payment request has been made.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no payment request"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no payment request"
+            }
+          ]
+        },
+        "sim_status": {
+          "action_id": "sim_status",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "Airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "Airplane mode on"
+                }
+              ],
+              "root_outcome": "SIM present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your SIM card is active and working.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "SIM present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "SIM present"
+            }
+          ]
+        },
+        "speed_test": {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "status_bar",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode on"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode on"
+                }
+              ],
+              "root_outcome": "no connection"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no connection"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no connection"
+            }
+          ]
+        },
+        "status_bar": {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "airplane mode enabled"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "airplane mode enabled"
+                }
+              ],
+              "root_outcome": "airplane mode on"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.6365141682948128,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.0,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "airplane mode on"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "airplane mode on"
+            }
+          ]
+        }
+      },
+      "hypotheses": [
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h1"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h2"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "available",
+          "description": "Data allowance available; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h3"
+        },
+        {
+          "account_roaming": "enabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming enabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h4"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming on",
+          "device_roaming": "on",
+          "id": "h5"
+        },
+        {
+          "account_roaming": "disabled",
+          "data_allowance": "exhausted",
+          "description": "Data allowance exhausted; account roaming disabled; device roaming off",
+          "device_roaming": "off",
+          "id": "h6"
+        }
+      ],
+      "official_signature_coverage": 6,
+      "prompt_variant": 1,
+      "ticket": "The phone cannot obtain usable carrier service or mobile internet."
+    }
+  ],
+  "schema_version": 3,
+  "status": "gate_failed",
+  "summary": {
+    "gates": {
+      "all_pass": false,
+      "all_prompt_variants_completed": true,
+      "all_scores_finite": true,
+      "all_zero_information_roots_preserve_equivalence": true,
+      "exact_physical_request_count": true,
+      "mean_signature_coverage_at_least_4": true,
+      "network_status_predicted_informative": false,
+      "setup_uses_line_details_both": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_official_signature_coverage": 6.0,
+    "num_prompt_variants": 2,
+    "setup_uses_line_details_count": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.05791,
+    "model": {
+      "adapter_completion_tokens": 2551,
+      "adapter_cost_usd": 0.05791,
+      "adapter_prompt_tokens": 7858,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 12,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 2551,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2551,
+          "cost_usd": 0.05791,
+          "prompt_tokens": 7858,
+          "reasoning_tokens": 0,
+          "requests": 12
+        }
+      },
+      "prompt_tokens": 7858,
+      "reasoning_tokens": 0,
+      "remaining_usd": 41.006819353749606,
+      "requests": 12,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.05791,
+      "run_remaining_usd": 0.69209,
+      "total_spent_usd": 64.37798334170755
+    },
+    "physical_requests": 12,
+    "reasoning_tokens": 0
+  }
+}

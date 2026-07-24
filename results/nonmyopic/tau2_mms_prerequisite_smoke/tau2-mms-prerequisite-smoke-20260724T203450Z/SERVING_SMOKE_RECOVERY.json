@@ -1,0 +1,3095 @@
+{
+  "protocol": {
+    "backbones": [
+      [],
+      [
+        "airplane_mode_on"
+      ]
+    ],
+    "fault_variants": [
+      "bad_network_preference",
+      "bad_wifi_calling",
+      "break_apn_mms_setting",
+      "break_app_sms_permission",
+      "break_app_storage_permission",
+      "break_app_both_permissions"
+    ],
+    "hypothesis_count": 8,
+    "llm_generates_semantic_support": true,
+    "llm_predicts_two_step_likelihood_partitions": true,
+    "no_reasoning": true,
+    "official_simulator_used_only_for_realized_scoring": true,
+    "official_task_states_hidden_from_llm": true,
+    "private_raw_sha256": "5e9293dc06dfe5fb3207c34977ca01c9f62784f1e7aa3d7c01dbd973c6403903",
+    "raw_responses_private_and_untracked": true,
+    "root_action_count": 8,
+    "root_actions": [
+      "status_bar",
+      "network_status",
+      "network_mode",
+      "apn_settings",
+      "wifi_calling",
+      "speed_test",
+      "mms_probe",
+      "installed_apps"
+    ],
+    "selection_seed": 24315,
+    "source_serving_smoke_sha256": "389aaf02038113a4dd486b58870f26b14ae046d3bd5119bbfba41a587e8b4ff4",
+    "stage": "serving_smoke",
+    "t3_commit": "492f31fa05d2065c750a72d5e798385af282fa5d",
+    "zero_call_coverage_recovery": true
+  },
+  "records": [
+    {
+      "actions": [
+        {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_fail"
+                }
+              ],
+              "root_outcome": "connected"
+            },
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "no_service"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Status Bar: \ud83d\udcf6\u00b3 Good | 5G | \ud83d\udcf1 Data Enabled | \ud83d\udd0b 80%": "apn_settings",
+            "Status Bar: \ud83d\udcf6\u00b9 Poor | 2G | \ud83d\udcf1 Data Enabled | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no_service"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_service"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_service"
+            }
+          ]
+        },
+        {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_fail"
+                }
+              ],
+              "root_outcome": "connected"
+            },
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "disconnected"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: OFF\nSIM Card Status: active\nCellular Connection: connected\nCellular Signal: good\nCellular Network Type: 5G\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "apn_settings",
+            "Airplane Mode: OFF\nSIM Card Status: active\nCellular Connection: connected\nCellular Signal: poor\nCellular Network Type: 2G\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "disconnected"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "disconnected"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "disconnected"
+            }
+          ]
+        },
+        {
+          "action_id": "network_mode",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "fail"
+                }
+              ],
+              "root_outcome": "normal"
+            },
+            {
+              "followup_action": "apn_settings",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "faulty"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Network Mode Preference: 2g_only": "status_bar",
+            "Network Mode Preference: 4g_5g_preferred": "apn_settings"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.9002560512685367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "faulty"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "faulty"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "faulty"
+            }
+          ]
+        },
+        {
+          "action_id": "apn_settings",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal_network"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_network"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_network"
+                }
+              ],
+              "root_outcome": "faulty_apn"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failure"
+                }
+              ],
+              "root_outcome": "normal_apn"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Current APN Name: internet\nMMSC URL (for picture messages): Not Set\n(These are technical settings, usually best left unchanged.)": "status_bar",
+            "Current APN Name: internet\nMMSC URL (for picture messages): http://mms.carrier.com/mms/wapenc\n(These are technical settings, usually best left unchanged.)": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.9002560512685367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "faulty_apn"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "faulty_apn"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "faulty_apn"
+            }
+          ]
+        },
+        {
+          "action_id": "wifi_calling",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "failure"
+                }
+              ],
+              "root_outcome": "unknown"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "failure"
+                }
+              ],
+              "root_outcome": "enabled"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Wi-Fi Calling is currently turned OFF.": "status_bar",
+            "Wi-Fi Calling is currently turned ON.": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.3767701612564367,
+          "predicted_d2_information": 0.3767701612564367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "enabled"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "unknown"
+            }
+          ]
+        },
+        {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failed"
+                }
+              ],
+              "root_outcome": "internet_working"
+            },
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "no_internet"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Speed Test Result: 0.05 Mbps (Very Poor). Connection is very slow. Basic web browsing might be difficult.": "status_bar",
+            "Speed Test Result: 220.00 Mbps (Excellent). Connection is very fast.": "apn_settings"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_internet"
+            }
+          ]
+        },
+        {
+          "action_id": "mms_probe",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "mms_failure"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your messaging app cannot send MMS messages.": "status_bar"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "mms_failure"
+            }
+          ]
+        },
+        {
+          "action_id": "installed_apps",
+          "branches": [
+            {
+              "followup_action": "messaging_permissions",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "sms_permission_denied"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "permissions_ok"
+                }
+              ],
+              "root_outcome": "apps_present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "The following apps are installed on the phone: messaging, browser": "messaging_permissions"
+          },
+          "exact_d2_information": 1.242453324894,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.3767701612564367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "apps_present"
+            }
+          ]
+        }
+      ],
+      "actions_by_id": {
+        "apn_settings": {
+          "action_id": "apn_settings",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal_network"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_network"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_network"
+                }
+              ],
+              "root_outcome": "faulty_apn"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_failure"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failure"
+                }
+              ],
+              "root_outcome": "normal_apn"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Current APN Name: internet\nMMSC URL (for picture messages): Not Set\n(These are technical settings, usually best left unchanged.)": "status_bar",
+            "Current APN Name: internet\nMMSC URL (for picture messages): http://mms.carrier.com/mms/wapenc\n(These are technical settings, usually best left unchanged.)": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.9002560512685367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "faulty_apn"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "faulty_apn"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "normal_apn"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "faulty_apn"
+            }
+          ]
+        },
+        "installed_apps": {
+          "action_id": "installed_apps",
+          "branches": [
+            {
+              "followup_action": "messaging_permissions",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "sms_permission_denied"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "permissions_ok"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "permissions_ok"
+                }
+              ],
+              "root_outcome": "apps_present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "The following apps are installed on the phone: messaging, browser": "messaging_permissions"
+          },
+          "exact_d2_information": 1.242453324894,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.3767701612564367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "apps_present"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "apps_present"
+            }
+          ]
+        },
+        "mms_probe": {
+          "action_id": "mms_probe",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "mms_failure"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your messaging app cannot send MMS messages.": "status_bar"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "mms_failure"
+            }
+          ]
+        },
+        "network_mode": {
+          "action_id": "network_mode",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "fail"
+                }
+              ],
+              "root_outcome": "normal"
+            },
+            {
+              "followup_action": "apn_settings",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "faulty"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Network Mode Preference: 2g_only": "status_bar",
+            "Network Mode Preference: 4g_5g_preferred": "apn_settings"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.9002560512685367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "faulty"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "faulty"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "faulty"
+            }
+          ]
+        },
+        "network_status": {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_fail"
+                }
+              ],
+              "root_outcome": "connected"
+            },
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "disconnected"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: OFF\nSIM Card Status: active\nCellular Connection: connected\nCellular Signal: good\nCellular Network Type: 5G\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "apn_settings",
+            "Airplane Mode: OFF\nSIM Card Status: active\nCellular Connection: connected\nCellular Signal: poor\nCellular Network Type: 2G\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "disconnected"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "disconnected"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "disconnected"
+            }
+          ]
+        },
+        "speed_test": {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failed"
+                }
+              ],
+              "root_outcome": "internet_working"
+            },
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "no_internet"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Speed Test Result: 0.05 Mbps (Very Poor). Connection is very slow. Basic web browsing might be difficult.": "status_bar",
+            "Speed Test Result: 220.00 Mbps (Excellent). Connection is very fast.": "apn_settings"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "internet_working"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_internet"
+            }
+          ]
+        },
+        "status_bar": {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_fail"
+                }
+              ],
+              "root_outcome": "connected"
+            },
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "no_service"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Status Bar: \ud83d\udcf6\u00b3 Good | 5G | \ud83d\udcf1 Data Enabled | \ud83d\udd0b 80%": "apn_settings",
+            "Status Bar: \ud83d\udcf6\u00b9 Poor | 2G | \ud83d\udcf1 Data Enabled | \ud83d\udd0b 80%": "network_status"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no_service"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_service"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "connected"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_service"
+            }
+          ]
+        },
+        "wifi_calling": {
+          "action_id": "wifi_calling",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "failure"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "failure"
+                }
+              ],
+              "root_outcome": "unknown"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "failure"
+                }
+              ],
+              "root_outcome": "enabled"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Wi-Fi Calling is currently turned OFF.": "status_bar",
+            "Wi-Fi Calling is currently turned ON.": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.3767701612564367,
+          "predicted_d2_information": 0.3767701612564367,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "enabled"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "unknown"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "unknown"
+            }
+          ]
+        }
+      },
+      "backbone": [],
+      "case_index": 0,
+      "exact_best_direct_d2_information": 0.8675632284814613,
+      "exact_setup_d1_information": 0.0,
+      "exact_setup_d2_information": 1.242453324894,
+      "hypotheses": [
+        {
+          "description": "Incorrect MMSC endpoint in APN settings",
+          "id": "h1",
+          "mmsc_apn": "faulty",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Messaging app lacks permission to access device storage",
+          "id": "h2",
+          "mmsc_apn": "normal",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "faulty",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Cellular network mode incompatible with MMS protocols",
+          "id": "h3",
+          "mmsc_apn": "normal",
+          "network_mode": "faulty",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Wi-Fi calling interference preventing MMS routing",
+          "id": "h4",
+          "mmsc_apn": "normal",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "faulty"
+        },
+        {
+          "description": "Messaging app lacks permission to send SMS/MMS",
+          "id": "h5",
+          "mmsc_apn": "normal",
+          "network_mode": "normal",
+          "sms_permission": "faulty",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Total lack of cellular connectivity and APN access",
+          "id": "h6",
+          "mmsc_apn": "faulty",
+          "network_mode": "faulty",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Storage permission denied preventing image attachment",
+          "id": "h7",
+          "mmsc_apn": "normal",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "faulty",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "MMSC settings and network mode both misconfigured",
+          "id": "h8",
+          "mmsc_apn": "faulty",
+          "network_mode": "faulty",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        }
+      ],
+      "official_signature_coverage": 5
+    },
+    {
+      "actions": [
+        {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "no_cellular_service"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.5623351446188081,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_cellular_service"
+            }
+          ]
+        },
+        {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal_mode"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal_mode"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "no_cellular_data"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failed"
+                }
+              ],
+              "root_outcome": "cellular_data_available"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 1.0821955300387671,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "cellular_data_available"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "cellular_data_available"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "cellular_data_available"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_cellular_data"
+            }
+          ]
+        },
+        {
+          "action_id": "network_mode",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_fail"
+                }
+              ],
+              "root_outcome": "normal"
+            },
+            {
+              "followup_action": "apn_settings",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "apn_normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "apn_faulty"
+                }
+              ],
+              "root_outcome": "faulty"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Network Mode Preference: 2g_only": "status_bar",
+            "Network Mode Preference: 4g_5g_preferred": "apn_settings"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.5623351446188081,
+          "predicted_d2_information": 0.7356219397587944,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "faulty"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "faulty"
+            }
+          ]
+        },
+        {
+          "action_id": "apn_settings",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "mms_faulty"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "storage_error"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "permission_error"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "connectivity_error"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "connectivity_error"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "permission_error"
+                }
+              ],
+              "root_outcome": "mms_ok"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Current APN Name: internet\nMMSC URL (for picture messages): Not Set\n(These are technical settings, usually best left unchanged.)": "status_bar",
+            "Current APN Name: internet\nMMSC URL (for picture messages): http://mms.carrier.com/mms/wapenc\n(These are technical settings, usually best left unchanged.)": "network_mode"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 1.5595811562598767,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "mms_faulty"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "mms_faulty"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "mms_faulty"
+            }
+          ]
+        },
+        {
+          "action_id": "wifi_calling",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "disabled"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Wi-Fi Calling is currently turned OFF.": "network_mode",
+            "Wi-Fi Calling is currently turned ON.": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.5623351446188081,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "disabled"
+            }
+          ]
+        },
+        {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "no_internet"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failed"
+                }
+              ],
+              "root_outcome": "internet_available"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 1.0821955300387671,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "internet_available"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "internet_available"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "internet_available"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_internet"
+            }
+          ]
+        },
+        {
+          "action_id": "mms_probe",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "no_network"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "no_network"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "no_network"
+                }
+              ],
+              "root_outcome": "mms_failure"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your messaging app cannot send MMS messages.": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "mms_failure"
+            }
+          ]
+        },
+        {
+          "action_id": "installed_apps",
+          "branches": [
+            {
+              "followup_action": "messaging_permissions",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "sms_denied"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "sms_denied"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "sms_granted"
+                }
+              ],
+              "root_outcome": "messaging_app_present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "The following apps are installed on the phone: messaging, browser": "messaging_permissions"
+          },
+          "exact_d2_information": 1.242453324894,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.5623351446188081,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "messaging_app_present"
+            }
+          ]
+        }
+      ],
+      "actions_by_id": {
+        "apn_settings": {
+          "action_id": "apn_settings",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "mms_faulty"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "storage_error"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "permission_error"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "connectivity_error"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "connectivity_error"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "permission_error"
+                }
+              ],
+              "root_outcome": "mms_ok"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Current APN Name: internet\nMMSC URL (for picture messages): Not Set\n(These are technical settings, usually best left unchanged.)": "status_bar",
+            "Current APN Name: internet\nMMSC URL (for picture messages): http://mms.carrier.com/mms/wapenc\n(These are technical settings, usually best left unchanged.)": "network_mode"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 1.5595811562598767,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "mms_faulty"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "mms_faulty"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "mms_ok"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "mms_faulty"
+            }
+          ]
+        },
+        "installed_apps": {
+          "action_id": "installed_apps",
+          "branches": [
+            {
+              "followup_action": "messaging_permissions",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "sms_denied"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "sms_granted"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "sms_denied"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "sms_granted"
+                }
+              ],
+              "root_outcome": "messaging_app_present"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "The following apps are installed on the phone: messaging, browser": "messaging_permissions"
+          },
+          "exact_d2_information": 1.242453324894,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.5623351446188081,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "messaging_app_present"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "messaging_app_present"
+            }
+          ]
+        },
+        "mms_probe": {
+          "action_id": "mms_probe",
+          "branches": [
+            {
+              "followup_action": "network_status",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "no_network"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "no_network"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "network_ok"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "no_network"
+                }
+              ],
+              "root_outcome": "mms_failure"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Your messaging app cannot send MMS messages.": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.6615632381579819,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "mms_failure"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "mms_failure"
+            }
+          ]
+        },
+        "network_mode": {
+          "action_id": "network_mode",
+          "branches": [
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "mms_fail"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_fail"
+                }
+              ],
+              "root_outcome": "normal"
+            },
+            {
+              "followup_action": "apn_settings",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "apn_normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "apn_faulty"
+                }
+              ],
+              "root_outcome": "faulty"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Network Mode Preference: 2g_only": "status_bar",
+            "Network Mode Preference: 4g_5g_preferred": "apn_settings"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.5623351446188081,
+          "predicted_d2_information": 0.7356219397587944,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "faulty"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "normal"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "faulty"
+            }
+          ]
+        },
+        "network_status": {
+          "action_id": "network_status",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal_mode"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal_mode"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty_mode"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal_mode"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty_mode"
+                }
+              ],
+              "root_outcome": "no_cellular_data"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failed"
+                }
+              ],
+              "root_outcome": "cellular_data_available"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Airplane Mode: ON\nSIM Card Status: active\nCellular Connection: no_service\nCellular Signal: none\nCellular Network Type: none\nMobile Data Enabled: Yes\nData Roaming Enabled: No\nWi-Fi Radio: OFF\nWi-Fi Connected: No": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 1.0821955300387671,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "cellular_data_available"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "cellular_data_available"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_cellular_data"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "cellular_data_available"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_cellular_data"
+            }
+          ]
+        },
+        "speed_test": {
+          "action_id": "speed_test",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "no_internet"
+            },
+            {
+              "followup_action": "mms_probe",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "mms_failed"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "mms_failed"
+                }
+              ],
+              "root_outcome": "internet_available"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Speed test failed: No Connection.": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.6615632381579819,
+          "predicted_d2_information": 1.0821955300387671,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "internet_available"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "internet_available"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_internet"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "internet_available"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_internet"
+            }
+          ]
+        },
+        "status_bar": {
+          "action_id": "status_bar",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "no_cellular_service"
+            }
+          ],
+          "exact_d1_information": 0.0,
+          "exact_d2_branch_actions": {
+            "Status Bar: \u2708\ufe0f Airplane Mode | \ud83d\udd0b 80%": "network_mode"
+          },
+          "exact_d2_information": 0.4505612088663047,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.5623351446188081,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "no_cellular_service"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "no_cellular_service"
+            }
+          ]
+        },
+        "wifi_calling": {
+          "action_id": "wifi_calling",
+          "branches": [
+            {
+              "followup_action": "network_mode",
+              "followup_predictions": [
+                {
+                  "hypothesis_id": "h1",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h2",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h3",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h4",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h5",
+                  "outcome": "faulty"
+                },
+                {
+                  "hypothesis_id": "h6",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h7",
+                  "outcome": "normal"
+                },
+                {
+                  "hypothesis_id": "h8",
+                  "outcome": "faulty"
+                }
+              ],
+              "root_outcome": "disabled"
+            }
+          ],
+          "exact_d1_information": 0.4505612088663047,
+          "exact_d2_branch_actions": {
+            "Wi-Fi Calling is currently turned OFF.": "network_mode",
+            "Wi-Fi Calling is currently turned ON.": "status_bar"
+          },
+          "exact_d2_information": 0.8675632284814613,
+          "predicted_d1_information": 0.0,
+          "predicted_d2_information": 0.5623351446188081,
+          "root_predictions": [
+            {
+              "hypothesis_id": "h1",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h2",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h3",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h4",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h5",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h6",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h7",
+              "outcome": "disabled"
+            },
+            {
+              "hypothesis_id": "h8",
+              "outcome": "disabled"
+            }
+          ]
+        }
+      },
+      "backbone": [
+        "airplane_mode_on"
+      ],
+      "case_index": 1,
+      "exact_best_direct_d2_information": 0.8675632284814613,
+      "exact_setup_d1_information": 0.0,
+      "exact_setup_d2_information": 1.242453324894,
+      "hypotheses": [
+        {
+          "description": "Incorrect MMSC APN configuration prevents MMS routing",
+          "id": "h1",
+          "mmsc_apn": "faulty",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Messaging app lacks permission to access device storage for attachments",
+          "id": "h2",
+          "mmsc_apn": "normal",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "faulty",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Messaging app lacks permission to send SMS/MMS messages",
+          "id": "h3",
+          "mmsc_apn": "normal",
+          "network_mode": "normal",
+          "sms_permission": "faulty",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Wi-Fi calling is disabled and cellular data is unavailable",
+          "id": "h4",
+          "mmsc_apn": "unknown",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "faulty"
+        },
+        {
+          "description": "Cellular network mode is set to an incompatible standard",
+          "id": "h5",
+          "mmsc_apn": "unknown",
+          "network_mode": "faulty",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "MMSC APN is missing and storage permissions are denied",
+          "id": "h6",
+          "mmsc_apn": "faulty",
+          "network_mode": "normal",
+          "sms_permission": "normal",
+          "storage_permission": "faulty",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Messaging app lacks both SMS and storage permissions",
+          "id": "h7",
+          "mmsc_apn": "normal",
+          "network_mode": "normal",
+          "sms_permission": "faulty",
+          "storage_permission": "faulty",
+          "wifi_calling": "unknown"
+        },
+        {
+          "description": "Network mode and MMSC settings are both misconfigured",
+          "id": "h8",
+          "mmsc_apn": "faulty",
+          "network_mode": "faulty",
+          "sms_permission": "normal",
+          "storage_permission": "normal",
+          "wifi_calling": "unknown"
+        }
+      ],
+      "official_signature_coverage": 6
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_cases_completed": true,
+      "all_pass": true,
+      "all_scores_finite": true,
+      "all_setup_rollouts_choose_permissions": true,
+      "exact_physical_request_count": true,
+      "mean_signature_coverage_at_least_4": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_official_signature_coverage": 5.5,
+    "num_cases": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.00477317,
+    "model": {
+      "adapter_completion_tokens": 9306,
+      "adapter_cost_usd": 0.00477317,
+      "adapter_prompt_tokens": 15471,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 18,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 9306,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 9306,
+          "cost_usd": 0.00477317,
+          "prompt_tokens": 15471,
+          "reasoning_tokens": 0,
+          "requests": 18
+        }
+      },
+      "prompt_tokens": 15471,
+      "reasoning_tokens": 0,
+      "remaining_usd": 41.11861294374977,
+      "requests": 18,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.00477317,
+      "run_remaining_usd": 0.49522683,
+      "total_spent_usd": 64.26618975170739
+    },
+    "physical_requests": 18,
+    "reasoning_tokens": 0
+  }
+}

@@ -1,0 +1,1605 @@
+{
+  "completed_semantic_batches": [
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "No"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Koala",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Moose",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "No"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Yak",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "Yes"
+        }
+      ],
+      "question": "Is it warm-blooded?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "No"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "No"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "No"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "No"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "No"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "No"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "No"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "No"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "No"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "No"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "No"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "No"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "No"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "No"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "No"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "No"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "No"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "No"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "No"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "No"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "No"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "No"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "No"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "No"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "No"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "No"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "No"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "No"
+        }
+      ],
+      "question": "Is it an invertebrate?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "No"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "No"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "No"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "No"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "No"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "No"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "No"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "No"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "No"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "No"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "No"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "No"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "No"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "No"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "No"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "No"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "No"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "Yes"
+        }
+      ],
+      "question": "Does it live in the water?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "No"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "No"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "No"
+        },
+        {
+          "animal": "Koala",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Llama",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Moose",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Yak",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "No"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "No"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "No"
+        }
+      ],
+      "question": "Is it a mammal?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "No"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "No"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "No"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "No"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "No"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "No"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "No"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "No"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "No"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "No"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "No"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "No"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "No"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "No"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "No"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "No"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "No"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "No"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "No"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "No"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "No"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "No"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "No"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "No"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "No"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "No"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "No"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "No"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "No"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "No"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "No"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "No"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "No"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "No"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "No"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "No"
+        }
+      ],
+      "question": "Does it have feathers?"
+    },
+    {
+      "answers": [
+        {
+          "animal": "Aardvark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "African elephant",
+          "answer": "No"
+        },
+        {
+          "animal": "African grey parrot",
+          "answer": "No"
+        },
+        {
+          "animal": "Alpaca",
+          "answer": "No"
+        },
+        {
+          "animal": "Bald eagle",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Bengal tiger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Blue whale",
+          "answer": "No"
+        },
+        {
+          "animal": "Bottlenose dolphin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Camel",
+          "answer": "No"
+        },
+        {
+          "animal": "Capybara",
+          "answer": "No"
+        },
+        {
+          "animal": "Cheetah",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chimpanzee",
+          "answer": "No"
+        },
+        {
+          "animal": "Coyote",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Emperor penguin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Flamingo",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant panda",
+          "answer": "No"
+        },
+        {
+          "animal": "Giraffe",
+          "answer": "No"
+        },
+        {
+          "animal": "Gorilla",
+          "answer": "No"
+        },
+        {
+          "animal": "Hippopotamus",
+          "answer": "No"
+        },
+        {
+          "animal": "Honey badger",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Hummingbird",
+          "answer": "No"
+        },
+        {
+          "animal": "Jaguar",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Kangaroo",
+          "answer": "No"
+        },
+        {
+          "animal": "Kiwi",
+          "answer": "No"
+        },
+        {
+          "animal": "Koala",
+          "answer": "No"
+        },
+        {
+          "animal": "Llama",
+          "answer": "No"
+        },
+        {
+          "animal": "Manatee",
+          "answer": "No"
+        },
+        {
+          "animal": "Meerkat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Moose",
+          "answer": "No"
+        },
+        {
+          "animal": "Narwhal",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Orangutan",
+          "answer": "No"
+        },
+        {
+          "animal": "Ostrich",
+          "answer": "No"
+        },
+        {
+          "animal": "Platypus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Polar bear",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Red fox",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Reindeer",
+          "answer": "No"
+        },
+        {
+          "animal": "Sand cat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sea otter",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Sloth",
+          "answer": "No"
+        },
+        {
+          "animal": "Snow leopard",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Spotted hyena",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tasmanian devil",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Toucan",
+          "answer": "No"
+        },
+        {
+          "animal": "Vampire bat",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Walrus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wolverine",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Wombat",
+          "answer": "No"
+        },
+        {
+          "animal": "Yak",
+          "answer": "No"
+        },
+        {
+          "animal": "Zebra",
+          "answer": "No"
+        },
+        {
+          "animal": "Pangolin",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Axolotl",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Chameleon",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Great white shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Green sea turtle",
+          "answer": "No"
+        },
+        {
+          "animal": "Komodo dragon",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Saltwater crocodile",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Tiger shark",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Poison dart frog",
+          "answer": "Yes"
+        },
+        {
+          "animal": "King cobra",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Horseshoe crab",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Octopus",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Praying mantis",
+          "answer": "Yes"
+        },
+        {
+          "animal": "Rhinoceros beetle",
+          "answer": "No"
+        },
+        {
+          "animal": "Giant squid",
+          "answer": "Yes"
+        }
+      ],
+      "question": "Is it a carnivore?"
+    }
+  ],
+  "error": "ValueError: required 3 valid questions, received 2",
+  "schema_version": 12,
+  "stage": "serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_completion_tokens": 3921,
+    "adapter_cost_usd": 0.00315648,
+    "adapter_prompt_tokens": 14973,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 16,
+    "backend": "openrouter",
+    "budget_usd": 105.38480269545715,
+    "completion_tokens": 3921,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "model": "google/gemma-4-26b-a4b-it",
+    "model_usage": {
+      "google/gemma-4-26b-a4b-it": {
+        "completion_tokens": 3921,
+        "cost_usd": 0.00315648,
+        "prompt_tokens": 14973,
+        "reasoning_tokens": 0,
+        "requests": 16
+      }
+    },
+    "prompt_tokens": 14973,
+    "reasoning_tokens": 0,
+    "remaining_usd": 41.07099903374963,
+    "requests": 16,
+    "run_budget_usd": 0.75,
+    "run_cost_usd": 0.00315648,
+    "run_remaining_usd": 0.74684352,
+    "total_spent_usd": 64.31380366170752
+  }
+}

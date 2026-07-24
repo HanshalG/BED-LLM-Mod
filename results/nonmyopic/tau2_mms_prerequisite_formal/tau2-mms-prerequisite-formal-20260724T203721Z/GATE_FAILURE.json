@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: invalid rollout branch or follow-up action",
+  "raw_responses_path": "external/tau2_mms_prerequisite_raw/tau2-mms-prerequisite-formal-20260724T203721Z/RAW_RESPONSES.json",
+  "schema_version": 1,
+  "stage": "formal",
+  "status": "failed_closed"
+}

@@ -1,0 +1,7 @@
+{
+  "error": "ValueError: hypothesis status signatures must be distinct",
+  "raw_responses_path": "external/tau2_account_prerequisite_raw/tau2-account-prerequisite-smoke-20260724T205352Z/RAW_RESPONSES.json",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed"
+}
