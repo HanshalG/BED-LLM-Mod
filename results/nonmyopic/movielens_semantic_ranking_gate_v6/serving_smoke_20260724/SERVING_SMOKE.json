@@ -1,0 +1,361 @@
+{
+  "protocol": {
+    "candidate_pool_size": 16,
+    "candidate_pool_uses_presence_and_popularity_only": true,
+    "committed_profile_text_omitted": true,
+    "heldout_count": 8,
+    "heldout_ratings_hidden_from_all_model_prompts": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "e27f60db7550f80842eb3648e93dc820047982382f3ddff5c339b249a049ccbb",
+    "profile_count": 6,
+    "prospective_enrollment_count": 4,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "raw_responses_private_and_untracked": true,
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "recorded_ratings_are_only_outcomes": true,
+    "screen_user_ids": [
+      123,
+      781
+    ],
+    "selected_candidate_count": 4,
+    "selection_seed": 24307,
+    "semantic_ranking_enabled": true,
+    "semantic_ranking_gate": true,
+    "smoke_user_ids_disjoint_from_formal": true,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "serving_smoke",
+    "user_ids": [
+      123,
+      781
+    ],
+    "user_ids_hidden_from_all_model_prompts": true,
+    "v1_v2_v3_users_excluded": true
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "73f5eb95d90358ce52b79c4f5203d28b664f41b1bf0e0564df3c5509be5f8a09",
+            "f5d026774f040a0a9131c2fa07fce20917fae19f2ce6224fe390506722b8a683",
+            "06ec671b2db58c769485de65193619ccf002f25fd8e711941c7a8d5fcc2415a0",
+            "66b3209953e05c46cd5ff47b62015a15af76c9526688d07f33c4c134418d9af0",
+            "e622e276f23ff0032e4768d9ebda51f92294bd54847049a83f9de97481d5fb57",
+            "c05aa9f65a64e43719f4e0470abf537a0ce610ef1d47ab8569aee344918feec1"
+          ],
+          "heldout_nll": 1.526827435317647,
+          "movie": {
+            "genres": [
+              "Drama"
+            ],
+            "title": "Shawshank Redemption, The (1994)"
+          },
+          "new_evidence_effect_hashes": [
+            "bc54a0d22412427a1f200790c969ca910bd06c8a4782a04532fa5cf6aa15a797",
+            "3440eaa7ee8a572d9bbcaf47218c904c0f08c411c1b98590a2ab83530beb9665",
+            "b79d288c165773eff07298079c7da238b721bbe71fab116486e4832ae482736f",
+            "bb52e415e8a71f941bf3dc26b38c34179e6866a86abec55265f0fda33ae3526e",
+            "48fa74de42ca2348380340cd8cdaf2a61d60b40ce633891ece50d571a16821bd",
+            "245e69da46dddb37f531f36fcc0b627e232cb8d254fc8261ca1a6ff79abdacf7"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "73f5eb95d90358ce52b79c4f5203d28b664f41b1bf0e0564df3c5509be5f8a09",
+            "f5d026774f040a0a9131c2fa07fce20917fae19f2ce6224fe390506722b8a683",
+            "06ec671b2db58c769485de65193619ccf002f25fd8e711941c7a8d5fcc2415a0",
+            "66b3209953e05c46cd5ff47b62015a15af76c9526688d07f33c4c134418d9af0",
+            "e622e276f23ff0032e4768d9ebda51f92294bd54847049a83f9de97481d5fb57",
+            "c05aa9f65a64e43719f4e0470abf537a0ce610ef1d47ab8569aee344918feec1",
+            "e70ba15acc18118129297af5000ee044a10c85dbd12e58875abbeea290d09590",
+            "29c33244a84256fdfed7570fff8b14f7b1fe74f7b10fc71e62612c7611e60a12"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama"
+          ],
+          "title": "Shawshank Redemption, The (1994)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "title": "2001: A Space Odyssey (1968)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.014229129240752814,
+        0.007184346463288582,
+        0.005732569121070119,
+        0.004509604012528756
+      ],
+      "initial_heldout_nll": 1.5506052482570467,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "4bd09a7ad70964c0879d3650b2b06c185b9a342039a4c6a1876d667748da5c56",
+        "e70ba15acc18118129297af5000ee044a10c85dbd12e58875abbeea290d09590",
+        "29c33244a84256fdfed7570fff8b14f7b1fe74f7b10fc71e62612c7611e60a12",
+        "c125f20bcb78d86e7559b0b22cb5f6c4cabc956607d6fbcec3ed6919ea10caea",
+        "69a9dbb889f48723302c3f3da55c34ea6abca33326a88c1ea841cd4f58f1fbb1",
+        "c52f687d96d6d0359676140e2daabb98306176024ac37b8bdbd1d62c8c5c5ba9"
+      ],
+      "replay_profiles": [
+        "555d2baf29c6a71c5c6d2d7748884fcabf088e3513cec32bbdefaa364092d8b5",
+        "3a74fbe73b8f5bc7f230d3584b2121c7bc70ac8498ecbafa765f0ec307001826",
+        "c644c23d620cd3b4b7b0f37cfb4fda845c8dc135b6cf34099ff1dbde1f70abbb",
+        "3173e6497ff905e183fcfe6efd0e103c62d95bcc090ca55bbc66334802aaa625",
+        "67128fba67a2af7208d3f22503af2a25a86bdc9cd232d876d6da09ae140beac6",
+        "c071b26f1d6b5d4d3a4f723c2adcb4abf2115f52a97b1f8dce91f3878374c8a7"
+      ],
+      "semantic_lookahead_scores": [
+        0.3,
+        0.6,
+        0.9,
+        0.5
+      ],
+      "semantic_lookahead_selected_branch": 2,
+      "user_id": 123
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "exact_initial_copy_count": 0,
+          "generated_profile_count": 6,
+          "generated_profile_hashes": [
+            "bb419b7720c46fae9ad8f4047a89bf58ce7843aaa555491baf2de2c99bc6f0ee",
+            "3259397445db942c5498ad43c6822539d3c0d938f33dbb74b6d20ecfa5577ff8",
+            "0a0529ee6c83fb90d3eb73c7fee943d0b69935322f2a491d234d60d51872822f",
+            "e416fedcf91798a61a36c12fae974141ba89601760d8b25963cab4040cd1456c",
+            "91ccacadbc230cf9c2f6af1ddecd7ad1f42e7b5000298b36f6a17ca97f48f039",
+            "d3ad4d4842317af5deef0cf2bdebc65b287c2f61b713c3e170d5b3b9b61ff300"
+          ],
+          "heldout_nll": 1.6519288629905353,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "new_evidence_effect_hashes": [
+            "610a9105eeaf04a0a7b6ab82911dea654441a7a74fb87bd0971004455aead760",
+            "19fd7f6a7fae451292e485cc1c785841c1b146a2557999dc885ccb2cb6e7a965",
+            "40e77fec5f4418dbd82bbe0fc333f45d203ab8665e617bfd4c70922acfb8c380",
+            "1fb34b0722731546da17b1ece6778fb5b5509a9e31d2c772165912ecbc23523d",
+            "f058eae564daaa09510fcdd6091c39102440aa31696ef73b280f0723ba26f584",
+            "b37c901b3f737cd1267934a063ce57de32ac6a8b4197db5479cac200d97e4b8c"
+          ],
+          "retained_support_count": 8,
+          "retained_support_hashes": [
+            "bb419b7720c46fae9ad8f4047a89bf58ce7843aaa555491baf2de2c99bc6f0ee",
+            "3259397445db942c5498ad43c6822539d3c0d938f33dbb74b6d20ecfa5577ff8",
+            "0a0529ee6c83fb90d3eb73c7fee943d0b69935322f2a491d234d60d51872822f",
+            "e416fedcf91798a61a36c12fae974141ba89601760d8b25963cab4040cd1456c",
+            "91ccacadbc230cf9c2f6af1ddecd7ad1f42e7b5000298b36f6a17ca97f48f039",
+            "d3ad4d4842317af5deef0cf2bdebc65b287c2f61b713c3e170d5b3b9b61ff300",
+            "9f21417c2313a8e5424d1d08251ad0a3c22807a8b7fac032c49bb4ea1d876688",
+            "49fb57974e71b6a26249b410ba943150a461ca89e21cf9f017a6997fb1f57a04"
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "War"
+          ],
+          "title": "Schindler's List (1993)"
+        }
+      ],
+      "candidate_pool_size": 16,
+      "immediate_eig_selected_branch": 0,
+      "immediate_eig_values": [
+        0.0034550312974936936,
+        0.0025083717566829478,
+        0.0012574014096269348,
+        0.0007191194684299518
+      ],
+      "initial_heldout_nll": 1.508657003895107,
+      "initial_profile_count": 6,
+      "initial_profile_hashes": [
+        "49fb57974e71b6a26249b410ba943150a461ca89e21cf9f017a6997fb1f57a04",
+        "9f21417c2313a8e5424d1d08251ad0a3c22807a8b7fac032c49bb4ea1d876688",
+        "9ccf6dac68cc171eeeb681d014d2bfec128cad9a34eaf7a506cc5511635fb16c",
+        "0074584cce41930524b41db30e708bd24933e785f3a3aa432ddc4360165e4f06",
+        "48591514e08bb3f65028ca5a4133504153ace0cfa0c86693d24708eccc0d6e17",
+        "452322db5eeaddf8f57ae3cede8f542162ed56b207e5b8f19b0bd572e1f9b2d8"
+      ],
+      "replay_profiles": [
+        "2ec0ecc4b39ed9354c825afa6f67f0676e8c7953cad5ed4a43ad950379d5ed2d",
+        "386f22fcb330d3e4d7018626e2054e072cb8c7e572069aecc4d77491ae7aeb23",
+        "65dae3c33bda4bfec4ef32a7dab8fb303f879491c9ca5a25582e1bede11f8cf9",
+        "0414a8abfcd40d437f37b161b959699055182e183a22eda3ecebe9b56bf81414",
+        "e48b5a85c7a5305420b64b78033b2938ec1fb5fe964fb8e549e1ed614c8819c5",
+        "61a1327439ddfe016c94a3bcc0841b3e04754d7cdb3543152f697d91238af352"
+      ],
+      "semantic_lookahead_scores": [
+        0.65,
+        0.4,
+        0.85,
+        0.75
+      ],
+      "semantic_lookahead_selected_branch": 2,
+      "user_id": 781
+    }
+  ],
+  "schema_version": 6,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_replays_completed": true,
+      "all_users_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_branches": 2,
+    "num_users": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.04375481,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 3831,
+        "adapter_cost_usd": 0.00207341,
+        "adapter_prompt_tokens": 5752,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 8,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 12439,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3831,
+            "cost_usd": 0.00207341,
+            "prompt_tokens": 5752,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 8608,
+            "cost_usd": 0.0416814,
+            "prompt_tokens": 11300,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 17052,
+        "reasoning_tokens": 0,
+        "remaining_usd": 19.763578873,
+        "requests": 12,
+        "run_budget_usd": 1.0,
+        "run_cost_usd": 0.04375481,
+        "run_remaining_usd": 0.95624519,
+        "total_spent_usd": 50.621223822457154
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 8608,
+        "adapter_cost_usd": 0.0416814,
+        "adapter_prompt_tokens": 11300,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 12439,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 3831,
+            "cost_usd": 0.00207341,
+            "prompt_tokens": 5752,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 8608,
+            "cost_usd": 0.0416814,
+            "prompt_tokens": 11300,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 17052,
+        "reasoning_tokens": 0,
+        "remaining_usd": 19.763578873,
+        "requests": 12,
+        "run_budget_usd": 1.0,
+        "run_cost_usd": 0.04375481,
+        "run_remaining_usd": 0.95624519,
+        "total_spent_usd": 50.621223822457154
+      }
+    },
+    "physical_requests": 12,
+    "reasoning_tokens": 0
+  }
+}
