@@ -1,0 +1,452 @@
+{
+  "protocol": {
+    "expected_requests": 10,
+    "generator_model": "openai/gpt-5.4",
+    "judge_model": "openai/gpt-5.4-mini",
+    "reasoning_disabled": true,
+    "refresh_action_ids": [
+      "present_illness",
+      "lab_1"
+    ],
+    "retries": 0,
+    "selection_seed": 24294,
+    "smoke_ids": [
+      "25992750",
+      "rare167"
+    ],
+    "support_size": 12,
+    "truth_enters_only_semantic_audit": true,
+    "truth_hidden_from_generators": true
+  },
+  "raw_audit_responses": [
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.0,\"reason\":\"No listed diagnosis matches cat scratch disease/Bartonella encephalopathy; all are unrelated alternatives.\"},{\"id\":\"after_present_illness\",\"best_match_score\":0.0,\"reason\":\"No diagnosis is the same as cat scratch disease or a standard synonym.\"},{\"id\":\"after_lab_1\",\"best_match_score\":0.0,\"reason\":\"No diagnosis matches Bartonella henselae cat scratch disease encephalopathy.\"},{\"id\":\"after_lab_1_duplicate\",\"best_match_score\":0.0,\"reason\":\"No diagnosis matches Bartonella henselae cat scratch disease encephalopathy.\"}],\"lab_to_duplicate_overlap\":0.9166666666666666,\"duplicate_to_lab_overlap\":0.8333333333333334,\"overlap_reason\":\"Most diagnoses are exact or standard-synonym matches between the two lists; mismatches are mainly extra items in the duplicate and wording variants that still count as the same disease.\"}",
+    "{\"supports\":[{\"id\":\"initial\",\"best_match_score\":0.0,\"reason\":\"None of the listed pulmonary/infectious/malignant diagnoses are the same disease or a standard synonym of quadricuspid aortic valve.\"},{\"id\":\"after_present_illness\",\"best_match_score\":0.0,\"reason\":\"All candidates are lung infections, vasculitis, or malignancy; no same-disease or synonym match to quadricuspid aortic valve.\"},{\"id\":\"after_lab_1\",\"best_match_score\":0.0,\"reason\":\"All candidates remain unrelated pulmonary diagnoses; no same-disease or standard-synonym match to quadricuspid aortic valve.\"},{\"id\":\"after_lab_1_duplicate\",\"best_match_score\":0.0,\"reason\":\"All candidates are unrelated pulmonary diagnoses; no same-disease or standard-synonym match to quadricuspid aortic valve.\"}],\"lab_to_duplicate_overlap\":0.9166666666666666,\"duplicate_to_lab_overlap\":0.9166666666666666,\"overlap_reason\":\"The two lists are nearly identical and differ only by the presence/absence of necrotizing bacterial lung abscess; 11 of 12 diagnoses in each list have exact same-disease or standard-synonym matches in the other list.\"}"
+  ],
+  "records": [
+    {
+      "duplicate_semantic_overlap": 0.8333333333333334,
+      "duplicate_truth_score_gap": 0.0,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 0.8333333333333334,
+        "duplicate_to_lab_overlap": 0.8333333333333334,
+        "lab_to_duplicate_overlap": 0.9166666666666666,
+        "overlap_reason": "Most diagnoses are exact or standard-synonym matches between the two lists; mismatches are mainly extra items in the duplicate and wording variants that still count as the same disease.",
+        "supports": [
+          {
+            "best_match_score": 0.0,
+            "id": "initial",
+            "reason": "No listed diagnosis matches cat scratch disease/Bartonella encephalopathy; all are unrelated alternatives."
+          },
+          {
+            "best_match_score": 0.0,
+            "id": "after_present_illness",
+            "reason": "No diagnosis is the same as cat scratch disease or a standard synonym."
+          },
+          {
+            "best_match_score": 0.0,
+            "id": "after_lab_1",
+            "reason": "No diagnosis matches Bartonella henselae cat scratch disease encephalopathy."
+          },
+          {
+            "best_match_score": 0.0,
+            "id": "after_lab_1_duplicate",
+            "reason": "No diagnosis matches Bartonella henselae cat scratch disease encephalopathy."
+          }
+        ]
+      },
+      "source_id": "25992750",
+      "stored_observations": {
+        "lab_1": {
+          "changes_over_time": "Not specified",
+          "date": "Not specified",
+          "findings": "108 mg/dL",
+          "procedure_name": "Capillary blood glucose"
+        },
+        "present_illness": "The patient experienced inguinal pain and swelling for approximately 3 weeks prior to admission. On the morning of admission, she fell down the stairs and struck her head, leading to a hematoma on the forehead without loss of consciousness. Two hours later, she fell again, showing signs of moaning, frothing at the mouth, and tonic\u2013clonic movements that lasted 30 to 60 seconds, along with urinary incontinence and vomiting. The movements resolved spontaneously."
+      },
+      "subset": "challenging",
+      "supports": {
+        "after_lab_1": [
+          "Post-traumatic intracranial hemorrhage causing acute symptomatic generalized seizure",
+          "Post-traumatic cerebral contusion with early post-traumatic seizure",
+          "Herpes simplex encephalitis",
+          "Anti-NMDA receptor encephalitis associated with ovarian teratoma",
+          "Other autoimmune encephalitis",
+          "Ovarian torsion with acute symptomatic seizure",
+          "Incarcerated inguinal hernia with bowel ischemia causing acute symptomatic seizure",
+          "Pelvic or inguinal abscess with sepsis-associated seizure",
+          "Cerebral venous sinus thrombosis associated with pelvic or lower-extremity venous thrombosis",
+          "Acute intermittent porphyria",
+          "Neuropsychiatric systemic lupus erythematosus",
+          "Metastatic ovarian germ cell tumor with intracranial involvement"
+        ],
+        "after_lab_1_duplicate": [
+          "Post-traumatic intracranial hemorrhage causing acute symptomatic generalized seizure",
+          "Post-traumatic cerebral contusion with early post-traumatic seizure",
+          "Focal epilepsy with secondary generalized tonic-clonic seizure precipitating the second fall",
+          "Herpes simplex virus encephalitis",
+          "Anti-NMDA receptor encephalitis associated with ovarian teratoma",
+          "Other autoimmune encephalitis",
+          "Ovarian torsion from an inguinally herniated ovary causing prolonged inguinal pain with acute symptomatic seizure",
+          "Incarcerated inguinal hernia with bowel compromise causing acute symptomatic seizure",
+          "Hydrocele of the canal of Nuck with entrapped ovary or adnexal torsion",
+          "Pelvic or inguinal abscess with sepsis-associated encephalopathy and seizure",
+          "Cerebral venous sinus thrombosis associated with pelvic or lower-extremity thrombosis",
+          "Acute intermittent porphyria"
+        ],
+        "after_present_illness": [
+          "Anti-NMDA receptor encephalitis associated with ovarian teratoma",
+          "Herpes simplex virus encephalitis",
+          "Autoimmune encephalitis",
+          "Ovarian torsion causing acute symptomatic seizure",
+          "Incarcerated inguinal hernia with bowel compromise causing acute symptomatic seizure",
+          "Pelvic or inguinal abscess with sepsis-associated encephalopathy and seizure",
+          "Cerebral venous sinus thrombosis associated with pelvic or lower-extremity thrombosis",
+          "Acute intermittent porphyria",
+          "Neuropsychiatric systemic lupus erythematosus",
+          "Metastatic ovarian germ cell tumor with intracranial metastasis",
+          "Tuberculous meningitis with pelvic or inguinal tuberculosis",
+          "Post-traumatic intracranial hemorrhage causing new-onset seizure"
+        ],
+        "initial": [
+          "Herpes simplex virus encephalitis",
+          "Autoimmune encephalitis",
+          "Anti-NMDA receptor encephalitis associated with ovarian teratoma",
+          "Ovarian torsion with secondary seizure from acute pain or metabolic derangement",
+          "Incarcerated inguinal hernia with bowel ischemia causing seizure",
+          "Sepsis from pelvic or inguinal abscess with septic encephalopathy",
+          "Cerebral venous sinus thrombosis with pelvic deep vein thrombosis",
+          "Acute intermittent porphyria",
+          "Systemic lupus erythematosus with neuropsychiatric involvement",
+          "Metastatic ovarian germ cell tumor with brain metastasis",
+          "Tuberculous meningitis with abdominal or inguinal tuberculosis",
+          "Mitochondrial encephalopathy such as MELAS syndrome"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Cat scratch disease (encephalopathy associated with Bartonella henselae)"
+    },
+    {
+      "duplicate_semantic_overlap": 0.9166666666666666,
+      "duplicate_truth_score_gap": 0.0,
+      "semantic_audit": {
+        "duplicate_semantic_overlap": 0.9166666666666666,
+        "duplicate_to_lab_overlap": 0.9166666666666666,
+        "lab_to_duplicate_overlap": 0.9166666666666666,
+        "overlap_reason": "The two lists are nearly identical and differ only by the presence/absence of necrotizing bacterial lung abscess; 11 of 12 diagnoses in each list have exact same-disease or standard-synonym matches in the other list.",
+        "supports": [
+          {
+            "best_match_score": 0.0,
+            "id": "initial",
+            "reason": "None of the listed pulmonary/infectious/malignant diagnoses are the same disease or a standard synonym of quadricuspid aortic valve."
+          },
+          {
+            "best_match_score": 0.0,
+            "id": "after_present_illness",
+            "reason": "All candidates are lung infections, vasculitis, or malignancy; no same-disease or synonym match to quadricuspid aortic valve."
+          },
+          {
+            "best_match_score": 0.0,
+            "id": "after_lab_1",
+            "reason": "All candidates remain unrelated pulmonary diagnoses; no same-disease or standard-synonym match to quadricuspid aortic valve."
+          },
+          {
+            "best_match_score": 0.0,
+            "id": "after_lab_1_duplicate",
+            "reason": "All candidates are unrelated pulmonary diagnoses; no same-disease or standard-synonym match to quadricuspid aortic valve."
+          }
+        ]
+      },
+      "source_id": "rare167",
+      "stored_observations": {
+        "lab_1": {
+          "changes_over_time": "Not specified.",
+          "date": "Not specified",
+          "findings": "White blood cell count of 15,100 per microliter (leukocytosis present).",
+          "procedure_name": "White blood cell count"
+        },
+        "present_illness": "Symptoms developed over 2 to 3 months, culminating in a total weight loss of 20-25 pounds. No specific aggravating or relieving factors mentioned."
+      },
+      "subset": "rare",
+      "supports": {
+        "after_lab_1": [
+          "Pulmonary tuberculosis",
+          "Necrotizing bacterial lung abscess",
+          "Chronic cavitary pulmonary aspergillosis",
+          "Granulomatosis with polyangiitis",
+          "Primary lung adenocarcinoma",
+          "Small cell lung carcinoma",
+          "Hodgkin lymphoma with pulmonary involvement",
+          "Chronic pulmonary histoplasmosis",
+          "Chronic pulmonary coccidioidomycosis",
+          "Pulmonary blastomycosis",
+          "Septic pulmonary emboli from right-sided infective endocarditis",
+          "Pulmonary nocardiosis"
+        ],
+        "after_lab_1_duplicate": [
+          "Pulmonary tuberculosis",
+          "Chronic cavitary pulmonary aspergillosis",
+          "Granulomatosis with polyangiitis",
+          "Primary lung adenocarcinoma",
+          "Small cell lung carcinoma",
+          "Hodgkin lymphoma with pulmonary involvement",
+          "Chronic pulmonary histoplasmosis",
+          "Chronic pulmonary coccidioidomycosis",
+          "Pulmonary blastomycosis",
+          "Septic pulmonary emboli from right-sided infective endocarditis",
+          "Pulmonary nocardiosis",
+          "Necrotizing bacterial lung abscess"
+        ],
+        "after_present_illness": [
+          "Pulmonary tuberculosis",
+          "Chronic cavitary pulmonary aspergillosis",
+          "Granulomatosis with polyangiitis",
+          "Primary lung adenocarcinoma",
+          "Small cell lung carcinoma",
+          "Hodgkin lymphoma with pulmonary involvement",
+          "Chronic pulmonary histoplasmosis",
+          "Chronic pulmonary coccidioidomycosis",
+          "Pulmonary blastomycosis",
+          "Septic pulmonary emboli from right-sided infective endocarditis",
+          "Pulmonary nocardiosis",
+          "Necrotizing bacterial lung abscess"
+        ],
+        "initial": [
+          "Pulmonary tuberculosis",
+          "Chronic cavitary pulmonary aspergillosis",
+          "Granulomatosis with polyangiitis",
+          "Primary lung adenocarcinoma",
+          "Small cell lung carcinoma",
+          "Hodgkin lymphoma",
+          "Non-Hodgkin lymphoma",
+          "Chronic pulmonary histoplasmosis",
+          "Chronic pulmonary coccidioidomycosis",
+          "Blastomycosis with pulmonary involvement",
+          "Septic pulmonary emboli from right-sided infective endocarditis",
+          "Pulmonary nocardiosis"
+        ]
+      },
+      "true_diagnosis_measurement_only": "Quadricuspid aortic valve"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "duplicate_semantic_overlaps": [
+      0.8333333333333334,
+      0.9166666666666666
+    ],
+    "duplicate_truth_score_gaps": [
+      0.0,
+      0.0
+    ],
+    "gates": {
+      "all_pass": true,
+      "all_supports_size_twelve": true,
+      "both_duplicate_semantic_overlaps_at_least_0_80": true,
+      "both_duplicate_truth_score_gaps_at_most_0_05": true,
+      "duplicate_prompts_exact": true,
+      "exactly_10_requests": true,
+      "no_hidden_target_in_source_evidence": true,
+      "zero_reasoning": true
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "source_target_leaks": 0
+  },
+  "usage": {
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "duplicate": {
+        "adapter_completion_tokens": 297,
+        "adapter_cost_usd": 0.006555,
+        "adapter_prompt_tokens": 840,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1583,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1100,
+            "cost_usd": 0.023100000000000002,
+            "prompt_tokens": 2640,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 483,
+            "cost_usd": 0.0034155,
+            "prompt_tokens": 1656,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4296,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.77172447299995,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0265155,
+        "run_remaining_usd": 0.4734845,
+        "total_spent_usd": 46.613078222457204
+      },
+      "initial": {
+        "adapter_completion_tokens": 266,
+        "adapter_cost_usd": 0.0045874999999999996,
+        "adapter_prompt_tokens": 239,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1583,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1100,
+            "cost_usd": 0.023100000000000002,
+            "prompt_tokens": 2640,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 483,
+            "cost_usd": 0.0034155,
+            "prompt_tokens": 1656,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4296,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.77172447299995,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0265155,
+        "run_remaining_usd": 0.4734845,
+        "total_spent_usd": 46.613078222457204
+      },
+      "judge": {
+        "adapter_completion_tokens": 483,
+        "adapter_cost_usd": 0.0034155,
+        "adapter_prompt_tokens": 1656,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1583,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1100,
+            "cost_usd": 0.023100000000000002,
+            "prompt_tokens": 2640,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 483,
+            "cost_usd": 0.0034155,
+            "prompt_tokens": 1656,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4296,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.77172447299995,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0265155,
+        "run_remaining_usd": 0.4734845,
+        "total_spent_usd": 46.613078222457204
+      },
+      "lab": {
+        "adapter_completion_tokens": 267,
+        "adapter_cost_usd": 0.006105,
+        "adapter_prompt_tokens": 840,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1583,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1100,
+            "cost_usd": 0.023100000000000002,
+            "prompt_tokens": 2640,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 483,
+            "cost_usd": 0.0034155,
+            "prompt_tokens": 1656,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4296,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.77172447299995,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0265155,
+        "run_remaining_usd": 0.4734845,
+        "total_spent_usd": 46.613078222457204
+      },
+      "present": {
+        "adapter_completion_tokens": 270,
+        "adapter_cost_usd": 0.0058525,
+        "adapter_prompt_tokens": 721,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1583,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1100,
+            "cost_usd": 0.023100000000000002,
+            "prompt_tokens": 2640,
+            "reasoning_tokens": 0,
+            "requests": 8
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 483,
+            "cost_usd": 0.0034155,
+            "prompt_tokens": 1656,
+            "reasoning_tokens": 0,
+            "requests": 2
+          }
+        },
+        "prompt_tokens": 4296,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.77172447299995,
+        "requests": 10,
+        "run_budget_usd": 0.5,
+        "run_cost_usd": 0.0265155,
+        "run_remaining_usd": 0.4734845,
+        "total_spent_usd": 46.613078222457204
+      }
+    }
+  }
+}
