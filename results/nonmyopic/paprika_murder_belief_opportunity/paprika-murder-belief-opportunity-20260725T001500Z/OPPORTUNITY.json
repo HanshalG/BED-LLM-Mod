@@ -1,0 +1,1267 @@
+{
+  "protocol": {
+    "belief_size": 8,
+    "case_indices": [
+      31,
+      27,
+      46,
+      39,
+      12,
+      18
+    ],
+    "dataset": "PAPRIKA murder_mystery eval",
+    "dataset_sha256": "2ae865e60662135f6e867a95653be48ecc8b6a51cddc5c3e46e2538ae24b2184",
+    "expected_physical_requests": 378,
+    "first_action_count": 6,
+    "hidden_world_visible_only_to_environment": true,
+    "official_environment_prompt": true,
+    "private_raw_sha256": "23e1ff9785f360e91ae101b531a26a0c9bb08354a99415515c5cf477148087b9",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "reserve_indices": [
+      19,
+      44,
+      43,
+      25,
+      20,
+      32
+    ],
+    "second_action_count": 4,
+    "selection_seed": 24329,
+    "stage": "opportunity",
+    "truth_used_only_by_post_generation_equivalence_judge": true
+  },
+  "records": [
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 31,
+      "culprit_reference_sha256": "d5a6a01462b3e5081890e05fce44a93e9191b1bb3282e68880ff04e90a856c70",
+      "first_branches": [
+        {
+          "action": "Decrypt or obtain technical assistance to decrypt Elias Park's encrypted message and identify every named person, warning, or meeting reference in it.",
+          "response_sha256": "921936a9537bf7e4d31eebc5393f52317f3a7bdd8098031602752087cbf43d08",
+          "second_branches": [
+            {
+              "action": "Interview and isolate any cargo handlers assigned to restricted cargo near Dock 3, focusing on who was scheduled or physically present after rotation shift.",
+              "response_sha256": "a8ad51090d7341d03cbb8f87b6fd9d8f4f72977d6de6900241c19b18313a3b9b",
+              "truth_probability": 0.46
+            },
+            {
+              "action": "Audit all manifests, authorization records, and chain-of-custody entries for any restricted cargo transfers connected to Dock 3 to identify Elias Park's likely meeting counterpart.",
+              "response_sha256": "000cc3ee549e2ce11a1cd4937e2ffeb904d079d02534cd5fbf9b1d0b7d49a953",
+              "truth_probability": 0.35
+            },
+            {
+              "action": "Cross-check Hayden's security activity, patrol assignments, and any manual overrides or monitoring gaps affecting Dock 3 or the airlock during the after-rotation-shift window.",
+              "response_sha256": "1aa8cf3b5c67967ea5aab65a340eabf693b761a8620fe9fd22820c69d17a3e45",
+              "truth_probability": 0.43
+            },
+            {
+              "action": "Pull access logs for Dock 3 maintenance corridor specifically for the period after rotation shift and identify everyone who entered or exited around Elias Park's last movements.",
+              "response_sha256": "43649d54c289d4fd4839eb91d0d08941e21bc4b089ca2e0d349e168835f55506",
+              "truth_probability": 0.46
+            }
+          ],
+          "truth_probability": 0.28
+        },
+        {
+          "action": "Retrieve and review surveillance, maintenance tickets, and atmospheric control records for the airlock to determine who could trigger or mask a toxic gas release.",
+          "response_sha256": "9410b5684c9e174b3558585b517114ace2f8e4df51150ab19b3648ea0e7bb100",
+          "second_branches": [
+            {
+              "action": "Pull the manual authorization records behind the atmospheric override and identify which credential or approval chain was used to obscure the source route.",
+              "response_sha256": "322562f42ebf3ee863e6c8e3bd927d48f384b64eb2d83facb12aa9fc99ce181a",
+              "truth_probability": 0.41
+            },
+            {
+              "action": "Audit all recent entries into the airlock-adjacent maintenance corridor by security-cleared staff and contractors around the earlier sighting window.",
+              "response_sha256": "32c6d85ffcbfe18a092bbef7130bc085746c8f0eb6ca348efd76f965b5d437f3",
+              "truth_probability": 0.35
+            },
+            {
+              "action": "Examine the encrypted message from Elias Park for references to security-level access, manual overrides, or anyone pressuring him about atmospheric or airlock systems.",
+              "response_sha256": "9e538a2f019db60557bd78301ce6b409ae3cbc6f106be513616c4decc0c3b8ef",
+              "truth_probability": 0.31000000000000005
+            },
+            {
+              "action": "Enhance and compare the partial surveillance figure from the maintenance corridor against personnel cleared for security-level areas, including gait, build, and timing matches.",
+              "response_sha256": "b987e0804bcdfa0f03db0556dc3f65d9c2d92419e9ab6c040c5e00fda24294f4",
+              "truth_probability": 0.31
+            }
+          ],
+          "truth_probability": 0.25
+        },
+        {
+          "action": "Ask Olivia to explain every interaction she had with Elias in the 24 hours before his death and whether she arranged or redirected anyone to the airlock.",
+          "response_sha256": "8859c7634866b036634b230cdab1f630eac8eaa21ad979ac462274c343dfe805",
+          "second_branches": [
+            {
+              "action": "Obtain the maintenance-ticket trail for the stalled guest promenade request Olivia said she forwarded, including timestamps, recipients, and any outage-window approvals involving Elias.",
+              "response_sha256": "b0fe5119665481470d5a8109188946bf282a3668b35da9e7f0c7c8620ff46342",
+              "truth_probability": 0.2
+            },
+            {
+              "action": "Reconstruct Elias's route after the reported lift-bank sighting last night by correlating lift logs with nearby door events to see whether anyone redirected or followed him toward the airlock.",
+              "response_sha256": "ab6f4b68abdffe3b812667c078faded0b28c7d7d57fa485cb5d4db41660a07a1",
+              "truth_probability": 0.3
+            },
+            {
+              "action": "Pull access-control and corridor camera records for the service corridor and lift bank during the afternoon and last night to verify Olivia's claimed sightings and identify the nearby crew member at the lift bank.",
+              "response_sha256": "4d3390783b8d5d9f9b2053444e6a97003882203e9977d2ee97b0e6ef85e7adce",
+              "truth_probability": 0.22
+            },
+            {
+              "action": "Cross-check engineering scheduling and outage-window communications from yesterday morning to determine who disputed or delayed the promenade maintenance Elias complained about at the front desk.",
+              "response_sha256": "b2248fe0353e1e72552bb59fe6b037ba284c1432eb9711d19a77a71a535387c9",
+              "truth_probability": 0.2800000000000001
+            }
+          ],
+          "truth_probability": 0.22
+        },
+        {
+          "action": "Pull the full airlock and corridor access logs, including overrides and failed entries, for the 12 hours surrounding Elias Park's death.",
+          "response_sha256": "6bc99f963a4966b6c78faf67360b30c6b47a26253e643daef0b6d4fcf5c9bba3",
+          "second_branches": [
+            {
+              "action": "Identify what camera or sensor feed was lost during the brief corridor coverage gap and pull adjacent corridor, airlock, and system telemetry to reconstruct movement just before the estimated time of death.",
+              "response_sha256": "eaaee274cbea01acf2f34b9eea77299aab65bc4b8891a54d23d40083adb8181f",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Review maintenance and atmosphere-control activity around the airlock during the narrow activity cluster to determine whether any technician or systems operator could have created the toxic gas leak while avoiding a standard access log.",
+              "response_sha256": "99a76297064a07910e01f0a3fd130fc2054bbf3f6ee24a1ab9a709facb02932c",
+              "truth_probability": 0.35
+            },
+            {
+              "action": "Trace the two failed access attempts to the restricted corridor by resolving badge IDs, terminals, or devices used and checking whether either links to maintenance, contractors, or known crew.",
+              "response_sha256": "91028cbd3745e586a7df1bc9f966c886ab279e251c3191213db30d963abb063b",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Audit the specific security-restricted door override logged under Hayden's credentials by comparing its raw authentication record against the recently edited or masked portions of the override trail.",
+              "response_sha256": "d7cc0dc06d9980b76e67d98115ced5dee058e497320d6e5e8a0df129f8b6b1e8",
+              "truth_probability": 0.34
+            }
+          ],
+          "truth_probability": 0.28
+        },
+        {
+          "action": "Ask Marco whether he supplied Elias with any food, drink, or errand that could have placed him near the airlock shortly before the gas leak.",
+          "response_sha256": "bb5c3c812975968b1065bf9a2bddbecce119f32ceb05ce85ed422a3314b106c0",
+          "second_branches": [
+            {
+              "action": "Review surveillance or station movement records around the galley at the time of Marco's last sighting to establish who else was nearby and may have redirected Elias after he left.",
+              "response_sha256": "27baa897ec7af87143d8084bff56f24bf087c66a0992b4399ecfe118c3ff4edb",
+              "truth_probability": 0.24
+            },
+            {
+              "action": "Pull corridor and door access logs for the route from the galley to determine where Elias went after Marco last saw him headed away from the galley.",
+              "response_sha256": "063ae42c31f60016e89341d416f6b8df9eb8d211cc299bf8f991d77cd6c88c5e",
+              "truth_probability": 0.27
+            },
+            {
+              "action": "Identify and interview the specific crew member or camera coverage that could confirm Marco's claim that Elias was headed away from the galley rather than toward the airlock.",
+              "response_sha256": "bba8eef35ae0447258b303ad31e13a4ba402caa7dd9b1ee429422e76dab981f0",
+              "truth_probability": 0.21000000000000002
+            },
+            {
+              "action": "Compare Marco's statement that anyone claiming he sent Elias food, drink, or errands is lying or confused against prior and future witness accounts for direct contradiction.",
+              "response_sha256": "c94d99c3e5f591f178fd35d6040161c2bbfef02b7769a333cd68f6c45b9fc084",
+              "truth_probability": 0.20000000000000004
+            }
+          ],
+          "truth_probability": 0.19000000000000003
+        },
+        {
+          "action": "Ask Hayden to account minute-by-minute for his location during the leak window and confront him immediately with the corresponding security access log entries.",
+          "response_sha256": "286ebca4da41e74638830d70cb4463b661f5d8607a91a4a4a8e844d089db448b",
+          "second_branches": [
+            {
+              "action": "Identify and interview every crew member or contractor recorded in the west corridor during the leak window, using Hayden's newly stated route as the filter.",
+              "response_sha256": "88b32ac80a7e3acd88d4ee1d5986fc5bcb3fcaca46786c5fad01492cb189474b",
+              "truth_probability": 0.23
+            },
+            {
+              "action": "Pull full security-control duty records and internal console activity for Hayden's station during the leak window to verify his claim that he started and ended at security control.",
+              "response_sha256": "ce7de0cc1c922a96c0b3364e3a0d0899bfbef07794c392dadc17679e7ac7a744",
+              "truth_probability": 0.34
+            },
+            {
+              "action": "Compare Hayden's claimed timeline with the exact access-log timestamps he referenced as explainable movement, checking for gaps inconsistent with a round from security control to the west corridor and back.",
+              "response_sha256": "e0b25de145a86afd90150e963f21449b9a165c106494628d1b0847e71e4eea4a",
+              "truth_probability": 0.33
+            },
+            {
+              "action": "Map all door-open events and camera coverage along Hayden's stated west-corridor route during the leak window to test whether his movement matches a routine round.",
+              "response_sha256": "a5c96a58cadb0423cb5f3ab93b6bf5ad2e413edda96c931951ac19d6791bdd38",
+              "truth_probability": 0.34
+            }
+          ],
+          "truth_probability": 0.24
+        }
+      ],
+      "initial_truth_probability": 0.2,
+      "replay_truth_probability": 0.40999999999999986
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 27,
+      "culprit_reference_sha256": "8b2113f94fde9f948f637b22835045d0e1be8ffd53042377df2d922126739c8c",
+      "first_branches": [
+        {
+          "action": "Inventory the supply cache against recent group records to determine exactly which items were stolen and who had legitimate access to them.",
+          "response_sha256": "bb951aed337b5fb51bd0cd555dad11b21c2089246e3015a550d80ea24905112f",
+          "second_branches": [
+            {
+              "action": "Examine cache access records, key custody, or witness recollections specifically for Jonas, Freya, Erik, and Lars, since the latest inventory review identified them as the people with legitimate access to the missing food and fuel.",
+              "response_sha256": "aceb289e70b7c299fb572dbcf8e3824f80abc7d9e775ab06e751558166fdcf0d",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Reconstruct Petra's movements and authority around the cache to test the newly established point that she normally lacked cache lock duty and only had scout-issued basics, looking for any exception on the day of the murder.",
+              "response_sha256": "599e7b1521a31f54ee5bbc509fafc2f44711a1802d52714b7300ef5144a62b53",
+              "truth_probability": 0.2
+            },
+            {
+              "action": "Interview Lars in detail about the day's meals, focusing on who requested extra ration packs or dried meat and whether any of Jonas, Freya, Erik, or other group members discussed shortages before Jonas was killed.",
+              "response_sha256": "84b8ced0ce47a6df803cc84667e73f535f00b152fb7fbd70dfd44e95e1b4fa19",
+              "truth_probability": 0.19
+            },
+            {
+              "action": "Trace intended use or recent handling of the two missing lantern fuel canisters by asking who last signed them out, transported them, or needed cave lighting beyond normal scout-issued basics.",
+              "response_sha256": "7ffff2d36b8fadce5920d691af4e891c65f7903be0579fc7b321233bef5426e1",
+              "truth_probability": 0.2
+            }
+          ],
+          "truth_probability": 0.18
+        },
+        {
+          "action": "Question Freya, Erik, and Petra separately on exactly what stolen supplies were missing and compare their answers for nonpublic detail leakage or contradictions.",
+          "response_sha256": "637cb9b1077f95402c6b48f463906e67dd4f813bc0162b834ebe9a947d17c329",
+          "second_branches": [
+            {
+              "action": "Ask each suspect and witness who besides Jonas had direct access to the cache inventory records or heard Jonas complain specifically about rations and medical stock, to trace how that exact item list spread.",
+              "response_sha256": "c88b03ff5081ad6d8f4db7b900e738fa46da33f0766052e83dfc1fad8fbb4e29",
+              "truth_probability": 0.16
+            },
+            {
+              "action": "Inspect the cache site and nearby living areas for any recently used antiseptic bandage rolls or discarded bean tins/dried meat packaging, focusing on the exact items all three named.",
+              "response_sha256": "162270533afa72ff455ab757733146b39e858f701e50fa5d00eb8333641185d3",
+              "truth_probability": 0.1
+            },
+            {
+              "action": "Examine Jonas Wild's unfinished note for any wording that could connect to the repeated ration-and-medical item list, including whether it appears he was documenting a known insider theft rather than a vague shortage.",
+              "response_sha256": "501d812f666501426d3b21f6085d0136d6c75d61d8e2e0aeadf9afc62a5a92d5",
+              "truth_probability": 0.24000000000000002
+            },
+            {
+              "action": "Re-interview Freya, Erik, and Petra separately and press each on why they all independently referenced the same specific missing set of dried meat, beans, and bandage/medical wraps despite claiming limited counting or secondhand knowledge.",
+              "response_sha256": "5cc5c749b880fdaf831d209a11fbb71628b41ac53700e538aba305f770ba956c",
+              "truth_probability": 0.1
+            }
+          ],
+          "truth_probability": 0.10000000000000002
+        },
+        {
+          "action": "Ask Lars for a minute-by-minute account of who ate, who skipped the meal he prepared, and who left toward the cave system before Jonas was found.",
+          "response_sha256": "505d5262362b157f1cbe7a70ad0ccff5d81be87c5fac38cddfe0e36e5e42c4ad",
+          "second_branches": [
+            {
+              "action": "Examine the remaining meal and serving items to determine whether Freya's small portion, Erik's takeaway portion, Petra's skipped meal, and Jonas's later arrival reveal anything about timing, interruption, or a planned meeting.",
+              "response_sha256": "e6b2b1565897139b064c7795e7adcd27bade087ff463ce054fef2f9b06e32812",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Ask Lars to identify exactly who he saw drifting in and out of the passageways after Jonas arrived later to the meal area, even if he cannot give exact times.",
+              "response_sha256": "06f1aba08e98720e0ff869fca2b10c6b8b9f39e90eae2d9ed82442d7267dc01b",
+              "truth_probability": 0.11
+            },
+            {
+              "action": "Verify Petra's stated patrol by checking which passageways she was supposed to inspect when she skipped most of the meal and whether that overlapped with the cave area.",
+              "response_sha256": "c70b074940e814b565d233f2fbddad903bf57adc695272d506f2203f0be728c2",
+              "truth_probability": 0.1
+            },
+            {
+              "action": "Reconstruct Erik's route and destination after he took his portion and left early, focusing on whether that path could have led toward the cave system and supply cache.",
+              "response_sha256": "499a82fa529eb6bad9bab59387a4ecec4f977ce7e32a42bb49c8c86c664f77fd",
+              "truth_probability": 0.10000000000000002
+            }
+          ],
+          "truth_probability": 0.11
+        },
+        {
+          "action": "Forensically examine Jonas Wild's unfinished note for handwriting continuation, impressions, fingerprints, and traces that indicate where and when it was written.",
+          "response_sha256": "b7bac86f8fd6daf49e900356a6eecb937a8515573e32a5f573089caceb13edf2",
+          "second_branches": [
+            {
+              "action": "Examine the immediate area around where Jonas was found for signs of an interrupted writing session, including a missing pen, shifted crate or board, dropped supplies, or movement trails leading away from the cache.",
+              "response_sha256": "a83532f153cf86e957e9e301f668e084fe7d88de04d8cd758a28370edeffd79a",
+              "truth_probability": 0.12
+            },
+            {
+              "action": "Reconstruct Jonas's final timeline by estimating when the note was written from the unevenly set ink and matching that narrow window against each suspect's and witness's whereabouts near the cave cache.",
+              "response_sha256": "349f5edc055469e8ef5914a0d164d9a9d84e639591a82946c9e9de430ebc5a68",
+              "truth_probability": 0.18
+            },
+            {
+              "action": "Dust and chemically enhance the smudged prints along the note's edge, then compare any recoverable ridge detail against Freya, Erik, Petra, Lars, and known group members.",
+              "response_sha256": "3024f5066866148bb965b299740ed7ad29eaf6afb204d0b8d7be3e9de0ff606c",
+              "truth_probability": 0.24000000000000002
+            },
+            {
+              "action": "Search the cave supply cache area for the hard surface implied by the note's indent pattern, focusing on crates or boards that may still show matching impressions, ink transfer, or signs Jonas was writing there when interrupted.",
+              "response_sha256": "c767325d078dab11bfc0b3eeb83fdcd2dc7a27a7f25d754e50b1ec710af7db54",
+              "truth_probability": 0.10000000000000002
+            }
+          ],
+          "truth_probability": 0.11000000000000001
+        },
+        {
+          "action": "Show Jonas Wild's unfinished note individually to Freya, Erik, Petra, and Lars and record each person's immediate explanation of the fragment and who they think Jonas was naming.",
+          "response_sha256": "b64b5991af555cefa263e7dc3673b7344dad34de4836347390508cb0e217a1f7",
+          "second_branches": [
+            {
+              "action": "Compare Freya's reference to being 'close to the books' with actual inventory and ledger access records to identify who controlled supply accounting around the missing rations.",
+              "response_sha256": "2f87073fb603a26caada4a677cc85588ffc8b9c641e246c48702c0cd7db4458e",
+              "truth_probability": 0.18999999999999995
+            },
+            {
+              "action": "Map Petra's claim that the cook or deputy would be 'near the storage' against the group's duty roster and movement logs for the day Jonas was killed.",
+              "response_sha256": "c2488d038cbf6779eacf71158fb7d8081494ad1ca98c43e6a79922ec09eed6a8",
+              "truth_probability": 0.34
+            },
+            {
+              "action": "Interview Lars in detail about who the 'regulars who handle the stores' are, and have him name every person he saw collecting food or supplies before the murder.",
+              "response_sha256": "494d7f610ba2f0682fb6dfa16098b46bf2195cbe6fefdae20abee85465c2627a",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Press Erik on why he specifically redirected the unfinished note toward Freya and ask him to account for every contact he had with the cache area or supply discussions that day.",
+              "response_sha256": "4d667f0a3fb862bb55cb65c859b29c9a1f0548edf199c03c0e5d389f2e2052cb",
+              "truth_probability": 0.13
+            }
+          ],
+          "truth_probability": 0.14
+        },
+        {
+          "action": "Map and search the route between camp and the cave system for footprints, blood traces, discarded gear, or a murder weapon linking a named person to the scene.",
+          "response_sha256": "7e92ab269f089937946906c47095733ccbd8e032dce0479f54e303e7c83db249",
+          "second_branches": [
+            {
+              "action": "Reconstruct a movement timeline focused on who had reason to pass through the narrow approach where the cloth snagged and the muddied boot prints were found.",
+              "response_sha256": "32d8981d4b97d8430a097180cc0c848bac85465845c0a6d5f74ffebbaa93eede",
+              "truth_probability": 0.16
+            },
+            {
+              "action": "Examine the torn scrap of cloth from the narrow approach and compare its fabric, color, and tear pattern against Freya's, Erik's, Petra's, and Lars's clothing and gear.",
+              "response_sha256": "888dae34e7e504f77c900dffb449b1a4f27a3dbea387b4af48bb0d8e273e5344",
+              "truth_probability": 0.19999999999999996
+            },
+            {
+              "action": "Check lanterns, cooking kit, weapon maintenance supplies, and pack straps at camp to identify who commonly uses the old grease seen near the cave mouth.",
+              "response_sha256": "71f17dbc2ca03457699f13fe2b06648357b5a8401badc2334676d62bdc7ed7dd",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Search the cave entrance and narrow approach more closely for additional matching cloth fibers or snag points that could show whether the killer entered or exited in haste.",
+              "response_sha256": "51acfb1b4711723594db00ae8652c32d15e45da9b57ea2dbbaaba553201f7f72",
+              "truth_probability": 0.11000000000000001
+            }
+          ],
+          "truth_probability": 0.12
+        }
+      ],
+      "initial_truth_probability": 0.12,
+      "replay_truth_probability": 0.29
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 46,
+      "culprit_reference_sha256": "04a9b40ace0f7393749e66708c54eadd1c5db12d2417a91ef4c4dc8e8b0bfd4a",
+      "first_branches": [
+        {
+          "action": "Question Hasan immediately about every passenger, parcel, or message he transported to or from Rajib's house on the day of the poisoning, and whether he personally saw any of the named suspects arrive or leave.",
+          "response_sha256": "a5fae84977491377eba08215773caec0db986b6f68dae2510efcc430a554d13e",
+          "second_branches": [
+            {
+              "action": "Question Panna specifically about the small parcel Hasan says he delivered to the side entrance: who received it, when it arrived, what it looked like, and whether it was taken toward the study or tea service.",
+              "response_sha256": "92cee0f52606eff5c2ecdfab6040583492f5c3302af6e604957be11c49c20792",
+              "truth_probability": 0.11000000000000001
+            },
+            {
+              "action": "Press Hasan again on why he seemed uneasy, focusing narrowly on the tea tray and the parcel he transported, and ask whether anyone instructed him to use the side entrance or avoid mentioning the delivery.",
+              "response_sha256": "c7d716cde3ca2ee08030eb9034b6e40f5f63958ecbe04dc27eb1f19ba91c6dbc",
+              "truth_probability": 0.12
+            },
+            {
+              "action": "Reconstruct the timing of Farhan's movements by interviewing everyone who could place him near the courtyard earlier that day, then compare that timeline against when the tea and side-entrance parcel were delivered.",
+              "response_sha256": "ed5904d53d9539dae4118f29100e8699e70732cd4387c97546614c35e551959f",
+              "truth_probability": 0.12
+            },
+            {
+              "action": "Inspect the side entrance route and delivery chain Hasan described to identify who could have accepted an uninspected parcel there without passing through the front of the house.",
+              "response_sha256": "a34c8e546911f66473867b0cc23db6bf68f47580465d49edd4b006e0e4722a77",
+              "truth_probability": 0.16
+            }
+          ],
+          "truth_probability": 0.12000000000000001
+        },
+        {
+          "action": "Canvass nearby homes and the river landing for anyone who saw visitors, deliveries, arguments, or unusual night movement at Rajib's house in the 24 hours before the death.",
+          "response_sha256": "d19a858fd011ebefa9006a496ab70167e1131a978daed695a121b0cd87fb8c67",
+          "second_branches": [
+            {
+              "action": "Interview the tea seller again and attempt a detailed identification of the young man seen visiting in the afternoon, including clothing, direction of arrival, and whether he resembled Farhan or another known villager.",
+              "response_sha256": "aeec20d37e4bb26c4bc1280e2134304ba1d728f535f95defa94564b4a52c549e",
+              "truth_probability": 0.17
+            },
+            {
+              "action": "Re-interview the boatman who saw a woman from the house near the landing with a covered basket, focusing on her build, clothing, gait, and whether the timing aligns with Panna or another woman connected to the household.",
+              "response_sha256": "158b06a6cebe44b45be9349896d579d4724b7aac2232c2e26701309cdb79b4d9",
+              "truth_probability": 0.18999999999999995
+            },
+            {
+              "action": "Question the neighbor who heard the brief argument to narrow the time of day and whether either voice sounded young, female, or familiar to the household.",
+              "response_sha256": "4ae25ff4196d5325ce3e1e6e77544138c9bdb2515043070e4814e6f649bd907e",
+              "truth_probability": 0.18000000000000002
+            },
+            {
+              "action": "Check which women regularly moved between Rajib's house and the river landing and whether any household tasks would normally involve carrying a covered basket there late in the evening.",
+              "response_sha256": "cddc8a785bbc754092fc1d710ced219e498d315954f40a49034e2952fba1d26d",
+              "truth_probability": 0.24000000000000002
+            }
+          ],
+          "truth_probability": 0.16
+        },
+        {
+          "action": "Secure and test all cups, plates, bottles, food remains, medicine containers, and any powders or liquids from the study and kitchen for poison and fingerprints or handling traces.",
+          "response_sha256": "609f46fbe2c8c394001d758a3f0ab631257483fc5585c05cfb84d82229a04b85",
+          "second_branches": [
+            {
+              "action": "Trace the source of the specific poison found on the betel leaves, tray, and cup by checking whether any suspect or staff member had recent access to that substance in the house, village, or riverside trade network.",
+              "response_sha256": "c4a49c817b16c03b712ac20fa9b51fb4e754fdccbc534f49b0301c59d71f6000",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Determine whether Rajib regularly consumed betel leaves in the study and who customarily supplied or folded them, focusing on the newly confirmed poisoning of the betel leaves.",
+              "response_sha256": "a28fe01685935033fc0187b56e217fd17eea257f3eadd90cda2606891117bcb0",
+              "truth_probability": 0.28
+            },
+            {
+              "action": "Compare the partial fingerprints and smudges from the poisoned serving tray and cup rim against Amin, Farhan, Shirin, Panna, Hasan, and other household staff.",
+              "response_sha256": "f72771f4d279134ce2250d6b799b481bea84b7feddf01a20634883b543ef9804",
+              "truth_probability": 0.24000000000000002
+            },
+            {
+              "action": "Reconstruct how the poisoned betel leaves, serving tray, and cup moved from kitchen to study by separately re-interviewing Panna and all servants about who prepared and carried them.",
+              "response_sha256": "7204363c9a7212518839b32c26d5c49974e24f7edc7635784c59b17f52b85eaf",
+              "truth_probability": 0.22000000000000003
+            }
+          ],
+          "truth_probability": 0.20000000000000004
+        },
+        {
+          "action": "Interview Amin, Farhan, and Shirin separately and ask each to account in detail for their movements, food or drink handling, and contact with Rajib during the 6 hours before his death.",
+          "response_sha256": "d8a7d934147bfa076f4c859fc7bde932de7add2f720504480d1e3c95273388aa",
+          "second_branches": [
+            {
+              "action": "Identify the specific servant who prepared Farhan's tea and the household staff who brought Rajib's tray, then reconstruct exactly who handled the tea, food, or betel before it reached Rajib.",
+              "response_sha256": "beffab6f99381d1a4190097d2dffb82081752bf8177a44e472451e3658bd8607",
+              "truth_probability": 0.14000000000000004
+            },
+            {
+              "action": "Check whether Farhan's claimed time near the river ghat is corroborated by Hasan the boatman or others at the ghat, and pin down when Farhan returned to the veranda.",
+              "response_sha256": "46f6db41038a0ab72d28004fb7661031ee6b968df242e7a9e33e822dab79b1b7",
+              "truth_probability": 0.11000000000000001
+            },
+            {
+              "action": "Obtain the attendance list and witness accounts from the village meeting room to verify Shirin's claim that she remained there with others until evening and did not go near the house.",
+              "response_sha256": "e4fd69c7cdcb948030d4e8e536823e46231cdcc1ccf4c467f957d42720dfe1cb",
+              "truth_probability": 0.12
+            },
+            {
+              "action": "Identify and separately interview the two clerks Amin says he spoke with in the courtyard to verify his late-afternoon timeline and whether they saw him pass the study.",
+              "response_sha256": "ece9844e9a8aff88464b7a3024eb991f1721cd8ac940c0a8b124df34e74f88cd",
+              "truth_probability": 0.13
+            }
+          ],
+          "truth_probability": 0.11000000000000001
+        },
+        {
+          "action": "Question Panna immediately about exactly what Rajib ate and drank in the study, who prepared or carried each item, and whether she saw Amin, Farhan, Shirin, or Hasan enter the house that day.",
+          "response_sha256": "3f1ce1a3112aaf72fa78682ac249db08ee3975d3581aea70eb51915b68f4bcaf",
+          "second_branches": [
+            {
+              "action": "Re-interview Panna specifically about the already-present betel leaves: where in the study they were placed, whether Rajib normally kept them there, and who besides her commonly set betel in that room.",
+              "response_sha256": "bf2b3b446420f62fc519ae8d7ff29b844be5e63f1ad2a44ffe4693ce31f1ad44",
+              "truth_probability": 0.15000000000000002
+            },
+            {
+              "action": "Question Hasan in detail about why he was moving about with the servants that day, which rooms or trays he approached, and whether he saw who placed the betel leaves in the study.",
+              "response_sha256": "0f5a513d753fa9a0943759069f52cec4f29bd5c4642878ed6e3452e0aaeb98b2",
+              "truth_probability": 0.17000000000000004
+            },
+            {
+              "action": "Examine the study, tea service, and any remaining betel preparation for signs that the poison was more likely delivered through the already-present betel leaves rather than the tea Panna brought.",
+              "response_sha256": "58a374c938e61f788561b12573df8a1ca0000c1488cd24b758a94f6c649b0a4a",
+              "truth_probability": 0.18
+            },
+            {
+              "action": "Question Farhan about his earlier presence in the courtyard, whether he entered the study, and whether he saw or handled Rajib's tea or the betel leaves.",
+              "response_sha256": "d80e98dffe9bfda028f35319d4ab53d66cc4b5fe9eb26e7474b8572cf81fd1a5",
+              "truth_probability": 0.18
+            }
+          ],
+          "truth_probability": 0.16000000000000003
+        },
+        {
+          "action": "Search Rajib's study, desk, and storage areas now for the smuggling ledgers and journal, then compare the last entries for names, disputes, payments, threats, and appointments linked to the eight named possibilities.",
+          "response_sha256": "700e9851d50b93b93e6df9346815c3b33638ede128b42fb826f5f5c070dfaf8b",
+          "second_branches": [
+            {
+              "action": "Trace the journal's note about unaccounted boat use by interviewing Hasan specifically about recent unscheduled trips, missing goods movements, and who requested access to the boat.",
+              "response_sha256": "5ea2f8b21bb85b7d56b28ff7a1beeb20ce2642f58d6cccbd8feae2aac93fadbf",
+              "truth_probability": 0.21000000000000005
+            },
+            {
+              "action": "Identify the postponed meeting mentioned in the last journal entries by checking Rajib's correspondence and recent visitors, then compare that person against anyone described as close to the house.",
+              "response_sha256": "ac545e97ee1f870d63b4e728d704d4a17697b3e9c240fd320860f7716380f162",
+              "truth_probability": 0.2
+            },
+            {
+              "action": "Examine the locked drawer in Rajib's desk for its contents and any key or tampering evidence, because it showed signs of frequent use while the ledgers were missing from the study.",
+              "response_sha256": "361369e970ea9e277c0062ccf11d097897466de5d199cafe5a02b6eb3e8323e5",
+              "truth_probability": 0.20000000000000004
+            },
+            {
+              "action": "Reconstruct who handled Rajib's betel in the day before his death, focusing on Panna and any other household staff with routine access because the journal explicitly warned to watch who handles the betel.",
+              "response_sha256": "b85131edf538a687b737dc4ac89821582dd97f51181badf315195fc0d3950ee1",
+              "truth_probability": 0.28
+            }
+          ],
+          "truth_probability": 0.18
+        }
+      ],
+      "initial_truth_probability": 0.12,
+      "replay_truth_probability": 0.10000000000000002
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 39,
+      "culprit_reference_sha256": "cd017feb1bc2597fd4b3b53e742ec415dfa7330a0be906753d01054684342316",
+      "first_branches": [
+        {
+          "action": "Forensically review Sabine Roux's notes for handwriting differences, alterations, torn sections, and named or implied appointments.",
+          "response_sha256": "23cf9c93bd6d5d001e4001a1f91d78718e3e65f730232c258cd068c3e9326656",
+          "second_branches": [
+            {
+              "action": "Compare the neater, lighter-pressure margin annotation against known handwriting samples from Pierre Legrand, Sophie Vallon, Lucien Duret, and Emile Fournier.",
+              "response_sha256": "6d9f08737393b6af8230d69ff3aa056c2e76e6b3fdf99686e53663ead8bb7b7d",
+              "truth_probability": 0.26
+            },
+            {
+              "action": "Reconstruct the timing implied by the phrase 'after the bell' by identifying which cathedral bell event would naturally cue a meeting at the base entrance that night.",
+              "response_sha256": "1e7b99eabbc05b564883cac96b59ee2aa8af851ddf4bed3ac0148876295eba73",
+              "truth_probability": 0.12
+            },
+            {
+              "action": "Physically search the area near the sacristy corridor for the torn lower-corner fragment or any cached paper scraps matching Sabine's notebook page.",
+              "response_sha256": "fe046352e780f6b4dedca1dae970cf7eb0191c576c43b197a3ec263b0f1b11d7",
+              "truth_probability": 0.12
+            },
+            {
+              "action": "Examine the scraped and overwritten lines in Sabine's notes with forensic imaging to recover the obscured name or time linked to the sacristy-corridor appointment.",
+              "response_sha256": "1752fcee50a725bc28fa8ee5d82bd00b6a28e4d65e672407c41e7a477515f8d4",
+              "truth_probability": 0.18
+            }
+          ],
+          "truth_probability": 0.13
+        },
+        {
+          "action": "Create a full access timeline for the cathedral base by interviewing all available resistance personnel and cathedral staff about arrivals, departures, and unusual movements around the time of the murder.",
+          "response_sha256": "3ede2d8e32b84b9f62a0b51b44a51a71fd39f107ad7ee7b2ce5fc00ef8e4993b",
+          "second_branches": [
+            {
+              "action": "Map and physically inspect the maintenance corridor, nave access stairs, and upper cathedral passages highlighted by the timeline gaps, looking for a route connecting Emile Fournier's lamp-and-door checks to the murder area.",
+              "response_sha256": "028ba8aaee9a3460de31efcf8e124a85da42e58e78e4e7bf3f62307d46f5aef2",
+              "truth_probability": 0.24
+            },
+            {
+              "action": "Verify Sophie Vallon's stated archive-corridor message runs by checking the dispatch materials, archive storage points, and who saw her on each of her two trips.",
+              "response_sha256": "94fed852ddc4e306903149c33cd3c0a2b04dd4bd489f6585676ac03529a7dbbf",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Reconstruct Lucien Duret's and Pierre Legrand's brief unobserved movements by comparing sightings near the workrooms, storage passage, and strategy room against the meeting's start and end times.",
+              "response_sha256": "23f923776ae86c60d5e71e8da95ac14de9d094ee74945fa6bf6574d0655e894a",
+              "truth_probability": 0.16
+            },
+            {
+              "action": "Re-interview the staff who heard the single muted sound and have each mark their location and estimated direction of the sound to narrow whether it came from above, the archive corridor, or the upper access passages.",
+              "response_sha256": "d380eeeec9d17e109371e927db8fa483f9dbae2705dd04db7841d0ebf79e4571",
+              "truth_probability": 0.19000000000000003
+            }
+          ],
+          "truth_probability": 0.15999999999999998
+        },
+        {
+          "action": "Collect and decode all coded messages found at the base and reconstruct their sender, recipient, and timing.",
+          "response_sha256": "00279e1232d1f75df99b11c9fb37ac0ad22c8a3b0ba98942f3633da6de9b2d19",
+          "second_branches": [
+            {
+              "action": "Question Emile Fournier specifically about why coded messages were addressed to \"the caretaker\" and account for his movements on the night before Sabine was killed, when the latest message arrived.",
+              "response_sha256": "60a0e369c5c6a4f6655d86d05bac6c48bf2392f46678ade75fcc47097909d91b",
+              "truth_probability": 0.3400000000000001
+            },
+            {
+              "action": "Forensically compare the wording in Sabine's notes against the decoded phrases \"movements,\" \"access,\" and \"the arrangement\" to see whether she had identified the caretaker link before her death.",
+              "response_sha256": "61f05bde422076ff10b59f6211a05c1ae840d90d58f0b28b1558a5fe3708dfd4",
+              "truth_probability": 0.43
+            },
+            {
+              "action": "Trace how messages from Raven physically reached the cathedral base the night before the murder, focusing on the courier route and who could receive something addressed only to \"the caretaker.\"",
+              "response_sha256": "036079fe1be62efe119d5123b9cbfc3a9e29ff3b633a70af4b51c6a62a428b48",
+              "truth_probability": 0.42
+            },
+            {
+              "action": "Reconstruct which doors, passages, or supply areas a caretaker could control inside the cathedral base, using the decoded emphasis on \"access\" to identify who could facilitate the shooting.",
+              "response_sha256": "58032667bfb558bb6ec1d4f8bbd45fc05e31e8d1e926aa9ca4f727ae8455dbbe",
+              "truth_probability": 0.41
+            }
+          ],
+          "truth_probability": 0.30999999999999994
+        },
+        {
+          "action": "Ask Emile Fournier to identify exactly who had physical access to the underground base and to Sabine Roux in the hours before the shooting.",
+          "response_sha256": "0332d752b904387709a006a58edfa22143f9b646dd51595fe962d132db602a80",
+          "second_branches": [
+            {
+              "action": "Establish a precise timeline of when Pierre passed through the lower corridor, Sophie appeared with the dispatch, and Lucien was near the storage passage relative to the gunshot.",
+              "response_sha256": "5651d8e5d3e865b5f13217ab77c40dbc238a9e73e2c06d2802fec7f661676f02",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Verify Emile Fournier's stated repair and supply duties during the relevant hours by checking what work was underway, what materials were moved, and whether that account places him away from or near Sabine.",
+              "response_sha256": "d67e013e38b92540128414424ac102feb46310754d1ae7d05f709f0775ee5b63",
+              "truth_probability": 0.15
+            },
+            {
+              "action": "Inspect the lower corridor, storage passage, and repair-supply areas Emile specifically mentioned to reconstruct movement and look for traces linking Pierre, Lucien, or Emile to Sabine's location.",
+              "response_sha256": "0d8c8bd6f7df3163fc6049e1345172773bfd119ec73bc58609dd62fbf11b8560",
+              "truth_probability": 0.15
+            },
+            {
+              "action": "Examine the dispatch Sophie was seen carrying and compare it with Sabine Roux's notes and any coded messages for timing, summons, or motive-related content.",
+              "response_sha256": "fdcf68d544200e0537233b6d173e3b36b8c112ed60f1dfd753cad50520dedcf6",
+              "truth_probability": 0.15000000000000002
+            }
+          ],
+          "truth_probability": 0.14
+        },
+        {
+          "action": "Confront Sophie Vallon and Lucien Duret individually with Sabine Roux's notes and ask each to account for every mention of meetings, disputes, or warnings involving Commander Roux.",
+          "response_sha256": "1c04ac4f29a759b1bc80440b521ef344a7e183d8d8d0b471121c5297477fbe0e",
+          "second_branches": [
+            {
+              "action": "Compare Sophie Vallon's claim that Sabine warned her to stay off the lower passages with guard logs, route assignments, and any witness recollections from that evening to identify who entered or avoided those passages.",
+              "response_sha256": "78c95283ae23b68fe0ca7780f67cccd3d67b81c0939de5e16145d6d70e68c95d",
+              "truth_probability": 0.17
+            },
+            {
+              "action": "Reexamine Sabine Roux's notes for the exact wording and timing of references to 'unnecessary exposure,' route changes, discipline, and security warnings to see whether they point more strongly to Sophie or Lucien.",
+              "response_sha256": "61dab2edbedfc6b85404ee00a14207d278621fdf6a3d771453effd7c5a1e4bd3",
+              "truth_probability": 0.1
+            },
+            {
+              "action": "Question Emile Fournier specifically about activity around the lower passages and about any aftermath of Lucien's noisy sabotage operation that might have affected base security that night.",
+              "response_sha256": "94d092f8162e563117aab03276a70c0b4b444aa7121c377006c224f9c4e54490",
+              "truth_probability": 0.15
+            },
+            {
+              "action": "Press Lucien Duret for a precise list of who was present during the briefing discussions where Sabine criticized his sabotage decisions, then verify whether his claim that he was not alone with her that evening holds up.",
+              "response_sha256": "099e677b0194d45dca4e28cda22ee939c56da0f24c4cae03a8af02bccc513f02",
+              "truth_probability": 0.1
+            }
+          ],
+          "truth_probability": 0.12
+        },
+        {
+          "action": "Question Pierre Legrand, Sophie Vallon, Lucien Duret, and Emile Fournier separately to explain the specific coded messages and any references in Sabine Roux's notes, then compare their interpretations for contradictions.",
+          "response_sha256": "58d970f025de0fd5fb43f3a1c08d45073e8bc4ff458d832907e6939c25732a34",
+          "second_branches": [
+            {
+              "action": "Reconstruct who plausibly matched Sabine's note about 'a familiar face at odd hours' by building a timeline of late-night presence in the lower corridors for Pierre, Sophie, Lucien, Emile, and any regular base helpers.",
+              "response_sha256": "2c0745b1d98503a00c9c32d44f51a54f2c0f29239366934c4254be4442f59965",
+              "truth_probability": 0.29
+            },
+            {
+              "action": "Re-examine the damaged coded messages with a focus on whether the phrasing better matches courier instructions or sabotage windows, using the newly highlighted links to lower-corridor access and silent routes.",
+              "response_sha256": "10f6094ef7828f77935941f145bc954c32748fa7a1cdca8031d7f591a0da84a4",
+              "truth_probability": 0.21
+            },
+            {
+              "action": "Trace every known use and meaning of the repeated coded reference to 'the steward' in logistics traffic to identify which person or role inside the base best fits that label.",
+              "response_sha256": "086b6efc1bb33bdfb9c974801a5e990f631dad8e4b94ab495656929d1669b91b",
+              "truth_probability": 0.2700000000000001
+            },
+            {
+              "action": "Audit who had routine authority or practical ability to keep 'clean passageways' and know 'maintenance schedules,' including Emile and any other caretaker-style personnel tied to the cathedral base.",
+              "response_sha256": "ee336b997af9c8994faa51e99bd57fe9aeaa92f75217d1d4358c2c949834009b",
+              "truth_probability": 0.29
+            }
+          ],
+          "truth_probability": 0.16
+        }
+      ],
+      "initial_truth_probability": 0.13999999999999999,
+      "replay_truth_probability": 0.26
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 12,
+      "culprit_reference_sha256": "5efadd4b3aff7933270015e3912c65a69c266c891a26622870cab60b25a07287",
+      "first_branches": [
+        {
+          "action": "Separate Frances from other staff and obtain a minute-by-minute account of who entered the observation wing during her shift, including any exceptions to normal medication or access protocol.",
+          "response_sha256": "d967b9860fcfe15a0479a430099935b82880d2fc3925dc2e28d05bc71986ad3c",
+          "second_branches": [
+            {
+              "action": "Obtain and reconcile the delayed supply log and the specific order discrepancy Marcus said he was correcting, then match it to every item on the supply cart he brought into the observation wing.",
+              "response_sha256": "71dd92b03508bca26b4b4df3ae277335bd8bbbdf758b3d05580245ec84813e24",
+              "truth_probability": 0.3
+            },
+            {
+              "action": "Interview or identify the staff member who escorted Jonah during the supervised corridor transfer and pin down whether Jonah, Marcus, or anyone else deviated from the stated route near the observation wing.",
+              "response_sha256": "37a3bb0e96efd896837f3fa7b1b6158cb5db41f9b88b162553d4312f9359ed4c",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Audit the medication double-check records Frances said occurred \"at least on paper,\" verifying signatures, times, and whether any observation-wing medication or poison-compatible substance was handled unusually.",
+              "response_sha256": "e203abf09f5780589dbb08684429152beeab8e823969a67869610665e2b8c1f6",
+              "truth_probability": 0.26
+            },
+            {
+              "action": "Identify the exact time window when the observation wing door was left unlocked and cross-check it against staff movement, patient transfer timing, and Marcus's cart visit.",
+              "response_sha256": "2c38170cca1c5aeb074729186e32a54b17ceb2c36290785f864db079398daabd",
+              "truth_probability": 0.29
+            }
+          ],
+          "truth_probability": 0.24
+        },
+        {
+          "action": "Seize and review Vincent's recordings, notes, and device logs to build a last-24-hour timeline and identify any named conflicts, warnings, or references to supplies.",
+          "response_sha256": "f90aea767861a600e48ad64a1728498f4072d47d313f3d7d30a1fd523064f167",
+          "second_branches": [
+            {
+              "action": "Forensically review the hidden 21:30 recording and related device metadata to determine where Vincent was when he said the paperwork alteration was not coming from the treatment team and whether any background audio indicates logistics activity or nearby personnel.",
+              "response_sha256": "6ecb780a434a7634903b5d1b3936be8a61bb37379157ccd5d6d9b59a079e2cdc",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Map all medication handling and stock-access points implicated by Frances's 16:20 dispute against the documented inventory discrepancies to see whether the mismatch involved nursing-controlled items or only incoming supply records.",
+              "response_sha256": "c7c7aa4f3d3c4e7902e7dfe915236d9143122103a2902d8daa30fffbd2b1aeab",
+              "truth_probability": 0.34
+            },
+            {
+              "action": "Obtain and audit the order logs, delivery manifests, and reconciliation records tied to Vincent's 09:10 and 18:55 notes to identify which specific supply entries did not match deliveries.",
+              "response_sha256": "23de15ad5684501e162de1a40fb472b08a0df1fc1e34d0de3d11f856df2900b6",
+              "truth_probability": 0.3
+            },
+            {
+              "action": "Interview Marcus specifically about the missing reconciliation, the inventory discrepancies, and who had authority to alter or submit supply paperwork for island deliveries.",
+              "response_sha256": "04949e0a12fc0b10d296e577602b4ddd41745cd5eadf4ecef95f68eadb3bb538",
+              "truth_probability": 0.32
+            }
+          ],
+          "truth_probability": 0.26
+        },
+        {
+          "action": "Pull observation wing door logs, key access records, shift rosters, and any camera footage covering corridors or supply rooms to map who could physically administer poison.",
+          "response_sha256": "69397d7ef18918f869e554cab7ca913681edbe64fddc1be7f53550a8376b4483",
+          "second_branches": [
+            {
+              "action": "Recover the raw access-control records behind the partially obscured service-level keycard entry and match that exact event to issued cardholders, badge privileges, and any duplicate or temporary service cards.",
+              "response_sha256": "73995a002ebe732f714e3322edacdd92175a6719f2aa8984e20f45e81e2a97dd",
+              "truth_probability": 0.25
+            },
+            {
+              "action": "Interview all personnel with legitimate evening movement near the corridor connecting the supply rooms and observation wing\u2014especially Frances, Dr. Elena, and service staff\u2014using the narrow death window and missing camera segment to pin down route, purpose, and timing.",
+              "response_sha256": "3bedf932424807fee0062819199e54b893c40bbbf61f8ec3d57df5100dc038af",
+              "truth_probability": 0.13999999999999999
+            },
+            {
+              "action": "Reconstruct the supervised-rest documentation for Jonah during the narrow death window, including who signed or physically confirmed the supervision and whether any gap aligns with the unrecorded movement route.",
+              "response_sha256": "bb87613a4f49b7fdaecfa0bcc3e6e8e238e65a31138ab14c85405e81cb99c9f6",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Forensically examine the camera outage on the supply-route corridor to determine whether it was a technical fault or deliberate interruption, and correlate the downtime with who was nearest the supply rooms then.",
+              "response_sha256": "5438be6075c8742d86606985f324a2a63994f4c2d8afdde413e46091095254b5",
+              "truth_probability": 0.18
+            }
+          ],
+          "truth_probability": 0.15
+        },
+        {
+          "action": "Question Dr. Elena in detail about her last contact with Vincent and confront her with a request to identify which of Vincent's recordings would most likely mention her by name and why.",
+          "response_sha256": "7f0cff83009eefc00b0d519e5ca921b0ab9fe3a98b20fa849743112b6b80401d",
+          "second_branches": [
+            {
+              "action": "Identify which patient-handling dispute Dr. Elena referenced and determine whether Frances, Jonah, or another staff member was involved in the same incident.",
+              "response_sha256": "90eeac78cdb663aa24e45b0531bdbb27d11f77af2129a7631cc8f876ff253205",
+              "truth_probability": 0.15
+            },
+            {
+              "action": "Reconstruct Dr. Elena's claimed movement after the corridor argument by checking who was present near the med station at that time.",
+              "response_sha256": "3369c31ea5f8ca278ee5a6c682893d0f24875908f6c82b277a21e1a66faeb2ac",
+              "truth_probability": 0.17
+            },
+            {
+              "action": "Compare the timing and subject of any corridor or med-station-related recording entries with the estimated poisoning window.",
+              "response_sha256": "bff23a5a196946a5b6b222d0cdf5961c90b6921e282b71d5dcf8b2706a050f34",
+              "truth_probability": 0.18
+            },
+            {
+              "action": "Locate and review Vincent's clinical review logs for any recording that mentions Dr. Elena by name after disputes about patient handling.",
+              "response_sha256": "2cf6f0076f31a427db7363b67194c7d33bc2833f2c41b6fc9221c7a9f0d4defc",
+              "truth_probability": 0.16
+            }
+          ],
+          "truth_probability": 0.15
+        },
+        {
+          "action": "Interview Marcus immediately and have him account step-by-step for every delivery touching medical supplies, toxins, or food sent to the observation wing in the 48 hours before Vincent died.",
+          "response_sha256": "97f80a8b112d51c3093c979fed1f469447cf998cb721ebe53c8ae8107bec7cfc",
+          "second_branches": [
+            {
+              "action": "Audit the logistics records for alterations by comparing Marcus's cleared manifests with original pharmacy, kitchen, and wing receipt logs for the same deliveries.",
+              "response_sha256": "6afacea51ed93e67a59cf817bcac646e68b3bb0925f5c28c262fc93ba5e61981",
+              "truth_probability": 0.24
+            },
+            {
+              "action": "Obtain the paperwork and authorization trail for the urgent 'replacement' order for two medication items to identify exactly who reported the shortage and when.",
+              "response_sha256": "f4243c379041e747147cb9044aa8f168462f96a5245f761d70d4c5f3ccf7d6fe",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Identify and interview the specific kitchen staff member who delivered the breakfast and tea to the observation wing the morning before Vincent died.",
+              "response_sha256": "fcf051252daf5ca7014854f53641e9def45f6d4ee879f1f4e5f9c1a33db86233",
+              "truth_probability": 0.0001
+            },
+            {
+              "action": "Pull the manifest, courier identity, and chain-of-custody details for the final pharmacy run that Marcus says he only cleared but did not transport.",
+              "response_sha256": "4151789d02bb5f9b84b20409261c648669c7d34fc1b933210c9e123bcf7937fe",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.16
+        },
+        {
+          "action": "Obtain the facility's delivery manifests, inventory ledgers, and chain-of-custody records for medications, chemicals, and consumables delivered to the island in the week before the poisoning.",
+          "response_sha256": "189052e62493269a416c6969d552c4156b6d97499c70346aef50f87d71a28cb0",
+          "second_branches": [
+            {
+              "action": "Forensically examine the two corrected supply entries to identify who made the after-the-fact changes, when they were entered, and which physical items those entries correspond to.",
+              "response_sha256": "b4018ff447f9aba2b5de6d7129e66068844166df01dbf12e26b9e8db226b9a7f",
+              "truth_probability": 0.27
+            },
+            {
+              "action": "Trace the medication shipment that was first logged under one internal reference and later reissued under another to reconstruct its storage location, handlers, and timing before Vincent's poisoning.",
+              "response_sha256": "0fcd0ecad720fbeb7912401ccaaca566a4ac0a10a9d0cae4c79e7cce54cbbbb0",
+              "truth_probability": 0.23
+            },
+            {
+              "action": "Audit the consumables with quantity mismatches by physically reconciling remaining stock against ledger totals and linking the discrepancies to specific departments, rooms, or staff checkouts.",
+              "response_sha256": "53d6020316fd7c10c41317702662b4c31b74330db0392bf0e8989fba3af1fbfb",
+              "truth_probability": 0.26
+            },
+            {
+              "action": "Compare the irregular handoff signature in Vincent's medication chain-of-custody against verified signatures from Frances, Dr. Elena, Marcus, and other staff who handled medications.",
+              "response_sha256": "c2e6b19e786039972061e39ca57504f3bcb64a9c09b413cba69bf1c7fb644e57",
+              "truth_probability": 0.28
+            }
+          ],
+          "truth_probability": 0.17
+        }
+      ],
+      "initial_truth_probability": 0.15,
+      "replay_truth_probability": 0.31
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 18,
+      "culprit_reference_sha256": "be2b0826d5ec2f09c37e630519223587eab8d16b811e06439cfc63f197cef383",
+      "first_branches": [
+        {
+          "action": "Ask Ms. Rachel Moore to account minute-by-minute for her movements during the intelligence committee meeting and specifically explain any reason she had to enter the restricted archives.",
+          "response_sha256": "9f700ec1e33e3a9b44aad8fc003df8083d331483e9a4645b51ffb7887c4145dc",
+          "second_branches": [
+            {
+              "action": "Interview people seated near Ms. Rachel Moore in the committee room and at her desk area to confirm her claimed presence there during the opening remarks and most of the session.",
+              "response_sha256": "c657a3a5de4b1fc13849a6ac95980af04544d204a55554794cdf98b130654661",
+              "truth_probability": 0.26000000000000006
+            },
+            {
+              "action": "Check restricted archives access logs and any escort or authorization records for any file retrieval requests that could explain Ms. Rachel Moore's statement that she would enter only if asked to retrieve or verify a file.",
+              "response_sha256": "bf186e8877fa0c7418f37e2ff4edb801fa1f69992e3ef53f4be879d0d2d92d4c",
+              "truth_probability": 0.27
+            },
+            {
+              "action": "Obtain and verify call records and nearby phone/security coverage for Ms. Rachel Moore's stated private call during the meeting to establish the exact time, duration, and location of that call.",
+              "response_sha256": "c46531858824fd8cbf2986b44a4b738981fe7d0a9db9c1a6970767cff6bcb03e",
+              "truth_probability": 0.26
+            },
+            {
+              "action": "Reconstruct Ms. Rachel Moore's pre-session movement in the corridor near records by reviewing corridor surveillance and questioning anyone who saw her there before the meeting started.",
+              "response_sha256": "c5f4c383e1b883d15a7f7263c6195be6770bc01ee570d19b5a9c923e03e1019e",
+              "truth_probability": 0.29000000000000004
+            }
+          ],
+          "truth_probability": 0.22000000000000003
+        },
+        {
+          "action": "Ask Mr. James Cross and Ms. Eliza Ford separately to state when they last saw Senator William Hart, why either of them would have approached the restricted archives, and what confidential matter was being disputed at the meeting.",
+          "response_sha256": "2947c7980f519f26fda022e8673dc861ab3a555dca98308d8d25111306d42786",
+          "second_branches": [
+            {
+              "action": "Re-interview attendees seated near Senator Hart to pin down the exact moment he left the meeting and whether anyone followed him toward the restricted archives after the session broke up.",
+              "response_sha256": "9f59977a887b25903f15c7957f9723cf3debf696d4c6211386328cb2f2068c78",
+              "truth_probability": 0.24
+            },
+            {
+              "action": "Ask the janitor and the security guard whether they saw Senator Hart leave the meeting alone, whether Mr. James Cross approached him again after their policy argument, and whether anyone moved between the meeting room and archives around that time.",
+              "response_sha256": "07b66ff4ca9bc3c4516e09f12db3d2b2d24311fe2357751036e77fc5f2c553f8",
+              "truth_probability": 0.16000000000000003
+            },
+            {
+              "action": "Interview Ms. Rachel Moore specifically about the classified briefing tied to an intelligence leak, including whether Senator Hart withdrew from the room because of something disclosed in that discussion.",
+              "response_sha256": "a4df525edbc19f6cbbd9e0e9e9f9bd81f3820cdb3cba67291423cd0efcc3d7b9",
+              "truth_probability": 0.19000000000000003
+            },
+            {
+              "action": "Check restricted archives access logs and any paper checkout records for the committee papers Ms. Eliza Ford said Hart might have asked her to retrieve.",
+              "response_sha256": "e4a43d32a6aab69ab4feafe9a5c74af2e928a7ea789132babb2cb08f65419f4d",
+              "truth_probability": 0.18
+            }
+          ],
+          "truth_probability": 0.18000000000000002
+        },
+        {
+          "action": "Re-interview the janitor and the security guard separately for a precise timeline of everyone they saw enter or leave the restricted archives corridor around the time of the stabbing.",
+          "response_sha256": "914f91c2f31f6b65198d507e5da5e888a0fcd83471014b1e8c659197004f78f2",
+          "second_branches": [
+            {
+              "action": "Verify whether Ms. Rachel Moore matches the guard's description of someone with an analyst's build heading toward the archives by checking meeting attendance movements, access-control entries, and any corroborating witness observations from just before the camera gap.",
+              "response_sha256": "8017052763eb55d6845e76958909d2a3c0fb69b7869cfc621bb016240aa458fa",
+              "truth_probability": 0.23
+            },
+            {
+              "action": "Re-interview Ms. Eliza Ford specifically about why she was seen emerging from near the archives door looking tense, and pin down her exact purpose, timing, and whether she encountered the victim or the unidentified woman.",
+              "response_sha256": "b94661b6e42c1cb92ea7da3c23a1239b38c873e954d841b95a5e54361047ed46",
+              "truth_probability": 0.21
+            },
+            {
+              "action": "Obtain and review the full raw security system logs and maintenance records for the exact camera gap, focusing on whether the malfunction was deliberate and who had access to disable or interrupt that corridor feed.",
+              "response_sha256": "280cea49dca5de870d107ef386472de0c340dc8a136793b4f92cfb1f72dc3680",
+              "truth_probability": 0.2
+            },
+            {
+              "action": "Show the janitor a structured photo array of all female attendees, staff, and authorized visitors from the meeting area to identify the different woman he saw after Ms. Ford.",
+              "response_sha256": "95f258a4031f768df1f5eadaa0a7d53ed33e21078a2dd700369c39fe55b4576e",
+              "truth_probability": 0.24
+            }
+          ],
+          "truth_probability": 0.2
+        },
+        {
+          "action": "Identify and interview every person present at or supporting the intelligence committee meeting, including aides and archives personnel, to uncover unlisted access, conflicts, or contradictions.",
+          "response_sha256": "d9ccf27979f88b474f8a2736a30c65048f2d8c0bc8819b92e08e4acfb0c08de8",
+          "second_branches": [
+            {
+              "action": "Interview the janitor about who was present in the restricted corridor, any sounds or disturbances near the archives, and whether anyone appeared in the area without corresponding log entries.",
+              "response_sha256": "8f4a961af1431978bb0dd2881c9765435ecc78549b8298f101249a072a8138e0",
+              "truth_probability": 0.13
+            },
+            {
+              "action": "Reconstruct the restricted-area timeline by separating the two committee aides and comparing their document-handling and visitor-log accounts against each other for the unlogged movement.",
+              "response_sha256": "937cc227ec289964efb6f0bfb9636dd1fb59748cc58d99a5a9153b63b79e4663",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Question the security guard in detail about any camera blind spots, feed interruptions, or access anomalies that could explain movement through restricted areas despite tighter-than-usual access.",
+              "response_sha256": "8f60e93684a82570534f7343f75b9c17a3dc6c86850a49153902de6ffba069c7",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Interview the archives clerk specifically about every file check-out, return, and unusual request during the meeting window, focusing on movement that did not match the official logs.",
+              "response_sha256": "f877b8f682aadabc8ef6a2a54e8737f99e5c8bc432af0f898cc2c1050efe95ab",
+              "truth_probability": 0.24000000000000002
+            }
+          ],
+          "truth_probability": 0.16
+        },
+        {
+          "action": "Obtain and review restricted archives entry logs, badge-access records, and any sign-in records for the meeting period.",
+          "response_sha256": "79a56b7560f9914f936910dccf75cc4c7c99470b883a3ac05e254fbefd1f7018",
+          "second_branches": [
+            {
+              "action": "Audit all corridor and meeting-area access points for the exact time span covered by the small gap in the archive access record to determine whether an unrecorded entrant could have reached the archives during that interval.",
+              "response_sha256": "362a8af8a1124f6ba033e4ddf83afdff688cd0896beaf174657afc4388ea90e0",
+              "truth_probability": 0.2
+            },
+            {
+              "action": "Verify why Senator James Cross has no recorded archive entry by checking whether he could have entered through another controlled route, used someone else's access, or remained continuously in the meeting while the corridor entries occurred.",
+              "response_sha256": "7afae2d6a8514feeccabb0ccecfc5f494831697bd7e9435aea9c06173b89fda1",
+              "truth_probability": 0.21000000000000002
+            },
+            {
+              "action": "Identify everyone physically present near the restricted corridor between 19:12 and 19:18 and compare their stated movements against Ms. Eliza Ford's 19:12 badge access and Ms. Rachel Moore's 19:18 badge access.",
+              "response_sha256": "1d3e550e036e363a1dda6adcbeca8b335d64615e904e778b3253d85f190adf26",
+              "truth_probability": 0.21
+            },
+            {
+              "action": "Forensically examine the edited archive access log line and surrounding system metadata to determine when it was changed, from which terminal or account, and whether it was altered to add, remove, or rename an entry.",
+              "response_sha256": "65064ae4c2dae9f777dc12b75d94b13a4f0cedfcaeda0e4e7427d094a360901c",
+              "truth_probability": 0.26000000000000006
+            }
+          ],
+          "truth_probability": 0.18000000000000002
+        },
+        {
+          "action": "Search the restricted archives and adjacent corridor for the murder weapon, fingerprints, blood traces, discarded items, and signs of forced or unauthorized access.",
+          "response_sha256": "4c5ee52306dfe8000224adfde61a0bd389ebb5599d40e1b403280b33dbe86f0a",
+          "second_branches": [
+            {
+              "action": "Review access-control and guard logs for the intact restricted archives door during the secret committee meeting to determine which authorized person entered without forced access.",
+              "response_sha256": "a50bf14995d0aa89ac808ffc9d72d82a5403372ecfefd9afb994455e947c4478",
+              "truth_probability": 0.16
+            },
+            {
+              "action": "Trace and document the faint blood drops that stop a short distance from the body, including checking nearby footwear transfer and whether the trail aligns with any path toward the corridor or bin.",
+              "response_sha256": "1db759202b082cd371fbbe19b120536ddd600349a45741348a0cebe7f07813d1",
+              "truth_probability": 0.18
+            },
+            {
+              "action": "Reconstruct and examine the shredded internal memo from the nearby waste bin to identify whether it mentions Senator Hart, the intelligence committee meeting, or a motive-linked dispute.",
+              "response_sha256": "890b6ae76eb50bd2b3c5ad18c489e46789706d60a05d768daf84b42926c666ae",
+              "truth_probability": 0.16
+            },
+            {
+              "action": "Lift and compare the partial fingerprints from the letter opener handle against Ms. Rachel Moore, Mr. James Cross, Ms. Eliza Ford, the janitor, the security guard, and authorized archives staff.",
+              "response_sha256": "11e70f0f919b84631b887e8a8e678e70507065cd84e6f0b990c66b2655c3a15b",
+              "truth_probability": 0.34
+            }
+          ],
+          "truth_probability": 0.17
+        }
+      ],
+      "initial_truth_probability": 0.18000000000000002,
+      "replay_truth_probability": 0.24000000000000002
+    }
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "case_diagnostics": [
+      {
+        "best_one_step_truth_probability": 0.28,
+        "case_index": 31,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.46,
+        "greedy_first_index": 0,
+        "nonmyopic_probability_gap": 0.0,
+        "one_step_truth_probability_spread": 0.09,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_first_index": 0,
+        "oracle_pair_truth_probability": 0.46,
+        "oracle_second_index": 0,
+        "pair_gain_over_best_one_step": 0.18,
+        "replay_truth_probability_gap": 0.050000000000000155
+      },
+      {
+        "best_one_step_truth_probability": 0.18,
+        "case_index": 27,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.31,
+        "greedy_first_index": 0,
+        "nonmyopic_probability_gap": 0.030000000000000027,
+        "one_step_truth_probability_spread": 0.07999999999999997,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_first_index": 4,
+        "oracle_pair_truth_probability": 0.34,
+        "oracle_second_index": 1,
+        "pair_gain_over_best_one_step": 0.16000000000000003,
+        "replay_truth_probability_gap": 0.020000000000000018
+      },
+      {
+        "best_one_step_truth_probability": 0.20000000000000004,
+        "case_index": 46,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.31,
+        "greedy_first_index": 2,
+        "nonmyopic_probability_gap": 0.0,
+        "one_step_truth_probability_spread": 0.09000000000000002,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_first_index": 2,
+        "oracle_pair_truth_probability": 0.31,
+        "oracle_second_index": 0,
+        "pair_gain_over_best_one_step": 0.10999999999999996,
+        "replay_truth_probability_gap": 0.009999999999999995
+      },
+      {
+        "best_one_step_truth_probability": 0.30999999999999994,
+        "case_index": 39,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.43,
+        "greedy_first_index": 2,
+        "nonmyopic_probability_gap": 0.0,
+        "one_step_truth_probability_spread": 0.18999999999999995,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_first_index": 2,
+        "oracle_pair_truth_probability": 0.43,
+        "oracle_second_index": 1,
+        "pair_gain_over_best_one_step": 0.12000000000000005,
+        "replay_truth_probability_gap": 0.0
+      },
+      {
+        "best_one_step_truth_probability": 0.26,
+        "case_index": 12,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.34,
+        "greedy_first_index": 1,
+        "nonmyopic_probability_gap": 0.0,
+        "one_step_truth_probability_spread": 0.11000000000000001,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_first_index": 1,
+        "oracle_pair_truth_probability": 0.34,
+        "oracle_second_index": 1,
+        "pair_gain_over_best_one_step": 0.08000000000000002,
+        "replay_truth_probability_gap": 0.010000000000000009
+      },
+      {
+        "best_one_step_truth_probability": 0.22000000000000003,
+        "case_index": 18,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.29000000000000004,
+        "greedy_first_index": 0,
+        "nonmyopic_probability_gap": 0.04999999999999999,
+        "one_step_truth_probability_spread": 0.060000000000000026,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_first_index": 5,
+        "oracle_pair_truth_probability": 0.34,
+        "oracle_second_index": 3,
+        "pair_gain_over_best_one_step": 0.12,
+        "replay_truth_probability_gap": 0.020000000000000046
+      }
+    ],
+    "gates": {
+      "all_cases_complete": true,
+      "all_pass": false,
+      "all_replay_gaps_finite": true,
+      "exact_physical_request_count": true,
+      "initial_belief_not_saturated": true,
+      "max_replay_gap_at_most_0_25": true,
+      "mean_distinct_first_responses_at_least_4": true,
+      "mean_nonmyopic_gap_at_least_0_07": false,
+      "mean_pair_gain_at_least_0_10": true,
+      "mean_replay_gap_at_most_0_10": true,
+      "nonmyopic_gap_count_at_least_2": false,
+      "one_step_spread_count_at_least_4": false,
+      "oracle_first_differs_count_at_least_2": true,
+      "pair_gain_count_at_least_3": true,
+      "zero_reasoning_tokens": true
+    },
+    "max_replay_truth_probability_gap": 0.050000000000000155,
+    "mean_distinct_first_response_count": 6.0,
+    "mean_initial_truth_probability": 0.15166666666666667,
+    "mean_nonmyopic_probability_gap": 0.013333333333333336,
+    "mean_pair_gain_over_best_one_step": 0.12833333333333335,
+    "mean_replay_truth_probability_gap": 0.01833333333333337,
+    "nonmyopic_gap_at_least_0_10_count": 0,
+    "num_cases": 6,
+    "one_step_spread_at_least_0_10_count": 2,
+    "oracle_first_differs_from_greedy_count": 2,
+    "pair_gain_at_least_0_10_count": 5
+  },
+  "usage": {
+    "adapter_cost_usd": 1.0985940000000005,
+    "generator": {
+      "adapter_completion_tokens": 33394,
+      "adapter_cost_usd": 0.8667975000000007,
+      "adapter_prompt_tokens": 146355,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 192,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 54346,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 33394,
+          "cost_usd": 0.8667975000000007,
+          "prompt_tokens": 146355,
+          "reasoning_tokens": 0,
+          "requests": 192
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 20952,
+          "cost_usd": 0.23179649999999985,
+          "prompt_tokens": 183350,
+          "reasoning_tokens": 0,
+          "requests": 186
+        }
+      },
+      "prompt_tokens": 329705,
+      "reasoning_tokens": 0,
+      "remaining_usd": 35.36726628374991,
+      "requests": 378,
+      "run_budget_usd": 6.0,
+      "run_cost_usd": 1.0985940000000005,
+      "run_remaining_usd": 4.901406,
+      "total_spent_usd": 70.01753641170724
+    },
+    "judge": {
+      "adapter_completion_tokens": 20952,
+      "adapter_cost_usd": 0.23179649999999985,
+      "adapter_prompt_tokens": 183350,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 186,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 54346,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 33394,
+          "cost_usd": 0.8667975000000007,
+          "prompt_tokens": 146355,
+          "reasoning_tokens": 0,
+          "requests": 192
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 20952,
+          "cost_usd": 0.23179649999999985,
+          "prompt_tokens": 183350,
+          "reasoning_tokens": 0,
+          "requests": 186
+        }
+      },
+      "prompt_tokens": 329705,
+      "reasoning_tokens": 0,
+      "remaining_usd": 35.36726628374991,
+      "requests": 378,
+      "run_budget_usd": 6.0,
+      "run_cost_usd": 1.0985940000000005,
+      "run_remaining_usd": 4.901406,
+      "total_spent_usd": 70.01753641170724
+    },
+    "physical_requests": 378,
+    "reasoning_tokens": 0
+  }
+}

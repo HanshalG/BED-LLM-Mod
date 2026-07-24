@@ -1,0 +1,499 @@
+{
+  "protocol": {
+    "belief_size": 8,
+    "case_indices": [
+      38,
+      47
+    ],
+    "dataset": "PAPRIKA murder_mystery eval",
+    "dataset_sha256": "2ae865e60662135f6e867a95653be48ecc8b6a51cddc5c3e46e2538ae24b2184",
+    "expected_physical_requests": 126,
+    "first_action_count": 6,
+    "hidden_world_visible_only_to_environment": true,
+    "official_environment_prompt": true,
+    "private_raw_sha256": "6c5887b2ab064c93d0fd735d9fd2035f4133f40ac4a99abffcdb565a58cb2fb5",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "reserve_indices": [
+      19,
+      44,
+      43,
+      25,
+      20,
+      32
+    ],
+    "second_action_count": 4,
+    "selection_seed": 24329,
+    "stage": "serving_smoke",
+    "truth_used_only_by_post_generation_equivalence_judge": true
+  },
+  "records": [
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 38,
+      "culprit_reference_sha256": "d4ac8e9cb3df39d390b1c8ba963cb50a5e8c222f9835bcc5b90bf8c3754bd890",
+      "first_branches": [
+        {
+          "action": "Obtain and analyze Scott's note for handwriting, fingerprints, paper source, and any signs it was altered, copied, or delivered by someone else.",
+          "response_sha256": "a62b5495bcfc99b3c360e1359f938a43185b1d93e26edad3c051eec9edde921d",
+          "second_branches": [
+            {
+              "action": "Reconstruct when and how the note was folded or roughly handled by analyzing the crease pattern and where it was tucked away in Scott's tent.",
+              "response_sha256": "14d642bcb24e8ef7fffcdb0048508c2ad4936de0b044b1c96fd2bc416d96ce64",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Trace which airfield stations used or stored the standard operations pad Scott's note was torn from, then identify who besides Scott had routine access to those pads.",
+              "response_sha256": "d82a680a1cc4a5647288a62a8c8ae946494abff1c0b39909343d2a224524cc31",
+              "truth_probability": 0.11
+            },
+            {
+              "action": "Request fingerprint development on the note focused on the greased edge and compare any recoverable prints against Gray, Blake, Morgan, Tanner, and relevant ground crew personnel.",
+              "response_sha256": "8493bcdac5285e26d121c7c29be867fec4a207c5a5b9c48caf533a6af5ebd0df",
+              "truth_probability": 0.24
+            },
+            {
+              "action": "Examine the faint grease mark on Scott's standard-issue operations-pad note and compare it to oils or residues from the tampered engine parts and ground crew work areas.",
+              "response_sha256": "6624f30dae03a6d4a24bee8d078280d1135b46dc2c0f76ff70e85776f96f2f85",
+              "truth_probability": 0.12000000000000001
+            }
+          ],
+          "truth_probability": 0.11000000000000001
+        },
+        {
+          "action": "Secure the airfield duty roster, tent-area sentry log, and maintenance access records for the relevant time window to map who could reach both the engine parts and Scott's tent.",
+          "response_sha256": "ec03ac9326aa1c3db210b8b9fe006b74da602c9bad4606011ee17cf335b495e2",
+          "second_branches": [
+            {
+              "action": "Cross-reference the maintenance access records against the duty roster to identify the specific mechanic or ground crew personnel who both had apron privileges and signed for engine-access tools that night.",
+              "response_sha256": "55082c01d8232d42e3e70832345e802a1e91c726011aafed0ce49c1a1fba53b6",
+              "truth_probability": 0.2
+            },
+            {
+              "action": "Match the names on the duty roster with all officers authorized for late movement through the tent area to isolate which officer could plausibly reach Scott's tent during the relevant window.",
+              "response_sha256": "8e998e23f356fd192f7d9b6dc80ffc7ce539acab1230e65bd4d3944b9d4a4fc8",
+              "truth_probability": 0.09000000000000001
+            },
+            {
+              "action": "Use the newly obtained records to find any individual appearing in both the maintenance access records and the tent-area movement records, prioritizing anyone with both tool access and a path to Scott's tent.",
+              "response_sha256": "fd800e698b198b00977317c8003ce494e493db6d5984913b262f58ae6b8b0c94",
+              "truth_probability": 0.32
+            },
+            {
+              "action": "Examine the tent-area sentry log in detail around the routine post-change gap to determine which sentry was responsible and which authorized late movements occurred immediately before and after the gap.",
+              "response_sha256": "26d4af1429bda39c5a19adbed40510733b3ec644e08686ad7ffbfc744b072bdd",
+              "truth_probability": 0.10000000000000002
+            }
+          ],
+          "truth_probability": 0.12000000000000001
+        },
+        {
+          "action": "Separate Captain Ellis Gray, Sergeant Leonard Blake, and Lieutenant Vera Morgan and ask each to explain their knowledge of the tampered engine parts and Scott's note without revealing the others' accounts.",
+          "response_sha256": "00855433525eee784db73366528c36110fb570575a52c354b7826967dc6877f4",
+          "second_branches": [
+            {
+              "action": "Pin down exactly what Lieutenant Vera Morgan meant by 'ground-side interference' by having her name the roles, people, or procedures she believes could have enabled tampering.",
+              "response_sha256": "cf327c903d7068373b79229a964601ea920099619e62ed5d15d3d20e47fde598",
+              "truth_probability": 0.11
+            },
+            {
+              "action": "Compare all three accounts about Scott mentioning a note and aircraft irregularities to reconstruct the last known timeline of who learned about the note before the murder.",
+              "response_sha256": "b3e69629d652f613772b08d4d5754848bcd2f9e586cc7257cf7b5c49564ba102",
+              "truth_probability": 0.11000000000000001
+            },
+            {
+              "action": "Identify and separately question the specific ground crew member or members who last handled the aircraft Scott complained about, since Blake newly emphasized checking who handled the aircraft last.",
+              "response_sha256": "5d5f19ac90fe8ad094e2d6eccfc0325ca58d8040b27cb7decd097c2ef2911e08",
+              "truth_probability": 0.14
+            },
+            {
+              "action": "Re-interview Captain Ellis Gray about his claim that Scott said he had 'left a note' to determine when, where, and in what context Scott made that remark.",
+              "response_sha256": "a61330aed4cf34579c0a8530f2d104605a8f9feb249862521a2c4f03c6101e43",
+              "truth_probability": 0.10000000000000002
+            }
+          ],
+          "truth_probability": 0.11000000000000001
+        },
+        {
+          "action": "Forensically examine the tampered engine parts for toolmarks, fingerprints, grease, and unit-specific maintenance traces.",
+          "response_sha256": "8e7b83671acee153d0fbdfb2e1e7ad108c461787a581216a6c7d6f11234e30e2",
+          "second_branches": [
+            {
+              "action": "Compare the partial smeared prints from the tampered parts against elimination prints from Gray, Blake, Morgan, Tanner, and any ground crew who could have worked hurriedly outside normal maintenance procedure.",
+              "response_sha256": "eb8cd4bc3df002ed7296b29043d2303ccc2ee95bdfec07866a46dac2c41b3549",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Inspect the tampered components and surrounding maintenance area for the specific tool characteristics behind the uneven hurried toolmarks, then match them to tools assigned or accessible to airfield staff.",
+              "response_sha256": "a999370c8a2b0ee2010014268db4a0fc2251d8017ccadb35daf372f5e37c83ff",
+              "truth_probability": 0.12
+            },
+            {
+              "action": "Review maintenance logs, tool checkout records, and shift assignments for any off-procedure work on the affected engine components, focusing on personnel with enough familiarity to tamper without causing obvious damage.",
+              "response_sha256": "9b3c3de508a9cdca017101fa87c1fbc0df353d9f84674b66678a849227cdb7f9",
+              "truth_probability": 0.16
+            },
+            {
+              "action": "Identify which mechanics, ground crew, or other airfield personnel had access to the specific dark grease found on the tampered engine parts and compare their routine work materials to that residue.",
+              "response_sha256": "06cb5ed52a9589b59d7a458b66f1835f2d31aa1d717454fc377d88ebe92b1b04",
+              "truth_probability": 0.18000000000000002
+            }
+          ],
+          "truth_probability": 0.12
+        },
+        {
+          "action": "Ask the mechanic or custodian responsible for the specific aircraft's engine parts to identify who last accessed, signed out, or worked on those parts before the murder.",
+          "response_sha256": "6f44797d82b7ba70144649f97a4924f936944f40681ec5f2564a81eb9b319da3",
+          "second_branches": [
+            {
+              "action": "Trace where the fetched engine components were kept after Tanner brought them from stores and identify every person who had unsupervised access before Scott was killed.",
+              "response_sha256": "48af0a26e8fcac86fad09aff875b6ca2b8a448a2888a893e914bda2cbf73aac9",
+              "truth_probability": 0.22000000000000006
+            },
+            {
+              "action": "Re-interview Private Owen Tanner specifically about his fetching of the engine parts from stores, including whether anyone approached him or handled the components before they reached Blake.",
+              "response_sha256": "010f018d9dd7af7678a732b41d6c6177f7df74ea480a20b00ed3662b9c5c2c6f",
+              "truth_probability": 0.2
+            },
+            {
+              "action": "Interview the stores clerk who released the engine components to Private Tanner and confirm the exact time, condition, and any other person present at sign-out.",
+              "response_sha256": "6d8065de53e6fc83171405530584861b786b7fc8ca74eaaf225c29c6430158fc",
+              "truth_probability": 0.26
+            },
+            {
+              "action": "Inspect the maintenance log entry Blake cited for handwriting, timestamps, and any irregularities around the yesterday-afternoon routine inspection sign-out.",
+              "response_sha256": "7a815e15fc9715a983275a985a41782887d871863ba8cd89ae366fbc15a2d662",
+              "truth_probability": 0.2
+            }
+          ],
+          "truth_probability": 0.2
+        },
+        {
+          "action": "Interview Private Owen Tanner immediately and pin down exactly who he saw near Scott's tent and the engine parts, with times and identities.",
+          "response_sha256": "428d76618ba1db6fab83ab847b1b76d3b75a792b704145494a477ba38fac017e",
+          "second_branches": [
+            {
+              "action": "Interview the maintenance crew supervisor to identify which specific maintenance hands were assigned in and out of the engine area during the evening Tanner described.",
+              "response_sha256": "8fff3d3f881d9f5dcf5b0a214a1fc9db7f5ae6164905785fe0b0cbf457237eca",
+              "truth_probability": 0.13000000000000003
+            },
+            {
+              "action": "Inspect the tampered engine parts for traces that distinguish routine maintenance work from deliberate sabotage, focusing on the maintenance hands Tanner specifically mentioned moving through the engine area.",
+              "response_sha256": "4015b4ee43618f24d1685c62bb37383222a74d6167b105584e89b992141f27f7",
+              "truth_probability": 0.08000000000000002
+            },
+            {
+              "action": "Forensically examine Scott's note for handling clues and chain-of-custody details, since the latest information failed to identify anyone near the tent but did narrow activity near the engine area to maintenance personnel.",
+              "response_sha256": "75e32dab10e2fce1b7bd698ad2aa94deafd600127a74bc7fed9cd43bdc1fe44c",
+              "truth_probability": 0.08000000000000002
+            },
+            {
+              "action": "Reconstruct a tighter timeline around Scott's tent by canvassing everyone who was on the path Tanner used when he passed and saw an unidentified person already at the tent in the dim light.",
+              "response_sha256": "0eb60cc2635a34f38232ecd053f855278ad69078d007077e68030835ce8e70fd",
+              "truth_probability": 0.10000000000000002
+            }
+          ],
+          "truth_probability": 0.10000000000000002
+        }
+      ],
+      "initial_truth_probability": 0.12,
+      "replay_truth_probability": 0.12000000000000001
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "case_index": 47,
+      "culprit_reference_sha256": "53fbf768fc0929a91ba6349405cc1a6f93aa7ceb7b3e2d2ba03289e30ca0e698",
+      "first_branches": [
+        {
+          "action": "Canvass neighboring stalls and lane entrances for anyone who saw Ashraf, Karim, Bashir, Salma, Kabir, or Rina enter or leave the shop near closing time.",
+          "response_sha256": "69c6af97c6c4d137eb89fa28ef4de9f19d155a9d736607dc0888dd2ae344db2b",
+          "second_branches": [
+            {
+              "action": "Re-interview the tea seller to pin down exactly when Karim was seen heading toward the rear lane and whether Karim was alone or carrying anything.",
+              "response_sha256": "a3b11225559789779be2c9ac1ea05fac3aa7036923979f5972e0fb961cbd2f9d",
+              "truth_probability": 0.16999999999999998
+            },
+            {
+              "action": "Locate Kabir and compare his route and delivery purpose against the fruit vendor's sighting of a courier lingering by the lane beside the shop shortly before closing.",
+              "response_sha256": "9b56e907fa38c227976ddc368426c974881a27c80088d7662652c88566853efd",
+              "truth_probability": 0.17
+            },
+            {
+              "action": "Question the cloth merchant in detail about Bashir's soft argument at the shop front, including the words heard and whether the unseen person sounded like Ashraf or someone else.",
+              "response_sha256": "6bfb39d7da3e5a9b386fd4c9087c05d1042feeb7f749e721c20d8d49f55b4b7b",
+              "truth_probability": 0.16
+            },
+            {
+              "action": "Identify and separately interview the two porters who saw Salma near the market entrance to narrow her timing and direction of travel.",
+              "response_sha256": "585b9fe9e13fde7c0b19d107cf0fc9501ee018113c3a1c69203d99cb21ca5aa9",
+              "truth_probability": 0.16
+            }
+          ],
+          "truth_probability": 0.14
+        },
+        {
+          "action": "Separate and re-interview Karim, Bashir, and Salma for a minute-by-minute account of Ashraf Uddin's final day, then compare their timelines for contradictions about the stolen jewels and shop closing.",
+          "response_sha256": "1989224e1f74c7fcf8ddde26a877a5e81a7eaa26114a063674d1d4f1d9af70aa",
+          "second_branches": [
+            {
+              "action": "Re-interview Bashir on his claim that Ashraf was 'protecting' the closing tally, pressing for the source of that knowledge if he says he never entered the shop that afternoon.",
+              "response_sha256": "c7537957eb8115deac4643dc34c7b69d8e58028a11a1cb835e5458d7419c268f",
+              "truth_probability": 0.09
+            },
+            {
+              "action": "Obtain and review the inventory and closing tally records from that day to test Bashir\u2019s concealment claim against Karim and Salma\u2019s description of inventory problems.",
+              "response_sha256": "8b0f6241f1e79f8a4d58790ded964c8301512dd685e9845ef800f4bf9da1cdb1",
+              "truth_probability": 0.14000000000000004
+            },
+            {
+              "action": "Trace Karim\u2019s mid-afternoon errand route and return time using bazaar witnesses or deliveries to verify whether he could have been present during the disputed early closing period.",
+              "response_sha256": "f1dd6e0b3e65af26fac8b0a1e6e0983531c35aa7212267d8c175898f3fb46ded",
+              "truth_probability": 0.08
+            },
+            {
+              "action": "Reconstruct the shop\u2019s actual closing window by canvassing neighboring stalls specifically about the short argument Karim mentioned and whether shutters came down earlier than usual.",
+              "response_sha256": "2fbc70d38dfec7c8465900783f72513ec7f83cf29a99f83fabfd7f0ca6ce3e96",
+              "truth_probability": 0.08
+            }
+          ],
+          "truth_probability": 0.10000000000000002
+        },
+        {
+          "action": "Show Kabir and Rina the same set of photographs of Karim, Bashir, Salma, and Ashraf's shop entrance and ask each witness to identify who they saw near the shop around the likely time of death.",
+          "response_sha256": "3987ac2681ae83a91273d5bdb9be08ab44e24fbc93e52c1c88368a47b4e8c3a9",
+          "second_branches": [
+            {
+              "action": "Check whether any witness or record places Bashir or Salma near the shop independently of the unidentified passerby, since Rina was only uncertain about them rather than identifying them.",
+              "response_sha256": "babdc475d1031f22dc7e04f577ebf54f5441d61c397fc93ee585709808c19035",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Canvass nearby stalls and delivery points for anyone who saw or can identify the hurried courier reported at the shop doorway around the likely time of death.",
+              "response_sha256": "40d9fd5cf25892de4353ed9576e663e26a9d96fadcd1ee17f71beb8c75dcacb1",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Re-interview Rina using a non-photo cognitive walkthrough focused on the passerby she excluded as not Karim, asking for clothing, direction of travel, and what made the person seem like a passerby.",
+              "response_sha256": "514a0be893178029b249f95c577f09d00e1e47a1310376989ab59b4ee642d455",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Obtain courier company logs or informal parcel records for deliveries or pickups at Ashraf's shop in the relevant time window to determine whether the hurried courier was legitimate or unknown.",
+              "response_sha256": "569af01f527eb2c45dfc5f3698065e76afafd1d35301801222e9becef2dbc475",
+              "truth_probability": 0.11000000000000001
+            }
+          ],
+          "truth_probability": 0.11000000000000001
+        },
+        {
+          "action": "Seize and audit the shop's inventory records, sales ledger, and recent jewel transaction notes to identify exactly which items are missing and who last handled them.",
+          "response_sha256": "f45e9d3e200fc8a9081eec3e91a92587e64cf533b679ba0618139f75eeb74c9e",
+          "second_branches": [
+            {
+              "action": "Re-interview Rina about who was near the shop around the time the later non-Ashraf ledger notes were likely made, focusing on any courier pickup or unnamed recipient.",
+              "response_sha256": "d8404190fb97fdc2d7bc6dd8bdb16c44217d5501ee628b43b80bab452b2cde98",
+              "truth_probability": 0.23000000000000004
+            },
+            {
+              "action": "Trace the undocumented \"received\" transfer by checking whether any courier logs, delivery chits, or route records match the missing items and lack a buyer name or signature.",
+              "response_sha256": "d8c8ea88aa68497ea88f1e9e0fdc2816cf47c5dcabcf6451da783ee940a32f18",
+              "truth_probability": 0.31
+            },
+            {
+              "action": "Interview Kabir specifically about the transfer entries initialed \"K.\" and ask whether he personally handled the two unset rubies, pearl drops, or emerald bracelet.",
+              "response_sha256": "ed263116fe657df275bdf59098ef3ef23455e4e32f2297aff9cd73ab4257467d",
+              "truth_probability": 0.25000000000000006
+            },
+            {
+              "action": "Obtain handwriting samples from Karim, Bashir, Salma, Kabir, and any regular business associate to compare against the later ledger notes that are not Ashraf's.",
+              "response_sha256": "36224e5a41e0e28e75ca138ec9cfb17551cfe98cbe5ff235d5f07b3b9d1c62a2",
+              "truth_probability": 0.31
+            }
+          ],
+          "truth_probability": 0.24
+        },
+        {
+          "action": "Ask Bashir to explain any recent disputes, debts, or dealings with Ashraf tied to the missing jewels while a second detective simultaneously asks Karim for the same specifics, then compare their answers for conflict.",
+          "response_sha256": "70b2a50d9d9b406564248c37d3b19577e0aaa8eb12be96f16dd90c9c5fe6056f",
+          "second_branches": [
+            {
+              "action": "Re-interview Karim specifically about the inventory argument he admitted, asking which pieces Ashraf said were missing, when the quarrel happened, and who else could have heard it.",
+              "response_sha256": "5ed9cc3b0bbe524d9a641e52ec1a868a062cd44143443084bfd52f7bce6ef605",
+              "truth_probability": 0.09000000000000001
+            },
+            {
+              "action": "Press Bashir on his statement that he heard gossip about Karim already being under suspicion, asking who spread that rumor first and when he learned it.",
+              "response_sha256": "c8b5480c11797341d291e9c1409e91deb3030ff8ae8bc337dc66d0d9060decbd",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Audit Ashraf's inventory records around the period Karim says Ashraf confronted him to identify exactly which jewels were flagged missing and whether any pattern points to insider handling or outside resale.",
+              "response_sha256": "fe76b5e66a9fec71ba33ab435a8a54c2f43b6098b7761f5edbfa76d55a26b6b9",
+              "truth_probability": 0.09000000000000001
+            },
+            {
+              "action": "Locate and question nearby bazaar workers or customers who may have witnessed the recent inventory quarrel between Ashraf and Karim, using Karim's admission that such a dispute occurred.",
+              "response_sha256": "f0f5748db00b343ced3684328ffa5bd464a9858902e0cd7e45b7595bc8f92b56",
+              "truth_probability": 0.08
+            }
+          ],
+          "truth_probability": 0.11
+        },
+        {
+          "action": "Search the shop thoroughly for signs of staging, disturbed storage, missing ledger pages, fingerprints, and the ligature or object used in the strangulation.",
+          "response_sha256": "6c43eb5b7cfadd4ed02f17594461d5454731ca0eea83ea2d1aed1c24d419995f",
+          "second_branches": [
+            {
+              "action": "Trace the silk scarf used as the ligature through shop stock records and display placement to determine when that item was last accounted for and who had access to it.",
+              "response_sha256": "ccde14cd634a7e36cc01beb4c3be674dbf474dd87569681b34a12ee7ab74d76a",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Inspect the slightly displaced rear storage box and surrounding shelf for what specific jewels or documents are missing and whether it matches the torn-out ledger entries.",
+              "response_sha256": "3d5c26773ab361283870072c547dec83d19b72013bd82761f6ef424fe562dc30",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "action": "Reconstruct the missing accounting-book pages by reviewing page numbering, impressions, and adjacent entries to identify which transactions or inventory items were removed.",
+              "response_sha256": "9adb5fd3d4b65466e469f18ac1bd1239288fdc3c19111bbd686c7d7a7a2d2717",
+              "truth_probability": 0.11000000000000001
+            },
+            {
+              "action": "Re-examine the smudged handling marks near the back shelf with powder or fabric-trace comparison to see whether they are consistent with recent searching focused on storage rather than the front counters.",
+              "response_sha256": "01e125644f5d00ea70568b401cc57be6cf64473a52dbfc372e2e64725cb9097d",
+              "truth_probability": 0.10000000000000002
+            }
+          ],
+          "truth_probability": 0.10000000000000002
+        }
+      ],
+      "initial_truth_probability": 0.12,
+      "replay_truth_probability": 0.16
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "case_diagnostics": [
+      {
+        "best_one_step_truth_probability": 0.2,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.26,
+        "greedy_first_index": 4,
+        "nonmyopic_probability_gap": 0.06,
+        "one_step_truth_probability_spread": 0.09999999999999999,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_first_index": 1,
+        "oracle_pair_truth_probability": 0.32,
+        "oracle_second_index": 2,
+        "pair_gain_over_best_one_step": 0.12,
+        "replay_truth_probability_gap": 0.01999999999999999
+      },
+      {
+        "best_one_step_truth_probability": 0.24,
+        "distinct_first_response_count": 6,
+        "greedy_continuation_truth_probability": 0.31,
+        "greedy_first_index": 3,
+        "nonmyopic_probability_gap": 0.0,
+        "one_step_truth_probability_spread": 0.13999999999999996,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_first_index": 3,
+        "oracle_pair_truth_probability": 0.31,
+        "oracle_second_index": 1,
+        "pair_gain_over_best_one_step": 0.07,
+        "replay_truth_probability_gap": 0.009999999999999981
+      }
+    ],
+    "gates": {
+      "all_beliefs_size_8": true,
+      "all_cases_complete": true,
+      "all_pass": true,
+      "all_replay_gaps_finite": true,
+      "at_least_3_distinct_first_responses_each": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_cases": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.35107524999999995,
+    "generator": {
+      "adapter_completion_tokens": 10814,
+      "adapter_cost_usd": 0.27843249999999997,
+      "adapter_prompt_tokens": 46489,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 64,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 17039,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 10814,
+          "cost_usd": 0.27843249999999997,
+          "prompt_tokens": 46489,
+          "reasoning_tokens": 0,
+          "requests": 64
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 6225,
+          "cost_usd": 0.07264274999999999,
+          "prompt_tokens": 59507,
+          "reasoning_tokens": 0,
+          "requests": 62
+        }
+      },
+      "prompt_tokens": 105996,
+      "reasoning_tokens": 0,
+      "remaining_usd": 36.465860283749905,
+      "requests": 126,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.3510752499999999,
+      "run_remaining_usd": 1.6489247500000002,
+      "total_spent_usd": 68.91894241170725
+    },
+    "judge": {
+      "adapter_completion_tokens": 6225,
+      "adapter_cost_usd": 0.07264274999999999,
+      "adapter_prompt_tokens": 59507,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 62,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 17039,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 10814,
+          "cost_usd": 0.27843249999999997,
+          "prompt_tokens": 46489,
+          "reasoning_tokens": 0,
+          "requests": 64
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 6225,
+          "cost_usd": 0.07264274999999999,
+          "prompt_tokens": 59507,
+          "reasoning_tokens": 0,
+          "requests": 62
+        }
+      },
+      "prompt_tokens": 105996,
+      "reasoning_tokens": 0,
+      "remaining_usd": 36.465860283749905,
+      "requests": 126,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.3510752499999999,
+      "run_remaining_usd": 1.6489247500000002,
+      "total_spent_usd": 68.91894241170725
+    },
+    "physical_requests": 126,
+    "reasoning_tokens": 0
+  }
+}
