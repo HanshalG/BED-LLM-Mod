@@ -1,0 +1,312 @@
+{
+  "protocol": {
+    "candidate_movie_ids": [
+      258,
+      181,
+      288,
+      1
+    ],
+    "heldout_count": 8,
+    "heldout_ratings_hidden_from_all_model_prompts": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      294,
+      286
+    ],
+    "items_sha256": "553841ebc7de3a0fd0d6b62a204ea30c1e651aacfb2814c7a6584ac52f2c5701",
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "profile_count": 6,
+    "ratings_sha256": "06416e597f82b7342361e41163890c81036900f418ad91315590814211dca490",
+    "readme_sha256": "4883b8cf340ed0059971b33f56ad3adc88a40792108ebca3d24aafc4c82e8b52",
+    "recorded_ratings_are_only_outcomes": true,
+    "retained_profile_count": 2,
+    "selection_seed": 24302,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "serving_smoke",
+    "user_ids": [
+      13,
+      62
+    ],
+    "user_ids_hidden_from_all_model_prompts": true
+  },
+  "records": [
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "generated_profiles": [
+            "Favors high-stakes, tension-driven narratives found in crime thrillers and epic space operas, but rejects low-stakes, slapstick-oriented comedies. Prefers stories where conflict is central to the plot.",
+            "Prefers stylized, auteur-driven filmmaking (e.g., Coen brothers or Lucas) over traditional sentimentalism. While appreciative of epic scale, the user rejects lighthearted farce and finds sweeping romantic dramas unengaging.",
+            "Driven by genre-specific intensity; enjoys the 'thrill' of adventure and the 'grit' of crime. Dislikes humor that relies on gimmickry or physical comedy, preferring drama that feels grounded or mythic.",
+            "A preference for strong narrative structures and world-building. High ratings for immersive universes (Star Wars) and tightly plotted crime stories (Fargo) suggest a dislike for character studies that lack a driving, external plot or momentum.",
+            "Values tonal consistency and 'edge.' The user enjoys dark humor and tension but finds pure, bright, or broad comedy (Liar Liar) to be lacking in substance, and finds romantic epics too melodramatic.",
+            "Interested in the intersection of conflict and setting\u2014whether it is the vastness of space or the isolation of the American Midwest. Dislikes comedy that is purely escapist or lacks a sense of consequence."
+          ],
+          "heldout_nll": 1.622572442187599,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "retained_support": [
+            "Favors high-stakes, tension-driven narratives found in crime thrillers and epic space operas, but rejects low-stakes, slapstick-oriented comedies. Prefers stories where conflict is central to the plot.",
+            "Prefers stylized, auteur-driven filmmaking (e.g., Coen brothers or Lucas) over traditional sentimentalism. While appreciative of epic scale, the user rejects lighthearted farce and finds sweeping romantic dramas unengaging.",
+            "Driven by genre-specific intensity; enjoys the 'thrill' of adventure and the 'grit' of crime. Dislikes humor that relies on gimmickry or physical comedy, preferring drama that feels grounded or mythic.",
+            "A preference for strong narrative structures and world-building. High ratings for immersive universes (Star Wars) and tightly plotted crime stories (Fargo) suggest a dislike for character studies that lack a driving, external plot or momentum.",
+            "Values tonal consistency and 'edge.' The user enjoys dark humor and tension but finds pure, bright, or broad comedy (Liar Liar) to be lacking in substance, and finds romantic epics too melodramatic.",
+            "Interested in the intersection of conflict and setting\u2014whether it is the vastness of space or the isolation of the American Midwest. Dislikes comedy that is purely escapist or lacks a sense of consequence."
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 2,
+      "immediate_eig_values": [
+        0.0014858540009110577,
+        0.00381463515304703,
+        0.003988103979604585,
+        0.0035775010262619755
+      ],
+      "initial_heldout_nll": 1.6919888782299528,
+      "initial_profiles": [
+        "Favors high-stakes, tension-driven narratives found in crime thrillers and epic space operas, but rejects low-stakes, slapstick-oriented comedies. Prefers stories where conflict is central to the plot.",
+        "Prefers stylized, auteur-driven filmmaking (e.g., Coen brothers or Lucas) over traditional sentimentalism. While appreciative of epic scale, the user rejects lighthearted farce and finds sweeping romantic dramas unengaging.",
+        "Driven by genre-specific intensity; enjoys the 'thrill' of adventure and the 'grit' of crime. Dislikes humor that relies on gimmickry or physical comedy, preferring drama that feels grounded or mythic.",
+        "A preference for strong narrative structures and world-building. High ratings for immersive universes (Star Wars) and tightly plotted crime stories (Fargo) suggest a dislike for character studies that lack a driving, external plot or momentum.",
+        "Values tonal consistency and 'edge.' The user enjoys dark humor and tension but finds pure, bright, or broad comedy (Liar Liar) to be lacking in substance, and finds romantic epics too melodramatic.",
+        "Interested in the intersection of conflict and setting\u2014whether it is the vastness of space or the isolation of the American Midwest. Dislikes comedy that is purely escapist or lacks a sense of consequence."
+      ],
+      "replay_profiles": [
+        "Prioritizes high-stakes narrative momentum and structural tension, favoring epic world-building or tightly plotted crime. Rejects low-stakes, gimmick-driven comedies and finds slow-paced, sentimental romanticism lacking in driving conflict.",
+        "Favors 'serious' genre filmmaking where spectacle or crime is grounded in specific atmosphere (e.g., mythic space opera or gritty crime). Dislikes broad, slapstick humor and finds sweeping, melodramatic period dramas to be emotionally unconvincing or overly sentimental.",
+        "Attracted to the intersection of intellectual curiosity and tension, such as speculative sci-fi or suspenseful crime. Dislikes humor that relies on physical tropes and finds romantic dramas that prioritize emotion over plot progression to be unengaging.",
+        "Seeks narratives defined by strong external stakes and decisive action, whether through adventure or criminal tension. Rejects 'lightweight' entertainment like farce and finds character-driven romantic epics too passive or lacking in visceral impact.",
+        "Values stylistic distinctiveness and tonal weight; enjoys the dark wit of crime or the grand scale of sci-fi. Rejects the 'broadness' of mainstream comedy and finds traditional, sentimentalist drama to be aesthetically or emotionally unstimulating.",
+        "Prefers stories where the setting serves as a catalyst for conflict (e.g., the frontier of space or the isolation of crime settings). Dislikes comedies that lack consequence or substance and finds romance that is not anchored in high-stakes drama to be underwhelming."
+      ],
+      "user_id": 13
+    },
+    {
+      "branches": [
+        {
+          "branch_index": 0,
+          "generated_profiles": [
+            "Favors epic-scale world-building and high-stakes adventure with a sense of wonder; strongly dislikes low-brow, slapstick, or purely gag-driven comedy.",
+            "Prefers tension-driven narratives, whether through speculative sci-fi conflict or grounded crime/thriller elements; rejects lighthearted, non-consequential humor.",
+            "Values cinematic spectacle and stylistic direction; prefers films with strong atmospheric or visual identity (e.g., space operas or Coen Brothers' aesthetics) over sentimental period dramas or broad comedies.",
+            "Driven by narrative momentum and 'stakes'; enjoys fast-paced action or suspenseful crime, but finds slow-burn romantic dramas or silly, low-stakes comedies unengaging.",
+            "Favors genre-blending that maintains a serious or mythic tone; appreciates the intersection of war and sci-fi or crime and drama, but rejects the tonal lightness of pure comedy.",
+            "Prefers 'intelligent' genre fiction; values structured storytelling in Sci-Fi or Crime, while finding traditional romantic melodrama too sentimental and slapstick comedy too juvenile."
+          ],
+          "heldout_nll": 2.263650041466673,
+          "movie": {
+            "genres": [
+              "Drama",
+              "Sci-Fi"
+            ],
+            "title": "Contact (1997)"
+          },
+          "retained_support": [
+            "Favors epic-scale world-building and high-stakes adventure with a sense of wonder; strongly dislikes low-brow, slapstick, or purely gag-driven comedy.",
+            "Prefers tension-driven narratives, whether through speculative sci-fi conflict or grounded crime/thriller elements; rejects lighthearted, non-consequential humor.",
+            "Values cinematic spectacle and stylistic direction; prefers films with strong atmospheric or visual identity (e.g., space operas or Coen Brothers' aesthetics) over sentimental period dramas or broad comedies.",
+            "Driven by narrative momentum and 'stakes'; enjoys fast-paced action or suspenseful crime, but finds slow-burn romantic dramas or silly, low-stakes comedies unengaging.",
+            "Favors genre-blending that maintains a serious or mythic tone; appreciates the intersection of war and sci-fi or crime and drama, but rejects the tonal lightness of pure comedy.",
+            "Prefers 'intelligent' genre fiction; values structured storytelling in Sci-Fi or Crime, while finding traditional romantic melodrama too sentimental and slapstick comedy too juvenile."
+          ]
+        }
+      ],
+      "candidate_movies": [
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Return of the Jedi (1983)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Animation",
+            "Children's",
+            "Comedy"
+          ],
+          "title": "Toy Story (1995)"
+        }
+      ],
+      "immediate_eig_selected_branch": 3,
+      "immediate_eig_values": [
+        0.007459044376372903,
+        0.018999802975162794,
+        0.03850394512877453,
+        0.07365329781911978
+      ],
+      "initial_heldout_nll": 1.9761097056708625,
+      "initial_profiles": [
+        "Favors epic-scale world-building and high-stakes adventure with a sense of wonder; strongly dislikes low-brow, slapstick, or purely gag-driven comedy.",
+        "Prefers tension-driven narratives, whether through speculative sci-fi conflict or grounded crime/thriller elements; rejects lighthearted, non-consequential humor.",
+        "Values cinematic spectacle and stylistic direction; prefers films with strong atmospheric or visual identity (e.g., space operas or Coen Brothers' aesthetics) over sentimental period dramas or broad comedies.",
+        "Driven by narrative momentum and 'stakes'; enjoys fast-paced action or suspenseful crime, but finds slow-burn romantic dramas or silly, low-stakes comedies unengaging.",
+        "Favors genre-blending that maintains a serious or mythic tone; appreciates the intersection of war and sci-fi or crime and drama, but rejects the tonal lightness of pure comedy.",
+        "Prefers 'intelligent' genre fiction; values structured storytelling in Sci-Fi or Crime, while finding traditional romantic melodrama too sentimental and slapstick comedy too juvenile."
+      ],
+      "replay_profiles": [
+        "Favors epic-scale world-building and high-stakes adventure with a sense of wonder; strongly dislikes low-brow, slapstick, or purely gag-driven comedy.",
+        "Prefers tension-driven narratives, whether through speculative sci-fi conflict or grounded crime/thriller elements; rejects lighthearted, non-consequential humor.",
+        "Values cinematic spectacle and stylistic direction; prefers films with strong atmospheric or visual identity (e.g., space operas or Coen Brothers' aesthetics) over sentimental period dramas or broad comedies.",
+        "Driven by narrative momentum and 'stakes'; enjoys fast-paced action or suspenseful crime, but finds slow-burn romantic dramas or silly, low-stakes comedies unengaging.",
+        "Favors genre-blending that maintains a serious or mythic tone; appreciates the intersection of war and sci-fi or crime and drama, but rejects the tonal lightness of pure comedy.",
+        "Prefers 'intelligent' genre fiction; values structured storytelling in Sci-Fi or Crime, while finding traditional romantic melodrama too sentimental and slapstick comedy too juvenile."
+      ],
+      "user_id": 62
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_branches_completed": true,
+      "all_pass": true,
+      "all_replays_completed": true,
+      "all_users_completed": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_branches": 2,
+    "num_users": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.028763409999999996,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 2278,
+        "adapter_cost_usd": 0.0010194099999999999,
+        "adapter_prompt_tokens": 2838,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 7330,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 2278,
+            "cost_usd": 0.0010194099999999999,
+            "prompt_tokens": 2838,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 5052,
+            "cost_usd": 0.027743999999999998,
+            "prompt_tokens": 7832,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 10670,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.61986112299993,
+        "requests": 10,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.028763409999999996,
+        "run_remaining_usd": 0.72123659,
+        "total_spent_usd": 48.764941572457225
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 5052,
+        "adapter_cost_usd": 0.027743999999999998,
+        "adapter_prompt_tokens": 7832,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 4,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 7330,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 2278,
+            "cost_usd": 0.0010194099999999999,
+            "prompt_tokens": 2838,
+            "reasoning_tokens": 0,
+            "requests": 6
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 5052,
+            "cost_usd": 0.027743999999999998,
+            "prompt_tokens": 7832,
+            "reasoning_tokens": 0,
+            "requests": 4
+          }
+        },
+        "prompt_tokens": 10670,
+        "reasoning_tokens": 0,
+        "remaining_usd": 21.61986112299993,
+        "requests": 10,
+        "run_budget_usd": 0.75,
+        "run_cost_usd": 0.028763409999999996,
+        "run_remaining_usd": 0.72123659,
+        "total_spent_usd": 48.764941572457225
+      }
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
