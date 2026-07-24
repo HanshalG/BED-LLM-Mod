@@ -1,0 +1,671 @@
+{
+  "protocol": {
+    "candidate_outcomes_read_only_after_tree_frozen": true,
+    "candidate_pool_size": 16,
+    "common_transition_tree_for_all_policies": true,
+    "heldout_count": 8,
+    "heldout_ratings_read_only_after_policy_paths_fixed": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      1,
+      98
+    ],
+    "likelihood_history_hidden": true,
+    "likelihood_model": "openai/gpt-5.4-mini",
+    "parser_recovery_applied": true,
+    "private_raw_sha256": "11f1311024b559008db543d037b518f5e89a35b2d5b800c1b8ce7494ffc87cfb",
+    "profile_count_initial": 6,
+    "profile_count_transition": 8,
+    "q1_candidate_count": 4,
+    "q1_outcomes_per_candidate": 5,
+    "q2_outcomes_per_q1_branch": 5,
+    "q2_rollout_policy": "immediate_eig",
+    "raw_responses_private_and_untracked": true,
+    "relaxed_terminal_probability_rows": 2,
+    "screen_user_ids": [
+      455,
+      933,
+      49,
+      395,
+      606,
+      620,
+      18,
+      887,
+      503,
+      916,
+      109,
+      630,
+      262,
+      804,
+      72,
+      276,
+      99,
+      230,
+      660,
+      889,
+      658,
+      622,
+      291,
+      786,
+      198,
+      478,
+      773,
+      380,
+      618,
+      738,
+      790,
+      374,
+      751,
+      830,
+      41,
+      92,
+      727,
+      886,
+      177,
+      65,
+      892,
+      151,
+      256,
+      903,
+      174,
+      757,
+      763,
+      58
+    ],
+    "selection_seed": 24309,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "formal",
+    "terminal_probability_sum_tolerance": 0.1,
+    "user_ids": [
+      455,
+      933,
+      395,
+      606
+    ]
+  },
+  "records": [
+    {
+      "max_initial_immediate_eig": 0.03240853370200747,
+      "policy_paths": {
+        "depth1": {
+          "final_heldout_nll": 1.452321895363002,
+          "query_movie_ids": [
+            237,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Romance"
+              ],
+              "title": "Jerry Maguire (1996)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.3755619868195756
+        },
+        "depth2": {
+          "final_heldout_nll": 1.4386145279498377,
+          "query_movie_ids": [
+            286,
+            174
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Romance",
+                "War"
+              ],
+              "title": "English Patient, The (1996)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure"
+              ],
+              "title": "Raiders of the Lost Ark (1981)"
+            }
+          ],
+          "round1_heldout_nll": 1.4558484293499647
+        },
+        "immediate_eig": {
+          "final_heldout_nll": 1.4285412892255756,
+          "query_movie_ids": [
+            288,
+            127
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            }
+          ],
+          "round1_heldout_nll": 1.5601685643849263
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance",
+            "War"
+          ],
+          "title": "English Patient, The (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Romance"
+          ],
+          "title": "Jerry Maguire (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        }
+      ],
+      "q1_depth1_expected_entropies": [
+        1.5508617653682004,
+        1.5484841600909625,
+        1.5349050886241806,
+        1.5455870037267876
+      ],
+      "q1_depth2_expected_terminal_entropies": [
+        1.5560241598549887,
+        1.5255630583334314,
+        1.535332052696505,
+        1.5526333794897091
+      ],
+      "q1_immediate_eig_values": [
+        0.03240853370200747,
+        0.01573932074110118,
+        0.011650609974309667,
+        0.0110387092123585
+      ],
+      "user_id": 455
+    },
+    {
+      "max_initial_immediate_eig": 0.02619054658931219,
+      "policy_paths": {
+        "depth1": {
+          "final_heldout_nll": 1.5463115885623524,
+          "query_movie_ids": [
+            7,
+            151
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Twelve Monkeys (1995)"
+            },
+            {
+              "genres": [
+                "Adventure",
+                "Children's",
+                "Comedy"
+              ],
+              "title": "Willy Wonka and the Chocolate Factory (1971)"
+            }
+          ],
+          "round1_heldout_nll": 1.6038740408023409
+        },
+        "depth2": {
+          "final_heldout_nll": 1.7595157431152197,
+          "query_movie_ids": [
+            79,
+            172
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Thriller"
+              ],
+              "title": "Fugitive, The (1993)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Drama",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Empire Strikes Back, The (1980)"
+            }
+          ],
+          "round1_heldout_nll": 1.90918814402117
+        },
+        "immediate_eig": {
+          "final_heldout_nll": 1.6951373013010618,
+          "query_movie_ids": [
+            172,
+            69
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Drama",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Empire Strikes Back, The (1980)"
+            },
+            {
+              "genres": [
+                "Comedy",
+                "Romance",
+                "War"
+              ],
+              "title": "Forrest Gump (1994)"
+            }
+          ],
+          "round1_heldout_nll": 1.8519234672106264
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Twelve Monkeys (1995)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure"
+          ],
+          "title": "Indiana Jones and the Last Crusade (1989)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Thriller"
+          ],
+          "title": "Fugitive, The (1993)"
+        }
+      ],
+      "q1_depth1_expected_entropies": [
+        1.5220939425198052,
+        1.4690380581231848,
+        1.50278308875825,
+        1.4983892988977565
+      ],
+      "q1_depth2_expected_terminal_entropies": [
+        1.462159841724552,
+        1.4880708035326369,
+        1.4598502607758042,
+        1.4372611579768508
+      ],
+      "q1_immediate_eig_values": [
+        0.02619054658931219,
+        0.006291342843537384,
+        0.006193733922157163,
+        0.005216943341014524
+      ],
+      "user_id": 933
+    },
+    {
+      "max_initial_immediate_eig": 0.048045971351615924,
+      "policy_paths": {
+        "depth1": {
+          "final_heldout_nll": 1.4573493490281557,
+          "query_movie_ids": [
+            288,
+            127
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Horror",
+                "Thriller"
+              ],
+              "title": "Scream (1996)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            }
+          ],
+          "round1_heldout_nll": 1.4051800819521885
+        },
+        "depth2": {
+          "final_heldout_nll": 1.4559934185280308,
+          "query_movie_ids": [
+            127,
+            286
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Romance",
+                "War"
+              ],
+              "title": "English Patient, The (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.5255137435639559
+        },
+        "immediate_eig": {
+          "final_heldout_nll": 1.4559934185280308,
+          "query_movie_ids": [
+            127,
+            286
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Romance",
+                "War"
+              ],
+              "title": "English Patient, The (1996)"
+            }
+          ],
+          "round1_heldout_nll": 1.5255137435639559
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure"
+          ],
+          "title": "Raiders of the Lost Ark (1981)"
+        },
+        {
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Romance",
+            "Sci-Fi",
+            "War"
+          ],
+          "title": "Empire Strikes Back, The (1980)"
+        }
+      ],
+      "q1_depth1_expected_entropies": [
+        1.5628167025114714,
+        1.5570368164333472,
+        1.590207985628104,
+        1.5704347939236873
+      ],
+      "q1_depth2_expected_terminal_entropies": [
+        1.5528129825996737,
+        1.558418109456773,
+        1.556956611576609,
+        1.5599525715282627
+      ],
+      "q1_immediate_eig_values": [
+        0.048045971351615924,
+        0.04340662378619187,
+        0.03218354406455992,
+        0.029568691495514665
+      ],
+      "user_id": 395
+    },
+    {
+      "max_initial_immediate_eig": 0.0549416013779882,
+      "policy_paths": {
+        "depth1": {
+          "final_heldout_nll": 1.4792595226348524,
+          "query_movie_ids": [
+            127,
+            174
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure"
+              ],
+              "title": "Raiders of the Lost Ark (1981)"
+            }
+          ],
+          "round1_heldout_nll": 1.4525284145642376
+        },
+        "depth2": {
+          "final_heldout_nll": 1.4077365720497306,
+          "query_movie_ids": [
+            56,
+            258
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Crime",
+                "Drama"
+              ],
+              "title": "Pulp Fiction (1994)"
+            },
+            {
+              "genres": [
+                "Drama",
+                "Sci-Fi"
+              ],
+              "title": "Contact (1997)"
+            }
+          ],
+          "round1_heldout_nll": 1.5030478178680353
+        },
+        "immediate_eig": {
+          "final_heldout_nll": 1.4792595226348524,
+          "query_movie_ids": [
+            127,
+            174
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Action",
+                "Crime",
+                "Drama"
+              ],
+              "title": "Godfather, The (1972)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure"
+              ],
+              "title": "Raiders of the Lost Ark (1981)"
+            }
+          ],
+          "round1_heldout_nll": 1.4525284145642376
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "title": "Godfather, The (1972)"
+        },
+        {
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "title": "Pulp Fiction (1994)"
+        },
+        {
+          "genres": [
+            "Horror",
+            "Thriller"
+          ],
+          "title": "Scream (1996)"
+        },
+        {
+          "genres": [
+            "Drama",
+            "Sci-Fi"
+          ],
+          "title": "Contact (1997)"
+        }
+      ],
+      "q1_depth1_expected_entropies": [
+        1.4475096095386992,
+        1.5369591428462965,
+        1.5176241688666623,
+        1.491745736219245
+      ],
+      "q1_depth2_expected_terminal_entropies": [
+        1.5318739831447779,
+        1.4927898201802812,
+        1.529415076582386,
+        1.5190906390716115
+      ],
+      "q1_immediate_eig_values": [
+        0.0549416013779882,
+        0.027785880423891296,
+        0.026666786724595326,
+        0.02075178380466003
+      ],
+      "user_id": 606
+    }
+  ],
+  "schema_version": 8,
+  "status": "gate_failed",
+  "summary": {
+    "depth2_mean_nll_improvement_vs_depth1": -0.03165447651361397,
+    "depth2_mean_nll_improvement_vs_immediate": -0.0007321824883244066,
+    "depth2_wins_vs_depth1": 3,
+    "depth2_wins_vs_immediate": 1,
+    "gates": {
+      "all_pass": false,
+      "all_policy_paths_have_two_distinct_queries": true,
+      "depth2_improves_mean_nll_by_0_03_vs_depth1": false,
+      "depth2_improves_mean_nll_by_0_03_vs_immediate": false,
+      "depth2_wins_on_three_vs_depth1": true,
+      "depth2_wins_on_three_vs_immediate": false,
+      "exact_physical_request_count": true,
+      "prospective_enrollment_complete": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_final_heldout_nll": {
+      "depth1": 1.4838105888970907,
+      "depth2": 1.5154650654107047,
+      "immediate_eig": 1.5147328829223803
+    },
+    "num_enrolled_users": 4,
+    "num_screen_users": 48
+  },
+  "usage": {
+    "adapter_cost_usd": 5.008949189999998,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 296359,
+        "adapter_cost_usd": 0.15027158999999993,
+        "adapter_prompt_tokens": 353079,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 528
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 986580,
+        "adapter_cost_usd": 4.858677599999998,
+        "adapter_prompt_tokens": 1322072,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 528
+      }
+    },
+    "physical_requests": 1056,
+    "reasoning_tokens": 0
+  }
+}
