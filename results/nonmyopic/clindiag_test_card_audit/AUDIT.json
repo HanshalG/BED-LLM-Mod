@@ -1,0 +1,89 @@
+{
+  "archive_sha256": "a9ea339fc3a6ded91f5c1769589c5c374dd32c266072511260d4102e544539c1",
+  "bed_validity": {
+    "reasons": [
+      "The recorded procedure set is selected retrospectively under the true case, so action availability is not target independent.",
+      "Unperformed tests have no observed outcome, so the archive does not identify counterfactual branches p(y|theta,x).",
+      "Disease-specific procedure names can reveal the source clinicians' differential even when the diagnosis string does not match lexically."
+    ],
+    "valid_test_card_environment": false
+  },
+  "lexical_action_leaks": [],
+  "minimum_card_thresholds": {
+    "10": {
+      "challenging": 359,
+      "rare": 32,
+      "total": 391
+    },
+    "4": {
+      "challenging": 903,
+      "rare": 139,
+      "total": 1042
+    },
+    "5": {
+      "challenging": 805,
+      "rare": 113,
+      "total": 918
+    },
+    "6": {
+      "challenging": 718,
+      "rare": 90,
+      "total": 808
+    },
+    "7": {
+      "challenging": 615,
+      "rare": 73,
+      "total": 688
+    },
+    "8": {
+      "challenging": 524,
+      "rare": 59,
+      "total": 583
+    }
+  },
+  "num_archive_cases": 2021,
+  "num_fresh_statically_eligible_cases": 1249,
+  "num_reserved_cases": 98,
+  "parse_or_case_exclusions": {
+    "JSONDecodeError": 3,
+    "KeyError": 8,
+    "ValueError": 663
+  },
+  "schema_version": 1,
+  "test_card_count_distribution": {
+    "0": 15,
+    "1": 28,
+    "10": 81,
+    "11": 55,
+    "12": 50,
+    "13": 43,
+    "14": 46,
+    "15": 30,
+    "16": 21,
+    "17": 10,
+    "18": 13,
+    "19": 8,
+    "2": 75,
+    "20": 5,
+    "21": 7,
+    "22": 6,
+    "23": 5,
+    "24": 4,
+    "25": 3,
+    "27": 2,
+    "3": 89,
+    "37": 1,
+    "4": 124,
+    "43": 1,
+    "5": 110,
+    "6": 120,
+    "7": 105,
+    "8": 103,
+    "9": 89
+  },
+  "test_entry_exclusions": {
+    "confirmatory": 1143,
+    "intervention": 253,
+    "missing_name": 60
+  }
+}
