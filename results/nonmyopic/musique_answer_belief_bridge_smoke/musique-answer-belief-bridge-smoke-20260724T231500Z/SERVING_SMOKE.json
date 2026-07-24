@@ -1,0 +1,452 @@
+{
+  "protocol": {
+    "belief_size": 8,
+    "dataset": "MuSiQue answerable dev v1.0",
+    "dataset_sha256": "15fa63794d18a94ce12411aca6e2327e65b6e83b0b1490efab3f1962e48abf3b",
+    "document_ids_shuffled_per_row": true,
+    "expected_physical_requests": 66,
+    "first_action_count": 6,
+    "gold_hidden_from_generator": true,
+    "private_raw_sha256": "f2583b4a81d95b74ad0344a853881f16df1c07a8d0d9b8eda8b38c6560994363",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "reserve_ids": [
+      "2hop__390947_232243",
+      "2hop__47071_162399",
+      "2hop__471509_136043",
+      "2hop__161151_50883",
+      "2hop__286093_361551",
+      "2hop__15368_17873"
+    ],
+    "row_ids": [
+      "2hop__30390_92972",
+      "2hop__609313_20273"
+    ],
+    "second_action_count": 4,
+    "selection_seed": 24327,
+    "stage": "serving_smoke",
+    "truth_used_only_by_post_generation_equivalence_judge": true
+  },
+  "records": [
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d02",
+          "second_branches": [
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.2
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.07
+            }
+          ],
+          "truth_probability": 0.09
+        },
+        {
+          "first_doc_id": "d01",
+          "second_branches": [
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.2
+            },
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.125
+            }
+          ],
+          "truth_probability": 0.08000000000000002
+        },
+        {
+          "first_doc_id": "d05",
+          "second_branches": [
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.09000000000000001
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.09000000000000001
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.125
+            }
+          ],
+          "truth_probability": 0.10000000000000002
+        },
+        {
+          "first_doc_id": "d03",
+          "second_branches": [
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.18
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.09000000000000001
+            }
+          ],
+          "truth_probability": 0.09000000000000001
+        },
+        {
+          "first_doc_id": "d04",
+          "second_branches": [
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.1
+            },
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.07
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.06
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.08000000000000002
+            }
+          ],
+          "truth_probability": 0.125
+        },
+        {
+          "first_doc_id": "d06",
+          "second_branches": [
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.125
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.18000000000000002
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.08000000000000002
+            }
+          ],
+          "truth_probability": 0.08000000000000002
+        }
+      ],
+      "gold_doc_ids": [
+        "d13",
+        "d18"
+      ],
+      "initial_truth_probability": 0.09000000000000001,
+      "replay_pair": "d02>d03",
+      "replay_truth_probability": 0.125,
+      "row_id": "2hop__30390_92972"
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d14",
+          "second_branches": [
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.3
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.4999999999999999
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.22
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.24
+            }
+          ],
+          "truth_probability": 0.18000000000000002
+        },
+        {
+          "first_doc_id": "d09",
+          "second_branches": [
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.72
+            },
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.86
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.62
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.6799999999999999
+            }
+          ],
+          "truth_probability": 0.5599999999999999
+        },
+        {
+          "first_doc_id": "d05",
+          "second_branches": [
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.7799999999999998
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.18
+            },
+            {
+              "second_doc_id": "d14",
+              "truth_probability": 0.36
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.35999999999999993
+            }
+          ],
+          "truth_probability": 0.2
+        },
+        {
+          "first_doc_id": "d04",
+          "second_branches": [
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.19
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.20000000000000004
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.18000000000000002
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.4199999999999999
+            }
+          ],
+          "truth_probability": 0.19
+        },
+        {
+          "first_doc_id": "d19",
+          "second_branches": [
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.22000000000000003
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.21000000000000002
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.18000000000000002
+            },
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.3
+            }
+          ],
+          "truth_probability": 0.18000000000000002
+        },
+        {
+          "first_doc_id": "d20",
+          "second_branches": [
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.22
+            },
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.3
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.09999999999999998
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.7199999999999999
+            }
+          ],
+          "truth_probability": 0.125
+        }
+      ],
+      "gold_doc_ids": [
+        "d05",
+        "d09"
+      ],
+      "initial_truth_probability": 0.2,
+      "replay_pair": "d14>d05",
+      "replay_truth_probability": 0.32,
+      "row_id": "2hop__609313_20273"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "case_diagnostics": [
+      {
+        "best_one_step_truth_probability": 0.125,
+        "gold_pair": "d13>d18",
+        "gold_pair_truth_probability": 0.0001,
+        "gold_root_differs_from_greedy": true,
+        "gold_root_is_candidate": false,
+        "gold_second_proposed_after_gold_root": false,
+        "greedy_continuation_truth_probability": 0.1,
+        "greedy_first_doc_id": "d04",
+        "nonmyopic_probability_gap": 0.1,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_pair": "d02>d18",
+        "oracle_pair_is_gold_pair": false,
+        "oracle_pair_truth_probability": 0.2,
+        "pair_gain_over_best_one_step": 0.07500000000000001,
+        "replay_truth_probability_gap": 0.0
+      },
+      {
+        "best_one_step_truth_probability": 0.5599999999999999,
+        "gold_pair": "d05>d09",
+        "gold_pair_truth_probability": 0.7799999999999998,
+        "gold_root_differs_from_greedy": true,
+        "gold_root_is_candidate": true,
+        "gold_second_proposed_after_gold_root": true,
+        "greedy_continuation_truth_probability": 0.86,
+        "greedy_first_doc_id": "d09",
+        "nonmyopic_probability_gap": 0.0,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_pair": "d09>d05",
+        "oracle_pair_is_gold_pair": false,
+        "oracle_pair_truth_probability": 0.86,
+        "pair_gain_over_best_one_step": 0.30000000000000004,
+        "replay_truth_probability_gap": 0.020000000000000018
+      }
+    ],
+    "gates": {
+      "all_cases_complete": true,
+      "all_gold_blind_beliefs_size_8": true,
+      "all_pass": true,
+      "all_replay_gaps_finite": true,
+      "exact_physical_request_count": true,
+      "zero_reasoning_tokens": true
+    },
+    "num_cases": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.28084875,
+    "generator": {
+      "adapter_completion_tokens": 7490,
+      "adapter_cost_usd": 0.27162749999999997,
+      "adapter_prompt_tokens": 63711,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 64,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 8376,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 7490,
+          "cost_usd": 0.27162749999999997,
+          "prompt_tokens": 63711,
+          "reasoning_tokens": 0,
+          "requests": 64
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 886,
+          "cost_usd": 0.00922125,
+          "prompt_tokens": 6979,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 70690,
+      "reasoning_tokens": 0,
+      "remaining_usd": 37.89208328375,
+      "requests": 66,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.2808487499999999,
+      "run_remaining_usd": 1.2191512500000001,
+      "total_spent_usd": 67.49271941170716
+    },
+    "judge": {
+      "adapter_completion_tokens": 886,
+      "adapter_cost_usd": 0.00922125,
+      "adapter_prompt_tokens": 6979,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 8376,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 7490,
+          "cost_usd": 0.27162749999999997,
+          "prompt_tokens": 63711,
+          "reasoning_tokens": 0,
+          "requests": 64
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 886,
+          "cost_usd": 0.00922125,
+          "prompt_tokens": 6979,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 70690,
+      "reasoning_tokens": 0,
+      "remaining_usd": 37.89208328375,
+      "requests": 66,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.2808487499999999,
+      "run_remaining_usd": 1.2191512500000001,
+      "total_spent_usd": 67.49271941170716
+    },
+    "physical_requests": 66,
+    "reasoning_tokens": 0
+  }
+}

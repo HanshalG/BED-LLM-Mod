@@ -1,0 +1,1133 @@
+{
+  "protocol": {
+    "belief_size": 8,
+    "dataset": "MuSiQue answerable dev v1.0",
+    "dataset_sha256": "15fa63794d18a94ce12411aca6e2327e65b6e83b0b1490efab3f1962e48abf3b",
+    "document_ids_shuffled_per_row": true,
+    "expected_physical_requests": 198,
+    "first_action_count": 6,
+    "gold_hidden_from_generator": true,
+    "private_raw_sha256": "028006401918b01fae75182f88dd9f97787ecb70112464088b0ffce6472966ee",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "reserve_ids": [
+      "2hop__390947_232243",
+      "2hop__47071_162399",
+      "2hop__471509_136043",
+      "2hop__161151_50883",
+      "2hop__286093_361551",
+      "2hop__15368_17873"
+    ],
+    "row_ids": [
+      "2hop__77263_84616",
+      "2hop__73615_42173",
+      "2hop__61714_42553",
+      "2hop__510679_57816",
+      "2hop__804417_126089",
+      "2hop__684287_78303"
+    ],
+    "second_action_count": 4,
+    "selection_seed": 24327,
+    "stage": "opportunity",
+    "truth_used_only_by_post_generation_equivalence_judge": true
+  },
+  "records": [
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d01",
+          "second_branches": [
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.49
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.5199999999999999
+            },
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.5599999999999999
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.45
+            }
+          ],
+          "truth_probability": 0.5599999999999999
+        },
+        {
+          "first_doc_id": "d15",
+          "second_branches": [
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.36999999999999994
+            },
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.22
+            },
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.22
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.19999999999999996
+            }
+          ],
+          "truth_probability": 0.18000000000000002
+        },
+        {
+          "first_doc_id": "d07",
+          "second_branches": [
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.3799999999999999
+            },
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.15
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.14
+            },
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.14
+            }
+          ],
+          "truth_probability": 0.16
+        },
+        {
+          "first_doc_id": "d11",
+          "second_branches": [
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.2
+            },
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.21
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.36999999999999994
+            },
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.2
+            }
+          ],
+          "truth_probability": 0.2
+        },
+        {
+          "first_doc_id": "d02",
+          "second_branches": [
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.3
+            },
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.19999999999999996
+            },
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.31
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.54
+            }
+          ],
+          "truth_probability": 0.26
+        },
+        {
+          "first_doc_id": "d16",
+          "second_branches": [
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.16
+            },
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.15
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.14000000000000004
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.33999999999999997
+            }
+          ],
+          "truth_probability": 0.14000000000000004
+        }
+      ],
+      "gold_doc_ids": [
+        "d15",
+        "d01"
+      ],
+      "initial_truth_probability": 0.10000000000000002,
+      "replay_pair": "d01>d11",
+      "replay_truth_probability": 0.45999999999999996,
+      "row_id": "2hop__77263_84616"
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d19",
+          "second_branches": [
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.41
+            },
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.3899999999999999
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.47
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.45999999999999996
+            }
+          ],
+          "truth_probability": 0.33999999999999997
+        },
+        {
+          "first_doc_id": "d20",
+          "second_branches": [
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.27
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.33999999999999997
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.24000000000000002
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.31999999999999995
+            }
+          ],
+          "truth_probability": 0.27999999999999997
+        },
+        {
+          "first_doc_id": "d04",
+          "second_branches": [
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.28
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.3
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.2
+            },
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.33999999999999997
+            }
+          ],
+          "truth_probability": 0.22000000000000003
+        },
+        {
+          "first_doc_id": "d10",
+          "second_branches": [
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.29999999999999993
+            },
+            {
+              "second_doc_id": "d05",
+              "truth_probability": 0.22
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.34
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.17999999999999997
+            }
+          ],
+          "truth_probability": 0.24000000000000005
+        },
+        {
+          "first_doc_id": "d05",
+          "second_branches": [
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.3
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.42
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.22
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.33999999999999997
+            }
+          ],
+          "truth_probability": 0.24000000000000002
+        },
+        {
+          "first_doc_id": "d01",
+          "second_branches": [
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.29
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.29999999999999993
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.29999999999999993
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.31999999999999995
+            }
+          ],
+          "truth_probability": 0.26000000000000006
+        }
+      ],
+      "gold_doc_ids": [
+        "d04",
+        "d19"
+      ],
+      "initial_truth_probability": 0.0001,
+      "replay_pair": "d19>d04",
+      "replay_truth_probability": 0.41,
+      "row_id": "2hop__73615_42173"
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d03",
+          "second_branches": [
+            {
+              "second_doc_id": "d12",
+              "truth_probability": 0.7799999999999998
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.41
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.48
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.5599999999999999
+            }
+          ],
+          "truth_probability": 0.5199999999999999
+        },
+        {
+          "first_doc_id": "d08",
+          "second_branches": [
+            {
+              "second_doc_id": "d06",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d12",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d05",
+          "second_branches": [
+            {
+              "second_doc_id": "d12",
+              "truth_probability": 0.059999999999999984
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.2
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.14
+        },
+        {
+          "first_doc_id": "d01",
+          "second_branches": [
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d06",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d12",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d16",
+          "second_branches": [
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d12",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d12",
+          "second_branches": [
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.8599999999999999
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        }
+      ],
+      "gold_doc_ids": [
+        "d16",
+        "d03"
+      ],
+      "initial_truth_probability": 0.16,
+      "replay_pair": "d03>d12",
+      "replay_truth_probability": 0.7399999999999999,
+      "row_id": "2hop__61714_42553"
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d14",
+          "second_branches": [
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d11",
+          "second_branches": [
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.5499999999999999
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d07",
+          "second_branches": [
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 1.0
+            },
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d14",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d09",
+          "second_branches": [
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 1.0
+            },
+            {
+              "second_doc_id": "d14",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.3
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.86
+            }
+          ],
+          "truth_probability": 0.31999999999999995
+        },
+        {
+          "first_doc_id": "d19",
+          "second_branches": [
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d20",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d10",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.94
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d20",
+          "second_branches": [
+            {
+              "second_doc_id": "d19",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d07",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.86
+            }
+          ],
+          "truth_probability": 0.0001
+        }
+      ],
+      "gold_doc_ids": [
+        "d07",
+        "d09"
+      ],
+      "initial_truth_probability": 0.14000000000000004,
+      "replay_pair": "d14>d10",
+      "replay_truth_probability": 0.0001,
+      "row_id": "2hop__510679_57816"
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d09",
+          "second_branches": [
+            {
+              "second_doc_id": "d16",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.07
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d02",
+          "second_branches": [
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.26
+            },
+            {
+              "second_doc_id": "d16",
+              "truth_probability": 0.3
+            },
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.24
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.24
+            }
+          ],
+          "truth_probability": 0.22000000000000003
+        },
+        {
+          "first_doc_id": "d15",
+          "second_branches": [
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.1
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d16",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d16",
+          "second_branches": [
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.36999999999999994
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.1
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.11
+            }
+          ],
+          "truth_probability": 0.11
+        },
+        {
+          "first_doc_id": "d03",
+          "second_branches": [
+            {
+              "second_doc_id": "d15",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d16",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d02",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d04",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d04",
+          "second_branches": [
+            {
+              "second_doc_id": "d11",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d03",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d16",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        }
+      ],
+      "gold_doc_ids": [
+        "d16",
+        "d02"
+      ],
+      "initial_truth_probability": 0.0001,
+      "replay_pair": "d09>d16",
+      "replay_truth_probability": 0.0001,
+      "row_id": "2hop__804417_126089"
+    },
+    {
+      "all_belief_sizes_valid": true,
+      "first_branches": [
+        {
+          "first_doc_id": "d17",
+          "second_branches": [
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.10000000000000002
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.13000000000000003
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.07999999999999999
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.10000000000000002
+            }
+          ],
+          "truth_probability": 0.10000000000000002
+        },
+        {
+          "first_doc_id": "d01",
+          "second_branches": [
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d17",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d16",
+          "second_branches": [
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d17",
+              "truth_probability": 0.0001
+            }
+          ],
+          "truth_probability": 0.0001
+        },
+        {
+          "first_doc_id": "d09",
+          "second_branches": [
+            {
+              "second_doc_id": "d17",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.16
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.10000000000000003
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.12
+            }
+          ],
+          "truth_probability": 0.11000000000000001
+        },
+        {
+          "first_doc_id": "d18",
+          "second_branches": [
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.1
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.12
+            },
+            {
+              "second_doc_id": "d08",
+              "truth_probability": 0.12
+            },
+            {
+              "second_doc_id": "d17",
+              "truth_probability": 0.1
+            }
+          ],
+          "truth_probability": 0.14000000000000004
+        },
+        {
+          "first_doc_id": "d08",
+          "second_branches": [
+            {
+              "second_doc_id": "d17",
+              "truth_probability": 0.22
+            },
+            {
+              "second_doc_id": "d18",
+              "truth_probability": 0.13999999999999999
+            },
+            {
+              "second_doc_id": "d01",
+              "truth_probability": 0.0001
+            },
+            {
+              "second_doc_id": "d09",
+              "truth_probability": 0.16
+            }
+          ],
+          "truth_probability": 0.14000000000000004
+        }
+      ],
+      "gold_doc_ids": [
+        "d18",
+        "d01"
+      ],
+      "initial_truth_probability": 0.14,
+      "replay_pair": "d17>d01",
+      "replay_truth_probability": 0.10000000000000002,
+      "row_id": "2hop__684287_78303"
+    }
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "case_diagnostics": [
+      {
+        "best_one_step_truth_probability": 0.5599999999999999,
+        "gold_pair": "d15>d01",
+        "gold_pair_truth_probability": 0.36999999999999994,
+        "gold_root_differs_from_greedy": true,
+        "gold_root_is_candidate": true,
+        "gold_second_proposed_after_gold_root": true,
+        "greedy_continuation_truth_probability": 0.5599999999999999,
+        "greedy_first_doc_id": "d01",
+        "nonmyopic_probability_gap": 0.0,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_pair": "d01>d15",
+        "oracle_pair_is_gold_pair": false,
+        "oracle_pair_truth_probability": 0.5599999999999999,
+        "pair_gain_over_best_one_step": 0.0,
+        "replay_truth_probability_gap": 0.030000000000000027,
+        "row_id": "2hop__77263_84616"
+      },
+      {
+        "best_one_step_truth_probability": 0.33999999999999997,
+        "gold_pair": "d04>d19",
+        "gold_pair_truth_probability": 0.2,
+        "gold_root_differs_from_greedy": true,
+        "gold_root_is_candidate": true,
+        "gold_second_proposed_after_gold_root": true,
+        "greedy_continuation_truth_probability": 0.47,
+        "greedy_first_doc_id": "d19",
+        "nonmyopic_probability_gap": 0.0,
+        "oracle_first_differs_from_greedy": false,
+        "oracle_pair": "d19>d20",
+        "oracle_pair_is_gold_pair": false,
+        "oracle_pair_truth_probability": 0.47,
+        "pair_gain_over_best_one_step": 0.13,
+        "replay_truth_probability_gap": 0.0,
+        "row_id": "2hop__73615_42173"
+      },
+      {
+        "best_one_step_truth_probability": 0.5199999999999999,
+        "gold_pair": "d16>d03",
+        "gold_pair_truth_probability": 0.0001,
+        "gold_root_differs_from_greedy": true,
+        "gold_root_is_candidate": true,
+        "gold_second_proposed_after_gold_root": true,
+        "greedy_continuation_truth_probability": 0.7799999999999998,
+        "greedy_first_doc_id": "d03",
+        "nonmyopic_probability_gap": 0.08000000000000007,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_pair": "d12>d01",
+        "oracle_pair_is_gold_pair": false,
+        "oracle_pair_truth_probability": 0.8599999999999999,
+        "pair_gain_over_best_one_step": 0.33999999999999997,
+        "replay_truth_probability_gap": 0.039999999999999925,
+        "row_id": "2hop__61714_42553"
+      },
+      {
+        "best_one_step_truth_probability": 0.31999999999999995,
+        "gold_pair": "d07>d09",
+        "gold_pair_truth_probability": 1.0,
+        "gold_root_differs_from_greedy": true,
+        "gold_root_is_candidate": true,
+        "gold_second_proposed_after_gold_root": true,
+        "greedy_continuation_truth_probability": 1.0,
+        "greedy_first_doc_id": "d09",
+        "nonmyopic_probability_gap": 0.0,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_pair": "d07>d09",
+        "oracle_pair_is_gold_pair": true,
+        "oracle_pair_truth_probability": 1.0,
+        "pair_gain_over_best_one_step": 0.68,
+        "replay_truth_probability_gap": 0.0,
+        "row_id": "2hop__510679_57816"
+      },
+      {
+        "best_one_step_truth_probability": 0.22000000000000003,
+        "gold_pair": "d16>d02",
+        "gold_pair_truth_probability": 0.36999999999999994,
+        "gold_root_differs_from_greedy": true,
+        "gold_root_is_candidate": true,
+        "gold_second_proposed_after_gold_root": true,
+        "greedy_continuation_truth_probability": 0.3,
+        "greedy_first_doc_id": "d02",
+        "nonmyopic_probability_gap": 0.06999999999999995,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_pair": "d16>d02",
+        "oracle_pair_is_gold_pair": true,
+        "oracle_pair_truth_probability": 0.36999999999999994,
+        "pair_gain_over_best_one_step": 0.1499999999999999,
+        "replay_truth_probability_gap": 0.0,
+        "row_id": "2hop__804417_126089"
+      },
+      {
+        "best_one_step_truth_probability": 0.14000000000000004,
+        "gold_pair": "d18>d01",
+        "gold_pair_truth_probability": 0.12,
+        "gold_root_differs_from_greedy": false,
+        "gold_root_is_candidate": true,
+        "gold_second_proposed_after_gold_root": true,
+        "greedy_continuation_truth_probability": 0.12,
+        "greedy_first_doc_id": "d18",
+        "nonmyopic_probability_gap": 0.1,
+        "oracle_first_differs_from_greedy": true,
+        "oracle_pair": "d08>d17",
+        "oracle_pair_is_gold_pair": false,
+        "oracle_pair_truth_probability": 0.22,
+        "pair_gain_over_best_one_step": 0.07999999999999996,
+        "replay_truth_probability_gap": 0.0,
+        "row_id": "2hop__684287_78303"
+      }
+    ],
+    "gates": {
+      "all_cases_complete": true,
+      "all_pass": false,
+      "all_replay_gaps_finite": true,
+      "exact_physical_request_count": true,
+      "gold_continuation_candidate_count_at_least_4": true,
+      "gold_pair_is_oracle_count_at_least_2": true,
+      "gold_root_candidate_count_at_least_4": true,
+      "gold_root_differs_count_at_least_2": true,
+      "initial_belief_not_saturated": true,
+      "max_replay_gap_at_most_0_25": true,
+      "mean_nonmyopic_gap_at_least_0_05": false,
+      "mean_pair_gain_at_least_0_08": true,
+      "mean_replay_gap_at_most_0_10": true,
+      "nonmyopic_gap_count_at_least_2": false,
+      "oracle_first_differs_count_at_least_2": true,
+      "pair_gain_count_at_least_3": true,
+      "zero_reasoning_tokens": true
+    },
+    "gold_continuation_candidate_count": 6,
+    "gold_pair_is_oracle_count": 2,
+    "gold_root_candidate_count": 6,
+    "gold_root_differs_from_greedy_count": 5,
+    "max_replay_truth_probability_gap": 0.039999999999999925,
+    "mean_initial_truth_probability": 0.09003333333333334,
+    "mean_nonmyopic_probability_gap": 0.041666666666666664,
+    "mean_pair_gain_over_best_one_step": 0.22999999999999998,
+    "mean_replay_truth_probability_gap": 0.011666666666666659,
+    "nonmyopic_gap_at_least_0_10_count": 1,
+    "num_cases": 6,
+    "oracle_first_differs_from_greedy_count": 4,
+    "pair_gain_at_least_0_10_count": 4
+  },
+  "usage": {
+    "adapter_cost_usd": 0.8515122500000002,
+    "generator": {
+      "adapter_completion_tokens": 24914,
+      "adapter_cost_usd": 0.8222750000000002,
+      "adapter_prompt_tokens": 179426,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 192,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 27492,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 24914,
+          "cost_usd": 0.8222750000000002,
+          "prompt_tokens": 179426,
+          "reasoning_tokens": 0,
+          "requests": 192
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2578,
+          "cost_usd": 0.02923725,
+          "prompt_tokens": 23515,
+          "reasoning_tokens": 0,
+          "requests": 6
+        }
+      },
+      "prompt_tokens": 202941,
+      "reasoning_tokens": 0,
+      "remaining_usd": 37.04057103374991,
+      "requests": 198,
+      "run_budget_usd": 4.0,
+      "run_cost_usd": 0.8515122500000003,
+      "run_remaining_usd": 3.1484877499999997,
+      "total_spent_usd": 68.34423166170724
+    },
+    "judge": {
+      "adapter_completion_tokens": 2578,
+      "adapter_cost_usd": 0.02923725,
+      "adapter_prompt_tokens": 23515,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 6,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 27492,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 24914,
+          "cost_usd": 0.8222750000000002,
+          "prompt_tokens": 179426,
+          "reasoning_tokens": 0,
+          "requests": 192
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 2578,
+          "cost_usd": 0.02923725,
+          "prompt_tokens": 23515,
+          "reasoning_tokens": 0,
+          "requests": 6
+        }
+      },
+      "prompt_tokens": 202941,
+      "reasoning_tokens": 0,
+      "remaining_usd": 37.04057103374991,
+      "requests": 198,
+      "run_budget_usd": 4.0,
+      "run_cost_usd": 0.8515122500000003,
+      "run_remaining_usd": 3.1484877499999997,
+      "total_spent_usd": 68.34423166170724
+    },
+    "physical_requests": 198,
+    "reasoning_tokens": 0
+  }
+}
