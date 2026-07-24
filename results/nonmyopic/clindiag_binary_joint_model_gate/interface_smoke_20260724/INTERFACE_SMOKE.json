@@ -1,0 +1,291 @@
+{
+  "protocol": {
+    "expected_requests": 10,
+    "interface_ids": [
+      "17983370",
+      "rare231"
+    ],
+    "model": "openai/gpt-5.4",
+    "reasoning_disabled": true,
+    "retries": 0,
+    "selection_seed": 24292
+  },
+  "records": [
+    {
+      "answers": [
+        {
+          "answer": "no",
+          "finding": "No painful oral aphthous ulcers occur during febrile episodes.",
+          "source": "recorded"
+        },
+        {
+          "answer": "no",
+          "finding": "No tender cervical lymph node enlargement occurs during febrile episodes.",
+          "source": "recorded"
+        }
+      ],
+      "duplicate": {
+        "answer": "no",
+        "finding": "No painful oral aphthous ulcers occur during febrile episodes.",
+        "source": "recorded"
+      },
+      "duplicate_answer_match": true,
+      "literal_leak_query_ids": [],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "history",
+          "negative_finding": "No painful oral aphthous ulcers occur during febrile episodes.",
+          "positive_finding": "Painful oral aphthous ulcers occur during febrile episodes.",
+          "request": "During fever episodes, does the child develop painful mouth ulcers?"
+        },
+        {
+          "id": "q2",
+          "kind": "history",
+          "negative_finding": "No tender cervical lymph node enlargement occurs during febrile episodes.",
+          "positive_finding": "A tender enlarged cervical lymph node is present during febrile episodes.",
+          "request": "During fever episodes, is there a tender swollen neck gland?"
+        },
+        {
+          "id": "q3",
+          "kind": "history",
+          "negative_finding": "No nonpruritic skin rash appears during febrile episodes.",
+          "positive_finding": "A nonpruritic skin rash appears during febrile episodes.",
+          "request": "During fever episodes, does a nonitchy rash appear on the skin?"
+        },
+        {
+          "id": "q4",
+          "kind": "history",
+          "negative_finding": "No abdominal pain occurs during febrile episodes.",
+          "positive_finding": "Abdominal pain occurs during febrile episodes.",
+          "request": "During fever episodes, is there abdominal pain?"
+        },
+        {
+          "id": "q5",
+          "kind": "test",
+          "negative_finding": "Absolute neutrophil count is 500/\u00b5L or higher during a febrile episode.",
+          "positive_finding": "Absolute neutrophil count is below 500/\u00b5L during a febrile episode.",
+          "request": "On a complete blood count obtained during a fever episode, is the absolute neutrophil count below 500/\u00b5L?"
+        },
+        {
+          "id": "q6",
+          "kind": "test",
+          "negative_finding": "Urinalysis during fever shows neither leukocyte esterase nor nitrites.",
+          "positive_finding": "Urinalysis during fever shows positive leukocyte esterase or nitrites.",
+          "request": "On urinalysis obtained during fever, are leukocyte esterase or nitrites positive?"
+        }
+      ],
+      "source_id": "17983370",
+      "support": [
+        "PFAPA syndrome",
+        "Mevalonate kinase deficiency (hyper-IgD syndrome)",
+        "TNF receptor-associated periodic syndrome",
+        "Familial Mediterranean fever",
+        "Cryopyrin-associated periodic syndrome",
+        "Systemic juvenile idiopathic arthritis",
+        "Cyclic neutropenia",
+        "Occult urinary tract infection with vesicoureteral reflux",
+        "Chronic active Epstein-Barr virus infection",
+        "Langerhans cell histiocytosis",
+        "Deficiency of adenosine deaminase 2",
+        "Hodgkin lymphoma"
+      ],
+      "true_diagnosis_measurement_only": "Periodic fever with aphthous stomatitis, pharyngitis, and cervical adenitis (PFAPA)"
+    },
+    {
+      "answers": [
+        {
+          "answer": "no",
+          "finding": "External genitalia were not reported as ambiguous at birth.",
+          "source": "recorded"
+        },
+        {
+          "answer": "yes",
+          "finding": "Breast development has begun.",
+          "source": "recorded"
+        }
+      ],
+      "duplicate": {
+        "answer": "no",
+        "finding": "External genitalia were not reported as ambiguous at birth.",
+        "source": "synthetic"
+      },
+      "duplicate_answer_match": true,
+      "literal_leak_query_ids": [],
+      "queries": [
+        {
+          "id": "q1",
+          "kind": "history",
+          "negative_finding": "External genitalia were not reported as ambiguous at birth.",
+          "positive_finding": "External genital ambiguity was noted at birth.",
+          "request": "Was there ambiguity of the external genitalia noted at birth, such as clitoromegaly or labioscrotal fusion?"
+        },
+        {
+          "id": "q2",
+          "kind": "history",
+          "negative_finding": "Breast development has not begun.",
+          "positive_finding": "Breast development has begun.",
+          "request": "Has breast development begun?"
+        },
+        {
+          "id": "q3",
+          "kind": "examination",
+          "negative_finding": "Blood pressure is not elevated for age.",
+          "positive_finding": "Blood pressure is elevated for age.",
+          "request": "Is blood pressure elevated for age on examination?"
+        },
+        {
+          "id": "q4",
+          "kind": "test",
+          "negative_finding": "Serum 17-hydroxyprogesterone is not elevated.",
+          "positive_finding": "Serum 17-hydroxyprogesterone is elevated.",
+          "request": "Is the serum 17-hydroxyprogesterone concentration elevated?"
+        },
+        {
+          "id": "q5",
+          "kind": "test",
+          "negative_finding": "Pelvic ultrasound does not show a distinct ovarian or adnexal mass.",
+          "positive_finding": "Pelvic ultrasound shows a distinct ovarian or adnexal mass.",
+          "request": "Does pelvic ultrasound show a distinct ovarian or adnexal mass?"
+        },
+        {
+          "id": "q6",
+          "kind": "test",
+          "negative_finding": "Abdominal imaging does not show a distinct adrenal mass.",
+          "positive_finding": "Abdominal imaging shows a distinct adrenal mass.",
+          "request": "Does abdominal imaging show a distinct adrenal mass?"
+        }
+      ],
+      "source_id": "rare231",
+      "support": [
+        "Polycystic ovary syndrome",
+        "Classic congenital adrenal hyperplasia due to 21-hydroxylase deficiency",
+        "Nonclassic congenital adrenal hyperplasia due to 21-hydroxylase deficiency",
+        "11-beta-hydroxylase deficiency congenital adrenal hyperplasia",
+        "Androgen-secreting adrenal tumor",
+        "Androgen-secreting ovarian tumor",
+        "Steroid cell tumor of the ovary",
+        "Sertoli-Leydig cell tumor of the ovary",
+        "Ovotesticular disorder of sex development",
+        "46,XY complete gonadal dysgenesis",
+        "5-alpha-reductase deficiency",
+        "Partial androgen insensitivity syndrome"
+      ],
+      "true_diagnosis_measurement_only": "46,XY partial gonadal dysgenesis"
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "duplicate_answer_matches": 2,
+    "gates": {
+      "all_pass": true,
+      "both_duplicate_answers_match": true,
+      "exactly_10_requests": true,
+      "no_literal_target_leaks": true,
+      "six_queries_per_case": true,
+      "supports_size_twelve": true,
+      "zero_reasoning": true
+    },
+    "literal_target_leaks": 0
+  },
+  "usage": {
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "snapshots": {
+      "gatekeeper": {
+        "adapter_completion_tokens": 165,
+        "adapter_cost_usd": 0.018537500000000002,
+        "adapter_prompt_tokens": 6425,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 6,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1147,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1147,
+            "cost_usd": 0.035484999999999996,
+            "prompt_tokens": 7312,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 7312,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.897223722999946,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.035484999999999996,
+        "run_remaining_usd": 1.464515,
+        "total_spent_usd": 46.48757897245721
+      },
+      "query": {
+        "adapter_completion_tokens": 741,
+        "adapter_cost_usd": 0.012754999999999999,
+        "adapter_prompt_tokens": 656,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1147,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1147,
+            "cost_usd": 0.035484999999999996,
+            "prompt_tokens": 7312,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 7312,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.897223722999946,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.035484999999999996,
+        "run_remaining_usd": 1.464515,
+        "total_spent_usd": 46.48757897245721
+      },
+      "support": {
+        "adapter_completion_tokens": 241,
+        "adapter_cost_usd": 0.0041925,
+        "adapter_prompt_tokens": 231,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 2,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 1147,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 1147,
+            "cost_usd": 0.035484999999999996,
+            "prompt_tokens": 7312,
+            "reasoning_tokens": 0,
+            "requests": 10
+          }
+        },
+        "prompt_tokens": 7312,
+        "reasoning_tokens": 0,
+        "remaining_usd": 23.897223722999946,
+        "requests": 10,
+        "run_budget_usd": 1.5,
+        "run_cost_usd": 0.035484999999999996,
+        "run_remaining_usd": 1.464515,
+        "total_spent_usd": 46.48757897245721
+      }
+    }
+  }
+}
