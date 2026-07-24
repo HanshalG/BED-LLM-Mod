@@ -1,0 +1,245 @@
+{
+  "protocol": {
+    "candidate_count_per_state": 1,
+    "candidate_outcomes_read_only_after_each_round_tree_frozen": true,
+    "candidate_pool_size": 16,
+    "common_tree_for_identical_policy_states": true,
+    "heldout_count": 8,
+    "heldout_ratings_read_only_after_policy_paths_fixed": true,
+    "initial_movie_ids": [
+      50,
+      100,
+      1,
+      98
+    ],
+    "likelihood_history_hidden": true,
+    "likelihood_sum_tolerance": 0.1,
+    "normalized_probability_rows": 0,
+    "outcomes_per_candidate": 5,
+    "policies": [
+      "receding_explicit",
+      "immediate_eig",
+      "seeded_random"
+    ],
+    "private_raw_sha256": "0b607d36a8266d1e74a8a24c489f3d8d3bf8871023e6e3ecc84b7a5a70516002",
+    "raw_responses_private_and_untracked": true,
+    "screen_user_ids": [
+      684
+    ],
+    "selection_seed": 24310,
+    "source_ratings_omitted_from_persisted_artifacts": true,
+    "stage": "serving_smoke",
+    "user_ids": [
+      684
+    ]
+  },
+  "records": [
+    {
+      "max_initial_immediate_eig": 0.019468580689457005,
+      "policy_paths": {
+        "immediate_eig": {
+          "final_heldout_nll": 1.4282034531919385,
+          "query_movie_ids": [
+            202,
+            181
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy",
+                "Romance"
+              ],
+              "title": "Groundhog Day (1993)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Return of the Jedi (1983)"
+            }
+          ],
+          "round1_heldout_nll": 1.4679938060236246
+        },
+        "receding_explicit": {
+          "final_heldout_nll": 1.4282034531919385,
+          "query_movie_ids": [
+            202,
+            181
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy",
+                "Romance"
+              ],
+              "title": "Groundhog Day (1993)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Return of the Jedi (1983)"
+            }
+          ],
+          "round1_heldout_nll": 1.4679938060236246
+        },
+        "seeded_random": {
+          "final_heldout_nll": 1.4282034531919385,
+          "query_movie_ids": [
+            202,
+            181
+          ],
+          "query_movies": [
+            {
+              "genres": [
+                "Comedy",
+                "Romance"
+              ],
+              "title": "Groundhog Day (1993)"
+            },
+            {
+              "genres": [
+                "Action",
+                "Adventure",
+                "Romance",
+                "Sci-Fi",
+                "War"
+              ],
+              "title": "Return of the Jedi (1983)"
+            }
+          ],
+          "round1_heldout_nll": 1.4679938060236246
+        }
+      },
+      "q1_candidate_movies": [
+        {
+          "genres": [
+            "Comedy",
+            "Romance"
+          ],
+          "title": "Groundhog Day (1993)"
+        }
+      ],
+      "q1_explicit_expected_entropies": [
+        1.5435418997939823
+      ],
+      "q1_immediate_eig_values": [
+        0.019468580689457005
+      ],
+      "user_id": 684
+    }
+  ],
+  "schema_version": 9,
+  "status": "passed",
+  "summary": {
+    "expected_physical_requests": 22,
+    "explicit_mean_nll_improvement_vs_immediate": 0.0,
+    "explicit_wins_vs_immediate": 0,
+    "gates": {
+      "all_pass": true,
+      "all_policy_paths_have_two_distinct_queries": true,
+      "exact_physical_request_count": true,
+      "one_unique_round2_state": true,
+      "zero_reasoning_tokens": true
+    },
+    "mean_final_heldout_nll": {
+      "immediate_eig": 1.4282034531919385,
+      "receding_explicit": 1.4282034531919385,
+      "seeded_random": 1.4282034531919385
+    },
+    "num_enrolled_users": 1,
+    "num_screen_users": 1,
+    "num_unique_round2_policy_states": 1
+  },
+  "usage": {
+    "adapter_cost_usd": 0.14814151,
+    "by_role": {
+      "generator": {
+        "adapter_completion_tokens": 5920,
+        "adapter_cost_usd": 0.0030976599999999995,
+        "adapter_prompt_tokens": 7138,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 11,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 34479,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "google/gemma-4-26b-a4b-it",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 5920,
+            "cost_usd": 0.0030976599999999995,
+            "prompt_tokens": 7138,
+            "reasoning_tokens": 0,
+            "requests": 11
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 28559,
+            "cost_usd": 0.14504385,
+            "prompt_tokens": 36553,
+            "reasoning_tokens": 0,
+            "requests": 11
+          }
+        },
+        "prompt_tokens": 43691,
+        "reasoning_tokens": 0,
+        "remaining_usd": 12.967906803000119,
+        "requests": 22,
+        "run_budget_usd": 9.0,
+        "run_cost_usd": 0.14814151,
+        "run_remaining_usd": 8.85185849,
+        "total_spent_usd": 57.416895892457035
+      },
+      "likelihood": {
+        "adapter_completion_tokens": 28559,
+        "adapter_cost_usd": 0.14504385,
+        "adapter_prompt_tokens": 36553,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 11,
+        "backend": "openrouter",
+        "budget_usd": 70.38480269545715,
+        "completion_tokens": 34479,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "google/gemma-4-26b-a4b-it": {
+            "completion_tokens": 5920,
+            "cost_usd": 0.0030976599999999995,
+            "prompt_tokens": 7138,
+            "reasoning_tokens": 0,
+            "requests": 11
+          },
+          "openai/gpt-5.4-mini": {
+            "completion_tokens": 28559,
+            "cost_usd": 0.14504385,
+            "prompt_tokens": 36553,
+            "reasoning_tokens": 0,
+            "requests": 11
+          }
+        },
+        "prompt_tokens": 43691,
+        "reasoning_tokens": 0,
+        "remaining_usd": 12.967906803000119,
+        "requests": 22,
+        "run_budget_usd": 9.0,
+        "run_cost_usd": 0.14814151,
+        "run_remaining_usd": 8.85185849,
+        "total_spent_usd": 57.416895892457035
+      }
+    },
+    "physical_requests": 22,
+    "reasoning_tokens": 0
+  }
+}
