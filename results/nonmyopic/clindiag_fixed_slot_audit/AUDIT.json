@@ -1,0 +1,2304 @@
+{
+  "action_ids": [
+    "present_illness",
+    "prior_history",
+    "family_social",
+    "exam_1",
+    "lab_1",
+    "lab_2",
+    "imaging_1",
+    "other_1"
+  ],
+  "archive_sha256": "a9ea339fc3a6ded91f5c1769589c5c374dd32c266072511260d4102e544539c1",
+  "case_exclusions": {
+    "JSONDecodeError": 3,
+    "KeyError": 8,
+    "ValueError": 663
+  },
+  "construction": {
+    "all_selected_slots_nonempty": true,
+    "confirmatory_and_intervention_entries_filtered": true,
+    "observations_are_stored_not_generated": true,
+    "procedure_names_hidden_until_slot_selected": true,
+    "same_action_labels_for_every_case": true
+  },
+  "eligible_by_subset": {
+    "challenging": 416,
+    "rare": 36
+  },
+  "eligible_cases": [
+    {
+      "diagnosis": "Late-onset schizophrenia with depressive symptoms",
+      "source_id": "10200744",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "disseminated histoplasmosis",
+      "source_id": "10620648",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Alzheimer's disease",
+      "source_id": "10697065",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute Myocardial Ischemia",
+      "source_id": "10719974",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Congenital Hypothyroidism with Impaired Thyroid Response to TSH",
+      "source_id": "10720030",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Multiple Endocrine Neoplasia Type 1 (MEN1) with predominance of prolactinomas",
+      "source_id": "10720085",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Juvenile myoclonic epilepsy with myoclonic status epilepticus",
+      "source_id": "10720302",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Disseminated histoplasmosis with central nervous system and prostatic involvement",
+      "source_id": "10722452",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "3 beta-hydroxysteroid dehydrogenase deficiency congenital adrenal hyperplasia (CAH)",
+      "source_id": "10770215",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Bilateral malignant ovarian sex cord tumor with annular tubules (SCTAT)",
+      "source_id": "10786816",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Tularemia",
+      "source_id": "10805829",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Plasmodium malariae infection",
+      "source_id": "10877648",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pheochromocytoma with long-QT syndrome",
+      "source_id": "10922426",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neurocysticercosis, inactive, with temporal-lobe epilepsy",
+      "source_id": "10933742",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "sarcoma of the pulmonary artery",
+      "source_id": "10944567",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Triple H Syndrome (Isolated ACTH deficiency, anterograde memory impairment, alopecia areata)",
+      "source_id": "10946860",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Nonerythrodermic leukemic cutaneous T-cell lymphoma (CTCL)",
+      "source_id": "11044831",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hypophysitis, probably granulomatous",
+      "source_id": "11070106",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "T-cell lymphoblastic lymphoma",
+      "source_id": "11071677",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Invasive aspergillosis of the lungs",
+      "source_id": "11117981",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "self-inflicted anterior scleritis",
+      "source_id": "11150288",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Foreign Body Aspiration\u2014Chicken Vertebra",
+      "source_id": "11161173",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Celiac disease",
+      "source_id": "11172194",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Thyrotoxicosis",
+      "source_id": "1119620",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Leber\u2019s hereditary optic neuropathy (LHON)",
+      "source_id": "11222813",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "bilateral atrial myxomas",
+      "source_id": "11263433",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Papillorenal syndrome (renal-coloboma syndrome)",
+      "source_id": "11297491",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Gongylonema infection",
+      "source_id": "11303277",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute infectious colitis due to Escherichia coli O157:H7",
+      "source_id": "11372015",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "severe bronchospasm associated with rapacuronium administration",
+      "source_id": "11388546",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hepatopulmonary nocardiosis",
+      "source_id": "11418884",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Type II Citrullinemia (CTLN2)",
+      "source_id": "11552040",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Major depression after myocardial infarction",
+      "source_id": "11585486",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "delirium tremens",
+      "source_id": "1166900",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Ehrlichiosis",
+      "source_id": "11757511",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Type IV renal tubular acidosis",
+      "source_id": "11782734",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "acquired generalized lipoatrophy with refractory hypertriglyceridemia",
+      "source_id": "11788680",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute hemorrhagic leukoencephalitis",
+      "source_id": "11810602",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Combined 17/H9251-Hydroxylase/17,20-Lyase Deficiency",
+      "source_id": "11836339",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe hyperosmolar metabolic acidosis due to large dose of intravenous lorazepam",
+      "source_id": "11961162",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Postmenopausal Hormone Therapy Discontinuation with Vasomotor Symptoms",
+      "source_id": "11966388",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Granuloma annulare and chronic tuberculosis",
+      "source_id": "12063498",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neurocutaneous melanosis (NCM) and encephalocraniocutaneous lipomatosis (ECCL)",
+      "source_id": "12140461",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neuronal ceroid lipofuscinosis, late-onset infantile subtype (Jansk\u00fd\u2013Bielschowsky disease)",
+      "source_id": "12200556",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Carcinoid tumor causing occupational asthma",
+      "source_id": "12269953",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "pulmonary mucormycosis",
+      "source_id": "12324746",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Androgenetic alopecia due to hyperandrogenism",
+      "source_id": "12399766",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute disseminated encephalomyelitis",
+      "source_id": "12409547",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "untreated panhypopituitarism due to absence of the pituitary stalk",
+      "source_id": "12466332",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Zonisamide-induced restless legs syndrome",
+      "source_id": "12525743",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Atypical Bartter Syndrome with Sensorineural Deafness (BSND) with G47R Mutation",
+      "source_id": "12574213",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Infective endocarditis due to Streptococcus pneumoniae with pneumonia and endogenous endophthalmitis",
+      "source_id": "12606739",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Alzheimer disease",
+      "source_id": "12614094",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute bronchitis",
+      "source_id": "12771117",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Autosomal recessive hypercholesterolemia (ARH)",
+      "source_id": "12788851",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Sch\u00f6nlein\u2013Henoch purpura",
+      "source_id": "12904525",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "anaphylaxis due to orchard grass pollen allergy",
+      "source_id": "12911431",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Congenital Goitrous Hypothyroidism",
+      "source_id": "12915634",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Familial Gestational Spontaneous Ovarian Hyperstimulation Syndrome",
+      "source_id": "12930927",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Lymphoplasmacytic sclerosing pancreatitis (autoimmune pancreatitis)",
+      "source_id": "12944576",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Latex Allergy",
+      "source_id": "12960560",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Midline palate perforation due to cocaine abuse",
+      "source_id": "12960886_1",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Thyroid Carcinoma associated with McCune-Albright Syndrome",
+      "source_id": "12970318",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cushing\u2019s Syndrome due to Medullary Thyroid Carcinoma",
+      "source_id": "14557423",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Reversible Metaphyseal Dysplasia (RMD) associated with Autoimmune Polyendocrinopathy-Candidiasis-Ectodermal Dystrophy (APECED)",
+      "source_id": "14557425",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "persistent atrial fibrillation",
+      "source_id": "14570954",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Balamuthia amoebic encephalitis",
+      "source_id": "14583863",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "diabetic maculopathy with retinal hard exudates",
+      "source_id": "14597519",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Inflammatory pseudotumor of the urinary bladder",
+      "source_id": "14681511",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cardiac Syndrome X",
+      "source_id": "14769677",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Smoke inhalation injury and extensive burns",
+      "source_id": "14973211",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Bipolar disorder, type I, manic episode (substance-induced mood disorder)",
+      "source_id": "14992966",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Antipsychotic-related osteopenia",
+      "source_id": "15056528",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "West Nile virus encephalitis",
+      "source_id": "15068983",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Proximal aortic dissection, associated with pregnancy.",
+      "source_id": "15084700",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Malignant Hyperthermia",
+      "source_id": "15108991",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Malignant Hyperthermia (MH) Susceptibility",
+      "source_id": "15108992",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Idiopathic small-fiber neuropathy",
+      "source_id": "15152064",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Heart failure due to idiopathic cardiomyopathy",
+      "source_id": "15161899",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pulmonary embolism",
+      "source_id": "15163779",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "idiopathic hypogonadotropic hypogonadism due to GNRHR mutations",
+      "source_id": "15240592",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "\u03b2-Methylacyl-coenzyme A racemase deficiency",
+      "source_id": "15249641",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "tuberculous pericarditis",
+      "source_id": "15254287",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Lipodystrophy secondary to cushingoid-type disease of unknown cause",
+      "source_id": "15277816_1",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Familial Isolated Hyperparathyroidism (FIHP)",
+      "source_id": "15292357",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Delirium",
+      "source_id": "15329607",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Voriconazole-Induced QT Interval Prolongation and Ventricular Tachycardia",
+      "source_id": "15472801",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "multidrug-resistant tuberculosis due to Mycobacterium bovis",
+      "source_id": "15472802",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Giant Insulinoma",
+      "source_id": "15522939",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Combined oxidative phosphorylation deficiency due to EFG1 mutation",
+      "source_id": "15537906",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Classical 3\u03b2-Hydroxysteroid Dehydrogenase Deficiency (3\u03b2-HSD Deficiency) with Salt Wasting",
+      "source_id": "15671104",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Methyl bromide intoxication",
+      "source_id": "15824365",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Vibrio fluvialis hemorrhagic cellulitis and cerebritis",
+      "source_id": "15825019",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Myopathy with skeletal asymmetry and hemidiaphragm elevation due to myotubularin mutations",
+      "source_id": "15883335",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neonatal Hemochromatosis",
+      "source_id": "16014889",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Aspergillus prosthetic valve endocarditis",
+      "source_id": "16080100",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Transhiatal gastrobronchial fistula",
+      "source_id": "16153962",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Churg\u2013Strauss syndrome with rapidly progressive glomerulonephritis",
+      "source_id": "16162886",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "B12-responsive mut-methylmalonic aciduria",
+      "source_id": "16186538",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "HIV infection, asymptomatic",
+      "source_id": "16236744",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Lyme meningoradiculitis and myositis due to Lyme borreliosis",
+      "source_id": "16288389",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "X-linked Charcot-Marie-Tooth disease with progressive-relapsing central demyelinating disease",
+      "source_id": "16301511",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute Psychotic Disorder",
+      "source_id": "16390883",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Combined Pituitary Hormonal Deficiency (CPHD) due to a novel LHX3 mutation",
+      "source_id": "16394081",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Kallmann Syndrome",
+      "source_id": "16418210",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Clozapine-induced myocarditis",
+      "source_id": "16449471",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Giant-cell arteritis (temporal arteritis)",
+      "source_id": "16467550",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Constipation-Predominant Irritable Bowel Syndrome (C-IBS)",
+      "source_id": "16493106",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Legionella maceachernii pneumonia",
+      "source_id": "16511781",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Concurrent Bilateral Femoral Neck Stress Fractures and Osteonecrosis of the Hip",
+      "source_id": "16595478",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Progressive primary tuberculosis",
+      "source_id": "16625012",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe combined immunodeficiency due to homozygous mutation in the CD3\u03b6 gene (Q70X)",
+      "source_id": "16672702",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Fungal prosthetic mitral valve endocarditis caused by Scopulariopsis species",
+      "source_id": "16678614",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Congenital Hypothyroidism due to TPO mutations",
+      "source_id": "16684826",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Budd\u2013Chiari syndrome",
+      "source_id": "16707754",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Homozygous STAT5b mutation resulting in growth hormone insensitivity",
+      "source_id": "16787985",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Amyotrophic lateral sclerosis",
+      "source_id": "16855271",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "oncogenic osteomalacia",
+      "source_id": "16864846",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Dopa-responsive dystonia caused by a mutation in the GCH1 gene",
+      "source_id": "16928999",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Maternally Inherited Diabetes and Deafness (MIDD)",
+      "source_id": "17018649",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "trichilemmal cyst nevus",
+      "source_id": "17097381",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "normosmic idiopathic hypogonadotropic hypogonadism (IHH)",
+      "source_id": "17200176",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "type 2 diabetes mellitus",
+      "source_id": "17213403",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Familial Partial Lipodystrophy Type 3 (FPLD3)",
+      "source_id": "17299075",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Inhalation Anthrax",
+      "source_id": "17342650",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Latex-fruit syndrome with cross-reactivity to turnip and zucchini",
+      "source_id": "17362261",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Drug-induced lupus",
+      "source_id": "17366961",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Inadvertent Carotid Artery Cannulation",
+      "source_id": "17452274",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neurocutaneous Melanosis associated with Autoimmune Diabetes Mellitus",
+      "source_id": "17515551",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute Respiratory Distress Syndrome (ARDS)",
+      "source_id": "17525601",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "chondrosarcoma secondary to synovial chondromatosis",
+      "source_id": "17545437",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Sirolimus-induced posterior reversible encephalopathy syndrome (PRES)",
+      "source_id": "17548556",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Congenital prohormone convertase 1/3 deficiency",
+      "source_id": "17595246",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Periprosthetic infection of breast prostheses",
+      "source_id": "17700107_1",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Autosomal Dominant Growth Hormone Deficiency (IGHD II)",
+      "source_id": "17726075",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Aortoenteric fistula",
+      "source_id": "17804848",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Community-Acquired Methicillin-Resistant Staphylococcus Aureus (CA-MRSA) Soft Tissue Infection",
+      "source_id": "18056894",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Oestrogen-dependent hereditary angio-oedema with normal C1INH",
+      "source_id": "18070231",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "neonatal myasthenia gravis",
+      "source_id": "18195270",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Disseminated cryptococcosis with cryptococcal meningitis",
+      "source_id": "18403769",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Danon disease",
+      "source_id": "18413592",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Recurrent botulism type B",
+      "source_id": "18444842",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Major depressive disorder, possibly with vascular depression",
+      "source_id": "18463382",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute Meningoencephalitis secondary to HIV infection",
+      "source_id": "18540815",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "acute porphyria (variegate porphyria)",
+      "source_id": "18579817",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Autosomal Dominant Hypoparathyroidism",
+      "source_id": "18583467",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "stiff-person syndrome",
+      "source_id": "18663186",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Infection due to viable Staphylococcus aureus biofilms in total joint arthroplasty",
+      "source_id": "18676908",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "melioidosis caused by Burkholderia pseudomallei",
+      "source_id": "18687644",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Erdheim-Chester disease",
+      "source_id": "18703477",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute phosphate nephropathy due to ingestion of oral sodium phosphate solution",
+      "source_id": "18753652",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Giant-cell arteritis, involving the superficial temporal artery and small dural arteries.",
+      "source_id": "19020329",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "hepatocellular carcinoma (stage pT1N0MX) arising in chronic hepatitis C with bridging fibrosis",
+      "source_id": "19073979",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "P450scc deficiency due to novel homozygous L222P mutation in CYP11A1 gene",
+      "source_id": "19116240",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Eating Disorder Not Otherwise Specified",
+      "source_id": "19122015",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Adult cerebral form of X-linked adrenoleukodystrophy",
+      "source_id": "19129531",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "severe postvaccinial encephalitis with acute disseminated encephalomyelitis",
+      "source_id": "19133803",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Necrotizing fasciitis with resulting septic shock due to group A streptococcal infection",
+      "source_id": "19144944",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neurosarcoidosis",
+      "source_id": "19228624",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cerebral autosomal dominant arteriopathy with subcortical infarcts and leukoencephalopathy (CADASIL)",
+      "source_id": "19369672",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Shigella sonnei bacteremia",
+      "source_id": "19416028",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Shigella sonnei bacteremia",
+      "source_id": "19416029",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "PAPSS2 deficiency leading to androgen excess",
+      "source_id": "19474428",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neuro-Beh\u00e7et\u2019s disease",
+      "source_id": "19474432",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Herpes Zoster (Shingles) with Ramsay-Hunt Syndrome",
+      "source_id": "19491172",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute generalized exanthematous pustulosis due to hydroxychloroquine",
+      "source_id": "19553651",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Chronic sclerosing sialadenitis (IgG4-associated chronic sclerosing sialadenitis, K\u00fcttner\u2019s tumor)",
+      "source_id": "19641208",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "clear cell sugar tumor of the lung",
+      "source_id": "19660379",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Advanced HIV infection with non-Hodgkin's lymphoma",
+      "source_id": "19759382",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hermansky\u2013Pudlak syndrome with interstitial pulmonary fibrosis and respiratory failure",
+      "source_id": "19828536",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Disseminated coccidioidomycosis caused by Coccidioides posadasii",
+      "source_id": "19907046",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Food protein-induced enterocolitis syndrome (FPIES) to cow's milk",
+      "source_id": "19958317",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Spinal arachnoid cyst",
+      "source_id": "20007563",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "viral pneumonia caused by 2009 A(H1N1) virus",
+      "source_id": "20047483",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Metastatic neuroendocrine carcinoma (most likely of prostatic origin), with ectopic corticotropin syndrome.",
+      "source_id": "20071706",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Infantile Krabbe disease (globoid-cell leukodystrophy)",
+      "source_id": "20107221",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Periarticular neurofibroma of the shoulder",
+      "source_id": "20194331",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "POEMS syndrome with demyelinating neuropathy and solitary plasmacytoma of bone",
+      "source_id": "20220188",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cardiomyopathy in Duchenne Muscular Dystrophy",
+      "source_id": "20231539",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Glycogenin-1 Deficiency",
+      "source_id": "20357282",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pyogenic, polymicrobial brain abscess",
+      "source_id": "20375410",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute exacerbation of pulmonary asbestosis",
+      "source_id": "20410518",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "disseminated giant cell polymyositis",
+      "source_id": "20427501",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Idiopathic generalized epilepsy with overlap between phantom absences and juvenile myoclonic epilepsy",
+      "source_id": "20498429",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "nonautoimmune hyperthyroidism due to TSHR mutation",
+      "source_id": "20501679",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Langerhans\u2019-cell histiocytosis of lung and bone",
+      "source_id": "20505181",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Rapid-onset dystonia\u2013parkinsonism due to a mutation in the ATP1A3 gene.",
+      "source_id": "20558373",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "anaphylactic shock due to camel milk protein",
+      "source_id": "20560906",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acromegaly due to a growth hormone\u2013secreting pituitary macroadenoma",
+      "source_id": "20647214",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Type 2 diabetes mellitus (T2DM)",
+      "source_id": "20685884",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Bipolar I disorder",
+      "source_id": "20693466",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute myocardial infarction due to coronary artery disease",
+      "source_id": "20818858",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Renal lymphangiectasis with secondary polycythemia and monoclonal gammopathy of undetermined significance.",
+      "source_id": "20818867",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "myelodysplastic syndrome with isolated del(5q), with progression to acute myeloid leukemia",
+      "source_id": "20825319",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Postpartum coronary-artery dissection",
+      "source_id": "20843252",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Alpha-methylacyl-CoA racemase deficiency",
+      "source_id": "20921516",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Spontaneous rupture of a uterine artery",
+      "source_id": "20961250",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Endogenous fungal endophthalmitis due to Aspergillus niger",
+      "source_id": "20979476",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "painful diabetic neuropathy",
+      "source_id": "21051576",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "hyper-IgE syndrome",
+      "source_id": "21069894",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "three-vessel coronary artery disease (CAD)",
+      "source_id": "21263006",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Reverse Lutembacher Syndrome associated with bioprosthetic tricuspid valve stenosis",
+      "source_id": "21300958",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neonatal Abstinence Syndrome",
+      "source_id": "21304069",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "B lymphoblastic leukemia, not otherwise specified",
+      "source_id": "21306242",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Human granulocytotropic anaplasmosis",
+      "source_id": "21345106",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "hemophagocytic lymphohistiocytosis",
+      "source_id": "21449790",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Premature Adrenarche",
+      "source_id": "21602454",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Vaccine-Derived Poliomyelitis",
+      "source_id": "21675890",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neurologic form of immune reconstitution inflammatory syndrome (neuro-IRIS)",
+      "source_id": "21675893",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "ALK-Positive Adenocarcinoma of the Lung",
+      "source_id": "21751909",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hypocomplementemic urticarial vasculitis",
+      "source_id": "21774714",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe Recessive Pseudohypoaldosteronism Type 1 (PHA1)",
+      "source_id": "21903996",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pulmonary cryptococcosis",
+      "source_id": "21916643",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Scleroderma renal crisis",
+      "source_id": "21991897",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "disseminated histoplasmosis with adrenal insufficiency",
+      "source_id": "22047564",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Limbic encephalitis with antibodies to leucine-rich, glioma-inactivated 1 (LGI1)",
+      "source_id": "22070480",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pulmonary tumor thrombotic microangiopathy (PTTM)",
+      "source_id": "22105198",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Takotsubo cardiomyopathy",
+      "source_id": "22111721",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cystoisospora belli enteritis and HIV infection",
+      "source_id": "22168646",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "GH-secreting pituitary adenoma",
+      "source_id": "22170724",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Myasthenia gravis and myasthenic crisis associated with thymoma",
+      "source_id": "22187989",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cronkhite\u2013Canada syndrome",
+      "source_id": "22296081",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Graves\u2019 disease with thyrotoxic periodic paralysis",
+      "source_id": "22316449",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Ileocolonic intussusception associated with syncope (neurologic intussusception)",
+      "source_id": "22512486",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Iodotyrosine Deiodinase Defect related to Congenital Hypothyroidism",
+      "source_id": "22535972",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "tracheomalacia",
+      "source_id": "22551132",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cysticercosis involving the cerebral ventricles and spinal meninges",
+      "source_id": "22591299",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Postoperative Delirium",
+      "source_id": "22669559",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Systemic lupus erythematosus (SLE) with secondary hemophagocytic syndrome",
+      "source_id": "22670907",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "tertiary hyperparathyroidism",
+      "source_id": "22736772",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Anorexia nervosa",
+      "source_id": "22784119",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Strongyloides stercoralis hyperinfection associated with HTLV-I infection",
+      "source_id": "22830467",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Brucella melitensis bacteremia with spondylitis and associated paraspinous and disk-space infection",
+      "source_id": "22913686",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Embolic basilar-artery stroke associated with a patent foramen ovale.",
+      "source_id": "23050529",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Insulinoma",
+      "source_id": "23094726",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe hypothyroidism and relative adrenal insufficiency.",
+      "source_id": "23150962",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Adrenal Cushing's syndrome secondary to a left adrenal tumor",
+      "source_id": "23175690",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "collagenous sprue in untreated coeliac disease, complicated by collagenous colitis",
+      "source_id": "23177701",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Delirium (alcohol withdrawal delirium and multifactorial delirium)",
+      "source_id": "23252529",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Homozygous Leptin Receptor Mutation due to Uniparental Disomy of Chromosome 1",
+      "source_id": "23275530",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Human rabies",
+      "source_id": "23301735",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Atrial Fibrillation with Tachycardia-Induced Cardiomyopathy",
+      "source_id": "23339095",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Thromboembolic renal infarction due to endocarditis in an asplenic patient",
+      "source_id": "23343037",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Tuberculous peritonitis",
+      "source_id": "23343067",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Zollinger\u2013Ellison syndrome (gastrinoma)",
+      "source_id": "23425169",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute infection with hepatitis B virus.",
+      "source_id": "23514249",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Human Immunodeficiency Virus (HIV) infection",
+      "source_id": "23549585",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "HIV associated peripheral arterial thrombosis",
+      "source_id": "23561781",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "B-cell lymphoblastic leukemia\u2013lymphoma",
+      "source_id": "23614590",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Loss of libido secondary to antipsychotic treatment in schizophrenia",
+      "source_id": "23632833",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "West Nile virus meningoencephalitis",
+      "source_id": "23675661",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cushing\u2019s syndrome, probably caused by a corticotropin-secreting pulmonary nodule.",
+      "source_id": "23697472",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Addison's disease",
+      "source_id": "23697517",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Middle East Respiratory Syndrome Coronavirus Infection (MERS-CoV)",
+      "source_id": "23718156",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Borrelia miyamotoi infection",
+      "source_id": "23817701",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Lambert\u2013Eaton myasthenic syndrome",
+      "source_id": "23902486",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "S\u00e9zary syndrome",
+      "source_id": "23924007",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "chylothorax secondary to tuberculosis lymphadenopathy",
+      "source_id": "23931925",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Ductal adenocarcinoma of the prostate",
+      "source_id": "23944304",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "bilateral primary toxoplasmosis retinitis",
+      "source_id": "23944322",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "autoimmune lymphoproliferative syndrome (ALPS) due to a germline FAS mutation",
+      "source_id": "23984733",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe Mitral Stenosis Secondary to Hunter's Syndrome (Mucopolysaccharidosis Type II)",
+      "source_id": "24019448",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute Severe Hypercalcemia due to Hypophosphatasia Complicated by Chronic Renal Failure",
+      "source_id": "24064686",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Invasive fungal infection of the stomach (gastric mucormycosis caused by Rhizopus species)",
+      "source_id": "24131180",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Somatic symptom disorder (hypochondriasis), generalized anxiety disorder, and attention deficit\u2013hyperactivity disorder.",
+      "source_id": "24152264",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Neonatal severe hyperparathyroidism (NSHPT)",
+      "source_id": "24203066",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acute hepatitis C virus infection",
+      "source_id": "24283228",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Congenital Rubella Syndrome (CRS)",
+      "source_id": "24297819",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Fulminant myocarditis due to influenza A infection",
+      "source_id": "24304055",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "CYP24A1 mutation causing chronic hypercalcemia and hypercalciuria",
+      "source_id": "24423361",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Sarcoidosis",
+      "source_id": "24476436",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Familial Superior Canal Dehiscence Syndrome",
+      "source_id": "24526223",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Mixed connective-tissue disease associated with pulmonary arterial hypertension",
+      "source_id": "24645948",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Nonketotic Hyperglycemia-induced Hemiballism-Hemichorea",
+      "source_id": "24661296",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe sepsis due to Capnocytophaga canimorsus after a dog bite",
+      "source_id": "24670171",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Invasive aspergillosis of the appendix with neutropenic enterocolitis",
+      "source_id": "24758620",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Heartland virus infection",
+      "source_id": "24917656",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Malignant atrophic papulosis (Degos's disease) in a patient with dermatomyositis",
+      "source_id": "24918376",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "HIV infection with AIDS and pneumocystis pneumonia",
+      "source_id": "24963572",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Herpes simplex encephalitis",
+      "source_id": "24988560",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cerebral vasculitis due to granulomatosis with polyangiitis",
+      "source_id": "25006723",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Peripartum cardiomyopathy",
+      "source_id": "25014691",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe methylenetetrahydrofolate reductase deficiency.",
+      "source_id": "25162892",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Obesity",
+      "source_id": "25182103",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Tricuspid-valve endocarditis and opioid addiction",
+      "source_id": "25390743",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "pellagra",
+      "source_id": "25470698",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe hypothyroidism",
+      "source_id": "25494272",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acral localized acquired cutis laxa (ALACL)",
+      "source_id": "25497952",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pulmonary Crohn\u2019s disease",
+      "source_id": "25517709",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "POEMS syndrome",
+      "source_id": "25551528",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "TUBB3 E410K syndrome",
+      "source_id": "25559402",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Beh\u00e7et\u2019s disease",
+      "source_id": "25714165",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "XRCC4 deficiency",
+      "source_id": "25742519",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Scleroderma",
+      "source_id": "25760359",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Idiopathic pleuroparenchymal fibroelastosis",
+      "source_id": "25923555",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "46,XY Gonadal Dysgenesis due to Homozygous Mutation in Desert Hedgehog (DHH)",
+      "source_id": "25927242",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pneumonic plague",
+      "source_id": "25946284",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "acute inflammatory demyelinating polyneuropathy",
+      "source_id": "25964483",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cat scratch disease (encephalopathy associated with Bartonella henselae)",
+      "source_id": "25992750",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Perforation of the right ventricular wall by an implantable cardioverter\u2013defibrillator lead.",
+      "source_id": "26083209",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "disseminated tuberculosis",
+      "source_id": "26132944",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Variegated squirrel 1 bornavirus-associated encephalitis",
+      "source_id": "26154788",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Septic arthritis of the hip",
+      "source_id": "26287852",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Embolic strokes due to L\u00f6ffler\u2019s endocarditis, likely caused by toxocariasis",
+      "source_id": "26376139",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "IgG4-related lung disease",
+      "source_id": "26510025",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "POEMS syndrome",
+      "source_id": "26628493",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Metastatic choriocarcinoma",
+      "source_id": "26650156",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Reiter syndrome",
+      "source_id": "26668352",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Mixed cryoglobulinemic glomerulonephritis secondary to primary Sj\u00f6gren\u2019s syndrome",
+      "source_id": "26735996",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "coronary artery vasospasm",
+      "source_id": "26903018",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "delirious mania presenting as jinn possession",
+      "source_id": "26926128",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Constitutional mismatch-repair deficiency syndrome and stage III adenocarcinoma of the colon.",
+      "source_id": "26933852",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Tuberculous enteritis.",
+      "source_id": "26962732",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Listeria monocytogenes bacteremia",
+      "source_id": "27223150",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "coronary vasculitis",
+      "source_id": "27297349",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Jansen Metaphyseal Chondrodysplasia due to heterozygous H223R-PTH1R mutation",
+      "source_id": "27410178",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Somnolence due to the cerebral fat embolism syndrome",
+      "source_id": "27464205",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Sarcoidosis involving the heart and thoracic and inguinal lymph nodes",
+      "source_id": "27468063",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "late-life depression with psychomotor retardation",
+      "source_id": "27477136",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Insulinoma due to multiple pancreatic microadenoma",
+      "source_id": "27504852",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "milk alkali syndrome",
+      "source_id": "27509105",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Mania triggered by steroid nasal spray in a patient with bipolar disorder",
+      "source_id": "2750983",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Niemann-Pick disease type C",
+      "source_id": "27550898",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Tuberculosis of the endometrium and genital tract due to Mycobacterium tuberculosis",
+      "source_id": "27626521",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Ruptured endometrioma with infection",
+      "source_id": "27783909",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "probable sporadic Creutzfeldt-Jacob disease (sCJD), Heidenhain variant",
+      "source_id": "27872229",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Homocystinuria caused by cystathionine \u03b2-synthase deficiency.",
+      "source_id": "27959664",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Anal squamous-cell carcinoma, positive for human papillomavirus",
+      "source_id": "28002705",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hereditary Lysozyme Amyloidosis Variant p.Leu102Ser",
+      "source_id": "28049649",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Spontaneous pneumothorax secondary to intrapulmonary necrobiotic rheumatoid nodule",
+      "source_id": "28099107",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Granulomatous meningoencephalitis caused by Acanthamoeba species",
+      "source_id": "28121502",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "sporadic hyperekplexia",
+      "source_id": "28138086",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "cerebrotendinous xanthomatosis",
+      "source_id": "28218883",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hepatic encephalopathy in a patient with hereditary hemorrhagic telangiectasia",
+      "source_id": "28273029",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Babesia divergens\u2013like/MO-1 infection",
+      "source_id": "28329282",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Follicular lymphoma (grade 1\u20132 of 3; stage IV of IV)",
+      "source_id": "28402765",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "HIV-associated nephropathy (collapsing variant of focal segmental glomerulosclerosis)",
+      "source_id": "28423292",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "coccidioidomycosis",
+      "source_id": "28467866",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Radiation-induced Angiosarcoma",
+      "source_id": "28514220",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Osmotic demyelination syndrome (ODS) and peripheral neuropathy from uncontrolled diabetes mellitus",
+      "source_id": "28554905",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Pseudohypoparathyroidism type 1b",
+      "source_id": "28591527",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Avoidant\u2013restrictive food intake disorder (ARFID)",
+      "source_id": "28614676",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Diffuse large B-cell lymphoma consistent with neurolymphomatosis.",
+      "source_id": "28636859",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "hypokalemic-alkalotic salt-losing nephropathy due to CLDN10 mutations",
+      "source_id": "28674042",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "idiopathic giant-cell myocarditis",
+      "source_id": "28679100",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Bismuth neurotoxicity causing rapidly progressive dementia, myoclonus, and ataxia",
+      "source_id": "28696937",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Congenital pancreatic hamartoma (multicystic adenomatoid hamartoma)",
+      "source_id": "28792868",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cytomegalovirus pneumonitis",
+      "source_id": "28834480",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "stage IV diffuse large B-cell lymphoma with neurolymphomatosis",
+      "source_id": "28877025",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Septic arthritis due to disseminated infection with Neisseria gonorrhoeae",
+      "source_id": "28930511",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Muckle-Wells syndrome",
+      "source_id": "28975215",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "diencephalic syndrome due to pilomyxoid astrocytoma",
+      "source_id": "29020588",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Eosinophilic granulomatosis with polyangiitis.",
+      "source_id": "29045211",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "16p11.2 microduplication syndrome",
+      "source_id": "29088930",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Copper deficiency myelopathy",
+      "source_id": "29141163",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Combined inherited and acquired thrombotic thrombocytopenic purpura",
+      "source_id": "29166229",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "aldosterone-producing adenoma (Conn's syndrome)",
+      "source_id": "29192119_1",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Spontaneous coronary-artery dissection",
+      "source_id": "29262281",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "gastrinoma (Zollinger-Ellison syndrome)",
+      "source_id": "29298151",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Adenovirus infection, disseminated",
+      "source_id": "29320657",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Intracranial hypertension associated with systemic lupus erythematosus and glucocorticoid use.",
+      "source_id": "29342391",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Brown-Vialetto-Van-Laere syndrome type 2",
+      "source_id": "29440549",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Human herpesvirus 6\u2013related encephalitis",
+      "source_id": "29443669",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Homocystinuria due to genetic mutations of the gene encoding cystathionine \u03b2-synthase (CBS)",
+      "source_id": "29514022",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Mycobacterial epididymo-orchitis due to Mycobacterium tuberculosis",
+      "source_id": "29590543",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hughes\u2013Stovin syndrome",
+      "source_id": "29641962",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Indian tick typhus caused by Rickettsia conorii subspecies indica",
+      "source_id": "29742372",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Polyarteritis nodosa",
+      "source_id": "29949483",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Poststroke mania and frontal lobe syndrome",
+      "source_id": "29996076",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Vitamin C deficiency (scurvy)",
+      "source_id": "30021092",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Anti\u2013glomerular basement membrane disease causing a crescentic glomerulonephritis.",
+      "source_id": "30089061",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Aortocoronary saphenous-vein\u2013graft aneurysm",
+      "source_id": "30110592",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "acute trichinosis",
+      "source_id": "30281981",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "IgA-dominant infection-associated glomerulonephritis",
+      "source_id": "30380383",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Lyme meningoradiculitis",
+      "source_id": "30403952",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Severe centriacinar emphysema",
+      "source_id": "30591614_1",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Post-traumatic stress disorder",
+      "source_id": "30625053",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Powassan virus encephalitis",
+      "source_id": "30673553",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Acquired Immunodeficiency Syndrome (AIDS)",
+      "source_id": "30726690",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Methanol toxicity secondary to inhalation and dermal absorption",
+      "source_id": "30831582",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "pulmonary alveolar proteinosis",
+      "source_id": "30855747",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Ocular syphilis",
+      "source_id": "30865802",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Recurrent atrial fibrillation with associated anxiety",
+      "source_id": "30893540",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Idiopathic pulmonary fibrosis",
+      "source_id": "30917264",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Late-onset myotonic dystrophy type 1",
+      "source_id": "31042830",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Metastatic postpubertal immature teratoma",
+      "source_id": "31067377",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Tropical pulmonary eosinophilia",
+      "source_id": "31116923",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "West Nile virus neuroinvasive disease",
+      "source_id": "31167056",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Biochemically Silent Sympathetic Paraganglioma (sPGL) and Pheochromocytoma (PHEO) with Metastatic Disease",
+      "source_id": "31194241",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Familial hyperaldosteronism type I (GRA) with adrenal adenoma",
+      "source_id": "31287546",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Statin-associated autoimmune myopathy",
+      "source_id": "31314973",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hyperthyroidism due to Graves' disease",
+      "source_id": "31390504",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Concussion, benign paroxysmal positional vertigo, and attention deficit\u2013hyperactivity disorder",
+      "source_id": "31461598",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Congenital esophageal stenosis with fibromuscular thickening of the esophagus",
+      "source_id": "31532965",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Myocarditis associated with immune checkpoint inhibitor therapy",
+      "source_id": "31553841",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Adenovirus meningoencephalitis",
+      "source_id": "31597024",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Cerebellar form of Creutzfeldt\u2013Jakob disease",
+      "source_id": "31618544",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Amniotic fluid embolism",
+      "source_id": "31644848",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "amyopathic dermatomyositis associated with metastatic small-cell lung carcinoma",
+      "source_id": "31800992",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Vasculitis with alveolar hemorrhage, possibly isolated pauci-immune pulmonary capillaritis",
+      "source_id": "31826344",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Disseminated coccidioidomycosis",
+      "source_id": "31940703",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "syndromic hypopituitarism due to biallelic loss-of-function variants in TBC1D32",
+      "source_id": "32060556",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "46, XY sex reversal",
+      "source_id": "32140723",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Anaplasma phagocytophilum infection",
+      "source_id": "32212524",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "AA amyloidosis complicated by cerebral mucormycosis",
+      "source_id": "32268031",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "epiphyseal chondrodysplasia, Miura type",
+      "source_id": "32282051",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "LGI1 autoimmune encephalitis",
+      "source_id": "32402166",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Idiopathic basal ganglia calcification with organic mood disorder, depressed type",
+      "source_id": "3344850",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Alzheimer's disease with major depression",
+      "source_id": "4003602",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "atherosclerotic impotence",
+      "source_id": "406802",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Tardive dyskinesia",
+      "source_id": "409302",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Anticonvulsant Toxicity with Psychotic Reactions",
+      "source_id": "453362",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "tricyclic antidepressant toxicity",
+      "source_id": "570360",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "anxiety neurosis with depressive features",
+      "source_id": "7377400",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Parkinson's Disease with Depression",
+      "source_id": "835744",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Hypothalamic glioma",
+      "source_id": "842713",
+      "subset": "challenging"
+    },
+    {
+      "diagnosis": "Orofaciodigital syndrome type 2",
+      "source_id": "rare101",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Overlap myositis",
+      "source_id": "rare119",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Buerger's Disease",
+      "source_id": "rare122",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Beckwith-Wiedemann syndrome",
+      "source_id": "rare129",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Fetal cytomegalovirus syndrome",
+      "source_id": "rare130",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Progressive sensorineural hearing loss-hypertrophic cardiomyopathy syndrome",
+      "source_id": "rare14",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Alagille syndrome",
+      "source_id": "rare140",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Pierson syndrome",
+      "source_id": "rare144",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Desmoplastic small round cell tumor",
+      "source_id": "rare153",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Stickler syndrome type 1",
+      "source_id": "rare160",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Quadricuspid aortic valve",
+      "source_id": "rare167",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "CHARGE syndrome",
+      "source_id": "rare185",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Congenital adrenal hyperplasia due to 17-alpha-hydroxylase deficiency",
+      "source_id": "rare203",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Acquired factor X deficiency",
+      "source_id": "rare207",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Adult polyglucosan body disease",
+      "source_id": "rare211",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Familial hemophagocytic lymphohistiocytosis",
+      "source_id": "rare216",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Acromegaly",
+      "source_id": "rare229",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Mucopolysaccharidosis type 2",
+      "source_id": "rare24",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Hurler-Scheie syndrome",
+      "source_id": "rare243",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Liddle syndrome",
+      "source_id": "rare257",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Hereditary coproporphyria",
+      "source_id": "rare259",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Granulomatosis with polyangiitis",
+      "source_id": "rare267",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Hughes-Stovin syndrome",
+      "source_id": "rare268",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Langerhans cell histiocytosis",
+      "source_id": "rare269",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Bronchopulmonary dysplasia",
+      "source_id": "rare287",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Very long chain acyl-CoA dehydrogenase deficiency",
+      "source_id": "rare295",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "FATCO syndrome",
+      "source_id": "rare30",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Cerebrotendinous xanthomatosis",
+      "source_id": "rare59",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Hyper-IgE syndrome",
+      "source_id": "rare61",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Hypoxanthine guanine phosphoribosyltransferase partial deficiency",
+      "source_id": "rare66",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Ehrlichiosis",
+      "source_id": "rare70",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Schaaf-Yang syndrome",
+      "source_id": "rare74",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Lymphoepithelial-like carcinoma",
+      "source_id": "rare79",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "fibular aplasia, tibial campomelia, and oligosyndactyly (FATCO syndrome)",
+      "source_id": "rare8",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Juvenile hyaline fibromatosis",
+      "source_id": "rare94",
+      "subset": "rare"
+    },
+    {
+      "diagnosis": "Intermediate uveitis",
+      "source_id": "rare97",
+      "subset": "rare"
+    }
+  ],
+  "missing_slot_exclusions": {
+    "exam_1": 134,
+    "imaging_1": 179,
+    "lab_1": 200,
+    "lab_2": 387,
+    "other_1": 421,
+    "present_illness": 5,
+    "prior_history": 85
+  },
+  "num_archive_cases": 2021,
+  "num_eligible_cases": 452,
+  "num_reserved_cases": 114,
+  "schema_version": 1
+}
