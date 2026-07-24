@@ -1,0 +1,1982 @@
+{
+  "protocol": {
+    "bootstrap_seed": 24331,
+    "candidate_count": 3,
+    "case_indices": [
+      217,
+      221,
+      28,
+      20,
+      27,
+      21,
+      214,
+      26
+    ],
+    "dataset": "PAPRIKA twenty_questions eval clothing",
+    "dataset_sha256": "d9b7616d1316886aa1aee84ddc4f126715be4983c50d5160c5c7d223b7e0f16a",
+    "expected_physical_requests": 200,
+    "prefix_questions": [
+      "Is it primarily worn on the upper half of the body?",
+      "Is it primarily worn on the feet or lower legs?",
+      "Is it mainly an accessory rather than a main garment?"
+    ],
+    "private_raw_sha256": "aba5228433d4862e8b69020248cd27dfe2695300a22c24af5619229c3a541d5c",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_disabled": true,
+    "selection_seed": 24330,
+    "stage": "activity",
+    "support_sample_size": 12,
+    "support_samples_per_state": 3,
+    "target_hidden_from_generator_and_ranker": true,
+    "target_used_only_by_post_generation_endpoint": true
+  },
+  "records": [
+    {
+      "candidates": [
+        {
+          "expected_support_size": 16.315789473684212,
+          "immediate_eig": 0.6236548495681085,
+          "p_yes": 0.6842105263157895,
+          "question": "Does it usually have a full front opening with closures such as buttons or a zipper?",
+          "support_if_no": [
+            "camisole",
+            "crop top",
+            "tube top",
+            "halter top",
+            "corset",
+            "leotard",
+            "rash guard",
+            "scrub top",
+            "smock",
+            "kimono",
+            "caftan",
+            "sari blouse",
+            "poncho shirt",
+            "peplum top",
+            "kurta",
+            "jerkin",
+            "bodysuit"
+          ],
+          "support_if_yes": [
+            "flannel shirt",
+            "denim jacket",
+            "windbreaker",
+            "bomber jacket",
+            "raincoat",
+            "lab coat",
+            "pea coat",
+            "parka",
+            "varsity jacket",
+            "track jacket",
+            "anorak",
+            "chef jacket",
+            "peacoat",
+            "duffle coat",
+            "trench coat",
+            "fleece jacket"
+          ]
+        },
+        {
+          "expected_support_size": 21.368421052631582,
+          "immediate_eig": 0.4361623253853443,
+          "p_yes": 0.8421052631578947,
+          "question": "Is it commonly made to provide warmth in cool weather?",
+          "support_if_no": [
+            "camisole",
+            "halter top",
+            "tube top",
+            "crop top",
+            "rash guard",
+            "scrub top",
+            "chef's jacket",
+            "kimono",
+            "leotard",
+            "smock",
+            "peplum top",
+            "jerkin",
+            "kurta",
+            "doublet",
+            "tabard",
+            "chemise",
+            "caftan",
+            "sari blouse"
+          ],
+          "support_if_yes": [
+            "fleece jacket",
+            "peacoat",
+            "parka",
+            "anorak",
+            "windbreaker",
+            "duffle coat",
+            "bomber jacket",
+            "raincoat",
+            "shawl",
+            "wrap",
+            "fur coat",
+            "ski jacket",
+            "pea coat",
+            "overcoat",
+            "pullover",
+            "sweatshirt",
+            "thermal shirt",
+            "flannel shirt",
+            "puffer jacket",
+            "fleece",
+            "rugby shirt",
+            "henley"
+          ]
+        },
+        {
+          "expected_support_size": 20.736842105263158,
+          "immediate_eig": 0.6581099875431143,
+          "p_yes": 0.631578947368421,
+          "question": "Does it typically have a collar or lapel?",
+          "support_if_no": [
+            "camisole",
+            "tube top",
+            "halter top",
+            "crop top",
+            "rash guard",
+            "smock",
+            "kaftan",
+            "sweatshirt",
+            "pullover",
+            "peasant blouse",
+            "choir robe",
+            "jerkin",
+            "sports bra",
+            "bralette",
+            "scrub top",
+            "kimono",
+            "caftan",
+            "peplum top",
+            "thermal shirt",
+            "base layer top",
+            "leotard",
+            "surplice top"
+          ],
+          "support_if_yes": [
+            "polo shirt",
+            "dress shirt",
+            "blazer",
+            "pea coat",
+            "trench coat",
+            "raincoat",
+            "lab coat",
+            "denim jacket",
+            "bomber jacket",
+            "varsity jacket",
+            "waistcoat",
+            "blouse",
+            "sport coat",
+            "chef jacket",
+            "overcoat",
+            "duffle coat",
+            "anorak",
+            "parka",
+            "windbreaker",
+            "track jacket"
+          ]
+        }
+      ],
+      "case_index": 217,
+      "current_support": [
+        "T-shirt",
+        "sweater",
+        "hoodie",
+        "blazer",
+        "cardigan",
+        "tank top",
+        "polo shirt",
+        "turtleneck",
+        "waistcoat",
+        "jersey",
+        "tunic",
+        "bolero",
+        "shirt",
+        "blouse",
+        "jacket",
+        "coat",
+        "vest",
+        "dress shirt",
+        "poncho"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            false,
+            true
+          ],
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            true
+          ]
+        ],
+        "current_contains_target": true,
+        "target_answers": [
+          true,
+          true,
+          true
+        ]
+      },
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "Vest"
+    },
+    {
+      "candidates": [
+        {
+          "expected_support_size": 22.6875,
+          "immediate_eig": 0.6853142072764582,
+          "p_yes": 0.5625,
+          "question": "Is it typically designed with two separate leg openings?",
+          "support_if_no": [
+            "underwear",
+            "pantyhose",
+            "tights",
+            "leotard",
+            "unitard",
+            "bodysuit",
+            "slip",
+            "petticoat",
+            "nightgown",
+            "muumuu",
+            "caftan",
+            "robe",
+            "skort",
+            "toga",
+            "sari",
+            "habit",
+            "cassock",
+            "onesie",
+            "chemise",
+            "briefs",
+            "panties",
+            "thong",
+            "g-string",
+            "bikini bottoms",
+            "boxers",
+            "boxer briefs",
+            "trunks",
+            "jockstrap",
+            "jodhpurs",
+            "chaps"
+          ],
+          "support_if_yes": [
+            "chinos",
+            "slacks",
+            "sweatpants",
+            "joggers",
+            "cargo pants",
+            "corduroys",
+            "khakis",
+            "breeches",
+            "overtrousers",
+            "track pants",
+            "pajama pants",
+            "bell-bottoms",
+            "overalls",
+            "ski pants",
+            "long johns",
+            "bib overalls",
+            "waders"
+          ]
+        },
+        {
+          "expected_support_size": 20.375,
+          "immediate_eig": 0.6615632381579821,
+          "p_yes": 0.375,
+          "question": "Is it commonly worn as a single one-piece garment rather than separate top and bottom pieces?",
+          "support_if_no": [
+            "briefs",
+            "boxers",
+            "panties",
+            "thong",
+            "g-string",
+            "bikini bottom",
+            "underpants",
+            "bloomers",
+            "petticoat",
+            "slip",
+            "long johns",
+            "chaps",
+            "chinos",
+            "cargo pants",
+            "sweatpants",
+            "joggers",
+            "slacks",
+            "long underwear",
+            "bicycle shorts",
+            "bikini bottoms"
+          ],
+          "support_if_yes": [
+            "nightgown",
+            "slip",
+            "muumuu",
+            "caftan",
+            "kimono",
+            "onesie",
+            "leotard",
+            "unitard",
+            "toga",
+            "chemise",
+            "robe",
+            "pinafore",
+            "negligee",
+            "house dress",
+            "bodysuit",
+            "coverall",
+            "bathrobe",
+            "cheongsam",
+            "qipao",
+            "sari",
+            "poncho"
+          ]
+        },
+        {
+          "expected_support_size": 25.0,
+          "immediate_eig": 0.37677016125643675,
+          "p_yes": 0.125,
+          "question": "Is it usually considered suitable as swimwear or for use in water?",
+          "support_if_no": [
+            "chinos",
+            "sweatpants",
+            "joggers",
+            "cargo pants",
+            "slacks",
+            "briefs",
+            "boxers",
+            "pantyhose",
+            "tights",
+            "long johns",
+            "pajama pants",
+            "bell-bottoms",
+            "panties",
+            "thong",
+            "girdle",
+            "corset",
+            "petticoat",
+            "slip",
+            "crinoline",
+            "bloomers",
+            "long underwear",
+            "union suit",
+            "corduroys",
+            "harem pants",
+            "palazzo pants"
+          ],
+          "support_if_yes": [
+            "bikini bottoms",
+            "swim trunks",
+            "boardshorts",
+            "rash guard shorts",
+            "water leggings",
+            "swim briefs",
+            "tankini bottoms",
+            "swim skirt",
+            "wetsuit pants",
+            "jammer",
+            "surf pants",
+            "bathing suit bottom",
+            "board shorts",
+            "water diaper",
+            "swim brief",
+            "wet suit",
+            "dry suit",
+            "burkini",
+            "monokini",
+            "thong",
+            "briefs",
+            "boxers",
+            "bloomers",
+            "cycling shorts",
+            "leotard"
+          ]
+        }
+      ],
+      "case_index": 221,
+      "current_support": [
+        "jeans",
+        "shorts",
+        "skirt",
+        "dress",
+        "jumpsuit",
+        "romper",
+        "overalls",
+        "leggings",
+        "trousers",
+        "culottes",
+        "sarong",
+        "loincloth",
+        "swimsuit",
+        "kilt",
+        "capri pants",
+        "diaper"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ]
+        ],
+        "current_contains_target": true,
+        "target_answers": [
+          false,
+          false,
+          true
+        ]
+      },
+      "history": [
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "Swimsuit"
+    },
+    {
+      "candidates": [
+        {
+          "expected_support_size": 20.4,
+          "immediate_eig": 0.6730116670092565,
+          "p_yes": 0.6,
+          "question": "Does it typically have long sleeves?",
+          "support_if_no": [
+            "waistcoat",
+            "halter top",
+            "tube top",
+            "crop top",
+            "rash guard",
+            "smock",
+            "apron",
+            "kimono",
+            "scrub top",
+            "chemisette",
+            "bolero",
+            "doublet",
+            "polo shirt",
+            "jersey",
+            "bulletproof vest",
+            "bustier",
+            "corset",
+            "peplum top",
+            "sleeveless jersey",
+            "kurta",
+            "kaftan"
+          ],
+          "support_if_yes": [
+            "dress shirt",
+            "flannel shirt",
+            "turtleneck",
+            "henley",
+            "rugby shirt",
+            "peacoat",
+            "trench coat",
+            "parka",
+            "windbreaker",
+            "anorak",
+            "frock coat",
+            "rash guard",
+            "tunic",
+            "cardigan",
+            "hoodie",
+            "sweatshirt",
+            "pullover",
+            "kimono",
+            "bathrobe",
+            "lab coat"
+          ]
+        },
+        {
+          "expected_support_size": 23.0,
+          "immediate_eig": 0.6365141682948128,
+          "p_yes": 0.3333333333333333,
+          "question": "Is it usually worn as an outer layer over other clothing?",
+          "support_if_no": [
+            "dress shirt",
+            "oxford shirt",
+            "henley shirt",
+            "polo shirt",
+            "tube top",
+            "halter top",
+            "crop top",
+            "cami",
+            "bodysuit",
+            "waistcoat",
+            "jersey",
+            "tunic",
+            "henley",
+            "turtleneck",
+            "rash guard",
+            "leotard",
+            "scrub top",
+            "chef jacket",
+            "kurta",
+            "dashiki",
+            "flannel shirt",
+            "peplum top"
+          ],
+          "support_if_yes": [
+            "jacket",
+            "coat",
+            "blazer",
+            "cardigan",
+            "hoodie",
+            "sweater",
+            "vest",
+            "waistcoat",
+            "poncho",
+            "cape",
+            "anorak",
+            "parka",
+            "windbreaker",
+            "raincoat",
+            "overcoat",
+            "bolero",
+            "shrug",
+            "pea coat",
+            "kimono",
+            "fur coat",
+            "trench coat",
+            "fleece jacket",
+            "bomber jacket",
+            "sport coat",
+            "tailcoat"
+          ]
+        },
+        {
+          "expected_support_size": 21.400000000000002,
+          "immediate_eig": 0.5004024235381879,
+          "p_yes": 0.2,
+          "question": "Does it normally fasten closed in the front with buttons or a zipper?",
+          "support_if_no": [
+            "bra",
+            "sports bra",
+            "corset",
+            "bustier",
+            "kimono",
+            "poncho",
+            "serape",
+            "ruana",
+            "chasuble",
+            "surplice",
+            "smock",
+            "caftan",
+            "shawl",
+            "cape",
+            "toga",
+            "sari blouse",
+            "tube top",
+            "halter top",
+            "crop top",
+            "sarong",
+            "bolero",
+            "leotard",
+            "rash guard"
+          ],
+          "support_if_yes": [
+            "dress shirt",
+            "flannel shirt",
+            "denim jacket",
+            "bomber jacket",
+            "windbreaker",
+            "anorak",
+            "pea coat",
+            "raincoat",
+            "waistcoat",
+            "tracksuit jacket",
+            "fleece jacket",
+            "parka",
+            "oxford shirt",
+            "track jacket",
+            "smock"
+          ]
+        }
+      ],
+      "case_index": 28,
+      "current_support": [
+        "shirt",
+        "blouse",
+        "t-shirt",
+        "sweater",
+        "hoodie",
+        "jacket",
+        "coat",
+        "vest",
+        "tank top",
+        "cardigan",
+        "poncho",
+        "tunic",
+        "polo shirt",
+        "jersey",
+        "camisole"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            false,
+            true
+          ],
+          [
+            false,
+            true
+          ],
+          [
+            false,
+            false
+          ]
+        ],
+        "current_contains_target": true,
+        "target_answers": [
+          false,
+          false,
+          false
+        ]
+      },
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "Polo Shirt"
+    },
+    {
+      "candidates": [
+        {
+          "expected_support_size": 17.842105263157897,
+          "immediate_eig": 0.6806294878916634,
+          "p_yes": 0.42105263157894735,
+          "question": "Is it typically worn around the neck?",
+          "support_if_no": [
+            "belt",
+            "braces",
+            "armband",
+            "headband",
+            "bandana",
+            "gloves",
+            "mittens",
+            "visor",
+            "beret",
+            "beanie",
+            "fedora",
+            "turban",
+            "hair bow",
+            "barrette",
+            "baseball cap",
+            "garter",
+            "sun hat"
+          ],
+          "support_if_yes": [
+            "ascot",
+            "cravat",
+            "neckerchief",
+            "bandana",
+            "tippet",
+            "jabot",
+            "ruff",
+            "gorget",
+            "bolo tie",
+            "stock tie",
+            "pussy-bow blouse",
+            "clerical collar",
+            "neck gaiter",
+            "feather boa",
+            "dog collar",
+            "fichu",
+            "necklace",
+            "pendant",
+            "locket"
+          ]
+        },
+        {
+          "expected_support_size": 21.68421052631579,
+          "immediate_eig": 0.4361623253853443,
+          "p_yes": 0.15789473684210525,
+          "question": "Is it usually fastened with a clasp, pin, or clip?",
+          "support_if_no": [
+            "headband",
+            "bandana",
+            "headscarf",
+            "turban",
+            "veil",
+            "epaulet",
+            "armband",
+            "ascot",
+            "cravat",
+            "tippet",
+            "neck gaiter",
+            "gorget",
+            "armlet",
+            "fichu",
+            "dickey",
+            "yoke",
+            "neckerchief",
+            "kerchief",
+            "pashmina",
+            "poncho",
+            "shrug",
+            "epaulette"
+          ],
+          "support_if_yes": [
+            "brooch",
+            "lapel pin",
+            "tie clip",
+            "collar pin",
+            "cravat pin",
+            "hat pin",
+            "cloak clasp",
+            "cardigan clip",
+            "jabot pin",
+            "ascot pin",
+            "shirt garter",
+            "sweater guard",
+            "sweater clip",
+            "cape clasp",
+            "stickpin",
+            "safety pin",
+            "sleeve garter",
+            "epaulette",
+            "armband",
+            "badge"
+          ]
+        },
+        {
+          "expected_support_size": 24.94736842105263,
+          "immediate_eig": 0.5146531654289292,
+          "p_yes": 0.21052631578947367,
+          "question": "Is it primarily decorative rather than used for warmth or support?",
+          "support_if_no": [
+            "belt",
+            "braces",
+            "neckerchief",
+            "ascot",
+            "cravat",
+            "bib",
+            "dickey",
+            "gaiter",
+            "gorget",
+            "tabard",
+            "epaulets",
+            "armlet",
+            "vest",
+            "waistcoat",
+            "corset",
+            "girdle",
+            "armband",
+            "epaulet",
+            "brassiere",
+            "sports bra",
+            "binder",
+            "bustier",
+            "harness",
+            "sleeve garter",
+            "shoulder holster",
+            "neck brace"
+          ],
+          "support_if_yes": [
+            "necklace",
+            "pendant",
+            "choker",
+            "locket",
+            "medallion",
+            "earring",
+            "stud earring",
+            "hoop earring",
+            "cufflink",
+            "tie clip",
+            "pocket square",
+            "corsage",
+            "torc",
+            "armlet",
+            "epaulet",
+            "armband",
+            "fascinator",
+            "ascot",
+            "cravat",
+            "jabot",
+            "ruff"
+          ]
+        }
+      ],
+      "case_index": 20,
+      "current_support": [
+        "tie",
+        "bow tie",
+        "scarf",
+        "shawl",
+        "stole",
+        "boa",
+        "suspenders",
+        "cummerbund",
+        "collar",
+        "lapel pin",
+        "brooch",
+        "boutonniere",
+        "necktie",
+        "capelet",
+        "bolero",
+        "sash",
+        "arm warmer",
+        "muff",
+        "wristband"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ]
+        ],
+        "current_contains_target": false,
+        "target_answers": [
+          false,
+          false,
+          false
+        ]
+      },
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "Yes",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "Bucket Hat"
+    },
+    {
+      "candidates": [
+        {
+          "expected_support_size": 15.000000000000002,
+          "immediate_eig": 0.6365141682948128,
+          "p_yes": 0.3333333333333333,
+          "question": "Does it typically have a full front opening with buttons or a zipper?",
+          "support_if_no": [
+            "crop top",
+            "halter top",
+            "tube top",
+            "rash guard",
+            "leotard",
+            "smock",
+            "jersey",
+            "kaftan",
+            "peplum top",
+            "sweatshirt",
+            "pullover",
+            "kimono",
+            "turtleneck",
+            "bodysuit",
+            "anorak"
+          ],
+          "support_if_yes": [
+            "flannel shirt",
+            "denim jacket",
+            "windbreaker",
+            "raincoat",
+            "parka",
+            "bomber jacket",
+            "varsity jacket",
+            "track jacket",
+            "fleece jacket",
+            "lab coat",
+            "pea coat",
+            "anorak",
+            "trench coat",
+            "chef jacket",
+            "ski jacket"
+          ]
+        },
+        {
+          "expected_support_size": 18.833333333333336,
+          "immediate_eig": 0.6682484776645385,
+          "p_yes": 0.3888888888888889,
+          "question": "Is it usually designed to provide significant warmth as outerwear?",
+          "support_if_no": [
+            "halter top",
+            "tube top",
+            "crop top",
+            "rugby shirt",
+            "henley shirt",
+            "peplum top",
+            "rash guard",
+            "jersey",
+            "smock",
+            "leotard",
+            "kimono",
+            "scrub top",
+            "turtleneck",
+            "mock turtleneck",
+            "corset",
+            "kurta",
+            "henley",
+            "chemise",
+            "bodysuit",
+            "kaftan"
+          ],
+          "support_if_yes": [
+            "parka",
+            "anorak",
+            "peacoat",
+            "duffle coat",
+            "trench coat",
+            "raincoat",
+            "windbreaker",
+            "fleece jacket",
+            "down jacket",
+            "bomber jacket",
+            "snowsuit",
+            "cape",
+            "pea coat",
+            "puffer jacket",
+            "overcoat",
+            "shawl",
+            "ski jacket"
+          ]
+        },
+        {
+          "expected_support_size": 22.777777777777775,
+          "immediate_eig": 0.34883209584303193,
+          "p_yes": 0.1111111111111111,
+          "question": "Does it commonly include a hood?",
+          "support_if_no": [
+            "kurta",
+            "peacoat",
+            "anorak",
+            "parka",
+            "crop top",
+            "henley shirt",
+            "tube top",
+            "halter top",
+            "bolero",
+            "shrug",
+            "jersey",
+            "bustier",
+            "turtleneck",
+            "rugby shirt",
+            "peplum top",
+            "flannel shirt",
+            "sweatshirt",
+            "kimono",
+            "rash guard",
+            "smock",
+            "cheongsam",
+            "jerkin",
+            "doublet"
+          ],
+          "support_if_yes": [
+            "hoodie",
+            "hooded sweatshirt",
+            "anorak",
+            "parka",
+            "duffel coat",
+            "windbreaker",
+            "raincoat",
+            "cloak",
+            "robe",
+            "onesie",
+            "snowsuit",
+            "rash guard",
+            "tracksuit jacket",
+            "fleece jacket",
+            "ski jacket",
+            "smock",
+            "caftan",
+            "galabeya",
+            "burnous",
+            "djellaba",
+            "jerkin"
+          ]
+        }
+      ],
+      "case_index": 27,
+      "current_support": [
+        "T-shirt",
+        "blouse",
+        "sweater",
+        "hoodie",
+        "cardigan",
+        "tank top",
+        "polo shirt",
+        "tunic",
+        "camisole",
+        "waistcoat",
+        "sports bra",
+        "poncho",
+        "shirt",
+        "jacket",
+        "coat",
+        "vest",
+        "dress shirt",
+        "blazer"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ]
+        ],
+        "current_contains_target": true,
+        "target_answers": [
+          true,
+          false,
+          false
+        ]
+      },
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "T-shirt"
+    },
+    {
+      "candidates": [
+        {
+          "expected_support_size": 28.53846153846154,
+          "immediate_eig": 0.16302362949436594,
+          "p_yes": 0.038461538461538464,
+          "question": "Does it typically cover the toes?",
+          "support_if_no": [
+            "socks",
+            "stockings",
+            "tights",
+            "leggings",
+            "leg warmers",
+            "calf sleeves",
+            "chaps",
+            "spats",
+            "gaiters",
+            "stirrups",
+            "shin guards",
+            "anklets",
+            "sandal",
+            "flip-flop",
+            "slipper",
+            "mule",
+            "slide sandal",
+            "gladiator sandal",
+            "espadrille",
+            "clog",
+            "open-toe heel",
+            "open-toe wedge",
+            "backless slipper",
+            "water shoe",
+            "backless loafer",
+            "open-toe clog",
+            "anklet",
+            "legging",
+            "leg warmer"
+          ],
+          "support_if_yes": [
+            "sock",
+            "stocking",
+            "tights",
+            "pantyhose",
+            "ankle sock",
+            "crew sock",
+            "knee-high sock",
+            "thigh-high stocking",
+            "toe sock",
+            "compression sock",
+            "football boot",
+            "wellington boot",
+            "water shoe",
+            "slipper sock",
+            "boot liner",
+            "legging",
+            "knee sock"
+          ]
+        },
+        {
+          "expected_support_size": 20.846153846153847,
+          "immediate_eig": 0.5402041423888608,
+          "p_yes": 0.7692307692307693,
+          "question": "Is it usually designed to provide significant warmth or insulation?",
+          "support_if_no": [
+            "sock",
+            "stocking",
+            "tights",
+            "pantyhose",
+            "legging",
+            "knee sock",
+            "anklet",
+            "crew sock",
+            "over-the-knee sock",
+            "toe sock",
+            "calf sleeve",
+            "shin guard sleeve",
+            "knee-high sock",
+            "liner sock",
+            "no-show sock",
+            "stirrup leggings",
+            "calf sock"
+          ],
+          "support_if_yes": [
+            "ski socks",
+            "wool socks",
+            "thermal socks",
+            "fleece-lined tights",
+            "long underwear bottoms",
+            "thermal leggings",
+            "snow pants",
+            "ski pants",
+            "insulated overpants",
+            "waders",
+            "chaps",
+            "hip waders",
+            "boot socks",
+            "long johns",
+            "leg warmers",
+            "felt boots",
+            "mukluks",
+            "insulated over-the-knee socks",
+            "snowboarding socks",
+            "hiking socks",
+            "insulated leggings",
+            "wader socks"
+          ]
+        },
+        {
+          "expected_support_size": 27.230769230769234,
+          "immediate_eig": 0.4895518936229288,
+          "p_yes": 0.19230769230769232,
+          "question": "Is it commonly worn as part of athletic or sports activity?",
+          "support_if_no": [
+            "jeans",
+            "trousers",
+            "shorts",
+            "sweatpants",
+            "cargo pants",
+            "chinos",
+            "slacks",
+            "capri pants",
+            "overalls",
+            "ski pants",
+            "rain pants",
+            "corduroys",
+            "slippers",
+            "galoshes",
+            "overshoes",
+            "mukluks",
+            "chaps",
+            "gaiters",
+            "spats",
+            "puttees",
+            "tabi socks",
+            "hose",
+            "bobby socks",
+            "peds",
+            "skirt",
+            "dress pants",
+            "pajama pants",
+            "culottes"
+          ],
+          "support_if_yes": [
+            "soccer socks",
+            "baseball stirrups",
+            "running socks",
+            "ski socks",
+            "cycling shoe covers",
+            "wrestling singlet tights",
+            "base layer bottoms",
+            "hockey socks",
+            "cricket pads",
+            "leg sleeves",
+            "rugby socks",
+            "ski boot liners",
+            "soccer cleats",
+            "wrestling singlet",
+            "track spikes",
+            "basketball socks",
+            "hiking socks",
+            "football pants",
+            "softball socks",
+            "goalkeeper pants",
+            "track pants",
+            "ski pants",
+            "snowboard pants",
+            "jodhpurs"
+          ]
+        }
+      ],
+      "case_index": 21,
+      "current_support": [
+        "socks",
+        "stockings",
+        "tights",
+        "leggings",
+        "pantyhose",
+        "knee socks",
+        "ankle socks",
+        "thigh-high socks",
+        "leg warmers",
+        "compression socks",
+        "shin guards",
+        "football boots",
+        "sock",
+        "stocking",
+        "tight",
+        "legging",
+        "knee-high sock",
+        "ankle sock",
+        "crew sock",
+        "thigh-high stocking",
+        "shin guard sock",
+        "compression sock",
+        "leg warmer",
+        "shin guard sleeve",
+        "calf sleeve",
+        "toe sock"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            true,
+            false
+          ],
+          [
+            false,
+            true
+          ],
+          [
+            false,
+            false
+          ]
+        ],
+        "current_contains_target": true,
+        "target_answers": [
+          false,
+          false,
+          false
+        ]
+      },
+      "history": [
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "Yes",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "Ankle Socks"
+    },
+    {
+      "candidates": [
+        {
+          "expected_support_size": 21.230769230769234,
+          "immediate_eig": 0.4293230219306162,
+          "p_yes": 0.8461538461538461,
+          "question": "Does it typically have long sleeves?",
+          "support_if_no": [
+            "camisole",
+            "tube top",
+            "halter top",
+            "crop top",
+            "jersey",
+            "scrub top",
+            "smock",
+            "waistcoat",
+            "peplum top",
+            "dashiki",
+            "guayabera",
+            "kurta",
+            "chef's jacket",
+            "bodysuit",
+            "rash guard",
+            "chemise",
+            "bolero"
+          ],
+          "support_if_yes": [
+            "dress shirt",
+            "flannel shirt",
+            "turtleneck",
+            "pullover sweater",
+            "cardigan",
+            "pea coat",
+            "trench coat",
+            "bomber jacket",
+            "parka",
+            "blazer",
+            "anorak",
+            "tunic",
+            "denim jacket",
+            "raincoat",
+            "windbreaker",
+            "turtleneck sweater",
+            "crewneck sweater",
+            "zip-up hoodie",
+            "bathrobe",
+            "pullover",
+            "robe",
+            "kaftan"
+          ]
+        },
+        {
+          "expected_support_size": 17.846153846153847,
+          "immediate_eig": 0.6901856760188042,
+          "p_yes": 0.5384615384615384,
+          "question": "Does it usually fasten or open down the front?",
+          "support_if_no": [
+            "dress",
+            "robe",
+            "kimono",
+            "caftan",
+            "smock",
+            "jersey",
+            "camisole",
+            "bodysuit",
+            "leotard",
+            "rash guard",
+            "crop top",
+            "tube top",
+            "halter top",
+            "pullover",
+            "turtleneck",
+            "tunic",
+            "kaftan",
+            "sweatshirt",
+            "sports bra",
+            "kurta"
+          ],
+          "support_if_yes": [
+            "dress shirt",
+            "flannel shirt",
+            "denim jacket",
+            "windbreaker",
+            "bomber jacket",
+            "peacoat",
+            "raincoat",
+            "zip-up hoodie",
+            "waistcoat",
+            "henley shirt",
+            "track jacket",
+            "fleece jacket",
+            "pea coat",
+            "lab coat",
+            "scrub top",
+            "chef jacket"
+          ]
+        },
+        {
+          "expected_support_size": 17.461538461538463,
+          "immediate_eig": 0.666278442414676,
+          "p_yes": 0.38461538461538464,
+          "question": "Is it commonly worn as an outer layer over other clothing?",
+          "support_if_no": [
+            "camisole",
+            "henley",
+            "jersey",
+            "crop top",
+            "tube top",
+            "rash guard",
+            "turtleneck",
+            "peplum top",
+            "bodysuit",
+            "waistcoat",
+            "smock",
+            "leotard",
+            "halter top",
+            "kurta",
+            "dashiki",
+            "surplice",
+            "onesie",
+            "sweatshirt",
+            "pullover"
+          ],
+          "support_if_yes": [
+            "parka",
+            "anorak",
+            "windbreaker",
+            "raincoat",
+            "trench coat",
+            "peacoat",
+            "bomber jacket",
+            "blazer",
+            "fleece jacket",
+            "waistcoat",
+            "overcoat",
+            "duffle coat",
+            "duffel coat",
+            "sports coat",
+            "denim jacket"
+          ]
+        }
+      ],
+      "case_index": 214,
+      "current_support": [
+        "shirt",
+        "blouse",
+        "t-shirt",
+        "sweater",
+        "hoodie",
+        "jacket",
+        "coat",
+        "vest",
+        "tank top",
+        "polo shirt",
+        "cardigan",
+        "poncho",
+        "tunic"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            true,
+            true
+          ],
+          [
+            true,
+            true
+          ],
+          [
+            true,
+            false
+          ]
+        ],
+        "current_contains_target": true,
+        "target_answers": [
+          false,
+          false,
+          true
+        ]
+      },
+      "history": [
+        {
+          "answer": "Yes",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "Hoodie"
+    },
+    {
+      "candidates": [
+        {
+          "expected_support_size": 17.6,
+          "immediate_eig": 0.6730116670092565,
+          "p_yes": 0.6,
+          "question": "Is it typically designed to cover each leg separately?",
+          "support_if_no": [
+            "kilt",
+            "wrap skirt",
+            "petticoat",
+            "slip",
+            "crinoline",
+            "half slip",
+            "hoop skirt",
+            "tutu",
+            "dirndl",
+            "lehenga",
+            "sari",
+            "muumuu",
+            "caftan",
+            "nightgown",
+            "robe",
+            "toga",
+            "kimono",
+            "poncho",
+            "apron",
+            "diaper"
+          ],
+          "support_if_yes": [
+            "chinos",
+            "khakis",
+            "cargo pants",
+            "capri pants",
+            "jodhpurs",
+            "breeches",
+            "corduroys",
+            "slacks",
+            "jeggings",
+            "long johns",
+            "track pants",
+            "scrub pants",
+            "yoga pants",
+            "pedal pushers",
+            "tights",
+            "pantyhose"
+          ]
+        },
+        {
+          "expected_support_size": 22.200000000000003,
+          "immediate_eig": 0.5004024235381879,
+          "p_yes": 0.2,
+          "question": "Is it commonly intended to be worn as underwear or as a base layer?",
+          "support_if_no": [
+            "chinos",
+            "capris",
+            "cargo pants",
+            "palazzo pants",
+            "gauchos",
+            "kilt",
+            "pareo",
+            "board shorts",
+            "bloomers",
+            "salopettes",
+            "ski pants",
+            "track pants",
+            "capri pants",
+            "gaucho pants",
+            "yoga pants",
+            "bell-bottoms",
+            "pedal pushers",
+            "long johns",
+            "slacks",
+            "khakis",
+            "corduroys",
+            "boardshorts"
+          ],
+          "support_if_yes": [
+            "pantyhose",
+            "tights",
+            "long underwear",
+            "long johns",
+            "union suit",
+            "bodysuit",
+            "slip",
+            "petticoat",
+            "half slip",
+            "shapewear shorts",
+            "control briefs",
+            "compression shorts",
+            "corset",
+            "girdle",
+            "bloomers",
+            "tap pants",
+            "panties",
+            "bikini briefs",
+            "boyshorts",
+            "hipster panties",
+            "slip shorts",
+            "full slip",
+            "slip dress"
+          ]
+        },
+        {
+          "expected_support_size": 22.099999999999998,
+          "immediate_eig": 0.1985152433458726,
+          "p_yes": 0.05,
+          "question": "Is it generally associated with formal or dressy occasions rather than casual wear?",
+          "support_if_no": [
+            "bikini bottoms",
+            "capri pants",
+            "cargo pants",
+            "chaps",
+            "diaper",
+            "girdle",
+            "long johns",
+            "pantyhose",
+            "pedal pushers",
+            "petticoat",
+            "slip",
+            "yoga pants",
+            "chinos",
+            "joggers",
+            "bloomers",
+            "slip dress",
+            "nightgown",
+            "coveralls",
+            "leotard",
+            "capris",
+            "tutu",
+            "unitard"
+          ],
+          "support_if_yes": [
+            "tuxedo trousers",
+            "dress pants",
+            "slacks",
+            "tailcoat trousers",
+            "morning trousers",
+            "gown",
+            "ball gown",
+            "cocktail dress",
+            "evening dress",
+            "wedding dress",
+            "mermaid gown",
+            "sheath dress",
+            "suit trousers",
+            "formal kilt",
+            "petticoat",
+            "crinoline",
+            "slip",
+            "half slip",
+            "hoop skirt",
+            "tailcoat",
+            "morning dress",
+            "cummerbund",
+            "waistcoat",
+            "corset"
+          ]
+        }
+      ],
+      "case_index": 26,
+      "current_support": [
+        "jeans",
+        "shorts",
+        "skirt",
+        "dress",
+        "jumpsuit",
+        "overalls",
+        "leggings",
+        "sweatpants",
+        "briefs",
+        "boxers",
+        "pajama pants",
+        "swimsuit",
+        "trousers",
+        "romper",
+        "culottes",
+        "sarong",
+        "swim trunks",
+        "underwear",
+        "thong",
+        "loincloth"
+      ],
+      "endpoint": {
+        "branch_contains_target": [
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ],
+          [
+            false,
+            false
+          ]
+        ],
+        "current_contains_target": false,
+        "target_answers": [
+          false,
+          false,
+          false
+        ]
+      },
+      "history": [
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the upper half of the body?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it primarily worn on the feet or lower legs?"
+        },
+        {
+          "answer": "No",
+          "question": "Is it mainly an accessory rather than a main garment?"
+        }
+      ],
+      "target": "Harem Pants"
+    }
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "active_candidate_coverage_count": 2,
+    "case_diagnostics": [
+      {
+        "best_candidate_coverage": 0.0,
+        "case_index": 217,
+        "coverage_spread": 0.0,
+        "current_contains_target": true,
+        "immediate_eig_selected_coverage": 0.0,
+        "immediate_eig_selected_index": 2,
+        "realized_candidate_coverages": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_selected_coverage": 0.0,
+        "size_selected_index": 1
+      },
+      {
+        "best_candidate_coverage": 0.0,
+        "case_index": 221,
+        "coverage_spread": 0.0,
+        "current_contains_target": true,
+        "immediate_eig_selected_coverage": 0.0,
+        "immediate_eig_selected_index": 0,
+        "realized_candidate_coverages": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_selected_coverage": 0.0,
+        "size_selected_index": 2
+      },
+      {
+        "best_candidate_coverage": 1.0,
+        "case_index": 28,
+        "coverage_spread": 1.0,
+        "current_contains_target": true,
+        "immediate_eig_selected_coverage": 1.0,
+        "immediate_eig_selected_index": 0,
+        "realized_candidate_coverages": [
+          1.0,
+          1.0,
+          0.0
+        ],
+        "size_selected_coverage": 1.0,
+        "size_selected_index": 1
+      },
+      {
+        "best_candidate_coverage": 0.0,
+        "case_index": 20,
+        "coverage_spread": 0.0,
+        "current_contains_target": false,
+        "immediate_eig_selected_coverage": 0.0,
+        "immediate_eig_selected_index": 0,
+        "realized_candidate_coverages": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_selected_coverage": 0.0,
+        "size_selected_index": 2
+      },
+      {
+        "best_candidate_coverage": 0.0,
+        "case_index": 27,
+        "coverage_spread": 0.0,
+        "current_contains_target": true,
+        "immediate_eig_selected_coverage": 0.0,
+        "immediate_eig_selected_index": 1,
+        "realized_candidate_coverages": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_selected_coverage": 0.0,
+        "size_selected_index": 2
+      },
+      {
+        "best_candidate_coverage": 1.0,
+        "case_index": 21,
+        "coverage_spread": 1.0,
+        "current_contains_target": true,
+        "immediate_eig_selected_coverage": 1.0,
+        "immediate_eig_selected_index": 1,
+        "realized_candidate_coverages": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "size_selected_coverage": 0.0,
+        "size_selected_index": 0
+      },
+      {
+        "best_candidate_coverage": 1.0,
+        "case_index": 214,
+        "coverage_spread": 0.0,
+        "current_contains_target": true,
+        "immediate_eig_selected_coverage": 1.0,
+        "immediate_eig_selected_index": 1,
+        "realized_candidate_coverages": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "size_selected_coverage": 1.0,
+        "size_selected_index": 0
+      },
+      {
+        "best_candidate_coverage": 0.0,
+        "case_index": 26,
+        "coverage_spread": 0.0,
+        "current_contains_target": false,
+        "immediate_eig_selected_coverage": 0.0,
+        "immediate_eig_selected_index": 0,
+        "realized_candidate_coverages": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_selected_coverage": 0.0,
+        "size_selected_index": 1
+      }
+    ],
+    "current_target_omission_count": 2,
+    "gates": {
+      "active_candidate_coverage_count_at_least_3": false,
+      "all_cases_complete": true,
+      "all_pass": false,
+      "all_supports_nonempty": true,
+      "current_target_omission_count_at_least_3": false,
+      "exact_physical_request_count": true,
+      "omitted_target_recovery_count_at_least_2": false,
+      "zero_reasoning_tokens": true
+    },
+    "num_cases": 8,
+    "omitted_target_recovery_count": 0
+  },
+  "usage": {
+    "adapter_cost_usd": 0.2471237499999998,
+    "generator": {
+      "adapter_completion_tokens": 8756,
+      "adapter_cost_usd": 0.2370324999999998,
+      "adapter_prompt_tokens": 42277,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 176,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 9704,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 8756,
+          "cost_usd": 0.2370324999999998,
+          "prompt_tokens": 42277,
+          "reasoning_tokens": 0,
+          "requests": 176
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 948,
+          "cost_usd": 0.01009125,
+          "prompt_tokens": 7767,
+          "reasoning_tokens": 0,
+          "requests": 24
+        }
+      },
+      "prompt_tokens": 50044,
+      "reasoning_tokens": 0,
+      "remaining_usd": 35.056678033749776,
+      "requests": 200,
+      "run_budget_usd": 3.0,
+      "run_cost_usd": 0.2471237499999998,
+      "run_remaining_usd": 2.7528762500000004,
+      "total_spent_usd": 70.32812466170738
+    },
+    "judge": {
+      "adapter_completion_tokens": 948,
+      "adapter_cost_usd": 0.01009125,
+      "adapter_prompt_tokens": 7767,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 24,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 9704,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 8756,
+          "cost_usd": 0.2370324999999998,
+          "prompt_tokens": 42277,
+          "reasoning_tokens": 0,
+          "requests": 176
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 948,
+          "cost_usd": 0.01009125,
+          "prompt_tokens": 7767,
+          "reasoning_tokens": 0,
+          "requests": 24
+        }
+      },
+      "prompt_tokens": 50044,
+      "reasoning_tokens": 0,
+      "remaining_usd": 35.056678033749776,
+      "requests": 200,
+      "run_budget_usd": 3.0,
+      "run_cost_usd": 0.2471237499999998,
+      "run_remaining_usd": 2.7528762500000004,
+      "total_spent_usd": 70.32812466170738
+    },
+    "physical_requests": 200,
+    "reasoning_tokens": 0
+  }
+}
