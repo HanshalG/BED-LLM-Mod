@@ -90,6 +90,12 @@ def test_profile_and_likelihood_parsers_fail_closed() -> None:
         movie_count=2,
     )
     assert matrix.shape == (PROFILE_COUNT, 2, 5)
+    likelihood_rows[0]["ratings"][0] = [0.42, 0.24, 0.16, 0.08, 0.08]
+    parse_rating_likelihoods(
+        json.dumps({"profiles": likelihood_rows}),
+        profile_count=PROFILE_COUNT,
+        movie_count=2,
+    )
     likelihood_rows[0]["ratings"][0] = [0.1] * 5
     with pytest.raises(ValueError, match="sum to one"):
         parse_rating_likelihoods(

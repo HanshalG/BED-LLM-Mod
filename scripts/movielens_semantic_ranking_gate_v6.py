@@ -111,6 +111,27 @@ def parse_ranking(text: str) -> list[float]:
 _build_models = base._build_models
 
 
+class _ReplayFirstBatch:
+    def __init__(self, inner, responses, prefix_usage):
+        self.inner = inner
+        self.responses = list(responses)
+        self.prefix_usage = dict(prefix_usage)
+
+    def chat_complete_messages_batched(self, batch_messages, **kwargs):
+        if self.responses:
+            if len(batch_messages) != len(self.responses):
+                raise ValueError("resume batch does not match frozen responses")
+            responses, self.responses = self.responses, []
+            return responses
+        return self.inner.chat_complete_messages_batched(batch_messages, **kwargs)
+
+    def usage_snapshot(self):
+        result = self.inner.usage_snapshot()
+        for key, value in self.prefix_usage.items():
+            result[key] = result.get(key, 0) + value
+        return result
+
+
 def run_gate(config, *, data_dir, likelihood_model, stage, raw_checkpoint_path=None):
     overrides = {
         "SELECTION_SEED": SELECTION_SEED,
@@ -195,6 +216,8 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--likelihood-model", default="openai/gpt-5.4-mini")
     parser.add_argument("--stage", choices=("serving_smoke", "formal"), required=True)
+    parser.add_argument("--resume-initial-raw", type=Path)
+    parser.add_argument("--resume-initial-log", type=Path)
     args = parser.parse_args()
     config = load_config(str(args.config))
     config.run_id = args.run_id
@@ -203,6 +226,37 @@ def main() -> None:
     private_dir.mkdir(parents=True, exist_ok=True)
     config.log_path = args.output_dir / "run.log"
     raw_path = private_dir / "RAW_RESPONSES.json"
+    global _build_models
+    if args.resume_initial_raw or args.resume_initial_log:
+        if not args.resume_initial_raw or not args.resume_initial_log:
+            raise ValueError("both resume paths are required")
+        frozen = json.loads(args.resume_initial_raw.read_text())["responses"]
+        events = [
+            json.loads(line) for line in args.resume_initial_log.read_text().splitlines()
+        ]
+        if len(events) != 30:
+            raise ValueError("resume log must contain exactly 30 initial requests")
+        original_builder = _build_models
+
+        def resumed_builder(config, likelihood_model):
+            generator, likelihood = original_builder(config, likelihood_model)
+            def prefix(rows):
+                return {
+                    "adapter_requests": len(rows),
+                    "adapter_prompt_tokens": sum(r["prompt_tokens"] for r in rows),
+                    "adapter_completion_tokens": sum(r["completion_tokens"] for r in rows),
+                    "adapter_reasoning_tokens": sum(r["reasoning_tokens"] for r in rows),
+                    "adapter_cost_usd": sum(r["cost_usd"] for r in rows),
+                }
+            return (
+                _ReplayFirstBatch(
+                    generator, frozen["initial_profiles"], prefix(events[:15])
+                ),
+                _ReplayFirstBatch(
+                    likelihood, frozen["initial_likelihoods"], prefix(events[15:])
+                ),
+            )
+        _build_models = resumed_builder
     payload = run_gate(
         config,
         data_dir=args.data_dir,

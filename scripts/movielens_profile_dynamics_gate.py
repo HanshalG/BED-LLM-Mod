@@ -136,7 +136,7 @@ def parse_rating_likelihoods(
             if not np.all(np.isfinite(values)) or np.any(values < 0.0):
                 raise ValueError("rating probabilities must be finite and nonnegative")
             total = float(values.sum())
-            if not 0.98 <= total <= 1.02:
+            if total < 0.98 - 1e-12 or total > 1.02 + 1e-12:
                 raise ValueError("rating probabilities must sum to one")
             matrix[profile_index, movie_index] = values / total
     return matrix

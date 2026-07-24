@@ -19,3 +19,11 @@ than immediate EIG; semantic choice beats immediate on at least 2/4 users; and s
 regret no worse than seeded random. Exact requests, enrollment, and zero reasoning must
 also pass. Failure closes this scorer; passage alone authorizes a fresh paired policy
 test. No threshold changes or post-outcome exclusions.
+
+The first formal attempt stopped after all 30 initial calls and before enrollment,
+scoring, or outcomes because a mathematically exact `0.98` probability row summed to
+`0.9799999999999999` in binary floating point. Before continuation, the parser
+tolerance was amended by `1e-12` and a resume path frozen. It replays the exact 30 raw
+responses in memory, includes their original usage in the 66-call accounting, and
+makes only the remaining scorer/branch calls. No response, user, threshold, or endpoint
+is resampled.
