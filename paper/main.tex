@@ -474,13 +474,12 @@ than policy collapse.
 
 Let an estimated continuation score be $\widehat V_j=V_j+\epsilon_j$ for branch
 candidate $j$. Depth two uses $\max_j\widehat V_j$, so even zero-mean errors
-produce positive selection bias. Increasing branch width or horizon adds more
-opportunities for an optimistic likelihood, posterior, or proposal to win. Root
-likelihood error also changes branch mass and the posterior context passed to
-every downstream call. More Monte Carlo rollouts reduce variance conditional on
-this model; they do not reduce its bias. Bayesian design is particularly exposed
-to misspecification because the same model both predicts data and decides which
-data to collect \citep{catanach2023misspecification}.
+produce selection bias that grows with width and horizon. Root likelihood error
+also changes branch mass and downstream context; more rollouts reduce variance,
+not bias \citep{catanach2023misspecification}.
+A Zendo development smoke likewise produced eight distinct refreshed supports
+(endpoint range $.140$), yet continuation EIG had $\rho=0$ with truth value and
+selected the myopic root.
 
 BED-LLM's strong one-step results use a concrete entity or profile, small response
 space, prior-likelihood construction, and diverse filtered hypotheses

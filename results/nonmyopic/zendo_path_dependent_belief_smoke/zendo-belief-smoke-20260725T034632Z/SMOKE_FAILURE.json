@@ -1,0 +1,46 @@
+{
+  "error": "GateExecutionError: JSONDecodeError: Extra data: line 1 column 2440 (char 2439)",
+  "interface_version": "zendo-path-dependent-belief-1",
+  "private_raw_sha256": "c85993c15cbd19cfae7f131426a4af71ee53921917beb3c008ebfcbfa6333d00",
+  "schema_version": 1,
+  "stage": "smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.12169999999999999,
+    "generator": {
+      "adapter_completion_tokens": 6420,
+      "adapter_cost_usd": 0.12169999999999999,
+      "adapter_prompt_tokens": 10160,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 6420,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 6420,
+          "cost_usd": 0.12169999999999999,
+          "prompt_tokens": 10160,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 10160,
+      "reasoning_tokens": 0,
+      "remaining_usd": 21.369749123749926,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.12169999999999999,
+      "run_remaining_usd": 0.6283,
+      "total_spent_usd": 84.01505357170723
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
