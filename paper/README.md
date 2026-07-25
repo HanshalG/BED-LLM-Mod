@@ -17,7 +17,9 @@ proposal gate selecting the exact route on 15/16 cells, followed by a positive
 replications against shared h4, matched-random h5, and exhaustive d4,
 the banked animals result, the natural-location depth audit, the
 $\tau$-Knowledge target-blind root-ranking study, held-out count-dominant
-receding-policy result, and failed same-task execution replication, an
+receding-policy result, failed same-task execution replication, and the
+ClariQ multisample-likelihood development signal with a serving-invalid
+untouched holdout, an
 exploratory externally scored Zendo
 path-dependent-belief smoke with pre-endpoint confirmation failures, and the
 Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes

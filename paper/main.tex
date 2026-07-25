@@ -269,12 +269,13 @@ and mean regret $.21$. The policy retained 30 of 33 documents available under
 its selected roots, versus 26 for myopic receding, 25 for the original joint
 selector, and 22 for seeded random; all frozen gates passed. Exact endpoint
 tests remain underpowered ($p=.25,.0898,.0774$, respectively), so this execution
-supports LLM-owned ranking plus directional end-to-end gain. In a
+supports LLM-owned ranking plus directional end-to-end gain. We treat fixed-tree
+semantic ranking as primary; coverage is a noisier execution check. In a
 frozen post-hoc control, BM25, novelty, and lexical scoring retrieved 22, 21,
 and 17 documents versus 30 and ranked worse. Neither a belief shuffle nor a
 paired belief-only bottleneck supported causal alignment (diagnostic accuracy
 $.441$ aligned versus $.706$ shuffled; coverage 5 versus 6). Thus semantic
-scoring alone is isolated as load-bearing; neither control is held-out evidence.
+scoring alone is load-bearing; refreshed-belief causality remains unverified.
 
 A preregistered same-task replication regenerated every tree and score in 280
 clean calls. Root accuracy reversed ($.5575$ non-myopic versus $.6283$ myopic);
@@ -529,10 +530,13 @@ truth on only 2/6 collapsed-support tasks; particle preservation helped but tied
 augmented EIG. PSCon preserved truth externally but omitted labels or outcomes.
 On AmbigDocs, Mini gave one question 55.6\% pairwise label disagreement;
 GPT-5.4 made repeats identical, yet four roots collapsed to two partitions with
-zero EIG range. Conversely, ClariQ's human question bank gave four distinct
-partitions and a verified d2 gap, but exact GPT-5.4 likelihood repeats disagreed
-on 2/4 questions. Support persistence, stable likelihoods, and action diversity
-are distinct. DAD or RL-BED amortization cannot repair a broken
+zero EIG range. ClariQ instead gives broad exact d2 opportunity. In a
+preregistered three-topic development set, multisample GPT-5.4 likelihoods
+changed two roots and improved oracle-tail NDCG both times (mean $+.026$;
+$\rho=.441$ versus $.358$ myopic), but a stability gate failed; a 12-topic
+holdout then failed serving (743/755 exact) before endpoints. Support
+persistence, stable likelihoods, and action diversity are distinct. DAD or
+RL-BED amortization cannot repair a broken
 simulator \citep{foster2021deep,blau2022rlbed}; none of these target-free audits
 was promoted to an endpoint result.
 
@@ -588,7 +592,7 @@ to fresh generation. Depth still cannot
 replace a valid joint model, deployment-matched branches, or genuinely
 non-myopic task.
 
-{\scriptsize
+{\fontsize{6.7}{7.5}\selectfont
 \setlength{\bibsep}{0pt}
 \bibliographystyle{plainnat}
 \bibliography{references}
