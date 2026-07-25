@@ -1,0 +1,83 @@
+{
+  "protocol": {
+    "expected_requests": 5,
+    "interface_version": "bamboogle-cached-search-flat-serving-3",
+    "max_cost_usd": 0.15,
+    "private_raw_sha256": "ab2863e91c6dcca320dbda913a2992cd5106af96e6225aa56aa4ea73bcad6713",
+    "reasoning_requested": false,
+    "repairs_or_retries": 0,
+    "response_format": "strict_flat_lines",
+    "scientific_endpoints_evaluated": false,
+    "task_ids": [
+      "test_87",
+      "test_110",
+      "test_72",
+      "test_69",
+      "test_61"
+    ]
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "gates": {
+      "all_5_flat_responses_parse": true,
+      "all_beliefs_have_8_hypotheses": true,
+      "all_pass": true,
+      "all_tasks_have_8_distinct_queries": true,
+      "cost_at_most_0_15": true,
+      "exact_5_http_attempts": true,
+      "exact_5_physical_requests": true,
+      "zero_forced_exits": true,
+      "zero_model_retries": true,
+      "zero_reasoning_tokens": true
+    },
+    "initial_entropy_nats": [
+      1.63037806567992,
+      1.1030152898211814,
+      1.9180601162460775,
+      1.851409473020266,
+      1.666628638876544
+    ]
+  },
+  "usage": {
+    "adapter_cost_usd": 0.014457499999999998,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 721,
+      "adapter_cost_usd": 0.014457499999999998,
+      "adapter_prompt_tokens": 1457,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 5,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 721,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 5,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 721,
+          "cost_usd": 0.014457499999999998,
+          "prompt_tokens": 1457,
+          "reasoning_tokens": 0,
+          "requests": 5
+        }
+      },
+      "prompt_tokens": 1457,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.561838780793295,
+      "requests": 5,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.014457499999999998,
+      "run_remaining_usd": 0.1355425,
+      "total_spent_usd": 90.4381612192067
+    },
+    "http_attempts": 5,
+    "physical_requests": 5,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
