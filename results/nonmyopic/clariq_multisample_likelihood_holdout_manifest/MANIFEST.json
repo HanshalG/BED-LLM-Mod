@@ -1,0 +1,1336 @@
+{
+  "candidates": [
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "176",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 5,
+      "question_count": 16,
+      "status": "eligible",
+      "topic_id": "115",
+      "valid_root_count": 15
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "228"
+    },
+    {
+      "facet_count": 4,
+      "question_count": 12,
+      "status": "structurally_ineligible",
+      "topic_id": "73",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 6,
+      "question_count": 15,
+      "status": "eligible",
+      "topic_id": "10",
+      "valid_root_count": 14
+    },
+    {
+      "facet_count": 6,
+      "question_count": 17,
+      "status": "structurally_ineligible",
+      "topic_id": "55",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "296"
+    },
+    {
+      "facet_count": 2,
+      "question_count": 16,
+      "status": "metadata_ineligible",
+      "topic_id": "143"
+    },
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "eligible",
+      "topic_id": "104",
+      "valid_root_count": 12
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "205"
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "263"
+    },
+    {
+      "facet_count": 4,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "171",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 17,
+      "status": "structurally_ineligible",
+      "topic_id": "77",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 16,
+      "status": "structurally_ineligible",
+      "topic_id": "154",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 5,
+      "question_count": 18,
+      "status": "structurally_ineligible",
+      "topic_id": "21",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 13,
+      "status": "eligible",
+      "topic_id": "14",
+      "valid_root_count": 12
+    },
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "eligible",
+      "topic_id": "135",
+      "valid_root_count": 12
+    },
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "192",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 17,
+      "status": "structurally_ineligible",
+      "topic_id": "16",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "40",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "295"
+    },
+    {
+      "facet_count": 3,
+      "question_count": 14,
+      "status": "eligible",
+      "topic_id": "122",
+      "valid_root_count": 13
+    },
+    {
+      "facet_count": 3,
+      "question_count": 12,
+      "status": "eligible",
+      "topic_id": "105",
+      "valid_root_count": 10
+    },
+    {
+      "facet_count": 4,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "170",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "178",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "86",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "eligible",
+      "topic_id": "131",
+      "valid_root_count": 14
+    },
+    {
+      "facet_count": 6,
+      "question_count": 17,
+      "status": "structurally_ineligible",
+      "topic_id": "160",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "50",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "eligible",
+      "topic_id": "113",
+      "valid_root_count": 12
+    },
+    {
+      "facet_count": 4,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "188",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 16,
+      "status": "eligible",
+      "topic_id": "137",
+      "valid_root_count": 15
+    },
+    {
+      "facet_count": 3,
+      "question_count": 16,
+      "status": "structurally_ineligible",
+      "topic_id": "194",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "eligible",
+      "topic_id": "119",
+      "valid_root_count": 12
+    },
+    {
+      "facet_count": 4,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "184",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 11,
+      "status": "eligible",
+      "topic_id": "116",
+      "valid_root_count": 10
+    },
+    {
+      "facet_count": 5,
+      "question_count": 9,
+      "status": "eligible",
+      "topic_id": "102",
+      "valid_root_count": 8
+    },
+    {
+      "facet_count": 6,
+      "question_count": 11,
+      "status": "structurally_ineligible",
+      "topic_id": "17",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "31",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "63",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 6,
+      "question_count": 17,
+      "status": "structurally_ineligible",
+      "topic_id": "4",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 1,
+      "question_count": 11,
+      "status": "metadata_ineligible",
+      "topic_id": "231"
+    },
+    {
+      "facet_count": 4,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "48",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 5,
+      "question_count": 17,
+      "status": "structurally_ineligible",
+      "topic_id": "168",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 2,
+      "question_count": 15,
+      "status": "metadata_ineligible",
+      "topic_id": "132"
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "61",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 5,
+      "question_count": 18,
+      "status": "structurally_ineligible",
+      "topic_id": "93",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "80",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 6,
+      "question_count": 16,
+      "status": "eligible",
+      "topic_id": "11",
+      "valid_root_count": 15
+    },
+    {
+      "facet_count": 4,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "43",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "196",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "186",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "238"
+    },
+    {
+      "facet_count": 3,
+      "question_count": 12,
+      "status": "structurally_ineligible",
+      "topic_id": "3",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 6,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "167",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "179",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 5,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "30",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "162",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 6,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "65",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 14,
+      "status": "eligible",
+      "topic_id": "103",
+      "valid_root_count": 13
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "251"
+    },
+    {
+      "facet_count": 3,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "70",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 14,
+      "status": "eligible",
+      "topic_id": "141",
+      "valid_root_count": 13
+    }
+  ],
+  "expected_likelihood_requests": 755,
+  "protocol": {
+    "api_calls": 0,
+    "evaluation_keys_checked": true,
+    "evaluation_values_read": false,
+    "max_selected_topics": 12,
+    "min_selected_topics": 8,
+    "min_valid_roots": 6,
+    "samples_per_question": 5,
+    "split": "holdout"
+  },
+  "schema_version": 1,
+  "selected_topic_ids": [
+    "115",
+    "10",
+    "104",
+    "14",
+    "135",
+    "122",
+    "105",
+    "131",
+    "113",
+    "137",
+    "119",
+    "116"
+  ],
+  "selected_topics": [
+    {
+      "facets": [
+        {
+          "description": "career opportunities at PNL: what openings are currently available, what educational background is required, what prior experience is needed",
+          "facet_id": "F0066"
+        },
+        {
+          "description": "types of research projects performed at PNL",
+          "facet_id": "F0067"
+        },
+        {
+          "description": "home page of the Pacific Northwest National Laboratory",
+          "facet_id": "F0068"
+        },
+        {
+          "description": "information about the scientific user facilities of the laboratory",
+          "facet_id": "F0069"
+        },
+        {
+          "description": "Who operates (manages) PNL?",
+          "facet_id": "F0070"
+        }
+      ],
+      "initial_request": "Tell me about the pacific northwest laboratory.",
+      "questions": [
+        {
+          "question": "are you looking for a specific representative in relation to the company",
+          "question_id": "Q00690"
+        },
+        {
+          "question": "are you looking for a specific web site",
+          "question_id": "Q00697"
+        },
+        {
+          "question": "are you looking for any specific facilities",
+          "question_id": "Q00738"
+        },
+        {
+          "question": "are you looking for jobs in richland",
+          "question_id": "Q00918"
+        },
+        {
+          "question": "are you looking for lab jobs",
+          "question_id": "Q00925"
+        },
+        {
+          "question": "are you looking for research papers",
+          "question_id": "Q00988"
+        },
+        {
+          "question": "are you referring to the lab in seattle",
+          "question_id": "Q01266"
+        },
+        {
+          "question": "are you referring to the specific company",
+          "question_id": "Q01284"
+        },
+        {
+          "question": "do you need any specific information about pnl",
+          "question_id": "Q01601"
+        },
+        {
+          "question": "do you need information on employment opportunities",
+          "question_id": "Q01652"
+        },
+        {
+          "question": "do you need stock price values for the company",
+          "question_id": "Q01684"
+        },
+        {
+          "question": "do you need the address or location for the company",
+          "question_id": "Q01692"
+        },
+        {
+          "question": "do you seek further information on lab breeders",
+          "question_id": "Q01748"
+        },
+        {
+          "question": "is there a specific representative that you need contact information for",
+          "question_id": "Q02600"
+        },
+        {
+          "question": "is there any specific information that you would like to know about employment requirements at pnl",
+          "question_id": "Q02615"
+        }
+      ],
+      "topic_id": "115"
+    },
+    {
+      "facets": [
+        {
+          "description": "What are some low-cost broadband internet providers?",
+          "facet_id": "F0004"
+        },
+        {
+          "description": "Do any internet providers still sell dial-up?",
+          "facet_id": "F0005"
+        },
+        {
+          "description": "Who can provide inexpensive digital cable television bundled with internet service?",
+          "facet_id": "F0006"
+        },
+        {
+          "description": "Find me some providers of free wireless internet access.",
+          "facet_id": "F0007"
+        },
+        {
+          "description": "I want to find cheap DSL providers.",
+          "facet_id": "F0008"
+        },
+        {
+          "description": "Is there a way to get internet access without phone service?",
+          "facet_id": "F0009"
+        }
+      ],
+      "initial_request": "Where can I find cheap internet",
+      "questions": [
+        {
+          "question": "are you interested in finding cheap items on the internet",
+          "question_id": "Q00198"
+        },
+        {
+          "question": "are you interested in lowcost internet providers",
+          "question_id": "Q00309"
+        },
+        {
+          "question": "are you looking for any bundles or deals",
+          "question_id": "Q00734"
+        },
+        {
+          "question": "are you looking for information on any specific internet technology",
+          "question_id": "Q00889"
+        },
+        {
+          "question": "are you looking to buy cheap internet",
+          "question_id": "Q01144"
+        },
+        {
+          "question": "are you upset by the quality of your internet service",
+          "question_id": "Q01394"
+        },
+        {
+          "question": "are you wondering how to reduce your internet bill",
+          "question_id": "Q01435"
+        },
+        {
+          "question": "are you wondering where cheap internet is",
+          "question_id": "Q01453"
+        },
+        {
+          "question": "are you wondering which provider has the cheapest internet",
+          "question_id": "Q01460"
+        },
+        {
+          "question": "are you wondering who used cheap internet",
+          "question_id": "Q01462"
+        },
+        {
+          "question": "do you already have a phone service",
+          "question_id": "Q01520"
+        },
+        {
+          "question": "how do you know if your internet service is inexpensive",
+          "question_id": "Q02513"
+        },
+        {
+          "question": "or maybe free internet",
+          "question_id": "Q02654"
+        },
+        {
+          "question": "what companies have the lowestcost internet service",
+          "question_id": "Q02754"
+        }
+      ],
+      "topic_id": "10"
+    },
+    {
+      "facets": [
+        {
+          "description": "Find the official legal rules and procedures pertaining to child support in Indiana.",
+          "facet_id": "F0022"
+        },
+        {
+          "description": "Help me calculate my child support obligation in Indiana.",
+          "facet_id": "F0023"
+        },
+        {
+          "description": "Find law firms that offer services relevant to child support in Indiana.",
+          "facet_id": "F0024"
+        }
+      ],
+      "initial_request": "Child support in Indiana?",
+      "questions": [
+        {
+          "question": "are you interested in a calculator for child support payments",
+          "question_id": "Q00075"
+        },
+        {
+          "question": "are you interested in child support resources",
+          "question_id": "Q00169"
+        },
+        {
+          "question": "are you interested in getting details on finding a lawyer for child support",
+          "question_id": "Q00215"
+        },
+        {
+          "question": "are you interested in indiana child support",
+          "question_id": "Q00248"
+        },
+        {
+          "question": "are you seeking support of a child in indiana",
+          "question_id": "Q01325"
+        },
+        {
+          "question": "do you owe child support in indiana",
+          "question_id": "Q01744"
+        },
+        {
+          "question": "do you pay child support in indiana",
+          "question_id": "Q01745"
+        },
+        {
+          "question": "do you want to know about a specific indiana child support law",
+          "question_id": "Q01967"
+        },
+        {
+          "question": "do you want wording of child support laws",
+          "question_id": "Q02467"
+        },
+        {
+          "question": "which counties law would you like clarification on",
+          "question_id": "Q03015"
+        },
+        {
+          "question": "would you like a list of forms for processing child support claims",
+          "question_id": "Q03163"
+        },
+        {
+          "question": "would you like details on how to pay child support",
+          "question_id": "Q03198"
+        }
+      ],
+      "topic_id": "104"
+    },
+    {
+      "facets": [
+        {
+          "description": "Go to the Discovery Channel's dinosaur site, which has pictures of dinosaurs and games.",
+          "facet_id": "F0159"
+        },
+        {
+          "description": "I'm looking for free pictures of dinosaurs.",
+          "facet_id": "F0160"
+        },
+        {
+          "description": "I want to find pictures of dinosaurs that I can color in, as in a coloring book.",
+          "facet_id": "F0161"
+        },
+        {
+          "description": "I'm looking for a list of all (or many of) the different kinds of dinosaurs, with pictures.",
+          "facet_id": "F0162"
+        }
+      ],
+      "initial_request": "I'm interested in dinosaurs",
+      "questions": [
+        {
+          "question": "are you interested in coloring books",
+          "question_id": "Q00173"
+        },
+        {
+          "question": "are you interested in dinosaur toys",
+          "question_id": "Q00184"
+        },
+        {
+          "question": "are you interested in home decor items that are dinosaur related",
+          "question_id": "Q00230"
+        },
+        {
+          "question": "are you looking for a dinosaur costume or game",
+          "question_id": "Q00615"
+        },
+        {
+          "question": "are you looking for a specific dinosaur",
+          "question_id": "Q00670"
+        },
+        {
+          "question": "are you looking for a specific web site about dinosaurs",
+          "question_id": "Q00698"
+        },
+        {
+          "question": "are you looking for dinosaur books",
+          "question_id": "Q00804"
+        },
+        {
+          "question": "are you looking for meat eating or plant eating dinosaurs",
+          "question_id": "Q00938"
+        },
+        {
+          "question": "do you want a list of dinosaur names",
+          "question_id": "Q01766"
+        },
+        {
+          "question": "which dinosaurs are you interested in",
+          "question_id": "Q03021"
+        },
+        {
+          "question": "would you like a list of dinosaur movies",
+          "question_id": "Q03162"
+        },
+        {
+          "question": "would you like to see pictures or videos of dinosaurs",
+          "question_id": "Q03869"
+        }
+      ],
+      "topic_id": "14"
+    },
+    {
+      "facets": [
+        {
+          "description": "how to play the board game \"Source of the Nile\"",
+          "facet_id": "F0143"
+        },
+        {
+          "description": "information on the feud between Speke and Burton over the discovery of the source of the Nile river",
+          "facet_id": "F0144"
+        },
+        {
+          "description": "map of the Nile River basin",
+          "facet_id": "F0145"
+        }
+      ],
+      "initial_request": "Tell me about source of the nile",
+      "questions": [
+        {
+          "question": "are you interested in the origin of the nile",
+          "question_id": "Q00476"
+        },
+        {
+          "question": "are you referring to the nile river",
+          "question_id": "Q01277"
+        },
+        {
+          "question": "do you want a history of the nile",
+          "question_id": "Q01760"
+        },
+        {
+          "question": "do you want a map",
+          "question_id": "Q01772"
+        },
+        {
+          "question": "do you want to know about the source of the video game",
+          "question_id": "Q02007"
+        },
+        {
+          "question": "do you want to know the name of the source",
+          "question_id": "Q02228"
+        },
+        {
+          "question": "do you want to know what country the source is in",
+          "question_id": "Q02276"
+        },
+        {
+          "question": "do you want to know where the nile is located",
+          "question_id": "Q02328"
+        },
+        {
+          "question": "is there any specific information about the river that would interest you",
+          "question_id": "Q02612"
+        },
+        {
+          "question": "which nile are you interested in learning about",
+          "question_id": "Q03042"
+        },
+        {
+          "question": "which part of the river are you more interested in",
+          "question_id": "Q03056"
+        },
+        {
+          "question": "would you like to know what the nile is composed of",
+          "question_id": "Q03673"
+        }
+      ],
+      "topic_id": "135"
+    },
+    {
+      "facets": [
+        {
+          "description": "What is the history of the Culpeper National Cemetery?",
+          "facet_id": "F0097"
+        },
+        {
+          "description": "Where is the Culpeper National Cemetery located?",
+          "facet_id": "F0098"
+        },
+        {
+          "description": "information regarding who can be buried at Culpeper National Cemetery",
+          "facet_id": "F0099"
+        }
+      ],
+      "initial_request": "Tell me more about Culpeper National Cemetry",
+      "questions": [
+        {
+          "question": "are you looking for the records for culpeper national cemetary",
+          "question_id": "Q01091"
+        },
+        {
+          "question": "are you looking for things to do near culpeper national cemetery",
+          "question_id": "Q01102"
+        },
+        {
+          "question": "do you need directions to culpeper national cemetery",
+          "question_id": "Q01616"
+        },
+        {
+          "question": "do you need the address of culpeper national cemetery",
+          "question_id": "Q01688"
+        },
+        {
+          "question": "do you want to know the history of culpeper national cemetery",
+          "question_id": "Q02210"
+        },
+        {
+          "question": "do you want to know the size of culpeper national cemetery",
+          "question_id": "Q02243"
+        },
+        {
+          "question": "do you want to visit culpeper national cemetery",
+          "question_id": "Q02459"
+        },
+        {
+          "question": "what would you like to know about culpeper national cemetary",
+          "question_id": "Q02943"
+        },
+        {
+          "question": "would you like to know the history of culpeper national cemetary",
+          "question_id": "Q03602"
+        },
+        {
+          "question": "would you like to know the way to culpeper national cemetary",
+          "question_id": "Q03634"
+        },
+        {
+          "question": "would you like to know who are buried at culpeper national cemetery",
+          "question_id": "Q03720"
+        },
+        {
+          "question": "would you like to see news about culpeper national cemetary",
+          "question_id": "Q03862"
+        },
+        {
+          "question": "would you like to see services for the culpeper national cemetary today",
+          "question_id": "Q03883"
+        }
+      ],
+      "topic_id": "122"
+    },
+    {
+      "facets": [
+        {
+          "description": "What medical services are available in Sonoma County, California?",
+          "facet_id": "F0025"
+        },
+        {
+          "description": "I'm looking for the home page of the County Medical Services Program (CMSP) of Sonoma County, California.",
+          "facet_id": "F0026"
+        },
+        {
+          "description": "I am looking for more information about health care coverage for low-income residents ofSonoma County, CA.",
+          "facet_id": "F0027"
+        }
+      ],
+      "initial_request": "Tell me about sonoma county medical services.",
+      "questions": [
+        {
+          "question": "are you interested in the human services department",
+          "question_id": "Q00457"
+        },
+        {
+          "question": "are you looking for contact information",
+          "question_id": "Q00787"
+        },
+        {
+          "question": "are you looking for employment with sonoma country medical",
+          "question_id": "Q00823"
+        },
+        {
+          "question": "are you looking for specific program information",
+          "question_id": "Q01035"
+        },
+        {
+          "question": "do you need addresses",
+          "question_id": "Q01593"
+        },
+        {
+          "question": "do you need any specific information on health insurance",
+          "question_id": "Q01605"
+        },
+        {
+          "question": "do you want information on the differenct services that are provided",
+          "question_id": "Q01833"
+        },
+        {
+          "question": "how soon is this needed",
+          "question_id": "Q02548"
+        },
+        {
+          "question": "is there a specific program you are looking for",
+          "question_id": "Q02599"
+        },
+        {
+          "question": "is this for an emergancy",
+          "question_id": "Q02630"
+        }
+      ],
+      "topic_id": "105"
+    },
+    {
+      "facets": [
+        {
+          "description": "What does the phrase, \"equal opportunity employer\" mean?",
+          "facet_id": "F0129"
+        },
+        {
+          "description": "Whom can I contact if I think I am being discriminated against by an equal opportunity employer?",
+          "facet_id": "F0130"
+        },
+        {
+          "description": "Find the homepage of the Equal Employment Opportunity Commission.",
+          "facet_id": "F0131"
+        }
+      ],
+      "initial_request": "What is equal opportunity employer?",
+      "questions": [
+        {
+          "question": "are you looking for a specific web page",
+          "question_id": "Q00696"
+        },
+        {
+          "question": "are you looking for anything specific in terms of equal opportunity discrimination",
+          "question_id": "Q00754"
+        },
+        {
+          "question": "are you looking for specific information regarding an equal opportunity employer",
+          "question_id": "Q01029"
+        },
+        {
+          "question": "do you need information about a specific employer",
+          "question_id": "Q01637"
+        },
+        {
+          "question": "do you want to know what being an equal opportunity employer means",
+          "question_id": "Q02269"
+        },
+        {
+          "question": "what do you need to know about equal opportunity employment",
+          "question_id": "Q02763"
+        },
+        {
+          "question": "what information would you like in regards to an equal opportunity employer",
+          "question_id": "Q02793"
+        },
+        {
+          "question": "would you like to know if you are eligible for equal opportunity employment",
+          "question_id": "Q03508"
+        },
+        {
+          "question": "would you like to know if your company adheres to equal opportunity employment",
+          "question_id": "Q03509"
+        },
+        {
+          "question": "would you like to know the history of the equal opportunity employer act",
+          "question_id": "Q03607"
+        },
+        {
+          "question": "would you like to know what the equal opportunity employer act is",
+          "question_id": "Q03669"
+        },
+        {
+          "question": "would you like to see how to meet the legal requirement to be an equal opportunity employer",
+          "question_id": "Q03850"
+        },
+        {
+          "question": "would you like to see jobs around you that are equal opportunity employers",
+          "question_id": "Q03856"
+        },
+        {
+          "question": "would you like to see the legal definition of equal opportunity employer",
+          "question_id": "Q03899"
+        }
+      ],
+      "topic_id": "131"
+    },
+    {
+      "facets": [
+        {
+          "description": "retailers, including price information, of the HP Mini 2140 notebook computer",
+          "facet_id": "F0060"
+        },
+        {
+          "description": "product reviews for the HP Mini 2140 notebook computer",
+          "facet_id": "F0061"
+        },
+        {
+          "description": "technical specifications of the HP Mini 2140 notebook computer",
+          "facet_id": "F0062"
+        }
+      ],
+      "initial_request": "Tell me more about HP mini 2140",
+      "questions": [
+        {
+          "question": "are you looking for the nearest store you can buy hp mini 2140",
+          "question_id": "Q01086"
+        },
+        {
+          "question": "are you trying to know the warranty period of hp mini 2140",
+          "question_id": "Q01379"
+        },
+        {
+          "question": "do you need information on accessories for the hp mini 2140",
+          "question_id": "Q01649"
+        },
+        {
+          "question": "do you need technical specifications for the hp mini 2140",
+          "question_id": "Q01686"
+        },
+        {
+          "question": "do you want reviews of the hp mini 2140",
+          "question_id": "Q01859"
+        },
+        {
+          "question": "do you want to buy a hp mini 2140",
+          "question_id": "Q01909"
+        },
+        {
+          "question": "do you want to download drivers for the hp mini 2140",
+          "question_id": "Q01926"
+        },
+        {
+          "question": "do you want to know the price of hp mini 2140",
+          "question_id": "Q02238"
+        },
+        {
+          "question": "do you want to know the specs of hp mini 2140",
+          "question_id": "Q02246"
+        },
+        {
+          "question": "do you want to read reviews of hp mini 2140",
+          "question_id": "Q02417"
+        },
+        {
+          "question": "how do you intend to use hp mini 2140",
+          "question_id": "Q02512"
+        },
+        {
+          "question": "what type of problem are you having with the hp mini 2140",
+          "question_id": "Q02927"
+        }
+      ],
+      "topic_id": "113"
+    },
+    {
+      "facets": [
+        {
+          "description": "Looking for locations and dates of rock and gem shows.",
+          "facet_id": "F0149"
+        },
+        {
+          "description": "rock and gem shows that offer lapidary classes",
+          "facet_id": "F0150"
+        },
+        {
+          "description": "information on clubs that host rock and gem shows",
+          "facet_id": "F0151"
+        }
+      ],
+      "initial_request": "tell me about rock and gem shows",
+      "questions": [
+        {
+          "question": "are you curious about rock and gem shows",
+          "question_id": "Q00047"
+        },
+        {
+          "question": "are you interested in finding rock and gem shows near you",
+          "question_id": "Q00204"
+        },
+        {
+          "question": "are you looking for a list of clubs that host rock and gem shows",
+          "question_id": "Q00634"
+        },
+        {
+          "question": "are you looking for information about upcoming rock and gem shows",
+          "question_id": "Q00881"
+        },
+        {
+          "question": "are you looking for lapidary classes",
+          "question_id": "Q00926"
+        },
+        {
+          "question": "do you want to see the nearest rock and gem shows",
+          "question_id": "Q02445"
+        },
+        {
+          "question": "what kind of information do you need about rock and gem shows",
+          "question_id": "Q02824"
+        },
+        {
+          "question": "what local rock and gem shows are you looking for from this list",
+          "question_id": "Q02843"
+        },
+        {
+          "question": "what would you like to know about rock and gem shows",
+          "question_id": "Q02951"
+        },
+        {
+          "question": "would you like a list of rock and gem shows in 2018",
+          "question_id": "Q03170"
+        },
+        {
+          "question": "would you like a list of rock and gem shows in 2019",
+          "question_id": "Q03171"
+        },
+        {
+          "question": "would you like directions to local rock and gem shows",
+          "question_id": "Q03202"
+        },
+        {
+          "question": "would you like to know about rock and gem shows in washington",
+          "question_id": "Q03409"
+        },
+        {
+          "question": "would you like to learn about rock and gem shows in california",
+          "question_id": "Q03738"
+        },
+        {
+          "question": "would you like to learn about rock and gem shows in oregon",
+          "question_id": "Q03739"
+        }
+      ],
+      "topic_id": "137"
+    },
+    {
+      "facets": [
+        {
+          "description": "Get help on writing a thank-you letter after a job interview.",
+          "facet_id": "F0082"
+        },
+        {
+          "description": "Find examples of thank-you letters for sending after an interview.",
+          "facet_id": "F0083"
+        },
+        {
+          "description": "How can I best end a job interview positively?",
+          "facet_id": "F0084"
+        }
+      ],
+      "initial_request": "How to write a thank you letter after an interview?",
+      "questions": [
+        {
+          "question": "are you interested in example of thank you letters for interview",
+          "question_id": "Q00194"
+        },
+        {
+          "question": "are you interested in interview thank you letters",
+          "question_id": "Q00251"
+        },
+        {
+          "question": "are you interested in learning how to write a thank you letter after an interview",
+          "question_id": "Q00291"
+        },
+        {
+          "question": "are you looking for an interview preparation guide",
+          "question_id": "Q00731"
+        },
+        {
+          "question": "are you preparing to conduct an interview or go to an interview",
+          "question_id": "Q01196"
+        },
+        {
+          "question": "do you like to know more about writing thank you notes for an interview",
+          "question_id": "Q01565"
+        },
+        {
+          "question": "do you want guidelines on how to ace an inteview",
+          "question_id": "Q01808"
+        },
+        {
+          "question": "do you want tips on how to be successful in an interview",
+          "question_id": "Q01897"
+        },
+        {
+          "question": "what about an interview do you need help with",
+          "question_id": "Q02696"
+        },
+        {
+          "question": "would you like a list of common interview questions",
+          "question_id": "Q03161"
+        },
+        {
+          "question": "would you like to know more about writing interview thank you letters",
+          "question_id": "Q03562"
+        },
+        {
+          "question": "would you like to know more information about writing a thank you email",
+          "question_id": "Q03563"
+        }
+      ],
+      "topic_id": "119"
+    },
+    {
+      "facets": [
+        {
+          "description": "Find information about the California Franchise Tax Board.",
+          "facet_id": "F0071"
+        },
+        {
+          "description": "How do I register as a tax preparer?",
+          "facet_id": "F0072"
+        },
+        {
+          "description": "Find contact information for the California FTB.",
+          "facet_id": "F0073"
+        },
+        {
+          "description": "Find tax forms and other information on filing individual taxes.",
+          "facet_id": "F0074"
+        }
+      ],
+      "initial_request": "What is California Franchise Tax Board",
+      "questions": [
+        {
+          "question": "are you looking for legal forms",
+          "question_id": "Q00929"
+        },
+        {
+          "question": "are you looking for payment information",
+          "question_id": "Q00967"
+        },
+        {
+          "question": "are you trying to login to the boards website",
+          "question_id": "Q01382"
+        },
+        {
+          "question": "do you need specific forms to fill out",
+          "question_id": "Q01683"
+        },
+        {
+          "question": "do you want a phone number",
+          "question_id": "Q01780"
+        },
+        {
+          "question": "do you want contact information for the board",
+          "question_id": "Q01796"
+        },
+        {
+          "question": "do you want information on the tax board",
+          "question_id": "Q01835"
+        },
+        {
+          "question": "do you want to know the address",
+          "question_id": "Q02172"
+        },
+        {
+          "question": "do you want to know their hours of operation",
+          "question_id": "Q02260"
+        },
+        {
+          "question": "do you wish to do an entity search",
+          "question_id": "Q02471"
+        }
+      ],
+      "topic_id": "116"
+    }
+  ],
+  "status": "passed"
+}
