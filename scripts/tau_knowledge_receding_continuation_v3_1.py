@@ -82,7 +82,7 @@ def main() -> None:
         config.openrouter_run_budget_usd = 3.00
     else:
         config.openrouter_projected_cost_usd = 3.20
-        config.openrouter_run_budget_usd = 8.00
+        config.openrouter_run_budget_usd = 4.00
     args.output_dir.mkdir(parents=True, exist_ok=True)
     private_dir = args.private_raw_dir / args.run_id
     private_dir.mkdir(parents=True, exist_ok=True)
@@ -109,6 +109,7 @@ def main() -> None:
                 "refreshed_beliefs_explicitly_fallible": True,
                 "zero_padding_parser_amendment": True,
                 "semantic_prompt_identical_to_v3": True,
+                "openrouter_request_seed": config.mediq_seed,
             },
         )
         payload["protocol"]["private_raw_sha256"] = hashlib.sha256(
