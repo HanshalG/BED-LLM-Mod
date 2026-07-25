@@ -15,8 +15,9 @@ focused-prior exact h5-over-h4 qualification and audited hierarchical h5
 proposal gate selecting the exact route on 15/16 cells, followed by a positive
 50-pair cached hierarchical h5 trajectory confirmation and three fresh 50-pair
 replications against shared h4, matched-random h5, and exhaustive d4,
-the banked animals result, the natural-location depth
-audit, and the Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
+the banked animals result, the natural-location depth audit, the qualified
+$\tau$-Knowledge target-blind first-link ranking result, and the Paprika and
+MediQ validation failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood
 gate failed.
 
