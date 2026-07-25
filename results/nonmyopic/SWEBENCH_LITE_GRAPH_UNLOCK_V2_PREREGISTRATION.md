@@ -139,6 +139,18 @@ That smoke must:
 
 No test holdout policy run is authorized by this document.
 
+## Mechanics Amendment Before Result
+
+The first audit invocation produced no result artifact and was manually stopped
+while reading the first Astropy commit. Its source loader called `git show`
+once per Python file, which is prohibitively slow for partial clones.
+
+Before rerunning, source extraction is changed to one `git archive` call over
+the exact same `base_commit` and `:(glob)**/*.py` pathspec. The same path
+filters and 200,000-character per-file cap are applied after reading the
+archive. This changes no source bytes, split, issue, endpoint, query, BM25
+document, graph edge, weight, top-k, gate, or API behavior.
+
 ## Budget
 
 The opportunity audit uses zero API calls and zero OpenRouter spend. OatML is

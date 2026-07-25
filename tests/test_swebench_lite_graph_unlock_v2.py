@@ -1,8 +1,12 @@
+import io
+import tarfile
+
 from scripts.swebench_lite_graph_unlock_v2 import (
     build_import_graph,
     frozen_split,
     graph_followup_candidates,
     module_aliases,
+    sources_from_tar,
 )
 
 
@@ -94,3 +98,20 @@ def test_graph_followup_prefers_multiple_import_edges_then_path_overlap():
 
     assert selected[0] == "pkg/target.py"
     assert "other/unrelated.py" not in selected
+
+
+def test_sources_from_tar_reads_python_and_applies_character_cap():
+    buffer = io.BytesIO()
+    with tarfile.open(fileobj=buffer, mode="w") as archive:
+        for name, content in (
+            ("pkg/a.py", b"A" * 200_010),
+            ("pkg/readme.txt", b"ignored"),
+        ):
+            info = tarfile.TarInfo(name)
+            info.size = len(content)
+            archive.addfile(info, io.BytesIO(content))
+
+    sources = sources_from_tar(buffer.getvalue())
+
+    assert set(sources) == {"pkg/a.py"}
+    assert len(sources["pkg/a.py"]) == 200_000

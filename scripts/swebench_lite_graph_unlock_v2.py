@@ -7,12 +7,14 @@ import argparse
 import ast
 from collections import Counter, defaultdict
 import hashlib
+import io
 import json
 import math
 from pathlib import Path
 import random
 import re
 import subprocess
+import tarfile
 from typing import Any, Iterable, Sequence
 
 
@@ -198,20 +200,51 @@ def _git(repo: Path, *args: str) -> str:
 
 def repository_sources(repo: Path, commit: str) -> dict[str, str]:
     _git(repo, "cat-file", "-e", f"{commit}^{{commit}}")
-    paths = [
-        path
-        for path in _git(repo, "ls-tree", "-r", "--name-only", commit).splitlines()
-        if path.endswith(".py")
-        and "/.tox/" not in path
-        and "/venv/" not in path
-        and "/site-packages/" not in path
-    ]
-    sources = {
-        path: _git(repo, "show", f"{commit}:{path}")[:SOURCE_CHAR_CAP]
-        for path in paths
-    }
+    result = subprocess.run(
+        [
+            "git",
+            "archive",
+            "--format=tar",
+            commit,
+            ":(glob)**/*.py",
+        ],
+        cwd=repo,
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(
+            result.returncode,
+            result.args,
+            output=result.stdout,
+            stderr=result.stderr,
+        )
+    sources = sources_from_tar(result.stdout)
     if len(sources) < 10:
         raise ValueError("base commit exposes too few Python files")
+    return sources
+
+
+def sources_from_tar(data: bytes) -> dict[str, str]:
+    sources: dict[str, str] = {}
+    with tarfile.open(fileobj=io.BytesIO(data), mode="r:") as archive:
+        for member in archive:
+            path = member.name
+            if (
+                not member.isfile()
+                or not path.endswith(".py")
+                or "/.tox/" in path
+                or "/venv/" in path
+                or "/site-packages/" in path
+            ):
+                continue
+            handle = archive.extractfile(member)
+            if handle is None:
+                raise ValueError(f"archive member cannot be read: {path}")
+            sources[path] = (
+                handle.read(SOURCE_CHAR_CAP)
+                .decode("utf-8", errors="replace")
+            )
     return sources
 
 
