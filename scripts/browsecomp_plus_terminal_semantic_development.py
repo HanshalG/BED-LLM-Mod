@@ -38,6 +38,9 @@ DEVELOPMENT_IDS = (
 DEVELOPMENT_ORDERED_SHA256 = (
     "63ac5756a4cb90c64b29bd45b41510ed1733913b8cd890951f67eed9b4451216"
 )
+DECRYPTED_SOURCE_SHA256 = (
+    "44a4ef3520e7398a249df073b1ff1e8ff837ee2e97afa88f61b44ead01c4461e"
+)
 PARENT_MANIFEST_SHA256 = decryptor.MANIFEST_SHA256
 EXPECTED_REQUESTS = 130
 MAX_COST_USD = 1.00
@@ -109,6 +112,20 @@ def load_development_tasks(
         decryptor.decrypt_value(row_by_id[query_id])
         for query_id in DEVELOPMENT_IDS
     ]
+
+
+def load_decrypted_source(path: Path) -> list[dict[str, Any]]:
+    if mechanics.sha256_file(path) != DECRYPTED_SOURCE_SHA256:
+        raise ValueError("decrypted development source hash changed")
+    tasks = [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+    ]
+    if tuple(str(task["query_id"]) for task in tasks) != DEVELOPMENT_IDS:
+        raise ValueError("decrypted development task order changed")
+    if _source_hash(tasks) != DECRYPTED_SOURCE_SHA256:
+        raise ValueError("decrypted development canonical hash changed")
+    return tasks
 
 
 def initial_messages(task: Mapping[str, Any]) -> list[dict[str, str]]:
@@ -223,6 +240,7 @@ def run_model_stage(
     manifest_path: Path,
     parquet_dir: Path,
     raw_path: Path,
+    source_path: Path | None = None,
     model_adapter: Any | None = None,
     tasks_override: Sequence[dict[str, Any]] | None = None,
 ) -> tuple[
@@ -233,7 +251,11 @@ def run_model_stage(
     tasks = (
         list(tasks_override)
         if tasks_override is not None
-        else load_development_tasks(manifest_path, parquet_dir)
+        else (
+            load_decrypted_source(source_path)
+            if source_path is not None
+            else load_development_tasks(manifest_path, parquet_dir)
+        )
     )
     if tuple(str(task["query_id"]) for task in tasks) != DEVELOPMENT_IDS:
         raise ValueError("development task order changed")
@@ -599,6 +621,7 @@ def main() -> None:
     parser.add_argument("-c", "--config", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--parquet-dir", type=Path, required=True)
+    parser.add_argument("--source-path", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--private-raw-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
@@ -623,6 +646,7 @@ def main() -> None:
             manifest_path=args.manifest,
             parquet_dir=args.parquet_dir,
             raw_path=raw_path,
+            source_path=args.source_path,
         )
         result = analyze(reconstructed, terminals, usage)
         result["protocol"]["private_raw_sha256"] = mechanics.sha256_file(

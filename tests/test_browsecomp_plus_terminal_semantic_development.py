@@ -57,6 +57,27 @@ def test_config_is_capped_nonreasoning_and_uses_stage_concurrency():
     assert config.openrouter_budget_usd == pytest.approx(105.0)
 
 
+def test_decrypted_source_loader_is_hash_locked(tmp_path, monkeypatch):
+    path = tmp_path / "development.jsonl"
+    tasks = [
+        {"query_id": task_id}
+        for task_id in development.DEVELOPMENT_IDS
+    ]
+    path.write_text(
+        "\n".join(json.dumps(task) for task in tasks) + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        development,
+        "DECRYPTED_SOURCE_SHA256",
+        mechanics.sha256_file(path),
+    )
+    assert development.load_decrypted_source(path) == tasks
+    path.write_text(path.read_text() + "\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="hash changed"):
+        development.load_decrypted_source(path)
+
+
 class FakeAdapter:
     def __init__(self) -> None:
         self.requests = 0
