@@ -1,0 +1,48 @@
+{
+  "error": "ServingExecutionError: RuntimeError: OpenRouter HTTP 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404}}",
+  "interface_version": "bamboogle-cached-search-structured-serving-1",
+  "private_raw_sha256": "99b7421a6a93a1b1a2bdcf56e8190ccd0af9e8094bddd72ac8e1d10b17aeacd3",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 1057,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 5,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 1057,
+          "cost_usd": 0.022047499999999998,
+          "prompt_tokens": 2477,
+          "reasoning_tokens": 0,
+          "requests": 5
+        }
+      },
+      "prompt_tokens": 2477,
+      "reasoning_tokens": 0,
+      "remaining_usd": 15.05266128079333,
+      "requests": 5,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.022047499999999998,
+      "run_remaining_usd": 0.1279525,
+      "total_spent_usd": 89.94733871920667
+    },
+    "http_attempts": 5,
+    "physical_requests": 0,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
