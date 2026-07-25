@@ -14,6 +14,7 @@ from scripts.zendo_final_readiness_belief_smoke import (
     deterministic_scene_pool,
     deterministic_random_audit_bank,
     parse_particle_population,
+    parse_filtered_particle_population,
     parse_scorer,
     run_gate,
     select_root_scenes,
@@ -156,6 +157,26 @@ def test_particle_multiset_parser_preserves_duplicate_multiplicity() -> None:
     assert particles[-1]["rule"] == particles[0]["rule"]
     with pytest.raises(ValueError, match="unique"):
         parse_particle_population(response, allow_duplicate_asts=False)
+
+
+def test_filtered_particle_parser_discards_invalid_asts_without_repair() -> None:
+    hypotheses = _diverse_hypotheses()
+    hypotheses[1]["rule"] = {
+        "op": "exists",
+        "predicate": {
+            "op": "attribute",
+            "attribute": "color",
+            "value": "large",
+        },
+    }
+    particles, report = parse_filtered_particle_population(
+        json.dumps({"hypotheses": hypotheses})
+    )
+    assert len(particles) == 11
+    assert report["invalid_particle_count"] == 1
+    assert report["invalid_rows"][0]["id"] == "H02"
+    assert "invalid predicate" in report["invalid_rows"][0]["reason"]
+    assert all(particle["id"] != "H02" for particle in particles)
 
 
 def test_protocol_uses_exactly_ten_requests() -> None:

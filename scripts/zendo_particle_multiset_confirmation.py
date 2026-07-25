@@ -28,6 +28,7 @@ from scripts.zendo_final_readiness_belief_smoke import (
     deterministic_random_audit_bank,
     deterministic_scene_pool,
     fixed_support_depth_two_scores,
+    parse_filtered_particle_population,
     parse_particle_population,
     parse_scorer,
     scorer_messages,
@@ -90,6 +91,7 @@ class TaskState:
     root_selection: list[dict[str, Any]]
     branches: dict[str, list[dict[str, Any]]] | None = None
     pathways: list[dict[str, Any]] | None = None
+    particle_reports: dict[str, dict[str, Any]] | None = None
 
 
 def first_executable_positive_scene(
@@ -232,6 +234,8 @@ def analyze_task(
 ) -> dict[str, Any]:
     if state.branches is None or state.pathways is None:
         raise ValueError("task branches are not frozen")
+    if state.particle_reports is None:
+        raise ValueError("task particle reports are not frozen")
     audit = deterministic_random_audit_bank(
         task_index=state.task_index,
         selection_seed=state.selection_seed,
@@ -330,6 +334,19 @@ def analyze_task(
             state.hypotheses, audit
         ),
         "population_unique_ast_counts": unique_ast_counts,
+        "particle_reports": state.particle_reports,
+        "valid_particle_count_minimum": min(
+            report["valid_particle_count"]
+            for report in state.particle_reports.values()
+        ),
+        "invalid_particle_count": sum(
+            report["invalid_particle_count"]
+            for report in state.particle_reports.values()
+        ),
+        "raw_particle_count": sum(
+            report["raw_particle_count"]
+            for report in state.particle_reports.values()
+        ),
         "distinct_refreshed_support_count": len(branch_signatures),
         "all_continuations_positive_finite": all(
             math.isfinite(packet["continuation_expected_information_nats"])
@@ -451,6 +468,14 @@ def summarize(
             min(task["population_unique_ast_counts"].values())
             >= MIN_UNIQUE_ASTS
             for task in tasks
+        ),
+        "all_populations_have_eight_valid_particles": all(
+            task["valid_particle_count_minimum"] >= 8 for task in tasks
+        ),
+        "invalid_particle_fraction_at_most_0_15": (
+            sum(task["invalid_particle_count"] for task in tasks)
+            / sum(task["raw_particle_count"] for task in tasks)
+            <= 0.15
         ),
         "all_initial_supports_have_six_signatures": all(
             task["initial_support_signature_count"] >= 6 for task in tasks
@@ -591,18 +616,21 @@ def run_confirmation(
     source_dir: Path,
     raw_checkpoint_path: Path,
     model_adapter: Any | None = None,
+    interface_version: str = INTERFACE_VERSION,
+    filter_invalid_particles: bool = False,
 ) -> dict[str, Any]:
     cases_path = verify_source(source_dir)
     cases = json.loads(cases_path.read_text(encoding="utf-8"))
     case_by_name = dict(zip(RULE_ORDER, cases, strict=True))
     model = model_adapter if model_adapter is not None else _build_model(config)
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "tasks": {
             name: {
                 "initial_hypotheses": None,
                 "branch_refreshes": {},
                 "scorers": {},
+                "particle_reports": {},
             }
             for name in TASKS
         },
@@ -622,12 +650,26 @@ def run_confirmation(
             block_size=config.batched_block_size,
             max_new_tokens=MAX_NEW_TOKENS,
         )
-        states = []
         for name, response in zip(TASKS, initial_responses, strict=True):
             raw["tasks"][name]["initial_hypotheses"] = response
-            hypotheses = parse_particle_population(
-                response, allow_duplicate_asts=True
-            )
+        _checkpoint(raw_checkpoint_path, raw)
+        states = []
+        for name, response in zip(TASKS, initial_responses, strict=True):
+            if filter_invalid_particles:
+                hypotheses, report = parse_filtered_particle_population(
+                    response
+                )
+            else:
+                hypotheses = parse_particle_population(
+                    response, allow_duplicate_asts=True
+                )
+                report = {
+                    "raw_particle_count": len(hypotheses),
+                    "valid_particle_count": len(hypotheses),
+                    "invalid_particle_count": 0,
+                    "invalid_rows": [],
+                }
+            raw["tasks"][name]["particle_reports"]["initial"] = report
             task_index = RULE_ORDER.index(name)
             seed = task_seed(task_index)
             initial_scene = initial_scenes[name]
@@ -652,6 +694,7 @@ def run_confirmation(
                     initial_weights=initial_weights,
                     roots=roots,
                     root_selection=root_selection,
+                    particle_reports={"initial": report},
                 )
             )
         refresh_jobs = [
@@ -680,15 +723,30 @@ def run_confirmation(
             raw["tasks"][state.name]["branch_refreshes"][
                 branch_key(root_index, outcome)
             ] = response
+        _checkpoint(raw_checkpoint_path, raw)
         for state in states:
-            state.branches = {
-                key: parse_particle_population(
-                    response, allow_duplicate_asts=True
-                )
-                for key, response in raw["tasks"][state.name][
-                    "branch_refreshes"
-                ].items()
-            }
+            state.branches = {}
+            assert state.particle_reports is not None
+            for key, response in raw["tasks"][state.name][
+                "branch_refreshes"
+            ].items():
+                if filter_invalid_particles:
+                    population, report = (
+                        parse_filtered_particle_population(response)
+                    )
+                else:
+                    population = parse_particle_population(
+                        response, allow_duplicate_asts=True
+                    )
+                    report = {
+                        "raw_particle_count": len(population),
+                        "valid_particle_count": len(population),
+                        "invalid_particle_count": 0,
+                        "invalid_rows": [],
+                    }
+                state.branches[key] = population
+                state.particle_reports[key] = report
+                raw["tasks"][state.name]["particle_reports"][key] = report
             state.pathways = build_pathways(
                 initial_scene=state.initial_scene,
                 initial_hypotheses=state.hypotheses,
@@ -760,7 +818,7 @@ def run_confirmation(
         "schema_version": 1,
         "status": "passed" if summary["gates"]["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "tasks": list(TASKS),
             "model": MODEL_ID,
             "base_seed": BASE_SEED,
@@ -775,6 +833,11 @@ def run_confirmation(
             "reasoning_requested": False,
             "repairs_or_scientific_retries": 0,
             "particle_semantics": "multiset",
+            "particle_validation": (
+                "filter_invalid_ast_samples"
+                if filter_invalid_particles
+                else "fail_on_any_invalid_ast"
+            ),
             "audit_mode": "random_only",
             "initial_positive_indices": initial_indices,
             "raw_responses_private_and_untracked": True,
@@ -785,7 +848,11 @@ def run_confirmation(
     }
 
 
-def main() -> None:
+def run_cli(
+    *,
+    interface_version: str = INTERFACE_VERSION,
+    filter_invalid_particles: bool = False,
+) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--source-dir", type=Path, required=True)
@@ -809,13 +876,15 @@ def main() -> None:
             config,
             source_dir=args.source_dir,
             raw_checkpoint_path=raw_path,
+            interface_version=interface_version,
+            filter_invalid_particles=filter_invalid_particles,
         )
         payload["protocol"]["private_raw_sha256"] = _sha256(raw_path)
     except Exception as exc:
         failure: dict[str, Any] = {
             "schema_version": 1,
             "status": "failed_closed",
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "error": f"{type(exc).__name__}: {exc}",
         }
         if isinstance(exc, ConfirmationExecutionError):
@@ -847,4 +916,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_cli()

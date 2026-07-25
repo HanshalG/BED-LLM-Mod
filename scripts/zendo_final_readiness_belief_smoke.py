@@ -143,6 +143,61 @@ def parse_particle_population(
     return particles
 
 
+def parse_filtered_particle_population(
+    text: str,
+    *,
+    minimum_valid: int = 8,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Filter invalid AST samples without repairing or replacing them."""
+    payload = json.loads(text.strip())
+    if not isinstance(payload, dict) or set(payload) != {"hypotheses"}:
+        raise ValueError("particle response has unexpected fields")
+    raw = payload["hypotheses"]
+    if not isinstance(raw, list) or len(raw) != PARTICLE_COUNT:
+        raise ValueError(f"expected exactly {PARTICLE_COUNT} particle rows")
+    particles = []
+    invalid_rows = []
+    for index, item in enumerate(raw, start=1):
+        expected_id = f"H{index:02d}"
+        if (
+            not isinstance(item, dict)
+            or set(item) != {"id", "rule_text", "rule"}
+            or item.get("id") != expected_id
+            or not isinstance(item.get("rule_text"), str)
+            or not item["rule_text"].strip()
+        ):
+            raise ValueError(
+                f"particle envelope is invalid at row {expected_id}"
+            )
+        try:
+            rule = validate_rule(item["rule"])
+        except ValueError as exc:
+            invalid_rows.append(
+                {
+                    "id": expected_id,
+                    "reason": str(exc),
+                }
+            )
+            continue
+        particles.append(
+            {
+                "id": expected_id,
+                "rule_text": " ".join(item["rule_text"].split()),
+                "rule": rule,
+            }
+        )
+    if len(particles) < minimum_valid:
+        raise ValueError(
+            f"only {len(particles)} valid AST particles; need {minimum_valid}"
+        )
+    return particles, {
+        "raw_particle_count": PARTICLE_COUNT,
+        "valid_particle_count": len(particles),
+        "invalid_particle_count": len(invalid_rows),
+        "invalid_rows": invalid_rows,
+    }
+
+
 def _prediction_signature(
     hypotheses: Sequence[dict[str, Any]],
     scene: dict[str, Any],

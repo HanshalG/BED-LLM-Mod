@@ -124,8 +124,9 @@ def _hypothesis_response() -> str:
 
 
 class _FakeAdapter:
-    def __init__(self) -> None:
+    def __init__(self, response: str | None = None) -> None:
         self.requests = 0
+        self.response = response or _hypothesis_response()
 
     def chat_complete_messages_batched(
         self,
@@ -134,7 +135,7 @@ class _FakeAdapter:
     ) -> list[str]:
         self.requests += len(messages)
         if len(messages) in {len(TASKS), len(TASKS) * 8}:
-            return [_hypothesis_response()] * len(messages)
+            return [self.response] * len(messages)
         return ['{"root_scores":[10,20,30,40]}'] * len(messages)
 
     def usage_snapshot(self) -> dict[str, object]:
@@ -169,3 +170,43 @@ def test_full_confirmation_freezes_84_calls_before_truth(
         "truth_hidden_until_all_populations_and_scores_frozen"
     ]
     assert payload["usage"]["physical_requests"] == EXPECTED_REQUESTS
+
+
+def test_full_confirmation_filters_invalid_ast_samples_prospectively(
+    tmp_path: Path,
+) -> None:
+    payload = json.loads(_hypothesis_response())
+    payload["hypotheses"][1]["rule"] = {
+        "op": "exists",
+        "predicate": {
+            "op": "attribute",
+            "attribute": "color",
+            "value": "large",
+        },
+    }
+    adapter = _FakeAdapter(json.dumps(payload))
+    config = load_config(
+        "configs/config_zendo_path_dependent_belief_openrouter.yaml"
+    )
+    result = run_confirmation(
+        config,
+        source_dir=Path(
+            "external/doing-experiments-and-revising-rules"
+        ),
+        raw_checkpoint_path=tmp_path / "filtered-raw.json",
+        model_adapter=adapter,
+        interface_version="test-filtered",
+        filter_invalid_particles=True,
+    )
+    assert adapter.requests == EXPECTED_REQUESTS
+    assert result["protocol"]["particle_validation"] == (
+        "filter_invalid_ast_samples"
+    )
+    assert all(
+        task["valid_particle_count_minimum"] == 11
+        for task in result["tasks"]
+    )
+    assert all(
+        task["invalid_particle_count"] == 9
+        for task in result["tasks"]
+    )
