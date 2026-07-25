@@ -1,0 +1,45 @@
+{
+  "error": "GateExecutionError: ValueError: response does not contain a JSON object",
+  "interface_version": "gemma26b-thinking-1",
+  "model": "google/gemma-4-26b-a4b-it",
+  "private_raw_sha256": "97e8e72544bb9493c68e3b7443fcbf00260cb044310f41e1d5d102a398a759ce",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.032522159999999994,
+    "generator": {
+      "adapter_completion_tokens": 64124,
+      "adapter_cost_usd": 0.032522159999999994,
+      "adapter_prompt_tokens": 89710,
+      "adapter_reasoning_tokens": 53448,
+      "adapter_requests": 22,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 64124,
+      "forced_exits": 9,
+      "forced_final_requests": 8,
+      "forced_final_successes": 8,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 64124,
+          "cost_usd": 0.032522159999999994,
+          "prompt_tokens": 89710,
+          "reasoning_tokens": 53448,
+          "requests": 22
+        }
+      },
+      "prompt_tokens": 89710,
+      "reasoning_tokens": 53448,
+      "remaining_usd": 23.355746123749924,
+      "requests": 22,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.032522159999999994,
+      "run_remaining_usd": 0.21747784,
+      "total_spent_usd": 82.02905657170723
+    },
+    "physical_requests": 22,
+    "reasoning_tokens": 53448
+  }
+}
