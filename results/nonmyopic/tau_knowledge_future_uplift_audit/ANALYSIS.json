@@ -1,0 +1,3762 @@
+{
+  "classification": "strong_future_value_signal",
+  "first_link_confirmation_sha256": "dfbf597f8405b109d61d90206606962b5fbda439c8b81f086a9592c07fa247d1",
+  "limitations": [
+    "post hoc analysis on already-open task splits",
+    "score subtraction assumes comparable within-task 0-100 scales",
+    "future trees combine regenerated beliefs, queries, and documents"
+  ],
+  "pooled": {
+    "full_score_future_gain_pairwise_accuracy": 0.5775401069518716,
+    "full_score_total_pairwise_accuracy": 0.7393162393162394,
+    "full_selected_future_gain_total": 35,
+    "full_total_comparable_pairs": 234,
+    "future_gain_comparable_pairs": 187,
+    "myopic_immediate_comparable_pairs": 201,
+    "myopic_score_future_gain_pairwise_accuracy": 0.4625668449197861,
+    "myopic_score_immediate_pairwise_accuracy": 0.7263681592039801,
+    "myopic_selected_future_gain_total": 32,
+    "task_count": 40,
+    "task_rows": [
+      {
+        "full_future_gain_points": 5.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 7.0,
+        "future_gain_comparable": 7,
+        "future_gain_values": [
+          2,
+          1,
+          0,
+          1,
+          1
+        ],
+        "immediate_values": [
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "myopic_future_gain_points": 5.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 1,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_039",
+        "total_values": [
+          2,
+          2,
+          0,
+          1,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 3.5,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          18,
+          8,
+          18,
+          17,
+          10
+        ],
+        "uplift_selected_future_gain": 2
+      },
+      {
+        "full_future_gain_points": 2.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 6,
+        "full_total_points": 5.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          2
+        ],
+        "immediate_values": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 1.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_054",
+        "total_values": [
+          2,
+          1,
+          1,
+          1,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 4,
+        "uplift_scores": [
+          14,
+          30,
+          21,
+          20,
+          39
+        ],
+        "uplift_selected_future_gain": 2
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 3,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 7,
+        "future_gain_values": [
+          1,
+          2,
+          0,
+          1,
+          1
+        ],
+        "immediate_values": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 2.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_074",
+        "total_values": [
+          1,
+          3,
+          0,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          64,
+          34,
+          21,
+          -14,
+          12
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 5.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          2,
+          1,
+          1,
+          2
+        ],
+        "immediate_values": [
+          2,
+          1,
+          0,
+          2,
+          0
+        ],
+        "myopic_future_gain_points": 3.0,
+        "myopic_immediate_comparable": 8,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_080",
+        "total_values": [
+          3,
+          3,
+          1,
+          3,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          22,
+          52,
+          49,
+          39,
+          18
+        ],
+        "uplift_selected_future_gain": 2
+      },
+      {
+        "full_future_gain_points": 2.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 4,
+        "full_total_points": 2.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "immediate_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 0,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 4,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_058",
+        "total_values": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          58,
+          44,
+          15,
+          28,
+          15
+        ],
+        "uplift_selected_future_gain": 0
+      },
+      {
+        "full_future_gain_points": 2.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 2,
+        "full_total_comparable": 7,
+        "full_total_points": 7.0,
+        "future_gain_comparable": 7,
+        "future_gain_values": [
+          2,
+          1,
+          2,
+          3,
+          2
+        ],
+        "immediate_values": [
+          3,
+          2,
+          1,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 2.0,
+        "myopic_immediate_comparable": 9,
+        "myopic_immediate_points": 7.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 2,
+        "task_id": "task_076",
+        "total_values": [
+          5,
+          3,
+          3,
+          3,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 3,
+        "uplift_scores": [
+          21,
+          32,
+          -16,
+          48,
+          24
+        ],
+        "uplift_selected_future_gain": 3
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 8,
+        "full_total_points": 5.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        "immediate_values": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "myopic_future_gain_points": 3.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 1.0,
+        "myopic_root_index": 1,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_038",
+        "total_values": [
+          2,
+          0,
+          1,
+          1,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 4,
+        "uplift_scores": [
+          -10,
+          -22,
+          8,
+          -1,
+          13
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 6,
+        "full_total_points": 3.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "immediate_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 2.0,
+        "myopic_immediate_comparable": 0,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 1,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_063",
+        "total_values": [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 3.5,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          -8,
+          -2,
+          40,
+          5,
+          5
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 0,
+        "full_total_points": 0.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "immediate_values": [
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_035",
+        "total_values": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          53,
+          39,
+          26,
+          4,
+          37
+        ],
+        "uplift_selected_future_gain": 0
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 4,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 0,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_069",
+        "total_values": [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 0.0,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          30,
+          26,
+          56,
+          6,
+          25
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 6,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "immediate_values": [
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        "myopic_future_gain_points": 0.5,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 1,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_061",
+        "total_values": [
+          2,
+          2,
+          2,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 3,
+        "uplift_scores": [
+          21,
+          -38,
+          20,
+          41,
+          -24
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 7.0,
+        "future_gain_comparable": 0,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          0,
+          2,
+          0,
+          1,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_040",
+        "total_values": [
+          1,
+          3,
+          1,
+          2,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 0.0,
+        "uplift_root_index": 4,
+        "uplift_scores": [
+          54,
+          7,
+          36,
+          -10,
+          56
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 2,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 4,
+        "full_total_points": 3.0,
+        "future_gain_comparable": 0,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 4,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_066",
+        "total_values": [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 0.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          53,
+          38,
+          41,
+          33,
+          -2
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 6.0,
+        "full_root_index": 2,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 9,
+        "full_total_points": 9.0,
+        "future_gain_comparable": 7,
+        "future_gain_values": [
+          2,
+          0,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          0,
+          0,
+          2,
+          1,
+          0
+        ],
+        "myopic_future_gain_points": 5.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 7.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_057",
+        "total_values": [
+          2,
+          0,
+          3,
+          2,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 7.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          84,
+          16,
+          23,
+          40,
+          28
+        ],
+        "uplift_selected_future_gain": 2
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 2,
+        "full_total_comparable": 0,
+        "full_total_points": 0.0,
+        "future_gain_comparable": 7,
+        "future_gain_values": [
+          2,
+          2,
+          3,
+          2,
+          1
+        ],
+        "immediate_values": [
+          1,
+          1,
+          0,
+          1,
+          2
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 3.0,
+        "myopic_root_index": 1,
+        "myopic_selected_future_gain": 2,
+        "task_id": "task_077",
+        "total_values": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 2.0,
+        "uplift_root_index": 3,
+        "uplift_scores": [
+          36,
+          6,
+          -8,
+          49,
+          18
+        ],
+        "uplift_selected_future_gain": 2
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 2,
+        "full_total_comparable": 7,
+        "full_total_points": 6.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          1,
+          2,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          1,
+          2,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 7.0,
+        "myopic_root_index": 1,
+        "myopic_selected_future_gain": 2,
+        "task_id": "task_053",
+        "total_values": [
+          2,
+          4,
+          1,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 1.0,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          12,
+          24,
+          59,
+          29,
+          53
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 2,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 6.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "immediate_values": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_041",
+        "total_values": [
+          1,
+          1,
+          2,
+          1,
+          0
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          66,
+          60,
+          70,
+          46,
+          54
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 2,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 4,
+        "full_total_points": 0.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "immediate_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 2.0,
+        "myopic_immediate_comparable": 0,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_059",
+        "total_values": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 1.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          31,
+          52,
+          48,
+          -2,
+          37
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 7.0,
+        "future_gain_comparable": 0,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          3,
+          1,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_072",
+        "total_values": [
+          4,
+          2,
+          1,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 0.0,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          -2,
+          4,
+          29,
+          9,
+          -23
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 2,
+        "full_total_comparable": 6,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          2,
+          2,
+          2,
+          1
+        ],
+        "immediate_values": [
+          3,
+          2,
+          1,
+          1,
+          2
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 8,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 4,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_079",
+        "total_values": [
+          4,
+          4,
+          3,
+          3,
+          3
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 6.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          20,
+          47,
+          38,
+          31,
+          4
+        ],
+        "uplift_selected_future_gain": 2
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 0,
+        "full_total_points": 0.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_025",
+        "total_values": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 3,
+        "uplift_scores": [
+          7,
+          30,
+          39,
+          61,
+          18
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 2,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 8,
+        "full_total_points": 6.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "immediate_values": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_021",
+        "total_values": [
+          1,
+          1,
+          2,
+          0,
+          0
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 6.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          15,
+          29,
+          20,
+          9,
+          11
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 7,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 8,
+        "future_gain_values": [
+          0,
+          2,
+          1,
+          0,
+          1
+        ],
+        "immediate_values": [
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 3.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_028",
+        "total_values": [
+          1,
+          3,
+          1,
+          0,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.5,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          21,
+          21,
+          55,
+          22,
+          23
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 4,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 8,
+        "full_total_points": 6.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "immediate_values": [
+          2,
+          2,
+          1,
+          0,
+          2
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 7.0,
+        "myopic_root_index": 4,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_015",
+        "total_values": [
+          3,
+          3,
+          2,
+          1,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          32,
+          22,
+          25,
+          25,
+          24
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 6.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 2,
+        "full_total_comparable": 6,
+        "full_total_points": 2.0,
+        "future_gain_comparable": 7,
+        "future_gain_values": [
+          2,
+          1,
+          1,
+          0,
+          1
+        ],
+        "immediate_values": [
+          0,
+          0,
+          0,
+          2,
+          1
+        ],
+        "myopic_future_gain_points": 6.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 1.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 2,
+        "task_id": "task_016",
+        "total_values": [
+          2,
+          1,
+          1,
+          2,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 4,
+        "uplift_scores": [
+          20,
+          19,
+          18,
+          21,
+          33
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 5.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          2,
+          2,
+          1,
+          1
+        ],
+        "immediate_values": [
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "myopic_future_gain_points": 1.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_062",
+        "total_values": [
+          2,
+          3,
+          2,
+          2,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 6.0,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          6,
+          12,
+          62,
+          -7,
+          8
+        ],
+        "uplift_selected_future_gain": 2
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 2,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 8,
+        "full_total_points": 5.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          2,
+          1,
+          1,
+          2
+        ],
+        "immediate_values": [
+          0,
+          1,
+          1,
+          2,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 8,
+        "myopic_immediate_points": 5.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_048",
+        "total_values": [
+          1,
+          3,
+          2,
+          3,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          51,
+          16,
+          14,
+          3,
+          16
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 5.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          2,
+          1
+        ],
+        "immediate_values": [
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        "myopic_future_gain_points": 2.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_081",
+        "total_values": [
+          2,
+          1,
+          2,
+          3,
+          2
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 3.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          24,
+          60,
+          33,
+          34,
+          25
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 3.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 6.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "immediate_values": [
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "myopic_future_gain_points": 1.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 3.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_029",
+        "total_values": [
+          1,
+          2,
+          0,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 5.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          24,
+          28,
+          6,
+          20,
+          23
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 5.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 8,
+        "full_total_points": 7.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "immediate_values": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 4,
+        "myopic_immediate_points": 3.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_022",
+        "total_values": [
+          2,
+          0,
+          1,
+          0,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 4,
+        "uplift_scores": [
+          34,
+          28,
+          4,
+          17,
+          39
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 6.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 8,
+        "full_total_points": 7.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "immediate_values": [
+          1,
+          2,
+          0,
+          1,
+          0
+        ],
+        "myopic_future_gain_points": 5.0,
+        "myopic_immediate_comparable": 8,
+        "myopic_immediate_points": 6.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_019",
+        "total_values": [
+          2,
+          3,
+          0,
+          2,
+          0
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          70,
+          58,
+          40,
+          -2,
+          16
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 6.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 6,
+        "full_total_points": 6.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "immediate_values": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 3.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 3.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_027",
+        "total_values": [
+          2,
+          2,
+          2,
+          0,
+          0
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 4.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          31,
+          15,
+          16,
+          1,
+          22
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 3,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 4,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 4,
+        "future_gain_values": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "immediate_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 0,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_012",
+        "total_values": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 1.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          10,
+          12,
+          6,
+          6,
+          6
+        ],
+        "uplift_selected_future_gain": 0
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 4,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "immediate_values": [
+          2,
+          1,
+          0,
+          1,
+          1
+        ],
+        "myopic_future_gain_points": 6.0,
+        "myopic_immediate_comparable": 7,
+        "myopic_immediate_points": 2.0,
+        "myopic_root_index": 3,
+        "myopic_selected_future_gain": 2,
+        "task_id": "task_089",
+        "total_values": [
+          3,
+          3,
+          1,
+          3,
+          2
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 1.5,
+        "uplift_root_index": 4,
+        "uplift_scores": [
+          44,
+          44,
+          28,
+          13,
+          62
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 6,
+        "full_total_points": 0.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 0,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_023",
+        "total_values": [
+          2,
+          2,
+          3,
+          3,
+          3
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 6.0,
+        "uplift_root_index": 2,
+        "uplift_scores": [
+          23,
+          24,
+          54,
+          27,
+          25
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 8,
+        "full_total_points": 8.0,
+        "future_gain_comparable": 0,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "immediate_values": [
+          2,
+          2,
+          1,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 8,
+        "myopic_immediate_points": 4.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_020",
+        "total_values": [
+          3,
+          3,
+          2,
+          1,
+          1
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 0.0,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          51,
+          60,
+          11,
+          -13,
+          20
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 4.0,
+        "full_root_index": 0,
+        "full_selected_future_gain": 1,
+        "full_total_comparable": 7,
+        "full_total_points": 6.0,
+        "future_gain_comparable": 7,
+        "future_gain_values": [
+          1,
+          1,
+          1,
+          2,
+          0
+        ],
+        "immediate_values": [
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 6,
+        "myopic_immediate_points": 2.0,
+        "myopic_root_index": 4,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_007",
+        "total_values": [
+          2,
+          1,
+          2,
+          2,
+          0
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 5.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          62,
+          10,
+          50,
+          28,
+          -33
+        ],
+        "uplift_selected_future_gain": 1
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 2,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 0,
+        "full_total_points": 0.0,
+        "future_gain_comparable": 0,
+        "future_gain_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "immediate_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 0,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_005",
+        "total_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 0.0,
+        "uplift_root_index": 3,
+        "uplift_scores": [
+          19,
+          14,
+          25,
+          27,
+          19
+        ],
+        "uplift_selected_future_gain": 0
+      },
+      {
+        "full_future_gain_points": 1.0,
+        "full_root_index": 1,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 9,
+        "full_total_points": 4.0,
+        "future_gain_comparable": 6,
+        "future_gain_values": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "immediate_values": [
+          2,
+          1,
+          1,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 4.0,
+        "myopic_immediate_comparable": 8,
+        "myopic_immediate_points": 7.0,
+        "myopic_root_index": 0,
+        "myopic_selected_future_gain": 1,
+        "task_id": "task_017",
+        "total_values": [
+          3,
+          1,
+          2,
+          0,
+          1
+        ],
+        "uplift_agrees_with_full": true,
+        "uplift_future_gain_points": 1.5,
+        "uplift_root_index": 1,
+        "uplift_scores": [
+          10,
+          27,
+          -7,
+          16,
+          27
+        ],
+        "uplift_selected_future_gain": 0
+      },
+      {
+        "full_future_gain_points": 0.0,
+        "full_root_index": 4,
+        "full_selected_future_gain": 0,
+        "full_total_comparable": 0,
+        "full_total_points": 0.0,
+        "future_gain_comparable": 0,
+        "future_gain_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "immediate_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "myopic_future_gain_points": 0.0,
+        "myopic_immediate_comparable": 0,
+        "myopic_immediate_points": 0.0,
+        "myopic_root_index": 2,
+        "myopic_selected_future_gain": 0,
+        "task_id": "task_004",
+        "total_values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "uplift_agrees_with_full": false,
+        "uplift_future_gain_points": 0.0,
+        "uplift_root_index": 0,
+        "uplift_scores": [
+          22,
+          19,
+          8,
+          11,
+          18
+        ],
+        "uplift_selected_future_gain": 0
+      }
+    ],
+    "tasks_with_comparable_future_gain": 33,
+    "uplift_above_chance_task_sign_flip_p": 0.0011973883956670761,
+    "uplift_full_root_agreement_count": 10,
+    "uplift_future_gain_pairwise_accuracy": 0.6443850267379679,
+    "uplift_future_gain_points": 120.5,
+    "uplift_selected_future_gain_total": 43
+  },
+  "receding_confirmation_sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae",
+  "splits": {
+    "first_link_v2": {
+      "full_score_future_gain_pairwise_accuracy": 0.5393258426966292,
+      "full_score_total_pairwise_accuracy": 0.7787610619469026,
+      "full_selected_future_gain_total": 20,
+      "full_total_comparable_pairs": 113,
+      "future_gain_comparable_pairs": 89,
+      "myopic_immediate_comparable_pairs": 102,
+      "myopic_score_future_gain_pairwise_accuracy": 0.4438202247191011,
+      "myopic_score_immediate_pairwise_accuracy": 0.7745098039215687,
+      "myopic_selected_future_gain_total": 19,
+      "task_count": 20,
+      "task_rows": [
+        {
+          "full_future_gain_points": 5.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 7.0,
+          "future_gain_comparable": 7,
+          "future_gain_values": [
+            2,
+            1,
+            0,
+            1,
+            1
+          ],
+          "immediate_values": [
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          "myopic_future_gain_points": 5.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 1,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_039",
+          "total_values": [
+            2,
+            2,
+            0,
+            1,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 3.5,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            18,
+            8,
+            18,
+            17,
+            10
+          ],
+          "uplift_selected_future_gain": 2
+        },
+        {
+          "full_future_gain_points": 2.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 6,
+          "full_total_points": 5.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "immediate_values": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 1.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_054",
+          "total_values": [
+            2,
+            1,
+            1,
+            1,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 4,
+          "uplift_scores": [
+            14,
+            30,
+            21,
+            20,
+            39
+          ],
+          "uplift_selected_future_gain": 2
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 3,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 7,
+          "future_gain_values": [
+            1,
+            2,
+            0,
+            1,
+            1
+          ],
+          "immediate_values": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 2.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_074",
+          "total_values": [
+            1,
+            3,
+            0,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            64,
+            34,
+            21,
+            -14,
+            12
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 5.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            2,
+            1,
+            1,
+            2
+          ],
+          "immediate_values": [
+            2,
+            1,
+            0,
+            2,
+            0
+          ],
+          "myopic_future_gain_points": 3.0,
+          "myopic_immediate_comparable": 8,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_080",
+          "total_values": [
+            3,
+            3,
+            1,
+            3,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            22,
+            52,
+            49,
+            39,
+            18
+          ],
+          "uplift_selected_future_gain": 2
+        },
+        {
+          "full_future_gain_points": 2.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 4,
+          "full_total_points": 2.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "immediate_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 0,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 4,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_058",
+          "total_values": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            58,
+            44,
+            15,
+            28,
+            15
+          ],
+          "uplift_selected_future_gain": 0
+        },
+        {
+          "full_future_gain_points": 2.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 2,
+          "full_total_comparable": 7,
+          "full_total_points": 7.0,
+          "future_gain_comparable": 7,
+          "future_gain_values": [
+            2,
+            1,
+            2,
+            3,
+            2
+          ],
+          "immediate_values": [
+            3,
+            2,
+            1,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 2.0,
+          "myopic_immediate_comparable": 9,
+          "myopic_immediate_points": 7.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 2,
+          "task_id": "task_076",
+          "total_values": [
+            5,
+            3,
+            3,
+            3,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 3,
+          "uplift_scores": [
+            21,
+            32,
+            -16,
+            48,
+            24
+          ],
+          "uplift_selected_future_gain": 3
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 8,
+          "full_total_points": 5.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          "immediate_values": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "myopic_future_gain_points": 3.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 1.0,
+          "myopic_root_index": 1,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_038",
+          "total_values": [
+            2,
+            0,
+            1,
+            1,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 4,
+          "uplift_scores": [
+            -10,
+            -22,
+            8,
+            -1,
+            13
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 6,
+          "full_total_points": 3.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "immediate_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 2.0,
+          "myopic_immediate_comparable": 0,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 1,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_063",
+          "total_values": [
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 3.5,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            -8,
+            -2,
+            40,
+            5,
+            5
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 0,
+          "full_total_points": 0.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "immediate_values": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_035",
+          "total_values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            53,
+            39,
+            26,
+            4,
+            37
+          ],
+          "uplift_selected_future_gain": 0
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 4,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 0,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_069",
+          "total_values": [
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 0.0,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            30,
+            26,
+            56,
+            6,
+            25
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 6,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "immediate_values": [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          "myopic_future_gain_points": 0.5,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 1,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_061",
+          "total_values": [
+            2,
+            2,
+            2,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 3,
+          "uplift_scores": [
+            21,
+            -38,
+            20,
+            41,
+            -24
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 7.0,
+          "future_gain_comparable": 0,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            0,
+            2,
+            0,
+            1,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_040",
+          "total_values": [
+            1,
+            3,
+            1,
+            2,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 0.0,
+          "uplift_root_index": 4,
+          "uplift_scores": [
+            54,
+            7,
+            36,
+            -10,
+            56
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 2,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 4,
+          "full_total_points": 3.0,
+          "future_gain_comparable": 0,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 4,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_066",
+          "total_values": [
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 0.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            53,
+            38,
+            41,
+            33,
+            -2
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 6.0,
+          "full_root_index": 2,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 9,
+          "full_total_points": 9.0,
+          "future_gain_comparable": 7,
+          "future_gain_values": [
+            2,
+            0,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            0,
+            0,
+            2,
+            1,
+            0
+          ],
+          "myopic_future_gain_points": 5.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 7.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_057",
+          "total_values": [
+            2,
+            0,
+            3,
+            2,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 7.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            84,
+            16,
+            23,
+            40,
+            28
+          ],
+          "uplift_selected_future_gain": 2
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 2,
+          "full_total_comparable": 0,
+          "full_total_points": 0.0,
+          "future_gain_comparable": 7,
+          "future_gain_values": [
+            2,
+            2,
+            3,
+            2,
+            1
+          ],
+          "immediate_values": [
+            1,
+            1,
+            0,
+            1,
+            2
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 3.0,
+          "myopic_root_index": 1,
+          "myopic_selected_future_gain": 2,
+          "task_id": "task_077",
+          "total_values": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 2.0,
+          "uplift_root_index": 3,
+          "uplift_scores": [
+            36,
+            6,
+            -8,
+            49,
+            18
+          ],
+          "uplift_selected_future_gain": 2
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 2,
+          "full_total_comparable": 7,
+          "full_total_points": 6.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            1,
+            2,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            1,
+            2,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 7.0,
+          "myopic_root_index": 1,
+          "myopic_selected_future_gain": 2,
+          "task_id": "task_053",
+          "total_values": [
+            2,
+            4,
+            1,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 1.0,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            12,
+            24,
+            59,
+            29,
+            53
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 2,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 6.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "immediate_values": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_041",
+          "total_values": [
+            1,
+            1,
+            2,
+            1,
+            0
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            66,
+            60,
+            70,
+            46,
+            54
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 2,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 4,
+          "full_total_points": 0.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "immediate_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 2.0,
+          "myopic_immediate_comparable": 0,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_059",
+          "total_values": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 1.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            31,
+            52,
+            48,
+            -2,
+            37
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 7.0,
+          "future_gain_comparable": 0,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            3,
+            1,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_072",
+          "total_values": [
+            4,
+            2,
+            1,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 0.0,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            -2,
+            4,
+            29,
+            9,
+            -23
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 2,
+          "full_total_comparable": 6,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            2,
+            2,
+            2,
+            1
+          ],
+          "immediate_values": [
+            3,
+            2,
+            1,
+            1,
+            2
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 8,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 4,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_079",
+          "total_values": [
+            4,
+            4,
+            3,
+            3,
+            3
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 6.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            20,
+            47,
+            38,
+            31,
+            4
+          ],
+          "uplift_selected_future_gain": 2
+        }
+      ],
+      "tasks_with_comparable_future_gain": 16,
+      "uplift_above_chance_task_sign_flip_p": 0.0438232421875,
+      "uplift_full_root_agreement_count": 4,
+      "uplift_future_gain_pairwise_accuracy": 0.6179775280898876,
+      "uplift_future_gain_points": 55.0,
+      "uplift_selected_future_gain_total": 26
+    },
+    "receding_v3_1": {
+      "full_score_future_gain_pairwise_accuracy": 0.6122448979591837,
+      "full_score_total_pairwise_accuracy": 0.7024793388429752,
+      "full_selected_future_gain_total": 15,
+      "full_total_comparable_pairs": 121,
+      "future_gain_comparable_pairs": 98,
+      "myopic_immediate_comparable_pairs": 99,
+      "myopic_score_future_gain_pairwise_accuracy": 0.47959183673469385,
+      "myopic_score_immediate_pairwise_accuracy": 0.6767676767676768,
+      "myopic_selected_future_gain_total": 13,
+      "task_count": 20,
+      "task_rows": [
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 0,
+          "full_total_points": 0.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_025",
+          "total_values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 3,
+          "uplift_scores": [
+            7,
+            30,
+            39,
+            61,
+            18
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 2,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 8,
+          "full_total_points": 6.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "immediate_values": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_021",
+          "total_values": [
+            1,
+            1,
+            2,
+            0,
+            0
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 6.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            15,
+            29,
+            20,
+            9,
+            11
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 7,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 8,
+          "future_gain_values": [
+            0,
+            2,
+            1,
+            0,
+            1
+          ],
+          "immediate_values": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 3.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_028",
+          "total_values": [
+            1,
+            3,
+            1,
+            0,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.5,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            21,
+            21,
+            55,
+            22,
+            23
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 4,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 8,
+          "full_total_points": 6.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "immediate_values": [
+            2,
+            2,
+            1,
+            0,
+            2
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 7.0,
+          "myopic_root_index": 4,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_015",
+          "total_values": [
+            3,
+            3,
+            2,
+            1,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            32,
+            22,
+            25,
+            25,
+            24
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 6.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 2,
+          "full_total_comparable": 6,
+          "full_total_points": 2.0,
+          "future_gain_comparable": 7,
+          "future_gain_values": [
+            2,
+            1,
+            1,
+            0,
+            1
+          ],
+          "immediate_values": [
+            0,
+            0,
+            0,
+            2,
+            1
+          ],
+          "myopic_future_gain_points": 6.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 1.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 2,
+          "task_id": "task_016",
+          "total_values": [
+            2,
+            1,
+            1,
+            2,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 4,
+          "uplift_scores": [
+            20,
+            19,
+            18,
+            21,
+            33
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 5.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            2,
+            2,
+            1,
+            1
+          ],
+          "immediate_values": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "myopic_future_gain_points": 1.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_062",
+          "total_values": [
+            2,
+            3,
+            2,
+            2,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 6.0,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            6,
+            12,
+            62,
+            -7,
+            8
+          ],
+          "uplift_selected_future_gain": 2
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 2,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 8,
+          "full_total_points": 5.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            2,
+            1,
+            1,
+            2
+          ],
+          "immediate_values": [
+            0,
+            1,
+            1,
+            2,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 8,
+          "myopic_immediate_points": 5.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_048",
+          "total_values": [
+            1,
+            3,
+            2,
+            3,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            51,
+            16,
+            14,
+            3,
+            16
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 5.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "immediate_values": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "myopic_future_gain_points": 2.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_081",
+          "total_values": [
+            2,
+            1,
+            2,
+            3,
+            2
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 3.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            24,
+            60,
+            33,
+            34,
+            25
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 3.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 6.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          "immediate_values": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "myopic_future_gain_points": 1.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 3.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_029",
+          "total_values": [
+            1,
+            2,
+            0,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 5.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            24,
+            28,
+            6,
+            20,
+            23
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 5.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 8,
+          "full_total_points": 7.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "immediate_values": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 4,
+          "myopic_immediate_points": 3.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_022",
+          "total_values": [
+            2,
+            0,
+            1,
+            0,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 4,
+          "uplift_scores": [
+            34,
+            28,
+            4,
+            17,
+            39
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 6.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 8,
+          "full_total_points": 7.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "immediate_values": [
+            1,
+            2,
+            0,
+            1,
+            0
+          ],
+          "myopic_future_gain_points": 5.0,
+          "myopic_immediate_comparable": 8,
+          "myopic_immediate_points": 6.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_019",
+          "total_values": [
+            2,
+            3,
+            0,
+            2,
+            0
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            70,
+            58,
+            40,
+            -2,
+            16
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 6.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 6,
+          "full_total_points": 6.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "immediate_values": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 3.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 3.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_027",
+          "total_values": [
+            2,
+            2,
+            2,
+            0,
+            0
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 4.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            31,
+            15,
+            16,
+            1,
+            22
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 3,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 4,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 4,
+          "future_gain_values": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "immediate_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 0,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_012",
+          "total_values": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 1.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            10,
+            12,
+            6,
+            6,
+            6
+          ],
+          "uplift_selected_future_gain": 0
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 4,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "immediate_values": [
+            2,
+            1,
+            0,
+            1,
+            1
+          ],
+          "myopic_future_gain_points": 6.0,
+          "myopic_immediate_comparable": 7,
+          "myopic_immediate_points": 2.0,
+          "myopic_root_index": 3,
+          "myopic_selected_future_gain": 2,
+          "task_id": "task_089",
+          "total_values": [
+            3,
+            3,
+            1,
+            3,
+            2
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 1.5,
+          "uplift_root_index": 4,
+          "uplift_scores": [
+            44,
+            44,
+            28,
+            13,
+            62
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 6,
+          "full_total_points": 0.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 0,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_023",
+          "total_values": [
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 6.0,
+          "uplift_root_index": 2,
+          "uplift_scores": [
+            23,
+            24,
+            54,
+            27,
+            25
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 8,
+          "full_total_points": 8.0,
+          "future_gain_comparable": 0,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "immediate_values": [
+            2,
+            2,
+            1,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 8,
+          "myopic_immediate_points": 4.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_020",
+          "total_values": [
+            3,
+            3,
+            2,
+            1,
+            1
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 0.0,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            51,
+            60,
+            11,
+            -13,
+            20
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 4.0,
+          "full_root_index": 0,
+          "full_selected_future_gain": 1,
+          "full_total_comparable": 7,
+          "full_total_points": 6.0,
+          "future_gain_comparable": 7,
+          "future_gain_values": [
+            1,
+            1,
+            1,
+            2,
+            0
+          ],
+          "immediate_values": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 6,
+          "myopic_immediate_points": 2.0,
+          "myopic_root_index": 4,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_007",
+          "total_values": [
+            2,
+            1,
+            2,
+            2,
+            0
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 5.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            62,
+            10,
+            50,
+            28,
+            -33
+          ],
+          "uplift_selected_future_gain": 1
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 2,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 0,
+          "full_total_points": 0.0,
+          "future_gain_comparable": 0,
+          "future_gain_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "immediate_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 0,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_005",
+          "total_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 0.0,
+          "uplift_root_index": 3,
+          "uplift_scores": [
+            19,
+            14,
+            25,
+            27,
+            19
+          ],
+          "uplift_selected_future_gain": 0
+        },
+        {
+          "full_future_gain_points": 1.0,
+          "full_root_index": 1,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 9,
+          "full_total_points": 4.0,
+          "future_gain_comparable": 6,
+          "future_gain_values": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "immediate_values": [
+            2,
+            1,
+            1,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 4.0,
+          "myopic_immediate_comparable": 8,
+          "myopic_immediate_points": 7.0,
+          "myopic_root_index": 0,
+          "myopic_selected_future_gain": 1,
+          "task_id": "task_017",
+          "total_values": [
+            3,
+            1,
+            2,
+            0,
+            1
+          ],
+          "uplift_agrees_with_full": true,
+          "uplift_future_gain_points": 1.5,
+          "uplift_root_index": 1,
+          "uplift_scores": [
+            10,
+            27,
+            -7,
+            16,
+            27
+          ],
+          "uplift_selected_future_gain": 0
+        },
+        {
+          "full_future_gain_points": 0.0,
+          "full_root_index": 4,
+          "full_selected_future_gain": 0,
+          "full_total_comparable": 0,
+          "full_total_points": 0.0,
+          "future_gain_comparable": 0,
+          "future_gain_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "immediate_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "myopic_future_gain_points": 0.0,
+          "myopic_immediate_comparable": 0,
+          "myopic_immediate_points": 0.0,
+          "myopic_root_index": 2,
+          "myopic_selected_future_gain": 0,
+          "task_id": "task_004",
+          "total_values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "uplift_agrees_with_full": false,
+          "uplift_future_gain_points": 0.0,
+          "uplift_root_index": 0,
+          "uplift_scores": [
+            22,
+            19,
+            8,
+            11,
+            18
+          ],
+          "uplift_selected_future_gain": 0
+        }
+      ],
+      "tasks_with_comparable_future_gain": 17,
+      "uplift_above_chance_task_sign_flip_p": 0.00940704345703125,
+      "uplift_full_root_agreement_count": 6,
+      "uplift_future_gain_pairwise_accuracy": 0.6683673469387755,
+      "uplift_future_gain_points": 65.5,
+      "uplift_selected_future_gain_total": 17
+    }
+  },
+  "status": "posthoc_future_uplift_audit",
+  "strong_future_value_checks": {
+    "first_split_at_least_30_comparable_pairs": true,
+    "first_split_uplift_accuracy_above_point_50": true,
+    "pooled_task_sign_flip_p_at_most_point_05": true,
+    "pooled_uplift_accuracy_at_least_point_60": true,
+    "receding_split_at_least_30_comparable_pairs": true,
+    "receding_split_uplift_accuracy_above_point_50": true
+  },
+  "task_splits_disjoint": true
+}

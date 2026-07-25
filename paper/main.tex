@@ -270,14 +270,13 @@ its selected roots, versus 26 for myopic receding, 25 for the original joint
 selector, and 22 for seeded random; all frozen gates passed. Exact endpoint
 tests remain underpowered ($p=.25,.0898,.0774$, respectively), so this execution
 supports LLM-owned ranking plus directional end-to-end gain. We treat fixed-tree
-semantic ranking as primary; coverage is a noisier execution check. In a
-frozen post-hoc control, BM25, novelty, and lexical scoring retrieved 22, 21,
-and 17 documents versus 30 and ranked worse. Belief-only shuffles were
-null/adverse. Moving complete future subtrees reduced root accuracy from $.653$
-to $.512$; exact replay against moved endpoints recovered $.566$ ($+.054$,
-$p=.228$) and four selected documents, but only 64/100 moved follow-ups were
-optimal. Thus semantic future content is directionally used; refreshed-belief
-causality remains unverified.
+semantic ranking as primary; coverage is a noisier execution check. Post-hoc
+controls retrieved 22/21/17 documents versus 30. Across two disjoint
+blocks, full-minus-myopic score ranked exact future-only gain at $.618/.668$
+(pooled $.644$, 187 pairs, $p=.0012$); myopic/full scores ranked
+immediate/total value at $.726/.739$. Belief-only shuffles were null/adverse
+and subtree replay directional ($+.054$, $p=.228$). Thus semantic future value
+is load-bearing; refreshed-belief causality remains unverified.
 
 A preregistered same-task replication regenerated every tree and score in 280
 clean calls. Root accuracy reversed ($.5575$ non-myopic versus $.6283$ myopic);
