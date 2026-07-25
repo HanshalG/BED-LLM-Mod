@@ -1,0 +1,1006 @@
+{
+  "gates": {
+    "all_maps_parse": true,
+    "all_pass": false,
+    "all_selected_roots_have_endpoints": true,
+    "cost_at_most_0_50": true,
+    "depth_two_changes_root": true,
+    "depth_two_losses_at_most_1": true,
+    "depth_two_spearman_at_least_0_20": true,
+    "depth_two_wins_at_least_1": true,
+    "eig_range_at_least_0_05_per_topic": true,
+    "exact_http_attempts": true,
+    "exact_physical_requests": true,
+    "mean_depth_two_gain_at_least_0_003": true,
+    "mean_depth_two_gain_over_random_nonnegative": true,
+    "single_sample_modal_count_at_least_3": false,
+    "three_modal_partitions_per_topic": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "maps": {
+    "125": {
+      "Q00504": [
+        "YNU",
+        "NYN",
+        "YNY",
+        "YYN",
+        "YNY"
+      ],
+      "Q00773": [
+        "YYN",
+        "YYN",
+        "YYN",
+        "YYN",
+        "YYN"
+      ],
+      "Q00852": [
+        "YYN",
+        "YNU",
+        "YNU",
+        "YUN",
+        "YYN"
+      ],
+      "Q01053": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q01071": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q01174": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q01176": [
+        "NNN",
+        "UUU",
+        "UUU",
+        "NNN",
+        "NNN"
+      ],
+      "Q03372": [
+        "NNU",
+        "UUY",
+        "UUY",
+        "NNU",
+        "UUY"
+      ],
+      "Q03447": [
+        "YNU",
+        "YNY",
+        "YNU",
+        "YNU",
+        "YNN"
+      ],
+      "Q03448": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q03594": [
+        "YYN",
+        "YYN",
+        "YYN",
+        "YYN",
+        "YYU"
+      ],
+      "Q03848": [
+        "YYN",
+        "YNN",
+        "NUU",
+        "UYU",
+        "NUU"
+      ],
+      "Q03874": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ]
+    },
+    "136": {
+      "Q00302": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q00696": [
+        "UNY",
+        "NNY",
+        "UUY",
+        "NNY",
+        "UUY"
+      ],
+      "Q01250": [
+        "YUY",
+        "YUY",
+        "YUY",
+        "YYY",
+        "YUY"
+      ],
+      "Q01338": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q01400": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q01411": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q01414": [
+        "YNN",
+        "YNN",
+        "YNN",
+        "YNN",
+        "YNN"
+      ],
+      "Q02165": [
+        "NYN",
+        "NNN",
+        "NYN",
+        "NNN",
+        "NYN"
+      ],
+      "Q02689": [
+        "NUU",
+        "YNN",
+        "NUU",
+        "NYN",
+        "NUU"
+      ],
+      "Q02760": [
+        "UUU",
+        "UUU",
+        "UUU",
+        "UUU",
+        "UUU"
+      ],
+      "Q03147": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q03482": [
+        "NNY",
+        "NNU",
+        "NNY",
+        "NNU",
+        "NNU"
+      ],
+      "Q03532": [
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN",
+        "NNN"
+      ],
+      "Q03790": [
+        "NYN",
+        "NYN",
+        "NYN",
+        "NYN",
+        "NYN"
+      ]
+    },
+    "149": {
+      "Q00106": [
+        "NYN",
+        "YNU",
+        "YNU",
+        "NYN",
+        "YNY"
+      ],
+      "Q00697": [
+        "NUY",
+        "UNY",
+        "NNY",
+        "NUY",
+        "NNY"
+      ],
+      "Q01473": [
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU"
+      ],
+      "Q02299": [
+        "NYN",
+        "NYN",
+        "NYN",
+        "NYN",
+        "NYN"
+      ],
+      "Q02652": [
+        "UNU",
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU"
+      ],
+      "Q02848": [
+        "UYU",
+        "UYU",
+        "UYU",
+        "UYU",
+        "YUU"
+      ],
+      "Q02958": [
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU"
+      ],
+      "Q03250": [
+        "NUU",
+        "NYN",
+        "NUU",
+        "NUU",
+        "NUU"
+      ],
+      "Q03439": [
+        "NUU",
+        "NYU",
+        "NYN",
+        "NYN",
+        "NUU"
+      ],
+      "Q03526": [
+        "NYN",
+        "NUU",
+        "NYN",
+        "NYN",
+        "NYN"
+      ],
+      "Q03561": [
+        "NUU",
+        "NYN",
+        "NUU",
+        "NYN",
+        "NUU"
+      ],
+      "Q03640": [
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU"
+      ],
+      "Q03728": [
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU",
+        "NUU"
+      ],
+      "Q03804": [
+        "YUN",
+        "UNU",
+        "NYN",
+        "NYN",
+        "YUN"
+      ]
+    }
+  },
+  "metrics": {
+    "depth_two_losses_to_myopic": 0,
+    "depth_two_root_change_count": 2,
+    "depth_two_ties_with_myopic": 1,
+    "depth_two_wins_over_myopic": 2,
+    "mean_depth_two_gain_over_myopic": 0.026086091658793886,
+    "mean_depth_two_gain_over_random": 0.03284717989013749,
+    "pooled_depth_two_score_oracle_tail_spearman": 0.4407479671679683,
+    "pooled_myopic_score_oracle_tail_spearman": 0.35827578069570887
+  },
+  "policies": {
+    "125": {
+      "best_followups": {
+        "Q00504": {
+          "N": "Q03447",
+          "U": "Q00773",
+          "Y": "Q03447"
+        },
+        "Q00773": {
+          "N": "Q03594",
+          "U": "Q03447",
+          "Y": "Q03447"
+        },
+        "Q00852": {
+          "N": "Q00773",
+          "U": "Q00773",
+          "Y": "Q03447"
+        },
+        "Q01053": {
+          "N": "Q03447",
+          "U": "Q03447",
+          "Y": "Q03447"
+        },
+        "Q01071": {
+          "N": "Q03447",
+          "U": "Q03447",
+          "Y": "Q03447"
+        },
+        "Q01174": {
+          "N": "Q03447",
+          "U": "Q03447",
+          "Y": "Q03447"
+        },
+        "Q01176": {
+          "N": "Q03447",
+          "U": "Q03447",
+          "Y": "Q03447"
+        },
+        "Q03372": {
+          "N": "Q03447",
+          "U": "Q03447",
+          "Y": "Q00773"
+        },
+        "Q03447": {
+          "N": "Q00773",
+          "U": "Q00773",
+          "Y": "Q00773"
+        },
+        "Q03448": {
+          "N": "Q03447",
+          "U": "Q03447",
+          "Y": "Q03447"
+        },
+        "Q03594": {
+          "N": "Q00773",
+          "U": "Q00773",
+          "Y": "Q03447"
+        },
+        "Q03848": {
+          "N": "Q00773",
+          "U": "Q00773",
+          "Y": "Q03447"
+        },
+        "Q03874": {
+          "N": "Q03447",
+          "U": "Q03447",
+          "Y": "Q03447"
+        }
+      },
+      "depth_two_question_id": "Q00773",
+      "depth_two_scores": {
+        "Q00504": 0.42576280234005826,
+        "Q00773": 0.6640151445367358,
+        "Q00852": 0.5929915713583459,
+        "Q01053": 0.37938699502369233,
+        "Q01071": 0.37938699502369233,
+        "Q01174": 0.37938699502369233,
+        "Q01176": 0.3793869950236923,
+        "Q03372": 0.5136864669246126,
+        "Q03447": 0.6378359597325701,
+        "Q03448": 0.37938699502369233,
+        "Q03594": 0.6533712857234649,
+        "Q03848": 0.45051085525365975,
+        "Q03874": 0.37938699502369233
+      },
+      "myopic_question_id": "Q03447",
+      "myopic_scores": {
+        "Q00504": 0.06059565982368165,
+        "Q00773": 0.3389712251545577,
+        "Q00852": 0.23070549135281426,
+        "Q01053": 2.220446049250313e-16,
+        "Q01071": 2.220446049250313e-16,
+        "Q01174": 2.220446049250313e-16,
+        "Q01176": 2.220446049250313e-16,
+        "Q03372": 0.14757310958356262,
+        "Q03447": 0.3793869950236921,
+        "Q03448": 2.220446049250313e-16,
+        "Q03594": 0.31102637929045396,
+        "Q03848": 0.07571613282024181,
+        "Q03874": 2.220446049250313e-16
+      }
+    },
+    "136": {
+      "best_followups": {
+        "Q00302": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        },
+        "Q00696": {
+          "N": "Q03790",
+          "U": "Q01414",
+          "Y": "Q03482"
+        },
+        "Q01250": {
+          "N": "Q01414",
+          "U": "Q03790",
+          "Y": "Q01414"
+        },
+        "Q01338": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        },
+        "Q01400": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        },
+        "Q01411": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        },
+        "Q01414": {
+          "N": "Q03790",
+          "U": "Q03790",
+          "Y": "Q03790"
+        },
+        "Q02165": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q03790"
+        },
+        "Q02689": {
+          "N": "Q01414",
+          "U": "Q03790",
+          "Y": "Q01414"
+        },
+        "Q02760": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        },
+        "Q03147": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        },
+        "Q03482": {
+          "N": "Q01414",
+          "U": "Q00696",
+          "Y": "Q00696"
+        },
+        "Q03532": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        },
+        "Q03790": {
+          "N": "Q01414",
+          "U": "Q01414",
+          "Y": "Q01414"
+        }
+      },
+      "depth_two_question_id": "Q00696",
+      "depth_two_scores": {
+        "Q00302": 0.33897122515455785,
+        "Q00696": 0.6361648640171069,
+        "Q01250": 0.5493758230518895,
+        "Q01338": 0.33897122515455785,
+        "Q01400": 0.33897122515455785,
+        "Q01411": 0.33897122515455785,
+        "Q01414": 0.6263063177957882,
+        "Q02165": 0.47449905052373886,
+        "Q02689": 0.5110938155442941,
+        "Q02760": 0.3389712251545577,
+        "Q03147": 0.33897122515455785,
+        "Q03482": 0.6277551637715748,
+        "Q03532": 0.33897122515455785,
+        "Q03790": 0.6263063177957882
+      },
+      "myopic_question_id": "Q01414",
+      "myopic_scores": {
+        "Q00302": 2.220446049250313e-16,
+        "Q00696": 0.3212006033065079,
+        "Q01250": 0.21861161110664873,
+        "Q01338": 2.220446049250313e-16,
+        "Q01400": 2.220446049250313e-16,
+        "Q01411": 2.220446049250313e-16,
+        "Q01414": 0.3389712251545577,
+        "Q02165": 0.1335816005392546,
+        "Q02689": 0.13824594338882323,
+        "Q02760": 0.0,
+        "Q03147": 2.220446049250313e-16,
+        "Q03482": 0.30141991434344906,
+        "Q03532": 2.220446049250313e-16,
+        "Q03790": 0.3389712251545577
+      }
+    },
+    "149": {
+      "best_followups": {
+        "Q00106": {
+          "N": "Q02299",
+          "U": "Q00697",
+          "Y": "Q01473"
+        },
+        "Q00697": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q01473"
+        },
+        "Q01473": {
+          "N": "Q02958",
+          "U": "Q02299",
+          "Y": "Q02299"
+        },
+        "Q02299": {
+          "N": "Q01473",
+          "U": "Q01473",
+          "Y": "Q03526"
+        },
+        "Q02652": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q01473"
+        },
+        "Q02848": {
+          "N": "Q01473",
+          "U": "Q01473",
+          "Y": "Q02299"
+        },
+        "Q02958": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q01473"
+        },
+        "Q03250": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q02299"
+        },
+        "Q03439": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q02299"
+        },
+        "Q03526": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q02299"
+        },
+        "Q03561": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q02299"
+        },
+        "Q03640": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q01473"
+        },
+        "Q03728": {
+          "N": "Q01473",
+          "U": "Q02299",
+          "Y": "Q01473"
+        },
+        "Q03804": {
+          "N": "Q00697",
+          "U": "Q02299",
+          "Y": "Q01473"
+        }
+      },
+      "depth_two_question_id": "Q01473",
+      "depth_two_scores": {
+        "Q00106": 0.4352346656824086,
+        "Q00697": 0.6141511328640787,
+        "Q01473": 0.65638398205745,
+        "Q02299": 0.6460706670936174,
+        "Q02652": 0.5166448095927625,
+        "Q02848": 0.5166448095927625,
+        "Q02958": 0.65638398205745,
+        "Q03250": 0.6211012186541709,
+        "Q03439": 0.6225229486085235,
+        "Q03526": 0.6280443093235778,
+        "Q03561": 0.611831153088036,
+        "Q03640": 0.65638398205745,
+        "Q03728": 0.65638398205745,
+        "Q03804": 0.4592532802542302
+      },
+      "myopic_question_id": "Q01473",
+      "myopic_scores": {
+        "Q00106": 0.08119142437540972,
+        "Q00697": 0.3250809290883263,
+        "Q01473": 0.3389712251545577,
+        "Q02299": 0.3389712251545577,
+        "Q02652": 0.16943327957754384,
+        "Q02848": 0.16943327957754384,
+        "Q02958": 0.3389712251545577,
+        "Q03250": 0.27569641538545975,
+        "Q03439": 0.28912458405056707,
+        "Q03526": 0.29310905503943085,
+        "Q03561": 0.2603358348994288,
+        "Q03640": 0.3389712251545577,
+        "Q03728": 0.3389712251545577,
+        "Q03804": 0.09689349872454911
+      }
+    }
+  },
+  "protocol": {
+    "development_endpoints_loaded_after_scores_froze": true,
+    "expected_requests": 205,
+    "holdout_endpoints_loaded": false,
+    "interface_version": "clariq-multisample-likelihood-development-2",
+    "manifest_sha256": "97af5ebc228dfff94e5c270f1dd0f10b862a8d5627a26bcb36266ac3a8d1ce73",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "e459fb387149d3f637f1b61a1bb7011f1c2bcc98b4bea10fa8aa54830cd9fbd4",
+    "random_control_seed": 24401,
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "request_seed": 24400,
+    "samples_per_question": 5,
+    "smoothing_alpha": 0.5,
+    "temperature": 0.7,
+    "topic_ids": [
+      "136",
+      "125",
+      "149"
+    ]
+  },
+  "rows": [
+    {
+      "depth_two_oracle_tail": 0.23135395594712982,
+      "depth_two_question_id": "Q00696",
+      "distinct_modal_partition_count": 8,
+      "external_depth_two_question_id": "Q01411",
+      "external_greedy_question_id": "Q01411",
+      "external_terminal_gain": 0.0,
+      "myopic_eig_range": 0.3389712251545577,
+      "myopic_oracle_tail": 0.16165651178395174,
+      "myopic_question_id": "Q01414",
+      "random_oracle_tail": 0.11794944735175394,
+      "random_question_id": "Q03790",
+      "single_sample_depth_two_modal_count": 3,
+      "topic_id": "136"
+    },
+    {
+      "depth_two_oracle_tail": 0.27074826303251004,
+      "depth_two_question_id": "Q00773",
+      "distinct_modal_partition_count": 6,
+      "external_depth_two_question_id": "Q03448",
+      "external_greedy_question_id": "Q01071",
+      "external_terminal_gain": 0.011154448084969404,
+      "myopic_eig_range": 0.3793869950236919,
+      "myopic_oracle_tail": 0.26218743221930646,
+      "myopic_question_id": "Q03447",
+      "random_oracle_tail": 0.27912730503496413,
+      "random_question_id": "Q01053",
+      "single_sample_depth_two_modal_count": 3,
+      "topic_id": "125"
+    },
+    {
+      "depth_two_oracle_tail": 0.7962511026113765,
+      "depth_two_question_id": "Q01473",
+      "distinct_modal_partition_count": 7,
+      "external_depth_two_question_id": "Q03526",
+      "external_greedy_question_id": "Q01473",
+      "external_terminal_gain": 0.03840418190118111,
+      "myopic_eig_range": 0.25777980077914797,
+      "myopic_oracle_tail": 0.7962511026113765,
+      "myopic_question_id": "Q01473",
+      "random_oracle_tail": 0.8027350295338859,
+      "random_question_id": "Q00697",
+      "single_sample_depth_two_modal_count": 2,
+      "topic_id": "149"
+    }
+  ],
+  "schema_version": 1,
+  "single_sample_depth_two_selections": {
+    "125": [
+      "Q00504",
+      "Q00852",
+      "Q00852",
+      "Q00852",
+      "Q00773"
+    ],
+    "136": [
+      "Q00696",
+      "Q00696",
+      "Q01250",
+      "Q00696",
+      "Q01250"
+    ],
+    "149": [
+      "Q00697",
+      "Q00106",
+      "Q00106",
+      "Q00697",
+      "Q03804"
+    ]
+  },
+  "status": "gate_failed",
+  "tasks": {
+    "125": {
+      "facets": [
+        {
+          "description": "What is the difference between butter and margarine?",
+          "facet_id": "F0107"
+        },
+        {
+          "description": "What is the difference in regards to cholesterol, calorie count, and other nutritional qualities.",
+          "facet_id": "F0108"
+        },
+        {
+          "description": "How are butter and margarine made?",
+          "facet_id": "F0109"
+        }
+      ],
+      "initial_request": "butter and margarine",
+      "questions": [
+        {
+          "question": "are you interested in the the nutritional value of butter and margarine",
+          "question_id": "Q00504"
+        },
+        {
+          "question": "are you looking for butter and margarine comparison",
+          "question_id": "Q00773"
+        },
+        {
+          "question": "are you looking for health facts of butter and mararine",
+          "question_id": "Q00852"
+        },
+        {
+          "question": "are you looking for the brands of butter and margarine",
+          "question_id": "Q01053"
+        },
+        {
+          "question": "are you looking for the history of butter and margarine",
+          "question_id": "Q01071"
+        },
+        {
+          "question": "are you looking to subsitute butter and margarine",
+          "question_id": "Q01174"
+        },
+        {
+          "question": "are you looking to use butter and margarine in baking",
+          "question_id": "Q01176"
+        },
+        {
+          "question": "would you like to know about butter and margarine making process",
+          "question_id": "Q03372"
+        },
+        {
+          "question": "would you like to know how butter and margarine affect the food you eat",
+          "question_id": "Q03447"
+        },
+        {
+          "question": "would you like to know how butter and margarine are used in recipes",
+          "question_id": "Q03448"
+        },
+        {
+          "question": "would you like to know the differences between butter and margarine",
+          "question_id": "Q03594"
+        },
+        {
+          "question": "would you like to see how these fats effect human arteries",
+          "question_id": "Q03848"
+        },
+        {
+          "question": "would you like to see recipes with butter and margarine",
+          "question_id": "Q03874"
+        }
+      ],
+      "topic_id": "125"
+    },
+    "136": {
+      "facets": [
+        {
+          "description": "What are the registration requirements for enrolling at American Military University?",
+          "facet_id": "F0146"
+        },
+        {
+          "description": "reviews and commentary on the quality of education received by students at American Military University",
+          "facet_id": "F0147"
+        },
+        {
+          "description": "find the home page of the American Military University",
+          "facet_id": "F0148"
+        }
+      ],
+      "initial_request": "Tell me about american military university.",
+      "questions": [
+        {
+          "question": "are you interested in learning more about tuition costs for the american military university",
+          "question_id": "Q00302"
+        },
+        {
+          "question": "are you looking for a specific web page",
+          "question_id": "Q00696"
+        },
+        {
+          "question": "are you referring to the american military university as in the actual school",
+          "question_id": "Q01250"
+        },
+        {
+          "question": "are you talking about the navel academy",
+          "question_id": "Q01338"
+        },
+        {
+          "question": "are you wanting information about west point",
+          "question_id": "Q01400"
+        },
+        {
+          "question": "are you wanting to know its location",
+          "question_id": "Q01411"
+        },
+        {
+          "question": "are you wanting to know more about the entrance requirements",
+          "question_id": "Q01414"
+        },
+        {
+          "question": "do you want to know more about the the curriculum",
+          "question_id": "Q02165"
+        },
+        {
+          "question": "were you interested in applying to the american military university or just recieving an informational brochure",
+          "question_id": "Q02689"
+        },
+        {
+          "question": "what degree in particular would you like to know more about from the american military unviersity",
+          "question_id": "Q02760"
+        },
+        {
+          "question": "would you be interested in learning more about the history of the american military university",
+          "question_id": "Q03147"
+        },
+        {
+          "question": "would you like to know how to get to the american military university",
+          "question_id": "Q03482"
+        },
+        {
+          "question": "would you like to know more about its history",
+          "question_id": "Q03532"
+        },
+        {
+          "question": "would you like to read some reviews about american military university",
+          "question_id": "Q03790"
+        }
+      ],
+      "topic_id": "136"
+    },
+    "149": {
+      "facets": [
+        {
+          "description": "How likely is a volcanic eruption at Yellowstone National Park, and what would be the effects of such an eruption?",
+          "facet_id": "F0189"
+        },
+        {
+          "description": "information on ground elevation changes and movement resulting from ongoing low-level geothermal activity at Yellowstone National Park",
+          "facet_id": "F0190"
+        },
+        {
+          "description": "home page for the Yellowstone Volcano Observatory",
+          "facet_id": "F0191"
+        }
+      ],
+      "initial_request": "Tell me about uplift at yellowstone national park",
+      "questions": [
+        {
+          "question": "are you interested in a specific aspect of uplift at yellowstone national park",
+          "question_id": "Q00106"
+        },
+        {
+          "question": "are you looking for a specific web site",
+          "question_id": "Q00697"
+        },
+        {
+          "question": "can i tell you about the north american plate that moves causing the eventual destruction of the volcano in yellowstone park",
+          "question_id": "Q01473"
+        },
+        {
+          "question": "do you want to know what the current uplift is at yellowstone national park",
+          "question_id": "Q02299"
+        },
+        {
+          "question": "may i tell you the numnber of earthquakes recorded in the past month in the yellowstone area",
+          "question_id": "Q02652"
+        },
+        {
+          "question": "what makes people think the yellowstone volcano will erupt soon",
+          "question_id": "Q02848"
+        },
+        {
+          "question": "what would you like to know about uplift",
+          "question_id": "Q02958"
+        },
+        {
+          "question": "would you like more information of the course of the yellowstone volcano and the different hypothesizes scientest have",
+          "question_id": "Q03250"
+        },
+        {
+          "question": "would you like to know about yellowstones history of eruptions",
+          "question_id": "Q03439"
+        },
+        {
+          "question": "would you like to know more about geothermal activities at yellowstone national park",
+          "question_id": "Q03526"
+        },
+        {
+          "question": "would you like to know more about what would occur if the supervolcano underneath yellowstone national park errupted",
+          "question_id": "Q03561"
+        },
+        {
+          "question": "would you like to know trending data or a timeline for the uplift at yellowstone national park",
+          "question_id": "Q03640"
+        },
+        {
+          "question": "would you like to know why some scientists think the yellowstone volcano is in the process of dying",
+          "question_id": "Q03728"
+        },
+        {
+          "question": "would you like to see a ground map showing the uplift of yellowstone national park",
+          "question_id": "Q03804"
+        }
+      ],
+      "topic_id": "149"
+    }
+  },
+  "usage": {
+    "adapter_cost_usd": 0.12138500000000003,
+    "forced_exits": 0,
+    "http_attempts": 205,
+    "model": {
+      "adapter_completion_tokens": 1229,
+      "adapter_cost_usd": 0.12138500000000003,
+      "adapter_prompt_tokens": 41180,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 205,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 1229,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 205,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 1229,
+          "cost_usd": 0.12138500000000003,
+          "prompt_tokens": 41180,
+          "reasoning_tokens": 0,
+          "requests": 205
+        }
+      },
+      "prompt_tokens": 41180,
+      "reasoning_tokens": 0,
+      "remaining_usd": 11.689053600000278,
+      "requests": 205,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.12138500000000003,
+      "run_remaining_usd": 0.378615,
+      "total_spent_usd": 89.45425121920714
+    },
+    "physical_requests": 205,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}

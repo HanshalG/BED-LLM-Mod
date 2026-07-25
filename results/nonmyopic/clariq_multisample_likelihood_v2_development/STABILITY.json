@@ -1,0 +1,179 @@
+{
+  "protocol": {
+    "analysis_type": "disclosed_development_posthoc",
+    "api_calls": 0,
+    "bootstrap_samples": 1000,
+    "bootstrap_seed_base": 24402,
+    "input_sha256": "6daf922d9bfca5c2c28a843fddde58970b13219aa1981ea1836f033cc069c4fc"
+  },
+  "records": [
+    {
+      "bootstrap_full_selection_rate": 0.773,
+      "bootstrap_top_selections": [
+        [
+          "Q00773",
+          773
+        ],
+        [
+          "Q03447",
+          133
+        ],
+        [
+          "Q00852",
+          55
+        ],
+        [
+          "Q03372",
+          38
+        ],
+        [
+          "Q00504",
+          1
+        ]
+      ],
+      "full_depth_two_question_id": "Q00773",
+      "full_score_margin": 0.010643858813270901,
+      "leave_one_out_agreement_count": 5,
+      "leave_one_out_selections": [
+        "Q00773",
+        "Q00773",
+        "Q00773",
+        "Q00773",
+        "Q00773"
+      ],
+      "myopic_question_id": "Q03447",
+      "oracle_tail_gain_over_myopic": 0.00856083081320358,
+      "root_changed": true,
+      "single_sample_modal_count": 3,
+      "three_sample_subset_agreement_count": 6,
+      "three_sample_subset_selections": [
+        "Q00773",
+        "Q00773",
+        "Q00773",
+        "Q03447",
+        "Q03447",
+        "Q00852",
+        "Q00773",
+        "Q03372",
+        "Q00773",
+        "Q00773"
+      ],
+      "topic_id": "125"
+    },
+    {
+      "bootstrap_full_selection_rate": 0.495,
+      "bootstrap_top_selections": [
+        [
+          "Q00696",
+          495
+        ],
+        [
+          "Q01250",
+          260
+        ],
+        [
+          "Q03482",
+          155
+        ],
+        [
+          "Q01414",
+          76
+        ],
+        [
+          "Q03790",
+          14
+        ]
+      ],
+      "full_depth_two_question_id": "Q00696",
+      "full_score_margin": 0.008409700245532115,
+      "leave_one_out_agreement_count": 3,
+      "leave_one_out_selections": [
+        "Q03482",
+        "Q00696",
+        "Q00696",
+        "Q01250",
+        "Q00696"
+      ],
+      "myopic_question_id": "Q01414",
+      "oracle_tail_gain_over_myopic": 0.06969744416317808,
+      "root_changed": true,
+      "single_sample_modal_count": 3,
+      "three_sample_subset_agreement_count": 4,
+      "three_sample_subset_selections": [
+        "Q01250",
+        "Q00696",
+        "Q01250",
+        "Q00696",
+        "Q00696",
+        "Q00696",
+        "Q01414",
+        "Q01250",
+        "Q03482",
+        "Q01414"
+      ],
+      "topic_id": "136"
+    },
+    {
+      "bootstrap_full_selection_rate": 0.434,
+      "bootstrap_top_selections": [
+        [
+          "Q01473",
+          434
+        ],
+        [
+          "Q02299",
+          189
+        ],
+        [
+          "Q03439",
+          131
+        ],
+        [
+          "Q00697",
+          75
+        ],
+        [
+          "Q00106",
+          69
+        ]
+      ],
+      "full_depth_two_question_id": "Q01473",
+      "full_score_margin": 0.0,
+      "leave_one_out_agreement_count": 4,
+      "leave_one_out_selections": [
+        "Q01473",
+        "Q02299",
+        "Q01473",
+        "Q01473",
+        "Q01473"
+      ],
+      "myopic_question_id": "Q01473",
+      "oracle_tail_gain_over_myopic": 0.0,
+      "root_changed": false,
+      "single_sample_modal_count": 2,
+      "three_sample_subset_agreement_count": 3,
+      "three_sample_subset_selections": [
+        "Q01473",
+        "Q01473",
+        "Q03439",
+        "Q02299",
+        "Q02299",
+        "Q00697",
+        "Q03439",
+        "Q00106",
+        "Q01473",
+        "Q02299"
+      ],
+      "topic_id": "149"
+    }
+  ],
+  "schema_version": 1,
+  "status": "complete",
+  "summary": {
+    "changed_root_topic_count": 2,
+    "changed_roots_with_leave_one_out_agreement_at_least_3": 2,
+    "changed_roots_with_single_sample_modal_count_at_least_3": 2,
+    "topic_count": 3,
+    "unchanged_root_topic_count": 1
+  }
+}
