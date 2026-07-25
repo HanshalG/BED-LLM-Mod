@@ -280,9 +280,16 @@ class OpenRouterAdapter:
         return payload
 
     def _post(self, payload: dict[str, Any]) -> dict[str, Any]:
+        return self._post_endpoint("chat/completions", payload)
+
+    def _post_endpoint(
+        self,
+        endpoint: str,
+        payload: dict[str, Any],
+    ) -> dict[str, Any]:
         body = json.dumps(payload).encode("utf-8")
         request = urllib.request.Request(
-            f"{OPENROUTER_BASE_URL}/chat/completions",
+            f"{OPENROUTER_BASE_URL}/{endpoint}",
             data=body,
             headers={
                 "Authorization": f"Bearer {self.api_key}",
@@ -319,6 +326,163 @@ class OpenRouterAdapter:
                 self.retry_count += 1
             time.sleep(delay)
         raise AssertionError("unreachable")
+
+    @staticmethod
+    def _responses_input(
+        messages: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        return [
+            {
+                "type": "message",
+                "role": message["role"],
+                "content": [
+                    {
+                        "type": "input_text",
+                        "text": str(message.get("content", "")),
+                    }
+                ],
+            }
+            for message in messages
+        ]
+
+    def _responses_payload(
+        self,
+        messages: list[dict[str, Any]],
+        temperature: float,
+        max_tokens: int | None,
+        response_format: dict[str, Any],
+    ) -> dict[str, Any]:
+        if (
+            response_format.get("type") != "json_schema"
+            or not isinstance(response_format.get("json_schema"), dict)
+        ):
+            raise ValueError(
+                "Responses structured output requires a JSON Schema format"
+            )
+        payload: dict[str, Any] = {
+            "model": self.model_name,
+            "input": self._responses_input(messages),
+            "temperature": float(temperature),
+            "top_p": 0.95,
+            "max_output_tokens": int(max_tokens or self.max_tokens),
+            "text": {"format": response_format["json_schema"] | {
+                "type": "json_schema"
+            }},
+            "provider": {"require_parameters": True},
+            "store": False,
+        }
+        if self.spec.reasoning_effort is not None:
+            payload["reasoning"] = {
+                "effort": self.spec.reasoning_effort,
+            }
+        elif self.spec.reasoning_max_tokens is not None:
+            payload["reasoning"] = {
+                "max_tokens": self.spec.reasoning_max_tokens,
+            }
+        elif self.thinking:
+            payload["reasoning"] = {"effort": "medium"}
+        if self.seed is not None:
+            payload["seed"] = int(self.seed)
+        return payload
+
+    @staticmethod
+    def _responses_output_text(data: dict[str, Any]) -> str:
+        output_text = data.get("output_text")
+        if isinstance(output_text, str) and output_text.strip():
+            return output_text.strip()
+        parts = []
+        for item in data.get("output") or []:
+            if not isinstance(item, dict) or item.get("type") != "message":
+                continue
+            for content in item.get("content") or []:
+                if (
+                    isinstance(content, dict)
+                    and content.get("type") == "output_text"
+                ):
+                    parts.append(str(content.get("text") or ""))
+        return "".join(parts).strip()
+
+    def _complete_responses_structured(
+        self,
+        messages: list[dict[str, Any]],
+        temperature: float,
+        max_tokens: int | None,
+        response_format: dict[str, Any],
+    ) -> str:
+        data = self._post_endpoint(
+            "responses",
+            self._responses_payload(
+                messages,
+                temperature,
+                max_tokens,
+                response_format,
+            ),
+        )
+        usage = data.get("usage")
+        if not isinstance(usage, dict) or usage.get("cost") is None:
+            raise RuntimeError(
+                "OpenRouter Responses result is missing required usage.cost"
+            )
+        input_tokens = int(
+            usage.get("input_tokens", usage.get("prompt_tokens", 0)) or 0
+        )
+        output_tokens = int(
+            usage.get("output_tokens", usage.get("completion_tokens", 0)) or 0
+        )
+        output_details = usage.get("output_tokens_details") or {}
+        reasoning_tokens = int(
+            output_details.get(
+                "reasoning_tokens",
+                (usage.get("completion_tokens_details") or {}).get(
+                    "reasoning_tokens", 0
+                ),
+            )
+            or 0
+        )
+        normalized_usage = dict(usage)
+        normalized_usage["prompt_tokens"] = input_tokens
+        normalized_usage["completion_tokens"] = output_tokens
+        normalized_usage["completion_tokens_details"] = {
+            "reasoning_tokens": reasoning_tokens
+        }
+        cost = float(usage["cost"])
+        cumulative = self.tracker.add(cost, normalized_usage)
+        self.local_cost_usd += cost
+        self.local_requests += 1
+        self.local_prompt_tokens += input_tokens
+        self.local_completion_tokens += output_tokens
+        self.local_reasoning_tokens += reasoning_tokens
+        if data.get("status") != "completed":
+            self.forced_exits += 1
+            raise RuntimeError(
+                f"OpenRouter Responses status is {data.get('status')!r}"
+            )
+        content = self._responses_output_text(data)
+        if not content:
+            raise RuntimeError("OpenRouter Responses result has no output text")
+        if self.config.log_path is not None:
+            write_to_log(
+                json.dumps(
+                    {
+                        "event": "llm_token_usage",
+                        "backend": "openrouter_responses",
+                        "model": self.model_name,
+                        "prompt_tokens": input_tokens,
+                        "completion_tokens": output_tokens,
+                        "reasoning_tokens": reasoning_tokens,
+                        "total_tokens": usage.get("total_tokens"),
+                        "cost_usd": cost,
+                        "cumulative_cost_usd": cumulative,
+                        "temperature": temperature,
+                        "status": data.get("status"),
+                    },
+                    sort_keys=True,
+                )
+                + "\n",
+                self.config,
+            )
+        self._warn_near_budget_once(cumulative)
+        return content
 
     @staticmethod
     def _content(choice: dict[str, Any]) -> str:
@@ -495,6 +659,29 @@ class OpenRouterAdapter:
                 for messages in batch_messages
             ]
             return [future.result()[0] for future in futures]
+
+    def responses_complete_messages_batched_structured(
+        self,
+        batch_messages: list[list[dict[str, str]]],
+        *,
+        temperature: float,
+        block_size: int,
+        response_format: dict[str, Any],
+        max_new_tokens: int | None = None,
+    ) -> list[str]:
+        del block_size
+        with ThreadPoolExecutor(max_workers=self.concurrency) as executor:
+            futures = [
+                executor.submit(
+                    self._complete_responses_structured,
+                    messages,
+                    temperature,
+                    max_new_tokens,
+                    response_format,
+                )
+                for messages in batch_messages
+            ]
+            return [future.result() for future in futures]
 
     def chat_probabilities_messages_batched(self, messages: list[list[dict[str, str]]], responses: list[str], temperature: float, block_size: int) -> list[dict[str, float]]:
         return _probability_results_from_messages(

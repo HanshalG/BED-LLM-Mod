@@ -54,6 +54,8 @@ def run_smoke(
     source_dir: Path,
     raw_checkpoint_path: Path,
     model_adapter: Any | None = None,
+    interface_version: str = INTERFACE_VERSION,
+    use_responses_api: bool = False,
 ) -> dict[str, Any]:
     cases_path = verify_source(source_dir)
     cases = json.loads(cases_path.read_text(encoding="utf-8"))
@@ -64,11 +66,16 @@ def run_smoke(
     }
     model = model_adapter if model_adapter is not None else _build_model(config)
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "responses": {},
     }
     try:
-        responses = model.chat_complete_messages_batched_structured(
+        complete = (
+            model.responses_complete_messages_batched_structured
+            if use_responses_api
+            else model.chat_complete_messages_batched_structured
+        )
+        responses = complete(
             [initial_messages(scenes[name]) for name in TASKS],
             temperature=0.0,
             block_size=config.batched_block_size,
@@ -120,12 +127,16 @@ def run_smoke(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "tasks": list(TASKS),
             "model": MODEL_ID,
             "source_commit": SOURCE_COMMIT,
             "expected_physical_requests": EXPECTED_REQUESTS,
-            "response_format": "strict_json_schema",
+            "response_format": (
+                "responses_text_strict_json_schema"
+                if use_responses_api
+                else "chat_strict_json_schema"
+            ),
             "scientific_endpoints_evaluated": False,
             "reasoning_requested": False,
             "repairs_or_retries": 0,
@@ -138,7 +149,11 @@ def run_smoke(
     }
 
 
-def main() -> None:
+def run_cli(
+    *,
+    interface_version: str = INTERFACE_VERSION,
+    use_responses_api: bool = False,
+) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--source-dir", type=Path, required=True)
@@ -162,13 +177,15 @@ def main() -> None:
             config,
             source_dir=args.source_dir,
             raw_checkpoint_path=raw_path,
+            interface_version=interface_version,
+            use_responses_api=use_responses_api,
         )
         payload["protocol"]["private_raw_sha256"] = _sha256(raw_path)
     except Exception as exc:
         failure: dict[str, Any] = {
             "schema_version": 1,
             "status": "failed_closed",
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "error": f"{type(exc).__name__}: {exc}",
         }
         if isinstance(exc, ServingExecutionError):
@@ -189,4 +206,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_cli()

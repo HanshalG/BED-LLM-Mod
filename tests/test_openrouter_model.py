@@ -163,6 +163,86 @@ def test_openrouter_structured_batch_forwards_strict_schema(
     assert captured[0]["provider"] == {"require_parameters": True}
 
 
+def test_openrouter_responses_structured_batch_tracks_cost(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    captured = {}
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        captured["url"] = request.full_url
+        captured["payload"] = json.loads(request.data)
+        return _Response(
+            {
+                "status": "completed",
+                "output": [
+                    {
+                        "type": "message",
+                        "content": [
+                            {
+                                "type": "output_text",
+                                "text": '{"answer":"ok"}',
+                            }
+                        ],
+                    }
+                ],
+                "usage": {
+                    "input_tokens": 11,
+                    "output_tokens": 7,
+                    "output_tokens_details": {"reasoning_tokens": 0},
+                    "total_tokens": 18,
+                    "cost": 0.012,
+                },
+            }
+        )
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="openai/gpt-5.4",
+            backend="openrouter",
+            thinking=False,
+            reasoning_effort="none",
+            max_model_len=32768,
+        ),
+        _config(tmp_path),
+    )
+    response_format = {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "answer",
+            "strict": True,
+            "schema": {
+                "type": "object",
+                "properties": {"answer": {"type": "string"}},
+                "required": ["answer"],
+                "additionalProperties": False,
+            },
+        },
+    }
+    assert adapter.responses_complete_messages_batched_structured(
+        [[{"role": "user", "content": "hello"}]],
+        temperature=0.0,
+        block_size=1,
+        response_format=response_format,
+    ) == ['{"answer":"ok"}']
+    assert captured["url"].endswith("/api/v1/responses")
+    assert captured["payload"]["text"]["format"] == {
+        "name": "answer",
+        "strict": True,
+        "schema": response_format["json_schema"]["schema"],
+        "type": "json_schema",
+    }
+    assert captured["payload"]["provider"] == {"require_parameters": True}
+    assert captured["payload"]["reasoning"] == {"effort": "none"}
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["adapter_requests"] == 1
+    assert snapshot["adapter_prompt_tokens"] == 11
+    assert snapshot["adapter_completion_tokens"] == 7
+    assert snapshot["adapter_cost_usd"] == pytest.approx(0.012)
+
+
 def test_openrouter_budget_warning_uses_configured_threshold_and_emits_once(
     monkeypatch, tmp_path: Path, capsys
 ) -> None:

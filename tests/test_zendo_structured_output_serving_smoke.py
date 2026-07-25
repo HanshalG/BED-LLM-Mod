@@ -78,6 +78,17 @@ class _FakeStructuredAdapter:
             "forced_exits": 0,
         }
 
+    def responses_complete_messages_batched_structured(
+        self,
+        messages,
+        *,
+        response_format,
+        **_kwargs,
+    ):
+        return self.chat_complete_messages_batched_structured(
+            messages, response_format=response_format
+        )
+
 
 def test_structured_serving_smoke_uses_exact_three_calls(
     tmp_path: Path,
@@ -98,3 +109,26 @@ def test_structured_serving_smoke_uses_exact_three_calls(
     assert adapter.response_format["type"] == "json_schema"
     assert payload["status"] == "passed"
     assert payload["protocol"]["scientific_endpoints_evaluated"] is False
+
+
+def test_responses_serving_smoke_uses_responses_api(
+    tmp_path: Path,
+) -> None:
+    adapter = _FakeStructuredAdapter()
+    config = load_config(
+        "configs/config_zendo_path_dependent_belief_openrouter.yaml"
+    )
+    payload = run_smoke(
+        config,
+        source_dir=Path(
+            "external/doing-experiments-and-revising-rules"
+        ),
+        raw_checkpoint_path=tmp_path / "responses-raw.json",
+        model_adapter=adapter,
+        interface_version="test-responses",
+        use_responses_api=True,
+    )
+    assert adapter.requests == 3
+    assert payload["protocol"]["response_format"] == (
+        "responses_text_strict_json_schema"
+    )
