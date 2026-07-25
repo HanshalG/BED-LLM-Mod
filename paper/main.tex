@@ -272,10 +272,12 @@ tests remain underpowered ($p=.25,.0898,.0774$, respectively), so this execution
 supports LLM-owned ranking plus directional end-to-end gain. We treat fixed-tree
 semantic ranking as primary; coverage is a noisier execution check. In a
 frozen post-hoc control, BM25, novelty, and lexical scoring retrieved 22, 21,
-and 17 documents versus 30 and ranked worse. Neither a belief shuffle nor a
-paired belief-only bottleneck supported causal alignment (diagnostic accuracy
-$.441$ aligned versus $.706$ shuffled; coverage 5 versus 6). Thus semantic
-scoring alone is load-bearing; refreshed-belief causality remains unverified.
+and 17 documents versus 30 and ranked worse. Belief-only shuffles were
+null/adverse. Moving complete future subtrees reduced root accuracy from $.653$
+to $.512$; exact replay against moved endpoints recovered $.566$ ($+.054$,
+$p=.228$) and four selected documents, but only 64/100 moved follow-ups were
+optimal. Thus semantic future content is directionally used; refreshed-belief
+causality remains unverified.
 
 A preregistered same-task replication regenerated every tree and score in 280
 clean calls. Root accuracy reversed ($.5575$ non-myopic versus $.6283$ myopic);
