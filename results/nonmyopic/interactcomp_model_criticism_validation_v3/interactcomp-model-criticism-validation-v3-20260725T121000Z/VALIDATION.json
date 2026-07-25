@@ -1,0 +1,654 @@
+{
+  "gates": {
+    "all_enrolled_supports_collapsed": true,
+    "all_pass": false,
+    "all_refreshes_have_at_least_six_particles": true,
+    "at_least_four_dynamic_endpoints": false,
+    "at_least_four_initial_target_omissions": true,
+    "at_least_four_rankable_tasks": false,
+    "at_least_four_target_recoveries": false,
+    "at_least_three_unique_questions_each": true,
+    "at_least_two_non_unknown_responses_each": false,
+    "cost_at_most_1_50": true,
+    "eight_semantically_distinct_auxiliary_each": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "mean_model_criticism_rho_at_least_0_20": true,
+    "model_criticism_gain_over_augmented_eig_at_least_0_02": false,
+    "model_criticism_gain_over_current_eig_at_least_0_02": true,
+    "model_criticism_gain_over_random_at_least_0_02": true,
+    "model_criticism_loses_current_at_most_one": true,
+    "model_criticism_selects_oracle_at_least_three": true,
+    "model_criticism_wins_current_at_least_two": false,
+    "six_collapsed_supports_enrolled": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_transport_retries": true
+  },
+  "metrics": {
+    "dynamic_endpoint_count": 1,
+    "enrolled_count": 6,
+    "initial_target_omission_count": 6,
+    "mean_score_endpoint_spearman": {
+      "augmented_eig": 0.7745966692414834,
+      "current_eig": -1.0,
+      "model_criticism": 0.7745966692414834
+    },
+    "mean_selected_endpoint": {
+      "augmented_eig": 0.020833333333333332,
+      "current_eig": 0.0,
+      "model_criticism": 0.020833333333333332,
+      "random": 0.0
+    },
+    "model_criticism_losses_current_eig": 0,
+    "model_criticism_wins_current_eig": 1,
+    "rankable_task_count": 1,
+    "screen_count": 16,
+    "target_recovery_count": 1
+  },
+  "protocol": {
+    "ascii_whitespace_compaction_only": true,
+    "auxiliary_proposals": 16,
+    "auxiliary_retain": 8,
+    "collapsed_unique_max": 4,
+    "enroll_count": 6,
+    "enrolled_ids": [
+      87,
+      170,
+      42,
+      104,
+      193,
+      157
+    ],
+    "enrolled_indices": [
+      86,
+      169,
+      41,
+      103,
+      192,
+      156
+    ],
+    "expected_requests": 656,
+    "generator_model": "openai/gpt-5.4-mini",
+    "interface_version": "interactcomp-model-criticism-validation-3",
+    "primary_score": "balanced_model_identity_mutual_information",
+    "private_raw_sha256": "ec509c45c6b33389f12773e7ab5ed4be5af252ba8f3305f3d9c8dec6f09d4ed7",
+    "question_terminal_marks": [
+      "?",
+      "\uff1f"
+    ],
+    "random_control_seed": 24385,
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "responder_model": "openai/gpt-5.4",
+    "screen_count": 16,
+    "screen_ids": [
+      87,
+      170,
+      42,
+      29,
+      86,
+      104,
+      67,
+      146,
+      139,
+      193,
+      157,
+      115,
+      15,
+      45,
+      163,
+      64
+    ],
+    "screen_indices": [
+      86,
+      169,
+      41,
+      28,
+      85,
+      103,
+      66,
+      145,
+      138,
+      192,
+      156,
+      114,
+      14,
+      44,
+      162,
+      63
+    ],
+    "seed": 24384,
+    "target_answers_loaded_after_all_model_calls": true
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "tasks": [
+    {
+      "endpoint_range": 0.0,
+      "initial_truth_mass": 0.0,
+      "initial_unique_entity_count": 2,
+      "non_unknown_true_response_count": 3,
+      "oracle_endpoint": 0.0,
+      "oracle_root_index": 0,
+      "refresh_particle_counts": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "roots": [
+        {
+          "augmented_eig": 0.9002560512685369,
+          "current_eig": -0.0,
+          "model_criticism": 0.380395665848578,
+          "refresh_particle_count": 8,
+          "root_index": 0,
+          "true_response": "Y",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.9840865030829146,
+          "current_eig": -0.0,
+          "model_criticism": 0.49692912664823985,
+          "refresh_particle_count": 8,
+          "root_index": 1,
+          "true_response": "U",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6615632381579821,
+          "current_eig": -0.0,
+          "model_criticism": 0.380395665848578,
+          "refresh_particle_count": 8,
+          "root_index": 2,
+          "true_response": "Y",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6210863745552451,
+          "current_eig": -0.0,
+          "model_criticism": 0.290304755476254,
+          "refresh_particle_count": 8,
+          "root_index": 3,
+          "true_response": "Y",
+          "truth_mass": 0.0
+        }
+      ],
+      "score_endpoint_spearman": {
+        "augmented_eig": null,
+        "current_eig": null,
+        "model_criticism": null
+      },
+      "selected_endpoints": {
+        "augmented_eig": 0.0,
+        "current_eig": 0.0,
+        "model_criticism": 0.0,
+        "random": 0.0
+      },
+      "selected_root_indices": {
+        "augmented_eig": 1,
+        "current_eig": 0,
+        "model_criticism": 1,
+        "random": 2
+      },
+      "semantic_distinct_auxiliary_count": 8,
+      "task_id": 87,
+      "unique_auxiliary_entity_count": 6,
+      "unique_question_count": 4
+    },
+    {
+      "endpoint_range": 0.0,
+      "initial_truth_mass": 0.0,
+      "initial_unique_entity_count": 2,
+      "non_unknown_true_response_count": 2,
+      "oracle_endpoint": 0.0,
+      "oracle_root_index": 0,
+      "refresh_particle_counts": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "roots": [
+        {
+          "augmented_eig": 0.2337916587064593,
+          "current_eig": -0.0,
+          "model_criticism": 0.04540657807824092,
+          "refresh_particle_count": 8,
+          "root_index": 0,
+          "true_response": "Y",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.4634135588264299,
+          "current_eig": -0.0,
+          "model_criticism": 0.09560258894703261,
+          "refresh_particle_count": 8,
+          "root_index": 1,
+          "true_response": "U",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.48257756517701206,
+          "current_eig": -0.0,
+          "model_criticism": 0.151795946098021,
+          "refresh_particle_count": 8,
+          "root_index": 2,
+          "true_response": "N",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.8815322611881636,
+          "current_eig": 0.37677016125643675,
+          "model_criticism": 0.32533621068054797,
+          "refresh_particle_count": 8,
+          "root_index": 3,
+          "true_response": "U",
+          "truth_mass": 0.0
+        }
+      ],
+      "score_endpoint_spearman": {
+        "augmented_eig": null,
+        "current_eig": null,
+        "model_criticism": null
+      },
+      "selected_endpoints": {
+        "augmented_eig": 0.0,
+        "current_eig": 0.0,
+        "model_criticism": 0.0,
+        "random": 0.0
+      },
+      "selected_root_indices": {
+        "augmented_eig": 3,
+        "current_eig": 3,
+        "model_criticism": 3,
+        "random": 1
+      },
+      "semantic_distinct_auxiliary_count": 8,
+      "task_id": 170,
+      "unique_auxiliary_entity_count": 4,
+      "unique_question_count": 4
+    },
+    {
+      "endpoint_range": 0.0,
+      "initial_truth_mass": 0.0,
+      "initial_unique_entity_count": 2,
+      "non_unknown_true_response_count": 2,
+      "oracle_endpoint": 0.0,
+      "oracle_root_index": 0,
+      "refresh_particle_counts": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "roots": [
+        {
+          "augmented_eig": 0.6931471805599453,
+          "current_eig": -0.0,
+          "model_criticism": 0.6931471805599453,
+          "refresh_particle_count": 8,
+          "root_index": 0,
+          "true_response": "Y",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6931471805599453,
+          "current_eig": -0.0,
+          "model_criticism": 0.6931471805599453,
+          "refresh_particle_count": 8,
+          "root_index": 1,
+          "true_response": "U",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6931471805599453,
+          "current_eig": -0.0,
+          "model_criticism": 0.6931471805599453,
+          "refresh_particle_count": 8,
+          "root_index": 2,
+          "true_response": "Y",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6853142072764582,
+          "current_eig": -0.0,
+          "model_criticism": 0.49692912664823985,
+          "refresh_particle_count": 8,
+          "root_index": 3,
+          "true_response": "U",
+          "truth_mass": 0.0
+        }
+      ],
+      "score_endpoint_spearman": {
+        "augmented_eig": null,
+        "current_eig": null,
+        "model_criticism": null
+      },
+      "selected_endpoints": {
+        "augmented_eig": 0.0,
+        "current_eig": 0.0,
+        "model_criticism": 0.0,
+        "random": 0.0
+      },
+      "selected_root_indices": {
+        "augmented_eig": 0,
+        "current_eig": 0,
+        "model_criticism": 0,
+        "random": 1
+      },
+      "semantic_distinct_auxiliary_count": 8,
+      "task_id": 42,
+      "unique_auxiliary_entity_count": 1,
+      "unique_question_count": 4
+    },
+    {
+      "endpoint_range": 0.0,
+      "initial_truth_mass": 0.0,
+      "initial_unique_entity_count": 4,
+      "non_unknown_true_response_count": 1,
+      "oracle_endpoint": 0.0,
+      "oracle_root_index": 0,
+      "refresh_particle_counts": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "roots": [
+        {
+          "augmented_eig": 0.5623351446188083,
+          "current_eig": -0.0,
+          "model_criticism": 0.21576155433883565,
+          "refresh_particle_count": 8,
+          "root_index": 0,
+          "true_response": "Y",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6019239717322894,
+          "current_eig": -0.0,
+          "model_criticism": 0.15179594609802094,
+          "refresh_particle_count": 8,
+          "root_index": 1,
+          "true_response": "U",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": -0.0,
+          "current_eig": -0.0,
+          "model_criticism": 0.0,
+          "refresh_particle_count": 8,
+          "root_index": 2,
+          "true_response": "U",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6931471805599453,
+          "current_eig": 0.6931471805599453,
+          "model_criticism": 0.0,
+          "refresh_particle_count": 8,
+          "root_index": 3,
+          "true_response": "U",
+          "truth_mass": 0.0
+        }
+      ],
+      "score_endpoint_spearman": {
+        "augmented_eig": null,
+        "current_eig": null,
+        "model_criticism": null
+      },
+      "selected_endpoints": {
+        "augmented_eig": 0.0,
+        "current_eig": 0.0,
+        "model_criticism": 0.0,
+        "random": 0.0
+      },
+      "selected_root_indices": {
+        "augmented_eig": 3,
+        "current_eig": 3,
+        "model_criticism": 0,
+        "random": 0
+      },
+      "semantic_distinct_auxiliary_count": 8,
+      "task_id": 104,
+      "unique_auxiliary_entity_count": 2,
+      "unique_question_count": 4
+    },
+    {
+      "endpoint_range": 0.125,
+      "initial_truth_mass": 0.0,
+      "initial_unique_entity_count": 1,
+      "non_unknown_true_response_count": 3,
+      "oracle_endpoint": 0.125,
+      "oracle_root_index": 0,
+      "refresh_particle_counts": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "roots": [
+        {
+          "augmented_eig": 0.6931471805599453,
+          "current_eig": -0.0,
+          "model_criticism": 0.6931471805599453,
+          "refresh_particle_count": 8,
+          "root_index": 0,
+          "true_response": "Y",
+          "truth_mass": 0.125
+        },
+        {
+          "augmented_eig": 0.37677016125643675,
+          "current_eig": -0.0,
+          "model_criticism": 0.09560258894703261,
+          "refresh_particle_count": 8,
+          "root_index": 1,
+          "true_response": "N",
+          "truth_mass": 0.125
+        },
+        {
+          "augmented_eig": 0.2337916587064593,
+          "current_eig": 0.37677016125643675,
+          "model_criticism": 0.04540657807824092,
+          "refresh_particle_count": 8,
+          "root_index": 2,
+          "true_response": "N",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.6853142072764582,
+          "current_eig": -0.0,
+          "model_criticism": 0.49692912664823985,
+          "refresh_particle_count": 8,
+          "root_index": 3,
+          "true_response": "U",
+          "truth_mass": 0.125
+        }
+      ],
+      "score_endpoint_spearman": {
+        "augmented_eig": 0.7745966692414834,
+        "current_eig": -1.0,
+        "model_criticism": 0.7745966692414834
+      },
+      "selected_endpoints": {
+        "augmented_eig": 0.125,
+        "current_eig": 0.0,
+        "model_criticism": 0.125,
+        "random": 0.0
+      },
+      "selected_root_indices": {
+        "augmented_eig": 0,
+        "current_eig": 2,
+        "model_criticism": 0,
+        "random": 2
+      },
+      "semantic_distinct_auxiliary_count": 8,
+      "task_id": 193,
+      "unique_auxiliary_entity_count": 2,
+      "unique_question_count": 4
+    },
+    {
+      "endpoint_range": 0.0,
+      "initial_truth_mass": 0.0,
+      "initial_unique_entity_count": 3,
+      "non_unknown_true_response_count": 1,
+      "oracle_endpoint": 0.0,
+      "oracle_root_index": 0,
+      "refresh_particle_counts": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "roots": [
+        {
+          "augmented_eig": 0.2337916587064593,
+          "current_eig": 0.37677016125643675,
+          "model_criticism": 0.04540657807824092,
+          "refresh_particle_count": 8,
+          "root_index": 0,
+          "true_response": "N",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": -0.0,
+          "current_eig": -0.0,
+          "model_criticism": 0.0,
+          "refresh_particle_count": 8,
+          "root_index": 1,
+          "true_response": "U",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": 0.4634135588264299,
+          "current_eig": 0.37677016125643675,
+          "model_criticism": 0.08664339756999315,
+          "refresh_particle_count": 8,
+          "root_index": 2,
+          "true_response": "U",
+          "truth_mass": 0.0
+        },
+        {
+          "augmented_eig": -0.0,
+          "current_eig": -0.0,
+          "model_criticism": 0.0,
+          "refresh_particle_count": 8,
+          "root_index": 3,
+          "true_response": "U",
+          "truth_mass": 0.0
+        }
+      ],
+      "score_endpoint_spearman": {
+        "augmented_eig": null,
+        "current_eig": null,
+        "model_criticism": null
+      },
+      "selected_endpoints": {
+        "augmented_eig": 0.0,
+        "current_eig": 0.0,
+        "model_criticism": 0.0,
+        "random": 0.0
+      },
+      "selected_root_indices": {
+        "augmented_eig": 2,
+        "current_eig": 0,
+        "model_criticism": 2,
+        "random": 1
+      },
+      "semantic_distinct_auxiliary_count": 8,
+      "task_id": 157,
+      "unique_auxiliary_entity_count": 1,
+      "unique_question_count": 4
+    }
+  ],
+  "usage": {
+    "adapter_cost_usd": 0.3613715500000002,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 32763,
+      "adapter_cost_usd": 0.3449065500000002,
+      "adapter_prompt_tokens": 334491,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 632,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 32907,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 632,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 144,
+          "cost_usd": 0.016464999999999997,
+          "prompt_tokens": 5722,
+          "reasoning_tokens": 0,
+          "requests": 24
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 32763,
+          "cost_usd": 0.3449065500000002,
+          "prompt_tokens": 334491,
+          "reasoning_tokens": 0,
+          "requests": 632
+        }
+      },
+      "prompt_tokens": 340213,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.30625060000007,
+      "requests": 656,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.3613715500000001,
+      "run_remaining_usd": 1.13862845,
+      "total_spent_usd": 86.83705421920735
+    },
+    "http_attempts": 656,
+    "physical_requests": 656,
+    "reasoning_tokens": 0,
+    "responder": {
+      "adapter_completion_tokens": 144,
+      "adapter_cost_usd": 0.016464999999999997,
+      "adapter_prompt_tokens": 5722,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 24,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 32907,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 24,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 144,
+          "cost_usd": 0.016464999999999997,
+          "prompt_tokens": 5722,
+          "reasoning_tokens": 0,
+          "requests": 24
+        },
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 32763,
+          "cost_usd": 0.3449065500000002,
+          "prompt_tokens": 334491,
+          "reasoning_tokens": 0,
+          "requests": 632
+        }
+      },
+      "prompt_tokens": 340213,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.30625060000007,
+      "requests": 656,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.3613715500000001,
+      "run_remaining_usd": 1.13862845,
+      "total_spent_usd": 86.83705421920735
+    },
+    "retry_count": 0
+  }
+}
