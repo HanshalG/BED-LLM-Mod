@@ -1,0 +1,16 @@
+{
+  "failure_artifact_sha256": "fe1460dbfbe9601995fafa16e1ee748238973baed318476d09f2911b2da0f9ec",
+  "interface_version": "zendo-responses-structured-output-serving-1",
+  "private_raw_sha256": "e5b5f348c21d8cbfc4c7b8ddce20d067aadffa22c0b6bc0d14339c77818fafa9",
+  "run_id": "zendo-responses-structured-serving-20260725T074656Z",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "summary": {
+    "adapter_requests": 0,
+    "cost_usd": 0.0,
+    "error": "OpenRouter HTTP 404: no Responses endpoint accepted required structured-output parameters",
+    "http_attempts": 3,
+    "scientific_endpoints_evaluated": 0,
+    "tokens": 0
+  }
+}
