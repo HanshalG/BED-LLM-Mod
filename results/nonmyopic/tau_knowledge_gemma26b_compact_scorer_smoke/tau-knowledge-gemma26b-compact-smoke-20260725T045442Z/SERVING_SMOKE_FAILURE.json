@@ -1,0 +1,47 @@
+{
+  "error": "GateExecutionError: JSONDecodeError: Expecting ',' delimiter: line 1 column 22 (char 21)",
+  "interface_version": "gemma26b-thinking-compact-2",
+  "model": "google/gemma-4-26b-a4b-it",
+  "private_raw_sha256": "709b05de4a828b84b14a28bb70d387b9bc3601640e5b8525e67d34de0f3b047a",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.03621334999999999,
+    "generator": {
+      "adapter_completion_tokens": 82446,
+      "adapter_cost_usd": 0.03621334999999999,
+      "adapter_prompt_tokens": 68755,
+      "adapter_reasoning_tokens": 65173,
+      "adapter_requests": 18,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 82446,
+      "forced_exits": 4,
+      "forced_final_requests": 4,
+      "forced_final_successes": 4,
+      "http_attempts": 18,
+      "model": "google/gemma-4-26b-a4b-it",
+      "model_usage": {
+        "google/gemma-4-26b-a4b-it": {
+          "completion_tokens": 82446,
+          "cost_usd": 0.03621334999999999,
+          "prompt_tokens": 68755,
+          "reasoning_tokens": 65173,
+          "requests": 18
+        }
+      },
+      "prompt_tokens": 68755,
+      "reasoning_tokens": 65173,
+      "remaining_usd": 20.782263273749862,
+      "requests": 18,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.03621334999999999,
+      "run_remaining_usd": 0.21378665000000002,
+      "total_spent_usd": 84.60253942170729
+    },
+    "physical_requests": 18,
+    "reasoning_tokens": 65173
+  }
+}
