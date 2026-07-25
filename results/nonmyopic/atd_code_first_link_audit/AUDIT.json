@@ -1,0 +1,4034 @@
+{
+  "interface_version": "atd-code-first-link-audit-1",
+  "source": {
+    "repository": "https://github.com/kasia-kobalczyk/active-task-disambiguation",
+    "commit": "4c8ecb4d4ffdbffcc611366743fc1e2461037772",
+    "dataset_sha256": "882c3d56432b2b5b9e568398d7ebdf54f2c84fdb05fef3b833a3d935ad71861c",
+    "released_model": "gpt-4o-mini",
+    "released_strategy": "active-reasoning",
+    "released_iteration": 0,
+    "task_ids": [
+      5,
+      6,
+      17,
+      26,
+      33,
+      36,
+      38,
+      39,
+      41,
+      50,
+      54,
+      55,
+      64,
+      70,
+      73,
+      74,
+      76,
+      77,
+      81,
+      82,
+      90,
+      91,
+      93,
+      95,
+      96,
+      98,
+      101,
+      103,
+      106,
+      107,
+      109,
+      110,
+      111,
+      114,
+      115,
+      118,
+      121,
+      122,
+      123,
+      134,
+      138,
+      139,
+      141,
+      143,
+      147,
+      154,
+      159
+    ]
+  },
+  "execution": {
+    "openrouter_calls": 0,
+    "reasoning_tokens": 0,
+    "output_timeout_seconds": 0.2,
+    "hidden_test_timeout_seconds": 0.5,
+    "particle_semantics": "released completion multiplicity retained",
+    "error_semantics": "error and timeout retained as outcomes"
+  },
+  "metrics": {
+    "task_count": 47,
+    "usable_task_count": 47,
+    "mean_initial_pass_fraction": 0.7340425531914894,
+    "unsaturated_task_count": 12,
+    "dynamic_range_task_count": 4,
+    "mean_selected_gain_over_initial": 0.03102836879432624,
+    "mean_selected_gain_over_candidate_mean": -0.006160081053698075,
+    "mean_top1_regret": 0.02127659574468085,
+    "rho_task_count": 8,
+    "mean_within_task_spearman": 0.8502199772580207,
+    "positive_rho_task_count": 7
+  },
+  "gates": {
+    "usable_tasks": true,
+    "unsaturated_tasks": false,
+    "dynamic_range_tasks": false,
+    "selected_gain_over_initial": false,
+    "selected_gain_over_candidate_mean": false,
+    "mean_within_task_spearman": true,
+    "mean_top1_regret": true
+  },
+  "all_gates_pass": false,
+  "tasks": [
+    {
+      "task_id": 5,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "intersperse([], 9)",
+          "true_output": "[]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "intersperse([10, 20, 30], 5)",
+          "true_output": "[10, 5, 20, 5, 30]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "intersperse([1, 2, 3, 4], 0)",
+          "true_output": "[1, 0, 2, 0, 3, 0, 4]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "intersperse([-1, -2, -3], -9)",
+          "true_output": "[-1, -9, -2, -9, -3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "intersperse([10, 20], 5)",
+          "true_output": "[10, 5, 20]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "intersperse([1, 2, 3], -1)",
+          "true_output": "[1, -1, 2, -1, 3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "intersperse([7], 1)",
+          "true_output": "[7]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "intersperse([], 3)",
+          "true_output": "[]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 6,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "parse_nested_parens(\"()()() ()()()\")",
+          "true_output": "[1, 1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"() () (()()) ((()))\")",
+          "true_output": "[1, 1, 2, 3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"((())()) (()) ()\")",
+          "true_output": "[3, 2, 1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"() () ((())) ()\")",
+          "true_output": "[1, 1, 3, 1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"(((((())))))\")",
+          "true_output": "[6]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"(()()) () (())\")",
+          "true_output": "[2, 1, 2]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"((())((()))())\")",
+          "true_output": "[4]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"() () ()\")",
+          "true_output": "[1, 1, 1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"((()) (()()) ())\")",
+          "true_output": "[3, 2, 1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_nested_parens(\"((())()) (((()))) ()\")",
+          "true_output": "[3, 4, 1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 17,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 0.9,
+      "selected_query_index": 3,
+      "oracle_query_index": 8,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 0.89,
+      "selected_gain_over_initial": -0.9,
+      "selected_gain_over_candidate_mean": -0.89,
+      "top1_regret": 1.0,
+      "pass_fraction_range": 1.0,
+      "spearman_eig_vs_pass": -0.1111111111111111,
+      "queries": [
+        {
+          "query": "parse_music(\".| .| .| .| o o|\")",
+          "true_output": "[1, 1, 1, 1, 4, 2]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_music(\".| .| .| .| .|\")",
+          "true_output": "[1, 1, 1, 1, 1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "parse_music(\"o o o o .| .| o|\")",
+          "true_output": "[4, 4, 4, 4, 1, 1, 2]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_music(\"o o o| . .| o|\")",
+          "true_output": "error",
+          "immediate_eig": 0.9404479886553263,
+          "unique_outcomes": 4,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "parse_music(\"o o| .| o .|\")",
+          "true_output": "[4, 2, 1, 4, 1]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_music(\"o o| .| .| o o|\")",
+          "true_output": "[4, 2, 1, 1, 4, 2]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_music(\"o| o o| .| .| o o| o|\")",
+          "true_output": "[2, 4, 2, 1, 1, 4, 2, 2]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_music(\"o| o| .| .| o .|\")",
+          "true_output": "[2, 2, 1, 1, 4, 1]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_music(\"o| o| o| o|\")",
+          "true_output": "[2, 2, 2, 2]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "parse_music(\"o o o| .| .| o|\")",
+          "true_output": "[4, 4, 2, 1, 1, 2]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 26,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 0.9,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 0.975,
+      "selected_gain_over_initial": 0.09999999999999998,
+      "selected_gain_over_candidate_mean": 0.025000000000000022,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.09999999999999998,
+      "spearman_eig_vs_pass": 1.0,
+      "queries": [
+        {
+          "query": "remove_duplicates([5, 6, 7, 5, 8, 9])",
+          "true_output": "[6, 7, 8, 9]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "remove_duplicates([1, 2, 3, 2, 4, 5, 3])",
+          "true_output": "[1, 4, 5]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "remove_duplicates([1, 2, 2, 3, 4, 4, 5])",
+          "true_output": "[1, 3, 5]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "remove_duplicates([1, 2, 3, 4, 5])",
+          "true_output": "[1, 2, 3, 4, 5]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "remove_duplicates([])",
+          "true_output": "[]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "remove_duplicates([10, 10, 10, 11, 12])",
+          "true_output": "[11, 12]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "remove_duplicates([5, 5, 5, 5, 5])",
+          "true_output": "[]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "remove_duplicates([1, 2, 2, 3, 1, 4, 5])",
+          "true_output": "[3, 4, 5]",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 33,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "sort_third([7, 8, 9, 10, 11, 12, 13, 14, 15, 16])",
+          "true_output": "[7, 8, 9, 10, 11, 12, 13, 14, 15, 16]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([5, 3, 8, 1, 6, 2, 9])",
+          "true_output": "[1, 3, 8, 5, 6, 2, 9]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([3, 1, 4, 1, 5, 9, 2, 6, 5])",
+          "true_output": "[1, 1, 4, 2, 5, 9, 3, 6, 5]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([0, -1, -2, -3, -4, -5, -6, -7])",
+          "true_output": "[-6, -1, -2, -3, -4, -5, 0, -7]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([1, 3, 2, 5, 4, 8, 6, 10, 9])",
+          "true_output": "[1, 3, 2, 5, 4, 8, 6, 10, 9]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([10, 20, 30, 40, 50, 60])",
+          "true_output": "[10, 20, 30, 40, 50, 60]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([10, 15, 20, 25, 30, 35, 40])",
+          "true_output": "[10, 15, 20, 25, 30, 35, 40]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([0, -1, -2, -3, -4, -5, -6])",
+          "true_output": "[-6, -1, -2, -3, -4, -5, 0]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([7, 2, 1, 9, 4, 6, 5])",
+          "true_output": "[5, 2, 1, 7, 4, 6, 9]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "sort_third([1, 2, 3, 4, 5, 6, 7, 8, 9])",
+          "true_output": "[1, 2, 3, 4, 5, 6, 7, 8, 9]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 36,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 1,
+      "oracle_query_index": 1,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "fizz_buzz(100)",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fizz_buzz(75)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fizz_buzz(50)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fizz_buzz(30)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fizz_buzz(7)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fizz_buzz(200)",
+          "true_output": "6",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fizz_buzz(150)",
+          "true_output": "4",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fizz_buzz(20)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 38,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 4,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "decode_cyclic(\"defghi\")",
+          "true_output": "fdeigh",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_cyclic(\"a\")",
+          "true_output": "a",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_cyclic(\"abcdefghi\")",
+          "true_output": "cabfdeigh",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_cyclic(\"abcdefghijklmno\")",
+          "true_output": "cabfdeighljkomn",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_cyclic(\"rstuvwxyz\")",
+          "true_output": "trswuvzxy",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_cyclic(\"jklmnopq\")",
+          "true_output": "ljkomnpq",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_cyclic(\"abcxyz\")",
+          "true_output": "cabzxy",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_cyclic(\"abc\")",
+          "true_output": "cab",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 39,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 5,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "prime_fib(10)",
+          "true_output": "433494437",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_fib(1)",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_fib(5)",
+          "true_output": "89",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_fib(15)",
+          "true_output": "timed out",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_fib(20)",
+          "true_output": "timed out",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 41,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 6,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 3,
+      "oracle_query_index": 3,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "car_race_collision(3)",
+          "true_output": "9",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "car_race_collision(2)",
+          "true_output": "4",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "car_race_collision(1)",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "car_race_collision(5)",
+          "true_output": "25",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "car_race_collision(10)",
+          "true_output": "100",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "car_race_collision(100)",
+          "true_output": "10000",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 50,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 7,
+      "oracle_query_index": 7,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "decode_shift(\"tuvw\")",
+          "true_output": "opqr",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"hello\")",
+          "true_output": "czggj",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"lq xmj\")",
+          "true_output": "glishe",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"vjku\")",
+          "true_output": "qefp",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"fsi gtynsl\")",
+          "true_output": "andiboting",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"mnopq\")",
+          "true_output": "hijkl",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"rw ymj\")",
+          "true_output": "mrithe",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"xyzab\")",
+          "true_output": "stuvw",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"fghij\")",
+          "true_output": "abcde",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "decode_shift(\"mjqqt\")",
+          "true_output": "hello",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 54,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 7,
+      "initial_pass_fraction": 0.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 0.0,
+      "candidate_mean_pass_fraction": 0.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "same_chars(\"triangle\", \"integral\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "same_chars(\"listen\", \"silent\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "same_chars(\"apple\", \"pale\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "same_chars(\"hello\", \"world\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "same_chars(\"apple\", \"papel\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "same_chars(\"rat\", \"car\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "same_chars(\"abc\", \"abcd\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "task_id": 55,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 5,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 3,
+      "oracle_query_index": 3,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "fib(10)",
+          "true_output": "55",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fib(15)",
+          "true_output": "610",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fib(0)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fib(5)",
+          "true_output": "5",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "fib(1)",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 64,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 7,
+      "initial_pass_fraction": 0.8,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 0.8,
+      "oracle_pass_fraction": 0.8,
+      "candidate_mean_pass_fraction": 0.8,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "vowels_count(\"python\")",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.8
+        },
+        {
+          "query": "vowels_count(\"happy\")",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.8
+        },
+        {
+          "query": "vowels_count(\"umbrella\")",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.8
+        },
+        {
+          "query": "vowels_count(\"aeiou\")",
+          "true_output": "5",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.8
+        },
+        {
+          "query": "vowels_count(\"sky\")",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.8
+        },
+        {
+          "query": "vowels_count(\"cry\")",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.8
+        },
+        {
+          "query": "vowels_count(\"hello\")",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.8
+        }
+      ]
+    },
+    {
+      "task_id": 70,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "strange_sort_list([6])",
+          "true_output": "[6]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([5, 1, 3, 4, 2])",
+          "true_output": "[1, 5, 2, 4, 3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([-1, -5, -3, 0, 2])",
+          "true_output": "[-5, 2, -3, 0, -1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([5, 3, 8, 1, 2])",
+          "true_output": "[1, 8, 2, 5, 3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([4, 7, 2, 6, 1, 9])",
+          "true_output": "[1, 9, 2, 7, 4, 6]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([10, -1, 0, 5, 3])",
+          "true_output": "[-1, 10, 0, 5, 3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([10, 7, 2, 3, 8, 1])",
+          "true_output": "[1, 10, 2, 8, 3, 7]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([-5, -3, -2, -4, -1])",
+          "true_output": "[-5, -1, -4, -2, -3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([15, 12, 13, 10, 14])",
+          "true_output": "[10, 15, 12, 14, 13]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "strange_sort_list([3, 3, 2, 1, 1])",
+          "true_output": "[1, 3, 1, 3, 2]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 73,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 7,
+      "oracle_query_index": 7,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "smallest_change([1, 3, 2, 4, 1])",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "smallest_change([1, 2, 2, 3, 2, 1])",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "smallest_change([1, 2, 3, 4, 5])",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "smallest_change([1, 2, 3, 2, 1])",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "smallest_change([1, 2, 2, 1, 3])",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "smallest_change([1, 1, 1, 1, 1])",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "smallest_change([1, 2, 3, 4, 1, 2])",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "smallest_change([5, 1, 5, 3, 5, 5])",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 74,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 0.0,
+      "selected_query_index": 3,
+      "oracle_query_index": 3,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 0.0,
+      "candidate_mean_pass_fraction": 0.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "total_match([\"cat\"], [\"dog\", \"elephant\"])",
+          "true_output": "['cat']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"hello\", \"world\"], [\"hi\", \"there\"])",
+          "true_output": "['hi', 'there']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"apple\", \"banana\"], [\"grape\", \"kiwi\", \"orange\"])",
+          "true_output": "['apple', 'banana']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"short\"], [\"a\", \"b\", \"c\", \"d\", \"e\"])",
+          "true_output": "['short']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"apple\", \"banana\"], [\"kiwi\", \"pear\", \"grape\"])",
+          "true_output": "['apple', 'banana']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"cat\", \"dog\"], [\"elephant\"])",
+          "true_output": "['cat', 'dog']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"python\"], [\"java\", \"c++\"])",
+          "true_output": "['python']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"same\", \"length\"], [\"equal\", \"words\"])",
+          "true_output": "['same', 'length']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"hello\", \"world\"], [\"python\", \"rocks\"])",
+          "true_output": "['hello', 'world']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "total_match([\"a\", \"b\", \"c\", \"d\"], [\"e\", \"f\", \"g\"])",
+          "true_output": "['e', 'f', 'g']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "task_id": 76,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 6,
+      "initial_pass_fraction": 0.0,
+      "selected_query_index": 3,
+      "oracle_query_index": 3,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 0.0,
+      "candidate_mean_pass_fraction": 0.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "is_simple_power(27, 3)",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "is_simple_power(16, 4)",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "is_simple_power(10, 2)",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "is_simple_power(81, 3)",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "is_simple_power(1, 5)",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "is_simple_power(8, 2)",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "task_id": 77,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 5,
+      "initial_pass_fraction": 0.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 0.0,
+      "candidate_mean_pass_fraction": 0.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "iscube(64)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "iscube(27)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "iscube(10)",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "iscube(1)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "iscube(-8)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "task_id": 81,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 8,
+      "oracle_query_index": 8,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "numerical_letter_grade([4.0, 3.8, 3.5, 2.9, 1.2])",
+          "true_output": "['A+', 'A', 'A-', 'B', 'D+']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([3.2, 1.5, 2.1, 3.4, 0.0])",
+          "true_output": "['B+', 'C-', 'C+', 'A-', 'E']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([2.0, 3.0, 4.0, 0.0, 2.8])",
+          "true_output": "['C', 'B', 'A+', 'E', 'B']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([4.0, 3.8, 3.5, 2.9, 1.1])",
+          "true_output": "['A+', 'A', 'A-', 'B', 'D+']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([1.2, 2.9, 3.7, 2.3, 4.0])",
+          "true_output": "['D+', 'B', 'A-', 'C+', 'A+']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([2.0, 1.0, 0.5, 3.5, 3.0])",
+          "true_output": "['C', 'D', 'D-', 'A-', 'B']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([3.9, 2.5, 0.0, 3.2, 1.5])",
+          "true_output": "['A', 'B-', 'E', 'B+', 'C-']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([3.6, 2.4, 1.1, 1.9, 0.0])",
+          "true_output": "['A-', 'B-', 'D+', 'C', 'E']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([4.0, 4.0, 4.0, 4.0])",
+          "true_output": "['A+', 'A+', 'A+', 'A+']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "numerical_letter_grade([3.9, 3.6, 2.5, 0.2, 1.0])",
+          "true_output": "['A', 'A-', 'B-', 'D-', 'D']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 82,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "prime_length(\"abcde\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"Python\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"world!\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"abcdefgh\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"abcdef\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"abcdefghij\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"a\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"hello\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "prime_length(\"this is a test\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 90,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 4,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "next_smallest([10, 10, 10])",
+          "true_output": "None",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([15, 20, 15, 30, 25])",
+          "true_output": "20",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([1])",
+          "true_output": "None",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([5, 3, 8, 1, 4])",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([])",
+          "true_output": "None",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([5, 3, 1, 4, 2])",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([-1, -2, -3, -4])",
+          "true_output": "-3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([7, 5, 5, 6, 6])",
+          "true_output": "6",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "next_smallest([7])",
+          "true_output": "None",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 91,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 0.2,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 0.5,
+      "oracle_pass_fraction": 0.5,
+      "candidate_mean_pass_fraction": 0.41,
+      "selected_gain_over_initial": 0.3,
+      "selected_gain_over_candidate_mean": 0.09000000000000002,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.3,
+      "spearman_eig_vs_pass": 0.9128709291752768,
+      "queries": [
+        {
+          "query": "is_bored(\"What should I do? I feel bored! It\u2019s a nice day.\")",
+          "true_output": "1",
+          "immediate_eig": 0.9433483923290392,
+          "unique_outcomes": 3,
+          "survivor_count": 4,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "is_bored(\"I am excited! I want to go out. I don't want to be bored.\")",
+          "true_output": "3",
+          "immediate_eig": 0.6730116670092565,
+          "unique_outcomes": 2,
+          "survivor_count": 4,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "is_bored(\"I am bored! Let's do something. I don't know what to do.\")",
+          "true_output": "2",
+          "immediate_eig": 0.6730116670092565,
+          "unique_outcomes": 2,
+          "survivor_count": 4,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "is_bored(\"This is a test. I should get some rest. I am not bored!\")",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.2
+        },
+        {
+          "query": "is_bored(\"I love coding! Do you enjoy it? I think it's great.\")",
+          "true_output": "2",
+          "immediate_eig": 0.6730116670092565,
+          "unique_outcomes": 2,
+          "survivor_count": 4,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "is_bored(\"I am bored. This is fun! I want to play.\")",
+          "true_output": "2",
+          "immediate_eig": 0.6730116670092565,
+          "unique_outcomes": 2,
+          "survivor_count": 4,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "is_bored(\"What are you doing? I feel tired. I need a break.\")",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.2
+        },
+        {
+          "query": "is_bored(\"I need a break! I am so tired... I wish for a vacation!\")",
+          "true_output": "3",
+          "immediate_eig": 0.6730116670092565,
+          "unique_outcomes": 2,
+          "survivor_count": 4,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "is_bored(\"I am bored. Are you bored? I want to play!\")",
+          "true_output": "2",
+          "immediate_eig": 0.6730116670092565,
+          "unique_outcomes": 2,
+          "survivor_count": 4,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "is_bored(\"This is fun! I don't feel bored. Let's do something.\")",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.2
+        }
+      ]
+    },
+    {
+      "task_id": 93,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 0.1,
+      "selected_query_index": 4,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.9,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "encode(\"Replace all vowels correctly\")",
+          "true_output": "rGPLCCG CLL VQWGLS CQRRGCTLY",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"Encode this message\")",
+          "true_output": "gNCQDG THKS MGSSCGG",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"Python Programming\")",
+          "true_output": "pYTHQN pRQGRCMMKNG",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"Python is great\")",
+          "true_output": "pYTHQN KS GRGCT",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"Vowels are important\")",
+          "true_output": "vQWGLS CRG KMPQRTCNT",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"Amazing Examples\")",
+          "true_output": "cMCZKNG gXCMPLGS",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"This is a test message\")",
+          "true_output": "tHKS KS C TGST MGSSCGG",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"Hello World\")",
+          "true_output": "hGLLQ wQRLD",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "encode(\"Encode vowels: A, E, I, O, U\")",
+          "true_output": "gNCQDG VQWGLS: c, g, k, q, w",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 1,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 95,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 0.7,
+      "selected_query_index": 7,
+      "oracle_query_index": 7,
+      "selected_pass_fraction": 0.7,
+      "oracle_pass_fraction": 0.7,
+      "candidate_mean_pass_fraction": 0.7,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "check_dict_case({\"a\": 1, \"b\": 2, \"c\": 3})",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({'a': 1, 'b': 2, 'c': 3})",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({\"a\": 1, \"B\": 2, \"c\": 3})",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({\"hello\": 5, \"world\": 6})",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({\"A\": 1, \"B\": 2, \"C\": 3})",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({'a': 1, 'B': 2, 'c': 3})",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({'hello': 1, 'world': 2})",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({})",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        },
+        {
+          "query": "check_dict_case({'A': 1, 'B': 2, 'C': 3})",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.7
+        }
+      ]
+    },
+    {
+      "task_id": 96,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 6,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 5,
+      "oracle_query_index": 5,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "count_up_to(0)",
+          "true_output": "[]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_up_to(15)",
+          "true_output": "[2, 3, 5, 7, 11, 13]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_up_to(10)",
+          "true_output": "[2, 3, 5, 7]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_up_to(1)",
+          "true_output": "[]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_up_to(20)",
+          "true_output": "[2, 3, 5, 7, 11, 13, 17, 19]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_up_to(5)",
+          "true_output": "[2, 3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 98,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 5,
+      "oracle_query_index": 5,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "count_upper(\"Aardvark\")",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_upper(\"AEIOUaeiou\")",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_upper(\"Hello World\")",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_upper(\"Count Upper Vowels\")",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_upper(\"AEIOU\")",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_upper(\"abcdefgHIJKLMNOP\")",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_upper(\"Umbrella\")",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "count_upper(\"Python Programming\")",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 101,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "words_string(\"singleword\")",
+          "true_output": "['singleword']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"apple,banana,orange\")",
+          "true_output": "['apple', 'banana', 'orange']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"apple, banana, cherry\")",
+          "true_output": "['apple', 'banana', 'cherry']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"cat, dog,fish, rabbit\")",
+          "true_output": "['cat', 'dog', 'fish', 'rabbit']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"Python  Java   C++\")",
+          "true_output": "['Python', 'Java', 'C++']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"red,blue,green yellow\")",
+          "true_output": "['red', 'blue', 'green', 'yellow']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"dog cat mouse\")",
+          "true_output": "['dog', 'cat', 'mouse']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"one,two, three,four\")",
+          "true_output": "['one', 'two', 'three', 'four']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_string(\"hello world\")",
+          "true_output": "['hello', 'world']",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 103,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 0.0,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 0.0,
+      "candidate_mean_pass_fraction": 0.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "rounded_avg(15, 10)",
+          "true_output": "-1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(1, 5)",
+          "true_output": "0b11",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(5, 1)",
+          "true_output": "-1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(0, 4)",
+          "true_output": "0b10",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(10, 10)",
+          "true_output": "0b1010",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(10, 20)",
+          "true_output": "0b1111",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(3, 7)",
+          "true_output": "0b101",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(0, 8)",
+          "true_output": "0b100",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "rounded_avg(3, 3)",
+          "true_output": "0b11",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "task_id": 106,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 5,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "f(4)",
+          "true_output": "[1, 2, 6, 24]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "f(1)",
+          "true_output": "[1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "f(5)",
+          "true_output": "[1, 2, 6, 24, 15]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "f(2)",
+          "true_output": "[1, 2]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "f(3)",
+          "true_output": "[1, 2, 6]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 107,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 7,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 4,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "even_odd_palindrome(10)",
+          "true_output": "(4, 5)",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "even_odd_palindrome(25)",
+          "true_output": "(5, 6)",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "even_odd_palindrome(100)",
+          "true_output": "(8, 10)",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "even_odd_palindrome(1000)",
+          "true_output": "(48, 60)",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "even_odd_palindrome(999)",
+          "true_output": "(48, 60)",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "even_odd_palindrome(1)",
+          "true_output": "(0, 1)",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "even_odd_palindrome(200)",
+          "true_output": "(8, 20)",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 109,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 1,
+      "oracle_query_index": 1,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "move_one_ball([3, 2, 1])",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "move_one_ball([])",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "move_one_ball([3, 4, 5, 1, 2])",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "move_one_ball([5, 1, 2, 3, 4])",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "move_one_ball([1, 2, 3, 4])",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "move_one_ball([1, 2, 3, 4, 5])",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "move_one_ball([4, 5, 1, 2, 3])",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "move_one_ball([2, 3, 4, 5, 1])",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 110,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 6,
+      "initial_pass_fraction": 0.3,
+      "selected_query_index": 4,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 0.3333333333333333,
+      "oracle_pass_fraction": 0.3333333333333333,
+      "candidate_mean_pass_fraction": 0.3333333333333333,
+      "selected_gain_over_initial": 0.033333333333333326,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "exchange([1, 3, 5], [2, 4, 6])",
+          "true_output": "YES",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.3333333333333333
+        },
+        {
+          "query": "exchange([2, 4, 6], [1, 3, 5])",
+          "true_output": "YES",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.3333333333333333
+        },
+        {
+          "query": "exchange([1, 2, 3], [4, 5, 6])",
+          "true_output": "YES",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.3333333333333333
+        },
+        {
+          "query": "exchange([1, 2, 3], [3, 5, 7])",
+          "true_output": "NO",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.3333333333333333
+        },
+        {
+          "query": "exchange([7, 9], [10, 12, 14])",
+          "true_output": "YES",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.3333333333333333
+        },
+        {
+          "query": "exchange([1], [2])",
+          "true_output": "YES",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.3333333333333333
+        }
+      ]
+    },
+    {
+      "task_id": 111,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 0.0,
+      "selected_query_index": 6,
+      "oracle_query_index": 6,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 0.0,
+      "candidate_mean_pass_fraction": 0.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "histogram(\"x y z x y z x y z\")",
+          "true_output": "{'x': 3, 'y': 3, 'z': 3}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"m n m n m n o p q r s t\")",
+          "true_output": "{'m': 3, 'n': 3}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"m n o p q r s t u v w x y z\")",
+          "true_output": "{'m': 1, 'n': 1, 'o': 1, 'p': 1, 'q': 1, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 1, 'w': 1, 'x': 1, 'y': 1, 'z': 1}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"p q r s t u v w x y z p q r\")",
+          "true_output": "{'p': 2, 'q': 2, 'r': 2}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"a a a b b c c d e f g\")",
+          "true_output": "{'a': 3}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"h e l l o w o r l d\")",
+          "true_output": "{'l': 3}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"x y z x y z x\")",
+          "true_output": "{'x': 3}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"a b a b a b a b\")",
+          "true_output": "{'a': 4, 'b': 4}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"a b c a a b c d e f g h i j k l m n o p q r s t u v w x y z\")",
+          "true_output": "{'a': 3}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "histogram(\"a b c a a b c d e e e\")",
+          "true_output": "{'a': 3, 'e': 3}",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "task_id": 114,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "minSubArraySum([5, -1, -2, 3, -4, 2])",
+          "true_output": "-4",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "minSubArraySum([1, 2, 3, 4])",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "minSubArraySum([-1, -2, -3, -4])",
+          "true_output": "-10",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "minSubArraySum([0, 2, -5, 1, -3])",
+          "true_output": "-7",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "minSubArraySum([3, -1, 4, -2, -3, 1])",
+          "true_output": "-5",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "minSubArraySum([0, 1, 2, -2, -1])",
+          "true_output": "-3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "minSubArraySum([3, -2, 5, -1])",
+          "true_output": "-2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "minSubArraySum([-1, 2, -3, 4, -5])",
+          "true_output": "-5",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 115,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 0.0,
+      "selected_query_index": 0,
+      "oracle_query_index": 0,
+      "selected_pass_fraction": 0.0,
+      "oracle_pass_fraction": 0.0,
+      "candidate_mean_pass_fraction": 0.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "max_fill([[1, 1], [1, 1], [1, 1], [1, 1]], 1)",
+          "true_output": "8",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[1, 1, 1], [1, 0, 1], [0, 1, 1]], 2)",
+          "true_output": "4",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[1, 0], [1, 1], [1, 1], [1, 0]], 10)",
+          "true_output": "4",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[1, 1], [1, 0], [0, 1]], 1)",
+          "true_output": "4",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[0, 0, 0], [0, 0, 0]], 5)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[1, 1, 1], [1, 1, 1], [1, 0, 1]], 3)",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[1, 0, 1], [1, 1, 1]], 2)",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[1, 1, 1, 1, 0], [1, 1, 0, 1, 1]], 4)",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.0
+        },
+        {
+          "query": "max_fill([[1, 0, 1, 0], [1, 1, 1, 1]], 3)",
+          "true_output": "3",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 0,
+          "posterior_pass_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "task_id": 118,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 0.9,
+      "selected_query_index": 3,
+      "oracle_query_index": 3,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 0.9400000000000001,
+      "selected_gain_over_initial": 0.09999999999999998,
+      "selected_gain_over_candidate_mean": 0.05999999999999994,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.09999999999999998,
+      "spearman_eig_vs_pass": 1.0,
+      "queries": [
+        {
+          "query": "get_closest_vowel(\"textbook\")",
+          "true_output": "e",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_closest_vowel(\"algorithm\")",
+          "true_output": "i",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "get_closest_vowel(\"example\")",
+          "true_output": "a",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "get_closest_vowel(\"xyzOabc\")",
+          "true_output": "",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_closest_vowel(\"sky\")",
+          "true_output": "",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "get_closest_vowel(\"bcdAefg\")",
+          "true_output": "",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_closest_vowel(\"bcdeEfg\")",
+          "true_output": "",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_closest_vowel(\"abcde\")",
+          "true_output": "",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "get_closest_vowel(\"hello\")",
+          "true_output": "e",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "get_closest_vowel(\"HelloWorld\")",
+          "true_output": "o",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        }
+      ]
+    },
+    {
+      "task_id": 121,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 0.9,
+      "selected_query_index": 7,
+      "oracle_query_index": 7,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 0.99,
+      "selected_gain_over_initial": 0.09999999999999998,
+      "selected_gain_over_candidate_mean": 0.010000000000000009,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.09999999999999998,
+      "spearman_eig_vs_pass": 1.0,
+      "queries": [
+        {
+          "query": "solution([0, 0, 0, 0, 0])",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.9
+        },
+        {
+          "query": "solution([10, 21, 32, 43, 54, 65])",
+          "true_output": "0",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([1, 2, 3, 4, 5])",
+          "true_output": "9",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([4, 5, 6, 7, 8, 9])",
+          "true_output": "0",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([1])",
+          "true_output": "1",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([1, 2, 3, 4, 5, 6])",
+          "true_output": "9",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([0, 1, 2, 3, 4, 5])",
+          "true_output": "0",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([7, 8, 9, 10, 11, 12])",
+          "true_output": "27",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([7, 1, 2, 3, 5, 9, 11])",
+          "true_output": "23",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "solution([10, 21, 32, 43, 54])",
+          "true_output": "0",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 122,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 3,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "add_elements([100, 23, 5, 6, 2], 4)",
+          "true_output": "34",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([100, 34, 5, 9, 23], 5)",
+          "true_output": "71",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([10, -2, 45, 78, 99], 5)",
+          "true_output": "230",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([-10, 12, 15, 300, 8], 4)",
+          "true_output": "27",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([99, 123, 4, 56, -7], 3)",
+          "true_output": "103",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([0, -5, 12, 35, 15, 42], 2)",
+          "true_output": "-5",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([1, 23, 45, 6, 78], 3)",
+          "true_output": "69",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([-1, 2, 3, 400, 50], 3)",
+          "true_output": "4",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([1, 22, 333, 4, 5], 3)",
+          "true_output": "23",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "add_elements([11, 12, 13, 14, 15], 2)",
+          "true_output": "23",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 123,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 6,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 4,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "get_odd_collatz(15)",
+          "true_output": "[1, 5, 15, 23, 35, 53]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_odd_collatz(10)",
+          "true_output": "[1, 5]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_odd_collatz(1)",
+          "true_output": "[1]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_odd_collatz(3)",
+          "true_output": "[1, 3, 5]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_odd_collatz(7)",
+          "true_output": "[1, 5, 7, 11, 13, 17]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_odd_collatz(6)",
+          "true_output": "[1, 3, 5]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 134,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 10,
+      "initial_pass_fraction": 0.1,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 0.125,
+      "oracle_pass_fraction": 0.125,
+      "candidate_mean_pass_fraction": 0.11111111111111112,
+      "selected_gain_over_initial": 0.024999999999999994,
+      "selected_gain_over_candidate_mean": 0.013888888888888881,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.024999999999999994,
+      "spearman_eig_vs_pass": 1.0,
+      "queries": [
+        {
+          "query": "check_if_last_char_is_a_letter(\"End of the line.\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Python Programming \")",
+          "true_output": "False",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.1111111111111111
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Python programming\")",
+          "true_output": "False",
+          "immediate_eig": 0.5004024235381879,
+          "unique_outcomes": 2,
+          "survivor_count": 8,
+          "posterior_pass_fraction": 0.125
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Hello World!\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Hello world?\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"1234 Test\")",
+          "true_output": "False",
+          "immediate_eig": 0.5004024235381879,
+          "unique_outcomes": 2,
+          "survivor_count": 8,
+          "posterior_pass_fraction": 0.125
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Hello world\")",
+          "true_output": "False",
+          "immediate_eig": 0.5004024235381879,
+          "unique_outcomes": 2,
+          "survivor_count": 8,
+          "posterior_pass_fraction": 0.125
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Hello World\")",
+          "true_output": "False",
+          "immediate_eig": 0.5004024235381879,
+          "unique_outcomes": 2,
+          "survivor_count": 8,
+          "posterior_pass_fraction": 0.125
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Python programming.\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        },
+        {
+          "query": "check_if_last_char_is_a_letter(\"Hello world!\")",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        }
+      ]
+    },
+    {
+      "task_id": 138,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 7,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "is_equal_to_sum_even(14)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "is_equal_to_sum_even(16)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "is_equal_to_sum_even(8)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "is_equal_to_sum_even(20)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "is_equal_to_sum_even(10)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "is_equal_to_sum_even(15)",
+          "true_output": "False",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "is_equal_to_sum_even(12)",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 139,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 5,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 2,
+      "oracle_query_index": 2,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "special_factorial(1)",
+          "true_output": "1",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "special_factorial(2)",
+          "true_output": "2",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "special_factorial(5)",
+          "true_output": "34560",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "special_factorial(3)",
+          "true_output": "12",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "special_factorial(4)",
+          "true_output": "288",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 141,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 6,
+      "oracle_query_index": 6,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "file_name_check(\"123invalid.txt\")",
+          "true_output": "No",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"123file.txt\")",
+          "true_output": "No",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"data.abc\")",
+          "true_output": "No",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"report.vbs\")",
+          "true_output": "No",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"document.txt\")",
+          "true_output": "Yes",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"file123.exe\")",
+          "true_output": "Yes",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"valid_file_name.doc\")",
+          "true_output": "No",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"test.file.dll\")",
+          "true_output": "No",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "file_name_check(\"example.txt\")",
+          "true_output": "Yes",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 143,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 9,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 7,
+      "oracle_query_index": 7,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "words_in_sentence(\"Python programming is fun\")",
+          "true_output": "programming is fun",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"I love programming in Python\")",
+          "true_output": "programming in",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"Hello world this is a test\")",
+          "true_output": "Hello world is",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"Python is awesome and fun\")",
+          "true_output": "is awesome and fun",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"The quick brown fox jumps over the lazy dog\")",
+          "true_output": "The quick brown fox jumps the dog",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\")",
+          "true_output": "",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"OpenAI creates innovative solutions\")",
+          "true_output": "creates",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"This is an example sentence\")",
+          "true_output": "is an example",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "words_in_sentence(\"Code efficiently and effectively\")",
+          "true_output": "efficiently and effectively",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 147,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 7,
+      "initial_pass_fraction": 0.6,
+      "selected_query_index": 4,
+      "oracle_query_index": 4,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 0.9428571428571428,
+      "selected_gain_over_initial": 0.4,
+      "selected_gain_over_candidate_mean": 0.05714285714285716,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.4,
+      "spearman_eig_vs_pass": 1.0,
+      "queries": [
+        {
+          "query": "get_max_triples(5)",
+          "true_output": "1",
+          "immediate_eig": 0.8979457248567798,
+          "unique_outcomes": 3,
+          "survivor_count": 6,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_max_triples(3)",
+          "true_output": "0",
+          "immediate_eig": 0.8979457248567798,
+          "unique_outcomes": 3,
+          "survivor_count": 6,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_max_triples(6)",
+          "true_output": "4",
+          "immediate_eig": 0.8979457248567798,
+          "unique_outcomes": 3,
+          "survivor_count": 6,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_max_triples(12)",
+          "true_output": "60",
+          "immediate_eig": 0.8979457248567798,
+          "unique_outcomes": 3,
+          "survivor_count": 6,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_max_triples(7)",
+          "true_output": "10",
+          "immediate_eig": 0.8979457248567798,
+          "unique_outcomes": 3,
+          "survivor_count": 6,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "get_max_triples(1)",
+          "true_output": "0",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.6
+        },
+        {
+          "query": "get_max_triples(10)",
+          "true_output": "36",
+          "immediate_eig": 0.8979457248567798,
+          "unique_outcomes": 3,
+          "survivor_count": 6,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    },
+    {
+      "task_id": 154,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 0.1,
+      "selected_query_index": 6,
+      "oracle_query_index": 6,
+      "selected_pass_fraction": 0.5,
+      "oracle_pass_fraction": 0.5,
+      "candidate_mean_pass_fraction": 0.15555555555555556,
+      "selected_gain_over_initial": 0.4,
+      "selected_gain_over_candidate_mean": 0.34444444444444444,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.4,
+      "spearman_eig_vs_pass": 1.0,
+      "queries": [
+        {
+          "query": "cycpattern_check(\"abcde\", \"deabc\")",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.1111111111111111
+        },
+        {
+          "query": "cycpattern_check(\"testword\", \"wordtest\")",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.1111111111111111
+        },
+        {
+          "query": "cycpattern_check(\"rotation\", \"tationro\")",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.1111111111111111
+        },
+        {
+          "query": "cycpattern_check(\"abcde\", \"cde\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        },
+        {
+          "query": "cycpattern_check(\"hello\", \"lo\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        },
+        {
+          "query": "cycpattern_check(\"hello\", \"ll\")",
+          "true_output": "True",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 0.1
+        },
+        {
+          "query": "cycpattern_check(\"pattern\", \"ternpa\")",
+          "true_output": "False",
+          "immediate_eig": 0.5004024235381879,
+          "unique_outcomes": 2,
+          "survivor_count": 2,
+          "posterior_pass_fraction": 0.5
+        },
+        {
+          "query": "cycpattern_check(\"python\", \"onpyth\")",
+          "true_output": "True",
+          "immediate_eig": 0.3250829733914482,
+          "unique_outcomes": 2,
+          "survivor_count": 9,
+          "posterior_pass_fraction": 0.1111111111111111
+        }
+      ]
+    },
+    {
+      "task_id": 159,
+      "usable": true,
+      "particle_count": 10,
+      "query_count": 8,
+      "initial_pass_fraction": 1.0,
+      "selected_query_index": 5,
+      "oracle_query_index": 5,
+      "selected_pass_fraction": 1.0,
+      "oracle_pass_fraction": 1.0,
+      "candidate_mean_pass_fraction": 1.0,
+      "selected_gain_over_initial": 0.0,
+      "selected_gain_over_candidate_mean": 0.0,
+      "top1_regret": 0.0,
+      "pass_fraction_range": 0.0,
+      "spearman_eig_vs_pass": null,
+      "queries": [
+        {
+          "query": "eat(10, 0, 20)",
+          "true_output": "[10, 20]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "eat(3, 7, 2)",
+          "true_output": "[5, 0]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "eat(0, 5, 0)",
+          "true_output": "[0, 0]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "eat(10, 10, 10)",
+          "true_output": "[20, 0]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "eat(3, 8, 2)",
+          "true_output": "[5, 0]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "eat(8, 2, 5)",
+          "true_output": "[10, 3]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "eat(20, 30, 25)",
+          "true_output": "[45, 0]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        },
+        {
+          "query": "eat(5, 10, 15)",
+          "true_output": "[15, 5]",
+          "immediate_eig": -0.0,
+          "unique_outcomes": 1,
+          "survivor_count": 10,
+          "posterior_pass_fraction": 1.0
+        }
+      ]
+    }
+  ]
+}
