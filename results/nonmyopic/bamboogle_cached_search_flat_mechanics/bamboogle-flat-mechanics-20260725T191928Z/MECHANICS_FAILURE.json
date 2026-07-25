@@ -1,0 +1,55 @@
+{
+  "error": "GateExecutionError: ValueError: all initial root and fixed queries must be distinct",
+  "interface_version": "bamboogle-cached-search-mechanics-flat-3",
+  "private_raw_sha256": "288fc5ea2383c08d2316632387a780c9677b623a9a09cdc71459bd8d76e02b34",
+  "retrieval": {
+    "cache_hits": 0,
+    "cache_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logical_actions": 0,
+    "physical_requests": 0,
+    "transport_retries": 0
+  },
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0146675,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 735,
+      "adapter_cost_usd": 0.0146675,
+      "adapter_prompt_tokens": 1457,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 5,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 735,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 5,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 735,
+          "cost_usd": 0.0146675,
+          "prompt_tokens": 1457,
+          "reasoning_tokens": 0,
+          "requests": 5
+        }
+      },
+      "prompt_tokens": 1457,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.547171280793279,
+      "requests": 5,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.0146675,
+      "run_remaining_usd": 0.7353325,
+      "total_spent_usd": 90.45282871920672
+    },
+    "http_attempts": 5,
+    "physical_requests": 5,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
