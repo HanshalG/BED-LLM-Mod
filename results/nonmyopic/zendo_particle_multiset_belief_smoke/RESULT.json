@@ -1,0 +1,65 @@
+{
+  "interface_version": "zendo-particle-multiset-belief-1",
+  "private_raw_sha256": "96edeaf44190c16e756a67a3a7e2f0f352f96e3d2fa11cd29f308b6c0aeea0cd",
+  "run_artifact_sha256": "49624677554f895ed70ca36e6ac9cbf53b9c2cd4c1706c0a2d84e93ee05a457c",
+  "run_id": "zendo-particle-multiset-smoke-20260725T072852Z",
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "distinct_refreshed_support_count": 8,
+    "fixed_support_depth_two_selected_root": 1,
+    "immediate_sacrifice_nats": 0.31637701930350826,
+    "initial_support_signature_count": 12,
+    "model_minus_fixed_realized_weighted_truth_agreement": 0.0966052827380951,
+    "model_minus_myopic_realized_weighted_truth_agreement": 0.0966052827380951,
+    "model_selected_root": 4,
+    "myopic_selected_root": 1,
+    "realized_endpoint_range": 0.1755304074754901,
+    "score_realized_endpoint_spearman": 0.8
+  },
+  "task_name": "mu",
+  "root_rows": [
+    {
+      "fixed_support_depth_two_score": 0.9892638744281455,
+      "immediate_eig": 0.4946319372140726,
+      "model_final_readiness_score": 50,
+      "realized_maximum_truth_agreement": 0.71875,
+      "realized_weighted_truth_agreement": 0.6360444568452381,
+      "root_index": 1
+    },
+    {
+      "fixed_support_depth_two_score": 0.8792350690062289,
+      "immediate_eig": 0.38965353400831804,
+      "model_final_readiness_score": 43,
+      "realized_maximum_truth_agreement": 0.75390625,
+      "realized_weighted_truth_agreement": 0.6147318468169761,
+      "root_index": 2
+    },
+    {
+      "fixed_support_depth_two_score": 0.7965191174063879,
+      "immediate_eig": 0.30188718019231553,
+      "model_final_readiness_score": 47,
+      "realized_maximum_truth_agreement": 0.75390625,
+      "realized_weighted_truth_agreement": 0.5571193321078431,
+      "root_index": 3
+    },
+    {
+      "fixed_support_depth_two_score": 0.6645681275209772,
+      "immediate_eig": 0.17825491791056436,
+      "model_final_readiness_score": 56,
+      "realized_maximum_truth_agreement": 0.759765625,
+      "realized_weighted_truth_agreement": 0.7326497395833332,
+      "root_index": 4
+    }
+  ],
+  "usage": {
+    "completion_tokens": 5503,
+    "cost_usd": 0.11848,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "physical_requests": 10,
+    "prompt_tokens": 14374,
+    "reasoning_tokens": 0,
+    "retries": 0
+  }
+}
