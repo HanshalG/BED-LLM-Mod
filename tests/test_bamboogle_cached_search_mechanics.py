@@ -49,6 +49,7 @@ def _initial_payload(task_index: int) -> dict[str, object]:
 class FakeModel:
     def __init__(self) -> None:
         self.requests = 0
+        self.structured_formats = []
 
     def chat_complete_messages_batched(
         self,
@@ -89,6 +90,22 @@ class FakeModel:
             responses.append(json.dumps(response, separators=(",", ":")))
         self.requests += len(responses)
         return responses
+
+    def chat_complete_messages_batched_structured(
+        self,
+        batch_messages,
+        temperature,
+        block_size,
+        response_format,
+        max_new_tokens=None,
+    ):
+        self.structured_formats.append(response_format)
+        return self.chat_complete_messages_batched(
+            batch_messages,
+            temperature,
+            block_size,
+            max_new_tokens=max_new_tokens,
+        )
 
     def usage_snapshot(self):
         return {
@@ -226,6 +243,25 @@ def test_wikipedia_parser_orders_pages_and_truncates_extracts():
     assert len(documents[0]["extract"]) == MODULE.MAX_EXTRACT_CHARS
 
 
+def test_response_formats_are_strict_closed_schemas():
+    formats = [
+        MODULE.initial_response_format(),
+        MODULE.refresh_response_format(),
+        MODULE.terminal_response_format(),
+    ]
+
+    assert all(value["type"] == "json_schema" for value in formats)
+    assert all(value["json_schema"]["strict"] for value in formats)
+    for value in formats:
+        schema = value["json_schema"]["schema"]
+        assert schema["additionalProperties"] is False
+        assert set(schema["required"]) == set(schema["properties"])
+    initial = formats[0]["json_schema"]["schema"]["properties"]
+    assert len(initial) == 24
+    assert initial["weight_1"]["minimum"] == 1
+    assert initial["weight_1"]["maximum"] == 100
+
+
 def test_run_mechanics_uses_exact_frozen_call_counts(tmp_path, monkeypatch):
     data_path = tmp_path / "bamboogle.jsonl"
     raw_path = tmp_path / "private" / "RAW_RESPONSES.json"
@@ -260,6 +296,39 @@ def test_run_mechanics_uses_exact_frozen_call_counts(tmp_path, monkeypatch):
         "gold-0",
     ):
         assert forbidden not in serialized_public
+
+
+def test_structured_v2_uses_schema_for_all_four_model_batches(
+    tmp_path,
+    monkeypatch,
+):
+    data_path = tmp_path / "bamboogle.jsonl"
+    raw_path = tmp_path / "private" / "RAW_RESPONSES.json"
+    _write_fixture(data_path)
+    source_hash = hashlib.sha256(data_path.read_bytes()).hexdigest()
+    monkeypatch.setattr(MODULE, "SOURCE_SHA256", source_hash)
+    model = FakeModel()
+
+    result = MODULE.run_mechanics(
+        object(),
+        data_path=data_path,
+        raw_path=raw_path,
+        model_adapter=model,
+        retriever=FakeRetriever(),
+        interface_version="fixture-v2",
+        structured_outputs=True,
+    )
+
+    assert result["protocol"]["interface_version"] == "fixture-v2"
+    assert result["protocol"]["response_format"] == "chat_strict_json_schema"
+    assert [
+        value["json_schema"]["name"] for value in model.structured_formats
+    ] == [
+        "bamboogle_initial_belief",
+        "bamboogle_root_refresh",
+        "bamboogle_terminal_belief",
+        "bamboogle_terminal_belief",
+    ]
 
 
 def test_gold_mass_uses_exact_normalized_answer_support():

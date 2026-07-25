@@ -62,6 +62,15 @@ class ChatModel(Protocol):
 
     def usage_snapshot(self) -> dict[str, Any]: ...
 
+    def chat_complete_messages_batched_structured(
+        self,
+        batch_messages: list[list[dict[str, str]]],
+        temperature: float,
+        block_size: int,
+        response_format: dict[str, Any],
+        max_new_tokens: int | None = None,
+    ) -> list[str]: ...
+
 
 class Retriever(Protocol):
     logical_actions: int
@@ -285,6 +294,73 @@ def _belief_output_schema() -> dict[str, str]:
             "integer 1..100; all eight weights must sum to 100"
         )
     return schema
+
+
+def _json_schema_format(
+    name: str,
+    properties: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    return {
+        "type": "json_schema",
+        "json_schema": {
+            "name": name,
+            "strict": True,
+            "schema": {
+                "type": "object",
+                "properties": properties,
+                "required": list(properties),
+                "additionalProperties": False,
+            },
+        },
+    }
+
+
+def _belief_schema_properties() -> dict[str, dict[str, Any]]:
+    properties: dict[str, dict[str, Any]] = {}
+    for index in range(1, HYPOTHESIS_COUNT + 1):
+        properties[_hypothesis_key(index)] = {
+            "type": "string",
+            "minLength": 1,
+        }
+        properties[_weight_key(index)] = {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+        }
+    return properties
+
+
+def initial_response_format() -> dict[str, Any]:
+    properties = _belief_schema_properties()
+    for index in range(1, ROOT_COUNT + 1):
+        properties[f"root_{index}_query"] = {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+        }
+        properties[f"fixed_{index}_query"] = {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+        }
+    return _json_schema_format("bamboogle_initial_belief", properties)
+
+
+def refresh_response_format() -> dict[str, Any]:
+    properties = _belief_schema_properties()
+    properties["adaptive_query"] = {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200,
+    }
+    return _json_schema_format("bamboogle_root_refresh", properties)
+
+
+def terminal_response_format() -> dict[str, Any]:
+    return _json_schema_format(
+        "bamboogle_terminal_belief",
+        _belief_schema_properties(),
+    )
 
 
 def _belief_payload(belief: Belief) -> list[dict[str, Any]]:
@@ -651,6 +727,26 @@ def _select_lowest_entropy(values: Sequence[float]) -> int:
     return min(range(len(values)), key=lambda index: (values[index], index))
 
 
+def _complete_batch(
+    model: ChatModel,
+    messages: list[list[dict[str, str]]],
+    *,
+    response_format: dict[str, Any] | None,
+) -> list[str]:
+    kwargs = {
+        "temperature": TEMPERATURE,
+        "block_size": len(messages),
+        "max_new_tokens": MAX_NEW_TOKENS,
+    }
+    if response_format is None:
+        return model.chat_complete_messages_batched(messages, **kwargs)
+    return model.chat_complete_messages_batched_structured(
+        messages,
+        response_format=response_format,
+        **kwargs,
+    )
+
+
 def summarize_run(
     *,
     tasks: Sequence[dict[str, str]],
@@ -659,6 +755,8 @@ def summarize_run(
     gold_answers: dict[str, list[str]],
     usage: dict[str, Any],
     retrieval: dict[str, Any],
+    interface_version: str = INTERFACE_VERSION,
+    structured_outputs: bool = False,
 ) -> dict[str, Any]:
     if len(tasks) != len(initial_beliefs) or len(tasks) != len(branches_by_task):
         raise ValueError("task, initial, and branch groups differ in length")
@@ -860,7 +958,7 @@ def summarize_run(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "source_sha256": SOURCE_SHA256,
             "task_ids": list(MECHANICS_IDS),
             "model": MODEL_ID,
@@ -875,6 +973,11 @@ def summarize_run(
             "random_policy_seed": RANDOM_POLICY_SEED,
             "gold_hidden_until_checkpoint": True,
             "scientific_retries_or_repairs": 0,
+            "response_format": (
+                "chat_strict_json_schema"
+                if structured_outputs
+                else "prompt_only_json"
+            ),
             "max_cost_usd": MAX_COST_USD,
         },
         "summary": {
@@ -926,6 +1029,8 @@ def run_mechanics(
     model_adapter: ChatModel | None = None,
     retriever: Retriever | None = None,
     cache_dir: Path | None = None,
+    interface_version: str = INTERFACE_VERSION,
+    structured_outputs: bool = False,
 ) -> dict[str, Any]:
     tasks = load_visible_tasks(data_path)
     model = model_adapter if model_adapter is not None else _build_model(config)
@@ -934,15 +1039,16 @@ def run_mechanics(
             raise ValueError("cache_dir is required without a test retriever")
         retriever = CachedWikipediaRetriever(cache_dir)
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "task_ids": list(MECHANICS_IDS),
     }
     try:
-        initial_responses = model.chat_complete_messages_batched(
+        initial_responses = _complete_batch(
+            model,
             [initial_messages(task["question"]) for task in tasks],
-            temperature=TEMPERATURE,
-            block_size=len(tasks),
-            max_new_tokens=MAX_NEW_TOKENS,
+            response_format=(
+                initial_response_format() if structured_outputs else None
+            ),
         )
         if len(initial_responses) != len(tasks):
             raise ValueError("wrong number of initial responses")
@@ -986,7 +1092,8 @@ def run_mechanics(
             for branches in branches_by_task
             for branch in branches
         ]
-        refresh_responses = model.chat_complete_messages_batched(
+        refresh_responses = _complete_batch(
+            model,
             [
                 refresh_messages(
                     task["question"],
@@ -1001,9 +1108,9 @@ def run_mechanics(
                 )
                 for branch in branches
             ],
-            temperature=TEMPERATURE,
-            block_size=len(flat_branches),
-            max_new_tokens=MAX_NEW_TOKENS,
+            response_format=(
+                refresh_response_format() if structured_outputs else None
+            ),
         )
         if len(refresh_responses) != len(flat_branches):
             raise ValueError("wrong number of root refresh responses")
@@ -1027,7 +1134,8 @@ def run_mechanics(
         ]
         _checkpoint(raw_path, raw)
 
-        adaptive_terminal_responses = model.chat_complete_messages_batched(
+        adaptive_terminal_responses = _complete_batch(
+            model,
             [
                 terminal_messages(
                     task["question"],
@@ -1040,9 +1148,9 @@ def run_mechanics(
                 for task, branches in zip(tasks, branches_by_task)
                 for branch in branches
             ],
-            temperature=TEMPERATURE,
-            block_size=len(flat_branches),
-            max_new_tokens=MAX_NEW_TOKENS,
+            response_format=(
+                terminal_response_format() if structured_outputs else None
+            ),
         )
         if len(adaptive_terminal_responses) != len(flat_branches):
             raise ValueError("wrong number of adaptive terminal responses")
@@ -1054,7 +1162,8 @@ def run_mechanics(
             branch.adaptive_belief = parse_terminal(response)
         _checkpoint(raw_path, raw)
 
-        fixed_terminal_responses = model.chat_complete_messages_batched(
+        fixed_terminal_responses = _complete_batch(
+            model,
             [
                 terminal_messages(
                     task["question"],
@@ -1067,9 +1176,9 @@ def run_mechanics(
                 for task, branches in zip(tasks, branches_by_task)
                 for branch in branches
             ],
-            temperature=TEMPERATURE,
-            block_size=len(flat_branches),
-            max_new_tokens=MAX_NEW_TOKENS,
+            response_format=(
+                terminal_response_format() if structured_outputs else None
+            ),
         )
         if len(fixed_terminal_responses) != len(flat_branches):
             raise ValueError("wrong number of fixed terminal responses")
@@ -1088,6 +1197,8 @@ def run_mechanics(
             gold_answers=gold_answers,
             usage=usage,
             retrieval=retrieval_snapshot,
+            interface_version=interface_version,
+            structured_outputs=structured_outputs,
         )
     except Exception as exc:
         _checkpoint(raw_path, raw)
@@ -1098,7 +1209,11 @@ def run_mechanics(
         ) from exc
 
 
-def main() -> None:
+def run_cli(
+    *,
+    interface_version: str = INTERFACE_VERSION,
+    structured_outputs: bool = False,
+) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-c", "--config", type=Path, required=True)
     parser.add_argument("--data-path", type=Path, required=True)
@@ -1127,13 +1242,15 @@ def main() -> None:
             data_path=args.data_path,
             raw_path=raw_path,
             cache_dir=private_cache_dir,
+            interface_version=interface_version,
+            structured_outputs=structured_outputs,
         )
         result["protocol"]["private_raw_sha256"] = sha256_file(raw_path)
     except Exception as exc:
         failure: dict[str, Any] = {
             "schema_version": 1,
             "status": "failed_closed",
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "error": f"{type(exc).__name__}: {exc}",
         }
         if isinstance(exc, GateExecutionError):
@@ -1169,4 +1286,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_cli()
