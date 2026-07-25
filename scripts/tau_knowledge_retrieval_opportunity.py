@@ -443,12 +443,18 @@ def summarize(
     usage: dict[str, Any],
     *,
     stage: str,
+    expected_case_count: int | None = None,
+    expected_request_count: int | None = None,
 ) -> dict[str, Any]:
     diagnostics = [analyze_record(record) for record in records]
+    if expected_case_count is None:
+        expected_case_count = len(selected_ids(stage))
+    if expected_request_count is None:
+        expected_request_count = EXPECTED_REQUESTS[stage]
     base_gates = {
-        "all_cases_complete": len(records) == len(selected_ids(stage)),
+        "all_cases_complete": len(records) == expected_case_count,
         "exact_physical_request_count": int(usage["physical_requests"])
-        == EXPECTED_REQUESTS[stage],
+        == expected_request_count,
         "zero_reasoning_tokens": int(usage["reasoning_tokens"]) == 0,
         "all_query_trees_complete": all(
             len(record["first_branches"]) == FIRST_QUERY_COUNT
