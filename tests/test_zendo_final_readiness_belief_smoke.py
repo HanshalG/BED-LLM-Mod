@@ -12,6 +12,8 @@ from scripts.zendo_final_readiness_belief_smoke import (
     ROOT_COUNT,
     best_continuation,
     deterministic_scene_pool,
+    deterministic_random_audit_bank,
+    parse_particle_population,
     parse_scorer,
     run_gate,
     select_root_scenes,
@@ -143,8 +145,29 @@ def test_scorer_parser_is_strict() -> None:
         parse_scorer('{"root_scores":[10,20,30,40],"reason":"extra"}')
 
 
+def test_particle_multiset_parser_preserves_duplicate_multiplicity() -> None:
+    hypotheses = _diverse_hypotheses()
+    hypotheses[-1]["rule"] = hypotheses[0]["rule"]
+    response = json.dumps({"hypotheses": hypotheses})
+    particles = parse_particle_population(
+        response, allow_duplicate_asts=True
+    )
+    assert len(particles) == 12
+    assert particles[-1]["rule"] == particles[0]["rule"]
+    with pytest.raises(ValueError, match="unique"):
+        parse_particle_population(response, allow_duplicate_asts=False)
+
+
 def test_protocol_uses_exactly_ten_requests() -> None:
     assert EXPECTED_REQUESTS == 1 + 2 * ROOT_COUNT + 1
+
+
+def test_random_only_audit_bank_stays_within_executable_dsl() -> None:
+    bank = deterministic_random_audit_bank(
+        task_index=6, selection_seed=24370
+    )
+    assert len(bank) == 512
+    assert max(len(scene["blocks"]) for scene in bank) <= 6
 
 
 class _FakeAdapter:
@@ -197,3 +220,31 @@ def test_full_gate_freezes_ten_calls_before_external_analysis(
     ]
     assert len(payload["root_rows"]) == ROOT_COUNT
     assert payload["usage"]["physical_requests"] == EXPECTED_REQUESTS
+
+
+def test_full_gate_accepts_particle_multiplicity_on_fresh_task(
+    tmp_path: Path,
+) -> None:
+    hypotheses = _diverse_hypotheses()
+    hypotheses[-1]["rule"] = hypotheses[0]["rule"]
+    adapter = _FakeAdapter(json.dumps({"hypotheses": hypotheses}))
+    config = load_config(
+        "configs/config_zendo_path_dependent_belief_openrouter.yaml"
+    )
+    payload = run_gate(
+        config,
+        source_dir=Path(
+            "external/doing-experiments-and-revising-rules"
+        ),
+        raw_checkpoint_path=tmp_path / "multiset-raw.json",
+        model_adapter=adapter,
+        task_name="mu",
+        interface_version="test-multiset",
+        selection_seed=24370,
+        allow_duplicate_particles=True,
+        audit_mode="random_only",
+    )
+    assert adapter.requests == EXPECTED_REQUESTS
+    assert payload["protocol"]["particle_semantics"] == "multiset"
+    assert payload["protocol"]["task_name"] == "mu"
+    assert payload["summary"]["population_unique_ast_counts"]["initial"] == 11

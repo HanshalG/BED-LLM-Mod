@@ -21,6 +21,7 @@ from model_factory import build_model_adapter
 from scripts.zendo_path_dependent_belief_gate import (
     MODEL_ID,
     OBSERVATION_ACCURACY,
+    PARTICLE_COUNT,
     RULE_ORDER,
     SOURCE_COMMIT,
     _argmax,
@@ -41,6 +42,7 @@ from scripts.zendo_path_dependent_belief_gate import (
     spearman,
     truth_function,
     update_weights,
+    validate_rule,
     verify_source,
     weighted_agreement,
 )
@@ -61,6 +63,7 @@ MIN_ENDPOINT_RANGE = 0.10
 MIN_MODEL_MINUS_MYOPIC = 0.05
 MIN_MODEL_MINUS_FIXED = 0.03
 MIN_SCORE_ENDPOINT_SPEARMAN = 0.30
+AUDIT_SCENE_COUNT = 512
 
 
 class GateExecutionError(RuntimeError):
@@ -73,9 +76,11 @@ class GateExecutionError(RuntimeError):
 
 def deterministic_scene_pool(
     initial_scene: dict[str, Any],
+    *,
+    selection_seed: int = SELECTION_SEED,
 ) -> list[dict[str, Any]]:
     """Create a target-blind, deterministic bank of distinct legal scenes."""
-    rng = random.Random(SELECTION_SEED)
+    rng = random.Random(selection_seed)
     initial_key = _canonical_json(initial_scene)
     scenes: dict[str, dict[str, Any]] = {}
     while len(scenes) < POOL_SIZE:
@@ -84,6 +89,58 @@ def deterministic_scene_pool(
         if key != initial_key:
             scenes.setdefault(key, scene)
     return list(scenes.values())
+
+
+def deterministic_random_audit_bank(
+    *,
+    task_index: int,
+    selection_seed: int,
+) -> list[dict[str, Any]]:
+    """Create a hidden-rule-independent audit bank within the six-block DSL."""
+    rng = random.Random(selection_seed + 1009 * task_index)
+    scenes: dict[str, dict[str, Any]] = {}
+    while len(scenes) < AUDIT_SCENE_COUNT:
+        scene = random_scene(rng)
+        scenes.setdefault(_canonical_json(scene), scene)
+    return list(scenes.values())
+
+
+def parse_particle_population(
+    text: str,
+    *,
+    allow_duplicate_asts: bool,
+) -> list[dict[str, Any]]:
+    """Parse either a unique support or a particle multiset."""
+    if not allow_duplicate_asts:
+        return parse_hypotheses(text)
+    payload = json.loads(text.strip())
+    if not isinstance(payload, dict) or set(payload) != {"hypotheses"}:
+        raise ValueError("particle response has unexpected fields")
+    raw = payload["hypotheses"]
+    if not isinstance(raw, list) or len(raw) != PARTICLE_COUNT:
+        raise ValueError(f"expected exactly {PARTICLE_COUNT} particles")
+    particles = []
+    for index, item in enumerate(raw, start=1):
+        if not isinstance(item, dict) or set(item) != {
+            "id",
+            "rule_text",
+            "rule",
+        }:
+            raise ValueError("particle has wrong fields")
+        expected_id = f"H{index:02d}"
+        if item["id"] != expected_id:
+            raise ValueError(f"expected particle id {expected_id}")
+        rule_text = item["rule_text"]
+        if not isinstance(rule_text, str) or not rule_text.strip():
+            raise ValueError("rule_text must be nonempty")
+        particles.append(
+            {
+                "id": expected_id,
+                "rule_text": " ".join(rule_text.split()),
+                "rule": validate_rule(item["rule"]),
+            }
+        )
+    return particles
 
 
 def _prediction_signature(
@@ -278,7 +335,17 @@ def build_pathways(
     return pathways
 
 
-def scorer_messages(pathways: Sequence[dict[str, Any]]) -> list[dict[str, str]]:
+def scorer_messages(
+    pathways: Sequence[dict[str, Any]],
+    *,
+    particle_semantics: str = "unique_support",
+) -> list[dict[str, str]]:
+    multiplicity_note = (
+        "Repeated semantic rules are repeated particles and their probabilities "
+        "carry multiplicity."
+        if particle_semantics == "multiset"
+        else "Each displayed semantic rule is a distinct support element."
+    )
     return [
         {
             "role": "system",
@@ -302,6 +369,7 @@ def scorer_messages(pathways: Sequence[dict[str, Any]]) -> list[dict[str, str]]:
                     "coverage, branch robustness, and whether the continuation resolves",
                     "the remaining ambiguity. You are not shown the hidden rule or any",
                     "immediate root information-gain score. Do not favor label order.",
+                    multiplicity_note,
                     'Return exactly {"root_scores":[A,B,C,D]} using JSON integers.',
                     "PATHWAYS=" + _canonical_json(pathways),
                 ]
@@ -365,11 +433,15 @@ def _checkpoint(path: Path, payload: dict[str, Any]) -> None:
 def _branch_signature(
     hypotheses: Sequence[dict[str, Any]],
     audit: Sequence[dict[str, Any]],
-) -> tuple[bool, ...]:
+) -> tuple[tuple[bool, ...], ...]:
     return tuple(
-        evaluate_rule(hypothesis["rule"], scene)
-        for hypothesis in hypotheses
-        for scene in audit
+        sorted(
+            tuple(
+                evaluate_rule(hypothesis["rule"], scene)
+                for scene in audit
+            )
+            for hypothesis in hypotheses
+        )
     )
 
 
@@ -385,11 +457,24 @@ def analyze_after_freeze(
     scorer_scores: list[int],
     pool: list[dict[str, Any]],
     usage: dict[str, Any],
+    task_name: str = TASK_NAME,
+    interface_version: str = INTERFACE_VERSION,
+    selection_seed: int = SELECTION_SEED,
+    particle_semantics: str = "unique_support",
+    audit_mode: str = "random_plus_official",
 ) -> dict[str, Any]:
     """Reveal the hidden rule only after every model output is frozen."""
-    task_index = RULE_ORDER.index(TASK_NAME)
-    audit = audit_bank(task_index, official_case)
-    truth = truth_function(TASK_NAME)
+    task_index = RULE_ORDER.index(task_name)
+    if audit_mode == "random_plus_official":
+        audit = audit_bank(task_index, official_case)
+    elif audit_mode == "random_only":
+        audit = deterministic_random_audit_bank(
+            task_index=task_index,
+            selection_seed=selection_seed,
+        )
+    else:
+        raise ValueError(f"unknown audit mode {audit_mode!r}")
+    truth = truth_function(task_name)
     initial_history = [(initial_scene, True)]
     initial_weights = posterior_weights(hypotheses, initial_history)
     immediate_scores = [
@@ -449,6 +534,20 @@ def analyze_after_freeze(
     support_signatures = {
         _branch_signature(branches[key], audit) for key in sorted(branches)
     }
+    population_unique_ast_counts = {
+        "initial": len(
+            {_canonical_json(hypothesis["rule"]) for hypothesis in hypotheses}
+        ),
+        **{
+            key: len(
+                {
+                    _canonical_json(hypothesis["rule"])
+                    for hypothesis in branches[key]
+                }
+            )
+            for key in sorted(branches)
+        },
+    }
     generator = usage.get("generator", {})
     mechanics = {
         "exact_10_physical_requests": (
@@ -483,6 +582,9 @@ def analyze_after_freeze(
         ),
         "at_least_four_distinct_refreshed_supports": (
             len(support_signatures) >= 4
+        ),
+        "every_population_has_at_least_eight_unique_asts": all(
+            count >= 8 for count in population_unique_ast_counts.values()
         ),
         "all_continuations_have_positive_finite_eig": all(
             math.isfinite(packet["continuation_expected_information_nats"])
@@ -528,10 +630,10 @@ def analyze_after_freeze(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
-            "task_name": TASK_NAME,
+            "interface_version": interface_version,
+            "task_name": task_name,
             "model": MODEL_ID,
-            "selection_seed": SELECTION_SEED,
+            "selection_seed": selection_seed,
             "source_commit": SOURCE_COMMIT,
             "pool_size": POOL_SIZE,
             "root_count": ROOT_COUNT,
@@ -541,6 +643,8 @@ def analyze_after_freeze(
             "truth_hidden_until_all_branches_and_scores_frozen": True,
             "reasoning_requested": False,
             "repairs_or_scientific_retries": 0,
+            "particle_semantics": particle_semantics,
+            "audit_mode": audit_mode,
             "official_rules_are_development_only": True,
             "raw_responses_private_and_untracked": True,
         },
@@ -566,6 +670,7 @@ def analyze_after_freeze(
                 hypotheses, audit
             ),
             "distinct_refreshed_support_count": len(support_signatures),
+            "population_unique_ast_counts": population_unique_ast_counts,
         },
         "root_selection": root_selection,
         "root_rows": root_rows,
@@ -585,16 +690,26 @@ def run_gate(
     source_dir: Path,
     raw_checkpoint_path: Path,
     model_adapter: Any | None = None,
+    task_name: str = TASK_NAME,
+    interface_version: str = INTERFACE_VERSION,
+    selection_seed: int = SELECTION_SEED,
+    allow_duplicate_particles: bool = False,
+    audit_mode: str = "random_plus_official",
 ) -> dict[str, Any]:
     cases_path = verify_source(source_dir)
     cases = json.loads(cases_path.read_text(encoding="utf-8"))
-    official_case = dict(zip(RULE_ORDER, cases, strict=True))[TASK_NAME]
+    official_case = dict(zip(RULE_ORDER, cases, strict=True))[task_name]
     initial_scene = raw_official_scene(official_case["t"][0])
-    pool = deterministic_scene_pool(initial_scene)
+    pool = deterministic_scene_pool(
+        initial_scene, selection_seed=selection_seed
+    )
     model = model_adapter if model_adapter is not None else _build_model(config)
+    particle_semantics = (
+        "multiset" if allow_duplicate_particles else "unique_support"
+    )
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
-        "task_name": TASK_NAME,
+        "interface_version": interface_version,
+        "task_name": task_name,
         "initial_hypotheses": None,
         "branch_refreshes": {},
         "scorer": None,
@@ -607,7 +722,10 @@ def run_gate(
             max_new_tokens=MAX_NEW_TOKENS,
         )[0]
         raw["initial_hypotheses"] = initial_response
-        hypotheses = parse_hypotheses(initial_response)
+        hypotheses = parse_particle_population(
+            initial_response,
+            allow_duplicate_asts=allow_duplicate_particles,
+        )
         initial_weights = posterior_weights(
             hypotheses, [(initial_scene, True)]
         )
@@ -640,7 +758,10 @@ def run_gate(
             )
         }
         branches = {
-            key: parse_hypotheses(response)
+            key: parse_particle_population(
+                response,
+                allow_duplicate_asts=allow_duplicate_particles,
+            )
             for key, response in raw["branch_refreshes"].items()
         }
         pathways = build_pathways(
@@ -652,7 +773,11 @@ def run_gate(
             pool=pool,
         )
         scorer_response = model.chat_complete_messages_batched(
-            [scorer_messages(pathways)],
+            [
+                scorer_messages(
+                    pathways, particle_semantics=particle_semantics
+                )
+            ],
             temperature=0.0,
             block_size=1,
             max_new_tokens=MAX_NEW_TOKENS,
@@ -677,6 +802,11 @@ def run_gate(
         scorer_scores=scorer_scores,
         pool=pool,
         usage=usage,
+        task_name=task_name,
+        interface_version=interface_version,
+        selection_seed=selection_seed,
+        particle_semantics=particle_semantics,
+        audit_mode=audit_mode,
     )
     payload["protocol"]["scene_pool_sha256"] = hashlib.sha256(
         _canonical_json(pool).encode("utf-8")
@@ -685,7 +815,14 @@ def run_gate(
     return payload
 
 
-def main() -> None:
+def run_cli(
+    *,
+    interface_version: str = INTERFACE_VERSION,
+    task_name: str = TASK_NAME,
+    selection_seed: int = SELECTION_SEED,
+    allow_duplicate_particles: bool = False,
+    audit_mode: str = "random_plus_official",
+) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--source-dir", type=Path, required=True)
@@ -709,13 +846,18 @@ def main() -> None:
             config,
             source_dir=args.source_dir,
             raw_checkpoint_path=raw_path,
+            task_name=task_name,
+            interface_version=interface_version,
+            selection_seed=selection_seed,
+            allow_duplicate_particles=allow_duplicate_particles,
+            audit_mode=audit_mode,
         )
     except Exception as exc:
         failure: dict[str, Any] = {
             "schema_version": 1,
             "status": "failed_closed",
-            "interface_version": INTERFACE_VERSION,
-            "task_name": TASK_NAME,
+            "interface_version": interface_version,
+            "task_name": task_name,
             "error": f"{type(exc).__name__}: {exc}",
         }
         if isinstance(exc, GateExecutionError):
@@ -747,4 +889,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    run_cli()
