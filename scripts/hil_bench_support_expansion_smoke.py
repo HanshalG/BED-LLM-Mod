@@ -28,10 +28,10 @@ from scripts.hil_bench_progressive_opportunity import (
 from scripts.movielens_profile_dynamics_gate import _parse_json_object
 
 
-INTERFACE_VERSION = "hil-bench-support-expansion-smoke-1"
+INTERFACE_VERSION = "hil-bench-support-expansion-smoke-2"
 MODEL_ID = "openai/gpt-5.4"
-TASK_IDS = DEVELOPMENT_IDS[:2]
-SEED = 24_393
+TASK_IDS = DEVELOPMENT_IDS[2:4]
+SEED = 24_394
 SUPPORT_SIZE = 4
 QUERY_COUNT = 2
 SEARCH_TOP_K = 5
@@ -72,24 +72,18 @@ def _strict_question(value: Any) -> str:
     return question
 
 
-def _parse_support_rows(value: Any) -> list[dict[str, str]]:
+def _parse_question_support(value: Any) -> list[dict[str, str]]:
     if not isinstance(value, list) or len(value) != SUPPORT_SIZE:
-        raise ValueError(f"hypotheses must contain exactly {SUPPORT_SIZE} rows")
-    rows = []
-    for row in value:
-        if not isinstance(row, dict) or set(row) != {"hypothesis", "question"}:
-            raise ValueError("each support row must have hypothesis and question")
-        hypothesis = " ".join(str(row["hypothesis"]).split())
-        if not 12 <= len(hypothesis) <= 280:
-            raise ValueError("hypothesis has invalid length")
-        rows.append(
-            {
-                "hypothesis": hypothesis,
-                "question": _strict_question(row["question"]),
-            }
+        raise ValueError(
+            f"blocker_questions must contain exactly {SUPPORT_SIZE} strings"
         )
-    if len({_normalize(row["hypothesis"]) for row in rows}) != SUPPORT_SIZE:
-        raise ValueError("support hypotheses must be distinct")
+    rows = [
+        {
+            "hypothesis": _strict_question(question).rstrip("?？"),
+            "question": _strict_question(question),
+        }
+        for question in value
+    ]
     if len({_normalize(row["question"]) for row in rows}) != SUPPORT_SIZE:
         raise ValueError("support questions must be distinct")
     return rows
@@ -97,9 +91,9 @@ def _parse_support_rows(value: Any) -> list[dict[str, str]]:
 
 def parse_initial(response: str) -> dict[str, Any]:
     payload = _parse_json_object(response)
-    if set(payload) != {"hypotheses", "business_search_queries"}:
+    if set(payload) != {"blocker_questions", "business_search_queries"}:
         raise ValueError("initial response has unexpected keys")
-    rows = _parse_support_rows(payload["hypotheses"])
+    rows = _parse_question_support(payload["blocker_questions"])
     queries = payload["business_search_queries"]
     if not isinstance(queries, list) or len(queries) != QUERY_COUNT:
         raise ValueError(f"must return exactly {QUERY_COUNT} search queries")
@@ -113,9 +107,9 @@ def parse_initial(response: str) -> dict[str, Any]:
 
 def parse_refresh(response: str) -> list[dict[str, str]]:
     payload = _parse_json_object(response)
-    if set(payload) != {"hypotheses"}:
+    if set(payload) != {"blocker_questions"}:
         raise ValueError("refresh response has unexpected keys")
-    return _parse_support_rows(payload["hypotheses"])
+    return _parse_question_support(payload["blocker_questions"])
 
 
 def parse_judgment(
@@ -191,11 +185,8 @@ def search_business_info(
 
 def _support_schema() -> dict[str, Any]:
     return {
-        "hypotheses": [
-            {
-                "hypothesis": f"possible missing or ambiguous fact {index + 1}",
-                "question": f"single targeted clarification question {index + 1}?",
-            }
+        "blocker_questions": [
+            f"single targeted clarification question {index + 1}?"
             for index in range(SUPPORT_SIZE)
         ]
     }
@@ -227,8 +218,8 @@ def initial_messages(task: dict[str, Any]) -> list[dict[str, str]]:
         {
             "role": "user",
             "content": (
-                f"Generate exactly {SUPPORT_SIZE} distinct possible blocker "
-                f"hypotheses with one clarification question each, plus exactly "
+                f"Generate exactly {SUPPORT_SIZE} distinct clarification questions "
+                "representing possible hidden blockers, plus exactly "
                 f"{QUERY_COUNT} diverse searches for potentially relevant business "
                 "documentation. Use only the database question. "
                 + json.dumps(request, ensure_ascii=True, separators=(",", ":"))
@@ -273,8 +264,8 @@ def refresh_messages(
         {
             "role": "user",
             "content": (
-                f"{instruction} Return exactly {SUPPORT_SIZE} distinct hypotheses "
-                "and questions. "
+                f"{instruction} Return exactly {SUPPORT_SIZE} distinct blocker "
+                "questions. "
                 + json.dumps(request, ensure_ascii=True, separators=(",", ":"))
             ),
         },
@@ -684,18 +675,10 @@ class DeterministicFixtureModel:
                 continue
             suffix = self.requests + len(responses)
             support = [
-                {
-                    "hypothesis": (
-                        f"Fixture ambiguity {suffix} {index} requires a concrete "
-                        "database mapping"
-                    ),
-                    "question": (
-                        f"Which fixture mapping {suffix} {index} should be used?"
-                    ),
-                }
+                f"Which fixture mapping {suffix} {index} should be used?"
                 for index in range(SUPPORT_SIZE)
             ]
-            payload: dict[str, Any] = {"hypotheses": support}
+            payload: dict[str, Any] = {"blocker_questions": support}
             if "business_search_queries" in request["required_schema"]:
                 problem_words = re.findall(
                     r"[a-z0-9]+", request["database_question"].casefold()

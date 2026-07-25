@@ -13,30 +13,27 @@ from scripts.hil_bench_support_expansion_smoke import (
 
 def _support(prefix: str):
     return [
-        {
-            "hypothesis": f"{prefix} ambiguity {index} needs a database mapping",
-            "question": f"Which {prefix} mapping {index} should be used?",
-        }
+        f"Which {prefix} mapping {index} should be used?"
         for index in range(SUPPORT_SIZE)
     ]
 
 
 def test_parse_initial_requires_exact_support_and_queries():
     payload = {
-        "hypotheses": _support("initial"),
+        "blocker_questions": _support("initial"),
         "business_search_queries": ["first business query", "second business query"],
     }
     parsed = parse_initial(json.dumps(payload))
     assert len(parsed["hypotheses"]) == SUPPORT_SIZE
     assert len(parsed["business_search_queries"]) == 2
-    payload["hypotheses"][1]["question"] = payload["hypotheses"][0]["question"]
+    payload["blocker_questions"][1] = payload["blocker_questions"][0]
     with pytest.raises(ValueError, match="distinct"):
         parse_initial(json.dumps(payload))
 
 
 def test_parse_refresh_rejects_multi_question_rows():
-    payload = {"hypotheses": _support("refresh")}
-    payload["hypotheses"][0]["question"] = "Which value? Which column?"
+    payload = {"blocker_questions": _support("refresh")}
+    payload["blocker_questions"][0] = "Which value? Which column?"
     with pytest.raises(ValueError, match="exactly one"):
         parse_refresh(json.dumps(payload))
 

@@ -1,0 +1,48 @@
+{
+  "error": "SmokeExecutionError: JSONDecodeError: Expecting ',' delimiter: line 1 column 896 (char 895)",
+  "interface_version": "hil-bench-support-expansion-smoke-2",
+  "private_raw_sha256": "58cce71b99e607b8523f8820167ce4e3e33c6065c5faa2ce2f53192a2ccbd944",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.035035,
+    "forced_exits": 0,
+    "http_attempts": 8,
+    "model": {
+      "adapter_completion_tokens": 1462,
+      "adapter_cost_usd": 0.035035,
+      "adapter_prompt_tokens": 5242,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 8,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 1462,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 8,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 1462,
+          "cost_usd": 0.035035,
+          "prompt_tokens": 5242,
+          "reasoning_tokens": 0,
+          "requests": 8
+        }
+      },
+      "prompt_tokens": 5242,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.14786360000005,
+      "requests": 8,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.035035,
+      "run_remaining_usd": 0.714965,
+      "total_spent_usd": 86.99544121920736
+    },
+    "physical_requests": 8,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
