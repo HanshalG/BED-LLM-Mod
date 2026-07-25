@@ -615,14 +615,29 @@ def run_smoke(
     manifest_path: Path,
     raw_path: Path,
     model: ChatModel,
+    task_override: Mapping[str, Any] | None = None,
+    interface_version: str = INTERFACE_VERSION,
+    manifest_sha256: str = MANIFEST_SHA256,
+    expected_requests: int = EXPECTED_REQUESTS,
+    spaced_codes: bool = False,
+    branch_support_change_minimum: int = 35,
+    branch_profile_diversity_minimum: int = 30,
+    positive_continuation_minimum: int = 30,
+    max_cost_usd: float = MAX_COST_USD,
 ) -> dict[str, Any]:
-    task = load_manifest(manifest_path, "mechanics")
+    task = (
+        dict(task_override)
+        if task_override is not None
+        else load_manifest(manifest_path, "mechanics")
+    )
+    if task["expected_model_requests"] != expected_requests:
+        raise ValueError("ClariQ dynamic-support request count changed")
     question_ids = tuple(
         str(root["question_id"]) for root in task["roots"]
     )
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
-        "manifest_sha256": MANIFEST_SHA256,
+        "interface_version": interface_version,
+        "manifest_sha256": manifest_sha256,
         "topic_id": task["topic_id"],
         "development_endpoints_loaded": False,
         "mechanics_endpoints_loaded": False,
@@ -633,6 +648,7 @@ def run_smoke(
                 support_messages(
                     task,
                     question_ids=question_ids,
+                    spaced_codes=spaced_codes,
                 )
             ],
             temperature=TEMPERATURE,
@@ -646,6 +662,7 @@ def run_smoke(
         initial_support = parse_support(
             initial_responses[0],
             questions=_question_payload(task, question_ids),
+            spaced_codes=spaced_codes,
         )
 
         branch_keys = [
@@ -677,6 +694,7 @@ def run_smoke(
                         "response_code": key[1],
                         "answer": branch_lookup[key]["answer"],
                     },
+                    spaced_codes=spaced_codes,
                 )
                 for key in branch_keys
             ],
@@ -696,6 +714,7 @@ def run_smoke(
                     task,
                     branch_lookup[key]["legal_followup_question_ids"],
                 ),
+                spaced_codes=spaced_codes,
             )
             for key, response in zip(
                 branch_keys,
@@ -717,7 +736,7 @@ def run_smoke(
         raw["frozen_before_endpoint"] = frozen
         _checkpoint(raw_path, raw)
         usage = _usage(model)
-        if usage["adapter_cost_usd"] > MAX_COST_USD:
+        if usage["adapter_cost_usd"] > max_cost_usd:
             raise ValueError("ClariQ smoke exceeded its cost cap")
     except Exception as exc:
         _checkpoint(raw_path, raw)
@@ -903,21 +922,24 @@ def run_smoke(
     }
     gates = {
         "exact_physical_requests": (
-            usage["physical_requests"] == EXPECTED_REQUESTS
+            usage["physical_requests"] == expected_requests
         ),
-        "exact_http_attempts": usage["http_attempts"] == EXPECTED_REQUESTS,
+        "exact_http_attempts": usage["http_attempts"] == expected_requests,
         "zero_retries": usage["retry_count"] == 0,
         "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
         "zero_forced_exits": usage["forced_exits"] == 0,
         "all_supports_parse": (
-            len(branch_supports) + 1 == EXPECTED_REQUESTS
+            len(branch_supports) + 1 == expected_requests
         ),
-        "branch_support_changes_at_least_35": branch_change_count >= 35,
-        "branch_profile_diversity_at_least_30": (
-            branch_profile_diversity_count >= 30
+        "branch_support_change_threshold_met": (
+            branch_change_count >= branch_support_change_minimum
         ),
-        "positive_continuations_at_least_30": (
-            positive_continuation_count >= 30
+        "branch_profile_diversity_threshold_met": (
+            branch_profile_diversity_count
+            >= branch_profile_diversity_minimum
+        ),
+        "positive_continuation_threshold_met": (
+            positive_continuation_count >= positive_continuation_minimum
         ),
         "myopic_score_range_at_least_0_05": (
             metrics["myopic_score_range"] >= 0.05
@@ -950,21 +972,34 @@ def run_smoke(
             selected_endpoints["dynamic_depth_two"]
             >= selected_endpoints["shuffled_dynamic"] - 1e-12
         ),
-        "cost_at_most_0_50": usage["adapter_cost_usd"] <= MAX_COST_USD,
+        "cost_within_cap": usage["adapter_cost_usd"] <= max_cost_usd,
     }
     gates["all_pass"] = all(gates.values())
     return {
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
-            "manifest_sha256": MANIFEST_SHA256,
+            "interface_version": interface_version,
+            "manifest_sha256": manifest_sha256,
             "model": MODEL_ID,
             "topic_id": task["topic_id"],
             "hypothesis_count": HYPOTHESIS_COUNT,
             "temperature": TEMPERATURE,
             "max_output_tokens": MAX_OUTPUT_TOKENS,
-            "expected_requests": EXPECTED_REQUESTS,
+            "expected_requests": expected_requests,
+            "code_format": (
+                "single ASCII spaces" if spaced_codes else "contiguous"
+            ),
+            "branch_support_change_minimum": (
+                branch_support_change_minimum
+            ),
+            "branch_profile_diversity_minimum": (
+                branch_profile_diversity_minimum
+            ),
+            "positive_continuation_minimum": (
+                positive_continuation_minimum
+            ),
+            "max_cost_usd": max_cost_usd,
             "request_seed": REQUEST_SEED,
             "random_control_seed": RANDOM_CONTROL_SEED,
             "shuffle_control_seed": SHUFFLE_CONTROL_SEED,
