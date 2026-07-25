@@ -47,6 +47,11 @@ def test_refresh_future_and_terminal_parsers():
     assert mechanics.parse_terminal(
         "\n".join(_belief_lines("terminal"))
     ).hypotheses[-1] == "terminal 8"
+    long_query = "q" * (mechanics.QUERY_MAX_CHARS + 1)
+    with pytest.raises(ValueError, match="flat text field"):
+        mechanics.parse_refresh(
+            "\n".join(_belief_lines("updated") + [f"A01|{long_query}"])
+        )
 
 
 def test_task_bm25_prefers_matching_document():

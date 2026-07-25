@@ -24,6 +24,7 @@ from model_factory import build_model_adapter
 
 
 MODEL_ID = "openai/gpt-5.4"
+INTERFACE_VERSION = "browsecomp-plus-semantic-mechanics-2"
 SOURCE_SHA256 = (
     "d3192f97b171c7d5d34f8472b52abcff895f3fcb97013d82b41073e1046f9f85"
 )
@@ -33,6 +34,7 @@ ROOT_COUNT = 6
 RETRIEVAL_TOP_K = 3
 INDEX_TEXT_CHARS = 30_000
 OBSERVATION_CHARS = 1_200
+QUERY_MAX_CHARS = 400
 EXPECTED_REQUESTS = 55
 MAX_COST_USD = 0.90
 RANDOM_SEED = 24_407
@@ -171,7 +173,10 @@ def parse_initial(text: str) -> tuple[Belief, list[Strategy]]:
                     minimum=0,
                     maximum=100,
                 ),
-                root_query=_clean_text_field(parts[2], maximum=200),
+                root_query=_clean_text_field(
+                    parts[2],
+                    maximum=QUERY_MAX_CHARS,
+                ),
                 future_intent=_clean_text_field(parts[3], maximum=300),
             )
         )
@@ -189,7 +194,10 @@ def parse_refresh(text: str) -> tuple[Belief, str]:
     parts = lines[-1].split("|")
     if len(parts) != 2 or parts[0] != "A01":
         raise ValueError("invalid adaptive query line")
-    return belief, _clean_text_field(parts[1], maximum=200)
+    return belief, _clean_text_field(
+        parts[1],
+        maximum=QUERY_MAX_CHARS,
+    )
 
 
 def parse_future_scores(text: str) -> list[int]:
@@ -983,12 +991,13 @@ def analyze_run(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": "browsecomp-plus-semantic-mechanics-1",
+            "interface_version": INTERFACE_VERSION,
             "model": MODEL_ID,
             "task_ids": list(TASK_IDS),
             "hypothesis_count": HYPOTHESIS_COUNT,
             "root_count": ROOT_COUNT,
             "retrieval_top_k": RETRIEVAL_TOP_K,
+            "query_max_chars": QUERY_MAX_CHARS,
             "expected_requests": EXPECTED_REQUESTS,
             "reasoning_requested": False,
             "repairs_or_retries": 0,
@@ -1065,7 +1074,7 @@ def main() -> None:
         failure: dict[str, Any] = {
             "schema_version": 1,
             "status": "failed_closed",
-            "interface_version": "browsecomp-plus-semantic-mechanics-1",
+            "interface_version": INTERFACE_VERSION,
             "error": f"{type(exc).__name__}: {exc}",
         }
         if isinstance(exc, GateExecutionError):

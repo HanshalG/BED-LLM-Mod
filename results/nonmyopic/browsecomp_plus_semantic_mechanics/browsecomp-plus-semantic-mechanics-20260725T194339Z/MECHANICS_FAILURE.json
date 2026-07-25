@@ -1,0 +1,48 @@
+{
+  "error": "GateExecutionError: ValueError: flat text field is invalid",
+  "interface_version": "browsecomp-plus-semantic-mechanics-1",
+  "private_raw_sha256": "76544d1478d920900c60c4e998af5637bccbb478d00a8de33150ccce04f2cd90",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.18106250000000002,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 5035,
+      "adapter_cost_usd": 0.18106250000000002,
+      "adapter_prompt_tokens": 42215,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 35,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 5035,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 35,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 5035,
+          "cost_usd": 0.18106250000000002,
+          "prompt_tokens": 42215,
+          "reasoning_tokens": 0,
+          "requests": 35
+        }
+      },
+      "prompt_tokens": 42215,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.366108780793297,
+      "requests": 35,
+      "retry_count": 0,
+      "run_budget_usd": 0.9,
+      "run_cost_usd": 0.18106250000000002,
+      "run_remaining_usd": 0.7189375,
+      "total_spent_usd": 90.6338912192067
+    },
+    "http_attempts": 35,
+    "physical_requests": 35,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
