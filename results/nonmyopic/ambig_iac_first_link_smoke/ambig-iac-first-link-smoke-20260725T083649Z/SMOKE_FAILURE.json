@@ -1,0 +1,45 @@
+{
+  "error": "SmokeExecutionError: ValueError: population has 2 valid particles; 4 required",
+  "interface_version": "ambig-iac-first-link-smoke-1",
+  "private_raw_sha256": "5bec12283276bfbae2bb507d6af47de07328e6d1c2946d624aaa2383f387ba76",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.035021250000000004,
+    "generator": {
+      "adapter_completion_tokens": 7375,
+      "adapter_cost_usd": 0.035021250000000004,
+      "adapter_prompt_tokens": 2445,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 15,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 7375,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 15,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 7375,
+          "cost_usd": 0.035021250000000004,
+          "prompt_tokens": 2445,
+          "reasoning_tokens": 0,
+          "requests": 15
+        }
+      },
+      "prompt_tokens": 2445,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.964978749999986,
+      "requests": 15,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.035021250000000004,
+      "run_remaining_usd": 1.46497875,
+      "total_spent_usd": 86.17832606920743
+    },
+    "physical_requests": 15,
+    "reasoning_tokens": 0
+  }
+}
