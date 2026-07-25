@@ -6,6 +6,7 @@ from scripts.interactcomp_first_link_opportunity import Hypothesis
 from scripts.interactcomp_model_criticism_validation import (
     SCREEN_INDICES,
     enroll_collapsed_tasks,
+    parse_classification_ascii_whitespace,
     parse_semantic_distinctness,
     root_scores,
     unique_entity_count,
@@ -17,6 +18,12 @@ def test_semantic_distinctness_parser_is_strict():
     assert parse_semantic_distinctness("s") is False
     with pytest.raises(ValueError):
         parse_semantic_distinctness("distinct")
+
+
+def test_v2_classification_parser_compacts_only_ascii_whitespace():
+    assert parse_classification_ascii_whitespace("Y YN U") == "YYNU"
+    with pytest.raises(ValueError):
+        parse_classification_ascii_whitespace("Y,Y,N,U")
 
 
 def test_collapsed_support_enrollment_preserves_manifest_order():

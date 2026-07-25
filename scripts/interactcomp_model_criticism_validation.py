@@ -53,44 +53,44 @@ from scripts.interactcomp_robust_support_development import (
 )
 
 
-INTERFACE_VERSION = "interactcomp-model-criticism-validation-1"
-SEED = 24_379
-RANDOM_CONTROL_SEED = 24_380
+INTERFACE_VERSION = "interactcomp-model-criticism-validation-2"
+SEED = 24_382
+RANDOM_CONTROL_SEED = 24_383
 SCREEN_INDICES = (
-    109,
-    141,
-    97,
-    80,
-    84,
-    21,
-    34,
-    123,
-    106,
-    170,
-    115,
-    45,
-    59,
-    29,
-    25,
-    94,
+    90,
+    12,
+    133,
+    130,
+    184,
+    125,
+    105,
+    69,
+    67,
+    124,
+    11,
+    64,
+    91,
+    9,
+    60,
+    197,
 )
 EXPECTED_SCREEN_IDS = (
-    110,
-    142,
-    98,
-    81,
-    85,
-    22,
-    35,
-    124,
-    107,
-    171,
-    116,
-    46,
-    60,
-    30,
-    26,
-    95,
+    91,
+    13,
+    134,
+    131,
+    185,
+    126,
+    106,
+    70,
+    68,
+    125,
+    12,
+    65,
+    92,
+    10,
+    61,
+    198,
 )
 ENROLL_COUNT = 6
 COLLAPSED_UNIQUE_MAX = 4
@@ -122,6 +122,13 @@ def parse_semantic_distinctness(text: str) -> bool:
     if value == "S":
         return False
     raise ValueError("semantic distinctness must be exactly D or S")
+
+
+def parse_classification_ascii_whitespace(text: str) -> str:
+    compact = text.translate(
+        {ord(character): None for character in " \t\r\n"}
+    )
+    return parse_classification(compact)
 
 
 def unique_entity_count(hypotheses: Sequence[Hypothesis]) -> int:
@@ -476,7 +483,7 @@ def run_validation(
         current_classifications = {}
         for offset, index in enumerate(enrolled):
             current_classifications[index] = [
-                parse_classification(response)
+                parse_classification_ascii_whitespace(response)
                 for response in current_classification_raw[
                     offset * PARTICLE_COUNT : (offset + 1) * PARTICLE_COUNT
                 ]
@@ -570,7 +577,7 @@ def run_validation(
         frozen_scores = {}
         for offset, index in enumerate(enrolled):
             auxiliary_classifications[index] = [
-                parse_classification(response)
+                parse_classification_ascii_whitespace(response)
                 for response in auxiliary_classification_raw[
                     offset * AUXILIARY_RETAIN : (offset + 1) * AUXILIARY_RETAIN
                 ]
@@ -784,6 +791,7 @@ def run_validation(
             "responder_model": RESPONDER_MODEL_ID,
             "reasoning_requested": False,
             "primary_score": "balanced_model_identity_mutual_information",
+            "ascii_whitespace_compaction_only": True,
             "target_answers_loaded_after_all_model_calls": True,
             "repairs_or_reissues": 0,
         },

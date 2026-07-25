@@ -31,6 +31,7 @@ from scripts.interactcomp_first_link_opportunity import (
 from scripts.interactcomp_model_criticism_validation import (
     _auxiliary_messages,
     _semantic_validation_messages,
+    parse_classification_ascii_whitespace,
     parse_semantic_distinctness,
 )
 
@@ -50,13 +51,6 @@ class SmokeExecutionError(RuntimeError):
     def __init__(self, message: str, usage: dict[str, Any]) -> None:
         super().__init__(message)
         self.usage = usage
-
-
-def parse_classification_ascii_whitespace(text: str) -> str:
-    compact = text.translate(
-        {ord(character): None for character in " \t\r\n"}
-    )
-    return parse_classification(compact)
 
 
 def _usage(model: ChatModel) -> dict[str, Any]:
