@@ -1,0 +1,4504 @@
+{
+  "opportunity_diagnostics": [
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 1,
+        "final": 3,
+        "shallow_root": 5
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        12,
+        3,
+        2,
+        4
+      ],
+      "task_id": "4hop3__21483_551941_234987_24137",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 11,
+        "deep_root": 15,
+        "final": 8,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        11,
+        3,
+        10,
+        5
+      ],
+      "task_id": "4hop3__101745_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 18,
+        "deep_root": 1,
+        "final": 8,
+        "shallow_root": 6
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        7,
+        9,
+        8,
+        14
+      ],
+      "task_id": "4hop3__411315_75897_8509_19700",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 4,
+        "final": 6,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        3,
+        8,
+        1,
+        16
+      ],
+      "task_id": "4hop3__145795_362455_28338_160498",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 6,
+        "deep_root": 3,
+        "final": 2,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        19,
+        13,
+        18,
+        10
+      ],
+      "task_id": "4hop3__414353_419859_22784_86234",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 5,
+        "final": 13,
+        "shallow_root": 7
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        6,
+        15,
+        2,
+        5
+      ],
+      "task_id": "4hop3__778278_796114_130540_242202",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 1,
+        "final": 19,
+        "shallow_root": 5
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        17,
+        18,
+        0,
+        9
+      ],
+      "task_id": "4hop3__298484_100414_35260_54090",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 6,
+        "deep_root": 1,
+        "final": 9,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        10,
+        11,
+        13,
+        18
+      ],
+      "task_id": "4hop3__493923_300471_550937_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 3,
+        "final": 14,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        7,
+        18,
+        3,
+        16
+      ],
+      "task_id": "4hop3__101950_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 16,
+        "deep_root": 2,
+        "final": 11,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        8,
+        6,
+        3,
+        12
+      ],
+      "task_id": "4hop3__39198_75897_8509_19700",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 5,
+        "final": 11,
+        "shallow_root": 8
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        6,
+        3,
+        2,
+        5
+      ],
+      "task_id": "4hop3__188052_32223_59173_831253",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 8,
+        "final": 5,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        10,
+        1,
+        8,
+        17
+      ],
+      "task_id": "4hop3__164419_608613_54405_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 10,
+        "deep_root": 5,
+        "final": 15,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        3,
+        16,
+        4,
+        0
+      ],
+      "task_id": "4hop3__1707_158293_661360_54023",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 18,
+        "deep_root": 1,
+        "final": 16,
+        "shallow_root": 12
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        12,
+        5,
+        11,
+        3
+      ],
+      "task_id": "4hop3__312602_629330_158516_63115",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 5,
+        "deep_root": 1,
+        "final": 2,
+        "shallow_root": 6
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        14,
+        2,
+        8,
+        10
+      ],
+      "task_id": "4hop3__503722_620110_68869_261712",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 5,
+        "final": 9,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        5,
+        17,
+        13,
+        18
+      ],
+      "task_id": "4hop3__164419_608613_21563_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 2,
+        "final": 1,
+        "shallow_root": 7
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        6,
+        0,
+        19,
+        3
+      ],
+      "task_id": "4hop3__778278_796114_57545_242202",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 8,
+        "deep_root": 1,
+        "final": 17,
+        "shallow_root": 20
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        19,
+        1,
+        10,
+        5
+      ],
+      "task_id": "4hop3__863541_280480_160165_606586",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 12,
+        "deep_root": 2,
+        "final": 20,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        8,
+        7,
+        18,
+        2
+      ],
+      "task_id": "4hop3__188052_32223_21987_831253",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 17,
+        "deep_root": 1,
+        "final": 18,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        9,
+        10,
+        12,
+        4
+      ],
+      "task_id": "4hop3__312602_629330_38965_63115",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 6,
+        "deep_root": 13,
+        "final": 1,
+        "shallow_root": 5
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        0,
+        9,
+        17,
+        14
+      ],
+      "task_id": "4hop3__262651_365698_306302_65370",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 10,
+        "deep_root": 3,
+        "final": 2,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        6,
+        19,
+        13,
+        18
+      ],
+      "task_id": "4hop3__443202_461200_68869_261712",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 13,
+        "deep_root": 2,
+        "final": 3,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        11,
+        2,
+        9,
+        13
+      ],
+      "task_id": "4hop3__286131_77886_52539_69951",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 9,
+        "final": 17,
+        "shallow_root": 16
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        13,
+        10,
+        9,
+        14
+      ],
+      "task_id": "4hop3__825567_280480_160165_606586",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 1,
+        "final": 6,
+        "shallow_root": 5
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        2,
+        8,
+        11,
+        10
+      ],
+      "task_id": "4hop3__838995_608613_54405_4107",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 11,
+        "deep_root": 6,
+        "final": 5,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        15,
+        9,
+        12,
+        7
+      ],
+      "task_id": "4hop3__9664_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 5,
+        "final": 9,
+        "shallow_root": 14
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        0,
+        6,
+        16,
+        12
+      ],
+      "task_id": "4hop3__31642_754527_397221_20507",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 1,
+        "final": 19,
+        "shallow_root": 14
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        7,
+        13,
+        1,
+        10
+      ],
+      "task_id": "4hop3__298484_100414_18393_54090",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 1,
+        "final": 12,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        4,
+        9,
+        14,
+        12
+      ],
+      "task_id": "4hop3__493923_300471_411476_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 5,
+        "final": 7,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        0,
+        1,
+        13,
+        18
+      ],
+      "task_id": "4hop3__3152_3356_11988_24628",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 1,
+        "final": 6,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        7,
+        16,
+        12,
+        5
+      ],
+      "task_id": "4hop3__166346_9522_28235_22384",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 10,
+        "deep_root": 19,
+        "final": 4,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        7,
+        19,
+        0,
+        15
+      ],
+      "task_id": "4hop3__69818_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 12,
+        "final": 9,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        17,
+        9,
+        6,
+        2
+      ],
+      "task_id": "4hop3__197577_608613_5529_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 1,
+        "final": 18,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        16,
+        19,
+        7,
+        10
+      ],
+      "task_id": "4hop3__463724_100414_35260_54090",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 18,
+        "deep_root": 7,
+        "final": 9,
+        "shallow_root": 11
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        6,
+        17,
+        16,
+        15
+      ],
+      "task_id": "4hop3__710649_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 7,
+        "final": 5,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        5,
+        3,
+        10,
+        17
+      ],
+      "task_id": "4hop3__616279_608613_54405_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 4,
+        "deep_root": 2,
+        "final": 1,
+        "shallow_root": 13
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        5,
+        7,
+        3,
+        2
+      ],
+      "task_id": "4hop3__296445_691163_388866_65370",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 3,
+        "deep_root": 2,
+        "final": 1,
+        "shallow_root": 10
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        2,
+        19,
+        18,
+        12
+      ],
+      "task_id": "4hop3__65690_46089_61674_1952",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 1,
+        "final": 8,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        0,
+        19,
+        7,
+        9
+      ],
+      "task_id": "4hop3__677205_9522_28235_22384",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 11,
+        "deep_root": 1,
+        "final": 12,
+        "shallow_root": 9
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        13,
+        2,
+        14,
+        3
+      ],
+      "task_id": "4hop3__204168_9522_39185_22384",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 16,
+        "deep_root": 2,
+        "final": 6,
+        "shallow_root": 8
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        18,
+        6,
+        10,
+        12
+      ],
+      "task_id": "4hop3__106515_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 2,
+        "final": 1,
+        "shallow_root": 7
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        11,
+        17,
+        6,
+        18
+      ],
+      "task_id": "4hop3__778278_796114_88276_242202",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 10,
+        "deep_root": 5,
+        "final": 4,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        8,
+        16,
+        4,
+        12
+      ],
+      "task_id": "4hop3__656765_419859_31519_86234",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 14,
+        "deep_root": 3,
+        "final": 4,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        10,
+        9,
+        15,
+        18
+      ],
+      "task_id": "4hop3__17249_45116_37620_47790",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 13,
+        "deep_root": 5,
+        "final": 16,
+        "shallow_root": 6
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        0,
+        12,
+        4,
+        5
+      ],
+      "task_id": "4hop3__231402_783837_162189_73761",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 7,
+        "final": 3,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        2,
+        4,
+        13,
+        1
+      ],
+      "task_id": "4hop3__287536_387027_68869_716149",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 5,
+        "deep_root": 10,
+        "final": 3,
+        "shallow_root": 8
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        9,
+        2,
+        3,
+        16
+      ],
+      "task_id": "4hop3__29335_30907_11988_24628",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 14,
+        "deep_root": 1,
+        "final": 12,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        3,
+        13,
+        12,
+        5
+      ],
+      "task_id": "4hop3__703974_789671_744084_24137",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 18,
+        "deep_root": 6,
+        "final": 7,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        10,
+        1,
+        12,
+        17
+      ],
+      "task_id": "4hop3__822796_608613_21563_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 6,
+        "deep_root": 1,
+        "final": 12,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        11,
+        17,
+        13,
+        4
+      ],
+      "task_id": "4hop3__493923_300471_262776_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 17,
+        "deep_root": 2,
+        "final": 7,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        10,
+        5,
+        9,
+        18
+      ],
+      "task_id": "4hop3__18138_362455_28338_160498",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 11,
+        "deep_root": 1,
+        "final": 7,
+        "shallow_root": 5
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        14,
+        5,
+        12,
+        7
+      ],
+      "task_id": "4hop3__695568_769559_131782_718885",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 8,
+        "deep_root": 1,
+        "final": 19,
+        "shallow_root": 13
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        18,
+        9,
+        0,
+        7
+      ],
+      "task_id": "4hop3__312602_629330_25429_63115",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 12,
+        "final": 16,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        17,
+        18,
+        13,
+        4
+      ],
+      "task_id": "4hop3__63030_75897_8509_19700",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 2,
+        "final": 5,
+        "shallow_root": 8
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        18,
+        10,
+        7,
+        8
+      ],
+      "task_id": "4hop3__659125_39490_56933_831253",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 1,
+        "deep_root": 12,
+        "final": 20,
+        "shallow_root": 18
+      },
+      "bm25_top_role": "deep_child",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        0,
+        5,
+        2,
+        9
+      ],
+      "task_id": "4hop3__31642_754527_862138_20507",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 10,
+        "deep_root": 6,
+        "final": 8,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        2,
+        12,
+        16,
+        0
+      ],
+      "task_id": "4hop3__257966_20196_9998_46960",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 4,
+        "deep_root": 6,
+        "final": 1,
+        "shallow_root": 13
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        6,
+        19,
+        15,
+        18
+      ],
+      "task_id": "4hop3__161176_46089_61674_1952",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 3,
+        "deep_root": 4,
+        "final": 12,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        10,
+        4,
+        18,
+        16
+      ],
+      "task_id": "4hop3__49391_75897_8509_19700",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 10,
+        "deep_root": 3,
+        "final": 17,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        3,
+        16,
+        8,
+        9
+      ],
+      "task_id": "4hop3__672860_75897_26851_19700",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 3,
+        "deep_root": 1,
+        "final": 16,
+        "shallow_root": 9
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        18,
+        12,
+        8,
+        9
+      ],
+      "task_id": "4hop3__166346_9522_39185_22384",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 3,
+        "final": 16,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        14,
+        19,
+        16,
+        2
+      ],
+      "task_id": "4hop3__312602_629330_15766_63115",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 2,
+        "final": 4,
+        "shallow_root": 12
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        4,
+        2,
+        8,
+        16
+      ],
+      "task_id": "4hop3__838995_608613_83398_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 7,
+        "deep_root": 2,
+        "final": 18,
+        "shallow_root": 5
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        4,
+        15,
+        18,
+        10
+      ],
+      "task_id": "4hop3__659125_39490_661360_67374",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 1,
+        "deep_root": 3,
+        "final": 5,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_child",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        2,
+        3,
+        16,
+        1
+      ],
+      "task_id": "4hop3__29341_30907_32417_24628",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 15,
+        "deep_root": 1,
+        "final": 14,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        19,
+        1,
+        16,
+        10
+      ],
+      "task_id": "4hop3__312602_629330_9877_63115",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 1,
+        "final": 8,
+        "shallow_root": 18
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        0,
+        17,
+        11,
+        7
+      ],
+      "task_id": "4hop3__786436_280480_160165_606586",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 14,
+        "deep_root": 10,
+        "final": 7,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        2,
+        3,
+        10,
+        14
+      ],
+      "task_id": "4hop3__105422_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 16,
+        "deep_root": 1,
+        "final": 9,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        1,
+        0,
+        7,
+        17
+      ],
+      "task_id": "4hop3__103802_38788_25582_21116",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 1,
+        "final": 14,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        2,
+        14,
+        19,
+        11
+      ],
+      "task_id": "4hop3__493923_300471_569352_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 15,
+        "final": 5,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        14,
+        12,
+        0,
+        13
+      ],
+      "task_id": "4hop3__74090_84421_34135_35312",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 8,
+        "deep_root": 2,
+        "final": 5,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        5,
+        2,
+        7,
+        15
+      ],
+      "task_id": "4hop3__21483_551941_279838_24137",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 3,
+        "final": 17,
+        "shallow_root": 16
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        13,
+        10,
+        6,
+        7
+      ],
+      "task_id": "4hop3__424334_280480_160165_606586",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 7,
+        "deep_root": 4,
+        "final": 1,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        2,
+        14,
+        19,
+        10
+      ],
+      "task_id": "4hop3__853503_419859_61674_1952",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 15,
+        "deep_root": 1,
+        "final": 18,
+        "shallow_root": 9
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        7,
+        18,
+        16,
+        14
+      ],
+      "task_id": "4hop3__703974_789671_638197_24137",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 5,
+        "final": 9,
+        "shallow_root": 17
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        2,
+        15,
+        17,
+        13
+      ],
+      "task_id": "4hop3__31642_754527_173395_20507",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 2,
+        "final": 4,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        11,
+        4,
+        3,
+        1
+      ],
+      "task_id": "4hop3__106705_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 7,
+        "final": 19,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        18,
+        6,
+        5,
+        7
+      ],
+      "task_id": "4hop3__31642_754527_547989_20507",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 1,
+        "final": 13,
+        "shallow_root": 9
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        4,
+        2,
+        3,
+        7
+      ],
+      "task_id": "4hop3__312602_629330_8450_63115",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 15,
+        "final": 16,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        10,
+        18,
+        9,
+        2
+      ],
+      "task_id": "4hop3__146657_858588_68869_274317",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 5,
+        "deep_root": 14,
+        "final": 1,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        2,
+        10,
+        7,
+        3
+      ],
+      "task_id": "4hop3__287536_387027_61746_716149",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 2,
+        "final": 11,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        1,
+        14,
+        6,
+        16
+      ],
+      "task_id": "4hop3__341301_75897_8509_19700",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 1,
+        "final": 9,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        10,
+        5,
+        0,
+        6
+      ],
+      "task_id": "4hop3__838995_608613_89818_4107",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 18,
+        "deep_root": 2,
+        "final": 6,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        11,
+        5,
+        6,
+        8
+      ],
+      "task_id": "4hop3__144622_362455_28338_160498",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 10,
+        "deep_root": 1,
+        "final": 11,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        17,
+        10,
+        15,
+        16
+      ],
+      "task_id": "4hop3__493923_300471_374971_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 1,
+        "final": 6,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        5,
+        2,
+        3,
+        14
+      ],
+      "task_id": "4hop3__145289_362455_28338_160498",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 3,
+        "final": 19,
+        "shallow_root": 9
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        17,
+        3,
+        0,
+        8
+      ],
+      "task_id": "4hop3__50171_8966_51964_32334",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 17,
+        "deep_root": 8,
+        "final": 9,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        13,
+        7,
+        15,
+        1
+      ],
+      "task_id": "4hop3__641045_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 15,
+        "final": 6,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        17,
+        5,
+        19,
+        15
+      ],
+      "task_id": "4hop3__145892_362455_28338_160498",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 5,
+        "final": 10,
+        "shallow_root": 15
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        6,
+        3,
+        2,
+        15
+      ],
+      "task_id": "4hop3__31642_754527_260213_20507",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 4,
+        "final": 18,
+        "shallow_root": 15
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        0,
+        10,
+        12,
+        8
+      ],
+      "task_id": "4hop3__453094_280480_160165_606586",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 7,
+        "deep_root": 1,
+        "final": 15,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        11,
+        5,
+        19,
+        17
+      ],
+      "task_id": "4hop3__493923_300471_517772_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 8,
+        "deep_root": 15,
+        "final": 1,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        16,
+        2,
+        14,
+        18
+      ],
+      "task_id": "4hop3__29335_30907_32417_24628",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 5,
+        "final": 6,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        13,
+        0,
+        14,
+        9
+      ],
+      "task_id": "4hop3__144936_362455_28338_160498",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 7,
+        "deep_root": 2,
+        "final": 1,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        17,
+        14,
+        3,
+        7
+      ],
+      "task_id": "4hop3__636503_823491_51280_242202",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 2,
+        "deep_root": 3,
+        "final": 18,
+        "shallow_root": 19
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        10,
+        16,
+        14,
+        12
+      ],
+      "task_id": "4hop3__313385_280480_160165_606586",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 1,
+        "deep_root": 12,
+        "final": 8,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "deep_child",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        18,
+        13,
+        8,
+        5
+      ],
+      "task_id": "4hop3__18305_84421_34135_35312",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 7,
+        "deep_root": 6,
+        "final": 1,
+        "shallow_root": 8
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        7,
+        10,
+        19,
+        14
+      ],
+      "task_id": "4hop3__853503_419859_22784_86234",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 7,
+        "final": 9,
+        "shallow_root": 5
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        18,
+        7,
+        6,
+        14
+      ],
+      "task_id": "4hop3__31642_754527_265321_20507",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 16,
+        "deep_root": 8,
+        "final": 6,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        14,
+        6,
+        18,
+        9
+      ],
+      "task_id": "4hop3__5752_362455_28338_160498",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 2,
+        "final": 1,
+        "shallow_root": 8
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        3,
+        10,
+        13,
+        9
+      ],
+      "task_id": "4hop3__385156_9522_28235_22384",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 11,
+        "deep_root": 9,
+        "final": 1,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        10,
+        0,
+        4,
+        14
+      ],
+      "task_id": "4hop3__16404_4520_37620_47790",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 17,
+        "deep_root": 1,
+        "final": 15,
+        "shallow_root": 12
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        13,
+        12,
+        9,
+        10
+      ],
+      "task_id": "4hop3__703974_789671_473969_24137",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 4,
+        "deep_root": 1,
+        "final": 16,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        4,
+        9,
+        3,
+        14
+      ],
+      "task_id": "4hop3__493923_300471_532290_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 1,
+        "final": 6,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        2,
+        6,
+        9,
+        7
+      ],
+      "task_id": "4hop3__21483_551941_473969_24137",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 3,
+        "deep_root": 2,
+        "final": 18,
+        "shallow_root": 16
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        12,
+        16,
+        7,
+        3
+      ],
+      "task_id": "4hop3__581464_280480_160165_606586",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 2,
+        "final": 7,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        5,
+        7,
+        2,
+        10
+      ],
+      "task_id": "4hop3__147221_362455_28338_160498",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 11,
+        "deep_root": 13,
+        "final": 1,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        6,
+        4,
+        8,
+        11
+      ],
+      "task_id": "4hop3__630162_691163_306302_65370",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 17,
+        "deep_root": 11,
+        "final": 8,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        14,
+        3,
+        17,
+        8
+      ],
+      "task_id": "4hop3__358018_75897_8509_19700",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 9,
+        "deep_root": 1,
+        "final": 13,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        4,
+        15,
+        14,
+        17
+      ],
+      "task_id": "4hop3__493923_300471_189844_62462",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 4,
+        "final": 5,
+        "shallow_root": 12
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        18,
+        10,
+        8,
+        5
+      ],
+      "task_id": "4hop3__822796_608613_5529_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 18,
+        "deep_root": 1,
+        "final": 8,
+        "shallow_root": 4
+      },
+      "bm25_top_role": "deep_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": false,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        11,
+        6,
+        16,
+        4
+      ],
+      "task_id": "4hop3__622851_620110_61746_261712",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 18,
+        "deep_root": 3,
+        "final": 16,
+        "shallow_root": 10
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        3,
+        16,
+        7,
+        13
+      ],
+      "task_id": "4hop3__136684_38788_25582_21116",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 5,
+        "final": 3,
+        "shallow_root": 6
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        8,
+        18,
+        6,
+        13
+      ],
+      "task_id": "4hop3__778278_796114_30802_242202",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 3,
+        "deep_root": 9,
+        "final": 5,
+        "shallow_root": 1
+      },
+      "bm25_top_role": "shallow_root",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        12,
+        15,
+        3,
+        9
+      ],
+      "task_id": "4hop3__21483_551941_656547_24137",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 1,
+        "deep_root": 3,
+        "final": 19,
+        "shallow_root": 16
+      },
+      "bm25_top_role": "deep_child",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        8,
+        1,
+        7,
+        11
+      ],
+      "task_id": "4hop3__250064_280480_160165_606586",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 20,
+        "deep_root": 16,
+        "final": 9,
+        "shallow_root": 12
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        17,
+        16,
+        12,
+        5
+      ],
+      "task_id": "4hop3__197577_608613_83398_4107",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 13,
+        "deep_root": 5,
+        "final": 1,
+        "shallow_root": 3
+      },
+      "bm25_top_role": "final",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        4,
+        3,
+        10,
+        16
+      ],
+      "task_id": "4hop3__659370_691163_306302_65370",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 19,
+        "deep_root": 5,
+        "final": 8,
+        "shallow_root": 18
+      },
+      "bm25_top_role": "distractor",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": true,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": false,
+      "support_indices": [
+        11,
+        9,
+        18,
+        1
+      ],
+      "task_id": "4hop3__31642_754527_363197_20507",
+      "top_is_shallow_or_distractor": true,
+      "valid_branching_row": true
+    },
+    {
+      "bm25_support_ranks": {
+        "deep_child": 1,
+        "deep_root": 4,
+        "final": 9,
+        "shallow_root": 2
+      },
+      "bm25_top_role": "deep_child",
+      "connected_prefix_gap": 1,
+      "deep_first_connected_prefix": 2,
+      "deep_root_not_rank_one": true,
+      "dependencies": [
+        [],
+        [
+          1
+        ],
+        [],
+        [
+          2,
+          3
+        ]
+      ],
+      "exclusion": null,
+      "root_answers_hidden": true,
+      "root_titles_hidden": false,
+      "shallow_first_connected_prefix": 1,
+      "shallow_scores_above_deep": true,
+      "support_indices": [
+        13,
+        8,
+        10,
+        7
+      ],
+      "task_id": "4hop3__153011_362455_28338_160498",
+      "top_is_shallow_or_distractor": false,
+      "valid_branching_row": true
+    }
+  ],
+  "protocol": {
+    "dataset": "MuSiQue-Ans v1.0 train",
+    "development_rows_accessed": 0,
+    "eligible_4hop3_rows": 400,
+    "holdout_rows_accessed": 0,
+    "model_calls": 0,
+    "selection_seed": 24353,
+    "source_rows": 19938,
+    "source_sha256": "83a75b1e11e4e9bb8f8308e72ac40ca617ae4431b3a0d955b61cab259248490a",
+    "split_hashes": {
+      "development": "619615104c1357f08b51b6363c225ded64313035899626d7d98c1a39117ff8ee",
+      "holdout": "175a7dc642b88e843cbcfab8ae3a0ec44e036e93dcc40f9fcc18a3c56030d7b6",
+      "opportunity": "d11fbc929ebe04ca01e6fc88b7fe417e970a4ca5912b746a782ae51a3ed16423"
+    },
+    "split_sizes": {
+      "development": 40,
+      "holdout": 240,
+      "opportunity": 120
+    }
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "bm25_top_roles": {
+      "deep_child": 5,
+      "deep_root": 35,
+      "distractor": 40,
+      "final": 15,
+      "shallow_root": 25
+    },
+    "deep_root_not_rank_one_count": 85,
+    "exclusion_counts": {},
+    "gates": {
+      "all_connected_prefix_gaps_equal_one": true,
+      "all_pass": true,
+      "all_rows_have_exact_branching_structure": true,
+      "deep_root_not_rank_one_count_at_least_85": true,
+      "development_split_hash_matches": true,
+      "eligible_row_count_matches": true,
+      "exact_120_opportunity_rows": true,
+      "holdout_split_hash_matches": true,
+      "opportunity_split_hash_matches": true,
+      "root_answers_hidden_count_at_least_110": true,
+      "shallow_or_distractor_top_count_at_least_65": true,
+      "shallow_scores_above_deep_count_at_least_45": true,
+      "source_row_count_matches": true,
+      "source_sha256_matches": true,
+      "zero_development_rows_accessed": true,
+      "zero_holdout_rows_accessed": true,
+      "zero_model_calls": true
+    },
+    "mean_deep_root_rank": 4.583333333333333,
+    "mean_shallow_root_rank": 5.741666666666666,
+    "opportunity_rows": 120,
+    "root_answers_hidden_count": 120,
+    "root_titles_hidden_count": 49,
+    "shallow_or_distractor_top_count": 65,
+    "shallow_scores_above_deep_count": 52,
+    "valid_branching_rows": 120
+  }
+}
