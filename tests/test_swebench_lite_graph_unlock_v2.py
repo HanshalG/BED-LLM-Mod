@@ -1,4 +1,7 @@
 import io
+from pathlib import Path
+import subprocess
+import sys
 import tarfile
 
 from scripts.swebench_lite_graph_unlock_v2 import (
@@ -115,3 +118,21 @@ def test_sources_from_tar_reads_python_and_applies_character_cap():
 
     assert set(sources) == {"pkg/a.py"}
     assert len(sources["pkg/a.py"]) == 200_000
+
+
+def test_standalone_help_resolves_repo_imports():
+    script = (
+        Path(__file__).resolve().parents[1]
+        / "scripts"
+        / "swebench_lite_graph_unlock_v2.py"
+    )
+
+    result = subprocess.run(
+        [sys.executable, str(script), "--help"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "graph-conditioned file-retrieval opportunity" in result.stdout

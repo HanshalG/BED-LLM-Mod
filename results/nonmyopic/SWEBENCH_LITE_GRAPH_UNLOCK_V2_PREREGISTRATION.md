@@ -151,6 +151,12 @@ filters and 200,000-character per-file cap are applied after reading the
 archive. This changes no source bytes, split, issue, endpoint, query, BM25
 document, graph edge, weight, top-k, gate, or API behavior.
 
+The first batched invocation then stopped before issue analysis because the
+standalone executable lacked the repository-root `sys.path` bootstrap needed
+for its local BM25 import. The standard bootstrap is added before another
+invocation, with a subprocess `--help` regression test. This is launcher-only;
+all scientific and source-extraction behavior remains unchanged.
+
 ## Budget
 
 The opportunity audit uses zero API calls and zero OpenRouter spend. OatML is

@@ -14,9 +14,14 @@ from pathlib import Path
 import random
 import re
 import subprocess
+import sys
 import tarfile
 from typing import Any, Iterable, Sequence
 
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 SCHEMA_VERSION = 1
 DATASET_REVISION = "69611d31007e1c6731db8bd5b5c3f2d33f5bab6e"
