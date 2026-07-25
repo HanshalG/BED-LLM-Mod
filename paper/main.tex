@@ -194,7 +194,7 @@ Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, 
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
 $\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
-Animals 20Q & Concrete target, LLM support/likelihood & Unverified & d1 AUC .743; transition dev +.05 & One-step positive; transition null \\
+Animals 20Q & Concrete target, LLM support/likelihood & Unverified & d1 AUC .743; transition dev +.05 & One-step positive; holdout invalid \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
 MediQ iMEDQA & A--D often not generative & Channel too sparse & 8/30 replies available & Gate failure \\
@@ -585,6 +585,8 @@ unlocks and Thyroid uses native delayed-assay metadata plus projected utility.
 This is not unaided LLM planning.
 Cleveland recovered 100.9 with zero projected branches, but its independent truth-log
 interval crosses zero, so it is not an all-gates confirmation. Animals is only partially paired;
+its transition confirmation stopped after seven of 60 states on malformed model output,
+so it supplies no holdout efficacy estimate.
 natural location uses one model family and environment. Paprika
 policy counts are endpoint-invalid and its structured support saturates at the prior;
 MediQ stops before a calibrated policy comparison,
