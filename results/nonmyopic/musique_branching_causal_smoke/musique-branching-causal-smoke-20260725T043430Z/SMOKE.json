@@ -1,0 +1,971 @@
+{
+  "protocol": {
+    "aligned_is_a": [
+      [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ],
+      [
+        true,
+        false,
+        true,
+        false,
+        true,
+        false
+      ]
+    ],
+    "annotations_hidden_from_all_model_prompts": true,
+    "blinding_seed": 24354,
+    "interface_version": "musique-branching-causal-smoke-1",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "7cd708c680cd64f594766aa8474d9f332c9a0904a821bec98f7c95ee21c66dd1",
+    "question_hidden_from_continuation_scorer": true,
+    "random_control_seed": 24355,
+    "reasoning_requested": false,
+    "repairs_or_scientific_retries": 0,
+    "root_evidence_hidden_from_continuation_scorer": true,
+    "root_query_hidden_from_continuation_scorer": true,
+    "task_ids": [
+      "4hop3__405751_4520_37620_55609",
+      "4hop3__360282_544708_764770_54023"
+    ]
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "aligned_initial_vector_change_count": 12,
+    "aligned_score_variation_count": 12,
+    "aligned_shuffled_vector_change_count": 12,
+    "deep_followup_success_count": 2,
+    "gates": {
+      "aligned_deep_followup_succeeds_at_least_once": true,
+      "aligned_initial_vectors_differ_at_least_8_roots": true,
+      "aligned_score_variation_at_least_10_roots": true,
+      "aligned_shuffled_vectors_differ_at_least_8_roots": true,
+      "all_pass": false,
+      "all_refreshed_states_differ_from_initial": true,
+      "all_responses_parsed_without_repair": true,
+      "at_least_five_distinct_refreshes_each": true,
+      "at_least_three_distinct_first_documents_each": true,
+      "balanced_blinding_labels": true,
+      "cost_at_most_0_50": true,
+      "deep_and_shallow_roots_retrieved_each": false,
+      "exact_16_http_attempts": true,
+      "exact_16_physical_requests": true,
+      "model_aware_at_least_fixed_both": true,
+      "model_aware_at_least_myopic_both": true,
+      "model_aware_at_least_shuffled_both": true,
+      "model_aware_selects_deep_root_at_least_once": true,
+      "model_aware_strictly_beats_myopic_at_least_once": false,
+      "zero_forced_exits": true,
+      "zero_reasoning_tokens": true,
+      "zero_transport_retries": true
+    },
+    "model_at_least_myopic_count": 2,
+    "model_deep_root_count": 1,
+    "model_strictly_better_myopic_count": 0
+  },
+  "tasks": [
+    {
+      "aligned_deep_followup_retrieves_child": true,
+      "continuation_rows": [
+        {
+          "aligned_label": "B",
+          "aligned_scores": [
+            46,
+            92,
+            54,
+            24
+          ],
+          "initial_scores": [
+            44,
+            86,
+            61,
+            57
+          ],
+          "root_index": 0,
+          "shuffled_scores": [
+            31,
+            72,
+            58,
+            88
+          ]
+        },
+        {
+          "aligned_label": "A",
+          "aligned_scores": [
+            85,
+            48,
+            63,
+            82
+          ],
+          "initial_scores": [
+            54,
+            83,
+            79,
+            50
+          ],
+          "root_index": 1,
+          "shuffled_scores": [
+            29,
+            90,
+            87,
+            22
+          ]
+        },
+        {
+          "aligned_label": "B",
+          "aligned_scores": [
+            94,
+            52,
+            63,
+            34
+          ],
+          "initial_scores": [
+            91,
+            60,
+            55,
+            47
+          ],
+          "root_index": 2,
+          "shuffled_scores": [
+            89,
+            57,
+            42,
+            69
+          ]
+        },
+        {
+          "aligned_label": "A",
+          "aligned_scores": [
+            46,
+            68,
+            87,
+            41
+          ],
+          "initial_scores": [
+            81,
+            78,
+            74,
+            36
+          ],
+          "root_index": 3,
+          "shuffled_scores": [
+            84,
+            92,
+            39,
+            56
+          ]
+        },
+        {
+          "aligned_label": "B",
+          "aligned_scores": [
+            82,
+            41,
+            94,
+            96
+          ],
+          "initial_scores": [
+            76,
+            58,
+            90,
+            92
+          ],
+          "root_index": 4,
+          "shuffled_scores": [
+            49,
+            83,
+            71,
+            73
+          ]
+        },
+        {
+          "aligned_label": "A",
+          "aligned_scores": [
+            88,
+            51,
+            38,
+            79
+          ],
+          "initial_scores": [
+            62,
+            80,
+            66,
+            93
+          ],
+          "root_index": 5,
+          "shuffled_scores": [
+            33,
+            87,
+            59,
+            95
+          ]
+        }
+      ],
+      "deep_root_candidate_indices": [
+        1,
+        3,
+        5
+      ],
+      "distinct_first_retrieval_count": 3,
+      "distinct_refresh_state_count": 6,
+      "followup_doc_ids": [
+        [
+          "d15",
+          "d03",
+          "d07",
+          "d02"
+        ],
+        [
+          "d02",
+          "d18",
+          "d03",
+          "d02"
+        ],
+        [
+          "d12",
+          "d07",
+          "d15",
+          "d07"
+        ],
+        [
+          "d18",
+          "d03",
+          "d02",
+          "d02"
+        ],
+        [
+          "d18",
+          "d07",
+          "d12",
+          "d12"
+        ],
+        [
+          "d02",
+          "d18",
+          "d18",
+          "d12"
+        ]
+      ],
+      "followup_titles": [
+        [
+          "Separation of church and state in the United States",
+          "History of taxation in the United States",
+          "David Vladeck",
+          "Separation of powers under the United States Constitution"
+        ],
+        [
+          "Separation of powers under the United States Constitution",
+          "Separation of church and state in the United States",
+          "History of taxation in the United States",
+          "Separation of powers under the United States Constitution"
+        ],
+        [
+          "Sixteenth Amendment to the United States Constitution",
+          "David Vladeck",
+          "Separation of church and state in the United States",
+          "David Vladeck"
+        ],
+        [
+          "Separation of church and state in the United States",
+          "History of taxation in the United States",
+          "Separation of powers under the United States Constitution",
+          "Separation of powers under the United States Constitution"
+        ],
+        [
+          "Separation of church and state in the United States",
+          "David Vladeck",
+          "Sixteenth Amendment to the United States Constitution",
+          "Sixteenth Amendment to the United States Constitution"
+        ],
+        [
+          "Separation of powers under the United States Constitution",
+          "Separation of church and state in the United States",
+          "Separation of church and state in the United States",
+          "Sixteenth Amendment to the United States Constitution"
+        ]
+      ],
+      "initial": {
+        "hypotheses": [
+          "Identify the document described by the quote claim that 'wall of separation' is nowhere to be found; determine that document's 16th amendment; find what that amendment legalized regarding income tax; identify David Vladeck's employer; identify the government branch overseeing that employer; answer with the date the amendment was ratified/adopted.",
+          "Search the quote phrase 'wall of separation is nowhere to be found' to locate a discussion of a founding legal document; confirm the document is the U.S. Constitution; retrieve the 16th Amendment entry; verify it authorized federal income tax; separately find David Vladeck's employer and the branch it belongs to or is overseen by; return the amendment's ratification date.",
+          "Start from David Vladeck, determine his employer, then determine the supervising government branch; infer the government in question is the U.S. federal government; locate which U.S. document is commonly discussed with the phrase 'wall of separation'; then find that document's 16th Amendment and the date it legalized income taxation.",
+          "Resolve 'document that \"wall of separation\" is nowhere to be found' by finding a legal opinion or article using that wording; extract the referenced document; look up its amendment numbering and specifically the 16th amendment; confirm the amendment's subject is income tax; then connect David Vladeck's employer to its oversight branch and provide the date tied to the amendment.",
+          "Find biographies of David Vladeck to identify his employer; from the employer page identify its oversight branch; in parallel search for the quotation about 'wall of separation' and discover the document being criticized or interpreted; once the document is known, find its 16th amendment and the year/date it legalized income tax; report that date.",
+          "Search for agencies or institutions employing David Vladeck, likely yielding a federal consumer-protection body or academic institution; if federal, determine which branch has oversight; then search constitutional-law sources for the phrase 'wall of separation is nowhere to be found'; identify the U.S. Constitution as the document; retrieve the 16th Amendment's ratification date as the answer.",
+          "Use a quote-focused search on 'wall of separation' to find references to church-state debates and the Constitution; verify the Constitution has a 16th Amendment on income tax; separately use a person-focused search on David Vladeck to find his employer and the branch with oversight; since both chains point to the same federal framework, answer with the 16th Amendment's adoption date.",
+          "Treat the problem as a four-hop relation: quote claim -> document, document -> 16th amendment, David Vladeck -> employer, employer -> overseeing branch; then combine the branches/documents if they refer to the same federal system and extract the date when the 16th Amendment legalized income tax."
+        ],
+        "root_queries": [
+          "\"wall of separation\" nowhere to be found document 16th amendment income tax",
+          "David Vladeck employer oversight branch",
+          "\"wall of separation\" nowhere to be found Constitution",
+          "David Vladeck biography employer FTC Georgetown",
+          "16th Amendment legalized income tax ratified date",
+          "which branch oversees Federal Trade Commission David Vladeck"
+        ],
+        "root_scores": [
+          82,
+          74,
+          88,
+          69,
+          91,
+          77
+        ]
+      },
+      "policies": {
+        "fixed": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 2,
+          "first_title": "History of taxation in the United States",
+          "followup_index": 3,
+          "root_index": 4,
+          "root_role": "other",
+          "second_paragraph_index": 11,
+          "second_title": "Sixteenth Amendment to the United States Constitution"
+        },
+        "model_aware": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 2,
+          "first_title": "History of taxation in the United States",
+          "followup_index": 3,
+          "root_index": 4,
+          "root_role": "other",
+          "second_paragraph_index": 11,
+          "second_title": "Sixteenth Amendment to the United States Constitution"
+        },
+        "myopic": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 2,
+          "first_title": "History of taxation in the United States",
+          "followup_index": 3,
+          "root_index": 4,
+          "root_role": "other",
+          "second_paragraph_index": 11,
+          "second_title": "Sixteenth Amendment to the United States Constitution"
+        },
+        "random": {
+          "connected_prefix_length": 2,
+          "first_paragraph_index": 6,
+          "first_title": "David Vladeck",
+          "followup_index": 0,
+          "root_index": 5,
+          "root_role": "deep_root",
+          "second_paragraph_index": 1,
+          "second_title": "Separation of powers under the United States Constitution"
+        },
+        "shuffled": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 17,
+          "first_title": "Separation of church and state in the United States",
+          "followup_index": 0,
+          "root_index": 2,
+          "root_role": "shallow_root",
+          "second_paragraph_index": 11,
+          "second_title": "Sixteenth Amendment to the United States Constitution"
+        }
+      },
+      "refreshes": [
+        {
+          "followup_queries": [
+            "Justice Potter Stewart \"wall of separation\" phrase nowhere to be found in the Constitution case",
+            "U.S. Constitution 16th Amendment ratified date legalized federal income tax",
+            "David Vladeck employer biography Federal Trade Commission Georgetown",
+            "which branch oversees the Federal Trade Commission executive legislative judicial"
+          ],
+          "hypotheses": [
+            "The retrieved result strongly suggests the quoted document is the U.S. Constitution because Justice Potter Stewart says the phrase 'wall of separation' is 'nowhere to be found in the Constitution'; remaining steps are to verify that the Constitution's 16th Amendment legalized federal income tax and extract its ratification/adoption date, then separately resolve David Vladeck's employer and its overseeing branch.",
+            "The title 'Separation of church and state in the United States' may only be a topical page, so a safer chain is to identify the exact case or source containing Potter Stewart's dissent, confirm that his 'phrase nowhere to be found in the Constitution' refers to the U.S. Constitution, then look up the 16th Amendment date and independently map David Vladeck to an employer and oversight branch.",
+            "Because the result mentions a Supreme Court justice discussing constitutional adjudication, the governing system is likely the U.S. federal government; the unresolved dependency is whether the question wants the 16th Amendment's ratification date or effective date after income-tax cases, which requires checking a constitutional source for the amendment's official adoption date while also identifying David Vladeck's employer.",
+            "The result newly narrows the quote side to church-state jurisprudence and Justice Potter Stewart, making the document likely the Constitution; the remaining uncertainty is on the person side: determine which David Vladeck employer is intended at the relevant time and then determine which branch oversees that employer before combining with the 16th Amendment date.",
+            "An alternate chain is that David Vladeck may have multiple employers across career stages, such as a law school and a federal agency; to avoid ambiguity, first identify the employer most plausibly meant in public biographies, then find its oversight branch, while separately using the Constitution lead from the retrieved paragraph to obtain the 16th Amendment date.",
+            "Since the paragraph quotes Stewart objecting to the metaphor in a dissent about governmentally composed prayers, the exact case context could clarify the constitutional document reference; after pinning down the case, proceed to the Constitution's 16th Amendment and its date, then connect David Vladeck to his employer and federal branch.",
+            "The phrase 'legalize levying of income tax' may refer specifically to the constitutional authorization of unapportioned federal income taxes; therefore the unresolved chain is to verify the wording and date from a primary or authoritative amendment source rather than relying only on a topical article, while separately resolving David Vladeck's employer and branch.",
+            "The evidence now supports a two-track plan: track A follows Potter Stewart -> 'wall of separation' -> Constitution -> 16th Amendment -> date; track B follows David Vladeck -> employer -> overseeing government branch; the final answer depends on completing both tracks and confirming they align on the U.S. federal context."
+          ]
+        },
+        {
+          "followup_queries": [
+            "Federal Trade Commission independent agency executive branch United States government",
+            "\"wall of separation\" \"nowhere to be found\" Constitution",
+            "U.S. Constitution 16th Amendment ratified date income tax",
+            "Bureau of Consumer Protection Federal Trade Commission oversight branch"
+          ],
+          "hypotheses": [
+            "David Vladeck is tied to the Federal Trade Commission through his role as former Director of the Bureau of Consumer Protection; still unresolved is which U.S. government branch the FTC belongs to or is overseen by, then whether that branch matches the government branch referenced in the income-tax part of the question.",
+            "The newly found FTC connection suggests the relevant government is the United States government; unresolved is identifying the document described by the claim that the phrase 'wall of separation' is nowhere to be found, likely a U.S. founding legal document, and confirming its 16th Amendment legalized income tax.",
+            "Because the result names the FTC as an independent agency and mentions Chairman Jon Leibowitz, one path is to use FTC institutional pages to determine whether the commission is categorized under the executive branch, legislative oversight, or another federal structure before linking that branch to the amendment question.",
+            "The answer may depend only on recognizing that Vladeck's employer is a U.S. federal agency, making the branch likely federal rather than state; unresolved is verifying the exact amendment date for the U.S. Constitution's 16th Amendment if that is the document implicated by the 'wall of separation' quote.",
+            "A quote-tracing chain remains open: find a source using the wording that 'wall of separation' is nowhere to be found, extract the document being discussed, and then check whether its 16th amendment is indeed the amendment authorizing income taxes; the Vladeck result narrows the governmental context to the United States.",
+            "An agency-supervision chain remains unresolved: from Bureau of Consumer Protection -> Federal Trade Commission -> parent governmental branch or constitutional placement; once that branch is known, determine whether the question is simply asking for the ratification date of the federal income-tax amendment in that same governmental system.",
+            "The result provides a potentially alternative handle via Jon Leibowitz and the FTC chairmanship; unresolved is whether researching the FTC chair's appointment authority or statutory status more clearly reveals the branch than researching David Vladeck directly, after which the amendment date can be sought.",
+            "There is still ambiguity between 'employer' and 'former Director' because the result names an office rather than a generic employer; one unresolved chain is to confirm whether the intended employer is the FTC itself or the U.S. government, then use that to justify selecting the corresponding constitutional document and its 16th Amendment date."
+          ]
+        },
+        {
+          "followup_queries": [
+            "U.S. Constitution Sixteenth Amendment ratified date income tax",
+            "David Vladeck employer oversight branch",
+            "Justice Potter Stewart \"wall of separation\" phrase nowhere to be found in the Constitution case",
+            "David Vladeck Federal Trade Commission executive branch biography"
+          ],
+          "hypotheses": [
+            "The retrieved paragraph ties the phrase 'nowhere to be found in the Constitution' to Justice Potter Stewart criticizing the 'wall of separation' metaphor, so the referenced document is likely the U.S. Constitution; next dependency is to confirm the Constitution's 16th Amendment and extract the date it authorized income tax.",
+            "The result is from a page on separation of church and state in the United States and quotes a constitutional dissent, suggesting the target document is the U.S. Constitution rather than another legal text; remaining steps are to verify the 16th Amendment's subject and date, then independently resolve David Vladeck's employer and its overseen branch.",
+            "Because the paragraph explicitly says the phrase is nowhere in the Constitution, one chain is Constitution -> Sixteenth Amendment -> legalization of federal income tax -> ratification/adoption date; a separate unresolved chain is David Vladeck -> current or relevant employer -> supervising branch of government.",
+            "The quoted speaker is Justice Potter Stewart in a church-state case, which may help locate authoritative sources on the Constitution if the quote source itself is needed; unresolved dependencies are whether the question wants the 16th Amendment's ratification date, proposal date, or effective date, and what branch oversees David Vladeck's employer.",
+            "The phrase appears in a U.S. constitutional context involving governmentally composed prayers and religious freedom, so the likely document is the federal Constitution; remaining work is to identify the exact date associated with the Sixteenth Amendment and determine whether David Vladeck's employer is a federal agency, academic institution, or another organization with executive/legislative/judicial oversight.",
+            "Since the evidence newly identifies the Constitution, a narrower chain is to retrieve a reliable source for the Sixteenth Amendment text or history confirming it empowers Congress to levy an income tax without apportionment and capture the formal ratification date; another chain remains to map David Vladeck to an employer and that employer to an overseeing branch.",
+            "The result names Justice Potter Stewart, which could anchor a search for the exact opinion and quotation if provenance matters, but the central unresolved issue is still Constitution -> 16th Amendment date plus David Vladeck -> employer -> branch; those two chains must be connected only after both are independently confirmed.",
+            "The observed page supports that the quoted document is the Constitution in the United States context, but the answer still depends on disambiguating David Vladeck's employer because different roles in his career could point to different institutions; once the relevant employer is fixed, determine its oversight branch and then return the Constitution's Sixteenth Amendment date."
+          ]
+        },
+        {
+          "followup_queries": [
+            "\"wall of separation\" nowhere to be found Constitution quote document",
+            "16th Amendment ratified date legalized federal income tax",
+            "Federal Trade Commission independent agency overseen by which branch of United States government",
+            "David C. Vladeck former Director Bureau of Consumer Protection Federal Trade Commission biography employer branch oversight"
+          ],
+          "hypotheses": [
+            "David C. Vladeck is newly identified as former Director of the Bureau of Consumer Protection of the Federal Trade Commission; next resolve which branch oversees the FTC or whether it is categorized as an independent agency within the U.S. government before linking to the amendment question.",
+            "The phrase about 'wall of separation' likely points to the U.S. Constitution, but this is still unresolved; verify the exact document referred to by that quote before assuming its 16th Amendment is the one concerning income tax.",
+            "Once the document is confirmed, resolve the exact adoption or ratification date of its 16th Amendment, since the question asks when income tax was legalized rather than merely what the amendment did.",
+            "The FTC result names Jon Leibowitz as Chairman who appointed Vladeck on April 14, 2009; this supports the FTC context but does not establish branch oversight, so a branch/agency-status lookup is still required.",
+            "Because the retrieved result says the FTC is 'an independent agency of the United States government,' the question's wording about a 'government branch with over-sight' may refer to congressional oversight rather than executive-branch control; this ambiguity remains unresolved.",
+            "The query may require only the 16th Amendment date if the document is the U.S. Constitution and the FTC belongs to the same federal system, but a separate check is needed to avoid conflating federal government affiliation with a specific supervising branch.",
+            "The result identifies Vladeck's role at the Bureau of Consumer Protection, not necessarily his broader employer history; confirm whether the intended employer is the FTC itself or another institution associated with him in biographical sources.",
+            "A complete answer chain still needs two missing links: source of the 'wall of separation' wording and the precise legal event for the 16th Amendment, including whether the expected date is proposal, ratification, or effective recognition."
+          ]
+        },
+        {
+          "followup_queries": [
+            "\"wall of separation\" \"nowhere to be found\" Constitution",
+            "David Vladeck employer oversight branch",
+            "1913 16th Amendment ratified legalized federal income tax exact date",
+            "Sixteenth Amendment ratified 1913 United States Constitution income tax"
+          ],
+          "hypotheses": [
+            "The corpus result newly supports that the sought amendment date may be 1913, but the chain is unresolved until the quoted phrase 'wall of separation is nowhere to be found' is tied to a specific document, likely the U.S. Constitution, and that document's 16th Amendment is explicitly confirmed as the one ratified in 1913.",
+            "The answer may depend only on identifying the quoted document and confirming its 16th Amendment legalized federal income tax; the David Vladeck branch/employer clause may be a cross-check that the relevant government is the United States federal government rather than a state government.",
+            "The result shows a taxation-history page stating 'In 1913, the 16th amendment was ratified,' but a separate source is still needed to verify that this ratification is the event described as legalizing income tax rather than merely part of a broader tax history timeline.",
+            "One unresolved chain is David Vladeck -> employer -> oversight branch; if his employer is a U.S. federal agency, that could confirm the government branch context and strengthen that the relevant amendment is to the U.S. Constitution rather than another governing document.",
+            "The phrase about 'wall of separation' may originate in commentary criticizing church-state jurisprudence; the unresolved task is to identify who said it and what exact document they meant, then connect that document to the 16th Amendment date now tentatively visible as 1913.",
+            "Because the result discusses the United States broadly and mentions both state and federal taxes, another unresolved dependency is whether the question asks about federal legalization of income tax specifically; this requires an explicit source on the 16th Amendment's effect, not just its ratification year.",
+            "A possible chain is quote phrase -> U.S. Constitution -> 16th Amendment -> ratified in 1913, with the remaining unresolved branch being whether David Vladeck's employer falls under the executive branch, which would clarify the wording 'government branch with over-sight' in the question.",
+            "The current evidence suggests the final date could be the ratification date of the Sixteenth Amendment in 1913, but a separate agent still needs to resolve whether a more precise date than just the year is required and whether the overseeing branch tied to David Vladeck changes the interpretation of the target government."
+          ]
+        },
+        {
+          "followup_queries": [
+            "Federal Trade Commission independent agency which branch of the United States government",
+            "\"wall of separation\" is nowhere to be found in the Constitution",
+            "document where \"wall of separation\" is nowhere to be found 16th amendment income tax",
+            "U.S. Constitution Sixteenth Amendment date legalized income tax"
+          ],
+          "hypotheses": [
+            "David Vladeck is connected here as former Director of the Bureau of Consumer Protection at the Federal Trade Commission; still unresolved is which branch, if any, is said to oversee the FTC as an independent agency of the United States government, and whether that branch reference is necessary to interpret the income-tax amendment part.",
+            "The result identifies David Vladeck's relevant employer context as the Federal Trade Commission rather than a university or private organization; next unresolved step is determining the federal branch classification of the FTC so the government-side entity in the question is grounded.",
+            "Because the retrieved text says the FTC is an independent agency of the United States government, one chain is to verify whether the intended branch is the executive branch despite the agency's independence, then separately resolve the quoted 'wall of separation' document.",
+            "The person side is partly resolved: David Vladeck served under FTC Chairman Jon Leibowitz beginning April 14, 2009; unresolved is whether the question uses Vladeck only to point to the FTC and its supervising branch, after which the remaining task is to identify the document associated with the phrase about 'wall of separation.'",
+            "A likely remaining chain is quote-to-document: find a source stating that 'wall of separation' is nowhere to be found in a document, determine that document, then inspect its 16th amendment and extract the date it legalized income tax.",
+            "Another unresolved path is to test whether the quoted phrase specifically refers to the U.S. Constitution in church-state debates; if so, the answer likely depends on the Constitution's Sixteenth Amendment date, but that must still be verified from a source tied to the quote.",
+            "The FTC result narrows the governmental context to the United States federal government; unresolved is whether the same national context applies to the quoted document, or whether the quote could point to a different legal document with a 16th amendment affecting income tax.",
+            "There are now two partially separated dependency chains: (a) David Vladeck -> Bureau of Consumer Protection -> FTC -> federal branch classification, and (b) 'wall of separation' quote -> referenced document -> 16th amendment -> date income tax was legalized; both still need completion before combining them."
+          ]
+        }
+      ],
+      "root_doc_ids": [
+        "d18",
+        "d07",
+        "d18",
+        "d07",
+        "d03",
+        "d07"
+      ],
+      "root_titles": [
+        "Separation of church and state in the United States",
+        "David Vladeck",
+        "Separation of church and state in the United States",
+        "David Vladeck",
+        "History of taxation in the United States",
+        "David Vladeck"
+      ],
+      "shallow_root_candidate_indices": [
+        0,
+        2
+      ],
+      "task_id": "4hop3__405751_4520_37620_55609"
+    },
+    {
+      "aligned_deep_followup_retrieves_child": true,
+      "continuation_rows": [
+        {
+          "aligned_label": "A",
+          "aligned_scores": [
+            95,
+            88,
+            92,
+            55
+          ],
+          "initial_scores": [
+            93,
+            89,
+            90,
+            54
+          ],
+          "root_index": 0,
+          "shuffled_scores": [
+            94,
+            90,
+            91,
+            58
+          ]
+        },
+        {
+          "aligned_label": "B",
+          "aligned_scores": [
+            95,
+            92,
+            7,
+            72
+          ],
+          "initial_scores": [
+            94,
+            90,
+            6,
+            68
+          ],
+          "root_index": 1,
+          "shuffled_scores": [
+            96,
+            91,
+            8,
+            66
+          ]
+        },
+        {
+          "aligned_label": "A",
+          "aligned_scores": [
+            95,
+            90,
+            70,
+            65
+          ],
+          "initial_scores": [
+            93,
+            89,
+            72,
+            68
+          ],
+          "root_index": 2,
+          "shuffled_scores": [
+            78,
+            84,
+            96,
+            74
+          ]
+        },
+        {
+          "aligned_label": "B",
+          "aligned_scores": [
+            82,
+            28,
+            5,
+            14
+          ],
+          "initial_scores": [
+            96,
+            20,
+            6,
+            12
+          ],
+          "root_index": 3,
+          "shuffled_scores": [
+            97,
+            18,
+            12,
+            10
+          ]
+        },
+        {
+          "aligned_label": "A",
+          "aligned_scores": [
+            40,
+            95,
+            88,
+            22
+          ],
+          "initial_scores": [
+            38,
+            94,
+            89,
+            24
+          ],
+          "root_index": 4,
+          "shuffled_scores": [
+            42,
+            96,
+            90,
+            18
+          ]
+        },
+        {
+          "aligned_label": "B",
+          "aligned_scores": [
+            44,
+            40,
+            12,
+            2
+          ],
+          "initial_scores": [
+            42,
+            38,
+            15,
+            3
+          ],
+          "root_index": 5,
+          "shuffled_scores": [
+            35,
+            32,
+            18,
+            6
+          ]
+        }
+      ],
+      "deep_root_candidate_indices": [
+        0,
+        1,
+        2
+      ],
+      "distinct_first_retrieval_count": 4,
+      "distinct_refresh_state_count": 6,
+      "followup_doc_ids": [
+        [
+          "d06",
+          "d06",
+          "d06",
+          "d14"
+        ],
+        [
+          "d06",
+          "d06",
+          "d20",
+          "d14"
+        ],
+        [
+          "d06",
+          "d06",
+          "d14",
+          "d14"
+        ],
+        [
+          "d18",
+          "d18",
+          "d20",
+          "d18"
+        ],
+        [
+          "d18",
+          "d06",
+          "d06",
+          "d20"
+        ],
+        [
+          "d18",
+          "d18",
+          "d14",
+          "d18"
+        ]
+      ],
+      "followup_titles": [
+        [
+          "John Milton",
+          "John Milton",
+          "John Milton",
+          "History of McDonald's"
+        ],
+        [
+          "John Milton",
+          "John Milton",
+          "McDonald's Canada",
+          "History of McDonald's"
+        ],
+        [
+          "John Milton",
+          "John Milton",
+          "History of McDonald's",
+          "History of McDonald's"
+        ],
+        [
+          "Doctrine and Discipline of Divorce",
+          "Doctrine and Discipline of Divorce",
+          "McDonald's Canada",
+          "Doctrine and Discipline of Divorce"
+        ],
+        [
+          "Doctrine and Discipline of Divorce",
+          "John Milton",
+          "John Milton",
+          "McDonald's Canada"
+        ],
+        [
+          "Doctrine and Discipline of Divorce",
+          "Doctrine and Discipline of Divorce",
+          "History of McDonald's",
+          "Doctrine and Discipline of Divorce"
+        ]
+      ],
+      "initial": {
+        "hypotheses": [
+          "Find the author of 'Doctrine and Discipline of Divorce' -> determine that author's country of citizenship -> identify the first McDonald's restaurant opened in that country -> extract its opening date/year.",
+          "Search the work 'Doctrine and Discipline of Divorce' for its author -> open the author's biography page to read citizenship/nationality -> search for 'first McDonald's in [country]' -> read when it opened.",
+          "Identify the author of 'Doctrine and Discipline of Divorce' -> infer the relevant sovereign state from citizenship -> search historical pages about McDonald's expansion into that state -> locate the first restaurant and its opening date.",
+          "Find a bibliographic record for 'Doctrine and Discipline of Divorce' naming the author -> find a structured data source listing that person's citizenship -> search news or corporate history for the first McDonald's restaurant in that country -> capture the opening year/date.",
+          "Search directly for the author plus 'country of citizenship' using the title as disambiguation -> once the country is known, search for 'first McDonald's restaurant opened in [country]' -> verify opening date from the first useful result.",
+          "Identify the treatise's author -> identify whether the country of citizenship is stated as England, the United Kingdom, or another polity -> search McDonald's entry/history for earliest location in that polity -> determine opening date.",
+          "Start from 'McDonaldization' to confirm it is named after McDonald's -> separately identify the author of 'Doctrine and Discipline of Divorce' and citizenship -> search for the first McDonald's branch in that country -> read opening date.",
+          "Use a literature source to identify the author of 'Doctrine and Discipline of Divorce' -> use an authority file or encyclopedia for citizenship -> use a country-specific McDonald's history source to find the inaugural restaurant there -> extract when it opened."
+        ],
+        "root_queries": [
+          "Doctrine and Discipline of Divorce author",
+          "author of Doctrine and Discipline of Divorce country of citizenship",
+          "Doctrine and Discipline of Divorce John Milton citizenship",
+          "first McDonald's in England opening date",
+          "first McDonald's in United Kingdom opening date",
+          "McDonaldization named after what restaurant chain"
+        ],
+        "root_scores": [
+          95,
+          88,
+          82,
+          74,
+          84,
+          55
+        ]
+      },
+      "policies": {
+        "fixed": {
+          "connected_prefix_length": 2,
+          "first_paragraph_index": 17,
+          "first_title": "Doctrine and Discipline of Divorce",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "deep_root",
+          "second_paragraph_index": 5,
+          "second_title": "John Milton"
+        },
+        "model_aware": {
+          "connected_prefix_length": 2,
+          "first_paragraph_index": 17,
+          "first_title": "Doctrine and Discipline of Divorce",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "deep_root",
+          "second_paragraph_index": 5,
+          "second_title": "John Milton"
+        },
+        "myopic": {
+          "connected_prefix_length": 2,
+          "first_paragraph_index": 17,
+          "first_title": "Doctrine and Discipline of Divorce",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "deep_root",
+          "second_paragraph_index": 5,
+          "second_title": "John Milton"
+        },
+        "random": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 5,
+          "first_title": "John Milton",
+          "followup_index": 0,
+          "root_index": 3,
+          "root_role": "other",
+          "second_paragraph_index": 17,
+          "second_title": "Doctrine and Discipline of Divorce"
+        },
+        "shuffled": {
+          "connected_prefix_length": 2,
+          "first_paragraph_index": 17,
+          "first_title": "Doctrine and Discipline of Divorce",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "deep_root",
+          "second_paragraph_index": 5,
+          "second_title": "John Milton"
+        }
+      },
+      "refreshes": [
+        {
+          "followup_queries": [
+            "John Milton country of citizenship",
+            "John Milton nationality England or United Kingdom",
+            "John Milton biography country of citizenship Doctrine and Discipline of Divorce",
+            "first McDonald's restaurant in England opening date"
+          ],
+          "hypotheses": [
+            "The result identifies John Milton as the author of 'The Doctrine and Discipline of Divorce'; the next dependency is to determine Milton's country of citizenship or nationality from a biography or authority record, then map that country to the target McDonald's opening history.",
+            "Because the text says Milton's name was not associated with the work until 1644, a follow-up should verify that John Milton is unequivocally the author and not merely later attributed editorially, before proceeding to citizenship and McDonald's chronology.",
+            "After confirming John Milton as author, the country may be expressed in sources as England rather than the modern United Kingdom; the unresolved step is deciding which polity is appropriate for the 'country of citizenship' link before searching for the first McDonald's there.",
+            "If John Milton's citizenship is listed in structured data, the next chain is: retrieve that exact country label, then search specifically for the first McDonald's restaurant opened in that same country, not merely the first in Britain or the British Isles.",
+            "The publication details from 1643/1644 suggest an early modern English author; the unresolved dependency is whether sources state citizenship, nationality, or allegiance, and whether those point to England, which would constrain the McDonald's search target.",
+            "A separate chain is to use a John Milton encyclopedia or biographical page to extract birthplace and political identity, then verify whether that aligns with the country used in modern McDonald's expansion histories.",
+            "Once John Milton's country is known, the next unresolved step is to find a reliable source on McDonald's expansion into that country and identify the inaugural restaurant's opening date or year.",
+            "The result provides title variants and dates for Milton's treatise; these can be used to disambiguate the author in library or knowledge-base searches before resolving citizenship and then the first McDonald's opening in that country."
+          ]
+        },
+        {
+          "followup_queries": [
+            "John Milton country of citizenship nationality",
+            "John Milton English poet citizenship England or United Kingdom",
+            "first McDonald's restaurant in England opened when",
+            "first McDonald's restaurant in the United Kingdom opening date"
+          ],
+          "hypotheses": [
+            "The retrieved result identifies John Milton as the author of 'The Doctrine and Discipline of Divorce'; next resolve Milton's country of citizenship or nationality, then look up the first McDonald's restaurant opened in that country and extract its opening date.",
+            "Because Milton's name was only later associated with the anonymously published 1643/1644 treatise, verify via a biographical source that this John Milton is the English poet/polemicist, then determine the sovereign state to use for citizenship before searching McDonald's market-entry history there.",
+            "Milton may be described in sources as English rather than with a modern citizenship field; map that descriptor to the appropriate country entity used in McDonald's expansion histories, then identify the earliest restaurant in that country and when it opened.",
+            "If biographies give Milton's citizenship as England, search specifically for the first McDonald's in England; if sources instead normalize to the United Kingdom, compare whether the first McDonald's in the UK was in England and capture the opening date from the most direct source.",
+            "Use the concrete publication details from the result\u2014published by John Milton on 1 August 1643, expanded 2 February 1644\u2014to disambiguate the work in bibliographic or encyclopedia records, then obtain Milton's nationality/citizenship and continue to McDonald's inaugural opening in that country.",
+            "The paragraph confirms authorship but not citizenship; next inspect a structured authority record for John Milton that may list nationality, place of birth, or allegiance, then use that country label in a targeted query for the first McDonald's restaurant there.",
+            "If Milton's country is established as England/UK, the remaining unresolved step is whether the question asks for the first McDonald's in the country generally or in the exact citizenship polity; gather evidence on the inaugural McDonald's opening date for both England and the United Kingdom if needed.",
+            "After confirming John Milton as author, search for corporate-history, newspaper, or encyclopedia sources on McDonald's entry into Milton's country to avoid relying on inference alone, then extract the date the first restaurant opened."
+          ]
+        },
+        {
+          "followup_queries": [
+            "John Milton country of citizenship nationality biography",
+            "John Milton English poet citizenship England or United Kingdom",
+            "first McDonald's restaurant in England opening date",
+            "first McDonald's restaurant in the United Kingdom opening date"
+          ],
+          "hypotheses": [
+            "The result identifies 'Doctrine and Discipline of Divorce' as a work by John Milton, so the next dependency is to confirm John Milton's country of citizenship or nationality from a biographical source, then map that polity to the target country for the McDonald's history lookup.",
+            "Because the paragraph notes Milton's name was not associated with the text until August 1644, a separate source may still be needed to verify authorship in a structured or biographical record before proceeding to citizenship and then the first McDonald's opening in that country.",
+            "The key unresolved branch is whether Milton's relevant country should be represented as England, the Kingdom of England, Great Britain, or the United Kingdom; resolving that naming affects which 'first McDonald's restaurant' history to search.",
+            "If John Milton's biography gives nationality rather than citizenship, the agent will need to normalize that field to a modern country label before searching for the first McDonald's opening there.",
+            "Once the relevant country for John Milton is established, the next unresolved dependency is identifying whether the first McDonald's in that country is documented on McDonald's corporate history, a country-specific history page, or a location-specific article.",
+            "The result provides publication dates of 1 August 1643 and 2 February 1644, which help disambiguate the work; a follow-up may need to use those dates alongside John Milton to avoid retrieving unrelated 'divorce doctrine' results when confirming authorship or biography.",
+            "After establishing Milton's country, the answer still depends on determining whether the question asks for the first restaurant in the entire country or in a constituent nation if the biography source uses an older polity; that ambiguity remains unresolved.",
+            "Even after the country is known, the final step requires extracting a specific opening date or at least year for the inaugural McDonald's restaurant there, which may come from a city/location article rather than a country-level summary."
+          ]
+        },
+        {
+          "followup_queries": [
+            "\"The Doctrine and Discipline of Divorce\" John Milton author",
+            "John Milton country of citizenship English England",
+            "first McDonald's restaurant in England opened when",
+            "John Milton biography English poet Commonwealth of England McDonald's England first restaurant"
+          ],
+          "hypotheses": [
+            "The retrieved page is about John Milton, suggesting he may be the author sought; next confirm that 'The Doctrine and Discipline of Divorce' was written by John Milton, then determine the relevant country from his identity before looking up the first McDonald's there.",
+            "The result states John Milton was English; if the target asks for the country of citizenship, the operative place may be England rather than the modern United Kingdom, so the next step is to verify whether England is the correct country label for this question before finding the first McDonald's opening there.",
+            "The result identifies Milton as connected to the Commonwealth of England; the country derived from the author's political affiliation might still need normalization, so confirm whether the answering jurisdiction should be England, Great Britain, or the United Kingdom prior to searching McDonald's history.",
+            "Because the executed query targeted 'first McDonald's in England' but returned a biography page, the search likely pivoted on Milton/England rather than McDonald's history; the next dependency is to find a source specifically about the first McDonald's restaurant in England and its opening date.",
+            "The biography page does not mention 'Doctrine and Discipline of Divorce'; there remains an unresolved link between the work title and John Milton, so verify authorship directly from a literary or bibliographic source before proceeding to McDonald's chronology.",
+            "The result provides 'English' nationality-like information but not explicit citizenship wording; a separate source may be needed to map John Milton's national identity to the country requested, then use that exact country name in a McDonald's opening-date search.",
+            "If John Milton is confirmed as the author and England is the relevant country, the remaining dependency is to identify the inaugural McDonald's restaurant in England, including city/location and opening year, from a reliable historical source.",
+            "The title in the question could be abbreviated or variably formatted; confirming the exact work title 'The Doctrine and Discipline of Divorce' against John Milton's bibliography may reduce ambiguity before searching for the first McDonald's in the associated country."
+          ]
+        },
+        {
+          "followup_queries": [
+            "\"Doctrine and Discipline of Divorce\" author citizenship",
+            "John Milton country of citizenship Wikidata",
+            "Was John Milton's citizenship England or United Kingdom",
+            "first McDonald's in Woolwich southeast London November 13 1974"
+          ],
+          "hypotheses": [
+            "The retrieved result gives a candidate opening date and place for the first McDonald's in the United Kingdom: November 13, 1974 in Woolwich, southeast London; the remaining dependency is to verify that the author of 'Doctrine and Discipline of Divorce' had citizenship in the United Kingdom rather than a different polity.",
+            "The answer may depend on identifying the author of 'Doctrine and Discipline of Divorce' first, then checking whether that author's citizenship is listed as England, English, Kingdom of England, Great Britain, or United Kingdom, because the current result is specifically about the United Kingdom.",
+            "If the treatise's author is John Milton, the unresolved step is to determine what modern country should be used for his citizenship in the question, since a historical biography may name England rather than the United Kingdom.",
+            "The current result is from a general McDonald's history page and may need corroboration from a UK-specific source about the Woolwich opening on November 13, 1974 before it can be used once the country mapping is settled.",
+            "The phrase 'country of citizenship' may require a structured biographical source such as Wikidata or an encyclopedia entry for the author, because literary pages may omit citizenship while the McDonald's side is now partially filled in.",
+            "The first-restaurant date may already be known if the relevant country is the United Kingdom, but the unresolved chain is whether the author's citizenship should instead be treated as England, which would require finding the first McDonald's in England rather than the whole UK.",
+            "Because the result includes the concrete location Woolwich, southeast London, an efficient next step is to search biographical sources for whether the author's life and nationality connect to England/London-area UK terminology that matches or conflicts with the retrieved country.",
+            "Another unresolved dependency is confirming that 'McDonaldization' is indeed named after the McDonald's restaurant chain, so that the first restaurant sought is a McDonald's chain location in the relevant country, with the current UK opening result as the leading candidate if the country matches."
+          ]
+        },
+        {
+          "followup_queries": [
+            "\"Doctrine and Discipline of Divorce\" author citizenship",
+            "\"Doctrine and Discipline of Divorce\" author nationality England English",
+            "first McDonald's restaurant in Portugal opening date",
+            "Guinea-Bissau independence from Portugal 1974 relevance to author citizenship of \"Doctrine and Discipline of Divorce\""
+          ],
+          "hypotheses": [
+            "The retrieved page is likely irrelevant noise; restart from the literary work by identifying the author of 'Doctrine and Discipline of Divorce', then determine that author's citizenship before searching McDonald's history in that country.",
+            "The key ambiguity may be the author's polity label; after finding the author of 'Doctrine and Discipline of Divorce', verify whether citizenship/nationality is recorded as England, English, Great Britain, or United Kingdom, then look for the first McDonald's in that exact polity.",
+            "Because the result is about Guinea-Bissau and mentions independence from Portugal in 1974, test whether a retrieval path through Portugal could become relevant only if the author's citizenship somehow traces to Portugal; otherwise discard this branch after checking the author.",
+            "Use an authority-style source for 'Doctrine and Discipline of Divorce' to get a reliable author identity, then consult a structured biography source for citizenship so the downstream McDonald's-country query is anchored and not misled by unrelated country pages like Guinea-Bissau.",
+            "If the author is an early modern writer, modern 'citizenship' may be absent; resolve by mapping biography descriptors such as 'English' or 'from England' into the country target, then search for the first McDonald's opening in that country.",
+            "The current result exposes a Portugal/Guinea-Bissau colonial relationship; preserve a contingency branch that if citizenship sources mention a former empire or colonial polity, the next step should determine which modern sovereign state the question expects before querying McDonald's expansion history.",
+            "The chain may require confirming that 'McDonaldization' refers to the McDonald's fast-food chain, but since the current result offers no support for that, deprioritize chain-name verification and focus next on author and citizenship extraction.",
+            "A robust route is: identify the treatise's author, resolve the country from biography despite historical-state ambiguity, then search country-specific McDonald's history sources for the inaugural restaurant's opening date, avoiding unrelated economic or independence-history pages like Guinea-Bissau."
+          ]
+        }
+      ],
+      "root_doc_ids": [
+        "d18",
+        "d18",
+        "d18",
+        "d06",
+        "d14",
+        "d16"
+      ],
+      "root_titles": [
+        "Doctrine and Discipline of Divorce",
+        "Doctrine and Discipline of Divorce",
+        "Doctrine and Discipline of Divorce",
+        "John Milton",
+        "History of McDonald's",
+        "Guinea-Bissau"
+      ],
+      "shallow_root_candidate_indices": [],
+      "task_id": "4hop3__360282_544708_764770_54023"
+    }
+  ],
+  "usage": {
+    "adapter_cost_usd": 0.2234875,
+    "generator": {
+      "adapter_completion_tokens": 9664,
+      "adapter_cost_usd": 0.2234875,
+      "adapter_prompt_tokens": 31411,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 16,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 9664,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 16,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 9664,
+          "cost_usd": 0.2234875,
+          "prompt_tokens": 31411,
+          "reasoning_tokens": 0,
+          "requests": 16
+        }
+      },
+      "prompt_tokens": 31411,
+      "reasoning_tokens": 0,
+      "remaining_usd": 21.0669691237499,
+      "requests": 16,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.2234875,
+      "run_remaining_usd": 0.2765125,
+      "total_spent_usd": 84.31783357170725
+    },
+    "physical_requests": 16,
+    "reasoning_tokens": 0
+  }
+}

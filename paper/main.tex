@@ -477,10 +477,10 @@ candidate $j$. Depth two uses $\max_j\widehat V_j$, so even zero-mean errors
 produce selection bias that grows with width and horizon. Root likelihood error
 also changes branch mass and downstream context; more rollouts reduce variance,
 not bias \citep{catanach2023misspecification}.
-A Zendo smoke produced distinct refreshed supports but $\rho=0$ with truth
-value. A HotpotQA audit found 166/500 directional support-order unlocks, but a
-causal smoke let an answer-first refreshed belief recover the enabling document,
-so myopic and depth-two policies both covered the two annotated supports.
+Zendo refreshed supports but had $\rho=0$ with truth value. Hotpot had 166/500
+directional unlocks, yet answer-first beliefs recovered the enabling document.
+MuSiQue passed a 120/120 branching audit and found the deep child on 2/2 smoke
+tasks, but root fidelity was $\rho=.073$ and depth two never beat myopic.
 
 BED-LLM's strong one-step results use a concrete entity or profile, small response
 space, prior-likelihood construction, and diverse filtered hypotheses
