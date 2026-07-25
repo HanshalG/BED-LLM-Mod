@@ -1,0 +1,48 @@
+{
+  "error": "GateExecutionError: ValueError: integer is outside its allowed range",
+  "interface_version": "browsecomp-plus-semantic-mechanics-2",
+  "private_raw_sha256": "73f93e58e64706332c60477363aeed0b3134387008dd80026acdeab485230dea",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.2873450000000001,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 6094,
+      "adapter_cost_usd": 0.2873450000000001,
+      "adapter_prompt_tokens": 78374,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 55,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 6094,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 55,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 6094,
+          "cost_usd": 0.2873450000000001,
+          "prompt_tokens": 78374,
+          "reasoning_tokens": 0,
+          "requests": 55
+        }
+      },
+      "prompt_tokens": 78374,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.078763780793295,
+      "requests": 55,
+      "retry_count": 0,
+      "run_budget_usd": 0.9,
+      "run_cost_usd": 0.2873450000000001,
+      "run_remaining_usd": 0.612655,
+      "total_spent_usd": 90.9212362192067
+    },
+    "http_attempts": 55,
+    "physical_requests": 55,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}

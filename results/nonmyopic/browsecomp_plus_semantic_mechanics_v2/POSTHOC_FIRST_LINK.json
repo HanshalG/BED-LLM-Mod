@@ -1,0 +1,341 @@
+{
+  "protocol": {
+    "development_authorized": false,
+    "endpoint_analysis_preregistered": false,
+    "failure_sha256": "6272008d7da3730ea77dddcf76d3330268ee3a2d765ea86544346ae9492fb1d2",
+    "interface_version": "browsecomp-plus-semantic-mechanics-posthoc-1",
+    "oatml_used": false,
+    "openrouter_calls": 0,
+    "raw_sha256": "73f93e58e64706332c60477363aeed0b3134387008dd80026acdeab485230dea"
+  },
+  "records": [
+    {
+      "aligned_future_scores": [
+        93,
+        88,
+        84,
+        66,
+        79,
+        91
+      ],
+      "direct_scores": [
+        72,
+        61,
+        58,
+        46,
+        39,
+        33
+      ],
+      "future_evidence_gain": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      "immediate_evidence": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "myopic_root": 0,
+      "myopic_total_evidence": 2,
+      "myopic_total_gold": 1,
+      "shuffled_future_scores": [
+        92,
+        88,
+        61,
+        85,
+        83,
+        79
+      ],
+      "strategy_root": 0,
+      "strategy_total_evidence": 2,
+      "strategy_total_gold": 1,
+      "task_id": "286",
+      "total_evidence": [
+        2,
+        2,
+        3,
+        1,
+        2,
+        2
+      ]
+    },
+    {
+      "aligned_future_scores": [
+        43,
+        39,
+        88,
+        36,
+        81,
+        34
+      ],
+      "direct_scores": [
+        86,
+        78,
+        72,
+        65,
+        58,
+        46
+      ],
+      "future_evidence_gain": [
+        2,
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "immediate_evidence": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "myopic_root": 0,
+      "myopic_total_evidence": 3,
+      "myopic_total_gold": 3,
+      "shuffled_future_scores": [
+        44,
+        82,
+        40,
+        88,
+        46,
+        42
+      ],
+      "strategy_root": 2,
+      "strategy_total_evidence": 1,
+      "strategy_total_gold": 1,
+      "task_id": "1058",
+      "total_evidence": [
+        3,
+        3,
+        1,
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "aligned_future_scores": [
+        91,
+        94,
+        82,
+        76,
+        69,
+        88
+      ],
+      "direct_scores": [
+        84,
+        77,
+        71,
+        63,
+        58,
+        49
+      ],
+      "future_evidence_gain": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "immediate_evidence": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "myopic_root": 0,
+      "myopic_total_evidence": 1,
+      "myopic_total_gold": 1,
+      "shuffled_future_scores": [
+        86,
+        79,
+        82,
+        68,
+        75,
+        71
+      ],
+      "strategy_root": 0,
+      "strategy_total_evidence": 1,
+      "strategy_total_gold": 1,
+      "task_id": "747",
+      "total_evidence": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "aligned_future_scores": [
+        94,
+        71,
+        90,
+        88,
+        84,
+        79
+      ],
+      "direct_scores": [
+        86,
+        78,
+        72,
+        69,
+        63,
+        58
+      ],
+      "future_evidence_gain": [
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "immediate_evidence": [
+        0,
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      "myopic_root": 0,
+      "myopic_total_evidence": 0,
+      "myopic_total_gold": 0,
+      "shuffled_future_scores": [
+        93,
+        89,
+        84,
+        81,
+        76,
+        68
+      ],
+      "strategy_root": 0,
+      "strategy_total_evidence": 0,
+      "strategy_total_gold": 0,
+      "task_id": "787",
+      "total_evidence": [
+        0,
+        4,
+        2,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "aligned_future_scores": [
+        92,
+        85,
+        78,
+        74,
+        69,
+        81
+      ],
+      "direct_scores": [
+        78,
+        72,
+        66,
+        61,
+        54,
+        47
+      ],
+      "future_evidence_gain": [
+        2,
+        0,
+        1,
+        0,
+        0,
+        3
+      ],
+      "immediate_evidence": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "myopic_root": 0,
+      "myopic_total_evidence": 3,
+      "myopic_total_gold": 1,
+      "shuffled_future_scores": [
+        91,
+        95,
+        83,
+        79,
+        88,
+        76
+      ],
+      "strategy_root": 0,
+      "strategy_total_evidence": 3,
+      "strategy_total_gold": 1,
+      "task_id": "854",
+      "total_evidence": [
+        3,
+        0,
+        2,
+        0,
+        0,
+        4
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "status": "exploratory_null_closed",
+  "summary": {
+    "adaptive_query_difference_count": 30,
+    "changed_root_belief_count": 30,
+    "comparable_pairs": {
+      "direct_immediate": 41,
+      "direct_total": 42,
+      "full_total": 42,
+      "future_gain": 38,
+      "shuffled_total": 42
+    },
+    "direct_immediate_pair_accuracy": 0.5609756097560976,
+    "direct_total_pair_accuracy": 0.5714285714285714,
+    "evidence_gain_branch_count": 20,
+    "full_minus_direct_total_accuracy": -0.09523809523809523,
+    "full_minus_shuffled_total_accuracy": -0.07142857142857151,
+    "full_total_pair_accuracy": 0.47619047619047616,
+    "future_gain_pair_accuracy": 0.42105263157894735,
+    "initial_parse_count": 5,
+    "refresh_parse_count": 30,
+    "scorer_parse_count": 10,
+    "shuffled_full_total_pair_accuracy": 0.5476190476190477,
+    "strategy_root_difference_count": 1,
+    "strategy_vs_myopic_evidence_losses": 1,
+    "strategy_vs_myopic_evidence_wins": 0,
+    "terminal_failure_count": 3,
+    "terminal_parse_count": 7
+  },
+  "terminal_failures": [
+    {
+      "error": "integer is outside its allowed range",
+      "index": 0
+    },
+    {
+      "error": "integer is outside its allowed range",
+      "index": 1
+    },
+    {
+      "error": "hypothesis weights must sum to 100",
+      "index": 9
+    }
+  ]
+}
