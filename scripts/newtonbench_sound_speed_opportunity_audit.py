@@ -236,12 +236,14 @@ def expected_entropies_for_priors(
     log_joint = (
         log_priors[:, None, :] + log_likelihoods[None, :, :]
     )
-    log_normalizers = logsumexp(log_joint, axis=-1)
-    posteriors = np.exp(log_joint - log_normalizers[:, :, None])
-    posterior_entropies = entropy(posteriors, axis=-1)
     predictive_weights = (
         priors[:, source_indices] * mixture_weights[None, :]
     )
+    possible = predictive_weights > 0.0
+    log_joint = np.where(possible[:, :, None], log_joint, 0.0)
+    log_normalizers = logsumexp(log_joint, axis=-1)
+    posteriors = np.exp(log_joint - log_normalizers[:, :, None])
+    posterior_entropies = entropy(posteriors, axis=-1)
     return np.sum(predictive_weights * posterior_entropies, axis=-1)
 
 
@@ -250,11 +252,15 @@ def planning_values(
     *,
     noise_level: float,
     quadrature_order: int,
+    likelihood_table_builder: Callable[
+        ...,
+        tuple[np.ndarray, np.ndarray, np.ndarray],
+    ] = quadrature_likelihood_tables,
 ) -> dict[str, object]:
     num_hypotheses, num_actions = means.shape
     prior = np.full(num_hypotheses, 1.0 / num_hypotheses)
     prior_entropy = float(entropy(prior))
-    tables, source_indices, mixture_weights = quadrature_likelihood_tables(
+    tables, source_indices, mixture_weights = likelihood_table_builder(
         means,
         noise_level=noise_level,
         quadrature_order=quadrature_order,
