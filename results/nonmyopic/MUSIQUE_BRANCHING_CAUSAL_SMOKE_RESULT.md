@@ -76,4 +76,3 @@ chosen after seeing the endpoint. A scientifically distinct development
 successor could replace generic utilities with a prospectively frozen,
 discrete terminal dependency-progress objective, using new tasks. It would
 need its own preregistration and could not rescue this V1 result.
-
