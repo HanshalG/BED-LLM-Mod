@@ -77,6 +77,30 @@ class RecordingBatchedSemanticModel(BatchedSemanticOpenRouterModel):
         )
         return output
 
+    def chat_complete_messages_batched(
+        self,
+        batch_messages: list[list[dict[str, str]]],
+        temperature: float,
+        block_size: int,
+        max_new_tokens: int | None = None,
+    ) -> list[str]:
+        output = super().chat_complete_messages_batched(
+            batch_messages,
+            temperature,
+            block_size,
+            max_new_tokens=max_new_tokens,
+        )
+        self.generation_records.append(
+            {
+                "batched": True,
+                "messages": batch_messages,
+                "temperature": temperature,
+                "max_new_tokens": max_new_tokens,
+                "outputs": output,
+            }
+        )
+        return output
+
 
 def run_v13_stage(
     config: Config,

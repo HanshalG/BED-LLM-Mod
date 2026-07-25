@@ -281,21 +281,30 @@ def evaluate_candidate_coverage_dynamics(
     deterministic: bool,
     questioner: Model,
     config: Config,
+    exact_current_support: bool | None = None,
 ) -> list[CandidateCoverageDynamics]:
     """Measure branch-dependent truth coverage using the live update pipeline.
 
-    This is an observational diagnostic, not a policy score.  Candidate EIG
-    and branch probabilities use exactly the existing likelihood scorer.  The
-    target is compared with returned supports only; it is never included in
-    prompt construction, likelihood scoring, or belief regeneration.
+    This is an observational diagnostic, not a policy score. Candidate EIG
+    and branch probabilities use exactly the existing likelihood scorer.
+    ``exact_current_support`` can request deterministic scoring over every
+    current hypothesis without changing the production branch-update path
+    selected by ``deterministic``. The target is compared with returned
+    supports only; it is never included in prompt construction, likelihood
+    scoring, or belief regeneration.
     """
     belief_state = ensure_animals_belief_state(beliefs)
     if not cand_questions or not belief_state.hypotheses:
         return []
 
+    score_deterministically = (
+        deterministic
+        if exact_current_support is None
+        else exact_current_support
+    )
     samples, sample_probabilities = _draw_belief_samples(
         belief_state,
-        deterministic,
+        score_deterministically,
         config.num_mc_samples,
     )
     probability_rows = _answer_probability_rows(
