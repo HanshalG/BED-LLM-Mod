@@ -1,0 +1,160 @@
+{
+  "gates": {
+    "all_pass": true,
+    "cost_at_most_0_05": true,
+    "endpoint_not_loaded": true,
+    "exact_http_attempts": true,
+    "exact_physical_requests": true,
+    "myopic_score_range_at_least_0_05": true,
+    "positive_profiles_at_least_4": true,
+    "support_entropy_at_least_1_nat": true,
+    "support_parses": true,
+    "zero_branch_requests": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "metrics": {
+    "myopic_score_range_nats": 0.6186012481700678,
+    "positive_mass_hypothesis_count": 8,
+    "positive_response_profile_count": 8,
+    "support_entropy_nats": 1.843981977507656
+  },
+  "myopic_scores": {
+    "Q00591": 1.6849315784757337,
+    "Q00628": 1.613439045221631,
+    "Q00765": 1.6849315784757337,
+    "Q00806": 1.066330330305666,
+    "Q01056": 1.6849315784757337,
+    "Q01097": 1.6849315784757337,
+    "Q01101": 1.6849315784757337,
+    "Q01223": 1.6849315784757337,
+    "Q01224": 1.6849315784757337,
+    "Q01225": 1.6849315784757337,
+    "Q01639": 1.346248700463013,
+    "Q02003": 1.6849315784757337,
+    "Q02147": 1.6849315784757337,
+    "Q02159": 1.6849315784757337,
+    "Q03864": 1.5558635817248028
+  },
+  "protocol": {
+    "branch_requests_sent": 0,
+    "code_format": "single ASCII spaces",
+    "development_or_holdout_loaded": false,
+    "endpoint_loaded": false,
+    "expected_requests": 1,
+    "interface_version": "clariq-dynamic-support-v2-serving-1",
+    "manifest_sha256": "fa5a34e55ab455359a4a64bd2aba00ea5789f27fb2f2d932ea9e2330cf90ca03",
+    "max_output_tokens": 1024,
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "9683ba680d1a196b8bfc1a476ec2d4374d3c0388b76f0784548117bb6b695bdb",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "temperature": 0.7,
+    "topic_id": "60"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "support": {
+    "hypotheses": [
+      {
+        "hypothesis": "general information about the city of Bellevue Washington",
+        "probability": 0.29411764705882354,
+        "response_codes": "EDDDBCFFBEDEFAA"
+      },
+      {
+        "hypothesis": "general information about Bellevue Nebraska",
+        "probability": 0.18382352941176472,
+        "response_codes": "BAFCCDEAFBDFABF"
+      },
+      {
+        "hypothesis": "information about Bellevue Hospital Center in New York City",
+        "probability": 0.14705882352941177,
+        "response_codes": "CEBDDAADCACABDF"
+      },
+      {
+        "hypothesis": "homepage for Bellevue Hospital Center in New York City",
+        "probability": 0.1323529411764706,
+        "response_codes": "DFCDEBBEDCEDEFC"
+      },
+      {
+        "hypothesis": "homepage or information for Bellevue College in Washington",
+        "probability": 0.11029411764705882,
+        "response_codes": "ABEEAEDBEFBBCCB"
+      },
+      {
+        "hypothesis": "homepage or information for Bellevue University",
+        "probability": 0.08823529411764706,
+        "response_codes": "FAAFFFCCADACDED"
+      },
+      {
+        "hypothesis": "things to do or tourism-related information in Bellevue Washington",
+        "probability": 0.029411764705882353,
+        "response_codes": "ECDDBCFFBEDEFAE"
+      },
+      {
+        "hypothesis": "broad unspecified general information about Bellevue likely Washington",
+        "probability": 0.014705882352941176,
+        "response_codes": "EDDDBCFFBEDEFAF"
+      }
+    ],
+    "question_ids": [
+      "Q00591",
+      "Q00628",
+      "Q00765",
+      "Q00806",
+      "Q01056",
+      "Q01097",
+      "Q01101",
+      "Q01223",
+      "Q01224",
+      "Q01225",
+      "Q01639",
+      "Q02003",
+      "Q02147",
+      "Q02159",
+      "Q03864"
+    ]
+  },
+  "usage": {
+    "adapter_cost_usd": 0.009445,
+    "forced_exits": 0,
+    "http_attempts": 1,
+    "model": {
+      "adapter_completion_tokens": 243,
+      "adapter_cost_usd": 0.009445,
+      "adapter_prompt_tokens": 2320,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 1,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 243,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 1,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 243,
+          "cost_usd": 0.009445,
+          "prompt_tokens": 2320,
+          "reasoning_tokens": 0,
+          "requests": 1
+        }
+      },
+      "prompt_tokens": 2320,
+      "reasoning_tokens": 0,
+      "remaining_usd": 13.082379290776686,
+      "requests": 1,
+      "retry_count": 0,
+      "run_budget_usd": 0.05,
+      "run_cost_usd": 0.009445,
+      "run_remaining_usd": 0.040555,
+      "total_spent_usd": 91.91762070922331
+    },
+    "physical_requests": 1,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
