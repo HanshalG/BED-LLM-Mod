@@ -1,0 +1,358 @@
+{
+  "continuation_rows": [
+    {
+      "aligned_label": "B",
+      "aligned_scores": [
+        0,
+        16,
+        56,
+        1,
+        0,
+        0,
+        0,
+        0,
+        22
+      ],
+      "initial_scores": [
+        0,
+        14,
+        54,
+        1,
+        0,
+        0,
+        0,
+        0,
+        20
+      ],
+      "root_index": 0,
+      "shuffled_scores": [
+        0,
+        18,
+        52,
+        1,
+        0,
+        0,
+        0,
+        0,
+        24
+      ]
+    },
+    {
+      "aligned_label": "A",
+      "aligned_scores": [
+        0,
+        12,
+        100,
+        1,
+        0,
+        0,
+        0,
+        0,
+        18
+      ],
+      "initial_scores": [
+        0,
+        14,
+        100,
+        1,
+        0,
+        0,
+        0,
+        0,
+        16
+      ],
+      "root_index": 1,
+      "shuffled_scores": [
+        0,
+        8,
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10
+      ]
+    },
+    {
+      "aligned_label": "B",
+      "aligned_scores": [
+        0,
+        16,
+        100,
+        7,
+        1,
+        0,
+        0,
+        0,
+        10
+      ],
+      "initial_scores": [
+        0,
+        20,
+        99,
+        9,
+        1,
+        0,
+        0,
+        0,
+        11
+      ],
+      "root_index": 2,
+      "shuffled_scores": [
+        0,
+        18,
+        100,
+        8,
+        1,
+        0,
+        0,
+        0,
+        12
+      ]
+    },
+    {
+      "aligned_label": "A",
+      "aligned_scores": [
+        18,
+        99,
+        12,
+        1,
+        0,
+        0,
+        0,
+        0,
+        22
+      ],
+      "initial_scores": [
+        16,
+        100,
+        11,
+        1,
+        0,
+        0,
+        0,
+        0,
+        21
+      ],
+      "root_index": 3,
+      "shuffled_scores": [
+        20,
+        98,
+        10,
+        1,
+        0,
+        0,
+        0,
+        0,
+        24
+      ]
+    }
+  ],
+  "final_answer": {
+    "answer": "The other two divisions were the Army and the Navy.",
+    "confidence": 95
+  },
+  "initial": {
+    "hypotheses": [
+      "The question likely refers to the Falklands War; the article 'Argentine air forces in the Falklands War' may list all Argentine service branches that flew aircraft and suffered losses, with the 'other two divisions' being the Argentine Army Aviation and Argentine Naval Aviation in addition to the Air Force.",
+      "The answer may be the Argentine Army and the Argentine Navy, with the support chain being that their aviation arms\u2014Army Aviation Command and Naval Aviation Command\u2014both incurred aircraft losses during the war with Britain.",
+      "If one article names the principal branch as the Argentine Air Force, the 'other two divisions of Argentine forces' involved and losing aircraft were probably the Argentine Naval Aviation and Argentine Army Aviation components.",
+      "The wording 'other two divisions' may point to a breakdown of Argentine air assets by service; reading 'Argentine air forces in the Falklands War' would likely reveal three services: Air Force, Navy, and Army, of which the latter two are being asked for.",
+      "A plausible chain is: Falklands War article on Argentine air forces -> section on participating units -> table of losses by service -> identifies Argentine Navy aviation and Argentine Army aviation as the two other Argentine divisions with aircraft losses.",
+      "The question may be asking for branches rather than geographic divisions, so the likely answer is the naval and army aviation branches of Argentina, both of which operated aircraft against Britain and suffered losses.",
+      "Another plausible interpretation is that 'divisions of Argentine forces' means service arms under overall Argentine command in the Falklands, and the article would support that the Navy and Army air components, besides the Air Force, also lost aircraft.",
+      "The most likely two-part answer is 'Argentine Naval Aviation and Argentine Army Aviation,' supported by an article enumerating aircraft losses across all Argentine forces in the Falklands War."
+    ],
+    "root_scores": [
+      98,
+      42,
+      0,
+      1
+    ]
+  },
+  "policies": {
+    "fixed": {
+      "followup_candidate_index": 2,
+      "root_index": 0,
+      "selected_titles": [
+        "Argentine air forces in the Falklands War",
+        "British air services in the Falklands War"
+      ],
+      "support_coverage": 2
+    },
+    "model_aware": {
+      "followup_candidate_index": 2,
+      "root_index": 0,
+      "selected_titles": [
+        "Argentine air forces in the Falklands War",
+        "British air services in the Falklands War"
+      ],
+      "support_coverage": 2
+    },
+    "myopic": {
+      "followup_candidate_index": 2,
+      "root_index": 0,
+      "selected_titles": [
+        "Argentine air forces in the Falklands War",
+        "British air services in the Falklands War"
+      ],
+      "support_coverage": 2
+    },
+    "random": {
+      "followup_candidate_index": 2,
+      "root_index": 1,
+      "selected_titles": [
+        "British air services in the Falklands War",
+        "Argentine air forces in the Falklands War"
+      ],
+      "support_coverage": 2
+    },
+    "shuffled": {
+      "followup_candidate_index": 2,
+      "root_index": 0,
+      "selected_titles": [
+        "Argentine air forces in the Falklands War",
+        "British air services in the Falklands War"
+      ],
+      "support_coverage": 2
+    }
+  },
+  "protocol": {
+    "aligned_is_a": [
+      false,
+      true,
+      false,
+      true
+    ],
+    "blinding_seed": 24351,
+    "interface_version": "hotpot-causal-belief-smoke-1",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "2cd86b945237aadd0dfa0295f7a2b7999f339d627b19a6506a088544a5a51ce8",
+    "question_hidden_from_continuation_scorer": true,
+    "random_control_seed": 24352,
+    "reasoning_requested": false,
+    "repairs_or_scientific_retries": 0,
+    "root_context_indices_one_based": [
+      3,
+      4,
+      6,
+      1
+    ],
+    "root_evidence_hidden_from_continuation_scorer": true,
+    "task_id": "5ae0036a55429942ec259bdf"
+  },
+  "refreshes": [
+    [
+      "The revealed article supports that multiple Argentine services had air units in the Falklands War, including Air Force, Army, and Navy; the answer is still likely the Army and Navy aviation branches, but we still need an article section or related page explicitly stating that both incurred aircraft losses.",
+      "The question may be anchored on a loss table within 'Argentine air forces in the Falklands War'; we need the specific losses section naming which services lost aircraft so we can confirm the two 'other' divisions are Army and Navy rather than any 'other services.'",
+      "Because the paragraph mentions 'other services' beyond Air Force, Army, and Navy, one unresolved possibility is that the answer could involve a non-obvious service branch; we need a complete list of participating air units and their losses to rule out another force replacing one of the expected two.",
+      "The likely interpretation remains that the principal branch discussed elsewhere is the Argentine Air Force, and the 'other two divisions' are the Argentine Army Aviation and Argentine Naval Aviation components; we still need evidence from the article or linked branch pages that these exact aviation arms suffered losses in the war.",
+      "The answer may require formal unit names rather than parent services, such as 'Argentine Army Aviation Command' and 'Naval Aviation Command'; we need an article that provides official branch names alongside wartime aircraft losses.",
+      "If the source article distinguishes between service branches and broader armed-force divisions, the correct response may need to be 'Army and Navy' instead of their aviation commands; we need wording from the target article showing the answer format used in the question's source context.",
+      "A supporting chain could run from 'Argentine air forces in the Falklands War' to a subsection on order of battle or attrition by service; we need that subsection or a related losses page to verify that exactly two additional Argentine services besides the Air Force incurred aircraft losses.",
+      "There is still ambiguity whether 'involved in the war with Britain that incurred losses in aircraft' refers to combat participation or merely possession of aircraft lost; we need an article explicitly connecting the Army and Navy air components to both wartime involvement against Britain and aircraft losses."
+    ],
+    [
+      "The target answer is still most likely 'Argentine Naval Aviation and Argentine Army Aviation'; the revealed British article explicitly points to 'Argentine air forces in the Falklands War' as the needed counterpart, so the next needed evidence is that Argentine article listing the Argentine services and their aircraft losses.",
+      "The question likely comes from a comparison where one Argentine branch has already been identified, and asks for the other two Argentine air-service components involved against Britain; needed evidence is an Argentine forces article or table that shows exactly three participating Argentine aviation branches and names the remaining two.",
+      "The wording 'divisions of Argentine forces' may be imprecise paraphrase for service branches rather than formal divisions; needed evidence is a source such as 'Argentine air forces in the Falklands War' confirming whether the relevant labels are Air Force, Naval Aviation, and Army Aviation.",
+      "It remains possible the answer should use parent organizations rather than aviation-arm names, namely 'Argentine Navy' and 'Argentine Army'; needed evidence is the article wording to see whether losses are attributed to the services themselves or specifically to their aviation commands.",
+      "The answer may depend on an aircraft-loss table where the criterion is explicitly 'incurred losses in aircraft'; needed evidence is a list in the Argentine article showing which Argentine branches actually lost aircraft, to verify that both Naval Aviation and Army Aviation meet that condition.",
+      "There could be more than three Argentine flying components in the war, such as Coast Guard or Prefecture aviation, and the asked-for 'other two' would be only those besides a main branch that suffered losses; needed evidence is a complete enumeration of Argentine air units in the relevant article to exclude additional candidates.",
+      "The question may be anchored in a British article that links out to the Argentine counterpart, so the next needed evidence is the exact paragraph or table in 'Argentine air forces in the Falklands War' that mirrors the British article's unit-and-loss structure and identifies the non-primary Argentine branches with losses.",
+      "If the source article phrases participation by commands, the answer might require the formal names 'Comando de Aviaci\u00f3n Naval Argentina' and 'Comando de Aviaci\u00f3n de Ej\u00e9rcito'; needed evidence is the naming convention used in the Argentine article so the final response matches the expected article terminology."
+    ],
+    [
+      "The revealed article is unrelated to the war/aircraft topic, so the leading hypothesis remains that the answer is Argentine Naval Aviation and Argentine Army Aviation; needed evidence: a Falklands War article explicitly listing the Argentine service branches that incurred aircraft losses.",
+      "The question likely comes from an article about Argentine air losses in the Falklands/Malvinas War where one branch is already named and asks for the other two; needed evidence: the exact source article or a section/table of losses by service confirming Navy aviation and Army aviation.",
+      "If the wording 'divisions of Argentine forces' is imprecise, the expected answer may be the parent services rather than aviation commands: the Argentine Navy and the Argentine Army; needed evidence: an article whose prose uses service-level labels while discussing aircraft losses.",
+      "A stronger formulation may require the formal unit names 'Comando de Aviaci\u00f3n Naval Argentina' and 'Comando de Aviaci\u00f3n de Ej\u00e9rcito'; needed evidence: a detailed order-of-battle or Argentine air forces article giving official names of the two non-Air-Force aviation branches.",
+      "There is still a possibility the article is not the general Falklands War page but a specific aircraft-losses page, and the answer depends on a losses table with three Argentine operators; needed evidence: an article containing a breakdown of lost aircraft by operator/service.",
+      "Another unresolved possibility is that one of the 'other two divisions' is the Argentine Naval Prefecture or another lesser air arm rather than Army Aviation, though this is less likely; needed evidence: a comprehensive list of all Argentine forces operating aircraft in the conflict.",
+      "The question may be anchored in a paragraph about the Argentine Air Force, asking which other Argentine forces were also involved and lost aircraft; needed evidence: the Argentine Air Force in the Falklands War article or equivalent cross-reference naming the two companion branches.",
+      "Because the revealed article is fully contradictory to the topic, the belief state should preserve the wartime-air-services interpretation but seek a directly relevant article next, preferably 'Argentine air forces in the Falklands War' or 'Argentine aircraft losses in the Falklands War'; needed evidence: a relevant war article confirming the two names exactly as expected in the answer."
+    ],
+    [
+      "The revealed article about the OHL Central Division is unrelated to the target; the answer likely still concerns the Falklands War, with the two other Argentine forces being Argentine Naval Aviation and Argentine Army Aviation. Needed evidence: a war- or aviation-related article explicitly listing Argentine services that incurred aircraft losses.",
+      "The question may derive from an article specifically about Argentine aircraft losses in the Falklands/Malvinas conflict; that source would likely identify three branches with losses and ask for the two besides the Air Force. Needed evidence: a page titled like 'Argentine air forces in the Falklands War' or a losses table by service.",
+      "The wording 'other two divisions of Argentine forces' may paraphrase 'other two service branches' rather than formal military divisions; the likely branches remain Navy and Army aviation arms. Needed evidence: an article that names the Argentine Air Force and then mentions the Navy and Army as the other participating air arms with losses.",
+      "A broader Falklands War article may contain a subsection on Argentine air assets or order of battle showing that the Air Force, Naval Aviation, and Army Aviation all flew aircraft and suffered losses. Needed evidence: the conflict overview or order-of-battle article with branch-by-branch air participation and losses.",
+      "The answer might require the formal unit names rather than parent services, such as Comando de Aviaci\u00f3n Naval Argentina and Comando de Aviaci\u00f3n de Ej\u00e9rcito. Needed evidence: an Argentine military aviation article that gives official names of the Navy and Army aviation components involved in the war.",
+      "If the source article centers on one branch, such as the Argentine Air Force, the question's 'other two' likely asks for the non-Air-Force Argentine aviation components that also lost aircraft. Needed evidence: the specific branch article plus a sentence or note referencing aircraft losses by Naval Aviation and Army Aviation.",
+      "There is a small chance the question expects parent services ('Argentine Navy' and 'Argentine Army') instead of aviation-arm names, even though the losses were in aircraft. Needed evidence: the exact wording in the target article showing whether it names whole services or their aviation divisions.",
+      "Because the revealed OHL article is a dead end, the next useful article should be directly tied to the Falklands/Malvinas air campaign or Argentine order of battle, to confirm whether the two forces were Naval Aviation and Army Aviation and capture the exact answer phrasing. Needed evidence: a relevant Falklands aviation article with explicit enumeration of Argentine branches suffering aircraft losses."
+    ]
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "aligned_initial_vector_change_count": 4,
+    "aligned_score_variation_count": 4,
+    "aligned_shuffled_vector_change_count": 4,
+    "enabling_aligned_followup_is_answer": true,
+    "enabling_root_index": 1,
+    "final_answer_token_f1": 0.33333333333333337,
+    "gates": {
+      "aligned_initial_vectors_differ_at_least_3_roots": true,
+      "aligned_score_variation_at_least_3_roots": true,
+      "aligned_shuffled_vectors_differ_at_least_3_roots": true,
+      "all_pass": false,
+      "all_refreshed_states_differ_from_initial": true,
+      "all_refreshed_states_pairwise_distinct": true,
+      "all_responses_parsed_without_repair": true,
+      "balanced_blinding_labels": true,
+      "cost_at_most_0_50": true,
+      "enabling_aligned_followup_selects_answer_support": true,
+      "exact_10_http_attempts": true,
+      "exact_10_physical_requests": true,
+      "final_answer_token_f1_positive": true,
+      "model_aware_coverage_at_least_fixed": true,
+      "model_aware_coverage_at_least_shuffled": true,
+      "model_aware_coverage_exceeds_myopic": false,
+      "model_aware_selects_enabling_root": false,
+      "model_aware_support_coverage_equals_2": true,
+      "zero_forced_exits": true,
+      "zero_reasoning_tokens": true,
+      "zero_transport_retries": true
+    }
+  },
+  "usage": {
+    "adapter_cost_usd": 0.0792925,
+    "generator": {
+      "adapter_completion_tokens": 3422,
+      "adapter_cost_usd": 0.0792925,
+      "adapter_prompt_tokens": 11185,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 3422,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 3422,
+          "cost_usd": 0.0792925,
+          "prompt_tokens": 11185,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 11185,
+      "reasoning_tokens": 0,
+      "remaining_usd": 21.290456623749932,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.0792925,
+      "run_remaining_usd": 0.4207075,
+      "total_spent_usd": 84.09434607170722
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
