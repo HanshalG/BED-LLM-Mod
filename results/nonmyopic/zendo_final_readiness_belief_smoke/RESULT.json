@@ -1,0 +1,27 @@
+{
+  "interface_version": "zendo-final-readiness-belief-1",
+  "private_raw_sha256": "eb7e6ec1916f00a994f961575b6c32e5d8f2ead6ee895ad34683cb16651443dc",
+  "run_failure_sha256": "640d965accac0070a70f4939a15376678858f73f2b3c13094549acd4edb576d7",
+  "run_id": "zendo-final-readiness-smoke-20260725T072302Z",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "summary": {
+    "branch_responses": 8,
+    "branches_with_12_unique_asts": 7,
+    "duplicate_ast_excess": 1,
+    "failed_branch": "root_2_yes",
+    "hidden_endpoint_evaluated": false,
+    "scorer_called": false
+  },
+  "task_name": "phi",
+  "usage": {
+    "completion_tokens": 5518,
+    "cost_usd": 0.10501,
+    "http_attempts": 9,
+    "physical_requests": 9,
+    "prompt_tokens": 8896,
+    "reasoning_tokens": 0,
+    "retries": 0,
+    "forced_exits": 0
+  }
+}
