@@ -269,10 +269,11 @@ its selected roots, versus 26 for myopic receding, 25 for the original joint
 selector, and 22 for seeded random; all frozen gates passed. Exact endpoint
 tests remain underpowered ($p=.25,.0898,.0774$, respectively), so the supported
 claim is reliable LLM-owned ranking plus directional end-to-end gain. In a
-separately frozen post-hoc control on the same trees, raw BM25 sum,
-novel-document count, and lexical-IDF scoring retrieved 22, 21, and 17 documents
-versus 30, and had lower root and continuation accuracy; semantic scoring is
-therefore load-bearing, though this control is not preregistered policy evidence.
+frozen post-hoc control, BM25, novelty, and lexical scoring retrieved 22, 21,
+and 17 documents versus 30 and ranked worse. Yet shuffling refreshed beliefs
+did not reduce accuracy or coverage. Thus semantic scoring, but not correct
+branch--belief alignment, is isolated as load-bearing; neither control is
+held-out policy evidence.
 
 \paragraph{LLM proposals plus exact lookahead work in enabling geometry.}
 The negative natural-location sweep did not test the architecture where depth
@@ -573,14 +574,14 @@ MediQ stops before a calibrated policy comparison,
 the iCRAFT profile-support gate fails before likelihood, staged iCRAFT recovery
 remains below its reliability gate, and ClinDiag has no policy result.
 We do not claim that non-myopic BED cannot work.
-Finite supports, post-hoc synthesis, OpenRouter nondeterminism, and a
-serving-failed Claude replication further limit generality.
+Finite supports, post-hoc synthesis, OpenRouter nondeterminism, and failed
+cross-model serving further limit generality.
 
 The constructive result has two parts. Given a coherent simulator and an
 enabling-information gap, LLM proposals plus exact rollout verification produce
-a large paired gain. In open semantic retrieval, the LLM's own path-dependent
-beliefs improve target-blind root and continuation ranking, and a receding policy
-passes a held-out gate with directional endpoint gains. Depth still cannot
+a large paired gain. In open retrieval, a receding LLM semantic scorer passes a
+held-out gate with significant root and continuation ranking and directional
+endpoint gains. Depth still cannot
 replace a valid joint model, deployment-matched branches, or genuinely
 non-myopic task.
 
