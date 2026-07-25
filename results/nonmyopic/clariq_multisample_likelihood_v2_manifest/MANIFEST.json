@@ -1,0 +1,453 @@
+{
+  "candidates": [
+    {
+      "status": "excluded_v1",
+      "topic_id": "46"
+    },
+    {
+      "facet_count": 2,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "127"
+    },
+    {
+      "status": "excluded_v1",
+      "topic_id": "177"
+    },
+    {
+      "status": "excluded_v1",
+      "topic_id": "117"
+    },
+    {
+      "facet_count": 4,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "198",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 16,
+      "status": "structurally_ineligible",
+      "topic_id": "82",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 5,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "22",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 1,
+      "question_count": 5,
+      "status": "metadata_ineligible",
+      "topic_id": "266"
+    },
+    {
+      "facet_count": 5,
+      "question_count": 16,
+      "status": "structurally_ineligible",
+      "topic_id": "29",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "163",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "eligible",
+      "topic_id": "136",
+      "valid_root_count": 14
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "284"
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "261"
+    },
+    {
+      "facet_count": 3,
+      "question_count": 12,
+      "status": "structurally_ineligible",
+      "topic_id": "41",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 6,
+      "question_count": 18,
+      "status": "structurally_ineligible",
+      "topic_id": "52",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "197",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "180",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 16,
+      "status": "structurally_ineligible",
+      "topic_id": "67",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 5,
+      "question_count": 14,
+      "status": "structurally_ineligible",
+      "topic_id": "69",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "161",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "199",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "246"
+    },
+    {
+      "facet_count": 1,
+      "question_count": 12,
+      "status": "metadata_ineligible",
+      "topic_id": "286"
+    },
+    {
+      "facet_count": 1,
+      "question_count": 14,
+      "status": "metadata_ineligible",
+      "topic_id": "6"
+    },
+    {
+      "facet_count": 3,
+      "question_count": 14,
+      "status": "eligible",
+      "topic_id": "125",
+      "valid_root_count": 13
+    },
+    {
+      "facet_count": 3,
+      "question_count": 15,
+      "status": "eligible",
+      "topic_id": "149",
+      "valid_root_count": 14
+    },
+    {
+      "facet_count": 4,
+      "question_count": 15,
+      "status": "structurally_ineligible",
+      "topic_id": "96",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 3,
+      "question_count": 16,
+      "status": "structurally_ineligible",
+      "topic_id": "91",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 17,
+      "status": "structurally_ineligible",
+      "topic_id": "158",
+      "valid_root_count": 0
+    },
+    {
+      "facet_count": 4,
+      "question_count": 14,
+      "status": "eligible",
+      "topic_id": "148",
+      "valid_root_count": 13
+    },
+    {
+      "facet_count": 4,
+      "question_count": 13,
+      "status": "structurally_ineligible",
+      "topic_id": "157",
+      "valid_root_count": 0
+    }
+  ],
+  "expected_likelihood_requests": 205,
+  "protocol": {
+    "api_calls": 0,
+    "development_split_order_used": true,
+    "evaluation_keys_checked": true,
+    "evaluation_values_read": false,
+    "excluded_v1_topic_ids": [
+      "117",
+      "177",
+      "46"
+    ],
+    "min_valid_roots": 6,
+    "samples_per_question": 5,
+    "selected_topic_count": 3
+  },
+  "schema_version": 1,
+  "selected_topic_ids": [
+    "136",
+    "125",
+    "149"
+  ],
+  "selected_topics": [
+    {
+      "facets": [
+        {
+          "description": "What are the registration requirements for enrolling at American Military University?",
+          "facet_id": "F0146"
+        },
+        {
+          "description": "reviews and commentary on the quality of education received by students at American Military University",
+          "facet_id": "F0147"
+        },
+        {
+          "description": "find the home page of the American Military University",
+          "facet_id": "F0148"
+        }
+      ],
+      "initial_request": "Tell me about american military university.",
+      "questions": [
+        {
+          "question": "are you interested in learning more about tuition costs for the american military university",
+          "question_id": "Q00302"
+        },
+        {
+          "question": "are you looking for a specific web page",
+          "question_id": "Q00696"
+        },
+        {
+          "question": "are you referring to the american military university as in the actual school",
+          "question_id": "Q01250"
+        },
+        {
+          "question": "are you talking about the navel academy",
+          "question_id": "Q01338"
+        },
+        {
+          "question": "are you wanting information about west point",
+          "question_id": "Q01400"
+        },
+        {
+          "question": "are you wanting to know its location",
+          "question_id": "Q01411"
+        },
+        {
+          "question": "are you wanting to know more about the entrance requirements",
+          "question_id": "Q01414"
+        },
+        {
+          "question": "do you want to know more about the the curriculum",
+          "question_id": "Q02165"
+        },
+        {
+          "question": "were you interested in applying to the american military university or just recieving an informational brochure",
+          "question_id": "Q02689"
+        },
+        {
+          "question": "what degree in particular would you like to know more about from the american military unviersity",
+          "question_id": "Q02760"
+        },
+        {
+          "question": "would you be interested in learning more about the history of the american military university",
+          "question_id": "Q03147"
+        },
+        {
+          "question": "would you like to know how to get to the american military university",
+          "question_id": "Q03482"
+        },
+        {
+          "question": "would you like to know more about its history",
+          "question_id": "Q03532"
+        },
+        {
+          "question": "would you like to read some reviews about american military university",
+          "question_id": "Q03790"
+        }
+      ],
+      "topic_id": "136"
+    },
+    {
+      "facets": [
+        {
+          "description": "What is the difference between butter and margarine?",
+          "facet_id": "F0107"
+        },
+        {
+          "description": "What is the difference in regards to cholesterol, calorie count, and other nutritional qualities.",
+          "facet_id": "F0108"
+        },
+        {
+          "description": "How are butter and margarine made?",
+          "facet_id": "F0109"
+        }
+      ],
+      "initial_request": "butter and margarine",
+      "questions": [
+        {
+          "question": "are you interested in the the nutritional value of butter and margarine",
+          "question_id": "Q00504"
+        },
+        {
+          "question": "are you looking for butter and margarine comparison",
+          "question_id": "Q00773"
+        },
+        {
+          "question": "are you looking for health facts of butter and mararine",
+          "question_id": "Q00852"
+        },
+        {
+          "question": "are you looking for the brands of butter and margarine",
+          "question_id": "Q01053"
+        },
+        {
+          "question": "are you looking for the history of butter and margarine",
+          "question_id": "Q01071"
+        },
+        {
+          "question": "are you looking to subsitute butter and margarine",
+          "question_id": "Q01174"
+        },
+        {
+          "question": "are you looking to use butter and margarine in baking",
+          "question_id": "Q01176"
+        },
+        {
+          "question": "would you like to know about butter and margarine making process",
+          "question_id": "Q03372"
+        },
+        {
+          "question": "would you like to know how butter and margarine affect the food you eat",
+          "question_id": "Q03447"
+        },
+        {
+          "question": "would you like to know how butter and margarine are used in recipes",
+          "question_id": "Q03448"
+        },
+        {
+          "question": "would you like to know the differences between butter and margarine",
+          "question_id": "Q03594"
+        },
+        {
+          "question": "would you like to see how these fats effect human arteries",
+          "question_id": "Q03848"
+        },
+        {
+          "question": "would you like to see recipes with butter and margarine",
+          "question_id": "Q03874"
+        }
+      ],
+      "topic_id": "125"
+    },
+    {
+      "facets": [
+        {
+          "description": "How likely is a volcanic eruption at Yellowstone National Park, and what would be the effects of such an eruption?",
+          "facet_id": "F0189"
+        },
+        {
+          "description": "information on ground elevation changes and movement resulting from ongoing low-level geothermal activity at Yellowstone National Park",
+          "facet_id": "F0190"
+        },
+        {
+          "description": "home page for the Yellowstone Volcano Observatory",
+          "facet_id": "F0191"
+        }
+      ],
+      "initial_request": "Tell me about uplift at yellowstone national park",
+      "questions": [
+        {
+          "question": "are you interested in a specific aspect of uplift at yellowstone national park",
+          "question_id": "Q00106"
+        },
+        {
+          "question": "are you looking for a specific web site",
+          "question_id": "Q00697"
+        },
+        {
+          "question": "can i tell you about the north american plate that moves causing the eventual destruction of the volcano in yellowstone park",
+          "question_id": "Q01473"
+        },
+        {
+          "question": "do you want to know what the current uplift is at yellowstone national park",
+          "question_id": "Q02299"
+        },
+        {
+          "question": "may i tell you the numnber of earthquakes recorded in the past month in the yellowstone area",
+          "question_id": "Q02652"
+        },
+        {
+          "question": "what makes people think the yellowstone volcano will erupt soon",
+          "question_id": "Q02848"
+        },
+        {
+          "question": "what would you like to know about uplift",
+          "question_id": "Q02958"
+        },
+        {
+          "question": "would you like more information of the course of the yellowstone volcano and the different hypothesizes scientest have",
+          "question_id": "Q03250"
+        },
+        {
+          "question": "would you like to know about yellowstones history of eruptions",
+          "question_id": "Q03439"
+        },
+        {
+          "question": "would you like to know more about geothermal activities at yellowstone national park",
+          "question_id": "Q03526"
+        },
+        {
+          "question": "would you like to know more about what would occur if the supervolcano underneath yellowstone national park errupted",
+          "question_id": "Q03561"
+        },
+        {
+          "question": "would you like to know trending data or a timeline for the uplift at yellowstone national park",
+          "question_id": "Q03640"
+        },
+        {
+          "question": "would you like to know why some scientists think the yellowstone volcano is in the process of dying",
+          "question_id": "Q03728"
+        },
+        {
+          "question": "would you like to see a ground map showing the uplift of yellowstone national park",
+          "question_id": "Q03804"
+        }
+      ],
+      "topic_id": "149"
+    }
+  ],
+  "status": "passed"
+}

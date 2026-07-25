@@ -369,16 +369,27 @@ def run_development(
     source_root: Path,
     raw_path: Path,
     model: ChatModel,
+    tasks_override: dict[str, dict[str, Any]] | None = None,
+    expected_requests: int = EXPECTED_REQUESTS,
+    interface_version: str = INTERFACE_VERSION,
 ) -> dict[str, Any]:
     paths = verify_source(source_root)
-    tasks = load_visible_tasks(paths["train"])
+    tasks = (
+        tasks_override
+        if tasks_override is not None
+        else load_visible_tasks(paths["train"])
+    )
+    topic_ids = tuple(tasks)
+    facet_counts = {
+        topic_id: len(task["facets"]) for topic_id, task in tasks.items()
+    }
     request_keys = [
         (topic_id, question["question_id"], sample_index)
-        for topic_id in SELECTED_TOPIC_IDS
+        for topic_id in topic_ids
         for question in tasks[topic_id]["questions"]
         for sample_index in range(SAMPLES_PER_QUESTION)
     ]
-    if len(request_keys) != EXPECTED_REQUESTS:
+    if len(request_keys) != expected_requests:
         raise ValueError("ClariQ request count changed")
     random.Random(REQUEST_SEED).shuffle(request_keys)
     question_lookup = {
@@ -387,7 +398,7 @@ def run_development(
         for question in task["questions"]
     }
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "request_keys": request_keys,
         "development_endpoints_loaded": False,
     }
@@ -406,12 +417,12 @@ def run_development(
         )
         raw["responses"] = responses
         _checkpoint(raw_path, raw)
-        if len(responses) != EXPECTED_REQUESTS:
+        if len(responses) != expected_requests:
             raise ValueError("ClariQ likelihood response count changed")
         parsed = [
             parse_labels(
                 response,
-                EXPECTED_FACET_COUNTS[topic_id],
+                facet_counts[topic_id],
             )
             for response, (topic_id, _question_id, _sample_index) in zip(
                 responses, request_keys
@@ -422,7 +433,7 @@ def run_development(
                 question["question_id"]: [""] * SAMPLES_PER_QUESTION
                 for question in tasks[topic_id]["questions"]
             }
-            for topic_id in SELECTED_TOPIC_IDS
+            for topic_id in topic_ids
         }
         for value, (topic_id, question_id, sample_index) in zip(
             parsed, request_keys
@@ -440,7 +451,7 @@ def run_development(
             topic_id: {
                 question_id: build_likelihood(
                     samples,
-                    EXPECTED_FACET_COUNTS[topic_id],
+                    facet_counts[topic_id],
                 )
                 for question_id, samples in topic_maps.items()
             }
@@ -457,7 +468,7 @@ def run_development(
                 sample_likelihoods = {
                     question_id: build_likelihood(
                         [samples[sample_index]],
-                        EXPECTED_FACET_COUNTS[topic_id],
+                        facet_counts[topic_id],
                     )
                     for question_id, samples in topic_maps.items()
                 }
@@ -497,7 +508,7 @@ def run_development(
         synthetic,
         evaluation,
         question_ids,
-        SELECTED_TOPIC_IDS,
+        topic_ids,
     )
     external_by_topic = {
         record["topic_id"]: record for record in external["records"]
@@ -507,7 +518,7 @@ def run_development(
     pooled_depth_scores = []
     pooled_myopic_scores = []
     pooled_targets = []
-    for topic_id in SELECTED_TOPIC_IDS:
+    for topic_id in topic_ids:
         policy = policies[topic_id]
         record = external_by_topic.get(topic_id)
         endpoint_by_question = (
@@ -538,7 +549,7 @@ def run_development(
                 Counter(
                     value[facet_index] for value in samples
                 ).most_common(1)[0][0]
-                for facet_index in range(EXPECTED_FACET_COUNTS[topic_id])
+                for facet_index in range(facet_counts[topic_id])
             )
             for question_id, samples in maps[topic_id].items()
         }
@@ -625,14 +636,14 @@ def run_development(
         "pooled_myopic_score_oracle_tail_spearman": myopic_rho,
     }
     gates = {
-        "exact_215_physical_requests": (
-            usage["physical_requests"] == EXPECTED_REQUESTS
+        "exact_physical_requests": (
+            usage["physical_requests"] == expected_requests
         ),
-        "exact_215_http_attempts": usage["http_attempts"] == EXPECTED_REQUESTS,
+        "exact_http_attempts": usage["http_attempts"] == expected_requests,
         "zero_retries": usage["retry_count"] == 0,
         "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
         "zero_forced_exits": usage["forced_exits"] == 0,
-        "all_215_maps_parse": len(parsed) == EXPECTED_REQUESTS,
+        "all_maps_parse": len(parsed) == expected_requests,
         "three_modal_partitions_per_topic": all(
             row["distinct_modal_partition_count"] >= 3 for row in rows
         ),
@@ -666,15 +677,15 @@ def run_development(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "model": MODEL_ID,
-            "topic_ids": list(SELECTED_TOPIC_IDS),
+            "topic_ids": list(topic_ids),
             "samples_per_question": SAMPLES_PER_QUESTION,
             "temperature": TEMPERATURE,
             "smoothing_alpha": SMOOTHING_ALPHA,
             "request_seed": REQUEST_SEED,
             "random_control_seed": RANDOM_CONTROL_SEED,
-            "expected_requests": EXPECTED_REQUESTS,
+            "expected_requests": expected_requests,
             "reasoning_requested": False,
             "development_endpoints_loaded_after_scores_froze": True,
             "holdout_endpoints_loaded": False,
