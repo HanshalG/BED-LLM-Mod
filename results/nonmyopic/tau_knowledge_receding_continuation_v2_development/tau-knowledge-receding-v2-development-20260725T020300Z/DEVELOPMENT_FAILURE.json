@@ -1,0 +1,44 @@
+{
+  "error": "GateExecutionError: ValueError: continuation response has unexpected keys",
+  "interface_version": 2,
+  "private_raw_sha256": "c5569824afafaad615937b065e6364ea0cb3affaef4df20668a538c210ca99c4",
+  "schema_version": 1,
+  "stage": "development",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 1.0911199999999994,
+    "generator": {
+      "adapter_completion_tokens": 27173,
+      "adapter_cost_usd": 1.0911199999999994,
+      "adapter_prompt_tokens": 273410,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 100,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 27173,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 27173,
+          "cost_usd": 1.0911199999999994,
+          "prompt_tokens": 273410,
+          "reasoning_tokens": 0,
+          "requests": 100
+        }
+      },
+      "prompt_tokens": 273410,
+      "reasoning_tokens": 0,
+      "remaining_usd": 30.25943303375,
+      "requests": 100,
+      "run_budget_usd": 3.0,
+      "run_cost_usd": 1.0911199999999994,
+      "run_remaining_usd": 1.9088800000000006,
+      "total_spent_usd": 75.12536966170715
+    },
+    "physical_requests": 100,
+    "reasoning_tokens": 0
+  }
+}
