@@ -121,15 +121,25 @@ def root_queries(problem: str) -> list[str]:
 
 
 def _git(repo: Path, *args: str) -> str:
-    result = subprocess.run(
-        ["git", *args],
-        cwd=repo,
-        check=True,
-        capture_output=True,
-        text=True,
-        errors="replace",
+    result = None
+    for _ in range(3):
+        result = subprocess.run(
+            ["git", *args],
+            cwd=repo,
+            check=False,
+            capture_output=True,
+            text=True,
+            errors="replace",
+        )
+        if result.returncode == 0:
+            return result.stdout
+    assert result is not None
+    raise subprocess.CalledProcessError(
+        result.returncode,
+        result.args,
+        output=result.stdout,
+        stderr=result.stderr,
     )
-    return result.stdout
 
 
 def repository_documents(repo: Path, commit: str) -> list[dict[str, str]]:
