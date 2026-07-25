@@ -99,3 +99,17 @@ def test_gemini_replication_config_is_frozen() -> None:
     )
     assert config.openrouter_max_output_tokens == 4096
     assert config.mediq_seed == 24344
+
+
+def test_gpt54mini_replication_config_is_frozen() -> None:
+    config = load_config(
+        str(
+            ROOT
+            / "configs/"
+            "config_tau_knowledge_gpt54mini_scorer_replication_openrouter.yaml"
+        )
+    )
+
+    assert config.model_pairs[0].questioner.model == "openai/gpt-5.4-mini"
+    assert config.openrouter_max_output_tokens == 4096
+    assert config.mediq_seed == 24345
