@@ -247,6 +247,7 @@ class OpenRouterAdapter:
         max_tokens: int | None = None,
         *,
         disable_reasoning: bool = False,
+        response_format: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "model": self.model_name,
@@ -273,6 +274,9 @@ class OpenRouterAdapter:
             payload["reasoning"] = {"enabled": True, "exclude": False}
         if self.seed is not None:
             payload["seed"] = int(self.seed)
+        if response_format is not None:
+            payload["response_format"] = response_format
+            payload["provider"] = {"require_parameters": True}
         return payload
 
     def _post(self, payload: dict[str, Any]) -> dict[str, Any]:
@@ -345,6 +349,7 @@ class OpenRouterAdapter:
         *,
         allow_forced_final: bool = True,
         disable_reasoning: bool = False,
+        response_format: dict[str, Any] | None = None,
     ) -> list[str]:
         data = self._post(
             self._payload(
@@ -353,6 +358,7 @@ class OpenRouterAdapter:
                 n,
                 max_tokens,
                 disable_reasoning=disable_reasoning,
+                response_format=response_format,
             )
         )
         choices = data.get("choices")
@@ -447,6 +453,7 @@ class OpenRouterAdapter:
                 max_tokens=int(self.spec.thinking_final_max_new_tokens or 512),
                 allow_forced_final=False,
                 disable_reasoning=True,
+                response_format=response_format,
             )
             if forced[0]:
                 self.forced_final_successes += 1
@@ -461,6 +468,30 @@ class OpenRouterAdapter:
         with ThreadPoolExecutor(max_workers=self.concurrency) as executor:
             futures = [
                 executor.submit(self._complete_request, messages, temperature, 1, max_new_tokens)
+                for messages in batch_messages
+            ]
+            return [future.result()[0] for future in futures]
+
+    def chat_complete_messages_batched_structured(
+        self,
+        batch_messages: list[list[dict[str, str]]],
+        *,
+        temperature: float,
+        block_size: int,
+        response_format: dict[str, Any],
+        max_new_tokens: int | None = None,
+    ) -> list[str]:
+        del block_size
+        with ThreadPoolExecutor(max_workers=self.concurrency) as executor:
+            futures = [
+                executor.submit(
+                    self._complete_request,
+                    messages,
+                    temperature,
+                    1,
+                    max_new_tokens,
+                    response_format=response_format,
+                )
                 for messages in batch_messages
             ]
             return [future.result()[0] for future in futures]

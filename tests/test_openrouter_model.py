@@ -119,6 +119,50 @@ def test_openrouter_adapter_tracks_native_cost_without_reasoning(monkeypatch, tm
     assert "secret-test-key" not in (tmp_path / "run.log").read_text()
 
 
+def test_openrouter_structured_batch_forwards_strict_schema(
+    monkeypatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    captured = []
+
+    def fake_urlopen(request, timeout):
+        del timeout
+        captured.append(json.loads(request.data))
+        return _Response(_completion())
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    adapter = OpenRouterAdapter(
+        ModelSpec(
+            model="openai/gpt-5.4",
+            backend="openrouter",
+            thinking=False,
+            max_model_len=32768,
+        ),
+        _config(tmp_path),
+    )
+    response_format = {
+        "type": "json_schema",
+        "json_schema": {
+            "name": "answer",
+            "strict": True,
+            "schema": {
+                "type": "object",
+                "properties": {"answer": {"type": "string"}},
+                "required": ["answer"],
+                "additionalProperties": False,
+            },
+        },
+    }
+    assert adapter.chat_complete_messages_batched_structured(
+        [[{"role": "user", "content": "hello"}]],
+        temperature=0.0,
+        block_size=1,
+        response_format=response_format,
+    ) == ["ok"]
+    assert captured[0]["response_format"] == response_format
+    assert captured[0]["provider"] == {"require_parameters": True}
+
+
 def test_openrouter_budget_warning_uses_configured_threshold_and_emits_once(
     monkeypatch, tmp_path: Path, capsys
 ) -> None:
