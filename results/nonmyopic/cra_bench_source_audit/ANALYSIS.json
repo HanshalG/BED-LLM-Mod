@@ -1,0 +1,61 @@
+{
+  "bed_boundary": {
+    "alternative_world_prior_released": false,
+    "decision": "close_paid_route_until_runner_and_catalog_release",
+    "hard_split_has_two_turn_patience": true,
+    "question_conditioned_response_map_released": false,
+    "using_evaluation_targets_as_policy_support_would_leak": true
+  },
+  "interface_version": "cra-bench-source-audit-1",
+  "llm_calls": 0,
+  "release_components": {
+    "catalog_reconstruction_script": false,
+    "exact_evaluation_labels": true,
+    "paper_link": false,
+    "product_catalog": false,
+    "recommender_profiles": true,
+    "reference_policy": false,
+    "retrieval_runner": false,
+    "task_files": true,
+    "user_profiles": true,
+    "user_simulator_implementation": false,
+    "user_simulator_prompt": false
+  },
+  "source": {
+    "repository": "https://huggingface.co/datasets/l1i1p/CRA-Bench",
+    "revision": "30d6c7c7e67e7dd21904c1aae67aa6fc8d596640",
+    "split_sha256": {
+      "easy": "dc5e4620fca19988488ecf6979e331ed4577929eb3343d2cb0d0fcfb763b1d82",
+      "hard": "4d86ecbfc7da92ddc9c5e776606d3a062d5878da9b6e02681e45751f6c9fb6da",
+      "medium": "d30a9539ba634fb8e6247f28d4448f14e451432adee74cb7298ce4bc9ef9ee82"
+    }
+  },
+  "summary": {
+    "base_users": 250,
+    "cross_difficulty": {
+      "base_users_with_three_variants": 250,
+      "same_recommender_profile": 250,
+      "same_target": 250,
+      "same_user_profile": 250
+    },
+    "hard_domain_counts": {
+      "Clothing_Shoes_and_Jewelry": 60,
+      "Electronics": 40,
+      "Grocery_and_Gourmet_Food": 36,
+      "Health_and_Household": 55,
+      "Home_and_Kitchen": 59
+    },
+    "hard_patience_budget_counts": {
+      "2": 250
+    },
+    "split_rows": {
+      "easy": 250,
+      "hard": 250,
+      "medium": 250
+    },
+    "unique_targets": 244
+  },
+  "target_ids_emitted": false,
+  "target_metadata_emitted": false,
+  "task_content_emitted": false
+}

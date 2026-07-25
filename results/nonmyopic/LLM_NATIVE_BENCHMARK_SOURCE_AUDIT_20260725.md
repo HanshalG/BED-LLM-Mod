@@ -10,6 +10,7 @@ test outcomes as model evidence and it authorizes no paid run.
 | RegretBench | paper: `https://arxiv.org/abs/2607.21143`; cited repository: `https://github.com/ngocminhta/RegretBench` | arXiv source downloaded 2026-07-25 | Paper available; cited repository returns 404 and no dataset was found on Hugging Face |
 | EComAgentBench | `https://github.com/Morizeyao/EComAgentBench_` | `867dcc59957d4c5f89e9cfd701ee20f91ef96a83` | Code and 662 benchmark rows available |
 | pi-Bench | paper: `https://arxiv.org/abs/2605.14678`; code: `https://github.com/Simplified-Reasoning/Pi-Bench` | `383910b1698758a198b86037c63a111c8edc32ad` | Code, 100 tasks, five episodes, and task assets available |
+| CRA-Bench | `https://huggingface.co/datasets/l1i1p/CRA-Bench` | `30d6c7c7e67e7dd21904c1aae67aa6fc8d596640` | 750 task rows and exact labels available; runner, simulator, catalog, and paper link absent |
 
 ## RegretBench
 
@@ -144,6 +145,25 @@ non-myopic BED route. Converting it would require inventing alternative worlds
 and answer transitions rather than evaluating a native released structure.
 See `CLARIFYBENCH_SOURCE_AUDIT_RESULT.md` and audit SHA `02e4942a`.
 
+## CRA-Bench
+
+CRA-Bench has 250 underlying user/target worlds repeated across easy, medium,
+and hard variants. Profiles and targets are constant within each triple. The
+hard split has a two-turn patience budget, making its conversational
+recommendation surface structurally attractive.
+
+The current release is not executable as described. It contains task files,
+hidden user profiles, visible recommender profiles, and 244 exact target
+products, but no user-simulator code or prompt, retrieval runner, product
+catalog, catalog reconstruction/filtering script, reference policy, or linked
+paper. The exact products and metadata occur only in evaluation-only fields.
+
+**Decision:** do not use evaluation targets as a closed policy support, because
+that leaks the benchmark target pool. Close paid work until the official runner
+and catalog are released; then audit the hard split for a target-blind
+greedy-versus-depth-two gap before model calls. See the hash-pinned
+`cra_bench_source_audit` artifact.
+
 ## Portfolio Decision
 
 - **Headline:** continue to concentrate on an LLM-native result. The current
@@ -155,6 +175,6 @@ See `CLARIFYBENCH_SOURCE_AUDIT_RESULT.md` and audit SHA `02e4942a`.
 - **Future memory benchmark:** pi-Bench remains relevant, but its exact
   target-blind BED wrapper is closed for lack of a canonical prior observation.
 - **Closed for now:** EComAgentBench's clarification-only graph, the released
-  ClarifyBench scripted-world interface, and the exact pi-Bench dependency
-  wrapper.
+  ClarifyBench scripted-world interface, CRA-Bench without its runner/catalog,
+  and the exact pi-Bench dependency wrapper.
 - **Budget:** no paid calls and no OatML cluster work were used in this audit.
