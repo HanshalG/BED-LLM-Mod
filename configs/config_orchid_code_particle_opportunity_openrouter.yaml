@@ -1,0 +1,43 @@
+version: 0
+task: mediq
+model_pairs:
+  - questioner:
+      model: "openai/gpt-5.4-mini"
+      backend: openrouter
+      max_model_len: 32768
+    answerer:
+      model: "openai/gpt-5.4-mini"
+      backend: openrouter
+      max_model_len: 32768
+method_names:
+  - "EIG"
+batched_block_size: 16
+generation_temperature_diverse: 0.0
+generation_temperature_simple: 0.0
+probability_parse_fallback_to_uniform: false
+openrouter_budget_usd: 101.14330481920742
+openrouter_run_budget_usd: 0.50
+openrouter_projected_cost_usd: 0.15
+openrouter_concurrency: 16
+openrouter_max_retries: 5
+openrouter_backoff_seconds: 1.0
+openrouter_request_timeout_seconds: 300.0
+openrouter_max_output_tokens: 1500
+openrouter_spend_path: results/path_e/openrouter_spend.json
+environment:
+  data_path: external/MediQ/data/all_craft_md.jsonl
+  dataset: icraft_md
+  verify_official_hash: true
+  skip_unusable_tasks: true
+  num_trials: 1
+  num_rounds: 1
+  trial_batch_size: 1
+  task_offset: 0
+  seed: 24374
+  num_candidates: 5
+  max_patient_facts: 2
+  probability_floor: 0.01
+  likelihood_mode: profile_support
+  profiles_per_option: 3
+  shared_call_cache_enabled: true
+  structured_max_retries: 0
