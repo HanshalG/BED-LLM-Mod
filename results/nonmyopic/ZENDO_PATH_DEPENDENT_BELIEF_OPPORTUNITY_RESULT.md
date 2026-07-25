@@ -80,3 +80,18 @@ external moderator.
 The conditional 80-call opportunity stage would cost more while its central
 ranking link is already non-positive on the only completed task. It is not
 launched. OatML was not used.
+
+## Shared-Reference Entropy Audit
+
+A subsequent zero-call diagnostic tested whether the null was caused by
+comparing entropy over unrelated regenerated particle identities. Every support
+was instead projected onto the same target-blind 512-scene audit bank.
+
+- Expected predictive-entropy reduction after one refresh had Spearman `.40`
+  with realized truth agreement, but still selected root 3.
+- Adding the best second query on that shared reference had Spearman `.20` and
+  selected root 2, whose realized truth agreement (`.6203`) was below both root
+  3 (`.6956`) and oracle root 1 (`.7366`).
+
+The common semantic coordinate system therefore does not rescue the action
+decision. No new model responses or endpoint tuning were used.
