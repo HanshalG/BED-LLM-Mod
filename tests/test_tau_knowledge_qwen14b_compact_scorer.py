@@ -1,4 +1,6 @@
 from pathlib import Path
+import subprocess
+import sys
 
 from helpers import load_config
 from scripts.tau_knowledge_qwen14b_compact_scorer import (
@@ -34,3 +36,18 @@ def test_qwen14b_compact_config_is_frozen() -> None:
     assert config.openrouter_max_output_tokens == 8192
     assert config.openrouter_concurrency == 256
     assert config.mediq_seed == 24359
+
+
+def test_qwen14b_wrapper_executes_as_a_script() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts/tau_knowledge_qwen14b_compact_scorer.py"),
+            "--help",
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "--stage" in result.stdout
