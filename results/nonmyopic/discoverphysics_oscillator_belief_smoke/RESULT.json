@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "status": "gate_failed",
+  "run_id": "discoverphysics-oscillator-belief-smoke-20260725T071258Z",
+  "interface_version": "discoverphysics-oscillator-belief-compiler-1",
+  "source_commit": "33b7fa9df96de9c35744efd181ca7e5a8dd60ad5",
+  "model": "openai/gpt-5.4",
+  "reasoning_enabled": false,
+  "requests": 10,
+  "prompt_tokens": 7786,
+  "completion_tokens": 2743,
+  "reasoning_tokens": 0,
+  "cost_usd": 0.06061,
+  "myopic_root": 0,
+  "model_aware_root": 1,
+  "immediate_eig_nats": [
+    0.2273071613821258,
+    0.22474408218642639,
+    0.16634777030753756,
+    0.15223044960370236
+  ],
+  "expected_coverage": [
+    0.7389999999999999,
+    0.7846000000000001,
+    0.7455,
+    0.7464
+  ],
+  "root_scores": [
+    79,
+    88,
+    74,
+    76
+  ],
+  "immediate_sacrifice_nats": 0.0025630791956994248,
+  "expected_coverage_gain": 0.045600000000000196,
+  "scorer_gain": 9,
+  "refreshes_changed_from_initial": 8,
+  "roots_with_branch_distinct_supports": 4,
+  "mechanics_gates": {
+    "exact_10_requests": true,
+    "zero_reasoning_tokens": true,
+    "within_run_budget": true,
+    "all_compiled_experiments_legal": true,
+    "at_least_6_refreshes_change_support": true,
+    "at_least_3_roots_have_branch_distinct_supports": true,
+    "coverage_signal_varies_by_at_least_0_05": false,
+    "scorer_scores_vary": true,
+    "scorer_has_unique_maximum": true
+  },
+  "scientific_gates": {
+    "model_aware_root_differs_from_myopic": true,
+    "model_aware_sacrifices_immediate_eig": false,
+    "model_aware_expected_coverage_gain_at_least_0_05": false,
+    "model_aware_scorer_gain_at_least_5": true
+  },
+  "simulator_calls": 0,
+  "policy_endpoint_exists": false,
+  "smoke_artifact_sha256": "2c1b44015422b47de68f0597ea1c8070135e801de546be946c240b6c12d13743",
+  "raw_responses_sha256": "c384729e93da280a4bd45703c6c2c4681216321b6eaae6c46d24da93a768033b"
+}
