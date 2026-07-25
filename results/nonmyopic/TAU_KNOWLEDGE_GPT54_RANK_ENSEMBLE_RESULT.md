@@ -57,6 +57,23 @@ ranking accuracy, aggregate coverage, and cross-block decisions were stable.
 It did not make non-myopic selection uniformly safer than the equally
 ensembled myopic policy.
 
+## Post-Hoc Confidence Audit
+
+An endpoint-blind selective fallback was screened without new calls after the
+frozen result. Root-vote unanimity, focused-vote unanimity, both unanimous,
+and root/focused rank-margin rules were applied to both completed three-call
+blocks.
+
+No rule retained a positive safety pattern in both blocks. Requiring both root
+and focused unanimity selected 5 development tasks with net `-2` documents and
+9 confirmation tasks with net `0`. Root unanimity alone produced development
+net `0` and confirmation net `+1`, but still retained one and three losses.
+Several losses had unanimous votes and large margins, including `task_017` in
+both blocks.
+
+Scorer confidence therefore does not identify the endpoint reversals. No
+selective-policy confirmation is authorized from this post-hoc audit.
+
 ## Interpretation
 
 This is stronger reproducibility evidence for the semantic ranking links and
