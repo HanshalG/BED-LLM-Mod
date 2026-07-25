@@ -1,0 +1,119 @@
+{
+  "gates": {
+    "all_pass": false,
+    "all_questions_and_labels_parse": true,
+    "at_least_four_informative_partitions": true,
+    "at_least_four_unique_partitions": true,
+    "at_least_four_unique_questions": false,
+    "cost_at_most_0_15": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "informative_eig_range_at_least_0_10": false,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "metrics": {
+    "eig_range": 0.6931471805599453,
+    "informative_partition_count": 4,
+    "mean_eig": 0.5205379370888767,
+    "unique_partition_count": 5,
+    "unique_question_count": 3
+  },
+  "protocol": {
+    "dev_sha256": "43ab72b880337fac6442ea04accbda38d6a8e785eb2db4970585fac7ae775d68",
+    "expected_requests": 10,
+    "interface_version": "ambigdocs-binary-serving-smoke-1",
+    "model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "22d6b0ba3059639d3ab92e59dc0b9e11541069beaaa5865878d65997a33a4cfd",
+    "qid": 43608,
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "row_index": 49,
+    "seed": 24388,
+    "source_repository": "https://huggingface.co/datasets/yoonsanglee/AmbigDocs",
+    "source_revision": "19d318a5e6717f63b9b864aa804bc57f69e824df",
+    "support_size": 6,
+    "target_sampled": false
+  },
+  "queries": [
+    {
+      "eig": -0.0,
+      "informative": false,
+      "labels": "YYYYYY",
+      "query_index": 0,
+      "question": "Are you asking about the city in Belarus rather than something named after it?"
+    },
+    {
+      "eig": 0.6365141682948128,
+      "informative": true,
+      "labels": "YNNNYN",
+      "query_index": 1,
+      "question": "Are you asking about the city in Belarus?"
+    },
+    {
+      "eig": 0.6931471805599453,
+      "informative": true,
+      "labels": "NNYYYN",
+      "query_index": 2,
+      "question": "Are you asking about the city in Belarus?"
+    },
+    {
+      "eig": 0.6365141682948128,
+      "informative": true,
+      "labels": "NNUNNU",
+      "query_index": 3,
+      "question": "Are you asking about the capital city in Belarus?"
+    },
+    {
+      "eig": 0.6365141682948128,
+      "informative": true,
+      "labels": "NNNYNY",
+      "query_index": 4,
+      "question": "Are you asking about the city in Belarus?"
+    }
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_cost_usd": 0.00826575,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 114,
+      "adapter_cost_usd": 0.00826575,
+      "adapter_prompt_tokens": 10337,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 114,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 114,
+          "cost_usd": 0.00826575,
+          "prompt_tokens": 10337,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 10337,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.268468600000048,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.00826575,
+      "run_remaining_usd": 0.14173425,
+      "total_spent_usd": 86.87483621920737
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
