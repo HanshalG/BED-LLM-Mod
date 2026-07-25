@@ -198,6 +198,48 @@ def test_openrouter_thinking_payload_and_forced_exit_are_measured(monkeypatch, t
     assert "Forced thinking exit" in (tmp_path / "run.log").read_text()
 
 
+def test_openrouter_retry_attempts_are_measured(monkeypatch, tmp_path: Path) -> None:
+    responses = [
+        urllib.error.URLError("temporary"),
+        _Response(
+            {
+                "choices": [
+                    {
+                        "message": {"content": "ok"},
+                        "finish_reason": "stop",
+                    }
+                ],
+                "usage": {
+                    "prompt_tokens": 2,
+                    "completion_tokens": 1,
+                    "cost": 0.001,
+                },
+            }
+        ),
+    ]
+
+    def fake_urlopen(*args, **kwargs):
+        response = responses.pop(0)
+        if isinstance(response, Exception):
+            raise response
+        return response
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr("openrouter_model.time.sleep", lambda _delay: None)
+    monkeypatch.setenv("OPENROUTER_API_KEY", "secret-test-key")
+    adapter = OpenRouterAdapter(
+        ModelSpec(model="openai/gpt-5.4", backend="openrouter"),
+        _config(tmp_path),
+    )
+
+    assert adapter.chat_complete([{"role": "user", "content": "hi"}], 0.0) == [
+        "ok"
+    ]
+    snapshot = adapter.usage_snapshot()
+    assert snapshot["http_attempts"] == 2
+    assert snapshot["retry_count"] == 1
+
+
 def test_openrouter_reasoning_only_length_response_gets_bounded_finalization(
     monkeypatch, tmp_path: Path
 ) -> None:

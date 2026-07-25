@@ -220,6 +220,9 @@ class OpenRouterAdapter:
         self.local_reasoning_tokens = 0
         self.forced_final_requests = 0
         self.forced_final_successes = 0
+        self.http_attempts = 0
+        self.retry_count = 0
+        self._usage_lock = threading.Lock()
         self._budget_warning_emitted = False
         self._budget_warning_lock = threading.Lock()
 
@@ -286,6 +289,8 @@ class OpenRouterAdapter:
             method="POST",
         )
         for attempt in range(self.max_retries + 1):
+            with self._usage_lock:
+                self.http_attempts += 1
             try:
                 with urllib.request.urlopen(request, timeout=self.request_timeout_seconds) as response:
                     return json.loads(response.read())
@@ -306,6 +311,8 @@ class OpenRouterAdapter:
                 if attempt >= self.max_retries:
                     raise RuntimeError(f"OpenRouter request failed after retries: {exc}") from exc
                 delay = self.backoff_seconds * (2**attempt)
+            with self._usage_lock:
+                self.retry_count += 1
             time.sleep(delay)
         raise AssertionError("unreachable")
 
@@ -483,4 +490,6 @@ class OpenRouterAdapter:
         snapshot["forced_exits"] = self.forced_exits
         snapshot["forced_final_requests"] = self.forced_final_requests
         snapshot["forced_final_successes"] = self.forced_final_successes
+        snapshot["http_attempts"] = self.http_attempts
+        snapshot["retry_count"] = self.retry_count
         return snapshot
