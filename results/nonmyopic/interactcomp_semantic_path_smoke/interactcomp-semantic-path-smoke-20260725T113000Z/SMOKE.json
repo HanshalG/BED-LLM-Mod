@@ -1,0 +1,67 @@
+{
+  "gates": {
+    "all_pass": true,
+    "at_least_two_semantically_distinct": true,
+    "cost_at_most_0_15": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "four_valid_compact_classifications": true,
+    "four_valid_proposals": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_transport_retries": true
+  },
+  "metrics": {
+    "classification_count": 4,
+    "proposal_count": 4,
+    "semantically_distinct_count": 4
+  },
+  "protocol": {
+    "ascii_whitespace_compaction_only": true,
+    "expected_requests": 12,
+    "hidden_context_loaded": false,
+    "interface_version": "interactcomp-semantic-path-smoke-1",
+    "model": "openai/gpt-5.4-mini",
+    "open_task_id": 142,
+    "open_task_index": 141,
+    "prior_private_sha256": "691130ba00f29936ba1bb250b84b6e7a0e5692dd62e48c94ec80c5cf3c696c06",
+    "private_raw_sha256": "365742d3c40bc6fe307f245b9dd59ee312de99067296143da5c3f9fcb8bc1f08",
+    "reasoning_requested": false,
+    "target_answer_loaded": false
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_completion_tokens": 402,
+    "adapter_cost_usd": 0.007336499999999998,
+    "adapter_prompt_tokens": 7370,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 12,
+    "backend": "openrouter",
+    "budget_usd": 101.14330481920742,
+    "completion_tokens": 402,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 12,
+    "model": "openai/gpt-5.4-mini",
+    "model_usage": {
+      "openai/gpt-5.4-mini": {
+        "completion_tokens": 402,
+        "cost_usd": 0.007336499999999998,
+        "prompt_tokens": 7370,
+        "reasoning_tokens": 0,
+        "requests": 12
+      }
+    },
+    "prompt_tokens": 7370,
+    "reasoning_tokens": 0,
+    "remaining_usd": 14.763544749999767,
+    "requests": 12,
+    "retry_count": 0,
+    "run_budget_usd": 0.15,
+    "run_cost_usd": 0.007336499999999998,
+    "run_remaining_usd": 0.1426635,
+    "total_spent_usd": 86.37976006920765
+  }
+}
