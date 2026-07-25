@@ -1,0 +1,68 @@
+{
+  "corpus": {
+    "class_counts": {
+      "ambiguous": 214,
+      "explicit": 242,
+      "infeasible": 148
+    },
+    "fixed_follow_up_count_histogram": {
+      "0": 38,
+      "1": 121,
+      "2": 181,
+      "3": 160,
+      "4": 91,
+      "5": 12,
+      "6": 1
+    },
+    "ground_truth_tool_call_count_histogram": {
+      "0": 3,
+      "1": 43,
+      "2": 74,
+      "3": 140,
+      "4": 133,
+      "5": 121,
+      "6": 74,
+      "7": 16
+    },
+    "ground_truth_tool_calls": 2304,
+    "native_turn_annotated_tool_calls": 0,
+    "records": 604,
+    "records_whose_intention_mentions_if_asked": 372,
+    "records_with_alternative_world_support": 0,
+    "records_with_fixed_follow_ups": 566,
+    "records_with_native_turn_annotations": 0,
+    "records_with_question_conditioned_answer_branches": 0
+  },
+  "decision": "fail",
+  "gates": {
+    "follow_up_sequence_is_endogenous": false,
+    "multiple_latent_worlds_are_released": false,
+    "question_conditioned_answer_branches_are_released": false,
+    "released_harness_contains_bed_policy": false,
+    "simulator_turn_state_tracks_main_request_sequence": false
+  },
+  "interface_version": "clarifybench-source-audit-1",
+  "mechanics": {
+    "loader_defaults_missing_tool_call_turn_to_one": true,
+    "main_enumerates_fixed_follow_ups": true,
+    "run_simulation_advances_simulator_current_turn": false,
+    "run_simulation_calls_get_next_request": false,
+    "run_simulation_calls_get_response_to_question": true,
+    "shipped_python_contains_bed_implementation": false,
+    "shipped_python_mentions_evpi": true,
+    "shipped_python_mentions_pomdp": false,
+    "simulator_has_llm_generated_clarification_answers": true,
+    "top_level_license_files": []
+  },
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "source": {
+    "commit": "a85d4f9df1fc87d05c713fd408f8a57d72bcc348",
+    "dataset_sha256": "066a5abd54fe19303b016dc05984f00619639b0e8ed5f9d2b98622422264b786",
+    "loader_sha256": "e3ed0c072a891ef6b5d4e2c22bd2b96fe01aa23178171a36ecc4a5e7bdd307f8",
+    "main_sha256": "8940de77ee39658729fd53aa029b2560ef96ee074379c64da868b390271cf2c4",
+    "repository": "https://github.com/MananSuri27/ClarifyBench",
+    "simulator_sha256": "f1321dd1abf658474723020e880f50ef6a447cdfc585698537f992e68158eb82"
+  }
+}

@@ -117,6 +117,26 @@ best next. If the wrapper merely charges for reading static context that every
 agent should always read, or if the target annotations are used to manufacture
 the action mapping, the route is rejected.
 
+## ClarifyBench
+
+The later ClarifyBench source audit inspected release commit `a85d4f9` and all
+604 bundled records. The release has 214 ambiguous, 242 explicit, and 148
+infeasible examples. It contains realistic tool chains and 566 records with
+fixed follow-up requests, but zero alternative latent worlds, zero
+question-conditioned answer maps, and zero native tool-call turn annotations.
+
+The harness enumerates every follow-up before interaction. Its main loop asks
+the LLM user simulator for clarification responses but neither calls the
+simulator's dynamic next-request method nor advances its turn state. The data
+loader instead defaults every unannotated tool call to turn one. The repository
+reports EVPI compatibility fields but does not include a SAGE/POMDP
+implementation.
+
+**Decision:** close the released ClarifyBench snapshot as a headline
+non-myopic BED route. Converting it would require inventing alternative worlds
+and answer transitions rather than evaluating a native released structure.
+See `CLARIFYBENCH_SOURCE_AUDIT_RESULT.md` and audit SHA `02e4942a`.
+
 ## Portfolio Decision
 
 - **Headline:** continue to concentrate on an LLM-native result. The current
@@ -127,5 +147,6 @@ the action mapping, the route is rejected.
   released.
 - **Next construction candidate:** pi-Bench dependency-final tasks, but only
   after a zero-cost, target-blind structural gap.
-- **Closed for now:** EComAgentBench's clarification-only graph.
+- **Closed for now:** EComAgentBench's clarification-only graph and the
+  released ClarifyBench scripted-world interface.
 - **Budget:** no paid calls and no OatML cluster work were used in this audit.
