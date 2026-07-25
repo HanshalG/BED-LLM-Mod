@@ -504,12 +504,8 @@ between murderer and innocent roles, leaving four rankable cases and two depth
 changes. Calibration and non-myopic opportunity therefore traded off rather than
 combining into a usable policy.
 
-Connected multihop structure alone was insufficient. MuSiQue documents recovered
-four of eight omitted support chains, but immediate EIG already selected three
-of four recovering branches. Zero-call BRIGHT and BrowseComp-Plus audits also
-failed before model use: depth two produced a positive root gap on only 2/20
-biology queries and no evidence gain on the latter. Hard retrieval does not
-itself create an enabling experiment
+Connected multihop structure alone was insufficient: MuSiQue, BRIGHT, and
+BrowseComp-Plus audits found little root-level greedy opportunity
 \citep{trivedi2022musique,su2025bright,chen2026browsecompplus}.
 
 The two $\tau$-Knowledge splits separate scorer fidelity from opportunity. The
@@ -519,9 +515,15 @@ count-dominant receding selection preserved 30/33 available documents. Better
 semantic prediction is therefore useful only when candidates expose a real
 greedy gap and the next action preserves it.
 
-DAD and RL-BED optimize total sequential utility via amortization or RL
-\citep{foster2021deep,blau2022rlbed}, but require a meaningful simulator; the
-current MediQ surrogate would amortize annotation artifacts, not recover missing state.
+Target-free audits separate three further prerequisites. InteractComp recovered
+truth on only 2/6 collapsed-support tasks; particle preservation helped but tied
+augmented EIG. PSCon preserved truth externally but omitted labels or outcomes.
+On AmbigDocs, Mini gave one question 55.6\% pairwise label disagreement;
+GPT-5.4 made repeats identical, yet four roots collapsed to two partitions with
+zero EIG range. Support persistence, stable likelihoods, and autonomous action
+diversity are distinct. DAD or RL-BED amortization cannot repair a broken
+simulator \citep{foster2021deep,blau2022rlbed}; none of these target-free audits
+was promoted to an endpoint result.
 
 \section{A Validation-First Path Forward}
 
@@ -531,8 +533,8 @@ Future depth studies should cross the following gates in order:
   \setlength{\topsep}{0.25em}
   \setlength{\parsep}{0pt}
   \item \textbf{Target and state:} the endpoint decodes $\theta$; latent $z$ generates responses.
-  \item \textbf{Prior:} held-out log loss and Brier score beat uniform without confident-wrong collapse.
-  \item \textbf{Likelihood:} observations improve true-target log probability; missingness is neutral unless target-dependent.
+  \item \textbf{Prior and support:} held-out log loss beats uniform; truth recall and persistence are measured across regenerated branches.
+  \item \textbf{Actions and likelihoods:} roots induce distinct response partitions, repeated identical calls agree, and observations improve true-target log probability.
   \item \textbf{Branch equivalence:} simulation and deployment agree on support, probabilities, and stopping.
   \item \textbf{Structural gap:} an oracle shows d2 beating greedy under native rules.
   \item \textbf{Ranking fidelity:} estimated lookahead ranks oracle value under common candidates and randomness.
@@ -567,7 +569,6 @@ stopped before LLM evaluation after only 1/9 two-step file unlocks.
 OpenRouter nondeterminism: 1/3 reruns passed; a +4 ensemble failed its loss
 cap; scorer transfers and a paired belief-only bottleneck failed. Zendo's
 single-task gain is unreplicated after pre-endpoint serving failures.
-
 The constructive result has two parts. Given a coherent simulator and an
 enabling-information gap, LLM proposals plus exact rollout verification produce
 a large paired gain. In open retrieval, a receding LLM semantic scorer passes a
