@@ -270,10 +270,10 @@ selector, and 22 for seeded random; all frozen gates passed. Exact endpoint
 tests remain underpowered ($p=.25,.0898,.0774$, respectively), so the supported
 claim is reliable LLM-owned ranking plus directional end-to-end gain. In a
 frozen post-hoc control, BM25, novelty, and lexical scoring retrieved 22, 21,
-and 17 documents versus 30 and ranked worse. Yet shuffling refreshed beliefs
-did not reduce accuracy or coverage. Thus semantic scoring, but not correct
-branch--belief alignment, is isolated as load-bearing; neither control is
-held-out policy evidence.
+and 17 documents versus 30 and ranked worse. Neither a belief shuffle nor a
+paired belief-only bottleneck supported causal alignment (diagnostic accuracy
+$.441$ aligned versus $.706$ shuffled; coverage 5 versus 6). Thus semantic
+scoring alone is isolated as load-bearing; neither control is held-out evidence.
 
 \paragraph{LLM proposals plus exact lookahead work in enabling geometry.}
 The negative natural-location sweep did not test the architecture where depth
@@ -576,7 +576,7 @@ remains below its reliability gate, and ClinDiag has no policy result.
 We do not claim that non-myopic BED cannot work; a zero-call real-bug audit
 stopped before LLM evaluation after only 1/9 two-step file unlocks.
 OpenRouter nondeterminism: 1/3 reruns passed; a +4 ensemble failed its loss
-cap. Other scorer transfers failed.
+cap; scorer transfers and a paired belief-only bottleneck failed.
 
 The constructive result has two parts. Given a coherent simulator and an
 enabling-information gap, LLM proposals plus exact rollout verification produce
