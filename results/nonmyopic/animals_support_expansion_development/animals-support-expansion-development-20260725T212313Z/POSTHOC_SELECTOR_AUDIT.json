@@ -1,0 +1,149 @@
+{
+  "aligned_development": {
+    "selectors": {
+      "immediate_eig": {
+        "mean_expected_truth_coverage": 0.33915297258332844,
+        "mean_realized_truth_coverage": 0.55,
+        "mean_uniform_truth_probability": 0.011132818664915613,
+        "realized_coverage_vs_eig_wins_ties_losses": [
+          0,
+          20,
+          0
+        ],
+        "recoveries_after_initial_omission": 2,
+        "selector_changes_vs_eig": 0
+      },
+      "support_expansion": {
+        "mean_expected_truth_coverage": 0.4527835120041098,
+        "mean_realized_truth_coverage": 0.6,
+        "mean_uniform_truth_probability": 0.009833259832493989,
+        "realized_coverage_vs_eig_wins_ties_losses": [
+          2,
+          17,
+          1
+        ],
+        "recoveries_after_initial_omission": 3,
+        "selector_changes_vs_eig": 20
+      },
+      "support_retention": {
+        "mean_expected_truth_coverage": 0.4371785761128537,
+        "mean_realized_truth_coverage": 0.65,
+        "mean_uniform_truth_probability": 0.011994071411442863,
+        "realized_coverage_vs_eig_wins_ties_losses": [
+          2,
+          18,
+          0
+        ],
+        "recoveries_after_initial_omission": 4,
+        "selector_changes_vs_eig": 13
+      }
+    },
+    "within_state_realized_coverage_pairwise": {
+      "immediate_eig": {
+        "accuracy": 0.3333333333333333,
+        "informative_states": 3,
+        "pairs": 6
+      },
+      "support_expansion": {
+        "accuracy": 0.5,
+        "informative_states": 3,
+        "pairs": 6
+      },
+      "support_retention": {
+        "accuracy": 0.9166666666666666,
+        "informative_states": 3,
+        "pairs": 6
+      }
+    }
+  },
+  "cached_expected_coverage_comparisons": [
+    {
+      "eig_mean_expected_truth_coverage": 0.41905000000000003,
+      "path": "results/nonmyopic/animals_stratified_prior_development/gemma26b_seed24286/DEVELOPMENT.json",
+      "retention_mean_expected_truth_coverage": 0.4833333333333334,
+      "retention_minus_eig": 0.06428333333333333,
+      "selector_changes": 12,
+      "sha256": "63c8f6d80bb9bf146410829653137509982c0e04a128c6af870b4834fddee952",
+      "states": 20,
+      "wins_ties_losses": [
+        7,
+        11,
+        2
+      ]
+    },
+    {
+      "eig_mean_expected_truth_coverage": 0.022666666666666665,
+      "path": "results/nonmyopic/animals_multisample_branch_holdout/gemma26b_seed24281/HOLDOUT.json",
+      "retention_mean_expected_truth_coverage": 0.015291666666666667,
+      "retention_minus_eig": -0.0073750000000000005,
+      "selector_changes": 30,
+      "sha256": "1512bad0caca4eb238ccefb9a8f5ad6d918bb43e207674e598131d6258cbf1a4",
+      "states": 60,
+      "wins_ties_losses": [
+        1,
+        58,
+        1
+      ]
+    },
+    {
+      "eig_mean_expected_truth_coverage": 0.12094444444444444,
+      "path": "results/nonmyopic/animals_belief_recall_holdout/gemma26b_20260723/HOLDOUT.json",
+      "retention_mean_expected_truth_coverage": 0.12645555555555557,
+      "retention_minus_eig": 0.005511111111111112,
+      "selector_changes": 27,
+      "sha256": "713655e43216097199974aa43ded10737ff008f76ecec657c021e1e97715e89a",
+      "states": 60,
+      "wins_ties_losses": [
+        5,
+        51,
+        4
+      ]
+    },
+    {
+      "eig_mean_expected_truth_coverage": 0.08191805555555556,
+      "path": "results/nonmyopic/animals_belief_recall_capacity_holdout/gemma26b_20260723/CAPACITY_HOLDOUT.json",
+      "retention_mean_expected_truth_coverage": 0.09170555555555555,
+      "retention_minus_eig": 0.0097875,
+      "selector_changes": 22,
+      "sha256": "ab926369a7924611e7bb28ed3d7cb2d43d1e921fd70b74cebe3b468ce92ee336",
+      "states": 60,
+      "wins_ties_losses": [
+        4,
+        54,
+        2
+      ]
+    },
+    {
+      "eig_mean_expected_truth_coverage": 0.10811666666666667,
+      "path": "results/nonmyopic/animals_dynamic_brier_development/gemma26b_seed24278/COVERAGE_PROBE.json",
+      "retention_mean_expected_truth_coverage": 0.11016666666666666,
+      "retention_minus_eig": 0.002050000000000002,
+      "selector_changes": 12,
+      "sha256": "0fc0af5e78ddc2dc01d84fa801ea5bc95b190f5d8ee1bb2d1a63195f4adf2ae3",
+      "states": 20,
+      "wins_ties_losses": [
+        2,
+        17,
+        1
+      ]
+    },
+    {
+      "eig_mean_expected_truth_coverage": 0.025,
+      "path": "results/nonmyopic/animals_branch_support_ranker_development/gemma26b_seed24279/COVERAGE_PROBE.json",
+      "retention_mean_expected_truth_coverage": 0.025,
+      "retention_minus_eig": 0.0,
+      "selector_changes": 12,
+      "sha256": "23bfa6986bd3d717bf80e62f132a81a068b08829fe42e9c044e8d526981b8316",
+      "states": 20,
+      "wins_ties_losses": [
+        0,
+        20,
+        0
+      ]
+    }
+  ],
+  "development_path": "results/nonmyopic/animals_support_expansion_development/animals-support-expansion-development-20260725T212313Z/DEVELOPMENT.json",
+  "development_sha256": "c6797b987b69c1abcc819f6b935c32436919da1863fd98388e9efc6f9f80e091",
+  "disclosure": "Support retention was selected after the aligned development endpoint was opened; these statistics are not confirmatory.",
+  "status": "posthoc_selector_audit"
+}
