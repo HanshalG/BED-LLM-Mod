@@ -1,0 +1,16 @@
+{
+  "failure_artifact_sha256": "7c94d457fa667869227ef0118589465a7789a7bdb3cc9e068a21b4e8eecc794c",
+  "interface_version": "zendo-structured-output-serving-1",
+  "private_raw_sha256": "ce3efc89a0bad9ce93d4f78021ef4713ba4422ff4cc9516f07c50eb0004e5200",
+  "run_id": "zendo-structured-output-serving-20260725T074350Z",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "summary": {
+    "adapter_requests": 0,
+    "cost_usd": 0.0,
+    "error": "OpenRouter HTTP 404: no Chat Completions endpoint accepted required structured-output parameters",
+    "http_attempts": 3,
+    "scientific_endpoints_evaluated": 0,
+    "tokens": 0
+  }
+}
