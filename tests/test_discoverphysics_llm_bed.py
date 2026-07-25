@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+from pathlib import Path
 
 import pytest
 
@@ -119,3 +120,20 @@ def test_final_parser_is_strict_and_concept_score_recognizes_crossover() -> None
     with pytest.raises(ValueError, match="outside"):
         parse_final("preface " + response)
 
+
+def test_frozen_smoke_artifact_records_pre_endpoint_failure() -> None:
+    result_path = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "discoverphysics_llm_bed_smoke"
+        / "RESULT.json"
+    )
+    result = json.loads(result_path.read_text(encoding="utf-8"))
+    assert result["status"] == "failed_closed"
+    assert result["usage"]["requests"] == 1
+    assert result["usage"]["reasoning_tokens"] == 0
+    assert result["simulator_calls"] == 0
+    assert not result["policy_endpoint_exists"]
+    assert result["valid_root_experiments"] == 2
+    assert result["valid_continuation_experiments"] == 3
