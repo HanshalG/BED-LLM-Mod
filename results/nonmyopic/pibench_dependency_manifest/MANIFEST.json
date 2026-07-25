@@ -1,0 +1,494 @@
+{
+  "dependency_task_count": 30,
+  "interface_version": "pibench-dependency-manifest-1",
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "selection_seed": 24403,
+  "source": {
+    "commit": "383910b1698758a198b86037c63a111c8edc32ad",
+    "episode_and_dependency_task_yaml_sha256": "0a2ed27a40cfe156225c2c672114adf3bb32b3d6ee3849fd7eee259f289ff07b",
+    "repository": "https://github.com/Simplified-Reasoning/Pi-Bench"
+  },
+  "splits": {
+    "development": {
+      "ordered_sha256": "469755a9fb606d3d94b5d724d2d074ab7699ed88d43c94d878614034d5135947",
+      "task_ids": [
+        "Financier_task_014",
+        "law_trainee_task_013",
+        "marketer_task_012",
+        "pharmacist_task_011",
+        "researcher_task_020"
+      ],
+      "tasks": {
+        "Financier_task_014": {
+          "asset_count": 3,
+          "asset_name_sha256": "a8711d3f3c59b13770908280f648fbd17174e5ec94ae271ae218769e49a97e18",
+          "dependency_count": 1,
+          "depends_on": [
+            "Financier_task_004"
+          ],
+          "hidden_intent_count": 6,
+          "initial_input_sha256": "14d0adf1212e51159cc32723a8fda4def2cfbe19d6530b0914de337739bdd06c",
+          "task_bundle_sha256": "dcb08f51e6cfd2c2412fc26af220c393662382d4287a466ebb9214f49c416a1d",
+          "task_yaml_sha256": "5972d4d3f5c8b2a644a1a9c053ce054fdb64d0e24637db56ba2380be03ac3fe1",
+          "user_id": "Financier"
+        },
+        "law_trainee_task_013": {
+          "asset_count": 1,
+          "asset_name_sha256": "a4db55a22d3758bf65111811f168ba4a844e9b29910d3d0236be8e7415e61db1",
+          "dependency_count": 2,
+          "depends_on": [
+            "law_trainee_task_002",
+            "law_trainee_task_009"
+          ],
+          "hidden_intent_count": 5,
+          "initial_input_sha256": "78d488c02b18fc5012ed639fc4bea6b7c863dfa299ba14ed058ca8eacb88dc1e",
+          "task_bundle_sha256": "1d45a10e7c3cf4bee2c82b53f0ba88150865632222468e647dc3637af8844c54",
+          "task_yaml_sha256": "8955794e71dbb7e200bffe746b1c2e468cd2384dbbcf910c4ef1c3d02054d683",
+          "user_id": "law_trainee"
+        },
+        "marketer_task_012": {
+          "asset_count": 1,
+          "asset_name_sha256": "6e577d425a3d7a1b875b005a425d8ae882656ea0d405f5c95acf5f96f3341531",
+          "dependency_count": 1,
+          "depends_on": [
+            "marketer_task_011"
+          ],
+          "hidden_intent_count": 3,
+          "initial_input_sha256": "cb974d13a1752ff8a35e876844f4c3b628218b5fc6b681fc6d66fe4b4f72d044",
+          "task_bundle_sha256": "8d5f73c7160f84661351d378c2abdbee980f42320fc4ff7b6672951292269d0f",
+          "task_yaml_sha256": "9b24020ea17b9b4cf499ab51fe43ac7123942e90b0ed2347a1e0b463d69843c5",
+          "user_id": "marketer"
+        },
+        "pharmacist_task_011": {
+          "asset_count": 4,
+          "asset_name_sha256": "84df01291152ee2523ac040dd633b06b37e2e6beb32247f07dedc62f3d0cf671",
+          "dependency_count": 1,
+          "depends_on": [
+            "pharmacist_task_008"
+          ],
+          "hidden_intent_count": 11,
+          "initial_input_sha256": "14f476430a0b1ea007eccd86bd1d4d129e4e0b32cd94aeb4a85c701e2c7f460c",
+          "task_bundle_sha256": "9591a46e2122e3af1f267e05907941d9075a535cb1a163edcf1b6e7f7a5d9b9f",
+          "task_yaml_sha256": "4dd612c78fbbad5969316d9605d4fd85390b03032f82ae52b6c1176ebd151bcb",
+          "user_id": "pharmacist"
+        },
+        "researcher_task_020": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 2,
+          "depends_on": [
+            "researcher_task_018",
+            "researcher_task_019"
+          ],
+          "hidden_intent_count": 5,
+          "initial_input_sha256": "53bc5e7df5006c831e721972162b41cc6b1203438b9fc97f87f4f1e32b573801",
+          "task_bundle_sha256": "16a286bf46f9888b076079a3e77adbb1bbb329530fe0227615e4ada7a1050f4d",
+          "task_yaml_sha256": "1b3c0a32ed11b2f9c7a3a11c983490a204b44b3ea9797809bf331e39b5efd571",
+          "user_id": "researcher"
+        }
+      }
+    },
+    "holdout": {
+      "ordered_sha256": "2eeb48e535b48e7a18b140ae4322c2c0cea2b251b7a0e421b5da311fd4588851",
+      "task_ids": [
+        "Financier_task_017",
+        "Financier_task_020",
+        "law_trainee_task_016",
+        "law_trainee_task_019",
+        "marketer_task_019",
+        "marketer_task_003",
+        "pharmacist_task_007",
+        "pharmacist_task_019",
+        "researcher_task_008",
+        "researcher_task_013"
+      ],
+      "tasks": {
+        "Financier_task_017": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 2,
+          "depends_on": [
+            "Financier_task_007",
+            "Financier_task_012"
+          ],
+          "hidden_intent_count": 4,
+          "initial_input_sha256": "a5d4efdf00c9b97022377f26e8943e406346652b54fdd2dfe3d174c78f738bf6",
+          "task_bundle_sha256": "9124d09ed4d88f2bc926b48dbe280b1a58ec53b76bd7eb3ab369a8b624d5893a",
+          "task_yaml_sha256": "a7411599af5618b2ee03bee87c0a727cbaa6873f2fac3ac4549cd687dc6adc23",
+          "user_id": "Financier"
+        },
+        "Financier_task_020": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 2,
+          "depends_on": [
+            "Financier_task_016",
+            "Financier_task_018"
+          ],
+          "hidden_intent_count": 4,
+          "initial_input_sha256": "69a428320c2b9897fc1d5aa091a5fd3cb43720ac661cc66ad577d5be5ee38760",
+          "task_bundle_sha256": "185fee4edb190512cb6c04fc716375a54e8f26e6da9a4c0f04309d9c66d03245",
+          "task_yaml_sha256": "3ec5f3a9e763622aa7c3e98eb3f280da326975ff9a3189523431e3ace0332caf",
+          "user_id": "Financier"
+        },
+        "law_trainee_task_016": {
+          "asset_count": 2,
+          "asset_name_sha256": "6554cf40d520d96c6bc63b7f9f217f5b9457201d1b16132393ef1f2b6e0ea649",
+          "dependency_count": 1,
+          "depends_on": [
+            "law_trainee_task_003"
+          ],
+          "hidden_intent_count": 7,
+          "initial_input_sha256": "6c101a181ca084ec2f4ffc669820404642d7bec1c63ae4913d2451a765976ccc",
+          "task_bundle_sha256": "89e2d5efb2158e2921a7b5cb3011bd226b08a2bdb065fa8ca4dac66ab6eeb16a",
+          "task_yaml_sha256": "da043dede18b115793129ee8ffdbdb0a2d55241aba1b0c14c7b66c7c07157dff",
+          "user_id": "law_trainee"
+        },
+        "law_trainee_task_019": {
+          "asset_count": 1,
+          "asset_name_sha256": "37ae12ceb2c3efd47575ff148ee376a7017f32257da04d33bf1bd01c975148a2",
+          "dependency_count": 2,
+          "depends_on": [
+            "law_trainee_task_006",
+            "law_trainee_task_010"
+          ],
+          "hidden_intent_count": 8,
+          "initial_input_sha256": "5db7ead62bc6b485ef0ab9e3fbc9f73e60762ed0378c9421f50809457902d3a3",
+          "task_bundle_sha256": "6252e25eae642459013b07ad2c1727cd185ddc14356337aad50201bb0c76c470",
+          "task_yaml_sha256": "5f4e7129e51fc77ebf68df5cf807a37b2964084f233ae0dc970b229a494f8184",
+          "user_id": "law_trainee"
+        },
+        "marketer_task_003": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 2,
+          "depends_on": [
+            "marketer_task_001",
+            "marketer_task_002"
+          ],
+          "hidden_intent_count": 5,
+          "initial_input_sha256": "df6238476bfa12392c20c81c2478aa270de21c7d3ecec9fcd11aed58b87f8a9c",
+          "task_bundle_sha256": "e4f40dff63886749cd5040b28640c8a88599ba9f1e0f24e76d6ed50097c60807",
+          "task_yaml_sha256": "2ebcacc4661a8d6a8579084f6c9f2be08937133c97b99cf09d078323e4fd4bd3",
+          "user_id": "marketer"
+        },
+        "marketer_task_019": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 1,
+          "depends_on": [
+            "marketer_task_018"
+          ],
+          "hidden_intent_count": 3,
+          "initial_input_sha256": "8ad87ee2e08fc23712dc0d9f153db26e7064de4c09ee7dc202202fda90187805",
+          "task_bundle_sha256": "07ccb47ef4640d7e7b66888b331eeed2b2b21463af04b7757e03ae3ae6e7a023",
+          "task_yaml_sha256": "95ac9679fd0d1e921261cbdb0a52ce50e46da3b0b2263f51010835b80224c39e",
+          "user_id": "marketer"
+        },
+        "pharmacist_task_007": {
+          "asset_count": 4,
+          "asset_name_sha256": "6f8282e062a2191a4f21875bea430d4eef6cf5a3d88f394d14d4e92de84d9bbc",
+          "dependency_count": 1,
+          "depends_on": [
+            "pharmacist_task_006"
+          ],
+          "hidden_intent_count": 11,
+          "initial_input_sha256": "ad39ba016fe248fcef655d4ac9cdbd864a676c46f2438ff3e855b5d351ff52bf",
+          "task_bundle_sha256": "2ff791c5a309ec970d769267b8055798a7beb9869b557dde7febcd689670d865",
+          "task_yaml_sha256": "c46cac5abbbce4ae78f553fda1311e4c223a7eac4ce9d57d6f6501bd1cd60ae6",
+          "user_id": "pharmacist"
+        },
+        "pharmacist_task_019": {
+          "asset_count": 6,
+          "asset_name_sha256": "8e81986e0bb4b9f01c849ab3e13040faa43a8ec7cd71af9b7cb6ed7f0fce6ac1",
+          "dependency_count": 2,
+          "depends_on": [
+            "pharmacist_task_016",
+            "pharmacist_task_018"
+          ],
+          "hidden_intent_count": 9,
+          "initial_input_sha256": "e0d492636fcdc0e8dab7fa2fe012955b1ae677d378a5ea502525a039beb90dc8",
+          "task_bundle_sha256": "4fd9530e071a61e4abbc76c5f38ec032bd22522577f4ff73c77b2d6fa96c0272",
+          "task_yaml_sha256": "42befc70b5f659cfd8e2013c9acc72c655eedd9a491c2a57e1fff0c1de783235",
+          "user_id": "pharmacist"
+        },
+        "researcher_task_008": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 1,
+          "depends_on": [
+            "researcher_task_002"
+          ],
+          "hidden_intent_count": 7,
+          "initial_input_sha256": "06430e7fddd2d5c1aee5824de701d6b857e66d702a19a33efd7e3011485ca1c5",
+          "task_bundle_sha256": "c3e873d9834cf90577217b0c40b6b50b2a0edd663eb5405b905e1eda6a185ad9",
+          "task_yaml_sha256": "94fdd89f6112ffed55d073de0153e3491d0249d408e944caffaf014a3ced7e5f",
+          "user_id": "researcher"
+        },
+        "researcher_task_013": {
+          "asset_count": 1,
+          "asset_name_sha256": "2f68d18bee61fe405f84fee22f6896a987f3f80467339a0dbd4355e217dd4b50",
+          "dependency_count": 1,
+          "depends_on": [
+            "researcher_task_010"
+          ],
+          "hidden_intent_count": 6,
+          "initial_input_sha256": "a7623ffb1aff18577e07d7869b575fade0a55762c9549bf36554e4239c9aac39",
+          "task_bundle_sha256": "0fd3c5540fd161d81c96a05dfe2d96ae2b227310f51ffb1d2e47e90fad7be310",
+          "task_yaml_sha256": "80d2338a98fbe397d8aa1a6ee1d326f5394d8ab46195526176ef78efeade412d",
+          "user_id": "researcher"
+        }
+      }
+    },
+    "mechanics": {
+      "ordered_sha256": "ad526a0f6505eef7c3aee1580bc2261226967ea6a419d4ff1179cde70b160156",
+      "task_ids": [
+        "Financier_task_006",
+        "law_trainee_task_007",
+        "marketer_task_006",
+        "pharmacist_task_005",
+        "researcher_task_006"
+      ],
+      "tasks": {
+        "Financier_task_006": {
+          "asset_count": 1,
+          "asset_name_sha256": "c37fee492837ddd7005b7c62a0c4100c4e85cd173d5512a92a296ba59e945d05",
+          "dependency_count": 1,
+          "depends_on": [
+            "Financier_task_003"
+          ],
+          "hidden_intent_count": 6,
+          "initial_input_sha256": "6cf47bddc67a82704a3948fb9087403c75ee792b736ac96c8cd6fc9b457ac98e",
+          "task_bundle_sha256": "ea760c8f3faf654d530fab2af947ee816f2d84c03b1b0b1db4920ef9f5006809",
+          "task_yaml_sha256": "258430e19b730cf57a849c7d797a737e48d9811b655bd888ddb224ddc045fb77",
+          "user_id": "Financier"
+        },
+        "law_trainee_task_007": {
+          "asset_count": 2,
+          "asset_name_sha256": "a10d70553a8bc4056a65efc679650a5b89151d4000bf21b92311dbb9eb2e2292",
+          "dependency_count": 2,
+          "depends_on": [
+            "law_trainee_task_001",
+            "law_trainee_task_004"
+          ],
+          "hidden_intent_count": 9,
+          "initial_input_sha256": "bc7e6da1df74c4f0a275aea72bbc62abdbd67d6710b780df23ab6241b9427385",
+          "task_bundle_sha256": "cd7513213f73f6ef10cebf6ef771b4d55a2989db2283be55b8be460751506a5a",
+          "task_yaml_sha256": "b51075c4e4c19ce89effc7fc3743f04fa9e6231ab79c37e4d699d190cfe828f5",
+          "user_id": "law_trainee"
+        },
+        "marketer_task_006": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 1,
+          "depends_on": [
+            "marketer_task_005"
+          ],
+          "hidden_intent_count": 3,
+          "initial_input_sha256": "7fe1020a3e40e4b0c8a93f6c8a9dabdca58c78d701dad0236b181e7b0b74d52d",
+          "task_bundle_sha256": "419df05452d32f32bbdbec84c3330a2b7e6b8e7c26c0c483fe318e6c13854319",
+          "task_yaml_sha256": "d366174d578a6b3719c4d317c5670f8f7bd192f24dd31cdcd5d822d66b75b6d5",
+          "user_id": "marketer"
+        },
+        "pharmacist_task_005": {
+          "asset_count": 4,
+          "asset_name_sha256": "dfd499bb5d448dc0b6f65dfe84c7a4b079e0ada7075c9ba5964672d890094e39",
+          "dependency_count": 2,
+          "depends_on": [
+            "pharmacist_task_002",
+            "pharmacist_task_004"
+          ],
+          "hidden_intent_count": 14,
+          "initial_input_sha256": "1c948b2819e2e03de3ff21421a641852629a04e2881cdbd2bcba82fdd382e1ba",
+          "task_bundle_sha256": "7050b4b2ac4f6a9d2d90ec1b1e4368b797d489ba2c300651a2b03d4c55490267",
+          "task_yaml_sha256": "944187f226c97cddb1bdb1999f92c1adaebf103763bcd9bc8652661cc681b8ee",
+          "user_id": "pharmacist"
+        },
+        "researcher_task_006": {
+          "asset_count": 1,
+          "asset_name_sha256": "5c501912e52bcef98f1b65979fb9b15fc0148244f2104530c8651f6d7f6884fa",
+          "dependency_count": 2,
+          "depends_on": [
+            "researcher_task_004",
+            "researcher_task_001"
+          ],
+          "hidden_intent_count": 6,
+          "initial_input_sha256": "7c0db3fcae87fb1cc3c7ad70a74fe64a866631f733ca0c094fcf088d8d297187",
+          "task_bundle_sha256": "f7a20c2600612c2236d6ef23137daab5e70824f040a74489eb8082fd454db30f",
+          "task_yaml_sha256": "b40509cae76da53e20edfc105f0da43457d201fb0621ce9d9c87f5aa2e2b4fe6",
+          "user_id": "researcher"
+        }
+      }
+    },
+    "opportunity": {
+      "ordered_sha256": "45fe47a534aef1a4754390450b2e76327cd5441c3ed07171f25e5edb829a43d5",
+      "task_ids": [
+        "Financier_task_010",
+        "Financier_task_019",
+        "law_trainee_task_011",
+        "law_trainee_task_017",
+        "marketer_task_017",
+        "marketer_task_009",
+        "pharmacist_task_013",
+        "pharmacist_task_015",
+        "researcher_task_009",
+        "researcher_task_011"
+      ],
+      "tasks": {
+        "Financier_task_010": {
+          "asset_count": 5,
+          "asset_name_sha256": "41416dde63c747026d5b3757dcb1f049988ea7e08c9bd958d4acbd9faecedb1e",
+          "dependency_count": 1,
+          "depends_on": [
+            "Financier_task_001"
+          ],
+          "hidden_intent_count": 7,
+          "initial_input_sha256": "dee19a541cf16e68be0c439dcf41115063fc755afab3359810582d2ffe2b37a7",
+          "task_bundle_sha256": "b67dea8754f4080f85711fb89063fdadc0555a97acd9b9e395862d2f5c4f34a3",
+          "task_yaml_sha256": "0d3de4aa912b3e0cc979c827788412cd47c6c7d7302d5713db9aea2cfbdbd8bf",
+          "user_id": "Financier"
+        },
+        "Financier_task_019": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 2,
+          "depends_on": [
+            "Financier_task_009",
+            "Financier_task_013"
+          ],
+          "hidden_intent_count": 4,
+          "initial_input_sha256": "d1dd54c24faa807b66b3e6deffe896f24da6d4215af376e79801d185404d9611",
+          "task_bundle_sha256": "c744e397fecf6c11d336e952c8b931bf74bf818a522d5420eb3b19e3576e1fac",
+          "task_yaml_sha256": "491a3109c263a5b65a631334c8b9e65841cf154a6234954f75723eedc4fc7070",
+          "user_id": "Financier"
+        },
+        "law_trainee_task_011": {
+          "asset_count": 1,
+          "asset_name_sha256": "a0266ff47c22838fea3c1ea0f662c4bb76c29619d884020d3b1863ac50519eb5",
+          "dependency_count": 1,
+          "depends_on": [
+            "law_trainee_task_005"
+          ],
+          "hidden_intent_count": 12,
+          "initial_input_sha256": "b14531b433b1af1d614897a1ef1b63f918778261ad79fd7c3eb6b7caca543e05",
+          "task_bundle_sha256": "d8aaca9fe85049dcea9397de341feca802b7430fe551db2f4487767cd3f1fd4b",
+          "task_yaml_sha256": "fd253eda1f7ee8d8e63aed5befbc66362a2c248173b3f73ebb996d54d91d08d0",
+          "user_id": "law_trainee"
+        },
+        "law_trainee_task_017": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 1,
+          "depends_on": [
+            "law_trainee_task_015"
+          ],
+          "hidden_intent_count": 7,
+          "initial_input_sha256": "d50967d1eaeaade62f289e480c6b9d7cfd3582c386305c9b284b43e49e3f9967",
+          "task_bundle_sha256": "596d2fe10c72c372ba6c8236932b0a84a1601d9a97d91cc933a14d406b820ce2",
+          "task_yaml_sha256": "5df2b5d92919c968f242bcd2b69c46aa91bff6a2552cc21ed536ed3a36bd92b0",
+          "user_id": "law_trainee"
+        },
+        "marketer_task_009": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 2,
+          "depends_on": [
+            "marketer_task_007",
+            "marketer_task_008"
+          ],
+          "hidden_intent_count": 5,
+          "initial_input_sha256": "d604d58bed3264f310a1d44da168bc44558b7418e589925c5aa9d9f048ba6abd",
+          "task_bundle_sha256": "aac95c11dd581fd28902ae63f3edb13c0d875e133bde560b3249c22eb1d47173",
+          "task_yaml_sha256": "91b7c8d261819f95b7427f0eb38f6fdaa7be4e771af4f9e54621240774f7cafc",
+          "user_id": "marketer"
+        },
+        "marketer_task_017": {
+          "asset_count": 0,
+          "asset_name_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "dependency_count": 2,
+          "depends_on": [
+            "marketer_task_015",
+            "marketer_task_016"
+          ],
+          "hidden_intent_count": 6,
+          "initial_input_sha256": "c5dc96b88257e35d19ef49e856ce800c1dd5f3008c5f15f6aec22d20ba0ee0f4",
+          "task_bundle_sha256": "399a1fae6e8ef7aaca01d41cf40f701fac2d079be94b8b26d3b0d89672447363",
+          "task_yaml_sha256": "131ff0df84ed629530f567de2e4658cb2a6c69d9fdfdbad2bfe964ccd1e29a35",
+          "user_id": "marketer"
+        },
+        "pharmacist_task_013": {
+          "asset_count": 4,
+          "asset_name_sha256": "ff44a4dbf487a6cd0bd8daef12c418ac34b916183fd3a6f0b28251b8e03f1fba",
+          "dependency_count": 1,
+          "depends_on": [
+            "pharmacist_task_010"
+          ],
+          "hidden_intent_count": 20,
+          "initial_input_sha256": "84df3375cef2708619bf6d0f47f223c378c77d58b8d3a0b4462f87b0f7dacbab",
+          "task_bundle_sha256": "4b6d22e66221c8f555267bdba2c828da30a737be64147a1012cb48726209627b",
+          "task_yaml_sha256": "288af5c5924a9d6e75191f49867ac3f8d1bfb6b526c642377c39cdebf4116dc8",
+          "user_id": "pharmacist"
+        },
+        "pharmacist_task_015": {
+          "asset_count": 6,
+          "asset_name_sha256": "b123fe5c3f5f579f9152b95d87a1c82f2976059a8622c1a62d3acbe46193422d",
+          "dependency_count": 2,
+          "depends_on": [
+            "pharmacist_task_012",
+            "pharmacist_task_014"
+          ],
+          "hidden_intent_count": 17,
+          "initial_input_sha256": "e00d27dd286241fead2f951059a95be9a3288c81fc3da63b9a0faa78bf4b5278",
+          "task_bundle_sha256": "74f12d6e1e1abdec17f33b401385f357abca9621da275c9fdb763a23f63effe2",
+          "task_yaml_sha256": "3e001111c4ca32075779ecf0742099189d3f16a3f84353c93c6bfa591cf6d10a",
+          "user_id": "pharmacist"
+        },
+        "researcher_task_009": {
+          "asset_count": 1,
+          "asset_name_sha256": "73fb612dbbe69dfaa0aa4d4bec5f22b6fe7b30fc547044b8c5bf67d9774b6866",
+          "dependency_count": 1,
+          "depends_on": [
+            "researcher_task_003"
+          ],
+          "hidden_intent_count": 7,
+          "initial_input_sha256": "6c6fd2932af0436760f78637084aee32c411f474e9ff43cef6deccf0cdee00f2",
+          "task_bundle_sha256": "4330382016c0c1c6f03761d3133c339cdfd6f0e01437e0a97645488d12d421a3",
+          "task_yaml_sha256": "a225f025a43359a86528ec0e0932a8b17a64b1511becdca616b13a706f9179a1",
+          "user_id": "researcher"
+        },
+        "researcher_task_011": {
+          "asset_count": 25,
+          "asset_name_sha256": "6c0a9f9bb45e2252d5ac0a9fa448d962c122aaa94b56301dcf3419516249351c",
+          "dependency_count": 2,
+          "depends_on": [
+            "researcher_task_005",
+            "researcher_task_007"
+          ],
+          "hidden_intent_count": 8,
+          "initial_input_sha256": "dfb564777dceaa145c9f0abcf1a52435f70fa034e535f204bf02cf833247864e",
+          "task_bundle_sha256": "b364b155737e19623b2bb3a55dfabc7ca9dd830297d72fe1bbc77c1910ea1f4a",
+          "task_yaml_sha256": "793f8437742a10a315751f47d9032796c67ba2dc178f1da73ed7fcbfbe8d268f",
+          "user_id": "researcher"
+        }
+      }
+    }
+  },
+  "task_universe_count": 100,
+  "value_access": {
+    "asset_contents_emitted": false,
+    "hidden_intent_text_emitted": false,
+    "initial_input_text_emitted": false,
+    "metadata_only_fields": [
+      "task_id",
+      "user_id",
+      "depends_on",
+      "dependency_count",
+      "hidden_intent_count",
+      "asset_count",
+      "content hashes"
+    ],
+    "objective_values_emitted": false
+  }
+}
