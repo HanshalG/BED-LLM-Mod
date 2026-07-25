@@ -1,0 +1,48 @@
+{
+  "error": "ServingExecutionError: ValueError: labels must be one Y/N/U character per product",
+  "interface_version": "pscon-binary-query-serving-smoke-1",
+  "private_raw_sha256": "a41458b9bbaef9235b9262df852357725a98926bf2c6e75610bb27c3982bd6c2",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.009428249999999999,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 161,
+      "adapter_cost_usd": 0.009428249999999999,
+      "adapter_prompt_tokens": 11605,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 161,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 161,
+          "cost_usd": 0.009428249999999999,
+          "prompt_tokens": 11605,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 11605,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.27673435000004,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.009428249999999999,
+      "run_remaining_usd": 0.14057175,
+      "total_spent_usd": 86.86657046920737
+    },
+    "http_attempts": 10,
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
