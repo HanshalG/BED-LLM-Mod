@@ -8,7 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
-from typing import Any
+from typing import Any, Callable
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -113,6 +113,14 @@ def run_gate(
     tau_root: str | Path,
     input_artifact: str | Path | None,
     raw_checkpoint_path: Path | None,
+    message_builder: Callable[
+        [dict[str, Any], int], list[dict[str, str]]
+    ] = evidence_continuation_messages,
+    response_parser: Callable[
+        [str], dict[str, Any]
+    ] = parse_continuation_scores,
+    interface_version: int = INTERFACE_VERSION,
+    protocol_extra: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     model = _build_model(config)
     raw: dict[str, Any] = {}
@@ -173,9 +181,7 @@ def run_gate(
         ]
         focused_raw = model.chat_complete_messages_batched(
             [
-                evidence_continuation_messages(
-                    records[case_index], root_index
-                )
+                message_builder(records[case_index], root_index)
                 for case_index, root_index in focused_keys
             ],
             temperature=0.0,
@@ -184,9 +190,7 @@ def run_gate(
         )
         raw["focused_continuations"] = focused_raw
         _checkpoint(raw_checkpoint_path, stage=stage, raw=raw)
-        parsed = [
-            parse_continuation_scores(text) for text in focused_raw
-        ]
+        parsed = [response_parser(text) for text in focused_raw]
         continuation_scores = [
             parsed[
                 case_index
@@ -209,31 +213,34 @@ def run_gate(
         myopic_scores=myopic_scores,
         nonmyopic_scores=nonmyopic_scores,
     )
+    protocol = {
+        "stage": stage,
+        "interface_version": interface_version,
+        "source_repository": "https://github.com/sierra-research/tau2-bench",
+        "source_commit": TAU_COMMIT,
+        "task_ids": [record["task_id"] for record in records],
+        "fresh_selection_seed": (
+            FRESH_SELECTION_SEED if stage == "confirmation" else None
+        ),
+        "random_control_seed": RANDOM_CONTROL_SEED,
+        "first_query_count": FIRST_QUERY_COUNT,
+        "followup_query_count": FOLLOWUP_QUERY_COUNT,
+        "search_top_k": SEARCH_TOP_K,
+        "hypothesis_count": HYPOTHESIS_COUNT,
+        "expected_physical_requests": EXPECTED_REQUESTS[stage],
+        "focused_one_root_per_call": True,
+        "candidate_followup_queries_hidden": True,
+        "document_evidence_only": True,
+        "required_documents_hidden_from_model": True,
+        "reasoning_disabled": True,
+        "raw_responses_private_and_untracked": True,
+    }
+    if protocol_extra:
+        protocol.update(protocol_extra)
     return {
         "schema_version": SCHEMA_VERSION,
         "status": "passed" if summary["gates"]["all_pass"] else "gate_failed",
-        "protocol": {
-            "stage": stage,
-            "interface_version": INTERFACE_VERSION,
-            "source_repository": "https://github.com/sierra-research/tau2-bench",
-            "source_commit": TAU_COMMIT,
-            "task_ids": [record["task_id"] for record in records],
-            "fresh_selection_seed": (
-                FRESH_SELECTION_SEED if stage == "confirmation" else None
-            ),
-            "random_control_seed": RANDOM_CONTROL_SEED,
-            "first_query_count": FIRST_QUERY_COUNT,
-            "followup_query_count": FOLLOWUP_QUERY_COUNT,
-            "search_top_k": SEARCH_TOP_K,
-            "hypothesis_count": HYPOTHESIS_COUNT,
-            "expected_physical_requests": EXPECTED_REQUESTS[stage],
-            "focused_one_root_per_call": True,
-            "candidate_followup_queries_hidden": True,
-            "document_evidence_only": True,
-            "required_documents_hidden_from_model": True,
-            "reasoning_disabled": True,
-            "raw_responses_private_and_untracked": True,
-        },
+        "protocol": protocol,
         "summary": summary,
         "records": records,
         "myopic_scores": myopic_scores,
