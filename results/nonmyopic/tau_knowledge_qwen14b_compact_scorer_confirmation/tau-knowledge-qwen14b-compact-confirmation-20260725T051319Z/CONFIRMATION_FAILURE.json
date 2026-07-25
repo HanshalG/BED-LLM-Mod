@@ -1,0 +1,47 @@
+{
+  "error": "GateExecutionError: ValueError: response does not contain a JSON object",
+  "interface_version": "qwen3-14b-thinking-compact-1",
+  "model": "qwen/qwen3-14b",
+  "private_raw_sha256": "3d666887c609efad0cc13ebdd33d74968823eaac44cd9483f134a9f93320059f",
+  "schema_version": 1,
+  "stage": "confirmation",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.17470293500000006,
+    "generator": {
+      "adapter_completion_tokens": 367448,
+      "adapter_cost_usd": 0.17470293500000006,
+      "adapter_prompt_tokens": 513127,
+      "adapter_reasoning_tokens": 364376,
+      "adapter_requests": 151,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 367448,
+      "forced_exits": 21,
+      "forced_final_requests": 11,
+      "forced_final_successes": 1,
+      "http_attempts": 151,
+      "model": "qwen/qwen3-14b",
+      "model_usage": {
+        "qwen/qwen3-14b": {
+          "completion_tokens": 367448,
+          "cost_usd": 0.17470293500000006,
+          "prompt_tokens": 513127,
+          "reasoning_tokens": 364376,
+          "requests": 151
+        }
+      },
+      "prompt_tokens": 513127,
+      "reasoning_tokens": 364376,
+      "remaining_usd": 20.59027287624977,
+      "requests": 151,
+      "retry_count": 0,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.17470293500000006,
+      "run_remaining_usd": 1.825297065,
+      "total_spent_usd": 84.79452981920738
+    },
+    "physical_requests": 151,
+    "reasoning_tokens": 364376
+  }
+}
