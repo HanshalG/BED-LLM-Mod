@@ -14,7 +14,7 @@ import random
 import statistics
 import subprocess
 import sys
-from typing import Any, Protocol, Sequence
+from typing import Any, Callable, Protocol, Sequence
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -360,6 +360,7 @@ def _generate_queries(
     *,
     expected_options: int | None,
     temperature: float = 0.7,
+    on_raw: Callable[[list[str]], None] | None = None,
 ) -> tuple[list[SemanticQuery], list[str]]:
     raw = model.chat_complete_messages_batched(
         messages,
@@ -369,6 +370,8 @@ def _generate_queries(
     )
     if len(raw) != len(messages):
         raise ValueError("generator response count changed")
+    if on_raw is not None:
+        on_raw(raw)
     parsed = [
         parse_semantic_query(
             response,
@@ -385,6 +388,7 @@ def _answer_queries(
     config: Config,
     product: Product,
     queries: Sequence[SemanticQuery],
+    on_raw: Callable[[list[str]], None] | None = None,
 ) -> tuple[list[int], list[str]]:
     messages = [_answer_messages(product=product, query=query) for query in queries]
     raw = model.chat_complete_messages_batched(
@@ -395,6 +399,8 @@ def _answer_queries(
     )
     if len(raw) != len(queries):
         raise ValueError("responder response count changed")
+    if on_raw is not None:
+        on_raw(raw)
     return [
         parse_answer(response, len(query.options))
         for response, query in zip(raw, queries, strict=True)
@@ -538,6 +544,14 @@ def run_smoke(
         "support_ids": support_ids,
         "target_loaded": False,
     }
+
+    def checkpoint_batch(key: str) -> Callable[[list[str]], None]:
+        def store(values: list[str]) -> None:
+            raw[key] = values
+            _checkpoint(raw_path, raw)
+
+        return store
+
     try:
         root_messages = [
             _query_messages(
@@ -547,12 +561,13 @@ def run_smoke(
             )
             for index in range(TREE_ROOT_COUNT)
         ]
-        roots, raw["tree_roots"] = _generate_queries(
+        roots, _root_raw = _generate_queries(
             generator,
             config,
             root_messages,
             [products] * TREE_ROOT_COUNT,
             expected_options=ROOT_OPTION_COUNT,
+            on_raw=checkpoint_batch("tree_roots"),
         )
 
         followup_messages: list[list[dict[str, str]]] = []
@@ -576,12 +591,13 @@ def run_smoke(
                     )
                     followup_groups.append(branch_products)
                     followup_layout.append((root_index, answer - 1))
-        flat_followups, raw["tree_followups"] = _generate_queries(
+        flat_followups, _followup_raw = _generate_queries(
             generator,
             config,
             followup_messages,
             followup_groups,
             expected_options=None,
+            on_raw=checkpoint_batch("tree_followups"),
         )
         followups: list[list[list[SemanticQuery]]] = [
             [[] for _ in range(ROOT_OPTION_COUNT)] for _ in roots
@@ -597,12 +613,13 @@ def run_smoke(
             )
             for index in range(WIDTH_ROOT_COUNT)
         ]
-        width_roots, raw["width_roots"] = _generate_queries(
+        width_roots, _width_raw = _generate_queries(
             generator,
             config,
             width_messages,
             [products] * WIDTH_ROOT_COUNT,
             expected_options=ROOT_OPTION_COUNT,
+            on_raw=checkpoint_batch("width_roots"),
         )
         immediate_scores, depth2_scores = _tree_scores(
             roots, followups, support_ids
@@ -620,8 +637,12 @@ def run_smoke(
         target_id = _target_id(row)
         target = product_by_id[target_id]
         raw["target_loaded"] = True
-        root_answers, raw["tree_root_answers"] = _answer_queries(
-            responder, config, target, roots
+        root_answers, _tree_root_answer_raw = _answer_queries(
+            responder,
+            config,
+            target,
+            roots,
+            on_raw=checkpoint_batch("tree_root_answers"),
         )
         selected_followups = []
         for index, (root, answer) in enumerate(zip(roots, root_answers, strict=True)):
@@ -632,8 +653,12 @@ def run_smoke(
                     _argmax([query_eig(query, branch) for query in candidates])
                 ]
             )
-        followup_answers, raw["tree_followup_answers"] = _answer_queries(
-            responder, config, target, selected_followups
+        followup_answers, _tree_followup_answer_raw = _answer_queries(
+            responder,
+            config,
+            target,
+            selected_followups,
+            on_raw=checkpoint_batch("tree_followup_answers"),
         )
         tree_records = _execute_tree_roots(
             roots=roots,
@@ -645,8 +670,12 @@ def run_smoke(
 
         width_first_index = _argmax(width_scores)
         width_first = width_roots[width_first_index]
-        width_first_answers, raw["width_first_answer"] = _answer_queries(
-            responder, config, target, [width_first]
+        width_first_answers, _width_first_raw = _answer_queries(
+            responder,
+            config,
+            target,
+            [width_first],
+            on_raw=checkpoint_batch("width_first_answer"),
         )
         width_after_first = _branch_ids(width_first, width_first_answers[0])
         width_second_scores = [
@@ -655,8 +684,12 @@ def run_smoke(
         ]
         width_second_index = _argmax(width_second_scores)
         width_second = width_roots[width_second_index]
-        width_second_answers, raw["width_second_answer"] = _answer_queries(
-            responder, config, target, [width_second]
+        width_second_answers, _width_second_raw = _answer_queries(
+            responder,
+            config,
+            target,
+            [width_second],
+            on_raw=checkpoint_batch("width_second_answer"),
         )
         width_final = [
             product_id

@@ -7,6 +7,7 @@ import pytest
 from scripts.pscon_semantic_tree_smoke import (
     Product,
     SemanticQuery,
+    _generate_queries,
     _execute_tree_roots,
     _tree_scores,
     entropy,
@@ -142,3 +143,31 @@ def test_responder_answer_parser_is_strict() -> None:
     assert parse_answer("2", 3) == 2
     with pytest.raises(ValueError):
         parse_answer("Option 2", 3)
+
+
+def test_generation_checkpoints_raw_before_parse_failure() -> None:
+    class InvalidModel:
+        def chat_complete_messages_batched(self, *args, **kwargs):
+            del args, kwargs
+            return [
+                json.dumps(
+                    {
+                        "question": "Which display style do you prefer?",
+                        "options": ["LED", "QLED", "OLED"],
+                        "assignments": ["1"] * 6,
+                    }
+                )
+            ]
+
+    captured = []
+    config = type("FixtureConfig", (), {"openrouter_concurrency": 1})()
+    with pytest.raises(ValueError, match="canonical option"):
+        _generate_queries(
+            InvalidModel(),
+            config,
+            [[{"role": "user", "content": "{}"}]],
+            [_products()],
+            expected_options=3,
+            on_raw=captured.extend,
+        )
+    assert len(captured) == 1

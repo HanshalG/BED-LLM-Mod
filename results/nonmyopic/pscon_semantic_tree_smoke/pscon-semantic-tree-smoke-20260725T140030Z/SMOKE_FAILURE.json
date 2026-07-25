@@ -1,0 +1,81 @@
+{
+  "error": "SmokeExecutionError: ValueError: query assignments must be canonical option indices",
+  "interface_version": "pscon-semantic-tree-smoke-1",
+  "private_raw_sha256": "143268980e5bdc8fee01c9564d4b9e6e3f62c154b55ba5e3ca0389c9326f1c5a",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0070635,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 433,
+      "adapter_cost_usd": 0.0070635,
+      "adapter_prompt_tokens": 6820,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 5,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 433,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 5,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 433,
+          "cost_usd": 0.0070635,
+          "prompt_tokens": 6820,
+          "reasoning_tokens": 0,
+          "requests": 5
+        }
+      },
+      "prompt_tokens": 6820,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.299187100000054,
+      "requests": 5,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.0070635,
+      "run_remaining_usd": 0.7429365,
+      "total_spent_usd": 86.84411771920736
+    },
+    "http_attempts": 5,
+    "physical_requests": 5,
+    "reasoning_tokens": 0,
+    "responder": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 433,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 433,
+          "cost_usd": 0.0070635,
+          "prompt_tokens": 6820,
+          "reasoning_tokens": 0,
+          "requests": 5
+        }
+      },
+      "prompt_tokens": 6820,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.299187100000054,
+      "requests": 5,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.0070635,
+      "run_remaining_usd": 0.7429365,
+      "total_spent_usd": 86.84411771920736
+    },
+    "retry_count": 0
+  }
+}
