@@ -111,11 +111,18 @@ non-myopic wrapper exists. The minimal acceptable route is:
 7. compare paired myopic, non-myopic, history-ablated, and matched-compute
    controls.
 
-The critical scientific test is whether inspecting one piece of prior context
-has delayed value because it changes which clarification or artifact action is
-best next. If the wrapper merely charges for reading static context that every
-agent should always read, or if the target annotations are used to manufacture
-the action mapping, the route is rejected.
+The later value-blind split and five-case mechanics audit found that the
+dependency signal is real but not canonically observable. Final requirements
+strongly echo predecessor hidden intents, while released predecessor
+requests/titles/descriptions do not recover those inherited preferences. The
+runner resets each session, `depends_on` is used for evaluation aggregation,
+and no reference trajectories or memory snapshots are released.
+
+**Updated decision:** close the exact target-blind pi-Bench wrapper. Revealing
+predecessor hidden intents as memory would leak latent annotations; generating
+our own prior memory would create a policy-dependent initial state. The
+opportunity/development/holdout values remain sealed for a genuinely distinct
+future end-to-end memory experiment.
 
 ## ClarifyBench
 
@@ -145,8 +152,9 @@ See `CLARIFYBENCH_SOURCE_AUDIT_RESULT.md` and audit SHA `02e4942a`.
 - **Supporting result:** retain RockSample as exact-verification evidence only.
 - **Next external source:** retry RegretBench when its official environment is
   released.
-- **Next construction candidate:** pi-Bench dependency-final tasks, but only
-  after a zero-cost, target-blind structural gap.
-- **Closed for now:** EComAgentBench's clarification-only graph and the
-  released ClarifyBench scripted-world interface.
+- **Future memory benchmark:** pi-Bench remains relevant, but its exact
+  target-blind BED wrapper is closed for lack of a canonical prior observation.
+- **Closed for now:** EComAgentBench's clarification-only graph, the released
+  ClarifyBench scripted-world interface, and the exact pi-Bench dependency
+  wrapper.
 - **Budget:** no paid calls and no OatML cluster work were used in this audit.
