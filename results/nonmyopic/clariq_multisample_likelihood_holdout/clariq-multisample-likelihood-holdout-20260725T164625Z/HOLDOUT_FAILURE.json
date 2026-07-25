@@ -1,0 +1,49 @@
+{
+  "error": "DevelopmentExecutionError: ValueError: labels must be one Y/N/U character per product",
+  "interface_version": "clariq-multisample-likelihood-holdout-1",
+  "manifest_sha256": "889a9a952945fea0c5cd910d559c1e12c9e40f5a9500f65810b0ce6a0eb82cfa",
+  "private_raw_sha256": "2fe911908d0b237a8e863f21eb787e46615a524003864ddb20ac6c708206dfb4",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.46333750000000046,
+    "forced_exits": 0,
+    "http_attempts": 755,
+    "model": {
+      "adapter_completion_tokens": 4685,
+      "adapter_cost_usd": 0.46333750000000046,
+      "adapter_prompt_tokens": 157225,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 755,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 4685,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 755,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 4685,
+          "cost_usd": 0.46333750000000046,
+          "prompt_tokens": 157225,
+          "reasoning_tokens": 0,
+          "requests": 755
+        }
+      },
+      "prompt_tokens": 157225,
+      "reasoning_tokens": 0,
+      "remaining_usd": 11.22571610000071,
+      "requests": 755,
+      "retry_count": 0,
+      "run_budget_usd": 1.25,
+      "run_cost_usd": 0.46333750000000046,
+      "run_remaining_usd": 0.7866624999999996,
+      "total_spent_usd": 89.9175887192067
+    },
+    "physical_requests": 755,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
