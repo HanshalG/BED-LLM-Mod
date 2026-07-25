@@ -229,9 +229,11 @@ def run_gate(
     input_artifact: Path,
     nonsemantic_analysis: Path,
     raw_checkpoint_path: Path,
+    model_id: str = MODEL_ID,
+    interface_version: str = INTERFACE_VERSION,
 ) -> dict[str, Any]:
-    if config.model_pairs[0].questioner.model != MODEL_ID:
-        raise ValueError("cross-model scorer config does not select Claude Sonnet 5")
+    if config.model_pairs[0].questioner.model != model_id:
+        raise ValueError("cross-model scorer config selects the wrong model")
     if sha256_file(nonsemantic_analysis) != NONSEMANTIC_ANALYSIS_SHA256:
         raise ValueError("frozen nonsemantic analysis hash does not match")
     records = load_records(input_artifact, stage=stage)
@@ -314,8 +316,8 @@ def run_gate(
         "status": "passed" if summary["gates"]["all_pass"] else "gate_failed",
         "protocol": {
             "stage": stage,
-            "interface_version": INTERFACE_VERSION,
-            "model": MODEL_ID,
+            "interface_version": interface_version,
+            "model": model_id,
             "source_artifact_sha256": sha256_file(input_artifact),
             "nonsemantic_analysis_sha256": NONSEMANTIC_ANALYSIS_SHA256,
             "task_ids": [record["task_id"] for record in records],

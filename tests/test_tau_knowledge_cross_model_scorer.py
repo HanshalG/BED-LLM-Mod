@@ -1,15 +1,20 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 
 import pytest
 
+from helpers import load_config
 from scripts.tau_knowledge_cross_model_scorer import (
     coerce_json_int,
     parse_focused_scores,
     parse_root_scores,
     summarize_cross_model,
 )
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_coerce_json_int_accepts_frozen_numeric_representations() -> None:
@@ -77,3 +82,20 @@ def test_cross_model_summary_replaces_only_request_gate(
     assert summary["gates"]["exact_physical_request_count"] is False
     assert summary["gates"]["zero_reasoning_tokens"] is True
     assert summary["gates"]["all_pass"] is False
+
+
+def test_gemini_replication_config_is_frozen() -> None:
+    config = load_config(
+        str(
+            ROOT
+            / "configs/"
+            "config_tau_knowledge_gemini31pro_scorer_replication_openrouter.yaml"
+        )
+    )
+
+    assert (
+        config.model_pairs[0].questioner.model
+        == "google/gemini-3.1-pro-preview"
+    )
+    assert config.openrouter_max_output_tokens == 4096
+    assert config.mediq_seed == 24344
