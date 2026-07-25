@@ -122,6 +122,13 @@ previous no-V4 promise before holdout access and accepted only one- or two-digit
 strings in the unchanged count bands. No holdout response, endpoint, threshold,
 or score was modified.
 
+A separately frozen post hoc reviewer control used the identical trees but
+replaced semantic scoring with raw BM25 sum, novel-document count, or
+lexical-IDF overlap against the same generated beliefs. Those policies retrieved
+22, 21, and 17 documents versus V3.1's 30; V3.1 also had higher root and
+continuation accuracy than all three. This supports semantic scoring as
+load-bearing, while remaining non-preregistered mechanism evidence.
+
 ## Artifacts and Budget
 
 - Public confirmation SHA-256:

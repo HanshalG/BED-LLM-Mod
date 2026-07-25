@@ -268,7 +268,11 @@ and mean regret $.21$. The policy retained 30 of 33 documents available under
 its selected roots, versus 26 for myopic receding, 25 for the original joint
 selector, and 22 for seeded random; all frozen gates passed. Exact endpoint
 tests remain underpowered ($p=.25,.0898,.0774$, respectively), so the supported
-claim is reliable LLM-owned ranking plus directional end-to-end gain.
+claim is reliable LLM-owned ranking plus directional end-to-end gain. In a
+separately frozen post-hoc control on the same trees, raw BM25 sum,
+novel-document count, and lexical-IDF scoring retrieved 22, 21, and 17 documents
+versus 30, and had lower root and continuation accuracy; semantic scoring is
+therefore load-bearing, though this control is not preregistered policy evidence.
 
 \paragraph{LLM proposals plus exact lookahead work in enabling geometry.}
 The negative natural-location sweep did not test the architecture where depth
