@@ -1,0 +1,82 @@
+{
+  "answers_emitted": false,
+  "content_emitted": false,
+  "document_ids_emitted": false,
+  "interface_version": "multihop-rag-semantic-bed-mechanics-1",
+  "protocol": {
+    "continuation_excludes_root_documents": true,
+    "continuation_retrieval_size": 3,
+    "llm_calls": 0,
+    "root_retrieval_size": 3,
+    "target_blind_query_construction": true
+  },
+  "source": {
+    "corpus_sha256": "20b61b5ab84de84a927420c5d265b7ec8d859ae49980699958a787ade9e4d28f",
+    "opened_mechanics_sha256": "0db23034c9758823198eb0cb38d17a449c227cb41560d5b509c4d79c6346d6ca"
+  },
+  "summary": {
+    "decision": "close_before_opportunity_audit",
+    "opportunity_gate_passed": false,
+    "strict_root_reversal_rate": 0.0,
+    "task_count": 5,
+    "tasks_with_continuation_gain": 2,
+    "tasks_with_strict_root_reversal": 0
+  },
+  "tasks": [
+    {
+      "best_immediate_evidence": 2,
+      "best_total_evidence": 4,
+      "continuation_gain": 2,
+      "evidence_count": 4,
+      "greedy_root_best_total_evidence": 4,
+      "question_type": "inference_query",
+      "root_action_count": 6,
+      "strict_root_reversal": false,
+      "task_id": "2495"
+    },
+    {
+      "best_immediate_evidence": 1,
+      "best_total_evidence": 2,
+      "continuation_gain": 1,
+      "evidence_count": 3,
+      "greedy_root_best_total_evidence": 2,
+      "question_type": "inference_query",
+      "root_action_count": 6,
+      "strict_root_reversal": false,
+      "task_id": "1153"
+    },
+    {
+      "best_immediate_evidence": 2,
+      "best_total_evidence": 2,
+      "continuation_gain": 0,
+      "evidence_count": 2,
+      "greedy_root_best_total_evidence": 2,
+      "question_type": "comparison_query",
+      "root_action_count": 6,
+      "strict_root_reversal": false,
+      "task_id": "89"
+    },
+    {
+      "best_immediate_evidence": 2,
+      "best_total_evidence": 2,
+      "continuation_gain": 0,
+      "evidence_count": 3,
+      "greedy_root_best_total_evidence": 2,
+      "question_type": "temporal_query",
+      "root_action_count": 5,
+      "strict_root_reversal": false,
+      "task_id": "473"
+    },
+    {
+      "best_immediate_evidence": 2,
+      "best_total_evidence": 2,
+      "continuation_gain": 0,
+      "evidence_count": 2,
+      "greedy_root_best_total_evidence": 2,
+      "question_type": "temporal_query",
+      "root_action_count": 6,
+      "strict_root_reversal": false,
+      "task_id": "189"
+    }
+  ]
+}
