@@ -231,13 +231,14 @@ def run_gate(
     raw_checkpoint_path: Path,
     model_id: str = MODEL_ID,
     interface_version: str = INTERFACE_VERSION,
+    model_adapter: Any | None = None,
 ) -> dict[str, Any]:
     if config.model_pairs[0].questioner.model != model_id:
         raise ValueError("cross-model scorer config selects the wrong model")
     if sha256_file(nonsemantic_analysis) != NONSEMANTIC_ANALYSIS_SHA256:
         raise ValueError("frozen nonsemantic analysis hash does not match")
     records = load_records(input_artifact, stage=stage)
-    model = _build_model(config)
+    model = model_adapter if model_adapter is not None else _build_model(config)
     raw: dict[str, Any] = {}
     try:
         myopic_raw = model.chat_complete_messages_batched(
