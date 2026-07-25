@@ -5,8 +5,10 @@ from scripts import validate_paper_draft as vpd
 
 
 VALID_LIMITATIONS_TEXT = """
-This is a positive structured-benchmark result, not yet a positive
-external-benchmark claim. Rock Diagnosis has an exact finite simulator and does
+This is a positive structured-benchmark result and a qualified external
+LLM-native result. Its final endpoint gains remain underpowered. The parser amendment
+followed iterative development, so this is not a pristine one-shot preregistration.
+Rock Diagnosis has an exact finite simulator and does
 not test robustness to learned likelihoods. Animals streams are only partially
 paired. Paprika policy counts are endpoint-invalid. MediQ stops before a calibrated
 policy comparison. We do not claim that non-myopic BED cannot work. The study uses

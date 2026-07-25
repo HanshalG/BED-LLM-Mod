@@ -46,16 +46,15 @@ one-step, and matched-random controls, with all 15 paired intervals positive.
 The LLM remains replaceable there. We therefore test an LLM-native mechanism on
 $\tau$-Knowledge: GPT-5.4 generates path-dependent information-need hypotheses
 and retrieval trees over 698 banking documents, while hidden required-document
-annotations provide external endpoints. On 20 untouched tasks, a target-blind
-full-tree scorer ranks first roots more accurately than an isolated myopic scorer
-($.779$ versus $.686$; exact task-level $p=.0398$) and raises oracle-tail endpoint
-coverage from 39 to 44 documents, although the endpoint gain is underpowered
-($p=.125$). The overall preregistered gate fails because oracle-greedy opportunity
-appears on only 2/20 tasks; chosen continuations also lose ten documents relative
-to the selected roots' oracle tails. Negative location, Paprika, MediQ, and
-MovieLens audits localize the boundary: semantic lookahead can improve the
-irreducibly LLM-owned first decision, but end-to-end depth additionally requires
-verified non-greedy structure and reliable continuation selection.
+annotations provide external endpoints. An initial 20-task study improves
+target-blind first-root ranking ($.779$ versus $.686$, $p=.0398$) but fails its
+structural and continuation gates. After iterative development, a frozen
+count-dominant receding policy passes every gate on an independent untouched
+20-task holdout: root accuracy is $.702$ versus $.554$ ($p=.0352$), continuation
+accuracy is $.757$ ($p<10^{-4}$), and exact coverage is 30 documents versus 26
+myopic, 25 joint, and 22 random. These endpoint gains are directional rather
+than conventionally significant ($p=.25,.090,.077$). Negative location, Paprika,
+MediQ, and MovieLens audits localize why deeper semantic planning otherwise fails.
 \end{abstract}
 
 \small
@@ -100,8 +99,9 @@ Our contributions are:
   \item preregistered paired evidence that both the LLM proposal prior and
   non-myopic verification are load-bearing in a depth-favorable Rock geometry;
   \item a target-blind external-benchmark result in which LLM-generated
-  path-dependent retrieval trees significantly improve first-root ranking, while
-  a frozen structural gate and continuation policy fail;
+  path-dependent retrieval trees significantly improve both root and continuation
+  ranking, and a receding policy passes all held-out gates while its exact endpoint
+  advantage remains underpowered;
   \item a cross-environment audit that separates correctness of the planning
   recursion from validity of the probabilistic interaction model;
   \item two external-benchmark autopsies with invalid outcomes quarantined rather
@@ -192,7 +192,7 @@ Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, gree
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
-$\tau$-Knowledge & External documents/endpoints & Sparse (2/20) & Root rank .779 vs .686; pair loses 10 docs & Qualified first-link \\
+$\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Root .702 vs .554; docs 30 vs 26/25/22 & All gates; endpoint directional \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -234,7 +234,7 @@ strategies, final RMSE was $0.412$ for greedy EIG versus $0.929$, $1.127$, and
 $0.542$ for horizons 1, 3, and 5. Unconstrained horizons were flat; depth was
 non-monotonic and naive remained competitive.
 
-\paragraph{LLM-native semantic lookahead improves the first link.}
+\paragraph{LLM-native semantic lookahead improves both links.}
 Rock's verifier is exact, so we next used the official $\tau$-Knowledge banking
 domain: 698 unstructured policy documents, deterministic BM25 top-3 transitions,
 and hidden required-document annotations \citep{shi2026tau}. From only a
@@ -243,20 +243,32 @@ five first searches, then refreshed its needs and generated four
 document-conditioned follow-ups per root. This belief/search state is semantic,
 regenerated, and path-dependent; required-document labels were never shown.
 
-Two isolated target-blind scorers used identical roots. The myopic view saw only
-first results; the non-myopic view saw each complete depth-two tree. To isolate
-the first link from noisy second-action selection, each selected root was
-evaluated under its oracle-best shown continuation. On 20 untouched tasks, root
-pairwise accuracy increased from $.6858$ to $.7788$ (113 comparable pairs;
-exact task-level label-swap $p=.0398$, bootstrap 95\% interval for the gain
-$[.0043,.1869]$). Non-myopic roots covered 44 required documents versus 39 for
-myopic roots (4/15/1 wins/ties/losses), but this endpoint gain was underpowered
-(exact $p=.125$, interval for mean gain $[-.05,.60]$). The overall frozen gate
-failed: oracle-strength greedy gaps appeared on only 2/20 tasks, mean $.10$
-versus required 4/20 and $.20$. Moreover, the scorer's own follow-ups realized
-34 rather than the 44 documents available beneath its roots, losing ten on
-9/20 tasks. Thus semantic simulation improves the LLM-owned first-root ranking,
-but does not yet establish end-to-end non-myopic policy success.
+Two isolated target-blind root scorers used identical trees. The myopic view saw
+only first results; the non-myopic view saw complete depth-two branches. In an
+initial untouched 20-task study, oracle-tail root accuracy increased from $.6858$
+to $.7788$ (exact task-level $p=.0398$, bootstrap gain interval
+$[.0043,.1869]$). Root coverage rose from 39 to 44 documents, but the overall
+gate failed: a non-myopic gap appeared on only 2/20 tasks, and the joint scorer's
+own follow-ups realized 34 rather than 44 documents.
+
+We used that split only for further development. The final receding scorer hides
+candidate query wording, treats refreshed needs as fallible, and asks GPT-5.4 to
+classify which newly returned documents support the original or regenerated
+needs. Distinct useful-document count dominates its tie-break. A format-only
+V3.1 amendment accepting ``02'' as the same score as ``2'' was frozen before
+holdout access and is disclosed because it superseded a prior no-repair promise.
+
+On all 20 remaining no-script tasks, selected blindly before development, oracle
+and immediate-greedy roots differed on 8/20 and a positive non-myopic gap
+appeared on 6/20 (mean $.35$ documents). Full-tree root accuracy was $.7025$
+versus $.5537$ myopic (121 pairs; exact $p=.0352$, gain interval
+$[.0161,.2963]$). Receding continuation accuracy was $.7566$ (228 pairs;
+task-clustered chance $p=6.9{\times}10^{-5}$), with 80/100 oracle-optimal choices
+and mean regret $.21$. The policy retained 30 of 33 documents available under
+its selected roots, versus 26 for myopic receding, 25 for the original joint
+selector, and 22 for seeded random; all frozen gates passed. Exact endpoint
+tests remain underpowered ($p=.25,.0898,.0774$, respectively), so the supported
+claim is reliable LLM-owned ranking plus directional end-to-end gain.
 
 \paragraph{LLM proposals plus exact lookahead work in enabling geometry.}
 The negative natural-location sweep did not test the architecture where depth
@@ -498,12 +510,12 @@ first in 10/11 candidate sets; immediate EIG selected three of four recovering
 branches, leaving only $.083$ mean realized regret. Multiple steps were necessary
 to decode the answer, but not to choose the first experiment.
 
-The $\tau$-Knowledge result separates scorer fidelity from that opportunity
-question. Its full-tree view significantly improves root ranking, but the
-external split has little oracle-greedy complementarity and continuation choice
-discards much of the selected root's value. Better semantic prediction is
-therefore necessary but not sufficient: candidates must expose a real greedy
-gap, and receding continuation selection must preserve it.
+The two $\tau$-Knowledge splits separate scorer fidelity from opportunity. The
+first had little oracle-greedy complementarity and a joint scorer discarded much
+of its selected root's value. The blind holdout had a larger gap, and
+count-dominant receding selection preserved 30/33 available documents. Better
+semantic prediction is therefore useful only when candidates expose a real
+greedy gap and the next action preserves it.
 
 DAD and RL-BED optimize total sequential utility via amortization or RL
 \citep{foster2021deep,blau2022rlbed}, but require a meaningful simulator; the
@@ -527,10 +539,12 @@ Future depth studies should cross the following gates in order:
 
 \section{Limitations and Conclusion}
 
-This is a positive structured-benchmark result, not yet a positive
-external-benchmark claim at the end-to-end policy level. $\tau$-Knowledge adds a
-qualified external first-link result: ranking improves significantly, but its
-overall structural gate fails and its endpoint gain remains underpowered.
+This is a positive structured-benchmark result and a qualified external
+LLM-native result. On $\tau$-Knowledge, both ranking links are significant and
+the held-out policy passes every frozen gate, but its final endpoint gains remain
+underpowered. The parser amendment was frozen before holdout access yet followed
+iterative development and superseded a no-V4 commitment, so this is not a
+pristine one-shot preregistration.
 Rock Diagnosis uses an exact finite simulator and does not test robustness to learned likelihoods or open responses.
 Range-gated h3 remains proposal evidence only after a tied-control audit mismatch,
 so no trajectory ran; h4 is exact-oracle evidence after unaided policy gates failed.
@@ -552,9 +566,10 @@ Finite supports, post-hoc synthesis, and OpenRouter nondeterminism further limit
 The constructive result has two parts. Given a coherent simulator and an
 enabling-information gap, LLM proposals plus exact rollout verification produce
 a large paired gain. In open semantic retrieval, the LLM's own path-dependent
-trees improve target-blind first-root ranking, but continuation noise and sparse
-greedy gaps block an end-to-end claim. Depth cannot replace a valid joint model,
-deployment-matched branches, or genuinely non-myopic task.
+beliefs improve target-blind root and continuation ranking, and a receding policy
+passes a held-out gate with directional endpoint gains. Depth still cannot
+replace a valid joint model, deployment-matched branches, or genuinely
+non-myopic task.
 
 {\scriptsize
 \setlength{\bibsep}{0pt}

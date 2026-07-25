@@ -15,7 +15,11 @@ ALLOWED_TODO_KEYWORDS: tuple[tuple[str, ...], ...] = ()
 REQUIRED_LIMITATION_PATTERNS = {
     "structured_positive_scope": (
         r"positive structured-benchmark result",
-        r"not yet a\s+positive\s+external-benchmark claim",
+        r"qualified external\s+LLM-native result",
+        r"final endpoint gains remain\s+underpowered",
+        r"parser amendment",
+        r"iterative development",
+        r"not a\s+pristine one-shot preregistration",
     ),
     "rock_exact_scope": (
         r"Rock Diagnosis",
