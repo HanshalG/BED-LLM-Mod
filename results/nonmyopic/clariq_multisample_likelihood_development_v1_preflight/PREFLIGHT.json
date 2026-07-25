@@ -1,0 +1,38 @@
+{
+  "gates": {
+    "all_pass": false,
+    "all_three_topics_have_valid_external_root_endpoints": false,
+    "deterministic_215_response_fixture_completed": true,
+    "exact_selected_topic_ids": true,
+    "scores_frozen_before_endpoint_load": true,
+    "zero_api_calls": true
+  },
+  "protocol": {
+    "api_calls": 0,
+    "fixture_physical_requests": 215,
+    "interface_version": "clariq-multisample-likelihood-development-1",
+    "openrouter_requests": 0,
+    "selected_topic_ids": [
+      "46",
+      "177",
+      "117"
+    ],
+    "synthetic_fixture_only": true
+  },
+  "schema_version": 1,
+  "status": "failed_closed_before_api",
+  "topics": [
+    {
+      "external_topic_level_endpoint_available": true,
+      "topic_id": "46"
+    },
+    {
+      "external_topic_level_endpoint_available": false,
+      "topic_id": "177"
+    },
+    {
+      "external_topic_level_endpoint_available": true,
+      "topic_id": "117"
+    }
+  ]
+}
