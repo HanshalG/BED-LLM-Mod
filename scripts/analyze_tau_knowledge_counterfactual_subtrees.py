@@ -7,7 +7,11 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import sys
 from typing import Any, Sequence
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from scripts.analyze_tau_knowledge_first_link_confirmation import (
     exact_sign_flip_pvalue,
