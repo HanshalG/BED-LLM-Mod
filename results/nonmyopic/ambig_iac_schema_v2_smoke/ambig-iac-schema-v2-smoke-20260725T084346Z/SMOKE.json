@@ -1,0 +1,95 @@
+{
+  "gates": {
+    "all_pass": false,
+    "all_three_responses_valid": false,
+    "all_valid_specs_have_features": true,
+    "cost_at_most_0_15": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_transport_retries": true
+  },
+  "protocol": {
+    "expected_requests": 3,
+    "interface_version": "ambig-iac-schema-v2-smoke-1",
+    "model": "openai/gpt-5.4-mini",
+    "private_raw_sha256": "d98ff60057911281815d657a36d8556073865dbcad180385d8092ed2052948bb",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "scientific_scores_or_endpoints_computed": false,
+    "target_plan_files_opened": false,
+    "task_ids": [
+      272,
+      66,
+      156
+    ],
+    "temperature": 0.7
+  },
+  "records": [
+    {
+      "error": null,
+      "feature_count": 10,
+      "feature_dimension_count": 3,
+      "resource_count": 2,
+      "task_id": 272,
+      "valid": true
+    },
+    {
+      "error": "TypeError: unhashable type: 'list'",
+      "feature_count": null,
+      "feature_dimension_count": null,
+      "resource_count": null,
+      "task_id": 66,
+      "valid": false
+    },
+    {
+      "error": "TypeError: unhashable type: 'list'",
+      "feature_count": null,
+      "feature_dimension_count": null,
+      "resource_count": null,
+      "task_id": 156,
+      "valid": false
+    }
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_cost_usd": 0.00412425,
+    "generator": {
+      "adapter_completion_tokens": 806,
+      "adapter_cost_usd": 0.00412425,
+      "adapter_prompt_tokens": 663,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 3,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 806,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 3,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 806,
+          "cost_usd": 0.00412425,
+          "prompt_tokens": 663,
+          "reasoning_tokens": 0,
+          "requests": 3
+        }
+      },
+      "prompt_tokens": 663,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.960854499999996,
+      "requests": 3,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.00412425,
+      "run_remaining_usd": 0.14587575,
+      "total_spent_usd": 86.18245031920742
+    },
+    "physical_requests": 3,
+    "reasoning_tokens": 0
+  }
+}
