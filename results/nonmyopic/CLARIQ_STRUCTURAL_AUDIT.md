@@ -77,7 +77,8 @@ although its constituent questions, facets, and answers are human-authored and i
 retrieval endpoint is externally precomputed. Development opportunity is not a
 confirmation claim.
 
-ClariQ passes the zero-cost structural gate. The next step is a target-free semantic
-likelihood serving gate on an already-open positive-gap dev context. No endpoint
-policy run is authorized until repeated likelihood stability and response-partition
-diversity pass.
+ClariQ passes the zero-cost structural gate. The subsequent preregistered,
+target-free GPT-5.4 serving gate produced four distinct informative partitions but
+failed exact repeat stability on two of four human questions. The exact
+five-way `Y`/`N`/`U` likelihood interface is therefore closed, and no endpoint
+policy run was authorized.

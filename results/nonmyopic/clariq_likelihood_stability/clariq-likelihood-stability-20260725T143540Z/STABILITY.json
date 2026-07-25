@@ -1,0 +1,148 @@
+{
+  "base_eigs": [
+    1.0549201679861442,
+    0.6730116670092565,
+    0.5004024235381879,
+    1.0549201679861442
+  ],
+  "base_labels": [
+    "UNYUN",
+    "NUUNU",
+    "NNNYN",
+    "YNUUN"
+  ],
+  "gates": {
+    "all_base_maps_informative": true,
+    "all_pass": false,
+    "all_ten_maps_parse": true,
+    "at_least_three_unique_base_maps": true,
+    "base_eig_range_at_least_0_10": true,
+    "cost_at_most_0_50": true,
+    "every_question_repeat_agrees": false,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "four_way_repeat_agrees": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "metrics": {
+    "base_eig_range": 0.5545177444479563,
+    "informative_base_map_count": 4,
+    "repeat_unique_counts": {
+      "Q00796": 1,
+      "Q01384": 2,
+      "Q03514": 2,
+      "Q03741": 1
+    },
+    "unique_base_map_count": 4
+  },
+  "protocol": {
+    "dev_sha256": "68d2a5f87eab73721979b5f45f64099a9b2f080db1d0ce4b979d9daa4249906e",
+    "expected_requests": 10,
+    "facet_ids": [
+      "F0134",
+      "F0135",
+      "F0136",
+      "F0137",
+      "F0138"
+    ],
+    "hidden_facet_loaded": false,
+    "interface_version": "clariq-likelihood-stability-smoke-1",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "854f8c93c69cd3fc1c6313e6eb11cd595094de225c8581609aa37ea0992ce311",
+    "question_ids": [
+      "Q00796",
+      "Q01384",
+      "Q03514",
+      "Q03741"
+    ],
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "seed": 24390,
+    "source_commit": "46885a544581a0af8aff0681d29e4971807e2912",
+    "source_repository": "https://github.com/aliannejadi/ClariQ",
+    "topic_id": "133"
+  },
+  "questions": [
+    {
+      "question": "are you looking for declaration of independence at the national archives",
+      "question_id": "Q00796"
+    },
+    {
+      "question": "are you trying to look up a speech",
+      "question_id": "Q01384"
+    },
+    {
+      "question": "would you like to know its interpretation by the us supreme court",
+      "question_id": "Q03514"
+    },
+    {
+      "question": "would you like to learn about the author of that quote",
+      "question_id": "Q03741"
+    }
+  ],
+  "repeat_labels": {
+    "Q00796": [
+      "UNYUN",
+      "UNYUN",
+      "UNYUN",
+      "UNYUN"
+    ],
+    "Q01384": [
+      "NUUNU",
+      "YNNNN"
+    ],
+    "Q03514": [
+      "NNNYN",
+      "NUUNU"
+    ],
+    "Q03741": [
+      "YNUUN",
+      "YNUUN"
+    ]
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_cost_usd": 0.006340000000000001,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 70,
+      "adapter_cost_usd": 0.006340000000000001,
+      "adapter_prompt_tokens": 2116,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 70,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 70,
+          "cost_usd": 0.006340000000000001,
+          "prompt_tokens": 2116,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 2116,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.233893600000059,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.006340000000000001,
+      "run_remaining_usd": 0.49366,
+      "total_spent_usd": 86.90941121920736
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
