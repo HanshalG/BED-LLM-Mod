@@ -1,0 +1,20 @@
+{
+  "content_emitted": false,
+  "development_parent_ordered_sha256": "58d9782db534d122ef78ed6bda4d8703b26821cfb9864107b7170e61c19a2f44",
+  "interface_version": "browsecomp-plus-terminal-semantic-development-manifest-1",
+  "ordered_sha256": "63ac5756a4cb90c64b29bd45b41510ed1733913b8cd890951f67eed9b4451216",
+  "parent_manifest_sha256": "fd3d0e05f7110974f3312711e24f3d98ac19470447dcd1fccc6dbbf05221a862",
+  "selection_rule": "first 10 task IDs in the frozen development order",
+  "task_ids": [
+    "1161",
+    "193",
+    "1155",
+    "418",
+    "6",
+    "98",
+    "237",
+    "314",
+    "261",
+    "562"
+  ]
+}
