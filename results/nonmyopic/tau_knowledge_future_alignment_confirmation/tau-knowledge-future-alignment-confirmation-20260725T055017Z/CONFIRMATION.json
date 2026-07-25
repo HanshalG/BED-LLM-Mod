@@ -1,0 +1,1751 @@
+{
+  "aligned_scores": [
+    {
+      "best_followup_indices": [
+        2,
+        1,
+        2,
+        0,
+        2
+      ],
+      "scores": [
+        86,
+        75,
+        66,
+        63,
+        81
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        1,
+        3,
+        1,
+        3
+      ],
+      "scores": [
+        68,
+        73,
+        80,
+        74,
+        62
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        3,
+        3,
+        3,
+        3
+      ],
+      "scores": [
+        86,
+        82,
+        70,
+        55,
+        48
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        2,
+        3,
+        3,
+        3
+      ],
+      "scores": [
+        72,
+        70,
+        68,
+        62,
+        76
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        0,
+        1,
+        0,
+        2
+      ],
+      "scores": [
+        80,
+        78,
+        72,
+        70,
+        48
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        2,
+        0,
+        2
+      ],
+      "scores": [
+        79,
+        72,
+        61,
+        54,
+        46
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        0,
+        3,
+        3,
+        3
+      ],
+      "scores": [
+        74,
+        90,
+        92,
+        68,
+        86
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        0,
+        0,
+        2,
+        2
+      ],
+      "scores": [
+        78,
+        86,
+        68,
+        84,
+        80
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        3,
+        3,
+        1,
+        3
+      ],
+      "scores": [
+        86,
+        80,
+        72,
+        71,
+        40
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      "scores": [
+        88,
+        70,
+        72,
+        74,
+        62
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        3,
+        2,
+        1
+      ],
+      "scores": [
+        64,
+        74,
+        53,
+        46,
+        29
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "scores": [
+        86,
+        84,
+        90,
+        58,
+        52
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        1,
+        2,
+        1,
+        0
+      ],
+      "scores": [
+        36,
+        34,
+        30,
+        26,
+        38
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        0,
+        1,
+        3
+      ],
+      "scores": [
+        78,
+        72,
+        60,
+        58,
+        63
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        1,
+        3,
+        1,
+        2
+      ],
+      "scores": [
+        92,
+        88,
+        86,
+        84,
+        82
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        3,
+        0,
+        3
+      ],
+      "scores": [
+        68,
+        76,
+        52,
+        39,
+        24
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "scores": [
+        86,
+        71,
+        84,
+        89,
+        82
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        3,
+        3,
+        2,
+        1
+      ],
+      "scores": [
+        8,
+        18,
+        6,
+        28,
+        12
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        3,
+        3,
+        0
+      ],
+      "scores": [
+        92,
+        90,
+        74,
+        80,
+        84
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        2,
+        1,
+        1
+      ],
+      "scores": [
+        20,
+        25,
+        40,
+        30,
+        45
+      ]
+    }
+  ],
+  "blinding_assignments": [
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_025"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_021"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_028"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_015"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_016"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_062"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_048"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_081"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_029"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_022"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_019"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_027"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_012"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_089"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_023"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_020"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_007"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_005"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_017"
+    },
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_004"
+    }
+  ],
+  "intervention": {
+    "all_future_subtree_multisets_preserved": true,
+    "all_permutations_are_derangements": true,
+    "nonfuture_fields_unchanged": true,
+    "original_nonfuture_sha256": "af2361a16622da0f18693e4c28fc99c67c3ef7e111d07ac45a3667b7a73aa7e9",
+    "transformed_nonfuture_sha256": "af2361a16622da0f18693e4c28fc99c67c3ef7e111d07ac45a3667b7a73aa7e9"
+  },
+  "permutations": [
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        4,
+        2,
+        3,
+        1,
+        0
+      ],
+      "task_id": "task_025"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        2,
+        4,
+        3,
+        1,
+        0
+      ],
+      "task_id": "task_021"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        2,
+        0,
+        1,
+        4,
+        3
+      ],
+      "task_id": "task_028"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        1,
+        3,
+        4,
+        2,
+        0
+      ],
+      "task_id": "task_015"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        4,
+        0,
+        1,
+        2,
+        3
+      ],
+      "task_id": "task_016"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        3,
+        2,
+        0,
+        4,
+        1
+      ],
+      "task_id": "task_062"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        3,
+        0,
+        4,
+        1,
+        2
+      ],
+      "task_id": "task_048"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        1,
+        3,
+        4,
+        2,
+        0
+      ],
+      "task_id": "task_081"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        3,
+        4,
+        1,
+        2,
+        0
+      ],
+      "task_id": "task_029"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        1,
+        4,
+        3,
+        0,
+        2
+      ],
+      "task_id": "task_022"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        1,
+        2,
+        3,
+        4,
+        0
+      ],
+      "task_id": "task_019"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        3,
+        2,
+        4,
+        1,
+        0
+      ],
+      "task_id": "task_027"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        2,
+        4,
+        3,
+        1,
+        0
+      ],
+      "task_id": "task_012"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        2,
+        3,
+        0,
+        4,
+        1
+      ],
+      "task_id": "task_089"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        3,
+        0,
+        1,
+        4,
+        2
+      ],
+      "task_id": "task_023"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        2,
+        3,
+        4,
+        0,
+        1
+      ],
+      "task_id": "task_020"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        4,
+        2,
+        3,
+        0,
+        1
+      ],
+      "task_id": "task_007"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        1,
+        3,
+        4,
+        2,
+        0
+      ],
+      "task_id": "task_005"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        1,
+        4,
+        3,
+        2,
+        0
+      ],
+      "task_id": "task_017"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        2,
+        3,
+        4,
+        1,
+        0
+      ],
+      "task_id": "task_004"
+    }
+  ],
+  "protocol": {
+    "blinding_seed": 24362,
+    "expected_physical_requests": 20,
+    "interface_version": "future-alignment-paired-1",
+    "model": "openai/gpt-5.4",
+    "permutation_seed": 24361,
+    "posthoc_open_tree_causal_ablation": true,
+    "private_raw_sha256": "038c9102bf9b95b1be6437440311001b70f4d391755c91abc21a7d7f4f7a7cc9",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_requested": false,
+    "source_artifact_sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae",
+    "stage": "confirmation",
+    "target_blind_prompts": true,
+    "task_ids": [
+      "task_025",
+      "task_021",
+      "task_028",
+      "task_015",
+      "task_016",
+      "task_062",
+      "task_048",
+      "task_081",
+      "task_029",
+      "task_022",
+      "task_019",
+      "task_027",
+      "task_012",
+      "task_089",
+      "task_023",
+      "task_020",
+      "task_007",
+      "task_005",
+      "task_017",
+      "task_004"
+    ],
+    "tree_regeneration_requests": 0
+  },
+  "schema_version": 1,
+  "shuffled_scores": [
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        1,
+        1,
+        0
+      ],
+      "scores": [
+        71,
+        62,
+        76,
+        78,
+        84
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        1,
+        1,
+        1,
+        2
+      ],
+      "scores": [
+        75,
+        58,
+        72,
+        63,
+        64
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        3,
+        0,
+        3,
+        3
+      ],
+      "scores": [
+        83,
+        90,
+        66,
+        44,
+        37
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        3,
+        0,
+        3
+      ],
+      "scores": [
+        70,
+        75,
+        65,
+        60,
+        78
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        1,
+        1,
+        0
+      ],
+      "scores": [
+        85,
+        80,
+        78,
+        72,
+        55
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        2,
+        2,
+        3
+      ],
+      "scores": [
+        73,
+        76,
+        56,
+        45,
+        68
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        1,
+        0,
+        3,
+        3
+      ],
+      "scores": [
+        62,
+        56,
+        82,
+        79,
+        88
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        3,
+        2,
+        0,
+        1
+      ],
+      "scores": [
+        85,
+        72,
+        83,
+        70,
+        78
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        0,
+        3,
+        3,
+        0
+      ],
+      "scores": [
+        74,
+        34,
+        78,
+        81,
+        89
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "scores": [
+        58,
+        72,
+        69,
+        90,
+        74
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        1,
+        3,
+        0,
+        3
+      ],
+      "scores": [
+        52,
+        47,
+        42,
+        33,
+        56
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        2,
+        2,
+        0
+      ],
+      "scores": [
+        58,
+        90,
+        76,
+        84,
+        86
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        0,
+        1,
+        1,
+        3
+      ],
+      "scores": [
+        28,
+        31,
+        25,
+        35,
+        33
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        1,
+        1,
+        3,
+        1
+      ],
+      "scores": [
+        44,
+        63,
+        62,
+        67,
+        61
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        1,
+        1,
+        2,
+        3
+      ],
+      "scores": [
+        84,
+        93,
+        88,
+        83,
+        86
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        0,
+        3,
+        3,
+        3
+      ],
+      "scores": [
+        55,
+        41,
+        28,
+        88,
+        78
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      "scores": [
+        72,
+        83,
+        88,
+        91,
+        79
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        0,
+        3,
+        3,
+        3
+      ],
+      "scores": [
+        18,
+        15,
+        6,
+        6,
+        10
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        3,
+        3,
+        0,
+        2
+      ],
+      "scores": [
+        88,
+        86,
+        76,
+        68,
+        78
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        0,
+        1,
+        0
+      ],
+      "scores": [
+        15,
+        35,
+        55,
+        45,
+        50
+      ]
+    }
+  ],
+  "status": "gate_failed",
+  "summary": {
+    "aligned": {
+      "optimal_root_count": 12,
+      "pairwise_accuracy": 0.6528925619834711,
+      "pairwise_comparable_count": 121,
+      "pairwise_points": 79.0,
+      "root_values_by_task": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          2,
+          0,
+          0
+        ],
+        [
+          1,
+          3,
+          1,
+          0,
+          1
+        ],
+        [
+          3,
+          3,
+          2,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          2,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          2,
+          3,
+          2
+        ],
+        [
+          2,
+          1,
+          2,
+          3,
+          2
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          2,
+          3,
+          0,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          3,
+          3,
+          1,
+          3,
+          2
+        ],
+        [
+          2,
+          2,
+          3,
+          3,
+          3
+        ],
+        [
+          3,
+          3,
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          2,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "selected_root_indices": [
+        0,
+        2,
+        0,
+        4,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        4,
+        0,
+        0,
+        1,
+        3,
+        3,
+        0,
+        4
+      ],
+      "selected_root_total": 34,
+      "selected_root_values": [
+        1,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        2,
+        3,
+        2,
+        0,
+        3,
+        2,
+        3,
+        2,
+        0,
+        3,
+        0
+      ],
+      "task_pairwise_accuracies": [
+        0.0,
+        0.75,
+        0.7142857142857143,
+        0.75,
+        0.3333333333333333,
+        0.8571428571428571,
+        0.5,
+        0.42857142857142855,
+        0.5714285714285714,
+        0.625,
+        0.875,
+        1.0,
+        0.0,
+        0.7142857142857143,
+        0.0,
+        1.0,
+        0.8571428571428571,
+        0.0,
+        0.6666666666666666,
+        0.0
+      ],
+      "varying_score_vector_count": 20
+    },
+    "aligned_minus_shuffled_endpoint_total": 3,
+    "aligned_minus_shuffled_pairwise_accuracy": 0.14049586776859513,
+    "aligned_vs_shuffled_endpoint_losses": 4,
+    "aligned_vs_shuffled_endpoint_ties": 12,
+    "aligned_vs_shuffled_endpoint_wins": 4,
+    "endpoint_sign_flip_one_sided_p": 0.3515625,
+    "existing_myopic": {
+      "optimal_root_count": 8,
+      "pairwise_accuracy": 0.5537190082644629,
+      "pairwise_comparable_count": 121,
+      "pairwise_points": 67.0,
+      "root_values_by_task": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          2,
+          0,
+          0
+        ],
+        [
+          1,
+          3,
+          1,
+          0,
+          1
+        ],
+        [
+          3,
+          3,
+          2,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          2,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          2,
+          3,
+          2
+        ],
+        [
+          2,
+          1,
+          2,
+          3,
+          2
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          2,
+          3,
+          0,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          3,
+          3,
+          1,
+          3,
+          2
+        ],
+        [
+          2,
+          2,
+          3,
+          3,
+          3
+        ],
+        [
+          3,
+          3,
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          2,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "selected_root_indices": [
+        0,
+        2,
+        0,
+        4,
+        0,
+        0,
+        2,
+        0,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        0,
+        2,
+        4,
+        2,
+        0,
+        2
+      ],
+      "selected_root_total": 28,
+      "selected_root_values": [
+        1,
+        2,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        0,
+        1,
+        2,
+        0,
+        1,
+        3,
+        2,
+        2,
+        0,
+        0,
+        3,
+        0
+      ],
+      "task_pairwise_accuracies": [
+        0.0,
+        0.75,
+        0.5714285714285714,
+        0.75,
+        0.3333333333333333,
+        0.5714285714285714,
+        0.625,
+        0.7142857142857143,
+        0.2857142857142857,
+        0.625,
+        0.75,
+        0.5,
+        1.0,
+        0.5714285714285714,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.7777777777777778,
+        0.0
+      ],
+      "varying_score_vector_count": 20
+    },
+    "gates": {
+      "aligned_endpoint_advantage_at_least_3": true,
+      "aligned_endpoint_losses_at_most_2": false,
+      "aligned_endpoint_wins_at_least_3": true,
+      "aligned_minus_myopic_accuracy_at_least_0_05": true,
+      "aligned_minus_shuffled_accuracy_at_least_0_05": true,
+      "aligned_pairwise_accuracy_at_least_0_60": true,
+      "all_aligned_score_vectors_vary": true,
+      "all_cases_complete": true,
+      "all_future_subtree_multisets_preserved": true,
+      "all_pass": false,
+      "all_permutations_are_derangements": true,
+      "all_shuffled_score_vectors_vary": true,
+      "balanced_blinding": true,
+      "exact_physical_request_count": true,
+      "nonfuture_fields_unchanged": true,
+      "score_vectors_change_on_at_least_15_tasks": true,
+      "zero_reasoning_tokens": true
+    },
+    "score_vectors_changed_count": 20,
+    "shuffled": {
+      "optimal_root_count": 11,
+      "pairwise_accuracy": 0.512396694214876,
+      "pairwise_comparable_count": 121,
+      "pairwise_points": 62.0,
+      "root_values_by_task": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          2,
+          0,
+          0
+        ],
+        [
+          1,
+          3,
+          1,
+          0,
+          1
+        ],
+        [
+          3,
+          3,
+          2,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          2,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          2,
+          3,
+          2
+        ],
+        [
+          2,
+          1,
+          2,
+          3,
+          2
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          2,
+          3,
+          0,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        [
+          3,
+          3,
+          1,
+          3,
+          2
+        ],
+        [
+          2,
+          2,
+          3,
+          3,
+          3
+        ],
+        [
+          3,
+          3,
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          2,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "selected_root_indices": [
+        4,
+        0,
+        1,
+        4,
+        0,
+        1,
+        4,
+        0,
+        4,
+        3,
+        4,
+        1,
+        3,
+        3,
+        1,
+        3,
+        3,
+        0,
+        0,
+        2
+      ],
+      "selected_root_total": 31,
+      "selected_root_values": [
+        1,
+        1,
+        3,
+        2,
+        2,
+        3,
+        2,
+        2,
+        1,
+        0,
+        0,
+        2,
+        1,
+        3,
+        2,
+        1,
+        2,
+        0,
+        3,
+        0
+      ],
+      "task_pairwise_accuracies": [
+        0.0,
+        0.625,
+        0.8571428571428571,
+        0.75,
+        0.3333333333333333,
+        0.7142857142857143,
+        0.375,
+        0.42857142857142855,
+        0.2857142857142857,
+        0.125,
+        0.375,
+        0.3333333333333333,
+        1.0,
+        0.5714285714285714,
+        0.3333333333333333,
+        0.25,
+        0.7142857142857143,
+        0.0,
+        0.7777777777777778,
+        0.0
+      ],
+      "varying_score_vector_count": 20
+    },
+    "task_pairwise_sign_flip_one_sided_p": 0.153564453125
+  },
+  "usage": {
+    "adapter_cost_usd": 0.7957424999999999,
+    "generator": {
+      "adapter_completion_tokens": 1380,
+      "adapter_cost_usd": 0.7957424999999999,
+      "adapter_prompt_tokens": 310017,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 20,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 1380,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 20,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 1380,
+          "cost_usd": 0.7957424999999999,
+          "prompt_tokens": 310017,
+          "reasoning_tokens": 0,
+          "requests": 20
+        }
+      },
+      "prompt_tokens": 310017,
+      "reasoning_tokens": 0,
+      "remaining_usd": 19.710790376249747,
+      "requests": 20,
+      "retry_count": 0,
+      "run_budget_usd": 1.0,
+      "run_cost_usd": 0.7957424999999999,
+      "run_remaining_usd": 0.2042575000000001,
+      "total_spent_usd": 85.6740123192074
+    },
+    "physical_requests": 20,
+    "reasoning_tokens": 0
+  }
+}
