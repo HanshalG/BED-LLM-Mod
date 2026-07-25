@@ -1,0 +1,48 @@
+{
+  "error": "SmokeExecutionError: ValueError: hypothesis has invalid length",
+  "interface_version": "hil-bench-support-expansion-smoke-1",
+  "private_raw_sha256": "2ad638e8b443ace9e2743958111df51455f03fd3058b3a432f15db1d08fc1d90",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.050995,
+    "forced_exits": 0,
+    "http_attempts": 8,
+    "model": {
+      "adapter_completion_tokens": 2535,
+      "adapter_cost_usd": 0.050995,
+      "adapter_prompt_tokens": 5188,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 8,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 2535,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 8,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 2535,
+          "cost_usd": 0.050995,
+          "prompt_tokens": 5188,
+          "reasoning_tokens": 0,
+          "requests": 8
+        }
+      },
+      "prompt_tokens": 5188,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.182898600000073,
+      "requests": 8,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.050995,
+      "run_remaining_usd": 0.699005,
+      "total_spent_usd": 86.96040621920734
+    },
+    "physical_requests": 8,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
