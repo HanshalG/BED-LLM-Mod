@@ -1,0 +1,49 @@
+{
+  "error": "SmokeExecutionError: ValueError: ClariQ response-code length changed",
+  "interface_version": "clariq-dynamic-support-smoke-1",
+  "manifest_sha256": "8871d72aca825aa5b34cf52295eb93fe79caf631c0bba070d82abf6c3bec698d",
+  "private_raw_sha256": "07735493d6b72895fa0dabde789be4b02601af303084bb35e7eff940e1b5f3d2",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0071425,
+    "forced_exits": 0,
+    "http_attempts": 1,
+    "model": {
+      "adapter_completion_tokens": 259,
+      "adapter_cost_usd": 0.0071425,
+      "adapter_prompt_tokens": 1303,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 1,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 259,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 1,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 259,
+          "cost_usd": 0.0071425,
+          "prompt_tokens": 1303,
+          "reasoning_tokens": 0,
+          "requests": 1
+        }
+      },
+      "prompt_tokens": 1303,
+      "reasoning_tokens": 0,
+      "remaining_usd": 13.091824290776685,
+      "requests": 1,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.0071425,
+      "run_remaining_usd": 0.4928575,
+      "total_spent_usd": 91.90817570922331
+    },
+    "physical_requests": 1,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
