@@ -232,6 +232,10 @@ def run_gate(
     model_id: str = MODEL_ID,
     interface_version: str = INTERFACE_VERSION,
     model_adapter: Any | None = None,
+    root_message_builder: Any = scorer_messages,
+    root_response_parser: Any = parse_root_scores,
+    focused_message_builder: Any = document_count_messages,
+    focused_response_parser: Any = parse_focused_scores,
 ) -> dict[str, Any]:
     if config.model_pairs[0].questioner.model != model_id:
         raise ValueError("cross-model scorer config selects the wrong model")
@@ -243,7 +247,7 @@ def run_gate(
     try:
         myopic_raw = model.chat_complete_messages_batched(
             [
-                scorer_messages(record, include_followups=False)
+                root_message_builder(record, include_followups=False)
                 for record in records
             ],
             temperature=0.0,
@@ -253,13 +257,13 @@ def run_gate(
         raw["myopic_root_scores"] = myopic_raw
         _checkpoint(raw_checkpoint_path, stage=stage, raw=raw)
         myopic_scores = [
-            parse_root_scores(text, include_followups=False)
+            root_response_parser(text, include_followups=False)
             for text in myopic_raw
         ]
 
         nonmyopic_raw = model.chat_complete_messages_batched(
             [
-                scorer_messages(record, include_followups=True)
+                root_message_builder(record, include_followups=True)
                 for record in records
             ],
             temperature=0.0,
@@ -269,7 +273,7 @@ def run_gate(
         raw["nonmyopic_root_scores"] = nonmyopic_raw
         _checkpoint(raw_checkpoint_path, stage=stage, raw=raw)
         nonmyopic_scores = [
-            parse_root_scores(text, include_followups=True)
+            root_response_parser(text, include_followups=True)
             for text in nonmyopic_raw
         ]
 
@@ -280,7 +284,7 @@ def run_gate(
         ]
         focused_raw = model.chat_complete_messages_batched(
             [
-                document_count_messages(records[case_index], root_index)
+                focused_message_builder(records[case_index], root_index)
                 for case_index, root_index in focused_keys
             ],
             temperature=0.0,
@@ -289,7 +293,9 @@ def run_gate(
         )
         raw["focused_continuation_scores"] = focused_raw
         _checkpoint(raw_checkpoint_path, stage=stage, raw=raw)
-        parsed_focused = [parse_focused_scores(text) for text in focused_raw]
+        parsed_focused = [
+            focused_response_parser(text) for text in focused_raw
+        ]
         continuation_scores = [
             parsed_focused[
                 case_index

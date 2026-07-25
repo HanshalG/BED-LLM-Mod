@@ -37,6 +37,8 @@ def apply_thinking_gates(
     payload: dict[str, Any],
     *,
     stage: str,
+    thinking_max_new_tokens: int = 4096,
+    thinking_final_max_new_tokens: int = 1024,
 ) -> dict[str, Any]:
     expected = EXPECTED_LOGICAL_REQUESTS[stage]
     usage = payload["usage"]
@@ -78,8 +80,8 @@ def apply_thinking_gates(
             "maximum_physical_requests": 2 * expected,
             "expected_physical_requests": None,
             "reasoning_requested": True,
-            "thinking_max_new_tokens": 4096,
-            "thinking_final_max_new_tokens": 1024,
+            "thinking_max_new_tokens": thinking_max_new_tokens,
+            "thinking_final_max_new_tokens": thinking_final_max_new_tokens,
             "forced_final_is_reasoning_disabled": True,
             "stage_cost_cap_usd": COST_CAP_USD[stage],
         }
