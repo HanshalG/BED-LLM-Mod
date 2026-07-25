@@ -1,0 +1,27 @@
+{
+  "interface_version": "zendo-particle-multiset-confirmation-1",
+  "private_raw_sha256": "d93af106439e3c8292b5a01fc062aa66fdcbb90a181e7dbabc9703a3735e7825",
+  "run_failure_sha256": "a6b8f1a904d845918500900fc219a00eb219835010e31da32807f480efaaf7ac",
+  "run_id": "zendo-particle-multiset-confirmation-20260725T073814Z",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "summary": {
+    "branch_requests": 0,
+    "failed_task": "kappa",
+    "failure": "invalid predicate attribute/value pair",
+    "hidden_endpoints_evaluated": 0,
+    "scorer_requests": 0,
+    "stored_initial_populations_invalid": 1,
+    "stored_initial_populations_valid": 2
+  },
+  "usage": {
+    "completion_tokens": 4459,
+    "cost_usd": 0.074735,
+    "forced_exits": 0,
+    "http_attempts": 7,
+    "physical_requests": 7,
+    "prompt_tokens": 3140,
+    "reasoning_tokens": 0,
+    "retries": 0
+  }
+}
