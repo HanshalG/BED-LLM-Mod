@@ -1,0 +1,269 @@
+{
+  "aligned_scores": [
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        2,
+        0,
+        1
+      ],
+      "scores": [
+        85,
+        45,
+        80,
+        58,
+        62
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        2,
+        2,
+        3
+      ],
+      "scores": [
+        40,
+        63,
+        46,
+        51,
+        20
+      ]
+    }
+  ],
+  "blinding_assignments": [
+    {
+      "condition_a": "shuffled",
+      "condition_b": "aligned",
+      "task_id": "task_018"
+    },
+    {
+      "condition_a": "aligned",
+      "condition_b": "shuffled",
+      "task_id": "task_008"
+    }
+  ],
+  "intervention": {
+    "all_future_subtree_multisets_preserved": true,
+    "all_permutations_are_derangements": true,
+    "nonfuture_fields_unchanged": true,
+    "original_nonfuture_sha256": "b780bf04ce01ed878c0b3843b674049767ed5b2ae3757bb7d1e21138bde8f050",
+    "transformed_nonfuture_sha256": "b780bf04ce01ed878c0b3843b674049767ed5b2ae3757bb7d1e21138bde8f050"
+  },
+  "permutations": [
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        1,
+        2,
+        0,
+        4,
+        3
+      ],
+      "task_id": "task_018"
+    },
+    {
+      "future_subtree_multiset_preserved": true,
+      "is_derangement": true,
+      "source_branch_for_target": [
+        3,
+        2,
+        1,
+        4,
+        0
+      ],
+      "task_id": "task_008"
+    }
+  ],
+  "protocol": {
+    "blinding_seed": 24362,
+    "expected_physical_requests": 2,
+    "interface_version": "future-alignment-paired-1",
+    "model": "openai/gpt-5.4",
+    "permutation_seed": 24361,
+    "posthoc_open_tree_causal_ablation": true,
+    "private_raw_sha256": "9d50d060e5dbfeee983f12ebb4b08c324366f39d6f7de5a7d1d015c5611ee2aa",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_requested": false,
+    "source_artifact_sha256": "61c466ead49a5545abd54dd28e1a2fd7ad070287f5108684a3b2643befc40a01",
+    "stage": "serving_smoke",
+    "target_blind_prompts": true,
+    "task_ids": [
+      "task_018",
+      "task_008"
+    ],
+    "tree_regeneration_requests": 0
+  },
+  "schema_version": 1,
+  "shuffled_scores": [
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        2,
+        0,
+        0
+      ],
+      "scores": [
+        82,
+        68,
+        78,
+        52,
+        60
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        3,
+        3,
+        3,
+        0
+      ],
+      "scores": [
+        55,
+        48,
+        56,
+        20,
+        42
+      ]
+    }
+  ],
+  "status": "passed",
+  "summary": {
+    "aligned": {
+      "optimal_root_count": 1,
+      "pairwise_accuracy": 0.75,
+      "pairwise_comparable_count": 8,
+      "pairwise_points": 6.0,
+      "root_values_by_task": [
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          0
+        ]
+      ],
+      "selected_root_indices": [
+        0,
+        1
+      ],
+      "selected_root_total": 2,
+      "selected_root_values": [
+        2,
+        0
+      ],
+      "task_pairwise_accuracies": [
+        1.0,
+        0.5
+      ],
+      "varying_score_vector_count": 2
+    },
+    "aligned_minus_shuffled_endpoint_total": -2,
+    "aligned_minus_shuffled_pairwise_accuracy": -0.25,
+    "aligned_vs_shuffled_endpoint_losses": 1,
+    "aligned_vs_shuffled_endpoint_ties": 1,
+    "aligned_vs_shuffled_endpoint_wins": 0,
+    "endpoint_sign_flip_one_sided_p": 1.0,
+    "existing_myopic": null,
+    "gates": {
+      "all_aligned_score_vectors_vary": true,
+      "all_cases_complete": true,
+      "all_future_subtree_multisets_preserved": true,
+      "all_pass": true,
+      "all_permutations_are_derangements": true,
+      "all_shuffled_score_vectors_vary": true,
+      "balanced_blinding": true,
+      "exact_physical_request_count": true,
+      "nonfuture_fields_unchanged": true,
+      "zero_reasoning_tokens": true
+    },
+    "score_vectors_changed_count": 2,
+    "shuffled": {
+      "optimal_root_count": 2,
+      "pairwise_accuracy": 1.0,
+      "pairwise_comparable_count": 8,
+      "pairwise_points": 8.0,
+      "root_values_by_task": [
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          0
+        ]
+      ],
+      "selected_root_indices": [
+        0,
+        2
+      ],
+      "selected_root_total": 4,
+      "selected_root_values": [
+        2,
+        2
+      ],
+      "task_pairwise_accuracies": [
+        1.0,
+        1.0
+      ],
+      "varying_score_vector_count": 2
+    },
+    "task_pairwise_sign_flip_one_sided_p": 1.0
+  },
+  "usage": {
+    "adapter_cost_usd": 0.08374000000000001,
+    "generator": {
+      "adapter_completion_tokens": 138,
+      "adapter_cost_usd": 0.08374000000000001,
+      "adapter_prompt_tokens": 32668,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 2,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 138,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 2,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 138,
+          "cost_usd": 0.08374000000000001,
+          "prompt_tokens": 32668,
+          "reasoning_tokens": 0,
+          "requests": 2
+        }
+      },
+      "prompt_tokens": 32668,
+      "reasoning_tokens": 0,
+      "remaining_usd": 20.506532876249764,
+      "requests": 2,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.08374000000000001,
+      "run_remaining_usd": 0.16626,
+      "total_spent_usd": 84.87826981920739
+    },
+    "physical_requests": 2,
+    "reasoning_tokens": 0
+  }
+}
