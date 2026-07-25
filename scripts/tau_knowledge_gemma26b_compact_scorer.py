@@ -224,7 +224,13 @@ def parse_compact_focused_scores(text: str) -> dict[str, Any]:
     }
 
 
-def main() -> None:
+def main(
+    *,
+    model_id: str = MODEL_ID,
+    interface_version: str = INTERFACE_VERSION,
+    thinking_max_new_tokens: int = THINKING_MAX_NEW_TOKENS,
+    thinking_final_max_new_tokens: int = THINKING_FINAL_MAX_NEW_TOKENS,
+) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument(
@@ -258,12 +264,12 @@ def main() -> None:
 
     spec = config.model_pairs[0].questioner
     if (
-        spec.model != MODEL_ID
+        spec.model != model_id
         or not spec.thinking
-        or spec.thinking_max_new_tokens != THINKING_MAX_NEW_TOKENS
-        or spec.thinking_final_max_new_tokens != THINKING_FINAL_MAX_NEW_TOKENS
+        or spec.thinking_max_new_tokens != thinking_max_new_tokens
+        or spec.thinking_final_max_new_tokens != thinking_final_max_new_tokens
     ):
-        raise ValueError("compact Gemma thinking scorer config does not match")
+        raise ValueError("compact thinking scorer config does not match")
     model = build_model_adapter(spec, config)
     try:
         payload = run_gate(
@@ -272,8 +278,8 @@ def main() -> None:
             input_artifact=args.input_artifact,
             nonsemantic_analysis=args.nonsemantic_analysis,
             raw_checkpoint_path=raw_path,
-            model_id=MODEL_ID,
-            interface_version=INTERFACE_VERSION,
+            model_id=model_id,
+            interface_version=interface_version,
             model_adapter=model,
             root_message_builder=compact_root_messages,
             root_response_parser=parse_compact_root_scores,
@@ -283,8 +289,8 @@ def main() -> None:
         payload = apply_thinking_gates(
             payload,
             stage=args.stage,
-            thinking_max_new_tokens=THINKING_MAX_NEW_TOKENS,
-            thinking_final_max_new_tokens=THINKING_FINAL_MAX_NEW_TOKENS,
+            thinking_max_new_tokens=thinking_max_new_tokens,
+            thinking_final_max_new_tokens=thinking_final_max_new_tokens,
         )
         payload["protocol"].update(
             {
@@ -299,8 +305,8 @@ def main() -> None:
             "schema_version": SCHEMA_VERSION,
             "status": "failed_closed",
             "stage": args.stage,
-            "interface_version": INTERFACE_VERSION,
-            "model": MODEL_ID,
+            "interface_version": interface_version,
+            "model": model_id,
             "error": f"{type(exc).__name__}: {exc}",
         }
         if isinstance(exc, GateExecutionError):
