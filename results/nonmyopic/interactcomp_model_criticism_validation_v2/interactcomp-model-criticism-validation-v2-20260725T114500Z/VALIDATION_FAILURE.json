@@ -1,0 +1,81 @@
+{
+  "error": "ValidationExecutionError: ValueError: question must be a bounded single question",
+  "interface_version": "interactcomp-model-criticism-validation-2",
+  "private_raw_sha256": "b16ff355583328d7933ecc39fa28f01f8ac7e88ab3bf2b88848f13b542159149",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.09592259999999993,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 11420,
+      "adapter_cost_usd": 0.09592259999999993,
+      "adapter_prompt_tokens": 66980,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 152,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 11420,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 152,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 11420,
+          "cost_usd": 0.09592259999999993,
+          "prompt_tokens": 66980,
+          "reasoning_tokens": 0,
+          "requests": 152
+        }
+      },
+      "prompt_tokens": 66980,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.667622149999886,
+      "requests": 152,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.09592259999999993,
+      "run_remaining_usd": 1.4040774,
+      "total_spent_usd": 86.47568266920753
+    },
+    "http_attempts": 152,
+    "physical_requests": 152,
+    "reasoning_tokens": 0,
+    "responder": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 11420,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 11420,
+          "cost_usd": 0.09592259999999993,
+          "prompt_tokens": 66980,
+          "reasoning_tokens": 0,
+          "requests": 152
+        }
+      },
+      "prompt_tokens": 66980,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.667622149999886,
+      "requests": 152,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.09592259999999993,
+      "run_remaining_usd": 1.4040774,
+      "total_spent_usd": 86.47568266920753
+    },
+    "retry_count": 0
+  }
+}
