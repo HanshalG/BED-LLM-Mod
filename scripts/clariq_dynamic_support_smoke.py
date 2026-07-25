@@ -100,6 +100,10 @@ class DeterministicFixtureModel:
         for messages in batch_messages:
             payload = json.loads(messages[-1]["content"])
             questions = payload["questions"]
+            spaced_codes = any(
+                "single-space-separated" in line
+                for line in payload["exact_output_grammar"]
+            )
             salt = json.dumps(
                 {
                     "request": payload["initial_request"],
@@ -125,10 +129,15 @@ class DeterministicFixtureModel:
                 descriptor = hashlib.sha256(
                     f"{salt}:{hypothesis_index}".encode("utf-8")
                 ).hexdigest()[:12]
+                prediction_field = (
+                    " ".join(predictions)
+                    if spaced_codes
+                    else "".join(predictions)
+                )
                 lines.append(
                     f"H{hypothesis_index + 1:02d}|"
                     f"{masses[hypothesis_index]}|"
-                    f"{''.join(predictions)}|"
+                    f"{prediction_field}|"
                     f"plausible intent {descriptor}"
                 )
             responses.append("\n".join(lines))
@@ -185,6 +194,7 @@ def support_messages(
     question_ids: Sequence[str],
     prior_support: Support | None = None,
     observed: Mapping[str, str] | None = None,
+    spaced_codes: bool = False,
 ) -> list[dict[str, str]]:
     questions = _question_payload(task, question_ids)
     if observed is None:
@@ -209,12 +219,18 @@ def support_messages(
             "the response-option code that would follow if that hypothesis "
             "were true."
         )
+    code_format = (
+        "Separate the single-letter response codes with exactly one ASCII "
+        "space."
+        if spaced_codes
+        else "Concatenate the response codes without spaces or punctuation."
+    )
     system = (
         instruction
         + " Output exactly eight ordered lines as "
         "H01|mass|response-codes|short intent hypothesis through H08. The "
         "response-code string must contain exactly one listed code per "
-        "question in input order. Do not use the | character inside a "
+        f"question in input order. {code_format} Do not use the | character inside a "
         "hypothesis. Return no JSON, markdown, explanation, blank lines, or "
         "reasoning."
     )
@@ -241,7 +257,9 @@ def support_messages(
         "exact_output_grammar": [
             (
                 f"H{index:02d}|0..100 unnormalized mass|"
-                f"{len(question_ids)} response codes|short intent hypothesis"
+                f"{len(question_ids)} "
+                f"{'single-space-separated ' if spaced_codes else ''}"
+                "response codes|short intent hypothesis"
             )
             for index in range(1, HYPOTHESIS_COUNT + 1)
         ],
@@ -259,6 +277,7 @@ def parse_support(
     text: str,
     *,
     questions: Sequence[Mapping[str, Any]],
+    spaced_codes: bool = False,
 ) -> Support:
     lines = flat._response_lines(text)
     if len(lines) != HYPOTHESIS_COUNT:
@@ -282,9 +301,19 @@ def parse_support(
                 maximum=100,
             )
         )
-        prediction = parts[2]
-        if len(prediction) != len(questions):
-            raise ValueError("ClariQ response-code length changed")
+        if spaced_codes:
+            code_tokens = parts[2].split(" ")
+            if (
+                parts[2] != " ".join(code_tokens)
+                or any(len(token) != 1 for token in code_tokens)
+                or len(code_tokens) != len(questions)
+            ):
+                raise ValueError("ClariQ spaced response-code shape changed")
+            prediction = "".join(code_tokens)
+        else:
+            prediction = parts[2]
+            if len(prediction) != len(questions):
+                raise ValueError("ClariQ response-code length changed")
         if any(
             code not in allowed
             for code, allowed in zip(

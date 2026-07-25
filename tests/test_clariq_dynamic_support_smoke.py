@@ -64,6 +64,31 @@ def test_parse_support_accepts_unnormalized_zero_masses() -> None:
     assert support.probabilities[-1] == 0.0
 
 
+def test_parse_support_accepts_exact_single_space_codes_only() -> None:
+    spaced = _response().replace("|AA|", "|A A|").replace(
+        "|AB|", "|A B|"
+    ).replace("|BA|", "|B A|").replace("|BB|", "|B B|")
+    support = parse_support(
+        spaced,
+        questions=QUESTIONS,
+        spaced_codes=True,
+    )
+    assert support.predictions[0] == "AA"
+
+    with pytest.raises(ValueError, match="spaced response-code shape"):
+        parse_support(
+            spaced.replace("|A A|", "|A  A|", 1),
+            questions=QUESTIONS,
+            spaced_codes=True,
+        )
+    with pytest.raises(ValueError, match="spaced response-code shape"):
+        parse_support(
+            _response(),
+            questions=QUESTIONS,
+            spaced_codes=True,
+        )
+
+
 def test_parse_support_rejects_all_zero_or_invalid_codes() -> None:
     with pytest.raises(ValueError, match="positive total"):
         parse_support(
