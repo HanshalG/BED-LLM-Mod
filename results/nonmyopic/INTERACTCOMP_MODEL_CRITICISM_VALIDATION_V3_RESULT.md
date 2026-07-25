@@ -72,6 +72,35 @@ now-open tasks, but any claim would require a new environment or fully fresh
 prospective task block. No InteractComp V4, threshold relaxation, favorable
 subset, wider proposal rerun, or depth-two efficacy run is authorized here.
 
+## Descriptive Support-Preservation Replay
+
+A zero-call post-result replay tested that proposed update on the frozen V3
+artifacts:
+
+1. retain current and auxiliary particles whose predicted Y/N/U label equals
+   the realized response;
+2. add the eight refreshed particles; and
+3. measure exact target mass in the merged population.
+
+This raises positive target coverage from one to two tasks and preserves the
+target that fresh regeneration forgot on task 87:
+
+| Mean merged-support endpoint | Value |
+|---|---:|
+| Model criticism | `.09848` |
+| Compute-matched augmented EIG | `.09848` |
+| Current EIG | `.00926` |
+| Random | `.00926` |
+| Oracle | `.09848` |
+
+Task 87's four merged endpoints range only from `.0526` to `.0909`; task 193
+ranges from `0` to `.50`; the other four remain zero everywhere. Model
+criticism selects the oracle on both positive tasks, but augmented EIG selects
+the same roots and achieves the identical endpoint. Support preservation
+therefore repairs one forgetting failure but does not solve low target coverage
+or establish a non-myopic advantage. This replay is descriptive and does not
+alter the preregistered null.
+
 ## Integrity And Cost
 
 - Preregistered commit: `59ec451`.
