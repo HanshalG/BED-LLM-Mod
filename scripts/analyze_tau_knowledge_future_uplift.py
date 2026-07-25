@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import hashlib
 import json
 from pathlib import Path
@@ -13,9 +14,6 @@ from typing import Any, Sequence
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.analyze_tau_knowledge_first_link_confirmation import (
-    exact_sign_flip_pvalue,
-)
 from scripts.tau_knowledge_first_link_scorer import pairwise_ranking_points
 from scripts.tau_knowledge_retrieval_opportunity import analyze_record
 
@@ -34,6 +32,30 @@ def _sha256(path: Path) -> str:
 
 def _argmax(values: Sequence[int]) -> int:
     return max(range(len(values)), key=lambda index: (values[index], -index))
+
+
+def exact_half_step_sign_flip_pvalue(values: Sequence[float]) -> float:
+    scaled_values = []
+    for value in values:
+        scaled = round(abs(value) * 2)
+        if abs(abs(value) * 2 - scaled) > 1e-9:
+            raise ValueError("sign-flip input is not a half-step value")
+        if scaled:
+            scaled_values.append(scaled)
+    if not scaled_values:
+        return 1.0
+    observed = round(sum(values) * 2)
+    distribution: Counter[int] = Counter({0: 1})
+    for value in scaled_values:
+        updated: Counter[int] = Counter()
+        for subtotal, count in distribution.items():
+            updated[subtotal - value] += count
+            updated[subtotal + value] += count
+        distribution = updated
+    extreme = sum(
+        count for subtotal, count in distribution.items() if subtotal >= observed
+    )
+    return extreme / (2 ** len(scaled_values))
 
 
 def _task_row(
@@ -143,7 +165,7 @@ def _summarize_rows(rows: Sequence[dict[str, Any]]) -> dict[str, Any]:
         ),
         "uplift_future_gain_points": uplift_points,
         "uplift_above_chance_task_sign_flip_p": (
-            exact_sign_flip_pvalue(task_above_chance)
+            exact_half_step_sign_flip_pvalue(task_above_chance)
         ),
         "full_score_future_gain_pairwise_accuracy": (
             full_points / comparable if comparable else 0.0

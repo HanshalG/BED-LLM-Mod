@@ -3,6 +3,10 @@ from __future__ import annotations
 from scripts.analyze_tau_knowledge_future_uplift import (
     _summarize_rows,
     _task_row,
+    exact_half_step_sign_flip_pvalue,
+)
+from scripts.analyze_tau_knowledge_first_link_confirmation import (
+    exact_sign_flip_pvalue,
 )
 
 
@@ -83,3 +87,11 @@ def test_summary_uses_task_clustered_sign_flip_and_totals():
     assert summary["uplift_future_gain_pairwise_accuracy"] == 1.0
     assert summary["uplift_selected_future_gain_total"] == 1
     assert summary["tasks_with_comparable_future_gain"] == 1
+
+
+def test_dynamic_sign_flip_matches_brute_force_exact_test():
+    values = [2.5, -1.0, 0.5, 0.0, 1.5]
+
+    assert exact_half_step_sign_flip_pvalue(values) == (
+        exact_sign_flip_pvalue(values)
+    )
