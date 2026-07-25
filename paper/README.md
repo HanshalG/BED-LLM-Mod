@@ -17,8 +17,9 @@ proposal gate selecting the exact route on 15/16 cells, followed by a positive
 replications against shared h4, matched-random h5, and exhaustive d4,
 the banked animals result, the natural-location depth audit, the
 $\tau$-Knowledge target-blind root-ranking replication and held-out
-count-dominant receding-policy result, and the Paprika and MediQ validation
-failures. Endpoint-invalid Paprika outcomes
+count-dominant receding-policy result, an exploratory externally scored Zendo
+path-dependent-belief smoke with pre-endpoint confirmation failures, and the
+Paprika and MediQ validation failures. Endpoint-invalid Paprika outcomes
 are diagnostic only, and no MediQ policy claim is made after the frozen likelihood
 gate failed.
 
