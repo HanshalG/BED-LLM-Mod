@@ -1,0 +1,5042 @@
+{
+  "continuation_scores": [
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          66,
+          35,
+          63,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          33,
+          66,
+          93,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          34,
+          68,
+          66
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          32,
+          94,
+          61,
+          63
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          62,
+          31,
+          92,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          67,
+          35,
+          33
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          38,
+          0,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          31,
+          31,
+          65
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          35,
+          68,
+          67,
+          35
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          0,
+          0,
+          33
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          67,
+          69,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          31,
+          0,
+          96
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          98,
+          32,
+          31,
+          34
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          63,
+          34,
+          0,
+          93
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          31,
+          67,
+          1,
+          61
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          35,
+          0,
+          66
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          2,
+          4,
+          6,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          35,
+          0,
+          0,
+          34
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          32,
+          0,
+          31,
+          62
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          0,
+          0,
+          31
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          31,
+          33,
+          93
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          31,
+          94,
+          0,
+          64
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          32,
+          64,
+          68
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          63,
+          62,
+          2,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          95,
+          4,
+          64,
+          1
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          93,
+          2,
+          31,
+          69
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          66,
+          34,
+          65,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          99,
+          0,
+          62,
+          62
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          33,
+          34,
+          35
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          35,
+          31,
+          33
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          66,
+          31,
+          1
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          5,
+          34,
+          34
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          35,
+          31,
+          36,
+          34
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          61,
+          4,
+          3,
+          92
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          95,
+          65,
+          61,
+          67
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          65,
+          64,
+          60,
+          38
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          65,
+          97,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          0,
+          97,
+          34
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          67,
+          32,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          32,
+          63,
+          65,
+          31
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          66,
+          62,
+          92
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          64,
+          98,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          33,
+          62,
+          68,
+          4
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          95,
+          63,
+          0,
+          61
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          0,
+          31,
+          31
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          35,
+          68,
+          67
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          31,
+          68,
+          67,
+          62
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          31,
+          65,
+          96
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          33,
+          31,
+          98,
+          61
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          66,
+          63,
+          92,
+          31
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          67,
+          0,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          68,
+          31,
+          61
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          32,
+          62,
+          0,
+          64
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          6,
+          4,
+          63
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          33,
+          31,
+          61,
+          62
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          36,
+          33,
+          33,
+          67
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          38,
+          68,
+          67,
+          38
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          64,
+          68,
+          35,
+          4
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          91,
+          31,
+          67,
+          8
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          69,
+          35,
+          33,
+          31
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          31,
+          34,
+          61
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          31,
+          63,
+          33,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          63,
+          5,
+          65,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          35,
+          62,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          62,
+          0,
+          31,
+          30
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          65,
+          6,
+          63
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          61,
+          94,
+          36,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          35,
+          67,
+          31,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          31,
+          62,
+          92,
+          61
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          93,
+          31,
+          63,
+          31
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          30,
+          33,
+          30
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          62,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          61,
+          62,
+          0,
+          30
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          33,
+          62,
+          3,
+          3
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          66,
+          63,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          65,
+          30,
+          66,
+          62
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          32,
+          65,
+          0,
+          65
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          31,
+          2,
+          68
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          62,
+          31,
+          0,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          34,
+          31,
+          4,
+          63
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          31,
+          61,
+          64
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          5,
+          31,
+          32
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          67,
+          63,
+          31,
+          67
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          68,
+          31,
+          93,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          62,
+          33,
+          31,
+          1
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          30,
+          0,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          0,
+          30,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          2,
+          0,
+          31,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          31,
+          62,
+          30,
+          0
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          65,
+          93,
+          31,
+          1
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          1,
+          0,
+          63,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          97,
+          3,
+          67,
+          98
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          31,
+          61,
+          0,
+          1
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          64,
+          0,
+          31,
+          65
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          0,
+          31,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          0,
+          31,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          31,
+          0,
+          32
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          31,
+          30,
+          31
+        ]
+      },
+      {
+        "rationales": [
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score",
+          "count-dominant document score"
+        ],
+        "scores": [
+          0,
+          34,
+          0,
+          0
+        ]
+      }
+    ]
+  ],
+  "myopic_scores": [
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "This root usefully covers business card reward options and MCC-based software classification, but not new-card eligibility, transaction-size approval, or signup-offer rules.",
+        "This root addresses initial credit limits, underwriting, and CLI options for large purchases, but gives little on rewards fit, merchant classification, or application requirements.",
+        "This root only adds generic bonus-offer qualification and exclusions plus broad rewards-category background, with weak relevance to the Apple Music purchase and no large-transaction guidance.",
+        "Aside from one credit-limit document, the results are mostly irrelevant internal servicing content and do not explain how to get a new business card approved for a $100,000 charge.",
+        "This root helps infer MCC treatment by showing software/SaaS qualification rules and exclusions, but it lacks concrete business card eligibility, large-purchase handling, and welcome-offer details."
+      ],
+      "scores": [
+        62,
+        58,
+        34,
+        23,
+        52
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It covers basic calculation, posting, returns, category coding, and some exclusions, but mixes card-specific rules and lacks error-correction guidance and promo details.",
+        "It mostly covers unrelated rebate and promo content, with only one result giving general posting and eligibility rules for cash back.",
+        "It gives strong eligibility, exclusion, net-purchase, category-code, and promo coverage, but little on posting timing or how to correct suspected errors.",
+        "It explains merchant category code effects and some qualifying versus nonqualifying spend, but provides limited broader cash-back calculation, posting, refund, or correction rules.",
+        "It is best for dispute and correction procedure after an approved issue, but it has little direct policy coverage on normal cash-back calculation, eligibility, posting, or category rules."
+      ],
+      "scores": [
+        52,
+        18,
+        61,
+        47,
+        39
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It covers a cash back card\u2019s earning rate, posting on posted transactions, statement display, return reversals, and internal correction steps but is narrow to specific cards and lacks review or escalation guidance.",
+        "It directly addresses discrepancy submission plus some statement-review basics like net calculation, posting updates, and transaction-specific disputes, though coverage is still card-specific and light on broader rules or exceptions.",
+        "These results are about BNPL and environmental reporting, not credit card cash back rewards or statement discrepancy handling.",
+        "It usefully covers exclusions, promo eligibility, varying earn rates, and refund/reversal effects, but it does not explain how to review, correct, or escalate a suspected rewards miscalculation.",
+        "Only one result is relevant, giving earn-rate categories and ineligible transaction types, while the other results do not provide a rewards adjustment or investigation procedure."
+      ],
+      "scores": [
+        62,
+        71,
+        0,
+        57,
+        22
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It gives a generic link-generation procedure and says to verify the card program exists, but lacks Crypto-Cash Back-specific eligibility, terms, limits, and mailer exceptions.",
+        "This set has the same useful coverage as root 1, centered on the internal referral-link process without confirming the specific mailed offer rules.",
+        "It only offers generic referral-program background plus unrelated business-card examples, so it does not resolve the Crypto-Cash Back mailer or link-access question well.",
+        "These results mostly cover unrelated promo or business referral terms and do not help the customer get a referral link for the Crypto-Cash Back mailed offer.",
+        "It best addresses what to do if a referral link is unavailable by giving the internal pre-check and no-link conditions, though the card-specific mailed-offer terms are still missing."
+      ],
+      "scores": [
+        42,
+        42,
+        18,
+        9,
+        55
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It covers core conditions, tracking, and some timing for credit card referrals but lacks investigation or escalation steps for a missing bonus.",
+        "It gives useful timing and spend requirements but is diluted by an irrelevant account referral result and still lacks investigation or adjustment guidance.",
+        "It best addresses tracking linkage and status interpretation plus some card-specific requirements, but provides little on remediation if the bonus failed to post.",
+        "It provides meaningful exclusions and status rules for credit card referrals but misses concrete posting timelines and missing-bonus resolution procedures.",
+        "It offers only limited status context and no real manual adjustment or escalation policy for a missing credit card referral bonus."
+      ],
+      "scores": [
+        74,
+        63,
+        68,
+        57,
+        18
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It directly covers Bronze savings closure steps, pending-transaction and balance conditions, fees, and notice periods, but mixes business and personal Bronze variants and misses broader multi-request handling.",
+        "It gives the main business checking opening eligibility and procedure, but lacks LLC-specific documentation, signer or beneficial ownership rules, and funding details.",
+        "It only offers generic closure cautions plus unrelated debit and credit card closure rules, so Evergreen checking closure policy is largely unresolved.",
+        "It strongly covers personal savings opening eligibility, identity verification, procedure, and funding by transfer, though it lacks explicit minimum deposit and general fee rules.",
+        "It usefully supplies business ownership, signer, identity, and legal-document requirements for an LLC, but not the actual business checking account opening eligibility or procedure."
+      ],
+      "scores": [
+        63,
+        58,
+        12,
+        74,
+        46
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "These results are mostly off-topic and only tangentially mention rewards, so they barely address credit card closure needs.",
+        "This set gives the core credit card closure eligibility and process, but lacks closure-specific rewards, authorized-user, disclosure, and timeline details.",
+        "It best covers authentication plus the actual closure procedure and core eligibility blockers needed to close the Green Rewards Card.",
+        "Despite the rewards-focused query, the results mainly provide general closure process and eligibility with little direct rewards-forfeiture guidance.",
+        "This root strongly covers balance and pending-transaction prerequisites and closure exceptions, though some results are off-product and it misses rewards and final-status details."
+      ],
+      "scores": [
+        6,
+        72,
+        85,
+        58,
+        74
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "D1 and D3 cover stolen-wallet cross-product handling plus debit freeze-vs-close rules, but they miss clear credit-card freeze rules, human transfer, and post-freeze fraud review.",
+        "D6 gives the right urgent transfer reason code, but the set lacks card-freeze procedures and D4-D5 are narrow transfer exceptions unrelated to wallet theft.",
+        "D3 provides useful debit-card verification and freeze-versus-close policy, but D2 and D7 are largely irrelevant and there is no transfer or credit-card theft handling.",
+        "D1 usefully links stolen debit reports to checking for credit cards and replacement offers, but D8 is off-topic and D9 is about debit-card ordering eligibility rather than blocking stolen cards.",
+        "D1 and D10 cover stolen-card security actions, replacement-related steps, and debit closure prerequisites, but they still do not explain credit-card freezing, live-agent transfer, or unauthorized-transaction review."
+      ],
+      "scores": [
+        72,
+        28,
+        35,
+        54,
+        61
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It gives core calculation and posting basics plus an internal correction path, but little on exclusions, investigation details, or general discrepancy handling.",
+        "It best addresses discrepancy review by combining dispute submission, needed transaction details, and some earning and reversal rules, though broader exclusion and timing policy is limited.",
+        "It covers posting timing, eligibility, exclusions, category-based rates, and return treatment well, but lacks review or correction procedures for a suspected error.",
+        "It provides the strongest exclusion and eligibility coverage with multiple card examples and reversal rules, but offers almost nothing on how to investigate or fix a discrepancy.",
+        "Aside from one card document noting reversals and ineligible transactions, the results are mostly irrelevant and do not explain rewards error review or adjustment policy."
+      ],
+      "scores": [
+        49,
+        68,
+        63,
+        66,
+        18
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It covers one card\u2019s earning rate, reversals and posting plus an internal correction procedure, but only partial product rules and little on broader eligibility, MCCs, or limits across cards.",
+        "It gives a basic debit cashback rule and one niche payment benefit, while the savings bonus document is only tangential and there is no real error-review or cross-card reconciliation policy.",
+        "It clearly explains MCC-based category mapping and category exceptions on several reward cards, but lacks dispute correction, broader exclusions, and account-wide audit procedures.",
+        "It provides some reversal and posting rules for eco and debit rewards, but one result is irrelevant and it still misses detailed remediation, MCC treatment, and multi-card reconciliation steps.",
+        "It mostly covers unrelated APY or APR promotions and a fee waiver, with only one document mentioning an extra cashback bonus and almost no usable guidance for cashback error auditing."
+      ],
+      "scores": [
+        70,
+        24,
+        61,
+        33,
+        18
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It mentions Gold Rewards only via point-to-cash representation, while the other results are wrong-card docs with only generic posting and reversal clues.",
+        "It gives a dispute path and generic Gold cash-back representation, but the EcoCard-specific result is actually for Business Gold and does not explain EcoCard earnings.",
+        "It covers generic posting timing and common exclusions plus a promo posting example, but none of the results explain Gold or EcoCard base cash-back calculation.",
+        "It directly covers how to submit and apply cash-back dispute corrections and notes recalculation factors, though it lacks the product-specific earning rules behind the discrepancy.",
+        "It only offers generic merchant-category qualification concepts and one unrelated rewards table, with no Gold or EcoCard policy, statement timing, or dispute handling."
+      ],
+      "scores": [
+        18,
+        22,
+        24,
+        61,
+        14
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It covers posting-based earning, returns reversals, and a rounding rule plus an internal correction doc, but it is skewed to specific products and misses broader discrepancy causes and statement details.",
+        "It best addresses discrepancy handling with statement representation, dispute submission, and net-of-returns posting rules, though product specificity limits full coverage.",
+        "It gives the strongest eligibility and exclusion coverage with merchant exceptions, promo timing, category rules, merchant-code dependence, and ineligible transaction types, but little on statements or investigations.",
+        "It directly covers posting, refunds, disputed transactions, common ineligible items, and both rewards-specific and general dispute paths, matching key reasons cash back can look wrong.",
+        "Aside from one relevant posting and reversal document, the other results are BNPL off-topic and provide almost no useful rewards statement terminology or adjustment coverage."
+      ],
+      "scores": [
+        52,
+        61,
+        67,
+        74,
+        29
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "These results only show Platinum card travel perks and replacement shipping, not whether or how to set a travel notification.",
+        "This set adds no-fee international use context but still lacks any travel notice policy, channels, required info, or steps.",
+        "The results discuss concierge and travel rewards categories rather than any submission channel or procedure for travel notifications.",
+        "This root partly helps by covering fraud monitoring and alerts on the Platinum card, but it still does not explain travel notices or how to prevent or resolve travel declines.",
+        "These results weakly suggest best practices like sharing travel dates and keeping contact info updated, but they do not provide an actual travel notification process or requirements."
+      ],
+      "scores": [
+        8,
+        12,
+        4,
+        26,
+        18
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It only gives a card-status lookup tool and irrelevant dispute/minor-limit info, missing shared-limit, fraud-block, and emergency-cash guidance.",
+        "It covers the teen card\u2019s $150 ATM limit but the other results are about unrelated account-specific limits and do not address the broader multi-card decline situation.",
+        "It provides some daily ATM limits for specific accounts but nothing shows a shared customer-level limit, fraud restriction, or stranded-customer procedure.",
+        "It best addresses possible fraud or security blocks through the security-block procedures, with only limited extra help from a Green Account limit document.",
+        "It has the clearest alternative-cash option via cashier\u2019s check, but it still lacks concrete immediate ATM-decline troubleshooting or multi-card restriction rules."
+      ],
+      "scores": [
+        18,
+        40,
+        22,
+        55,
+        28
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It gives the rebate amount and threshold plus key yearly eligibility rules, but lacks posting timing, exclusions, promo-status clarity, and any account-specific verification path.",
+        "It covers the monthly threshold and core annual eligibility rules, but one result is irrelevant and it still does not provide posting timing, exclusions, or account-check procedures.",
+        "It is mostly off-target because the lead document is for another card and the remaining results still do not state qualifying-spend exclusions for this Platinum rebate.",
+        "It best adds a procedure for handling a missing rebate and includes core eligibility rules, but it still lacks actual rebate posting timing, exclusions, and account-specific qualification evidence.",
+        "It addresses the Platinum rebate rules and first-year promotional fee-waiver exception, helping with whether the benefit is promotional, but one result is irrelevant and posting/exclusion details remain missing."
+      ],
+      "scores": [
+        68,
+        64,
+        22,
+        55,
+        58
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It identifies the Business Silver card and a temporary 2x promo plus cash-back-to-points representation, but it misses the base earning rules, posting timing, and statement discrepancy causes.",
+        "It gives generic cash-back representation and an unrelated business bronze statement overview, offering little that directly explains a Silver or Business Silver rewards statement discrepancy.",
+        "It provides useful generic timing and reversal rules plus the cash-back representation detail, but nothing specific to either Silver card or their statement displays.",
+        "It best covers discrepancy drivers by explaining reversals for returns, credits, disputes, and some ineligible transactions, though only through non-Silver card analogs and without separation rules.",
+        "These results are entirely unrelated to rewards tracking or whether business and personal Silver card rewards are combined or separate."
+      ],
+      "scores": [
+        28,
+        12,
+        22,
+        34,
+        0
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "These results barely address sign-up bonuses, with only generic card eligibility in D1 and an unrelated APR promo in D2.",
+        "This set helps compare cash back versus points value and gives one card\u2019s annual fee and eligibility, but provides no sign-up offers.",
+        "D1 offers some application eligibility details, but the other results are unrelated to credit card sign-up bonus qualification.",
+        "These results do not provide minimum spend bonus terms, only unrelated account and general rewards information plus a non-bonus APR promo.",
+        "This root strongly covers first-year annual fee waiver options, promo windows, standard post-waiver fees, and basic eligibility rules for several cards."
+      ],
+      "scores": [
+        8,
+        34,
+        18,
+        6,
+        72
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "The results only identify the Gold Rewards product in savings-bonus contexts and provide no balance inquiry channels, definitions, authentication, user access, or fees.",
+        "These results mention Gold Rewards naming but are otherwise about APY bonuses and business products, not how to check a card balance or related rules.",
+        "Despite the authentication-focused query, the shown results are unrelated BNPL, account closure, and CLI documents with no balance inquiry guidance.",
+        "The results do not explain current versus statement balance terminology and are entirely unrelated to balance inquiries.",
+        "Although aimed at self-service channels, the results are unrelated BNPL materials and provide no usable credit card balance inquiry procedures."
+      ],
+      "scores": [
+        4,
+        3,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "It directly covers submitting a cash back dispute, required identifiers, and a calculation nuance, but lacks earning rules, posting timing, and broad exclusions.",
+        "It gives one card\u2019s statement earning/posting behavior and correction mechanics, but is too card-specific and misses general dispute intake details and exclusions.",
+        "It best addresses posting timing plus some earning and eligibility rules across multiple card examples, though it still lacks the actual error-correction procedure.",
+        "It strongly covers ineligible transactions, returns, and some category-based earning differences, but provides little on how to investigate or correct a suspected rewards error.",
+        "It focuses on back-office dispute history and post-resolution updates, while the provisional credit policy is off-topic and the set gives limited guidance on earning rules or posting causes of discrepancies."
+      ],
+      "scores": [
+        74,
+        70,
+        78,
+        76,
+        52
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "Its results are entirely unrelated to changing an account email address.",
+        "It only offers a generic verification prerequisite from unrelated account-opening content and no email-change policy or steps.",
+        "It provides useful identity-verification requirements and secure support channels by analogy, but no actual email-update rules or procedure.",
+        "It hints that emails can trigger notifications and that verification exists in other contexts, but not for updating an account email.",
+        "It gives some fraud-review and security-block context from other processes, but lacks direct email-change eligibility, steps, or timing."
+      ],
+      "scores": [
+        0,
+        4,
+        18,
+        9,
+        12
+      ]
+    }
+  ],
+  "nonmyopic_scores": [
+    {
+      "best_followup_indices": [
+        2,
+        1,
+        2,
+        0,
+        2
+      ],
+      "rationales": [
+        "This pairing best covers rewards category dependence and card options plus the key large-purchase credit-line constraint, but not application or welcome-bonus rules.",
+        "This pairing most directly answers the feasibility of a $100,000 first charge with concrete starting limit and underwriting thresholds, while only partially covering rewards classification.",
+        "This pairing covers signup-bonus basics and business application documentation well, but it leaves the $100,000 approval feasibility and Apple Music category treatment largely unresolved.",
+        "This pairing gives strong large-transaction guidance plus comparative rewards and signup-bonus information, but it still lacks merchant-coding certainty and full application detail.",
+        "This pairing best combines Apple-related rewards classification and exclusions with new-account limit and underwriting constraints for a possible $100,000 charge, though bonuses and procedures remain thin."
+      ],
+      "scores": [
+        70,
+        78,
+        62,
+        72,
+        74
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        1,
+        3,
+        2,
+        1
+      ],
+      "rationales": [
+        "D1 and D3 give posting, net-of-returns, exclusions, and MCC/category-rate rules, while followup 3 adds promotion verification via D2 but still lacks a customer-facing error review path.",
+        "D14 covers core 10% earn rules, posting, and exclusions, and followup 2 reinforces return/credit reversals, but the root is diluted by annual fee rebate and dispute-credit material.",
+        "D21, D22, and D3 together cover program rates, promo effects, exclusions, MCC dependence, and net-purchase treatment, and followup 4 adds the best investigation path through D2 and D28.",
+        "D10 and D25 explain MCC-driven rates and category eligibility, and followup 3 adds posting/clearing plus return adjustment timing, but the set stays narrow and product-specific.",
+        "D2 and D8 are strong on internal correction and dispute procedure, and followup 2 adds the need to recalculate by card type, category, and promotions, but eligibility and posting rules are still mostly missing."
+      ],
+      "scores": [
+        72,
+        58,
+        84,
+        55,
+        47
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        0,
+        3,
+        3,
+        1
+      ],
+      "rationales": [
+        "This pair best covers core calculation rules, posting timing, refunds reversals, eligibility exclusions, and statement interpretation but lacks the actual submission workflow.",
+        "This pair strongly covers discrepancy review and the dispute-submission prerequisite with transaction_id, but less of the underlying card-specific earning and exception rules.",
+        "It mainly adds generic posting and dispute-correction concepts while missing broad card eligibility, statement review, and customer-facing discrepancy procedures.",
+        "It usefully covers reversals, some exclusions, and a help path for incorrect cash back, but still misses the main calculation framework and transaction-id based investigation workflow.",
+        "It gives some investigation-adjacent and card-rule content on one product, yet most procedural documents are off-topic and it omits the primary cash-back dispute process."
+      ],
+      "scores": [
+        93,
+        90,
+        48,
+        71,
+        52
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        3,
+        0,
+        3,
+        3
+      ],
+      "rationales": [
+        "It best covers the required pre-check and how to generate a link, but lacks any Crypto-Cash Back-specific offer terms or mailed-offer eligibility details.",
+        "It combines the referral-link pre-check and mismatch handling guidance, but still has no document proving Crypto-Cash Back program terms or channel specifics.",
+        "It partially addresses activation or enrollment uncertainty and generic referral workflow, but mostly retrieves other-card programs rather than the customer's card or offer.",
+        "It finds generic referral-like terms such as tracking and payout structure, but the retrieved documents are promo or other-card materials with little support for getting this card's referral link.",
+        "It most directly covers exception handling when no matching program is documented plus pre-check rules, though it still lacks Crypto-Cash Back-specific eligibility, terms, and link access instructions."
+      ],
+      "scores": [
+        48,
+        50,
+        28,
+        24,
+        52
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        0,
+        1,
+        0,
+        2
+      ],
+      "rationales": [
+        "This path best combines card-specific spend and timing rules with tracked-link investigation steps and needed case details for a missing bonus.",
+        "It covers approval-plus-spend qualification and payout timing well but is weaker on concrete investigation and escalation steps.",
+        "This path is strongest on tracking linkage and missing-referral investigation, but less complete on exclusions, caps, and exact card terms.",
+        "It gives useful status meanings, weekly-cap restrictions, and some card-specific criteria, but only partial timing and investigation guidance.",
+        "It starts from statuses and escalation-oriented material but misses much of the core card-specific qualification and payout logic behind the missing bonus."
+      ],
+      "scores": [
+        89,
+        84,
+        80,
+        72,
+        58
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        2,
+        1,
+        3
+      ],
+      "rationales": [
+        "This covers Bronze business savings closure well and, with the Evergreen followup, adds strong checking-closure rules but still misses both opening procedures.",
+        "This covers LLC business checking opening thoroughly and the personal savings followup adds key new-account eligibility and naming rules, but closure coverage remains weak.",
+        "This starts with generic closure-adjacent material and the LLC followup gives strong business-opening documentation, yet Bronze, Evergreen, and personal savings specifics stay incomplete.",
+        "This covers personal savings opening well and the LLC business-checking followup adds useful business documentation detail, but both requested closure procedures are still thin.",
+        "This strongly covers business ownership and signer documentation, and the personal savings followup helps on that opening, but it largely misses the two closure workflows and core business-checking eligibility rules."
+      ],
+      "scores": [
+        72,
+        70,
+        58,
+        69,
+        52
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        0,
+        3,
+        0,
+        0
+      ],
+      "rationales": [
+        "It starts with mostly off-target results but followup 2 adds the key disputes and recurring-merchant exception coverage alongside core closure rules.",
+        "This path best combines core credit-card closure eligibility and process with the internal tool and account-ID procedure needed to act on the Green Rewards Card.",
+        "It directly covers authentication, closure eligibility, processing, and the major customer-impact exceptions for rewards and annual-fee refunds.",
+        "The root already has strong closure and rewards-impact basics, and followup 1 usefully fills in identity verification but leaves operational and linked-service gaps.",
+        "This route strongly covers balance, pending-transaction, dispute, replacement-card, verification, and internal processing prerequisites but misses rewards and final-status details."
+      ],
+      "scores": [
+        62,
+        86,
+        91,
+        68,
+        82
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        0,
+        0,
+        0,
+        2
+      ],
+      "rationales": [
+        "D1 plus D8-D10 cover cross-product wallet-theft protection and the transfer reason code, but miss core debit close details and direct credit-card replacement procedure.",
+        "D8-D10 with D1-D5 add transfer handling, cross-product protocol, debit verification, and Regulation E dispute follow-up, but still leave credit-card-specific replacement rules thin.",
+        "D3 with D4 and D1 gives strong debit freeze-versus-close, verification, status, and cross-product offer coverage, but little reliable human-transfer or credit-card workflow detail.",
+        "D1 with D4 and D3 best covers debit theft handling, verification, freeze-versus-close, and cross-product credit-card precaution, but lacks explicit human-transfer policy and fuller credit replacement rules.",
+        "D1 and D4 with D24 best address debit closure prerequisites, cross-product protection, credit-card replacement ordering steps, and verification, but do not provide the human-transfer policy."
+      ],
+      "scores": [
+        86,
+        72,
+        68,
+        83,
+        79
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        3,
+        3,
+        0,
+        3
+      ],
+      "rationales": [
+        "This path best covers card-specific calculation basics plus reversals and the internal dispute-correction procedure with prerequisites and adjustment steps.",
+        "This path strongly covers discrepancy intake and dispute submission prerequisites but is weaker on transaction exclusions and broader posting or adjustment rules.",
+        "This path covers posting timing, exclusions, points conversion, and merchant-category review but lacks the actual correction workflow or escalation policy.",
+        "This path covers excluded transactions, net-posted purchase rules, reversals, and some statement effects, but not the main dispute or correction procedure.",
+        "This path is diluted by mostly irrelevant documents and only lightly touches escalation via statement credit tooling rather than cash-back error review policy."
+      ],
+      "scores": [
+        90,
+        82,
+        74,
+        70,
+        38
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        3,
+        2,
+        3
+      ],
+      "rationales": [
+        "This combination best covers card-specific rates, promotions, ineligible purchases, posting and reversal rules, and the internal correction procedure.",
+        "It adds a useful student-loan and EveryonePay exception but still misses broad transaction-level reconciliation and multi-card reward rules.",
+        "It strongly covers MCC-driven category mapping and several category-specific earn rules across cards but lacks correction workflow and broad exclusion policy.",
+        "It gives solid debit cashback accrual, reversals, eco-vendor qualification, and posted-versus-pending reconciliation guidance for the likely debit programs.",
+        "It covers promotional and linked-account eligibility plus eco bonus conditions, but offers little concrete error-review procedure or full card-by-card calculation rules."
+      ],
+      "scores": [
+        83,
+        57,
+        62,
+        69,
+        61
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        3,
+        3,
+        3
+      ],
+      "rationales": [
+        "This path best covers Gold and EcoCard reward calculation, posting timing, points-to-cash conversion, account standing, and the dispute-correction workflow, but lacks firm Gold-specific product terms.",
+        "This path covers EcoCard calculation well and adds dispute prerequisites, but Gold-specific rules remain only weakly addressed by business-card analogs and mixed statement details.",
+        "This path helps with general posting, exclusions, and when to investigate missing rewards, but it does not retrieve either card\u2019s core earning rules well enough to explain the discrepancy.",
+        "This path is strong on dispute handling, correction procedures, and rounding, but it provides little direct coverage of the actual Gold and EcoCard earning eligibility needed to diagnose the statement issue.",
+        "This path mostly covers generic category-coding and promotions concepts, with only indirect card overlap and very limited dispute or posting guidance for the customer\u2019s two products."
+      ],
+      "scores": [
+        84,
+        73,
+        46,
+        57,
+        31
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        2,
+        0,
+        3,
+        3
+      ],
+      "rationales": [
+        "This path best covers calculation, posting, statement items, returns reversals, rounding, redemption threshold, and investigation correction steps but lacks broad eligibility and promo specifics for the actual card.",
+        "This path strongly explains points-to-cash statement display, redemption effects, thresholds, and the transaction-specific dispute process but is weaker on earning rules and exclusions.",
+        "This path covers exclusions, merchant-specific exceptions, net-purchase calculation, and posting timing well but is fragmented across business products and thin on statement display and dispute workflow.",
+        "This path helps with refunds, disputes, reversals, ineligible transactions, and formal dispute intake, but much of it is generic or off-target to cash-back statement calculation questions.",
+        "This path gives some posting timing, reversal, threshold, and basic troubleshooting coverage, but it is diluted by irrelevant BNPL material and misses core calculation and representation rules."
+      ],
+      "scores": [
+        79,
+        74,
+        71,
+        58,
+        54
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        1,
+        0,
+        1,
+        0
+      ],
+      "rationales": [
+        "This path mainly adds emergency replacement and fee details but misses any actual travel-notice setup policy for Platinum Rewards Card.",
+        "It gives Platinum fraud-monitoring behavior and general decline help, but still lacks clear evidence on whether or how to submit a travel notice.",
+        "The results cover Platinum fraud controls but provide almost no grounded travel-notification channels, required details, or Japan-specific usage rules.",
+        "This route best covers the likely exception that fraud monitoring and updated contact details matter more than a travel notice, plus what happens if transactions are flagged abroad.",
+        "It adds useful Platinum fraud-verification and contact-detail guidance, but not the core travel-notice support, channels, or submission procedure the customer asked for."
+      ],
+      "scores": [
+        18,
+        22,
+        12,
+        26,
+        24
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        2,
+        3,
+        0
+      ],
+      "rationales": [
+        "This path covers teen ATM limits and possible parental restrictions plus generic card-status troubleshooting, but misses Blue and Green limit specifics and emergency cash options.",
+        "This path best covers the teen card\u2019s ATM rule and a concrete troubleshooting route for ATM limit exhaustion, but still lacks reliable Green and Blue policies and emergency alternatives.",
+        "This path gives the strongest combined coverage of Green ATM limits, Blue account ATM-related info, teen limits, and other decline causes, though it still does not establish any true shared customer-level limit or emergency procedure.",
+        "This path covers fraud-alert and block handling with verification and escalation plus teen ATM limits, but leaves Blue and broader cash-access alternatives undercovered.",
+        "This path best matches the customer\u2019s urgent needs by combining emergency fund alternatives with Green ATM limits and security-block troubleshooting, though Blue and teen-specific limit detail remain incomplete."
+      ],
+      "scores": [
+        43,
+        58,
+        64,
+        55,
+        71
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        3,
+        3,
+        0,
+        2
+      ],
+      "rationales": [
+        "D2 covers the core Platinum rebate rules and followup 3 best adds first-year waiver and account closure or product-change limits via D4 and D8.",
+        "D2 and D1 establish threshold and timing while followup 4 most usefully adds account-status prerequisites, though other key exclusions and lookup procedure remain weak.",
+        "D2 supplies most eligibility logic and followup 4 uniquely adds the missing servicing-remediation procedure from D3 plus some closure context from D22.",
+        "D2 already gives strong eligibility and posting basics, and followup 1 best fills the first-year waiver prerequisite with directly relevant Platinum promo terms in D12 and D8.",
+        "D2 and D1 cover the main rebate feature and threshold, and followup 3 best reinforces monthly opening-date windows and posted-net-purchase treatment, but procedure and status rules stay thin."
+      ],
+      "scores": [
+        95,
+        90,
+        88,
+        86,
+        84
+      ]
+    },
+    {
+      "best_followup_indices": [
+        1,
+        2,
+        3,
+        0,
+        3
+      ],
+      "rationales": [
+        "This path best covers Business Silver promo and base rates plus Silver statement timing gaps via D2 and adds the closest Silver-specific earning details with followup 2.",
+        "This path strongly explains statement interpretation and Business Silver promo eligibility but still lacks solid Silver-specific base policy and reversal rules.",
+        "This path covers generic posting timing and the points-to-cash display rule but misses most product-specific earn rates and discrepancy causes for the two Silver cards.",
+        "This path is mostly off-product dispute material and only followup 1 adds partial Silver earning and qualification clues without the core two-card rewards policies.",
+        "This path targets separate ledgers and servicing but the shown documents are largely unrelated to Silver rewards calculation, posting, and statement discrepancy rules."
+      ],
+      "scores": [
+        84,
+        81,
+        58,
+        22,
+        18
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rationales": [
+        "This finds a concrete consumer signup bonus with spend, timing, annual fee, exclusions, and broad eligibility but still misses comparable cash-back options and fee-waiver comparisons.",
+        "This mostly gives rewards valuation plus one promo card and one premium-card fee/eligibility page, leaving major gaps on the full set of current signup offers.",
+        "This captures one points offer and one cash-back signup offer with annual fee, spend, timing, good-standing, and some credit-score eligibility, but not the broader comparison set or valuation rules.",
+        "This path centers on minimum-spend mechanics and exclusions, but the root results are largely off-target and do not identify enough relevant consumer signup-bonus card options.",
+        "This focuses on annual-fee waivers, mostly for business or invitation promos, and provides little direct coverage of the customer\u2019s core need for current consumer points or cash-back signup offers."
+      ],
+      "scores": [
+        78,
+        46,
+        74,
+        32,
+        24
+      ]
+    },
+    {
+      "best_followup_indices": [
+        3,
+        2,
+        3,
+        0,
+        1
+      ],
+      "rationales": [
+        "It only weakly suggests self-service via generic banking docs and mostly returns irrelevant Gold savings-benefit material instead of card balance policy or authentication.",
+        "It has almost no direct balance-inquiry coverage and the best addition only tangentially helps with balance-type terminology.",
+        "It best covers general distinction around statement balance and pending transactions but still lacks any real Gold Rewards balance-access channels or authentication policy.",
+        "It most directly addresses the customer's likely need to distinguish balance types and pending activity, though it still misses inquiry channels and disclosure requirements.",
+        "It gives some self-service and balance-availability clues through generic digital-banking and pending-balance material but not card-specific balance inquiry rules or verification."
+      ],
+      "scores": [
+        18,
+        10,
+        22,
+        28,
+        24
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        0,
+        0,
+        3,
+        3
+      ],
+      "rationales": [
+        "This path best covers dispute submission prerequisites, the user_id and transaction_id requirements, cash-back-as-points conversion, and rounding, but only partial earning and exclusion rules.",
+        "This path covers statement review, posted-date accrual, reversals for returns, eligible versus excluded transactions, product-specific earn rules, and cash-back representation with only the formal dispute process missing.",
+        "This path adds a general help article and some product timing rules but lacks the concrete internal dispute procedure, broad eligibility rules, and exclusion coverage needed to resolve the discrepancy.",
+        "This path strongly covers ineligible transaction types, posted-purchase eligibility, refunds and reversals, disputed-transaction withholding, and some merchant-category effects, but it is weaker on statement review and formal correction steps.",
+        "This path is strongest on internal correction workflow, recalculation factors, and dispute-history context, but it misses key customer-facing posting, exclusion, statement-timing, and transaction-review rules."
+      ],
+      "scores": [
+        73,
+        88,
+        58,
+        81,
+        69
+      ]
+    },
+    {
+      "best_followup_indices": [
+        2,
+        1,
+        2,
+        3,
+        0
+      ],
+      "rationales": [
+        "This path only adds generic verification and a possible alternate verification angle, with no email-change policy or procedure.",
+        "This path provides standard verification, hints at fraud review, and some documentation concepts but still lacks an actual email-update procedure.",
+        "This path best covers authentication dependencies and possible fraud monitoring, but not the concrete email-change workflow or channels.",
+        "This path is mostly about unrelated contact verification or support escalation and gives little direct policy for changing an account email.",
+        "This path gives the strongest partial coverage through profile-update support, generic identity verification, and old-email-inaccessible handling, though key email-change steps remain missing."
+      ],
+      "scores": [
+        20,
+        26,
+        24,
+        18,
+        34
+      ]
+    }
+  ],
+  "protocol": {
+    "expected_physical_requests": 140,
+    "interface_version": "gpt54-retest-1",
+    "model": "openai/gpt-5.4",
+    "nonsemantic_analysis_sha256": "d1d43ecf0f09fd5874e9badd6cff4e9ae5c3da882a3ea408b816225c2d2b29f4",
+    "permissive_numeric_representation_parser_frozen": true,
+    "posthoc_open_tree_replication": true,
+    "private_raw_sha256": "4f956321813c030e3bf32d070e0abf7cf5cbe3ddc7c1280798abe5dc6a3f5337",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_requested": false,
+    "replicate_index": 2,
+    "source_artifact_sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae",
+    "stage": "confirmation",
+    "target_blind_prompts": true,
+    "task_ids": [
+      "task_025",
+      "task_021",
+      "task_028",
+      "task_015",
+      "task_016",
+      "task_062",
+      "task_048",
+      "task_081",
+      "task_029",
+      "task_022",
+      "task_019",
+      "task_027",
+      "task_012",
+      "task_089",
+      "task_023",
+      "task_020",
+      "task_007",
+      "task_005",
+      "task_017",
+      "task_004"
+    ],
+    "tree_regeneration_requests": 0
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "cross_model_endpoint_total": 30,
+    "end_to_end_joint_loss_count": 0,
+    "end_to_end_joint_tie_count": 15,
+    "end_to_end_joint_win_count": 5,
+    "end_to_end_myopic_loss_count": 4,
+    "end_to_end_myopic_tie_count": 12,
+    "end_to_end_myopic_win_count": 4,
+    "end_to_end_random_loss_count": 3,
+    "end_to_end_random_tie_count": 9,
+    "end_to_end_random_win_count": 8,
+    "end_to_end_total_advantage_over_joint": 5,
+    "end_to_end_total_advantage_over_myopic": 1,
+    "end_to_end_total_advantage_over_random": 8,
+    "focused_mean_regret": 0.15,
+    "focused_optimal_followup_count": 85,
+    "focused_optimal_followup_rate": 0.85,
+    "focused_pairwise_accuracy": 0.7741228070175439,
+    "focused_pairwise_comparable_count": 228,
+    "focused_total_regret": 15,
+    "fresh_selection_seed": 24337,
+    "gates": {
+      "all_cases_complete": true,
+      "all_focused_scores_complete": true,
+      "all_pass": false,
+      "continuation_accuracy_above_all_nonsemantic_controls": true,
+      "continuation_comparable_pairs_at_least_200": true,
+      "end_to_end_losses_to_myopic_at_most_2": false,
+      "end_to_end_losses_to_random_at_most_4": true,
+      "end_to_end_total_advantage_over_myopic_at_least_4": false,
+      "end_to_end_total_advantage_over_random_at_least_5": true,
+      "end_to_end_wins_over_myopic_at_least_4": true,
+      "end_to_end_wins_over_random_at_least_6": true,
+      "endpoint_at_least_3_above_best_nonsemantic": true,
+      "exact_physical_request_count": true,
+      "focused_improvement_over_joint_at_least_4": true,
+      "focused_mean_regret_at_most_0_30": true,
+      "focused_optimal_followup_rate_at_least_0_70": true,
+      "focused_pairwise_accuracy_at_least_0_60": true,
+      "nonmyopic_root_accuracy_at_least_0_60": true,
+      "root_accuracy_above_all_nonsemantic_controls": true,
+      "root_accuracy_gain_at_least_0_05": true,
+      "root_comparable_pairs_at_least_50": true,
+      "selected_root_continuation_loss_at_most_5": true,
+      "zero_reasoning_tokens": true
+    },
+    "myopic_root_pairwise_accuracy": 0.5702479338842975,
+    "nonmyopic_root_pairwise_accuracy": 0.6694214876033058,
+    "num_cases": 20,
+    "policy_diagnostics": [
+      {
+        "focused_followup_indices": [
+          0,
+          2,
+          0,
+          1,
+          2
+        ],
+        "myopic_receding_value": 1,
+        "myopic_root_index": 0,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 1,
+        "nonmyopic_root_index": 1,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 3,
+        "random_strategy_value": 1,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 1,
+        "task_id": "task_025"
+      },
+      {
+        "focused_followup_indices": [
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 2,
+        "nonmyopic_advantage_over_joint": 1,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 1,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 2,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 1,
+        "random_strategy_value": 1,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_021"
+      },
+      {
+        "focused_followup_indices": [
+          2,
+          3,
+          0,
+          3,
+          1
+        ],
+        "myopic_receding_value": 3,
+        "myopic_root_index": 1,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": -2,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 1,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 3,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 1,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 1,
+        "task_id": "task_028"
+      },
+      {
+        "focused_followup_indices": [
+          3,
+          2,
+          0,
+          3,
+          3
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 4,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 4,
+        "random_strategy_followup_index": 0,
+        "random_strategy_root_index": 0,
+        "random_strategy_value": 2,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_015"
+      },
+      {
+        "focused_followup_indices": [
+          3,
+          1,
+          0,
+          0,
+          0
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 0,
+        "nonmyopic_advantage_over_joint": 1,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 0,
+        "random_strategy_root_index": 3,
+        "random_strategy_value": 2,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_016"
+      },
+      {
+        "focused_followup_indices": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "myopic_receding_value": 1,
+        "myopic_root_index": 3,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 1,
+        "nonmyopic_advantage_over_random": 2,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_062"
+      },
+      {
+        "focused_followup_indices": [
+          0,
+          0,
+          2,
+          3,
+          0
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 2,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": -1,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 2,
+        "random_strategy_followup_index": 0,
+        "random_strategy_root_index": 3,
+        "random_strategy_value": 3,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_048"
+      },
+      {
+        "focused_followup_indices": [
+          0,
+          2,
+          2,
+          0,
+          2
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 0,
+        "nonmyopic_advantage_over_joint": 1,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 1,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 3,
+        "random_strategy_root_index": 0,
+        "random_strategy_value": 1,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_081"
+      },
+      {
+        "focused_followup_indices": [
+          3,
+          2,
+          2,
+          0,
+          0
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 1,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": -1,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 1,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 3,
+        "random_strategy_root_index": 1,
+        "random_strategy_value": 1,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 1,
+        "task_id": "task_029"
+      },
+      {
+        "focused_followup_indices": [
+          0,
+          1,
+          3,
+          2,
+          2
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 0,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 2,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_022"
+      },
+      {
+        "focused_followup_indices": [
+          1,
+          1,
+          3,
+          0,
+          3
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 3,
+        "nonmyopic_advantage_over_joint": 1,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 0,
+        "random_strategy_value": 2,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_019"
+      },
+      {
+        "focused_followup_indices": [
+          3,
+          1,
+          1,
+          0,
+          0
+        ],
+        "myopic_receding_value": 0,
+        "myopic_root_index": 3,
+        "nonmyopic_advantage_over_joint": 1,
+        "nonmyopic_advantage_over_myopic": 2,
+        "nonmyopic_advantage_over_random": 2,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 3,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_027"
+      },
+      {
+        "focused_followup_indices": [
+          3,
+          1,
+          2,
+          2,
+          0
+        ],
+        "myopic_receding_value": 0,
+        "myopic_root_index": 3,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 0,
+        "nonmyopic_receding_value": 0,
+        "nonmyopic_root_index": 3,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 2,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 1,
+        "selected_root_oracle_tail": 1,
+        "task_id": "task_012"
+      },
+      {
+        "focused_followup_indices": [
+          1,
+          1,
+          1,
+          2,
+          0
+        ],
+        "myopic_receding_value": 3,
+        "myopic_root_index": 3,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": -1,
+        "nonmyopic_advantage_over_random": -1,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 4,
+        "random_strategy_followup_index": 3,
+        "random_strategy_root_index": 0,
+        "random_strategy_value": 3,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_089"
+      },
+      {
+        "focused_followup_indices": [
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 0,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": -1,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 3,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_023"
+      },
+      {
+        "focused_followup_indices": [
+          2,
+          1,
+          3,
+          0,
+          3
+        ],
+        "myopic_receding_value": 1,
+        "myopic_root_index": 3,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 1,
+        "nonmyopic_advantage_over_random": 1,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 0,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 1,
+        "selected_root_continuation_loss": 1,
+        "selected_root_oracle_tail": 3,
+        "task_id": "task_020"
+      },
+      {
+        "focused_followup_indices": [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        "myopic_receding_value": 0,
+        "myopic_root_index": 4,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 2,
+        "nonmyopic_advantage_over_random": 1,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 3,
+        "random_strategy_root_index": 2,
+        "random_strategy_value": 1,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_007"
+      },
+      {
+        "focused_followup_indices": [
+          1,
+          0,
+          2,
+          2,
+          1
+        ],
+        "myopic_receding_value": 0,
+        "myopic_root_index": 0,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 0,
+        "nonmyopic_receding_value": 0,
+        "nonmyopic_root_index": 3,
+        "random_strategy_followup_index": 3,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 0,
+        "task_id": "task_005"
+      },
+      {
+        "focused_followup_indices": [
+          1,
+          2,
+          3,
+          1,
+          3
+        ],
+        "myopic_receding_value": 2,
+        "myopic_root_index": 2,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": -1,
+        "nonmyopic_advantage_over_random": 1,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 1,
+        "nonmyopic_root_index": 1,
+        "random_strategy_followup_index": 2,
+        "random_strategy_root_index": 3,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 1,
+        "task_id": "task_017"
+      },
+      {
+        "focused_followup_indices": [
+          2,
+          2,
+          3,
+          1,
+          1
+        ],
+        "myopic_receding_value": 0,
+        "myopic_root_index": 2,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 0,
+        "nonmyopic_advantage_over_random": 0,
+        "nonmyopic_joint_value": 0,
+        "nonmyopic_receding_value": 0,
+        "nonmyopic_root_index": 4,
+        "random_strategy_followup_index": 0,
+        "random_strategy_root_index": 4,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 0,
+        "task_id": "task_004"
+      }
+    ],
+    "random_control_seed": 24338,
+    "root_diagnostics": [
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          66,
+          35,
+          63,
+          0
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_025"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          33,
+          66,
+          93,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 1,
+        "task_id": "task_025"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          68,
+          34,
+          68,
+          66
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_025"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          32,
+          94,
+          61,
+          63
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 1,
+        "task_id": "task_025"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 4,
+        "scores": [
+          62,
+          31,
+          92,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_025"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          0,
+          67,
+          35,
+          33
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 1,
+        "task_id": "task_021"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          0,
+          38,
+          0,
+          31
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 1,
+        "task_id": "task_021"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          67,
+          31,
+          31,
+          65
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_021"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          35,
+          68,
+          67,
+          35
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_021"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          34,
+          0,
+          0,
+          33
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_021"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          34,
+          67,
+          69,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 1,
+        "task_id": "task_028"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          1,
+          1,
+          3
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 5.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          67,
+          31,
+          0,
+          96
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 3,
+        "task_id": "task_028"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 2,
+        "scores": [
+          98,
+          32,
+          31,
+          34
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_028"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          63,
+          34,
+          0,
+          93
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_028"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          31,
+          67,
+          1,
+          61
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 1,
+        "task_id": "task_028"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          2,
+          3,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 0.5,
+        "regret": 1,
+        "root_index": 0,
+        "scores": [
+          0,
+          35,
+          0,
+          66
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 2,
+        "task_id": "task_015"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          3,
+          2
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          2,
+          4,
+          6,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 3,
+        "task_id": "task_015"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 2.5,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          35,
+          0,
+          0,
+          34
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_015"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          32,
+          0,
+          31,
+          62
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 1,
+        "task_id": "task_015"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          0,
+          0,
+          0,
+          31
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 2,
+        "task_id": "task_015"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          0,
+          0,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 5.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          0,
+          31,
+          33,
+          93
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 2,
+        "task_id": "task_016"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          31,
+          94,
+          0,
+          64
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 1,
+        "task_id": "task_016"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          68,
+          32,
+          64,
+          68
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_016"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          63,
+          62,
+          2,
+          0
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_016"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 2.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          95,
+          4,
+          64,
+          1
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_016"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          93,
+          2,
+          31,
+          69
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_062"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          3,
+          2,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 5.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          66,
+          34,
+          65,
+          31
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 3,
+        "task_id": "task_062"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          0,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 3.5,
+        "regret": 1,
+        "root_index": 2,
+        "scores": [
+          99,
+          0,
+          62,
+          62
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_062"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          1,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 3,
+        "scores": [
+          67,
+          33,
+          34,
+          35
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_062"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 0.0,
+        "regret": 1,
+        "root_index": 4,
+        "scores": [
+          34,
+          35,
+          31,
+          33
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_062"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          68,
+          66,
+          31,
+          1
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_048"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          3,
+          1,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 5.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          67,
+          5,
+          34,
+          34
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 3,
+        "task_id": "task_048"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          35,
+          31,
+          36,
+          34
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 2,
+        "task_id": "task_048"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          3,
+          3,
+          3,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 0.0,
+        "regret": 1,
+        "root_index": 3,
+        "scores": [
+          61,
+          4,
+          3,
+          92
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 2,
+        "task_id": "task_048"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          95,
+          65,
+          61,
+          67
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_048"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          65,
+          64,
+          60,
+          38
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_081"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          68,
+          65,
+          97,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 1,
+        "task_id": "task_081"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 2,
+        "scores": [
+          68,
+          0,
+          97,
+          34
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 1,
+        "task_id": "task_081"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          3,
+          1,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          68,
+          67,
+          32,
+          31
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 3,
+        "task_id": "task_081"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          2,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          32,
+          63,
+          65,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 2,
+        "task_id": "task_081"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          34,
+          66,
+          62,
+          92
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 1,
+        "task_id": "task_029"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          2,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          68,
+          64,
+          98,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 2,
+        "task_id": "task_029"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          33,
+          62,
+          68,
+          4
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_029"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          95,
+          63,
+          0,
+          61
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_029"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 0.0,
+        "regret": 1,
+        "root_index": 4,
+        "scores": [
+          67,
+          0,
+          31,
+          31
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_029"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 2.5,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          68,
+          35,
+          68,
+          67
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_022"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          31,
+          68,
+          67,
+          62
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_022"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          68,
+          31,
+          65,
+          96
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 1,
+        "task_id": "task_022"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          33,
+          31,
+          98,
+          61
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_022"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 4,
+        "scores": [
+          66,
+          63,
+          92,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_022"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          2,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          0,
+          67,
+          0,
+          0
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 2,
+        "task_id": "task_019"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          0,
+          68,
+          31,
+          61
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_019"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          32,
+          62,
+          0,
+          64
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_019"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          67,
+          6,
+          4,
+          63
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_019"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          33,
+          31,
+          61,
+          62
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_019"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.5,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          36,
+          33,
+          33,
+          67
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 2,
+        "task_id": "task_027"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 1.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          38,
+          68,
+          67,
+          38
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 2,
+        "task_id": "task_027"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          2,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          64,
+          68,
+          35,
+          4
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 2,
+        "task_id": "task_027"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          91,
+          31,
+          67,
+          8
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_027"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          69,
+          35,
+          33,
+          31
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_027"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          0,
+          31,
+          34,
+          61
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_012"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          31,
+          63,
+          33,
+          0
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_012"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          63,
+          5,
+          65,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_012"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 0.5,
+        "regret": 1,
+        "root_index": 3,
+        "scores": [
+          0,
+          35,
+          62,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_012"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          62,
+          0,
+          31,
+          30
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_012"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          3,
+          3,
+          2,
+          3
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          34,
+          65,
+          6,
+          63
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_089"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 5.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          61,
+          94,
+          36,
+          31
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_089"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.5,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          35,
+          67,
+          31,
+          31
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 1,
+        "task_id": "task_089"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          1,
+          1,
+          3,
+          2
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          31,
+          62,
+          92,
+          61
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 3,
+        "task_id": "task_089"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          93,
+          31,
+          63,
+          31
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_089"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          34,
+          30,
+          33,
+          30
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_023"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          62,
+          1,
+          0,
+          1
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_023"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          3,
+          2
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 2.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          61,
+          62,
+          0,
+          30
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_023"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          3,
+          2
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 2.5,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          33,
+          62,
+          3,
+          3
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_023"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          3,
+          3
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          34,
+          66,
+          63,
+          0
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_023"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 0,
+        "scores": [
+          65,
+          30,
+          66,
+          62
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 2,
+        "task_id": "task_020"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.5,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          32,
+          65,
+          0,
+          65
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_020"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 2,
+        "scores": [
+          67,
+          31,
+          2,
+          68
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 1,
+        "task_id": "task_020"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          62,
+          31,
+          0,
+          0
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_020"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 4,
+        "scores": [
+          34,
+          31,
+          4,
+          63
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_020"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          67,
+          31,
+          61,
+          64
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_007"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          68,
+          5,
+          31,
+          32
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_007"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 0.5,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          67,
+          63,
+          31,
+          67
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_007"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          0,
+          0,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 5,
+        "pairwise_points": 3.5,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          68,
+          31,
+          93,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 2,
+        "task_id": "task_007"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          62,
+          33,
+          31,
+          1
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_007"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          0,
+          30,
+          0,
+          0
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_005"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_005"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          0,
+          0,
+          30,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_005"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          2,
+          0,
+          31,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_005"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          31,
+          62,
+          30,
+          0
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_005"
+      },
+      {
+        "oracle_value": 3,
+        "pair_values": [
+          2,
+          3,
+          2,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          65,
+          93,
+          31,
+          1
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 3,
+        "task_id": "task_017"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          1,
+          0,
+          63,
+          31
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 1,
+        "task_id": "task_017"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          1,
+          1,
+          2
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 3.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          97,
+          3,
+          67,
+          98
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 2,
+        "task_id": "task_017"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          31,
+          61,
+          0,
+          1
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_017"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 4,
+        "scores": [
+          64,
+          0,
+          31,
+          65
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_017"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          0,
+          0,
+          31,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_004"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          0,
+          0,
+          31,
+          0
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_004"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          0,
+          31,
+          0,
+          32
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_004"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          0,
+          31,
+          30,
+          31
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_004"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          0,
+          34,
+          0,
+          0
+        ],
+        "selected_followup_index": 1,
+        "selected_value": 0,
+        "task_id": "task_004"
+      }
+    ],
+    "root_pairwise_accuracy_gain": 0.09917355371900827,
+    "root_pairwise_comparable_count": 121,
+    "selected_root_continuation_loss_total": 2
+  },
+  "usage": {
+    "adapter_cost_usd": 0.6175235,
+    "generator": {
+      "adapter_completion_tokens": 13430,
+      "adapter_cost_usd": 0.6175235,
+      "adapter_prompt_tokens": 484151,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 140,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 13430,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 13430,
+          "cost_usd": 0.6175235,
+          "prompt_tokens": 484151,
+          "reasoning_tokens": 0,
+          "requests": 140
+        }
+      },
+      "prompt_tokens": 484151,
+      "reasoning_tokens": 0,
+      "remaining_usd": 22.186630123749907,
+      "requests": 140,
+      "run_budget_usd": 2.25,
+      "run_cost_usd": 0.6175235,
+      "run_remaining_usd": 1.6324765,
+      "total_spent_usd": 83.19817257170725
+    },
+    "physical_requests": 140,
+    "reasoning_tokens": 0
+  }
+}
