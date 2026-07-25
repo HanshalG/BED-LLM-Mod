@@ -1,0 +1,100 @@
+{
+  "base_labels": [
+    "NNYNNN",
+    "NNYNNN",
+    "NNUNNN",
+    "NNYNNN"
+  ],
+  "gates": {
+    "all_four_base_partitions_informative": true,
+    "all_four_questions_unique": true,
+    "all_pass": false,
+    "all_questions_and_labels_parse": true,
+    "at_least_three_unique_base_partitions": false,
+    "base_eig_range_at_least_0_10": false,
+    "cost_at_most_0_50": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "three_exact_repeat_maps_agree": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "metrics": {
+    "base_eig_range": 0.0,
+    "informative_base_partition_count": 4,
+    "mean_base_eig": 0.45056120886630463,
+    "repeat_unique_map_count": 1,
+    "unique_base_partition_count": 2,
+    "unique_question_count": 4
+  },
+  "protocol": {
+    "expected_requests": 10,
+    "interface_version": "ambigdocs-gpt54-stability-smoke-1",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "89aa4e128889e11b89cf6b89822c2dd6031342b4c53da8d23330ac88a187e1b8",
+    "qid": 43608,
+    "question_count": 4,
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "repeat_count": 3,
+    "row_index": 49,
+    "seed": 24389,
+    "support_size": 6,
+    "target_sampled": false
+  },
+  "questions": [
+    "Are you asking about Minsk as a city rather than a band, vehicle, ship, airport, or computer line?",
+    "Are you asking about Minsk as a city rather than something like a band, vehicle, airport, ship, or computer line?",
+    "Are you asking about a city rather than a band, ship, motorcycle brand, airport, or computer family?",
+    "Are you asking about a place people live and visit rather than an object, organization, or vehicle?"
+  ],
+  "repeat_labels": [
+    "NNYNNN",
+    "NNYNNN",
+    "NNYNNN"
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_cost_usd": 0.028235000000000003,
+    "forced_exits": 0,
+    "http_attempts": 10,
+    "model": {
+      "adapter_completion_tokens": 154,
+      "adapter_cost_usd": 0.028235000000000003,
+      "adapter_prompt_tokens": 10370,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 154,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 154,
+          "cost_usd": 0.028235000000000003,
+          "prompt_tokens": 10370,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 10370,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.240233600000053,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.028235000000000003,
+      "run_remaining_usd": 0.471765,
+      "total_spent_usd": 86.90307121920736
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
