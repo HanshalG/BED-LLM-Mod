@@ -53,9 +53,9 @@ def _record():
 def _score_payload(include_followups):
     payload = {}
     for index in range(1, FIRST_QUERY_COUNT + 1):
-        payload[f"root_{index}_score"] = index * 10
+        payload[f"root_{index}_score"] = str(index * 10)
         if include_followups:
-            payload[f"root_{index}_best_followup"] = (index % 4) + 1
+            payload[f"root_{index}_best_followup"] = str((index % 4) + 1)
         payload[f"root_{index}_rationale"] = f"reason {index}"
     return payload
 
@@ -94,9 +94,23 @@ def test_flat_score_schema_parses(include_followups):
 
 def test_score_parser_rejects_out_of_range_followup():
     payload = _score_payload(True)
-    payload["root_1_best_followup"] = 5
+    payload["root_1_best_followup"] = "5"
     with pytest.raises(ValueError, match="followup"):
         parse_scores(json.dumps(payload), include_followups=True)
+
+
+def test_score_parser_rejects_json_number():
+    payload = _score_payload(False)
+    payload["root_1_score"] = 10
+    with pytest.raises(ValueError, match="digit string"):
+        parse_scores(json.dumps(payload), include_followups=False)
+
+
+def test_score_parser_rejects_noncanonical_digit_string():
+    payload = _score_payload(False)
+    payload["root_1_score"] = "010"
+    with pytest.raises(ValueError, match="digit string"):
+        parse_scores(json.dumps(payload), include_followups=False)
 
 
 def test_pairwise_ranking_points_handle_ties():

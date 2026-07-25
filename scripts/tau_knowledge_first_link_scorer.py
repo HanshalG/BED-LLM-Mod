@@ -41,7 +41,8 @@ from scripts.tau_knowledge_retrieval_opportunity_v2 import (
 )
 
 
-SMOKE_IDS = ("task_002", "task_024")
+SCORER_INTERFACE_VERSION = 2
+SMOKE_IDS = ("task_018", "task_008")
 EXPECTED_REQUESTS = {
     "serving_smoke": len(SMOKE_IDS) * 2,
     "confirmation": len(FORMAL_IDS)
@@ -89,9 +90,11 @@ def load_smoke_records(path: str | Path) -> list[dict[str, Any]]:
     records = payload.get("records")
     if payload.get("status") != "passed" or not isinstance(records, list):
         raise ValueError("scorer smoke requires a passed opportunity artifact")
-    if tuple(record.get("task_id") for record in records) != SMOKE_IDS:
+    if tuple(
+        record.get("task_id") for record in records[: len(SMOKE_IDS)]
+    ) != SMOKE_IDS:
         raise ValueError("scorer smoke artifact task IDs do not match")
-    return records
+    return records[: len(SMOKE_IDS)]
 
 
 def _clean_excerpt(value: str) -> str:
@@ -163,10 +166,13 @@ def compact_scorer_input(
 def _score_schema(*, include_followups: bool) -> dict[str, Any]:
     schema: dict[str, Any] = {}
     for index in range(1, FIRST_QUERY_COUNT + 1):
-        schema[f"root_{index}_score"] = "integer 0 through 100"
+        schema[f"root_{index}_score"] = (
+            "canonical decimal digit string from 0 through 100"
+        )
         if include_followups:
             schema[f"root_{index}_best_followup"] = (
-                f"integer 1 through {FOLLOWUP_QUERY_COUNT}"
+                "canonical decimal digit string from 1 through "
+                f"{FOLLOWUP_QUERY_COUNT}"
             )
         schema[f"root_{index}_rationale"] = "one short sentence"
     return schema
@@ -241,19 +247,21 @@ def parse_scores(
     for index in range(1, FIRST_QUERY_COUNT + 1):
         score = payload[f"root_{index}_score"]
         if (
-            isinstance(score, bool)
-            or not isinstance(score, (int, float))
-            or not float(score).is_integer()
+            not isinstance(score, str)
+            or not score.isdigit()
+            or (len(score) > 1 and score.startswith("0"))
             or not 0 <= int(score) <= 100
         ):
-            raise ValueError("root score must be an integer from 0 through 100")
+            raise ValueError(
+                "root score must be a canonical digit string from 0 through 100"
+            )
         scores.append(int(score))
         if include_followups:
             followup = payload[f"root_{index}_best_followup"]
             if (
-                isinstance(followup, bool)
-                or not isinstance(followup, (int, float))
-                or not float(followup).is_integer()
+                not isinstance(followup, str)
+                or not followup.isdigit()
+                or (len(followup) > 1 and followup.startswith("0"))
                 or not 1 <= int(followup) <= FOLLOWUP_QUERY_COUNT
             ):
                 raise ValueError("best followup index is invalid")
@@ -640,6 +648,7 @@ def run_gate(
         "status": "passed" if summary["gates"]["all_pass"] else "gate_failed",
         "protocol": {
             "stage": stage,
+            "scorer_interface_version": SCORER_INTERFACE_VERSION,
             "source_repository": "https://github.com/sierra-research/tau2-bench",
             "source_commit": TAU_COMMIT,
             "task_ids": (
@@ -657,6 +666,7 @@ def run_gate(
             "required_documents_hidden_from_model": True,
             "full_user_scripts_hidden_from_model": True,
             "reasoning_disabled": True,
+            "numeric_serialization": "canonical_decimal_digit_strings",
             "raw_responses_private_and_untracked": True,
         },
         "summary": summary,
