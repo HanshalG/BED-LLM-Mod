@@ -1,0 +1,635 @@
+{
+  "protocol": {
+    "development_authorized": false,
+    "endpoint_only_fields": [
+      "truth_mass_gain",
+      "immediate_evidence",
+      "future_evidence_gain",
+      "total_evidence",
+      "total_gold"
+    ],
+    "interface_version": "browsecomp-plus-cached-semantic-information-1",
+    "oatml_used": false,
+    "openrouter_calls": 0,
+    "posthoc_open_mechanics": true,
+    "raw_sha256": "73f93e58e64706332c60477363aeed0b3134387008dd80026acdeab485230dea",
+    "source_sha256": "d3192f97b171c7d5d34f8472b52abcff895f3fcb97013d82b41073e1046f9f85",
+    "target_blind_scores": [
+      "semantic_entropy_drop",
+      "js_divergence",
+      "novel_mass",
+      "top_cluster_mass_gain"
+    ]
+  },
+  "records": [
+    {
+      "direct_score": 72,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 1,
+      "js_divergence": 0.36547041825394544,
+      "novel_mass": 0.72,
+      "root_index": 0,
+      "root_truth_mass": 0.72,
+      "semantic_entropy_drop": 0.7438539164518587,
+      "task_id": "286",
+      "top_cluster_mass_gain": 0.37999999999999995,
+      "total_evidence": 2,
+      "total_gold": 1,
+      "truth_mass_gain": 0.72
+    },
+    {
+      "direct_score": 61,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 1,
+      "js_divergence": 0.23762389017950186,
+      "novel_mass": 0.52,
+      "root_index": 1,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": 0.302797951818353,
+      "task_id": "286",
+      "top_cluster_mass_gain": 0.18,
+      "total_evidence": 2,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 58,
+      "future_evidence_gain": 2,
+      "immediate_evidence": 1,
+      "js_divergence": 0.36496823165572534,
+      "novel_mass": 0.72,
+      "root_index": 2,
+      "root_truth_mass": 0.72,
+      "semantic_entropy_drop": 0.7483941831990846,
+      "task_id": "286",
+      "top_cluster_mass_gain": 0.37999999999999995,
+      "total_evidence": 3,
+      "total_gold": 2,
+      "truth_mass_gain": 0.72
+    },
+    {
+      "direct_score": 46,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 0,
+      "js_divergence": 0.00188272702201837,
+      "novel_mass": 0.0,
+      "root_index": 3,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.06711973424651463,
+      "task_id": "286",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 1,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 39,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 1,
+      "js_divergence": 0.6931471805599454,
+      "novel_mass": 1.0,
+      "root_index": 4,
+      "root_truth_mass": 0.08,
+      "semantic_entropy_drop": 0.6906547739037379,
+      "task_id": "286",
+      "top_cluster_mass_gain": 0.35999999999999993,
+      "total_evidence": 2,
+      "total_gold": 1,
+      "truth_mass_gain": 0.08
+    },
+    {
+      "direct_score": 33,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 1,
+      "js_divergence": 0.4132738699032747,
+      "novel_mass": 0.78,
+      "root_index": 5,
+      "root_truth_mass": 0.78,
+      "semantic_entropy_drop": 0.9149350826022185,
+      "task_id": "286",
+      "top_cluster_mass_gain": 0.44,
+      "total_evidence": 2,
+      "total_gold": 1,
+      "truth_mass_gain": 0.78
+    },
+    {
+      "direct_score": 86,
+      "future_evidence_gain": 2,
+      "immediate_evidence": 1,
+      "js_divergence": 0.37964499897066883,
+      "novel_mass": 0.74,
+      "root_index": 0,
+      "root_truth_mass": 0.74,
+      "semantic_entropy_drop": 0.7023309944638336,
+      "task_id": "1058",
+      "top_cluster_mass_gain": 0.33999999999999997,
+      "total_evidence": 3,
+      "total_gold": 3,
+      "truth_mass_gain": 0.74
+    },
+    {
+      "direct_score": 78,
+      "future_evidence_gain": 2,
+      "immediate_evidence": 1,
+      "js_divergence": 0.3649897001116685,
+      "novel_mass": 0.72,
+      "root_index": 1,
+      "root_truth_mass": 0.72,
+      "semantic_entropy_drop": 0.6512819909386838,
+      "task_id": "1058",
+      "top_cluster_mass_gain": 0.31999999999999995,
+      "total_evidence": 3,
+      "total_gold": 3,
+      "truth_mass_gain": 0.72
+    },
+    {
+      "direct_score": 72,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 0,
+      "js_divergence": 0.050462394110471064,
+      "novel_mass": 0.09,
+      "root_index": 2,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.21166897605768398,
+      "task_id": "1058",
+      "top_cluster_mass_gain": -0.12,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 65,
+      "future_evidence_gain": 2,
+      "immediate_evidence": 1,
+      "js_divergence": 0.3656721241951909,
+      "novel_mass": 0.72,
+      "root_index": 3,
+      "root_truth_mass": 0.72,
+      "semantic_entropy_drop": 0.6381112620179046,
+      "task_id": "1058",
+      "top_cluster_mass_gain": 0.31999999999999995,
+      "total_evidence": 3,
+      "total_gold": 3,
+      "truth_mass_gain": 0.72
+    },
+    {
+      "direct_score": 58,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 0,
+      "js_divergence": 0.055325416308846194,
+      "novel_mass": 0.05,
+      "root_index": 4,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.1266535604847321,
+      "task_id": "1058",
+      "top_cluster_mass_gain": -0.06,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 46,
+      "future_evidence_gain": 2,
+      "immediate_evidence": 1,
+      "js_divergence": 0.3651699375969708,
+      "novel_mass": 0.72,
+      "root_index": 5,
+      "root_truth_mass": 0.72,
+      "semantic_entropy_drop": 0.6426515287651304,
+      "task_id": "1058",
+      "top_cluster_mass_gain": 0.31999999999999995,
+      "total_evidence": 3,
+      "total_gold": 3,
+      "truth_mass_gain": 0.72
+    },
+    {
+      "direct_score": 84,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 1,
+      "js_divergence": 0.04221002145516597,
+      "novel_mass": 0.08,
+      "root_index": 0,
+      "root_truth_mass": 0.08,
+      "semantic_entropy_drop": -0.1499684070725089,
+      "task_id": "747",
+      "top_cluster_mass_gain": -0.06,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0.08
+    },
+    {
+      "direct_score": 77,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 0,
+      "js_divergence": 0.005483675759204583,
+      "novel_mass": 0.0,
+      "root_index": 1,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.10417711341616354,
+      "task_id": "747",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 71,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 0,
+      "js_divergence": 0.04622704696601133,
+      "novel_mass": 0.07,
+      "root_index": 2,
+      "root_truth_mass": 0.07,
+      "semantic_entropy_drop": -0.11055148225345057,
+      "task_id": "747",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0.07
+    },
+    {
+      "direct_score": 63,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 0,
+      "js_divergence": 0.0060510862047305665,
+      "novel_mass": 0.0,
+      "root_index": 3,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.12898000249287667,
+      "task_id": "747",
+      "top_cluster_mass_gain": -0.08000000000000002,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 58,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 1,
+      "js_divergence": 0.008227600712557365,
+      "novel_mass": 0.0,
+      "root_index": 4,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.15044708020345254,
+      "task_id": "747",
+      "top_cluster_mass_gain": -0.08000000000000002,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 49,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 0,
+      "js_divergence": 0.008807662460429959,
+      "novel_mass": 0.0,
+      "root_index": 5,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.1430937176495337,
+      "task_id": "747",
+      "top_cluster_mass_gain": -0.06,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 86,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 0,
+      "js_divergence": 0.010312853152983959,
+      "novel_mass": 0.0,
+      "root_index": 0,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": 0.23432665693781773,
+      "task_id": "787",
+      "top_cluster_mass_gain": 0.10999999999999999,
+      "total_evidence": 0,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 78,
+      "future_evidence_gain": 3,
+      "immediate_evidence": 1,
+      "js_divergence": 0.39330908759205185,
+      "novel_mass": 0.72,
+      "root_index": 1,
+      "root_truth_mass": 0.72,
+      "semantic_entropy_drop": 0.44220272861779664,
+      "task_id": "787",
+      "top_cluster_mass_gain": 0.15999999999999992,
+      "total_evidence": 4,
+      "total_gold": 1,
+      "truth_mass_gain": 0.72
+    },
+    {
+      "direct_score": 72,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 2,
+      "js_divergence": 0.26068392557610653,
+      "novel_mass": 0.5,
+      "root_index": 2,
+      "root_truth_mass": 0.5,
+      "semantic_entropy_drop": 0.20056297157255631,
+      "task_id": "787",
+      "top_cluster_mass_gain": -0.06000000000000005,
+      "total_evidence": 2,
+      "total_gold": 1,
+      "truth_mass_gain": 0.5
+    },
+    {
+      "direct_score": 69,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 1,
+      "js_divergence": 0.01838152839851217,
+      "novel_mass": 0.0,
+      "root_index": 3,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": 0.3165820718867818,
+      "task_id": "787",
+      "top_cluster_mass_gain": 0.14,
+      "total_evidence": 1,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 63,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 0,
+      "js_divergence": 0.014775037371319494,
+      "novel_mass": 0.0,
+      "root_index": 4,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": 0.2835543560405551,
+      "task_id": "787",
+      "top_cluster_mass_gain": 0.13,
+      "total_evidence": 0,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 58,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 1,
+      "js_divergence": 0.050669445416560155,
+      "novel_mass": 0.04,
+      "root_index": 5,
+      "root_truth_mass": 0.04,
+      "semantic_entropy_drop": 0.3034592399638525,
+      "task_id": "787",
+      "top_cluster_mass_gain": 0.1399999999999999,
+      "total_evidence": 1,
+      "total_gold": 1,
+      "truth_mass_gain": 0.04
+    },
+    {
+      "direct_score": 78,
+      "future_evidence_gain": 2,
+      "immediate_evidence": 1,
+      "js_divergence": 0.28145431377716923,
+      "novel_mass": 0.58,
+      "root_index": 0,
+      "root_truth_mass": 0.58,
+      "semantic_entropy_drop": 0.42421295646854396,
+      "task_id": "854",
+      "top_cluster_mass_gain": 0.29999999999999993,
+      "total_evidence": 3,
+      "total_gold": 1,
+      "truth_mass_gain": 0.58
+    },
+    {
+      "direct_score": 72,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 0,
+      "js_divergence": 0.007313970195684068,
+      "novel_mass": 0.0,
+      "root_index": 1,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.11167489014284682,
+      "task_id": "854",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 0,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 66,
+      "future_evidence_gain": 1,
+      "immediate_evidence": 1,
+      "js_divergence": 0.027810955226257046,
+      "novel_mass": 0.0,
+      "root_index": 2,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.1149975911760952,
+      "task_id": "854",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 2,
+      "total_gold": 1,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 61,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 0,
+      "js_divergence": 0.004043368115040841,
+      "novel_mass": 0.0,
+      "root_index": 3,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.09329333831909992,
+      "task_id": "854",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 0,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 54,
+      "future_evidence_gain": 0,
+      "immediate_evidence": 0,
+      "js_divergence": 0.008091563538806284,
+      "novel_mass": 0.0,
+      "root_index": 4,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.11404157458147668,
+      "task_id": "854",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 0,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    },
+    {
+      "direct_score": 47,
+      "future_evidence_gain": 3,
+      "immediate_evidence": 1,
+      "js_divergence": 0.028345450369281766,
+      "novel_mass": 0.0,
+      "root_index": 5,
+      "root_truth_mass": 0,
+      "semantic_entropy_drop": -0.08526197658009305,
+      "task_id": "854",
+      "top_cluster_mass_gain": -0.040000000000000036,
+      "total_evidence": 4,
+      "total_gold": 0,
+      "truth_mass_gain": 0
+    }
+  ],
+  "schema_version": 1,
+  "selections": [
+    {
+      "direct_root": 0,
+      "direct_root_immediate_evidence": 1,
+      "direct_root_truth_mass": 0.72,
+      "entropy_root": 5,
+      "entropy_root_immediate_evidence": 1,
+      "entropy_root_truth_mass": 0.78,
+      "task_id": "286"
+    },
+    {
+      "direct_root": 0,
+      "direct_root_immediate_evidence": 1,
+      "direct_root_truth_mass": 0.74,
+      "entropy_root": 0,
+      "entropy_root_immediate_evidence": 1,
+      "entropy_root_truth_mass": 0.74,
+      "task_id": "1058"
+    },
+    {
+      "direct_root": 0,
+      "direct_root_immediate_evidence": 1,
+      "direct_root_truth_mass": 0.08,
+      "entropy_root": 1,
+      "entropy_root_immediate_evidence": 0,
+      "entropy_root_truth_mass": 0,
+      "task_id": "747"
+    },
+    {
+      "direct_root": 0,
+      "direct_root_immediate_evidence": 0,
+      "direct_root_truth_mass": 0,
+      "entropy_root": 1,
+      "entropy_root_immediate_evidence": 1,
+      "entropy_root_truth_mass": 0.72,
+      "task_id": "787"
+    },
+    {
+      "direct_root": 0,
+      "direct_root_immediate_evidence": 1,
+      "direct_root_truth_mass": 0.58,
+      "entropy_root": 0,
+      "entropy_root_immediate_evidence": 1,
+      "entropy_root_truth_mass": 0.58,
+      "task_id": "854"
+    }
+  ],
+  "status": "directional_first_link_pass",
+  "summary": {
+    "all_gates_pass": true,
+    "dynamic_task_count": 5,
+    "entropy_selection_truth_losses": 1,
+    "entropy_selection_truth_nonworse": 4,
+    "entropy_selection_truth_wins": 2,
+    "gates": {
+      "at_least_20_truth_pairs": true,
+      "at_least_30_immediate_pairs": true,
+      "entropy_score_dynamic_on_5_tasks": true,
+      "entropy_selection_truth_losses_at_most_1_task": true,
+      "entropy_selection_truth_nonworse_on_at_least_4_tasks": true,
+      "entropy_selection_truth_wins_at_least_1_task": true,
+      "exact_30_roots": true,
+      "immediate_pair_accuracy_at_least_0_55": true,
+      "truth_mass_pair_accuracy_at_least_0_60": true
+    },
+    "pairwise": {
+      "js_divergence": {
+        "future_evidence_gain": {
+          "accuracy": 0.7631578947368421,
+          "pairs": 38
+        },
+        "immediate_evidence": {
+          "accuracy": 0.9024390243902439,
+          "pairs": 41
+        },
+        "total_evidence": {
+          "accuracy": 0.9047619047619048,
+          "pairs": 42
+        },
+        "total_gold": {
+          "accuracy": 0.8823529411764706,
+          "pairs": 34
+        },
+        "truth_mass_gain": {
+          "accuracy": 0.92,
+          "pairs": 50
+        }
+      },
+      "novel_mass": {
+        "future_evidence_gain": {
+          "accuracy": 0.6710526315789473,
+          "pairs": 38
+        },
+        "immediate_evidence": {
+          "accuracy": 0.8170731707317073,
+          "pairs": 41
+        },
+        "total_evidence": {
+          "accuracy": 0.8095238095238095,
+          "pairs": 42
+        },
+        "total_gold": {
+          "accuracy": 0.8676470588235294,
+          "pairs": 34
+        },
+        "truth_mass_gain": {
+          "accuracy": 0.94,
+          "pairs": 50
+        }
+      },
+      "semantic_entropy_drop": {
+        "future_evidence_gain": {
+          "accuracy": 0.868421052631579,
+          "pairs": 38
+        },
+        "immediate_evidence": {
+          "accuracy": 0.6097560975609756,
+          "pairs": 41
+        },
+        "total_evidence": {
+          "accuracy": 0.7857142857142857,
+          "pairs": 42
+        },
+        "total_gold": {
+          "accuracy": 0.7352941176470589,
+          "pairs": 34
+        },
+        "truth_mass_gain": {
+          "accuracy": 0.8,
+          "pairs": 50
+        }
+      },
+      "top_cluster_mass_gain": {
+        "future_evidence_gain": {
+          "accuracy": 0.7894736842105263,
+          "pairs": 38
+        },
+        "immediate_evidence": {
+          "accuracy": 0.6585365853658537,
+          "pairs": 41
+        },
+        "total_evidence": {
+          "accuracy": 0.7619047619047619,
+          "pairs": 42
+        },
+        "total_gold": {
+          "accuracy": 0.7794117647058824,
+          "pairs": 34
+        },
+        "truth_mass_gain": {
+          "accuracy": 0.84,
+          "pairs": 50
+        }
+      }
+    },
+    "root_count": 30,
+    "task_count": 5
+  }
+}
