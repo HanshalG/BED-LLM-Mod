@@ -7,6 +7,7 @@ from scripts.interactcomp_model_criticism_validation import (
     SCREEN_INDICES,
     enroll_collapsed_tasks,
     parse_classification_ascii_whitespace,
+    parse_question_multilingual,
     parse_semantic_distinctness,
     root_scores,
     unique_entity_count,
@@ -24,6 +25,13 @@ def test_v2_classification_parser_compacts_only_ascii_whitespace():
     assert parse_classification_ascii_whitespace("Y YN U") == "YYNU"
     with pytest.raises(ValueError):
         parse_classification_ascii_whitespace("Y,Y,N,U")
+
+
+def test_v3_question_parser_accepts_ascii_and_fullwidth_marks_only():
+    assert parse_question_multilingual("Is this the target?").endswith("?")
+    assert parse_question_multilingual("这是否就是我们要找的目标？").endswith("？")
+    with pytest.raises(ValueError):
+        parse_question_multilingual("Is this the target.")
 
 
 def test_collapsed_support_enrollment_preserves_manifest_order():

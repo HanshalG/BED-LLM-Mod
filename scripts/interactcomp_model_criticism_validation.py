@@ -53,44 +53,44 @@ from scripts.interactcomp_robust_support_development import (
 )
 
 
-INTERFACE_VERSION = "interactcomp-model-criticism-validation-2"
-SEED = 24_382
-RANDOM_CONTROL_SEED = 24_383
+INTERFACE_VERSION = "interactcomp-model-criticism-validation-3"
+SEED = 24_384
+RANDOM_CONTROL_SEED = 24_385
 SCREEN_INDICES = (
-    90,
-    12,
-    133,
-    130,
-    184,
-    125,
-    105,
-    69,
-    67,
-    124,
-    11,
-    64,
-    91,
-    9,
-    60,
-    197,
+    86,
+    169,
+    41,
+    28,
+    85,
+    103,
+    66,
+    145,
+    138,
+    192,
+    156,
+    114,
+    14,
+    44,
+    162,
+    63,
 )
 EXPECTED_SCREEN_IDS = (
-    91,
-    13,
-    134,
-    131,
-    185,
-    126,
-    106,
-    70,
-    68,
-    125,
-    12,
-    65,
-    92,
-    10,
-    61,
-    198,
+    87,
+    170,
+    42,
+    29,
+    86,
+    104,
+    67,
+    146,
+    139,
+    193,
+    157,
+    115,
+    15,
+    45,
+    163,
+    64,
 )
 ENROLL_COUNT = 6
 COLLAPSED_UNIQUE_MAX = 4
@@ -129,6 +129,16 @@ def parse_classification_ascii_whitespace(text: str) -> str:
         {ord(character): None for character in " \t\r\n"}
     )
     return parse_classification(compact)
+
+
+def parse_question_multilingual(text: str) -> str:
+    lines = [line.strip() for line in text.strip().splitlines() if line.strip()]
+    if len(lines) != 1:
+        raise ValueError("question must contain exactly one nonempty line")
+    question = lines[0]
+    if not question.endswith(("?", "？")) or not (8 <= len(question) <= 300):
+        raise ValueError("question must be a bounded single question")
+    return question
 
 
 def unique_entity_count(hypotheses: Sequence[Hypothesis]) -> int:
@@ -450,7 +460,7 @@ def run_validation(
         questions = {}
         for offset, index in enumerate(enrolled):
             task_questions = [
-                parse_question(response)
+                parse_question_multilingual(response)
                 for response in question_raw[
                     offset * QUESTION_COUNT : (offset + 1) * QUESTION_COUNT
                 ]
@@ -792,6 +802,7 @@ def run_validation(
             "reasoning_requested": False,
             "primary_score": "balanced_model_identity_mutual_information",
             "ascii_whitespace_compaction_only": True,
+            "question_terminal_marks": ["?", "？"],
             "target_answers_loaded_after_all_model_calls": True,
             "repairs_or_reissues": 0,
         },
