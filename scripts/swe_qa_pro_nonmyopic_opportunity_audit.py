@@ -506,6 +506,24 @@ def analyze_task(
         and oracle_pair > greedy_pair
         and oracle_pair > oracle["immediate_evidence_count"]
     )
+    compact_roots = []
+    for root in root_records:
+        best = root["continuations"][root["best_followup_index"]]
+        compact_roots.append(
+            {
+                "root_index": root["root_index"],
+                "query": root["query"],
+                "result_ids": root["result_ids"],
+                "immediate_evidence_count": root[
+                    "immediate_evidence_count"
+                ],
+                "best_followup_index": root["best_followup_index"],
+                "oracle_pair_evidence_count": root[
+                    "oracle_pair_evidence_count"
+                ],
+                "best_followup": best,
+            }
+        )
     return {
         "task_id": task_id,
         "row_index": row_index,
@@ -540,7 +558,7 @@ def analyze_task(
         "nonmyopic_normalized_gap": (oracle_pair - greedy_pair)
         / len(evidence),
         "strict_opportunity": strict,
-        "roots": root_records,
+        "roots": compact_roots,
     }
 
 

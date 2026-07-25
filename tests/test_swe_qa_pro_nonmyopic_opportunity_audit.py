@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from scripts.bright_biology_unlock_audit import BM25Corpus
 from scripts.swe_qa_pro_nonmyopic_opportunity_audit import (
     DEVELOPMENT_INDEX_HASH,
@@ -98,3 +101,20 @@ def test_summary_requires_prevalent_strict_tradeoffs() -> None:
     summary = summarize(records)
     assert summary["gates"]["all_pass"]
 
+
+def test_frozen_audit_artifact_records_gate_failure() -> None:
+    artifact = (
+        Path(__file__).resolve().parents[1]
+        / "results"
+        / "nonmyopic"
+        / "swe_qa_pro_nonmyopic_opportunity"
+        / "AUDIT.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    summary = payload["summary"]
+    assert payload["status"] == "gate_failed"
+    assert summary["num_records"] == 120
+    assert summary["num_usable"] == 92
+    assert summary["pair_gain_count"] == 64
+    assert summary["strict_opportunity_count"] == 7
+    assert not summary["gates"]["all_pass"]
