@@ -1,0 +1,1108 @@
+{
+  "protocol": {
+    "aligned_is_a": [
+      [
+        true,
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    ],
+    "annotations_hidden_from_all_model_prompts": true,
+    "blinding_seed": 24356,
+    "interface_version": "musique-branching-progress-v2-smoke-1",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "f0ba666515637d25849750ca0e871673f74687951ddfd6925612d37515def44f",
+    "progress_scale": {
+      "0": "no concrete dependency resolved",
+      "1": "one useful entity or fact resolved",
+      "2": "connected two-step dependency resolved",
+      "3": "connected chain plus independent root resolved",
+      "4": "final relation or answer resolved"
+    },
+    "question_hidden_from_progress_scorer": true,
+    "random_control_seed": 24357,
+    "reasoning_requested": false,
+    "repairs_or_scientific_retries": 0,
+    "root_evidence_hidden_from_progress_scorer": true,
+    "root_query_hidden_from_progress_scorer": true,
+    "task_ids": [
+      "4hop3__493923_300471_583182_62462",
+      "4hop3__21483_551941_773286_24137"
+    ]
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "aligned_initial_terminal_change_count": 12,
+    "aligned_shuffled_terminal_change_count": 6,
+    "aligned_terminal_variation_count": 3,
+    "deep_followup_success_count": 0,
+    "gates": {
+      "aligned_deep_followup_succeeds_at_least_once": false,
+      "aligned_initial_terminal_vectors_differ_at_least_8_roots": true,
+      "aligned_shuffled_terminal_vectors_differ_at_least_8_roots": false,
+      "aligned_terminal_variation_at_least_10_roots": false,
+      "all_pass": false,
+      "all_refreshed_states_differ_from_initial": true,
+      "all_responses_parsed_without_repair": true,
+      "at_least_five_distinct_refreshes_each": true,
+      "at_least_three_distinct_first_documents_each": true,
+      "balanced_blinding_labels": true,
+      "cost_at_most_0_50": true,
+      "deep_and_shallow_roots_retrieved_each": true,
+      "exact_16_http_attempts": true,
+      "exact_16_physical_requests": true,
+      "model_aware_at_least_fixed_both": true,
+      "model_aware_at_least_myopic_both": true,
+      "model_aware_at_least_shuffled_both": true,
+      "model_aware_selects_deep_root_at_least_once": true,
+      "model_aware_strictly_beats_myopic_at_least_once": false,
+      "pooled_root_spearman_at_least_0_30": true,
+      "zero_forced_exits": true,
+      "zero_reasoning_tokens": true,
+      "zero_transport_retries": true
+    },
+    "model_at_least_myopic_count": 2,
+    "model_deep_root_count": 1,
+    "model_strictly_better_myopic_count": 0,
+    "pooled_root_spearman": 0.30151134457776363
+  },
+  "tasks": [
+    {
+      "aligned_deep_followup_retrieves_child": false,
+      "deep_root_candidate_indices": [
+        1,
+        2,
+        4
+      ],
+      "distinct_first_retrieval_count": 3,
+      "distinct_refresh_state_count": 6,
+      "exact_best_prefix_by_root": [
+        1,
+        2,
+        2,
+        1,
+        2,
+        1
+      ],
+      "followup_doc_ids": [
+        [
+          "d12",
+          "d02",
+          "d02",
+          "d09"
+        ],
+        [
+          "d10",
+          "d11",
+          "d09",
+          "d09"
+        ],
+        [
+          "d10",
+          "d11",
+          "d09",
+          "d09"
+        ],
+        [
+          "d01",
+          "d02",
+          "d02",
+          "d02"
+        ],
+        [
+          "d12",
+          "d11",
+          "d11",
+          "d09"
+        ],
+        [
+          "d02",
+          "d02",
+          "d14",
+          "d02"
+        ]
+      ],
+      "followup_titles": [
+        [
+          "Al-Mastumah",
+          "Al-Mu'tadid",
+          "Al-Mu'tadid",
+          "Battle of Las Navas de Tolosa"
+        ],
+        [
+          "History of Ethiopia",
+          "Mu'nis al-Fahl",
+          "Battle of Las Navas de Tolosa",
+          "Battle of Las Navas de Tolosa"
+        ],
+        [
+          "History of Ethiopia",
+          "Mu'nis al-Fahl",
+          "Battle of Las Navas de Tolosa",
+          "Battle of Las Navas de Tolosa"
+        ],
+        [
+          "Muslim conquest of the Levant",
+          "Al-Mu'tadid",
+          "Al-Mu'tadid",
+          "Al-Mu'tadid"
+        ],
+        [
+          "Al-Mastumah",
+          "Mu'nis al-Fahl",
+          "Mu'nis al-Fahl",
+          "Battle of Las Navas de Tolosa"
+        ],
+        [
+          "Al-Mu'tadid",
+          "Al-Mu'tadid",
+          "Nahlaya",
+          "Al-Mu'tadid"
+        ]
+      ],
+      "initial": {
+        "hypotheses": [
+          "Find which country contains Al-Mastumah; identify the man who followed the reign of Al-Mu'tamid; determine that man's country; then find when Muslim armies invaded each of those two countries.",
+          "Resolve Al-Mastumah to its modern national location; interpret 'the man who followed the reign of Al-Mu'tamid' as the immediate successor ruler after Al-Mu'tamid; identify the successor's associated country; then look up the Muslim conquest or invasion date for both countries.",
+          "Search for Al-Mastumah as an archaeological or populated place and map it to a country; search historical sources on Al-Mu'tamid's reign to identify the next ruler or notable man succeeding him; connect that person to a country; then retrieve the year or period when Muslim armies first invaded those countries.",
+          "Determine whether Al-Mastumah is in a present-day state or historical region and normalize it to a country; determine whether 'followed the reign of Al-Mu'tamid' refers to a caliph, king, or taifa ruler's successor; identify that successor's country; then search invasion timelines for Muslim armies entering both countries.",
+          "Use a place-name search to identify Al-Mastumah's country; use a dynastic succession search on Al-Mu'tamid to find the man who came after his reign; infer that man's country by office, birthplace, or realm; then answer with the invasion dates of those two countries by Muslim armies.",
+          "Find Al-Mastumah in gazetteers or history texts and extract the containing country; investigate multiple historical figures named Al-Mu'tamid and select the one whose reign has a clearly documented successor man; identify the successor's country; then find when Muslim forces invaded each country in standard national histories.",
+          "Resolve whether Al-Mastumah belongs to Syria or another country from corpus evidence; resolve whether Al-Mu'tamid refers to Abbasid, Andalusi, or another ruler; identify the man who followed that reign and his country; then locate references to the Muslim invasion/conquest dates for both relevant countries.",
+          "First find the geographic country for Al-Mastumah, then independently build a succession chain from Al-Mu'tamid to the next male ruler or officeholder, then map that person to a country, and finally search country-history sources for the dates or years when Muslim armies invaded each country."
+        ],
+        "root_queries": [
+          "Al-Mastumah country location",
+          "Al-Mu'tamid reign followed by who",
+          "successor to Al-Mu'tamid country",
+          "Muslim armies invaded [country containing Al-Mastumah] when",
+          "Muslim invasion of [country of successor to Al-Mu'tamid] date",
+          "Al-Mastumah archaeology site modern country"
+        ]
+      },
+      "policies": {
+        "fixed": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 9,
+          "first_title": "History of Ethiopia",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "other",
+          "second_paragraph_index": 11,
+          "second_title": "Al-Mastumah"
+        },
+        "model_aware": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 1,
+          "first_title": "Al-Mu'tadid",
+          "followup_index": 0,
+          "root_index": 4,
+          "root_role": "deep_root",
+          "second_paragraph_index": 11,
+          "second_title": "Al-Mastumah"
+        },
+        "myopic": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 1,
+          "first_title": "Al-Mu'tadid",
+          "followup_index": 0,
+          "root_index": 1,
+          "root_role": "deep_root",
+          "second_paragraph_index": 9,
+          "second_title": "History of Ethiopia"
+        },
+        "random": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 1,
+          "first_title": "Al-Mu'tadid",
+          "followup_index": 0,
+          "root_index": 4,
+          "root_role": "deep_root",
+          "second_paragraph_index": 11,
+          "second_title": "Al-Mastumah"
+        },
+        "shuffled": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 9,
+          "first_title": "History of Ethiopia",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "other",
+          "second_paragraph_index": 11,
+          "second_title": "Al-Mastumah"
+        }
+      },
+      "predicted_terminal_progress_by_root": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        2
+      ],
+      "progress_rows": [
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          "aligned_label": "A",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              1,
+              0
+            ]
+          },
+          "root_index": 0,
+          "shuffled": {
+            "current": 2,
+            "terminal": [
+              3,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 2,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "B",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "root_index": 1,
+          "shuffled": {
+            "current": 2,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 2,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "A",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "root_index": 2,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "B",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              0,
+              1,
+              1,
+              1
+            ]
+          },
+          "root_index": 3,
+          "shuffled": {
+            "current": 2,
+            "terminal": [
+              3,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 2,
+            "terminal": [
+              3,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "A",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              0,
+              0,
+              0
+            ]
+          },
+          "root_index": 4,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "B",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              0,
+              1
+            ]
+          },
+          "root_index": 5,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              1,
+              2
+            ]
+          }
+        }
+      ],
+      "refreshes": [
+        {
+          "followup_queries": [
+            "Al-Mastumah Syria archaeological site country",
+            "Al-Mu'tamid immediate successor ruler who followed his reign",
+            "which Al-Mu'tamid was followed by a man in historical succession Abbasid or Seville",
+            "History of Ethiopia Muslim armies entered Ethiopia 1528 Imam Ahmad ibn Ibrahim al-Ghazi"
+          ],
+          "hypotheses": [
+            "The corpus result is about Ethiopia and gives a Muslim-armies entry window of 1528\u20131540, but it does not mention Al-Mastumah. Check whether Al-Mastumah is actually in Ethiopia; if not, the visible invasion date applies only to a different country surfaced by an off-target search.",
+            "If Al-Mastumah proves to be in Syria, the Ethiopia paragraph is unrelated to the place-name branch. The remaining chain is: confirm Al-Mastumah's country, then find when Muslim armies invaded that country in standard national history.",
+            "The result newly provides a concrete Muslim invasion period for Ethiopia: armies under Imam Ahmad ibn Ibrahim al-Ghazi entered from the southeast between 1528 and 1540. If a later step links the successor-related man to Ethiopia, this date window may answer that branch, but the successor identity is still unresolved.",
+            "The phrase 'the man who followed the reign of Al-Mu'tamid' remains ambiguous because multiple rulers are called Al-Mu'tamid. Disambiguate whether this refers to the Abbasid caliph al-Mu'tamid, the Sevillian ruler al-Mu'tamid ibn Abbad, or another Al-Mu'tamid before identifying the following man and his country.",
+            "One possible reading is that 'the man who followed the reign of Al-Mu'tamid' means the immediate successor ruler after an Al-Mu'tamid. After identifying that successor, determine whether his associated country is based on the realm he ruled, not his birthplace or later exile location.",
+            "Another possible reading is that 'the man who followed the reign of Al-Mu'tamid' refers to a narrative succession in a specific article rather than formal dynastic succession. Verify the exact source context for Al-Mu'tamid before choosing the successor man and country.",
+            "Because the visible Ethiopia article mentions Jo\u00e3o Bermudes and a successor to the Abuna, there is a risk of false linkage: 'successor' in this paragraph is ecclesiastical and not obviously related to Al-Mu'tamid. Keep the Al-Mu'tamid succession branch independent from the Ethiopia evidence unless a query explicitly connects them.",
+            "Even if the second country is Ethiopia, the final answer may require a single year rather than a range. If so, determine whether to use 1528 as the first Muslim-armies entry into Ethiopia or preserve the article's 1528\u20131540 period, while separately finding the corresponding invasion date for Al-Mastumah's country."
+          ]
+        },
+        {
+          "followup_queries": [
+            "Al-Mastumah modern country location",
+            "Al-Mu'tadid associated with which modern country Abbasid caliph",
+            "When did Muslim armies invade Iraq",
+            "When did Muslim armies invade Syria"
+          ],
+          "hypotheses": [
+            "The result identifies the relevant Al-Mu'tamid as the Abbasid caliph and names al-Mu'tadid as the man who succeeded to the throne after al-Mu'tamid died in October 892; next resolve which modern country to associate with al-Mu'tadid, likely via the Abbasid capital or core realm, before seeking when Muslim armies invaded that country.",
+            "Because the paragraph says al-Mu'tadid succeeded al-Mu'tamid as Abbasid caliph, the phrase 'the country of the man who followed the reign of Al-Mu'tamid' may refer to the modern country tied to al-Mu'tadid's birthplace, rule center, or dynasty; determine the intended country mapping, then find the Muslim invasion date for that country.",
+            "Al-Mastumah still needs geographic resolution to a present-day country; independently identify whether Al-Mastumah is in modern Syria or elsewhere, then pair that country with the country associated with al-Mu'tadid and retrieve invasion dates for both.",
+            "The succession side is partially resolved: al-Mu'tamid was followed by al-Mu'tadid after October 892, but the question asks about countries, not rulers; establish whether the expected country is Iraq because of the Abbasid state and Baghdad/Samarra connection, then verify via a source on al-Mu'tadid.",
+            "The retrieved result mentions al-Mu'tadid as son of al-Muwaffaq and cousin of al-Mufawwad, so there is a risk the question's wording could be misread; confirm that 'the man who followed the reign of Al-Mu'tamid' is indeed al-Mu'tadid rather than al-Muwaffaq or another regent, then map him to a country.",
+            "To answer the final question, both country-level invasion events must likely be normalized to first Muslim conquest or invasion in national histories; once Al-Mastumah's country and al-Mu'tadid's country are fixed, search for the year or period when Muslim armies invaded each modern country.",
+            "If al-Mu'tadid is associated with the Abbasid capital, the relevant country may be Iraq, but if the corpus instead ties him to a different location, that could change the invasion target; a dedicated query should establish the concrete modern country relation for al-Mu'tadid before moving to invasion chronology.",
+            "The current evidence resolves the successor but not the final pair of countries; the next steps are to locate Al-Mastumah precisely, determine the modern country association for al-Mu'tadid as successor to al-Mu'tamid, and then obtain Muslim invasion dates from reliable country-history entries for those two countries."
+          ]
+        },
+        {
+          "followup_queries": [
+            "Al-Mastumah modern country site location",
+            "al-Mu'tadid associated modern country Abbasid capital",
+            "when did Muslim armies invade Syria",
+            "when did Muslim armies invade Iraq"
+          ],
+          "hypotheses": [
+            "The corpus result suggests the relevant Al-Mu'tamid is the Abbasid caliph, and the man who followed his reign is al-Mu'tadid; next resolve what present-day country should be associated with al-Mu'tadid, likely via the seat of the Abbasid throne, then find when Muslim armies invaded that country.",
+            "The phrase 'the man who followed the reign of Al-Mu'tamid' may refer not to a direct dynastic successor search result but to the ruler who succeeded al-Mu'tamid upon his death in October 892; verify whether al-Mu'tadid is the intended man, identify his country from the Abbasid capital or realm center, and then retrieve the Muslim invasion date for that country.",
+            "Because the result says al-Mu'tadid succeeded to the throne after al-Mu'tamid and belonged to the Abbasid state, one path is to map 'his country' through Baghdad/Samarra or modern Iraq rather than the full caliphate, then look up when Muslim armies invaded Iraq; separately still resolve Al-Mastumah's country.",
+            "The successor evidence may still be ambiguous because al-Mu'tadid first succeeded al-Muwaffaq as regent in 891 and then al-Mu'tamid as caliph in 892; determine which succession sense the question intends, anchor the man to a country, and only then search invasion chronology for that country and for Al-Mastumah's country.",
+            "Al-Mastumah remains unresolved; if it is a site in modern Syria, then the task becomes pairing Syria's Muslim-army invasion date with the country associated with al-Mu'tadid, but this needs direct confirmation from a place-source before searching invasion dates.",
+            "The retrieved result newly ties al-Mu'tamid to the Abbasid dynasty, so another chain is to test whether the question's 'country of the man' means birthplace, burial place, or polity ruled by al-Mu'tadid; whichever country is supported should then be matched to a standard Muslim invasion/conquest date.",
+            "A possible resolution path is to identify the modern nation containing the Abbasid capital at the time al-Mu'tadid took the throne in 892, since that may operationalize 'the country of the man who followed the reign of Al-Mu'tamid'; then compare that with the modern nation containing Al-Mastumah and find invasion dates for both.",
+            "The current evidence supports al-Mu'tadid as the post-al-Mu'tamid figure, but the answer still depends on two geographic normalizations: Al-Mastumah to a modern country and al-Mu'tadid to a modern country; after both are fixed, query national histories for when Muslim armies invaded each country."
+          ]
+        },
+        {
+          "followup_queries": [
+            "When did Muslim armies invade or conquer Syria",
+            "Who succeeded Al-Mu'tamid after his reign",
+            "Al-Mu'tamid successor country",
+            "Al-Mu'tamid reign followed by which man"
+          ],
+          "hypotheses": [
+            "Al-Mastumah is explicitly a village in northern Syria, so one target country is Syria; next resolve a reliable historical source for when Muslim armies invaded/conquered Syria, then separately identify which Al-Mu'tamid is intended and who followed his reign.",
+            "Because the result places Al-Mastumah in Idlib Governorate, Syria, the first country is modern Syria; the remaining chain is to disambiguate Al-Mu'tamid among rulers with that name, find the immediate male successor to his reign, map that successor to a country, and retrieve the Muslim invasion date for that country.",
+            "The place-name branch is largely resolved to Syria via Al-Mastumah near Idlib and Aleppo; now determine whether the question expects the Muslim invasion of Syria as Bilad al-Sham or modern Syria, while also resolving the successor-after-Al-Mu'tamid branch.",
+            "Since Al-Mastumah is in northern Syria, an answer component may be a year or period for the Muslim conquest of Syria; however the second component still depends on identifying whether Al-Mu'tamid refers to the Abbasid caliph, the Abbadid ruler of Seville, or another ruler, then tracing the man who followed him.",
+            "Use the new evidence that Al-Mastumah is administratively in Syria to stop searching other countries for that location; shift effort to succession sources for Al-Mu'tamid and then to national-history sources for Muslim invasions of the successor's country.",
+            "The geographic query confirms Syria rather than a smaller historical region, but the temporal target remains open: find when Muslim armies invaded Syria, and in parallel find a biographical or dynastic page stating who followed Al-Mu'tamid's reign and what country that man is associated with.",
+            "Because the result gives modern Syrian administrative context, the country containing Al-Mastumah can be normalized as Syria; the unresolved ambiguity is whether the second country comes from the successor's realm, birthplace, or nationality after Al-Mu'tamid's reign, which must be settled before looking up invasion timing.",
+            "The first branch now points to Syria from the Al-Mastumah article; the next best chain is to query for 'who succeeded Al-Mu'tamid' in multiple historical contexts, select the interpretation supported by explicit succession wording, identify that successor's country, then obtain Muslim invasion dates for Syria and that second country."
+          ]
+        },
+        {
+          "followup_queries": [
+            "Al-Mastumah modern country archaeological site",
+            "Al-Mu'tadid associated modern country Abbasid caliph Baghdad Iraq",
+            "Who succeeded Caliph al-Mu'tamid immediately after his death in October 892",
+            "When did Muslim armies invade Iraq"
+          ],
+          "hypotheses": [
+            "The result suggests the relevant Al-Mu'tamid is the Abbasid caliph, and the man who followed his reign is al-Mu'tadid, who succeeded to the throne when al-Mu'tamid died in October 892; next resolve what country should be associated with al-Mu'tadid or the Abbasid throne, then find when Muslim armies invaded that country.",
+            "Because the paragraph says al-Mu'tadid succeeded al-Mu'tamid to the throne of the Abbasid state, the dependency may run through the Abbasid capital or core realm rather than birthplace; identify the modern country corresponding to al-Mu'tadid's ruling seat, then retrieve the Muslim invasion date for that country.",
+            "The phrase 'the country of the man who followed the reign of Al-Mu'tamid' may refer to the successor caliph's own national association; determine whether al-Mu'tadid is tied in sources to Iraq, Baghdad, Samarra, or another modern country, then look up when Muslim armies invaded that country.",
+            "The new evidence narrows the succession chain to al-Mu'tamid \u2192 al-Mu'tadid, but it remains unresolved whether 'followed the reign' means succeeded directly as caliph or first as regent after al-Muwaffaq's death in June 891; disambiguate which succession the question intends before mapping to a country and invasion date.",
+            "One branch is now likely solved on the ruler side, but the Al-Mastumah branch remains open; identify Al-Mastumah's modern country from geographic or archaeological sources, then retrieve when Muslim armies invaded that country and compare with the date for al-Mu'tadid's country.",
+            "The paragraph introduces al-Muwaffaq, al-Mufawwad, and al-Mu'tadid, creating a possible ambiguity about which 'man' followed al-Mu'tamid's reign; verify from succession lists that al-Mu'tadid is the immediate successor intended, then proceed to country normalization and invasion chronology.",
+            "Since the corpus result is biographical and not geopolitical, a remaining dependency is to convert 'Abbasid state' into a modern country label usable in a Muslim invasion query; determine the accepted modern-country mapping from standard references, then search that country's invasion history.",
+            "After identifying al-Mu'tadid as the likely successor, the final answer still depends on whether the question asks for exact years, broader periods, or first Muslim conquest events for the two countries; once both countries are fixed, consult country-history sources that explicitly date Muslim armies' invasion or conquest."
+          ]
+        },
+        {
+          "followup_queries": [
+            "Al-Mu'tamid successor after his reign who followed him",
+            "Al-Mu'tamid immediate successor caliph king taifa ruler disambiguation",
+            "Muslim conquest of Syria date northern Syria Idlib",
+            "Al-Mu'tamid reign followed by which man and what country was he associated with"
+          ],
+          "hypotheses": [
+            "Al-Mastumah is explicitly in northern Syria, so one target country is Syria; remaining steps are to identify which Al-Mu'tamid is intended, find the man who followed his reign, map that man to a country, and then find when Muslim armies invaded Syria and that second country.",
+            "Because the result places Al-Mastumah in Idlib Governorate, Syria, the first invasion date likely comes from the Muslim conquest of Syria/Byzantine Syria; still unresolved are the correct Al-Mu'tamid identity, his successor, the successor's country, and that country's Muslim invasion date.",
+            "The phrase 'the man who followed the reign of Al-Mu'tamid' may refer to a ruler named Al-Mu'tamid in different polities such as the Abbasid caliphate or al-Andalus; after disambiguating which Al-Mu'tamid is relevant, identify the immediate successor male ruler and associate him with a country before seeking the Muslim invasion date for that country.",
+            "If Al-Mu'tamid is the Abbasid caliph al-Mu'tamid, then the man after his reign would be the next caliph; the chain is to verify that interpretation, determine the successor's associated country such as Iraq or another state used by the corpus, and pair its Muslim invasion date with Syria's.",
+            "If Al-Mu'tamid is Muhammad al-Mu'tamid of Seville in al-Andalus, then the next ruler after his reign may belong to the taifa of Seville or a conquering dynasty; the unresolved work is to confirm this branch, normalize the ruler's realm to a modern country such as Spain, and find when Muslim armies invaded Spain alongside Syria.",
+            "The country for Al-Mastumah need not be searched further because the paragraph states Syria; the next dependency is whether the question wants the first Muslim invasion, conquest, or entry into each country, so later evidence should clarify what historical event and date format are used for Syria and the second country.",
+            "Since the result includes concrete Syrian geography\u2014Idlib Governorate, south of Idlib, southwest of Aleppo\u2014the first country is modern Syria; remaining uncertainty lies entirely in the Al-Mu'tamid succession chain and in choosing the standard historical source for the Muslim invasion date of the successor's country.",
+            "The answer likely combines two national-history dates: one for Syria and one for the country tied to Al-Mu'tamid's successor; to reach it, a separate search should use the now-resolved Syria fact while independently disambiguating Al-Mu'tamid by succession terminology and then retrieving the corresponding country's Muslim invasion timeline."
+          ]
+        }
+      ],
+      "root_doc_ids": [
+        "d10",
+        "d02",
+        "d02",
+        "d12",
+        "d02",
+        "d12"
+      ],
+      "root_spearman": 0.447213595499958,
+      "root_titles": [
+        "History of Ethiopia",
+        "Al-Mu'tadid",
+        "Al-Mu'tadid",
+        "Al-Mastumah",
+        "Al-Mu'tadid",
+        "Al-Mastumah"
+      ],
+      "shallow_root_candidate_indices": [
+        3,
+        5
+      ],
+      "task_id": "4hop3__493923_300471_583182_62462"
+    },
+    {
+      "aligned_deep_followup_retrieves_child": false,
+      "deep_root_candidate_indices": [
+        1,
+        2,
+        5
+      ],
+      "distinct_first_retrieval_count": 3,
+      "distinct_refresh_state_count": 6,
+      "exact_best_prefix_by_root": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        2
+      ],
+      "followup_doc_ids": [
+        [
+          "d04",
+          "d19",
+          "d04",
+          "d04"
+        ],
+        [
+          "d14",
+          "d06",
+          "d04",
+          "d04"
+        ],
+        [
+          "d14",
+          "d06",
+          "d06",
+          "d04"
+        ],
+        [
+          "d14",
+          "d19",
+          "d14",
+          "d14"
+        ],
+        [
+          "d14",
+          "d19",
+          "d14",
+          "d14"
+        ],
+        [
+          "d14",
+          "d06",
+          "d04",
+          "d06"
+        ]
+      ],
+      "followup_titles": [
+        [
+          "New Haven, Connecticut",
+          "Yale University",
+          "New Haven, Connecticut",
+          "New Haven, Connecticut"
+        ],
+        [
+          "WPLR",
+          "David Montgomery (historian)",
+          "New Haven, Connecticut",
+          "New Haven, Connecticut"
+        ],
+        [
+          "WPLR",
+          "David Montgomery (historian)",
+          "David Montgomery (historian)",
+          "New Haven, Connecticut"
+        ],
+        [
+          "WPLR",
+          "Yale University",
+          "WPLR",
+          "WPLR"
+        ],
+        [
+          "WPLR",
+          "Yale University",
+          "WPLR",
+          "WPLR"
+        ],
+        [
+          "WPLR",
+          "David Montgomery (historian)",
+          "New Haven, Connecticut",
+          "David Montgomery (historian)"
+        ]
+      ],
+      "initial": {
+        "hypotheses": [
+          "Identify the city WPLR is licensed to serve; find a weekly publication issued in that city; identify the employer of a Yale labor historian described as staffed or staff labor historian; verify that historian advised younger labor historians; intersect the employer with the issuer of the weekly publication.",
+          "Start with the Yale-affiliated labor historian known for advising younger labor historians; determine that person's employer; search the employer's publications to find a weekly periodical; confirm the publication is issued in the same city to which WPLR is licensed to broadcast.",
+          "Find a source on WPLR stating its city of license; separately find an obituary/profile of a Yale labor historian mentioning mentorship of younger labor historians; extract the historian's employing institution or organization; look for a weekly publication published by that employer in WPLR's license city.",
+          "Determine whether the Yale staffed labor historian worked for a university, archive, union, newspaper, or press; identify any weekly publication that employer issues; then verify that the publication's city matches WPLR's licensed city.",
+          "Use WPLR as the anchor to identify the relevant city; compile weekly newspapers or weeklies issued there; for each candidate issuer, check whether it employed a Yale labor historian noted for advising younger labor historians; select the matching weekly publication.",
+          "Begin with the phrase about advising younger labor historians to locate tributes, memorials, or interviews about a Yale labor historian; derive the employer from those sources; then search whether that employer issues a weekly publication in the city WPLR is licensed to serve.",
+          "Find FCC or station profile information for WPLR to get the licensed city; search local media in that city for weekly publications and their issuing bodies; separately identify the Yale labor historian mentor figure and employer; match the employer to one of the local weekly issuers.",
+          "Trace from Yale labor history staff listings to a historian associated with mentorship of younger labor historians; identify the employing organization at the time referenced; inspect that organization's publications for a weekly title; confirm the title is issued in WPLR's city of license."
+        ],
+        "root_queries": [
+          "WPLR licensed to broadcast to what city station profile",
+          "site:yale.edu labor historian advised younger labor historians employer",
+          "\"advised younger labor historians\" Yale labor historian",
+          "weekly publication issued by employer city of license WPLR",
+          "New Haven weekly publication issuer employer labor historian Yale",
+          "obituary profile Yale labor historian mentor younger labor historians employer"
+        ]
+      },
+      "policies": {
+        "fixed": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 13,
+          "first_title": "WPLR",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "shallow_root",
+          "second_paragraph_index": 3,
+          "second_title": "New Haven, Connecticut"
+        },
+        "model_aware": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 13,
+          "first_title": "WPLR",
+          "followup_index": 1,
+          "root_index": 0,
+          "root_role": "shallow_root",
+          "second_paragraph_index": 18,
+          "second_title": "Yale University"
+        },
+        "myopic": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 13,
+          "first_title": "WPLR",
+          "followup_index": 1,
+          "root_index": 0,
+          "root_role": "shallow_root",
+          "second_paragraph_index": 18,
+          "second_title": "Yale University"
+        },
+        "random": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 13,
+          "first_title": "WPLR",
+          "followup_index": 1,
+          "root_index": 0,
+          "root_role": "shallow_root",
+          "second_paragraph_index": 18,
+          "second_title": "Yale University"
+        },
+        "shuffled": {
+          "connected_prefix_length": 1,
+          "first_paragraph_index": 13,
+          "first_title": "WPLR",
+          "followup_index": 0,
+          "root_index": 0,
+          "root_role": "shallow_root",
+          "second_paragraph_index": 3,
+          "second_title": "New Haven, Connecticut"
+        }
+      },
+      "predicted_terminal_progress_by_root": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "progress_rows": [
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              1,
+              2,
+              1,
+              2
+            ]
+          },
+          "aligned_label": "B",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "root_index": 0,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "A",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "root_index": 1,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "B",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "root_index": 2,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "A",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "root_index": 3,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "B",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "root_index": 4,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "aligned": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "aligned_label": "A",
+          "initial": {
+            "current": 0,
+            "terminal": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "root_index": 5,
+          "shuffled": {
+            "current": 1,
+            "terminal": [
+              2,
+              2,
+              2,
+              2
+            ]
+          }
+        }
+      ],
+      "refreshes": [
+        {
+          "followup_queries": [
+            "New Haven Connecticut weekly publication issued by employer of Yale labor historian advised younger labor historians",
+            "site:yale.edu \"labor historian\" advised younger labor historians employer obituary tribute",
+            "New Haven weekly newspaper issuer employer Yale-affiliated labor historian mentor younger labor historians",
+            "\"advised younger labor historians\" Yale labor historian New Haven employer weekly publication"
+          ],
+          "hypotheses": [
+            "WPLR is licensed to New Haven, Connecticut; the target weekly publication is therefore issued in New Haven. Next dependency chain: identify a Yale-affiliated labor historian explicitly described as advising younger labor historians, then determine that person's employer and check whether that employer issues a New Haven weekly.",
+            "Because the result anchors the place as New Haven, the employer may be a Yale unit, local labor organization, archive, press, or newspaper based in New Haven. Next chain: search memorials or profiles using the phrase about advising younger labor historians to identify the historian and employer, then compare that employer against New Haven weekly publishers.",
+            "The phrase 'Yale staffed labor historian' may refer to a historian on Yale staff rather than faculty. Next chain: inspect Yale library, archives, labor center, and staff directories for labor historians praised as mentors to younger labor historians, extract the employing institution, and see whether it publishes a weekly in New Haven.",
+            "The employer might not be Yale itself; it could be a newspaper or union in New Haven employing someone with Yale ties. Next chain: find the labor historian first from obituary or tribute language, verify the Yale connection and mentoring description, then map the employer to any weekly publication issued in New Haven.",
+            "Since WPLR serves Southern Connecticut and has city-grade coverage beyond New Haven, nearby weeklies could be misleading; the hard constraint remains 'licensed to New Haven.' Next chain: compile weekly publications specifically issued in New Haven and test each issuer for having employed the identified Yale-associated labor historian mentor.",
+            "Ownership details such as Connoisseur Media are likely irrelevant except for confirming the station identity. Next chain: focus on New Haven media and institutions, especially those issuing weekly papers, while separately resolving which labor historian was known for advising younger labor historians.",
+            "The likely evidence for 'advised younger labor historians' is in an obituary, festschrift, or colleague tribute. Next chain: search that phrase with Yale and labor historian terms, identify the individual, then determine the employer named in the same or related sources and connect it to a New Haven weekly publication.",
+            "A successful resolution will require intersecting two independently derived facts now anchored by the result: New Haven as the publication city, and the employer of the Yale-associated labor historian mentor. Next chain: gather candidate New Haven weeklies and candidate employers from Yale labor-history tributes, then look for a direct match."
+          ]
+        },
+        {
+          "followup_queries": [
+            "WPLR licensed to city FCC New Haven Connecticut",
+            "\"David Montgomery\" Yale employer biography labor historian advised younger labor historians",
+            "site:yale.edu weekly publication issued by Yale New Haven",
+            "site:yale.edu \"weekly\" publication New Haven Yale newspaper bulletin"
+          ],
+          "hypotheses": [
+            "The Yale-staffed labor historian is David Montgomery, because the result explicitly says Yale's history department included David Montgomery, a labor historian who advised many of the current generation of labor historians; next resolve who employed him in the sense relevant to the question, likely Yale University unless another organization is specified elsewhere.",
+            "If David Montgomery's employer is Yale University, the target weekly publication may be a Yale-issued weekly published in the city where WPLR is licensed; next identify WPLR's city of license and then list Yale-issued weekly publications in that city.",
+            "The phrase 'issued by the employer' may refer not to Yale as an institution but to a subunit employing David Montgomery, such as Yale's History Department or another Yale office; next determine whether any such unit issues a weekly publication in WPLR's license city.",
+            "The city WPLR is licensed to broadcast to could be New Haven, Connecticut; if so, the publication sought is a weekly issued in New Haven by Yale or an affiliated Yale employer; next verify WPLR's licensed city from FCC or station records.",
+            "The publication type may be a newspaper, bulletin, or magazine described as weekly rather than a formal journal, because the visible Yale result mentions Journal of Music Theory, which is not weekly and therefore likely irrelevant; next search specifically for Yale weekly publications rather than journals.",
+            "The key mentoring clue appears satisfied by David Montgomery, but the answer still depends on connecting him to an issuing body and a city match; next gather biographical or obituary sources on David Montgomery that state his employer and institutional affiliation in concrete terms.",
+            "There may be multiple Yale-affiliated labor historians, but this result newly elevates David Montgomery as the strongest candidate due to the exact mentorship language; next test whether sources about him mention employment outside Yale that could issue a weekly publication.",
+            "A successful resolution likely requires two independent confirmations: a source tying David Montgomery to an employer and a source identifying a weekly publication issued by that employer in WPLR's licensed city; next pursue these as separate lookups before attempting title selection."
+          ]
+        },
+        {
+          "followup_queries": [
+            "WPLR licensed to city station profile",
+            "\"David Montgomery\" labor historian employer Yale biography",
+            "\"David Montgomery\" advised many of the current generation of labor historians employer obituary",
+            "Yale weekly publication New Haven issued by Yale"
+          ],
+          "hypotheses": [
+            "The Yale labor historian is David Montgomery, because the result explicitly says he advised many of the current generation of labor historians; next dependency is to identify his employer in the context intended by the question and then see whether that employer issues a weekly publication.",
+            "If David Montgomery's employer is simply Yale University, the target weekly publication would need to be issued by Yale in the city where WPLR is licensed; unresolved steps are WPLR's city of license and whether Yale issues a weekly there.",
+            "The wording 'Yale staffed labor historian' may refer to a labor historian on Yale faculty rather than Yale as issuer; unresolved chain is to verify David Montgomery's institutional employer during the relevant period and distinguish employer from university affiliation alone.",
+            "The phrase in the question about 'issued by the employer' suggests the employer could be a newspaper, union, archive, or press rather than Yale itself; unresolved chain is to find biographies or obituaries of David Montgomery that name a specific employing organization connected to publishing.",
+            "WPLR's licensed city is a critical anchor; unresolved chain is to obtain an authoritative station profile for WPLR, extract the city of license, then compare that city against publication place data for weeklies issued by David Montgomery's employer.",
+            "The answer may be a named weekly publication rather than an institution, so after confirming David Montgomery as the mentor figure, the next dependency is to enumerate weekly publications issued by his employer and filter by WPLR's license city.",
+            "Because the result only establishes mentorship and Yale affiliation, another unresolved chain is whether there are multiple Yale labor historians fitting the clue; follow-up should test if sources use similar wording for David Montgomery specifically to avoid locking onto the wrong person.",
+            "There may be a New Haven local-media path: if WPLR is licensed to New Haven and David Montgomery's employer is Yale, then candidate Yale-issued weeklies in New Haven become salient; unresolved steps are confirming WPLR's city and identifying Yale-issued weekly titles there."
+          ]
+        },
+        {
+          "followup_queries": [
+            "WPLR city of license New Haven Connecticut station profile",
+            "Yale labor historian advised younger labor historians employer obituary tribute",
+            "\"New Haven Advocate\" Tribune Hartford Courant issuer weekly New Haven",
+            "\"PLAY magazine\" weekly entertainment publication backed by New Haven Register issuer"
+          ],
+          "hypotheses": [
+            "WPLR may be licensed to New Haven, so the target weekly publication could be a New Haven weekly; next dependencies are to verify WPLR's city of license, then identify whether the Yale labor historian's employer matches an issuer named in the New Haven media list such as the New Haven Register or Tribune/Hartford Courant.",
+            "If WPLR's license city is New Haven, the answer may be a student-run weekly there, especially the weekly Yale Herald; the unresolved chain is to identify the Yale-affiliated labor historian who advised younger labor historians and determine whether their employer was Yale or a Yale-connected publisher that issues the Herald.",
+            "The weekly publication might be PLAY magazine because the result explicitly says the Register backs it; the open chain is to find a Yale-staffed labor historian noted for mentoring younger labor historians, determine whether their employer was the New Haven Register, and confirm whether 'backs' corresponds to 'issued by' in the target phrasing.",
+            "The weekly publication might be the New Haven Advocate, since it is a named weekly in New Haven and is run by Tribune, owner of the Hartford Courant; unresolved steps are to verify WPLR is licensed to New Haven and test whether the historian's employer was Tribune, the Hartford Courant, or a related newsroom entity.",
+            "The employer in question may be a newspaper rather than Yale itself, because the result highlights multiple New Haven media issuers; the chain is to locate the labor historian tribute or obituary mentioning advice to younger labor historians, extract the employer, and match that employer against New Haven Register, Tribune/Hartford Courant, Yale, or another New Haven publisher.",
+            "The phrase 'Yale staffed labor historian' may refer to a historian employed by a Yale archive, library, or research center rather than a newspaper; if so, the publication could still be a Yale-issued weekly such as the Yale Herald, so the dependency is to identify the historian and determine the exact employing Yale unit and whether it issues a weekly publication in New Haven.",
+            "Because the result lists several New Haven weeklies of different types, the target might depend on who counts as the 'issuer': Tribune for New Haven Advocate, the Register for PLAY, or Yale/student organizations for Yale Herald; the unresolved chain is to identify the employer precisely enough to map to one of these issuing bodies.",
+            "The newly visible city anchor is New Haven, but it remains unverified that this is WPLR's license city; the chain is to confirm WPLR's city of license independently, then search for a Yale labor historian associated with mentoring younger labor historians whose employer issues one of the New Haven weekly publications named in the result."
+          ]
+        },
+        {
+          "followup_queries": [
+            "WPLR licensed to city New Haven Connecticut station profile",
+            "\"advised younger labor historians\" Yale labor historian employer obituary",
+            "New Haven Advocate run by Tribune corporation owning Hartford Courant issuer weekly",
+            "PLAY magazine weekly entertainment publication New Haven Register issuer"
+          ],
+          "hypotheses": [
+            "WPLR may be licensed to New Haven, and the target weekly publication could be one of the New Haven weeklies newly visible here; next dependencies are to verify WPLR's city of license and then test whether the employer of the Yale-affiliated labor historian issues the New Haven Advocate, PLAY magazine, or the Yale Herald.",
+            "If the employer of the Yale-staffed labor historian is a newspaper company rather than Yale itself, the result suggests Tribune or the New Haven Register as possible issuers of New Haven weeklies; next dependencies are to identify the historian and employer from a source mentioning that the historian advised younger labor historians, then compare that employer to these issuers.",
+            "The phrase 'issued by the employer' may point to a corporate owner rather than the publication's local brand; because the New Haven Advocate is run by Tribune, the chain is to confirm WPLR's city, identify the historian's employer, and see whether that employer is Tribune or a related paper owner.",
+            "The weekly publication could be an entertainment weekly rather than a newspaper, since the result newly shows PLAY magazine as a weekly publication backed by the New Haven Register; unresolved steps are to verify whether the historian's employer was the Register or its parent and whether New Haven matches WPLR's licensed city.",
+            "If the Yale-staffed labor historian was employed directly by Yale, the candidate weekly in the visible result may be the weekly Yale Herald rather than a commercial paper; the missing links are a source on the historian's Yale role and mentorship of younger labor historians, plus confirmation that a Yale entity issues the Yale Herald.",
+            "The result gives multiple New Haven publications but not their exact issuers, so an unresolved dependency is mapping each weekly to its issuing body: New Haven Advocate to Tribune, PLAY magazine to the New Haven Register, Yale Herald to a Yale student organization, then matching that issuer against the historian's employer.",
+            "The original labor-historian clue may refer to an obituary or tribute connected to Yale's labor history community; the chain is to find that tribute, extract the employer named there, and then check whether that employer issues a weekly publication in New Haven newly surfaced by this result.",
+            "Because the result only implies New Haven media ecology and does not mention WPLR, a remaining dependency is whether WPLR is actually licensed to New Haven or nearby; if nearby, the publication set may shift, so the next step should resolve WPLR's exact city before narrowing among New Haven Advocate, PLAY magazine, and Yale Herald."
+          ]
+        },
+        {
+          "followup_queries": [
+            "WPLR licensed to broadcast to what city station profile FCC New Haven",
+            "David Montgomery labor historian biography employer Yale University advised many labor historians",
+            "Yale University weekly publication issued in New Haven weekly newspaper newsletter",
+            "obituary tribute David Montgomery advised many of the current generation of labor historians employer"
+          ],
+          "hypotheses": [
+            "The Yale labor historian is David Montgomery, because the result says he advised many of the current generation of labor historians; next dependency is to identify his employer at the relevant time and see whether that employer issued a weekly publication in the city WPLR is licensed to serve.",
+            "David Montgomery may have been employed directly by Yale University; if so, the remaining chain is to determine WPLR's city of license and test whether Yale University issues any weekly publication in that city.",
+            "The phrase 'employer of the Yale staffed labor historian' may refer not to Yale itself but to an institution Montgomery worked for before or after Yale; the next dependency is a biographical source listing employers, then checking each employer for a weekly publication in WPLR's license city.",
+            "The target publication could be a newspaper, newsletter, or campus/community weekly issued by Yale or an affiliated body in New Haven if WPLR is licensed there; this requires confirming WPLR's licensed city and enumerating weeklies issued by Yale-related employers in that city.",
+            "If WPLR is licensed to New Haven, the answer may involve a Yale-issued weekly rather than a commercial publisher; unresolved links are WPLR city confirmation, Yale-issued weeklies, and whether 'issued by the employer' allows university publishers or departments.",
+            "The result establishes only mentorship, not employment details; a separate source is needed to verify David Montgomery's exact Yale role such as faculty member, staff historian, or another title, because the wording of the question may hinge on the employer relationship.",
+            "The mention of David Montgomery advising younger labor historians may correspond to obituaries or tributes that also name his employing organization; those sources could reveal a non-Yale employer that issued a weekly publication in the relevant city.",
+            "An alternative path is to anchor on New Haven media after confirming WPLR's city, then compare issuers of local weekly publications against known employers in David Montgomery's biography until one matches."
+          ]
+        }
+      ],
+      "root_doc_ids": [
+        "d14",
+        "d19",
+        "d19",
+        "d04",
+        "d04",
+        "d19"
+      ],
+      "root_spearman": NaN,
+      "root_titles": [
+        "WPLR",
+        "Yale University",
+        "Yale University",
+        "New Haven, Connecticut",
+        "New Haven, Connecticut",
+        "Yale University"
+      ],
+      "shallow_root_candidate_indices": [
+        0
+      ],
+      "task_id": "4hop3__21483_551941_773286_24137"
+    }
+  ],
+  "usage": {
+    "adapter_cost_usd": 0.2484925,
+    "generator": {
+      "adapter_completion_tokens": 10840,
+      "adapter_cost_usd": 0.2484925,
+      "adapter_prompt_tokens": 34357,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 16,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 10840,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 16,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 10840,
+          "cost_usd": 0.2484925,
+          "prompt_tokens": 34357,
+          "reasoning_tokens": 0,
+          "requests": 16
+        }
+      },
+      "prompt_tokens": 34357,
+      "reasoning_tokens": 0,
+      "remaining_usd": 20.818476623749874,
+      "requests": 16,
+      "retry_count": 0,
+      "run_budget_usd": 0.5,
+      "run_cost_usd": 0.2484925,
+      "run_remaining_usd": 0.2515075,
+      "total_spent_usd": 84.56632607170728
+    },
+    "physical_requests": 16,
+    "reasoning_tokens": 0
+  }
+}
