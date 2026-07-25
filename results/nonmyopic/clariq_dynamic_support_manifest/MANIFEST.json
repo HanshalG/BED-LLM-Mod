@@ -1,0 +1,2366 @@
+{
+  "prior_fixed_support_topic_ids": [
+    "46",
+    "177",
+    "117",
+    "136",
+    "125",
+    "149",
+    "115",
+    "10",
+    "104",
+    "14",
+    "135",
+    "122",
+    "105",
+    "131",
+    "113",
+    "137",
+    "119",
+    "116"
+  ],
+  "protocol": {
+    "api_calls": 0,
+    "development_utility_values_read": false,
+    "holdout_content_or_utility_values_read": false,
+    "latent_cross_question_profiles_emitted": false,
+    "latent_facet_descriptions_emitted": false,
+    "mechanics_selection_is_endpoint_disclosed": true,
+    "split_seed": 24399
+  },
+  "schema_version": 1,
+  "sealed_holdout": {
+    "content_emitted": false,
+    "topic_ids": [
+      "102",
+      "11",
+      "103",
+      "141"
+    ],
+    "utility_values_read": false
+  },
+  "selected_topic_order_sha256": "54875c202e3bc913a44356a3119e3ef4b63b94abeb2c6d62b7bb86fc544c3699",
+  "stages": {
+    "development": [
+      {
+        "branch_count": 52,
+        "evaluation_values_read": false,
+        "expected_model_requests": 53,
+        "initial_request": "What is martha stewart and imclone?",
+        "latent_cross_question_profiles_emitted": false,
+        "latent_facet_descriptions_emitted": false,
+        "question_bank": [
+          {
+            "question": "are you interested in martha stewarts role in the company",
+            "question_id": "Q00315",
+            "response_options": [
+              {
+                "answer": "no i am interested in various opinions regarding the insider trading case against martha stewart",
+                "code": "A"
+              },
+              {
+                "answer": "not necessarly unless it has to do with the insider trading case",
+                "code": "B"
+              },
+              {
+                "answer": "yes",
+                "code": "C"
+              },
+              {
+                "answer": "yes i would like to know martha stewarts role in imclone",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "are you interested in something specific about martha stewart and imclone",
+            "question_id": "Q00394",
+            "response_options": [
+              {
+                "answer": "i am specifically interested in finding websites that show support to martha stewart in regards to her insider trading case",
+                "code": "A"
+              },
+              {
+                "answer": "yes can you give me a rundown and timeline of martha stewards insider trading case",
+                "code": "B"
+              },
+              {
+                "answer": "yes i want to read opinions about the insider trading case",
+                "code": "C"
+              },
+              {
+                "answer": "yes marthas involvement ",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "are you interested in what the the company imclone does",
+            "question_id": "Q00548",
+            "response_options": [
+              {
+                "answer": "no",
+                "code": "A"
+              },
+              {
+                "answer": "no give me info on martha stewarts insider trading case",
+                "code": "B"
+              },
+              {
+                "answer": "no i want to find sites that support martha stewart in regards to the insider trading case",
+                "code": "C"
+              },
+              {
+                "answer": "no i want to hear opinions about the insider trading case",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "are you looking for a specific web site",
+            "question_id": "Q00697",
+            "response_options": [
+              {
+                "answer": "no",
+                "code": "A"
+              },
+              {
+                "answer": "no just any site that supports martha stewarts side of the case",
+                "code": "B"
+              },
+              {
+                "answer": "yes a site that gives me information on martha stewarts trading case",
+                "code": "C"
+              },
+              {
+                "answer": "yes sites related to stewarts involvement with imclone",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "are you looking for specific information about martha stewart and imcones age",
+            "question_id": "Q01025",
+            "response_options": [
+              {
+                "answer": "no",
+                "code": "A"
+              },
+              {
+                "answer": "no i want general information or a timeline about the insider trading case",
+                "code": "B"
+              },
+              {
+                "answer": "no i want to know about her involvement with imclone",
+                "code": "C"
+              },
+              {
+                "answer": "no im looking for opinions regarding martha stewarts insider trading case",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "are you seeking to watch martha stewart and imclone",
+            "question_id": "Q01327",
+            "response_options": [
+              {
+                "answer": "no",
+                "code": "A"
+              },
+              {
+                "answer": "no i am looking for specific sites that support martha stewart",
+                "code": "B"
+              },
+              {
+                "answer": "no i only want information on stewarts involvement with imclone",
+                "code": "C"
+              },
+              {
+                "answer": "no i want information on the insider trading case martha stewart was involved in",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "do you want to know if martha stweart works for the company",
+            "question_id": "Q02128",
+            "response_options": [
+              {
+                "answer": "maybe find that and give me the timeline of her case with the company",
+                "code": "A"
+              },
+              {
+                "answer": "no i am interested in personal opinions on this case",
+                "code": "B"
+              },
+              {
+                "answer": "no i am looking for information regarding the connections between martha stewart and imclone",
+                "code": "C"
+              },
+              {
+                "answer": "no i want to find sites that support her with respect to the insider trading case",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "do you want to know if this is the company martha stewart went to jail for",
+            "question_id": "Q02139",
+            "response_options": [
+              {
+                "answer": "no i am looking for opinions regarding the case",
+                "code": "A"
+              },
+              {
+                "answer": "no i want to know her involvement with the company",
+                "code": "B"
+              },
+              {
+                "answer": "no i want to know the evidence that supports her side in the case",
+                "code": "C"
+              },
+              {
+                "answer": "no i want to learn about her insider trading case",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "do you want to know if this is the company marthat stewart was given insider trading information",
+            "question_id": "Q02140",
+            "response_options": [
+              {
+                "answer": "no i am looking for opinions",
+                "code": "A"
+              },
+              {
+                "answer": "no i want to know martha stewarts involvement with imclone",
+                "code": "B"
+              },
+              {
+                "answer": "no i want to see sites that support her",
+                "code": "C"
+              },
+              {
+                "answer": "that is part of it just give me information about her inside trading case in general",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "do you want to know who owns the company imclone",
+            "question_id": "Q02357",
+            "response_options": [
+              {
+                "answer": "no i want sires that support martha stewart and imclone",
+                "code": "A"
+              },
+              {
+                "answer": "no i want to learn about her insider trading case",
+                "code": "B"
+              },
+              {
+                "answer": "no i want to read opinions about the martha stewart and imclone case",
+                "code": "C"
+              },
+              {
+                "answer": "no im looking for information about martha stewarts involvement with them",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "which martha stewart and imclone television show episdoe are you looking for",
+            "question_id": "Q03035",
+            "response_options": [
+              {
+                "answer": "i am looking for opinions on the case not a television episode",
+                "code": "A"
+              },
+              {
+                "answer": "no i need information on when she was arrested for inside trader fraud",
+                "code": "B"
+              },
+              {
+                "answer": "none i want to find out about her involvement with imclone",
+                "code": "C"
+              },
+              {
+                "answer": "this is not relevant to my query",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "would you be interested in learning more about martha stewart and imclones history",
+            "question_id": "Q03146",
+            "response_options": [
+              {
+                "answer": "yes",
+                "code": "A"
+              },
+              {
+                "answer": "yes along with opinions of the case",
+                "code": "B"
+              },
+              {
+                "answer": "yes exactly",
+                "code": "C"
+              },
+              {
+                "answer": "yes i would like to have this information",
+                "code": "D"
+              }
+            ]
+          },
+          {
+            "question": "would you like to know what more about the history of martha stewart and imclone",
+            "question_id": "Q03660",
+            "response_options": [
+              {
+                "answer": "i would like to know the details surrounding the insider trading case against martha stewart",
+                "code": "A"
+              },
+              {
+                "answer": "no i want to find sites that support her regarding the insider trading case",
+                "code": "B"
+              },
+              {
+                "answer": "no just give some of the varying opinions on the subject",
+                "code": "C"
+              },
+              {
+                "answer": "yes i would like to know more about that topic",
+                "code": "D"
+              }
+            ]
+          }
+        ],
+        "root_count": 13,
+        "roots": [
+          {
+            "branches": [
+              {
+                "answer": "no i am interested in various opinions regarding the insider trading case against martha stewart",
+                "legal_followup_question_ids": [
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "not necessarly unless it has to do with the insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes",
+                "legal_followup_question_ids": [
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "yes i would like to know martha stewarts role in imclone",
+                "legal_followup_question_ids": [
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q00315"
+          },
+          {
+            "branches": [
+              {
+                "answer": "i am specifically interested in finding websites that show support to martha stewart in regards to her insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "yes can you give me a rundown and timeline of martha stewards insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes i want to read opinions about the insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "yes marthas involvement ",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q00394"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no give me info on martha stewarts insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i want to find sites that support martha stewart in regards to the insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "no i want to hear opinions about the insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q00548"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no just any site that supports martha stewarts side of the case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes a site that gives me information on martha stewarts trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "yes sites related to stewarts involvement with imclone",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q00697"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i want general information or a timeline about the insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i want to know about her involvement with imclone",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "no im looking for opinions regarding martha stewarts insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q01025"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i am looking for specific sites that support martha stewart",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i only want information on stewarts involvement with imclone",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "no i want information on the insider trading case martha stewart was involved in",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q01327"
+          },
+          {
+            "branches": [
+              {
+                "answer": "maybe find that and give me the timeline of her case with the company",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i am interested in personal opinions on this case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i am looking for information regarding the connections between martha stewart and imclone",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "no i want to find sites that support her with respect to the insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q02128"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no i am looking for opinions regarding the case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i want to know her involvement with the company",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i want to know the evidence that supports her side in the case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "no i want to learn about her insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q02139"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no i am looking for opinions",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i want to know martha stewarts involvement with imclone",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i want to see sites that support her",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "that is part of it just give me information about her inside trading case in general",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q02140"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no i want sires that support martha stewart and imclone",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i want to learn about her insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i want to read opinions about the martha stewart and imclone case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "no im looking for information about martha stewarts involvement with them",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q03035",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q02357"
+          },
+          {
+            "branches": [
+              {
+                "answer": "i am looking for opinions on the case not a television episode",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i need information on when she was arrested for inside trader fraud",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "none i want to find out about her involvement with imclone",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "this is not relevant to my query",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03146",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q03035"
+          },
+          {
+            "branches": [
+              {
+                "answer": "yes",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03660"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "yes along with opinions of the case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03660"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes exactly",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03660"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "yes i would like to have this information",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03660"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q03146"
+          },
+          {
+            "branches": [
+              {
+                "answer": "i would like to know the details surrounding the insider trading case against martha stewart",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i want to find sites that support her regarding the insider trading case",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no just give some of the varying opinions on the subject",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146"
+                ],
+                "response_code": "C"
+              },
+              {
+                "answer": "yes i would like to know more about that topic",
+                "legal_followup_question_ids": [
+                  "Q00315",
+                  "Q00394",
+                  "Q00548",
+                  "Q00697",
+                  "Q01025",
+                  "Q01327",
+                  "Q02128",
+                  "Q02139",
+                  "Q02140",
+                  "Q02357",
+                  "Q03035",
+                  "Q03146"
+                ],
+                "response_code": "D"
+              }
+            ],
+            "question_id": "Q03660"
+          }
+        ],
+        "topic_id": "148"
+      }
+    ],
+    "mechanics": [
+      {
+        "branch_count": 39,
+        "evaluation_values_read": false,
+        "expected_model_requests": 40,
+        "initial_request": "How can I adopt a dog",
+        "latent_cross_question_profiles_emitted": false,
+        "latent_facet_descriptions_emitted": false,
+        "question_bank": [
+          {
+            "question": "are you looking for a specific website",
+            "question_id": "Q00699",
+            "response_options": [
+              {
+                "answer": "no",
+                "code": "A"
+              },
+              {
+                "answer": "no im just needing to know things that i should know about adopting a dog",
+                "code": "B"
+              },
+              {
+                "answer": "yes the humane society",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "are you willing to adopt a shelter dog",
+            "question_id": "Q01425",
+            "response_options": [
+              {
+                "answer": "no i just need the home page",
+                "code": "A"
+              },
+              {
+                "answer": "yes and i woul like an organization that will sell me one",
+                "code": "B"
+              },
+              {
+                "answer": "yes i want to know the procedures to do that",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "do you want to adopt dogs for free",
+            "question_id": "Q01900",
+            "response_options": [
+              {
+                "answer": "if possible any organization that has free dogs to adopt",
+                "code": "A"
+              },
+              {
+                "answer": "no i need the humane society homepage",
+                "code": "B"
+              },
+              {
+                "answer": "no i would like to know what information would be helpful when adopting a dog",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "do you want to adopt from a shelter or an individual owner",
+            "question_id": "Q01901",
+            "response_options": [
+              {
+                "answer": "a shelter or an organization",
+                "code": "A"
+              },
+              {
+                "answer": "i just want to go to the homepage of the humane society",
+                "code": "B"
+              },
+              {
+                "answer": "i would like more information about the process of adopting a dog",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "how big do you want your dog",
+            "question_id": "Q02506",
+            "response_options": [
+              {
+                "answer": "can you just show me the human societys homepage",
+                "code": "A"
+              },
+              {
+                "answer": "i dont know",
+                "code": "B"
+              },
+              {
+                "answer": "no i want to know how to adopt a dog",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "how much would you like to pay for a dog",
+            "question_id": "Q02545",
+            "response_options": [
+              {
+                "answer": "i would like to adopt a dog",
+                "code": "A"
+              },
+              {
+                "answer": "no i want to know how to go about adopting a dog",
+                "code": "B"
+              },
+              {
+                "answer": "nothing except for fees",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "what adoption agency or shelter would you like to use",
+            "question_id": "Q02699",
+            "response_options": [
+              {
+                "answer": "any near me would suffice",
+                "code": "A"
+              },
+              {
+                "answer": "can you give me a list of agencies in my area",
+                "code": "B"
+              },
+              {
+                "answer": "no i need the homepage of the humane society",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "what breed of dog are you looking for",
+            "question_id": "Q02739",
+            "response_options": [
+              {
+                "answer": "im not looking for a specific breed i am looking for a rescue dogs that are up for adoption",
+                "code": "A"
+              },
+              {
+                "answer": "no just show me to their web page",
+                "code": "B"
+              },
+              {
+                "answer": "none i am looking for information about adopting",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "what breed of dogs are you looking for",
+            "question_id": "Q02740",
+            "response_options": [
+              {
+                "answer": "any type",
+                "code": "A"
+              },
+              {
+                "answer": "doesnt matter i need organizations that offer dogs for adoption",
+                "code": "B"
+              },
+              {
+                "answer": "not sure",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "what location would you like to search for dogs in",
+            "question_id": "Q02846",
+            "response_options": [
+              {
+                "answer": "i need information on dog adoption",
+                "code": "A"
+              },
+              {
+                "answer": "i would like organizations based in florida only",
+                "code": "B"
+              },
+              {
+                "answer": "im looking for a humane society near me",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "would you like an active or relaxed dog",
+            "question_id": "Q03192",
+            "response_options": [
+              {
+                "answer": "i dont know",
+                "code": "A"
+              },
+              {
+                "answer": "i would like to find a place where i can adopt a dog",
+                "code": "B"
+              },
+              {
+                "answer": "im not sure i just want a general to do list before adopting",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "would you like to how to adopt a dog",
+            "question_id": "Q03361",
+            "response_options": [
+              {
+                "answer": "maybe but i want to see the homepage of the humane society right now",
+                "code": "A"
+              },
+              {
+                "answer": "no what organizations offer dogs for adoption",
+                "code": "B"
+              },
+              {
+                "answer": "yes",
+                "code": "C"
+              }
+            ]
+          },
+          {
+            "question": "would you like to see local spca or humane societies",
+            "question_id": "Q03857",
+            "response_options": [
+              {
+                "answer": "yes",
+                "code": "A"
+              },
+              {
+                "answer": "yes i would like to see the local humane society organization that has dogs for adoption",
+                "code": "B"
+              },
+              {
+                "answer": "yes local human societies",
+                "code": "C"
+              }
+            ]
+          }
+        ],
+        "root_count": 13,
+        "roots": [
+          {
+            "branches": [
+              {
+                "answer": "no",
+                "legal_followup_question_ids": [
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no im just needing to know things that i should know about adopting a dog",
+                "legal_followup_question_ids": [
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes the humane society",
+                "legal_followup_question_ids": [
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q00699"
+          },
+          {
+            "branches": [
+              {
+                "answer": "no i just need the home page",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "yes and i woul like an organization that will sell me one",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes i want to know the procedures to do that",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q01425"
+          },
+          {
+            "branches": [
+              {
+                "answer": "if possible any organization that has free dogs to adopt",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i need the humane society homepage",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i would like to know what information would be helpful when adopting a dog",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q01900"
+          },
+          {
+            "branches": [
+              {
+                "answer": "a shelter or an organization",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "i just want to go to the homepage of the humane society",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "i would like more information about the process of adopting a dog",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q01901"
+          },
+          {
+            "branches": [
+              {
+                "answer": "can you just show me the human societys homepage",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "i dont know",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i want to know how to adopt a dog",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q02506"
+          },
+          {
+            "branches": [
+              {
+                "answer": "i would like to adopt a dog",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no i want to know how to go about adopting a dog",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "nothing except for fees",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q02545"
+          },
+          {
+            "branches": [
+              {
+                "answer": "any near me would suffice",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "can you give me a list of agencies in my area",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "no i need the homepage of the humane society",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q02699"
+          },
+          {
+            "branches": [
+              {
+                "answer": "im not looking for a specific breed i am looking for a rescue dogs that are up for adoption",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no just show me to their web page",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "none i am looking for information about adopting",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q02739"
+          },
+          {
+            "branches": [
+              {
+                "answer": "any type",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "doesnt matter i need organizations that offer dogs for adoption",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "not sure",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q02740"
+          },
+          {
+            "branches": [
+              {
+                "answer": "i need information on dog adoption",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "i would like organizations based in florida only",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "im looking for a humane society near me",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q03192",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q02846"
+          },
+          {
+            "branches": [
+              {
+                "answer": "i dont know",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "i would like to find a place where i can adopt a dog",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "im not sure i just want a general to do list before adopting",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03361",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q03192"
+          },
+          {
+            "branches": [
+              {
+                "answer": "maybe but i want to see the homepage of the humane society right now",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03857"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "no what organizations offer dogs for adoption",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03857"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03857"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q03361"
+          },
+          {
+            "branches": [
+              {
+                "answer": "yes",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361"
+                ],
+                "response_code": "A"
+              },
+              {
+                "answer": "yes i would like to see the local humane society organization that has dogs for adoption",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361"
+                ],
+                "response_code": "B"
+              },
+              {
+                "answer": "yes local human societies",
+                "legal_followup_question_ids": [
+                  "Q00699",
+                  "Q01425",
+                  "Q01900",
+                  "Q01901",
+                  "Q02506",
+                  "Q02545",
+                  "Q02699",
+                  "Q02739",
+                  "Q02740",
+                  "Q02846",
+                  "Q03192",
+                  "Q03361"
+                ],
+                "response_code": "C"
+              }
+            ],
+            "question_id": "Q03857"
+          }
+        ],
+        "topic_id": "38"
+      }
+    ]
+  },
+  "status": "passed"
+}
