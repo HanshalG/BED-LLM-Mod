@@ -22,8 +22,10 @@ All selections use deterministic original-order argmax tie breaking.
 ### Raw BM25 Sum
 
 For each root/followup pair, deduplicate the union of its first and followup
-documents by document ID and sum their stored BM25 scores. Select the highest
-followup beneath each root, then the root with the highest pair score.
+documents by document ID and sum their stored BM25 scores. If the same document
+has different scores in the first and followup result sets, use its maximum
+stored score within that pair. Select the highest followup beneath each root,
+then the root with the highest pair score.
 
 This is intentionally simple despite query-dependent BM25 scales; it asks
 whether raw retrieval confidence alone explains the result.
