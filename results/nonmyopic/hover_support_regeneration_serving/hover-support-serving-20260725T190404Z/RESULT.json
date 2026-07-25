@@ -1,0 +1,71 @@
+{
+  "endpoint_loaded": false,
+  "future_scores": [
+    92,
+    96,
+    91,
+    83,
+    90,
+    82,
+    86,
+    78
+  ],
+  "gates": {
+    "all_8_refreshes_differ_from_initial": true,
+    "all_pass": true,
+    "all_responses_parsed_without_repair": true,
+    "at_least_7_pairwise_distinct_refreshes": true,
+    "cost_at_most_0_15": true,
+    "exact_10_http_attempts": true,
+    "exact_10_physical_requests": true,
+    "future_score_vector_nonconstant": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_transport_retries": true
+  },
+  "model": "openai/gpt-5.4",
+  "private_raw_sha256": "6f5eb4a842fb279d11ab7fd10f579283246fef2f4fbe225c6f4f239f6804119d",
+  "reasoning_requested": false,
+  "refresh_distinct_count": 8,
+  "schema_version": 1,
+  "stage": "serving",
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.12495249999999998,
+    "generator": {
+      "adapter_completion_tokens": 4417,
+      "adapter_cost_usd": 0.12495249999999998,
+      "adapter_prompt_tokens": 23479,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 4417,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 4417,
+          "cost_usd": 0.12495249999999998,
+          "prompt_tokens": 23479,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 23479,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.927708780793324,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.12495249999999998,
+      "run_remaining_usd": 0.025047500000000014,
+      "total_spent_usd": 90.07229121920668
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
