@@ -1,0 +1,606 @@
+{
+  "continuation_scores": [
+    [
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          90,
+          60,
+          60,
+          30
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          0,
+          0,
+          90,
+          90
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          60,
+          60,
+          0,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          90,
+          60,
+          30,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          60,
+          60,
+          60,
+          30
+        ]
+      }
+    ],
+    [
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          0,
+          0,
+          0,
+          62
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          0,
+          30,
+          60,
+          30
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          0,
+          30,
+          30,
+          90
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          60,
+          30,
+          0,
+          0
+        ]
+      },
+      {
+        "rationales": [
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score",
+          "compact count-dominant score"
+        ],
+        "scores": [
+          31,
+          0,
+          0,
+          31
+        ]
+      }
+    ]
+  ],
+  "myopic_scores": [
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score"
+      ],
+      "scores": [
+        85,
+        30,
+        90,
+        60,
+        80
+      ]
+    },
+    {
+      "best_followup_indices": [],
+      "rationales": [
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score"
+      ],
+      "scores": [
+        70,
+        50,
+        40,
+        60,
+        30
+      ]
+    }
+  ],
+  "nonmyopic_scores": [
+    {
+      "best_followup_indices": [
+        2,
+        0,
+        0,
+        1,
+        1
+      ],
+      "rationales": [
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score"
+      ],
+      "scores": [
+        95,
+        90,
+        85,
+        80,
+        75
+      ]
+    },
+    {
+      "best_followup_indices": [
+        0,
+        1,
+        3,
+        3,
+        2
+      ],
+      "rationales": [
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score",
+        "compact semantic score"
+      ],
+      "scores": [
+        85,
+        75,
+        90,
+        80,
+        70
+      ]
+    }
+  ],
+  "protocol": {
+    "compact_array_output": true,
+    "expected_logical_requests": 14,
+    "expected_physical_requests": null,
+    "forced_final_is_reasoning_disabled": true,
+    "free_form_rationales_requested": false,
+    "interface_version": "qwen3-14b-thinking-compact-1",
+    "maximum_physical_requests": 28,
+    "minimum_physical_requests": 14,
+    "model": "qwen/qwen3-14b",
+    "nonsemantic_analysis_sha256": "d1d43ecf0f09fd5874e9badd6cff4e9ae5c3da882a3ea408b816225c2d2b29f4",
+    "permissive_numeric_representation_parser_frozen": true,
+    "posthoc_open_tree_replication": true,
+    "private_raw_sha256": "42e63087314cd5a126a5981db666ad247882a49b4326e460613d4ac2e3ff5974",
+    "raw_responses_private_and_untracked": true,
+    "reasoning_requested": true,
+    "source_artifact_sha256": "61c466ead49a5545abd54dd28e1a2fd7ad070287f5108684a3b2643befc40a01",
+    "source_trees_and_endpoints_reused_unchanged": true,
+    "stage": "serving_smoke",
+    "stage_cost_cap_usd": 0.25,
+    "target_blind_prompts": true,
+    "task_ids": [
+      "task_018",
+      "task_008"
+    ],
+    "thinking_final_max_new_tokens": 512,
+    "thinking_max_new_tokens": 7680,
+    "tree_regeneration_requests": 0
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "summary": {
+    "end_to_end_joint_loss_count": 0,
+    "end_to_end_joint_tie_count": 2,
+    "end_to_end_joint_win_count": 0,
+    "end_to_end_myopic_loss_count": 0,
+    "end_to_end_myopic_tie_count": 0,
+    "end_to_end_myopic_win_count": 2,
+    "end_to_end_random_loss_count": 0,
+    "end_to_end_random_tie_count": 0,
+    "end_to_end_random_win_count": 2,
+    "end_to_end_total_advantage_over_joint": 0,
+    "end_to_end_total_advantage_over_myopic": 2,
+    "end_to_end_total_advantage_over_random": 3,
+    "focused_mean_regret": 0.3,
+    "focused_optimal_followup_count": 7,
+    "focused_optimal_followup_rate": 0.7,
+    "focused_pairwise_accuracy": 0.6470588235294118,
+    "focused_pairwise_comparable_count": 17,
+    "focused_total_regret": 3,
+    "gates": {
+      "all_cases_complete": true,
+      "all_focused_scores_complete": true,
+      "all_forced_exits_finalized": true,
+      "all_logical_responses_parsed": true,
+      "all_pass": true,
+      "cost_within_stage_cap": true,
+      "focused_optimal_followup_at_least_7_of_10": true,
+      "focused_pairwise_accuracy_at_least_0_55": true,
+      "physical_requests_between_logical_and_double": true,
+      "positive_reasoning_tokens": true,
+      "scores_vary_on_at_least_8_of_10_roots": true
+    },
+    "num_cases": 2,
+    "policy_diagnostics": [
+      {
+        "focused_followup_indices": [
+          0,
+          2,
+          0,
+          0,
+          0
+        ],
+        "myopic_receding_value": 1,
+        "myopic_root_index": 2,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 1,
+        "nonmyopic_advantage_over_random": 2,
+        "nonmyopic_joint_value": 2,
+        "nonmyopic_receding_value": 2,
+        "nonmyopic_root_index": 0,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 3,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 0,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_018"
+      },
+      {
+        "focused_followup_indices": [
+          3,
+          2,
+          3,
+          0,
+          0
+        ],
+        "myopic_receding_value": 0,
+        "myopic_root_index": 0,
+        "nonmyopic_advantage_over_joint": 0,
+        "nonmyopic_advantage_over_myopic": 1,
+        "nonmyopic_advantage_over_random": 1,
+        "nonmyopic_joint_value": 1,
+        "nonmyopic_receding_value": 1,
+        "nonmyopic_root_index": 2,
+        "random_strategy_followup_index": 1,
+        "random_strategy_root_index": 1,
+        "random_strategy_value": 0,
+        "selected_root_continuation_loss": 1,
+        "selected_root_oracle_tail": 2,
+        "task_id": "task_008"
+      }
+    ],
+    "root_diagnostics": [
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          2,
+          1,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 3.5,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          90,
+          60,
+          60,
+          30
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 2,
+        "task_id": "task_018"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 4,
+        "pairwise_points": 4.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          0,
+          0,
+          90,
+          90
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 1,
+        "task_id": "task_018"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 2,
+        "scores": [
+          60,
+          60,
+          0,
+          0
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 1,
+        "task_id": "task_018"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 0.0,
+        "regret": 1,
+        "root_index": 3,
+        "scores": [
+          90,
+          60,
+          30,
+          0
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_018"
+      },
+      {
+        "oracle_value": 1,
+        "pair_values": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 2.0,
+        "regret": 1,
+        "root_index": 4,
+        "scores": [
+          60,
+          60,
+          60,
+          30
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_018"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 0,
+        "scores": [
+          0,
+          0,
+          0,
+          62
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 0,
+        "task_id": "task_008"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 1,
+        "scores": [
+          0,
+          30,
+          60,
+          30
+        ],
+        "selected_followup_index": 2,
+        "selected_value": 0,
+        "task_id": "task_008"
+      },
+      {
+        "oracle_value": 2,
+        "pair_values": [
+          1,
+          1,
+          2,
+          1
+        ],
+        "pairwise_comparable_count": 3,
+        "pairwise_points": 1.5,
+        "regret": 1,
+        "root_index": 2,
+        "scores": [
+          0,
+          30,
+          30,
+          90
+        ],
+        "selected_followup_index": 3,
+        "selected_value": 1,
+        "task_id": "task_008"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 3,
+        "scores": [
+          60,
+          30,
+          0,
+          0
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_008"
+      },
+      {
+        "oracle_value": 0,
+        "pair_values": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "pairwise_comparable_count": 0,
+        "pairwise_points": 0.0,
+        "regret": 0,
+        "root_index": 4,
+        "scores": [
+          31,
+          0,
+          0,
+          31
+        ],
+        "selected_followup_index": 0,
+        "selected_value": 0,
+        "task_id": "task_008"
+      }
+    ],
+    "selected_root_continuation_loss_total": 1
+  },
+  "usage": {
+    "adapter_cost_usd": 0.017287462499999996,
+    "generator": {
+      "adapter_completion_tokens": 28258,
+      "adapter_cost_usd": 0.017287462499999996,
+      "adapter_prompt_tokens": 51048,
+      "adapter_reasoning_tokens": 27451,
+      "adapter_requests": 14,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 28258,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 14,
+      "model": "qwen/qwen3-14b",
+      "model_usage": {
+        "qwen/qwen3-14b": {
+          "completion_tokens": 28258,
+          "cost_usd": 0.017287462499999996,
+          "prompt_tokens": 51048,
+          "reasoning_tokens": 27451,
+          "requests": 14
+        }
+      },
+      "prompt_tokens": 51048,
+      "reasoning_tokens": 27451,
+      "remaining_usd": 20.764975811249826,
+      "requests": 14,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.017287462499999996,
+      "run_remaining_usd": 0.2327125375,
+      "total_spent_usd": 84.61982688420733
+    },
+    "physical_requests": 14,
+    "reasoning_tokens": 27451
+  }
+}
