@@ -14,7 +14,6 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from helpers import Config, load_config
-from model_factory import build_model_adapter
 from scripts.movielens_profile_dynamics_gate import _parse_json_object
 from scripts.tau_knowledge_first_link_scorer import (
     _score_schema as root_score_schema,
@@ -35,6 +34,7 @@ from scripts.tau_knowledge_retrieval_opportunity import (
     FOLLOWUP_QUERY_COUNT,
     GateExecutionError,
     SCHEMA_VERSION,
+    _build_model,
     _checkpoint,
     _usage_snapshot,
 )
@@ -237,7 +237,7 @@ def run_gate(
     if sha256_file(nonsemantic_analysis) != NONSEMANTIC_ANALYSIS_SHA256:
         raise ValueError("frozen nonsemantic analysis hash does not match")
     records = load_records(input_artifact, stage=stage)
-    model = build_model_adapter(config.model_pairs[0].questioner, config)
+    model = _build_model(config)
     raw: dict[str, Any] = {}
     try:
         myopic_raw = model.chat_complete_messages_batched(

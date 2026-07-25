@@ -1,0 +1,45 @@
+{
+  "error": "GateExecutionError: ValueError: response does not contain a JSON object",
+  "interface_version": "gemini31pro-1",
+  "model": "google/gemini-3.1-pro-preview",
+  "private_raw_sha256": "011a16050f04b7e726881d6981f89929af054878665eef749a9a5d11752b849a",
+  "schema_version": 1,
+  "stage": "serving_smoke",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.20244600000000001,
+    "generator": {
+      "adapter_completion_tokens": 12935,
+      "adapter_cost_usd": 0.20244600000000001,
+      "adapter_prompt_tokens": 23613,
+      "adapter_reasoning_tokens": 12155,
+      "adapter_requests": 4,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 12935,
+      "forced_exits": 2,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "google/gemini-3.1-pro-preview",
+      "model_usage": {
+        "google/gemini-3.1-pro-preview": {
+          "completion_tokens": 12935,
+          "cost_usd": 0.20244600000000001,
+          "prompt_tokens": 23613,
+          "reasoning_tokens": 12155,
+          "requests": 4
+        }
+      },
+      "prompt_tokens": 23613,
+      "reasoning_tokens": 12155,
+      "remaining_usd": 25.375775033750045,
+      "requests": 4,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.20244600000000001,
+      "run_remaining_usd": 0.547554,
+      "total_spent_usd": 80.00902766170711
+    },
+    "physical_requests": 4,
+    "reasoning_tokens": 12155
+  }
+}
