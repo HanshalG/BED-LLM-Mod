@@ -1,0 +1,2369 @@
+{
+  "development_reference": {
+    "content_reopened": false,
+    "topic_ids": [
+      "148"
+    ],
+    "utility_values_read": false
+  },
+  "mechanics_task": {
+    "branch_count": 90,
+    "evaluation_values_read": false,
+    "expected_model_requests": 91,
+    "initial_request": "Tell me about Bellevue.",
+    "latent_cross_question_profiles_emitted": false,
+    "latent_facet_descriptions_emitted": false,
+    "question_bank": [
+      {
+        "question": "are you looking bellevue square mall",
+        "question_id": "Q00591",
+        "response_options": [
+          {
+            "answer": "no bellevue college in washington",
+            "code": "A"
+          },
+          {
+            "answer": "no general infomation on bellevue nebraska",
+            "code": "B"
+          },
+          {
+            "answer": "no i am looking for bellevue hospital center in new york city",
+            "code": "C"
+          },
+          {
+            "answer": "no i am looking for information about bellevue hospital center in new york new york",
+            "code": "D"
+          },
+          {
+            "answer": "no i want information on the city of bellvue washington",
+            "code": "E"
+          },
+          {
+            "answer": "no im interested in bellevue university",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you looking for a hospital in new york ny",
+        "question_id": "Q00628",
+        "response_options": [
+          {
+            "answer": "no",
+            "code": "A"
+          },
+          {
+            "answer": "no i am looking for the homepage of bellevue college in washington",
+            "code": "B"
+          },
+          {
+            "answer": "no i just want the bellevue homepage",
+            "code": "C"
+          },
+          {
+            "answer": "no information about bellevue wa",
+            "code": "D"
+          },
+          {
+            "answer": "yes bellevue hospital center in new york ny please",
+            "code": "E"
+          },
+          {
+            "answer": "yes information on bellevue hospital new york ny",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you looking for bellevue baptist church",
+        "question_id": "Q00765",
+        "response_options": [
+          {
+            "answer": "no i am looking for bellevue university",
+            "code": "A"
+          },
+          {
+            "answer": "no i am looking for information on belleview hospital center in new york ny",
+            "code": "B"
+          },
+          {
+            "answer": "no i am looking for the hospital not the church",
+            "code": "C"
+          },
+          {
+            "answer": "no i need information on the city of bellevue washington",
+            "code": "D"
+          },
+          {
+            "answer": "no im looking for bellevue college in washington",
+            "code": "E"
+          },
+          {
+            "answer": "no im looking for bellevue nebraska",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you looking for directions to bellevue",
+        "question_id": "Q00806",
+        "response_options": [
+          {
+            "answer": "i dont know",
+            "code": "A"
+          },
+          {
+            "answer": "i dont know for certain",
+            "code": "B"
+          },
+          {
+            "answer": "i want to know the population of bellevue nebraska",
+            "code": "C"
+          },
+          {
+            "answer": "no i am looking for general information about bellevue",
+            "code": "D"
+          },
+          {
+            "answer": "no i want the homepage of bellevue college",
+            "code": "E"
+          },
+          {
+            "answer": "no i would like the homepage of bellevue university",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you looking for the college",
+        "question_id": "Q01056",
+        "response_options": [
+          {
+            "answer": "i am looking for a college in bellevue washington",
+            "code": "A"
+          },
+          {
+            "answer": "i want to know more about it",
+            "code": "B"
+          },
+          {
+            "answer": "no i need information about the city of bellevue nebraska",
+            "code": "C"
+          },
+          {
+            "answer": "no im looking for the hospital",
+            "code": "D"
+          },
+          {
+            "answer": "no the hospital center",
+            "code": "E"
+          },
+          {
+            "answer": "yes",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you looking for the university the bellevue",
+        "question_id": "Q01097",
+        "response_options": [
+          {
+            "answer": "no i am looking for info on bellvue hospital in new york",
+            "code": "A"
+          },
+          {
+            "answer": "no i am looking for the homepage of bellevue hospital center in new york ny",
+            "code": "B"
+          },
+          {
+            "answer": "no i just want information on bellevue washington",
+            "code": "C"
+          },
+          {
+            "answer": "no i want more information about bellevue nebraska",
+            "code": "D"
+          },
+          {
+            "answer": "no i would like to be taken to the webpage of bellvue college in washington",
+            "code": "E"
+          },
+          {
+            "answer": "yes but the homepage",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you looking for things to do in bellevue",
+        "question_id": "Q01101",
+        "response_options": [
+          {
+            "answer": "no i want information about bellvue hospital center in new york ny",
+            "code": "A"
+          },
+          {
+            "answer": "no i want the homepage of the hospital",
+            "code": "B"
+          },
+          {
+            "answer": "no i want to find information about the college",
+            "code": "C"
+          },
+          {
+            "answer": "no im looking for bellevue college",
+            "code": "D"
+          },
+          {
+            "answer": "no just basic information about bellevue nebraska",
+            "code": "E"
+          },
+          {
+            "answer": "no just general information about bellevue washington",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you referring to bellevue iowa",
+        "question_id": "Q01223",
+        "response_options": [
+          {
+            "answer": "ni i am interested in bellvue nebreska",
+            "code": "A"
+          },
+          {
+            "answer": "no bellevue college in washington",
+            "code": "B"
+          },
+          {
+            "answer": "no bellevue university",
+            "code": "C"
+          },
+          {
+            "answer": "no i am referring to bellevue hospital center in new york ny not bellevue ia",
+            "code": "D"
+          },
+          {
+            "answer": "no im referring to bellevue hospital in new york city",
+            "code": "E"
+          },
+          {
+            "answer": "yes i am",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you referring to bellevue nebraska",
+        "question_id": "Q01224",
+        "response_options": [
+          {
+            "answer": "no bellevue university",
+            "code": "A"
+          },
+          {
+            "answer": "no i am referring to bellevue washington",
+            "code": "B"
+          },
+          {
+            "answer": "no i am referring to to bellevue hospita center in new york city",
+            "code": "C"
+          },
+          {
+            "answer": "no new york ny",
+            "code": "D"
+          },
+          {
+            "answer": "no the state should be washington",
+            "code": "E"
+          },
+          {
+            "answer": "yes i am",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "are you referring to bellevue washington",
+        "question_id": "Q01225",
+        "response_options": [
+          {
+            "answer": "no bellevue hospital in new york",
+            "code": "A"
+          },
+          {
+            "answer": "no i am referring to bellevue nebraska",
+            "code": "B"
+          },
+          {
+            "answer": "no i want the hospital that is in new york",
+            "code": "C"
+          },
+          {
+            "answer": "no im referring to bellevue university",
+            "code": "D"
+          },
+          {
+            "answer": "yes i am referring to bellvue washington",
+            "code": "E"
+          },
+          {
+            "answer": "yes the college",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "do you need information about bellevue nebraska",
+        "question_id": "Q01639",
+        "response_options": [
+          {
+            "answer": "i only want information on the university",
+            "code": "A"
+          },
+          {
+            "answer": "no bellevue college in washington",
+            "code": "B"
+          },
+          {
+            "answer": "no i am looking for information about bellecue hospital center in new york ny",
+            "code": "C"
+          },
+          {
+            "answer": "no i need information about bellevue nebraska",
+            "code": "D"
+          },
+          {
+            "answer": "no i need the homepage for bellevue hospital center",
+            "code": "E"
+          },
+          {
+            "answer": "yes i do",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "do you want to know about the nearest town named bellevue",
+        "question_id": "Q02003",
+        "response_options": [
+          {
+            "answer": "i want information about bellevue hospital in new york city",
+            "code": "A"
+          },
+          {
+            "answer": "no i need the homepage for bellevue college washington",
+            "code": "B"
+          },
+          {
+            "answer": "no i want to find information about the college",
+            "code": "C"
+          },
+          {
+            "answer": "no i want to know about bellevue hospital center",
+            "code": "D"
+          },
+          {
+            "answer": "no i would like to know about the town of bellevue in washington",
+            "code": "E"
+          },
+          {
+            "answer": "yes id like more information about that town",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "do you want to know more about companies headquartered in bellevue washington",
+        "question_id": "Q02147",
+        "response_options": [
+          {
+            "answer": "i am looking for bellevue nebraska",
+            "code": "A"
+          },
+          {
+            "answer": "no i specifically want to know info about bellevue hospital center",
+            "code": "B"
+          },
+          {
+            "answer": "no i want information about bellevue college",
+            "code": "C"
+          },
+          {
+            "answer": "no i want to know more about bellevue university",
+            "code": "D"
+          },
+          {
+            "answer": "no i would like the homepage of bellevue hospital in new york city",
+            "code": "E"
+          },
+          {
+            "answer": "yes and any other information relevant to bellevue washington",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "do you want to know more about the bellevue washington local government",
+        "question_id": "Q02159",
+        "response_options": [
+          {
+            "answer": "i dont know",
+            "code": "A"
+          },
+          {
+            "answer": "no i want information about bellevue nebraska",
+            "code": "B"
+          },
+          {
+            "answer": "no i want the homepage for bellevue college",
+            "code": "C"
+          },
+          {
+            "answer": "no i want to know about bellevue hospital in new york ny not bellevue wa",
+            "code": "D"
+          },
+          {
+            "answer": "no i would like to know more about bellevue university",
+            "code": "E"
+          },
+          {
+            "answer": "no the hospital center in new york",
+            "code": "F"
+          }
+        ]
+      },
+      {
+        "question": "would you like to see notable residents of bellevue washington",
+        "question_id": "Q03864",
+        "response_options": [
+          {
+            "answer": "i need general information",
+            "code": "A"
+          },
+          {
+            "answer": "no i am looking for the homepage of bellevue college in washington",
+            "code": "B"
+          },
+          {
+            "answer": "no i need the homepage for bellevue hospital center new york ny",
+            "code": "C"
+          },
+          {
+            "answer": "no take me to the bellevue university homepage",
+            "code": "D"
+          },
+          {
+            "answer": "possibly but i dont have enough information to be able to answer this question",
+            "code": "E"
+          },
+          {
+            "answer": "this is not related to my search",
+            "code": "F"
+          }
+        ]
+      }
+    ],
+    "root_count": 15,
+    "roots": [
+      {
+        "branches": [
+          {
+            "answer": "no bellevue college in washington",
+            "legal_followup_question_ids": [
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no general infomation on bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i am looking for bellevue hospital center in new york city",
+            "legal_followup_question_ids": [
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i am looking for information about bellevue hospital center in new york new york",
+            "legal_followup_question_ids": [
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no i want information on the city of bellvue washington",
+            "legal_followup_question_ids": [
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "no im interested in bellevue university",
+            "legal_followup_question_ids": [
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q00591"
+      },
+      {
+        "branches": [
+          {
+            "answer": "no",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i am looking for the homepage of bellevue college in washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i just want the bellevue homepage",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no information about bellevue wa",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "yes bellevue hospital center in new york ny please",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes information on bellevue hospital new york ny",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q00628"
+      },
+      {
+        "branches": [
+          {
+            "answer": "no i am looking for bellevue university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i am looking for information on belleview hospital center in new york ny",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i am looking for the hospital not the church",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i need information on the city of bellevue washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no im looking for bellevue college in washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "no im looking for bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q00765"
+      },
+      {
+        "branches": [
+          {
+            "answer": "i dont know",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "i dont know for certain",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "i want to know the population of bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i am looking for general information about bellevue",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no i want the homepage of bellevue college",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "no i would like the homepage of bellevue university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q00806"
+      },
+      {
+        "branches": [
+          {
+            "answer": "i am looking for a college in bellevue washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "i want to know more about it",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i need information about the city of bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no im looking for the hospital",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no the hospital center",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q01056"
+      },
+      {
+        "branches": [
+          {
+            "answer": "no i am looking for info on bellvue hospital in new york",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i am looking for the homepage of bellevue hospital center in new york ny",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i just want information on bellevue washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i want more information about bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no i would like to be taken to the webpage of bellvue college in washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes but the homepage",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q01097"
+      },
+      {
+        "branches": [
+          {
+            "answer": "no i want information about bellvue hospital center in new york ny",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i want the homepage of the hospital",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i want to find information about the college",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no im looking for bellevue college",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no just basic information about bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "no just general information about bellevue washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q01101"
+      },
+      {
+        "branches": [
+          {
+            "answer": "ni i am interested in bellvue nebreska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no bellevue college in washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no bellevue university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i am referring to bellevue hospital center in new york ny not bellevue ia",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no im referring to bellevue hospital in new york city",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes i am",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q01223"
+      },
+      {
+        "branches": [
+          {
+            "answer": "no bellevue university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i am referring to bellevue washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i am referring to to bellevue hospita center in new york city",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no new york ny",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no the state should be washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes i am",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q01224"
+      },
+      {
+        "branches": [
+          {
+            "answer": "no bellevue hospital in new york",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i am referring to bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i want the hospital that is in new york",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no im referring to bellevue university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "yes i am referring to bellvue washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes the college",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q01225"
+      },
+      {
+        "branches": [
+          {
+            "answer": "i only want information on the university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no bellevue college in washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i am looking for information about bellecue hospital center in new york ny",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i need information about bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no i need the homepage for bellevue hospital center",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes i do",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q02003",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q01639"
+      },
+      {
+        "branches": [
+          {
+            "answer": "i want information about bellevue hospital in new york city",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i need the homepage for bellevue college washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i want to find information about the college",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i want to know about bellevue hospital center",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no i would like to know about the town of bellevue in washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes id like more information about that town",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02147",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q02003"
+      },
+      {
+        "branches": [
+          {
+            "answer": "i am looking for bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i specifically want to know info about bellevue hospital center",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i want information about bellevue college",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i want to know more about bellevue university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no i would like the homepage of bellevue hospital in new york city",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "yes and any other information relevant to bellevue washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02159",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q02147"
+      },
+      {
+        "branches": [
+          {
+            "answer": "i dont know",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q03864"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i want information about bellevue nebraska",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q03864"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i want the homepage for bellevue college",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q03864"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no i want to know about bellevue hospital in new york ny not bellevue wa",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q03864"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "no i would like to know more about bellevue university",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q03864"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "no the hospital center in new york",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q03864"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q02159"
+      },
+      {
+        "branches": [
+          {
+            "answer": "i need general information",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159"
+            ],
+            "response_code": "A"
+          },
+          {
+            "answer": "no i am looking for the homepage of bellevue college in washington",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159"
+            ],
+            "response_code": "B"
+          },
+          {
+            "answer": "no i need the homepage for bellevue hospital center new york ny",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159"
+            ],
+            "response_code": "C"
+          },
+          {
+            "answer": "no take me to the bellevue university homepage",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159"
+            ],
+            "response_code": "D"
+          },
+          {
+            "answer": "possibly but i dont have enough information to be able to answer this question",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159"
+            ],
+            "response_code": "E"
+          },
+          {
+            "answer": "this is not related to my search",
+            "legal_followup_question_ids": [
+              "Q00591",
+              "Q00628",
+              "Q00765",
+              "Q00806",
+              "Q01056",
+              "Q01097",
+              "Q01101",
+              "Q01223",
+              "Q01224",
+              "Q01225",
+              "Q01639",
+              "Q02003",
+              "Q02147",
+              "Q02159"
+            ],
+            "response_code": "F"
+          }
+        ],
+        "question_id": "Q03864"
+      }
+    ],
+    "topic_id": "60"
+  },
+  "protocol": {
+    "api_calls": 0,
+    "development_content_or_utility_values_read": false,
+    "holdout_content_or_utility_values_read": false,
+    "parent_manifest_sha256": "8871d72aca825aa5b34cf52295eb93fe79caf631c0bba070d82abf6c3bec698d",
+    "transport_change_only": "contiguous response codes -> single-space-separated codes",
+    "v1_mechanics_topic_rerun": false,
+    "v2_mechanics_selection_is_endpoint_disclosed": true
+  },
+  "schema_version": 1,
+  "sealed_holdout": {
+    "content_emitted": false,
+    "topic_ids": [
+      "102",
+      "11",
+      "103",
+      "141"
+    ],
+    "utility_values_read": false
+  },
+  "status": "passed"
+}
