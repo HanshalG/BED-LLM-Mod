@@ -1,0 +1,2328 @@
+{
+  "protocol": {
+    "api_calls": 0,
+    "dataset_revision": "69611d31007e1c6731db8bd5b5c3f2d33f5bab6e",
+    "dev_sha256": "24d670403c3c8690a0f0d741bdcb8800322f58a407d6be148ad99d04b5d8bb32",
+    "followup_top_k": 3,
+    "path_weight": 6,
+    "root_top_k": 3,
+    "selected_ids": [
+      "sqlfluff__sqlfluff-1625",
+      "sqlfluff__sqlfluff-2419",
+      "sqlfluff__sqlfluff-1733",
+      "sqlfluff__sqlfluff-1763",
+      "pvlib__pvlib-python-1707",
+      "pylint-dev__astroid-1333",
+      "pyvista__pyvista-4315",
+      "pydicom__pydicom-1413",
+      "pydicom__pydicom-1139"
+    ],
+    "source_char_cap": 200000,
+    "test_patch_columns_read": false,
+    "test_sha256": "f46f2e3f003f2552932393da4b223e1e0456a2c71eba8b73ae58f29646c1278b"
+  },
+  "records": [
+    {
+      "base_commit": "14e1a23a3166b9a645a16de96f694c77a5d4abb7",
+      "best_immediate_value": 1,
+      "distinct_root_top1": 2,
+      "greedy_oracle_tail_value": 1,
+      "greedy_root_index": 0,
+      "instance_id": "sqlfluff__sqlfluff-1625",
+      "nonmyopic_gap": 0,
+      "num_python_files": 212,
+      "num_roots": 4,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 1,
+      "oracle_root_index": 0,
+      "pair_gain": 0,
+      "repo": "sqlfluff/sqlfluff",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/core/rules/analysis/select_crawler.py",
+                "src/sqlfluff/rules/L044.py",
+                "src/sqlfluff/rules/L028.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L044.py",
+                "src/sqlfluff/rules/L028.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L044.py",
+                "src/sqlfluff/rules/L028.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L044.py",
+                "src/sqlfluff/rules/L028.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "TSQL - L031 incorrectly triggers \"Avoid using aliases in join condition\" when no join present ## Expected Behaviour Both of these queries should pass, the only difference is the addition of a table alias 'a': 1/ no alias ``` SELECT [hello] FROM mytable ``` 2/ same query with alias ``` SELECT a.[hello] FROM mytable AS a ``` ## Observed Behaviour 1/ passes 2/ fails with: L031: Avoid using aliases in join condition. But there is no join condition :-) ## Steps to Reproduce Lint queries above ## Dialect TSQL ## Version sqlfluff 0.6.9 Python 3.6.9 ## Configuration N/A",
+          "result_ids": [
+            "src/sqlfluff/rules/L031.py",
+            "test/cli/commands_test.py",
+            "src/sqlfluff/dialects/dialect_tsql.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/rules/analysis/select_crawler.py",
+                "src/sqlfluff/rules/L044.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/rules/analysis/select_crawler.py",
+                "src/sqlfluff/rules/L026.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/rules/L044.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/rules/L044.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "TSQL - L031 incorrectly triggers \"Avoid using aliases in join condition\" when no join present",
+          "result_ids": [
+            "src/sqlfluff/rules/L031.py",
+            "src/sqlfluff/rules/L028.py",
+            "src/sqlfluff/dialects/dialect_tsql.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/dialects/dialect_tsql.py",
+                "src/sqlfluff/core/rules/analysis/select_crawler.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/rules/analysis/select_crawler.py",
+                "src/sqlfluff/rules/L026.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/dialects/dialect_tsql.py",
+                "src/sqlfluff/core/rules/analysis/select_crawler.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/dialects/dialect_tsql.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "TSQL L031 incorrectly triggers Avoid using aliases join condition when join present Expected Behaviour Both these queries should pass only difference addition table alias alias SELECT hello FROM mytable same query with alias SELECT hello FROM mytable Observed Behaviour passes fails with L031 Avoid using aliases join condition there join condition Steps Reproduce Lint queries above Dialect TSQL Version sqlfluff Python Configuration",
+          "result_ids": [
+            "src/sqlfluff/rules/L031.py",
+            "src/sqlfluff/rules/L028.py",
+            "src/sqlfluff/rules/L044.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L031.py",
+                "test/cli/commands_test.py",
+                "src/sqlfluff/dialects/dialect_tsql.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L031.py",
+                "src/sqlfluff/core/rules/analysis/select.py",
+                "test/cli/commands_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L031.py",
+                "test/rules/std_L020_test.py",
+                "src/sqlfluff/core/rules/analysis/select.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L031.py",
+                "test/cli/commands_test.py",
+                "src/sqlfluff/dialects/dialect_tsql.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 1,
+          "query": "Both of these queries should pass, the only difference is the addition of a table alias 'a':",
+          "result_ids": [
+            "src/sqlfluff/rules/L044.py",
+            "src/sqlfluff/core/rules/analysis/select_crawler.py",
+            "src/sqlfluff/rules/L020.py"
+          ],
+          "root_index": 3
+        }
+      ],
+      "target_file": "src/sqlfluff/rules/L031.py"
+    },
+    {
+      "base_commit": "f1dba0e1dd764ae72d67c3d5e1471cf14d3db030",
+      "best_immediate_value": 1,
+      "distinct_root_top1": 1,
+      "greedy_oracle_tail_value": 1,
+      "greedy_root_index": 0,
+      "instance_id": "sqlfluff__sqlfluff-2419",
+      "nonmyopic_gap": 0,
+      "num_python_files": 260,
+      "num_roots": 5,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 1,
+      "oracle_root_index": 0,
+      "pair_gain": 0,
+      "repo": "sqlfluff/sqlfluff",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/rules/L043.py",
+                "src/sqlfluff/core/parser/grammar/delimited.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/core/rules/base.py",
+                "test/core/templaters/jinja_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/core/rules/base.py",
+                "test/core/templaters/jinja_test.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/core/rules/base.py",
+                "test/core/templaters/jinja_test.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "Rule L060 could give a specific error message At the moment rule L060 flags something like this: ``` L: 21 | P: 9 | L060 | Use 'COALESCE' instead of 'IFNULL' or 'NVL'. ``` Since we likely know the wrong word, it might be nice to actually flag that instead of both `IFNULL` and `NVL` - like most of the other rules do. That is it should flag this: ``` L: 21 | P: 9 | L060 | Use 'COALESCE' instead of 'IFNULL'. ``` Or this: ``` L: 21 | P: 9 | L060 | Use 'COALESCE' instead of 'NVL'. ``` As appropriate. What do you think @jpy-git ?",
+          "result_ids": [
+            "src/sqlfluff/rules/L060.py",
+            "test/cli/commands_test.py",
+            "src/sqlfluff/core/templaters/python.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/rules/L043.py",
+                "src/sqlfluff/core/parser/grammar/delimited.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/rules/base.py",
+                "src/sqlfluff/core/templaters/python.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/core/rules/base.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/core/rules/base.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "Rule L060 could give a specific error message",
+          "result_ids": [
+            "src/sqlfluff/rules/L060.py",
+            "test/rules/std_L020_test.py",
+            "src/sqlfluff/cli/commands.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/rules/L043.py",
+                "src/sqlfluff/core/parser/grammar/delimited.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "IFNULL NVL",
+          "result_ids": [
+            "src/sqlfluff/rules/L060.py",
+            "src/sqlfluff/dialects/dialect_exasol_keywords.py",
+            "docs/source/conf.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/parser/grammar/delimited.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/rules/base.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/core/rules/base.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/core/rules/base.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "Rule L060 could give specific error message moment rule L060 flags something like this L060 COALESCE instead IFNULL Since likely know wrong word might nice actually flag that instead both IFNULL like most other rules That should flag this L060 COALESCE instead IFNULL this L060 COALESCE instead appropriate What think",
+          "result_ids": [
+            "src/sqlfluff/rules/L060.py",
+            "src/sqlfluff/rules/L043.py",
+            "src/sqlfluff/core/templaters/python.py"
+          ],
+          "root_index": 3
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/rules/L043.py",
+                "src/sqlfluff/core/parser/grammar/delimited.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "src/sqlfluff/core/templaters/python.py",
+                "src/sqlfluff/cli/commands.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "Since we likely know the wrong word, it might be nice to actually flag that instead of both `IFNULL` and `NVL` - like most of the other rules do.",
+          "result_ids": [
+            "src/sqlfluff/rules/L060.py",
+            "src/sqlfluff/core/parser/grammar/base.py",
+            "src/sqlfluff/rules/L016.py"
+          ],
+          "root_index": 4
+        }
+      ],
+      "target_file": "src/sqlfluff/rules/L060.py"
+    },
+    {
+      "base_commit": "a1579a16b1d8913d9d7c7d12add374a290bcc78c",
+      "best_immediate_value": 0,
+      "distinct_root_top1": 3,
+      "greedy_oracle_tail_value": 0,
+      "greedy_root_index": 0,
+      "instance_id": "sqlfluff__sqlfluff-1733",
+      "nonmyopic_gap": 0,
+      "num_python_files": 220,
+      "num_roots": 5,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 0,
+      "oracle_root_index": 0,
+      "pair_gain": 0,
+      "repo": "sqlfluff/sqlfluff",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "examples/01_basic_api_usage.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py",
+                "test/dialects/snowflake_test.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "examples/01_basic_api_usage.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py",
+                "test/dialects/snowflake_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "examples/01_basic_api_usage.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py",
+                "test/dialects/snowflake_test.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "examples/01_basic_api_usage.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py",
+                "test/dialects/snowflake_test.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Extra space when first field moved to new line in a WITH statement Note, the query below uses a `WITH` statement. If I just try to fix the SQL within the CTE, this works fine. Given the following SQL: ```sql WITH example AS ( SELECT my_id, other_thing, one_more FROM my_table ) SELECT * FROM example ``` ## Expected Behaviour after running `sqlfluff fix` I'd expect (`my_id` gets moved down and indented properly): ```sql WITH example AS ( SELECT my_id, other_thing, one_more FROM my_table ) SELECT * FROM example ``` ## Observed Behaviour after running `sqlfluff fix` we get (notice that `my_id` is indented one extra space) ```sql WITH example AS ( SELECT my_id, other_thing, one_more FROM my_table ) SELECT * FROM example ``` ## Steps to Reproduce Noted above. Create a file with the initial SQL and fun `sqfluff fix` on it. ## Dialect Running with default config. ## Version Include the output of `sqlfluff --version` along with your Python version sqlfluff, version 0.7.0 Python 3.7.5 ## Configuration Default config.",
+          "result_ids": [
+            "test/core/templaters/jinja_test.py",
+            "test/dialects/ansi_test.py",
+            "test/cli/commands_test.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/cli/commands_test.py",
+                "examples/01_basic_api_usage.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/cli/commands_test.py",
+                "examples/01_basic_api_usage.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/cli/commands_test.py",
+                "examples/01_basic_api_usage.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/cli/commands_test.py",
+                "examples/01_basic_api_usage.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Extra space when first field moved to new line in a WITH statement",
+          "result_ids": [
+            "src/sqlfluff/rules/L003.py",
+            "test/dialects/ansi_test.py",
+            "src/sqlfluff/rules/L018.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/cli/commands_test.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/api/simple_test.py",
+                "test/cli/commands_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/cli/commands_test.py",
+                "test/api/simple_test.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/cli/commands_test.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "WITH sqlfluff fix my_id sqlfluff fix my_id sqfluff fix sqlfluff --version",
+          "result_ids": [
+            "test/dialects/ansi_test.py",
+            "test/api/util_test.py",
+            "examples/01_basic_api_usage.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py",
+                "test/dialects/snowflake_test.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py",
+                "test/dialects/snowflake_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "test/api/simple_test.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "test/cli/commands_test.py",
+                "plugins/sqlfluff-templater-dbt/test/templater_test.py",
+                "test/dialects/snowflake_test.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Extra space when first field moved line WITH statement Note query below uses WITH statement just within this works fine Given following WITH example SELECT my_id other_thing one_more FROM my_table SELECT FROM example Expected Behaviour after running sqlfluff expect my_id gets moved down indented properly WITH example SELECT my_id other_thing one_more FROM my_table SELECT FROM example Observed Behaviour after running sqlfluff notice that my_id indented extra space WITH example SELECT my_id other_thing one_more FROM my_table SELECT FROM example Steps Reproduce Noted above Create file with initial sqfluff Dialect Running with default config Version Include output sqlfluff version along with your Python version sqlfluff version Python Configuration Default config",
+          "result_ids": [
+            "test/dialects/ansi_test.py",
+            "test/core/templaters/jinja_test.py",
+            "examples/01_basic_api_usage.py"
+          ],
+          "root_index": 3
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/dialects/ansi_test.py",
+                "test/cli/commands_test.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/dialects/ansi_test.py",
+                "test/cli/commands_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/dialects/ansi_test.py",
+                "test/cli/commands_test.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "test/core/templaters/jinja_test.py",
+                "test/dialects/ansi_test.py",
+                "test/cli/commands_test.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Extra space when first field moved to new line in a WITH statement Note, the query below uses a `WITH` statement. If I just try to fix the SQL within the CTE, this works fine.",
+          "result_ids": [
+            "src/sqlfluff/rules/L003.py",
+            "src/sqlfluff/rules/L036.py",
+            "src/sqlfluff/rules/L044.py"
+          ],
+          "root_index": 4
+        }
+      ],
+      "target_file": "src/sqlfluff/rules/L039.py"
+    },
+    {
+      "base_commit": "a10057635e5b2559293a676486f0b730981f037a",
+      "best_immediate_value": 0,
+      "distinct_root_top1": 4,
+      "greedy_oracle_tail_value": 0,
+      "greedy_root_index": 0,
+      "instance_id": "sqlfluff__sqlfluff-1763",
+      "nonmyopic_gap": 0,
+      "num_python_files": 221,
+      "num_roots": 5,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 0,
+      "oracle_root_index": 0,
+      "pair_gain": 0,
+      "repo": "sqlfluff/sqlfluff",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "dbt postgres fix command errors with UnicodeEncodeError and also wipes the .sql file _If this is a parsing or linting issue, please include a minimal SQL example which reproduces the issue, along with the `sqlfluff parse` output, `sqlfluff lint` output and `sqlfluff fix` output when relevant._ ## Expected Behaviour Violation failure notice at a minimum, without wiping the file. Would like a way to ignore the known error at a minimum as --noqa is not getting past this. Actually would expect --noqa to totally ignore this. ## Observed Behaviour Reported error: `UnicodeEncodeError: 'charmap' codec can't encode character '\\u2192' in position 120: character maps to <undefined>` ## Steps to Reproduce SQL file: ```sql SELECT reacted_table_name_right.descendant_id AS category_id, string_agg(redacted_table_name_left.name, ' \u2192 ' ORDER BY reacted_table_name_right.generations DESC) AS breadcrumbs -- noqa FROM {{ ref2('redacted_schema_name', 'redacted_table_name_left') }} AS redacted_table_name_left INNER JOIN {{ ref2('redacted_schema_name', 'reacted_table_name_right') }} AS reacted_table_name_right ON redacted_table_name_left.id = order_issue_category_hierarchies.ancestor_id GROUP BY reacted_table_name_right.descendant_id ``` Running `sqlfluff fix --ignore templating,parsing,lexing -vvvv` and accepting proposed fixes for linting violations. ## Dialect `postgres`, with `dbt` templater ## Version `python 3.7.12` `sqlfluff 0.7.0` `sqlfluff-templater-dbt 0.7.0` ## Configuration I've tried a few, here's one: ``` [sqlfluff] verbose = 2 dialect = postgres templater = dbt exclude_rules = None output_line_length = 80 runaway_limit = 10 ignore_templated_areas = True processes = 3 # Comma separated list of file extensions to lint. # NB: This config will only apply in the root folder. sql_file_exts = .sql [sqlfluff:indentation] indented_joins = False indented_using_on = True template_blocks_indent = True [sqlfluff:templater] unwrap_wrapped_queries = True [sqlfluff:templater:jinja] apply_dbt_builtins = True [sqlfluff:templater:jinja:macros] # Macros provided as builtins for dbt projects dbt_ref = {% macro ref(model_ref) %}{{model_ref}}{% endmacro %} dbt_source = {% macro source(source_name, table) %}{{source_name}}_{{table}}{% endmacro %} dbt_config = {% macro config() %}{% for k in kwargs %}{% endfor %}{% endmacro %} dbt_var = {% macro var(variable, default='') %}item{% endmacro %} dbt_is_incremental = {% macro is_incremental() %}True{% endmacro %} # Common config across rules [sqlfluff:rules] tab_space_size = 4 indent_unit = space single_table_references = consistent unquoted_identifiers_policy = all # L001 - Remove trailing whitespace (fix) # L002 - Single section of whitespace should not contain both tabs and spaces (fix) # L003 - Keep consistent indentation (fix) # L004 - We use 4 spaces for indentation just for completeness (fix) # L005 - Remove space before commas (fix) # L006 - Operators (+, -, *, /) will be wrapped by a single space each side (fix) # L007 - Operators should not be at the end of a line [sqlfluff:rules:L007] # Keywords operator_new_lines = after # L008 - Always use a single whitespace after a comma (fix) # L009 - Files will always end with a trailing newline # L010 - All keywords will use full upper case (fix) [sqlfluff:rules:L010] # Keywords capitalisation_policy = upper # L011 - Always explicitly alias tables (fix) [sqlfluff:rules:L011] # Aliasing aliasing = explicit # L012 - Do not have to explicitly alias all columns [sqlfluff:rules:L012] # Aliasing aliasing = explicit # L013 - Always explicitly alias a column with an expression in it (fix) [sqlfluff:rules:L013] # Aliasing allow_scalar = False # L014 - Always user full lower case for 'quoted identifiers' -> column refs. without an alias (fix) [sqlfluff:rules:L014] # Unquoted identifiers extended_capitalisation_policy = lower # L015 - Always remove parenthesis when using DISTINCT to be clear that DISTINCT applies to all columns (fix) # L016 - Lines should be 120 characters of less. Comment lines should not be ignored (fix) [sqlfluff:rules:L016] ignore_comment_lines = False max_line_length = 120 # L017 - There should not be whitespace between function name and brackets (fix) # L018 - Always align closing bracket of WITH to the WITH keyword (fix) # L019 - Always use trailing commas / commas at the end of the line (fix) [sqlfluff:rules:L019] comma_style = trailing # L020 - Table aliases will always be unique per statement # L021 - Remove any use of ambiguous DISTINCT and GROUP BY combinations. Lean on removing the GROUP BY. # L022 - Add blank lines after common table expressions (CTE) / WITH. # L023 - Always add a single whitespace after AS in a WITH clause (fix) [sqlfluff:rules:L026] force_enable = False # L027 - Always add references if more than one referenced table or view is used [sqlfluff:rules:L028] force_enable = False [sqlfluff:rules:L029] # Keyword identifiers unquoted_identifiers_policy = aliases [sqlfluff:rules:L030] # Function names capitalisation_policy = upper # L032 - We prefer use of join keys rather than USING # L034 - We prefer ordering of columns in select statements as (fix): # 1. wildcards # 2. single identifiers # 3. calculations and aggregates # L035 - Omit 'else NULL'; it is redundant (fix) # L036 - Move select targets / identifiers onto new lines each (fix) # L037 - When using ORDER BY, make the direction explicit (fix) # L038 - Never use trailing commas at the end of the SELECT clause [sqlfluff:rules:L038] select_clause_trailing_comma = forbid # L039 - Remove unnecessary whitespace (fix) [sqlfluff:rules:L040] # Null & Boolean Literals capitalisation_policy = upper # L042 - Join clauses should not contain subqueries. Use common tables expressions (CTE) instead. [sqlfluff:rules:L042] # By default, allow subqueries in from clauses, but not join clauses. forbid_subquery_in = join # L043 - Reduce CASE WHEN conditions to COALESCE (fix) # L044 - Prefer a known number of columns along the path to the source data # L045 - Remove unused common tables expressions (CTE) / WITH statements (fix) # L046 - Jinja tags should have a single whitespace on both sides # L047 - Use COUNT(*) instead of COUNT(0) or COUNT(1) alternatives (fix) [sqlfluff:rules:L047] # Consistent syntax to count all rows prefer_count_1 = False prefer_count_0 = False # L048 - Quoted literals should be surrounded by a single whitespace (fix) # L049 - Always use IS or IS NOT for comparisons with NULL (fix) ```",
+          "result_ids": [
+            "src/sqlfluff/core/rules/config_info.py",
+            "test/cli/commands_test.py",
+            "test/rules/std_test.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/rules/std_test.py",
+                "src/sqlfluff/core/templaters/jinja.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/rules/std_test.py",
+                "src/sqlfluff/core/templaters/jinja.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/rules/std_test.py",
+                "src/sqlfluff/core/templaters/jinja.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/rules/std_test.py",
+                "src/sqlfluff/core/templaters/jinja.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "dbt postgres fix command errors with UnicodeEncodeError and also wipes the .sql file",
+          "result_ids": [
+            "test/cli/commands_test.py",
+            "test/rules/std_roundtrip_test.py",
+            "plugins/sqlfluff-templater-dbt/test/templater_test.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "sqlfluff parse sqlfluff lint sqlfluff fix UnicodeEncodeError: 'charmap' codec can't encode character '\\u2192' in position 120: character maps to <undefined> sqlfluff fix --ignore templating,parsing,lexing -vvvv postgres dbt python 3.7.12 sqlfluff 0.7.0 sqlfluff-templater-dbt 0.7.0",
+          "result_ids": [
+            "plugins/sqlfluff-templater-dbt/setup.py",
+            "setup.py",
+            "test/core/templaters/jinja_test.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/templaters/jinja.py",
+                "src/sqlfluff/cli/commands.py",
+                "src/sqlfluff/dialects/dialect_ansi.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "postgres command errors with UnicodeEncodeError also wipes file this parsing linting issue please include minimal example which reproduces issue along with sqlfluff parse output sqlfluff lint output sqlfluff output when relevant Expected Behaviour Violation failure notice minimum without wiping file Would like ignore known error minimum noqa getting past this Actually would expect noqa totally ignore this Observed Behaviour Reported error UnicodeEncodeError charmap codec encode character u2192 position character maps undefined Steps Reproduce file SELECT reacted_table_name_right descendant_id category_id string_agg redacted_table_name_left name ORDER reacted_table_name_right generations DESC breadcrumbs noqa FROM ref2 redacted_schema_name redacted_table_name_left redacted_table_name_left INNER JOIN ref2 redacted_schema_name reacted_table_name_right reacted_table_name_right redacted_table_name_left order_issue_category_hierarchies ancestor_id GROUP reacted_table_name_right descendant_id Running sqlfluff ignore templating parsing lexing vvvv accepting proposed fixes linting violations Dialect postgres with templater Version python sqlfluff sqlfluff templater Configuration tried here sqlfluff verbose dialect postgres templater exclude_rules None output_line_length runaway_limit ignore_templated_areas True processes Comma separated list file extensions lint This config will only apply root folder sql_file_exts sqlfluff indentation indented_joins False indented_using_on True template_blocks_indent True sqlfluff templater unwrap_wrapped_queries True sqlfluff templater jinja apply_dbt_builtins True sqlfluff templater jinja macros Macros provided builtins projects dbt_ref macro model_ref model_ref endmacro dbt_source macro source source_name table source_name table endmacro dbt_config macro config kwargs endfor endmacro dbt_var macro variable default item endmacro dbt_is_incremental macro is_incremental True endmacro Common config across rules sqlfluff rules tab_space_size indent_unit space single_table_references consistent unquoted_identifiers_policy L001 Remove trailing whitespace L002 Single section whitespace should contain both tabs spaces L003 Keep consistent indentation L004 spaces indentation just completeness L005 Remove space before commas L006 Operators will wrapped single space each side L007 Operators should line sqlfluff rules L007 Keywords operator_new_lines after L008 Always single whitespace after comma L009 Files will always with trailing newline L010 keywords will full upper case sqlfluff rules L010 Keywords capitalisation_policy upper L011 Always explicitly alias tables sqlfluff rules L011 Aliasing aliasing explicit L012 have explicitly alias columns sqlfluff rules L012 Aliasing aliasing explicit L013 Always explicitly alias column with expression sqlfluff rules L013 Aliasing allow_scalar False L014 Always user full lower case quoted identifiers column refs without alias sqlfluff rules L014 Unquoted identifiers extended_capitalisation_policy lower L015 Always remove parenthesis when using DISTINCT clear that DISTINCT applies columns L016 Lines should characters less Comment lines should ignored sqlfluff rules L016 ignore_comment_lines False max_line_length L017 There should whitespace between function name brackets L018 Always align closing bracket WITH WITH keyword L019 Always trailing commas commas line sqlfluff rules L019 comma_style trailing L020 Table aliases will always unique statement L021 Remove ambiguous DISTINCT GROUP combinations Lean removing GROUP L022 blank lines after common table expressions WITH L023 Always single whitespace after WITH clause sqlfluff rules L026 force_enable False L027 Always references more than referenced table view used sqlfluff rules L028 force_enable False sqlfluff rules L029 Keyword identifiers unquoted_identifiers_policy aliases sqlfluff rules L030 Function names capitalisation_policy upper L032 prefer join keys rather than USING L034 prefer ordering columns select statements wildcards single identifiers calculations aggregates L035 Omit else NULL redundant L036 Move select targets identifiers onto lines each L037 When using ORDER make direction explicit L038 Never trailing commas SELECT clause sqlfluff rules L038 select_clause_trailing_comma forbid L039 Remove unnecessary whitespace sqlfluff rules L040 Null Boolean Literals capitalisation_policy upper L042 Join clauses should contain subqueries common tables expressions instead sqlfluff rules L042 default allow subqueries from clauses join clauses forbid_subquery_in join L043 Reduce CASE WHEN conditions COALESCE L044 Prefer known number columns along path source data L045 Remove unused common tables expressions WITH statements L046 Jinja tags should have single whitespace both sides L047 COUNT instead COUNT COUNT alternatives sqlfluff rules L047 Consistent syntax count rows prefer_count_1 False prefer_count_0 False L048 Quoted literals should surrounded single whitespace L049 Always comparisons with NULL",
+          "result_ids": [
+            "src/sqlfluff/core/rules/config_info.py",
+            "test/rules/std_test.py",
+            "test/cli/commands_test.py"
+          ],
+          "root_index": 3
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "src/sqlfluff/core/rules/config_info.py",
+                "test/cli/commands_test.py",
+                "test/rules/std_test.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "## Steps to Reproduce SQL file: ```sql SELECT reacted_table_name_right.descendant_id AS category_id, string_agg(redacted_table_name_left.name, ' \u2192 ' ORDER BY reacted_table_name_right.generations DESC) AS breadcrumbs -- noqa FROM {{ ref2('redacted_schema_name', 'redacted_table_name_left') }} AS redacted_table_name_left INNER JOIN {{ ref2('redacted_schema_name', 'reacted_table_name_right') }} AS reacted_table_name_right ON redacted_table_name_left.id = order_issue_category_hierarchies.ancestor_id GROUP BY reacted_table_name_right.descendant_id ``` Running `sqlfluff fix --ignore templating,parsing,lexing -vvvv` and accepting proposed fixes for linting violations.",
+          "result_ids": [
+            "src/sqlfluff/dialects/dialect_redshift_keywords.py",
+            "src/sqlfluff/rules/L031.py",
+            "test/core/templaters/jinja_test.py"
+          ],
+          "root_index": 4
+        }
+      ],
+      "target_file": "src/sqlfluff/core/linter/linted_file.py"
+    },
+    {
+      "base_commit": "40e9e978c170bdde4eeee1547729417665dbc34c",
+      "best_immediate_value": 1,
+      "distinct_root_top1": 3,
+      "greedy_oracle_tail_value": 1,
+      "greedy_root_index": 0,
+      "instance_id": "pvlib__pvlib-python-1707",
+      "nonmyopic_gap": 0,
+      "num_python_files": 130,
+      "num_roots": 5,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 1,
+      "oracle_root_index": 0,
+      "pair_gain": 0,
+      "repo": "pvlib/pvlib-python",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "regression: iam.physical returns nan for aoi > 90\u00b0 when n = 1 **Describe the bug** For pvlib==0.9.5, when n = 1 (no reflection) and aoi > 90\u00b0, we get nan as result. **To Reproduce** ```python import pvlib pvlib.iam.physical(aoi=100, n=1) ``` returns `nan`. **Expected behavior** The result should be `0`, as it was for pvlib <= 0.9.4. **Versions:** - ``pvlib.__version__``: '0.9.5' - ``pandas.__version__``: '1.5.3' - python: 3.10.4",
+          "result_ids": [
+            "pvlib/iam.py",
+            "pvlib/tests/test_iam.py",
+            "docs/examples/reflections/plot_diffuse_aoi_correction.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "regression: iam.physical returns nan for aoi > 90\u00b0 when n = 1",
+          "result_ids": [
+            "pvlib/iam.py",
+            "pvlib/tests/test_iam.py",
+            "docs/examples/reflections/plot_diffuse_aoi_correction.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/iam.py",
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/iam.py",
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/iam.py",
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/iam.py",
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 1,
+          "query": "nan 0 pvlib.__version__ pandas.__version__",
+          "result_ids": [
+            "pvlib/tests/test_conftest.py",
+            "pvlib/tests/conftest.py",
+            "pvlib/spectrum/mismatch.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py",
+                "pvlib/pvsystem.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py",
+                "pvlib/pvsystem.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py",
+                "pvlib/pvsystem.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/tests/test_iam.py",
+                "docs/examples/reflections/plot_diffuse_aoi_correction.py",
+                "pvlib/pvsystem.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "regression physical returns when Describe pvlib when reflection result Reproduce python import pvlib pvlib physical returns Expected behavior result should pvlib Versions pvlib __version__ pandas __version__ python",
+          "result_ids": [
+            "pvlib/iotools/psm3.py",
+            "pvlib/iam.py",
+            "pvlib/_deprecation.py"
+          ],
+          "root_index": 3
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "pvlib/pvsystem.py",
+                "pvlib/tests/test_pvsystem.py",
+                "pvlib/iotools/psm3.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "regression: iam.physical returns nan for aoi > 90\u00b0 when n = 1 **Describe the bug** For pvlib==0.9.5, when n = 1 (no reflection) and aoi > 90\u00b0, we get nan as result.",
+          "result_ids": [
+            "pvlib/iam.py",
+            "pvlib/tests/test_iam.py",
+            "docs/examples/reflections/plot_diffuse_aoi_correction.py"
+          ],
+          "root_index": 4
+        }
+      ],
+      "target_file": "pvlib/iam.py"
+    },
+    {
+      "base_commit": "d2a5b3c7b1e203fec3c7ca73c30eb1785d3d4d0a",
+      "best_immediate_value": 1,
+      "distinct_root_top1": 3,
+      "greedy_oracle_tail_value": 1,
+      "greedy_root_index": 0,
+      "instance_id": "pylint-dev__astroid-1333",
+      "nonmyopic_gap": 0,
+      "num_python_files": 205,
+      "num_roots": 5,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 1,
+      "oracle_root_index": 0,
+      "pair_gain": 0,
+      "repo": "pylint-dev/astroid",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "astroid 2.9.1 breaks pylint with missing __init__.py: F0010: error while code parsing: Unable to load file __init__.py ### Steps to reproduce > Steps provided are for Windows 11, but initial problem found in Ubuntu 20.04 > Update 2022-01-04: Corrected repro steps and added more environment details 1. Set up simple repo with following structure (all files can be empty): ``` root_dir/ |--src/ |----project/ # Notice the missing __init__.py |------file.py # It can be empty, but I added `import os` at the top |----__init__.py ``` 2. Open a command prompt 3. `cd root_dir` 4. `python -m venv venv` 5. `venv/Scripts/activate` 6. `pip install pylint astroid==2.9.1` # I also repro'd on the latest, 2.9.2 7. `pylint src/project` # Updated from `pylint src` 8. Observe failure: ``` src\\project\\__init__.py:1:0: F0010: error while code parsing: Unable to load file src\\project\\__init__.py: ``` ### Current behavior Fails with `src\\project\\__init__.py:1:0: F0010: error while code parsing: Unable to load file src\\project\\__init__.py:` ### Expected behavior Does not fail with error. > If you replace step 6 with `pip install pylint astroid==2.9.0`, you get no failure with an empty output - since no files have content ### `python -c \"from astroid import __pkginfo__; print(__pkginfo__.version)\"` output 2.9.1 `python 3.9.1` `pylint 2.12.2 ` This issue has been observed with astroid `2.9.1` and `2.9.2`",
+          "result_ids": [
+            "astroid/modutils.py",
+            "doc/conf.py",
+            "tests/unittest_brain.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "tests/unittest_brain.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "tests/unittest_brain.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "tests/unittest_brain.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "tests/unittest_brain.py",
+                "tests/unittest_nodes.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "astroid 2.9.1 breaks pylint with missing __init__.py: F0010: error while code parsing: Unable to load file __init__.py",
+          "result_ids": [
+            "astroid/manager.py",
+            "astroid/builder.py",
+            "astroid/modutils.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "doc/conf.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "import os cd root_dir python -m venv venv venv/Scripts/activate pip install pylint astroid==2.9.1 pylint src/project pylint src src\\project\\__init__.py:1:0: F0010: error while code parsing: Unable to load file src\\project\\__init__.py: pip install pylint astroid==2.9.0 python -c \"from astroid import __pkginfo__; print(__pkginfo__.version)\" python 3.9.1 pylint 2.12.2 2.9.1 2.9.2",
+          "result_ids": [
+            "astroid/modutils.py",
+            "tests/unittest_brain.py",
+            "astroid/__init__.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "tests/unittest_brain.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "tests/unittest_brain.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "tests/unittest_brain.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "tests/unittest_brain.py",
+                "astroid/builder.py",
+                "tests/unittest_nodes.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "astroid breaks pylint with missing __init__ F0010 error while code parsing Unable load file __init__ Steps reproduce Steps provided Windows initial problem found Ubuntu Update Corrected repro steps added more environment details simple repo with following structure files empty root_dir project Notice missing __init__ file empty added import __init__ Open command prompt root_dir python venv venv venv Scripts activate install pylint astroid also repro latest pylint project Updated from pylint Observe failure project __init__ F0010 error while code parsing Unable load file project __init__ Current behavior Fails with project __init__ F0010 error while code parsing Unable load file project __init__ Expected behavior Does fail with error replace step with install pylint astroid failure with empty output since files have content python from astroid import __pkginfo__ print __pkginfo__ version output python pylint This issue been observed with astroid",
+          "result_ids": [
+            "doc/conf.py",
+            "astroid/modutils.py",
+            "astroid/__init__.py"
+          ],
+          "root_index": 3
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "astroid/builder.py",
+                "tests/unittest_nodes.py",
+                "tests/unittest_inference.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "1. Set up simple repo with following structure (all files can be empty): ``` root_dir/ |--src/ |----project/ # Notice the missing __init__.py |------file.py # It can be empty, but I added `import os` at the top |----__init__.py ``` 2. Open a command prompt 3. `cd root_dir` 4. `python -m venv venv` 5. `venv/Scripts/activate` 6. `pip install pylint astroid==2.9.1` # I also repro'd on the latest, 2.9.2 7. `pylint src/project` # Updated from `pylint src` 8. Observe failure: ``` src\\project\\__init__.py:1:0: F0010: error while code parsing: Unable to load file src\\project\\__init__.py: ```",
+          "result_ids": [
+            "astroid/modutils.py",
+            "doc/conf.py",
+            "tests/unittest_brain.py"
+          ],
+          "root_index": 4
+        }
+      ],
+      "target_file": "astroid/modutils.py"
+    },
+    {
+      "base_commit": "db6ee8dd4a747b8864caae36c5d05883976a3ae5",
+      "best_immediate_value": 1,
+      "distinct_root_top1": 3,
+      "greedy_oracle_tail_value": 1,
+      "greedy_root_index": 1,
+      "instance_id": "pyvista__pyvista-4315",
+      "nonmyopic_gap": 0,
+      "num_python_files": 347,
+      "num_roots": 5,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 1,
+      "oracle_root_index": 1,
+      "pair_gain": 0,
+      "repo": "pyvista/pyvista",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/plotting/plotting.py",
+                "tests/plotting/test_plotting.py",
+                "examples/00-load/create-polyhedron.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/plotting/plotting.py",
+                "tests/plotting/test_plotting.py",
+                "examples/00-load/create-polyhedron.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "tests/test_grid.py",
+                "pyvista/plotting/plotting.py",
+                "tests/plotting/test_plotting.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/plotting/plotting.py",
+                "tests/plotting/test_plotting.py",
+                "examples/00-load/create-polyhedron.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Rectilinear grid does not allow Sequences as inputs ### Describe the bug, what's wrong, and what you expected. Rectilinear grid gives an error when `Sequence`s are passed in, but `ndarray` are ok. ### Steps to reproduce the bug. This doesn't work ```python import pyvista as pv pv.RectilinearGrid([0, 1], [0, 1], [0, 1]) ``` This works ```py import pyvista as pv import numpy as np pv.RectilinearGrid(np.ndarray([0, 1]), np.ndarray([0, 1]), np.ndarray([0, 1])) ``` ### System Information ```shell -------------------------------------------------------------------------------- Date: Wed Apr 19 20:15:10 2023 UTC OS : Linux CPU(s) : 2 Machine : x86_64 Architecture : 64bit Environment : IPython GPU Vendor : Mesa/X.org GPU Renderer : llvmpipe (LLVM 11.0.1, 256 bits) GPU Version : 4.5 (Core Profile) Mesa 20.3.5 Python 3.11.2 (main, Mar 23 2023, 17:12:29) [GCC 10.2.1 20210110] pyvista : 0.38.5 vtk : 9.2.6 numpy : 1.24.2 imageio : 2.27.0 scooby : 0.7.1 pooch : v1.7.0 matplotlib : 3.7.1 IPython : 8.12.0 -------------------------------------------------------------------------------- ``` ### Screenshots _No response_",
+          "result_ids": [
+            "pyvista/utilities/errors.py",
+            "pyvista/core/pointset.py",
+            "examples/00-load/create-unstructured-surface.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "Rectilinear grid does not allow Sequences as inputs",
+          "result_ids": [
+            "tests/test_composite.py",
+            "pyvista/core/grid.py",
+            "tests/conftest.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "examples/02-plot/chart_basics.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "tests/test_grid.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 1,
+              "result_ids": [
+                "pyvista/utilities/errors.py",
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py"
+              ]
+            }
+          ],
+          "immediate_value": 1,
+          "oracle_pair_value": 1,
+          "query": "Sequence ndarray",
+          "result_ids": [
+            "pyvista/_typing.py",
+            "tests/utilities/test_common.py",
+            "pyvista/core/grid.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Rectilinear grid does allow Sequences inputs Describe what wrong what expected Rectilinear grid gives error when Sequence passed ndarray Steps reproduce This doesn work python import pyvista RectilinearGrid This works import pyvista import numpy RectilinearGrid ndarray ndarray ndarray System Information shell Date Linux Machine x86_64 Architecture Environment IPython Vendor Mesa Renderer llvmpipe LLVM bits Version Core Profile Mesa Python main pyvista numpy imageio scooby pooch matplotlib IPython Screenshots response_",
+          "result_ids": [
+            "pyvista/utilities/errors.py",
+            "doc/source/conf.py",
+            "pyvista/core/dataobject.py"
+          ],
+          "root_index": 3
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pyvista/core/pointset.py",
+                "examples/00-load/create-unstructured-surface.py",
+                "pyvista/plotting/plotting.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "OS : Linux CPU(s) : 2 Machine : x86_64 Architecture : 64bit Environment : IPython GPU Vendor : Mesa/X.org GPU Renderer : llvmpipe (LLVM 11.0.1, 256 bits) GPU Version : 4.5 (Core Profile) Mesa 20.3.5",
+          "result_ids": [
+            "pyvista/utilities/errors.py",
+            "tests/plotting/test_plotting.py",
+            "tests/test_utilities.py"
+          ],
+          "root_index": 4
+        }
+      ],
+      "target_file": "pyvista/core/grid.py"
+    },
+    {
+      "base_commit": "f909c76e31f759246cec3708dadd173c5d6e84b1",
+      "best_immediate_value": 0,
+      "distinct_root_top1": 2,
+      "greedy_oracle_tail_value": 0,
+      "greedy_root_index": 0,
+      "instance_id": "pydicom__pydicom-1413",
+      "nonmyopic_gap": 0,
+      "num_python_files": 147,
+      "num_roots": 4,
+      "oracle_first_differs_from_greedy": false,
+      "oracle_pair_value": 0,
+      "oracle_root_index": 0,
+      "pair_gain": 0,
+      "repo": "pydicom/pydicom",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Error : a bytes-like object is required, not 'MultiValue' Hello, I am getting following error while updating the tag LongTrianglePointIndexList (0066,0040), **TypeError: a bytes-like object is required, not 'MultiValue'** I noticed that the error gets produced only when the VR is given as \"OL\" , works fine with \"OB\", \"OF\" etc. sample code (assume 'lineSeq' is the dicom dataset sequence): ```python import pydicom import array data=list(range(1,10)) data=array.array('H', indexData).tostring() # to convert to unsigned short lineSeq.add_new(0x00660040, 'OL', data) ds.save_as(\"mydicom\") ``` outcome: **TypeError: a bytes-like object is required, not 'MultiValue'** using version - 2.0.0.0 Any help is appreciated. Thank you",
+          "result_ids": [
+            "pydicom/tests/test_filereader.py",
+            "pydicom/filereader.py",
+            "pydicom/filewriter.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py",
+                "pydicom/util/codify.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Error : a bytes-like object is required, not 'MultiValue'",
+          "result_ids": [
+            "pydicom/filewriter.py",
+            "pydicom/tests/test_filereader.py",
+            "pydicom/filereader.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/filewriter.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/filewriter.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/filewriter.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/filewriter.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Error bytes like object required MultiValue Hello getting following error while updating LongTrianglePointIndexList TypeError bytes like object required MultiValue noticed that error gets produced only when given works fine with sample code assume lineSeq dicom dataset sequence python import pydicom import array data list range data array array indexData tostring convert unsigned short lineSeq add_new data save_as mydicom outcome TypeError bytes like object required MultiValue using version help appreciated Thank",
+          "result_ids": [
+            "pydicom/tests/test_filereader.py",
+            "pydicom/util/codify.py",
+            "pydicom/dataset.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/dataset.py",
+                "pydicom/tests/test_filewriter.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "sample code (assume 'lineSeq' is the dicom dataset sequence): ```python import pydicom import array data=list(range(1,10)) data=array.array('H', indexData).tostring() # to convert to unsigned short lineSeq.add_new(0x00660040, 'OL', data) ds.save_as(\"mydicom\") ``` outcome: **TypeError: a bytes-like object is required, not 'MultiValue'**",
+          "result_ids": [
+            "pydicom/tests/test_filereader.py",
+            "pydicom/filewriter.py",
+            "pydicom/util/codify.py"
+          ],
+          "root_index": 3
+        }
+      ],
+      "target_file": "pydicom/dataelem.py"
+    },
+    {
+      "base_commit": "b9fb05c177b685bf683f7f57b2d57374eb7d882d",
+      "best_immediate_value": 0,
+      "distinct_root_top1": 3,
+      "greedy_oracle_tail_value": 0,
+      "greedy_root_index": 0,
+      "instance_id": "pydicom__pydicom-1139",
+      "nonmyopic_gap": 1,
+      "num_python_files": 124,
+      "num_roots": 5,
+      "oracle_first_differs_from_greedy": true,
+      "oracle_pair_value": 1,
+      "oracle_root_index": 1,
+      "pair_gain": 1,
+      "repo": "pydicom/pydicom",
+      "roots": [
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py",
+                "pydicom/dataelem.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py",
+                "pydicom/dataelem.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py",
+                "pydicom/dataelem.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py",
+                "pydicom/dataelem.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Make PersonName3 iterable ```python from pydicom import Dataset ds = Dataset() ds.PatientName = 'SomeName' 'S' in ds.PatientName ``` ``` Traceback (most recent call last): File \"<stdin>\", line 1, in <module> TypeError: argument of type 'PersonName3' is not iterable ``` I'm not really sure if this is intentional or if PN elements should support `str` methods. And yes I know I can `str(ds.PatientName)` but it's a bit silly, especially when I keep having to write exceptions to my element iterators just for PN elements.",
+          "result_ids": [
+            "pydicom/dataset.py",
+            "pydicom/util/codify.py",
+            "pydicom/filewriter.py"
+          ],
+          "root_index": 0
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/filewriter.py",
+                "pydicom/dataelem.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/valuerep.py",
+                "pydicom/dataelem.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/tests/test_dataset.py",
+                "pydicom/filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/util/codify.py",
+                "pydicom/filewriter.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 1,
+          "query": "Make PersonName3 iterable",
+          "result_ids": [
+            "pydicom/sequence.py",
+            "pydicom/multival.py",
+            "pydicom/tests/test_sequence.py"
+          ],
+          "root_index": 1
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/util/codify.py",
+                "pydicom/filewriter.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 1,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/filewriter.py",
+                "pydicom/valuerep.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/dataelem.py",
+                "pydicom/multival.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/dataset.py",
+                "pydicom/util/codify.py",
+                "pydicom/filewriter.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 1,
+          "query": "str str(ds.PatientName)",
+          "result_ids": [
+            "pydicom/tests/test_util.py",
+            "pydicom/values.py",
+            "pydicom/tests/test_multival.py"
+          ],
+          "root_index": 2
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filewriter.py",
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filewriter.py",
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filereader.py",
+                "pydicom/filewriter.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/filewriter.py",
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "Make PersonName3 iterable python from pydicom import Dataset Dataset PatientName SomeName PatientName Traceback most recent call last File stdin line module TypeError argument type PersonName3 iterable really sure this intentional elements should support methods know PatientName silly especially when keep having write exceptions element iterators just elements",
+          "result_ids": [
+            "pydicom/dataset.py",
+            "pydicom/util/codify.py",
+            "pydicom/sr/codedict.py"
+          ],
+          "root_index": 3
+        },
+        {
+          "continuations": [
+            {
+              "followup_index": 0,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/util/codify.py",
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            },
+            {
+              "followup_index": 1,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/util/codify.py",
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            },
+            {
+              "followup_index": 2,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/util/codify.py",
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            },
+            {
+              "followup_index": 3,
+              "pair_value": 0,
+              "result_ids": [
+                "pydicom/util/codify.py",
+                "pydicom/filereader.py",
+                "pydicom/pixel_data_handlers/rle_handler.py"
+              ]
+            }
+          ],
+          "immediate_value": 0,
+          "oracle_pair_value": 0,
+          "query": "I'm not really sure if this is intentional or if PN elements should support `str` methods. And yes I know I can `str(ds.PatientName)` but it's a bit silly, especially when I keep having to write exceptions to my element iterators just for PN elements.",
+          "result_ids": [
+            "pydicom/dataset.py",
+            "pydicom/filewriter.py",
+            "pydicom/charset.py"
+          ],
+          "root_index": 4
+        }
+      ],
+      "target_file": "pydicom/valuerep.py"
+    }
+  ],
+  "schema_version": 1,
+  "status": "gate_failed",
+  "summary": {
+    "direct_root_coverage_count": 5,
+    "gates": {
+      "all_9_issues_complete": true,
+      "all_have_at_least_3_roots": true,
+      "all_pass": false,
+      "direct_root_coverage_at_most_6": true,
+      "mean_distinct_root_top1_at_least_3": false,
+      "mean_nonmyopic_gap_at_least_0_22": false,
+      "mean_pair_gain_at_least_0_33": false,
+      "nonmyopic_gap_count_at_least_2": false,
+      "oracle_first_differs_count_at_least_2": false,
+      "pair_gain_count_at_least_3": false
+    },
+    "mean_distinct_root_top1": 2.6666666666666665,
+    "mean_nonmyopic_gap": 0.1111111111111111,
+    "mean_pair_gain": 0.1111111111111111,
+    "nonmyopic_gap_count": 1,
+    "num_issues": 9,
+    "oracle_first_differs_count": 1,
+    "pair_gain_count": 1
+  }
+}
