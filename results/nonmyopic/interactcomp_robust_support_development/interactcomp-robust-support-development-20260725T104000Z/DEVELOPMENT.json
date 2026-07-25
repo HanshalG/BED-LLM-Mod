@@ -1,0 +1,164 @@
+{
+  "gates": {
+    "all_pass": false,
+    "at_least_four_unique_auxiliary_each": false,
+    "cost_at_most_0_25": true,
+    "exact_http_attempt_count": true,
+    "exact_request_count": true,
+    "mean_endpoint_gain_over_eig_at_least_0_0625": false,
+    "mean_robust_rho_at_least_0_50": false,
+    "positive_robust_rho_each": false,
+    "robust_selects_oracle_each": false,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_transport_retries": true
+  },
+  "metrics": {
+    "mean_robust_endpoint_gain_over_eig": 0.0,
+    "mean_robust_endpoint_spearman": 0.27914884559028247,
+    "robust_selects_oracle_count": 1
+  },
+  "protocol": {
+    "balanced_model_prior": 0.5,
+    "endpoints_loaded_after_scores_frozen": true,
+    "expected_requests": 32,
+    "interface_version": "interactcomp-robust-support-development-1",
+    "model": "openai/gpt-5.4-mini",
+    "particle_count": 8,
+    "prior_private_sha256": "fb90c37a65d004a79b1b0aff8dce986aaf0de3ff0abbd633b68aff01b83d3f95",
+    "prior_public_sha256": "86c741d9cf38f83b282b8f5048d50d10b54a563ca05bdec897ae7ec72b9a0e91",
+    "prior_run_id": "interactcomp-first-link-opportunity-20260725T102000Z",
+    "private_raw_sha256": "73f1ba84ffa1b9d6e8ed7ffe129d13f4aa37971851a9ae3c11a4c2cd6fa05f69",
+    "question_count": 4,
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "robust_score": "current_eig_plus_model_identity_mutual_information",
+    "task_indices": [
+      75,
+      37
+    ]
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "tasks": [
+    {
+      "eig_endpoint_spearman": 0.816496580927726,
+      "eig_selected_endpoint": 0.125,
+      "eig_selected_root_index": 2,
+      "oracle_endpoint": 0.125,
+      "oracle_root_index": 2,
+      "robust_endpoint_gain_over_eig": 0.0,
+      "robust_endpoint_spearman": 0.816496580927726,
+      "robust_selected_endpoint": 0.125,
+      "robust_selected_root_index": 2,
+      "roots": [
+        {
+          "current_eig": 0.6615632381579821,
+          "model_misspecification_information": 0.290304755476254,
+          "robust_score": 0.9518679936342361,
+          "root_index": 0,
+          "truth_mass": 0.0
+        },
+        {
+          "current_eig": 0.6615632381579821,
+          "model_misspecification_information": 0.290304755476254,
+          "robust_score": 0.9518679936342361,
+          "root_index": 1,
+          "truth_mass": 0.0
+        },
+        {
+          "current_eig": 1.0821955300387673,
+          "model_misspecification_information": 0.043474952658394184,
+          "robust_score": 1.1256704826971615,
+          "root_index": 2,
+          "truth_mass": 0.125
+        },
+        {
+          "current_eig": 0.9002560512685369,
+          "model_misspecification_information": 0.08050430345880044,
+          "robust_score": 0.9807603547273374,
+          "root_index": 3,
+          "truth_mass": 0.0
+        }
+      ],
+      "task_id": 76,
+      "unique_auxiliary_count": 3
+    },
+    {
+      "eig_endpoint_spearman": -0.5443310539518174,
+      "eig_selected_endpoint": 0.0,
+      "eig_selected_root_index": 3,
+      "oracle_endpoint": 0.125,
+      "oracle_root_index": 1,
+      "robust_endpoint_gain_over_eig": 0.0,
+      "robust_endpoint_spearman": -0.2581988897471611,
+      "robust_selected_endpoint": 0.0,
+      "robust_selected_root_index": 3,
+      "roots": [
+        {
+          "current_eig": -0.0,
+          "model_misspecification_information": 0.04540657807824092,
+          "robust_score": 0.04540657807824092,
+          "root_index": 0,
+          "truth_mass": 0.0
+        },
+        {
+          "current_eig": -0.0,
+          "model_misspecification_information": 0.2157615543388357,
+          "robust_score": 0.2157615543388357,
+          "root_index": 1,
+          "truth_mass": 0.125
+        },
+        {
+          "current_eig": 0.37677016125643675,
+          "model_misspecification_information": 0.10191967484803577,
+          "robust_score": 0.4786898361044725,
+          "root_index": 2,
+          "truth_mass": 0.0
+        },
+        {
+          "current_eig": 0.5623351446188083,
+          "model_misspecification_information": 0.062198742738767465,
+          "robust_score": 0.6245338873575758,
+          "root_index": 3,
+          "truth_mass": 0.0
+        }
+      ],
+      "task_id": 38,
+      "unique_auxiliary_count": 6
+    }
+  ],
+  "usage": {
+    "adapter_completion_tokens": 1773,
+    "adapter_cost_usd": 0.02193525,
+    "adapter_prompt_tokens": 18609,
+    "adapter_reasoning_tokens": 0,
+    "adapter_requests": 32,
+    "backend": "openrouter",
+    "budget_usd": 101.14330481920742,
+    "completion_tokens": 1773,
+    "forced_exits": 0,
+    "forced_final_requests": 0,
+    "forced_final_successes": 0,
+    "http_attempts": 32,
+    "model": "openai/gpt-5.4-mini",
+    "model_usage": {
+      "openai/gpt-5.4-mini": {
+        "completion_tokens": 1773,
+        "cost_usd": 0.02193525,
+        "prompt_tokens": 18609,
+        "reasoning_tokens": 0,
+        "requests": 32
+      }
+    },
+    "prompt_tokens": 18609,
+    "reasoning_tokens": 0,
+    "remaining_usd": 14.870103999999941,
+    "requests": 32,
+    "retry_count": 0,
+    "run_budget_usd": 0.25,
+    "run_cost_usd": 0.02193525,
+    "run_remaining_usd": 0.22806475,
+    "total_spent_usd": 86.27320081920747
+  }
+}
