@@ -42,6 +42,18 @@ def test_tree_is_target_blind_and_deduplicates_root_answers() -> None:
     assert all(root.answer_hash for root in roots)
 
 
+def test_single_chunk_tree_has_no_continuation() -> None:
+    chunks, roots = build_target_blind_tree(
+        "A short underspecified issue.",
+        "The only hidden detail is that parse_value should preserve empty input.",
+    )
+
+    assert len(chunks) == 1
+    assert len(roots) == 1
+    assert roots[0].continuation_indices == ()
+    assert roots[0].continuation_query_hashes == ()
+
+
 def test_hidden_gold_tokens_excludes_visible_vocabulary() -> None:
     target = hidden_gold_tokens(
         "Parser returns the wrong value.",

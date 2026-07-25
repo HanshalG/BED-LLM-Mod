@@ -248,6 +248,8 @@ def build_target_blind_tree(
         continuation_indices = []
         continuation_hashes = []
         for query in continuation_queries:
+            if len(chunks) < 2:
+                break
             next_index = index.top(query, exclude={answer_index})
             if next_index in continuation_indices:
                 continue
