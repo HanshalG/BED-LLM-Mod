@@ -1,0 +1,37 @@
+{
+  "bootstrap": {
+    "mean_endpoint_advantage_95_ci": [
+      -0.05,
+      0.6
+    ],
+    "mean_endpoint_advantage_probability_gt_zero": 0.93607,
+    "pairwise_accuracy_gain_95_ci": [
+      0.004347826086956522,
+      0.18691588785046728
+    ],
+    "pairwise_accuracy_gain_probability_gt_zero": 0.97686,
+    "samples": 100000,
+    "seed": 24336
+  },
+  "confirmation_sha256": "dfbf597f8405b109d61d90206606962b5fbda439c8b81f086a9592c07fa247d1",
+  "endpoint_totals": {
+    "myopic_selected_root_oracle_tail": 39,
+    "nonmyopic_selected_pair": 34,
+    "nonmyopic_selected_root_oracle_tail": 44,
+    "oracle_root": 50,
+    "oracle_strength_greedy_root": 48
+  },
+  "exact_task_level_tests": {
+    "endpoint_advantage_sign_flip_one_sided_p": 0.125,
+    "ranking_label_swap_one_sided_p": 0.039794921875
+  },
+  "root_hit_counts": {
+    "myopic_oracle_optimal": 12,
+    "nonmyopic_oracle_optimal": 15,
+    "num_tasks": 20
+  },
+  "second_link_diagnostics": {
+    "documents_lost_vs_selected_root_oracle_tail": 10,
+    "tasks_with_selected_followup_loss": 9
+  }
+}
