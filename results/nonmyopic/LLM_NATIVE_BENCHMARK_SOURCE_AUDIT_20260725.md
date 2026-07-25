@@ -1,0 +1,131 @@
+# LLM-Native Benchmark Source Audit
+
+Audited: 2026-07-25. This is a zero-call source audit. It does not use benchmark
+test outcomes as model evidence and it authorizes no paid run.
+
+## Sources
+
+| Benchmark | Source | Pinned revision | Local source state |
+| --- | --- | --- | --- |
+| RegretBench | paper: `https://arxiv.org/abs/2607.21143`; cited repository: `https://github.com/ngocminhta/RegretBench` | arXiv source downloaded 2026-07-25 | Paper available; cited repository returns 404 and no dataset was found on Hugging Face |
+| EComAgentBench | `https://github.com/Morizeyao/EComAgentBench_` | `867dcc59957d4c5f89e9cfd701ee20f91ef96a83` | Code and 662 benchmark rows available |
+| pi-Bench | paper: `https://arxiv.org/abs/2605.14678`; code: `https://github.com/Simplified-Reasoning/Pi-Bench` | `383910b1698758a198b86037c63a111c8edc32ad` | Code, 100 tasks, five episodes, and task assets available |
+
+## RegretBench
+
+RegretBench is the closest conceptual match because its paper defines
+Conversational Information-Gathering environments with latent intents, semantic
+actions, observations, and a reference planner. The public paper source contains
+the manuscript but not the generated environments, transition tables, or
+reference-planner implementation. The cited GitHub repository still returns 404,
+GitHub search does not expose another official repository, and Hugging Face
+search does not expose the benchmark data.
+
+**Decision:** keep RegretBench first in the retry queue, but do not reconstruct
+or label an unofficial approximation as a RegretBench result. A source release
+would immediately justify a new structural audit before model calls.
+
+## EComAgentBench
+
+The released benchmark has 662 product-recommendation tasks. Its hidden
+clarification content is reproducible and externally specified, which is useful:
+
+- 660 tasks have exactly two clarification slots and two have three;
+- every slot links to exactly one clarification rubric;
+- all tasks allow ten clarification turns;
+- `ask_user` reveals the single unrevealed slot with the highest keyword match;
+- slots do not condition on earlier answers and do not create new actions or
+  state-dependent follow-ups.
+
+The task therefore has semantic hidden information but no native clarification
+planning bottleneck. An agent can ask for all two or three slots within the
+ten-turn allowance, and slot order does not affect attainable clarification
+coverage. A sequential story would have to combine clarification with product
+search over the separately downloaded product database; it would not arise from
+the released clarification graph itself.
+
+**Decision:** do not download the approximately 25 GB product database or run a
+paid agent. Revisit only if a zero-cost clarify-then-search construction first
+shows a strict lower-immediate/higher-terminal root on a frozen cohort.
+
+## pi-Bench
+
+pi-Bench is the strongest current source for a future LLM-native result. The
+paper and release provide natural underspecified requests, persistent workspaces,
+cross-session dependencies, hidden semantic requirements, targeted
+clarification, and artifact endpoints. The source inventory is:
+
+- 100 tasks across five personas and 524 hidden intents;
+- 30 dependency-final tasks and 45 dependency edges, exactly nine edges per
+  persona;
+- 225 hidden intents in dependency-final tasks, with 3--20 intents per task
+  (median 6.5);
+- 27 tasks with deterministic tool-evaluation scripts;
+- 510 textual checklist criteria, evaluated by an LLM unless supplemented by a
+  task-specific tool script.
+
+The dependency mechanism is real. Sessions share a persistent workspace, the
+paper's history ablation reports lower proactivity without prerequisite
+sessions, and many final-task intents explicitly inherit prior conventions or
+facts. This is precisely the kind of semantic memory recovery where an LLM is
+hard to replace with a fixed enumerator.
+
+### Why the release is not yet a non-myopic BED environment
+
+1. Every listed hidden intent is active. The benchmark does not release
+   mutually exclusive intent hypotheses or a prior over alternative user
+   worlds.
+2. The user simulator uses GPT-5.4 at temperature zero to judge whether the
+   response already satisfies each intent and whether a question targets it.
+   This is an LLM-mediated transition, not an exact likelihood table.
+3. If no targeted question matches, the simulator reveals the first unmet
+   intent automatically. If several intents match, one response can reveal all
+   of them.
+4. All intents are eventually revealed and the session limit is 30 turns, while
+   the largest task has 20 intents. There is no native information-acquisition
+   scarcity or terminal penalty for leaving an intent unknown.
+5. `depends_on` determines dependency groups for aggregate weighting, while
+   task execution follows episode order with a persistent workspace. The
+   release does not provide a reference planner or action-conditioned dependency
+   transition against which to verify a greedy depth-two gap.
+
+These properties make pi-Bench a strong proactivity and memory benchmark, but
+not a direct test that non-myopic information gathering beats greedy
+clarification.
+
+### Registered future use
+
+Keep pi-Bench as the first new source to try after a mechanically valid
+non-myopic wrapper exists. The minimal acceptable route is:
+
+1. use only the 30 dependency-final tasks;
+2. freeze a two-action budget over prior-session/workspace inspection and one
+   targeted clarification;
+3. construct beliefs without exposing current hidden intents to the policy;
+4. use prerequisite artifacts and official user responses as external
+   observations;
+5. define an endpoint from hidden-intent coverage plus available deterministic
+   tool checks;
+6. prove a strict greedy-versus-depth-two opportunity on a frozen development
+   cohort before any OpenRouter call;
+7. compare paired myopic, non-myopic, history-ablated, and matched-compute
+   controls.
+
+The critical scientific test is whether inspecting one piece of prior context
+has delayed value because it changes which clarification or artifact action is
+best next. If the wrapper merely charges for reading static context that every
+agent should always read, or if the target annotations are used to manufacture
+the action mapping, the route is rejected.
+
+## Portfolio Decision
+
+- **Headline:** continue to concentrate on an LLM-native result. The current
+  strongest evidence remains tau-Knowledge V3.1: significant semantic ranking
+  links and directional, underpowered endpoints.
+- **Supporting result:** retain RockSample as exact-verification evidence only.
+- **Next external source:** retry RegretBench when its official environment is
+  released.
+- **Next construction candidate:** pi-Bench dependency-final tasks, but only
+  after a zero-cost, target-blind structural gap.
+- **Closed for now:** EComAgentBench's clarification-only graph.
+- **Budget:** no paid calls and no OatML cluster work were used in this audit.
