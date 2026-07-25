@@ -125,6 +125,41 @@ def test_validate_paper_draft_rejects_missing_required_limitations(tmp_path, mon
     assert "structured_positive_scope" in limitations_check["detail"]
 
 
+def test_validate_paper_draft_accepts_unstable_external_scope(tmp_path, monkeypatch):
+    paper_dir = tmp_path / "paper"
+    paper_dir.mkdir()
+    limitations = VALID_LIMITATIONS_TEXT.replace(
+        "qualified external\nLLM-native result",
+        "unstable external\nLLM-native result",
+    )
+    (paper_dir / "main.tex").write_text(
+        "\\documentclass{article}\\begin{document}\n"
+        + limitations
+        + VALID_FIGURE_LABELS
+        + "\\end{document}\n"
+    )
+    commands = []
+
+    def fake_run(command, *, cwd: Path, timeout: int):
+        commands.append(command)
+        if command[0] == "pdflatex":
+            output_dir = Path(command[command.index("-output-directory") + 1])
+            output_dir.mkdir(parents=True, exist_ok=True)
+            (output_dir / "main.pdf").write_bytes(b"%PDF-1.4 fake")
+        return subprocess.CompletedProcess(
+            command,
+            0,
+            stdout="Output written on main.pdf (5 pages, 1 bytes).\n",
+        )
+
+    monkeypatch.setattr(vpd, "_run", fake_run)
+    monkeypatch.setattr(vpd, "_pdf_page_count", lambda pdf_path, latex_output="": 5)
+
+    payload = vpd.summary_payload(vpd.validate_paper_draft(paper_dir))
+
+    assert payload["ok"] is True
+
+
 def test_validate_paper_draft_requires_validation_chain_figure(tmp_path, monkeypatch):
     paper_dir = tmp_path / "paper"
     paper_dir.mkdir()

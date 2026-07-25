@@ -52,9 +52,11 @@ structural and continuation gates. After iterative development, a frozen
 count-dominant receding policy passes every gate on an independent untouched
 20-task holdout: root accuracy is $.702$ versus $.554$ ($p=.0352$), continuation
 accuracy is $.757$ ($p<10^{-4}$), and exact coverage is 30 documents versus 26
-myopic, 25 joint, and 22 random. These endpoint gains are directional rather
-than conventionally significant ($p=.25,.090,.077$). Negative location, Paprika,
-MediQ, and MovieLens audits localize why deeper semantic planning otherwise fails.
+myopic. A preregistered fresh execution on the same tasks reverses root accuracy
+($.558$ versus $.628$) and ties myopic coverage (23 each); the task-clustered
+two-execution gain is $+.10$ documents ($p=.348$). Thus the LLM-native mechanism
+is promising but not execution-robust. Negative location, Paprika, MediQ, and
+MovieLens audits localize why deeper semantic planning otherwise fails.
 \end{abstract}
 
 \small
@@ -98,10 +100,9 @@ Our contributions are:
   their total information gain \citep{kambhampati2024llmmodulo};
   \item preregistered paired evidence that both the LLM proposal prior and
   non-myopic verification are load-bearing in a depth-favorable Rock geometry;
-  \item a target-blind external-benchmark result in which LLM-generated
-  path-dependent retrieval trees significantly improve both root and continuation
-  ranking, and a receding policy passes all held-out gates while its exact endpoint
-  advantage remains underpowered;
+  \item a target-blind external-benchmark study in which one held-out execution
+  improves root and continuation ranking, while a preregistered fresh execution
+  exposes instability in LLM-generated trees and scores;
   \item a cross-environment audit that separates correctness of the planning
   recursion from validity of the probabilistic interaction model;
   \item two external-benchmark autopsies with invalid outcomes quarantined rather
@@ -192,7 +193,7 @@ Exact constrained location & Exact & Explicit delayed trap & RMSE: d2 .153, gree
 Rock Diagnosis & Exact finite state & Enabling movement & Strategy d2 beats d1, width, random & Paired positive \\
 Range-gated Rock & Exact finite state & Two--four-step travel & h5 rep.: +.273 vs h4; +.212 vs random & Paired positive \\
 Mushroom / Cleveland / Thyroid & Exact empirical & Zero-EIG acquisition/workup & Grounded GPT recovers 100/.994/1.009 of d2 & Positive / partial \\
-$\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Root .702 vs .554; docs 30 vs 26/25/22 & All gates; endpoint directional \\
+$\tau$-Knowledge & External documents/endpoints & Fresh gap 6/20 & Run1: .702/.554, +4 docs; Run2: .558/.628, 0 & Execution-unstable \\
 Animals 20Q & Concrete target, binary replies & Unverified & d1 AUC .743, think-naive .465 & One-step positive \\
 Natural location & Exact signal, LLM strategies & Weak/variable & d1/d3/d5 non-monotonic & Horizon negative \\
 Paprika & Insufficient state/task utility & Assumed, not enforced & Endpoint contradiction & Diagnostic only \\
@@ -267,13 +268,20 @@ task-clustered chance $p=6.9{\times}10^{-5}$), with 80/100 oracle-optimal choice
 and mean regret $.21$. The policy retained 30 of 33 documents available under
 its selected roots, versus 26 for myopic receding, 25 for the original joint
 selector, and 22 for seeded random; all frozen gates passed. Exact endpoint
-tests remain underpowered ($p=.25,.0898,.0774$, respectively), so the supported
-claim is reliable LLM-owned ranking plus directional end-to-end gain. In a
+tests remain underpowered ($p=.25,.0898,.0774$, respectively), so this execution
+supports LLM-owned ranking plus directional end-to-end gain. In a
 frozen post-hoc control, BM25, novelty, and lexical scoring retrieved 22, 21,
 and 17 documents versus 30 and ranked worse. Neither a belief shuffle nor a
 paired belief-only bottleneck supported causal alignment (diagnostic accuracy
 $.441$ aligned versus $.706$ shuffled; coverage 5 versus 6). Thus semantic
 scoring alone is isolated as load-bearing; neither control is held-out evidence.
+
+A preregistered same-task replication regenerated every tree and score in 280
+clean calls. Root accuracy reversed ($.5575$ non-myopic versus $.6283$ myopic);
+continuation remained $.7220$, but coverage tied at 23. The two-execution
+within-task average favors non-myopia by $.10$ documents, yet is inconclusive
+($p=.3484$, interval $[-.275,.450]$); Holm-corrected rank metrics are also null.
+The first execution shows possibility, not reliability under fresh generation.
 
 An orthogonal public-Zendo smoke generated executable particles and all eight
 refreshed branches. On rule $\mu$, blinded readiness sacrificed $.316$ immediate
@@ -508,12 +516,13 @@ Connected multihop structure alone was insufficient: MuSiQue, BRIGHT, and
 BrowseComp-Plus audits found little root-level greedy opportunity
 \citep{trivedi2022musique,su2025bright,chen2026browsecompplus}.
 
-The two $\tau$-Knowledge splits separate scorer fidelity from opportunity. The
+The $\tau$-Knowledge splits separate scorer fidelity from opportunity. The
 first had little oracle-greedy complementarity and a joint scorer discarded much
 of its selected root's value. The blind holdout had a larger gap, and
-count-dominant receding selection preserved 30/33 available documents. Better
-semantic prediction is therefore useful only when candidates expose a real
-greedy gap and the next action preserves it.
+count-dominant receding selection preserved 30/33 available documents in its
+first execution, but fresh generation did not reproduce the root advantage.
+Better semantic prediction is useful only when candidates expose a real greedy
+gap, the next action preserves it, and the generated simulator is stable.
 
 Target-free audits separate three further prerequisites. InteractComp recovered
 truth on only 2/6 collapsed-support tasks; particle preservation helped but tied
@@ -545,12 +554,13 @@ Future depth studies should cross the following gates in order:
 
 \section{Limitations and Conclusion}
 
-This is a positive structured-benchmark result and a qualified external
-LLM-native result. On $\tau$-Knowledge, both ranking links are significant and
-the held-out policy passes every frozen gate, but its final endpoint gains remain
-underpowered. The parser amendment was frozen before holdout access yet followed
-iterative development and superseded a no-V4 commitment, so this is not a
-pristine one-shot preregistration.
+This is a positive structured-benchmark result and an unstable external
+LLM-native result. On $\tau$-Knowledge, one held-out execution passed every
+frozen gate with significant ranking and directional endpoints; a preregistered
+fresh same-task execution reversed root ranking and tied myopic coverage. The
+parser amendment was frozen before holdout access yet followed iterative
+development and superseded a no-V4 commitment, so the positive execution was
+not a pristine one-shot preregistration.
 Rock Diagnosis uses an exact finite simulator and does not test robustness to learned likelihoods or open responses.
 Range-gated h3 remains proposal evidence only after a tied-control audit mismatch,
 so no trajectory ran; h4 is exact-oracle evidence after unaided policy gates failed.
@@ -566,16 +576,15 @@ policy counts are endpoint-invalid and its structured support saturates at the p
 MediQ stops before a calibrated policy comparison,
 the iCRAFT profile-support gate fails before likelihood, staged iCRAFT recovery
 remains below its reliability gate, and ClinDiag has no policy result.
-We do not claim that non-myopic BED cannot work; a zero-call real-bug audit
-stopped before LLM evaluation after only 1/9 two-step file unlocks.
-OpenRouter nondeterminism: 1/3 reruns passed; a +4 ensemble failed its loss
-cap; scorer transfers and a paired belief-only bottleneck failed. Zendo's
-single-task gain is unreplicated after pre-endpoint serving failures.
+We do not claim that non-myopic BED cannot work.
+OpenRouter nondeterminism: 1/3 scorer reruns passed; a +4 ensemble failed its
+loss cap; the full-policy replication failed, and scorer transfers plus a paired
+belief-only bottleneck failed.
 The constructive result has two parts. Given a coherent simulator and an
 enabling-information gap, LLM proposals plus exact rollout verification produce
-a large paired gain. In open retrieval, a receding LLM semantic scorer passes a
-held-out gate with significant root and continuation ranking and directional
-endpoint gains. Depth still cannot
+a large paired gain. In open retrieval, a receding LLM semantic scorer can
+produce significant root and continuation ranking, but the gain is not robust
+to fresh generation. Depth still cannot
 replace a valid joint model, deployment-matched branches, or genuinely
 non-myopic task.
 

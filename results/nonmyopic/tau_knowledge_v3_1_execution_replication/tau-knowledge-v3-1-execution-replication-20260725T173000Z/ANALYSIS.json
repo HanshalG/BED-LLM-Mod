@@ -1,0 +1,273 @@
+{
+  "gates": {
+    "adapter_cost_at_most_4": true,
+    "all_primary_pass": false,
+    "clustered_coverage_exact_p_at_most_0_05": false,
+    "clustered_coverage_gain_positive": true,
+    "exact_280_http_attempts": true,
+    "exact_280_physical_requests": true,
+    "replication_coverage_gain_positive": false,
+    "replication_original_v3_1_gates_pass": false,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "protocol": {
+    "analysis_seed": 24396,
+    "bootstrap_samples": 100000,
+    "original_sha256": "f8b120b0d2b98f9f10eb0ef9251262a6a41b20d4d90d724ee4926c141ec275ae",
+    "primary_metric": "unique required-document coverage",
+    "replication_sha256": "627dfe7641dca9fade90890dc90f818da1c6967c08b7878208224cd961fd7f20",
+    "same_tasks_not_counted_as_independent": true,
+    "secondary_holm_family": [
+      "ndcg",
+      "reciprocal_rank"
+    ],
+    "task_cluster_is_statistical_unit": true
+  },
+  "replication_comparisons": {
+    "count": {
+      "baseline": "myopic",
+      "baseline_mean": 1.15,
+      "bootstrap_95_ci": [
+        -0.5,
+        0.5
+      ],
+      "exact_one_sided_p": 0.57421875,
+      "losses": 4,
+      "mean_difference": 0.0,
+      "metric": "count",
+      "nonmyopic_mean": 1.15,
+      "task_count": 20,
+      "task_differences": {
+        "task_004": 0.0,
+        "task_005": 0.0,
+        "task_007": 0.0,
+        "task_012": 0.0,
+        "task_015": 0.0,
+        "task_016": -1.0,
+        "task_017": -1.0,
+        "task_019": 2.0,
+        "task_020": 2.0,
+        "task_021": 0.0,
+        "task_022": 0.0,
+        "task_023": 0.0,
+        "task_025": -2.0,
+        "task_027": 1.0,
+        "task_028": 0.0,
+        "task_029": 0.0,
+        "task_048": 1.0,
+        "task_062": -3.0,
+        "task_081": 1.0,
+        "task_089": 0.0
+      },
+      "ties": 11,
+      "wins": 5
+    },
+    "ndcg": {
+      "baseline": "myopic",
+      "baseline_mean": 0.2440906025296036,
+      "bootstrap_95_ci": [
+        -0.08962543070806071,
+        0.10323509347419949
+      ],
+      "exact_one_sided_p": 0.4404296875,
+      "losses": 5,
+      "mean_difference": 0.008569604362029064,
+      "metric": "ndcg",
+      "nonmyopic_mean": 0.25266020689163265,
+      "task_count": 20,
+      "task_differences": {
+        "task_004": 0.0,
+        "task_005": 0.0,
+        "task_007": 0.0,
+        "task_012": 0.0,
+        "task_015": 0.0,
+        "task_016": -0.2021073465005476,
+        "task_017": 0.04417040676824563,
+        "task_019": 0.24738635904833423,
+        "task_020": 0.5531464700081437,
+        "task_021": -0.014142484374378234,
+        "task_022": 0.0,
+        "task_023": 0.0,
+        "task_025": -0.2590903612739177,
+        "task_027": 0.16958010263680806,
+        "task_028": 0.0,
+        "task_029": 0.0,
+        "task_048": 0.2742115597003229,
+        "task_062": -0.6164336326286644,
+        "task_081": -0.025328986143765275,
+        "task_089": 0.0
+      },
+      "ties": 10,
+      "wins": 5
+    },
+    "reciprocal_rank": {
+      "baseline": "myopic",
+      "baseline_mean": 0.4058333333333334,
+      "bootstrap_95_ci": [
+        -0.14166666666666666,
+        0.2225
+      ],
+      "exact_one_sided_p": 0.33984375,
+      "losses": 4,
+      "mean_difference": 0.043333333333333335,
+      "metric": "reciprocal_rank",
+      "nonmyopic_mean": 0.4491666666666666,
+      "task_count": 20,
+      "task_differences": {
+        "task_004": 0.0,
+        "task_005": 0.0,
+        "task_007": 0.0,
+        "task_012": 0.0,
+        "task_015": 0.0,
+        "task_016": -0.04999999999999999,
+        "task_017": 0.6666666666666667,
+        "task_019": 0.25,
+        "task_020": 1.0,
+        "task_021": 0.0,
+        "task_022": 0.0,
+        "task_023": 0.0,
+        "task_025": -0.08333333333333331,
+        "task_027": 0.3333333333333333,
+        "task_028": 0.0,
+        "task_029": 0.0,
+        "task_048": 0.5,
+        "task_062": -1.0,
+        "task_081": -0.75,
+        "task_089": 0.0
+      },
+      "ties": 11,
+      "wins": 5
+    }
+  },
+  "replication_secondary_holm": {
+    "any_rejected": false,
+    "holm_rejected_at_0_05": {
+      "ndcg": false,
+      "reciprocal_rank": false
+    },
+    "raw_pvalues": {
+      "ndcg": 0.4404296875,
+      "reciprocal_rank": 0.33984375
+    }
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "task_clustered_two_execution_comparisons": {
+    "count": {
+      "baseline": "myopic",
+      "baseline_mean": 1.225,
+      "bootstrap_95_ci": [
+        -0.275,
+        0.45
+      ],
+      "exact_one_sided_p": 0.348388671875,
+      "losses": 5,
+      "mean_difference": 0.1,
+      "metric": "count",
+      "nonmyopic_mean": 1.325,
+      "task_count": 20,
+      "task_differences": {
+        "task_004": 0.0,
+        "task_005": 0.0,
+        "task_007": 1.0,
+        "task_012": 0.0,
+        "task_015": 0.0,
+        "task_016": -0.5,
+        "task_017": -1.5,
+        "task_019": 1.0,
+        "task_020": 1.5,
+        "task_021": 0.0,
+        "task_022": 0.0,
+        "task_023": 0.0,
+        "task_025": -1.0,
+        "task_027": 1.5,
+        "task_028": 0.0,
+        "task_029": 1.0,
+        "task_048": 0.5,
+        "task_062": -1.5,
+        "task_081": 0.5,
+        "task_089": -0.5
+      },
+      "ties": 8,
+      "wins": 7
+    },
+    "ndcg": {
+      "baseline": "myopic",
+      "baseline_mean": 0.2534027722288855,
+      "bootstrap_95_ci": [
+        -0.04578406311323212,
+        0.10678607332745467
+      ],
+      "exact_one_sided_p": 0.23992919921875,
+      "losses": 7,
+      "mean_difference": 0.029277865303616396,
+      "metric": "ndcg",
+      "nonmyopic_mean": 0.2826806375325019,
+      "task_count": 20,
+      "task_differences": {
+        "task_004": 0.0,
+        "task_005": 0.0,
+        "task_007": 0.2792537931316096,
+        "task_012": 0.0,
+        "task_015": 0.0,
+        "task_016": -0.10105367325027376,
+        "task_017": -0.2741708125981702,
+        "task_019": 0.09109306663593958,
+        "task_020": 0.46835641868973965,
+        "task_021": -0.007071242187189131,
+        "task_022": 0.11104880606782629,
+        "task_023": 0.0,
+        "task_025": -0.15984373077124087,
+        "task_027": 0.23518264139297895,
+        "task_028": 0.0,
+        "task_029": 0.16062231604465266,
+        "task_048": 0.13710577985016142,
+        "task_062": -0.3082168163143322,
+        "task_081": -0.01266449307188261,
+        "task_089": -0.03408474754749147
+      },
+      "ties": 6,
+      "wins": 7
+    },
+    "reciprocal_rank": {
+      "baseline": "myopic",
+      "baseline_mean": 0.41833333333333333,
+      "bootstrap_95_ci": [
+        -0.050416666666666665,
+        0.2041666666666667
+      ],
+      "exact_one_sided_p": 0.14892578125,
+      "losses": 5,
+      "mean_difference": 0.07291666666666667,
+      "metric": "reciprocal_rank",
+      "nonmyopic_mean": 0.49124999999999996,
+      "task_count": 20,
+      "task_differences": {
+        "task_004": 0.0,
+        "task_005": 0.0,
+        "task_007": 0.5,
+        "task_012": 0.0,
+        "task_015": 0.0,
+        "task_016": -0.024999999999999994,
+        "task_017": 0.0,
+        "task_019": -0.125,
+        "task_020": 0.8333333333333334,
+        "task_021": 0.0,
+        "task_022": 0.4,
+        "task_023": 0.0,
+        "task_025": -0.16666666666666663,
+        "task_027": 0.3333333333333333,
+        "task_028": 0.0,
+        "task_029": 0.25,
+        "task_048": 0.25,
+        "task_062": -0.5,
+        "task_081": -0.375,
+        "task_089": 0.08333333333333337
+      },
+      "ties": 8,
+      "wins": 7
+    }
+  }
+}
