@@ -14,7 +14,7 @@ import re
 import string
 import sys
 import time
-from typing import Any, Protocol, Sequence
+from typing import Any, Callable, Protocol, Sequence
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -94,6 +94,33 @@ class GateExecutionError(RuntimeError):
         super().__init__(message)
         self.usage = usage
         self.retrieval = retrieval
+
+
+@dataclass(frozen=True)
+class MechanicsCodec:
+    initial_messages: Callable[[str], list[dict[str, str]]]
+    parse_initial: Callable[[str], tuple["Belief", list[str], list[str]]]
+    refresh_messages: Callable[
+        [str, "Belief", str, Sequence[dict[str, str]]],
+        list[dict[str, str]],
+    ]
+    parse_refresh: Callable[[str], tuple["Belief", str]]
+    terminal_messages: Callable[
+        [
+            str,
+            "Belief",
+            str,
+            Sequence[dict[str, str]],
+            str,
+            Sequence[dict[str, str]],
+        ],
+        list[dict[str, str]],
+    ]
+    parse_terminal: Callable[[str], "Belief"]
+    response_format_name: str
+    initial_response_format: Callable[[], dict[str, Any]] | None = None
+    refresh_response_format: Callable[[], dict[str, Any]] | None = None
+    terminal_response_format: Callable[[], dict[str, Any]] | None = None
 
 
 @dataclass(frozen=True)
@@ -747,6 +774,31 @@ def _complete_batch(
     )
 
 
+def mechanics_codec(*, structured_outputs: bool = False) -> MechanicsCodec:
+    return MechanicsCodec(
+        initial_messages=initial_messages,
+        parse_initial=parse_initial,
+        refresh_messages=refresh_messages,
+        parse_refresh=parse_refresh,
+        terminal_messages=terminal_messages,
+        parse_terminal=parse_terminal,
+        response_format_name=(
+            "chat_strict_json_schema"
+            if structured_outputs
+            else "prompt_only_json"
+        ),
+        initial_response_format=(
+            initial_response_format if structured_outputs else None
+        ),
+        refresh_response_format=(
+            refresh_response_format if structured_outputs else None
+        ),
+        terminal_response_format=(
+            terminal_response_format if structured_outputs else None
+        ),
+    )
+
+
 def summarize_run(
     *,
     tasks: Sequence[dict[str, str]],
@@ -757,6 +809,7 @@ def summarize_run(
     retrieval: dict[str, Any],
     interface_version: str = INTERFACE_VERSION,
     structured_outputs: bool = False,
+    response_format_name: str | None = None,
 ) -> dict[str, Any]:
     if len(tasks) != len(initial_beliefs) or len(tasks) != len(branches_by_task):
         raise ValueError("task, initial, and branch groups differ in length")
@@ -973,10 +1026,9 @@ def summarize_run(
             "random_policy_seed": RANDOM_POLICY_SEED,
             "gold_hidden_until_checkpoint": True,
             "scientific_retries_or_repairs": 0,
-            "response_format": (
-                "chat_strict_json_schema"
-                if structured_outputs
-                else "prompt_only_json"
+            "response_format": response_format_name or (
+                "chat_strict_json_schema" if structured_outputs else
+                "prompt_only_json"
             ),
             "max_cost_usd": MAX_COST_USD,
         },
@@ -1031,8 +1083,14 @@ def run_mechanics(
     cache_dir: Path | None = None,
     interface_version: str = INTERFACE_VERSION,
     structured_outputs: bool = False,
+    codec: MechanicsCodec | None = None,
 ) -> dict[str, Any]:
     tasks = load_visible_tasks(data_path)
+    if codec is not None and structured_outputs:
+        raise ValueError("custom codec cannot use structured_outputs")
+    active_codec = codec or mechanics_codec(
+        structured_outputs=structured_outputs
+    )
     model = model_adapter if model_adapter is not None else _build_model(config)
     if retriever is None:
         if cache_dir is None:
@@ -1045,15 +1103,22 @@ def run_mechanics(
     try:
         initial_responses = _complete_batch(
             model,
-            [initial_messages(task["question"]) for task in tasks],
+            [
+                active_codec.initial_messages(task["question"])
+                for task in tasks
+            ],
             response_format=(
-                initial_response_format() if structured_outputs else None
+                active_codec.initial_response_format()
+                if active_codec.initial_response_format is not None
+                else None
             ),
         )
         if len(initial_responses) != len(tasks):
             raise ValueError("wrong number of initial responses")
         raw["initial_responses"] = initial_responses
-        parsed_initials = [parse_initial(value) for value in initial_responses]
+        parsed_initials = [
+            active_codec.parse_initial(value) for value in initial_responses
+        ]
         initial_beliefs = [value[0] for value in parsed_initials]
         branches_by_task: list[list[Branch]] = []
         for task, (_, root_queries, fixed_queries) in zip(
@@ -1095,7 +1160,7 @@ def run_mechanics(
         refresh_responses = _complete_batch(
             model,
             [
-                refresh_messages(
+                active_codec.refresh_messages(
                     task["question"],
                     initial_belief,
                     branch.root_query,
@@ -1109,14 +1174,19 @@ def run_mechanics(
                 for branch in branches
             ],
             response_format=(
-                refresh_response_format() if structured_outputs else None
+                active_codec.refresh_response_format()
+                if active_codec.refresh_response_format is not None
+                else None
             ),
         )
         if len(refresh_responses) != len(flat_branches):
             raise ValueError("wrong number of root refresh responses")
         raw["refresh_responses"] = refresh_responses
         for branch, response in zip(flat_branches, refresh_responses):
-            branch.root_belief, branch.adaptive_query = parse_refresh(response)
+            (
+                branch.root_belief,
+                branch.adaptive_query,
+            ) = active_codec.parse_refresh(response)
             branch.adaptive_documents = retriever.retrieve(
                 _required_query(branch.adaptive_query)
             )
@@ -1137,7 +1207,7 @@ def run_mechanics(
         adaptive_terminal_responses = _complete_batch(
             model,
             [
-                terminal_messages(
+                active_codec.terminal_messages(
                     task["question"],
                     _required_belief(branch.root_belief),
                     branch.root_query,
@@ -1149,7 +1219,9 @@ def run_mechanics(
                 for branch in branches
             ],
             response_format=(
-                terminal_response_format() if structured_outputs else None
+                active_codec.terminal_response_format()
+                if active_codec.terminal_response_format is not None
+                else None
             ),
         )
         if len(adaptive_terminal_responses) != len(flat_branches):
@@ -1159,13 +1231,13 @@ def run_mechanics(
             flat_branches,
             adaptive_terminal_responses,
         ):
-            branch.adaptive_belief = parse_terminal(response)
+            branch.adaptive_belief = active_codec.parse_terminal(response)
         _checkpoint(raw_path, raw)
 
         fixed_terminal_responses = _complete_batch(
             model,
             [
-                terminal_messages(
+                active_codec.terminal_messages(
                     task["question"],
                     _required_belief(branch.root_belief),
                     branch.root_query,
@@ -1177,14 +1249,16 @@ def run_mechanics(
                 for branch in branches
             ],
             response_format=(
-                terminal_response_format() if structured_outputs else None
+                active_codec.terminal_response_format()
+                if active_codec.terminal_response_format is not None
+                else None
             ),
         )
         if len(fixed_terminal_responses) != len(flat_branches):
             raise ValueError("wrong number of fixed terminal responses")
         raw["fixed_terminal_responses"] = fixed_terminal_responses
         for branch, response in zip(flat_branches, fixed_terminal_responses):
-            branch.fixed_belief = parse_terminal(response)
+            branch.fixed_belief = active_codec.parse_terminal(response)
         _checkpoint(raw_path, raw)
 
         usage = _usage_snapshot(model)
@@ -1199,6 +1273,7 @@ def run_mechanics(
             retrieval=retrieval_snapshot,
             interface_version=interface_version,
             structured_outputs=structured_outputs,
+            response_format_name=active_codec.response_format_name,
         )
     except Exception as exc:
         _checkpoint(raw_path, raw)
@@ -1213,6 +1288,7 @@ def run_cli(
     *,
     interface_version: str = INTERFACE_VERSION,
     structured_outputs: bool = False,
+    codec: MechanicsCodec | None = None,
 ) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-c", "--config", type=Path, required=True)
@@ -1244,6 +1320,7 @@ def run_cli(
             cache_dir=private_cache_dir,
             interface_version=interface_version,
             structured_outputs=structured_outputs,
+            codec=codec,
         )
         result["protocol"]["private_raw_sha256"] = sha256_file(raw_path)
     except Exception as exc:
