@@ -1,0 +1,43 @@
+{
+  "error": "GateExecutionError: JSONDecodeError: Expecting ',' delimiter: line 1 column 239 (char 238)",
+  "private_raw_sha256": "7110d7bbb4c0824787baa51137c4182986ff5d2d4f349610ab17b5c15248c902",
+  "schema_version": 1,
+  "stage": "opportunity",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.28362499999999996,
+    "generator": {
+      "adapter_completion_tokens": 10433,
+      "adapter_cost_usd": 0.28362499999999996,
+      "adapter_prompt_tokens": 50852,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 36,
+      "backend": "openrouter",
+      "budget_usd": 105.38480269545715,
+      "completion_tokens": 10433,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 10433,
+          "cost_usd": 0.28362499999999996,
+          "prompt_tokens": 50852,
+          "reasoning_tokens": 0,
+          "requests": 36
+        }
+      },
+      "prompt_tokens": 50852,
+      "reasoning_tokens": 0,
+      "remaining_usd": 34.6623005337499,
+      "requests": 36,
+      "run_budget_usd": 2.0,
+      "run_cost_usd": 0.28362499999999996,
+      "run_remaining_usd": 1.716375,
+      "total_spent_usd": 70.72250216170725
+    },
+    "physical_requests": 36,
+    "reasoning_tokens": 0
+  }
+}
