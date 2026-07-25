@@ -1,0 +1,81 @@
+{
+  "error": "ValidationExecutionError: ValueError: classification must be exactly four Y/N/U characters",
+  "interface_version": "interactcomp-model-criticism-validation-1",
+  "private_raw_sha256": "691130ba00f29936ba1bb250b84b6e7a0e5692dd62e48c94ec80c5cf3c696c06",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.09922275000000003,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 11625,
+      "adapter_cost_usd": 0.09922275000000003,
+      "adapter_prompt_tokens": 62547,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 200,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 11625,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 200,
+      "model": "openai/gpt-5.4-mini",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 11625,
+          "cost_usd": 0.09922275000000003,
+          "prompt_tokens": 62547,
+          "reasoning_tokens": 0,
+          "requests": 200
+        }
+      },
+      "prompt_tokens": 62547,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.770881249999789,
+      "requests": 200,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.09922275000000003,
+      "run_remaining_usd": 1.40077725,
+      "total_spent_usd": 86.37242356920763
+    },
+    "http_attempts": 200,
+    "physical_requests": 200,
+    "reasoning_tokens": 0,
+    "responder": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 101.14330481920742,
+      "completion_tokens": 11625,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 0,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4-mini": {
+          "completion_tokens": 11625,
+          "cost_usd": 0.09922275000000003,
+          "prompt_tokens": 62547,
+          "reasoning_tokens": 0,
+          "requests": 200
+        }
+      },
+      "prompt_tokens": 62547,
+      "reasoning_tokens": 0,
+      "remaining_usd": 14.770881249999789,
+      "requests": 200,
+      "retry_count": 0,
+      "run_budget_usd": 1.5,
+      "run_cost_usd": 0.09922275000000003,
+      "run_remaining_usd": 1.40077725,
+      "total_spent_usd": 86.37242356920763
+    },
+    "retry_count": 0
+  }
+}
