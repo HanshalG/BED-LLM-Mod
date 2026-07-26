@@ -538,6 +538,7 @@ def test_openrouter_explicit_reasoning_effort_overrides_model_default(
     )
     adapter.chat_complete([{"role": "user", "content": "return json"}], 0.0)
     assert captured["reasoning"] == {"effort": "none", "exclude": False}
+    assert adapter.usage_snapshot()["reasoning_enabled"] is False
 
 
 def test_openrouter_explicit_reasoning_token_budget_reserves_the_final_response(

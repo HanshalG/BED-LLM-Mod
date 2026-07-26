@@ -195,7 +195,14 @@ class OpenRouterAdapter:
         self.config = config
         self.model_name = spec.model
         self.thinking = bool(spec.thinking)
-        self.reasoning_enabled = bool(spec.thinking or spec.reasoning_effort or spec.reasoning_max_tokens)
+        self.reasoning_enabled = bool(
+            spec.thinking
+            or (
+                spec.reasoning_effort is not None
+                and spec.reasoning_effort != "none"
+            )
+            or spec.reasoning_max_tokens
+        )
         requested_output = (
             int((spec.thinking_max_new_tokens or 4096) + (spec.thinking_final_max_new_tokens or 512))
             if self.thinking
@@ -710,4 +717,5 @@ class OpenRouterAdapter:
         snapshot["forced_final_successes"] = self.forced_final_successes
         snapshot["http_attempts"] = self.http_attempts
         snapshot["retry_count"] = self.retry_count
+        snapshot["reasoning_enabled"] = self.reasoning_enabled
         return snapshot
