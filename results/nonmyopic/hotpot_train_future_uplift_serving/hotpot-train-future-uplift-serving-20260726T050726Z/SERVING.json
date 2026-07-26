@@ -1,0 +1,81 @@
+{
+  "gates": {
+    "aligned_initial_vectors_differ_at_least_3_roots": true,
+    "aligned_score_variation_at_least_3_roots": true,
+    "aligned_shuffled_vectors_differ_at_least_3_roots": true,
+    "all_pass": true,
+    "all_refreshed_states_differ_from_initial": true,
+    "all_refreshed_states_pairwise_distinct": true,
+    "all_responses_parsed_without_repair": true,
+    "balanced_blinding_labels": true,
+    "cost_at_most_0_15": true,
+    "exact_10_http_attempts": true,
+    "exact_10_physical_requests": true,
+    "future_first_root_is_defined": true,
+    "future_scores_have_spread": true,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_transport_retries": true
+  },
+  "metrics": {
+    "future_first_root_index": 1,
+    "future_score_spread": 22,
+    "logical_stage_counts": {
+      "continuation_scorer": 4,
+      "final_answer": 1,
+      "initial": 1,
+      "refresh": 4
+    }
+  },
+  "protocol": {
+    "interface_version": "hotpot-future-uplift-confirmation-1",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "02ede9b22ce4d668ad2d2f9c07127fc7e82bb4c53e6f2ab81fa794d95474b948",
+    "reasoning_requested": false,
+    "repairs_or_scientific_retries": 0,
+    "scientific_endpoint_reported": false,
+    "scientific_training_record_accessed": false,
+    "source": "already_open_validation_smoke_task",
+    "stage": "serving"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "usage": {
+    "adapter_cost_usd": 0.0789575,
+    "generator": {
+      "adapter_completion_tokens": 3371,
+      "adapter_cost_usd": 0.0789575,
+      "adapter_prompt_tokens": 11357,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 10,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 3371,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 10,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 3371,
+          "cost_usd": 0.0789575,
+          "prompt_tokens": 11357,
+          "reasoning_tokens": 0,
+          "requests": 10
+        }
+      },
+      "prompt_tokens": 11357,
+      "reasoning_tokens": 0,
+      "remaining_usd": 9.329244890776664,
+      "requests": 10,
+      "retry_count": 0,
+      "run_budget_usd": 0.15,
+      "run_cost_usd": 0.0789575,
+      "run_remaining_usd": 0.0710425,
+      "total_spent_usd": 95.67075510922334
+    },
+    "physical_requests": 10,
+    "reasoning_tokens": 0
+  }
+}
