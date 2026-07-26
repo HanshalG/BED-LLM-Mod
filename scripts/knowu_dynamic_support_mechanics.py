@@ -23,7 +23,7 @@ from scripts import knowu_bench_source_audit as source_audit
 from scripts import knowu_dynamic_support_manifest_v2 as manifest_v2
 
 
-INTERFACE_VERSION = "knowu-dynamic-support-mechanics-3"
+INTERFACE_VERSION = "knowu-dynamic-support-mechanics-4"
 MODEL_ID = "openai/gpt-5.4"
 SUPPORT_SIZE = 4
 QUESTION_COUNT = 4
@@ -38,6 +38,12 @@ SERVING_MAX_COST_USD = 0.10
 MECHANICS_MAX_COST_USD = 0.75
 EXPECTED_FIXTURE_SHA256: str | None = (
     "2cb9d0e34e3e13aee896b5d4f2c6bf0c470d1a92096a23128f6d8cc26905eff8"
+)
+V3_INITIAL_RAW_SHA256 = (
+    "3f9a1512b4514920a77086db0177c4d788915b3d3c4167e9ddb2181e7c47b11f"
+)
+V3_INITIAL_FAILURE_SHA256 = (
+    "2affc799cfd3378e8aee2d89c333e4d00bded80113eca7ddfd7160fe10a31281"
 )
 
 TASK_SPECS = {
@@ -657,7 +663,9 @@ def _clean_text(value: Any, *, maximum: int) -> str:
 
 
 def _normalize(text: str) -> str:
-    return " ".join(_tokens(text))
+    return " ".join(
+        re.findall(r"[^\W_]+", text.casefold(), flags=re.UNICODE)
+    )
 
 
 def _contains_profile_label(text: str) -> bool:
@@ -679,7 +687,8 @@ def _parse_hypotheses(
 
 
 def _validate_question(question: str) -> None:
-    if question.count("?") != 1 or not question.endswith("?"):
+    question_marks = question.count("?") + question.count("？")
+    if question_marks != 1 or not question.endswith(("?", "？")):
         raise ValueError("question must contain exactly one terminal question mark")
     normalized = f" {_normalize(question)} "
     if _contains_profile_label(question):
@@ -776,7 +785,7 @@ def parse_judgment(text: str) -> TruthJudgment:
     return TruthJudgment(tuple(indices), tuple(scores), tuple(reasons))
 
 
-def _usage(model: StructuredChatModel) -> dict[str, Any]:
+def _usage(model: ChatModel) -> dict[str, Any]:
     snapshot = model.usage_snapshot()
     return {
         "physical_requests": int(snapshot.get("adapter_requests", 0)),
@@ -790,6 +799,45 @@ def _usage(model: StructuredChatModel) -> dict[str, Any]:
             snapshot.get("adapter_cost_usd", 0.0)
         ),
         "model": snapshot,
+    }
+
+
+def _combined_usage(
+    model: ChatModel,
+    prior_usage: dict[str, Any] | None,
+) -> dict[str, Any]:
+    current = _usage(model)
+    if prior_usage is None:
+        return current
+    return {
+        "physical_requests": (
+            int(prior_usage.get("physical_requests", 0))
+            + current["physical_requests"]
+        ),
+        "http_attempts": (
+            int(prior_usage.get("http_attempts", 0))
+            + current["http_attempts"]
+        ),
+        "retry_count": (
+            int(prior_usage.get("retry_count", 0))
+            + current["retry_count"]
+        ),
+        "reasoning_tokens": (
+            int(prior_usage.get("reasoning_tokens", 0))
+            + current["reasoning_tokens"]
+        ),
+        "forced_exits": (
+            int(prior_usage.get("forced_exits", 0))
+            + current["forced_exits"]
+        ),
+        "adapter_cost_usd": (
+            float(prior_usage.get("adapter_cost_usd", 0.0))
+            + current["adapter_cost_usd"]
+        ),
+        "segments": {
+            "cached_initial": prior_usage,
+            "continuation": current,
+        },
     }
 
 
@@ -956,6 +1004,8 @@ def run_mechanics_gate(
     model: ChatModel,
     *,
     raw_path: Path,
+    cached_initial_responses: Sequence[str] | None = None,
+    prior_usage: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     raw: dict[str, Any] = {
         "interface_version": INTERFACE_VERSION,
@@ -969,6 +1019,9 @@ def run_mechanics_gate(
             }
             for fixture in fixtures
         ],
+        "resumed_from_frozen_initial_responses": (
+            cached_initial_responses is not None
+        ),
     }
     try:
         initial_requests = [
@@ -988,11 +1041,17 @@ def run_mechanics_gate(
                 "required_output",
             }:
                 raise ValueError("initial policy payload contains private fields")
-        initial_responses = _complete(
-            model,
-            initial_requests,
-            max_new_tokens=1000,
-        )
+        if cached_initial_responses is None:
+            initial_responses = _complete(
+                model,
+                initial_requests,
+                max_new_tokens=1000,
+            )
+        else:
+            initial_responses = list(cached_initial_responses)
+            if len(initial_responses) != len(fixtures):
+                raise ValueError("cached initial response count changed")
+            raw["cached_initial_raw_sha256"] = V3_INITIAL_RAW_SHA256
         raw["initial_responses"] = initial_responses
         _checkpoint(raw_path, raw)
         initial = [
@@ -1089,11 +1148,12 @@ def run_mechanics_gate(
         judgments = [
             parse_judgment(response) for response in judge_responses
         ]
-        usage = _usage(model)
+        usage = _combined_usage(model, prior_usage)
     except Exception as exc:
         _checkpoint(raw_path, raw)
         raise GateExecutionError(
-            f"{type(exc).__name__}: {exc}", _usage(model)
+            f"{type(exc).__name__}: {exc}",
+            _combined_usage(model, prior_usage),
         ) from exc
 
     world_metrics = []
@@ -1176,6 +1236,14 @@ def run_mechanics_gate(
             "repairs_or_reissues": 0,
             "branch_isolation": (
                 "one physical refresh request per world/question branch"
+            ),
+            "cached_initial_responses": (
+                cached_initial_responses is not None
+            ),
+            "cached_initial_raw_sha256": (
+                V3_INITIAL_RAW_SHA256
+                if cached_initial_responses is not None
+                else None
             ),
         },
         "summary": {
@@ -1299,6 +1367,8 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--private-raw-dir", type=Path)
     parser.add_argument("--run-id")
+    parser.add_argument("--resume-initial-raw", type=Path)
+    parser.add_argument("--resume-initial-failure", type=Path)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--show-fixture-hash", action="store_true")
     args = parser.parse_args()
@@ -1321,18 +1391,48 @@ def main() -> None:
 
     config = load_config(args.config)
     config.run_id = args.run_id
+    cached_initial_responses: list[str] | None = None
+    prior_usage: dict[str, Any] | None = None
+    if args.resume_initial_raw is not None:
+        if args.stage != "mechanics" or args.resume_initial_failure is None:
+            parser.error(
+                "resume paths require mechanics stage and both raw/failure files"
+            )
+        raw_digest = hashlib.sha256(
+            args.resume_initial_raw.read_bytes()
+        ).hexdigest()
+        if raw_digest != V3_INITIAL_RAW_SHA256:
+            raise ValueError("V3 cached initial raw hash changed")
+        failure_digest = hashlib.sha256(
+            args.resume_initial_failure.read_bytes()
+        ).hexdigest()
+        if failure_digest != V3_INITIAL_FAILURE_SHA256:
+            raise ValueError("V3 initial failure artifact hash changed")
+        cached_raw = json.loads(
+            args.resume_initial_raw.read_text(encoding="utf-8")
+        )
+        cached_initial_responses = list(cached_raw["initial_responses"])
+        prior_failure = json.loads(
+            args.resume_initial_failure.read_text(encoding="utf-8")
+        )
+        prior_usage = dict(prior_failure["usage"])
     config.openrouter_concurrency = (
         EXPECTED_SERVING_REQUESTS
         if args.stage == "serving"
         else 24
     )
     config.openrouter_projected_cost_usd = (
-        0.04 if args.stage == "serving" else 0.50
+        0.04
+        if args.stage == "serving"
+        else (0.45 if cached_initial_responses is not None else 0.50)
     )
     config.openrouter_run_budget_usd = (
         SERVING_MAX_COST_USD
         if args.stage == "serving"
-        else MECHANICS_MAX_COST_USD
+        else (
+            MECHANICS_MAX_COST_USD
+            - float((prior_usage or {}).get("adapter_cost_usd", 0.0))
+        )
     )
     config.openrouter_max_output_tokens = 1_100
     config.openrouter_max_retries = 0
@@ -1348,7 +1448,13 @@ def main() -> None:
         result = (
             run_serving_gate(model, raw_path=raw_path)
             if args.stage == "serving"
-            else run_mechanics_gate(fixtures, model, raw_path=raw_path)
+            else run_mechanics_gate(
+                fixtures,
+                model,
+                raw_path=raw_path,
+                cached_initial_responses=cached_initial_responses,
+                prior_usage=prior_usage,
+            )
         )
         result["protocol"]["private_raw_sha256"] = hashlib.sha256(
             raw_path.read_bytes()

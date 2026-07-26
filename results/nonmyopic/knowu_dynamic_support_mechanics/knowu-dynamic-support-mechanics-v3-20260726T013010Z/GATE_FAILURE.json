@@ -1,0 +1,49 @@
+{
+  "error": "GateExecutionError: ValueError: question dimensions are not distinct",
+  "interface_version": "knowu-dynamic-support-mechanics-3",
+  "private_raw_sha256": "3f9a1512b4514920a77086db0177c4d788915b3d3c4167e9ddb2181e7c47b11f",
+  "schema_version": 1,
+  "stage": "mechanics",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.040382499999999995,
+    "forced_exits": 0,
+    "http_attempts": 6,
+    "model": {
+      "adapter_completion_tokens": 1830,
+      "adapter_cost_usd": 0.040382499999999995,
+      "adapter_prompt_tokens": 5173,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 6,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 1830,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 6,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 1830,
+          "cost_usd": 0.040382499999999995,
+          "prompt_tokens": 5173,
+          "reasoning_tokens": 0,
+          "requests": 6
+        }
+      },
+      "prompt_tokens": 5173,
+      "reasoning_tokens": 0,
+      "remaining_usd": 11.955369790776714,
+      "requests": 6,
+      "retry_count": 0,
+      "run_budget_usd": 0.75,
+      "run_cost_usd": 0.040382499999999995,
+      "run_remaining_usd": 0.7096175,
+      "total_spent_usd": 93.04463020922329
+    },
+    "physical_requests": 6,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}

@@ -32,6 +32,32 @@ def test_parse_initial_accepts_four_atomic_questions():
     assert len(parsed.questions) == 4
 
 
+def test_parse_initial_handles_distinct_chinese_and_fullwidth_question_marks():
+    payload = {
+        **{
+            f"h{index}": f"偏好状态{index}使用平台{index}满足预算{index}"
+            for index in range(1, 5)
+        },
+        "d1": "预算上限",
+        "d2": "操作系统",
+        "d3": "购买平台",
+        "d4": "主要用途",
+        "q1": "你的预算上限是多少？",
+        "q2": "你偏好什么操作系统？",
+        "q3": "你偏好哪个购买平台？",
+        "q4": "这台电脑主要用于什么场景？",
+    }
+
+    parsed = mechanics.parse_initial(json.dumps(payload, ensure_ascii=False))
+
+    assert parsed.dimensions == (
+        "预算上限",
+        "操作系统",
+        "购买平台",
+        "主要用途",
+    )
+
+
 @pytest.mark.parametrize(
     "question",
     [
@@ -122,3 +148,54 @@ def test_deterministic_mechanics_gate_has_isolated_branches(tmp_path):
     assert result["summary"]["initial_truth_missing_worlds"] == 6
     assert result["summary"]["worlds_with_truth_entry"] == 6
     assert result["gates"]["each_refresh_contains_one_question_answer_pair"]
+
+
+def test_mechanics_resume_counts_cached_initial_without_reissue(tmp_path):
+    fixtures = [
+        mechanics.WorldFixture(
+            world_id=f"T{1 + index // 3}W{1 + index % 3}",
+            task_id="SyntheticTask",
+            task_kind="buy_computer",
+            goal_request="Handle the task according to my preferences.",
+            profile_id=("developer", "student", "user")[index % 3],
+            retrieved_log_indices=tuple(range(8)),
+            visible_logs=(f"Visible behavior {index}.",),
+            truth_packet={"preference": f"truth {index}"},
+        )
+        for index in range(6)
+    ]
+    initial_model = mechanics.DeterministicFixtureModel()
+    cached = initial_model.chat_complete_messages_batched(
+        [
+            mechanics.initial_messages(
+                fixture.goal_request,
+                fixture.task_kind,
+                fixture.visible_logs,
+            )
+            for fixture in fixtures
+        ],
+        temperature=0.0,
+        block_size=6,
+    )
+    prior_usage = {
+        "physical_requests": 6,
+        "http_attempts": 6,
+        "retry_count": 0,
+        "reasoning_tokens": 0,
+        "forced_exits": 0,
+        "adapter_cost_usd": 0.04,
+    }
+    continuation_model = mechanics.DeterministicFixtureModel()
+
+    result = mechanics.run_mechanics_gate(
+        fixtures,
+        continuation_model,
+        raw_path=tmp_path / "raw.json",
+        cached_initial_responses=cached,
+        prior_usage=prior_usage,
+    )
+
+    assert continuation_model.requests == 36
+    assert result["usage"]["physical_requests"] == 42
+    assert result["protocol"]["cached_initial_responses"]
+    assert result["status"] == "passed"
