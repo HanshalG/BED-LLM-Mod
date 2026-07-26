@@ -44,12 +44,17 @@ than a released family of mutually exclusive latent worlds. Treating
 LLM-generated guesses as if they were benchmark alternatives would change the
 environment.
 
-There is a distinct construction worth preserving: generate several coherent
+There was a distinct construction worth testing: generate several coherent
 SQL-intent worlds prospectively, sample the hidden world from a frozen prior,
 and use BIRD's clarification simulator and executable SQLite endpoint as the
 observation and validation machinery. That would be a new BIRD-derived
-semantic BED environment, not a direct benchmark result. It must first pass a
-zero-cost manifest gate and then an exact, capped mechanics smoke before any
-efficacy study.
+semantic BED environment, not a direct benchmark result.
+
+Its first zero-cost manifest gate subsequently failed. Only 39 tasks met the
+prospectively frozen mixed-ambiguity criteria versus a required 60, leaving no
+holdout after the frozen 3/24/12 mechanics/opportunity/development allocation.
+The criteria and split were not relaxed after seeing the count, so this exact
+construction is closed before mechanics. See
+`BIRD_INTERACT_INTENT_WORLD_MANIFEST_RESULT.md`.
 
 OpenRouter spend: `$0`. OatML use: none.

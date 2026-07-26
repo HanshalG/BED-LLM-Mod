@@ -1,0 +1,149 @@
+{
+  "ambiguity_content_emitted": false,
+  "construction": {
+    "critical_ambiguity_count_range": [
+      3,
+      4
+    ],
+    "eligible_tasks": 39,
+    "excluded_semantically_inspected_task_ids": [
+      "alien_1",
+      "alien_2",
+      "alien_3"
+    ],
+    "minimum_eligible_tasks": 60,
+    "minimum_masked_critical_ambiguities": 2,
+    "requires_grounding_and_semantic_types": true,
+    "requires_knowledge_ambiguity": true,
+    "selection_seed": 24414
+  },
+  "endpoint_fields_read": false,
+  "gates": {
+    "all_splits_nonempty": false,
+    "at_least_60_eligible_tasks": false,
+    "mechanics_has_three_databases": true,
+    "source_hash_matches": true
+  },
+  "interface_version": "bird-intent-world-manifest-1",
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "passed": false,
+  "query_content_emitted": false,
+  "source": {
+    "commit": "451fe2c3518ee1cf908d8139e2913483bd519381",
+    "data_sha256": "32eea6778d69f4a052622a9981ee95cc5dddbff62d0d65ff6e06bd5bec757087",
+    "dataset_repository": "https://huggingface.co/datasets/birdsql/mini-interact",
+    "dataset_revision": "10253f235dbc6092a97e9c0acd30dba6203d8e59",
+    "repository": "https://github.com/bird-bench/BIRD-Interact",
+    "source_tasks": 300
+  },
+  "splits": {
+    "development": {
+      "critical_count_histogram": {
+        "3": 4,
+        "4": 8
+      },
+      "database_counts": {
+        "alien": 1,
+        "gaming": 1,
+        "households": 2,
+        "hulushows": 2,
+        "planets_data": 1,
+        "polar": 1,
+        "robot": 3,
+        "vaccine": 1
+      },
+      "ordered_sha256": "986a24c5cc7791806097bb2f4f111e9d019e362bbb750e0eb47bd53017ae2162",
+      "task_ids": [
+        "hulushows_5",
+        "planets_data_2",
+        "robot_9",
+        "hulushows_19",
+        "households_19",
+        "polar_2",
+        "robot_10",
+        "households_10",
+        "gaming_10",
+        "alien_7",
+        "vaccine_8",
+        "robot_8"
+      ]
+    },
+    "holdout": {
+      "critical_count_histogram": {},
+      "database_counts": {},
+      "ordered_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "task_ids": []
+    },
+    "mechanics": {
+      "critical_count_histogram": {
+        "3": 1,
+        "4": 2
+      },
+      "database_counts": {
+        "cross_db": 1,
+        "news": 1,
+        "vaccine": 1
+      },
+      "ordered_sha256": "fbc19427da9bfbef9434e7393b618849b55d63fe0fdb630c5e6336726ba36c09",
+      "task_ids": [
+        "vaccine_9",
+        "cross_db_6",
+        "news_8"
+      ]
+    },
+    "opportunity": {
+      "critical_count_histogram": {
+        "3": 17,
+        "4": 7
+      },
+      "database_counts": {
+        "alien": 3,
+        "archeology": 2,
+        "credit": 1,
+        "cross_db": 1,
+        "cybermarket": 1,
+        "exchange_traded_funds": 1,
+        "fake": 1,
+        "households": 1,
+        "labor_certification_applications": 1,
+        "mental": 2,
+        "museum": 1,
+        "news": 1,
+        "polar": 2,
+        "solar": 3,
+        "vaccine": 1,
+        "virtual": 2
+      },
+      "ordered_sha256": "71dfee9dbaf08553eb825a99446b6e9c3f4526a390488f26185ccf8be486a413",
+      "task_ids": [
+        "solar_3",
+        "cross_db_8",
+        "solar_5",
+        "labor_certification_applications_20",
+        "mental_4",
+        "mental_10",
+        "solar_1",
+        "credit_7",
+        "polar_5",
+        "alien_6",
+        "news_5",
+        "cybermarket_1",
+        "virtual_1",
+        "museum_1",
+        "exchange_traded_funds_5",
+        "fake_10",
+        "alien_5",
+        "virtual_5",
+        "alien_4",
+        "archeology_8",
+        "vaccine_1",
+        "archeology_3",
+        "polar_3",
+        "households_15"
+      ]
+    }
+  },
+  "sql_content_emitted": false
+}

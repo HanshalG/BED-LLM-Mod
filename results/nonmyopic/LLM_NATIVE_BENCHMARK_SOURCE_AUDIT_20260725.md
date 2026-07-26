@@ -250,13 +250,13 @@ tasks there are 15 same-database repeated labels with different snippets, but
 within a task zero terms have multiple released interpretations. There is no
 prior over mutually exclusive SQL intents or world-conditioned response table.
 
-**Decision:** close direct benchmark replay. Preserve a BIRD-derived
-construction as a distinct future route: prospectively generate coherent
-alternative SQL-intent worlds, freeze their prior, and use BIRD's simulator and
-SQLite endpoint as semantic transition and validation machinery. This must be
-reported as a new construction and pass a zero-cost manifest plus capped
-mechanics gate before efficacy calls. See
-`BIRD_INTERACT_SOURCE_AUDIT_RESULT.md`.
+**Decision:** close direct benchmark replay. A separately registered
+BIRD-derived construction then required at least 60 mixed-ambiguity tasks for
+3 mechanics, 24 opportunity, 12 development, and a nonempty holdout. Only 39
+were eligible, so the zero-call manifest failed and the exact construction
+closed without threshold or split changes. See
+`BIRD_INTERACT_SOURCE_AUDIT_RESULT.md` and
+`BIRD_INTERACT_INTENT_WORLD_MANIFEST_RESULT.md`.
 
 ## Portfolio Decision
 
@@ -276,10 +276,11 @@ mechanics gate before efficacy calls. See
   LLM state, but its released preference scores are exactly one-step and its
   counterfactual candidate states are absent. Any use must be a new,
   prospectively gated BED construction rather than a dataset replay.
-- **Future semantic SQL substrate:** BIRD-Interact has natural clarification
-  actions and executable SQLite endpoints, but no released alternative-world
-  prior. A BIRD-derived LLM-generated intent construction is admissible only as
-  a new, separately gated environment.
+- **Closed semantic SQL construction:** BIRD-Interact has natural
+  clarification actions and executable SQLite endpoints but no released
+  alternative-world prior. The separately gated LLM-generated intent
+  construction found only 39/60 required structurally eligible tasks and is
+  closed before calls.
 - **Future memory benchmark:** pi-Bench remains relevant, but its exact
   target-blind BED wrapper is closed for lack of a canonical prior observation.
 - **Closed for now:** EComAgentBench's clarification-only graph, the released
