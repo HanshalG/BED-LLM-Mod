@@ -1,0 +1,41 @@
+{
+  "error": "GateExecutionError: RuntimeError: OpenRouter HTTP 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404}}",
+  "interface_version": "knowu-dynamic-support-mechanics-1",
+  "private_raw_sha256": "af63137e53470d172a3fda06add7cc416b3264232ae338b5441e232c541d12ec",
+  "schema_version": 1,
+  "stage": "serving",
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0,
+    "forced_exits": 0,
+    "http_attempts": 4,
+    "model": {
+      "adapter_completion_tokens": 0,
+      "adapter_cost_usd": 0.0,
+      "adapter_prompt_tokens": 0,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 0,
+      "backend": "openrouter",
+      "budget_usd": 105.0,
+      "completion_tokens": 0,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 4,
+      "model": "openai/gpt-5.4",
+      "model_usage": {},
+      "prompt_tokens": 0,
+      "reasoning_tokens": 0,
+      "remaining_usd": 12.060764790776688,
+      "requests": 0,
+      "retry_count": 0,
+      "run_budget_usd": 0.1,
+      "run_cost_usd": 0.0,
+      "run_remaining_usd": 0.1,
+      "total_spent_usd": 92.93923520922331
+    },
+    "physical_requests": 0,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}

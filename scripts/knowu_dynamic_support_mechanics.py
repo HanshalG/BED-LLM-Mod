@@ -23,7 +23,7 @@ from scripts import knowu_bench_source_audit as source_audit
 from scripts import knowu_dynamic_support_manifest_v2 as manifest_v2
 
 
-INTERFACE_VERSION = "knowu-dynamic-support-mechanics-1"
+INTERFACE_VERSION = "knowu-dynamic-support-mechanics-2"
 MODEL_ID = "openai/gpt-5.4"
 SUPPORT_SIZE = 4
 QUESTION_COUNT = 4
@@ -73,14 +73,12 @@ PROFILE_LABELS = {
 }
 
 
-class StructuredChatModel(Protocol):
-    def chat_complete_messages_batched_structured(
+class ChatModel(Protocol):
+    def chat_complete_messages_batched(
         self,
         batch_messages: list[list[dict[str, str]]],
-        *,
         temperature: float,
         block_size: int,
-        response_format: dict[str, Any],
         max_new_tokens: int | None = None,
     ) -> list[str]: ...
 
@@ -442,8 +440,10 @@ def _messages(stage: str, instruction: str, payload: dict[str, Any]):
         {
             "role": "system",
             "content": (
-                f"STAGE={stage}. {instruction} Return only the requested "
-                "strict JSON object. Do not reveal or invent profile labels."
+                f"STAGE={stage}. {instruction} Return one strict flat JSON "
+                "object with exactly the keys listed in required_output and "
+                "no markdown or other text. Do not reveal or invent profile "
+                "labels."
             ),
         },
         {
@@ -485,10 +485,27 @@ def initial_messages(
             "task_kind": task_kind,
             "user_request": goal_request,
             "behavior_logs": list(visible_logs),
-            "output_contract": {
-                "h1_to_h4": "four complete preference-state hypotheses",
-                "d1_to_d4": "four unique atomic dimension names",
-                "q1_to_q4": "one atomic question per dimension",
+            "required_output": {
+                **{
+                    f"h{index}": (
+                        "nonempty complete preference-state hypothesis, "
+                        "maximum 260 characters"
+                    )
+                    for index in range(1, SUPPORT_SIZE + 1)
+                },
+                **{
+                    f"d{index}": (
+                        "unique atomic dimension name, maximum 60 characters"
+                    )
+                    for index in range(1, QUESTION_COUNT + 1)
+                },
+                **{
+                    f"q{index}": (
+                        "unique atomic question ending in one question mark, "
+                        "maximum 160 characters"
+                    )
+                    for index in range(1, QUESTION_COUNT + 1)
+                },
             },
         },
     )
@@ -515,6 +532,13 @@ def answer_messages(
                 for index, question in enumerate(questions, start=1)
             },
             "PRIVATE_USER_STATE": truth_packet,
+            "required_output": {
+                f"a{index}": (
+                    "independent natural first-person answer to q"
+                    f"{index}, maximum 220 characters"
+                )
+                for index in range(1, QUESTION_COUNT + 1)
+            },
         },
     )
 
@@ -554,6 +578,13 @@ def refresh_messages(
                 "question": question,
                 "answer": answer,
             },
+            "required_output": {
+                f"h{index}": (
+                    "nonempty complete preference-state hypothesis, "
+                    "maximum 260 characters"
+                )
+                for index in range(1, SUPPORT_SIZE + 1)
+            },
         },
     )
 
@@ -584,6 +615,24 @@ def judgment_messages(
                 label: list(support)
                 for label, support in zip(
                     ("initial", "q1", "q2", "q3", "q4"), supports
+                )
+            },
+            "required_output": {
+                key: description
+                for label in ("initial", "q1", "q2", "q3", "q4")
+                for key, description in (
+                    (
+                        f"{label}_best_index",
+                        "integer 0-4; 0 iff best score is below 70",
+                    ),
+                    (
+                        f"{label}_best_score",
+                        "integer 0-100 for joint truth coverage",
+                    ),
+                    (
+                        f"{label}_reason",
+                        "concise reason, maximum 240 characters",
+                    ),
                 )
             },
         },
@@ -744,17 +793,15 @@ def _usage(model: StructuredChatModel) -> dict[str, Any]:
 
 
 def _complete(
-    model: StructuredChatModel,
+    model: ChatModel,
     messages: list[list[dict[str, str]]],
     *,
-    response_format: dict[str, Any],
     max_new_tokens: int,
 ) -> list[str]:
-    return model.chat_complete_messages_batched_structured(
+    return model.chat_complete_messages_batched(
         messages,
         temperature=0.0,
         block_size=len(messages),
-        response_format=response_format,
         max_new_tokens=max_new_tokens,
     )
 
@@ -771,7 +818,7 @@ def _synthetic_initial(index: int) -> list[dict[str, str]]:
 
 
 def run_serving_gate(
-    model: StructuredChatModel,
+    model: ChatModel,
     *,
     raw_path: Path,
 ) -> dict[str, Any]:
@@ -780,7 +827,6 @@ def run_serving_gate(
         initial_responses = _complete(
             model,
             [_synthetic_initial(index) for index in range(4)],
-            response_format=initial_response_format(),
             max_new_tokens=900,
         )
         initial = [parse_initial(response) for response in initial_responses]
@@ -802,7 +848,6 @@ def run_serving_gate(
                 )
                 for index in range(2)
             ],
-            response_format=answer_response_format(),
             max_new_tokens=600,
         )
         answers = [parse_answers(response) for response in answer_responses]
@@ -822,7 +867,6 @@ def run_serving_gate(
                 )
                 for index in range(2)
             ],
-            response_format=refresh_response_format(),
             max_new_tokens=650,
         )
         refreshed = [
@@ -853,7 +897,6 @@ def run_serving_gate(
                 )
                 for index in range(2)
             ],
-            response_format=judgment_response_format(),
             max_new_tokens=900,
         )
         judgments = [
@@ -878,7 +921,7 @@ def run_serving_gate(
         "zero_retries": usage["retry_count"] == 0,
         "zero_reasoning_tokens": usage["reasoning_tokens"] == 0,
         "zero_forced_exits": usage["forced_exits"] == 0,
-        "all_strict_schema_objects_parse": (
+        "all_strict_json_objects_parse": (
             len(initial) == 4
             and len(answers) == 2
             and len(refreshed) == 2
@@ -896,7 +939,7 @@ def run_serving_gate(
             "interface_version": INTERFACE_VERSION,
             "stage": "serving",
             "model": MODEL_ID,
-            "response_format": "chat_strict_json_schema",
+            "response_format": "prompt_only_strict_flat_json",
             "expected_requests": EXPECTED_SERVING_REQUESTS,
             "reasoning_requested": False,
             "scientific_endpoint_evaluated": False,
@@ -909,7 +952,7 @@ def run_serving_gate(
 
 def run_mechanics_gate(
     fixtures: Sequence[WorldFixture],
-    model: StructuredChatModel,
+    model: ChatModel,
     *,
     raw_path: Path,
 ) -> dict[str, Any]:
@@ -941,13 +984,12 @@ def run_mechanics_gate(
                 "task_kind",
                 "user_request",
                 "behavior_logs",
-                "output_contract",
+                "required_output",
             }:
                 raise ValueError("initial policy payload contains private fields")
         initial_responses = _complete(
             model,
             initial_requests,
-            response_format=initial_response_format(),
             max_new_tokens=1000,
         )
         initial = [
@@ -966,7 +1008,6 @@ def run_mechanics_gate(
                 )
                 for fixture, policy in zip(fixtures, initial)
             ],
-            response_format=answer_response_format(),
             max_new_tokens=700,
         )
         answers = [
@@ -1000,7 +1041,6 @@ def run_mechanics_gate(
         refresh_responses = _complete(
             model,
             refresh_requests,
-            response_format=refresh_response_format(),
             max_new_tokens=650,
         )
         parsed_refreshes = [
@@ -1042,7 +1082,6 @@ def run_mechanics_gate(
                     fixtures, initial, refreshed
                 )
             ],
-            response_format=judgment_response_format(),
             max_new_tokens=1100,
         )
         judgments = [
@@ -1124,7 +1163,7 @@ def run_mechanics_gate(
             "interface_version": INTERFACE_VERSION,
             "stage": "mechanics",
             "model": MODEL_ID,
-            "response_format": "chat_strict_json_schema",
+            "response_format": "prompt_only_strict_flat_json",
             "world_count": len(fixtures),
             "support_size": SUPPORT_SIZE,
             "question_count": QUESTION_COUNT,
@@ -1165,16 +1204,14 @@ class DeterministicFixtureModel:
     def _stage(messages: list[dict[str, str]]) -> str:
         return messages[0]["content"].split("STAGE=", 1)[1].split(".", 1)[0]
 
-    def chat_complete_messages_batched_structured(
+    def chat_complete_messages_batched(
         self,
         batch_messages: list[list[dict[str, str]]],
-        *,
         temperature: float,
         block_size: int,
-        response_format: dict[str, Any],
         max_new_tokens: int | None = None,
     ) -> list[str]:
-        del temperature, block_size, response_format, max_new_tokens
+        del temperature, block_size, max_new_tokens
         responses = []
         for messages in batch_messages:
             stage = self._stage(messages)
@@ -1237,7 +1274,7 @@ class DeterministicFixtureModel:
         }
 
 
-def _build_model(config: Config) -> StructuredChatModel:
+def _build_model(config: Config) -> ChatModel:
     spec = replace(
         config.model_pairs[0].questioner,
         thinking=None,
@@ -1303,7 +1340,7 @@ def main() -> None:
     private_dir = args.private_raw_dir / args.run_id
     private_dir.mkdir(parents=True, exist_ok=True)
     raw_path = private_dir / "RAW_RESPONSES.json"
-    model: StructuredChatModel = (
+    model: ChatModel = (
         DeterministicFixtureModel() if args.dry_run else _build_model(config)
     )
 
