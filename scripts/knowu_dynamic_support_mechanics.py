@@ -23,7 +23,7 @@ from scripts import knowu_bench_source_audit as source_audit
 from scripts import knowu_dynamic_support_manifest_v2 as manifest_v2
 
 
-INTERFACE_VERSION = "knowu-dynamic-support-mechanics-2"
+INTERFACE_VERSION = "knowu-dynamic-support-mechanics-3"
 MODEL_ID = "openai/gpt-5.4"
 SUPPORT_SIZE = 4
 QUESTION_COUNT = 4
@@ -478,8 +478,9 @@ def initial_messages(
             "a demographic, occupation, persona, or known user type. "
             f"{task_requirement} Also propose four distinct clarification "
             "questions. Every question must target exactly one unresolved "
-            "dimension, contain exactly one question mark, and must not ask "
-            "for a complete product/order/message or a user/profile label."
+            "dimension, contain exactly one question mark, contain neither "
+            "the word 'and' nor the word 'or', and must not ask for a "
+            "complete product/order/message or a user/profile label."
         ),
         {
             "task_kind": task_kind,
@@ -502,7 +503,7 @@ def initial_messages(
                 **{
                     f"q{index}": (
                         "unique atomic question ending in one question mark, "
-                        "maximum 160 characters"
+                        "maximum 160 characters; do not use the words and/or"
                     )
                     for index in range(1, QUESTION_COUNT + 1)
                 },
@@ -829,9 +830,9 @@ def run_serving_gate(
             [_synthetic_initial(index) for index in range(4)],
             max_new_tokens=900,
         )
-        initial = [parse_initial(response) for response in initial_responses]
         raw["initial_responses"] = initial_responses
         _checkpoint(raw_path, raw)
+        initial = [parse_initial(response) for response in initial_responses]
 
         answer_responses = _complete(
             model,
@@ -850,9 +851,9 @@ def run_serving_gate(
             ],
             max_new_tokens=600,
         )
-        answers = [parse_answers(response) for response in answer_responses]
         raw["answer_responses"] = answer_responses
         _checkpoint(raw_path, raw)
+        answers = [parse_answers(response) for response in answer_responses]
 
         refresh_responses = _complete(
             model,
@@ -869,11 +870,11 @@ def run_serving_gate(
             ],
             max_new_tokens=650,
         )
+        raw["refresh_responses"] = refresh_responses
+        _checkpoint(raw_path, raw)
         refreshed = [
             parse_refresh(response) for response in refresh_responses
         ]
-        raw["refresh_responses"] = refresh_responses
-        _checkpoint(raw_path, raw)
 
         judge_responses = _complete(
             model,
@@ -899,11 +900,11 @@ def run_serving_gate(
             ],
             max_new_tokens=900,
         )
+        raw["judge_responses"] = judge_responses
+        _checkpoint(raw_path, raw)
         judgments = [
             parse_judgment(response) for response in judge_responses
         ]
-        raw["judge_responses"] = judge_responses
-        _checkpoint(raw_path, raw)
         usage = _usage(model)
     except Exception as exc:
         _checkpoint(raw_path, raw)
@@ -992,11 +993,11 @@ def run_mechanics_gate(
             initial_requests,
             max_new_tokens=1000,
         )
+        raw["initial_responses"] = initial_responses
+        _checkpoint(raw_path, raw)
         initial = [
             parse_initial(response) for response in initial_responses
         ]
-        raw["initial_responses"] = initial_responses
-        _checkpoint(raw_path, raw)
 
         answer_responses = _complete(
             model,
@@ -1010,11 +1011,11 @@ def run_mechanics_gate(
             ],
             max_new_tokens=700,
         )
+        raw["answer_responses"] = answer_responses
+        _checkpoint(raw_path, raw)
         answers = [
             parse_answers(response) for response in answer_responses
         ]
-        raw["answer_responses"] = answer_responses
-        _checkpoint(raw_path, raw)
 
         refresh_requests: list[list[dict[str, str]]] = []
         refresh_layout: list[tuple[int, int]] = []
@@ -1043,6 +1044,8 @@ def run_mechanics_gate(
             refresh_requests,
             max_new_tokens=650,
         )
+        raw["refresh_responses"] = refresh_responses
+        _checkpoint(raw_path, raw)
         parsed_refreshes = [
             parse_refresh(response) for response in refresh_responses
         ]
@@ -1059,9 +1062,6 @@ def run_mechanics_gate(
             for support in world_supports
         ):
             raise ValueError("refresh branch is missing")
-        raw["refresh_responses"] = refresh_responses
-        _checkpoint(raw_path, raw)
-
         judge_responses = _complete(
             model,
             [
@@ -1084,11 +1084,11 @@ def run_mechanics_gate(
             ],
             max_new_tokens=1100,
         )
+        raw["judge_responses"] = judge_responses
+        _checkpoint(raw_path, raw)
         judgments = [
             parse_judgment(response) for response in judge_responses
         ]
-        raw["judge_responses"] = judge_responses
-        _checkpoint(raw_path, raw)
         usage = _usage(model)
     except Exception as exc:
         _checkpoint(raw_path, raw)
@@ -1278,7 +1278,7 @@ def _build_model(config: Config) -> ChatModel:
     spec = replace(
         config.model_pairs[0].questioner,
         thinking=None,
-        reasoning_effort="none",
+        reasoning_effort=None,
         reasoning_max_tokens=None,
         thinking_max_new_tokens=None,
         thinking_final_max_new_tokens=None,
