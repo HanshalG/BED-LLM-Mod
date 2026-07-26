@@ -1,0 +1,946 @@
+{
+  "gates": {
+    "adapter_reports_nonreasoning_model": true,
+    "all_maps_and_24_branch_supports_complete": true,
+    "all_pass": false,
+    "at_least_one_oracle_gain_0_15": false,
+    "at_least_one_root_coverage_range_0_15": false,
+    "both_missing_targets_recovered_somewhere": false,
+    "cost_at_most_0_25": true,
+    "every_root_has_at_least_two_positive_outcomes": true,
+    "exact_32_http_attempts_zero_retries": true,
+    "exact_32_requests": true,
+    "exact_frozen_inputs": true,
+    "mean_oracle_gain_at_least_0_10": false,
+    "zero_reasoning_or_forced": true
+  },
+  "metrics": {
+    "mean_oracle_minus_myopic_coverage": 0.0,
+    "oracle_minus_myopic_coverage_by_task": [
+      0.0,
+      0.0
+    ],
+    "root_coverage_range_by_task": [
+      0.0,
+      0.0
+    ]
+  },
+  "protocol": {
+    "candidate_list_exposed": false,
+    "expected_requests": 32,
+    "interface_version": "voi-medical-dynamic-support-recovery-1",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "5313fcb47e0f6ea3e4ba34fa050ac43e0ad68133d281cbefaa12a465e509f727",
+    "serving_sha256": "e7effe8977f40fa25e8b8d43f7862d664ea3ee0f991c89a93fc65567d484bb0d",
+    "source_sha256": "e851864a9cb53c36304245bc3213a8a894cf7b86f8945d60978923e1f1ef0169",
+    "target_exposed_to_generation": false,
+    "task_ids": [
+      50,
+      284
+    ]
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "tasks": [
+    {
+      "any_positive_branch_recovers_target": false,
+      "myopic_expected_target_coverage": 0.0,
+      "myopic_root_index": 1,
+      "oracle_expected_target_coverage": 0.0,
+      "oracle_minus_myopic_coverage": 0.0,
+      "oracle_recovery_root_index": 0,
+      "root_coverage_range": 0.0,
+      "roots": [
+        {
+          "answer_labels": [
+            "Maybe",
+            "Yes",
+            "No",
+            "No",
+            "No",
+            "No"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Severe persistent hunger despite eating in an 18-year-old, with a possible history of increased thirst/urination, is highly compatible with hyperglycemia causing ineffective cellular glucose use and polyphagia."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Marked ongoing hunger without satiety can reflect increased metabolic demand from thyroid excess, especially in a young woman even without clearly localizing stomach symptoms."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Nausea, poor appetite for food, and abnormal post-meal satisfaction despite continued hunger fit a disorder of upper-GI sensation and meal-related discomfort rather than simple lack of intake."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease",
+                "rationale": "A gnawing epigastric sensation from an ulcer can be perceived as extreme hunger with nausea and incomplete relief after meals, making stomach pathology a reasonable consideration."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Gastric inflammation can cause nausea, aversion to eating, and hunger-like upper-abdominal discomfort that does not resolve normally with meals."
+              },
+              {
+                "diagnosis": "Parasitic intestinal infection such as tapeworm",
+                "rationale": "Although less common, intestinal parasites can cause increased appetite or hunger sensations with GI discomfort and should be considered if there are exposure risks or weight change."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Marked persistent hunger without satiety in an 18-year-old despite completing meals can reflect increased metabolic drive from hyperthyroidism, and the denial of thirst/polyuria makes diabetes less favored."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease, especially duodenal ulcer",
+                "rationale": "A gnawing \u201chungry\u201d nauseating upper-abdominal sensation that pushes her to eat but is not followed by normal relief or fullness is compatible with ulcer-related dyspeptic pain."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Nausea, poor appetite for food, and abnormal hunger-like epigastric discomfort can occur with gastritis, making the stomach feel urgently empty yet unrewarded by meals."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Disordered gastric sensation can cause nausea, impaired appetite, and abnormal perceptions of hunger/fullness even when food intake is adequate."
+              },
+              {
+                "diagnosis": "Helicobacter pylori-associated dyspepsia",
+                "rationale": "In a young patient with persistent nausea and hunger-like stomach symptoms, H. pylori infection is a specific possibility because it can produce chronic gastritis or ulcer-type symptoms without classic reflux."
+              },
+              {
+                "diagnosis": "Parasitic infection such as tapeworm",
+                "rationale": "Although less common, intestinal helminths can cause increased hunger or lack of satiety with gastrointestinal discomfort, so they remain a plausible alternative diagnosis."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Marked polyphagia together with increased thirst and more frequent urination is classic for diabetes causing ineffective glucose utilization despite eating."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "An 18-year-old with persistent excessive hunger can have hyperthyroidism, which raises metabolic demand and may also cause increased thirst."
+              },
+              {
+                "diagnosis": "Pregnancy",
+                "rationale": "In a young woman, nausea with altered appetite and increased urinary frequency should prompt consideration of early pregnancy, even if the \u201chunger\u201d sensation is atypical."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease",
+                "rationale": "A gnawing epigastric sensation can be misread as severe hunger and may persist after meals with associated nausea."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Distorted hunger/fullness signaling with nausea and lack of normal satiety after eating fits a functional upper-GI disorder."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Gastric inflammation can cause nausea, poor appetite, and a hunger-like upper-abdominal discomfort that is not fully relieved by eating."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 0.8675632284814613,
+          "outcome_masses": {
+            "Maybe": 0.16666666666666666,
+            "No": 0.6666666666666666,
+            "Yes": 0.16666666666666666
+          },
+          "question": "Have you been unusually thirsty or urinating more often than usual?",
+          "root_index": 0
+        },
+        {
+          "answer_labels": [
+            "Yes",
+            "Yes",
+            "Maybe",
+            "Maybe",
+            "No",
+            "Yes"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Marked persistent hunger without satiety in an 18-year-old with possible unintentional weight loss is classic for polyphagia from impaired glucose utilization."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Very strong hunger with possible weight loss despite eating can reflect a hypermetabolic state such as hyperthyroidism."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease",
+                "rationale": "A gnawing hunger-like epigastric sensation severe enough to cause nausea and not clearly relieved by meals is compatible with peptic ulcer disease."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Distorted meal-related sensations with nausea, poor appetite, and absent normal fullness after eating fit functional dyspepsia."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Nausea, aversion to food, and persistent upper-abdominal \u201cempty/hungry\u201d discomfort despite eating can occur with gastritis."
+              },
+              {
+                "diagnosis": "Intestinal parasitic infection",
+                "rationale": "Possible weight loss with increased hunger and nonspecific gastrointestinal symptoms keeps an intestinal parasite such as tapeworm on the differential."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Persistent polyphagia despite eating remains a classic metabolic cause of unrelenting hunger in an 18-year-old, and the lack of weight loss does not exclude early or less severe diabetes."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "An increased metabolic state can cause constant hunger without normal satiety even in the absence of reported unintentional weight loss."
+              },
+              {
+                "diagnosis": "Duodenal ulcer disease",
+                "rationale": "A gnawing epigastric sensation from duodenal ulcer can be perceived as intense hunger with nausea and only temporary or absent relief after meals."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Nausea, poor appetite for food, and abnormal upper-abdominal sensations can make gastritis feel like severe hunger while eating remains unpleasant."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Disordered gastric sensation can cause impaired satiety, meal-related nausea, and confusing hunger cues despite adequate intake and no weight loss."
+              },
+              {
+                "diagnosis": "Parasitic intestinal infection",
+                "rationale": "Some intestinal parasites can cause increased appetite or persistent hunger with gastrointestinal discomfort even without weight loss early on."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Unintentional weight loss together with persistent intense hunger despite eating strongly suggests ineffective calorie utilization from hyperglycemia."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Weight loss plus marked polyphagia is classic for an elevated metabolic state such as hyperthyroidism, especially in a young woman."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease",
+                "rationale": "A duodenal or gastric ulcer can cause gnawing \u201chunger-like\u201d epigastric discomfort with nausea and only temporary or absent relief after meals."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Disordered upper-GI sensation can produce nausea, poor appetite, and abnormal hunger/satiety cues even when food intake is adequate."
+              },
+              {
+                "diagnosis": "Intestinal helminth infection",
+                "rationale": "Parasitic infection can cause weight loss, increased appetite or hunger, and chronic gastrointestinal discomfort, though it is less common."
+              },
+              {
+                "diagnosis": "Malabsorption syndrome such as celiac disease",
+                "rationale": "Weight loss despite ongoing eating can reflect poor nutrient absorption, which may present with persistent hunger and nonspecific GI symptoms."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 1.0114042647073518,
+          "outcome_masses": {
+            "Maybe": 0.3333333333333333,
+            "No": 0.16666666666666666,
+            "Yes": 0.5
+          },
+          "question": "Have you recently lost weight without trying?",
+          "root_index": 1
+        },
+        {
+          "answer_labels": [
+            "Yes",
+            "Yes",
+            "No",
+            "No",
+            "No",
+            "No"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Severe persistent hunger that does not improve after meals can reflect impaired glucose utilization, and possible adrenergic episodes may occur with glucose fluctuation."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Polyphagia with possible shakiness, sweating, or palpitations is compatible with hypermetabolism and sympathetic overactivity from excess thyroid hormone."
+              },
+              {
+                "diagnosis": "Reactive hypoglycemia",
+                "rationale": "Feeling intensely hungry to the point of nausea with maybe shakiness/sweating/racing heart suggests intermittent low blood sugar causing adrenergic hunger episodes."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease, especially duodenal ulcer",
+                "rationale": "A gnawing epigastric sensation may be perceived as extreme hunger with nausea and incomplete relief after eating, making the problem seem like a stomach disorder."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Distorted upper-GI sensations can cause nausea, aversion to food, and abnormal hunger/fullness signaling despite finishing meals."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Inflammation of the stomach can produce nausea and a \u201chungry\u201d or empty feeling without true appetite, leading to eating without normal satiety."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Persistent polyphagia without satiety in an 18-year-old remains a key possibility even without adrenergic symptoms, especially if there is any thirst, frequent urination, fatigue, or weight loss."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Marked ongoing hunger can reflect increased metabolic demand from thyrotoxicosis, and the lack of shakiness or palpitations does not exclude it."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease",
+                "rationale": "A gnawing epigastric discomfort or nausea may be perceived as severe hunger and can persist before and after meals, especially with duodenal ulcer disease."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Nausea, poor appetite for food, and a persistent \u201cempty\u201d or irritated stomach sensation despite eating fit gastritis or gastroduodenal irritation."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Disordered upper-GI sensation can cause hunger-like discomfort, nausea, and absent normal satiety despite adequate intake when structural disease is not obvious."
+              },
+              {
+                "diagnosis": "Atypical eating disorder such as bulimia nervosa",
+                "rationale": "In an adolescent female, abnormal hunger/fullness perception and feeling compelled to finish meals despite not wanting food can sometimes reflect an eating disorder history that warrants sensitive screening."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Marked persistent hunger with palpitations and feeling shaky/sweaty is strongly compatible with a hypermetabolic state such as hyperthyroidism."
+              },
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Polyphagia despite eating can occur in diabetes, and adrenergic symptoms like shakiness/sweating may accompany glucose fluctuations when calories are not being effectively utilized."
+              },
+              {
+                "diagnosis": "Reactive hypoglycemia",
+                "rationale": "Episodes of intense hunger with shakiness, sweating, and racing heart are classic autonomic symptoms of hypoglycemia, especially if they occur around meals."
+              },
+              {
+                "diagnosis": "Pheochromocytoma or catecholamine excess",
+                "rationale": "Paroxysmal hunger accompanied by palpitations, sweating, and tremulousness raises the possibility of episodic catecholamine surges."
+              },
+              {
+                "diagnosis": "Anxiety or panic episodes with interoceptive misinterpretation",
+                "rationale": "Racing heart, sweating, and shakiness can reflect panic-like autonomic activation that may be perceived as severe hunger or nausea."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease",
+                "rationale": "A gnawing epigastric \u201chunger\u201d sensation with nausea and poor appetite can mimic true hunger even if the adrenergic symptoms have another concurrent cause."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 0.6365141682948128,
+          "outcome_masses": {
+            "Maybe": 0.0,
+            "No": 0.6666666666666666,
+            "Yes": 0.3333333333333333
+          },
+          "question": "Do you feel shaky, sweaty, or like your heart is racing when this hunger happens?",
+          "root_index": 2
+        },
+        {
+          "answer_labels": [
+            "No",
+            "No",
+            "Yes",
+            "Yes",
+            "Maybe",
+            "No"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Duodenal ulcer disease",
+                "rationale": "An equivocal report of burning/gnawing discomfort that is worst when the stomach is empty or at night fits a hunger-like epigastric pain pattern that can briefly improve with eating yet recur soon after."
+              },
+              {
+                "diagnosis": "Gastritis",
+                "rationale": "Nausea, poor appetite for food, and an upper-stomach \u201chungry\u201d sensation can reflect inflamed gastric mucosa causing dyspeptic discomfort that is hard for patients to distinguish from true hunger."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "An 18-year-old with persistent hunger sensations, nausea, and absent satiety despite eating could have disordered gastric sensation or accommodation causing distorted meal-related signals without structural disease."
+              },
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Polyphagia despite eating remains a key metabolic explanation for persistent hunger and should be considered especially if there is any weight loss, thirst, or frequent urination."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Increased metabolic demand from excess thyroid hormone can cause marked hunger out of proportion to intake, sometimes with nausea or reduced comfortable satiety."
+              },
+              {
+                "diagnosis": "Gastroparesis or delayed gastric emptying",
+                "rationale": "Nausea, feeling unable to enjoy food, and abnormal fullness/hunger signaling after meals can occur when the stomach empties poorly, producing paradoxical hunger sensations."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Diabetes mellitus",
+                "rationale": "Persistent marked hunger that is not relieved by eating remains a classic cause of polyphagia in an 18-year-old even without a burning or nocturnal epigastric pain pattern."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Increased metabolic drive from hyperthyroidism can cause constant hunger despite meals and may occur without localized upper-abdominal burning discomfort."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Nausea, poor appetite, and abnormal meal-related sensations without a clear ulcer-like burning pattern fit functional dyspepsia with disturbed satiety signaling."
+              },
+              {
+                "diagnosis": "Gastroparesis",
+                "rationale": "Early nausea, lack of normal satisfaction after meals, and disordered stomach sensation can reflect delayed gastric emptying even when the patient still perceives intense hunger."
+              },
+              {
+                "diagnosis": "Atypical eating disorder such as bulimia nervosa or restrictive eating pattern",
+                "rationale": "An 18-year-old with severe hunger, nausea around eating, and persistent lack of satiety may have disordered eating behaviors or appetite-cue dysregulation rather than primary stomach disease."
+              },
+              {
+                "diagnosis": "Intestinal helminth infection such as tapeworm",
+                "rationale": "Parasitic infection can occasionally cause increased hunger with nonspecific gastrointestinal symptoms despite eating, though it is less common than metabolic causes."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Duodenal ulcer disease",
+                "rationale": "Burning/gnawing upper-abdominal discomfort that is worst on an empty stomach or at night and is associated with eating to relieve the sensation is classic for duodenal ulcer."
+              },
+              {
+                "diagnosis": "Helicobacter pylori\u2013associated peptic ulcer disease",
+                "rationale": "In an 18-year-old with nocturnal and fasting gnawing epigastric pain, H. pylori is a common specific cause of ulcer-type dyspepsia and persistent hunger-like pain."
+              },
+              {
+                "diagnosis": "Antral-predominant gastritis",
+                "rationale": "Gastritis can cause burning epigastric discomfort, nausea, and a paradoxical hungry sensation with poor appetite, especially when symptoms are more noticeable between meals."
+              },
+              {
+                "diagnosis": "Functional dyspepsia (epigastric pain syndrome)",
+                "rationale": "If no structural lesion is present, meal-related gnawing/burning epigastric pain with nausea and abnormal hunger/satiety perception fits functional dyspepsia."
+              },
+              {
+                "diagnosis": "Gastroesophageal reflux disease",
+                "rationale": "Burning upper abdominal discomfort with nausea can sometimes be perceived as hunger and may worsen at night, making GERD a plausible upper-GI mimic."
+              },
+              {
+                "diagnosis": "Hyperthyroidism",
+                "rationale": "Although the new symptom pattern points more strongly to acid-peptic disease, persistent marked hunger despite eating can still reflect increased metabolic drive from hyperthyroidism."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 1.0114042647073518,
+          "outcome_masses": {
+            "Maybe": 0.16666666666666666,
+            "No": 0.5,
+            "Yes": 0.3333333333333333
+          },
+          "question": "Is the feeling strongest as a burning or gnawing discomfort in the upper abdomen, especially when your stomach is empty or at night?",
+          "root_index": 3
+        }
+      ],
+      "target": "Gastric ulcer",
+      "task_id": 50
+    },
+    {
+      "any_positive_branch_recovers_target": false,
+      "myopic_expected_target_coverage": 0.0,
+      "myopic_root_index": 2,
+      "oracle_expected_target_coverage": 0.0,
+      "oracle_minus_myopic_coverage": 0.0,
+      "oracle_recovery_root_index": 0,
+      "root_coverage_range": 0.0,
+      "roots": [
+        {
+          "answer_labels": [
+            "Maybe",
+            "No",
+            "Maybe",
+            "No",
+            "Maybe",
+            "No"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Acute infectious gastroenteritis",
+                "rationale": "Abrupt onset since yesterday with abdominal discomfort, bloating, and possible diarrhea is most consistent with an early viral or foodborne gastrointestinal infection."
+              },
+              {
+                "diagnosis": "Foodborne toxin-mediated illness",
+                "rationale": "A sudden onset of bloating and stomach discomfort over less than 24 hours after a recent meal can reflect toxin-related food poisoning, sometimes with only equivocal diarrhea initially."
+              },
+              {
+                "diagnosis": "Dietary carbohydrate intolerance such as lactose intolerance",
+                "rationale": "Bloating with vague abdominal discomfort and uncertain loose stools can occur after ingestion of lactose or other poorly absorbed fermentable carbohydrates."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "In a young adult male, upper abdominal discomfort and postprandial bloating without clearly established diarrhea can still fit functional indigestion."
+              },
+              {
+                "diagnosis": "Constipation with overflow or incomplete evacuation",
+                "rationale": "Abdominal bloating and discomfort can arise from retained stool, and patients may describe uncertain bowel changes that are not clearly true diarrhea."
+              },
+              {
+                "diagnosis": "Early irritable bowel syndrome flare",
+                "rationale": "Bloating and abdominal discomfort with ambiguous change in stool pattern may represent an IBS flare, especially when symptoms are nonspecific and no alarm features are provided."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Constipation with intestinal gas retention",
+                "rationale": "Bloating and abdominal discomfort starting yesterday without diarrhea is commonly caused by slowed stool transit or incomplete evacuation leading to trapped gas."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "A 32-year-old with recent stomach discomfort and bloating but no diarrhea could have meal-related upper GI dyspepsia rather than an infectious lower bowel process."
+              },
+              {
+                "diagnosis": "Food intolerance such as lactose or high-FODMAP sensitivity",
+                "rationale": "Isolated bloating and abdominal discomfort without diarrhea can follow ingestion of trigger foods that ferment and produce excess gas."
+              },
+              {
+                "diagnosis": "Early viral or foodborne gastroenteritis without diarrhea yet",
+                "rationale": "Some infectious GI illnesses begin with abdominal discomfort and bloating before diarrhea appears, so the absence of diarrhea so far does not exclude this."
+              },
+              {
+                "diagnosis": "Irritable bowel syndrome, bloating-predominant",
+                "rationale": "IBS can present with abdominal discomfort and bloating even without diarrhea, particularly if there is a history of recurrent similar episodes."
+              },
+              {
+                "diagnosis": "Partial small bowel obstruction",
+                "rationale": "Acute bloating and abdominal discomfort without diarrhea can reflect impaired bowel passage, especially if pain, vomiting, distension, or obstipation develop."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Acute infectious gastroenteritis",
+                "rationale": "The abrupt onset since yesterday of abdominal discomfort, bloating, and now diarrhea most strongly fits a viral or foodborne intestinal infection."
+              },
+              {
+                "diagnosis": "Foodborne toxin-mediated gastroenteritis",
+                "rationale": "Very sudden GI symptoms with diarrhea and bloating beginning within a day can occur after ingestion of contaminated food causing toxin-mediated illness."
+              },
+              {
+                "diagnosis": "Enteritis from dietary intolerance or malabsorption",
+                "rationale": "Bloating and diarrhea shortly after symptom onset can be triggered by lactose intolerance or other poorly absorbed carbohydrates causing osmotic diarrhea."
+              },
+              {
+                "diagnosis": "Irritable bowel syndrome, diarrhea-predominant",
+                "rationale": "Abdominal discomfort with bloating and diarrhea can reflect IBS-D, though the very acute onset makes it less likely than infection."
+              },
+              {
+                "diagnosis": "Inflammatory colitis",
+                "rationale": "Diarrhea with abdominal discomfort raises concern for colonic inflammation such as infectious or early inflammatory bowel disease if symptoms persist or intensify."
+              },
+              {
+                "diagnosis": "Partial small bowel obstruction",
+                "rationale": "Abdominal bloating and discomfort can rarely coexist with diarrhea due to overflow or partial obstruction, especially if pain, vomiting, or distension worsen."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 0.6931471805599452,
+          "outcome_masses": {
+            "Maybe": 0.5,
+            "No": 0.5,
+            "Yes": 0.0
+          },
+          "question": "Have you had diarrhea since the discomfort began?",
+          "root_index": 0
+        },
+        {
+          "answer_labels": [
+            "Maybe",
+            "No",
+            "No",
+            "No",
+            "Maybe",
+            "Maybe"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Acute gastroenteritis",
+                "rationale": "Abrupt onset since yesterday with abdominal discomfort, bloating, and possible vomiting is most consistent with a viral or foodborne GI infection."
+              },
+              {
+                "diagnosis": "Early small bowel obstruction",
+                "rationale": "Bloating plus uncertain vomiting raises concern for evolving bowel obstruction, especially if pain becomes crampy or distention worsens."
+              },
+              {
+                "diagnosis": "Acute gastritis",
+                "rationale": "Epigastric \u201cstomach\u201d discomfort with nausea or possible vomiting over a day can reflect irritation from infection, alcohol, NSAIDs, or dietary triggers."
+              },
+              {
+                "diagnosis": "Food poisoning from preformed toxin",
+                "rationale": "Very short time course with abdominal upset and possible vomiting beginning within a day can fit toxin-mediated foodborne illness."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Upper abdominal discomfort and bloating without a clearer pattern of diarrhea or severe pain can still represent dyspepsia, though the sudden onset is less typical."
+              },
+              {
+                "diagnosis": "Constipation with gas retention",
+                "rationale": "Acute bloating and abdominal discomfort can result from slowed stool passage or retained gas, sometimes with nausea when distention increases."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Acute viral or foodborne gastroenteritis",
+                "rationale": "Abrupt abdominal discomfort and bloating starting yesterday still fit an early mild gastroenteritis, and the absence of vomiting does not exclude it."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "In a 32-year-old with recent upper abdominal \u201cstomach\u201d discomfort and bloating but no vomiting, functional indigestion remains a common explanation."
+              },
+              {
+                "diagnosis": "Dietary intolerance such as lactose or high-FODMAP sensitivity",
+                "rationale": "Acute bloating beginning since yesterday without vomiting is compatible with gas production from a recent trigger food intolerance."
+              },
+              {
+                "diagnosis": "Constipation or slowed bowel transit",
+                "rationale": "Bloating and abdominal discomfort over one day can result from retained stool or gas even when vomiting is absent."
+              },
+              {
+                "diagnosis": "Irritable bowel syndrome flare",
+                "rationale": "Abdominal discomfort with bloating and no vomiting can reflect an IBS exacerbation, particularly if similar episodes have happened before."
+              },
+              {
+                "diagnosis": "Early partial bowel obstruction",
+                "rationale": "Although less likely in this young man, progressive bloating and abdominal discomfort can rarely represent an early partial obstruction before vomiting appears."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Acute gastroenteritis",
+                "rationale": "Sudden onset since yesterday of abdominal discomfort and bloating now accompanied by vomiting is most consistent with a viral or foodborne gastrointestinal infection."
+              },
+              {
+                "diagnosis": "Food poisoning from preformed bacterial toxins",
+                "rationale": "Vomiting beginning within a day of symptom onset with abdominal upset and bloating raises concern for toxin-mediated foodborne illness such as Staphylococcus aureus or Bacillus cereus."
+              },
+              {
+                "diagnosis": "Early small bowel obstruction",
+                "rationale": "Bloating plus vomiting can indicate impaired bowel transit, making early mechanical obstruction an important consideration even in a younger adult if symptoms escalate."
+              },
+              {
+                "diagnosis": "Acute gastritis",
+                "rationale": "Epigastric stomach discomfort with vomiting over a short time course can result from acute gastric mucosal irritation from alcohol, NSAIDs, or an infectious trigger."
+              },
+              {
+                "diagnosis": "Peptic ulcer disease",
+                "rationale": "Upper abdominal discomfort with new vomiting can reflect ulcer-related dyspepsia, particularly if pain is meal-related or there is acid-related burning."
+              },
+              {
+                "diagnosis": "Acute pancreatitis",
+                "rationale": "Vomiting with abdominal discomfort can be an early presentation of pancreatitis, especially if the pain is severe, upper abdominal, or radiates to the back."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 0.6931471805599452,
+          "outcome_masses": {
+            "Maybe": 0.5,
+            "No": 0.5,
+            "Yes": 0.0
+          },
+          "question": "Have you vomited since yesterday?",
+          "root_index": 1
+        },
+        {
+          "answer_labels": [
+            "Maybe",
+            "Yes",
+            "Maybe",
+            "No",
+            "Yes",
+            "Maybe"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Postprandial dyspepsia (functional dyspepsia)",
+                "rationale": "A vague \"maybe\" link to eating/drinking with acute upper abdominal discomfort and bloating is compatible with meal-triggered dyspeptic symptoms in a young adult without other red flags provided."
+              },
+              {
+                "diagnosis": "Food intolerance such as lactose or high-FODMAP sensitivity",
+                "rationale": "Symptoms beginning around the time of eating or drinking can reflect fermentation-related gas and bloating after a trigger food or beverage."
+              },
+              {
+                "diagnosis": "Acute gastroenteritis",
+                "rationale": "Abrupt onset since yesterday of abdominal discomfort and bloating can represent an early viral or foodborne GI illness even before diarrhea or vomiting appear."
+              },
+              {
+                "diagnosis": "Constipation with gas retention",
+                "rationale": "Bloating and stomach discomfort over a day may result from slowed stool passage or incomplete evacuation causing retained gas, independent of a clear meal trigger."
+              },
+              {
+                "diagnosis": "Irritable bowel syndrome",
+                "rationale": "Bloating and abdominal discomfort are common in IBS and can feel worse after meals, though the short history and limited details make this provisional."
+              },
+              {
+                "diagnosis": "Early bowel obstruction or ileus",
+                "rationale": "Marked bloating with abdominal discomfort can rarely reflect impaired bowel transit, so this remains a safety consideration if pain, vomiting, or inability to pass stool/gas develops."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Acute gastroenteritis",
+                "rationale": "Abrupt onset since yesterday of abdominal discomfort and bloating without a clear post-meal trigger is compatible with an early viral or foodborne GI infection before diarrhea or vomiting appear."
+              },
+              {
+                "diagnosis": "Constipation with gas retention",
+                "rationale": "Bloating and stomach discomfort developing over a day and not tied to eating can result from stool backup and trapped intestinal gas."
+              },
+              {
+                "diagnosis": "Irritable bowel syndrome",
+                "rationale": "Abdominal discomfort and bloating in a young adult without meal-related onset can fit IBS, especially if bowel habit changes or stress are also present."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Even without symptoms starting right after eating, a nonspecific upper abdominal uneasy feeling and bloating can still reflect functional indigestion."
+              },
+              {
+                "diagnosis": "Small bowel obstruction",
+                "rationale": "Persistent bloating and abdominal discomfort unrelated to meals raises concern for obstruction if there is worsening pain, vomiting, constipation, or inability to pass gas."
+              },
+              {
+                "diagnosis": "Aerophagia or nonspecific intestinal gas accumulation",
+                "rationale": "Bloating not beginning after food intake may reflect swallowed air, altered gut motility, or transient gas buildup rather than a direct food trigger."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Postprandial functional dyspepsia",
+                "rationale": "Bloating and stomach discomfort that begin soon after eating are classic for meal-triggered functional dyspepsia in a young adult without other reported alarm features."
+              },
+              {
+                "diagnosis": "Food intolerance such as lactose intolerance",
+                "rationale": "Symptoms starting soon after eating or drinking fit an acute intolerance reaction to recently consumed foods or beverages that can cause gas and upper abdominal bloating."
+              },
+              {
+                "diagnosis": "Acute gastritis",
+                "rationale": "Epigastric discomfort appearing promptly after meals can reflect gastric mucosal irritation from alcohol, NSAIDs, spicy foods, or infection, often accompanied by bloating."
+              },
+              {
+                "diagnosis": "Gastroparesis or delayed gastric emptying",
+                "rationale": "Early post-meal fullness and bloating shortly after intake can result from impaired stomach emptying even though this is less common in a healthy 32-year-old male."
+              },
+              {
+                "diagnosis": "Aerophagia with gas-related gastric distension",
+                "rationale": "Bloating that starts after eating or drinking can be caused by swallowing excess air, especially with rapid eating, carbonated drinks, or gum chewing."
+              },
+              {
+                "diagnosis": "Partial gastric outlet or proximal bowel obstruction",
+                "rationale": "Although less likely, rapid worsening bloating after intake is a concerning mechanical pattern because food and fluid can accumulate proximal to an obstruction."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 1.0114042647073518,
+          "outcome_masses": {
+            "Maybe": 0.5,
+            "No": 0.16666666666666666,
+            "Yes": 0.3333333333333333
+          },
+          "question": "Did the bloating start soon after eating or drinking?",
+          "root_index": 2
+        },
+        {
+          "answer_labels": [
+            "No",
+            "No",
+            "Maybe",
+            "Yes",
+            "No",
+            "Yes"
+          ],
+          "branch_supports": {
+            "Maybe": [
+              {
+                "diagnosis": "Constipation with fecal loading",
+                "rationale": "A vague \"maybe\" to being unable to pass stool or gas plus acute bloating and abdominal discomfort since yesterday is compatible with constipation causing gas retention."
+              },
+              {
+                "diagnosis": "Early partial small bowel obstruction",
+                "rationale": "Possible reduced passage of stool or flatus together with new abdominal bloating raises concern for an evolving partial obstruction even in a younger adult."
+              },
+              {
+                "diagnosis": "Acute gastroenteritis",
+                "rationale": "Sudden onset abdominal discomfort and bloating over one day can still reflect a viral or foodborne gastrointestinal infection before diarrhea or vomiting appear."
+              },
+              {
+                "diagnosis": "Food intolerance such as lactose or high-FODMAP malabsorption",
+                "rationale": "Rapid bloating and stomach discomfort beginning yesterday can follow ingestion of trigger foods that increase intestinal gas production."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "A young man with recent upper abdominal discomfort and bloating without clear obstructive symptoms may have functional indigestion, especially if symptoms are meal-related."
+              },
+              {
+                "diagnosis": "Irritable bowel syndrome",
+                "rationale": "Bloating and abdominal discomfort can occur with IBS, and an uncertain change in bowel passage may fit a bowel-motility flare if symptoms recur or alternate with constipation."
+              }
+            ],
+            "No": [
+              {
+                "diagnosis": "Acute gastroenteritis",
+                "rationale": "Sudden onset since yesterday of abdominal discomfort and bloating in a young adult remains consistent with an early viral or foodborne GI infection even without inability to pass stool or gas."
+              },
+              {
+                "diagnosis": "Functional dyspepsia",
+                "rationale": "Upper abdominal discomfort with bloating over a short period can reflect meal-related indigestion when there is no suggestion of bowel obstruction from continued stool or gas passage."
+              },
+              {
+                "diagnosis": "Food intolerance such as lactose intolerance",
+                "rationale": "Bloating starting within a day is compatible with a recent dietary trigger causing gas production and discomfort while bowel passage remains intact."
+              },
+              {
+                "diagnosis": "Constipation without complete obstruction",
+                "rationale": "Abdominal bloating and discomfort can still occur from slowed stool transit or incomplete evacuation even if the patient is not fully unable to pass stool or gas."
+              },
+              {
+                "diagnosis": "Irritable bowel syndrome",
+                "rationale": "Bloating with abdominal discomfort and no obstructive symptoms fits a possible IBS flare, especially if there is a prior pattern of similar episodes."
+              },
+              {
+                "diagnosis": "Small bowel obstruction, less likely",
+                "rationale": "Ongoing passage of stool or gas makes complete obstruction less likely, but partial obstruction can still present early with bloating and discomfort if symptoms escalate."
+              }
+            ],
+            "Yes": [
+              {
+                "diagnosis": "Small bowel obstruction",
+                "rationale": "Acute abdominal bloating with discomfort plus inability to pass stool or gas strongly raises mechanical bowel obstruction, especially if distention is progressive."
+              },
+              {
+                "diagnosis": "Large bowel obstruction",
+                "rationale": "Obstipation with new bloating and abdominal discomfort can reflect colonic blockage, which may initially present without vomiting."
+              },
+              {
+                "diagnosis": "Fecal impaction causing acute constipation",
+                "rationale": "Failure to pass stool or gas since symptom onset may be due to severe stool retention causing distal blockage and gaseous distention."
+              },
+              {
+                "diagnosis": "Paralytic ileus",
+                "rationale": "An acute shutdown of intestinal motility can cause bloating, diffuse discomfort, and inability to pass flatus or stool even without a mechanical obstruction."
+              },
+              {
+                "diagnosis": "Volvulus",
+                "rationale": "Twisting of bowel can present with sudden bloating, abdominal pain or discomfort, and obstipation and is an important obstructive emergency to consider."
+              },
+              {
+                "diagnosis": "Incarcerated inguinal hernia with bowel obstruction",
+                "rationale": "In a young male, a trapped groin hernia can obstruct bowel and cause acute bloating, abdominal discomfort, and inability to pass stool or gas."
+              }
+            ]
+          },
+          "branch_target_coverage": {
+            "Maybe": false,
+            "No": false,
+            "Yes": false
+          },
+          "expected_target_coverage": 0.0,
+          "immediate_eig_nats": 1.0114042647073518,
+          "outcome_masses": {
+            "Maybe": 0.16666666666666666,
+            "No": 0.5,
+            "Yes": 0.3333333333333333
+          },
+          "question": "Have you been unable to pass stool or gas since the bloating started?",
+          "root_index": 3
+        }
+      ],
+      "target": "Cold",
+      "task_id": 284
+    }
+  ],
+  "usage": {
+    "adapter_cost_usd": 0.11908,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 5970,
+      "adapter_cost_usd": 0.11908,
+      "adapter_prompt_tokens": 11812,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 32,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 5970,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 32,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 5970,
+          "cost_usd": 0.11908,
+          "prompt_tokens": 11812,
+          "reasoning_tokens": 0,
+          "requests": 32
+        }
+      },
+      "prompt_tokens": 11812,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 43.61174489077659,
+      "requests": 32,
+      "retry_count": 0,
+      "run_budget_usd": 0.25,
+      "run_cost_usd": 0.11908,
+      "run_remaining_usd": 0.13091999999999998,
+      "total_spent_usd": 96.38825510922341
+    },
+    "http_attempts": 32,
+    "physical_requests": 32,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
