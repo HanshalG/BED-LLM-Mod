@@ -1,0 +1,123 @@
+{
+  "interface_version": "knowu-dynamic-support-mechanics-1",
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "private_fixture_sha256": "2cb9d0e34e3e13aee896b5d4f2c6bf0c470d1a92096a23128f6d8cc26905eff8",
+  "profile_labels_visible_to_policy": false,
+  "profile_prior": "uniform_within_each_supported-profile task family",
+  "retrieval": {
+    "method": "frozen lowercase alphanumeric term frequency plus task-category bonus",
+    "top_k": 8
+  },
+  "source": {
+    "clean_log_source_sha256": "d5acd87e9d2b8528bc388b0dc7eea48363514de4a1c09a01d1bec83368f1d2d8",
+    "commit": "c03a825991ede13add6631f2ed19b90755930dc6",
+    "preference_source_sha256": "a67717f0f4f665e15e941625acfe21225481824282eba760d516df131b80f846",
+    "profile_source_sha256": "d77840606416c3b94c3a2de294ff4564a30e5cfda537081f6427799c93712a3e",
+    "repository": "https://github.com/ZJU-REAL/KnowU-Bench"
+  },
+  "task_ids": [
+    "BuyComputerPreferenceAskUserTask",
+    "MattermostLeaveNoticeTask"
+  ],
+  "world_count": 6,
+  "worlds": [
+    {
+      "retrieved_log_indices": [
+        71,
+        29,
+        37,
+        90,
+        108,
+        6,
+        34,
+        79
+      ],
+      "task_id": "BuyComputerPreferenceAskUserTask",
+      "truth_packet_sha256": "f3e9b4f1b6adc6eab48e509b1e5f082dc9ea8910e460f259a9bdef10e2455b84",
+      "visible_logs_sha256": "cf208a3481e29b6ef3eb85885bf0a1222e903d310d6f288dd59010375b8ff801",
+      "world_id": "T1W1"
+    },
+    {
+      "retrieved_log_indices": [
+        38,
+        63,
+        52,
+        75,
+        85,
+        0,
+        13,
+        37
+      ],
+      "task_id": "BuyComputerPreferenceAskUserTask",
+      "truth_packet_sha256": "dfac0ff5eb859073dd8a0d099f5c1702b1fcd706e3401616a09f352dc77e6f48",
+      "visible_logs_sha256": "0abc8ce4a177309d1d9f5267875d5dc6c13e63add1bb0c77019d46165a5294ff",
+      "world_id": "T1W2"
+    },
+    {
+      "retrieved_log_indices": [
+        49,
+        109,
+        108,
+        111,
+        135,
+        142,
+        149,
+        48
+      ],
+      "task_id": "BuyComputerPreferenceAskUserTask",
+      "truth_packet_sha256": "6f977612f1e04b25f182cb4feda041ca0c1e30d3a10a9c81f6b425c6810f2b17",
+      "visible_logs_sha256": "9b7726e7d0418c9fab2e8e68a72b1b571406f6d90add5ec97a7c256fe0f09426",
+      "world_id": "T1W3"
+    },
+    {
+      "retrieved_log_indices": [
+        22,
+        35,
+        48,
+        52,
+        62,
+        67,
+        75,
+        80
+      ],
+      "task_id": "MattermostLeaveNoticeTask",
+      "truth_packet_sha256": "1065c9dd01a1998b1dc185113d9eaa4e0b80ae3ef1cb6001ffab287f3775978c",
+      "visible_logs_sha256": "3845e5bb115a57d410d138b8facd24f0e23b655888d3641f1db6ce469a1232c3",
+      "world_id": "T2W1"
+    },
+    {
+      "retrieved_log_indices": [
+        25,
+        59,
+        3,
+        16,
+        17,
+        32,
+        39,
+        40
+      ],
+      "task_id": "MattermostLeaveNoticeTask",
+      "truth_packet_sha256": "be5a87ea783cffb957181551afe02eb0415d6354f14c92be6054edff94609700",
+      "visible_logs_sha256": "eb64f042c371f2db5e661beb757aac504d078c598f036e55ff1e9292b9042d34",
+      "world_id": "T2W2"
+    },
+    {
+      "retrieved_log_indices": [
+        22,
+        51,
+        82,
+        120,
+        126,
+        6,
+        10,
+        26
+      ],
+      "task_id": "MattermostLeaveNoticeTask",
+      "truth_packet_sha256": "96a10e84f9809493277e6027a632caafa0cac58f2092054a8282f180368c4a4e",
+      "visible_logs_sha256": "e2be61d30076df8529085107c73ff8a6118acc468406744cfdc4d8f6e512bb80",
+      "world_id": "T2W3"
+    }
+  ]
+}
