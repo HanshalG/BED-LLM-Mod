@@ -1,0 +1,32 @@
+{
+  "aggregate_metrics_emitted": false,
+  "causal_policy_efficacy_claimed": false,
+  "development_read": false,
+  "effective_holdout_read": false,
+  "failure": {
+    "context": "run0.id132.world1.history[3]",
+    "message": "content is empty",
+    "registered_condition": "all released history messages must have nonempty string content",
+    "type": "frozen_schema_violation"
+  },
+  "interface_version": "infoquest-cached-trajectory-opportunity-1-failure",
+  "message_content_emitted": false,
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "opportunity_accessed_until_failure": true,
+  "preregistration_commit": "d15f9b5",
+  "pre_access_invocation_errors": 1,
+  "source": {
+    "manifest_sha256": "392ae5ee33ee807994cb917ea8ff38ba6bd9ddaf95112ecb15e2c599783d32cb",
+    "revision": "1f54a770a8bed73edcab86411254fff64ed53d25",
+    "trajectory_sha256": [
+      "454039500859fd9a36146908a2a2137cfcf6b358d89826c7cffea8445d07f0c1",
+      "518a39ec19dd3b6cdfbdf2fec81c8d1f6d6811091ff18b873d335628d39eb9cb",
+      "296c07e45afa87bc3dafe559b62f1c836ae1903a736c81410602e9ebf5197d15"
+    ]
+  },
+  "status": "failed_closed_before_aggregate",
+  "thresholds_changed": false,
+  "v1_rerun_authorized": false
+}
