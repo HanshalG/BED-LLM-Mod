@@ -26,6 +26,15 @@ search does not expose the benchmark data.
 or label an unofficial approximation as a RegretBench result. A source release
 would immediately justify a new structural audit before model calls.
 
+**2026-07-26 recheck:** arXiv v1 now exposes the full benchmark formulation and
+reports 4,836 AmbigDocs, 1,451 CondAmbigQA-2K, and 377 PSCon CIGs. It confirms
+that the desired endpoint is exact hidden-intent success plus interaction cost
+and regret against a semantic reference planner. The generated CIGs, semantic
+question mapper, user simulator, and planner are still absent from the cited
+404 GitHub repository and from Hugging Face search. Reconstructing them from the
+three source datasets would invent the benchmark transition model and reference
+policy. The retry-queue decision therefore remains unchanged.
+
 ## EComAgentBench
 
 The released benchmark has 662 product-recommendation tasks. Its hidden

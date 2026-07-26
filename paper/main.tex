@@ -535,17 +535,16 @@ first execution, but fresh generation did not reproduce the root advantage.
 Better semantic prediction is useful only when candidates expose a real greedy
 gap, the next action preserves it, and the generated simulator is stable.
 
-Target-free audits separate three further prerequisites. InteractComp recovered
-truth on only 2/6 collapsed-support tasks; particle preservation helped but tied
-augmented EIG. PSCon preserved truth externally but omitted labels or outcomes.
-On AmbigDocs, Mini gave one question 55.6\% pairwise label disagreement;
-GPT-5.4 made repeats identical, yet four roots collapsed to two partitions with
-zero EIG range. ClariQ instead gives broad exact d2 opportunity. In a
-preregistered three-topic development set, multisample GPT-5.4 likelihoods
-changed two roots and improved oracle-tail NDCG both times (mean $+.026$;
-$\rho=.441$ versus $.358$ myopic), but a stability gate failed; a 12-topic
-holdout then failed serving (743/755 exact) before endpoints. Support
-persistence, stable likelihoods, and action diversity are distinct. DAD or
+Target-free audits separate further prerequisites. InteractComp recovered truth
+on only 2/6 collapsed-support tasks; PSCon omitted labels or outcomes; and
+AmbigDocs had either unstable labels or collapsed root partitions. ClariQ gives
+broad exact d2 opportunity: multisample GPT-5.4 changed two of three development
+roots and gained mean $+.026$ NDCG ($\rho=.441$ versus $.358$ myopic), but its
+stability gate and a 12-topic holdout serving gate failed. A later open-support
+tree changed 86/90 answer branches, yet a preregistered zero-call joint-particle
+replay ranked terminal NDCG worse than myopic ($\rho=.207$ versus $.487$) and
+selected a root lower by $.077$; answer-link shuffling removed the harm. Rich
+path-dependent entropy was not causally calibrated future value. DAD or
 RL-BED amortization cannot repair a broken
 simulator \citep{foster2021deep,blau2022rlbed}; none of these target-free audits
 was promoted to an endpoint result.
@@ -587,6 +586,7 @@ Cleveland recovered 100.9 with zero projected branches, but its independent trut
 interval crosses zero, so it is not an all-gates confirmation. Animals is only partially paired;
 its transition confirmation stopped after seven of 60 states on malformed model output,
 so it supplies no holdout efficacy estimate.
+ClariQ open-support V2 failed serving; its joint-particle replay is post hoc.
 natural location uses one model family and environment. Paprika
 policy counts are endpoint-invalid and its structured support saturates at the prior;
 MediQ stops before a calibrated policy comparison,
