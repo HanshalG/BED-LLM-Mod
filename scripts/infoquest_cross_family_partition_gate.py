@@ -23,6 +23,7 @@ from scripts import infoquest_support_causal_link_gate as base
 
 
 INTERFACE_VERSION = "infoquest-cross-family-partition-1"
+INTERFACE_VERSION_V2 = "infoquest-cross-family-partition-2"
 EXPECTED_SERVING_REQUESTS = 3
 EXPECTED_MECHANICS_REQUESTS = 66
 SERVING_MAX_COST_USD = 0.03
@@ -202,6 +203,7 @@ def run_serving_gate(
     models: ModelBundle,
     *,
     raw_path: Path,
+    interface_version: str = INTERFACE_VERSION,
 ) -> dict[str, Any]:
     initial = cached._synthetic_initial()
     fixture = base.WorldFixture(
@@ -213,7 +215,7 @@ def run_serving_gate(
         truth_packet={},
         checklist=tuple(f"Checklist item {index}" for index in range(5)),
     )
-    raw: dict[str, Any] = {"interface_version": INTERFACE_VERSION}
+    raw: dict[str, Any] = {"interface_version": interface_version}
     try:
         score_responses = refresh._complete(
             models.simulator,
@@ -303,7 +305,7 @@ def run_serving_gate(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "stage": "serving",
             "expected_requests": EXPECTED_SERVING_REQUESTS,
             "support_generator": refresh.GENERATOR_MODEL_ID,
@@ -328,9 +330,10 @@ def run_mechanics_gate(
     models: ModelBundle,
     *,
     raw_path: Path,
+    interface_version: str = INTERFACE_VERSION,
 ) -> dict[str, Any]:
     raw: dict[str, Any] = {
-        "interface_version": INTERFACE_VERSION,
+        "interface_version": interface_version,
         "source_v3_public_sha256": diagnostic.V3_PUBLIC_SHA256,
         "source_v3_raw_sha256": diagnostic.V3_RAW_SHA256,
         "cached_public_sha256": cached.CACHED_PUBLIC_SHA256,
@@ -441,7 +444,7 @@ def run_mechanics_gate(
         "schema_version": 1,
         "status": "passed" if gates["all_pass"] else "gate_failed",
         "protocol": {
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "stage": "mechanics",
             "expected_requests": EXPECTED_MECHANICS_REQUESTS,
             "source_v3_public_sha256": diagnostic.V3_PUBLIC_SHA256,
@@ -485,7 +488,13 @@ def main() -> None:
     parser.add_argument("--private-raw-dir", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--budget-amendment-v2", action="store_true")
     args = parser.parse_args()
+    interface_version = (
+        INTERFACE_VERSION_V2
+        if args.budget_amendment_v2
+        else INTERFACE_VERSION
+    )
 
     fixtures, public_fixture = base.build_fixtures(
         settings_path=args.settings,
@@ -524,7 +533,9 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     config = load_config(args.config)
     config.run_id = args.run_id
-    config.openrouter_projected_cost_usd = 0.08
+    config.openrouter_projected_cost_usd = (
+        0.02 if args.stage == "serving" else 0.08
+    )
     config.openrouter_run_budget_usd = (
         SERVING_MAX_COST_USD
         if args.stage == "serving"
@@ -555,7 +566,11 @@ def main() -> None:
 
     try:
         if args.stage == "serving":
-            result = run_serving_gate(models, raw_path=raw_path)
+            result = run_serving_gate(
+                models,
+                raw_path=raw_path,
+                interface_version=interface_version,
+            )
         else:
             assert loaded is not None
             result = run_mechanics_gate(
@@ -566,6 +581,7 @@ def main() -> None:
                 loaded[3],
                 models,
                 raw_path=raw_path,
+                interface_version=interface_version,
             )
         result["protocol"]["private_raw_sha256"] = diagnostic._sha256_path(
             raw_path
@@ -577,7 +593,7 @@ def main() -> None:
         failure: dict[str, Any] = {
             "schema_version": 1,
             "status": "failed_closed",
-            "interface_version": INTERFACE_VERSION,
+            "interface_version": interface_version,
             "stage": args.stage,
             "error": f"{type(exc).__name__}: {exc}",
         }

@@ -57,3 +57,10 @@ def test_dry_serving_is_exactly_three_calls(tmp_path: Path):
     assert result["gates"]["all_pass"] is True
     assert result["usage"]["physical_requests"] == 3
     assert result["usage"]["http_attempts"] == 3
+
+    v2 = gate.run_serving_gate(
+        models,
+        raw_path=tmp_path / "raw-v2.json",
+        interface_version=gate.INTERFACE_VERSION_V2,
+    )
+    assert v2["protocol"]["interface_version"] == gate.INTERFACE_VERSION_V2
