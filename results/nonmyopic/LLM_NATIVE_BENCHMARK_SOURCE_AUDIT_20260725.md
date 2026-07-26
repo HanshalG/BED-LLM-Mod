@@ -14,6 +14,7 @@ test outcomes as model evidence and it authorizes no paid run.
 | DiscoverLLM | code: `https://github.com/tsook/discoverllm`; data: `https://huggingface.co/datasets/kixlab/DiscoverLLM-multiturn-preferences` | code `a9eb2846`; data `c857bbf6` | Simulator and 9,318 candidate rows available; candidate counterfactual states/trajectories omitted |
 | IG-clarifier | paper: `https://arxiv.org/abs/2606.03135`; code: `https://github.com/Demi-deng2/IG-clarifier` | code `4071af11` | Code-only single-turn reward interface; task data, tau-Bench harness, trajectories, simulator service clients, and compatible `verl` checkout absent |
 | OPEN | paper: `https://arxiv.org/abs/2403.05534` | arXiv v1 | Greedy one-step BOED over a fixed Bradley--Terry feature model; promised code and anonymized user data were not linked from the paper |
+| BIRD-Interact | code: `https://github.com/bird-bench/BIRD-Interact`; data: `https://huggingface.co/datasets/birdsql/mini-interact` | code `451fe2c3`; data `10253f23` | 300 SQLite tasks and a clarification simulator; one annotated interpretation per task term, with no released latent-world prior |
 
 ## RegretBench
 
@@ -238,18 +239,36 @@ baseline for combining LLM semantics with classical BOED, but the released
 formulation does not contain path-dependent support or delayed information
 value.
 
+## BIRD-Interact
+
+Mini-Interact is a genuine semantic interaction benchmark: 300 SQLite tasks
+contain 733 critical ambiguities, and its user simulator answers arbitrary
+clarification questions from hidden ambiguity annotations and ground-truth SQL.
+However, the public task file withholds all solution SQL and tests, has no
+follow-up phase, and releases one interpretation per ambiguity term. Across
+tasks there are 15 same-database repeated labels with different snippets, but
+within a task zero terms have multiple released interpretations. There is no
+prior over mutually exclusive SQL intents or world-conditioned response table.
+
+**Decision:** close direct benchmark replay. Preserve a BIRD-derived
+construction as a distinct future route: prospectively generate coherent
+alternative SQL-intent worlds, freeze their prior, and use BIRD's simulator and
+SQLite endpoint as semantic transition and validation machinery. This must be
+reported as a new construction and pass a zero-cost manifest plus capped
+mechanics gate before efficacy calls. See
+`BIRD_INTERACT_SOURCE_AUDIT_RESULT.md`.
+
 ## Portfolio Decision
 
 - **Headline:** continue to concentrate on an LLM-native result. The current
   strongest evidence remains tau-Knowledge V3.1: significant semantic ranking
   links and directional, underpowered endpoints.
-- **CA-BED follow-up:** keep its other benchmark, Detective Cases, on the
-  experiment queue as a fresh LLM-native target. Do not reopen the closed
-  aligned binary-response formulation, where only 9.5% of questions were
-  informative. A revisit must be scientifically distinct, preferably using
-  open-ended or categorical answer planning grounded in the official case
-  text, and must pass a zero-cost opportunity/causal-link gate before model
-  calls.
+- **CA-BED follow-up:** the queued open-ended/categorical Detective revisit is
+  now closed at its zero-cost source gate. Each suspect has only one story
+  written for the canonical role and the release provides no counterfactual
+  story or response map under alternate murderers. Richer answer text would
+  preserve the same simulator mismatch rather than define new worlds. The 24
+  reserved cases remain unused.
 - **Supporting result:** retain RockSample as exact-verification evidence only.
 - **Next external source:** retry RegretBench when its official environment is
   released.
@@ -257,6 +276,10 @@ value.
   LLM state, but its released preference scores are exactly one-step and its
   counterfactual candidate states are absent. Any use must be a new,
   prospectively gated BED construction rather than a dataset replay.
+- **Future semantic SQL substrate:** BIRD-Interact has natural clarification
+  actions and executable SQLite endpoints, but no released alternative-world
+  prior. A BIRD-derived LLM-generated intent construction is admissible only as
+  a new, separately gated environment.
 - **Future memory benchmark:** pi-Bench remains relevant, but its exact
   target-blind BED wrapper is closed for lack of a canonical prior observation.
 - **Closed for now:** EComAgentBench's clarification-only graph, the released

@@ -1,0 +1,73 @@
+{
+  "decision": {
+    "construction_route": "A separate preregistered environment may generate competing SQL-intent worlds and use the released simulator/database machinery, but it must not be reported as direct benchmark replay.",
+    "direct_bed_replay_authorized": false,
+    "reason": "The release provides one annotated interpretation per ambiguity term, no alternative latent-world prior, and no world-conditioned response table."
+  },
+  "source": {
+    "commit": "451fe2c3518ee1cf908d8139e2913483bd519381",
+    "data_sha256": "32eea6778d69f4a052622a9981ee95cc5dddbff62d0d65ff6e06bd5bec757087",
+    "dataset": "https://huggingface.co/datasets/birdsql/mini-interact",
+    "dataset_revision": "10253f235dbc6092a97e9c0acd30dba6203d8e59",
+    "repository": "https://github.com/bird-bench/BIRD-Interact"
+  },
+  "summary": {
+    "critical_ambiguities": {
+      "count_histogram": {
+        "1": 35,
+        "2": 139,
+        "3": 88,
+        "4": 34,
+        "5": 4
+      },
+      "masked": 375,
+      "tasks_with_at_least_three": 126,
+      "total": 733,
+      "type_histogram": {
+        "intent_ambiguity": 109,
+        "knowledge_linking_ambiguity": 333,
+        "lexical_ambiguity": 25,
+        "schema_linking_ambiguity": 142,
+        "semantic_ambiguity": 120,
+        "syntactic_ambiguity": 4
+      }
+    },
+    "distinct_databases": 26,
+    "distinct_instances": 300,
+    "empty_solution_sql_rows": 300,
+    "empty_test_case_rows": 300,
+    "follow_up_rows": 0,
+    "knowledge_ambiguities": {
+      "count_histogram": {
+        "0": 34,
+        "1": 242,
+        "2": 18,
+        "3": 5,
+        "4": 1
+      },
+      "tasks_with_at_least_two": 24
+    },
+    "missing_clear_query_rows": 300,
+    "released_alternative_interpretations": {
+      "explicit_world_prior_field_present": false,
+      "same_database_repeated_term_pairs": 22,
+      "same_database_term_pairs_with_distinct_sql_snippets": 15,
+      "task_term_pairs_with_distinct_sql_snippets": 0
+    },
+    "released_fields": [
+      "amb_user_query",
+      "category",
+      "clean_up_sqls",
+      "external_knowledge",
+      "high_level",
+      "instance_id",
+      "knowledge_ambiguity",
+      "preprocess_sql",
+      "selected_database",
+      "sol_sql",
+      "test_cases",
+      "user_query_ambiguity"
+    ],
+    "rows": 300
+  }
+}
