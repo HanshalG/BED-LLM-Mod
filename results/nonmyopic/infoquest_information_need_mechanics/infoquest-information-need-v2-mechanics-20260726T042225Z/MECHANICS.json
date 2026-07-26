@@ -1,0 +1,209 @@
+{
+  "fixture_metrics": [
+    {
+      "fixture_id": "I0W1",
+      "information_need_minus_fixed_target_gain": -0.19999999999999996,
+      "mean_fixed_target_gain": 0.6,
+      "mean_information_need_target_gain": 0.4
+    },
+    {
+      "fixture_id": "I0W2",
+      "information_need_minus_fixed_target_gain": 0.0,
+      "mean_fixed_target_gain": 0.0,
+      "mean_information_need_target_gain": 0.0
+    },
+    {
+      "fixture_id": "I1W1",
+      "information_need_minus_fixed_target_gain": 0.20000000000000007,
+      "mean_fixed_target_gain": 0.6,
+      "mean_information_need_target_gain": 0.8
+    },
+    {
+      "fixture_id": "I1W2",
+      "information_need_minus_fixed_target_gain": -0.20000000000000007,
+      "mean_fixed_target_gain": 0.8,
+      "mean_information_need_target_gain": 0.6
+    },
+    {
+      "fixture_id": "I4W1",
+      "information_need_minus_fixed_target_gain": 0.2,
+      "mean_fixed_target_gain": 0.2,
+      "mean_information_need_target_gain": 0.4
+    },
+    {
+      "fixture_id": "I4W2",
+      "information_need_minus_fixed_target_gain": 0.2,
+      "mean_fixed_target_gain": 0.2,
+      "mean_information_need_target_gain": 0.4
+    }
+  ],
+  "gates": {
+    "all_pass": false,
+    "at_least_12_of_30_choices_are_target_optimal": false,
+    "at_least_15_defined_target_correlations": true,
+    "at_least_24_cells_have_score_spread": true,
+    "at_least_4_of_6_fixtures_improve_over_fixed": false,
+    "cost_at_most_0_35": true,
+    "exact_30_http_attempts": true,
+    "exact_30_physical_requests": true,
+    "exact_6_fixtures_30_cells_120_actions": true,
+    "information_need_wins_exceed_losses": true,
+    "mean_target_gain_at_least_0_15_above_fixed": false,
+    "mean_target_spearman_at_least_0_20": false,
+    "zero_forced_exits": true,
+    "zero_reasoning_tokens": true,
+    "zero_retries": true
+  },
+  "metrics": {
+    "candidate_actions": 120,
+    "cells_with_information_need_score_spread": 30,
+    "defined_within_cell_target_spearman": 29,
+    "fixtures": 6,
+    "fixtures_with_positive_information_need_minus_fixed": 3,
+    "information_need_target_optimal_cells": 11,
+    "information_need_vs_fixed_wins_ties_losses": [
+      5,
+      21,
+      4
+    ],
+    "mean_information_need_oracle_regret": 0.6666666666666666,
+    "mean_information_need_selected_target_gain": 0.43333333333333335,
+    "mean_information_need_target_spearman": -0.12375393350773627,
+    "mean_oracle_target_gain": 1.1,
+    "mean_v3_dynamic_selected_target_gain": 0.3,
+    "mean_v3_fixed_selected_target_gain": 0.4,
+    "root_world_cells": 30
+  },
+  "protocol": {
+    "cached_common_histories": true,
+    "checklist_judge_calls": 0,
+    "development_only_if_passed": true,
+    "dry_run": false,
+    "expected_requests": 30,
+    "fixture_sha256": "63248345976e884b9fac127033415fe68bacb3a0e32a32e498285851719251cc",
+    "information_need_belief_is_regenerated_after_history": true,
+    "interface_version": "infoquest-information-need-belief-2",
+    "model": "openai/gpt-5.4",
+    "private_raw_sha256": "a12153fcdee1d532d843274b2eb1998a959b60706a6e1beb1293b378fe91d530",
+    "reasoning_requested": false,
+    "repairs_or_reissues": 0,
+    "simulator_calls": 0,
+    "source_target_audit_sha256": "d550cdfe9770b355c59ef999059175b79a5c7e01a8b0c3f82a96d62a98d916cf",
+    "source_v3_public_sha256": "0cfbe3d1590001af508d351d131d12d747f2fcadf0448e2e7868809f40d968f7",
+    "source_v3_raw_sha256": "134a9659dc5f86df3dba6e18fdc8c72a79f3524b166d2cd52d91a7fe88747e1e",
+    "stage": "mechanics",
+    "target_gain_proxy": "new immediate checklist bits from candidate root answer",
+    "target_or_checklist_content_in_prompt": false
+  },
+  "schema_version": 1,
+  "status": "gate_failed",
+  "usage": {
+    "adapter_cost_usd": 0.0744075,
+    "forced_exits": 0,
+    "http_attempts": 30,
+    "models": {
+      "checklist_judge": {
+        "adapter_completion_tokens": 0,
+        "adapter_cost_usd": 0.0,
+        "adapter_prompt_tokens": 0,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 0,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 3554,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 0,
+        "model": "openai/gpt-5.4-mini",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 3554,
+            "cost_usd": 0.0744075,
+            "prompt_tokens": 8439,
+            "reasoning_tokens": 0,
+            "requests": 30
+          }
+        },
+        "prompt_tokens": 8439,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.607688240776582,
+        "requests": 30,
+        "retry_count": 0,
+        "run_budget_usd": 0.35,
+        "run_cost_usd": 0.0744075,
+        "run_remaining_usd": 0.27559249999999996,
+        "total_spent_usd": 95.39231175922342
+      },
+      "generator": {
+        "adapter_completion_tokens": 3554,
+        "adapter_cost_usd": 0.0744075,
+        "adapter_prompt_tokens": 8439,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 30,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 3554,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 30,
+        "model": "openai/gpt-5.4",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 3554,
+            "cost_usd": 0.0744075,
+            "prompt_tokens": 8439,
+            "reasoning_tokens": 0,
+            "requests": 30
+          }
+        },
+        "prompt_tokens": 8439,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.607688240776582,
+        "requests": 30,
+        "retry_count": 0,
+        "run_budget_usd": 0.35,
+        "run_cost_usd": 0.0744075,
+        "run_remaining_usd": 0.27559249999999996,
+        "total_spent_usd": 95.39231175922342
+      },
+      "simulator": {
+        "adapter_completion_tokens": 0,
+        "adapter_cost_usd": 0.0,
+        "adapter_prompt_tokens": 0,
+        "adapter_reasoning_tokens": 0,
+        "adapter_requests": 0,
+        "backend": "openrouter",
+        "budget_usd": 105.0,
+        "completion_tokens": 3554,
+        "forced_exits": 0,
+        "forced_final_requests": 0,
+        "forced_final_successes": 0,
+        "http_attempts": 0,
+        "model": "google/gemini-2.5-flash",
+        "model_usage": {
+          "openai/gpt-5.4": {
+            "completion_tokens": 3554,
+            "cost_usd": 0.0744075,
+            "prompt_tokens": 8439,
+            "reasoning_tokens": 0,
+            "requests": 30
+          }
+        },
+        "prompt_tokens": 8439,
+        "reasoning_tokens": 0,
+        "remaining_usd": 9.607688240776582,
+        "requests": 30,
+        "retry_count": 0,
+        "run_budget_usd": 0.35,
+        "run_cost_usd": 0.0744075,
+        "run_remaining_usd": 0.27559249999999996,
+        "total_spent_usd": 95.39231175922342
+      }
+    },
+    "physical_requests": 30,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
