@@ -1,0 +1,265 @@
+{
+  "configs": {
+    "creative_writing": {
+      "artifacts": 495,
+      "candidate_count_histogram": {
+        "2": 1526
+      },
+      "committed_transition_diagnostics": {
+        "candidate_prestate_inconsistencies": 0,
+        "committed_completion_match_failures": 0,
+        "recoverable_committed_transitions": 863,
+        "turn_groups": 1526,
+        "turn_groups_without_observed_successor": 663
+      },
+      "implied_token_penalty": {
+        "maximum": 1.0,
+        "mean": 0.16888876013904983,
+        "minimum": 0.0,
+        "within_documented_zero_to_one_range": 863
+      },
+      "initial_tree_structure": {
+        "artifacts": 495,
+        "branching_nodes": {
+          "maximum": 10.0,
+          "mean": 3.1515151515151514,
+          "median": 3.0,
+          "minimum": 0.0,
+          "positive_artifacts": 462
+        },
+        "initially_hidden_nodes": {
+          "maximum": 56.0,
+          "mean": 27.157575757575756,
+          "median": 26.0,
+          "minimum": 13.0,
+          "positive_artifacts": 495
+        },
+        "leaves": {
+          "maximum": 26.0,
+          "mean": 12.141414141414142,
+          "median": 12.0,
+          "minimum": 6.0,
+          "positive_artifacts": 495
+        },
+        "maximum_depth": {
+          "maximum": 8.0,
+          "mean": 5.064646464646465,
+          "median": 5.0,
+          "minimum": 2.0,
+          "positive_artifacts": 495
+        },
+        "nodes": {
+          "maximum": 58.0,
+          "mean": 29.11717171717172,
+          "median": 28.0,
+          "minimum": 14.0,
+          "positive_artifacts": 495
+        },
+        "roots": {
+          "maximum": 21.0,
+          "mean": 6.8262626262626265,
+          "median": 7.0,
+          "minimum": 1.0,
+          "positive_artifacts": 495
+        }
+      },
+      "mean_candidate_score_range": 1.5645956749672345,
+      "released_score_immediate_gain_correlation": 0.9973513423386934,
+      "rows": 3052,
+      "selected_is_max_score": 863,
+      "sha256": "e8f76a47447b442e59e0d76718228b94bba1a11d8f7f653cdf1498bb0adf7843",
+      "turn_groups": 1526,
+      "turn_groups_with_positive_score_range": 1526
+    },
+    "svg_drawing": {
+      "artifacts": 494,
+      "candidate_count_histogram": {
+        "2": 1632
+      },
+      "committed_transition_diagnostics": {
+        "candidate_prestate_inconsistencies": 0,
+        "committed_completion_match_failures": 0,
+        "recoverable_committed_transitions": 936,
+        "turn_groups": 1632,
+        "turn_groups_without_observed_successor": 696
+      },
+      "implied_token_penalty": {
+        "maximum": 0.7349999999999994,
+        "mean": 0.14150747863247864,
+        "minimum": 0.0,
+        "within_documented_zero_to_one_range": 936
+      },
+      "initial_tree_structure": {
+        "artifacts": 494,
+        "branching_nodes": {
+          "maximum": 10.0,
+          "mean": 3.2651821862348176,
+          "median": 3.0,
+          "minimum": 0.0,
+          "positive_artifacts": 483
+        },
+        "initially_hidden_nodes": {
+          "maximum": 48.0,
+          "mean": 22.002024291497975,
+          "median": 22.0,
+          "minimum": 8.0,
+          "positive_artifacts": 494
+        },
+        "leaves": {
+          "maximum": 22.0,
+          "mean": 10.232793522267206,
+          "median": 10.0,
+          "minimum": 5.0,
+          "positive_artifacts": 494
+        },
+        "maximum_depth": {
+          "maximum": 9.0,
+          "mean": 5.194331983805668,
+          "median": 5.0,
+          "minimum": 3.0,
+          "positive_artifacts": 494
+        },
+        "nodes": {
+          "maximum": 49.0,
+          "mean": 23.65182186234818,
+          "median": 23.0,
+          "minimum": 9.0,
+          "positive_artifacts": 494
+        },
+        "roots": {
+          "maximum": 12.0,
+          "mean": 4.338056680161944,
+          "median": 4.0,
+          "minimum": 1.0,
+          "positive_artifacts": 494
+        }
+      },
+      "mean_candidate_score_range": 1.3510974264705882,
+      "released_score_immediate_gain_correlation": 0.9990510239845435,
+      "rows": 3264,
+      "selected_is_max_score": 936,
+      "sha256": "aef93ede39dbbf570bd15bda2b217d4a96dec188af77eeb5d88bcaed869a081d",
+      "turn_groups": 1632,
+      "turn_groups_with_positive_score_range": 1632
+    },
+    "technical_writing": {
+      "artifacts": 495,
+      "candidate_count_histogram": {
+        "2": 1501
+      },
+      "committed_transition_diagnostics": {
+        "candidate_prestate_inconsistencies": 0,
+        "committed_completion_match_failures": 0,
+        "recoverable_committed_transitions": 843,
+        "turn_groups": 1501,
+        "turn_groups_without_observed_successor": 658
+      },
+      "implied_token_penalty": {
+        "maximum": 0.7890000000000001,
+        "mean": 0.19786476868327404,
+        "minimum": 0.0,
+        "within_documented_zero_to_one_range": 843
+      },
+      "initial_tree_structure": {
+        "artifacts": 495,
+        "branching_nodes": {
+          "maximum": 14.0,
+          "mean": 3.484848484848485,
+          "median": 3.0,
+          "minimum": 0.0,
+          "positive_artifacts": 474
+        },
+        "initially_hidden_nodes": {
+          "maximum": 61.0,
+          "mean": 25.547474747474748,
+          "median": 25.0,
+          "minimum": 10.0,
+          "positive_artifacts": 495
+        },
+        "leaves": {
+          "maximum": 27.0,
+          "mean": 11.797979797979798,
+          "median": 11.0,
+          "minimum": 6.0,
+          "positive_artifacts": 495
+        },
+        "maximum_depth": {
+          "maximum": 8.0,
+          "mean": 4.91919191919192,
+          "median": 5.0,
+          "minimum": 2.0,
+          "positive_artifacts": 495
+        },
+        "nodes": {
+          "maximum": 63.0,
+          "mean": 27.32121212121212,
+          "median": 26.0,
+          "minimum": 12.0,
+          "positive_artifacts": 495
+        },
+        "roots": {
+          "maximum": 13.0,
+          "mean": 5.290909090909091,
+          "median": 5.0,
+          "minimum": 1.0,
+          "positive_artifacts": 495
+        }
+      },
+      "mean_candidate_score_range": 1.7929167221852098,
+      "released_score_immediate_gain_correlation": 0.9984727162776511,
+      "rows": 3002,
+      "selected_is_max_score": 843,
+      "sha256": "4dcc29e2cb9f21d4dabaa7d8eeaad773a433248a2be94498968e908b6858ccd0",
+      "turn_groups": 1501,
+      "turn_groups_with_positive_score_range": 1501
+    }
+  },
+  "decision": "fail",
+  "decision_scope": "eligibility of the public preference dataset for a direct non-myopic BED replay",
+  "gates": {
+    "all_candidate_future_trajectories_are_released": false,
+    "all_candidate_post_states_are_released": false,
+    "explicit_path_dependent_semantic_state_is_released": true,
+    "multiple_scored_actions_per_turn_are_released": true,
+    "mutually_exclusive_latent_world_prior_is_released": false,
+    "published_scores_contain_lookahead_value": false
+  },
+  "interface_version": "discoverllm-source-audit-1",
+  "mechanics": {
+    "official_synthesis_launcher_sets_window_size_zero": true,
+    "recoverable_committed_transitions": 2642,
+    "transitions_equal_to_immediate_gain_minus_documented_penalty": 2642
+  },
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "openrouter_cost_usd": 0.0,
+  "release_schema": {
+    "common_columns": [
+      "artifact_id",
+      "assistant_index",
+      "completion",
+      "conv_id",
+      "criteria_history",
+      "prompt",
+      "score",
+      "source_dataset",
+      "source_id",
+      "source_metadata",
+      "turn_id"
+    ],
+    "missing_candidate_outcome_columns": [
+      "full_results",
+      "future_trajectory",
+      "singleturn_score",
+      "updated_criteria_objs"
+    ]
+  },
+  "source": {
+    "commit": "a9eb2846f60e3681ac8d325fc57fd4e58e2bdc97",
+    "dataset_repository": "https://huggingface.co/datasets/kixlab/DiscoverLLM-multiturn-preferences",
+    "dataset_revision": "c857bbf6265bdd573938eb7eac79a7a3131fa7ca",
+    "repository": "https://github.com/tsook/discoverllm",
+    "reward_code_sha256": "57da582097efea6822a82db0e161f1bd18a8269238e34cec54284d24c93515d8",
+    "synthesis_script_sha256": "6d5eb57659d93e1e6ab963aeaa93b5450925ad74c8b7b3f2de066e0705cf3e01"
+  }
+}

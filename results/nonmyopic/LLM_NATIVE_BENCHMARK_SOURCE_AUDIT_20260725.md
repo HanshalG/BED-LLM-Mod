@@ -11,6 +11,9 @@ test outcomes as model evidence and it authorizes no paid run.
 | EComAgentBench | `https://github.com/Morizeyao/EComAgentBench_` | `867dcc59957d4c5f89e9cfd701ee20f91ef96a83` | Code and 662 benchmark rows available |
 | pi-Bench | paper: `https://arxiv.org/abs/2605.14678`; code: `https://github.com/Simplified-Reasoning/Pi-Bench` | `383910b1698758a198b86037c63a111c8edc32ad` | Code, 100 tasks, five episodes, and task assets available |
 | CRA-Bench | `https://huggingface.co/datasets/l1i1p/CRA-Bench` | `30d6c7c7e67e7dd21904c1aae67aa6fc8d596640` | 750 task rows and exact labels available; runner, simulator, catalog, and paper link absent |
+| DiscoverLLM | code: `https://github.com/tsook/discoverllm`; data: `https://huggingface.co/datasets/kixlab/DiscoverLLM-multiturn-preferences` | code `a9eb2846`; data `c857bbf6` | Simulator and 9,318 candidate rows available; candidate counterfactual states/trajectories omitted |
+| IG-clarifier | paper: `https://arxiv.org/abs/2606.03135`; code: `https://github.com/Demi-deng2/IG-clarifier` | code `4071af11` | Code-only single-turn reward interface; task data, tau-Bench harness, trajectories, simulator service clients, and compatible `verl` checkout absent |
+| OPEN | paper: `https://arxiv.org/abs/2403.05534` | arXiv v1 | Greedy one-step BOED over a fixed Bradley--Terry feature model; promised code and anonymized user data were not linked from the paper |
 
 ## RegretBench
 
@@ -173,17 +176,91 @@ and catalog are released; then audit the hard split for a target-blind
 greedy-versus-depth-two gap before model calls. See the hash-pinned
 `cra_bench_source_audit` artifact.
 
+## DiscoverLLM
+
+DiscoverLLM is the strongest released source of genuinely path-dependent
+semantic state found in this audit. Its LLM-generated intent hierarchies have
+median depth five in all three domains; initial states contain 22--27 hidden
+nodes on average. Parent discovery controls which descendants can be updated
+and articulated by the user simulator.
+
+The public preference dataset nevertheless cannot test non-myopic BED directly.
+The official synthesis launcher fixes `window_size` to zero, and all 2,642
+recoverable committed transitions reproduce the released score as immediate
+awareness gain minus the documented `[0,1]` token penalty. Per-domain
+score/immediate-gain correlations are `.9974`, `.9985`, and `.9991`.
+
+Flattening also removes every unchosen candidate's post-state and future
+trajectory. Only the selected action's next state is recoverable from the next
+turn. The release has no prior over mutually exclusive latent worlds, so it is
+an intent-discovery process rather than a complete BED environment.
+
+**Decision:** close direct replay of the released preference scores. Keep the
+simulator as a future construction substrate only if a prospectively frozen
+extension adds alternative latent worlds, positive-window rollouts, shared
+myopic/lookahead actions, and an independent endpoint. See
+`DISCOVERLLM_SOURCE_AUDIT_RESULT.md`.
+
+## IG-clarifier
+
+The official release trains a clarification policy with a single-turn
+information-gain reward:
+
+```text
+avg_log P(G* | T(x,Q,A)) - avg_log P(G* | T(x))
+```
+
+Its required examples are user-provided `prompt`, `data_source`, and
+`reward_model.ground_truth_clean` columns. The repository explicitly labels
+itself a code-only release: task construction and evaluation are left to the
+user, training and evaluation data are absent, the compatible `verl` checkout
+is absent, and the strict user-simulator service clients are omitted. In
+particular, it does not ship the tau-Bench environment, an executable
+trajectory evaluator, alternative latent worlds, or a non-myopic policy
+comparison.
+
+**Decision:** close direct use. IG-clarifier is relevant evidence that semantic
+clarification rewards can be trained, but applying it here would require us to
+invent both the sequential BED task and its evaluation data.
+
+## OPEN
+
+OPEN uses an LLM to name and verbalize domain features, then performs greedy
+one-step EIG selection with a particle-filtered Bradley--Terry model over a
+fixed ten-feature space. The paper explicitly describes each interaction as an
+ad-hoc greedy posterior update and lists fixed feature space as a limitation.
+Its human-study endpoint is prediction accuracy on 15 pairwise news choices;
+the paper says code and anonymized data will be released but provides no linked
+release.
+
+**Decision:** close as a non-myopic substrate. OPEN is a strong related-work
+baseline for combining LLM semantics with classical BOED, but the released
+formulation does not contain path-dependent support or delayed information
+value.
+
 ## Portfolio Decision
 
 - **Headline:** continue to concentrate on an LLM-native result. The current
   strongest evidence remains tau-Knowledge V3.1: significant semantic ranking
   links and directional, underpowered endpoints.
+- **CA-BED follow-up:** keep its other benchmark, Detective Cases, on the
+  experiment queue as a fresh LLM-native target. Do not reopen the closed
+  aligned binary-response formulation, where only 9.5% of questions were
+  informative. A revisit must be scientifically distinct, preferably using
+  open-ended or categorical answer planning grounded in the official case
+  text, and must pass a zero-cost opportunity/causal-link gate before model
+  calls.
 - **Supporting result:** retain RockSample as exact-verification evidence only.
 - **Next external source:** retry RegretBench when its official environment is
   released.
+- **Future semantic-state substrate:** DiscoverLLM has the right path-dependent
+  LLM state, but its released preference scores are exactly one-step and its
+  counterfactual candidate states are absent. Any use must be a new,
+  prospectively gated BED construction rather than a dataset replay.
 - **Future memory benchmark:** pi-Bench remains relevant, but its exact
   target-blind BED wrapper is closed for lack of a canonical prior observation.
 - **Closed for now:** EComAgentBench's clarification-only graph, the released
   ClarifyBench scripted-world interface, CRA-Bench without its runner/catalog,
-  and the exact pi-Bench dependency wrapper.
+  the exact pi-Bench dependency wrapper, IG-clarifier's code-only single-turn
+  interface, and OPEN's fixed-feature greedy BOED formulation.
 - **Budget:** no paid calls and no OatML cluster work were used in this audit.
