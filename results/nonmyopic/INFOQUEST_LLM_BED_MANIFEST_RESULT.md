@@ -41,3 +41,12 @@ The opportunity, development, and holdout content therefore remain sealed at
 this checkpoint. Cached released trajectories can next test whether delayed
 information discovery and history-conditioned questioning are prevalent, but
 they cannot by themselves establish causal policy efficacy.
+
+## Trajectory-Access Amendment
+
+The first subsequent cached-trajectory inspection revealed that baseline rows,
+unlike the three manifest source files, are not ID-ordered. Row-position
+selection exposed ID `4` from the original holdout. The immediately recorded
+access amendment permanently quarantines ID `4`, leaving the opportunity and
+development splits unchanged and 387 effective holdout records. See
+`INFOQUEST_TRAJECTORY_ACCESS_AMENDMENT.md`.
