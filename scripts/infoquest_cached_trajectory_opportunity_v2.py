@@ -179,7 +179,7 @@ def build_audit(
         "all_histories_and_evaluations_validate": True,
         "all_reward_traces_monotone": True,
         "empty_later_messages_retained_as_zero_information": True,
-        "semantic_content_emitted": False,
+        "semantic_content_not_emitted": True,
         "openrouter_calls_zero": True,
         "oatml_jobs_zero": True,
     }

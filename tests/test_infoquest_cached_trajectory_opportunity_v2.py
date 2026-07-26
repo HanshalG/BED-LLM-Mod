@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import inspect
 import json
 
 import pytest
@@ -127,3 +128,13 @@ def test_v2_still_rejects_empty_first_policy_message():
             world=1,
             allow_empty_later=True,
         )
+
+
+def test_redaction_gate_uses_positive_polarity():
+    source = inspect.getsource(v2.build_audit)
+    assert "semantic_content_not_emitted" in source
+    gate_block = source.split("structural_gates = {", 1)[1].split(
+        "gates = {",
+        1,
+    )[0]
+    assert '"semantic_content_emitted"' not in gate_block
