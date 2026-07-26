@@ -162,12 +162,19 @@ def _tokens(text: str) -> set[str]:
     }
 
 
-def _require_message(message: Any, context: str) -> dict[str, str]:
+def _require_message(
+    message: Any,
+    context: str,
+    *,
+    allow_empty: bool = False,
+) -> dict[str, str]:
     if not isinstance(message, dict) or set(message) != {"role", "content"}:
         raise ValueError(f"{context} is not an exact role/content message")
     if not isinstance(message["role"], str):
         raise ValueError(f"{context}.role is not a string")
-    if not isinstance(message["content"], str) or not message["content"].strip():
+    if not isinstance(message["content"], str):
+        raise ValueError(f"{context}.content is not a string")
+    if not allow_empty and not message["content"].strip():
         raise ValueError(f"{context}.content is empty")
     return message
 
@@ -177,6 +184,7 @@ def _extract_trajectory(
     *,
     world: int,
     context: str,
+    allow_empty_later: bool = False,
 ) -> tuple[list[str], list[str], list[dict[str, Any]]]:
     expected_keys = {
         "id",
@@ -195,10 +203,15 @@ def _extract_trajectory(
         raise ValueError(f"{context} history/evaluations are not lists")
     if len(history) < 4 or len(history) % 2 != 0:
         raise ValueError(f"{context} history has an invalid length")
-    messages = [
-        _require_message(message, f"{context}.history[{index}]")
-        for index, message in enumerate(history)
-    ]
+    messages = []
+    for index, message in enumerate(history):
+        messages.append(
+            _require_message(
+                message,
+                f"{context}.history[{index}]",
+                allow_empty=allow_empty_later and index >= 2,
+            )
+        )
     if messages[0]["role"] != "system":
         raise ValueError(f"{context} does not begin with a system message")
     expected_roles = [
@@ -284,11 +297,13 @@ def trajectory_metrics(
     run: int,
     record_id: int,
     world: int,
+    allow_empty_later: bool = False,
 ) -> dict[str, Any]:
     policy, observations, evaluations = _extract_trajectory(
         row,
         world=world,
         context=f"run{run}.id{record_id}.world{world}",
+        allow_empty_later=allow_empty_later,
     )
     rewards = [evaluation["total_reward"] for evaluation in evaluations]
 
@@ -305,6 +320,7 @@ def trajectory_metrics(
         shifted_uptake += len(shifted_novel & next_policy_tokens)
         seen |= _tokens(observation) | next_policy_tokens
 
+    later_messages = policy[1:] + observations
     return {
         "run": run,
         "record_id": record_id,
@@ -318,6 +334,10 @@ def trajectory_metrics(
         "transition_count": len(observations),
         "immediate_novel_token_uptake": immediate_uptake,
         "shifted_novel_token_uptake": shifted_uptake,
+        "later_message_count": len(later_messages),
+        "empty_later_message_count": sum(
+            not message.strip() for message in later_messages
+        ),
         "first_action_sha256": source_manifest.canonical_sha256(policy[0]),
         "history_sha256": source_manifest.canonical_sha256(
             row[f"user_history{world}"]
