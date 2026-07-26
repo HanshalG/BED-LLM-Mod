@@ -1,0 +1,27 @@
+{
+  "baseline_sha256": "454039500859fd9a36146908a2a2137cfcf6b358d89826c7cffea8445d07f0c1",
+  "development_read": false,
+  "fixture_hashes": {
+    "I0W1": "d9f287f43ed84c5f6bfeb27c12c19c86ae8897171aa8f3105ee6f1241514b456",
+    "I0W2": "84a3f1ceea996bf4a4e62fc3974ae96c11e7baee22d219cd58e37dd08b5597aa",
+    "I1W1": "3f1ed6f0dfbfecaa1203d97cbb75c623c1ffac1df30d0b76d127ea1109cadadb",
+    "I1W2": "3c087a81846557e5aa3c8388d708b390184dab69e4a3f45a75a1c7bcfe465d84",
+    "I4W1": "316ec07b6f019310ae688bb19b678525ecfab2f8f4f0f7212ec7cc3d95b421c1",
+    "I4W2": "7c0fac177a238c883a7db2db2b6c8c7caa98e76adb4bd557c272a009930f6d72"
+  },
+  "holdout_read": false,
+  "interface_version": "infoquest-support-causal-link-1",
+  "mechanics_ids": [
+    0,
+    1,
+    4
+  ],
+  "oatml_jobs": 0,
+  "openrouter_calls": 0,
+  "opportunity_v1_read": false,
+  "opportunity_v2_read": false,
+  "private_fixture_sha256": "63248345976e884b9fac127033415fe68bacb3a0e32a32e498285851719251cc",
+  "semantic_content_emitted": false,
+  "settings_sha256": "f8b1a8a0e692ce9877bb216794b6c8574a04794770a4c0b924f91dfddcbc08bb",
+  "worlds": 6
+}
