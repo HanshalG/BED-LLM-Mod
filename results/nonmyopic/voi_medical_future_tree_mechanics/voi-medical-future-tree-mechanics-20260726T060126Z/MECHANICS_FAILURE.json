@@ -1,0 +1,49 @@
+{
+  "error": "MechanicsExecutionError: ValueError: duplicate follow-up has inconsistent answer maps",
+  "interface_version": "voi-medical-future-tree-mechanics-1",
+  "private_raw_sha256": "0d739d6503cf039ffbe64f0a532dab94b987a007b55e963123e9a12d4ed9b12d",
+  "schema_version": 1,
+  "status": "failed_closed",
+  "usage": {
+    "adapter_cost_usd": 0.0727975,
+    "forced_exits": 0,
+    "generator": {
+      "adapter_completion_tokens": 4299,
+      "adapter_cost_usd": 0.0727975,
+      "adapter_prompt_tokens": 3325,
+      "adapter_reasoning_tokens": 0,
+      "adapter_requests": 18,
+      "backend": "openrouter",
+      "budget_usd": 140.0,
+      "completion_tokens": 4299,
+      "forced_exits": 0,
+      "forced_final_requests": 0,
+      "forced_final_successes": 0,
+      "http_attempts": 18,
+      "model": "openai/gpt-5.4",
+      "model_usage": {
+        "openai/gpt-5.4": {
+          "completion_tokens": 4299,
+          "cost_usd": 0.0727975,
+          "prompt_tokens": 3325,
+          "reasoning_tokens": 0,
+          "requests": 18
+        }
+      },
+      "prompt_tokens": 3325,
+      "reasoning_enabled": false,
+      "reasoning_tokens": 0,
+      "remaining_usd": 43.8386148907766,
+      "requests": 18,
+      "retry_count": 0,
+      "run_budget_usd": 0.35,
+      "run_cost_usd": 0.0727975,
+      "run_remaining_usd": 0.27720249999999996,
+      "total_spent_usd": 96.1613851092234
+    },
+    "http_attempts": 18,
+    "physical_requests": 18,
+    "reasoning_tokens": 0,
+    "retry_count": 0
+  }
+}
